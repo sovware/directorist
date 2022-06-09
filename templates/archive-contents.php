@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.2.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $listings = directorist()->listings;
 ?>
 
-<div class="directorist-archive-contents">
+<div <?php $listings->wrapper_class(); $listings->data_atts(); ?>>
 
 	<?php
 	$listings->directory_type_nav_template();

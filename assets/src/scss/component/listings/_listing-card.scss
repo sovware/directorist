@@ -254,6 +254,10 @@
                 background-color: transparent;
                 color: $success;
             }
+            span,
+            a{
+                word-break: break-all;
+            }
         }
 
         .directorist-listing-single__info--excerpt{
@@ -380,6 +384,7 @@
                     a {
                         text-decoration: none;
                         color: #7a82a6;
+                        word-break: break-word;
                     }
                 }
             }
@@ -413,6 +418,10 @@
             right: 17px;
             top: 20px;
         }
+    }
+    .directorist-listing-single__info--list__label{
+        display: inline-block;
+        margin-right: 5px;
     }
 
     .directorist-listing-single__meta {
@@ -487,6 +496,16 @@
                     height: 100%;
                     border-radius: 50%;
                 }
+            }
+        }
+
+        .directorist-mark-as-favorite__btn .directorist-favorite-tooltip span{
+            top: auto;
+            bottom: 35px;
+            &:before{
+                top: auto;
+                bottom: -7px;
+                transform: rotate(180deg);
             }
         }
     }

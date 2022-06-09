@@ -1,6 +1,37 @@
 const $ = jQuery;
 
-window.addEventListener( 'load', function() {
+window.addEventListener( 'load', init );
+setup_dom_observer();
+
+// Setup DOM Observer
+function setup_dom_observer() {
+    // Select the select fields that will be observed for mutations
+    let observableItems = {
+        searchFormBox: document.querySelectorAll( '.directorist-search-form-box' ),
+        selectFields: document.querySelectorAll( '.directorist-select' ),
+    };
+
+    let observableElements = [];
+
+    Object.values( observableItems ).forEach( item => {
+        if ( item.length ) {
+            observableElements = [ ...observableElements, ...item ];
+        }
+    });
+
+    if ( observableElements.length ) {
+        // Create an observer instance linked to the callback function
+        const observer = new MutationObserver( init );
+
+        observableElements.forEach( function( item ) {
+            // Start observing the target node for configured mutations
+            observer.observe( item, { childList: true } );
+        });
+    }
+}
+
+// Initialize
+function init() {
     // Add custom dropdown toggle button
     selec2_add_custom_dropdown_toggle_button();
 
@@ -8,48 +39,57 @@ window.addEventListener( 'load', function() {
     selec2_add_custom_close_button_if_needed();
 
     // Add custom close button if field contains value on change
-    $('.select2-hidden-accessible').on( 'change', function( e ) {
-        var value = $( this ).children("option:selected").val();
-
-        if ( ! value ) { return; }
-
-        selec2_add_custom_close_button( $( this ) );
+    $('.select2-hidden-accessible').on('change', function (e) {
+        var value = $(this).children("option:selected").val();
+        if (!value) {
+            return;
+        }
+        selec2_add_custom_close_button($(this));
     });
-    
-});
+}
 
 function selec2_add_custom_dropdown_toggle_button() {
     // Remove Default
-    $('.select2-selection__arrow').css({ 'display': 'none' });
-
-    const addon_container = selec2_get_addon_container();
-
-    // Add Dropdown Toggle Button
-    addon_container.append('<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="fas fa-chevron-down"></i></span>');
-    let selec2_custom_dropdown = addon_container.find( '.directorist-select2-dropdown-toggle' );
-
-    // Toggle --is-open class
-    // -----------------------------
-    $('.select2-hidden-accessible').on( 'select2:open', function( e ) {
-        let dropdown_btn = $( this ).next().find( '.directorist-select2-dropdown-toggle' );
-        dropdown_btn.addClass( '--is-open' );
+    $('.select2-selection__arrow').css({
+        'display': 'none'
     });
 
-    $('.select2-hidden-accessible').on( 'select2:close', function( e ) {
-        let dropdown_btn = $( this ).next().find( '.directorist-select2-dropdown-toggle' );
-        dropdown_btn.removeClass( '--is-open' );
+    const addon_container = selec2_get_addon_container( '.select2-hidden-accessible' );
+
+    if ( ! addon_container ) {
+        return;
+    }
+
+    const dropdown = addon_container.find( '.directorist-select2-dropdown-toggle' );
+
+    if ( ! dropdown.length ) {
+        // Add Dropdown Toggle Button
+        const dropdownHTML = '<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="fas fa-chevron-down"></i></span>';
+        addon_container.append( dropdownHTML );
+    }
+
+    const selec2_custom_dropdown = addon_container.find( '.directorist-select2-dropdown-toggle' );
+
+    // Toggle --is-open class
+    $('.select2-hidden-accessible').on('select2:open', function (e) {
+        let dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
+        dropdown_btn.addClass('--is-open');
+    });
+
+    $('.select2-hidden-accessible').on('select2:close', function (e) {
+        let dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
+        dropdown_btn.removeClass('--is-open');
     });
 
     // Toggle Dropdown
-    // -----------------------------
-    selec2_custom_dropdown.on( 'click', function( e ) {
-        let isOpen = $( this ).hasClass( '--is-open' );
+    selec2_custom_dropdown.on('click', function (e) {
+        let isOpen = $(this).hasClass('--is-open');
         let field = $(this).closest(".select2-container").siblings('select:enabled');
 
-        if ( isOpen ) {
+        if (isOpen) {
             field.select2('close');
         } else {
-            field.select2('open');
+            field.select2( 'open' );
         }
     });
 
@@ -58,12 +98,14 @@ function selec2_add_custom_dropdown_toggle_button() {
 }
 
 function selec2_add_custom_close_button_if_needed () {
-    var select2_fields = $('.select2-hidden-accessible');
+    var select2_fields = $( '.select2-hidden-accessible' );
 
-    if ( ! select2_fields && ! select2_fields.length ) { return; }
+    if (!select2_fields && !select2_fields.length) {
+        return;
+    }
 
     for ( var field of select2_fields ) {
-        var value = $(field).children("option:selected").val();
+        var value = $( field ).children( 'option:selected' ).val();
 
         if ( ! value ) { continue; }
 
@@ -71,27 +113,27 @@ function selec2_add_custom_close_button_if_needed () {
     }
 }
 
-function selec2_add_custom_close_button( field ) {
+function selec2_add_custom_close_button(field) {
     // Remove Default
-    $('.select2-selection__clear').css({ 'display': 'none' });
+    $( '.select2-selection__clear' ).css({ 'display': 'none' });
 
-    const addon_container = selec2_get_addon_container( field );
+    const addon_container = selec2_get_addon_container(field);
 
-    if ( ! ( addon_container && addon_container.length ) ) {
+    if (!(addon_container && addon_container.length)) {
         return;
     }
 
     // Remove if already exists
-    addon_container.find( '.directorist-select2-dropdown-close' ).remove();
+    addon_container.find('.directorist-select2-dropdown-close').remove();
 
     // Add
-    addon_container.prepend('<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="fas fa-times"></i></span>');
-    let selec2_custom_close = addon_container.find( '.directorist-select2-dropdown-close' );
-    
+    addon_container.prepend( '<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="fas fa-times"></i></span>' );
+    const selec2_custom_close = addon_container.find( '.directorist-select2-dropdown-close' );
+
     selec2_custom_close.on( 'click', function( e ) {
-        let field = $(this).closest(".select2-container").siblings('select:enabled');
-        field.val(null).trigger('change');
-        
+        const field = $( this ).closest( '.select2-container' ).siblings( 'select:enabled' );
+        field.val( null ).trigger( 'change' );
+
         addon_container.find( '.directorist-select2-dropdown-close' ).remove();
         selec2_adjust_space_for_addons();
     });
@@ -100,42 +142,59 @@ function selec2_add_custom_close_button( field ) {
     selec2_adjust_space_for_addons();
 }
 
-function selec2_remove_custom_close_button( field ) {
-    const addon_container = selec2_get_addon_container( field );
+function selec2_remove_custom_close_button(field) {
+    const addon_container = selec2_get_addon_container(field);
 
-    if ( ! ( addon_container && addon_container.length ) ) {
+    if (!(addon_container && addon_container.length)) {
         return;
     }
 
     // Remove
-    addon_container.find( '.directorist-select2-dropdown-close' ).remove();
+    addon_container.find('.directorist-select2-dropdown-close').remove();
 
     // Adjust space for addons
     selec2_adjust_space_for_addons();
 }
 
-function selec2_get_addon_container( field ) {
-    if ( field && ! field.length ) { return; }
-
-    var container = ( field  ) ? $(field).next( '.select2-container' ) : $('.select2-container' );
-    container = $(container).find( '.directorist-select2-addons-area' );
-
-    if ( ! container.length ) {
-        $('.select2-container' ).append( '<span class="directorist-select2-addons-area"></span>' );
-        container = $('.select2-container' ).find( '.directorist-select2-addons-area' );
+function selec2_get_addon_container(field) {
+    if (field && !field.length) {
+        return;
     }
 
-    return container;
+    var container = (field) ? $(field).next('.select2-container') : $('.select2-container');
+    container = $(container).find('.directorist-select2-addons-area');
+
+    if (!container.length) {
+        $('.select2-container').append('<span class="directorist-select2-addons-area"></span>');
+        container = $('.select2-container').find('.directorist-select2-addons-area');
+    }
+
+    var container = ( field  ) ? $( field ).next( '.select2-container' ) : null;
+
+    if ( ! container ) {
+        return null;
+    }
+
+    const addonsArea = $( container ).find( '.directorist-select2-addons-area' );
+
+    if ( ! addonsArea.length ) {
+        container.append( '<span class="directorist-select2-addons-area"></span>' );
+        return container.find( '.directorist-select2-addons-area' );
+    }
+
+    return addonsArea;
 }
 
 function selec2_adjust_space_for_addons() {
-    let container = $('.select2-container' ).find( '.directorist-select2-addons-area' );
+    let container = $( '.select2-container' ).find( '.directorist-select2-addons-area' );
 
-    if ( ! container.length ) { return; }
+    if (!container.length) {
+        return;
+    }
 
     let width = container.outerWidth();
 
-    $('.select2-container' ).find( '.select2-selection__rendered' ).css({
+    $( '.select2-container' ).find( '.select2-selection__rendered' ).css({
         'padding-right': width + 'px',
     });
 }

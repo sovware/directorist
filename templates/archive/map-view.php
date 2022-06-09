@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $listings = directorist()->listings;
 ?>
 
-<div class="directorist-archive-map-view">
+<div class="directorist-archive-items directorist-archive-map-view">
 
 	<?php
 	$listings->render_map();

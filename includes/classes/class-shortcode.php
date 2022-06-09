@@ -82,8 +82,6 @@ class ATBDP_Shortcode {
 		} elseif ( $listings->display_only_for_logged_in() && ! is_user_logged_in() ) {
 			$contents = Helper::get_template_contents( 'global/restrict-content' );
 		} else {
-			$script_args = [ 'directory_type_id' => $listings->current_directory_type_id() ];
-			Script_Helper::load_search_form_script( $script_args );
 			$contents =  Helper::get_template_contents( 'archive-contents' );
 		}
 
@@ -108,7 +106,6 @@ class ATBDP_Shortcode {
 		} elseif ( $search_form->display_only_for_logged_in() && ! is_user_logged_in() ) {
 			$contents = Helper::get_template_contents( 'global/restrict-content' );
 		} else {
-			$search_form->search_listing_scripts_styles();
 			$contents =  Helper::get_template_contents( 'search-form-contents' );
 		}
 
@@ -149,21 +146,43 @@ class ATBDP_Shortcode {
 			return '';
 		}
 
-		$listing = Single_Listing::instance();
+		$listing_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
+
+		if ( ! $listing_id ) {
+			global $post;
+			$_temp_post = $post; // Cache global post.
+			$listing_id = get_queried_object_id();
+			$post       = get_post( get_queried_object_id() ); // Assign custom single page as post.
+		}
+
+		$listing = Single_Listing::instance( $listing_id );
 
 		ob_start();
 		echo '<div class="directorist-single-wrapper">';
 		$listing->header_template();
-		echo '<br>';
 		echo '</div>';
+
+		if ( isset( $_temp_post ) ) {
+			$post = $_temp_post;
+			unset( $_temp_post );
+		}
 
 		return ob_get_clean();
 	}
 
-	public function single_listing_section( $atts ) {
+	public function single_listing_section( $atts = array() ) {
+		$listing_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
+
+		if ( ! $listing_id ) {
+			global $post;
+			$_temp_post = $post; // Cache global post.
+			$listing_id = get_queried_object_id();
+			$post       = get_post( get_queried_object_id() ); // Assign custom single page as post.
+		}
+
+		$listing = Single_Listing::instance( $listing_id );
+
 		ob_start();
-		$post_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
-		$listing = Single_Listing::instance( $post_id );
 
 		foreach ( $listing->content_data as $section ) {
 			$section_id = isset( $section['section_id'] ) ? strval( $section['section_id'] ) : '';
@@ -177,6 +196,11 @@ class ATBDP_Shortcode {
 			}
 
 			$listing->section_template( $section );
+		}
+
+		if ( isset( $_temp_post ) ) {
+			$post = $_temp_post;
+			unset( $_temp_post );
 		}
 
 		return ob_get_clean();
@@ -218,10 +242,9 @@ class ATBDP_Shortcode {
 	}
 
 	public function add_listing( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
-		$url = $_SERVER['REQUEST_URI'];
-		$pattern = "/edit\/(\d+)/i";
-		$id = preg_match($pattern, $url, $matches) ? (int) $matches[1] : '';
+		$atts  = !empty( $atts ) ? $atts : array();
+		$id    = get_query_var( 'atbdp_listing_id', 0 );
+		$id    = empty( $id ) && ! empty( $_REQUEST['edit'] ) ? $_REQUEST['edit'] : $id;
 		$forms = Listing_Form::instance($id);
 
 		return $forms->render_shortcode($atts);

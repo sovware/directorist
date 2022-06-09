@@ -135,6 +135,8 @@ class Listings {
 			'map_zoom_level'		        => $shortcode_data['map_zoom_level'],
 			'directory_type'	            => $shortcode_data['directory_type'],
 			'default_directory_type'        => $shortcode_data['default_directory_type'],
+			'instant_search'   	   	        => $shortcode_data['instant_search'],
+			'radius_search_based_on'        => $shortcode_data['radius_search_based_on'],
 			'filter_open_method'            => $options['filter_open_method'],
 			'display_sort_by'               => $options['display_sort_by'],
 			'display_view_as'               => $options['display_view_as'],
@@ -151,13 +153,16 @@ class Listings {
 	/**
 	 * Build query using $this->data property.
 	 *
+	 * @todo maybe remove '! empty( $_GET )' added
+	 * by https://github.com/sovware/directorist/pull/725
+	 *
 	 * @param array $args
 	 *
 	 * @return object WP_Query object
 	 */
 	private function build_query( $query_args ) {
 		if ( empty( $query_args ) ) {
-			$query_args = $this->is_search_result_page() ? $this->parse_search_query_args() : $this->parse_query_args();
+			$query_args = $this->is_search_result_page() || ! empty( $_GET ) ? $this->parse_search_query_args() : $this->parse_query_args();
 		} else {
 			$query_args = $query_args;
 		}
@@ -172,6 +177,16 @@ class Listings {
 	 */
 	public function reset_data() {
 		$this->setup_data();
+	}
+
+	/**
+	 * @todo refactor
+	 */
+	public function radius_search_based_on() {
+		$key = 'radius_search';
+		$value = 'radius_search_based_on';
+		$search_form_fields = get_term_meta( $this->current_directory_type_id(), 'search_form_fields', true );
+		return ! empty( $search_form_fields['fields'][ $key ][ $value ] ) ? $search_form_fields['fields'][ $key ][ $value ] : 'address';
 	}
 
 	/**
@@ -205,7 +220,9 @@ class Listings {
 			'map_height'               => get_directorist_option( 'listings_map_height', 350 ),
 			'map_zoom_level'		   => get_directorist_option( 'map_view_zoom_level', 16 ),
 			'directory_type'	       => '',
-			'default_directory_type'   => ''
+			'default_directory_type'   => '',
+			'instant_search'   	   	   => get_directorist_option( 'listing_instant_search' ),
+			'radius_search_based_on'   => $this->radius_search_based_on()
 		];
 
 		return shortcode_atts( $defaults, $atts );
@@ -452,13 +469,8 @@ class Listings {
 	 * @return bool
 	 */
 	public function loop_is_favourite() {
-		$favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
-		if ( in_array( get_the_id() , $favourites ) ) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		$favourites = directorist_get_user_favorites( get_current_user_id() );
+		return in_array( get_the_id(), $favourites );
 	}
 
 	/**
@@ -522,7 +534,7 @@ class Listings {
 	 * @return int|string
 	 */
 	public function loop_post_view_count() {
-		$count = get_post_meta( get_the_ID(), '_atbdp_post_views_count', true );
+		$count = directorist_get_listing_views_count( get_the_ID() );
 		return $count ? $count : 0;
 	}
 
@@ -580,12 +592,10 @@ class Listings {
 	/**
 	 * Average rating of a listing.
 	 *
-	 * @uses ATBDP_Review_Rating::get_average()
-	 *
 	 * @return string
 	 */
 	public function loop_rating_average() {
-		return ATBDP()->review->get_average(get_the_ID());
+		return directorist_get_listing_rating( get_the_ID() );
 	}
 
 	/**
@@ -1104,8 +1114,8 @@ class Listings {
 
 		$current = !empty( $types[0] ) ? $types[0]->term_id : '';
 
-		if ( isset( $_GET['directory_type'] ) ) {
-			$current = $_GET['directory_type'];
+		if ( isset( $_REQUEST['directory_type'] ) ) {
+			$current = $_REQUEST['directory_type'];
 		}
 		else if( !empty( $this->data['default_directory_type'] ) ) {
 			$current = $this->data['default_directory_type'];
@@ -1523,24 +1533,50 @@ class Listings {
 		$form_field = $this->get_form_field_data();
 		$id = get_the_id();
 
-		$value = get_post_meta( $id, '_'.$field['widget_key'], true );
+		$original_field         = '';
+		$submission_form_fields = get_term_meta( $this->current_directory_type_id(), 'submission_form_fields', true );
+
+		if ( isset( $field['original_widget_key'] ) && isset( $submission_form_fields['fields'][$field['original_widget_key']] ) ) {
+			$original_field = $submission_form_fields['fields'][$field['original_widget_key']];
+		}
+
+		if ( ! empty( $original_field ) ) {
+			$field['original_field'] = $original_field;
+		}
+
+		if ( ! empty( $original_field['field_key'] ) ) {
+			$meta_field_key = $original_field['field_key'];
+		} else if ( ! empty( $field['field_key'] ) ) {
+			$meta_field_key = $field['field_key'];
+		} else {
+			$meta_field_key = $field['widget_key'];
+		}
+
+		$value = get_post_meta( get_the_id(), '_' . $meta_field_key, true );
+
+		if ( empty( $value ) ) {
+			$value = get_post_meta( get_the_id(), $meta_field_key, true );
+		}
 
 		// Return value for checkbox field
 		if ( $this->is_custom_field() ) {
-			$field_type = !empty( $form_field['type'] ) ? $form_field['type'] : '';
+			$field_type = directorist_get_var( $field['original_field']['type'] );
 
 			if( 'checkbox' === $field_type ) {
-				$option_value = [];
-				$value = is_array( $value ) ? join( ",",$value ) : $value;
-				foreach( $form_field['options'] as $option ) {
-					$key = $option['option_value'];
-					if( in_array( $key, explode( ',', $value ) ) ) {
-						$space = str_repeat(' ', 1);
-						$option_value[] = $space . $option['option_label'];
+
+				if ( ! is_array( $value ) ) {
+					$value = array_filter( explode( ',', $value ) );
+				}
+
+				$options_value = '';
+				$options       = (array) directorist_get_var( $field['original_field']['options'], array() );
+				foreach ( $options as $option ) {
+					if ( in_array( $option['option_value'], $value, true ) ) {
+						$options_value .= $option['option_label'] . ', ';
 					}
 				}
-				$output = join( ',', $option_value );
-				$value = $output ? $output : $value;
+
+				$value = rtrim( $options_value, ', ' );
 
 				return $value;
 			}
@@ -1548,17 +1584,11 @@ class Listings {
 
 		// Return value for location field
 		if( 'listings_location' === $field['widget_name'] ) {
-			$location = get_the_terms( $id, ATBDP_LOCATION );
-			if( $location ) {
+			$location = get_the_terms( get_the_id(), ATBDP_LOCATION );
+			if ( ! is_wp_error( $location ) && ! empty( $location ) ) {
 				$value = true;
 				return $value;
 			}
-		}
-
-		// Return value based on form field if exists, try with "_" first
-		if ( isset( $form_field['field_key']  ) ) {
-			$value = ! empty( get_post_meta( $id, '_'.$form_field['field_key'], true ) ) ? get_post_meta( $id, '_'.$form_field['field_key'], true ) : get_post_meta( $id, $form_field['field_key'], true );
-			return $value;
 		}
 
 		return $value;
@@ -1608,7 +1638,7 @@ class Listings {
 
 		$widget_name = ( !empty( $form_field['widget_name'] ) ) ? $form_field['widget_name'] : $field['widget_name'];
 
-		return in_array( $widget_name, $allowed_fields ) ? true : false;
+		return in_array( $widget_name, $allowed_fields, true );
 	}
 
 	/**
@@ -1778,17 +1808,39 @@ class Listings {
 		}
 	}
 
-	public function load_openstreet_map() {
-		$script_path = DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
-		?>
-		<div id="map" style="width: 100%; height: <?php echo esc_attr( $this->map_height() );?>px;"></div>
-		<?php
-		Helper::add_hidden_data_to_dom( 'loc_data', ['script_path'  => $script_path] );
-		Helper::add_hidden_data_to_dom( 'atbdp_map', $this->get_map_options() );
-		Helper::add_hidden_data_to_dom( 'atbdp_lat_lon', $this->map_base_lat_long() );
-		Helper::add_hidden_data_to_dom( 'listings_data', $this->openstreet_map_card_data() );
+	/**
+	 * @todo new/refactor
+	 */
+	public function map_options() {
+		$data = [
+			'map_type'                => Settings::map_type(),
+			'crop_width'              => get_directorist_option( 'crop_width', 360 ),
+			'crop_height'             => get_directorist_option( 'crop_height', 360 ),
+			'display_map'             => get_directorist_option( 'display_map_info', true ),
+			'display_image'           => get_directorist_option( 'display_image_map', true ),
+			'display_title'           => get_directorist_option( 'display_title_map', true ),
+			'display_address'         => get_directorist_option( 'display_address_map', true ),
+			'display_direction'       => get_directorist_option( 'display_direction_map', true ),
+			'zoom_level'              => $this->map_zoom_level(),
+			'default_image'           => get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' ),
+			'base_latitude'           => $this->map_base_lat_long()['latitude'],
+			'base_longitude'          => $this->map_base_lat_long()['longitude'],
+			'default_latitude'        => get_directorist_option( 'default_latitude', 40.7127753 ),
+			'default_longitude'       => get_directorist_option( 'default_longitude', -74.0059728 ),
+			'force_default_location'  => get_directorist_option( 'use_def_lat_long', true ),
+			'disable_single_listing'  => Settings::disable_single_listing(),
+			'openstreet_script'       => DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js',
+		];
 
-		wp_enqueue_script('directorist-openstreet-load-scripts');
+		return $data;
+	}
+
+	public function load_openstreet_map() {
+		$card = json_encode( $this->openstreet_map_card_data() );
+		$options = json_encode( $this->map_options() );
+		?>
+		<div id="map" style="width: 100%; height: <?php echo esc_attr( $this->map_height() );?>px;" data-card="<?php echo esc_attr( $card ); ?>" data-options="<?php echo esc_attr( $options ); ?>"></div>
+		<?php
 	}
 
 	public function openstreet_map_card_data() {
@@ -1810,9 +1862,9 @@ class Listings {
 				$query->the_post();
 
 				$map_data[] = [
-					'info_content' => Helper::get_template_contents( 'archive/openstreet-map-card' ),
-					'manual_lat' => $this->loop_map_latitude(),
-					'manual_lng' => $this->loop_map_longitude(),
+					'content' => Helper::get_template_contents( 'archive/openstreet-map-card' ),
+					'latitude' => $this->loop_map_latitude(),
+					'longitude' => $this->loop_map_longitude(),
 					'cat_icon' => $this->loop_map_cat_icon(),
 				];
 			}
@@ -1824,7 +1876,6 @@ class Listings {
 	}
 
 	public function load_google_map() {
-		wp_enqueue_script('directorist-map-view');
 		$data = array(
 			'plugin_url'          => ATBDP_URL,
 			'disable_info_window' => Settings::display_map_card_window() ? 'no' : 'yes',
@@ -1834,7 +1885,6 @@ class Listings {
 			'use_def_lat_long'    => Settings::map_force_default_location(),
 		);
 
-		wp_localize_script( 'directorist-map-view', 'atbdp_map', $data );
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
 		?>
 
@@ -1860,30 +1910,6 @@ class Listings {
 		</div>
 		<?php
 
-	}
-
-	public function get_map_options() {
-		$opt['select_listing_map']    		= Settings::map_type();
-		$opt['crop_width']            		= get_directorist_option( 'crop_width', 360 );
-		$opt['crop_height']           		= get_directorist_option( 'crop_height', 360 );
-		$opt['display_map_info']      		= get_directorist_option( 'display_map_info', true );
-		$opt['display_image_map']     		= get_directorist_option( 'display_image_map', true );
-		$opt['display_title_map']     		= get_directorist_option( 'display_title_map', true );
-		$opt['display_address_map']   		= get_directorist_option( 'display_address_map', true );
-		$opt['display_direction_map'] 		= get_directorist_option( 'display_direction_map', true );
-		$opt['zoom']                  		= $this->map_zoom_level();
-		$opt['default_image']         		= get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' );
-		$opt['default_lat']           		= get_directorist_option( 'default_latitude', 40.7127753 );
-		$opt['default_long']          		= get_directorist_option( 'default_longitude', -74.0059728 );
-		$opt['use_def_lat_long']   			= get_directorist_option( 'use_def_lat_long', true );
-		$opt['font_type']                   = get_directorist_option( 'font_type','line' );
-
-		$opt['disable_single_listing'] = Settings::disable_single_listing();
-
-		$map_is_disabled = ( empty($opt['display_map_info']) && (empty($opt['display_image_map']) || empty($opt['display_title_map']) || empty($opt['display_address_map']) || empty($opt['display_direction_map']))) ? true : false;
-		$opt['map_is_disabled'] = $map_is_disabled;
-
-		return apply_filters( 'atbdp_map_options', $opt );
 	}
 
 	public function parse_query_args() {
@@ -1970,8 +1996,13 @@ class Listings {
 			$args['no_found_rows'] = true;
 		}
 
-		if (!empty($_GET['q'])) {
-			$args['s'] = sanitize_text_field($_GET['q']);
+		if ( ! empty( $_REQUEST['ids'] ) ) {
+			$args['post__in'] = wp_parse_id_list( $_REQUEST['ids'] );
+			$this->ids = $args['post__in'];
+		}
+
+		if ( ! empty( $_REQUEST['q'] ) ) {
+			$args['s'] = sanitize_text_field( $_REQUEST['q'] );
 		}
 
 		if ($this->monetize_by_featued_enabled()) {
@@ -1988,104 +2019,129 @@ class Listings {
 
 		$tax_queries = array();
 
-		if (isset($_GET['in_cat']) && (int)$_GET['in_cat'] > 0) {
+		if ( ! empty( $_REQUEST['in_cat'] ) ) {
 			$tax_queries[] = array(
-				'taxonomy' => ATBDP_CATEGORY,
-				'field' => 'term_id',
-				'terms' => (int)$_GET['in_cat'],
+				'taxonomy'         => ATBDP_CATEGORY,
+				'field'            => 'term_id',
+				'terms'            => wp_parse_id_list( $_REQUEST['in_cat'] ),
 				'include_children' => true,
 			);
 		}
 
-		if (isset($_GET['in_loc']) && (int)$_GET['in_loc'] > 0) {
+		if ( ! empty( $_REQUEST['in_loc'] ) ) {
 			$tax_queries[] = array(
-				'taxonomy' => ATBDP_LOCATION,
-				'field' => 'term_id',
-				'terms' => (int)$_GET['in_loc'],
+				'taxonomy'         => ATBDP_LOCATION,
+				'field'            => 'term_id',
+				'terms'            => wp_parse_id_list( $_REQUEST['in_loc'] ),
 				'include_children' => true,
 			);
 		}
 
-		if (isset($_GET['in_tag']) && (int)$_GET['in_tag'] > 0) {
-			$tag_value = $_GET['in_tag'];
+		if ( ! empty( $_REQUEST['in_tag'] ) ) {
 			$tax_queries[] = array(
 				'taxonomy' => ATBDP_TAGS,
-				'field' => 'term_id',
-				'terms' => $tag_value,
+				'field'    => 'term_id',
+				'terms'    => wp_parse_id_list( $_REQUEST['in_tag'] ),
 			);
-
 		}
-		$count_tax_queries = count($tax_queries);
-		if ($count_tax_queries) {
-			$args['tax_query'] = array_merge(array('relation' => 'AND'), $tax_queries);
+
+		$categories = !empty( $this->data['category'] ) ? explode( ',', $this->data['category'] ) : [];
+		$locations = !empty( $this->data['location'] ) ? explode( ',', $this->data['location'] ) : [];
+		$tags = !empty( $this->data['tag'] ) ? explode( ',', $this->data['tag'] ) : [];
+
+		if ( $categories ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_CATEGORY,
+				'field'            => 'slug',
+				'terms'            => $categories,
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			);
+		}
+
+		if ( $locations ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_LOCATION,
+				'field'            => 'slug',
+				'terms'            => $locations,
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			);
+		}
+
+		if ( $tags ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_TAGS,
+				'field'            => 'slug',
+				'terms'            => $tags,
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
+			);
+		}
+
+		if ( count( $tax_queries ) ) {
+			$args['tax_query'] = array_merge( array( 'relation' => 'AND' ), $tax_queries );
 		}
 
 		$meta_queries = array();
 
 		$this->execute_meta_query_args($args, $meta_queries);
 
-		if ( isset( $_GET['custom_field'] ) ) {
-			$cf = array_filter($_GET['custom_field']);
+		if ( isset( $_REQUEST['custom_field'] ) ) {
+			$custom_fields = array_filter( $_REQUEST['custom_field'] );
 
-			foreach ( $cf as $key => $values ) {
+			foreach ( $custom_fields as $key => $values ) {
 				if ( is_array( $values ) ) {
 					if ( count( $values ) > 1 ) {
 						$sub_meta_queries = array();
 						foreach ( $values as $value ) {
 							$sub_meta_queries[] = array(
-								'key' => '_' . $key,
-								'value' => sanitize_text_field( $value ),
+								'key'     => '_' . $key,
+								'value'   => sanitize_text_field( $value ),
 								'compare' => 'LIKE'
 							);
 						}
-						$meta_queries[] = array_merge( array('relation' => 'OR'), $sub_meta_queries );
-					}
-					else {
-
+						$meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+					} else {
 						$meta_queries[] = array(
-							'key' => '_' . $key,
-							'value' => sanitize_text_field( $values[0] ),
+							'key'     => '_' . $key,
+							'value'   => sanitize_text_field( $values[0] ),
 							'compare' => 'LIKE'
 						);
 					}
-				}
-				else {
-
+				} else {
 					$field_type = get_post_meta( $key, 'type', true );
-					$operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
+					$operator   = ( in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=' );
 					$meta_queries[] = array(
-						'key' => '_' . $key,
-						'value' => sanitize_text_field( $values ),
+						'key'     => '_' . $key,
+						'value'   => sanitize_text_field( $values ),
 						'compare' => $operator
 					);
-
 				}
 			}
 		}
 
-		if (isset($_GET['price'])) {
-			$price = array_filter($_GET['price']);
+		if ( ! empty( $_REQUEST['price'] ) ) {
+			$price = array_filter( $_REQUEST['price'] );
+
 			if ($n = count($price)) {
-				if (2 == $n) {
+				if ( 2 == $n ) {
 					$meta_queries[] = array(
-						'key' => '_price',
-						'value' => array_map('intval', $price),
-						'type' => 'NUMERIC',
+						'key'     => '_price',
+						'value'   => array_map( 'intval', $price ),
+						'type'    => 'NUMERIC',
 						'compare' => 'BETWEEN'
 					);
 				} else {
 					if (empty($price[0])) {
 						$meta_queries[] = array(
-							'key' => '_price',
-							'value' => (int)$price[1],
-							'type' => 'NUMERIC',
+							'key'     => '_price',
+							'value'   => (int) $price[1],
+							'type'    => 'NUMERIC',
 							'compare' => '<='
 						);
 					} else {
 						$meta_queries[] = array(
-							'key' => '_price',
-							'value' => (int)$price[0],
-							'type' => 'NUMERIC',
+							'key'     => '_price',
+							'value'   => (int) $price[0],
+							'type'    => 'NUMERIC',
 							'compare' => '>='
 						);
 					}
@@ -2093,158 +2149,109 @@ class Listings {
 			}
 		}
 
-		if (isset($_GET['price_range']) && 'none' != $_GET['price_range']) {
-			$price_range = sanitize_text_field( $_GET['price_range'] );
-			$meta_queries[] = array(
-				'key' => '_price_range',
-				'value' => $price_range,
+		if ( ! empty( $_REQUEST['price_range'] ) && 'none' !== $_REQUEST['price_range'] ) {
+			$meta_queries['_price_range'] = array(
+				'key'     => '_price_range',
+				'value'   => sanitize_text_field( $_REQUEST['price_range'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (isset($_GET['website'])) {
-			$website = sanitize_text_field( $_GET['website'] );
-			$meta_queries[] = array(
-				'key' => '_website',
-				'value' => $website,
+		if ( ! empty( $_REQUEST['website'] ) ) {
+			$meta_queries['_website'] = array(
+				'key'     => '_website',
+				'value'   => sanitize_text_field( $_REQUEST['website'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (isset($_GET['email'])) {
-			$email = sanitize_text_field( $_GET['email'] );
-			$meta_queries[] = array(
-				'key' => '_email',
-				'value' => $email,
+		if ( ! empty( $_REQUEST['email'] ) ) {
+			$meta_queries['_email'] = array(
+				'key'     => '_email',
+				'value'   => sanitize_text_field( $_REQUEST['email'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (isset($_GET['phone'])) {
-			$phone = sanitize_text_field( $_GET['phone'] );
-			$meta_queries[] = array(
+		if ( ! empty( $_REQUEST['phone'] ) ) {
+			$phone = sanitize_text_field( $_REQUEST['phone'] );
+			$meta_queries['_phone'] = array(
 				'relation' => 'OR',
 				array(
-					'key' => '_phone2',
-					'value' => $phone,
+					'key'     => '_phone2',
+					'value'   => $phone,
 					'compare' => 'LIKE'
 				),
 				array(
-					'key' => '_phone',
-					'value' => $phone,
+					'key'     => '_phone',
+					'value'   => $phone,
 					'compare' => 'LIKE'
 				)
 			);
 		}
 
-		if (isset($_GET['fax'])) {
-			$fax = sanitize_text_field( $_GET['fax'] );
-			$meta_queries[] = array(
-				'key' => '_fax',
-				'value' => $fax,
+		if ( ! empty( $_REQUEST['fax'] ) ) {
+			$meta_queries['_fax'] = array(
+				'key'     => '_fax',
+				'value'   => sanitize_text_field( $_REQUEST['fax'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (!empty($_GET['miles']) && $_GET['miles'] > 0 && !empty($_GET['cityLat']) && !empty($_GET['cityLng'])) {
+		if ( 'address' == $this->radius_search_based_on() && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
-				'latitude' => sanitize_text_field( $_GET['cityLat'] ),
-				'longitude' => sanitize_text_field( $_GET['cityLng'] ),
-				'distance' => sanitize_text_field( $_GET['miles'] ),
-				'units' => $this->radius_search_unit()
+				'latitude'  => sanitize_text_field( $_REQUEST['cityLat'] ),
+				'longitude' => sanitize_text_field( $_REQUEST['cityLng'] ),
+				'distance'  => sanitize_text_field( $_REQUEST['miles'] ),
+				'units'     => $this->radius_search_unit
 			);
-		}
-		elseif ( ! empty($_GET['address']) ) {
-			$address = sanitize_text_field( $_GET['address'] );
-			$meta_queries[] = array(
-				'key' => '_address',
-				'value' => $address,
+		} elseif ( ! empty($_REQUEST['address']) ) {
+			$meta_queries['_address'] = array(
+				'key'     => '_address',
+				'value'   => sanitize_text_field( $_REQUEST['address'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (!empty($_GET['zip'])) {
-			$zip = sanitize_text_field( $_GET['zip'] );
-			$meta_queries[] = array(
-				'key' => '_zip',
-				'value' => $zip,
+		if ( 'zip' == $this->radius_search_based_on() && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['zip-cityLat'] ) && ! empty( $_REQUEST['zip-cityLng'] ) ) {
+			$args['atbdp_geo_query'] = array(
+				'lat_field' => '_manual_lat',
+				'lng_field' => '_manual_lng',
+				'latitude'  => sanitize_text_field( $_REQUEST['zip-cityLat'] ),
+				'longitude' => sanitize_text_field( $_REQUEST['zip-cityLng'] ),
+				'distance'  => sanitize_text_field( $_REQUEST['miles'] ),
+				'units'     => $this->radius_search_unit
+			);
+		} elseif ( ! empty( $_REQUEST['zip'] ) ) {
+			$meta_queries['_zip'] = array(
+				'key'     => '_zip',
+				'value'   => sanitize_text_field( $_REQUEST['zip'] ),
 				'compare' => 'LIKE'
 			);
 		}
 
-		if (isset($_GET['search_by_rating'])) {
-			$q_rating = sanitize_text_field( $_GET['search_by_rating'] );
-			$listings_ids = ATBDP_Listings_Data_Store::get_listings_ids();
-			$rated = array();
-			if ( ! empty( $listings_ids ) ) {
-				foreach ( $listings_ids as $listings_id ) {
-					$average = ATBDP()->review->get_average( $listings_id );
-					if ($q_rating === '5') {
-						if (($average == '5')) {
-							$rated[] = $listings_id;
-						}
-						else {
-							$rated[] = array();
-						}
-					}
-					elseif ($q_rating === '4') {
-						if ($average >= '4') {
-							$rated[] = $listings_id;
-						}
-						else {
-							$rated[] = array();
-						}
-					}
-					elseif ($q_rating === '3') {
-						if ($average >= '3') {
-							$rated[] = $listings_id;
-						}
-						else {
-							$rated[] = array();
-						}
-					}
-					elseif ($q_rating === '2') {
-						if ($average >= '2') {
-							$rated[] = $listings_id;
-						}
-						else {
-							$rated[] = array();
-						}
-					}
-					elseif ($q_rating === '1') {
-						if ($average >= '1') {
-							$rated[] = $listings_id;
-						}
-						else {
-							$rated[] = array();
-						}
-					}
-					elseif ('' === $q_rating) {
-						if ($average === '') {
-							$rated[] = $listings_id;
-						}
-					}
-				}
-				$rating_id = array(
-					'post__in' => !empty($rated) ? $rated : array()
-				);
-				$args = array_merge($args, $rating_id);
-			}
+		if ( ! empty( $_REQUEST['search_by_rating'] ) ) {
+			$rating_query = sanitize_text_field( $_REQUEST['search_by_rating'] );
+			$meta_queries['_rating'] = array(
+				'key'     => directorist_get_rating_field_meta_key(),
+				'value'   => absint( $rating_query ),
+				'type'    => 'NUMERIC',
+				'compare' => '>='
+			);
 		}
 
 		$meta_queries = apply_filters('atbdp_search_listings_meta_queries', $meta_queries);
-		$count_meta_queries = count($meta_queries);
-		if ($count_meta_queries) {
-			$args['meta_query'] = array_merge(array('relation' => 'AND'), $meta_queries);
+		if ( count( $meta_queries ) ) {
+			$meta_queries['relation'] = 'AND';
+			$args['meta_query'] = $meta_queries;
 		}
-
 		return apply_filters( 'atbdp_listing_search_query_argument', $args );
 	}
 
 	private function execute_meta_query_args(&$args, &$meta_queries) {
-		if ( 'rand' == $this->query_orderby() ) {
+		if ( 'rand' === $this->query_orderby() ) {
 			$current_order = atbdp_get_listings_current_order( $this->query_orderby() );
 		}
 		else {
@@ -2279,28 +2286,19 @@ class Listings {
 			);
 		}
 
-		$listings_ids = ATBDP_Listings_Data_Store::get_listings_ids();
-		$rated        = array();
-
 		if (  ( 'yes' == $this->display_only_popular() ) || ( 'views-desc' === $current_order ) ) {
 			if ( $this->monetize_by_featued_enabled() ) {
 				if ( 'average_rating' === $this->popular_by() ) {
-					if ( ! empty( $listings_ids ) ) {
-						foreach ( $listings_ids as $listings_id ) {
-							$average = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular() <= $average ) {
-								$rated[] = $listings_id;
-							}
-						}
-						$rating_id = array(
-							'post__in' => ! empty( $rated ) ? $rated : array(),
-						);
-						$args = array_merge( $args, $rating_id );
-					}
+					$meta_queries['_rating'] = array(
+						'key'     => directorist_get_rating_field_meta_key(),
+						'value'   => $this->average_review_for_popular(),
+						'type'    => 'NUMERIC',
+						'compare' => '<=',
+					);
 				}
 				elseif ( 'view_count' === $this->popular_by() ) {
 					$meta_queries['views'] = array(
-						'key'     => '_atbdp_post_views_count',
+						'key'     => directorist_get_listing_views_count_meta_key(),
 						'value'   => $this->view_to_popular(),
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
@@ -2310,10 +2308,9 @@ class Listings {
 						'_featured' => 'DESC',
 						'views'     => 'DESC',
 					);
-				}
-				else {
+				} else {
 					$meta_queries['views'] = array(
-						'key'     => '_atbdp_post_views_count',
+						'key'     => directorist_get_listing_views_count_meta_key(),
 						'value'   => $this->view_to_popular(),
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
@@ -2323,38 +2320,25 @@ class Listings {
 						'views'     => 'DESC',
 					);
 
-					if ( ! empty( $listings_ids ) ) {
-						foreach ( $listings_ids as $listings_id ) {
-							$average = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular() <= $average ) {
-								$rated[] = $listings_id;
-							}
-						}
-						$rating_id = array(
-							'post__in' => ! empty( $rated ) ? $rated : array(),
-						);
-						$args = array_merge( $args, $rating_id );
-					}
+					$meta_queries['_rating'] = array(
+						'key'     => directorist_get_rating_field_meta_key(),
+						'value'   => $this->average_review_for_popular(),
+						'compare' => '<=',
+					);
 				}
 			}
 			else {
 				if ( 'average_rating' === $this->popular_by() ) {
-					if ( ! empty( $listings_ids ) ) {
-						foreach ( $listings_ids as $listings_id ) {
-							$average    = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular() <= $average ) {
-								$rated[] = $listings_id;
-							}
-						}
-						$rating_id = array(
-							'post__in' => ! empty( $rated ) ? $rated : array(),
-						);
-						$args = array_merge( $args, $rating_id );
-					}
+					$meta_queries['_rating'] = array(
+						'key'     => directorist_get_rating_field_meta_key(),
+						'value'   => $this->average_review_for_popular(),
+						'type'    => 'NUMERIC',
+						'compare' => '<=',
+					);
 				}
 				elseif ( 'view_count' === $this->popular_by() ) {
 					$meta_queries['views'] = array(
-						'key'     => '_atbdp_post_views_count',
+						'key'     => directorist_get_listing_views_count_meta_key(),
 						'value'   => $this->view_to_popular(),
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
@@ -2365,8 +2349,8 @@ class Listings {
 				}
 				else {
 					$meta_queries['views'] = array(
-						'key'     => '_atbdp_post_views_count',
-						'value'   => (int)$this->view_to_popular(),
+						'key'     => directorist_get_listing_views_count_meta_key(),
+						'value'   => (int) $this->view_to_popular(),
 						'type'    => 'NUMERIC',
 						'compare' => '>=',
 					);
@@ -2374,18 +2358,12 @@ class Listings {
 						'views' => 'DESC',
 					);
 
-					if ( ! empty( $listings_ids ) ) {
-						foreach ( $listings_ids as $listings_id ) {
-							$average    = ATBDP()->review->get_average( $listings_id );
-							if ( $this->average_review_for_popular() <= $average ) {
-								$rated[] = $listings_id;
-							}
-						}
-						$rating_id = array(
-							'post__in' => ! empty( $rated ) ? $rated : array(),
-						);
-						$args = array_merge( $args, $rating_id );
-					}
+					$meta_queries['_rating'] = array(
+						'key'     => directorist_get_rating_field_meta_key(),
+						'value'   => $this->average_review_for_popular(),
+						'type'    => 'NUMERIC',
+						'compare' => '<=',
+					);
 				}
 			}
 		}
@@ -2498,4 +2476,97 @@ class Listings {
 			break;
 		}
 	}
+
+	/**
+	 * @todo new/refactor
+	 */
+	public function get_dropdown_toggle_button_icon_class() {
+		$icon_type = get_directorist_option( 'font_type', '', true );
+		$prefix    = ( 'line' === $icon_type ) ? 'la' : 'fa';
+		$icon      = "directorist-toggle-has-${prefix}-icon";
+
+		return $icon;
+	}
+
+	/**
+	 * @todo new/refactor
+	 */
+	public function dropdown_toggle_button_icon_class() {
+		echo $this->get_dropdown_toggle_button_icon_class();
+	}
+
+	/**
+	 * @todo new/refactor
+	 */
+	public function has_masonry() {
+		return ( $this->view_as == 'masonry_grid' ) ? true : false;
+	}
+
+	/**
+	 * Displays the class names for the listings wrapper element.
+	 *
+	 * @todo new/refactor
+	 *
+	 * @since 7.2.0
+	 *
+	 * @param string|string[] $class Space-separated string or array of class names to add to the class list.
+	 */
+	public function wrapper_class( $class = '' ) {
+		// Separates class names with a single space, collates class names for wrapper tag element.
+		echo 'class="' . esc_attr( implode( ' ', $this->get_wrapper_class( $class ) ) ) . '"';
+	}
+
+	/**
+	 * Retrieves an array of the class names for the listings wrapper element.
+	 *
+	 * @todo new/refactor
+	 *
+	 * @since 7.2.0
+	 *
+	 * @param string|string[] $class Space-separated string or array of class names to add to the class list.
+	 * @return string[] Array of class names.
+	 */
+	public function get_wrapper_class( $class = '' ) {
+		$classes = array(
+			'directorist-archive-contents',
+		);
+
+		if ( $this->data['instant_search'] ) {
+			$classes[] = 'directorist-instant-search';
+		}
+
+		if ( ! empty( $class ) ) {
+			if ( ! is_array( $class ) ) {
+				$class = preg_split( '#\s+#', $class );
+			}
+			$classes = array_merge( $classes, $class );
+		} else {
+			// Ensure that we always coerce class to being an array.
+			$class = array();
+		}
+
+		$classes = array_map( 'esc_attr', $classes );
+
+		/**
+		 * Filters the list of CSS listings wrapper class names for the wrapper.
+		 *
+		 * @since 7.2.0
+		 *
+		 * @param string[] $classes An array of listings wrapper class names.
+		 * @param string[] $class   An array of additional class names added to the listings wrapper.
+		 * @param object   $this    An instantce of Directorist_Listings
+		 */
+		$classes = apply_filters( 'directorist_listings_wrapper_class', $classes, $class, $this );
+
+		return array_unique( $classes );
+	}
+
+	/**
+	 * @todo new/refactor
+	 */
+	public function data_atts() {
+		// Separates class names with a single space, collates class names for wrapper tag element.
+		echo 'data-atts="' . esc_attr( json_encode( $this->data ) ) . '"';
+	}
+
 }

@@ -17,3 +17,8 @@
 # Others
 /includes/classes/class-shortcode.php                             @kowsar89
 /includes/classes/class-template-hooks.php                        @kowsar89
+/includes/classes/class-extension.php                             @syedgalib
+/includes/classes/class-settings-panel.php                        @syedgalib
+/includes/data-store/                                             @syedgalib
+/includes/modules/multi-directory-setup/                          @syedgalib
+/assets/src/js/admin/vue/                                         @syedgalib

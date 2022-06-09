@@ -108,7 +108,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /* eslint-disable */
 var $ = jQuery;
 var localized_data = atbdp_public_data.add_listing_data;
+/**
+ * Join Query String
+ *
+ * @param string url
+ * @param string queryString
+ * @return string
+ */
+
+function joinQueryString(url, queryString) {
+  return url.match(/[?]/) ? "".concat(url, "&").concat(queryString) : "".concat(url, "?").concat(queryString);
+}
 /* Show and hide manual coordinate input field */
+
 
 $(window).on('load', function () {
   if ($('input#manual_coordinate').length) {
@@ -304,6 +316,11 @@ if (is_checked === 'range') {
   $('#price_range').show();
 }
 
+if ($('.directorist-form-pricing-field').hasClass('price-type-price_range')) {
+  $('#price').hide();
+  $('#price_range').show();
+}
+
 $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
   var $this = $(this);
 
@@ -316,6 +333,15 @@ $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('c
   var $sibling = $this.parent().siblings('.directorist-checkbox');
   $sibling.children('input[type=checkbox]').prop('checked', false);
   $("#".concat($sibling.children('.directorist-checkbox__label').data('option'))).hide();
+});
+$('.directorist_pricing_options label').on('click', function () {
+  var self = $(this);
+  var current_input = self.attr('for');
+  var current_field = "#".concat(self.data('option'));
+  $('.directorist_pricing_options input[type=checkbox]').prop('checked', false);
+  $('.directorist_pricing_options input[id=' + current_input + ']').attr('checked', true);
+  $('.directory_pricing_field').hide();
+  $(current_field).show();
 });
 var has_tagline = $('#has_tagline').val();
 var has_excerpt = $('#has_excerpt').val();
@@ -702,7 +728,9 @@ $('body').on('submit', formID, function (e) {
     form_data.append('tax_input[at_biz_dir-category][]', categories);
   }
 
-  var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
+  var form_directory_type = frm_element.querySelector('[name="directory_type"]');
+  var form_directory_type_value = form_directory_type ? form_directory_type.value : '';
+  var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
   form_data.append('directory_type', directory_type);
 
   if (qs.plan) {
@@ -715,10 +743,10 @@ $('body').on('submit', formID, function (e) {
     console.log('Form has invalid data');
     console.log(error_count, err_log);
     return;
-  } // on_processing = true;
-  // $('.directorist-form-submit__btn').attr('disabled', true);
+  }
 
-
+  on_processing = true;
+  $('.directorist-form-submit__btn').attr('disabled', true);
   $.ajax({
     method: 'POST',
     processData: false,
@@ -726,9 +754,8 @@ $('body').on('submit', formID, function (e) {
     url: localized_data.ajaxurl,
     data: form_data,
     success: function success(response) {
-      //console.log(response);
-      // return;
-      // show the error notice
+      var redirect_url = typeof response.redirect_url === 'string' ? response.redirect_url.replace(/:\/\//g, '%3A%2F%2F') : ''; // show the error notice
+
       $('.directorist-form-submit__btn').attr('disabled', false); // var is_pending = response ? '&' : '?';
 
       var is_pending = response && response.pending ? '&' : '?';
@@ -762,32 +789,35 @@ $('body').on('submit', formID, function (e) {
         // preview on and no need to redirect to payment
         if (response.preview_mode === true && response.need_payment !== true) {
           if (response.edited_listing !== true) {
-            $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-            window.location.href = "".concat(response.preview_url, "?preview=1&redirect=").concat(response.redirect_url);
+            $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>")); // window.location.href = `${response.preview_url}?preview=1&redirect=${redirect_url}`;
+
+            window.location.href = joinQueryString(response.preview_url, "preview=1&redirect=".concat(redirect_url));
           } else {
             $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
 
             if (qs.redirect) {
               var is_pending = '?';
-              window.location.href = "".concat(response.preview_url + is_pending, "post_id=").concat(response.id, "&preview=1&payment=1&edited=1&redirect=").concat(qs.redirect);
+              window.location.href = joinQueryString(response.preview_url, "post_id=".concat(response.id, "&preview=1&payment=1&edited=1&redirect=").concat(qs.redirect));
             } else {
-              window.location.href = "".concat(response.preview_url, "?preview=1&edited=1&redirect=").concat(response.redirect_url);
+              var url = joinQueryString(response.preview_url, "preview=1&edited=1&redirect=".concat(redirect_url));
+              window.location.href = url;
             }
           } // preview mode active and need payment
 
         } else if (response.preview_mode === true && response.need_payment === true) {
-          window.location.href = "".concat(response.preview_url, "?preview=1&payment=1&redirect=").concat(response.redirect_url);
+          window.location.href = joinQueryString(response.preview_url, "preview=1&payment=1&redirect=".concat(redirect_url));
         } else {
-          var is_edited = response.edited_listing ? "".concat(is_pending, "listing_id=").concat(response.id, "&edited=1") : '';
+          var is_edited = response.edited_listing ? "listing_id=".concat(response.id, "&edited=1") : '';
 
           if (response.need_payment === true) {
             $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-            window.location.href = response.redirect_url;
+            window.location.href = redirect_url;
           } else {
             $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-            window.location.href = response.redirect_url + is_edited;
+            window.location.href = joinQueryString(response.redirect_url, is_edited);
           }
-        }
+        } //
+
       }
     },
     error: function error(_error) {

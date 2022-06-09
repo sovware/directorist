@@ -1,17 +1,21 @@
-import { get_dom_data } from './../../../lib/helper';
+/* Add listing OSMap */
 
+import {
+    get_dom_data
+} from './../../../lib/helper';
 
-; (function ($) {
+;
+(function ($) {
     $(document).ready(function () {
-        var localized_data = get_dom_data( 'map_data' );
+        var mapData = get_dom_data('map_data');
 
         // Localized Data
-        var loc_default_latitude = parseFloat(localized_data.default_latitude);
-        var loc_default_longitude = parseFloat(localized_data.default_longitude);
-        var loc_manual_lat = parseFloat(localized_data.manual_lat);
-        var loc_manual_lng = parseFloat(localized_data.manual_lng);
-        var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-        var loc_map_icon = localized_data.map_icon;
+        var loc_default_latitude = parseFloat(mapData.default_latitude);
+        var loc_default_longitude = parseFloat(mapData.default_longitude);
+        var loc_manual_lat = parseFloat(mapData.manual_lat);
+        var loc_manual_lng = parseFloat(mapData.manual_lng);
+        var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
+        var loc_map_icon = mapData.map_icon;
 
         loc_manual_lat = (isNaN(loc_manual_lat)) ? loc_default_latitude : loc_manual_lat;
         loc_manual_lng = (isNaN(loc_manual_lng)) ? loc_default_longitude : loc_manual_lng;
@@ -19,7 +23,7 @@ import { get_dom_data } from './../../../lib/helper';
         function mapLeaflet(lat, lon) {
 
             // @todo @kowsar / remove later. fix js error
-            if($("#gmap").length == 0) {
+            if ($("#gmap").length == 0) {
                 return;
             }
 
@@ -52,14 +56,18 @@ import { get_dom_data } from './../../../lib/helper';
             }).addTo(mymap);
         }
 
-        $('.directorist-location-js').each(function(id, elm){
+        $('.directorist-location-js').each(function (id, elm) {
             $(elm).on('keyup', function (event) {
                 event.preventDefault();
                 if (event.keyCode !== 40 && event.keyCode !== 38) {
                     var search = $(elm).val();
-                    $(elm).siblings('.address_result').css({ 'display': 'block' });
+                    $(elm).siblings('.address_result').css({
+                        'display': 'block'
+                    });
                     if (search === "") {
-                        $(elm).siblings('.address_result').css({ 'display': 'none' });
+                        $(elm).siblings('.address_result').css({
+                            'display': 'none'
+                        });
                     }
                     var res = "";
                     $.ajax({
@@ -67,7 +75,6 @@ import { get_dom_data } from './../../../lib/helper';
                         type: 'POST',
                         data: {},
                         success: function (data) {
-                            //console.log(data);
                             for (var i = 0; i < data.length; i++) {
                                 res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
                             }
@@ -84,7 +91,9 @@ import { get_dom_data } from './../../../lib/helper';
         mapLeaflet(lat, lon);
 
         $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
-            document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+            if (document.getElementById('osm')) {
+                document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+            }
             event.preventDefault();
             let text = $(this).text(),
                 lat = $(this).data('lat'),
@@ -94,7 +103,9 @@ import { get_dom_data } from './../../../lib/helper';
             $('#manual_lng').val(lon);
 
             $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
-            $('.address_result').css({ 'display': 'none' });
+            $('.address_result').css({
+                'display': 'none'
+            });
 
             mapLeaflet(lat, lon);
         });
@@ -104,7 +115,9 @@ import { get_dom_data } from './../../../lib/helper';
             let text = $(this).text();
 
             $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
-            $('.address_result').css({ 'display': 'none' });
+            $('.address_result').css({
+                'display': 'none'
+            });
         });
 
 
@@ -129,8 +142,7 @@ import { get_dom_data } from './../../../lib/helper';
                 index--;
                 if (index < 0) {
                     index = length
-                }
-                ;
+                };
             }
 
             if ($('#directorist.atbd_wrapper .address_result ul li a').length > 0) {
@@ -144,8 +156,7 @@ import { get_dom_data } from './../../../lib/helper';
                     index = 0;
                     return false;
                 }
-            }
-            ;
+            };
 
         });
 

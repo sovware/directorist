@@ -1,4 +1,4 @@
-@import "../../vendor/bootstrap/config.bs";
+@import "../../vendor/bootstrap/config.bs.scss";
 //base css
 @import "./../../base/index";
 //mixins
@@ -17,9 +17,7 @@
 @import "./../../component/plasma-slider";
 @import "./../../component/plasma-slider-custom";
 @import "./../../component/general";
-@import "./../../component/search-result";
 @import "./../../component/widget";
-@import "./../../component/pricing";
 @import "./../../component/button";
 @import "./../../component/badge";
 @import "./../../component/range-slider";
@@ -31,6 +29,9 @@
 @import "./../../component/card";
 @import "./../../component/color-picker";
 @import "./../../component/form";
+@import "./../../component/tab";
+@import "./../../component/typography";
+@import "./../../component/utility";
 @import "./../../component/checkbox-radio";
 @import "./../../component/author-profile";
 @import "./../../component/location-category";
@@ -42,7 +43,6 @@
 @import "./../../component/atmodal";
 @import "./../../component/all-authors";
 @import "./../../component/select2-custom-control";
-
 
 // Modules
 @import "../../module/listings";
@@ -305,7 +305,7 @@
   .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_saved_items_wrapper .atbd_single_saved_item {
     border: 0 none;
     padding: 0;
-    
+
   }
 
   .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
@@ -457,24 +457,6 @@
 
   .atbd_post_draft {
     padding-bottom: 80px;
-  }
-
-  .atbdp-range-slider-wrapper {
-    flex-wrap: wrap;
-
-    >span {
-      flex: 0 0 100%;
-    }
-
-    >div {
-      padding-left: 0;
-      flex: 0 0 100%;
-      margin: 10px 0;
-    }
-
-    .atbd-current-value {
-      padding: 0 !important;
-    }
   }
 
   .ads-advanced .atbd_seach_fields_wrapper .single_search_field {

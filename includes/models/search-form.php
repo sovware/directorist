@@ -417,32 +417,8 @@ class Search_Form {
 		}
 	}
 
-	public function load_map_scripts() {
-		$select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
-		wp_localize_script( 'directorist-geolocation', 'adbdp_geolocation', array( 'select_listing_map' => $select_listing_map ) );
-		wp_enqueue_script( 'directorist-geolocation' );
-	}
-
 	public function load_radius_search_scripts( $data ) {
-		$sliderjs = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
-		wp_enqueue_script( $sliderjs );
-		$radius_search_unit = !empty( $data['radius_search_unit'] ) ? $data['radius_search_unit'] : '';
-		if ( 'kilometers' == $radius_search_unit ) {
-			$miles = __( ' Kilometers', 'directorist' );
-		}
-		else {
-			$miles = __( ' Miles', 'directorist' );
-		}
-
-		$value = !empty( $_REQUEST['miles'] ) ? $_REQUEST['miles'] : $data['default_radius_distance'];
-
-		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', apply_filters( 'directorist_range_slider_args', [
-			'miles' => $miles,
-			'slider_config' => [
-				'minValue' => $value,
-				'maxValue' => 1000,
-			]
-		]));
+		_deprecated_function( 'load_radius_search_scripts', '7.1' );
 	}
 
 	public function get_pricing_type() {
@@ -464,10 +440,10 @@ class Search_Form {
 		$args = array(
 			'searchform' 		=> $this,
 			'data'       		=> $field_data,
-			'value'      		=> $value,
+			'value'      		=> wp_unslash( $value ),
 		);
 
-		if ( $this->is_custom_field( $field_data ) ) {
+		if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $this->assign_to_category()['custom_field_key'] ) ) ) {
 			$template = 'search-form/custom-fields/' . $field_data['widget_name'];
 		}
 		else {
@@ -559,7 +535,8 @@ class Search_Form {
 			'immediate_category' => 0,
 			'active_term_id'     => 0,
 			'ancestors'          => array(),
-			'listing_type'		 => $this->current_directory_type
+			'listing_type'		 => $this->current_directory_type,
+			'assign_to_category' => $this->assign_to_category()
 		);
 	}
 
@@ -584,21 +561,6 @@ class Search_Form {
 		return json_encode( $this->data );
 	}
 
-	public function search_listing_scripts_styles() {
-		wp_enqueue_script( 'directorist-search-form-listing' );
-		wp_enqueue_script( 'directorist-range-slider' );
-		wp_enqueue_script( 'directorist-search-listing' );
-
-		$data = Script_Helper::get_search_script_data( [ 'directory_type_id' => $this->current_directory_type ] );
-		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
-		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
-			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
-			'ajax_url' => admin_url('admin-ajax.php'),
-		]);
-		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
-		wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', $data );
-	}
-
 	public function listing_type_slug() {
 		$term_data = get_term( $this->current_directory_type, ATBDP_TYPE );
 		return $term_data->slug;
@@ -620,6 +582,28 @@ class Search_Form {
 		$icon_type = substr($icon, 0, 2);
 		$icon_class = ('la' === $icon_type) ? $icon_type . ' ' . $icon : 'fa ' . $icon;
 		return $icon_class;
+	}
+
+	/**
+	 * @todo new/refactor
+	 */
+	public function build_search_data( $data ) {
+		$search_form_fields = get_term_meta( $this->current_directory_type, 'search_form_fields', true );
+		return $search_form_fields['fields'][ $data ];
+	}
+
+	/**
+	 * @todo new/refactor
+	 */
+	public function zip_code_class() {
+		$class 					= 'directorist-form-element';
+		$radius_search 			= $this->build_search_data( 'radius_search' );
+		$radius_search_based_on = ! empty( $radius_search['radius_search_based_on'] ) ? $radius_search['radius_search_based_on'] : 'address';
+
+		if( ! empty( $radius_search ) && 'zip' == $radius_search_based_on ) {
+			$class .= ' zip-radius-search';
+		}
+		return $class;
 	}
 
 	public function rating_field_data() {
@@ -694,4 +678,94 @@ class Search_Form {
 			return array();
 		}
 	}
+
+	/**
+	 * @todo new/refactor
+	 */
+	public function assign_to_category(){
+		$submission_form_fields = get_term_meta( $this->current_directory_type , 'submission_form_fields', true );
+		$category_id = isset( $_REQUEST['cat_id'] ) ? $_REQUEST['cat_id'] : '';
+		$custom_field_key = array();
+		$assign_to_cat = array();
+
+		if( $submission_form_fields['fields'] ) {
+			foreach( $submission_form_fields['fields'] as $field ) {
+				if( ! empty( $field['assign_to'] ) && $field['assign_to'] == 'category' && $category_id != $field['category'] ) {
+					$custom_field_key[] = $field['field_key'];
+					$assign_to_cat[]	= $field['category'];
+				}
+			}
+		}
+
+		$category_custom_field = array(
+			'custom_field_key'	=> $custom_field_key,
+			'assign_to_cat'		=> $assign_to_cat,
+		);
+		return $category_custom_field;
+	}
+
+	/**
+	 * @todo new/refactor
+	 */
+	public static function get_selected_category_option_data() {
+		$id = ( isset( $_REQUEST['in_cat'] ) ) ? $_REQUEST['in_cat'] : '';
+		$id = ( isset( $_REQUEST['cat_id'] ) ) ? $_REQUEST['cat_id'] : $id;
+
+		return self::get_taxonomy_select_option_data( $id );
+	}
+
+	/**
+	 * @todo new/refactor
+	 */
+	public static function get_selected_location_option_data() {
+		$id = ( isset( $_REQUEST['in_loc'] ) ) ? $_REQUEST['in_loc'] : '';
+		$id = ( isset( $_REQUEST['loc_id'] ) ) ? $_REQUEST['loc_id'] : $id;
+
+		return self::get_taxonomy_select_option_data( $id );
+	}
+
+	/**
+	 * @todo new/refactor
+	 */
+	public static function get_taxonomy_select_option_data( $id ) {
+		$item = [ 'id' => '', 'label' => '' ];
+
+		if ( empty( $id ) ) {
+			return $item;
+		}
+
+		$taxonomy = get_term( $id );
+
+		if ( is_wp_error( $taxonomy ) ) {
+			return $item;
+		}
+
+		$item[ 'id' ]    = $taxonomy->term_id;
+		$item[ 'label' ] = $taxonomy->name;
+
+		return $item;
+	}
+
+	/**
+	 * @todo new/refactor
+	 */
+	public function range_slider_data( $data ) {
+		$radius_search_unit = !empty( $data['radius_search_unit'] ) ? $data['radius_search_unit'] : '';
+		if ( 'kilometers' == $radius_search_unit ) {
+			$miles = __( ' Kilometers', 'directorist' );
+		}
+		else {
+			$miles = __( ' Miles', 'directorist' );
+		}
+
+		$value = !empty( $_REQUEST['miles'] ) ? $_REQUEST['miles'] : $data['default_radius_distance'];
+
+		$data = [
+			'miles' => $miles,
+			'minValue' => $value,
+		];
+
+		return json_encode( $data );;
+	}
+
 }

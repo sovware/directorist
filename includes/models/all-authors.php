@@ -92,7 +92,7 @@ class All_Authors {
 		}
 
 		$args['orderby'] 		 = 'display_name';
-		
+
 		if( 'all' != $all_authors_select_role ) {
 			$args['role__in']	= array( $all_authors_select_role );
 		}

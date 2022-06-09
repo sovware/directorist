@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3
  */
 
 use \Directorist\Helper;
@@ -14,7 +14,7 @@ $listings = directorist()->listings;
 $query = $listings->get_query();
 ?>
 
-<div class="directorist-archive-grid-view">
+<div class="directorist-archive-items directorist-archive-grid-view">
 
 	<?php do_action( 'directorist_before_grid_listings_loop' ); ?>
 
@@ -22,7 +22,7 @@ $query = $listings->get_query();
 
 		<?php if ( $query->have_posts() ): ?>
 
-			<div class="<?php Helper::directorist_row(); ?>">
+			<div class="<?php echo $listings->has_masonry() ? 'directorist-masonry' : ''; ?> <?php Helper::directorist_row(); ?>">
 
 				<?php while ( $query->have_posts() ): ?>
 

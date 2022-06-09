@@ -32,37 +32,42 @@ class Single_Listing {
 	public $price;
 
 
-	private function __construct($id = '') {
-		if (!$id) {
-			$id = get_the_ID();
+	private function __construct( $listing_id = 0 ) {
+		if ( $listing_id && is_int( $listing_id ) ) {
+			$this->id = $listing_id;
+		} else {
+			$this->id = get_the_ID();
 		}
-		$this->id = (int) $id;
 
 		$this->prepare_data();
 	}
 
-	public static function instance() {
+	public static function instance( $listing_id = 0 ) {
 		if ( null == self::$instance ) {
-			self::$instance = new self;
+			self::$instance = new self( $listing_id );
 		}
 		return self::$instance;
 	}
 
+	public function get_directory_type_id() {
+		$directory_type = directorist_get_object_terms( $this->id, ATBDP_TYPE, 'term_id' );
+		if ( empty( $directory_type ) ) {
+			return 0;
+		}
+
+		return $directory_type[0];
+	}
+
 	public function prepare_data() {
-		$id = $this->id;
-
-		$this->author_id     = get_post_field( 'post_author', $id );
-		$this->post   		 = get_post( $id );
-		$directory_type 	 = get_post_meta( $id, '_directory_type', true);
-		$term 				 = get_term_by( is_numeric($directory_type) ? 'id' : 'slug', $directory_type, 'atbdp_listing_types' );
-		$this->type          = (int) $term->term_id;
-		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
-		$this->content_data  = $this->build_content_data();
-
-		$this->fm_plan               = get_post_meta( $id, '_fm_plans', true );
-		$this->price_range           = get_post_meta( $id, '_price_range', true );
-		$this->atbd_listing_pricing  = get_post_meta( $id, '_atbd_listing_pricing', true );
-		$this->price                 = get_post_meta( $id, '_price', true );
+		$this->author_id            = get_post_field( 'post_author', $this->id );
+		$this->post                 = get_post( $this->id );
+		$this->type                 = $this->get_directory_type_id();
+		$this->header_data          = get_term_meta( $this->type, 'single_listing_header', true );
+		$this->content_data         = $this->build_content_data();
+		$this->fm_plan              = get_post_meta( $this->id, '_fm_plans', true );
+		$this->price_range          = get_post_meta( $this->id, '_price_range', true );
+		$this->atbd_listing_pricing = get_post_meta( $this->id, '_atbd_listing_pricing', true );
+		$this->price                = get_post_meta( $this->id, '_price', true );
 	}
 
 	public function build_content_data() {
@@ -178,7 +183,7 @@ class Single_Listing {
 			}
 		}
 
-		return apply_filters( 'directorist_single_section_has_contents', $has_contents );
+		return apply_filters( 'directorist_single_section_has_contents', $has_contents, $section_data );
 	}
 
 	public function has_whatsapp( $data ) {
@@ -349,18 +354,36 @@ class Single_Listing {
 	}
 
 	public function single_page_content() {
-		$page_id = get_directorist_type_option( $this->type, 'single_listing_page' );
+		$page_id = (int) get_directorist_type_option( $this->type, 'single_listing_page' );
 
-		if ( !$page_id ) {
+		if ( ! $page_id ) {
 			return '';
 		}
 
-		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->documents->get( $page_id )->is_built_with_elementor() ) {
-			$content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
-		} else {
-			$content = get_post_field( 'post_content', $page_id );
-			$content = do_shortcode( $content );
+		$page = get_post( $page_id );
+		if ( $page->post_type !== 'page' ) {
+			return '';
 		}
+
+		global $post, $wp_embed;
+		$_temp_post = $post; // Cache listing post.
+		$post       = $page; // Assign custom single page as post.
+
+		$content = get_post_field( 'post_content', $page_id );
+		$content = $wp_embed->run_shortcode( $content );
+		$content = $wp_embed->autoembed( $content );
+		// do_blocks available from WP 5.0
+		$content = function_exists( 'do_blocks' ) ? do_blocks( $content ) : $content;
+		$content = wptexturize( $content );
+		$content = convert_smilies( $content );
+		$content = shortcode_unautop( $content );
+		$content = wp_filter_content_tags( $content );
+		$content = do_shortcode( $content );
+		$content = str_replace( ']]>', ']]&gt;', $content );
+
+		// Restore listing post.
+		$post = $_temp_post;
+		unset( $_temp_post );
 
 		return $content;
 	}
@@ -666,11 +689,11 @@ class Single_Listing {
 	}
 
 	public function get_review_count() {
-		return ATBDP()->review->db->count(array('post_id' => $this->id));
+		return directorist_get_listing_review_count( $this->id );
 	}
 
 	public function get_rating_count() {
-		return ATBDP()->review->get_average( $this->id );
+		return directorist_get_listing_rating( $this->id );
 	}
 
 	public function submit_link() {
@@ -812,7 +835,7 @@ class Single_Listing {
 	}
 
 	public function display_review() {
-		return get_directorist_option( 'enable_review', 1 );
+		return directorist_is_review_enabled();
 	}
 
 	public function guest_review_enabled() {
@@ -825,8 +848,10 @@ class Single_Listing {
 
 	public function current_review() {
 		// @cache @kowsar
-		$review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $this->id);
-		return !empty( $review ) ? $review : '';
+		// $review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $this->id);
+		// return !empty( $review ) ? $review : '';
+
+		return '';
 	}
 
 	public function reviewer_name() {
@@ -834,7 +859,7 @@ class Single_Listing {
 	}
 
 	public function review_count() {
-		return ATBDP()->review->db->count(array('post_id' => $this->id));
+		return directorist_get_listing_review_count( $this->id );
 	}
 
 	public function review_count_text() {
@@ -1003,7 +1028,7 @@ class Single_Listing {
 		return $result;
 	}
 
-	public function load_map_resources() {
+	public function map_data() {
 		$id      = $this->id;
 
 		$manual_lat  = get_post_meta($id, '_manual_lat', true);
@@ -1068,15 +1093,7 @@ class Single_Listing {
 			'cat_icon'              => $cat_icon,
 		);
 
-		if ('openstreet' === $args['select_listing_map']) {
-			wp_localize_script('directorist-single-listing-openstreet-map-custom-script', 'localized_data', $args);
-			wp_enqueue_script('directorist-single-listing-openstreet-map-custom-script');
-		}
-
-		if ('google' === $args['select_listing_map']) {
-			wp_localize_script('directorist-single-listing-gmap-custom-script', 'localized_data', $args);
-			wp_enqueue_script('directorist-single-listing-gmap-custom-script');
-		}
+		return json_encode( $args );
 	}
 
 	public function get_reviewer_img()
@@ -1093,7 +1110,7 @@ class Single_Listing {
 
 	public function review_template() {
 		$id           = $this->id;
-		$review_count = ATBDP()->review->db->count(array('post_id' => $id));
+		$review_count = directorist_get_listing_review_count( $id );
 		$author_id    = get_post_field('post_author', $id);
 
 		$args = array(
@@ -1105,7 +1122,7 @@ class Single_Listing {
 			'review_count'             => $review_count,
 			'review_count_text'        => _nx('Review', 'Reviews', $review_count, 'Number of reviews', 'directorist'),
 			'guest_review'             => get_directorist_option('guest_review', 0),
-			'cur_user_review'          => ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $id),
+			// 'cur_user_review'          => ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $id),
 			'reviewer_name'            => wp_get_current_user()->display_name,
 			'reviewer_img'             => $this->get_reviewer_img(),
 			'guest_email_label'        => get_directorist_option('guest_email', __('Your Email', 'directorist')),
@@ -1195,19 +1212,5 @@ class Single_Listing {
 	public function get_related_columns() {
 		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
 		return 12/$columns;
-	}
-
-	public function load_related_listings_script() {
-		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
-
-		$is_rtl = is_rtl() ? 'true' : '';
-
-		$localized_data = array(
-			'is_rtl' => $is_rtl,
-			'rel_listing_column' => $columns,
-		);
-
-		wp_enqueue_script('directorist-releated-listings-slider');
-		wp_localize_script('directorist-releated-listings-slider', 'data', $localized_data);
 	}
 }

@@ -19,7 +19,7 @@ jQuery(document).ready(function ($) {
         var delimiter = query_string.delimiter;
         $.ajax({
             type: 'post',
-            url: import_export_data.ajaxurl,
+            url: directorist_admin.ajaxurl,
             data: {
                 action: 'directorist_listing_type_form_fields',
                 directory_type: directory_type,
@@ -50,11 +50,8 @@ jQuery(document).ready(function ($) {
     });
 
     const stepTwo = $('#atbdp_csv_step_two');
-    let position = 0;
-    let failed = 0;
-    let imported = 0;
 
-    $(stepTwo).on('submit', function (e) {
+    $( stepTwo ).on('submit', function (e) {
         e.preventDefault();
 
         $('.atbdp-importer-mapping-table-wrapper').fadeOut(300);
@@ -67,47 +64,79 @@ jQuery(document).ready(function ($) {
             .addClass('done');
         $('.atbdp-progress-step').addClass('active');
 
+        let position = 0;
+        let failed   = 0;
+        let imported = 0;
+
+        const configFields = $( '.directorist-listings-importer-config-field' );
+
         let counter = 0;
         var run_import = function () {
             const form_data = new FormData();
-            // ajax action
-            form_data.append('action', 'atbdp_import_listing');
-            form_data.append('csv_file', $('input[name="csv_file"]').val());
-            form_data.append('delimiter', $('input[name="delimiter"]').val());
-            form_data.append('update_existing', $('input[name="update_existing"]').val());
 
-            if ($('select[name="directory_type"]').length) {
-                form_data.append('directory_type', $('select[name="directory_type"]').val());
+            // ajax action
+            form_data.append( 'action', 'atbdp_import_listing' );
+            form_data.append( 'position', position );
+
+            let nonce = $( 'input[name="_wpnonce"]' );
+            nonce = ( nonce.length ) ? nonce.val() : '';
+
+            if ( nonce ) {
+                form_data.append( '_wpnonce', nonce );
             }
 
-            form_data.append('position', position);
-            form_data.append('wpnonce', $('input[name="_wpnonce"]').val());
+            // Get Config Fields Value
+            if ( configFields.length ) {
+                configFields.each( ( index, item ) => {
+                    const key   = $( item ).attr( 'name' );
+                    const value = $( item ).val();
+
+                    form_data.append( key, value );
+                });
+            }
+
             var map_elm = null;
 
-            if ($('select.atbdp_map_to').length) {
+            if ( $('select.atbdp_map_to').length ) {
                 map_elm = $('select.atbdp_map_to');
             }
 
-            if ($('input.atbdp_map_to').length) {
+            if ( $('input.atbdp_map_to').length ) {
                 map_elm = $('input.atbdp_map_to');
             }
 
-            if (map_elm) {
-                // var log = [];
-                map_elm.each(function () {
-                    const name = $(this).attr('name');
+            if ( map_elm ) {
+                var log = [];
+                map_elm.each( function () {
+                    const name  = $(this).attr('name');
                     const value = $(this).val();
-                    if (value == 'listing_title' || value == 'listing_content' || value == 'listing_img' || value == 'directory_type') {
-                        form_data.append(value, name);
-                        // log.push( { [ value ]: name } );
-                    } else if (value == 'category' || value == 'location' || value == 'tag') {
-                        form_data.append(`tax_input[${value}]`, name);
-                        // log.push( { [ `tax_input[${value}]` ]: name } );
-                    } else {
-                        form_data.append(`meta[${value}]`, name);
-                        // log.push( { [ `meta[${value}]` ]: name } );
+
+                    const postFields = [
+                        'listing_status',
+                        'listing_title',
+                        'listing_content',
+                        'listing_img',
+                        'directory_type',
+                    ];
+
+                    const taxonomyFields = [
+                        'category',
+                        'location',
+                        'tag',
+                    ];
+
+                    if (  postFields.includes( value ) ) {
+                        form_data.append( value, name );
+                        log.push( { [ value ]: name } );
+                    } else if ( taxonomyFields.includes( value ) ) {
+                        form_data.append( `tax_input[${value}]`, name );
+                        log.push( { [ `tax_input[${value}]` ]: name } );
+                    } else if ( value != '' ) {
+                        form_data.append( `meta[${value}]`, name );
+                        log.push( { [ `meta[${value}]` ]: name } );
                     }
                 });
+
             }
 
             $.ajax({
@@ -115,11 +144,10 @@ jQuery(document).ready(function ($) {
                 processData: false,
                 contentType: false,
                 // async: false,
-                url: import_export_data.ajaxurl,
+                url: directorist_admin.ajaxurl,
                 data: form_data,
-                success(response) {
-                    console.log({ response });
-                    
+                success( response ) {
+
                     if ( response.error ) {
                         console.log({ response });
                         return;
@@ -127,26 +155,31 @@ jQuery(document).ready(function ($) {
 
                     imported += response.imported;
                     failed += response.failed;
+
                     $('.importer-details').html(
                         `Imported ${response.next_position} out of ${response.total}`
                     );
-                    $('.directorist-importer-progress').val(response.percentage);
-                    if (response.percentage != '100' && counter < 150) {
+
+                    $('.directorist-importer-progress').val( response.percentage );
+
+                    if ( response.percentage != '100' ) {
                         position = response.next_position;
                         run_import();
                         counter++;
                     } else {
-                        window.location = `${response.url
-                            }&listing-imported=${imported}&listing-failed=${failed}`;
+                        window.location = `${response.url}&listing-imported=${imported}&listing-failed=${failed}`;
                     }
-                    $('.directorist-importer-length').css('width', response.percentage + '%');
+
+                    $('.directorist-importer-length').css( 'width', response.percentage + '%' );
                 },
+
                 error(response) {
                     window.console.log(response);
                 },
             });
 
         };
+
         run_import();
     });
     /* csv upload */

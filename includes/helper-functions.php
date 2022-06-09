@@ -5810,7 +5810,7 @@ if (!function_exists('atbdp_get_paged_num')) {
         } else if (get_query_var('page')) {
             $paged = get_query_var('page');
         } else {
-            $paged = 1;
+            $paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1;
         }
 
         return absint($paged);
@@ -6436,10 +6436,10 @@ function atbdp_get_listings_current_order($default_order = '')
 
     $order = $default_order;
 
-    if (isset($_GET['sort'])) {
-        $order = sanitize_text_field($_GET['sort']);
-    } else if (isset($_GET['order'])) {
-        $order = sanitize_text_field($_GET['order']);
+    if (isset($_REQUEST['sort'])) {
+        $order = sanitize_text_field($_REQUEST['sort']);
+    } else if (isset($_REQUEST['order'])) {
+        $order = sanitize_text_field($_REQUEST['order']);
     }
 
     return apply_filters('atbdp_get_listings_current_order', $order);
@@ -6529,8 +6529,8 @@ function atbdp_get_listings_current_view_name($view)
 {
 
 
-    if (isset($_GET['view'])) {
-        $view = sanitize_text_field($_GET['view']);
+    if (isset($_REQUEST['view'])) {
+        $view = sanitize_text_field($_REQUEST['view']);
     }
 
     $allowed_views = array('list', 'grid', 'map');
@@ -6668,15 +6668,15 @@ function directorist_clean($var)
  * @since    4.0
  *
  */
-function the_atbdp_favourites_link($post_id = 0)
-{
-    if (is_user_logged_in()) {
-        if ($post_id == 0) {
+function the_atbdp_favourites_link( $post_id = 0 ) {
+    if ( is_user_logged_in() ) {
+        if ( $post_id == 0 ) {
             global $post;
             $post_id = $post->ID;
         }
-        $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-        if (in_array($post_id, $favourites)) {
+
+        $favourites = directorist_get_user_favorites( get_current_user_id() );
+        if ( in_array( $post_id, $favourites ) ) {
             return '<span class="' . atbdp_icon_type() . '-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         } else {
             return '<span class="' . atbdp_icon_type() . '-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
@@ -6687,13 +6687,14 @@ function the_atbdp_favourites_link($post_id = 0)
 }
 
 
-function atbdp_listings_mark_as_favourite($listing_id)
-{
-    $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-    $fav_class = '';
-    if (in_array($listing_id, $favourites)) {
+function atbdp_listings_mark_as_favourite( $listing_id ) {
+    $favourites = directorist_get_user_favorites( get_current_user_id() );
+    $fav_class  = '';
+
+    if ( in_array( $listing_id, $favourites ) ) {
         $fav_class = 'atbdp_fav_isActive';
     }
+
     $mark_as_fav_link = '<div class="atbdp_add_to_fav_listings"><a class="atbdp_mark_as_fav ' . $fav_class . '" id="atbdp-fav_' . $listing_id . '" data-listing_id="' . $listing_id . '" href=""><span class="atbd_fav_icon"></span><span class="atbd_fav_tooltip"></span></a></div>';
     return $mark_as_fav_link;
 }
@@ -6733,7 +6734,7 @@ function atbdp_get_remove_favourites_page_link($listing_id)
             $post_id = $post->ID;
         }
 
-        $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
+        $favourites = directorist_get_user_favorites( get_current_user_id() );
         if (in_array($post_id, $favourites)) {
             echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="' . $post_id . '"><span style="color: red" class="fa fa-heart"></span></a>';
         } else {
@@ -6968,26 +6969,22 @@ function atbdp_is_page($atbdppages = '')
  * @since 4.7.8
  */
 if (!function_exists('atbdp_popular_listings')) {
-    function atbdp_popular_listings($listing_id)
-    {
-        $listing_popular_by = get_directorist_option('listing_popular_by');
-        $average = ATBDP()->review->get_average($listing_id);
-        $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
-        $view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
-        $view_to_popular = get_directorist_option('views_for_popular');
-        if ('average_rating' === $listing_popular_by) {
-            if ($average_review_for_popular <= $average) {
-                return $pop_listing_id = $listing_id;
-            }
-        } elseif ('view_count' === $listing_popular_by) {
-            if ((int)$view_count >= (int)$view_to_popular) {
-                return $pop_listing_id = $listing_id;
-            }
-        } else {
-            if (($average_review_for_popular <= $average) && ((int)$view_count >= (int)$view_to_popular)) {
-                return $pop_listing_id = $listing_id;
-            }
+    function atbdp_popular_listings( $listing_id ) {
+        $listing_popular_by         = get_directorist_option( 'listing_popular_by' );
+        $average                    = directorist_get_listing_rating( $listing_id );
+        $average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
+        $view_count                 = (int) get_post_meta( $listing_id, '_atbdp_post_views_count', true );
+        $view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
+
+        if ( 'average_rating' === $listing_popular_by && $average_review_for_popular <= $average ) {
+            return $listing_id;
+        } elseif ( 'view_count' === $listing_popular_by && $view_count >= $view_to_popular ) {
+			return $listing_id;
+        } elseif ( $average_review_for_popular <= $average && $view_count >= $view_to_popular ) {
+			return $listing_id;
         }
+
+		return 0;
     }
 }
 
@@ -7328,13 +7325,6 @@ function atbdp_disable_overwrite_yoast() {
     atbdp_can_overwrite_yoast();
 }
 
-if ( ! function_exists( 'directorist_is_active_rankmath' ) ) {
-    function directorist_is_active_rankmath() {
-
-        return class_exists( 'RankMath' );
-    }
-}
-
 
 if (!function_exists('atbdp_page')) {
     function atbdp_page()
@@ -7499,7 +7489,8 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                     if (!empty($settings['hide_empty']) && 0 == $count) continue;
                 }
                 $selected = ($term_id == $term->term_id) ? "selected" : '';
-                $html .= '<option value="' . $term->term_id . '" ' . $selected . '>';
+                $custom_field    = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
+                $html .= '<option data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
                 $html .= $prefix . $term->name;
                 if (!empty($settings['show_count'])) {
                     $html .= ' (' . $count . ')';
@@ -8022,119 +8013,9 @@ function the_thumbnail_card($img_src = '', $_args = array()) {
     return atbdp_thumbnail_card($img_src,$_args);
 }
 
-
-// get_plasma_slider
-function get_plasma_slider()
-{
-    $show_slider       = get_directorist_option( 'dsiplay_slider_single_page', 1 );
-    $slider_is_enabled = ( $show_slider === 1 || $show_slider === '1' ) ? true : false;
-
-    if ( ! $slider_is_enabled ) { return ''; }
-
-    global $post;
-    $listing_id    = $post->ID;
-    $listing_title = get_the_title( $post->ID );
-    $data          = array();
-
-    // Check if gallery is allowed or not
-    $fm_plan      = get_post_meta($listing_id, '_fm_plans', true);
-    $show_gallery = true;
-
-    if ( is_fee_manager_active() ) {
-        $show_gallery = is_plan_allowed_slider($fm_plan);
-    }
-
-    // Get the default image
-    $default_image = get_directorist_option(
-        'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg'
-    );
-
-    // Get the preview images
-    $preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
-    $preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
-    $preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
-    $preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
-
-    // Get the gallery images
-    $listing_img  = get_post_meta( $listing_id, '_listing_img', true );
-    $listing_imgs = ( ! empty( $listing_img ) ) ? $listing_img : array();
-    $image_links  = array(); // define a link placeholder variable
-
-    foreach ( $listing_imgs as $img_id ) {
-        $alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
-        $alt = ( ! empty( $alt )  ) ? $alt : get_the_title( $img_id );
-
-        $image_links[] = [
-            'alt' => ( ! empty( $alt )  ) ? $alt : $listing_title,
-            'src' => atbdp_get_image_source( $img_id, 'large' ),
-        ];
-    }
-
-    // Get the options
-    $background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
-
-    // Set the options
-    $data['images']             = [];
-    $data['alt']                = $listing_title;
-    $data['background-size']    = get_directorist_option('single_slider_image_size', 'cover');
-    $data['blur-background']    = ( 'blur' === $background_type ) ? true : false;
-    $data['width']              = get_directorist_option('gallery_crop_width', 670);
-    $data['height']             = get_directorist_option('gallery_crop_height', 750);
-    $data['background-color']   = get_directorist_option('single_slider_background_color', 'gainsboro');
-    $data['thumbnail-bg-color'] = '#fff';
-    $data['show-thumbnails']    = get_directorist_option('dsiplay_thumbnail_img', true);
-    $data['gallery']            = true;
-    $data['rtl']                = is_rtl();
-
-    if ( $show_gallery && ! empty( $image_links ) ) {
-        $data['images'] = $image_links;
-    }
-
-    if ( ! empty( $preview_img_link ) ) {
-        $preview_img = [
-            'alt' => $preview_img_alt,
-            'src' => $preview_img_link,
-        ];
-
-        array_unshift( $data['images'], $preview_img );
-    }
-
-    if ( count( $data['images'] ) < 1 ) {
-        $data['images'][] = [
-            'alt' => $listing_title,
-            'src' => $default_image,
-        ];
-    }
-
-    $padding_top         = $data['height'] / $data['width'] * 100;
-    $data['padding-top'] = $padding_top;
-
-    return get_view('plasma-slider', $data);
-}
-
-
 function atbdp_style_example_image ($src) {
     $img = sprintf("<img src='%s'>", $src );
     echo $img;
-}
-
-function view( $file_path, $data = null )
-{
-    $path = ATBDP_VIEW_DIR . $file_path . '.php';
-    if ( file_exists($path) ) {
-        include($path);
-    }
-}
-
-function get_view( $file_path, $data = null )
-{
-    $view = '';
-    ob_start();
-    view( $file_path, $data );
-    $view =  ob_get_contents();
-    ob_end_clean();
-
-    return $view;
 }
 
 if(!function_exists('csv_get_data')){
@@ -8492,6 +8373,31 @@ function directorist_get_directory_type_nav_url( $type = 'all', $base_url = null
 	return apply_filters( 'directorist_get_directory_type_nav_url', $url, $type, $base_url );
 }
 
+/**
+ * Directorist add query args with no pagination
+ *
+ * @since 7.1.3
+ *
+ * @param string $query_args Query Args
+ * @param string|null|mixed $base_url Base url for type url.
+ *
+ * @return string Final URL
+ */
+function directorist_add_query_args_with_no_pagination( $query_args = [], $base_url = null ) {
+
+    if ( empty( $base_url ) ) {
+		$base_url = $_SERVER['REQUEST_URI'];
+	}
+
+    $base_url = remove_query_arg( [ 'page', 'paged' ], $base_url );
+    $base_url = preg_replace( '~/page/(\d+)/?~', '', $base_url );
+    $base_url = preg_replace( '~/paged/(\d+)/?~', '', $base_url );
+
+	$url = add_query_arg( $query_args, $base_url );
+
+	return apply_filters( 'directorist_add_query_args_with_no_pagination', $url, $query_args, $base_url );
+}
+
 if ( ! function_exists( 'directorist_is_plugin_active' ) ) {
     function directorist_is_plugin_active( $plugin ) {
         return in_array( $plugin, (array) get_option( 'active_plugins', array() ), true ) || directorist_is_plugin_active_for_network( $plugin );
@@ -8620,4 +8526,349 @@ function directorist_has_no_listing() {
 	$has_no_listing = empty( $listings->posts );
 
 	return $has_no_listing;
+}
+
+/**
+ * Check if given listing id belongs to the given user id.
+ *
+ * @since 7.1.1
+ * @param int $listing_id Listing id.
+ * @param int $user_id User id.
+ *
+ * @return bool
+ */
+function directorist_is_listing_author( $listing_id = null, $user_id = null ) {
+	if ( ! $user_id || ! is_int( $user_id ) ) {
+		return false;
+	}
+
+	if ( ! $listing_id || ! is_int( $listing_id ) ) {
+		$listing_id = get_the_ID();
+	}
+
+	$listing = get_post( $listing_id );
+	if ( ! $listing || $listing->post_type !== ATBDP_POST_TYPE ) {
+		return false;
+	}
+
+	if ( intval( $listing->post_author ) !== $user_id ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Check if given listing id belongs to the current user.
+ *
+ * @since 7.1.1
+ * @param int $listing_id
+ *
+ * @return bool
+ */
+function directorist_is_current_user_listing_author( $listing_id = null ) {
+	return directorist_is_listing_author( $listing_id, get_current_user_id() );
+}
+
+/**
+ * Check if the current theme is a block theme.
+ *
+ * @since 7.2.0
+ *
+ * @return bool
+ */
+function directorist_current_theme_is_fse_theme() {
+	if ( function_exists( 'wp_is_block_theme' ) ) {
+		return (bool) wp_is_block_theme();
+	}
+	if ( function_exists( 'gutenberg_is_fse_theme' ) ) {
+		return (bool) gutenberg_is_fse_theme();
+	}
+
+	return false;
+}
+
+/**
+ * Get the user's favorite listings
+ *
+ * @since 7.2.0
+ * @param int $user_id The user ID of the user whose favorites you want to retrieve.
+ *
+ * @return array An array of listing IDs.
+ */
+function directorist_get_user_favorites( $user_id = 0 ) {
+	$favorites = get_user_meta( $user_id, 'atbdp_favourites', true );
+
+	if ( ! empty( $favorites ) && is_array( $favorites ) ) {
+		$favorites = directorist_prepare_user_favorites( $favorites );
+	} else {
+		$favorites = array();
+	}
+
+	/**
+	 * User favorite listings filter hook.
+	 *
+	 * @since 7.2.0
+	 * @param array $favorites
+	 * @param int $user_id
+	 */
+	$favorites = apply_filters( 'directorist_user_favorites', $favorites, $user_id );
+
+	return $favorites;
+}
+
+/**
+ * This function update the user's favorites
+ *
+ * @since 7.2.0
+ * @param int $user_id The ID of the user whose favorites are being updated.
+ * @param int $listing_id The new favorite listing id.
+ *
+ * @return array
+ */
+function directorist_add_user_favorites( $user_id = 0, $listing_id = 0 ) {
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return array();
+	}
+
+	$old_favorites = directorist_get_user_favorites( $user_id );
+	$new_favorites = array_merge( $old_favorites, array( $listing_id ) );
+	$new_favorites = directorist_prepare_user_favorites( $new_favorites );
+
+	update_user_meta( $user_id, 'atbdp_favourites', $new_favorites );
+
+	$new_favorites = directorist_get_user_favorites( $user_id );
+
+	/**
+	 * Fire after user favorite listings updated.
+	 *
+	 * @since 7.2.0
+	 * @param int $user_id
+	 * @param array $new_favorites
+	 * @param array $old_favorites
+	 */
+	do_action( 'directorist_user_favorites_added', $user_id, $new_favorites, $old_favorites );
+
+	return $new_favorites;
+}
+
+/**
+ * This function deletes a listing from a user's favorites
+ *
+ * @since 7.2.0
+ * @param int $user_id The ID of the user who's favorites are being updated.
+ * @param int $listing_id The listing ID that is being deleted from the user's favorites.
+ *
+ * @return array An array of listing IDs that are favorites for the user.
+ */
+function directorist_delete_user_favorites( $user_id = 0, $listing_id = 0 ) {
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return array();
+	}
+
+	$old_favorites = directorist_get_user_favorites( $user_id );
+	$new_favorites = array_filter( $old_favorites, static function( $favorite ) use ( $listing_id ) {
+		return ( $favorite !== $listing_id );
+	} );
+
+	if ( count( $old_favorites ) > count( $new_favorites ) ) {
+		update_user_meta( $user_id, 'atbdp_favourites', $new_favorites );
+	}
+
+	/**
+	 * Fire after user favorite listings updated.
+	 *
+	 * @since 7.2.0
+	 * @param int $user_id
+	 * @param array $new_favorites
+	 * @param array $old_favorites
+	 */
+	do_action( 'directorist_user_favorites_deleted', $user_id, $new_favorites, $old_favorites );
+
+	return $new_favorites;
+}
+
+/**
+ * Process user favorites listings ids before saving and after retriving.
+ *
+ * @since 7.2.0
+ * @param array $favorites
+ * @access private
+ *
+ * @return array
+ */
+function directorist_prepare_user_favorites( $favorites = array() ) {
+	$favorites = array_values( $favorites );
+	$favorites = array_map( 'absint', $favorites );
+	$favorites = array_filter( $favorites );
+	$favorites = array_unique( $favorites );
+
+	return $favorites;
+}
+
+/**
+ * Check if email notification is enabled and user can get notification for a specific event.
+ *
+ * @since 7.2.0
+ * @param string $event_name The name of the event.
+ * @param string $user_type user or admin
+ *
+ * @return bool
+ */
+function directorist_user_notifiable_for( $event_name = '', $user_type = '' ) {
+	if ( empty( $event_name ) || get_directorist_option( 'disable_email_notification' ) ) {
+		return false;
+	}
+
+	if ( empty( $user_type ) || ! in_array( $user_type, array( 'user', 'admin' ), true ) ) {
+		return false;
+	}
+
+	$user_type  = 'notify_' . (string) $user_type;
+	$event_name = (string) $event_name;
+	if ( ! in_array( $event_name, get_directorist_option( $user_type, array() ), true ) )  {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Check if admin can get email notification for a specific event.
+ *
+ * @since 7.2.0
+ * @param string $event_name The name of the event.
+ *
+ * @return An array of user IDs.
+ */
+function directorist_admin_notifiable_for( $event_name = '' ) {
+	return directorist_user_notifiable_for( $event_name, 'admin' );
+}
+
+/**
+ * Check if listing owner can get email notification for a specific event.
+ *
+ * @since 7.2.0
+ * @param string $event_name The name of the event.
+ *
+ * @return bool
+ */
+function directorist_owner_notifiable_for( $event_name = '' ) {
+	return directorist_user_notifiable_for( $event_name, 'user' );
+}
+
+/**
+ * This function returns the meta key for the listing views count.
+ *
+ * @since 7.2.0
+ *
+ * @return string The meta key for the views count.
+ */
+function directorist_get_listing_views_count_meta_key() {
+	return '_atbdp_post_views_count';
+}
+
+/**
+ * Get the number of views for a listing.
+ *
+ * @since 7.2.0
+ * @param int $listing_id The ID of the listing.
+ *
+ * @return int The number of views for a given listing.
+ */
+function directorist_get_listing_views_count( $listing_id = 0 ) {
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return 0;
+	}
+
+	$views_count = get_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), true );
+	return absint( $views_count );
+}
+
+/**
+ * This function increments the views count of a listing by 1.
+ *
+ * @since 7.2.0
+ * @param int $listing_id The ID of the listing.
+ *
+ * @return The number of views for a listing.
+ */
+function directorist_set_listing_views_count( $listing_id = 0 ) {
+	if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+		return false;
+	}
+
+	$views_count = directorist_get_listing_views_count( $listing_id );
+	$views_count = $views_count + 1; // Listing got a new view :D
+	update_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), $views_count );
+
+	/**
+	 * Fire this hook when listing got a view.
+	 *
+	 * @since 7.2.0
+	 * @param int $listing_id
+	 */
+	do_action( 'directorist_listing_views_count_updated', $listing_id );
+
+	return true;
+}
+
+
+/**
+ * Get listings field key by import file header key.
+ * Used in listings import.
+ *
+ * @param  string $header_key CSV file header key.
+ *
+ * @return string Listing field key
+ */
+function directorist_translate_to_listing_field_key( $header_key = '' ) {
+    $fields_map = array(
+        'date'                   => 'publish_date',
+        'publish_date'           => 'publish_date',
+        'status'                 => 'listing_status',
+        'listing_status'         => 'listing_status',
+        'name'                   => 'listing_title',
+        'title'                  => 'listing_title',
+        'details'                => 'listing_content',
+        'content'                => 'listing_content',
+        'price'                  => 'price',
+        'price_range'            => 'price_range',
+        'location'               => 'location',
+        'tag'                    => 'tag',
+        'ategory'                => 'category',
+        'zip'                    => 'zip',
+        'phone'                  => 'phone',
+        'phone2'                 => 'phone2',
+        'fax'                    => 'fax',
+        'email'                  => 'email',
+        'website'                => 'website',
+        'social'                 => 'social',
+        'atbdp_post_views_count' => 'atbdp_post_views_count',
+        'views_count'            => 'atbdp_post_views_count',
+        'manual_lat'             => 'manual_lat',
+        'manual_lng'             => 'manual_lng',
+        'hide_map'               => 'hide_map',
+        'hide_contact_info'      => 'hide_contact_owner',
+        'listing_prv_img'        => 'listing_img',
+        'preview'                => 'listing_img',
+        'listing_img'            => 'listing_img',
+        'videourl'               => 'videourl',
+        'tagline'                => 'tagline',
+        'address'                => 'address',
+    );
+
+    return isset( $fields_map[ $header_key ] ) ? $fields_map[ $header_key ] : '';
+}
+
+/**
+ * Get data if set, otherwise return a default value or null. Prevents notices when data is not set.
+ *
+ * @since  7.3.0
+ * @param  mixed  $var     Variable.
+ * @param  string $default Default value.
+ * @return mixed
+ */
+function directorist_get_var( &$var, $default = null ) {
+	return isset( $var ) ? $var : $default;
 }

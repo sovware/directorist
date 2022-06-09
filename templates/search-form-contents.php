@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.6
+ * @version 7.2.2
  */
 
 use \Directorist\Helper;
@@ -34,7 +34,7 @@ $search_form = directorist()->search_form;
 
 		<?php endif; ?>
 
-		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form">
+		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form" data-atts="<?php echo esc_attr( $searchform->get_atts_data() ); ?>">
 
 			<div class="directorist-search-form-wrap <?php echo esc_attr( $search_form->border_class() ); ?>">
 
@@ -42,36 +42,7 @@ $search_form = directorist()->search_form;
 
 				<input type="hidden" name="directory_type" class="listing_type" value="<?php echo esc_attr( $search_form->listing_type_slug() ); ?>">
 
-				<div class="directorist-search-form-box">
-
-					<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline">
-
-						<?php
-						foreach ( $search_form->form_data[0]['fields'] as $field ){
-							$search_form->field_template( $field );
-						}
-						if ( $search_form->filter_open_method() !== 'always_open' ){
-							$search_form->more_buttons_template();
-						}
-						?>
-
-					</div>
-
-					<?php
-					if ( $search_form->filter_open_method() == 'always_open' ){
-						$search_form->advanced_search_form_fields_template();
-					}
-					else {
-						if ( $search_form->dispaly_more_filters_button() ) { ?>
-							<div class="<?php Helper::search_filter_class( $search_form->filter_open_method() ); ?>">
-								<?php $search_form->advanced_search_form_fields_template();?>
-							</div>
-							<?php
-						}
-					}
-					?>
-
-				</div>
+				<?php Helper::get_template( 'search-form/form-box' ); ?>
 
 			</div>
 

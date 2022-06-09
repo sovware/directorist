@@ -42,7 +42,9 @@ class Listing_Form {
 	}
 
 	public function init() {
-		$this->add_listing_id   = get_query_var( 'atbdp_listing_id', 0 );
+		$listing_id = get_query_var( 'atbdp_listing_id', 0 );
+		$listing_id = empty( $listing_id ) && ! empty( $_REQUEST['edit'] ) ? $_REQUEST['edit'] : $listing_id;
+
 		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
 	}
 
@@ -339,7 +341,7 @@ class Listing_Form {
 			$listing_info['atbd_listing_pricing']    = get_post_meta( $p_id, '_atbd_listing_pricing', true );
 			$listing_info['listing_status']          = get_post_meta( $p_id, '_listing_status', true );
 			$listing_info['tagline']                 = get_post_meta( $p_id, '_tagline', true );
-			$listing_info['atbdp_post_views_count']  = get_post_meta( $p_id, '_atbdp_post_views_count', true );
+			$listing_info['atbdp_post_views_count']  = directorist_get_listing_views_count( $p_id );
 			$listing_info['excerpt']                 = get_post_meta( $p_id, '_excerpt', true );
 			$listing_info['address']                 = get_post_meta( $p_id, '_address', true );
 			$listing_info['phone']                   = get_post_meta( $p_id, '_phone', true );
@@ -391,7 +393,7 @@ class Listing_Form {
 			'ancestors'          => array(),
 		);
 
-		$location_fields = add_listing_category_location_filter( $this->current_listing_type, $query_args, ATBDP_LOCATION, $ids );
+		$location_fields = add_listing_category_location_filter( $this->get_current_listing_type(), $query_args, ATBDP_LOCATION, $ids );
 		return $location_fields;
 	}
 
@@ -439,7 +441,7 @@ class Listing_Form {
 			'ancestors'          => array(),
 		);
 
-		$categories_field = add_listing_category_location_filter( $this->current_listing_type, $query_args, ATBDP_CATEGORY, $ids, '', $plan_cat );
+		$categories_field = add_listing_category_location_filter( $this->get_current_listing_type(), $query_args, ATBDP_CATEGORY, $ids, '', $plan_cat );
 		return $categories_field;
 	}
 
@@ -859,8 +861,6 @@ class Listing_Form {
 			$args['form_data'] = $this->build_form_data( $type );
 			$args['is_edit_mode'] = true;
 
-			$this->enqueue_scripts();
-
 			ob_start();
 			echo Helper::get_template_contents( 'listing-form/add-listing', $args );
 
@@ -889,8 +889,6 @@ class Listing_Form {
 				$args['single_directory'] = $type;
 				$template = Helper::get_template_contents( 'listing-form/add-listing', $args );
 
-				$this->enqueue_scripts();
-
 				ob_start();
 
 				echo apply_filters( 'atbdp_add_listing_page_template', $template, $args );
@@ -901,23 +899,6 @@ class Listing_Form {
 			// multiple directory available
 			$template = Helper::get_template_contents( 'listing-form/add-listing-type', [ 'listing_form' => $this ] );
 			return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
-		}
-	}
-
-
-	// enqueue_scripts
-	public function enqueue_scripts() {
-		wp_enqueue_media();
-		wp_enqueue_script( 'directorist-ez-media-uploader' );
-		wp_enqueue_script( 'directorist-plupload-public' );
-		wp_enqueue_script( 'directorist-add-listing-public' );
-
-		// Map Scrips
-		if ( Script_Helper::is_enable_map( 'openstreet' ) ) {
-			wp_enqueue_script( 'directorist-add-listing-openstreet-map-custom-script-public' );
-		} else {
-			wp_enqueue_script( 'directorist-add-listing-gmap-custom-script-public' );
-
 		}
 	}
 }

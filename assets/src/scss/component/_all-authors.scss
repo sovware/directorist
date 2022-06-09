@@ -154,8 +154,38 @@
 /* Directorist All author Grid */
 .directorist-authors{
     @include e(cards){
+        .directorist-col-6{
+            @media (max-width: 575px) {
+                width: 100%;
+            }
+        }
         .directorist-col-4{
             @media (max-width: 991px) {
+                width: 50%;
+            }
+            @media (max-width: 575px) {
+                width: 100%;
+            }
+        }
+        .directorist-col-3{
+            @media (max-width: 1199px) {
+                width: 33.33%;
+            }
+            @media (max-width: 991px) {
+                width: 50%;
+            }
+            @media (max-width: 575px) {
+                width: 100%;
+            }
+        }
+        .directorist-col-2{
+            @media (max-width: 1199px) {
+                width: 25%;
+            }
+            @media (max-width: 991px) {
+                width: 33.33%;
+            }
+            @media (max-width: 767px) {
                 width: 50%;
             }
             @media (max-width: 575px) {

@@ -1,5 +1,6 @@
-;(function ($) {
-    
+;
+(function ($) {
+
     // Helper function to convert the mysql date
     Date.createFromMysql = function (mysql_string) {
         var t, result = null;

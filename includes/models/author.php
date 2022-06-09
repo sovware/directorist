@@ -6,7 +6,6 @@
 namespace wpWax\Directorist\Model;
 
 use Directorist\Helper;
-use Directorist\Script_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -210,21 +209,6 @@ class Author {
 		return $review_in_post;
 	}
 
-	private function enqueue_scripts() {
-		wp_enqueue_script( 'directorist-search-form-listing' );
-        wp_enqueue_script( 'directorist-search-listing' );
-
-		$data = Script_Helper::get_search_script_data();
-		wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
-		wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
-			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
-			'ajax_url' => admin_url('admin-ajax.php'),
-			'added_favourite' => __('Added to favorite', 'directorist'),
-			'please_login' => __('Please login first', 'directorist')
-		]);
-		wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
-	}
-
 	public function author_listings_query() {
 		$category = ! empty( $_GET['category'] ) ? $_GET['category'] : '';
 		$paged    = atbdp_get_paged_num();
@@ -416,8 +400,6 @@ class Author {
 
 			return $redirect;
 		}
-
-		$this->enqueue_scripts();
 
 		if ( 'yes' === $logged_in_user_only && ! is_user_logged_in() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );

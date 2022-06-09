@@ -14,7 +14,7 @@ $listings = directorist()->listings;
 $query = $listings->get_query();
 ?>
 
-<div class="directorist-archive-list-view">
+<div class="directorist-archive-items directorist-archive-list-view">
 
 	<?php do_action( 'directorist_before_list_listings_loop' ); ?>
 
@@ -27,11 +27,11 @@ $query = $listings->get_query();
 				<?php $query->the_post(); ?>
 
 				<?php $listings->loop_template(); ?>
-				
+
 			<?php endwhile; ?>
 
 			<?php wp_reset_postdata(); ?>
-			
+
 			<?php do_action( 'directorist_before_listings_pagination' ); ?>
 
 			<?php

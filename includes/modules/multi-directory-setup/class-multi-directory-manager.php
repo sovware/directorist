@@ -25,7 +25,6 @@ class Multi_Directory_Manager
     public function run() {
         add_action( 'init', [$this, 'register_terms'] );
         add_action( 'init', [$this, 'setup_migration'] );
-        add_action( 'init', [$this, 'update_default_directory_type_option'] );
 
         if ( ! is_admin() ) {
             return;
@@ -33,7 +32,6 @@ class Multi_Directory_Manager
 
         add_filter( 'cptm_fields_before_update', [$this, 'cptm_fields_before_update'], 20, 1 );
 
-        // add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
         add_action( 'admin_menu', [$this, 'add_menu_pages'] );
         add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 
@@ -42,7 +40,7 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
 
-        add_filter( 'atbdp_listing_type_settings_layout', [ $this, 'conditional_layouts' ] );
+        add_filter( 'directorist_builder_layouts', [ $this, 'conditional_layouts' ] );
     }
 
     // add_missing_single_listing_section_id
@@ -2970,6 +2968,15 @@ class Multi_Directory_Manager
                                     [ 'value' => 'kilometers', 'label' => 'Kilometers' ],
                                 ]
                             ],
+                            'radius_search_based_on' => [
+                                'type'  => 'radio',
+                                'label' => __( 'Radius Search Based on', 'directorist' ),
+                                'value' => 'address',
+                                'options' => [
+                                    [ 'value' => 'address', 'label' => 'Address' ],
+                                    [ 'value' => 'zip', 'label' => 'Zip Code' ],
+                                ]
+                            ],
                         ],
                     ],
                 ]
@@ -4492,10 +4499,10 @@ class Multi_Directory_Manager
 
         ]);
 
-        self::$layouts = apply_filters('atbdp_listing_type_settings_layout', [
+        self::$layouts = apply_filters('directorist_builder_layouts', [
             'general' => [
                 'label' => 'General',
-                'icon' => '<i class="uil uil-estate"></i>',
+                'icon' => '<span class="uil uil-estate"></span>',
                 'sections' => [
                     'labels' => [
                         'title'       => __('Directory icon', 'directorist'),
@@ -4691,6 +4698,9 @@ class Multi_Directory_Manager
             ],
         ]);
 
+		self::$fields = apply_filters( 'directorist/builder/fields', self::$fields );
+
+		self::$layouts = apply_filters( 'directorist/builder/layouts', self::$layouts );
 
         // Conditional Fields
         // -----------------------------
@@ -4756,10 +4766,9 @@ class Multi_Directory_Manager
 		/**
 		 * Filter directory builder `config` data.
 		 *
-		 * @since 7.0.5.*
-		 * TODO: Update with exact version number.
+		 * @since 7.0.6.0
 		 */
-		$config = apply_filters( 'directorist_builder_config', $config );
+		$config = apply_filters( 'directorist/builder/config', $config );
 
         self::$config = $config;
     }
@@ -4820,7 +4829,7 @@ class Multi_Directory_Manager
 
             $this->update_fields_with_old_data( $listing_type_id );
 
-            $cptm_data = [
+            $directory_builder_data = [
                 'fields'  => self::$fields,
                 'layouts' => self::$layouts,
                 'config'  => self::$config,
@@ -4834,13 +4843,9 @@ class Multi_Directory_Manager
 			 * @since 7.0.5.*
 			 * TODO: Update with exact version number.
 			 */
-			$cptm_data = apply_filters( 'directorist_builder_localize_data', $cptm_data );
+			$directory_builder_data = apply_filters( 'directorist_builder_localize_data', $directory_builder_data );
 
-            wp_localize_script(
-				'directorist-multi-directory-builder',
-				'cptm_data',
-				$cptm_data
-			);
+            $data[ 'directory_builder_data' ] = $directory_builder_data;
 
             atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
             return;
@@ -4994,21 +4999,6 @@ class Multi_Directory_Manager
         }
 
         return $pages_options;
-    }
-
-    // enqueue_scripts
-    public function enqueue_scripts( $page = '' )
-    {
-        wp_enqueue_media();
-        wp_enqueue_style('atbdp-unicons');
-        wp_enqueue_style('atbdp-font-awesome');
-        wp_enqueue_style('atbdp-line-awesome');
-        // wp_enqueue_style('atbdp-select2-style');
-        // wp_enqueue_style('atbdp-select2-bootstrap-style');
-        wp_enqueue_style('atbdp_admin_css');
-
-        wp_localize_script('atbdp_admin_app', 'ajax_data', ['ajax_url' => admin_url('admin-ajax.php')]);
-        wp_enqueue_script('atbdp_admin_app');
     }
 
 	/**

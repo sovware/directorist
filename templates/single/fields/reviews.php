@@ -2,13 +2,18 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$reviews_count = $listing->get_review_count();
-$review_text = (($reviews_count > 1) || ($reviews_count === 0)) ? __('Reviews', 'directorist') : __('Review', 'directorist');
+// Return early when review is disabled.
+if ( ! directorist_is_review_enabled() ) {
+	return;
+}
+
+$count       = $listing->get_review_count();
+$review_text = sprintf( _nx( '%s Review', '%s Reviews', $count, 'Review count single template', 'directorist' ), $count );
 ?>
 
-<div class="directorist-info-item directorist-review-meta directorist-info-item-review"><?php printf( '%s %s', $reviews_count, $review_text ); ?></div>
+<span class="directorist-info-item directorist-review-meta directorist-info-item-review"><?php echo esc_html( $review_text ); ?></span>

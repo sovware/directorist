@@ -24,12 +24,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         {
             add_action('wp_ajax_atbdp_social_info_handler', array($this, 'atbdp_social_info_handler'));
             add_action('wp_ajax_nopriv_atbdp_social_info_handler', array($this, 'atbdp_social_info_handler'));
-            add_action('wp_ajax_remove_listing_review', array($this, 'remove_listing_review'));
-            add_action('wp_ajax_save_listing_review', array($this, 'save_listing_review'));
-            add_action('wp_ajax_nopriv_save_listing_review', array($this, 'save_listing_review')); // don not allow unregistered user to submit review
-            // paginate review
-            add_action('wp_ajax_atbdp_review_pagination', array($this, 'atbdp_review_pagination_output'));
-            add_action('wp_ajax_nopriv_atbdp_review_pagination', array($this, 'atbdp_review_pagination_output'));
 
             add_action('wp_ajax_remove_listing', array($this, 'remove_listing')); //delete a listing
             add_action('wp_ajax_update_user_profile', array($this, 'update_user_profile'));
@@ -94,6 +88,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
             add_action('wp_ajax_nopriv_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
 
+            add_action('wp_ajax_directorist_category_custom_field_search', array( $this, 'category_custom_field_search' ) );
+            add_action('wp_ajax_nopriv_directorist_category_custom_field_search', array( $this, 'category_custom_field_search' ) );
+
             //dashboard become author
             add_action( 'wp_ajax_atbdp_become_author', array( $this, 'atbdp_become_author' ) );
             add_action( 'wp_ajax_atbdp_user_type_approved', array( $this, 'atbdp_user_type_approved' ) );
@@ -111,6 +108,50 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             //author paginate
             add_action('wp_ajax_directorist_author_pagination', array($this, 'author_pagination'));
             add_action('wp_ajax_nopriv_directorist_author_pagination', array($this, 'author_pagination'));
+
+            //instant search
+            add_action('wp_ajax_directorist_instant_search', array( $this, 'instant_search' ) );
+            add_action('wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
+        }
+
+        public function instant_search() {
+			$nonce = ! empty( $_POST['_nonce'] ) ? wp_unslash( $_POST['_nonce'] ) : '';
+
+            if ( wp_verify_nonce( $nonce, 'bdas_ajax_nonce' ) ) {
+				$args = array();
+
+				if ( ! empty( $_POST['data_atts'] ) ) {
+					$args = (array) wp_unslash( $_POST['data_atts'] );
+				}
+
+				if ( ! empty( $args['ids'] ) && ! isset( $_REQUEST['ids'] ) ) {
+					$_REQUEST['ids'] = $args['ids'];
+					$_POST['ids']    = $_REQUEST['ids'];
+				}
+
+                $listings = new Directorist\Directorist_Listings( $args, 'search_result' );
+                $count = $listings->query_results->total;
+                ob_start();
+                echo $listings->archive_view_template();
+                $search_value = ob_get_clean();
+
+                ob_start();
+                echo $listings->render_shortcode();
+                $directory_type_result = ob_get_clean();
+
+                ob_start();
+                echo $listings->archive_view_template();
+                $view_as = ob_get_clean();
+
+                wp_send_json(
+                    array(
+                        'search_result'  => $search_value,
+                        'directory_type' => $directory_type_result,
+                        'view_as'        => $view_as,
+                        'count'          => $count
+                    )
+				);
+            }
         }
 
         // directorist_quick_ajax_login
@@ -282,23 +323,55 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 			$search_form->reset_data();
 
             wp_send_json( array(
-                'search_form'          => $contents,
-                'atbdp_search_listing' => Directorist\Script_Helper::get_search_script_data( [ 'directory_type_id' => $listing_type_id  ] ),
+                'search_form' => $search_form,
+             ) );
+        }
+
+        // category_custom_field_search
+        public function category_custom_field_search() {
+            $listing_type    = ! empty( $_POST['listing_type'] ) ? sanitize_key( $_POST['listing_type'] ) : '';
+            $atts            = !empty( $_POST['atts'] ) ? json_decode( wp_unslash( $_POST['atts'] ), true ) : [];
+            $term            = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
+            $listing_type_id = ( $term ) ? $term->term_id : 0;
+            $searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
+            $class           = 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
+
+            // search form
+            ob_start();
+            Helper::get_template( 'search-form/form-box', [ 'searchform' =>  $searchform ] );
+            $search_form =  ob_get_clean();
+
+            wp_send_json( array(
+                'search_form'          => $search_form,
              ) );
         }
 
         public function atbdp_listing_default_type() {
             $type_id = sanitize_key( $_POST[ 'type_id' ] );
+
+            $current_language = apply_filters( 'wpml_current_language', NULL );
+
+            do_action( 'directorist_before_set_default_directory_type', (int) $type_id, $current_language );
+
             $listing_types = get_terms([
                 'taxonomy'   => 'atbdp_listing_types',
                 'hide_empty' => false,
               ]);
-              foreach ($listing_types as $listing_type) {
+
+            do_action( 'directorist_before_set_default_directory_type', (int) $type_id );
+
+            foreach ($listing_types as $listing_type) {
                 if( $listing_type->term_id !== (int) $type_id ){
                     update_term_meta( $listing_type->term_id, '_default', false );
+
+                    do_action( 'directorist_after_unset_default_directory_type', $listing_type->term_id, $listing_types );
                 }
-              }
+            }
+
             update_term_meta( $type_id, '_default', true );
+
+            do_action( 'directorist_after_set_default_directory_type', (int) $type_id );
+
             wp_send_json( 'Updated Successfully!' );
         }
 
@@ -616,40 +689,30 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          * @since    4.0
          * @access   public
          */
-        public function atbdp_public_add_remove_favorites_all()
-        {
+        public function atbdp_public_add_remove_favorites_all() {
+            $user_id    = get_current_user_id();
+            $listing_id = (int) $_POST['post_id'];
 
-            $user_id = get_current_user_id();
-            $post_id = (int) $_POST['post_id'];
-
-            if (!$user_id) {
+            if ( ! $user_id ) {
                 $data = "login_required";
                 echo esc_attr($data);
                 wp_die();
             }
 
-            $favourites = (array) get_user_meta($user_id, 'atbdp_favourites', true);
-
-            if (in_array($post_id, $favourites)) {
-                if (($key = array_search($post_id, $favourites)) !== false) {
-                    unset($favourites[$key]);
-                }
+			$favorites = directorist_get_user_favorites( $user_id );
+            if ( in_array( $listing_id, $favorites ) ) {
+                directorist_delete_user_favorites( $user_id, $listing_id );
             } else {
-                $favourites[] = $post_id;
+                directorist_add_user_favorites( $user_id, $listing_id );
             }
 
-            $favourites = array_filter($favourites);
-            $favourites = array_values($favourites);
-
-            delete_user_meta($user_id, 'atbdp_favourites');
-            update_user_meta($user_id, 'atbdp_favourites', $favourites);
-
-            $favourites = (array) get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-            if (in_array($post_id, $favourites)) {
-                $data = $post_id;
+            $favorites = directorist_get_user_favorites( $user_id );
+            if ( in_array( $listing_id, $favorites ) ) {
+                $data = $listing_id;
             } else {
                 $data = false;
             }
+
             echo wp_json_encode($data);
             wp_die();
         }
@@ -660,28 +723,18 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          * @since    4.0
          * @access   public
          */
-        public function atbdp_public_add_remove_favorites()
-        {
+        public function atbdp_public_add_remove_favorites() {
+            $listing_id = (int) $_POST['post_id'];
+            $user_id    = get_current_user_id();
+            $favorites  = directorist_get_user_favorites( $user_id );
 
-            $post_id = (int) $_POST['post_id'];
+			if ( in_array( $listing_id, $favorites ) ) {
+				directorist_delete_user_favorites( $user_id, $listing_id );
+			} else {
+				directorist_add_user_favorites( $user_id, $listing_id );
+			}
 
-            $favourites = (array) get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
-
-            if (in_array($post_id, $favourites)) {
-                if (($key = array_search($post_id, $favourites)) !== false) {
-                    unset($favourites[$key]);
-                }
-            } else {
-                $favourites[] = $post_id;
-            }
-
-            $favourites = array_filter($favourites);
-            $favourites = array_values($favourites);
-
-            delete_user_meta(get_current_user_id(), 'atbdp_favourites');
-            update_user_meta(get_current_user_id(), 'atbdp_favourites', $favourites);
-
-            echo the_atbdp_favourites_link($post_id);
+            echo the_atbdp_favourites_link( $listing_id );
 
             wp_die();
         }
@@ -765,297 +818,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 // show error message
             }
             wp_die();
-        }
-
-        public function remove_listing_review()
-        {
-                if ( ! directorist_verify_nonce() ) {
-                    echo __( 'Something is wrong! Please refresh and retry.', 'directorist' );
-                }
-
-                if (!empty($_POST['review_id'])) {
-                    $success = ATBDP()->review->db->delete(absint($_POST['review_id']));
-                    if ($success) {
-                        echo 'success';
-                    } else {
-                        echo 'error';
-                    }
-                }else {
-                    echo 'error';
-                }
-            wp_die();
-        }
-
-
-        public function atbdp_review_pagination_output()
-        {
-            if ( ! directorist_verify_nonce() ) {
-                echo __( 'Something is wrong! Please refresh and retry.', 'directorist' );
-            }
-
-            $msg = '';
-            if (isset($_POST['page'])) {
-                $enable_reviewer_img = get_directorist_option('enable_reviewer_img', 1);
-                $enable_reviewer_content = get_directorist_option('enable_reviewer_content', 1);
-                $review_num = get_directorist_option('review_num', 5);
-                // Sanitize the received page
-                $page = sanitize_text_field($_POST['page']);
-                $listing_id = sanitize_text_field($_POST['listing_id']);
-                $cur_page = $page;
-                $page -= 1;
-                // Set the number of results to display
-                $per_page = $review_num;
-                $previous_btn = true;
-                $next_btn = true;
-                $first_btn = true;
-                $last_btn = true;
-                $start = $page * $per_page;
-                // Query the necessary reviews
-                $reviews = ATBDP()->review->db->get_reviews_by('post_id', (int) $listing_id, $start, $per_page);
-                // At the same time, count the number of queried review
-                $count = ATBDP()->review->db->count(array('post_id' => $listing_id));
-                // Loop into all the posts
-                if (!empty($reviews)) {
-                    foreach ($reviews as $key => $review) :
-                        $author_id = $review->by_user_id;
-                        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-                        $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
-                        $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
-
-                        // Set the desired output into a variable
-                        $msg .= '<div class="directorist-signle-review" id="directorist-single-review-' . $review->id . '">';
-                        $msg .= '<div class="directorist-signle-review__top">';
-                        $msg .= '<div class="directorist-signle-review-avatar-wrap">';
-                        if (!empty($enable_reviewer_img)) {
-                            $msg .= '<div class="directorist-signle-review-avatar">';
-                            if (empty($u_pro_pic)) {
-                                $msg .= $avatar_img;
-                            }
-                            if (!empty($u_pro_pic)) {
-                                $msg .= '<img src="' . esc_url($u_pro_pic[0]) . '" alt="Avatar Image">';
-                            }
-                            $msg .= '</div>';
-                        }
-                        $msg .= '<div class="directorist-signle-review-avatar__info">';
-                        $msg .= '<p>' . esc_html($review->name) . '</p>';
-                        $msg .= '<span class="directorist-signle-review-time">' .
-                            sprintf(__('%s ago', 'directorist'), human_time_diff(strtotime($review->date_created), current_time('timestamp'))) . '</span>';
-                        $msg .= '</div>';
-                        $msg .= '</div>';
-                        $msg .= '<div class="directorist-rated-stars">';
-                        $msg .= ATBDP()->review->print_static_rating($review->rating);
-                        $msg .= '</div>';
-                        $msg .= '</div>';
-                        if( !empty( $enable_reviewer_content ) ) {
-                        $msg .= '<div class="directorist-signle-review__content">';
-                        $msg .= '<p>' . stripslashes(esc_html($review->content)) . '</p>';
-                        $msg .= '</div>';
-                        }
-                        $msg .= '</div>';
-                    endforeach;
-                } else {
-                    $msg .= ' <div class="directorist-alert directorist-alert-info" id="review_notice">
-                                <div class="directorist-alert__content">
-                                    <span class="' . atbdp_icon_type(false) . '-info-circle" aria-hidden="true"></span> ' .
-                                    __('No reviews found. Be the first to post a review !', 'directorist') . '</div>
-                                </div>';
-                }
-                // Optional, wrap the output into a container
-                $msg = "<div class='atbdp-universal-content'>" . $msg . "</div><br class = 'clear' />";
-
-                // This is where the magic happens
-                $no_of_paginations = ceil($count / $per_page);
-                if ($cur_page >= 5) {
-                    $start_loop = $cur_page - 2;
-                    if ($no_of_paginations > $cur_page + 2)
-                        $end_loop = $cur_page + 2;
-                    else if ($cur_page <= $no_of_paginations && $cur_page > $no_of_paginations - 4) {
-                        $start_loop = $no_of_paginations - 4;
-                        $end_loop = $no_of_paginations;
-                    } else {
-                        $end_loop = $no_of_paginations;
-                    }
-                } else {
-                    $start_loop = 1;
-                    if ($no_of_paginations > 5)
-                        $end_loop = 5;
-                    else
-                        $end_loop = $no_of_paginations;
-                }
-
-                $pag_container = '';
-                // Pagination Buttons logic
-                $pag_container .= "
-        <div class='atbdp-universal-pagination'>
-            <ul>";
-
-                if ($previous_btn && $cur_page > 1) {
-                    $pre = $cur_page - 1;
-                    $pag_container .= "<li data-page='$pre' class='atbd-active'><i class='la la-angle-left'></i></li>";
-                } else if ($previous_btn) {
-                    $pag_container .= "<li class='atbd-inactive'><i class='la la-angle-left'></i></li>";
-                }
-                if ($first_btn && $cur_page > 1) {
-                    $first_class = 'atbd-active';
-                } else if ($first_btn) {
-                    $first_class = 'atbd-selected';
-                }
-                $pag_container .= "<li data-page='1' class='" . $first_class . "'>1</li>";
-                for ($i = $start_loop; $i <= $end_loop; $i++) {
-                    if ($i === 1 || $i === $no_of_paginations) continue;
-                    if (($no_of_paginations <= 5) && ($no_of_paginations == $i)) continue;
-                    $dot_ = (int) $cur_page + 2;
-                    $backward = ($cur_page == $no_of_paginations) ? 4 : (($cur_page == $no_of_paginations - 1) ? 3 : 2);
-                    $dot__ = (int) $cur_page - $backward;
-                    // show dot if current page say 'i have some neighbours left form mine'
-                    if ($cur_page > 4) {
-                        if (($dot__ == $i)) {
-                            $jump = $i - 5;
-                            $jump = $jump < 1 ? 1 : $jump;
-                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-back atbd-active' title='" . __('Previous 5 Pages', 'directorist') . "'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-left la_h'></i></li>";
-                        }
-                    }
-                    if ($cur_page == $i) {
-                        $pag_container .= "<li data-page='$i' class = 'atbd-selected' >{$i}</li>";
-                    } else {
-                        $pag_container .= "<li data-page='$i' class='atbd-active'>{$i}</li>";
-                    }
-                    // show dot if current page say 'i have some neighbours right form mine'
-                    if (($cur_page > 4)) {
-                        if (($dot_ == $i)) {
-                            $jump = $i + 5;
-                            $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
-                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up atbd-active' title='" . __('Next 5 Pages', 'directorist') . "'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-right la_h'></i></li>";
-                        }
-                    }
-                    // show dot after first 5
-                    if ((($cur_page == 1) || ($cur_page == 2) || ($cur_page == 3) || ($cur_page == 4)) && ($no_of_paginations > 5)) {
-                        $jump = $i + 5;
-                        $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
-                        if ($i == 5) {
-                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up atbd-active' title='" . __('Next 5 Pages', 'directorist') . "'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-right la_h'></i></li>";
-                        }
-                    }
-                }
-
-
-                if ($last_btn && $cur_page < $no_of_paginations) {
-                    $last_class = 'atbd-active';
-                } else if ($last_btn) {
-                    $last_class = 'atbd-selected';
-                }
-                $pag_container .= "<li data-page='$no_of_paginations' class='" . $last_class . "'>{$no_of_paginations}</li>";
-
-                if ($next_btn && $cur_page < $no_of_paginations) {
-                    $nex = $cur_page + 1;
-                    $pag_container .= "<li data-page='$nex' class='atbd-active'><i class='la la-angle-right'></i></li>";
-                } else if ($next_btn) {
-                    $pag_container .= "<li class='atbd-inactive'><i class='la la-angle-right'></i></li>";
-                }
-
-                $pag_container = $pag_container . "
-            </ul>
-        </div>";
-                // We echo the final output
-                echo '<div class = "atbdp-pagination-content">' . $msg . '</div>';
-                if (!empty($count) && $count > $review_num) {
-                    echo '<div class = "atbdp-pagination-nav">' . $pag_container . '</div>';
-                }
-            }
-            // Always exit to avoid further execution
-            exit();
-        }
-        public function save_listing_review()
-        {
-            if ( ! directorist_verify_nonce() ) {
-                $status = [
-                    'success' => false,
-                    'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' )
-                ];
-                wp_send_json( $status );
-            }
-
-            $guest_review = get_directorist_option('guest_review', 0);
-            $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
-            if ($guest_review && $guest_email) {
-                $string = $guest_email;
-                $explode = explode("@", $string);
-                array_pop($explode);
-                $userName = join('@', $explode);
-                //check if username already exist
-                if (username_exists($userName)) {
-                    $random = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 1, 5);
-                    $userName = $userName . $random;
-                }
-                // Check if user exist by email
-                if (email_exists($guest_email)) {
-                    $data = array(
-                        'error' => __('Email already exists!', 'directorist')
-                    );
-                    echo wp_json_encode($data);
-                    die();
-                } else {
-                    // lets register the user
-                    $reg_errors = new WP_Error;
-                    if (empty($reg_errors->get_error_messages())) {
-                        $password = wp_generate_password(12, false);
-                        $userdata = array(
-                            'user_login' => $userName,
-                            'user_email' => $guest_email,
-                            'user_pass' => $password,
-                        );
-                        $user_id = wp_insert_user($userdata); // return inserted user id or a WP_Error
-                        wp_set_current_user($user_id, $guest_email);
-                        wp_set_auth_cookie($user_id);
-                        do_action('atbdp_user_registration_completed', $user_id);
-                        update_user_meta($user_id, '_atbdp_generated_password', $password);
-                        wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
-                        ATBDP()->email->custom_wp_new_user_notification_email($user_id);
-                    }
-                }
-            }
-            // save the data if nonce is good and data is valid
-
-            if ($this->validate_listing_review()) {
-                $u_name = !empty($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
-                $u_email = !empty($_POST['email']) ? sanitize_email($_POST['email']) : '';
-                $user = wp_get_current_user();
-
-                $post_id = esc_sql( $_POST['post_id'] );
-                $post_id = ( is_numeric( $post_id ) ) ? ( int ) $post_id : 0;
-
-                global $wpdb;
-                $reviews = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}atbdp_review WHERE post_id = {$post_id} LIMIT 1");
-	            $review_id = ( ! empty( $reviews ) && is_array( $reviews ) ) ? $reviews[0]->id : 0;
-
-                $data = array(
-                    'post_id' => absint($_POST['post_id']),
-                    'name' => !empty($user->display_name) ? $user->display_name : $u_name,
-                    'email' => !empty($user->user_email) ? $user->user_email : $u_email,
-                    'content' => !empty( $_POST['content'] ) ? sanitize_textarea_field( $_POST['content'] ) : '',
-                    'rating' => floatval($_POST['rating']),
-                    'by_guest' => !empty($user->ID) ? 0 : 1,
-                    'by_user_id' => !empty($user->ID) ? $user->ID : 0,
-                );
-                $approve_immediately = get_directorist_option('approve_immediately', 1);
-                $review_duplicate = !empty($_POST['review_duplicate']) ? sanitize_text_field($_POST['review_duplicate']) : '';
-                if (empty($approve_immediately)) {
-                    if (empty($review_duplicate)) {
-                        $this->atbdp_send_email_review_to_admin();
-                        send_review_for_approval($data);
-                    }
-                } elseif ($id = ATBDP()->review->db->add($data)) {
-                    $this->atbdp_send_email_review_to_user();
-                    $this->atbdp_send_email_review_to_admin();
-
-                    wp_send_json_success(array( 'id' => $id, 'date' => date(get_option('date_format'))));
-                }
-            } else {
-                echo 'Errors: make sure you wrote something about your review.';
-                // show error message
-            }
-
-            die();
         }
 
         /*
@@ -1210,51 +972,59 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             die();
         }
 
-        public function atbdp_email_admin_report_abuse()
-        {
-
-            // sanitize form values
-            $post_id = (int) $_POST["post_id"];
-            $message = esc_textarea($_POST["message"]);
-
-            // vars
-            $user = wp_get_current_user();
-            $site_name = get_bloginfo('name');
-            $site_url = get_bloginfo('url');
-            $listing_title = get_the_title($post_id);
-            $listing_url = get_permalink($post_id);
+		/**
+		 * Send listing report email to admin.
+		 *
+		 * @param  int $user_id				User who reported.
+		 * @param  int $listing_id			Reported listing.
+		 * @param  string $report_message	Report message.
+		 *
+		 * @return bool
+		 */
+        public function send_listing_report_email_to_admin( $user_id, $listing_id, $report_message ) {
+			$message       = esc_textarea( $report_message );
+			$user          = get_user_by( 'id', $user_id );
+			$site_name     = get_bloginfo( 'name' );
+			$site_url      = get_bloginfo( 'url' );
+			$listing_title = get_the_title( $listing_id );
+			$listing_url   = get_permalink( $listing_id );
 
             $placeholders = array(
-                '{site_name}' => $site_name,
-                '{site_link}' => sprintf('<a href="%s">%s</a>', $site_url, $site_name),
-                '{site_url}' => sprintf('<a href="%s">%s</a>', $site_url, $site_url),
-                '{listing_title}' => $listing_title,
-                '{listing_link}' => sprintf('<a href="%s">%s</a>', $listing_url, $listing_title),
-                '{listing_url}' => sprintf('<a href="%s">%s</a>', $listing_url, $listing_url),
-                '{sender_name}' => $user->display_name,
-                '{sender_email}' => $user->user_email,
-                '{message}' => $message
+                '{site_name}'     => $site_name,
+                '{site_link}'     => sprintf( '<a href="%s">%s</a>', esc_url( $site_url ), $site_name ),
+                '{site_url}'      => sprintf( '<a href="%s">%s</a>', esc_url( $site_url ), $site_url ),
+
+				'{listing_title}' => $listing_title,
+                '{listing_link}'  => sprintf( '<a href="%s">%s</a>', esc_url( $listing_url ), $listing_title ),
+                '{listing_url}'   => sprintf( '<a href="%s">%s</a>', esc_url( $listing_url ), $listing_url ),
+
+				'{sender_name}'   => $user->display_name,
+                '{sender_email}'  => $user->user_email,
+                '{message}'       => $message
             );
-            $send_email = get_directorist_option('admin_email_lists');
 
-            $to = !empty($send_email) ? $send_email : get_bloginfo('admin_email');
+            $admin_email = get_directorist_option( 'admin_email_lists' );
+			if ( ! $admin_email || ! is_email( $admin_email ) ) {
+				$admin_email = get_bloginfo( 'admin_email' );
+			}
 
-            $subject = __('{site_name} Report Abuse via "{listing_title}"', 'directorist');
-            $subject = strtr($subject, $placeholders);
+            $subject = __( '{site_name} Report Abuse via "{listing_title}"', 'directorist' );
+            $subject = strtr( $subject, $placeholders );
 
-            $message = __("Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}", 'directorist');
-            $message = strtr($message, $placeholders);
-            $message = atbdp_email_html($subject, $message);
+            $message = __( "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}", 'directorist' );
+            $message = strtr( $message, $placeholders );
+            $message = atbdp_email_html( $subject, $message );
+
             $headers = "From: {$user->display_name} <{$user->user_email}>\r\n";
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
-            // return true or false, based on the result
-            return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
+            return ATBDP()->email->send_mail( $admin_email, $subject, $message, $headers );
         }
 
-        public function ajax_callback_report_abuse()
-        {
-            $data = array('error' => 0);
+        public function ajax_callback_report_abuse() {
+            $data = array(
+				'error' => 0
+			);
 
             if ( ! directorist_verify_nonce() ) {
                 $data['error'] = 1;
@@ -1263,18 +1033,36 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 wp_send_json( $data );
             }
 
-            if ($this->atbdp_email_admin_report_abuse()) {
+			$listing_id = ! empty( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+			$message    = ! empty( $_POST['message'] ) ? trim( $_POST['message'] ) : '';
 
-                $data['message'] = __('Your message sent successfully.', 'directorist');
-            } else {
+			if ( empty( $listing_id ) || get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+				$data['error'] = 1;
+                $data['message'] = __( 'Trying to report invalid listing.', 'directorist' );
 
-                $data['error'] = 1;
-                $data['message'] = __('Sorry! Please try again.', 'directorist');
+				wp_send_json( $data );
+			}
+
+			if ( empty( $message ) ) {
+				$data['error'] = 1;
+                $data['message'] = __( 'Report message cannot be empty.', 'directorist' );
+
+				wp_send_json( $data );
+			}
+
+			$mail_sent = $this->send_listing_report_email_to_admin( get_current_user_id(), $listing_id, $message );
+            if ( ! $mail_sent ) {
+				$data['error'] = 1;
+                $data['message'] = __( 'Sorry! Please try again.', 'directorist' );
+
+				wp_send_json( $data );
             }
 
+			$data['message'] = __('Your message sent successfully.', 'directorist');
 
-            echo wp_json_encode($data);
-            wp_die();
+			do_action( 'directorist_listing_reported', $listing_id );
+
+			wp_send_json( $data );
         }
 
         /**

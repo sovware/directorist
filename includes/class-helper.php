@@ -27,7 +27,6 @@ class Helper {
 		return get_term_meta( $directory_type, $term_key, true );
 	}
 
-
 	/**
 	 * Get first wp error message
 	 *
@@ -504,28 +503,21 @@ class Helper {
 			$listing_id = get_the_ID();
 		}
 
-		$listing_popular_by = get_directorist_option('listing_popular_by');
-		$average = ATBDP()->review->get_average($listing_id);
-		$average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
-		$view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
-		$view_to_popular = get_directorist_option('views_for_popular');
+		$listing_popular_by         = get_directorist_option( 'listing_popular_by' );
+		$average                    = directorist_get_listing_rating( $listing_id );
+		$average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
+		$view_count                 = directorist_get_listing_views_count( $listing_id );
+		$view_to_popular            = (int) get_directorist_option( 'views_for_popular' );
 
-		if ('average_rating' === $listing_popular_by) {
-			if ($average_review_for_popular <= $average) {
-				return true;
-			}
-		}
-		elseif ('view_count' === $listing_popular_by) {
-			if ((int)$view_count >= (int)$view_to_popular) {
-				return true;
-			}
-		}
-		elseif (($average_review_for_popular <= $average) && ((int)$view_count >= (int)$view_to_popular)) {
+		if ( 'average_rating' === $listing_popular_by && $average_review_for_popular <= $average ) {
+			return true;
+		} elseif ( 'view_count' === $listing_popular_by && $view_count >= $view_to_popular ) {
+			return true;
+		} elseif ( $average_review_for_popular <= $average && $view_count >= $view_to_popular ) {
 			return true;
 		}
-		else {
-			return false;
-		}
+
+		return false;
 	}
 
 	public static function is_featured( $listing_id = '' ) {
@@ -608,7 +600,7 @@ class Helper {
 	}
 
 	public static function is_review_enabled() {
-		return get_directorist_option( 'enable_review', 1 );
+		return directorist_is_review_enabled();
 	}
 
 	public static function new_badge_text() {
@@ -624,6 +616,44 @@ class Helper {
 	public static function featured_badge_text() {
 		_deprecated_function( 'featured_badge_text', '7.1.2', 'Settings::featured_badge_text' );
 		return Settings::featured_badge_text();
+	}
+
+	/**
+	 * Get a list of directories that has custom single listing page enabled and set.
+	 *
+	 * @param  int|null $page_id Optional page id.
+	 *
+	 * @return array
+	 */
+	public static function get_directory_types_with_custom_single_page( $page_id = null ) {
+		$args = array(
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
+			'meta_query' => array(
+				'page_enabled' => array(
+					'key'     => 'enable_single_listing_page',
+					'compare' => '=',
+					'value'   => 1,
+				),
+			),
+		);
+
+		$directory_types = get_terms( $args );
+		if ( empty( $directory_types ) || is_wp_error( $directory_types ) ) {
+			return [];
+		}
+
+		$directory_types = array_filter( $directory_types, static function( $directory_type ) use ( $page_id ) {
+			$selected_page_id = (int) get_term_meta( $directory_type->term_id, 'single_listing_page', true );
+
+			if ( is_null( $page_id ) ) {
+				return $selected_page_id;
+			}
+
+			return ( $selected_page_id === (int) $page_id );
+		} );
+
+		return $directory_types;
 	}
 
 	public static function builder_selected_single_pages() {
@@ -703,6 +733,151 @@ class Helper {
 		>
 		</span>
 		<?php
+	}
+
+	public static function sanitize_query_strings( $url = '' ) {
+		$matches = [];
+		$qs_pattern = '/[?].+/';
+
+		$qs = preg_match( $qs_pattern, $url, $matches );
+		$qs = ( ! empty( $matches ) ) ? ltrim( $matches[0], '?' ) : '';
+		$qs = ( ! empty( $qs ) ) ? '?' . str_replace( '?', '&', $qs ) : '';
+
+		$sanitized_url = preg_replace( $qs_pattern, $qs, $url );
+
+		return $sanitized_url;
+	}
+
+	/**
+	 * Is Rank Math Active
+	 *
+	 * Determines whether Rank Math is active
+	 *
+	 * @return bool True, if in the active plugins list. False, not in the list.
+	 * @since 7.0.8
+	 */
+	public static function is_rankmath_active() {
+		return self::is_plugin_active( 'seo-by-rank-math/rank-math.php' );
+	}
+
+	/**
+	 * Is Yoast Active
+	 *
+	 * Determines whether Yoast is active
+	 *
+	 * @return bool True, if in the active plugins list. False, not in the list.
+	 * @since 7.0.8
+	 */
+	public static function is_yoast_active() {
+		$yoast_free_is_active    = self::is_plugin_active( 'wordpress-seo/wp-seo.php' );
+    	$yoast_premium_is_active = self::is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' );
+
+		return ( $yoast_free_is_active || $yoast_premium_is_active );
+	}
+
+	/**
+	 * Is Plugin Active
+	 *
+	 * Determines whether a plugin is active
+	 *
+	 * @param string $plugin — Path to the plugin file relative to the plugins directory.
+	 * @return bool True, if in the active plugins list. False, not in the list.
+	 * @since 7.0.8
+	 */
+	public static function is_plugin_active( string $plugin = '' ) {
+
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			return false;
+		}
+
+		return is_plugin_active( $plugin );
+	}
+
+	/**
+	 * Validate Date Format
+	 *
+	 * @param string $date Date
+	 * @param string $format Date Format
+	 * @return bool
+	 */
+	public static function validate_date_format( $date, $format = 'Y-m-d h:i:s' ) {
+
+		$d = \DateTime::createFromFormat( $format, $date );
+
+		return $d && $d->format($format) === $date;
+	}
+
+	/**
+	 * Escape Query Strings From URL
+	 *
+	 * @param string $url URL
+	 * @return string URL
+	 */
+	public static function escape_query_strings_from_url( $url = '' ) {
+		$matches = [];
+		$qs_pattern = '/[?].+/';
+
+		$qs = preg_match( $qs_pattern, $url, $matches );
+		$qs = ( ! empty( $matches ) ) ? ltrim( $matches[0], '?' ) : '';
+		$qs = ( ! empty( $qs ) ) ? '?' . str_replace( '?', '&', $qs ) : '';
+
+		$sanitized_url = preg_replace( $qs_pattern, $qs, $url );
+
+		return $sanitized_url;
+	}
+
+	/**
+	 * Get Query String Pattern
+	 *
+	 * @return string String Pattern
+	 */
+	public static function get_query_string_pattern() {
+		return '/\/?[?].+\/?/';
+	}
+
+	/**
+	 * Join Slug To Url
+	 *
+	 * @param string $url
+	 * @param string $slug
+	 *
+	 * @return string URL
+	 */
+	public static function join_slug_to_url( $url = '', $slug = '' ) {
+		if ( empty( $url ) ) {
+			return $url;
+		}
+
+		$query_string = self::get_query_strings_from_url( $url );
+		$query_string = trim( $query_string, '/' );
+
+		$url = preg_replace( self::get_query_string_pattern(), '', $url );
+		$url = rtrim( $url, '/' );
+		$url = "${url}/${slug}/${query_string}";
+
+		return $url;
+	}
+
+	/**
+	 * Extracts Query Strings From URL
+	 *
+	 * @param string $url
+	 *
+	 * @return string Query Strings
+	 */
+	public static function get_query_strings_from_url( $url = '' ) {
+		if ( empty( $url ) ) {
+			return $url;
+		}
+
+		$qs_pattern = self::get_query_string_pattern();
+		$matches = [];
+
+		preg_match( $qs_pattern, $url, $matches );
+
+		$query_strings = ( ! empty( $matches ) ) ? $matches[0] : '';
+
+		return $query_strings;
 	}
 
 }

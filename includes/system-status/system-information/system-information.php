@@ -7,8 +7,8 @@ use Directorist\Helper;
 
 class ATBDP_System_Info
 {
-    public function __construct() { 
-        include_once  ATBDP_INC_DIR . '/system-status/system-information/system-information-template.php'; 
+    public function __construct() {
+        include_once  ATBDP_INC_DIR . '/system-status/system-information/system-information-template.php';
     }
 
     public function get_environment_info() {
@@ -26,7 +26,7 @@ class ATBDP_System_Info
 		if ( function_exists( 'memory_get_usage' ) ) {
 			$wp_memory_limit = max( $wp_memory_limit, $this->directorist_let_to_num( @ini_get( 'memory_limit' ) ) );
 		}
-		
+
 		// User agent
 		$user_agent 	= isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '';
 		$default_role   = get_option( 'default_role' );
@@ -39,7 +39,7 @@ class ATBDP_System_Info
 				'useragent'	=> $user_agent,
 			),
 		) );
-		
+
 		$post_response_body = NULL;
 		$post_response_successful = false;
 		if ( ! is_wp_error( $post_response ) && $post_response['response']['code'] >= 200 && $post_response['response']['code'] < 300 ) {
@@ -193,7 +193,7 @@ class ATBDP_System_Info
 		global $wpdb;
 		return $wpdb->prefix . $table;
     }
-    
+
     /**
 	 * Get array of counts of objects. Orders, products, etc.
 	 *
@@ -244,7 +244,13 @@ class ATBDP_System_Info
 		$available_updates   = get_plugin_updates();
 
 		foreach ( $active_plugins as $plugin ) {
-			$data           = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
+			$plugin_file = trailingslashit( WP_PLUGIN_DIR ) . $plugin;
+
+			if ( ! file_exists( $plugin_file ) ) {
+				continue;
+			}
+
+			$data = get_plugin_data( $plugin_file );
 
 			// convert plugin data to json response format.
 			$active_plugins_data[] = array(
@@ -309,7 +315,7 @@ class ATBDP_System_Info
 			} else {
 				$theme_file = false;
 			}
-			
+
 			if ( ! empty( $theme_file ) ) {
 				$core_version  = self::get_file_version( ATBDP_DIR . 'templates/' . $file );
 				$theme_version = self::get_file_version( $theme_file );
@@ -338,7 +344,7 @@ class ATBDP_System_Info
 
 		return array_merge( $active_theme_info, $parent_theme_info );
     }
-    
+
     /**
 	 * Get latest version of a theme by slug.
      *
@@ -426,7 +432,7 @@ class ATBDP_System_Info
 			'session.use_cookies',
 			'session.use_only_cookies',
 		);
-		
+
 		$dump_php['Version'] = phpversion();
 		foreach ( $php_vars as $setting ) {
 			$dump_php[ $setting ] = ini_get( $setting );
@@ -441,7 +447,7 @@ class ATBDP_System_Info
 	public function _error_reporting() {
 		$levels          = array();
 		$error_reporting = error_reporting();
-	
+
 		$constants = array(
 			'E_ERROR',
 			'E_WARNING',
@@ -460,7 +466,7 @@ class ATBDP_System_Info
 			'E_USER_DEPRECATED',
 			'E_ALL',
 		);
-	
+
 		foreach ( $constants as $level ) {
 			if ( defined( $level ) ) {
 				$c = constant( $level );
@@ -469,10 +475,10 @@ class ATBDP_System_Info
 				}
 			}
 		}
-	
+
 		return $levels;
     }
-    
+
     /**
 	 * Scan the template files.
 	 *
@@ -536,7 +542,7 @@ class ATBDP_System_Info
 
 		return $version;
 	}
-    
+
     /**
      * let_to_num function.
      *
@@ -565,9 +571,9 @@ class ATBDP_System_Info
     }
 
     function directorist_help_tip( $tip ) {
-	
+
         $tip = esc_attr( $tip );
-        
+
         return '<span class="atbdp-help-tip dashicons dashicons-editor-help" title="' . $tip . '"></span>';
     }
 }

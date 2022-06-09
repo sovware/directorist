@@ -232,7 +232,7 @@ function directorist_can_owner_review( $listing_id = null ) {
  * @return bool
  */
 function directorist_can_guest_review() {
-	return ( ! is_user_logged_in() && directorist_is_guest_review_enabled() );
+	return ( directorist_is_guest_review_enabled() && ! is_user_logged_in() );
 }
 
 /**

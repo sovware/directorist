@@ -1,0 +1,128 @@
+.icon-picker{
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.35);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    &__inner{
+        width: 935px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        max-height: 800px;
+        display: flex;
+        overflow: hidden;
+        border-radius: 6px;
+    }
+    &__close{
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: #5A5F7D;
+        color: #fff;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 20px;
+        top: 23px;
+        &:hover{
+            color: #fff;
+        }
+    }
+    &__sidebar{
+        width: 25%;
+        background: #eff0f3;
+        padding: 30px 20px;
+    }
+    &__content{
+        width: 75%;
+        overflow: auto;
+        margin-right: -17px;
+        .icons-group{
+            h4{
+                font-size: 16px;
+                font-weight: 500;
+                color: #272B41;
+                padding: 33px 0 27px 20px;
+                border-bottom: 1px solid #E3E6EF;
+                margin: 0;
+            }
+        }
+        .icons-group-icons{
+            padding: 17px 0 17px 17px;
+            .font-icon-btn{
+                margin: 5px 3px;
+                width: 70px;
+                height: 70px;
+                background: #F4F5F7;
+                border-radius: 5px;
+                font-size: 24px;
+                color: #868EAE;
+                border: 0 none;
+                transition: 0.3s ease;
+                &.cptm-btn-primary{
+                    background: #fff;
+                    color: #272B41;
+                    font-size: 30px;
+                    box-shadow: 0 3px 10px rgba(#272B41, 0.2);
+                    border: 1px solid #E3E6EF;
+                }
+            }
+        }
+    }
+    &__filter{
+        margin-bottom: 30px;
+        label{
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input,
+        select{
+            color: #A1A8C6;
+            font-size: 14px;
+            height: 44px;
+            border: 1px solid #A1A8C6;
+            border-radius: 4px;
+            padding: 0 15px;
+            width: 100%;
+        }
+    }
+
+    &.icon-picker-visible{
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    &__preview{
+
+    }
+    &__preview-icon{
+        font-size: 80px;
+        color: #272B41;
+        display: block !important;
+        text-align: center;
+    }
+    &__preview-info{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+    &__done-btn{
+        display: block !important;
+        width: 100%;
+        margin: 35px 0 0 0 !important;
+    }
+}

@@ -1,11 +1,46 @@
 <template>
-  <!-- <text-field v-bind="$props" @update="$emit('update', $event)" @do-action="$emit( 'do-action', $event )"/> -->
-  <div class="icon-picker" ref="iconPickerElm"></div>
+  <div class="icon-picker-wrap">
+    <div class="cptm-form-group icon-picker-selector">
+      <label for="">Icon</label>
+      <input
+        type="text"
+        placeholder="Click to select icon"
+        class="cptm-form-control"
+      />
+    </div>
+    <div class="icon-picker">
+      <div class="icon-picker__inner">
+        <a href="#" class="icon-picker__close"
+          ><span class="fa-solid fa-xmark"></span
+        ></a>
+        <div class="icon-picker__sidebar">
+          <div class="icon-picker__filter">
+            <label for="">Filter By Name</label>
+            <input type="text" placeholder="Search" />
+          </div>
+          <div class="icon-picker__filter">
+            <label for="">Filter By Icon Pack</label>
+            <select>
+              <option value="fontAwesome">Font Awesome</option>
+              <option value="lineAwesome">Line Awesome</option>
+            </select>
+          </div>
+          <div class="icon-picker__preview" ref="selectedIconWrap"></div>
+          <button class="cptm-btn cptm-btn-primary icon-picker__done-btn">
+            Done
+          </button>
+        </div>
+        <div class="icon-picker__content" ref="iconPickerElm"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import props from "./../../mixins/form-fields/input-field-props";
 import { IconPicker } from "./../../../../lib/icon-picker";
+import fontAwesomeIcons from "./../../../../lib/font-awesome.json";
+import lineAwesomeIcons from "./../../../../lib/line-awesome.json";
 
 export default {
   name: "icon-field",
@@ -17,6 +52,7 @@ export default {
   mounted() {
     let args = {};
     args.container = this.$refs.iconPickerElm;
+    args.selectedIcon = this.$refs.selectedIconWrap;
     args.onSelect = this.onSelectIcon;
     args.icons = this.icons;
     args.value = this.value;
@@ -27,74 +63,13 @@ export default {
     return {
       iconPicker: null,
       icons: {
-        fontAwesome: {
-          label: "Font Awesome",
-          iconTypes: {
-            solid: {
-              label: "Solid",
-              key: "fa-solid",
-            },
-            regular: {
-              label: "Solid",
-              key: "fa-regular",
-            },
-            brand: {
-              label: "Brand",
-              key: "fa-brands",
-            },
-          },
-          icons: [
-            {
-              key: "fa-home",
-              types: ["solid", "regular"],
-            },
-            {
-              key: "fa-car",
-              types: ["solid", "regular"],
-            },
-            {
-              key: "fa-facebook",
-              types: ["brand"],
-            },
-          ],
-        },
-        lineAwesome: {
-          label: "Line Awesome",
-          iconTypes: {
-            solid: {
-              label: "Solid",
-              key: "fa-solid",
-            },
-            regular: {
-              label: "Solid",
-              key: "fa-regular",
-            },
-            brand: {
-              label: "Brand",
-              key: "fa-brands",
-            },
-          },
-          icons: [
-            {
-              key: "la-home",
-              types: ["solid", "regular"],
-            },
-            {
-              key: "la-car",
-              types: ["solid", "regular"],
-            },
-            {
-              key: "la-facebook",
-              types: ["brand"],
-            },
-          ],
-        },
+        fontAwesome: fontAwesomeIcons,
+        lineAwesome: lineAwesomeIcons,
       },
     };
   },
   methods: {
     onSelectIcon(value) {
-      console.log("onSelectIcon", value);
       this.$emit("update", value);
     },
   },

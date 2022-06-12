@@ -654,11 +654,13 @@ class Listings {
 	 * Item found text.
 	 *
 	 * @todo Remove backward compatibility, execute migration for %COUNT%.
+	 * @todo merge update
 	 *
 	 * @return string
 	 */
 	public function item_found_text() {
 		$count = $this->total_count();
+		$count = '<span>' . $count.  '</span>';
 		$title = $this->data['header_title'];
 
 		if ( strpos( $title, '%COUNT%') !== false ) {
@@ -678,11 +680,13 @@ class Listings {
 
 	/**
 	 * Item found text for search result page.
+	 * @todo merge update
 	 *
 	 * @return string
 	 */
 	public function item_found_text_for_search() {
 		$count = $this->total_count();
+		$count = '<span>' . $count.  '</span>';
 		$cat_name = $loc_name = '';
 
 		if ( isset($_GET['in_cat'] ) ) {

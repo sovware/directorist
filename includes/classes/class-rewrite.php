@@ -19,6 +19,9 @@ class ATBDP_Rewrite {
 		if ( $flush_rewrite_rules_on_demand ) {
 			add_action( 'wp_loaded', array( $this, 'flush_rewrite_rules_on_demand' ) );
 		}
+
+		add_action( 'directorist_installed', array( $this, 'flush_rewrite_rules_on_demand' ) );
+		add_action( 'directorist_updated', array( $this, 'flush_rewrite_rules_on_demand' ) );
 	}
 
 	protected function get_pages() {

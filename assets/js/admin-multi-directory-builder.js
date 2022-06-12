@@ -12134,10 +12134,8 @@ var IconPicker = function IconPicker(args) {
     container: null,
     onSelect: null,
     icons: null,
-    selectedIcon: null,
     init: function init() {
       this.container = typeof args.container !== 'undefined' ? args.container : this.container;
-      this.selectedIcon = typeof args.selectedIcon !== 'undefined' ? args.selectedIcon : this.selectedIcon;
       this.onSelect = typeof args.onSelect !== 'undefined' ? args.onSelect : this.onSelect;
       this.icons = typeof args.icons !== 'undefined' ? args.icons : this.icons;
       this.value = typeof args.value === 'string' ? args.value : this.value;
@@ -12146,101 +12144,70 @@ var IconPicker = function IconPicker(args) {
         return;
       }
 
-      this.renderIcons();
+      this.renderMarkup();
+      this.renderIcon();
       this.attachEvents();
     },
-    renderIcons: function renderIcons() {
+    renderIcon: function renderIcon() {
       var markup = '';
-
-      var _this = this;
-
-      var iconButtons = document.querySelectorAll('.font-icon-btn');
-      markup += "<div class=\"cptm-form-group icon-picker-selector\">\n                            <label for=\"\">Icon</label>\n                            <input\n                            type=\"text\"\n                            placeholder=\"Click to select icon\"\n                            class=\"cptm-form-control\"\n                            />\n                        </div>\n                        <div class=\"icon-picker\">\n                            <div class=\"icon-picker__inner\">\n                            <a href=\"#\" class=\"icon-picker__close\"\n                                ><span class=\"fa-solid fa-xmark\"></span\n                            ></a>\n                            <div class=\"icon-picker__sidebar\">\n                                <div class=\"icon-picker__filter\">\n                                    <label for=\"\">Filter By Name</label>\n                                    <input type=\"text\" placeholder=\"Search\" />\n                                </div>\n                                <div class=\"icon-picker__filter\">\n                                    <label for=\"\">Filter By Icon Pack</label>\n                                    <select>\n                                        <option value=\"fontAwesome\">Font Awesome</option>\n                                        <option value=\"lineAwesome\">Line Awesome</option>\n                                    </select>\n                                </div>\n                            ";
-
-      var _iterator = _createForOfIteratorHelper(iconButtons),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var iconButton = _step.value;
-          iconButton.addEventListener('click', function (event) {
-            var iconKey = event.target.getAttribute('data-icon-key');
-            var iconGroupKey = event.target.getAttribute('data-group-key');
-            var iconType = event.target.getAttribute('data-icon-type').split(',');
-
-            var fullIcon = _this.getFullIcon(iconKey, iconGroupKey, iconType[0]);
-
-            markup += "\n                    <div class=\"icon-picker__preview\">\n                        <span class=\"icon-picker__preview-icon ".concat(fullIcon, "\"></span>\n                        <span class=\"icon-picker__preview-info\">\n                            <span class=\"icon-picker__icon-name\">").concat(iconKey, "</span>\n                            <span class=\"icon-picker__action\">Remove</span>\n                        </span>\n                    </div>\n                    ");
-          });
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
 
       for (var _i = 0, _Object$keys = Object.keys(this.icons); _i < _Object$keys.length; _i++) {
         var iconGroupKey = _Object$keys[_i];
-        markup += "<div class=\"icon-picker__content\"><div class=\"icons-group ".concat(iconGroupKey, "\">");
+        markup += "<div class=\"icons-group ".concat(iconGroupKey, "\">");
         markup += "<h4>".concat(this.icons[iconGroupKey].label, "</h4>");
         markup += "<div class=\"icons-group-icons\">";
 
-        var _iterator2 = _createForOfIteratorHelper(this.icons[iconGroupKey].icons),
-            _step2;
+        var _iterator = _createForOfIteratorHelper(this.icons[iconGroupKey].icons),
+            _step;
 
         try {
-          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-            var icon = _step2.value;
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var icon = _step.value;
             var fullIcon = this.getFullIcon(icon.key, iconGroupKey, icon.types[0]);
             var buttonClass = this.value === fullIcon ? 'cptm-btn-primary' : 'cptm-btn-secondery';
             markup += "\n                        <button class=\"font-icon-btn cptm-btn ".concat(buttonClass, " ").concat(fullIcon, "\" data-group-key=\"").concat(iconGroupKey, "\" data-icon-key=\"").concat(icon.key, "\" data-icon-type=\"").concat([icon.types], "\"></button>\n                    ");
           }
         } catch (err) {
-          _iterator2.e(err);
+          _iterator.e(err);
         } finally {
-          _iterator2.f();
+          _iterator.f();
         }
 
-        markup += "</div>";
-        markup += "</div></div></div></div>";
-        markup += "<button class=\"cptm-btn cptm-btn-primary icon-picker__done-btn\">Done</button></div>";
+        markup += "</div></div>";
       }
 
+      this.container.querySelector('#iconsWrapperElm').innerHTML = markup;
+    },
+    renderMarkup: function renderMarkup() {
+      var selectedIcon = this.value.split(" ");
+      var markup = '';
+      markup += "\n            <div class=\"cptm-form-group icon-picker-selector\">\n                <label for=\"\">Icon</label>\n                <input\n                type=\"text\"\n                placeholder=\"Click to select icon\"\n                class=\"cptm-form-control\"\n                value=\"".concat(this.value, "\"\n                />\n            </div>\n            <div class=\"icon-picker\">\n                <div class=\"icon-picker__inner\">\n                    <a href=\"#\" class=\"icon-picker__close\"\n                        ><span class=\"fa-solid fa-xmark\"></span\n                    ></a>\n                    <div class=\"icon-picker__sidebar\">\n                        <div class=\"icon-picker__filter\">\n                            <label for=\"\">Filter By Name</label>\n                            <input type=\"text\" placeholder=\"Search\" />\n                        </div>\n                        <div class=\"icon-picker__filter\">\n                            <label for=\"\">Filter By Icon Pack</label>\n                            <select>\n                                <option value=\"fontAwesome\">Font Awesome</option>\n                                <option value=\"lineAwesome\">Line Awesome</option>\n                            </select>\n                        </div>\n                        <div class=\"icon-picker__preview\">\n                            <span class=\"icon-picker__preview-icon ").concat(this.value, "\"></span>\n                            <span class=\"icon-picker__preview-info\">\n                                <span class=\"icon-picker__icon-name\">").concat(selectedIcon[1], "</span>\n                                <span class=\"icon-picker__action\">Remove</span>\n                            </span>\n                        </div>\n                        <button class=\"cptm-btn cptm-btn-primary icon-picker__done-btn\">Done</button>\n                    </div>\n                    <div class=\"icon-picker__content\">\n                    <div id=\"iconsWrapperElm\"></div>\n                    </div></div>\n                ");
       this.container.innerHTML = markup;
     },
     attachEvents: function attachEvents() {
       var iconButtons = document.querySelectorAll('.font-icon-btn');
       var self = this;
+      console.log(self);
+      iconButtons.forEach(function (elm) {
+        elm.addEventListener('click', function (event) {
+          var iconGroupKey = event.target.getAttribute('data-group-key');
+          var iconKey = event.target.getAttribute('data-icon-key');
+          var iconType = event.target.getAttribute('data-icon-type').split(',');
+          var icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
+          self.container.querySelector('.icon-picker__preview-icon').setAttribute('class', "icon-picker__preview-icon ".concat(icon));
+          self.container.querySelector('.icon-picker__icon-name').innerHTML = iconKey;
+          self.value = icon;
+          self.renderIcon();
+          self.attachEvents();
 
-      var _iterator3 = _createForOfIteratorHelper(iconButtons),
-          _step3;
+          if (typeof self.onSelect === 'function') {
+            self.onSelect(icon);
+          }
 
-      try {
-        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-          var iconButton = _step3.value;
-          iconButton.addEventListener('click', function (event) {
-            var iconGroupKey = event.target.getAttribute('data-group-key');
-            var iconKey = event.target.getAttribute('data-icon-key');
-            var iconType = event.target.getAttribute('data-icon-type').split(',');
-            var icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
-            self.value = icon;
-            self.renderIcons();
-            self.attachEvents();
-
-            if (typeof self.onSelect === 'function') {
-              self.onSelect(icon);
-            }
-
-            searchIcon();
-          });
-        }
-        /* Icon picker modal */
-
-      } catch (err) {
-        _iterator3.e(err);
-      } finally {
-        _iterator3.f();
-      }
+          searchIcon();
+        });
+      });
+      /* Icon picker modal */
 
       var iconPicker = document.querySelector('.icon-picker');
 
@@ -12253,13 +12220,16 @@ var IconPicker = function IconPicker(args) {
       }
 
       document.querySelector('.icon-picker-selector input').addEventListener('click', function () {
-        //self.renderIcons();
+        //self.renderMarkup();
         openModal();
       });
-      document.querySelector('.icon-picker__done-btn').addEventListener('click', closeModal);
+      document.querySelector('.icon-picker__done-btn').addEventListener('click', function () {
+        closeModal();
+        self.container.querySelector('.icon-picker-selector input').value = self.value;
+      });
       document.querySelector('.icon-picker__close').addEventListener('click', closeModal);
       document.body.addEventListener('click', function (e) {
-        if (!e.target.closest('.icon-picker__inner') && !e.target.closest('.icon-picker-selector') && !e.target.closest('.font-icon-btn')) {
+        if (!e.target.closest('.icon-picker__inner') && !e.target.closest('.icon-picker-selector') && !e.target.closest('.icons-group-icons')) {
           closeModal();
         }
       });

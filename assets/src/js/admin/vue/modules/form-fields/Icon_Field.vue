@@ -1,5 +1,8 @@
 <template>
-  <div class="icon-picker-wrap" ref="iconPickerElm"></div>
+  <div>
+    <label>Icon</label>
+    <div class="icon-picker-wrap" ref="iconPickerElm"></div>
+  </div>
 </template>
 
 <script>

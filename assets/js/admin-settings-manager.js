@@ -12115,7 +12115,6 @@ var IconPicker = function IconPicker(args) {
     attachEvents: function attachEvents() {
       var iconButtons = document.querySelectorAll('.font-icon-btn');
       var self = this;
-      console.log(self);
       iconButtons.forEach(function (elm) {
         elm.addEventListener('click', function (event) {
           var iconGroupKey = event.target.getAttribute('data-group-key');
@@ -12124,8 +12123,8 @@ var IconPicker = function IconPicker(args) {
           var icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
           self.container.querySelector('.icon-picker__preview-icon').setAttribute('class', "icon-picker__preview-icon ".concat(icon));
           self.container.querySelector('.icon-picker__icon-name').innerHTML = iconKey;
-          self.value = icon;
-          self.renderIcon();
+          self.value = icon; //self.renderIcon();
+
           self.attachEvents();
 
           if (typeof self.onSelect === 'function') {

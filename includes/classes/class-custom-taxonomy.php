@@ -57,7 +57,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
         public function directorist_bulk_term_update(){
             if( get_option( 'directorist_bulk_term_update_v7_0_3_2' ) ) return;
-        
+
             $terms = [ ATBDP_CATEGORY, ATBDP_LOCATION ];
             foreach( $terms as $term ) {
                 $term_data = get_terms([
@@ -93,7 +93,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                                     update_term_meta( $data->term_id, '_directory_type', [ $old_data ] );
                                 }
                             }
-                            
+
                         }else{
                             update_term_meta( $data->term_id, '_directory_type', [ default_directory_type() ] );
                         }
@@ -162,7 +162,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
             if ( $is_directorist_taxonomy && ! empty( $directory_type_slug ) ) {
                 $url = add_query_arg( 'directory_type', $directory_type_slug, $url );
-            }   
+            }
 
             return $url;
         }
@@ -228,7 +228,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 update_term_meta( $term_id, '_directory_type', array( $default_listing_type ) );
             }
 
-            $icon = !empty( $_POST['category_icon'] ) ? sanitize_text_field($_POST['category_icon']) : ''; 
+            $icon = !empty( $_POST['category_icon'] ) ? sanitize_text_field($_POST['category_icon']) : '';
             update_term_meta($term_id, 'category_icon', $icon );
 
             //UPDATED CATEGORY IMAGE
@@ -406,9 +406,9 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 add_term_meta( $term_id, '_directory_type', array( $default_listing_type ), true );
             }
 
-            $icon = !empty( $_POST['category_icon'] ) ? sanitize_text_field($_POST['category_icon']) : ''; 
+            $icon = !empty( $_POST['category_icon'] ) ? sanitize_text_field($_POST['category_icon']) : '';
             add_term_meta($term_id, 'category_icon', $icon, true);
-            
+
             if (isset($_POST['image']) && '' !== $_POST['image']) {
                 add_term_meta($term_id, 'image', (int)$_POST['image'], true);
             }

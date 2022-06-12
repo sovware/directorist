@@ -1,5 +1,39 @@
+import { IconPicker } from "../../lib/icon-picker";
+import fontAwesome from './../../lib/font-awesome.json';
+import lineAwesome from './../../lib/line-awesome.json';
+
 window.addEventListener('DOMContentLoaded', () => {
     const $ = jQuery;
+
+    // Init Category Icon Picker
+    function initCategoryIconPicker() {
+        const iconPickerContainer = document.querySelector( '.directorist-category-icon-picker' );
+
+        if ( ! iconPickerContainer ) {
+            return;
+        }
+
+        const iconValueElm = document.querySelector( '.category_icon_value' );
+        const iconValue = ( iconValueElm ) ? iconValueElm.value : '';
+
+        const onSelectIcon = function( value ) {
+            iconValueElm.setAttribute( 'value', value );
+        }; 
+
+        let args = {};
+        args.container = iconPickerContainer;
+        args.onSelect = onSelectIcon;
+        args.icons = {
+            fontAwesome,
+            lineAwesome,
+        };
+        args.value = iconValue;
+
+        const iconPicker = new IconPicker( args );
+        iconPicker.init();
+    }
+
+    initCategoryIconPicker();
 
     // Category icon selection
     function selecWithIcon(selected) {

@@ -42,7 +42,6 @@ const IconPicker = (args) => {
             let markup = '';
             markup += `
             <div class="cptm-form-group icon-picker-selector">
-                <label for="">Icon</label>
                 <input
                 type="text"
                 placeholder="Click to select icon"
@@ -86,7 +85,6 @@ const IconPicker = (args) => {
         attachEvents() {
             const iconButtons = document.querySelectorAll('.font-icon-btn');
             const self = this;
-            console.log(self);
             iconButtons.forEach(elm =>{
                 elm.addEventListener('click', function (event) {
                     const iconGroupKey = event.target.getAttribute('data-group-key');

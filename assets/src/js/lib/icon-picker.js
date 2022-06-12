@@ -42,6 +42,7 @@ const IconPicker = (args) => {
             let markup = '';
             markup += `
             <div class="cptm-form-group icon-picker-selector">
+                <span class="directorist-selected-icon ${this.value}"></span>
                 <input
                 type="text"
                 placeholder="Click to select icon"
@@ -85,20 +86,26 @@ const IconPicker = (args) => {
         attachEvents() {
             const iconButtons = document.querySelectorAll('.font-icon-btn');
             const self = this;
+            let icon;
+            //remove active status
+            function removeActiveStatus() {
+                iconButtons.forEach(elm => {
+                    if(elm.classList.contains('cptm-btn-primary')){
+                        elm.classList.remove('cptm-btn-primary');
+                    }
+                })
+            }
             iconButtons.forEach(elm =>{
                 elm.addEventListener('click', function (event) {
+                    event.preventDefault();
                     const iconGroupKey = event.target.getAttribute('data-group-key');
                     const iconKey = event.target.getAttribute('data-icon-key');
                     const iconType = event.target.getAttribute('data-icon-type').split(',');
-                    const icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
+                    icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
+                    removeActiveStatus();
+                    elm.classList.add('cptm-btn-primary');
                     self.container.querySelector('.icon-picker__preview-icon').setAttribute('class', `icon-picker__preview-icon ${icon}`);
                     self.container.querySelector('.icon-picker__icon-name').innerHTML = iconKey;
-                    self.value = icon;
-                    self.renderIcon();
-                    self.attachEvents();
-                    if (typeof self.onSelect === 'function') {
-                        self.onSelect(icon);
-                    }
                     searchIcon();
                 });
             })
@@ -114,12 +121,19 @@ const IconPicker = (args) => {
                 iconPicker.classList.remove('icon-picker-visible');
             }
             document.querySelector('.icon-picker-selector input').addEventListener('click', () => {
-                //self.renderMarkup();
                 openModal();
             });
-            document.querySelector('.icon-picker__done-btn').addEventListener('click', ()=>{
+            document.querySelector('.icon-picker__done-btn').addEventListener('click', (e)=>{
+                e.preventDefault();
                 closeModal();
+                self.value = icon;
+                if (typeof self.onSelect === 'function') {
+                    self.onSelect(icon);
+                }
+                self.renderIcon();
+                self.attachEvents();
                 self.container.querySelector('.icon-picker-selector input').value = self.value;
+                self.container.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon ${self.value}`);
             });
             document.querySelector('.icon-picker__close').addEventListener('click', closeModal)
             document.body.addEventListener('click', (e) => {

@@ -125,3 +125,24 @@
         margin: 35px 0 0 0 !important;
     }
 }
+
+.directorist-type-icon-select{
+    label{
+        font-size: 14px;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+.icon-picker-selector{
+    position: relative;
+    .directorist-selected-icon{
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .cptm-form-control{
+        padding-left: 38px !important;
+    }
+}

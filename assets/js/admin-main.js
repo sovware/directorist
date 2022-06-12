@@ -522,12 +522,12 @@ window.addEventListener('DOMContentLoaded', function () {
   );
   return $elem;
   }
-   $("#category_icon").select2({
+    $("#category_icon").select2({
   placeholder: directorist_admin.i18n_text.icon_choose_text,
   allowClear: true,
   templateResult: selecWithIcon,
   });
-   /* Show and hide manual coordinate input field */
+    /* Show and hide manual coordinate input field */
 
   if (!$('input#manual_coordinate').is(':checked')) {
     $('.directorist-map-coordinates').hide();
@@ -1024,11 +1024,11 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-   if (frame) {
+    if (frame) {
    frame.open();
    return;
   }
-   // Create a new media frame
+    // Create a new media frame
   frame = wp.media({
    title: directorist_admin.i18n_text.upload_cat_image,
    button: {
@@ -1828,7 +1828,7 @@ window.addEventListener('DOMContentLoaded', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -2911,7 +2911,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -3136,9 +3136,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 
 var $ = jQuery;
@@ -3579,7 +3579,7 @@ function convertToSelect2(field) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IconPicker", function() { return IconPicker; });
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -3639,28 +3639,33 @@ var IconPicker = function IconPicker(args) {
     renderMarkup: function renderMarkup() {
       var selectedIcon = this.value.split(" ");
       var markup = '';
-      markup += "\n            <div class=\"cptm-form-group icon-picker-selector\">\n                <input\n                type=\"text\"\n                placeholder=\"Click to select icon\"\n                class=\"cptm-form-control\"\n                value=\"".concat(this.value, "\"\n                />\n            </div>\n            <div class=\"icon-picker\">\n                <div class=\"icon-picker__inner\">\n                    <a href=\"#\" class=\"icon-picker__close\"\n                        ><span class=\"fa-solid fa-xmark\"></span\n                    ></a>\n                    <div class=\"icon-picker__sidebar\">\n                        <div class=\"icon-picker__filter\">\n                            <label for=\"\">Filter By Name</label>\n                            <input type=\"text\" placeholder=\"Search\" />\n                        </div>\n                        <div class=\"icon-picker__filter\">\n                            <label for=\"\">Filter By Icon Pack</label>\n                            <select>\n                                <option value=\"fontAwesome\">Font Awesome</option>\n                                <option value=\"lineAwesome\">Line Awesome</option>\n                            </select>\n                        </div>\n                        <div class=\"icon-picker__preview\">\n                            <span class=\"icon-picker__preview-icon ").concat(this.value, "\"></span>\n                            <span class=\"icon-picker__preview-info\">\n                                <span class=\"icon-picker__icon-name\">").concat(selectedIcon[1], "</span>\n                                <span class=\"icon-picker__action\">Remove</span>\n                            </span>\n                        </div>\n                        <button class=\"cptm-btn cptm-btn-primary icon-picker__done-btn\">Done</button>\n                    </div>\n                    <div class=\"icon-picker__content\">\n                    <div id=\"iconsWrapperElm\"></div>\n                    </div></div>\n                ");
+      markup += "\n            <div class=\"cptm-form-group icon-picker-selector\">\n                <span class=\"directorist-selected-icon ".concat(this.value, "\"></span>\n                <input\n                type=\"text\"\n                placeholder=\"Click to select icon\"\n                class=\"cptm-form-control\"\n                value=\"").concat(this.value, "\"\n                />\n            </div>\n            <div class=\"icon-picker\">\n                <div class=\"icon-picker__inner\">\n                    <a href=\"#\" class=\"icon-picker__close\"\n                        ><span class=\"fa-solid fa-xmark\"></span\n                    ></a>\n                    <div class=\"icon-picker__sidebar\">\n                        <div class=\"icon-picker__filter\">\n                            <label for=\"\">Filter By Name</label>\n                            <input type=\"text\" placeholder=\"Search\" />\n                        </div>\n                        <div class=\"icon-picker__filter\">\n                            <label for=\"\">Filter By Icon Pack</label>\n                            <select>\n                                <option value=\"fontAwesome\">Font Awesome</option>\n                                <option value=\"lineAwesome\">Line Awesome</option>\n                            </select>\n                        </div>\n                        <div class=\"icon-picker__preview\">\n                            <span class=\"icon-picker__preview-icon ").concat(this.value, "\"></span>\n                            <span class=\"icon-picker__preview-info\">\n                                <span class=\"icon-picker__icon-name\">").concat(selectedIcon[1], "</span>\n                                <span class=\"icon-picker__action\">Remove</span>\n                            </span>\n                        </div>\n                        <button class=\"cptm-btn cptm-btn-primary icon-picker__done-btn\">Done</button>\n                    </div>\n                    <div class=\"icon-picker__content\">\n                    <div id=\"iconsWrapperElm\"></div>\n                    </div></div>\n                ");
       this.container.innerHTML = markup;
     },
     attachEvents: function attachEvents() {
       var iconButtons = document.querySelectorAll('.font-icon-btn');
       var self = this;
+      var icon; //remove active status
+
+      function removeActiveStatus() {
+        iconButtons.forEach(function (elm) {
+          if (elm.classList.contains('cptm-btn-primary')) {
+            elm.classList.remove('cptm-btn-primary');
+          }
+        });
+      }
+
       iconButtons.forEach(function (elm) {
         elm.addEventListener('click', function (event) {
+          event.preventDefault();
           var iconGroupKey = event.target.getAttribute('data-group-key');
           var iconKey = event.target.getAttribute('data-icon-key');
           var iconType = event.target.getAttribute('data-icon-type').split(',');
-          var icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
+          icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
+          removeActiveStatus();
+          elm.classList.add('cptm-btn-primary');
           self.container.querySelector('.icon-picker__preview-icon').setAttribute('class', "icon-picker__preview-icon ".concat(icon));
           self.container.querySelector('.icon-picker__icon-name').innerHTML = iconKey;
-          self.value = icon;
-          self.renderIcon();
-          self.attachEvents();
-
-          if (typeof self.onSelect === 'function') {
-            self.onSelect(icon);
-          }
-
           searchIcon();
         });
       });
@@ -3677,12 +3682,21 @@ var IconPicker = function IconPicker(args) {
       }
 
       document.querySelector('.icon-picker-selector input').addEventListener('click', function () {
-        //self.renderMarkup();
         openModal();
       });
-      document.querySelector('.icon-picker__done-btn').addEventListener('click', function () {
+      document.querySelector('.icon-picker__done-btn').addEventListener('click', function (e) {
+        e.preventDefault();
         closeModal();
+        self.value = icon;
+
+        if (typeof self.onSelect === 'function') {
+          self.onSelect(icon);
+        }
+
+        self.renderIcon();
+        self.attachEvents();
         self.container.querySelector('.icon-picker-selector input').value = self.value;
+        self.container.querySelector('.directorist-selected-icon').setAttribute('class', "directorist-selected-icon ".concat(self.value));
       });
       document.querySelector('.icon-picker__close').addEventListener('click', closeModal);
       document.body.addEventListener('click', function (e) {
@@ -3785,8 +3799,7 @@ function _arrayLikeToArray(arr, len) {
   return arr2;
 }
 
-module.exports = _arrayLikeToArray;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3803,8 +3816,7 @@ function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
 }
 
-module.exports = _arrayWithoutHoles;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3830,8 +3842,7 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-module.exports = _defineProperty;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3843,11 +3854,10 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 /***/ (function(module, exports) {
 
 function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
 
-module.exports = _iterableToArray;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3862,8 +3872,7 @@ function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-module.exports = _nonIterableSpread;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3886,8 +3895,7 @@ function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
 }
 
-module.exports = _toConsumableArray;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3901,25 +3909,14 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    module.exports = _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  } else {
-    module.exports = _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  }
-
-  return _typeof(obj);
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
 }
 
-module.exports = _typeof;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3941,8 +3938,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 }
 
-module.exports = _unsupportedIterableToArray;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ })
 

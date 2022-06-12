@@ -130,7 +130,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 				}
 
 				$listings = directorist()->listings;
-				$listings->setup_data( ['shortcode_atts' => $args] );
+				$listings->setup_data( ['shortcode_atts' => $args, 'instant_search' => true ] );
                 $count = $listings->total_count();
 
                 ob_start();

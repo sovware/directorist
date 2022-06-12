@@ -137,7 +137,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 echo $listings->archive_view_template();
                 $search_value = ob_get_clean();
 
-                $directory_type_result = Helper::get_template_contents( 'archive-contents' );;
+                $directory_type_result = Helper::get_template_contents( 'archive-contents' );
 
                 ob_start();
                 echo $listings->archive_view_template();

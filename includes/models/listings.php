@@ -1246,8 +1246,8 @@ class Listings {
 			array_push( $allowed_views, 'listings_with_map' );
 		}
 
-		if ( !empty( $_GET['view'] ) ) {
-			$view = sanitize_text_field( $_GET['view'] );
+		if ( !empty( $_REQUEST['view'] ) ) {
+			$view = sanitize_text_field( $_REQUEST['view'] );
 		} else {
 			$view = $this->data['view'];
 		}

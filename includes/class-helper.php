@@ -116,7 +116,7 @@ class Helper {
 		} else if ( get_query_var( 'page' ) ) {
 			$paged = get_query_var( 'page' );
 		} else {
-			$paged = 1;
+			$paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1;
 		}
 
 		return absint( $paged );

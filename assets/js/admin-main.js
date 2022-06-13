@@ -3691,9 +3691,9 @@ var IconPicker = function IconPicker(args) {
 
         if (typeof self.onSelect === 'function') {
           self.onSelect(icon);
-        }
+        } //self.renderIcon();
 
-        self.renderIcon();
+
         self.attachEvents();
         self.container.querySelector('.icon-picker-selector input').value = self.value;
         self.container.querySelector('.directorist-selected-icon').setAttribute('class', "directorist-selected-icon ".concat(self.value));

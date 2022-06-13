@@ -16553,6 +16553,10 @@ input[type=radio] {
   padding-right: 38px !important;
 }
 
+.directorist-category-icon-picker {
+  margin-top: 10px;
+}
+
 .reset-pseudo-link:visited, .cptm-btn:visited, .cptm-header-nav__list-item-link:visited, .cptm-link-light:visited, .cptm-form-builder-header-action-link:visited, .cptm-sub-nav__item-link:visited, .cptm-header-action-link:visited, .cptm-modal-action-link:visited, .atbdp-nav-link:visited, .reset-pseudo-link:active, .cptm-btn:active, .cptm-header-nav__list-item-link:active, .cptm-link-light:active, .cptm-form-builder-header-action-link:active, .cptm-sub-nav__item-link:active, .cptm-header-action-link:active, .cptm-modal-action-link:active, .atbdp-nav-link:active, .reset-pseudo-link:focus, .cptm-btn:focus, .cptm-header-nav__list-item-link:focus, .cptm-link-light:focus, .cptm-form-builder-header-action-link:focus, .cptm-sub-nav__item-link:focus, .cptm-header-action-link:focus, .cptm-modal-action-link:focus, .atbdp-nav-link:focus {
   outline: none;
   -webkit-box-shadow: none;

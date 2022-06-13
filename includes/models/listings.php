@@ -60,6 +60,8 @@ class Listings {
 	 */
 	public $current_field = '';
 
+	public $instant_search;
+
 	/**
 	 * Constructor.
 	 */
@@ -91,9 +93,12 @@ class Listings {
 		$defaults = [
 			'shortcode_atts' => '',
 			'query_args'     => [],
+			'instant_search' => false,
 		];
 
 		$args = wp_parse_args( $args, $defaults );
+
+		$this->instant_search = $args['instant_search'];
 
 		$this->data  = apply_filters( 'directorist_all_listings_data', $this->build_data( $args['shortcode_atts'] ), $args );
 		$this->query = apply_filters( 'directorist_all_listings_query', $this->build_query( $args['query_args'] ), $args );
@@ -162,7 +167,7 @@ class Listings {
 	 */
 	private function build_query( $query_args ) {
 		if ( empty( $query_args ) ) {
-			$query_args = $this->is_search_result_page() || ! empty( $_GET ) ? $this->parse_search_query_args() : $this->parse_query_args();
+			$query_args = $this->is_search_result_page() || $this->instant_search || ! empty( $_GET ) ? $this->parse_search_query_args() : $this->parse_query_args();
 		} else {
 			$query_args = $query_args;
 		}
@@ -649,11 +654,13 @@ class Listings {
 	 * Item found text.
 	 *
 	 * @todo Remove backward compatibility, execute migration for %COUNT%.
+	 * @todo merge update
 	 *
 	 * @return string
 	 */
 	public function item_found_text() {
 		$count = $this->total_count();
+		$count = '<span>' . $count.  '</span>';
 		$title = $this->data['header_title'];
 
 		if ( strpos( $title, '%COUNT%') !== false ) {
@@ -673,11 +680,13 @@ class Listings {
 
 	/**
 	 * Item found text for search result page.
+	 * @todo merge update
 	 *
 	 * @return string
 	 */
 	public function item_found_text_for_search() {
 		$count = $this->total_count();
+		$count = '<span>' . $count.  '</span>';
 		$cat_name = $loc_name = '';
 
 		if ( isset($_GET['in_cat'] ) ) {
@@ -1246,8 +1255,8 @@ class Listings {
 			array_push( $allowed_views, 'listings_with_map' );
 		}
 
-		if ( !empty( $_GET['view'] ) ) {
-			$view = sanitize_text_field( $_GET['view'] );
+		if ( !empty( $_REQUEST['view'] ) ) {
+			$view = sanitize_text_field( $_REQUEST['view'] );
 		} else {
 			$view = $this->data['view'];
 		}

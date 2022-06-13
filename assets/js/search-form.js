@@ -137,8 +137,7 @@ function setup_dom_observer() {
 
 
 function init() {
-  console.log('Initialize'); // Add custom dropdown toggle button
-
+  // Add custom dropdown toggle button
   selec2_add_custom_dropdown_toggle_button(); // Add custom close button where needed
 
   selec2_add_custom_close_button_if_needed(); // Add custom close button if field contains value on change

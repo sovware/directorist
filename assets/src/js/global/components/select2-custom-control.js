@@ -34,8 +34,6 @@ function setup_dom_observer() {
 // Initialize
 function init() {
 
-    console.log( 'Initialize' );
-
     // Add custom dropdown toggle button
     selec2_add_custom_dropdown_toggle_button();
 

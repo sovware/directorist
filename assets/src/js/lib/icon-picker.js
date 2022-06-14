@@ -38,22 +38,25 @@ const IconPicker = (args) => {
             this.container.querySelector('#iconsWrapperElm').innerHTML = markup;
         },
         renderMarkup() {
-            let selectedIcon = this.value.split(" ");
+            let selectedIcon = this.value ? this.value.split(" ") : ['', 'icon-name'];
             let markup = '';
             markup += `
-            <div class="cptm-form-group icon-picker-selector">
-                <span class="directorist-selected-icon ${this.value}"></span>
-                <input
-                type="text"
-                placeholder="Click to select icon"
-                class="cptm-form-control"
-                value="${this.value}"
-                />
+            <div class="icon-picker-selector">
+                <div class="icon-picker-selector__icon">
+                    <span class="directorist-selected-icon ${this.value}"></span>
+                    <input
+                    type="text"
+                    placeholder="Click to select icon"
+                    class="cptm-form-control"
+                    value="${this.value}" style="${this.value ? 'padding-left: 38px' : '' }"
+                    />
+                </div>
+                <button class="icon-picker-selector__btn">Change Icon</button>
             </div>
             <div class="icon-picker">
                 <div class="icon-picker__inner">
                     <a href="#" class="icon-picker__close"
-                        ><span class="fa-solid fa-xmark"></span
+                        ><span class="fas fa-times"></span
                     ></a>
                     <div class="icon-picker__sidebar">
                         <div class="icon-picker__filter">
@@ -71,7 +74,6 @@ const IconPicker = (args) => {
                             <span class="icon-picker__preview-icon ${this.value}"></span>
                             <span class="icon-picker__preview-info">
                                 <span class="icon-picker__icon-name">${selectedIcon[1]}</span>
-                                <span class="icon-picker__action">Remove</span>
                             </span>
                         </div>
                         <button class="cptm-btn cptm-btn-primary icon-picker__done-btn">Done</button>
@@ -120,18 +122,22 @@ const IconPicker = (args) => {
             function closeModal() {
                 iconPicker.classList.remove('icon-picker-visible');
             }
-            document.querySelector('.icon-picker-selector input').addEventListener('click', () => {
+            document.querySelector('.icon-picker-selector .icon-picker-selector__btn').addEventListener('click', (e) => {
+                e.preventDefault();
                 openModal();
             });
             document.querySelector('.icon-picker__done-btn').addEventListener('click', (e)=>{
                 e.preventDefault();
                 closeModal();
-                self.value = icon;
-                if (typeof self.onSelect === 'function') {
-                    self.onSelect(icon);
+                if(typeof icon !== 'undefined'){
+                    self.value = icon;
+                    if (typeof self.onSelect === 'function') {
+                        self.onSelect(icon);
+                    }
+                    document.querySelector('.icon-picker-selector input').style.paddingLeft = '38px';
                 }
                 //self.renderIcon();
-                self.attachEvents();
+                //self.attachEvents();
                 self.container.querySelector('.icon-picker-selector input').value = self.value;
                 self.container.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon ${self.value}`);
             });

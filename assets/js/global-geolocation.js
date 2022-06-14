@@ -102,8 +102,6 @@ window.addEventListener('DOMContentLoaded', function () {
           var locationInput = document.querySelector('.location-name');
           var get_lat = locationInput.closest('.directorist-search-field').querySelector("#cityLat");
           var get_lng = locationInput.closest('.directorist-search-field').querySelector("#cityLng");
-          console.log(get_lat);
-          console.log(get_lng);
 
           function getLocation() {
             if (navigator.geolocation) {

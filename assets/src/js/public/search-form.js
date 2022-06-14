@@ -787,22 +787,17 @@ import './../global/components/select2-custom-control';
 
                 const syncLatLngData = function (context, event, args) {
                     event.preventDefault();
-
                     const text = $(context).text();
                     const lat = $(context).data('lat');
                     const lon = $(context).data('lon');
                     const _this = event.target;
-
-                    $(_this).closest('.address_result').siblings('#cityLat').val(lat);
-                    $(_this).closest('.address_result').siblings('#cityLng').val(lon);
-
+                    $(_this).closest('.address_result').siblings('input[name="cityLat"]').val(lat);
+                    $(_this).closest('.address_result').siblings('input[name="cityLng"]').val(lon);
                     const inp = $(context)
                         .closest(args.result_list_container)
                         .parent()
                         .find('.directorist-location-js, #address_widget, #q_addressss, .atbdp-search-address');
-
                     inp.val(text);
-
                     $(args.result_list_container).hide();
                 };
 

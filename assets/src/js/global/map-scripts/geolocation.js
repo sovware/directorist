@@ -7,8 +7,6 @@ window.addEventListener('DOMContentLoaded', () => {
                     const locationInput = document.querySelector('.location-name');
                     const get_lat = locationInput.closest('.directorist-search-field').querySelector("#cityLat");
                     const get_lng = locationInput.closest('.directorist-search-field').querySelector("#cityLng");
-                    console.log(get_lat);
-                    console.log(get_lng);
 
                     function getLocation() {
                         if (navigator.geolocation) {

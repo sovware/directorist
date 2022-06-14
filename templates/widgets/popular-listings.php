@@ -72,26 +72,22 @@ if ( !$query->have_posts() ) {
                         <p class="directory_tag">
                             <span class="<?php atbdp_icon_type(true); ?>-tags"></span>
                             <span>
-                                    <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
-                                                            <?php echo esc_html($cats[0]->name); ?>
-                                    </a>
-                                <?php
-                                if ($totalTerm > 1) {
-                                    ?>
-                                    <span class="atbd_cat_popup">  +<?php echo $totalTerm - 1; ?>
-                                        <span class="atbd_cat_popup_wrapper">
-                                                        <?php
-                                                        $output = array();
-                                                        foreach (array_slice($cats, 1) as $cat) {
-                                                            $link = ATBDP_Permalink::atbdp_get_category_page($cat);
-                                                            $space = str_repeat(' ', 1);
-                                                            $output [] = "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
-                                                        } ?>
-                                            <span><?php echo join($output) ?></span>
-                                                    </span>
-                                                </span>
-                                <?php } ?>
-
+                                <span class="atbd_cat_popup_wrapper">
+                                                <?php
+                                                $output = array();
+                                                $counter = 0;
+                                                foreach ( $cats as $cat) {
+                                                    $link = ATBDP_Permalink::atbdp_get_category_page($cat);
+                                                    if($totalTerm > 1) {
+                                                        $space = ( $counter == $totalTerm - 1 ) ? '' : str_repeat(', ', 1) ;
+                                                    }
+                                                    $output [] = "<a href='{$link}'>{$cat->name}<span></span></a>{$space}";
+                                                    $counter = $counter + 1;
+                                                } ?>
+                                    <span>
+                                        <?php echo join($output) ?>
+                                    </span>
+                                </span>
                             </span>
                         </p>
                         <?php

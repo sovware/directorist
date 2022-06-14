@@ -5,8 +5,10 @@ window.addEventListener('DOMContentLoaded', () => {
             if (directorist.i18n_text.select_listing_map === 'google') {
                 (function () {
                     const locationInput = document.querySelector('.location-name');
-                    const get_lat = document.querySelector('#cityLat');
-                    const get_lng = document.querySelector('#cityLng');
+                    const get_lat = locationInput.closest('.directorist-search-field').querySelector("#cityLat");
+                    const get_lng = locationInput.closest('.directorist-search-field').querySelector("#cityLng");
+                    console.log(get_lat);
+                    console.log(get_lng);
 
                     function getLocation() {
                         if (navigator.geolocation) {
@@ -103,24 +105,24 @@ window.addEventListener('DOMContentLoaded', () => {
                     });
                 })();
             } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
-                function displayLocation(position) {
+                function displayLocation(position, event) {
                     const lat = position.coords.latitude;
                     const lng = position.coords.longitude;
+                    const locIcon = event.target;
 
                     $.ajax({
                         url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${lng}&lat=${lat}`,
                         type: 'POST',
                         data: {},
                         success(data) {
-                            $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
-                            $('#cityLat').val(lat);
-                            $('#cityLng').val(lng);
+                            $(locIcon).closest('.directorist-search-field').find('.directorist-location-js, .atbdp-search-address').val(data.display_name);
+                            $(locIcon).closest('.directorist-search-field').find('input[name="cityLat"]').val(lat);
+                            $(locIcon).closest('.directorist-search-field').find('input[name="cityLng"]').val(lng);
                         },
                     });
                 }
-
-                $('.directorist-filter-location-icon').on('click', () => {
-                    navigator.geolocation.getCurrentPosition(displayLocation);
+                $('.directorist-filter-location-icon').on('click', (event) => {
+                    navigator.geolocation.getCurrentPosition((position) => displayLocation(position, event));
                 });
             }
 

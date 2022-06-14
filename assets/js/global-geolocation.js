@@ -100,8 +100,10 @@ window.addEventListener('DOMContentLoaded', function () {
       if (directorist.i18n_text.select_listing_map === 'google') {
         (function () {
           var locationInput = document.querySelector('.location-name');
-          var get_lat = document.querySelector('#cityLat');
-          var get_lng = document.querySelector('#cityLng');
+          var get_lat = locationInput.closest('.directorist-search-field').querySelector("#cityLat");
+          var get_lng = locationInput.closest('.directorist-search-field').querySelector("#cityLng");
+          console.log(get_lat);
+          console.log(get_lng);
 
           function getLocation() {
             if (navigator.geolocation) {
@@ -197,23 +199,26 @@ window.addEventListener('DOMContentLoaded', function () {
           });
         })();
       } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
-        function displayLocation(position) {
+        function displayLocation(position, event) {
           var lat = position.coords.latitude;
           var lng = position.coords.longitude;
+          var locIcon = event.target;
           $.ajax({
             url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
             type: 'POST',
             data: {},
             success: function success(data) {
-              $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
-              $('#cityLat').val(lat);
-              $('#cityLng').val(lng);
+              $(locIcon).closest('.directorist-search-field').find('.directorist-location-js, .atbdp-search-address').val(data.display_name);
+              $(locIcon).closest('.directorist-search-field').find('input[name="cityLat"]').val(lat);
+              $(locIcon).closest('.directorist-search-field').find('input[name="cityLng"]').val(lng);
             }
           });
         }
 
-        $('.directorist-filter-location-icon').on('click', function () {
-          navigator.geolocation.getCurrentPosition(displayLocation);
+        $('.directorist-filter-location-icon').on('click', function (event) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            return displayLocation(position, event);
+          });
         });
       }
     }, 1000);

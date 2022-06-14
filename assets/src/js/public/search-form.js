@@ -791,9 +791,10 @@ import './../global/components/select2-custom-control';
                     const text = $(context).text();
                     const lat = $(context).data('lat');
                     const lon = $(context).data('lon');
+                    const _this = event.target;
 
-                    $('#cityLat').val(lat);
-                    $('#cityLng').val(lon);
+                    $(_this).closest('.address_result').siblings('#cityLat').val(lat);
+                    $(_this).closest('.address_result').siblings('#cityLng').val(lon);
 
                     const inp = $(context)
                         .closest(args.result_list_container)

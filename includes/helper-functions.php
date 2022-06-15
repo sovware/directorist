@@ -6699,12 +6699,12 @@ function the_atbdp_favourites_link( $post_id = 0 ) {
 
         $favourites = directorist_get_user_favorites( get_current_user_id() );
         if ( in_array( $post_id, $favourites ) ) {
-            return '<span class="' . atbdp_icon_type() . '-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
+            return directorist_icon( 'las la-heart', false ) . '<a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         } else {
-            return '<span class="' . atbdp_icon_type() . '-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
+            return directorist_icon( 'las la-heart', false ) . '<a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         }
     } else {
-        return '<a href="javascript:void(0)" class="atbdp-require-login"><span class="' . atbdp_icon_type() . '-heart"></span></a>';
+        return '<a href="javascript:void(0)" class="atbdp-require-login">'.directorist_icon( 'las la-heart', false ).'</a>';
     }
 }
 

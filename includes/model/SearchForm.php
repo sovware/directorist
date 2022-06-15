@@ -328,20 +328,21 @@ class Directorist_Listing_Search_Form {
 		}
 	}
 
-	public function range_slider_data( $data ) {
+	public function range_slider_unit( $data ) {
 		$radius_search_unit = !empty( $data['radius_search_unit'] ) ? $data['radius_search_unit'] : '';
-		if ( 'kilometers' == $radius_search_unit ) {
-			$miles = __( ' Kilometers', 'directorist' );
-		}
-		else {
-			$miles = __( ' Miles', 'directorist' );
-		}
+		$unit = 'kilometers' == $radius_search_unit ? __( 'Kilometers', 'directorist' ) : __( 'Miles', 'directorist' );
+		return $unit;
+	}
 
-		$value = !empty( $_REQUEST['miles'] ) ? $_REQUEST['miles'] : $data['default_radius_distance'];
+	public function range_slider_minValue( $data ){
+		return !empty( $_REQUEST['miles'] ) ? $_REQUEST['miles'] : $data['default_radius_distance'];
+	}
 
+	public function range_slider_data( $data ) {
+		
 		$data = [
-			'miles' => $miles,
-			'minValue' => $value,
+			'miles' => $this->range_slider_unit( $data ),
+			'minValue' => $this->range_slider_minValue( $data ),
 		];
 
 		return json_encode( $data );;

@@ -20,12 +20,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					if ( ! empty( $_GET['registration_status'] ) && true == $_GET['registration_status'] ) {
 						if ( empty( $display_password_reg ) ) {
 							?>
-							<p style="padding: 20px" class="alert-success"></span><?php directorist_icon( 'fa fa-check' ); ?><?php _e(' Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
+							<p style="padding: 20px" class="alert-success"></span><?php directorist_icon( 'las la-check' ); ?><?php _e(' Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
 								<?php printf( __( 'Click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' ); ?>
 							</p>
 						<?php } else { ?>
 							<!--registration succeeded, so show notification -->
-							<p style="padding: 20px" class="alert-success"></span><?php directorist_icon( 'fa fa-check' ); ?><?php _e(' Registration completed. Please check your email for confirmation.', 'directorist'); ?>
+							<p style="padding: 20px" class="alert-success"></span><?php directorist_icon( 'las la-check' ); ?><?php _e(' Registration completed. Please check your email for confirmation.', 'directorist'); ?>
 								<?php printf( __('Or click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' ); ?>
 							</p>
 						<?php
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					?>
 					<!--Registration failed, so show notification.-->
 					<?php if ( isset( $_GET['errors'] ) ) { ?>
-					<p style="padding: 20px" class="alert-danger"><?php directorist_icon( 'fa fa-exclamation-triangle' ); ?> <?php echo wp_kses_post( directorist_get_registration_error_message( $_GET['errors'] ) ); ?></p>
+					<p style="padding: 20px" class="alert-danger"><?php directorist_icon( 'las la-exclamation-triangle' ); ?> <?php echo wp_kses_post( directorist_get_registration_error_message( $_GET['errors'] ) ); ?></p>
 					<?php } ?>
 				</div>
 			</div>

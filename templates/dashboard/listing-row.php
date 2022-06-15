@@ -52,7 +52,7 @@ if ( $query->have_posts() ) {
 			<td>
 				<div class="directorist-actions">
 
-					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist-link-btn"><?php directorist_icon( 'la la-edit' ); ?><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
+					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist-link-btn"><?php directorist_icon( 'las la-edit' ); ?><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
 
 					<div class="directorist-dropdown">
 

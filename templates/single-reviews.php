@@ -30,9 +30,9 @@ Bootstrap::load_walker();
 			<h3><?php printf( '%s <span>%s</span>', strip_tags( get_the_title() ), sprintf( _n( '%s review', '%s reviews', $review_count, 'directorist' ), $review_count ) ); ?></h3>
 
 			<?php if ( directorist_can_current_user_review() || directorist_can_guest_review() ) : ?>
-				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'fa fa-star' ); ?><?php esc_attr_e( 'Write Your Review', 'directorist' ); ?></a>
+				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Write Your Review', 'directorist' ); ?></a>
 			<?php elseif ( ! is_user_logged_in() ) : ?>
-				<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url( array( 'redirect' => get_the_permalink(), 'scope' => 'review' ) ) ); ?>" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'fa fa-star' ); ?><?php esc_attr_e( 'Login to Write Your Review', 'directorist' ); ?></a>
+				<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url( array( 'redirect' => get_the_permalink(), 'scope' => 'review' ) ) ); ?>" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Login to Write Your Review', 'directorist' ); ?></a>
 			<?php endif; ?>
 
 			<?php if ( ! have_comments() ) : ?>
@@ -63,8 +63,8 @@ Bootstrap::load_walker();
 			<?php if ( get_comment_pages_count() > 1 ) : ?>
 			<nav class="directorist-review-content__pagination directorist-pagination">
 				<?php
-				$prev_text = directorist_icon( 'la la-arrow-left', false );
-				$next_text = directorist_icon( 'la la-arrow-right', false );
+				$prev_text = directorist_icon( 'las la-arrow-left', false );
+				$next_text = directorist_icon( 'las la-arrow-right', false );
 				paginate_comments_links( array(
 					'prev_text'    => $prev_text,
 					'next_text'    => $next_text,

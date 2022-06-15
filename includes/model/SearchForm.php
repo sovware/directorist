@@ -330,8 +330,7 @@ class Directorist_Listing_Search_Form {
 
 	public function range_slider_unit( $data ) {
 		$radius_search_unit = !empty( $data['radius_search_unit'] ) ? $data['radius_search_unit'] : '';
-		$unit = 'kilometers' == $radius_search_unit ? __( 'Kilometers', 'directorist' ) : __( 'Miles', 'directorist' );
-		return $unit;
+		return ( 'kilometers' == $radius_search_unit ) ? __( 'Kilometers', 'directorist' ) : __( 'Miles', 'directorist' );
 	}
 
 	public function range_slider_minValue( $data ){

@@ -120,7 +120,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 var $ = jQuery;
 var localized_data = directorist.add_listing_data;
 /**
- * Join Query String
+ * Join Query String 
  *
  * @param string url
  * @param string queryString

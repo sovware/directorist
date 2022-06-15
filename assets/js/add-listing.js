@@ -97,12 +97,15 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../public/components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
-/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
-/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../public/components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
-/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../public/components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../public/components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
+/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_public_components_colorPicker__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
@@ -443,45 +446,6 @@ $(document).ready(function () {
     }
   });
 
-  function setup_form_data(form_data, type, field) {
-    //normal input
-    if (type === 'hidden' || type === 'text' || type === 'number' || type === 'tel' || type === 'email' || type === 'date' || type === 'time' || type === 'url') {
-      form_data.append(field.name, field.value);
-    } //textarea
-
-
-    if ('textarea' === type) {
-      var value = $('#' + field.name + '_ifr').length ? tinymce.get(field.name).getContent() : atbdp_element_value('textarea[name="' + field.name + '"]');
-      form_data.append(field.name, value);
-    } //radio
-
-
-    if ('radio' === type) {
-      form_data.append(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'));
-    } // checkbox
-
-
-    if ('checkbox' === type) {
-      var values = [];
-      var new_field = $('input[name^="' + field.name + '"]:checked');
-
-      if (new_field.length > 1) {
-        new_field.each(function () {
-          var value = $(this).val();
-          values.push(value);
-        });
-        form_data.append(field.name, values);
-      } else {
-        form_data.append(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'));
-      }
-    } //select
-
-
-    if ('select-one' === type) {
-      form_data.append(field.name, atbdp_element_value('select[name="' + field.name + '"]'));
-    }
-  }
-
   function scrollToEl(selector) {
     document.querySelector(selector).scrollIntoView({
       block: 'start',
@@ -534,7 +498,10 @@ $(document).ready(function () {
   var formID = $('#directorist-add-listing-form');
   var on_processing = false;
   var has_media = true;
-  var quick_login_modal__success_callback = null;
+  var quick_login_modal__success_callback = null; // -----------------------------
+  // Submit The Form
+  // -----------------------------
+
   $('body').on('submit', formID, function (e) {
     if (localized_data.is_admin) return;
     e.preventDefault();
@@ -549,70 +516,20 @@ $(document).ready(function () {
     var form_data = new FormData();
     form_data.append('action', 'add_listing_action');
     form_data.append('directorist_nonce', directorist.directorist_nonce);
-    var field_list = [];
-    var field_list2 = [];
     $('.directorist-form-submit__btn').addClass('atbd_loading');
     var fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
-    var frm_element = document.getElementById('directorist-add-listing-form');
-    $.each(fieldValuePairs, function (index, fieldValuePair) {
-      var field__name = fieldValuePair.name;
-      var field = frm_element.querySelector('[name="' + field__name + '"]');
-      var type = field.type;
-      field_list.push({
-        name: field.name
-      }); //array fields
+    var frm_element = document.getElementById('directorist-add-listing-form'); // Append Form Fields Values
 
-      if (field.name.indexOf('[') > -1) {
-        var field_name = field.name.substr(0, field.name.indexOf("["));
-        var ele = $("[name^='" + field_name + "']"); // process tax input
+    for (var _i = 0, _arr = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(fieldValuePairs); _i < _arr.length; _i++) {
+      var field = _arr[_i];
 
-        if ('tax_input' !== field_name) {
-          if (ele.length && ele.length > 1) {
-            ele.each(function (index, value) {
-              var field_type = $(this).attr('type');
-              var name = $(this).attr('name');
-
-              if (field_type === 'radio') {
-                if ($(this).is(':checked')) {
-                  form_data.append(name, $(this).val());
-                }
-              } else if (field_type === 'checkbox') {
-                var new_field = $('input[name^="' + name + '"]:checked');
-
-                if (new_field.length > 1) {
-                  new_field.each(function () {
-                    var name = $(this).attr('name');
-                    var value = $(this).val();
-                    form_data.append(name, value);
-                  });
-                } else {
-                  var name = new_field.attr('name');
-                  var value = new_field.val();
-                  form_data.append(name, value);
-                }
-              } else {
-                var name = $(this).attr('name');
-                var value = $(this).val();
-
-                if (!value) {
-                  value = $(this).attr('data-time');
-                }
-
-                form_data.append(name, value);
-              }
-            });
-          } else {
-            var name = ele.attr('name');
-
-            var _value = ele.val();
-
-            form_data.append(name, _value);
-          }
-        }
-      } else {
-        setup_form_data(form_data, type, field);
+      if ('tax_input' === field.name) {
+        continue;
       }
-    }); // images
+
+      form_data.append(field.name, field.value);
+    } // images
+
 
     if (mediaUploaders.length) {
       var _iterator2 = _createForOfIteratorHelper(mediaUploaders),
@@ -723,9 +640,9 @@ $(document).ready(function () {
       console.log('Form has invalid data');
       console.log(error_count, err_log);
       return;
-    } // on_processing = true;
+    }
 
-
+    on_processing = true;
     $.ajax({
       method: 'POST',
       processData: false,
@@ -1102,6 +1019,46 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
@@ -1125,6 +1082,85 @@ function _defineProperty(obj, key, value) {
 }
 
 module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArray.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+module.exports = _iterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toConsumableArray.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
+
+var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),

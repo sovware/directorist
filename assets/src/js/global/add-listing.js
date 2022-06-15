@@ -338,40 +338,6 @@ $(document).ready(function () {
         }
     });
 
-    function setup_form_data(form_data, type, field) {
-        //normal input
-        if ((type === 'hidden') || (type === 'text') || (type === 'number') || (type === 'tel') || (type === 'email') || (type === 'date') || (type === 'time') || (type === 'url')) {
-            form_data.append(field.name, field.value);
-        }
-        //textarea
-        if ('textarea' === type) {
-            const value = $('#' + field.name + '_ifr').length ? tinymce.get(field.name).getContent() : atbdp_element_value('textarea[name="' + field.name + '"]');
-            form_data.append(field.name, value);
-        }
-        //radio
-        if ('radio' === type) {
-            form_data.append(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'));
-        }
-        // checkbox
-        if ('checkbox' === type) {
-            var values = [];
-            var new_field = $('input[name^="' + field.name + '"]:checked');
-            if (new_field.length > 1) {
-                new_field.each(function () {
-                    var value = $(this).val();
-                    values.push(value);
-                });
-                form_data.append(field.name, values);
-            } else {
-                form_data.append(field.name, atbdp_element_value('input[name="' + field.name + '"]:checked'));
-            }
-        }
-        //select
-        if ('select-one' === type) {
-            form_data.append(field.name, atbdp_element_value('select[name="' + field.name + '"]'));
-        }
-    }
-
     function scrollToEl(selector) {
         document.querySelector(selector).scrollIntoView({
             block: 'start',
@@ -411,6 +377,9 @@ $(document).ready(function () {
     let has_media = true;
     let quick_login_modal__success_callback = null;
 
+    // -----------------------------
+    // Submit The Form
+    // -----------------------------
     $('body').on('submit', formID, function (e) {
         if (localized_data.is_admin) return;
         e.preventDefault();
@@ -425,66 +394,21 @@ $(document).ready(function () {
 
         form_data.append('action', 'add_listing_action');
         form_data.append('directorist_nonce', directorist.directorist_nonce);
-
-        let field_list = [];
-        let field_list2 = [];
+        
         $('.directorist-form-submit__btn').addClass('atbd_loading');
+       
         const fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
         const frm_element = document.getElementById('directorist-add-listing-form');
-        $.each(fieldValuePairs, function (index, fieldValuePair) {
-            const field__name = fieldValuePair.name;
-            const field = frm_element.querySelector('[name="' + field__name + '"]');
-            const type = field.type;
-            field_list.push({
-                name: field.name,
-            });
-            //array fields
-            if (field.name.indexOf('[') > -1) {
-                const field_name = field.name.substr(0, field.name.indexOf("["));
-                const ele = $("[name^='" + field_name + "']");
-                // process tax input
-                if ('tax_input' !== field_name) {
-                    if (ele.length && (ele.length > 1)) {
-                        ele.each(function (index, value) {
-                            const field_type = $(this).attr('type');
-                            var name = $(this).attr('name');
-                            if (field_type === 'radio') {
-                                if ($(this).is(':checked')) {
-                                    form_data.append(name, $(this).val());
-                                }
-                            } else if (field_type === 'checkbox') {
-                                const new_field = $('input[name^="' + name + '"]:checked');
-                                if (new_field.length > 1) {
-                                    new_field.each(function () {
-                                        const name = $(this).attr('name');
-                                        const value = $(this).val();
-                                        form_data.append(name, value);
-                                    });
-                                } else {
-                                    var name = new_field.attr('name');
-                                    var value = new_field.val();
-                                    form_data.append(name, value);
-                                }
-                            } else {
-                                var name = $(this).attr('name');
-                                var value = $(this).val();
-                                if (!value) {
-                                    value = $(this).attr('data-time');
-                                }
-                                form_data.append(name, value);
-                            }
-                        });
-                    } else {
-                        const name = ele.attr('name');
-                        const value = ele.val();
 
-                        form_data.append(name, value);
-                    }
-                }
-            } else {
-                setup_form_data(form_data, type, field);
+        // Append Form Fields Values
+        for ( const field of [ ...fieldValuePairs ] ) {
+
+            if ( 'tax_input' === field.name ) {
+                continue;
             }
-        });
+
+            form_data.append( field.name, field.value );
+        }
 
         // images
         if (mediaUploaders.length) {
@@ -579,7 +503,8 @@ $(document).ready(function () {
             return;
         }
 
-        // on_processing = true;
+        on_processing = true;
+
         $.ajax({
             method: 'POST',
             processData: false,

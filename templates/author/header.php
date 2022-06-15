@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="directorist-author-profile-area">
-	
+
 	<?php do_action( 'directorist_before_author_profile_section' ); ?>
 
 	<div class="directorist-card directorist-author-profile-wrap directorist-mb-40">
@@ -31,9 +31,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<ul class="directorist-author-meta-list">
 
 				<?php if ( $author->review_enabled() ): ?>
-					
+
 					<li class="directorist-author-meta-list__item">
-						<span class="directorist-listing-rating-meta"><?php echo esc_html( $author->rating_count() ); ?><i class="<?php atbdp_icon_type(true); ?>-star"></i></span>
+						<span class="directorist-listing-rating-meta"><?php echo esc_html( $author->rating_count() ); ?><?php directorist_icon( 'las la-star' ); ?></span>
 					</li>
 
 					<li class="directorist-author-meta-list__item directorist-info-meta">

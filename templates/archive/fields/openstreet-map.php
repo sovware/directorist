@@ -59,7 +59,7 @@
 		if ( ! empty( $ls_data['address'] ) ) {
 			if ( ! empty( $display_address_map ) ) { ?>
 				<div class='osm-iw-location'>
-					<span class='<?php echo atbdp_icon_type(); ?>-map-marker'></span>
+					<?php directorist_icon( 'las la-map-marker' ); ?>
 					<a href='./' class='map-info-link'><?php echo $ls_data['address'] ?></a>
 				</div>
 				<?php
@@ -68,7 +68,7 @@
 			if ( ! empty( $display_direction_map ) ) { ?>
 				<div class='osm-iw-get-location'>
 					<a href='http://www.google.com/maps?daddr=<?php echo $ls_data['manual_lat'] . ',' . $ls_data['manual_lng']; ?>' target='_blank'><?php esc_html_e( 'Get Direction', 'directorist' );?></a>
-					<span class='<?php echo atbdp_icon_type(); ?>-arrow-right'></span>
+					<?php directorist_icon( 'las la-arrow-right' ); ?>
 				</div>
 				<?php
 			}

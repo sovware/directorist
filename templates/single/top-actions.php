@@ -18,7 +18,7 @@ $listing = Directorist_Single_Listing::instance();
 
 		<?php if ( $listing->display_back_link() && !$listing->has_redirect_link() ): ?>
 
-		<a href="javascript:history.back()" class="directorist-return-back"><i class="<?php atbdp_icon_type(true); ?>-angle-left"></i> <?php esc_html_e( 'Go Back', 'directorist'); ?></a>
+		<a href="javascript:history.back()" class="directorist-return-back"><?php directorist_icon( 'las la-angle-left' ); ?> <?php esc_html_e( 'Go Back', 'directorist'); ?></a>
 
 	<?php endif; ?>
 
@@ -29,7 +29,7 @@ $listing = Directorist_Single_Listing::instance();
 		<?php endif; ?>
 
 		<a href="<?php echo esc_url( $listing->edit_link() ) ?>" class="directorist-btn directorist-btn-sm directorist-btn-outline-light directorist-signle-listing-top__btn-edit">
-			<span class="<?php atbdp_icon_type(); ?>-edit"></span>
+			<?php directorist_icon( 'las la-edit' ); ?>
 			<?php esc_html_e( 'Edit', 'directorist' ); ?>
 		</a>
 
@@ -37,7 +37,7 @@ $listing = Directorist_Single_Listing::instance();
 
 	<?php elseif( $listing->display_back_link() ): ?>
 
-		<a href="javascript:history.back()" class="directorist-return-back"><i class="<?php atbdp_icon_type(true); ?>-angle-left"></i> <?php esc_html_e( 'Go Back', 'directorist'); ?></a>
+		<a href="javascript:history.back()" class="directorist-return-back"><?php directorist_icon( 'las la-angle-left' ); ?> <?php esc_html_e( 'Go Back', 'directorist'); ?></a>
 
 	<?php endif; ?>
 

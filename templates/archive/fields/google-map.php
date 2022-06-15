@@ -60,14 +60,14 @@
 
 					if ( ! empty( $ls_data['address'] ) ) { ?>
 						<?php if ( ! empty( $display_address_map ) ) { ?>
-							<div class="map_addr"><span class="<?php atbdp_icon_type( true );?>-map-marker"></span> <a href="" class="map-info-link"><?php echo $ls_data['address']; ?></a></div>
+							<div class="map_addr"><?php directorist_icon( 'las la-map-marker' ); ?> <a href="" class="map-info-link"><?php echo $ls_data['address']; ?></a></div>
 							<?php
 						}
 
 						if ( ! empty( $display_direction_map ) ) { ?>
 							<div class="map_get_dir">
 								<a href='http://www.google.com/maps?daddr=<?php echo $ls_data['manual_lat']; ?>,<?php echo $ls_data['manual_lng']; ?>' target='_blank'><?php esc_html_e( 'Get Direction', 'directorist' ); ?></a>
-								<span class="<?php atbdp_icon_type( true );?>-arrow-right"></span>
+								<?php directorist_icon( 'las la-arrow-right' ); ?>
 							</div>
 							<?php
 						}
@@ -79,7 +79,7 @@
 			}
 			?>
 
-			<span class="iw-close-btn"><?php directorist_icon( 'la la-times' ); ?></span>
+			<span class="iw-close-btn"><?php directorist_icon( 'las la-times' ); ?></span>
 		</div>
 		<?php
 	}

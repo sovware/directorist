@@ -22,7 +22,7 @@ $avatar_img = get_avatar($author_id, 32);
 	<div class="directorist-card__header">
 
 		<h4 class="directorist-card__header--title"><?php directorist_icon( $icon );?><?php echo esc_html( $label );?></h4>
-	
+
 	</div>
 
 	<div class="directorist-card__body">
@@ -51,7 +51,7 @@ $avatar_img = get_avatar($author_id, 32);
 				<ul>
 					<?php if ( $address = $listing->author_info( 'address' ) ): ?>
 						<li>
-							<span class="<?php atbdp_icon_type( true );?>-map-marker"></span>
+							<?php directorist_icon( 'las la-map-marker' ); ?>
 							<span class="directorist-single-author-contact-info-text"><?php echo esc_html( $address ); ?></span>
 						</li>
 					<?php endif; ?>
@@ -59,7 +59,7 @@ $avatar_img = get_avatar($author_id, 32);
 
 					<?php if ( $phone = $listing->author_info( 'phone' ) ): ?>
 						<li>
-							<span class="<?php atbdp_icon_type(true);?>-phone"></span>
+							<?php directorist_icon( 'las la-phone' ); ?>
 							<span class="directorist-single-author-contact-info-text">
 								<a href="tel:<?php Helper::formatted_tel( $phone ); ?>"><?php echo esc_html( $phone ); ?></a>
 							</span>
@@ -68,14 +68,14 @@ $avatar_img = get_avatar($author_id, 32);
 
 					<?php if ( $listing->author_display_email() ): ?>
 						<li>
-							<span class="<?php atbdp_icon_type(true);?>-envelope"></span>
+							<?php directorist_icon( 'las la-envelope' ); ?>
 							<span class="directorist-single-author-contact-info-text"><?php echo esc_html( $listing->author_info( 'email' ) ); ?></span>
 						</li>
 					<?php endif; ?>
 
 					<?php if ( $website = $listing->author_info( 'website' ) ): ?>
 						<li>
-							<span class="<?php atbdp_icon_type(true);?>-globe"></span>
+							<?php directorist_icon( 'las la-globe' ); ?>
 							<a href="<?php echo esc_url( $website ); ?>" class="directorist-single-author-contact-info-text"><?php echo esc_url( $website ); ?></a>
 						</li>
 					<?php endif; ?>
@@ -84,20 +84,20 @@ $avatar_img = get_avatar($author_id, 32);
 			</div>
 
 			<?php if ( $listing->author_has_socials() ): ?>
-				
+
 				<ul class="directorist-author-social">
 					<?php
 					if ( $facebook = $listing->author_info( 'facebook' ) ) {
-						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-facebook"></span></a></li>', $facebook);
+						printf( '<li class="directorist-author-social-item"><a target="_blank" href="%s">%s</a></li>', $facebook, directorist_icon( 'lab la-facebook', false ) );
 					}
 					if ( $twitter = $listing->author_info( 'twitter' ) ) {
-						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-twitter"></span></a></li>', $twitter);
+						printf( '<li class="directorist-author-social-item"><a target="_blank" href="%s">%s</a></li>', $twitter, directorist_icon( 'lab la-twitter', false ) );
 					}
 					if ( $linkedin = $listing->author_info( 'linkedin' ) ) {
-						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-linkedin"></span></a></li>', $linkedin);
+						printf( '<li class="directorist-author-social-item"><a target="_blank" href="%s">%s</a></li>', $linkedin, directorist_icon( 'lab la-linkedin', false ) );
 					}
 					if ( $youtube = $listing->author_info( 'youtube' ) ) {
-						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-youtube"></span></a></li>', $youtube);
+						printf( '<li class="directorist-author-social-item"><a target="_blank" href="%s">%s</a></li>', $youtube, directorist_icon( 'lab la-youtube', false ) );
 					}
 					?>
 				</ul>
@@ -105,7 +105,7 @@ $avatar_img = get_avatar($author_id, 32);
 			<?php endif; ?>
 
 			<a class="directorist-btn directorist-btn-primary directorist-btn-sm diretorist-view-profile-btn" href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author_id ); ?>"><?php esc_html_e( 'View Profile', 'directorist' ); ?></a>
-			
+
 		</div>
 	</div>
 

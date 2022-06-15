@@ -172,10 +172,11 @@ trait URI_Helper {
 		// Legacy 'la' support for v1.2.1
 		if ( $prefix == 'la' ) {
 			$filename = str_replace( '-o-', '-', $filename );
-			if ( file_exists( DIRECTORIST_ICON_PATH . $lar_file ) ) {
-				return $lar_file;
-			} elseif ( file_exists( DIRECTORIST_ICON_PATH . $las_file ) ) {
+
+			if ( file_exists( DIRECTORIST_ICON_PATH . $las_file ) ) {
 				return $las_file;
+			} elseif ( file_exists( DIRECTORIST_ICON_PATH . $lar_file ) ) {
+				return $lar_file;
 			} else {
 				return '';
 			}

@@ -14,8 +14,8 @@ if ( empty( $listing->get_cat_list() ) ) {
 
 <div class="directorist-info-item directorist-listing-category">
 
-	<span class="<?php atbdp_icon_type( true );?>-tags"></span>
+	<?php directorist_icon( 'las la-tags' ); ?>
 
 	<span><?php echo $listing->get_cat_list(); ?></span>
-	
+
 </div>

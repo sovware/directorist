@@ -11,7 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="directorist">
     <?php
     if (isset($_GET['login']) && $_GET['login'] == 'failed') {
-        printf('<p class="alert-danger">  <span class="' . atbdp_icon_type() . '-exclamation"></span>%s</p>', __(' Invalid username or password!', 'directorist'));
+		?>
+		<p class="alert-danger"> <?php directorist_icon( 'las la-exclamation' ); ?><?php esc_html_e(' Invalid username or password!', 'directorist');?></p>
+		<?php
     }
     wp_login_form();
     wp_register();

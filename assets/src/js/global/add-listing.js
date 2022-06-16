@@ -402,7 +402,7 @@ $(document).ready(function () {
         // Append Form Fields Values
         for ( const field of fieldValuePairs ) {
 
-            if ( ( 'tax_input' === field.name ) || ( '' === field.value ) ) {
+            if ( '' === field.value ) {
                 continue;
             }
 

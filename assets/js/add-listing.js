@@ -523,7 +523,7 @@ $(document).ready(function () {
       for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
         var field = _step2.value;
 
-        if ('tax_input' === field.name || '' === field.value) {
+        if ('' === field.value) {
           continue;
         }
 

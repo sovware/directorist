@@ -68,7 +68,7 @@ use \Directorist\Helper;
                                     <input type="hidden" name="directorist_reset_password" value="true" />
                                     <button type="submit" class="btn btn-primary" value="<?php esc_attr_e( 'Save', 'directorist' );?>"><?php esc_html_e( 'Save', 'directorist' );?></button>
                                 </p>
-
+                            </form>
                             <?php wp_nonce_field( 'reset_password', 'directorist-reset-password-nonce' );
                                     } else {
                                     ?>

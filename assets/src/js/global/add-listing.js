@@ -397,9 +397,8 @@ $(document).ready(function () {
         
         $('.directorist-form-submit__btn').addClass('atbd_loading');
        
-        const fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
-        const frm_element = document.getElementById('directorist-add-listing-form');
-
+        const fieldValuePairs = $(this).serializeArray();
+        
         // Append Form Fields Values
         for ( const field of fieldValuePairs ) {
 
@@ -449,28 +448,6 @@ $(document).ready(function () {
             }
         }
 
-        // locations
-        const locaitons = $('#at_biz_dir-location').val();
-        if (Array.isArray(locaitons) && locaitons.length) {
-            for (var key in locaitons) {
-                var value = locaitons[key];
-                form_data.append('tax_input[at_biz_dir-location][]', value);
-            }
-        }
-
-        if (typeof locaitons === 'string') {
-            form_data.append('tax_input[at_biz_dir-location][]', locaitons);
-        }
-
-        // tags
-        const tags = $('#at_biz_dir-tags').val();
-        if (tags) {
-            for (var key in tags) {
-                var value = tags[key];
-                form_data.append('tax_input[at_biz_dir-tags][]', value);
-            }
-        }
-
         // categories
         const categories = $('#at_biz_dir-categories').val();
         if (Array.isArray(categories) && categories.length) {
@@ -483,7 +460,16 @@ $(document).ready(function () {
         if (typeof categories === 'string') {
             form_data.append('tax_input[at_biz_dir-category][]', categories);
         }
-        var form_directory_type = frm_element.querySelector('[name="directory_type"]');
+
+        if( form_data.has( 'admin_category_select[]') ) {
+            form_data.delete( 'admin_category_select[]' );
+        }
+
+        if( form_data.has( 'directory_type') ) {
+            form_data.delete( 'directory_type' );
+        }
+
+        var form_directory_type = $(this).querySelector('[name="directory_type"]');
 
         var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.value : '';
         var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;

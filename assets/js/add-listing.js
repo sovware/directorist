@@ -514,8 +514,7 @@ $(document).ready(function () {
     form_data.append('action', 'add_listing_action');
     form_data.append('directorist_nonce', directorist.directorist_nonce);
     $('.directorist-form-submit__btn').addClass('atbd_loading');
-    var fieldValuePairs = $('#directorist-add-listing-form').serializeArray();
-    var frm_element = document.getElementById('directorist-add-listing-form'); // Append Form Fields Values
+    var fieldValuePairs = $(this).serializeArray(); // Append Form Fields Values
 
     var _iterator2 = _createForOfIteratorHelper(fieldValuePairs),
         _step2;
@@ -591,30 +590,6 @@ $(document).ready(function () {
       } finally {
         _iterator3.f();
       }
-    } // locations
-
-
-    var locaitons = $('#at_biz_dir-location').val();
-
-    if (Array.isArray(locaitons) && locaitons.length) {
-      for (var key in locaitons) {
-        var value = locaitons[key];
-        form_data.append('tax_input[at_biz_dir-location][]', value);
-      }
-    }
-
-    if (typeof locaitons === 'string') {
-      form_data.append('tax_input[at_biz_dir-location][]', locaitons);
-    } // tags
-
-
-    var tags = $('#at_biz_dir-tags').val();
-
-    if (tags) {
-      for (var key in tags) {
-        var value = tags[key];
-        form_data.append('tax_input[at_biz_dir-tags][]', value);
-      }
     } // categories
 
 
@@ -631,7 +606,15 @@ $(document).ready(function () {
       form_data.append('tax_input[at_biz_dir-category][]', categories);
     }
 
-    var form_directory_type = frm_element.querySelector('[name="directory_type"]');
+    if (form_data.has('admin_category_select[]')) {
+      form_data.delete('admin_category_select[]');
+    }
+
+    if (form_data.has('directory_type')) {
+      form_data.delete('directory_type');
+    }
+
+    var form_directory_type = $(this).querySelector('[name="directory_type"]');
     var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.value : '';
     var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
     form_data.append('directory_type', directory_type);

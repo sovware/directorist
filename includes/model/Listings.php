@@ -1728,17 +1728,8 @@ class Directorist_Listings {
 		}
 
 		public function data_atts() {
-			$atts = $this->atts;
-
-			$directory_type_qr = ( ! empty( $_GET['directory_type'] ) ) ? $_GET['directory_type'] : '';
-			$directory_type    = ( ! empty( $this->directory_type ) && is_array( $this->directory_type ) ) ? $this->directory_type[0] : $directory_type_qr;
-			$directory_type    = ( ! empty( $directory_type ) ) ? get_term_by( 'slug', $directory_type, ATBDP_DIRECTORY_TYPE ) : null;
-			$directory_type_id = ( ! empty( $directory_type ) && ! is_wp_error( $directory_type ) ) ? $directory_type->term_id : directorist_default_directory();
-			
-			$atts['directory_type_id'] = $directory_type_id;
-
 			// Separates class names with a single space, collates class names for wrapper tag element.
-			echo 'data-atts="' . esc_attr( json_encode( $atts ) ) . '"';
+			echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
 		}
 
 		public function loop_link_attr() {

@@ -492,16 +492,16 @@ $(document).ready(function () {
     }
   }
 
-  var formID = $('#directorist-add-listing-form');
   var on_processing = false;
   var has_media = true;
   var quick_login_modal__success_callback = null; // -----------------------------
   // Submit The Form
   // -----------------------------
 
-  $('body').on('submit', formID, function (e) {
+  $('body').on('submit', '#directorist-add-listing-form', function (e) {
     if (localized_data.is_admin) return;
     e.preventDefault();
+    var $form = $(e.target);
     var error_count = 0;
     var err_log = {};
 
@@ -514,7 +514,7 @@ $(document).ready(function () {
     form_data.append('action', 'add_listing_action');
     form_data.append('directorist_nonce', directorist.directorist_nonce);
     $('.directorist-form-submit__btn').addClass('atbd_loading');
-    var fieldValuePairs = $(this).serializeArray(); // Append Form Fields Values
+    var fieldValuePairs = $form.serializeArray(); // Append Form Fields Values
 
     var _iterator2 = _createForOfIteratorHelper(fieldValuePairs),
         _step2;
@@ -614,7 +614,7 @@ $(document).ready(function () {
       form_data.delete('directory_type');
     }
 
-    var form_directory_type = $("input[name='directory_type']", this).val();
+    var form_directory_type = $form.find("input[name='directory_type']").val();
     var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.value : '';
     var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
     form_data.append('directory_type', directory_type);

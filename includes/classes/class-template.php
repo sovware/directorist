@@ -111,6 +111,8 @@ if (!class_exists('ATBDP_Template')):
 
         /**
          * Display the font awesome rating icons in place of default rating images.
+		 *
+		 * @todo remove this unused method
          *
          * @since 1.0
          * @package ATBDP

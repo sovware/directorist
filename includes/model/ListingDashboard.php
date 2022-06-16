@@ -223,11 +223,15 @@ class Directorist_Listing_Dashboard {
 				$cats          = get_the_terms( $post->ID, ATBDP_CATEGORY );
 				$category      = get_post_meta( $post->ID, '_admin_category_select', true );
 				$category_name = ! empty( $cats ) ? $cats[0]->name : 'Uncategorized';
-				$category_icon = ! empty( $cats ) ? esc_attr( get_cat_icon( $cats[0]->term_id ) ) : atbdp_icon_type() . '-tags';
 				$mark_fav_html = atbdp_listings_mark_as_favourite( $post->ID );
 
-				$icon_type     = substr( $category_icon, 0, 2 );
-				$icon          = ( 'la' === $icon_type ) ? $icon_type . ' ' . $category_icon : 'fa ' . $category_icon;
+
+				if (!empty($cats)) {
+					$cat_icon = get_cat_icon($cats[0]->term_id);
+				}
+				$cat_icon = !empty($cat_icon) ? $cat_icon : 'las la-tags';
+				$icon = directorist_icon( $cat_icon, false );
+
 				$category_link = ! empty( $cats ) ? esc_url( ATBDP_Permalink::atbdp_get_category_page( $cats[0] ) ) : '#';
 				$post_link     = esc_url( get_post_permalink( $post->ID ) );
 

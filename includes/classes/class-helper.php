@@ -19,7 +19,9 @@ if (!class_exists('ATBDP_Helper')) :
             add_action('init', [$this, 'check_req_php_version'], 100);
         }
 
-        // get_default_slider
+		/**
+		 * @todo remove this unused method
+		 */
         public static function get_default_slider($args)
         {
             $gallery_image = '';
@@ -97,7 +99,9 @@ if (!class_exists('ATBDP_Helper')) :
             return $gallery_image;
         }
 
-        // atbdp_thumbnail_card
+		/**
+		 * @todo remove this unused method
+		 */
         public static function atbdp_thumbnail_card($img_src = '', $_args = [])
         {
             $args = apply_filters('atbdp_preview_image_args', $_args);
@@ -431,7 +435,7 @@ if (!class_exists('ATBDP_Helper')) :
             $t = apply_filters('atbdp_unauthorized_access_message', $t);
             ?>
             <div class="notice_wrapper">
-                <div class="directorist-alert directorist-alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $t; ?></div>
+                <div class="directorist-alert directorist-alert-warning"><?php directorist_icon( 'las la-info-circle' ); ?> <?php echo $t; ?></div>
             </div>
             <?php
         }
@@ -456,6 +460,9 @@ if (!class_exists('ATBDP_Helper')) :
 
         /**
          * It outputs category and location related markup for the listing
+		 *
+		 * @todo remove this unused method
+		 *
          * @param WP_Term $cat Listing Category Object
          * @param WP_Term $loc Listing Location Object
          */
@@ -552,7 +559,7 @@ if (!class_exists('ATBDP_Helper')) :
                 <section class="directory_wrapper single_area">
                     <div class="notice_wrapper">
                         <div class="directorist-alert directorist-alert-warning">
-                            <span class="fa fa-info-circle" aria-hidden="true"></span>
+							<?php directorist_icon( 'las la-info-circle' ); ?>
                             <?php _e('Nothing to show!'); ?>
                         </div>
                     </div>
@@ -567,7 +574,7 @@ if (!class_exists('ATBDP_Helper')) :
                 <section class="directory_wrapper single_area">
                     <div class="notice_wrapper">
                         <div class="directorist-alert directorist-alert-warning">
-                            <span class="fa fa-info-circle" aria-hidden="true"></span>
+							<?php directorist_icon( 'las la-info-circle' ); ?>
                             <?php _e( 'You need to be an author to add a listing.', 'directorist' ); ?>
                         </div>
                     </div>
@@ -592,6 +599,9 @@ if (!class_exists('ATBDP_Helper')) :
 
         /**
          * It outputs all categories and locations related markup for the listing
+		 *
+		 * @todo remove this unused method
+		 *
          * @param array $cats [optional] the array of Listing Category Objects
          * @param array $locs [optional] the array of Listing Location Objects
          */

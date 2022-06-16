@@ -712,8 +712,8 @@ if (!function_exists('atbdp_pagination')) {
             'format'    => '?paged=%#%',
             'current'   => max(1, $paged),
             'total'     => $total,
-            'prev_text' => apply_filters('atbdp_pagination_prev_text', '<span class="fa fa-chevron-left"></span>'),
-            'next_text' => apply_filters('atbdp_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
+            'prev_text' => apply_filters('atbdp_pagination_prev_text', directorist_icon( 'fas fa-chevron-left', false )),
+            'next_text' => apply_filters('atbdp_pagination_next_text', directorist_icon( 'fas fa-chevron-right', false )),
         ));
 
         if ($links) {
@@ -5671,8 +5671,8 @@ if (!function_exists('get_cat_icon')) {
 if (!function_exists('atbdp_icon_type')) {
     function atbdp_icon_type($echo = false)
     {
-        $font_type = get_directorist_option('font_type', 'line');
-        $font_type = ('line' === $font_type) ? "la la" : "fa fa";
+		_deprecated_function( 'atbdp_icon_type', '7.3.1', 'directorist_icon' );
+        $font_type = '';
         if ($echo) {
             echo $font_type;
         } else {
@@ -6737,46 +6737,6 @@ function atbdp_get_remove_favourites_page_link($listing_id)
     return $link;
 
 }
-
-
-/**
- * Display the favourites link.
- *
- * @param int $post_id Post ID.
- * @since    4.0
- *
- */
-/*function the_atbdp_favourites_all_listing($post_id = 0)
-{
-
-    if (is_user_logged_in()) {
-
-        if ($post_id == 0) {
-            global $post;
-            $post_id = $post->ID;
-        }
-
-        $favourites = directorist_get_user_favorites( get_current_user_id() );
-        if (in_array($post_id, $favourites)) {
-            echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="' . $post_id . '"><span style="color: red" class="fa fa-heart"></span></a>';
-        } else {
-            echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="' . $post_id . '"><span class="fa fa-heart"></span></a>';
-
-        }
-
-    } else {
-
-        echo '<a href="javascript:void(0)" class="atbdp-require-login"><span class="fa fa-heart"></span></a>';
-
-    }
-
-}*/
-
-/*
- * to get the new badge
- * @return $
- */
-
 
 if (!function_exists('new_badge')) {
     function new_badge()

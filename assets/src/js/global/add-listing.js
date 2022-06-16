@@ -401,9 +401,9 @@ $(document).ready(function () {
         const frm_element = document.getElementById('directorist-add-listing-form');
 
         // Append Form Fields Values
-        for ( const field of [ ...fieldValuePairs ] ) {
+        for ( const field of fieldValuePairs ) {
 
-            if ( 'tax_input' === field.name ) {
+            if ( ( 'tax_input' === field.name ) || ( '' === field.value ) ) {
                 continue;
             }
 

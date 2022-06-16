@@ -614,8 +614,8 @@ $(document).ready(function () {
       form_data.delete('directory_type');
     }
 
-    var form_directory_type = $form.find("input[name='directory_type']").val();
-    var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.value : '';
+    var form_directory_type = $form.find("input[name='directory_type']");
+    var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.val() : '';
     var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
     form_data.append('directory_type', directory_type);
 

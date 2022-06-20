@@ -347,10 +347,6 @@ class Directorist_Listing_Search_Form {
 		return json_encode( $data );;
 	}
 
-	public function load_radius_search_scripts( $data ) {
-		_deprecated_function( 'load_radius_search_scripts', '7.1' );
-	}
-
 	public function get_pricing_type() {
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 		$ptype = !empty( $submission_form_fields['fields']['pricing']['pricing_type'] ) ? $submission_form_fields['fields']['pricing']['pricing_type'] : 'both';
@@ -701,5 +697,13 @@ class Directorist_Listing_Search_Form {
 		$item[ 'label' ] = $taxonomy->name;
 
 		return $item;
+	}
+
+	public function load_radius_search_scripts( $data ) {
+		_deprecated_function( __METHOD__, '7.1' );
+	}
+
+	public function load_map_scripts() {
+		_deprecated_function( __METHOD__, '7.3' );
 	}
 }

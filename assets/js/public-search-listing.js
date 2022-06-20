@@ -389,6 +389,8 @@
       $('.directorist-select2-dropdown-close').click();
       $(el).val(null).trigger('change');
     });
+    searchForm.querySelector("input[name='cityLat']").value = '';
+    searchForm.querySelector("input[name='cityLng']").value = '';
     var irisPicker = searchForm.querySelector("input.wp-picker-clear");
 
     if (irisPicker !== null) {

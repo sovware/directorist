@@ -917,9 +917,9 @@ window.addEventListener('DOMContentLoaded', function () {
     $('.atbd_tagline_moto_field').fadeOut();
   }
 
-  if ($('.directorist-form-pricing-field').hasClass('price-type-price_range')) {
-    $('#price').hide();
-    $('#price_range').show();
+  if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+    $('#price').show();
+    $('#price_range').hide();
   }
 
   $('.directorist_pricing_options label').on('click', function () {
@@ -989,7 +989,7 @@ window.addEventListener('DOMContentLoaded', function () {
   $('.atbd_pricing_options label').on('click', function () {
       const $this = $(this);
       $this.children('input[type=checkbox]').prop('checked') == true
-          ? $(`#${$this.data('option')}`).show()
+          /? $(`#${$this.data('option')}`).show()
           : $(`#${$this.data('option')}`).hide();
       const $sibling = $this.siblings('label');
       $sibling.children('input[type=checkbox]').prop('checked', false);
@@ -1398,14 +1398,13 @@ window.addEventListener('DOMContentLoaded', function () {
 
   function assetsNeedToWorkInVirtualDom() {
     // price range
-    $('#price_range').hide();
-    var pricing = $('#atbd_listing_pricing').val();
 
+    /* $('#price_range').hide();
+    const pricing = $('#atbd_listing_pricing').val();
     if (pricing === 'range') {
-      $('#price').hide();
-      $('#price_range').show();
-    }
-
+        $('#price').hide();
+        $('#price_range').show();
+    } */
     $('.atbd_pricing_options label').on('click', function () {
       var $this = $(this);
       $this.children('input[type=checkbox]').prop('checked') == true ? $("#".concat($this.data('option'))).show() : $("#".concat($this.data('option'))).hide();
@@ -1521,25 +1520,6 @@ var pureScriptTab = function pureScriptTab(selector1) {
 };
 
 pureScriptTab('.directorist_builder--tab');
-window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery;
-  /* Copy shortcodes on click */
-
-  $('body').on('click', '.atbdp_shortcodes', function () {
-    var $this = $(this);
-    var $temp = $('<input>');
-    $('body').append($temp);
-    $temp.val($(this).text()).select();
-    document.execCommand('copy');
-    $temp.remove();
-    $(this).after("<p class='copy-notify' style='color: #32cc6f; margin-top: 5px;'>Copied to clipboard!</p>");
-    setTimeout(function () {
-      $this.siblings('.copy-notify').fadeOut(300, function () {
-        $(this).remove();
-      });
-    }, 3000);
-  });
-});
 
 /***/ }),
 

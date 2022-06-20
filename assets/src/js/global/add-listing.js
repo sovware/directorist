@@ -211,11 +211,9 @@ $(document).ready(function () {
     }
 
     // price range
-    $('#price_range').hide();
-    const is_checked = $('#atbd_listing_pricing').val();
-    if (is_checked === 'range') {
-        $('#price').hide();
-        $('#price_range').show();
+    if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+        $('#price').show();
+        $('#price_range').hide();
     }
     $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
         const $this = $(this);
@@ -394,11 +392,11 @@ $(document).ready(function () {
 
         form_data.append('action', 'add_listing_action');
         form_data.append('directorist_nonce', directorist.directorist_nonce);
-        
+
         $('.directorist-form-submit__btn').addClass('atbd_loading');
-       
+
         const fieldValuePairs = $form.serializeArray();
-        
+
         // Append Form Fields Values
         for ( const field of fieldValuePairs ) {
 
@@ -470,7 +468,7 @@ $(document).ready(function () {
         }
 
         var form_directory_type = $form.find("input[name='directory_type']");
-        
+
         var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.val() : '';
         var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
 

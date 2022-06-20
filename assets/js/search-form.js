@@ -943,6 +943,7 @@ __webpack_require__.r(__webpack_exports__);
         el.value = "";
       });
       searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
+        if (el.getAttribute('name') === "directory_type") return;
         el.value = "";
       });
       searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
@@ -998,7 +999,7 @@ __webpack_require__.r(__webpack_exports__);
 
           if (searchForm) {
             adsFormReset(searchForm);
-            this.closest('.directorist-advanced-filter').querySelector('.directorist-range-slider').setAttribute('data-slider-minvalue', '0');
+            this.closest('.directorist-advanced-filter').querySelector('.directorist-range-slider').setAttribute('data-slider', '{"miles":directorist.i18n_text.Miles,"minValue":"0"}');
           }
         }
 
@@ -1462,6 +1463,37 @@ __webpack_require__.r(__webpack_exports__);
         $(this).find(".directorist-search-field .address_result").css("max-height", "175px");
       }
     });
+    /* When location field is empty we need to hide Radius Search */
+
+    function handleRadiusVisibility() {
+      $('.directorist-location-js').each(function (index, locationDom) {
+        if ($(locationDom).val() === '') {
+          $(locationDom).closest('.directorist-advanced-filter').find('.directorist-advanced-filter__advanced--radius_search').css({
+            display: "none"
+          });
+        } else {
+          $(locationDom).closest('.directorist-advanced-filter').find('.directorist-advanced-filter__advanced--radius_search').css({
+            display: "block"
+          });
+          directorist_callingSlider();
+        }
+      });
+    }
+
+    $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
+      handleRadiusVisibility();
+    }); // DOM Mutation observer
+
+    function initObserver() {
+      var targetNode = document.querySelector('.directorist-location-js');
+      var observer = new MutationObserver(handleRadiusVisibility);
+      observer.observe(targetNode, {
+        attributes: true
+      });
+    }
+
+    initObserver();
+    handleRadiusVisibility();
   });
 })(jQuery);
 

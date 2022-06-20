@@ -961,6 +961,7 @@ __webpack_require__.r(__webpack_exports__);
         el.value = "";
       });
       searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
+        if (el.getAttribute('name') === "directory_type") return;
         el.value = "";
       });
       searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {

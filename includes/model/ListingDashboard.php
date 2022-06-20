@@ -44,9 +44,9 @@ class Directorist_Listing_Dashboard {
 		$data     = array_filter( $_POST, 'sanitize_text_field' ); // sanitization
 		$type     = $data['tab'];
 		$paged    = $data['paged'];
-		$search   = $data['search'];
-		$task     = $data['task'];
-		$taskdata = $data['taskdata'];
+		$search   = !empty( $data['search'] ) ? $data['search'] : '';
+		$task     = !empty( $data['task'] ) ? $data['task'] : '';
+		$taskdata = !empty( $data['taskdata'] ) ? $data['taskdata'] : '';
 
 		if ( $task ) {
 			$this->listing_task( $task, $taskdata );

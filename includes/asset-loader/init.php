@@ -224,12 +224,14 @@ class Asset_Loader {
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_style( 'directorist-font-awesome' );
+			wp_enqueue_style( 'directorist-line-awesome' );
 			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-admin-builder-archive' );
 			wp_enqueue_script( 'directorist-tooltip' );
 		} elseif ( Helper::is_admin_page( 'builder-edit' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_style( 'directorist-font-awesome' );
+			wp_enqueue_style( 'directorist-line-awesome' );
 			wp_enqueue_style( 'directorist-unicons' );
 			wp_enqueue_script( 'directorist-multi-directory-builder' );
 			wp_enqueue_media();

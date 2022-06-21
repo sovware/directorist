@@ -15952,10 +15952,20 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'sections-module',
+  name: "sections-module",
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
   props: {
     sections: {
@@ -15963,24 +15973,24 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     },
     container: {
       type: String,
-      default: ''
+      default: ""
     },
     menuKey: {
       type: String,
-      default: ''
+      default: ""
     }
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])(['metaKeys', 'fields', 'cached_fields'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])(["metaKeys", "fields", "cached_fields"])), {}, {
     containerClass: function containerClass() {
       return {
-        'tab-wide': 'wide' === this.container ? true : false,
-        'tab-full-width': 'full-width' === this.container ? true : false
+        "tab-wide": "wide" === this.container ? true : false,
+        "tab-full-width": "full-width" === this.container ? true : false
       };
     }
   }),
   watch: {
     fields: function fields() {
-      console.log('updated');
+      console.log("updated");
     }
   },
   methods: {
@@ -15997,20 +16007,20 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     },
     sectionClass: function sectionClass(section) {
       return {
-        'cptm-short-wide': 'short-width' === section.container ? true : false
+        "cptm-short-wide": "short-width" === section.container ? true : false
       };
     },
     sectionTitleAreaClass: function sectionTitleAreaClass(section) {
       return {
-        'directorist-no-header': !section.title && !section.description,
-        'cptm-text-center': 'center' === section.title_align ? true : false
+        "directorist-no-header": !section.title && !section.description,
+        "cptm-text-center": "center" === section.title_align ? true : false
       };
     },
     fieldWrapperClass: function fieldWrapperClass(field_key, field) {
       var _ref;
 
-      var type_class = field && field.type ? 'cptm-field-wraper-type-' + field.type : 'cptm-field-wraper';
-      var key_class = 'cptm-field-wraper-key-' + field_key;
+      var type_class = field && field.type ? "cptm-field-wraper-type-" + field.type : "cptm-field-wraper";
+      var key_class = "cptm-field-wraper-key-" + field_key;
       return _ref = {}, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_ref, type_class, true), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_ref, key_class, true), _ref;
     }
   }
@@ -28181,7 +28191,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
 
   }
@@ -32746,7 +32756,7 @@ var render = function () {
                                   _obj),
                                 attrs: {
                                   root: _vm.fields,
-                                  "field-id": field,
+                                  "field-id": field_key,
                                   id:
                                     _vm.menuKey +
                                     "__" +
@@ -40652,7 +40662,7 @@ var render = function () {
                 },
                 [
                   _vm._v(
-                    "\n            " + _vm._s(alert.message) + "\n        "
+                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
                   ),
                 ]
               )

@@ -3,10 +3,12 @@ window.addEventListener('DOMContentLoaded', () => {
         /* get current location */
         setTimeout(() => {
             if (directorist.i18n_text.select_listing_map === 'google') {
-                (function () {
-                    const locationInput = document.querySelector('.location-name');
-                    const get_lat = document.querySelector('#cityLat');
-                    const get_lng = document.querySelector('#cityLng');
+                let get_loc_btn = $('.directorist-filter-location-icon');
+                $(get_loc_btn).on('click', function (e) {
+                    var _this = e.target.closest('.directorist-filter-location-icon');
+                    const locationInput = $(_this).siblings('.location-name');
+                    const get_lat = $(_this).siblings('#cityLat');
+                    const get_lng = $(_this).siblings('#cityLng');
 
                     function getLocation() {
                         if (navigator.geolocation) {
@@ -101,29 +103,28 @@ window.addEventListener('DOMContentLoaded', () => {
                     $('body').on('click', '.directorist-filter-location-icon', function () {
                         getLocation();
                     });
-                })();
+                });
             } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
-                function displayLocation(position) {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
+                $('.directorist-filter-location-icon').on('click', (e) => {
+                    var _this = e.target.closest('.directorist-filter-location-icon');
 
-                    $.ajax({
-                        url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${lng}&lat=${lat}`,
-                        type: 'POST',
-                        data: {},
-                        success(data) {
-                            $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
-                            $('#cityLat').val(lat);
-                            $('#cityLng').val(lng);
-                        },
-                    });
-                }
-
-                $('.directorist-filter-location-icon').on('click', () => {
+                    function displayLocation(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        $.ajax({
+                            url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${lng}&lat=${lat}`,
+                            type: 'POST',
+                            data: {},
+                            success(data) {
+                                $(_this).siblings('.directorist-location-js, .atbdp-search-address').val(data.display_name);
+                                $(_this).siblings('#cityLat').val(lat);
+                                $(_this).siblings('#cityLng').val(lng);
+                            },
+                        });
+                    }
                     navigator.geolocation.getCurrentPosition(displayLocation);
                 });
             }
-
         }, 1000);
     })(jQuery);
 });

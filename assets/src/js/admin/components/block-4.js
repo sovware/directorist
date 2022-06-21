@@ -38,24 +38,3 @@ const pureScriptTab = selector1 => {
     });
 };
 pureScriptTab('.directorist_builder--tab');
-
-window.addEventListener('DOMContentLoaded', () => {
-    const $ = jQuery;
-    /* Copy shortcodes on click */
-    $('body').on('click', '.atbdp_shortcodes', function () {
-        const $this = $(this);
-        const $temp = $('<input>');
-        $('body').append($temp);
-        $temp.val($(this).text()).select();
-        document.execCommand('copy');
-        $temp.remove();
-        $(this).after(
-            "<p class='copy-notify' style='color: #32cc6f; margin-top: 5px;'>Copied to clipboard!</p>"
-        );
-        setTimeout(function () {
-            $this.siblings('.copy-notify').fadeOut(300, function () {
-                $(this).remove();
-            });
-        }, 3000);
-    });
-});

@@ -118,8 +118,27 @@ function initSelect2AjaxTaxonomy(args) {
     }
 
     [ ...args.selector ].forEach( ( item, index ) => {
-        const parent = $( item ).closest( '.directorist-search-form' );
-        const directory_type_id = parent.find( '.directorist-listing-type-selection__link--current' ).data( 'listing_type_id' );
+        let directory_type_id = 0;
+
+        let search_form_parent  = $( item ).closest( '.directorist-search-form' );
+        let archive_page_parent = $( item ).closest( '.directorist-archive-contents' );
+
+        let nav_list_item = [];
+
+        // If search page
+        if ( search_form_parent.length ) {
+            nav_list_item = search_form_parent.find( '.directorist-listing-type-selection__link--current' );
+        }
+
+        // If archive page
+        if ( archive_page_parent.length ) {
+            nav_list_item = archive_page_parent.find( '.directorist-type-nav__list li.current .directorist-type-nav__link' );
+        }
+
+        // If has nav item
+        if ( nav_list_item.length ) {
+            directory_type_id = ( nav_list_item ) ? nav_list_item.data( 'listing_type_id' ) : 0;
+        }
 
         var currentPage = 1;
         $( item ).select2({

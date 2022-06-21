@@ -1335,8 +1335,8 @@ __webpack_require__.r(__webpack_exports__);
               var autocomplete = new google.maps.places.Autocomplete(elm, field.options);
               google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
-                document.getElementById(field.lat_id).value = place.geometry.location.lat();
-                document.getElementById(field.lng_id).value = place.geometry.location.lng();
+                elm.closest('.directorist-search-field').querySelector("#".concat(field.lat_id)).value = place.geometry.location.lat();
+                elm.closest('.directorist-search-field').querySelector("#".concat(field.lng_id)).value = place.geometry.location.lng();
               });
             });
           };

@@ -683,8 +683,8 @@ import './../global/components/select2-custom-control';
 
                             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                                 const place = autocomplete.getPlace();
-                                document.getElementById(field.lat_id).value = place.geometry.location.lat();
-                                document.getElementById(field.lng_id).value = place.geometry.location.lng();
+                                elm.closest('.directorist-search-field').querySelector(`#${field.lat_id}`).value = place.geometry.location.lat();
+                                elm.closest('.directorist-search-field').querySelector(`#${field.lng_id}`).value = place.geometry.location.lng();
                             });
                         })
                     };

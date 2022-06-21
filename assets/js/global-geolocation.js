@@ -206,6 +206,7 @@ window.addEventListener('DOMContentLoaded', function () {
             data: {},
             success: function success(data) {
               $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
+              $('.directorist-location-js, .atbdp-search-address').attr("data-value", data.display_name);
               $('#cityLat').val(lat);
               $('#cityLng').val(lng);
             }

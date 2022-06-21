@@ -254,6 +254,7 @@ import './../global/components/select2-custom-control';
                 el.value = "";
             });
             searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
+                if(el.getAttribute('name') === "directory_type") return;
                 el.value = "";
             });
             searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
@@ -301,6 +302,7 @@ import './../global/components/select2-custom-control';
                     const searchForm = this.closest('.directorist-advanced-filter').querySelector('.directorist-advanced-filter__form');
                     if (searchForm) {
                         adsFormReset(searchForm);
+                        this.closest('.directorist-advanced-filter').querySelector('.directorist-range-slider').setAttribute('data-slider','{"miles":directorist.i18n_text.Miles,"minValue":"0"}');
                     }
                 }
                 directorist_callingSlider(0);

@@ -351,7 +351,7 @@ import {
             success: function (html) {
                 if (html.directory_type) {
                     $(_this).closest('.directorist-instant-search').replaceWith(html.directory_type);
-                    $(_this).closest('.directorist-instant-search').find.removeClass('atbdp-form-fade');
+                    $(_this).closest('.directorist-instant-search').find( '.atbdp-form-fade' ).removeClass('atbdp-form-fade');
                     window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
                 }
                 let events = [

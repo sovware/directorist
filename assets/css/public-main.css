@@ -3023,7 +3023,7 @@ body.stop-scrolling {
 .directorist-form-social-fields .directorist-form-group select.directorist-form-element {
   padding: 0 20px;
 }
-.directorist-form-social-fields__remove {
+.directorist-form-social-fields .directorist-form-social-fields__remove {
   color: #fff;
   height: 42px;
   background: #e23636;
@@ -14447,6 +14447,9 @@ Review: New Style
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   list-style-type: none;
 }
 .directorist-listing-type-selection .directorist-listing-type-selection__item {

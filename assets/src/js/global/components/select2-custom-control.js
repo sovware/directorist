@@ -7,6 +7,7 @@ setup_dom_observer();
 function setup_dom_observer() {
     // Select the select fields that will be observed for mutations
     let observableItems = {
+        archiveContents: document.querySelectorAll( '.directorist-archive-contents' ),
         searchFormBox: document.querySelectorAll( '.directorist-search-form-box' ),
         selectFields: document.querySelectorAll( '.directorist-select' ),
     };
@@ -32,6 +33,7 @@ function setup_dom_observer() {
 
 // Initialize
 function init() {
+
     // Add custom dropdown toggle button
     selec2_add_custom_dropdown_toggle_button();
 

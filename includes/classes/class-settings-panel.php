@@ -426,6 +426,11 @@ SWBD;
 
 			update_option( 'atbdp_option', $atbdp_options );
 
+            /**
+            * @since 7.3.0
+            */
+            do_action( 'directorist_options_updated' );
+
 			// Send Status
 			$status['options'] = $options;
 			$status['success'] = true;

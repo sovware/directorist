@@ -19,7 +19,8 @@ class ATBDP_Rewrite {
 		if ( $flush_rewrite_rules_on_demand ) {
 			add_action( 'wp_loaded', array( $this, 'flush_rewrite_rules_on_demand' ) );
 		}
-		add_action( 'directorist_page_created', array( $this, 'flush_rewrite_rules_on_demand' ) );
+		add_action( 'directorist_setup_wizard_page_created', array( $this, 'flush_rewrite_rules_on_demand' ) );
+		add_action( 'directorist_options_updated', array( $this, 'flush_rewrite_rules_on_demand' ) );
 	}
 
 	protected function get_pages() {

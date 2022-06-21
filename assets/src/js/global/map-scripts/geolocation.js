@@ -3,49 +3,61 @@ window.addEventListener('DOMContentLoaded', () => {
         /* get current location */
         setTimeout(() => {
             if (directorist.i18n_text.select_listing_map === 'google') {
+                /* Event Delegation in Vanilla JS */
+                function eventDelegation(event, selector, program) {
+                    document.body.addEventListener(event, function (e) {
+                        document.querySelectorAll(selector).forEach(elem => {
+                            if (e.target === elem) {
+                                program(e);
+                            }
+                        })
+                    });
+                }
                 (function () {
-                    const locationInput = document.querySelector('.location-name');
-                    const get_lat = locationInput.closest('.directorist-search-field').querySelector("#cityLat");
-                    const get_lng = locationInput.closest('.directorist-search-field').querySelector("#cityLng");
+                    eventDelegation('click', '.directorist-filter-location-icon span', function (e) {
+                        const locationInput = e.target.closest('.directorist-search-field').querySelector('.location-name');
+                        const get_lat = e.target.closest('.directorist-search-field').querySelector("#cityLat");
+                        const get_lng = e.target.closest('.directorist-search-field').querySelector("#cityLng");
 
-                    function getLocation() {
-                        if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition(showPosition, showError);
-                        } else {
-                            locationInput.value = 'Geolocation is not supported by this browser.';
+                        function getLocation() {
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(showPosition, showError);
+                            } else {
+                                locationInput.value = 'Geolocation is not supported by this browser.';
+                            }
                         }
-                    }
+                        getLocation();
 
-                    function showPosition(position) {
-                        lat = position.coords.latitude;
-                        lon = position.coords.longitude;
-                        displayCurrentLocation(lat, lon);
-                        get_lat.value = lat;
-                        get_lng.value = lon;
-                    }
-
-                    function showError(error) {
-                        switch (error.code) {
-                            case error.PERMISSION_DENIED:
-                                locationInput.value = 'User denied the request for Geolocation.';
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                locationInput.value = 'Location information is unavailable.';
-                                break;
-                            case error.TIMEOUT:
-                                locationInput.value = 'The request to get user location timed out.';
-                                break;
-                            case error.UNKNOWN_ERROR:
-                                locationInput.value = 'An unknown error occurred.';
-                                break;
+                        function showPosition(position) {
+                            lat = position.coords.latitude;
+                            lon = position.coords.longitude;
+                            displayCurrentLocation(lat, lon);
+                            get_lat.value = lat;
+                            get_lng.value = lon;
                         }
-                    }
 
-                    function displayLocation(latitude, longitude) {
-                        let geocoder;
-                        geocoder = new google.maps.Geocoder();
-                        const latlng = new google.maps.LatLng(latitude, longitude);
-                        geocoder.geocode({
+                        function showError(error) {
+                            switch (error.code) {
+                                case error.PERMISSION_DENIED:
+                                    locationInput.value = 'User denied the request for Geolocation.';
+                                    break;
+                                case error.POSITION_UNAVAILABLE:
+                                    locationInput.value = 'Location information is unavailable.';
+                                    break;
+                                case error.TIMEOUT:
+                                    locationInput.value = 'The request to get user location timed out.';
+                                    break;
+                                case error.UNKNOWN_ERROR:
+                                    locationInput.value = 'An unknown error occurred.';
+                                    break;
+                            }
+                        }
+
+                        function displayLocation(latitude, longitude) {
+                            let geocoder;
+                            geocoder = new google.maps.Geocoder();
+                            const latlng = new google.maps.LatLng(latitude, longitude);
+                            geocoder.geocode({
                                 latLng: latlng,
                                 componentRestrictions: {
                                     country: 'GB'
@@ -69,13 +81,13 @@ window.addEventListener('DOMContentLoaded', () => {
                                     locationInput.value = `Geocoder failed due to: ${status}`;
                                 }
                             });
-                    }
+                        }
 
-                    function displayCurrentLocation(latitude, longitude) {
-                        let geocoder;
-                        geocoder = new google.maps.Geocoder();
-                        const latlng = new google.maps.LatLng(latitude, longitude);
-                        geocoder.geocode({
+                        function displayCurrentLocation(latitude, longitude) {
+                            let geocoder;
+                            geocoder = new google.maps.Geocoder();
+                            const latlng = new google.maps.LatLng(latitude, longitude);
+                            geocoder.geocode({
                                 latLng: latlng
                             },
                             function (results, status) {
@@ -96,11 +108,8 @@ window.addEventListener('DOMContentLoaded', () => {
                                     locationInput.value = `Geocoder failed due to: ${status}`;
                                 }
                             });
-                    }
-
-                    $('body').on('click', '.directorist-filter-location-icon', function () {
-                        getLocation();
-                    });
+                        }
+                    })
                 })();
             } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
                 function displayLocation(position, event) {

@@ -1090,7 +1090,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
     $('body').on('click', '.search_listing_types', function (event) {
-      // console.log($('.directorist-search-contents'));
       event.preventDefault();
       var parent = $(this).closest('.directorist-search-contents');
       var listing_type = $(this).attr('data-listing_type');

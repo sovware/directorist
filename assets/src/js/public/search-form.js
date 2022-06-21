@@ -361,7 +361,6 @@ import './../global/components/select2-custom-control';
         Search-form-listing
         ------------------- */
         $('body').on('click', '.search_listing_types', function (event) {
-            // console.log($('.directorist-search-contents'));
             event.preventDefault();
             const parent = $(this).closest('.directorist-search-contents');
             const listing_type = $(this).attr('data-listing_type');

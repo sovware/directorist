@@ -316,12 +316,9 @@ $(document).ready(function () {
   } // price range
 
 
-  $('#price_range').hide();
-  var is_checked = $('#atbd_listing_pricing').val();
-
-  if (is_checked === 'range') {
-    $('#price').hide();
-    $('#price_range').show();
+  if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+    $('#price').show();
+    $('#price_range').hide();
   }
 
   $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {

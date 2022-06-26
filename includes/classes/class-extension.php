@@ -709,7 +709,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			return ['status' => $status];
 		}
 
-		// authenticate_the_customer
+		/**
+		 * Authenticate users as directorist customer.
+		 *
+		 * @return void
+		 */
 		public function authenticate_the_customer() {
 
 			$status = ['success' => true, 'log' => []];

@@ -10783,6 +10783,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 0;
   width: 220px !important;
 }
+#map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .atbdp-map.atbdp-body img,
+#gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .atbdp-map.atbdp-body img {
+  width: 100%;
+}
 #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .media-body,
 #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .media-body {
   padding: 10px 15px;

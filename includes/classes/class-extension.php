@@ -359,7 +359,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				wp_send_json( ['status' => $status] );
 			}
 
-			$plugin_key = ( isset( $_POST['plugin_key'] ) ) ? $_POST['plugin_key'] : '';
+			$plugin_key = ( isset( $_POST['plugin_key'] ) ) ? wp_unslash( $_POST['plugin_key'] ) : '';
 			$status     = $this->update_plugins( ['plugin_key' => $plugin_key] );
 
 			wp_send_json( $status );
@@ -506,8 +506,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				wp_send_json( ['status' => $status] );
 			}
 
-			$task         = ( isset( $_POST['task'] ) ) ? $_POST['task'] : '';
-			$plugin_items = ( isset( $_POST['plugin_items'] ) ) ? $_POST['plugin_items'] : '';
+			$task         = ( isset( $_POST['task'] ) ) ? wp_unslash( $_POST['task'] ) : '';
+			$plugin_items = ( isset( $_POST['plugin_items'] ) ) ? wp_unslash( $_POST['plugin_items'] ) : '';
 
 			// Validation
 			if ( empty( $task ) ) {
@@ -545,7 +545,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// activate_theme
 		public function activate_theme() {
 			$status           = ['success' => true];
-			$theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? $_POST['theme_stylesheet'] : '';
+			$theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? wp_unslash( $_POST['theme_stylesheet'] ) : '';
 
 			if ( ! $this->is_verified_nonce() ) {
 				$status['success'] = false;
@@ -568,7 +568,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// activate_plugin
 		public function activate_plugin() {
 			$status     = ['success' => true];
-			$plugin_key = ( isset( $_POST['item_key'] ) ) ? $_POST['item_key'] : '';
+			$plugin_key = ( isset( $_POST['item_key'] ) ) ? wp_unslash( $_POST['item_key'] ) : '';
 
 			if ( ! $this->is_verified_nonce() ) {
 				$status['success'] = false;
@@ -600,7 +600,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				wp_send_json( ['status' => $status] );
 			}
 
-			$theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? $_POST['theme_stylesheet'] : '';
+			$theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? wp_unslash( $_POST['theme_stylesheet'] ) : '';
 
 			$update_theme_status = $this->update_the_themes( ['theme_stylesheet' => $theme_stylesheet] );
 			wp_send_json( $update_theme_status );
@@ -966,8 +966,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// handle_license_activation_request
 		public function handle_license_activation_request() {
 			$status       = ['success' => true];
-			$license_item = ( isset( $_POST['license_item'] ) ) ? $_POST['license_item'] : '';
-			$product_type = ( isset( $_POST['product_type'] ) ) ? $_POST['product_type'] : '';
+			$license_item = ( isset( $_POST['license_item'] ) ) ? wp_unslash( $_POST['license_item'] ) : '';
+			$product_type = ( isset( $_POST['product_type'] ) ) ? wp_unslash( $_POST['product_type'] ) : '';
 
 			if ( empty( $license_item ) ) {
 				$status['success'] = false;
@@ -1029,8 +1029,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 		// handle_file_install_request_from_subscriptions
 		public function handle_file_install_request_from_subscriptions() {
-			$item_key = ( isset( $_POST['item_key'] ) ) ? $_POST['item_key'] : '';
-			$type     = ( isset( $_POST['type'] ) ) ? $_POST['type'] : '';
+			$item_key = ( isset( $_POST['item_key'] ) ) ? wp_unslash( $_POST['item_key'] ) : '';
+			$type     = ( isset( $_POST['type'] ) ) ? wp_unslash( $_POST['type'] ) : '';
 
 			if ( ! $this->is_verified_nonce() ) {
 				$status            = [];
@@ -1141,8 +1141,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				wp_send_json( ['status' => $status] );
 			}
 
-			$download_item = ( isset( $_POST['download_item'] ) ) ? $_POST['download_item'] : '';
-			$type          = ( isset( $_POST['type'] ) ) ? $_POST['type'] : '';
+			$download_item = ( isset( $_POST['download_item'] ) ) ? wp_unslash( $_POST['download_item'] ) : '';
+			$type          = ( isset( $_POST['type'] ) ) ? wp_unslash( $_POST['type'] ) : '';
 
 			if ( empty( $download_item ) ) {
 				$status['success'] = false;
@@ -1158,7 +1158,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				wp_send_json( ['status' => $status] );
 			}
 
-			if ( 'plugin' !== $type && 'theme' !== $type ) {
+			if ( 'plugin' !== $type || 'theme' !== $type ) {
 				$status['success'] = false;
 				$status['message'] = 'Invalid type';
 
@@ -1217,13 +1217,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			$default = ['url' => '', 'init_wp_filesystem' => true];
 			$args    = array_merge( $default, $args );
 
-			if ( empty( $default ) ) {
-				return $status;
-			}
-
-			if ( empty( $args['url'] ) ) {
+			if ( empty( $args['url'] ) || ! self::is_varified_host( $args['url'] ) ) {
 				$status['success'] = false;
-				$status['message'] = __( 'Download link not found', 'directorist' );
+				$status['message'] = __( 'Invalid download link', 'directorist' );
 
 				return $status;
 			}
@@ -1326,13 +1322,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			$default = ['url' => '', 'init_wp_filesystem' => true];
 			$args    = array_merge( $default, $args );
 
-			if ( empty( $default ) ) {
-				return $status;
-			}
-
-			if ( empty( $args['url'] ) ) {
+			if ( empty( $args['url'] ) || ! self::is_varified_host( $args['url'] ) ) {
 				$status['success'] = false;
-				$status['message'] = __( 'Download link not found', 'directorist' );
+				$status['message'] = __( 'Invalid download link', 'directorist' );
 
 				return $status;
 			}
@@ -1574,7 +1566,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		public function download_purchased_items() {
 			$status = ['success' => true, 'log' => []];
 
-			$cart = ( isset( $_POST['customers_purchased'] ) ) ? $_POST['customers_purchased'] : '';
+			$cart = ( isset( $_POST['customers_purchased'] ) ) ? wp_unslash( $_POST['customers_purchased'] ) : '';
 
 			if ( empty( $cart ) ) {
 				$status['success']                        = false;
@@ -2144,8 +2136,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 		// filter_product_name
 		public static function filter_product_type( $product_type = '' ) {
-			$product_type = ( 'plugins' === $product_type ) ? 'plugin' : $product_type;
-			$product_type = ( 'themes' === $product_type ) ? 'theme' : $product_type;
+			if ( 'plugins' === $product_type ) {
+				$product_type = 'plugin';
+			}
+
+			if ( 'themes' === $product_type ) {
+				$product_type = 'theme';
+			}
 
 			return $product_type;
 		}
@@ -2201,8 +2198,21 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		}
 
 		private function is_verified_nonce(){
-			$nonce = ! empty( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+			$nonce = ! empty( $_POST['nonce'] ) ? wp_unslash( $_POST['nonce'] ) : '';
 			return wp_verify_nonce( $nonce, 'atbdp_nonce_action_js' );
+		}
+
+		/**
+		 * Check the extension is being downloaded from varified source.
+		 *
+		 * @param  string $extension_url
+		 *
+		 * @return bool
+		 */
+		protected function is_varified_host( $extension_url ) {
+			$signed_hostnames = array( 'directorist.com' );
+
+			return in_array( parse_url( $extension_url, PHP_URL_HOST ), $signed_hostnames, true );
 		}
 
 	}

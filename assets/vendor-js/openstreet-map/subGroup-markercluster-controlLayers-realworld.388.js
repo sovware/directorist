@@ -1,6 +1,6 @@
 var $ = jQuery;
-let mapOptions = JSON.parse($('#map').attr('data-options'));
-let mapListings = JSON.parse($('#map').attr('data-card'));
+var mapOptions = JSON.parse($('#map').attr('data-options'));
+var mapListings = JSON.parse($('#map').attr('data-card'));
 
 (function ($) {
     jQuery(document).ready(function ($) {

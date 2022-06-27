@@ -10804,6 +10804,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 18px;
   text-decoration: none;
 }
+#map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .media-body .atbdp-listings-title-block .atbdp-no-margin,
+#gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .media-body .atbdp-listings-title-block .atbdp-no-margin {
+  margin: 0;
+}
 #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .atbdp-map,
 #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .atbdp-map {
   margin: 0;

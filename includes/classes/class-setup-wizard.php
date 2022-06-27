@@ -529,7 +529,7 @@ class SetupWizard
         /**
         * @since 7.3.0
         */
-        do_action( 'directorist_page_created' );
+        do_action( 'directorist_setup_wizard_page_created' );
 
         wp_redirect(esc_url_raw($this->get_next_step_link()));
         exit;

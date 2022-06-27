@@ -361,7 +361,6 @@ import './../global/components/select2-custom-control';
         Search-form-listing
         ------------------- */
         $('body').on('click', '.search_listing_types', function (event) {
-            // console.log($('.directorist-search-contents'));
             event.preventDefault();
             const parent = $(this).closest('.directorist-search-contents');
             const listing_type = $(this).attr('data-listing_type');
@@ -684,8 +683,8 @@ import './../global/components/select2-custom-control';
 
                             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                                 const place = autocomplete.getPlace();
-                                document.getElementById(field.lat_id).value = place.geometry.location.lat();
-                                document.getElementById(field.lng_id).value = place.geometry.location.lng();
+                                elm.closest('.directorist-search-field').querySelector(`#${field.lat_id}`).value = place.geometry.location.lat();
+                                elm.closest('.directorist-search-field').querySelector(`#${field.lng_id}`).value = place.geometry.location.lng();
                             });
                         })
                     };
@@ -788,21 +787,17 @@ import './../global/components/select2-custom-control';
 
                 const syncLatLngData = function (context, event, args) {
                     event.preventDefault();
-
                     const text = $(context).text();
                     const lat = $(context).data('lat');
                     const lon = $(context).data('lon');
-
-                    $('#cityLat').val(lat);
-                    $('#cityLng').val(lon);
-
+                    const _this = event.target;
+                    $(_this).closest('.address_result').siblings('input[name="cityLat"]').val(lat);
+                    $(_this).closest('.address_result').siblings('input[name="cityLng"]').val(lon);
                     const inp = $(context)
                         .closest(args.result_list_container)
                         .parent()
                         .find('.directorist-location-js, #address_widget, #q_addressss, .atbdp-search-address');
-
                     inp.val(text);
-
                     $(args.result_list_container).hide();
                 };
 

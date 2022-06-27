@@ -322,12 +322,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 
 
 var $ = jQuery;
@@ -1090,7 +1092,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
     $('body').on('click', '.search_listing_types', function (event) {
-      // console.log($('.directorist-search-contents'));
       event.preventDefault();
       var parent = $(this).closest('.directorist-search-contents');
       var listing_type = $(this).attr('data-listing_type');
@@ -1354,8 +1355,8 @@ __webpack_require__.r(__webpack_exports__);
               var autocomplete = new google.maps.places.Autocomplete(elm, field.options);
               google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
-                document.getElementById(field.lat_id).value = place.geometry.location.lat();
-                document.getElementById(field.lng_id).value = place.geometry.location.lng();
+                elm.closest('.directorist-search-field').querySelector("#".concat(field.lat_id)).value = place.geometry.location.lat();
+                elm.closest('.directorist-search-field').querySelector("#".concat(field.lng_id)).value = place.geometry.location.lng();
               });
             });
           };
@@ -1449,8 +1450,9 @@ __webpack_require__.r(__webpack_exports__);
           var text = $(context).text();
           var lat = $(context).data('lat');
           var lon = $(context).data('lon');
-          $('#cityLat').val(lat);
-          $('#cityLng').val(lon);
+          var _this = event.target;
+          $(_this).closest('.address_result').siblings('input[name="cityLat"]').val(lat);
+          $(_this).closest('.address_result').siblings('input[name="cityLng"]').val(lon);
           var inp = $(context).closest(args.result_list_container).parent().find('.directorist-location-js, #address_widget, #q_addressss, .atbdp-search-address');
           inp.val(text);
           $(args.result_list_container).hide();

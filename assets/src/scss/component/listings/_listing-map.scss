@@ -16,6 +16,12 @@
             margin: 0;
             width: 220px !important;
 
+            .atbdp-map.atbdp-body{
+                img{
+                    width: 100%;
+                }
+            }
+
             .media-body {
                 padding: 10px 15px;
                 a{
@@ -28,6 +34,15 @@
                     letter-spacing: normal;
                     font-size: 18px;
                     text-decoration: none;
+                }
+                .atbdp-listings-title-block{
+                    h3.atbdp-no-margin{
+                        font-size: 14px;
+                        margin: 0 0 10px;
+                    }
+                }
+                .osm-iw-location{
+                    margin-bottom: 6px;
                 }
             }
 

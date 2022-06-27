@@ -122,9 +122,10 @@ window.addEventListener('DOMContentLoaded', () => {
                         type: 'POST',
                         data: {},
                         success(data) {
-                            $(locIcon).closest('.directorist-search-field').find('.directorist-location-js, .atbdp-search-address').val(data.display_name);
-                            $(locIcon).closest('.directorist-search-field').find('input[name="cityLat"]').val(lat);
-                            $(locIcon).closest('.directorist-search-field').find('input[name="cityLng"]').val(lng);
+                            $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
+                            $('.directorist-location-js, .atbdp-search-address').attr("data-value",data.display_name);
+                            $('#cityLat').val(lat);
+                            $('#cityLng').val(lng);
                         },
                     });
                 }

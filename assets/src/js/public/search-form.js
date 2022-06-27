@@ -833,5 +833,27 @@ import './../global/components/select2-custom-control';
             }
         });
 
+        /* When location field is empty we need to hide Radius Search */
+        function handleRadiusVisibility(){
+            $('.directorist-location-js').each((index,locationDom)=>{
+                if($(locationDom).val() === ''){
+                    $(locationDom).closest('.directorist-advanced-filter').find('.directorist-advanced-filter__advanced--radius_search').css({display: "none"});
+                }else{
+                    $(locationDom).closest('.directorist-advanced-filter').find('.directorist-advanced-filter__advanced--radius_search').css({display: "block"})
+                    directorist_callingSlider();
+                }
+            });
+        }
+        $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
+            handleRadiusVisibility();
+        });
+        // DOM Mutation observer
+        function initObserver() {
+            const targetNode = document.querySelector('.directorist-location-js');
+            const observer = new MutationObserver( handleRadiusVisibility );
+            observer.observe( targetNode, { attributes: true } );
+        }
+        initObserver();
+        handleRadiusVisibility();
     });
 })(jQuery);

@@ -1381,11 +1381,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     if (fields.address && fields.address.length) {
       fields.cityLat = $(this).find('#cityLat').val();
       fields.cityLng = $(this).find('#cityLng').val();
-      fields.miles = $(this).find('.atbdrs-value').val();
+      fields.miles = $(this).find('.directorist-range-slider-value').val();
     }
 
     var form_data = _objectSpread(_objectSpread({}, data), fields);
 
+    console.log(form_data);
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
       return !item;
     });

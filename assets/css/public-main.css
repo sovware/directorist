@@ -10817,8 +10817,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .media-body .atbdp-listings-title-block h3.atbdp-no-margin,
 #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .media-body .atbdp-listings-title-block h3.atbdp-no-margin {
+  font-size: 14px;
   margin: 0 0 10px;
-  line-height: 1;
 }
 #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .media-body .osm-iw-location,
 #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .media-body .osm-iw-location {

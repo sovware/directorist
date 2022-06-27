@@ -1,0 +1,303 @@
+[33mcommit 23d01a590c655a2ec600a377de8c7a2676c29a75[m[33m ([m[1;36mHEAD[m[33m, [m[1;33mtag: v7.2.2[m[33m, [m[1;31mupstream/master[m[33m, [m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Wed May 25 11:30:24 2022 +0600
+
+    Rc1 (#900)
+    
+    * build files for release
+    
+    * improved
+
+[33mcommit bae6dbfd260d48a33157011d839ebe0f4c6e475f[m
+Author: Armanul46 <47377178+Armanul46@users.noreply.github.com>
+Date:   Wed May 25 11:14:24 2022 +0600
+
+    Fix/instant search issue (#899)
+    
+    * fixed custom field issue on searching
+    
+    * added missing loop_get_tagline function
+    
+    * added show_popular_category parameter  on search form
+    
+    * added spacing
+    
+    * fixed translate issue on tab-profile
+    
+    * added sort by text changing setting
+    
+    * fixed setting naming issue
+    
+    * change default value of user type in registration form
+    
+    * fixed translate issue
+    
+    * fixed most used taxonomies issue with listing type in backend add listing form
+    
+    * fixed youtube issue on author page and removed extra language file
+    
+    * fixed columns validation issue on all categories & locations
+    
+    * fixed contact listing owner widget issue
+    
+    * fixed expiration date issue
+    
+    * removed map files
+    
+    * fixed translate issue
+    
+    * update pot file
+    
+    * fixed file upload issue
+    
+    * added templates section on system status
+    
+    * settings
+    
+    * fixed map info window issue of openstreet map
+    
+    * GET method replaced by REQUEST method
+    
+    * update npm
+    
+    * removed spaces
+    
+    * fixed directorist type slug issue
+    
+    * change login form settings hook name
+    
+    * change prefix name of login form settings section hook
+    
+    * removed extra div from search widget
+    
+    * fixed instant search issue
+
+[33mcommit 35fa7ab936f37a5d42bd9a0a6d6e432a186c1b61[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Mon May 23 16:03:19 2022 +0600
+
+    build files (#898)
+
+[33mcommit 7bffda844611de8baeb4350c5046395ab04baf32[m
+Author: Syed Galib Ahmed <55786211+syedgalib@users.noreply.github.com>
+Date:   Mon May 23 15:50:43 2022 +0600
+
+    Integrate/wpml (#897)
+    
+    * applied widget_title filter hook
+    
+    * improved url parsing in add-listing.js
+    
+    * added a helper for escaping invalid query string from URL
+    
+    * escaped query string in class-add-listing.php
+    
+    * improved query var data fetching
+    
+    * improved filter hooks arguments
+    
+    * added some helpers for URL transformation
+    
+    * improved url transformation
+    
+    * improved permalinks class
+    
+    * added a action hook
+    
+    * applied filter hooks
+    
+    * removed a hook
+    
+    * improved template
+    
+    * added action hooks
+    
+    * added action hooks
+
+[33mcommit 4ce65723e6229d7a6f7bf82f3611b2bbbfac1a76[m
+Author: Md Mehedi Hasan <43073560+HeyMehedi@users.noreply.github.com>
+Date:   Sun May 22 12:22:51 2022 +0600
+
+    Fix Search Form Ajax Issue (#893)
+    
+    * Split Search Form Box Area
+    
+    * Version Update
+    
+    Co-authored-by: HeyMehedi <mehedi.sovware@gmail.com>
+
+[33mcommit f4f7334efcb01a84dd08515b1185b27a3580227d[m
+Author: Md Obidullah <obiPlabon@users.noreply.github.com>
+Date:   Wed May 18 16:27:10 2022 +0600
+
+    fix: selected listings query with instance search (#888)
+    
+    Co-authored-by: obiPlabon <obiplabon@gmail.com>
+
+[33mcommit f9b331da98628e1e670a3ac261fcd8ca68898e09[m
+Author: Md Obidullah <obiPlabon@users.noreply.github.com>
+Date:   Wed May 18 16:21:50 2022 +0600
+
+    feat: added auto fields mapping on csv import screen (#891)
+    
+    Co-authored-by: obiPlabon <obiplabon@gmail.com>
+
+[33mcommit 23d88458abb1d4550eb325916115c00abf450a49[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Sun May 15 09:04:49 2022 +0600
+
+    readme updated (#883)
+
+[33mcommit abb15e6e3981d20e0938ca5f1b249a11daff4249[m[33m ([m[1;33mtag: v7.2.1[m[33m)[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Mon May 9 09:39:20 2022 +0600
+
+    readme updated (#874)
+
+[33mcommit b6c685988988656adbfddb6101f1bcc22577b288[m
+Author: Kowsar Hossain <kowsar9989@gmail.com>
+Date:   Sun May 8 15:57:00 2022 +0600
+
+    All listing column number fix (#873)
+
+[33mcommit 108b2dcafc844e55deb5dd6c32a60bd9a52a32b1[m
+Author: Shamim Ahmed <shamimeforb@gmail.com>
+Date:   Wed Apr 27 14:08:42 2022 +0600
+
+    Fix/instant search (#816)
+    
+    * Fixed: instant search issue
+    
+    * Fixed: instant search issue
+    
+    * Fixed: instant search js issue
+    
+    * commit changes
+    
+    * commit changes
+    
+    * add conditional class in search widget
+    
+    * instant search functionlilty added to search widget and other instant search related issue fixed
+    
+    * instant search functionlilty added to search widget and other instant search related issue fixed (#859)
+    
+    * Fixed: instant search issue
+    
+    * Fixed: instant search issue
+    
+    * Fixed: instant search js issue
+    
+    * commit changes
+    
+    * commit changes
+    
+    * instant search functionlilty added to search widget and other instant search related issue fixed
+    
+    * Fixed widget search issue
+    
+    Co-authored-by: vairafiq <vairafiq@gmail.com>
+
+[33mcommit 2eca355f7c2609ff4e126d43a732ecb33a56cbe0[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Tue Apr 19 15:09:40 2022 +0600
+
+    search conflict with wp native search (#866)
+
+[33mcommit 84bf6d41cbb6ba242a4a6222e8eca964a01a0dd9[m
+Author: Syed Galib Ahmed <55786211+syedgalib@users.noreply.github.com>
+Date:   Mon Apr 18 11:19:59 2022 +0600
+
+    removed duplicate script (#864)
+    
+    * removed duplicate script
+    
+    * fixed missing localized data error
+    
+    * fixed missing localized data error
+    
+    * removed duplicate script
+    
+    * fixed missing localized data error
+
+[33mcommit da76657b365190f28ec42e689052acb069f6090d[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Mon Apr 18 09:46:50 2022 +0600
+
+    readme & version updated (#861)
+    
+    * readme & version updated
+    
+    * improved
+
+[33mcommit 6d8ffa7acf80dca44255c8c05e31853346935d0c[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Thu Apr 14 12:39:25 2022 +0600
+
+    build files (#858)
+
+[33mcommit 22a892d8703048a2f68ea3af3866225eeec858d2[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Thu Apr 14 12:19:24 2022 +0600
+
+    multiple listing submission prevented (#857)
+
+[33mcommit 7bd3d7eb9c534bacff942f63e4a9d317e360ec4b[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Wed Apr 13 15:22:41 2022 +0600
+
+    build files (#856)
+
+[33mcommit 48a60a1b0176d230342466c19bdafc16d2f5dfc2[m
+Author: Syed Galib Ahmed <55786211+syedgalib@users.noreply.github.com>
+Date:   Wed Apr 13 14:57:27 2022 +0600
+
+    Integrate/directorist migrator (#836)
+    
+    * improved
+    
+    * fixed typo
+    
+    * improved
+    
+    * improved
+    
+    * removed console log
+    
+    * improved
+    
+    * improved
+    
+    * added date field to  listing importer
+    
+    * re-built assets
+    
+    * re-built assets
+
+[33mcommit 764671489227c00a9ffc5453d50e4d3b59e036a7[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Wed Apr 13 12:26:06 2022 +0600
+
+    add template versioning (#855)
+
+[33mcommit 92d4b5be66a6b8271106665e2c2e64bde453fd7d[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Wed Apr 13 12:19:52 2022 +0600
+
+    build files (#854)
+
+[33mcommit 014028cad78a0602df863accc2945ad24be0e6bc[m
+Author: Rafiq <36886362+vairafiq@users.noreply.github.com>
+Date:   Wed Apr 13 12:08:52 2022 +0600
+
+    include txt files in prod command (#853)
+
+[33mcommit b797b75a109eb77e9d18164d69b47de4e59a8aad[m
+Author: Tanjim Hasan <34968601+tanjimhasan@users.noreply.github.com>
+Date:   Wed Apr 13 12:00:12 2022 +0600
+
+    select2 issue fixed (#847)
+
+[33mcommit 46fe52b917b71f01d701c157c9cd0400737573f7[m
+Author: Armanul46 <47377178+Armanul46@users.noreply.github.com>
+Date:   Wed Apr 13 11:53:13 2022 +060

@@ -1,6 +1,7 @@
 import {
     convertToSelect2
 } from './../../lib/helper';
+import './select2-custom-control';
 
 const $ = jQuery;
 

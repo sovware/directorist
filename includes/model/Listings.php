@@ -1270,7 +1270,7 @@ class Directorist_Listings {
 			'default_longitude'       => get_directorist_option( 'default_longitude', -74.0059728 ),
 			'force_default_location'  => get_directorist_option( 'use_def_lat_long', true ),
 			'disable_single_listing'  => $this->disable_single_listing,
-			'openstreet_script'       => DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js?ver=7.3.0',
+			'openstreet_script'       => DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js?ver=' . DIRECTORIST_SCRIPT_VERSION,
 		];
 
 		return $data;

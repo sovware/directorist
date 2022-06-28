@@ -964,6 +964,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
         if (el.getAttribute('name') === "directory_type") return;
+        if (el.getAttribute('name') === "miles") return;
         el.value = "";
       });
       searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
@@ -1019,7 +1020,6 @@ __webpack_require__.r(__webpack_exports__);
 
           if (searchForm) {
             adsFormReset(searchForm);
-            this.closest('.directorist-advanced-filter').querySelector('.directorist-range-slider').setAttribute('data-slider', '{"miles":directorist.i18n_text.Miles,"minValue":"0"}');
           }
         }
 
@@ -1488,11 +1488,11 @@ __webpack_require__.r(__webpack_exports__);
     function handleRadiusVisibility() {
       $('.directorist-location-js').each(function (index, locationDom) {
         if ($(locationDom).val() === '') {
-          $(locationDom).closest('.directorist-advanced-filter').find('.directorist-advanced-filter__advanced--radius_search').css({
+          $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({
             display: "none"
           });
         } else {
-          $(locationDom).closest('.directorist-advanced-filter').find('.directorist-advanced-filter__advanced--radius_search').css({
+          $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({
             display: "block"
           });
           directorist_callingSlider();

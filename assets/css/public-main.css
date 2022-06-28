@@ -13936,15 +13936,51 @@ Review: New Style
   margin: 0;
   background: #fff;
   border-collapse: collapse;
+  width: 100%;
+  min-width: 240px;
 }
 .table.atbd_single_saved_item td, .table.atbd_single_saved_item th, .table.atbd_single_saved_item tr {
   border: 1px solid #ececec;
+}
+.table.atbd_single_saved_item td {
+  padding: 0 15px;
+}
+.table.atbd_single_saved_item td p {
+  margin: 5px 0;
+}
+.table.atbd_single_saved_item th {
+  text-align: left;
+  padding: 5px 15px;
 }
 .table.atbd_single_saved_item .action a.btn {
   text-decoration: none;
   font-size: 14px;
   padding: 8px 15px;
   border-radius: 4px;
+  display: inline-block;
+}
+
+.atbd_payment_summary_wrapper table,
+.directorist-payment-receipt-table table {
+  margin: 0;
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 240px;
+}
+.atbd_payment_summary_wrapper table td, .atbd_payment_summary_wrapper table th, .atbd_payment_summary_wrapper table tr,
+.directorist-payment-receipt-table table td,
+.directorist-payment-receipt-table table th,
+.directorist-payment-receipt-table table tr {
+  border: 1px solid #ececec;
+}
+.atbd_payment_summary_wrapper table th, .atbd_payment_summary_wrapper table td,
+.directorist-payment-receipt-table table th,
+.directorist-payment-receipt-table table td {
+  padding: 5px 15px;
+}
+.atbd_payment_summary_wrapper table h3,
+.directorist-payment-receipt-table table h3 {
+  font-size: 18px;
 }
 
 .directorist-user-dashboard__nav {

@@ -13924,9 +13924,10 @@ Review: New Style
 .table.atbd_single_saved_item {
   margin: 0;
   background: #fff;
+  border-collapse: collapse;
 }
-.table.atbd_single_saved_item * {
-  border-color: #ececec;
+.table.atbd_single_saved_item td, .table.atbd_single_saved_item th, .table.atbd_single_saved_item tr {
+  border: 1px solid #ececec;
 }
 .table.atbd_single_saved_item .action a.btn {
   text-decoration: none;

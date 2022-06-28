@@ -791,8 +791,9 @@
 .table.atbd_single_saved_item {
   margin: 0;
   background: #fff;
-  & * {
-    border-color: #ececec;
+  border-collapse: collapse;
+  td, th, tr {
+    border: 1px solid #ececec;
   }
   .action {
     a.btn {

@@ -20,10 +20,12 @@ var directorist_range_slider = (selector, obj) => {
         move 	= 'touchmove';
     }
 
+    console.log(obj);
+
     var slider = document.querySelectorAll(selector);
     slider.forEach((id, index) => {
-        var sliderDataMin = id.getAttribute('data-slider-minvalue');
-        var sliderDataUnit = id.getAttribute('data-slider-unit');
+        var sliderDataMin = obj.minValue;
+        var sliderDataUnit = obj.unit;
         min = sliderDataMin;
         id.setAttribute('style', `max-width: ${obj.maxWidth}; border: ${obj.barBorder}; width: 100%; height: 4px; background: ${obj.barColor}; position: relative; border-radius: 2px;`);
         id.innerHTML = div;

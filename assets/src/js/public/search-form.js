@@ -255,9 +255,11 @@ import './../global/components/select2-custom-control';
             });
             searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
                 const radiusDefaultValue = searchForm.querySelector('.directorist-range-slider').dataset.defaultRadius;
-                console.log(radiusDefaultValue);
                 if(el.getAttribute('name') === "directory_type") return;
-                if(el.getAttribute('name') === "miles") el.value = radiusDefaultValue;;
+                if(el.getAttribute('name') === "miles"){
+                    el.value = radiusDefaultValue;
+                    return;
+                }
                 el.value = "";
             });
             searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
@@ -838,7 +840,6 @@ import './../global/components/select2-custom-control';
 
         /* When location field is empty we need to hide Radius Search */
         function handleRadiusVisibility(){
-            console.log("muted");
             $('.directorist-location-js').each((index,locationDom)=>{
                 if($(locationDom).val() === ''){
                     $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "none"});

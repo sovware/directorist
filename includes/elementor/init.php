@@ -90,7 +90,7 @@ class Widget_Init {
 			require_once $file;
 
 			$classname = __NAMESPACE__ . '\\' . $class;
-			Plugin::instance()->widgets_manager->register_widget_type( new $classname );
+			Plugin::instance()->widgets_manager->register( new $classname );
 		}
 	}
 }

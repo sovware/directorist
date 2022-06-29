@@ -720,8 +720,8 @@ a {
   position: relative;
 }
 .atbdp_shortcodes:after {
-  content: "";
-  font-family: "Line Awesome Free";
+  content: "\f0c5";
+  font-family: "Font Awesome 5 Free";
   color: #000;
   font-weight: normal;
   line-height: initial;
@@ -7459,7 +7459,7 @@ body.stop-scrolling {
 .directorist-form-social-fields .directorist-form-group select.directorist-form-element {
   padding: 0 20px;
 }
-.directorist-form-social-fields__remove {
+.directorist-form-social-fields .directorist-form-social-fields__remove {
   color: #fff;
   height: 42px;
   background: #e23636;

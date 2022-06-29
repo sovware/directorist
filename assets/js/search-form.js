@@ -112,6 +112,7 @@ setup_dom_observer(); // Setup DOM Observer
 function setup_dom_observer() {
   // Select the select fields that will be observed for mutations
   var observableItems = {
+    archiveContents: document.querySelectorAll('.directorist-archive-contents'),
     searchFormBox: document.querySelectorAll('.directorist-search-form-box'),
     selectFields: document.querySelectorAll('.directorist-select')
   };
@@ -321,12 +322,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 
 var $ = jQuery;
@@ -416,8 +419,25 @@ function initSelect2AjaxTaxonomy(args) {
   }
 
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
-    var parent = $(item).closest('.directorist-search-form');
-    var directory_type_id = parent.find('.directorist-listing-type-selection__link--current').data('listing_type_id');
+    var directory_type_id = 0;
+    var search_form_parent = $(item).closest('.directorist-search-form');
+    var archive_page_parent = $(item).closest('.directorist-archive-contents');
+    var nav_list_item = []; // If search page
+
+    if (search_form_parent.length) {
+      nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
+    } // If archive page
+
+
+    if (archive_page_parent.length) {
+      nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+    } // If has nav item
+
+
+    if (nav_list_item.length) {
+      directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
+    }
+
     var currentPage = 1;
     $(item).select2({
       allowClear: true,
@@ -943,6 +963,7 @@ __webpack_require__.r(__webpack_exports__);
         el.value = "";
       });
       searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
+        if (el.getAttribute('name') === "directory_type") return;
         el.value = "";
       });
       searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
@@ -1071,7 +1092,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
     $('body').on('click', '.search_listing_types', function (event) {
-      // console.log($('.directorist-search-contents'));
       event.preventDefault();
       var parent = $(this).closest('.directorist-search-contents');
       var listing_type = $(this).attr('data-listing_type');
@@ -1335,8 +1355,8 @@ __webpack_require__.r(__webpack_exports__);
               var autocomplete = new google.maps.places.Autocomplete(elm, field.options);
               google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
-                document.getElementById(field.lat_id).value = place.geometry.location.lat();
-                document.getElementById(field.lng_id).value = place.geometry.location.lng();
+                elm.closest('.directorist-search-field').querySelector("#".concat(field.lat_id)).value = place.geometry.location.lat();
+                elm.closest('.directorist-search-field').querySelector("#".concat(field.lng_id)).value = place.geometry.location.lng();
               });
             });
           };
@@ -1430,8 +1450,9 @@ __webpack_require__.r(__webpack_exports__);
           var text = $(context).text();
           var lat = $(context).data('lat');
           var lon = $(context).data('lon');
-          $('#cityLat').val(lat);
-          $('#cityLng').val(lon);
+          var _this = event.target;
+          $(_this).closest('.address_result').siblings('input[name="cityLat"]').val(lat);
+          $(_this).closest('.address_result').siblings('input[name="cityLng"]').val(lon);
           var inp = $(context).closest(args.result_list_container).parent().find('.directorist-location-js, #address_widget, #q_addressss, .atbdp-search-address');
           inp.val(text);
           $(args.result_list_container).hide();

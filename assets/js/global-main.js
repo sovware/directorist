@@ -141,6 +141,9 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
@@ -154,12 +157,12 @@ window.addEventListener('load', init);
 setup_dom_observer(); // Setup DOM Observer
 
 function setup_dom_observer() {
+  var _observableItems;
+
   // Select the select fields that will be observed for mutations
-  var observableItems = {
-    archiveContents: document.querySelectorAll('.directorist-archive-contents'),
-    searchFormBox: document.querySelectorAll('.directorist-search-form-box'),
-    selectFields: document.querySelectorAll('.directorist-select')
-  };
+  var observableItems = (_observableItems = {
+    archiveContents: document.querySelectorAll('.directorist-search-contents')
+  }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_observableItems, "archiveContents", document.querySelectorAll('.directorist-archive-contents')), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_observableItems, "searchFormBox", document.querySelectorAll('.directorist-search-form-box')), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_observableItems, "selectFields", document.querySelectorAll('.directorist-select')), _observableItems);
   var observableElements = [];
   Object.values(observableItems).forEach(function (item) {
     if (item.length) {
@@ -169,11 +172,15 @@ function setup_dom_observer() {
 
   if (observableElements.length) {
     // Create an observer instance linked to the callback function
-    var observer = new MutationObserver(init);
+    var observer = new MutationObserver(function () {
+      setTimeout(init, 200);
+    });
     observableElements.forEach(function (item) {
       // Start observing the target node for configured mutations
       observer.observe(item, {
-        childList: true
+        childList: true,
+        attributes: true,
+        subtree: true
       });
     });
   }
@@ -309,10 +316,6 @@ function selec2_remove_custom_close_button(field) {
 }
 
 function selec2_get_addon_container(field) {
-  if (field && !field.length) {
-    return;
-  }
-
   var container = field ? $(field).next('.select2-container') : $('.select2-container');
   container = $(container).find('.directorist-select2-addons-area');
 

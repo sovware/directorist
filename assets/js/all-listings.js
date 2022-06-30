@@ -1990,9 +1990,12 @@ window.addEventListener('DOMContentLoaded', function () {
 function initObserver() {
   var targetNode = document.querySelector('.directorist-archive-contents');
   var observer = new MutationObserver(initMasonry);
-  observer.observe(targetNode, {
-    childList: true
-  });
+
+  if (targetNode) {
+    observer.observe(targetNode, {
+      childList: true
+    });
+  }
 } // All listings Masonry layout
 
 

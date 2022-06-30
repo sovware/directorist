@@ -94,7 +94,7 @@ use \Directorist\Helper;
                     if (!empty($order_items)){
                         echo '<p class="atbd_payment_summary directorist-mt-30">'.__( 'Ordered Item(s)', 'directorist' ).'</p>';
                         ?>
-                        <div class="table-responsive"><table class="table table-bordered">
+                        <div class="table-responsive directorist-payment-receipt-table"><table class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
                                     <th><?php _e( 'Name', 'directorist' ); ?></th>

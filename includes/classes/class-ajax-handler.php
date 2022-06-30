@@ -954,9 +954,14 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         {
             $id = ( ! empty( $_POST['id'] ) ) ? absint( $_POST['id'] ) : 0;
 
+			$social_info = [
+				'id'   => '',
+				'url'  => '',
+			];
+
             $path = 'listing-form/social-item';
 
-            Directorist\Helper::get_template( $path, array( 'id' => $id ) );
+            Directorist\Helper::get_template( $path, compact( 'id', 'social_info' ) );
 
             die();
         }

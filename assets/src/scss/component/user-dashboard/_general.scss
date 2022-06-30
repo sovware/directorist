@@ -791,8 +791,21 @@
 .table.atbd_single_saved_item {
   margin: 0;
   background: #fff;
-  & * {
-    border-color: #ececec;
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 240px;
+  td, th, tr {
+    border: 1px solid #ececec;
+  }
+  td{
+    padding: 0 15px;
+    p{
+      margin: 5px 0;
+    }
+  }
+  th{
+    text-align: left;
+    padding: 5px 15px;
   }
   .action {
     a.btn {
@@ -800,6 +813,7 @@
       font-size: 14px;
       padding: 8px 15px;
       border-radius: 4px;
+      display: inline-block;
     }
   }
 }

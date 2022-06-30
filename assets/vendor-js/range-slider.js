@@ -22,8 +22,8 @@ var directorist_range_slider = (selector, obj) => {
 
     var slider = document.querySelectorAll(selector);
     slider.forEach((id, index) => {
-        var sliderData = JSON.parse(id.getAttribute('data-slider'));
-        min = sliderData.minValue;
+        var sliderDataMin = min;
+        var sliderDataUnit = id.getAttribute('data-slider-unit');
         id.setAttribute('style', `max-width: ${obj.maxWidth}; border: ${obj.barBorder}; width: 100%; height: 4px; background: ${obj.barColor}; position: relative; border-radius: 2px;`);
         id.innerHTML = div;
         let slide1 	= id.querySelector('.directorist-range-slider1'),
@@ -31,12 +31,12 @@ var directorist_range_slider = (selector, obj) => {
 
         slide1.style.background = obj.pointerColor;
         slide1.style.border = obj.pointerBorder;
-        id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${min}</span> ${sliderData.miles}`;
+        id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${min}</span> ${sliderDataUnit}`;
 
         var x 			= null,
             count 		= 0,
             slid1_val 	= 0,
-            slid1_val2 	= sliderData.minValue,
+            slid1_val2 	= sliderDataMin,
             count2 		= width;
 
         if(window.outerWidth < 600){
@@ -71,8 +71,8 @@ var directorist_range_slider = (selector, obj) => {
         count = (width / max);
         if(slide1.classList.contains('directorist-rs-active1')){
             var onLoadValue 	= count * min;
-            id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value span').innerHTML = sliderData.minValue;
-            id.querySelector('.directorist-range-slider-minimum').value = sliderData.minValue;
+            id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value span').innerHTML = sliderDataMin;
+            id.querySelector('.directorist-range-slider-minimum').value = sliderDataMin;
             id.querySelector('.directorist-rs-active1').style.left = onLoadValue <= 0 ? 0 : onLoadValue +'px';
             id.querySelector('.directorist-range-slider-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
         }
@@ -91,7 +91,7 @@ var directorist_range_slider = (selector, obj) => {
             }
             if(slide1.classList.contains('directorist-rs-active')){
                 slid1_val 	= Math.floor(max/ (width -18) * count);
-                id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${slid1_val}</span> ${sliderData.miles}`;
+                id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${slid1_val}</span> ${sliderDataUnit}`;
                 id.querySelector('.directorist-range-slider-minimum').value = slid1_val;
                 id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value = slid1_val;
                 id.querySelector('.directorist-rs-active').style.left = count +'px';
@@ -105,7 +105,7 @@ var directorist_range_slider = (selector, obj) => {
 function directorist_callingSlider() {
     var default_args = {
         maxValue: 1000,
-        minValue: 0,
+        minValue: parseInt(document.querySelector('.directorist-range-slider-value').value),
         maxWidth: '100%',
         barColor: '#d4d5d9',
         barBorder: 'none',

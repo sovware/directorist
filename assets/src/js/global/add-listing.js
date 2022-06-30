@@ -2,6 +2,7 @@
 import '../public/components/directoristDropdown'
 import '../public/components/directoristSelect';
 import '../public/components/colorPicker';
+import '../global/components/setup-select2';
 
 /* eslint-disable */
 const $ = jQuery;

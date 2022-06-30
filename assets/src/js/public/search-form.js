@@ -217,7 +217,12 @@ import './../global/components/select2-custom-control';
                 el.value = "";
             });
             searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
+                const radiusDefaultValue = searchForm.querySelector('.directorist-range-slider').dataset.defaultRadius;
                 if(el.getAttribute('name') === "directory_type") return;
+                if(el.getAttribute('name') === "miles"){
+                    el.value = radiusDefaultValue;
+                    return;
+                }
                 el.value = "";
             });
             searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
@@ -241,6 +246,7 @@ import './../global/components/select2-custom-control';
             if (rangeValue !== null) {
                 rangeValue.innerHTML = "0";
             }
+            handleRadiusVisibility();
         }
 
         /* Advance Search Filter For Search Home Short Code */
@@ -265,7 +271,6 @@ import './../global/components/select2-custom-control';
                     const searchForm = this.closest('.directorist-advanced-filter').querySelector('.directorist-advanced-filter__form');
                     if (searchForm) {
                         adsFormReset(searchForm);
-                        this.closest('.directorist-advanced-filter').querySelector('.directorist-range-slider').setAttribute('data-slider','{"miles":directorist.i18n_text.Miles,"minValue":"0"}');
                     }
                 }
                 directorist_callingSlider(0);
@@ -796,5 +801,27 @@ import './../global/components/select2-custom-control';
             }
         });
 
+        /* When location field is empty we need to hide Radius Search */
+        function handleRadiusVisibility(){
+            $('.directorist-location-js').each((index,locationDom)=>{
+                if($(locationDom).val() === ''){
+                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "none"});
+                }else{
+                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "block"});
+                    directorist_callingSlider();
+                }
+            });
+        }
+        $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
+            handleRadiusVisibility();
+        });
+        // DOM Mutation observer
+        function initObserver() {
+            const targetNode = document.querySelector('.directorist-location-js');
+            const observer = new MutationObserver( handleRadiusVisibility );
+            observer.observe( targetNode, { attributes: true } );
+        }
+        initObserver();
+        handleRadiusVisibility();
     });
 })(jQuery);

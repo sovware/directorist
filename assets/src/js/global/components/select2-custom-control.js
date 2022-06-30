@@ -7,7 +7,7 @@ setup_dom_observer();
 function setup_dom_observer() {
     // Select the select fields that will be observed for mutations
     let observableItems = {
-        archiveContents: document.querySelectorAll( '.directorist-archive-contents' ),
+        searchContents: document.querySelectorAll( '.directorist-search-contents' ),
         searchFormBox: document.querySelectorAll( '.directorist-search-form-box' ),
         selectFields: document.querySelectorAll( '.directorist-select' ),
     };
@@ -26,7 +26,7 @@ function setup_dom_observer() {
 
         observableElements.forEach( function( item ) {
             // Start observing the target node for configured mutations
-            observer.observe( item, { childList: true } );
+            observer.observe( item, { attributes: true, childList: true } );
         });
     }
 }

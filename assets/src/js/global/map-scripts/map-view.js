@@ -13,6 +13,7 @@ import {
 
     window.addEventListener('DOMContentLoaded', initObserver );
     window.addEventListener('DOMContentLoaded', initMap );
+    window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
     function initMap() {
         const mapData = get_dom_data('atbdp_map');

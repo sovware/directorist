@@ -11,6 +11,7 @@
         window.addEventListener('DOMContentLoaded', initObserver );
     }
     window.addEventListener('DOMContentLoaded', initMap);
+    window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
     function initMap() {
         var $ = jQuery;

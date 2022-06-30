@@ -1387,7 +1387,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
     var form_data = _objectSpread(_objectSpread({}, data), fields);
 
-    console.log(form_data);
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
       return !item;
     });
@@ -2302,6 +2301,14 @@ window.addEventListener('DOMContentLoaded', function () {
       _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
         key: "init",
         value: function init() {
+          var t = setTimeout(function () {
+            if ($('.directorist-review-container').length) {
+              $(document).off('submit', '#commentform');
+            }
+
+            clearTimeout(t);
+          }, 2000);
+          $(document).off('submit', '.directorist-review-container #commentform');
           $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
         }
       }, {

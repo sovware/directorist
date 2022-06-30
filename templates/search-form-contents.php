@@ -1,49 +1,48 @@
 <?php
-
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.2.2
+ * @version 7.3
  */
 
 use \Directorist\Helper;
 
-if (!defined('ABSPATH')) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-contents" data-atts='<?php echo esc_attr($searchform->get_atts_data()); ?>' style="<?php echo $searchform->background_img_style(); ?>">
+<div class="directorist-search-contents" data-atts='<?php echo esc_attr( $searchform->get_atts_data() ); ?>' style="<?php echo $searchform->background_img_style(); ?>">
 
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
 		<?php do_action('directorist_search_listing_before_title'); ?>
 
-		<?php if ($searchform->show_title_subtitle && ($searchform->search_bar_title || $searchform->search_bar_sub_title)) : ?>
+		<?php if ( $searchform->show_title_subtitle && ( $searchform->search_bar_title || $searchform->search_bar_sub_title ) ): ?>
 
 			<div class="directorist-search-top">
 
-				<?php if ($searchform->search_bar_title) : ?>
-					<h2 class="directorist-search-top__title"><?php echo esc_html($searchform->search_bar_title); ?></h2>
+				<?php if ( $searchform->search_bar_title ): ?>
+					<h2 class="directorist-search-top__title"><?php echo esc_html( $searchform->search_bar_title ); ?></h2>
 				<?php endif; ?>
 
-				<?php if ($searchform->search_bar_sub_title) : ?>
-					<p class="directorist-search-top__subtitle"><?php echo esc_html($searchform->search_bar_sub_title); ?></p>
+				<?php if ( $searchform->search_bar_sub_title ): ?>
+					<p class="directorist-search-top__subtitle"><?php echo esc_html( $searchform->search_bar_sub_title ); ?></p>
 				<?php endif; ?>
 
 			</div>
 
 		<?php endif; ?>
 
-		<form action="<?php echo esc_url(ATBDP_Permalink::get_search_result_page_link()); ?>" class="directorist-search-form" data-atts="<?php echo esc_attr($searchform->get_atts_data()); ?>">
+		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form" data-atts="<?php echo esc_attr( $searchform->get_atts_data() ); ?>">
 
-			<div class="directorist-search-form-wrap <?php echo esc_attr($searchform->border_class()); ?>">
+			<div class="directorist-search-form-wrap <?php echo esc_attr( $searchform->border_class() ); ?>">
 
 				<?php $searchform->directory_type_nav_template(); ?>
 
-				<input type="hidden" name="directory_type" class="listing_type" value="<?php echo esc_attr($searchform->listing_type_slug()); ?>">
+				<input type="hidden" name="directory_type" class="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
 
 				<div class="directorist-search-form-box-wrap">
 
-					<?php Helper::get_template('search-form/form-box', ['searchform' =>  $searchform]); ?>
+					<?php Helper::get_template( 'search-form/form-box', ['searchform' =>  $searchform] ); ?>
 
 				</div>
 

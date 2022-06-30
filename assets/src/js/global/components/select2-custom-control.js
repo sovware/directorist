@@ -25,7 +25,7 @@ function setup_dom_observer() {
         // Create an observer instance linked to the callback function
         const observer = new MutationObserver( () => {
 
-            setTimeout( init, 200 );
+            setTimeout( init, 300 );
 
         } );
 

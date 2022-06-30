@@ -173,7 +173,7 @@ function setup_dom_observer() {
   if (observableElements.length) {
     // Create an observer instance linked to the callback function
     var observer = new MutationObserver(function () {
-      setTimeout(init, 200);
+      setTimeout(init, 300);
     });
     observableElements.forEach(function (item) {
       // Start observing the target node for configured mutations

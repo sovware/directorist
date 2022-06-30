@@ -478,7 +478,7 @@ import './../global/components/select2-custom-control';
                 var $container       = $this.parents('form');
                 var cat_id           = $this.val();
                 var directory_type   = $container.find('.listing_type').val();
-                var $search_form_box = $container.find('.directorist-search-form-box');
+                var $search_form_box = $container.find('.directorist-search-form-box-wrap');
                 var form_data        = new FormData();
 
                 form_data.append('action', 'directorist_category_custom_field_search');

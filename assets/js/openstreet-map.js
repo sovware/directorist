@@ -287,6 +287,7 @@ __webpack_require__.r(__webpack_exports__);
   }
 
   window.addEventListener('DOMContentLoaded', initMap);
+  window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
   function initMap() {
     var $ = jQuery;

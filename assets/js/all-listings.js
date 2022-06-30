@@ -112,7 +112,7 @@ setup_dom_observer(); // Setup DOM Observer
 function setup_dom_observer() {
   // Select the select fields that will be observed for mutations
   var observableItems = {
-    archiveContents: document.querySelectorAll('.directorist-archive-contents'),
+    searchContents: document.querySelectorAll('.directorist-search-contents'),
     searchFormBox: document.querySelectorAll('.directorist-search-form-box'),
     selectFields: document.querySelectorAll('.directorist-select')
   };
@@ -129,6 +129,7 @@ function setup_dom_observer() {
     observableElements.forEach(function (item) {
       // Start observing the target node for configured mutations
       observer.observe(item, {
+        attributes: true,
         childList: true
       });
     });
@@ -1990,9 +1991,12 @@ window.addEventListener('DOMContentLoaded', function () {
 function initObserver() {
   var targetNode = document.querySelector('.directorist-archive-contents');
   var observer = new MutationObserver(initMasonry);
-  observer.observe(targetNode, {
-    childList: true
-  });
+
+  if (targetNode) {
+    observer.observe(targetNode, {
+      childList: true
+    });
+  }
 } // All listings Masonry layout
 
 

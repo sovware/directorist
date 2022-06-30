@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     let $ = jQuery;
     // Plasma Slider Initialization
-    var single_listing_slider = new PlasmaSlider({
-        containerID: "directorist-single-listing-slider",
-    });
-    single_listing_slider.init();
+    if($('.plasmaSlider').length !==0){
+        var single_listing_slider = new PlasmaSlider({
+            containerID: "directorist-single-listing-slider",
+        });
+        single_listing_slider.init();
+    }
 
     /* Related listings slider */
     var rtl = directorist.rtl;

@@ -818,8 +818,10 @@ import './../global/components/select2-custom-control';
         // DOM Mutation observer
         function initObserver() {
             const targetNode = document.querySelector('.directorist-location-js');
-            const observer = new MutationObserver( handleRadiusVisibility );
-            observer.observe( targetNode, { attributes: true } );
+            if(targetNode){
+                const observer = new MutationObserver( handleRadiusVisibility );
+                observer.observe( targetNode, { attributes: true } );
+            }
         }
         initObserver();
         handleRadiusVisibility();

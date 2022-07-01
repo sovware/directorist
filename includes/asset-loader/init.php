@@ -55,7 +55,10 @@ class Asset_Loader {
 		wp_enqueue_style( 'directorist-sweetalert-style' );
 
 		// Inline styles
-		wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );
+		$load_inline_style = apply_filters( 'directorist_load_inline_style', true );
+		if ( $load_inline_style ) {
+			wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );
+		}
 	}
 
 	/**

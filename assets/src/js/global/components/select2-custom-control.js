@@ -1,39 +1,12 @@
 const $ = jQuery;
 
-window.addEventListener( 'load', init );
-setup_dom_observer();
+window.addEventListener( 'load', waitAndInit );
+window.addEventListener( 'directorist-search-form-nav-tab-reloaded', waitAndInit );
+window.addEventListener( 'directorist-type-change', waitAndInit );
+window.addEventListener( 'directorist-instant-search-reloaded', waitAndInit );
 
-// Setup DOM Observer
-function setup_dom_observer() {
-    // Select the select fields that will be observed for mutations
-    let observableItems = {
-        archiveContents: document.querySelectorAll( '.directorist-search-contents' ),
-        archiveContents: document.querySelectorAll( '.directorist-archive-contents' ),
-        searchFormBox: document.querySelectorAll( '.directorist-search-form-box' ),
-        selectFields: document.querySelectorAll( '.directorist-select' ),
-    };
-
-    let observableElements = [];
-
-    Object.values( observableItems ).forEach( item => {
-        if ( item.length ) {
-            observableElements = [ ...observableElements, ...item ];
-        }
-    });
-
-    if ( observableElements.length ) {
-        // Create an observer instance linked to the callback function
-        const observer = new MutationObserver( () => {
-
-            setTimeout( init, 300 );
-
-        } );
-
-        observableElements.forEach( function( item ) {
-            // Start observing the target node for configured mutations
-            observer.observe( item, { childList: true, attributes: true, subtree: true } );
-        });
-    }
+function waitAndInit() {
+    setTimeout( init, 0 );
 }
 
 // Initialize

@@ -193,6 +193,7 @@ import {
                         $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').replaceWith(html.search_result);
                         $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
                         $(_this).closest('.directorist-instant-search').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false)
+                        window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
                         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
                     }
                 }
@@ -315,6 +316,7 @@ import {
                             $('.directorist-archive-contents').find('.directorist-archive-items').replaceWith(html.search_result);
                             $('.directorist-archive-contents').find('.directorist-archive-items').removeClass('atbdp-form-fade');
                             $('.directorist-archive-contents').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false)
+                            window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
                             window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
                         }
                     }
@@ -352,9 +354,11 @@ import {
                 if (html.directory_type) {
                     $(_this).closest('.directorist-instant-search').replaceWith(html.directory_type);
                     $(_this).closest('.directorist-instant-search').find( '.atbdp-form-fade' ).removeClass('atbdp-form-fade');
+                    window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
                     window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
                 }
                 let events = [
+                    new CustomEvent('directorist-instant-search-reloaded'),
                     new CustomEvent('directorist-search-form-nav-tab-reloaded'),
                     new CustomEvent('directorist-reload-select2-fields'),
                     new CustomEvent('directorist-reload-map-api-field'),
@@ -483,6 +487,7 @@ import {
                     $(_this).closest('.directorist-instant-search').find('.directorist-viewas-dropdown .directorist-dropdown__links--single').removeClass("disabled-link");
                     $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single');
 
+                    window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
                     window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
                     $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').css('visibility', 'visible');
                 }
@@ -595,6 +600,7 @@ import {
                     $(_this).closest('.directorist-instant-search').find('.directorist-sortby-dropdown .directorist-dropdown__links--single-js').removeClass("disabled-link");
                     $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single-js');
                 }
+                window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
                 window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
             }
         });
@@ -711,6 +717,7 @@ import {
                     $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
                     $(document).scrollTop($(".directorist-instant-search").offset().top);
                 }
+                window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
                 window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
             }
         });

@@ -166,6 +166,15 @@ window.addEventListener('DOMContentLoaded', () => {
             }
 
             init() {
+                var t = setTimeout(function() {
+                    if ($('.directorist-review-container').length) {
+                        $(document).off('submit', '#commentform');
+                    }
+                    clearTimeout(t);
+                }, 2000);
+
+                $(document).off('submit', '.directorist-review-container #commentform');
+
                 $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
             }
 

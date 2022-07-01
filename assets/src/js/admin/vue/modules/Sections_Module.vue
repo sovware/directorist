@@ -17,7 +17,6 @@
           :class="fieldWrapperClass(field, fields[field])"
           :key="field_key"
         >
-
           <component
             v-if="fields[field]"
             :root="fields"

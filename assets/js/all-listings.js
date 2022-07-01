@@ -1352,11 +1352,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     if (fields.address && fields.address.length) {
       fields.cityLat = $(this).find('#cityLat').val();
       fields.cityLng = $(this).find('#cityLng').val();
-      fields.miles = $(this).find('.atbdrs-value').val();
+      fields.miles = $(this).find('.directorist-range-slider-value').val();
     }
 
     var form_data = _objectSpread(_objectSpread({}, data), fields);
 
+    console.log(form_data);
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
       return !item;
     });
@@ -1966,9 +1967,12 @@ window.addEventListener('DOMContentLoaded', function () {
 function initObserver() {
   var targetNode = document.querySelector('.directorist-archive-contents');
   var observer = new MutationObserver(initMasonry);
-  observer.observe(targetNode, {
-    childList: true
-  });
+
+  if (targetNode) {
+    observer.observe(targetNode, {
+      childList: true
+    });
+  }
 } // All listings Masonry layout
 
 
@@ -2274,6 +2278,14 @@ window.addEventListener('DOMContentLoaded', function () {
       _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
         key: "init",
         value: function init() {
+          var t = setTimeout(function () {
+            if ($('.directorist-review-container').length) {
+              $(document).off('submit', '#commentform');
+            }
+
+            clearTimeout(t);
+          }, 2000);
+          $(document).off('submit', '.directorist-review-container #commentform');
           $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
         }
       }, {

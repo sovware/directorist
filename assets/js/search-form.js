@@ -1480,10 +1480,13 @@ __webpack_require__.r(__webpack_exports__);
 
     function initObserver() {
       var targetNode = document.querySelector('.directorist-location-js');
-      var observer = new MutationObserver(handleRadiusVisibility);
-      observer.observe(targetNode, {
-        attributes: true
-      });
+
+      if (targetNode) {
+        var observer = new MutationObserver(handleRadiusVisibility);
+        observer.observe(targetNode, {
+          attributes: true
+        });
+      }
     }
 
     initObserver();

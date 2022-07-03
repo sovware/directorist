@@ -264,7 +264,7 @@ import './../global/components/select2-custom-control';
                 if($(this).closest('.directorist-search-contents').find('.direcorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
                 }
-                
+
             });
         }
 
@@ -346,7 +346,7 @@ import './../global/components/select2-custom-control';
             const parent = $(this).closest('.directorist-search-contents');
             const listing_type = $(this).attr('data-listing_type');
             const type_current = parent.find('.directorist-listing-type-selection__link--current');
- 
+
             if (type_current.length) {
                 type_current.removeClass('directorist-listing-type-selection__link--current');
                 $(this).addClass('directorist-listing-type-selection__link--current');
@@ -403,6 +403,8 @@ import './../global/components/select2-custom-control';
                             document.body.dispatchEvent(event);
                             window.dispatchEvent(event);
                         });
+
+                        handleRadiusVisibility();
                     }
 
                     const parentAfterAjax = $(this).closest('.directorist-search-contents');
@@ -821,6 +823,7 @@ import './../global/components/select2-custom-control';
 
         /* When location field is empty we need to hide Radius Search */
         function handleRadiusVisibility(){
+            $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
             $('.directorist-location-js').each((index,locationDom)=>{
                 if($(locationDom).val() === ''){
                     $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "none"});

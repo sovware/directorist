@@ -1123,6 +1123,7 @@ __webpack_require__.r(__webpack_exports__);
               document.body.dispatchEvent(event);
               window.dispatchEvent(event);
             });
+            handleRadiusVisibility();
           }
 
           var parentAfterAjax = $(this).closest('.directorist-search-contents');
@@ -1478,6 +1479,7 @@ __webpack_require__.r(__webpack_exports__);
     /* When location field is empty we need to hide Radius Search */
 
     function handleRadiusVisibility() {
+      $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
       $('.directorist-location-js').each(function (index, locationDom) {
         if ($(locationDom).val() === '') {
           $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({

@@ -197,6 +197,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     state = value[count - 2];
                     city = value[count - 3];
                     locationInput.value = city;
+                    $('.directorist-location-js, .atbdp-search-address').attr("data-value", city);
                   } else {
                     locationInput.value = 'address not found';
                   }

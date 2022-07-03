@@ -101,6 +101,7 @@ window.addEventListener('DOMContentLoaded', () => {
                                         state = value[count - 2];
                                         city = value[count - 3];
                                         locationInput.value = city;
+                                        $('.directorist-location-js, .atbdp-search-address').attr("data-value", city);
                                     } else {
                                         locationInput.value = 'address not found';
                                     }
@@ -123,7 +124,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         data: {},
                         success(data) {
                             $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
-                            $('.directorist-location-js, .atbdp-search-address').attr("data-value",data.display_name);
+                            $('.directorist-location-js, .atbdp-search-address').attr("data-value", data.display_name);
                             $('#cityLat').val(lat);
                             $('#cityLng').val(lng);
                         },

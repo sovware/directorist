@@ -103,9 +103,10 @@ var directorist_range_slider = (selector, obj) => {
 };
 
 function directorist_callingSlider() {
+    const minValueWrapper = document.querySelector('.directorist-range-slider-value');
     var default_args = {
         maxValue: 1000,
-        minValue: parseInt(document.querySelector('.directorist-range-slider-value').value),
+        minValue: parseInt(minValueWrapper && minValueWrapper.value),
         maxWidth: '100%',
         barColor: '#d4d5d9',
         barBorder: 'none',

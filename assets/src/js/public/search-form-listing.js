@@ -1,6 +1,5 @@
 (function ($) {
     $('body').on('click', '.search_listing_types', function (event) {
-        // console.log($('.directorist-search-contents'));
         event.preventDefault();
         const parent = $(this).closest('.directorist-search-contents');
         const listing_type = $(this).attr('data-listing_type');
@@ -119,14 +118,14 @@
             var directory_type   = $container.find('.listing_type').val();
             var $search_form_box = $container.find('.directorist-search-form-box');
             var form_data        = new FormData();
-        
+
             form_data.append('action', 'directorist_category_custom_field_search');
             form_data.append('listing_type', directory_type);
             form_data.append('cat_id', cat_id);
             form_data.append('atts', JSON.stringify($container.data('atts')));
-        
+
             $search_form_box.addClass('atbdp-form-fade');
-        
+
             $.ajax({
               method     : 'POST',
               processData: false,
@@ -136,10 +135,10 @@
               success: function success(response) {
                 if (response) {
                   $search_form_box.html(response['search_form']);
-        
+
                   $container.find('.directorist-category-select option[value="'+cat_id+'"]').attr('selected', true);
                   $container.find('.directorist-category-select option').data('custom-field', 1);
-        
+
                   [
                     new CustomEvent('directorist-search-form-nav-tab-reloaded'),
                     new CustomEvent('directorist-reload-select2-fields'),
@@ -150,7 +149,7 @@
                     window.dispatchEvent(event);
                   });
                 }
-        
+
                 $search_form_box.removeClass('atbdp-form-fade');
               },
               error: function error(_error) {
@@ -159,7 +158,7 @@
             });
           });
     }
-    
+
 
     // load custom fields of the selected category in the search form
     $('body').on('change', '.bdas-category-search, .directorist-category-select', function () {
@@ -323,8 +322,8 @@
 
                         google.maps.event.addListener(autocomplete, 'place_changed', function () {
                             const place = autocomplete.getPlace();
-                            document.getElementById(field.lat_id).value = place.geometry.location.lat();
-                            document.getElementById(field.lng_id).value = place.geometry.location.lng();
+                            elm.closest('.directorist-search-field').querySelector(`#${field.lat_id}`).value = place.geometry.location.lat();
+                            elm.closest('.directorist-search-field').querySelector(`#${field.lng_id}`).value = place.geometry.location.lng();
                         });
                     })
                 };
@@ -427,21 +426,19 @@
 
             const syncLatLngData = function (context, event, args) {
                 event.preventDefault();
-
                 const text = $(context).text();
                 const lat = $(context).data('lat');
                 const lon = $(context).data('lon');
 
-                $('#cityLat').val(lat);
-                $('#cityLng').val(lon);
+                const _this = event.target;
+                $(_this).closest('.address_result').siblings('input[name="cityLat"]').val(lat);
+                $(_this).closest('.address_result').siblings('input[name="cityLng"]').val(lon);
 
                 const inp = $(context)
                     .closest(args.result_list_container)
                     .parent()
                     .find('.directorist-location-js, #address_widget, #q_addressss, .atbdp-search-address');
-
                 inp.val(text);
-
                 $(args.result_list_container).hide();
             };
 
@@ -469,7 +466,7 @@
                 });
         }
     }
-    
+
     $(".directorist-search-contents").each(function () {
         if($(this).next().length === 0){
             $(this).find(".directorist-search-country").css("max-height","175px");

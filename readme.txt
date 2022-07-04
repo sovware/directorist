@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 7.2.2
+Stable tag: 7.2.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -309,6 +309,8 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 Directorist Business Directory offers free and cost-effective premium [Directorist Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
 
+🔥 **[dHotels](https://directorist.com/product/dhotels/)** - dHotels is mapped out with the aim to allow you to create a hotel directory website exactly the same way you have in your imagination.This hotel theme for WordPress is 100 % mobile responsive. Meaning, it fits any screen from mobile phones to desktops.
+
 🔥 **[dClassified](https://directorist.com/product/dclassified/)** - dClassified is a theme that is specially rigged up to create classified listing websites with aplomb. The theme is clean and simple yet one of the most powerful Classified WordPress themes with a string of useful features that you need to build your classified website.
 
 🔥 **[OneListing Pro](https://directorist.com/product/onelisting-pro/)** - If you are trying to create a directory website but are worried to give it the look the way you are portraying in your mind, OneListing Pro is the go-to theme for you. No matter which type of directory website you are going to build, OneListing Pro is designed in a way that can align with any design you can fantasize about.
@@ -337,7 +339,6 @@ Directorist Business Directory offers free and cost-effective premium [Directori
 * Advanced Review System
 * dEvent (Theme)
 * dJobs (Theme)
-* dHotels (Theme)
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
 
@@ -394,6 +395,10 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.2.3 – Jul 04, 2022
+
+* Improve - Plugin security
 
 7.2.2 – May 25, 2022
 

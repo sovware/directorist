@@ -1087,151 +1087,151 @@ msgstr ""
 msgid "Registration Confirmation!"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:383
+#: ../includes/classes/class-extension.php:381
 msgid "All plugins are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:389
+#: ../includes/classes/class-extension.php:387
 msgid "The plugin is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:410
+#: ../includes/classes/class-extension.php:408
 msgid "The plugin has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:406
+#: ../includes/classes/class-extension.php:404
 msgid "The plugin could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:441
+#: ../includes/classes/class-extension.php:439
 msgid "Some of the plugin could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:446
+#: ../includes/classes/class-extension.php:444
 msgid "All the plugins are updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:451
+#: ../includes/classes/class-extension.php:449
 msgid "No plugins could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:561
+#: ../includes/classes/class-extension.php:559
 msgid "Theme's stylesheet is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:585
+#: ../includes/classes/class-extension.php:583
 msgid "Please specefy which plugin to activate"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:624
+#: ../includes/classes/class-extension.php:622
 msgid "All themes are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:630
+#: ../includes/classes/class-extension.php:628
 msgid "The theme is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:644
+#: ../includes/classes/class-extension.php:642
 msgid "The theme is already upto date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:661
+#: ../includes/classes/class-extension.php:659
 msgid "The theme has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:657
+#: ../includes/classes/class-extension.php:655
 msgid "The theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:698
+#: ../includes/classes/class-extension.php:696
 msgid "Some of the theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:703
+#: ../includes/classes/class-extension.php:701
 msgid "All the themes are updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:708
+#: ../includes/classes/class-extension.php:706
 msgid "No themes could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:781
+#: ../includes/classes/class-extension.php:783
 msgid "Something went wrong"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:857
+#: ../includes/classes/class-extension.php:859
 msgid "Password is required"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:868
+#: ../includes/classes/class-extension.php:870
 msgid "Sassion is destroyed, please sign-in again"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:900
+#: ../includes/classes/class-extension.php:902
 msgid "Your purchase has been refreshed successfuly"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1057
+#: ../includes/classes/class-extension.php:1059
 msgid "Item key is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1064
+#: ../includes/classes/class-extension.php:1066
 msgid "Type not specified"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1071
+#: ../includes/classes/class-extension.php:1073
 msgid "Invalid type"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1086
+#: ../includes/classes/class-extension.php:1088
 msgid "Nothing available in subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1093
+#: ../includes/classes/class-extension.php:1095
 msgid "The item is not available in your subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1105
+#: ../includes/classes/class-extension.php:1107
 msgid "The license is not valid, please check you subscription."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1126
+#: ../includes/classes/class-extension.php:1128
 msgid "Installed Successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1170, ../includes/classes/class-extension.php:2012
+#: ../includes/classes/class-extension.php:1172, ../includes/classes/class-extension.php:2006
 msgid "Activation failed"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1206
+#: ../includes/classes/class-extension.php:1208
 msgid "Donloaded"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1224, ../includes/classes/class-extension.php:1333
-msgid "Download link not found"
+#: ../includes/classes/class-extension.php:1222, ../includes/classes/class-extension.php:1327
+msgid "Invalid download link"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1264, ../includes/classes/class-extension.php:1373
+#: ../includes/classes/class-extension.php:1262, ../includes/classes/class-extension.php:1367
 msgid "Could not create temp directory"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1315
+#: ../includes/classes/class-extension.php:1313
 msgid "The plugin has been downloaded successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1423, ../includes/classes/class-extension.php:1435
+#: ../includes/classes/class-extension.php:1417, ../includes/classes/class-extension.php:1429
 msgid "The theme has been downloaded successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1630
+#: ../includes/classes/class-extension.php:1624
 msgid "Get Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1631
-msgid "<span>Themes & Extensions</span>"
+#: ../includes/classes/class-extension.php:1625
+msgid "Themes & Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1970
+#: ../includes/classes/class-extension.php:1964
 msgid "Nothing to activate"
 msgstr ""
 

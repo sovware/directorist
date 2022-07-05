@@ -35,7 +35,6 @@ window.addEventListener('DOMContentLoaded', () => {
                             get_lat.value = lat;
                             get_lng.value = lon;
                         }
-                    }
 
                         function showError(error) {
                             switch (error.code) {

@@ -221,14 +221,20 @@ class Helper {
 				}
 				break;
 
-			case 'plugins':
+			case 'import_export':
+				if ( $screen == 'at_biz_dir_page_tools' ) {
+					$status = true;
+				}
+				break;
+
+			case 'wp-plugins':
 				if ( $screen == 'plugins' ) {
 					$status = true;
 				}
 				break;
 
-			case 'import_export':
-				if ( $screen == 'at_biz_dir_page_tools' ) {
+			case 'wp-users':
+				if ( $screen == 'users' ) {
 					$status = true;
 				}
 				break;

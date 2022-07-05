@@ -819,6 +819,14 @@ window.addEventListener('DOMContentLoaded', function () {
       _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
         key: "init",
         value: function init() {
+          var t = setTimeout(function () {
+            if ($('.directorist-review-container').length) {
+              $(document).off('submit', '#commentform');
+            }
+
+            clearTimeout(t);
+          }, 2000);
+          $(document).off('submit', '.directorist-review-container #commentform');
           $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
         }
       }, {
@@ -1069,11 +1077,14 @@ window.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   var $ = jQuery; // Plasma Slider Initialization
 
-  var single_listing_slider = new PlasmaSlider({
-    containerID: "directorist-single-listing-slider"
-  });
-  single_listing_slider.init();
+  if ($('.plasmaSlider').length !== 0) {
+    var single_listing_slider = new PlasmaSlider({
+      containerID: "directorist-single-listing-slider"
+    });
+    single_listing_slider.init();
+  }
   /* Related listings slider */
+
 
   var rtl = directorist.rtl;
   var relLis = document.querySelector('.directorist-related-carousel');

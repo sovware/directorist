@@ -197,6 +197,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     state = value[count - 2];
                     city = value[count - 3];
                     locationInput.value = city;
+                    $('.directorist-location-js, .atbdp-search-address').attr("data-value", city);
                   } else {
                     locationInput.value = 'address not found';
                   }
@@ -217,9 +218,10 @@ window.addEventListener('DOMContentLoaded', function () {
             type: 'POST',
             data: {},
             success: function success(data) {
-              $(locIcon).closest('.directorist-search-field').find('.directorist-location-js, .atbdp-search-address').val(data.display_name);
-              $(locIcon).closest('.directorist-search-field').find('input[name="cityLat"]').val(lat);
-              $(locIcon).closest('.directorist-search-field').find('input[name="cityLng"]').val(lng);
+              $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
+              $('.directorist-location-js, .atbdp-search-address').attr("data-value", data.display_name);
+              $('#cityLat').val(lat);
+              $('#cityLng').val(lng);
             }
           });
         }

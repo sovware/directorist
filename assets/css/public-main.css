@@ -6774,6 +6774,14 @@ p.atbd-min {
   top: -4px;
 }
 
+.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-range-slider-wrap {
+  padding: 0 15px !important;
+}
+
+.directorist-search-contents .directorist-search-form-top .directorist-search-field.direcorist-search-field-radius_search {
+  margin: 0;
+}
+
 .directorist-dropdown {
   position: relative;
 }
@@ -10258,7 +10266,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list ul li:not(:last-child) {
   margin: 0 0 10px;
 }
-.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list ul li div {
+.directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list ul li > div {
   margin-bottom: 2px;
   font-size: 14px;
   display: -webkit-box;
@@ -10603,7 +10611,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__info--list ul li:not(:last-child) {
   margin: 0 0 10px;
 }
-.directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__info--list ul li div {
+.directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__info--list ul li > div {
   margin-bottom: 2px;
   font-size: 14px;
   display: -webkit-box;
@@ -13953,15 +13961,29 @@ Review: New Style
 .table.atbd_single_saved_item {
   margin: 0;
   background: #fff;
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 240px;
 }
-.table.atbd_single_saved_item * {
-  border-color: #ececec;
+.table.atbd_single_saved_item td, .table.atbd_single_saved_item th, .table.atbd_single_saved_item tr {
+  border: 1px solid #ececec;
+}
+.table.atbd_single_saved_item td {
+  padding: 0 15px;
+}
+.table.atbd_single_saved_item td p {
+  margin: 5px 0;
+}
+.table.atbd_single_saved_item th {
+  text-align: left;
+  padding: 5px 15px;
 }
 .table.atbd_single_saved_item .action a.btn {
   text-decoration: none;
   font-size: 14px;
   padding: 8px 15px;
   border-radius: 4px;
+  display: inline-block;
 }
 
 .directorist-user-dashboard__nav {

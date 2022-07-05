@@ -112,7 +112,7 @@ setup_dom_observer(); // Setup DOM Observer
 function setup_dom_observer() {
   // Select the select fields that will be observed for mutations
   var observableItems = {
-    archiveContents: document.querySelectorAll('.directorist-archive-contents'),
+    searchContents: document.querySelectorAll('.directorist-search-contents'),
     searchFormBox: document.querySelectorAll('.directorist-search-form-box'),
     selectFields: document.querySelectorAll('.directorist-select')
   };
@@ -129,6 +129,7 @@ function setup_dom_observer() {
     observableElements.forEach(function (item) {
       // Start observing the target node for configured mutations
       observer.observe(item, {
+        attributes: true,
         childList: true
       });
     });
@@ -1381,7 +1382,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     if (fields.address && fields.address.length) {
       fields.cityLat = $(this).find('#cityLat').val();
       fields.cityLng = $(this).find('#cityLng').val();
-      fields.miles = $(this).find('.atbdrs-value').val();
+      fields.miles = $(this).find('.directorist-range-slider-value').val();
     }
 
     var form_data = _objectSpread(_objectSpread({}, data), fields);
@@ -1989,9 +1990,12 @@ window.addEventListener('DOMContentLoaded', function () {
 function initObserver() {
   var targetNode = document.querySelector('.directorist-archive-contents');
   var observer = new MutationObserver(initMasonry);
-  observer.observe(targetNode, {
-    childList: true
-  });
+
+  if (targetNode) {
+    observer.observe(targetNode, {
+      childList: true
+    });
+  }
 } // All listings Masonry layout
 
 
@@ -2297,6 +2301,14 @@ window.addEventListener('DOMContentLoaded', function () {
       _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
         key: "init",
         value: function init() {
+          var t = setTimeout(function () {
+            if ($('.directorist-review-container').length) {
+              $(document).off('submit', '#commentform');
+            }
+
+            clearTimeout(t);
+          }, 2000);
+          $(document).off('submit', '.directorist-review-container #commentform');
           $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
         }
       }, {

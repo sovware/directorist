@@ -333,13 +333,17 @@ __webpack_require__.r(__webpack_exports__);
   function initObserver(params) {
     var targetNode = document.querySelector('.directorist-archive-contents');
     var observer = new MutationObserver(initMap);
-    observer.observe(targetNode, {
-      childList: true
-    });
+
+    if (targetNode) {
+      observer.observe(targetNode, {
+        childList: true
+      });
+    }
   }
 
   window.addEventListener('DOMContentLoaded', initObserver);
   window.addEventListener('DOMContentLoaded', initMap);
+  window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
   function initMap() {
     var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_map'); // Define Marker Shapes

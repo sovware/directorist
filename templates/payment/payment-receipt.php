@@ -1,6 +1,12 @@
 <?php
+/**
+ * @author  wpWax
+ * @since   7.0
+ * @version 7.3.0
+ */
 use \Directorist\Helper;
 ?>
+
 <div id="directorist" class="atbd_wrapper directorist directory_wrapper single_area directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
@@ -94,7 +100,7 @@ use \Directorist\Helper;
                     if (!empty($order_items)){
                         echo '<p class="atbd_payment_summary directorist-mt-30">'.__( 'Ordered Item(s)', 'directorist' ).'</p>';
                         ?>
-                        <div class="table-responsive"><table class="table table-bordered">
+                        <div class="table-responsive directorist-payment-receipt-table"><table class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
                                     <th><?php _e( 'Name', 'directorist' ); ?></th>

@@ -90,7 +90,15 @@ class Widget_Init {
 			require_once $file;
 
 			$classname = __NAMESPACE__ . '\\' . $class;
-			Plugin::instance()->widgets_manager->register_widget_type( new $classname );
+
+			$elementor_widgets_manager = Plugin::instance()->widgets_manager;
+
+			if ( method_exists( $elementor_widgets_manager, 'register' ) ) {
+				$elementor_widgets_manager->register( new $classname );
+			} else {
+				// Remove this deprececated check safely after 30 June, 2024
+				$elementor_widgets_manager->register_widget_type( new $classname );
+			}
 		}
 	}
 }

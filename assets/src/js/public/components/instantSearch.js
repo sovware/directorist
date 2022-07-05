@@ -151,7 +151,7 @@ import {
         if (fields.address && fields.address.length) {
             fields.cityLat = $(this).find('#cityLat').val();
             fields.cityLng = $(this).find('#cityLng').val();
-            fields.miles = $(this).find('.atbdrs-value').val();
+            fields.miles = $(this).find('.directorist-range-slider-value').val();
         }
 
         var form_data = {

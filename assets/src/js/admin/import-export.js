@@ -105,6 +105,11 @@ jQuery(document).ready(function ($) {
                 map_elm = $('input.atbdp_map_to');
             }
 
+            var directory_type = $( '#directory_type' ).val();
+            if( directory_type ) {
+                form_data.append( 'directory_type', directory_type );
+            }
+            
             if ( map_elm ) {
                 var log = [];
                 map_elm.each( function () {

@@ -25,6 +25,15 @@ $current_price_type      = '';
 
 	<input type="hidden" id="atbd_listing_pricing" value="<?php echo esc_attr( $atbd_listing_pricing ); ?>">
 
+	<?php
+	if ( $data['pricing_type'] == 'price_unit' || $data['pricing_type'] == 'price_range' ) {
+		$pricing_type_value = ( $data['pricing_type'] == 'price_unit' ) ? 'price' : 'range';
+		?>
+		<input type="hidden" name="atbd_listing_pricing" value="<?php echo esc_attr( $pricing_type_value ); ?>">
+		<?php
+	}
+	?>
+
 	<div class="directorist-form-pricing-field__options">
 		<?php
 		if ( $data['pricing_type'] == 'both' ) {

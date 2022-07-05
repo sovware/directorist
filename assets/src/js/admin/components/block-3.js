@@ -147,10 +147,10 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
         $('.atbd_tagline_moto_field').fadeOut();
     }
-		if ($('.directorist-form-pricing-field').hasClass('price-type-price_range')) {
-			$('#price').hide();
-			$('#price_range').show();
-		}
+    if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+        $('#price').show();
+        $('#price_range').hide();
+    }
     $('.directorist_pricing_options label').on( 'click', function () {
         const $this = $(this);
         $this.children('input[type=checkbox]').prop('checked') == true
@@ -236,7 +236,7 @@ window.addEventListener('DOMContentLoaded', () => {
     $('.atbd_pricing_options label').on('click', function () {
         const $this = $(this);
         $this.children('input[type=checkbox]').prop('checked') == true
-            ? $(`#${$this.data('option')}`).show()
+            /? $(`#${$this.data('option')}`).show()
             : $(`#${$this.data('option')}`).hide();
         const $sibling = $this.siblings('label');
         $sibling.children('input[type=checkbox]').prop('checked', false);
@@ -728,12 +728,12 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
 
     function assetsNeedToWorkInVirtualDom() {
         // price range
-        $('#price_range').hide();
+        /* $('#price_range').hide();
         const pricing = $('#atbd_listing_pricing').val();
         if (pricing === 'range') {
             $('#price').hide();
             $('#price_range').show();
-        }
+        } */
 
         $('.atbd_pricing_options label').on('click', function () {
             const $this = $(this);

@@ -681,7 +681,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $data['preview_mode'] = true;
                 }
 
-                if ($info['listing_id']) {
+                if ( ! empty( $info['listing_id'] ) ) {
                     $data['edited_listing'] = true;
                 }
 

@@ -52,7 +52,10 @@ class Asset_Loader {
 		wp_enqueue_style( 'directorist-sweetalert-style' );
 
 		// Inline styles
-		wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );
+		$load_inline_style = apply_filters( 'directorist_load_inline_style', true );
+		if ( $load_inline_style ) {
+			wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );
+		}
 	}
 
 	/**
@@ -220,30 +223,25 @@ class Asset_Loader {
 	public static function admin_scripts() {
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
-			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-admin-builder-archive' );
 			wp_enqueue_script( 'directorist-tooltip' );
 		} elseif ( Helper::is_admin_page( 'builder-edit' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
-			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_style( 'directorist-unicons' );
 			wp_enqueue_script( 'directorist-multi-directory-builder' );
 			wp_enqueue_media();
 		} elseif ( Helper::is_admin_page( 'settings' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
-			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_script( 'directorist-settings-manager' );
 			wp_enqueue_media();
 		} elseif ( Helper::is_admin_page( 'support' ) ) {
 			// @todo remove lineawesome dependency
 			wp_enqueue_style( 'directorist-admin-style' );
-			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-tooltip' );
 		} elseif ( Helper::is_admin_page( 'extensions' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
-			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-tooltip' );
 		} elseif ( Helper::is_admin_page( 'plugins' ) ) {
@@ -255,8 +253,6 @@ class Asset_Loader {
 			wp_enqueue_script( 'directorist-tooltip' );
 			wp_enqueue_style( 'directorist-select2-style' );
 			wp_enqueue_script( 'directorist-select2-script' );
-			wp_enqueue_style( 'directorist-line-awesome' );
-			wp_enqueue_style( 'directorist-font-awesome' );
 			wp_enqueue_media();
 		} elseif ( Helper::is_admin_page( 'import_export' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
@@ -264,6 +260,7 @@ class Asset_Loader {
 			wp_enqueue_script( 'directorist-import-export' );
 		} elseif ( Helper::is_admin_page( 'add_listing' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_style( 'directorist-unicons' );
 			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-plupload' );
 			wp_enqueue_script( 'directorist-select2-script' );
@@ -274,7 +271,6 @@ class Asset_Loader {
 			wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ) );
 
 			self::enqueue_map_styles();
-			self::enqueue_icon_styles();
 		}
 	}
 
@@ -289,6 +285,9 @@ class Asset_Loader {
 		Localized_Data::load_localized_data();
 	}
 
+	/**
+	 * @todo apply icon condition
+	 */
 	public static function enqueue_icon_styles() {
 		wp_enqueue_style( 'directorist-line-awesome' );
 		wp_enqueue_style( 'directorist-font-awesome' );

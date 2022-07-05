@@ -917,9 +917,9 @@ window.addEventListener('DOMContentLoaded', function () {
     $('.atbd_tagline_moto_field').fadeOut();
   }
 
-  if ($('.directorist-form-pricing-field').hasClass('price-type-price_range')) {
-    $('#price').hide();
-    $('#price_range').show();
+  if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+    $('#price').show();
+    $('#price_range').hide();
   }
 
   $('.directorist_pricing_options label').on('click', function () {
@@ -989,7 +989,7 @@ window.addEventListener('DOMContentLoaded', function () {
   $('.atbd_pricing_options label').on('click', function () {
       const $this = $(this);
       $this.children('input[type=checkbox]').prop('checked') == true
-          ? $(`#${$this.data('option')}`).show()
+          /? $(`#${$this.data('option')}`).show()
           : $(`#${$this.data('option')}`).hide();
       const $sibling = $this.siblings('label');
       $sibling.children('input[type=checkbox]').prop('checked', false);
@@ -1398,14 +1398,13 @@ window.addEventListener('DOMContentLoaded', function () {
 
   function assetsNeedToWorkInVirtualDom() {
     // price range
-    $('#price_range').hide();
-    var pricing = $('#atbd_listing_pricing').val();
 
+    /* $('#price_range').hide();
+    const pricing = $('#atbd_listing_pricing').val();
     if (pricing === 'range') {
-      $('#price').hide();
-      $('#price_range').show();
-    }
-
+        $('#price').hide();
+        $('#price_range').show();
+    } */
     $('.atbd_pricing_options label').on('click', function () {
       var $this = $(this);
       $this.children('input[type=checkbox]').prop('checked') == true ? $("#".concat($this.data('option'))).show() : $("#".concat($this.data('option'))).hide();
@@ -1521,25 +1520,6 @@ var pureScriptTab = function pureScriptTab(selector1) {
 };
 
 pureScriptTab('.directorist_builder--tab');
-window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery;
-  /* Copy shortcodes on click */
-
-  $('body').on('click', '.atbdp_shortcodes', function () {
-    var $this = $(this);
-    var $temp = $('<input>');
-    $('body').append($temp);
-    $temp.val($(this).text()).select();
-    document.execCommand('copy');
-    $temp.remove();
-    $(this).after("<p class='copy-notify' style='color: #32cc6f; margin-top: 5px;'>Copied to clipboard!</p>");
-    setTimeout(function () {
-      $this.siblings('.copy-notify').fadeOut(300, function () {
-        $(this).remove();
-      });
-    }, 3000);
-  });
-});
 
 /***/ }),
 
@@ -2887,6 +2867,7 @@ setup_dom_observer(); // Setup DOM Observer
 function setup_dom_observer() {
   // Select the select fields that will be observed for mutations
   var observableItems = {
+    searchContents: document.querySelectorAll('.directorist-search-contents'),
     searchFormBox: document.querySelectorAll('.directorist-search-form-box'),
     selectFields: document.querySelectorAll('.directorist-select')
   };
@@ -2903,6 +2884,7 @@ function setup_dom_observer() {
     observableElements.forEach(function (item) {
       // Start observing the target node for configured mutations
       observer.observe(item, {
+        attributes: true,
         childList: true
       });
     });
@@ -3096,12 +3078,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 
 
 var $ = jQuery;
@@ -3191,8 +3175,25 @@ function initSelect2AjaxTaxonomy(args) {
   }
 
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
-    var parent = $(item).closest('.directorist-search-form');
-    var directory_type_id = parent.find('.directorist-listing-type-selection__link--current').data('listing_type_id');
+    var directory_type_id = 0;
+    var search_form_parent = $(item).closest('.directorist-search-form');
+    var archive_page_parent = $(item).closest('.directorist-archive-contents');
+    var nav_list_item = []; // If search page
+
+    if (search_form_parent.length) {
+      nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
+    } // If archive page
+
+
+    if (archive_page_parent.length) {
+      nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+    } // If has nav item
+
+
+    if (nav_list_item.length) {
+      directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
+    }
+
     var currentPage = 1;
     $(item).select2({
       allowClear: true,

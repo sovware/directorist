@@ -328,27 +328,23 @@ class Directorist_Listing_Search_Form {
 		}
 	}
 
-	public function range_slider_data( $data ) {
+	public function range_slider_unit( $data ) {
 		$radius_search_unit = !empty( $data['radius_search_unit'] ) ? $data['radius_search_unit'] : '';
-		if ( 'kilometers' == $radius_search_unit ) {
-			$miles = __( ' Kilometers', 'directorist' );
-		}
-		else {
-			$miles = __( ' Miles', 'directorist' );
-		}
+		return ( 'kilometers' == $radius_search_unit ) ? __( 'Kilometers', 'directorist' ) : __( 'Miles', 'directorist' );
+	}
 
-		$value = !empty( $_REQUEST['miles'] ) ? $_REQUEST['miles'] : $data['default_radius_distance'];
+	public function range_slider_minValue( $data ){
+		return !empty( $_REQUEST['miles'] ) ? $_REQUEST['miles'] : $data['default_radius_distance'];
+	}
+
+	public function range_slider_data( $data ) {
 
 		$data = [
-			'miles' => $miles,
-			'minValue' => $value,
+			'miles' => $this->range_slider_unit( $data ),
+			'minValue' => $this->range_slider_minValue( $data ),
 		];
 
 		return json_encode( $data );;
-	}
-
-	public function load_radius_search_scripts( $data ) {
-		_deprecated_function( 'load_radius_search_scripts', '7.1' );
 	}
 
 	public function get_pricing_type() {
@@ -701,5 +697,13 @@ class Directorist_Listing_Search_Form {
 		$item[ 'label' ] = $taxonomy->name;
 
 		return $item;
+	}
+
+	public function load_radius_search_scripts( $data ) {
+		_deprecated_function( __METHOD__, '7.1' );
+	}
+
+	public function load_map_scripts() {
+		_deprecated_function( __METHOD__, '7.3' );
 	}
 }

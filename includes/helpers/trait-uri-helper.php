@@ -73,6 +73,8 @@ trait URI_Helper {
 
 		do_action( 'before_directorist_template_loaded', $template, $file, $args );
 
+		do_action( 'before_directorist_template_loaded', $template, $file, $args );
+
 		if ( file_exists( $file ) ) {
 			include $file;
 		}

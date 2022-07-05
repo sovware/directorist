@@ -13,7 +13,14 @@ class ATBDP_Rewrite {
 	public function __construct() {
 		// add the rewrite rules to the init hook
 		add_action( 'init', array( $this, 'add_write_rules' ) );
-		add_action( 'wp_loaded', array( $this, 'flush_rewrite_rules_on_demand' ) );
+
+		$flush_rewrite_rules_on_demand = apply_filters( 'directorist_flush_rewrite_rules_on_demand', false );
+
+		if ( $flush_rewrite_rules_on_demand ) {
+			add_action( 'wp_loaded', array( $this, 'flush_rewrite_rules_on_demand' ) );
+		}
+		add_action( 'directorist_setup_wizard_page_created', array( $this, 'flush_rewrite_rules_on_demand' ) );
+		add_action( 'directorist_options_updated', array( $this, 'flush_rewrite_rules_on_demand' ) );
 	}
 
 	protected function get_pages() {

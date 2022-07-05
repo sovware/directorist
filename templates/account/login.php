@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.3
+ * @version 7.3.0
  */
 
 use \Directorist\Helper;
@@ -69,8 +69,9 @@ use \Directorist\Helper;
                                     <button type="submit" class="btn btn-primary" value="<?php esc_attr_e( 'Save', 'directorist' );?>"><?php esc_html_e( 'Save', 'directorist' );?></button>
                                 </p>
 
-                            <?php wp_nonce_field( 'reset_password', 'directorist-reset-password-nonce' );
-                                    } else {
+                            <?php wp_nonce_field( 'reset_password', 'directorist-reset-password-nonce' );?>
+                            </form>
+                                 <?php   } else {
                                     ?>
                                 <p><?php echo apply_filters( 'directorist_reset_password_link_exp_message', esc_html__( 'Sorry! The link is invalid.', 'directorist' ) ); ?></p>
                             <?php }

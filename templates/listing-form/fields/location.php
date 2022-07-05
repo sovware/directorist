@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5.4
+ * @version 7.3.0
  */
 
 $placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
@@ -16,7 +16,7 @@ $placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
 
 		<?php
 		if ($data['type'] != 'multiple') {
-			echo '<option value="">'+ esc_attr( $placeholder ) +'</option>';
+			echo '<option value="">' . esc_attr( $placeholder ) . '</option>';
 		}
 		echo $listing_form->add_listing_location_fields();
 		?>

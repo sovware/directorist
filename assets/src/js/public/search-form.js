@@ -144,8 +144,10 @@ import './../global/components/select2-custom-control';
             let config = default_args;
             $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
             $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
-            directorist_callingSlider();
-            directorist_range_slider('.directorist-range-slider', config);
+            if($(this).closest('.directorist-search-form, .directorist-archive-contents').find('.direcorist-search-field-radius_search').length){
+                directorist_callingSlider();
+                directorist_range_slider('.directorist-range-slider', config);
+            }
         });
         $(".directorist-advanced-filter").parents("div").css("overflow", "visible");
 
@@ -154,43 +156,6 @@ import './../global/components/select2-custom-control';
         $(window).on('load', function () {
             $("body").removeClass("directorist-preload");
             $('.button.wp-color-result').attr('style', ' ');
-        });
-
-        $('body').on("click", '.directorist-mark-as-favorite__btn', function (event) {
-            event.preventDefault();
-            var data = {
-                'action': 'atbdp-favourites-all-listing',
-                'post_id': $(this).data('listing_id')
-            };
-            var fav_tooltip_success = '<span>'+directorist.i18n_text.added_favourite+'</span>';
-            var fav_tooltip_warning = '<span>'+directorist.i18n_text.please_login+'</span>';
-            $(".directorist-favorite-tooltip").hide();
-            $.post(directorist.ajax_url, data, function (response) {
-                var post_id = data['post_id'].toString();
-                var staElement = $('.directorist-fav_'+ post_id);
-                var data_id = staElement.attr('data-listing_id');
-
-                if (response === "login_required") {
-                    staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_warning);
-                    staElement.children(".directorist-favorite-tooltip").fadeIn();
-                    setTimeout(function () {
-                        staElement.children(".directorist-favorite-tooltip").children("span").remove();
-                    },3000);
-
-                }else if('false' === response){
-                    staElement.removeClass('directorist-added-to-favorite');
-                    $(".directorist-favorite-tooltip span").remove();
-                }else{
-                    if ( data_id === post_id){
-                        staElement.addClass('directorist-added-to-favorite');
-                        staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_success);
-                        staElement.children(".directorist-favorite-tooltip").fadeIn();
-                        setTimeout(function () {
-                            staElement.children(".directorist-favorite-tooltip").children("span").remove();
-                        },3000)
-                    }
-                }
-            });
         });
 
         //reset fields
@@ -254,6 +219,12 @@ import './../global/components/select2-custom-control';
                 el.value = "";
             });
             searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
+                if(el.getAttribute('name') === "directory_type") return;
+                if(el.getAttribute('name') === "miles"){
+                    const radiusDefaultValue = searchForm.querySelector('.directorist-range-slider').dataset.defaultRadius;
+                    el.value = radiusDefaultValue;
+                    return;
+                }
                 el.value = "";
             });
             searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
@@ -277,6 +248,7 @@ import './../global/components/select2-custom-control';
             if (rangeValue !== null) {
                 rangeValue.innerHTML = "0";
             }
+            handleRadiusVisibility();
         }
 
         /* Advance Search Filter For Search Home Short Code */
@@ -289,7 +261,10 @@ import './../global/components/select2-custom-control';
                         adsFormReset(searchForm);
                     }
                 }
-                directorist_callingSlider(0);
+                if($(this).closest('.directorist-search-contents').find('.direcorist-search-field-radius_search').length){
+                    directorist_callingSlider(0);
+                }
+
             });
         }
 
@@ -303,7 +278,9 @@ import './../global/components/select2-custom-control';
                         adsFormReset(searchForm);
                     }
                 }
-                directorist_callingSlider(0);
+                if($(this).closest('.directorist-advanced-filter').find('.direcorist-search-field-radius_search').length){
+                    directorist_callingSlider(0);
+                }
             });
         }
 
@@ -322,7 +299,9 @@ import './../global/components/select2-custom-control';
                         adsFormReset(searchForm);
                     }
                 }
-                directorist_callingSlider(0);
+                if($(this).closest('.directorist-search-contents').find('.direcorist-search-field-radius_search').length){
+                    directorist_callingSlider(0);
+                }
             });
         }
 
@@ -336,7 +315,9 @@ import './../global/components/select2-custom-control';
                         adsFormReset(searchForm);
                     }
                 }
-                directorist_callingSlider(0);
+                if($(this).closest('#directorist-search-area').find('.direcorist-search-field-radius_search').length){
+                    directorist_callingSlider(0);
+                }
             });
         }
 
@@ -350,7 +331,9 @@ import './../global/components/select2-custom-control';
                         adsFormReset(searchForm);
                     }
                 }
-                directorist_callingSlider(0);
+                if($(this).closest('.search-area').find('.direcorist-search-field-radius_search').length){
+                    directorist_callingSlider(0);
+                }
             });
         }
 
@@ -359,7 +342,6 @@ import './../global/components/select2-custom-control';
         Search-form-listing
         ------------------- */
         $('body').on('click', '.search_listing_types', function (event) {
-            // console.log($('.directorist-search-contents'));
             event.preventDefault();
             const parent = $(this).closest('.directorist-search-contents');
             const listing_type = $(this).attr('data-listing_type');
@@ -421,10 +403,17 @@ import './../global/components/select2-custom-control';
                             document.body.dispatchEvent(event);
                             window.dispatchEvent(event);
                         });
+
+                        handleRadiusVisibility();
                     }
 
-                    parent.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
-                    directorist_callingSlider();
+                    const parentAfterAjax = $(this).closest('.directorist-search-contents');
+
+                    parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
+                    if(parentAfterAjax.find('.directorist-search-form-box').find('.direcorist-search-field-radius_search').length){
+                        handleRadiusVisibility()
+                        directorist_callingSlider();
+                    }
                 },
                 error(error) {
                     console.log(error);
@@ -477,7 +466,7 @@ import './../global/components/select2-custom-control';
                 var $container       = $this.parents('form');
                 var cat_id           = $this.val();
                 var directory_type   = $container.find('.listing_type').val();
-                var $search_form_box = $container.find('.directorist-search-form-box');
+                var $search_form_box = $container.find('.directorist-search-form-box-wrap');
                 var form_data        = new FormData();
 
                 form_data.append('action', 'directorist_category_custom_field_search');
@@ -682,8 +671,8 @@ import './../global/components/select2-custom-control';
 
                             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                                 const place = autocomplete.getPlace();
-                                document.getElementById(field.lat_id).value = place.geometry.location.lat();
-                                document.getElementById(field.lng_id).value = place.geometry.location.lng();
+                                elm.closest('.directorist-search-field').querySelector(`#${field.lat_id}`).value = place.geometry.location.lat();
+                                elm.closest('.directorist-search-field').querySelector(`#${field.lng_id}`).value = place.geometry.location.lng();
                             });
                         })
                     };
@@ -786,21 +775,17 @@ import './../global/components/select2-custom-control';
 
                 const syncLatLngData = function (context, event, args) {
                     event.preventDefault();
-
                     const text = $(context).text();
                     const lat = $(context).data('lat');
                     const lon = $(context).data('lon');
-
-                    $('#cityLat').val(lat);
-                    $('#cityLng').val(lon);
-
+                    const _this = event.target;
+                    $(_this).closest('.address_result').siblings('input[name="cityLat"]').val(lat);
+                    $(_this).closest('.address_result').siblings('input[name="cityLng"]').val(lon);
                     const inp = $(context)
                         .closest(args.result_list_container)
                         .parent()
                         .find('.directorist-location-js, #address_widget, #q_addressss, .atbdp-search-address');
-
                     inp.val(text);
-
                     $(args.result_list_container).hide();
                 };
 
@@ -836,5 +821,30 @@ import './../global/components/select2-custom-control';
             }
         });
 
+        /* When location field is empty we need to hide Radius Search */
+        function handleRadiusVisibility(){
+            $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
+            $('.directorist-location-js').each((index,locationDom)=>{
+                if($(locationDom).val() === ''){
+                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "none"});
+                }else{
+                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "block"});
+                    directorist_callingSlider();
+                }
+            });
+        }
+        $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
+            handleRadiusVisibility();
+        });
+        // DOM Mutation observer
+        function initObserver() {
+            const targetNode = document.querySelector('.directorist-location-js');
+            if(targetNode){
+                const observer = new MutationObserver( handleRadiusVisibility );
+                observer.observe( targetNode, { attributes: true } );
+            }
+        }
+        initObserver();
+        handleRadiusVisibility();
     });
 })(jQuery);

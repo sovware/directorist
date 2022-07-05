@@ -5700,7 +5700,6 @@ if ( ! function_exists( 'str_starts_with' ) ) {
 	}
 }
 
-
 function directorist_icon( $icon, $echo = true ) {
     if ( !$icon ) {
         return;
@@ -8841,4 +8840,16 @@ function directorist_translate_to_listing_field_key( $header_key = '' ) {
     );
 
     return isset( $fields_map[ $header_key ] ) ? $fields_map[ $header_key ] : '';
+}
+
+/**
+ * Get data if set, otherwise return a default value or null. Prevents notices when data is not set.
+ *
+ * @since  7.3.0
+ * @param  mixed  $var     Variable.
+ * @param  string $default Default value.
+ * @return mixed
+ */
+function directorist_get_var( &$var, $default = null ) {
+	return isset( $var ) ? $var : $default;
 }

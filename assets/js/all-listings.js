@@ -112,6 +112,7 @@ setup_dom_observer(); // Setup DOM Observer
 function setup_dom_observer() {
   // Select the select fields that will be observed for mutations
   var observableItems = {
+    searchContents: document.querySelectorAll('.directorist-search-contents'),
     searchFormBox: document.querySelectorAll('.directorist-search-form-box'),
     selectFields: document.querySelectorAll('.directorist-select')
   };
@@ -128,6 +129,7 @@ function setup_dom_observer() {
     observableElements.forEach(function (item) {
       // Start observing the target node for configured mutations
       observer.observe(item, {
+        attributes: true,
         childList: true
       });
     });
@@ -321,6 +323,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 
 
 
@@ -416,8 +419,25 @@ function initSelect2AjaxTaxonomy(args) {
   }
 
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
-    var parent = $(item).closest('.directorist-search-form');
-    var directory_type_id = parent.find('.directorist-listing-type-selection__link--current').data('listing_type_id');
+    var directory_type_id = 0;
+    var search_form_parent = $(item).closest('.directorist-search-form');
+    var archive_page_parent = $(item).closest('.directorist-archive-contents');
+    var nav_list_item = []; // If search page
+
+    if (search_form_parent.length) {
+      nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
+    } // If archive page
+
+
+    if (archive_page_parent.length) {
+      nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+    } // If has nav item
+
+
+    if (nav_list_item.length) {
+      directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
+    }
+
     var currentPage = 1;
     $(item).select2({
       allowClear: true,
@@ -1361,7 +1381,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     if (fields.address && fields.address.length) {
       fields.cityLat = $(this).find('#cityLat').val();
       fields.cityLng = $(this).find('#cityLng').val();
-      fields.miles = $(this).find('.atbdrs-value').val();
+      fields.miles = $(this).find('.directorist-range-slider-value').val();
     }
 
     var form_data = _objectSpread(_objectSpread({}, data), fields);
@@ -1562,7 +1582,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       success: function success(html) {
         if (html.directory_type) {
           $(_this).closest('.directorist-instant-search').replaceWith(html.directory_type);
-          $(_this).closest('.directorist-instant-search').find.removeClass('atbdp-form-fade');
+          $(_this).closest('.directorist-instant-search').find('.atbdp-form-fade').removeClass('atbdp-form-fade');
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
         }
 
@@ -1969,9 +1989,12 @@ window.addEventListener('DOMContentLoaded', function () {
 function initObserver() {
   var targetNode = document.querySelector('.directorist-archive-contents');
   var observer = new MutationObserver(initMasonry);
-  observer.observe(targetNode, {
-    childList: true
-  });
+
+  if (targetNode) {
+    observer.observe(targetNode, {
+      childList: true
+    });
+  }
 } // All listings Masonry layout
 
 
@@ -2277,6 +2300,14 @@ window.addEventListener('DOMContentLoaded', function () {
       _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
         key: "init",
         value: function init() {
+          var t = setTimeout(function () {
+            if ($('.directorist-review-container').length) {
+              $(document).off('submit', '#commentform');
+            }
+
+            clearTimeout(t);
+          }, 2000);
+          $(document).off('submit', '.directorist-review-container #commentform');
           $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
         }
       }, {

@@ -71,6 +71,10 @@ class Scripts {
 			'directorist-admin-style' => [
 				'type' => 'css',
 				'path' => DIRECTORIST_CSS . 'admin-main',
+				'dep' => [
+					'directorist-font-awesome',
+					'directorist-line-awesome',
+				],
 			],
 
 			// Vendor JS

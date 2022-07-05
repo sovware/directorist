@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.2.2
+ * @version 7.3.0
  */
 
 use \Directorist\Helper;
@@ -40,7 +40,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<input type="hidden" name="directory_type" class="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
 
-				<?php Helper::get_template( 'search-form/form-box', [ 'searchform' =>  $searchform ] ); ?>
+				<div class="directorist-search-form-box-wrap">
+
+					<?php Helper::get_template( 'search-form/form-box', ['searchform' =>  $searchform] ); ?>
+
+				</div>
 
 			</div>
 

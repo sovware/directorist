@@ -1207,4 +1207,12 @@ class Directorist_Single_Listing {
 		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
 		return 12/$columns;
 	}
+
+	public function load_map_resources() {
+		_deprecated_function( __METHOD__, '7.3' );
+	}
+
+	public function load_related_listings_script() {
+		_deprecated_function( __METHOD__, '7.3' );
+	}
 }

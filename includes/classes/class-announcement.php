@@ -357,6 +357,17 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 'message' => __( 'Sorry, something went wrong, please try again', 'directorist' )
             ];
 
+			if ( ! wp_verify_nonce( $nonce, directorist_get_nonce_key() ) ) {
+				$status['message'] = __( 'Invalid request', 'directorist' );
+				wp_send_json( $status );
+			}
+
+			// Only admin can send announcements
+			if ( ! current_user_can( 'manage_options' ) ) {
+				$status['message'] = __( 'You are not allowed to send announcement', 'directorist' );
+				wp_send_json( $status );
+			}
+
 			$recipients = array();
 
             // Get Recipient

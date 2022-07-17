@@ -187,6 +187,10 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         'label' => 'Send a copy to email',
                         'value' => true,
                     ],
+					'nonce' => [
+						'type'  => 'hidden',
+						'value' => wp_create_nonce( directorist_get_nonce_key() ),
+                    ],
                 ],
                 'value' => '',
                 'save-option-data' => false,

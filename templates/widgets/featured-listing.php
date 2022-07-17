@@ -27,7 +27,7 @@ $featured_args = array(
  * 
  * @param array $featured_args  Featured Arguments.
  */
-apply_filters( "atbdp_featured_listings_query_arguments", $featured_args );
+apply_filters( "directorist_featured_listings_query_arguments", $featured_args );
 
 $featured_listings = new WP_Query($featured_args);
 ?>

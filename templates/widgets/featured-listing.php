@@ -20,6 +20,15 @@ $featured_args = array(
         )
     )
 );
+/**
+ * Filter to modify featured listings arguments. 
+ *
+ * @since 7.3.0
+ * 
+ * @param array $featured_args  Featured Arguments.
+ */
+apply_filters( "atbdp_featured_listings_query_arguments", $featured_args );
+
 $featured_listings = new WP_Query($featured_args);
 ?>
 <div class="atbd_categorized_listings">

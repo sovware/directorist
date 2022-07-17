@@ -100,7 +100,7 @@
 }
 
 // Client Review
-.directorist-signle-review {
+.directorist-single-review {
     padding-bottom: 26px;
     padding-top: 30px;
     border-bottom: 1px solid #e3e6ef;
@@ -114,16 +114,16 @@
         border-bottom: 0;
     }
 
-    .directorist-signle-review__top {
+    .directorist-single-review__top {
         display: flex;
         justify-content: space-between;
 
-        .directorist-signle-review-avatar-wrap {
+        .directorist-single-review-avatar-wrap {
             display: flex;
             align-items: center;
             margin-bottom: 22px;
 
-            .directorist-signle-review-avatar {
+            .directorist-single-review-avatar {
                 margin-right: 12px;
 
                 img {
@@ -132,7 +132,7 @@
                 }
             }
 
-            .directorist-signle-review-avatar__info {
+            .directorist-single-review-avatar__info {
                 p {
                     font-size: 16px;
                     color: $dark;
@@ -141,7 +141,7 @@
                     margin-bottom: 2px;
                 }
 
-                .directorist-signle-review-time {
+                .directorist-single-review-time {
                     font-size: 13px;
                     margin-left: 0;
                 }

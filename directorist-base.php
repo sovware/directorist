@@ -338,7 +338,7 @@ final class Directorist_Base
 			$category_url = $this->get_polylang_swicher_link_for_term([
 				'term_type'            => 'category',
 				'term_default_page_id' => get_directorist_option('single_category_page'),
-				'term_query_var'       => ( ! empty( $_GET['category'] ) ) ? $_GET['category'] : get_query_var('atbdp_category'),
+				'term_query_var'       => ( ! empty( $_GET['category'] ) ) ? esc_attr( $_GET['category'] ) : get_query_var('atbdp_category'),
 				'current_lang'         => $current_lang,
 				'url'                  => $url,
 			]);
@@ -349,7 +349,7 @@ final class Directorist_Base
 			$location_url = $this->get_polylang_swicher_link_for_term([
 				'term_type'            => 'location',
 				'term_default_page_id' => get_directorist_option('single_location_page'),
-				'term_query_var'       => ( ! empty( $_GET['location'] ) ) ? $_GET['location'] : get_query_var('atbdp_location'),
+				'term_query_var'       => ( ! empty( $_GET['location'] ) ) ? esc_attr( $_GET['location'] ) : get_query_var('atbdp_location'),
 				'current_lang'         => $current_lang,
 				'url'                  => $url,
 			]);
@@ -611,7 +611,7 @@ final class Directorist_Base
 		$average = directorist_get_listing_rating( $post->ID );
 		?>
 		<div class="atbd_rated_stars">
-			<?php echo ATBDP()->review->print_static_rating($average); ?>
+			<?php echo esc_html( ATBDP()->review->print_static_rating( $average ) ); ?>
 		</div>
 		<?php
 	}

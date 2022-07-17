@@ -739,11 +739,12 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 $props = '';
                 foreach ( $meta_attributes as $attr => $value ) {
                     if ( ! empty( $meta_attributes['content'] ) ) {
-                        $props .= "{$attr}='{$value}' ";
+						$value = esc_attr( $value );
+						$props .= "{$attr}=\"{$value}\" ";
                     }
                 }
 
-                $props = trim( $props );
+                $props = rtrim( $props );
                 if ( ! empty( $props ) ) {
                     echo "<meta {$props} />\n";
                 }

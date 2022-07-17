@@ -1179,17 +1179,13 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 'registration',
             ];
 
-            $current_page = '';
-
             foreach( $all_directorist_pages as $page_name ) {
-
-                if ( ! atbdp_is_page( $page_name ) ) continue;
-                $current_page = $page_name;
-
-                break;
+				if ( atbdp_is_page( $page_name ) ) {
+					return $page_name;
+				}
             }
 
-            return $current_page;
+			return '';
         }
 
         // sync_with_yoast_seo_meta

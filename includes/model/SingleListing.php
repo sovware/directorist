@@ -359,6 +359,10 @@ class Directorist_Single_Listing {
 			return '';
 		}
 
+		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->documents->get( $page_id )->is_built_with_elementor() ) {
+			return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
+		}
+
 		$page = get_post( $page_id );
 		if ( $page->post_type !== 'page' ) {
 			return '';

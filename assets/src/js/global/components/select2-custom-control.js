@@ -1,34 +1,12 @@
 const $ = jQuery;
 
-window.addEventListener( 'load', init );
-setup_dom_observer();
+window.addEventListener( 'load', waitAndInit );
+window.addEventListener( 'directorist-search-form-nav-tab-reloaded', waitAndInit );
+window.addEventListener( 'directorist-type-change', waitAndInit );
+window.addEventListener( 'directorist-instant-search-reloaded', waitAndInit );
 
-// Setup DOM Observer
-function setup_dom_observer() {
-    // Select the select fields that will be observed for mutations
-    let observableItems = {
-        searchContents: document.querySelectorAll( '.directorist-search-contents' ),
-        searchFormBox: document.querySelectorAll( '.directorist-search-form-box' ),
-        selectFields: document.querySelectorAll( '.directorist-select' ),
-    };
-
-    let observableElements = [];
-
-    Object.values( observableItems ).forEach( item => {
-        if ( item.length ) {
-            observableElements = [ ...observableElements, ...item ];
-        }
-    });
-
-    if ( observableElements.length ) {
-        // Create an observer instance linked to the callback function
-        const observer = new MutationObserver( init );
-
-        observableElements.forEach( function( item ) {
-            // Start observing the target node for configured mutations
-            observer.observe( item, { attributes: true, childList: true } );
-        });
-    }
+function waitAndInit() {
+    setTimeout( init, 0 );
 }
 
 // Initialize
@@ -159,10 +137,6 @@ function selec2_remove_custom_close_button(field) {
 }
 
 function selec2_get_addon_container(field) {
-    if (field && !field.length) {
-        return;
-    }
-
     var container = (field) ? $(field).next('.select2-container') : $('.select2-container');
     container = $(container).find('.directorist-select2-addons-area');
 

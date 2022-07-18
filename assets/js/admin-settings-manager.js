@@ -378,9 +378,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -555,7 +555,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -679,15 +679,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -889,9 +889,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -958,7 +958,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -1165,9 +1165,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -1222,9 +1222,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -1287,9 +1287,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -1614,15 +1614,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -1822,9 +1822,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1905,9 +1905,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -1986,9 +1986,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -2203,15 +2203,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -2386,15 +2386,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -2801,9 +2801,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2884,9 +2884,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2951,9 +2951,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3149,9 +3149,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3265,15 +3265,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3747,15 +3747,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3937,9 +3937,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11823,7 +11823,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -12063,7 +12063,8 @@ function _arrayLikeToArray(arr, len) {
   return arr2;
 }
 
-module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = _arrayLikeToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -12080,7 +12081,8 @@ function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
 }
 
-module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = _arrayWithoutHoles;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -12106,7 +12108,8 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -12118,10 +12121,11 @@ module.exports = _defineProperty, module.exports.__esModule = true, module.expor
 /***/ (function(module, exports) {
 
 function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
 
-module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = _iterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -12136,7 +12140,8 @@ function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = _nonIterableSpread;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -12159,7 +12164,8 @@ function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
 }
 
-module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = _toConsumableArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -12173,14 +12179,25 @@ module.exports = _toConsumableArray, module.exports.__esModule = true, module.ex
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
 }
 
-module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -12202,7 +12219,8 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 }
 
-module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = _unsupportedIterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -12240,7 +12258,6 @@ module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
     var requestData = config.data;
     var requestHeaders = config.headers;
-    var responseType = config.responseType;
 
     if (utils.isFormData(requestData)) {
       delete requestHeaders['Content-Type']; // Let the browser set it
@@ -12261,14 +12278,23 @@ module.exports = function xhrAdapter(config) {
     // Set the request timeout in MS
     request.timeout = config.timeout;
 
-    function onloadend() {
-      if (!request) {
+    // Listen for ready state
+    request.onreadystatechange = function handleLoad() {
+      if (!request || request.readyState !== 4) {
         return;
       }
+
+      // The request errored out and we didn't get a response, this will be
+      // handled by onerror instead
+      // With one exception: request that using file: protocol, most browsers
+      // will return status as 0 even though it's a successful request
+      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+        return;
+      }
+
       // Prepare the response
       var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-      var responseData = !responseType || responseType === 'text' ||  responseType === 'json' ?
-        request.responseText : request.response;
+      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
       var response = {
         data: responseData,
         status: request.status,
@@ -12282,30 +12308,7 @@ module.exports = function xhrAdapter(config) {
 
       // Clean up request
       request = null;
-    }
-
-    if ('onloadend' in request) {
-      // Use onloadend if available
-      request.onloadend = onloadend;
-    } else {
-      // Listen for ready state to emulate onloadend
-      request.onreadystatechange = function handleLoad() {
-        if (!request || request.readyState !== 4) {
-          return;
-        }
-
-        // The request errored out and we didn't get a response, this will be
-        // handled by onerror instead
-        // With one exception: request that using file: protocol, most browsers
-        // will return status as 0 even though it's a successful request
-        if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
-          return;
-        }
-        // readystate handler is calling before onerror or ontimeout handlers,
-        // so we should call onloadend on the next 'tick'
-        setTimeout(onloadend);
-      };
-    }
+    };
 
     // Handle browser request cancellation (as opposed to a manual cancellation)
     request.onabort = function handleAbort() {
@@ -12335,10 +12338,7 @@ module.exports = function xhrAdapter(config) {
       if (config.timeoutErrorMessage) {
         timeoutErrorMessage = config.timeoutErrorMessage;
       }
-      reject(createError(
-        timeoutErrorMessage,
-        config,
-        config.transitional && config.transitional.clarifyTimeoutError ? 'ETIMEDOUT' : 'ECONNABORTED',
+      reject(createError(timeoutErrorMessage, config, 'ECONNABORTED',
         request));
 
       // Clean up request
@@ -12378,8 +12378,16 @@ module.exports = function xhrAdapter(config) {
     }
 
     // Add responseType to request if needed
-    if (responseType && responseType !== 'json') {
-      request.responseType = config.responseType;
+    if (config.responseType) {
+      try {
+        request.responseType = config.responseType;
+      } catch (e) {
+        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
+        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
+        if (config.responseType !== 'json') {
+          throw e;
+        }
+      }
     }
 
     // Handle progress if needed
@@ -12618,9 +12626,7 @@ var buildURL = __webpack_require__(/*! ../helpers/buildURL */ "./node_modules/ax
 var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ "./node_modules/axios/lib/core/InterceptorManager.js");
 var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ "./node_modules/axios/lib/core/dispatchRequest.js");
 var mergeConfig = __webpack_require__(/*! ./mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
-var validator = __webpack_require__(/*! ../helpers/validator */ "./node_modules/axios/lib/helpers/validator.js");
 
-var validators = validator.validators;
 /**
  * Create a new instance of Axios
  *
@@ -12660,71 +12666,20 @@ Axios.prototype.request = function request(config) {
     config.method = 'get';
   }
 
-  var transitional = config.transitional;
+  // Hook up interceptors middleware
+  var chain = [dispatchRequest, undefined];
+  var promise = Promise.resolve(config);
 
-  if (transitional !== undefined) {
-    validator.assertOptions(transitional, {
-      silentJSONParsing: validators.transitional(validators.boolean, '1.0.0'),
-      forcedJSONParsing: validators.transitional(validators.boolean, '1.0.0'),
-      clarifyTimeoutError: validators.transitional(validators.boolean, '1.0.0')
-    }, false);
-  }
-
-  // filter out skipped interceptors
-  var requestInterceptorChain = [];
-  var synchronousRequestInterceptors = true;
   this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-    if (typeof interceptor.runWhen === 'function' && interceptor.runWhen(config) === false) {
-      return;
-    }
-
-    synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
-
-    requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
+    chain.unshift(interceptor.fulfilled, interceptor.rejected);
   });
 
-  var responseInterceptorChain = [];
   this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-    responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
+    chain.push(interceptor.fulfilled, interceptor.rejected);
   });
 
-  var promise;
-
-  if (!synchronousRequestInterceptors) {
-    var chain = [dispatchRequest, undefined];
-
-    Array.prototype.unshift.apply(chain, requestInterceptorChain);
-    chain = chain.concat(responseInterceptorChain);
-
-    promise = Promise.resolve(config);
-    while (chain.length) {
-      promise = promise.then(chain.shift(), chain.shift());
-    }
-
-    return promise;
-  }
-
-
-  var newConfig = config;
-  while (requestInterceptorChain.length) {
-    var onFulfilled = requestInterceptorChain.shift();
-    var onRejected = requestInterceptorChain.shift();
-    try {
-      newConfig = onFulfilled(newConfig);
-    } catch (error) {
-      onRejected(error);
-      break;
-    }
-  }
-
-  try {
-    promise = dispatchRequest(newConfig);
-  } catch (error) {
-    return Promise.reject(error);
-  }
-
-  while (responseInterceptorChain.length) {
-    promise = promise.then(responseInterceptorChain.shift(), responseInterceptorChain.shift());
+  while (chain.length) {
+    promise = promise.then(chain.shift(), chain.shift());
   }
 
   return promise;
@@ -12787,12 +12742,10 @@ function InterceptorManager() {
  *
  * @return {Number} An ID used to remove interceptor later
  */
-InterceptorManager.prototype.use = function use(fulfilled, rejected, options) {
+InterceptorManager.prototype.use = function use(fulfilled, rejected) {
   this.handlers.push({
     fulfilled: fulfilled,
-    rejected: rejected,
-    synchronous: options ? options.synchronous : false,
-    runWhen: options ? options.runWhen : null
+    rejected: rejected
   });
   return this.handlers.length - 1;
 };
@@ -12928,8 +12881,7 @@ module.exports = function dispatchRequest(config) {
   config.headers = config.headers || {};
 
   // Transform request data
-  config.data = transformData.call(
-    config,
+  config.data = transformData(
     config.data,
     config.headers,
     config.transformRequest
@@ -12955,8 +12907,7 @@ module.exports = function dispatchRequest(config) {
     throwIfCancellationRequested(config);
 
     // Transform response data
-    response.data = transformData.call(
-      config,
+    response.data = transformData(
       response.data,
       response.headers,
       config.transformResponse
@@ -12969,8 +12920,7 @@ module.exports = function dispatchRequest(config) {
 
       // Transform response data
       if (reason && reason.response) {
-        reason.response.data = transformData.call(
-          config,
+        reason.response.data = transformData(
           reason.response.data,
           reason.response.headers,
           config.transformResponse
@@ -13186,7 +13136,6 @@ module.exports = function settle(resolve, reject, response) {
 
 
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
-var defaults = __webpack_require__(/*! ./../defaults */ "./node_modules/axios/lib/defaults.js");
 
 /**
  * Transform the data for a request or a response
@@ -13197,10 +13146,9 @@ var defaults = __webpack_require__(/*! ./../defaults */ "./node_modules/axios/li
  * @returns {*} The resulting transformed data
  */
 module.exports = function transformData(data, headers, fns) {
-  var context = this || defaults;
   /*eslint no-param-reassign:0*/
   utils.forEach(fns, function transform(fn) {
-    data = fn.call(context, data, headers);
+    data = fn(data, headers);
   });
 
   return data;
@@ -13221,7 +13169,6 @@ module.exports = function transformData(data, headers, fns) {
 
 var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
 var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ "./node_modules/axios/lib/helpers/normalizeHeaderName.js");
-var enhanceError = __webpack_require__(/*! ./core/enhanceError */ "./node_modules/axios/lib/core/enhanceError.js");
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -13245,35 +13192,12 @@ function getDefaultAdapter() {
   return adapter;
 }
 
-function stringifySafely(rawValue, parser, encoder) {
-  if (utils.isString(rawValue)) {
-    try {
-      (parser || JSON.parse)(rawValue);
-      return utils.trim(rawValue);
-    } catch (e) {
-      if (e.name !== 'SyntaxError') {
-        throw e;
-      }
-    }
-  }
-
-  return (encoder || JSON.stringify)(rawValue);
-}
-
 var defaults = {
-
-  transitional: {
-    silentJSONParsing: true,
-    forcedJSONParsing: true,
-    clarifyTimeoutError: false
-  },
-
   adapter: getDefaultAdapter(),
 
   transformRequest: [function transformRequest(data, headers) {
     normalizeHeaderName(headers, 'Accept');
     normalizeHeaderName(headers, 'Content-Type');
-
     if (utils.isFormData(data) ||
       utils.isArrayBuffer(data) ||
       utils.isBuffer(data) ||
@@ -13290,32 +13214,20 @@ var defaults = {
       setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
       return data.toString();
     }
-    if (utils.isObject(data) || (headers && headers['Content-Type'] === 'application/json')) {
-      setContentTypeIfUnset(headers, 'application/json');
-      return stringifySafely(data);
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
     }
     return data;
   }],
 
   transformResponse: [function transformResponse(data) {
-    var transitional = this.transitional;
-    var silentJSONParsing = transitional && transitional.silentJSONParsing;
-    var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
-    var strictJSONParsing = !silentJSONParsing && this.responseType === 'json';
-
-    if (strictJSONParsing || (forcedJSONParsing && utils.isString(data) && data.length)) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
       try {
-        return JSON.parse(data);
-      } catch (e) {
-        if (strictJSONParsing) {
-          if (e.name === 'SyntaxError') {
-            throw enhanceError(e, this, 'E_JSON_PARSE');
-          }
-          throw e;
-        }
-      }
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
     }
-
     return data;
   }],
 
@@ -13809,123 +13721,6 @@ module.exports = function spread(callback) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/helpers/validator.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/validator.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var pkg = __webpack_require__(/*! ./../../package.json */ "./node_modules/axios/package.json");
-
-var validators = {};
-
-// eslint-disable-next-line func-names
-['object', 'boolean', 'number', 'function', 'string', 'symbol'].forEach(function(type, i) {
-  validators[type] = function validator(thing) {
-    return typeof thing === type || 'a' + (i < 1 ? 'n ' : ' ') + type;
-  };
-});
-
-var deprecatedWarnings = {};
-var currentVerArr = pkg.version.split('.');
-
-/**
- * Compare package versions
- * @param {string} version
- * @param {string?} thanVersion
- * @returns {boolean}
- */
-function isOlderVersion(version, thanVersion) {
-  var pkgVersionArr = thanVersion ? thanVersion.split('.') : currentVerArr;
-  var destVer = version.split('.');
-  for (var i = 0; i < 3; i++) {
-    if (pkgVersionArr[i] > destVer[i]) {
-      return true;
-    } else if (pkgVersionArr[i] < destVer[i]) {
-      return false;
-    }
-  }
-  return false;
-}
-
-/**
- * Transitional option validator
- * @param {function|boolean?} validator
- * @param {string?} version
- * @param {string} message
- * @returns {function}
- */
-validators.transitional = function transitional(validator, version, message) {
-  var isDeprecated = version && isOlderVersion(version);
-
-  function formatMessage(opt, desc) {
-    return '[Axios v' + pkg.version + '] Transitional option \'' + opt + '\'' + desc + (message ? '. ' + message : '');
-  }
-
-  // eslint-disable-next-line func-names
-  return function(value, opt, opts) {
-    if (validator === false) {
-      throw new Error(formatMessage(opt, ' has been removed in ' + version));
-    }
-
-    if (isDeprecated && !deprecatedWarnings[opt]) {
-      deprecatedWarnings[opt] = true;
-      // eslint-disable-next-line no-console
-      console.warn(
-        formatMessage(
-          opt,
-          ' has been deprecated since v' + version + ' and will be removed in the near future'
-        )
-      );
-    }
-
-    return validator ? validator(value, opt, opts) : true;
-  };
-};
-
-/**
- * Assert object's properties type
- * @param {object} options
- * @param {object} schema
- * @param {boolean?} allowUnknown
- */
-
-function assertOptions(options, schema, allowUnknown) {
-  if (typeof options !== 'object') {
-    throw new TypeError('options must be an object');
-  }
-  var keys = Object.keys(options);
-  var i = keys.length;
-  while (i-- > 0) {
-    var opt = keys[i];
-    var validator = schema[opt];
-    if (validator) {
-      var value = options[opt];
-      var result = value === undefined || validator(value, opt, options);
-      if (result !== true) {
-        throw new TypeError('option ' + opt + ' must be ' + result);
-      }
-      continue;
-    }
-    if (allowUnknown !== true) {
-      throw Error('Unknown option ' + opt);
-    }
-  }
-}
-
-module.exports = {
-  isOlderVersion: isOlderVersion,
-  assertOptions: assertOptions,
-  validators: validators
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/axios/lib/utils.js":
 /*!*****************************************!*\
   !*** ./node_modules/axios/lib/utils.js ***!
@@ -13937,6 +13732,8 @@ module.exports = {
 
 
 var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
+
+/*global toString:true*/
 
 // utils is a library of generic helper functions non-specific to axios
 
@@ -14121,7 +13918,7 @@ function isURLSearchParams(val) {
  * @returns {String} The String freed of excess whitespace
  */
 function trim(str) {
-  return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g, '');
+  return str.replace(/^\s*/, '').replace(/\s*$/, '');
 }
 
 /**
@@ -14287,17 +14084,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/axios/package.json":
-/*!*****************************************!*\
-  !*** ./node_modules/axios/package.json ***!
-  \*****************************************/
-/*! exports provided: name, version, description, main, scripts, repository, keywords, author, license, bugs, homepage, devDependencies, browser, jsdelivr, unpkg, typings, dependencies, bundlesize, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"name\":\"axios\",\"version\":\"0.21.4\",\"description\":\"Promise based HTTP client for the browser and node.js\",\"main\":\"index.js\",\"scripts\":{\"test\":\"grunt test\",\"start\":\"node ./sandbox/server.js\",\"build\":\"NODE_ENV=production grunt build\",\"preversion\":\"npm test\",\"version\":\"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json\",\"postversion\":\"git push && git push --tags\",\"examples\":\"node ./examples/server.js\",\"coveralls\":\"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"fix\":\"eslint --fix lib/**/*.js\"},\"repository\":{\"type\":\"git\",\"url\":\"https://github.com/axios/axios.git\"},\"keywords\":[\"xhr\",\"http\",\"ajax\",\"promise\",\"node\"],\"author\":\"Matt Zabriskie\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/axios/axios/issues\"},\"homepage\":\"https://axios-http.com\",\"devDependencies\":{\"coveralls\":\"^3.0.0\",\"es6-promise\":\"^4.2.4\",\"grunt\":\"^1.3.0\",\"grunt-banner\":\"^0.6.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-clean\":\"^1.1.0\",\"grunt-contrib-watch\":\"^1.0.0\",\"grunt-eslint\":\"^23.0.0\",\"grunt-karma\":\"^4.0.0\",\"grunt-mocha-test\":\"^0.13.3\",\"grunt-ts\":\"^6.0.0-beta.19\",\"grunt-webpack\":\"^4.0.2\",\"istanbul-instrumenter-loader\":\"^1.0.0\",\"jasmine-core\":\"^2.4.1\",\"karma\":\"^6.3.2\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^2.1.0\",\"karma-jasmine\":\"^1.1.1\",\"karma-jasmine-ajax\":\"^0.1.13\",\"karma-safari-launcher\":\"^1.0.0\",\"karma-sauce-launcher\":\"^4.3.6\",\"karma-sinon\":\"^1.0.5\",\"karma-sourcemap-loader\":\"^0.3.8\",\"karma-webpack\":\"^4.0.2\",\"load-grunt-tasks\":\"^3.5.2\",\"minimist\":\"^1.2.0\",\"mocha\":\"^8.2.1\",\"sinon\":\"^4.5.0\",\"terser-webpack-plugin\":\"^4.2.3\",\"typescript\":\"^4.0.5\",\"url-search-params\":\"^0.10.0\",\"webpack\":\"^4.44.2\",\"webpack-dev-server\":\"^3.11.0\"},\"browser\":{\"./lib/adapters/http.js\":\"./lib/adapters/xhr.js\"},\"jsdelivr\":\"dist/axios.min.js\",\"unpkg\":\"dist/axios.min.js\",\"typings\":\"./index.d.ts\",\"dependencies\":{\"follow-redirects\":\"^1.14.0\"},\"bundlesize\":[{\"path\":\"./dist/axios.min.js\",\"threshold\":\"5kB\"}]}");
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/apps/settings-manager/Settings_Manager.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/apps/settings-manager/Settings_Manager.vue?vue&type=script&lang=js& ***!
@@ -14316,9 +14102,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 //
 //
@@ -14759,9 +14545,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 //
 //
@@ -14830,9 +14616,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 //
 //
@@ -15436,9 +15222,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 //
 //
@@ -15979,11 +15765,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-//
 //
 //
 //
@@ -18641,7 +18426,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -19697,9 +19482,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 //
 //
@@ -19929,11 +19714,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -20905,11 +20690,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -21866,11 +21651,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -22751,11 +22536,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -23591,11 +23376,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -24418,11 +24203,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -25204,11 +24989,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -26324,7 +26109,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -27139,9 +26924,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 //
 //
@@ -27408,15 +27193,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 //
 //
@@ -28044,9 +27829,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 //
 //
@@ -28254,7 +28039,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 
   }
@@ -31898,7 +31683,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -31908,11 +31693,11 @@ var render = function () {
       {
         attrs: { action: "#" },
         on: {
-          submit: function ($event) {
+          submit: function($event) {
             $event.preventDefault()
-            return _vm.updateData.apply(null, arguments)
-          },
-        },
+            return _vm.updateData($event)
+          }
+        }
       },
       [
         _c("div", { staticClass: "setting-top-bar" }, [
@@ -31920,27 +31705,27 @@ var render = function () {
             _c(
               "ul",
               { staticClass: "directorist_setting-panel__pages" },
-              _vm._l(_vm.theBreadcrumbNav, function (nav_item, nav_key) {
+              _vm._l(_vm.theBreadcrumbNav, function(nav_item, nav_key) {
                 return _c("li", { key: nav_key }, [
                   _c(
                     "a",
                     {
                       staticClass: "directorist_setting-panel__pages--link",
                       class: { active: nav_item.active },
-                      attrs: { href: "#" },
+                      attrs: { href: "#" }
                     },
                     [
                       _vm._v(
                         "\n                            " +
                           _vm._s(nav_item.label) +
                           "\n                        "
-                      ),
+                      )
                     ]
-                  ),
+                  )
                 ])
               }),
               0
-            ),
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "atbdp-setting-top-bar-right" }, [
@@ -31951,20 +31736,20 @@ var render = function () {
                     name: "model",
                     rawName: "v-model",
                     value: _vm.search_query,
-                    expression: "search_query",
-                  },
+                    expression: "search_query"
+                  }
                 ],
                 staticClass: "setting-search-field__input",
                 attrs: { type: "text", placeholder: "Search settings here..." },
                 domProps: { value: _vm.search_query },
                 on: {
-                  input: function ($event) {
+                  input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
                     _vm.search_query = $event.target.value
-                  },
-                },
+                  }
+                }
               }),
               _vm._v(" "),
               _vm.searchSuggestions
@@ -31972,48 +31757,48 @@ var render = function () {
                     _c(
                       "ul",
                       { staticClass: "search-suggestions-list" },
-                      _vm._l(
-                        Object.keys(_vm.searchSuggestions),
-                        function (field_key, field_index) {
-                          return _c(
-                            "li",
-                            {
-                              key: field_index,
-                              staticClass: "search-suggestions-list--list-item",
-                            },
-                            [
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "search-suggestions-list--link",
-                                  attrs: { href: "#" },
-                                  on: {
-                                    click: function ($event) {
-                                      $event.preventDefault()
-                                      return _vm.jumpToSearchResult(
-                                        _vm.searchSuggestions[field_key]
-                                      )
-                                    },
-                                  },
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(
-                                        _vm.searchSuggestions[field_key].label
-                                      ) +
-                                      "\n                                "
-                                  ),
-                                ]
-                              ),
-                            ]
-                          )
-                        }
-                      ),
+                      _vm._l(Object.keys(_vm.searchSuggestions), function(
+                        field_key,
+                        field_index
+                      ) {
+                        return _c(
+                          "li",
+                          {
+                            key: field_index,
+                            staticClass: "search-suggestions-list--list-item"
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "search-suggestions-list--link",
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.jumpToSearchResult(
+                                      _vm.searchSuggestions[field_key]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(
+                                      _vm.searchSuggestions[field_key].label
+                                    ) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      }),
                       0
-                    ),
+                    )
                   ])
-                : _vm._e(),
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "setting-top-bar__search-actions" }, [
@@ -32026,28 +31811,28 @@ var render = function () {
                         domProps: {
                           innerHTML: _vm._s(
                             _vm.getIconHTML(_vm.status_message.type)
-                          ),
-                        },
+                          )
+                        }
                       }),
                       _vm._v(
                         "\n\n                            " +
                           _vm._s(_vm.status_message.message) +
                           "\n                        "
-                      ),
+                      )
                     ])
-                  : _vm._e(),
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c("button", {
                 staticClass: "settings-save-btn",
                 attrs: {
                   type: "submit",
-                  disabled: _vm.submit_button.is_disabled,
+                  disabled: _vm.submit_button.is_disabled
                 },
-                domProps: { innerHTML: _vm._s(_vm.submit_button.label) },
-              }),
-            ]),
-          ]),
+                domProps: { innerHTML: _vm._s(_vm.submit_button.label) }
+              })
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c(
@@ -32055,10 +31840,10 @@ var render = function () {
           {
             staticClass: "setting-body",
             on: {
-              click: function ($event) {
+              click: function($event) {
                 return _vm.resetStates()
-              },
-            },
+              }
+            }
           },
           [
             _c("sidebar-navigation", { attrs: { menu: _vm.layouts } }),
@@ -32069,10 +31854,10 @@ var render = function () {
               [
                 _c("tabContents", {
                   on: {
-                    "do-action": function ($event) {
+                    "do-action": function($event) {
                       return _vm.doAction($event)
-                    },
-                  },
+                    }
+                  }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "settings-footer" }, [
@@ -32086,36 +31871,36 @@ var render = function () {
                               domProps: {
                                 innerHTML: _vm._s(
                                   _vm.getIconHTML(_vm.status_message.type)
-                                ),
-                              },
+                                )
+                              }
                             }),
                             _vm._v(
                               "\n\n                                " +
                                 _vm._s(_vm.status_message.message) +
                                 "\n                            "
-                            ),
+                            )
                           ])
-                        : _vm._e(),
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("button", {
                       staticClass: "settings-save-btn",
                       attrs: {
                         type: "submit",
-                        disabled: _vm.submit_button.is_disabled,
+                        disabled: _vm.submit_button.is_disabled
                       },
-                      domProps: { innerHTML: _vm._s(_vm.submit_button.label) },
-                    }),
-                  ]),
-                ]),
+                      domProps: { innerHTML: _vm._s(_vm.submit_button.label) }
+                    })
+                  ])
+                ])
               ],
               1
-            ),
+            )
           ],
           1
-        ),
+        )
       ]
-    ),
+    )
   ])
 }
 var staticRenderFns = []
@@ -32136,7 +31921,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -32144,7 +31929,7 @@ var render = function () {
     "div",
     { staticClass: "atbdp-cptm-tab-contents" },
     [
-      _vm._l(_vm.layouts, function (menu, menu_key) {
+      _vm._l(_vm.layouts, function(menu, menu_key) {
         return [
           menu.active
             ? _c(
@@ -32152,13 +31937,13 @@ var render = function () {
                 {
                   key: menu_key,
                   staticClass: "atbdp-tab-content-item",
-                  attrs: { id: menu_key },
+                  attrs: { id: menu_key }
                 },
                 [
                   !menu.submenu
                     ? [
                         _c("h2", { staticClass: "cptm-menu-title" }, [
-                          _vm._v(_vm._s(menu.label)),
+                          _vm._v(_vm._s(menu.label))
                         ]),
                         _vm._v(" "),
                         menu.sections
@@ -32170,22 +31955,22 @@ var render = function () {
                                   ? _c("sections-module", {
                                       attrs: {
                                         "menu-key": menu_key,
-                                        sections: menu.sections,
+                                        sections: menu.sections
                                       },
                                       on: {
-                                        "do-action": function ($event) {
+                                        "do-action": function($event) {
                                           return _vm.doAction(
                                             $event,
                                             "tab-contents"
                                           )
-                                        },
-                                      },
+                                        }
+                                      }
                                     })
-                                  : _vm._e(),
+                                  : _vm._e()
                               ],
                               1
                             )
-                          : _vm._e(),
+                          : _vm._e()
                       ]
                     : _vm._e(),
                   _vm._v(" "),
@@ -32194,7 +31979,7 @@ var render = function () {
                         "div",
                         { staticClass: "atbdp-tab-sub-contents" },
                         [
-                          _vm._l(menu.submenu, function (submenu, submenu_key) {
+                          _vm._l(menu.submenu, function(submenu, submenu_key) {
                             return [
                               submenu.active
                                 ? _c(
@@ -32203,8 +31988,8 @@ var render = function () {
                                       key: submenu_key,
                                       staticClass: "atbdp-tab-content-item",
                                       attrs: {
-                                        id: menu_key + "__" + submenu_key,
-                                      },
+                                        id: menu_key + "__" + submenu_key
+                                      }
                                     },
                                     [
                                       submenu.sections
@@ -32212,34 +31997,34 @@ var render = function () {
                                             attrs: {
                                               "menu-key":
                                                 menu_key + "__" + submenu_key,
-                                              sections: submenu.sections,
+                                              sections: submenu.sections
                                             },
                                             on: {
-                                              "do-action": function ($event) {
+                                              "do-action": function($event) {
                                                 return _vm.doAction(
                                                   $event,
                                                   "tab-contents"
                                                 )
-                                              },
-                                            },
+                                              }
+                                            }
                                           })
-                                        : _vm._e(),
+                                        : _vm._e()
                                     ],
                                     1
                                   )
-                                : _vm._e(),
+                                : _vm._e()
                             ]
-                          }),
+                          })
                         ],
                         2
                       )
-                    : _vm._e(),
+                    : _vm._e()
                 ],
                 2
               )
-            : _vm._e(),
+            : _vm._e()
         ]
-      }),
+      })
     ],
     2
   )
@@ -32262,7 +32047,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -32272,28 +32057,28 @@ var render = function () {
       staticClass: "cptm-placeholder-blcok",
       class: _vm.getContainerClass,
       on: {
-        drop: function ($event) {
+        drop: function($event) {
           $event.preventDefault()
           return _vm.placeholderOnDrop()
         },
-        dragover: function ($event) {
+        dragover: function($event) {
           $event.preventDefault()
           return _vm.$emit("placeholder-dragover-on")
         },
-        dragenter: function ($event) {
+        dragenter: function($event) {
           return _vm.placeholderOnDragEnter()
         },
-        dragleave: function ($event) {
+        dragleave: function($event) {
           return _vm.placeholderOnDragLeave()
-        },
-      },
+        }
+      }
     },
     [
       _c(
         "p",
         {
           staticClass: "cptm-placeholder-label",
-          class: { hide: _vm.selectedWidgets.length },
+          class: { hide: _vm.selectedWidgets.length }
         },
         [_vm._v("\n    " + _vm._s(_vm.label) + "\n  ")]
       ),
@@ -32314,17 +32099,17 @@ var render = function () {
                   active: _vm.showWidgetsPickerWindow,
                   maxWidget: _vm.maxWidget,
                   maxWidgetInfoText: _vm.maxWidgetInfoText,
-                  bottomAchhor: true,
+                  bottomAchhor: true
                 },
                 on: {
-                  "widget-selection": function ($event) {
+                  "widget-selection": function($event) {
                     return _vm.$emit("insert-widget", $event)
                   },
-                  close: function ($event) {
+                  close: function($event) {
                     return _vm.$emit("close-widgets-picker-window")
-                  },
-                },
-              }),
+                  }
+                }
+              })
             ],
             1
           ),
@@ -32335,15 +32120,15 @@ var render = function () {
               staticClass: "cptm-widget-insert-link",
               attrs: { href: "#" },
               on: {
-                click: function ($event) {
+                click: function($event) {
                   $event.preventDefault()
                   return _vm.$emit("open-widgets-picker-window")
-                },
-              },
+                }
+              }
             },
             [_c("span", { staticClass: "fa fa-plus" })]
-          ),
-        ]),
+          )
+        ])
       ]),
       _vm._v(" "),
       _vm.selectedWidgets.length
@@ -32351,7 +32136,7 @@ var render = function () {
             "div",
             { staticClass: "cptm-widget-preview-area" },
             [
-              _vm._l(_vm.selectedWidgets, function (widget, widget_index) {
+              _vm._l(_vm.selectedWidgets, function(widget, widget_index) {
                 return [
                   _vm.hasValidWidget(widget)
                     ? [
@@ -32377,34 +32162,34 @@ var render = function () {
                                 : true,
                             canEdit: _vm.widgetHasOptions(
                               _vm.activeWidgets[widget]
-                            ),
+                            )
                           },
                           on: {
-                            drag: function ($event) {
+                            drag: function($event) {
                               return _vm.$emit("drag-widget", widget)
                             },
-                            drop: function ($event) {
+                            drop: function($event) {
                               return _vm.$emit("drop-widget", widget)
                             },
-                            dragend: function ($event) {
+                            dragend: function($event) {
                               return _vm.$emit("dragend-widget", widget)
                             },
-                            edit: function ($event) {
+                            edit: function($event) {
                               return _vm.$emit("edit-widget", widget)
                             },
-                            trash: function ($event) {
+                            trash: function($event) {
                               return _vm.$emit("trash-widget", widget)
-                            },
-                          },
-                        }),
+                            }
+                          }
+                        })
                       ]
-                    : _vm._e(),
+                    : _vm._e()
                 ]
-              }),
+              })
             ],
             2
           )
-        : _vm._e(),
+        : _vm._e()
     ]
   )
 }
@@ -32426,7 +32211,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -32442,7 +32227,7 @@ var render = function () {
                   ? _c("div", { staticClass: "cptm-modal-header" }, [
                       _c("h3", {
                         staticClass: "cptm-modal-header-title",
-                        domProps: { innerHTML: _vm._s(_vm.modelHeaderText) },
+                        domProps: { innerHTML: _vm._s(_vm.modelHeaderText) }
                       }),
                       _vm._v(" "),
                       _c("div", { staticClass: "cptm-modal-actions" }, [
@@ -32452,15 +32237,15 @@ var render = function () {
                             staticClass: "cptm-modal-action-link",
                             attrs: { href: "#" },
                             on: {
-                              click: function ($event) {
+                              click: function($event) {
                                 $event.preventDefault()
                                 return _vm.cancel()
-                              },
-                            },
+                              }
+                            }
                           },
                           [_c("span", { staticClass: "fa fa-times" })]
-                        ),
-                      ]),
+                        )
+                      ])
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -32468,24 +32253,24 @@ var render = function () {
                   "div",
                   {
                     staticClass:
-                      "cptm-modal-body cptm-center-content cptm-content-wide",
+                      "cptm-modal-body cptm-center-content cptm-content-wide"
                   },
                   [
                     _c(
                       "form",
                       {
                         staticClass: "cptm-import-directory-form",
-                        attrs: { action: "#", method: "post" },
+                        attrs: { action: "#", method: "post" }
                       },
                       [
                         _c("div", {
                           staticClass:
-                            "cptm-form-group-feedback cptm-text-center cptm-mb-10",
+                            "cptm-form-group-feedback cptm-text-center cptm-mb-10"
                         }),
                         _vm._v(" "),
                         _c("h2", {
                           staticClass: "cptm-modal-confirmation-title",
-                          domProps: { innerHTML: _vm._s(_vm.confirmationText) },
+                          domProps: { innerHTML: _vm._s(_vm.confirmationText) }
                         }),
                         _vm._v(" "),
                         _c("div", { staticClass: "cptm-file-input-wrap" }, [
@@ -32494,13 +32279,13 @@ var render = function () {
                             class: _vm.cancelButtonClass,
                             attrs: { type: "button" },
                             domProps: {
-                              innerHTML: _vm._s(_vm.cancelButtonLabel),
+                              innerHTML: _vm._s(_vm.cancelButtonLabel)
                             },
                             on: {
-                              click: function ($event) {
+                              click: function($event) {
                                 return _vm.cancel()
-                              },
-                            },
+                              }
+                            }
                           }),
                           _vm._v(" "),
                           _c("button", {
@@ -32508,22 +32293,22 @@ var render = function () {
                             class: _vm.confirmButtonClass,
                             attrs: { type: "button" },
                             domProps: {
-                              innerHTML: _vm._s(_vm.confirmButtonLabel),
+                              innerHTML: _vm._s(_vm.confirmButtonLabel)
                             },
                             on: {
-                              click: function ($event) {
+                              click: function($event) {
                                 return _vm.confirm()
-                              },
-                            },
-                          }),
-                        ]),
+                              }
+                            }
+                          })
+                        ])
                       ]
-                    ),
+                    )
                   ]
-                ),
-              ]),
-            ]),
-          ]),
+                )
+              ])
+            ])
+          ])
         ]
       )
     : _vm._e()
@@ -32546,7 +32331,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -32555,13 +32340,13 @@ var render = function () {
     {
       ref: "dropable_element",
       staticClass: "cptm-dropable-element",
-      class: _vm.parentClass,
+      class: _vm.parentClass
     },
     [
       _c("div", {
         staticClass:
           "cptm-dropable-placeholder cptm-dropable-placeholder-before",
-        class: _vm.dropablePlaceholderBeforeClass,
+        class: _vm.dropablePlaceholderBeforeClass
       }),
       _vm._v(" "),
       _c("div", {}, [_vm._t("default")], 2),
@@ -32569,7 +32354,7 @@ var render = function () {
       _c("div", {
         staticClass:
           "cptm-dropable-placeholder cptm-dropable-placeholder-after",
-        class: _vm.dropablePlaceholderAfterClass,
+        class: _vm.dropablePlaceholderAfterClass
       }),
       _vm._v(" "),
       _vm.dropable
@@ -32578,19 +32363,19 @@ var render = function () {
               ? _c("span", {
                   staticClass: "cptm-dropable-area-inside",
                   on: {
-                    dragover: function ($event) {
+                    dragover: function($event) {
                       $event.preventDefault()
                     },
-                    dragenter: function ($event) {
+                    dragenter: function($event) {
                       _vm.drag_enter_dropable_area_inside = true
                     },
-                    dragleave: function ($event) {
+                    dragleave: function($event) {
                       _vm.drag_enter_dropable_area_inside = false
                     },
-                    drop: function ($event) {
+                    drop: function($event) {
                       return _vm.handleDroppedInside()
-                    },
-                  },
+                    }
+                  }
                 })
               : _vm._e(),
             _vm._v(" "),
@@ -32598,19 +32383,19 @@ var render = function () {
               ? _c("span", {
                   staticClass: "cptm-dropable-area-left",
                   on: {
-                    dragover: function ($event) {
+                    dragover: function($event) {
                       $event.preventDefault()
                     },
-                    dragenter: function ($event) {
+                    dragenter: function($event) {
                       _vm.drag_enter_dropable_area_left = true
                     },
-                    dragleave: function ($event) {
+                    dragleave: function($event) {
                       _vm.drag_enter_dropable_area_left = false
                     },
-                    drop: function ($event) {
+                    drop: function($event) {
                       return _vm.handleDroppedBefore()
-                    },
-                  },
+                    }
+                  }
                 })
               : _vm._e(),
             _vm._v(" "),
@@ -32618,19 +32403,19 @@ var render = function () {
               ? _c("span", {
                   staticClass: "cptm-dropable-area-right",
                   on: {
-                    dragover: function ($event) {
+                    dragover: function($event) {
                       $event.preventDefault()
                     },
-                    dragenter: function ($event) {
+                    dragenter: function($event) {
                       _vm.drag_enter_dropable_area_right = true
                     },
-                    dragleave: function ($event) {
+                    dragleave: function($event) {
                       _vm.drag_enter_dropable_area_right = false
                     },
-                    drop: function ($event) {
+                    drop: function($event) {
                       return _vm.handleDroppedAfter()
-                    },
-                  },
+                    }
+                  }
                 })
               : _vm._e(),
             _vm._v(" "),
@@ -32638,19 +32423,19 @@ var render = function () {
               ? _c("span", {
                   staticClass: "cptm-dropable-area-top",
                   on: {
-                    dragover: function ($event) {
+                    dragover: function($event) {
                       $event.preventDefault()
                     },
-                    dragenter: function ($event) {
+                    dragenter: function($event) {
                       _vm.drag_enter_dropable_area_top = true
                     },
-                    dragleave: function ($event) {
+                    dragleave: function($event) {
                       _vm.drag_enter_dropable_area_top = false
                     },
-                    drop: function ($event) {
+                    drop: function($event) {
                       return _vm.handleDroppedBefore()
-                    },
-                  },
+                    }
+                  }
                 })
               : _vm._e(),
             _vm._v(" "),
@@ -32658,23 +32443,23 @@ var render = function () {
               ? _c("span", {
                   staticClass: "cptm-dropable-area-bottom",
                   on: {
-                    dragover: function ($event) {
+                    dragover: function($event) {
                       $event.preventDefault()
                     },
-                    dragenter: function ($event) {
+                    dragenter: function($event) {
                       _vm.drag_enter_dropable_area_bottom = true
                     },
-                    dragleave: function ($event) {
+                    dragleave: function($event) {
                       _vm.drag_enter_dropable_area_bottom = false
                     },
-                    drop: function ($event) {
+                    drop: function($event) {
                       return _vm.handleDroppedAfter()
-                    },
-                  },
+                    }
+                  }
                 })
-              : _vm._e(),
+              : _vm._e()
           ])
-        : _vm._e(),
+        : _vm._e()
     ]
   )
 }
@@ -32696,7 +32481,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -32704,7 +32489,7 @@ var render = function () {
     ? _c(
         "div",
         { staticClass: "directorist-form-fields-area" },
-        _vm._l(_vm.field_list, function (field, field_key) {
+        _vm._l(_vm.field_list, function(field, field_key) {
           return _c(
             field.type + "-field",
             _vm._b(
@@ -32714,13 +32499,13 @@ var render = function () {
                 attrs: {
                   "section-id": _vm.sectionId,
                   "field-id": field_key,
-                  root: _vm.field_list,
+                  root: _vm.field_list
                 },
                 on: {
-                  update: function ($event) {
+                  update: function($event) {
                     return _vm.update({ key: field_key, value: $event })
-                  },
-                },
+                  }
+                }
               },
               "component",
               _vm.excludeShowIfCondition(field),
@@ -32750,7 +32535,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -32758,19 +32543,17 @@ var render = function () {
     ? _c(
         "div",
         { staticClass: "cptm-form-group-feedback" },
-        _vm._l(
-          Object.values(_vm.validationMessages),
-          function (alert, alert_key) {
-            return _c("div", {
-              key: alert_key,
-              staticClass: "cptm-form-alert",
-              class: "cptm-" + (alert.type ? alert.type : ""),
-              domProps: {
-                innerHTML: _vm._s(alert.message ? alert.message : ""),
-              },
-            })
-          }
-        ),
+        _vm._l(Object.values(_vm.validationMessages), function(
+          alert,
+          alert_key
+        ) {
+          return _c("div", {
+            key: alert_key,
+            staticClass: "cptm-form-alert",
+            class: "cptm-" + (alert.type ? alert.type : ""),
+            domProps: { innerHTML: _vm._s(alert.message ? alert.message : "") }
+          })
+        }),
         0
       )
     : _vm._e()
@@ -32793,7 +32576,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -32804,7 +32587,7 @@ var render = function () {
       _c("div", { staticClass: "cptm-option-card-header" }, [
         _c("div", { staticClass: "cptm-option-card-header-title-section" }, [
           _c("h3", { staticClass: "cptm-option-card-header-title" }, [
-            _vm._v(_vm._s(_vm.title)),
+            _vm._v(_vm._s(_vm.title))
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "cptm-header-action-area" }, [
@@ -32814,16 +32597,16 @@ var render = function () {
                 staticClass: "cptm-header-action-link cptm-header-action-close",
                 attrs: { href: "#" },
                 on: {
-                  click: function ($event) {
+                  click: function($event) {
                     $event.preventDefault()
                     return _vm.$emit("close")
-                  },
-                },
+                  }
+                }
               },
               [_c("span", { staticClass: "fa fa-times" })]
-            ),
-          ]),
-        ]),
+            )
+          ])
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -32832,7 +32615,7 @@ var render = function () {
         [
           _vm.local_fields
             ? [
-                _vm._l(_vm.local_fields, function (field, field_key) {
+                _vm._l(_vm.local_fields, function(field, field_key) {
                   return [
                     _c(
                       field.type + "-field",
@@ -32841,27 +32624,27 @@ var render = function () {
                           key: field_key,
                           tag: "component",
                           on: {
-                            update: function ($event) {
+                            update: function($event) {
                               return _vm.updateFieldData($event, field_key)
-                            },
-                          },
+                            }
+                          }
                         },
                         "component",
                         field,
                         false
                       )
-                    ),
+                    )
                   ]
-                }),
+                })
               ]
-            : _vm._e(),
+            : _vm._e()
         ],
         2
       ),
       _vm._v(" "),
       _vm.bottomAchhor
         ? _c("span", { staticClass: "cptm-anchor-down" })
-        : _vm._e(),
+        : _vm._e()
     ]
   )
 }
@@ -32883,41 +32666,41 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
     "div",
     { staticClass: "cptm-tab-content", class: _vm.containerClass },
-    _vm._l(_vm.sections, function (section, section_key) {
+    _vm._l(_vm.sections, function(section, section_key) {
       return _c(
         "div",
         {
           key: section_key,
           staticClass: "cptm-section",
-          class: _vm.sectionClass(section),
+          class: _vm.sectionClass(section)
         },
         [
           _c(
             "div",
             {
               staticClass: "cptm-title-area",
-              class: _vm.sectionTitleAreaClass(section),
+              class: _vm.sectionTitleAreaClass(section)
             },
             [
               section.title
                 ? _c("h3", {
                     staticClass: "cptm-title",
-                    domProps: { innerHTML: _vm._s(section.title) },
+                    domProps: { innerHTML: _vm._s(section.title) }
                   })
                 : _vm._e(),
               _vm._v(" "),
               section.description
                 ? _c("p", {
-                    domProps: { innerHTML: _vm._s(section.description) },
+                    domProps: { innerHTML: _vm._s(section.description) }
                   })
-                : _vm._e(),
+                : _vm._e()
             ]
           ),
           _vm._v(" "),
@@ -32925,13 +32708,13 @@ var render = function () {
             ? _c(
                 "div",
                 { staticClass: "cptm-form-fields" },
-                _vm._l(_vm.sectionFields(section), function (field, field_key) {
+                _vm._l(_vm.sectionFields(section), function(field, field_key) {
                   var _obj
                   return _c(
                     "div",
                     {
                       key: field_key,
-                      class: _vm.fieldWrapperClass(field, _vm.fields[field]),
+                      class: _vm.fieldWrapperClass(field, _vm.fields[field])
                     },
                     [
                       _vm.fields[field]
@@ -32945,8 +32728,9 @@ var render = function () {
                                 tag: "component",
                                 class:
                                   ((_obj = {}),
-                                  (_obj["highlight-field"] =
-                                    _vm.getHighlightState(field)),
+                                  (_obj[
+                                    "highlight-field"
+                                  ] = _vm.getHighlightState(field)),
                                   _obj),
                                 attrs: {
                                   root: _vm.fields,
@@ -32957,46 +32741,46 @@ var render = function () {
                                     section_key +
                                     "__" +
                                     field,
-                                  "cached-data": _vm.cached_fields[field],
+                                  "cached-data": _vm.cached_fields[field]
                                 },
                                 on: {
-                                  update: function ($event) {
+                                  update: function($event) {
                                     return _vm.updateFieldValue(field, $event)
                                   },
-                                  validate: function ($event) {
+                                  validate: function($event) {
                                     return _vm.updateFieldValidationState(
                                       field,
                                       $event
                                     )
                                   },
-                                  "is-visible": function ($event) {
+                                  "is-visible": function($event) {
                                     return _vm.updateFieldData(
                                       field,
                                       "isVisible",
                                       $event
                                     )
                                   },
-                                  "do-action": function ($event) {
+                                  "do-action": function($event) {
                                     return _vm.doAction(
                                       $event,
                                       "sections-module"
                                     )
-                                  },
-                                },
+                                  }
+                                }
                               },
                               "component",
                               _vm.fields[field],
                               false
                             )
                           )
-                        : _vm._e(),
+                        : _vm._e()
                     ],
                     1
                   )
                 }),
                 0
               )
-            : _vm._e(),
+            : _vm._e()
         ]
       )
     }),
@@ -33021,7 +32805,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -33029,14 +32813,14 @@ var render = function () {
     _c(
       "ul",
       { staticClass: "settings-nav" },
-      _vm._l(_vm.menu, function (meue_item, menu_key) {
+      _vm._l(_vm.menu, function(meue_item, menu_key) {
         var _obj
         return _c(
           "li",
           {
             key: menu_key,
             staticClass: "settings-nav__item",
-            class: { active: meue_item.active },
+            class: { active: meue_item.active }
           },
           [
             _c(
@@ -33049,78 +32833,78 @@ var render = function () {
                   _obj),
                 attrs: { href: "#" },
                 on: {
-                  click: function ($event) {
+                  click: function($event) {
                     $event.preventDefault()
                     return _vm.swichToNav({ menu_key: menu_key }, $event)
-                  },
-                },
+                  }
+                }
               },
               [
                 meue_item.icon
                   ? _c("span", {
                       staticClass: "settings-nav__item__icon",
-                      domProps: { innerHTML: _vm._s(meue_item.icon) },
+                      domProps: { innerHTML: _vm._s(meue_item.icon) }
                     })
                   : _vm._e(),
                 _vm._v(" \n        " + _vm._s(meue_item.label) + " "),
                 meue_item.submenu
                   ? _c("span", { staticClass: "drop-toggle-caret" })
-                  : _vm._e(),
+                  : _vm._e()
               ]
             ),
             _vm._v(" "),
             meue_item.submenu
               ? _c(
                   "ul",
-                  _vm._l(
-                    meue_item.submenu,
-                    function (submeue_item, submenu_key) {
-                      return _c("li", { key: submenu_key }, [
-                        _c(
-                          "a",
-                          {
-                            class: { active: submeue_item.active },
-                            attrs: { href: "#" },
-                            on: {
-                              click: function ($event) {
-                                $event.preventDefault()
-                                return _vm.swichToNav(
-                                  {
-                                    menu_key: menu_key,
-                                    submenu_key: submenu_key,
-                                  },
-                                  $event
-                                )
-                              },
-                            },
-                          },
-                          [
-                            submeue_item.icon
-                              ? _c("span", {
-                                  staticClass: "settings-nav__item__icon",
-                                  domProps: {
-                                    innerHTML: _vm._s(submeue_item.icon),
-                                  },
-                                })
-                              : _vm._e(),
-                            _vm._v(
-                              " \n              " +
-                                _vm._s(submeue_item.label) +
-                                "\n            "
-                            ),
-                          ]
-                        ),
-                      ])
-                    }
-                  ),
+                  _vm._l(meue_item.submenu, function(
+                    submeue_item,
+                    submenu_key
+                  ) {
+                    return _c("li", { key: submenu_key }, [
+                      _c(
+                        "a",
+                        {
+                          class: { active: submeue_item.active },
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.swichToNav(
+                                {
+                                  menu_key: menu_key,
+                                  submenu_key: submenu_key
+                                },
+                                $event
+                              )
+                            }
+                          }
+                        },
+                        [
+                          submeue_item.icon
+                            ? _c("span", {
+                                staticClass: "settings-nav__item__icon",
+                                domProps: {
+                                  innerHTML: _vm._s(submeue_item.icon)
+                                }
+                              })
+                            : _vm._e(),
+                          _vm._v(
+                            " \n              " +
+                              _vm._s(submeue_item.label) +
+                              "\n            "
+                          )
+                        ]
+                      )
+                    ])
+                  }),
                   0
                 )
-              : _vm._e(),
+              : _vm._e()
           ]
         )
       }),
       0
-    ),
+    )
   ])
 }
 var staticRenderFns = []
@@ -33141,7 +32925,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -33149,60 +32933,60 @@ var render = function () {
     ? _c(
         "div",
         { staticClass: "cptm-fields" },
-        _vm._l(
-          Object.keys(_vm.option_fields),
-          function (field_key, field_index) {
-            return _c(
-              "div",
-              {
-                key: field_index,
-                class: _vm.fieldWrapperClass(
-                  field_key,
-                  _vm.option_fields[field_key]
-                ),
-              },
-              [
-                _c(
-                  _vm.option_fields[field_key].type + "-field",
-                  _vm._b(
-                    {
-                      key: field_index,
-                      ref: field_key,
-                      refInFor: true,
-                      tag: "component",
-                      attrs: { root: _vm.option_fields, "field-id": field_key },
-                      on: {
-                        update: function ($event) {
-                          return _vm.updateOptionFieldValue(field_key, $event)
-                        },
-                        validate: function ($event) {
-                          return _vm.updateOptionFieldValidationState(
-                            field_key,
-                            $event
-                          )
-                        },
-                        "is-visible": function ($event) {
-                          return _vm.updateOptionFieldData(
-                            field_key,
-                            "isVisible",
-                            $event
-                          )
-                        },
-                        "do-action": function ($event) {
-                          return _vm.doAction($event, "sub-fields")
-                        },
+        _vm._l(Object.keys(_vm.option_fields), function(
+          field_key,
+          field_index
+        ) {
+          return _c(
+            "div",
+            {
+              key: field_index,
+              class: _vm.fieldWrapperClass(
+                field_key,
+                _vm.option_fields[field_key]
+              )
+            },
+            [
+              _c(
+                _vm.option_fields[field_key].type + "-field",
+                _vm._b(
+                  {
+                    key: field_index,
+                    ref: field_key,
+                    refInFor: true,
+                    tag: "component",
+                    attrs: { root: _vm.option_fields, "field-id": field_key },
+                    on: {
+                      update: function($event) {
+                        return _vm.updateOptionFieldValue(field_key, $event)
                       },
-                    },
-                    "component",
-                    _vm.option_fields[field_key],
-                    false
-                  )
-                ),
-              ],
-              1
-            )
-          }
-        ),
+                      validate: function($event) {
+                        return _vm.updateOptionFieldValidationState(
+                          field_key,
+                          $event
+                        )
+                      },
+                      "is-visible": function($event) {
+                        return _vm.updateOptionFieldData(
+                          field_key,
+                          "isVisible",
+                          $event
+                        )
+                      },
+                      "do-action": function($event) {
+                        return _vm.doAction($event, "sub-fields")
+                      }
+                    }
+                  },
+                  "component",
+                  _vm.option_fields[field_key],
+                  false
+                )
+              )
+            ],
+            1
+          )
+        }),
         0
       )
     : _vm._e()
@@ -33225,14 +33009,14 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
     "ul",
     { staticClass: "cptm-sub-navigation" },
-    _vm._l(_vm.navLists, function (nav, index) {
+    _vm._l(_vm.navLists, function(nav, index) {
       return _c("li", { key: index, staticClass: "cptm-sub-nav__item" }, [
         _c(
           "a",
@@ -33241,14 +33025,14 @@ var render = function () {
             class: _vm.getActiveClass(index, _vm.active_nav),
             attrs: { href: "#" },
             on: {
-              click: function ($event) {
+              click: function($event) {
                 $event.preventDefault()
                 return _vm.swichNav(index)
-              },
-            },
+              }
+            }
           },
           [_vm._v("\n            " + _vm._s(nav) + "\n        ")]
-        ),
+        )
       ])
     }),
     0
@@ -33272,7 +33056,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -33285,12 +33069,12 @@ var render = function () {
           attrs: { navLists: _vm.navList },
           model: {
             value: _vm.active_sub_nav,
-            callback: function ($$v) {
+            callback: function($$v) {
               _vm.active_sub_nav = $$v
             },
-            expression: "active_sub_nav",
-          },
-        }),
+            expression: "active_sub_nav"
+          }
+        })
       ],
       1
     ),
@@ -33299,9 +33083,11 @@ var render = function () {
       "div",
       { staticClass: "cptm-tab-content-body" },
       [
-        _vm._l(_vm.subNavigation, function (sub_tab, sub_tab_index) {
+        _vm._l(_vm.subNavigation, function(sub_tab, sub_tab_index) {
           return [
-            (_vm.active_sub_nav === sub_tab_index ? true : false)
+            (_vm.active_sub_nav === sub_tab_index
+            ? true
+            : false)
               ? _c(
                   "div",
                   {
@@ -33309,23 +33095,23 @@ var render = function () {
                     staticClass: "cptm-tab-sub-content-item",
                     class: {
                       active:
-                        _vm.active_sub_nav === sub_tab_index ? true : false,
-                    },
+                        _vm.active_sub_nav === sub_tab_index ? true : false
+                    }
                   },
                   [
                     _c(
                       "sections-module",
                       _vm._b({}, "sections-module", sub_tab, false)
-                    ),
+                    )
                   ],
                   1
                 )
-              : _vm._e(),
+              : _vm._e()
           ]
-        }),
+        })
       ],
       2
-    ),
+    )
   ])
 }
 var staticRenderFns = []
@@ -33346,7 +33132,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -33357,16 +33143,16 @@ var render = function () {
           {
             attrs: { href: "#", draggable: "true" },
             on: {
-              click: function ($event) {
+              click: function($event) {
                 $event.preventDefault()
               },
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.$emit("drag")
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.$emit("dragend")
-              },
-            },
+              }
+            }
           },
           [_c("span", { staticClass: "uil uil-expand-arrows" })]
         )
@@ -33378,11 +33164,11 @@ var render = function () {
           {
             attrs: { href: "#" },
             on: {
-              click: function ($event) {
+              click: function($event) {
                 $event.preventDefault()
                 return _vm.$emit("edit")
-              },
-            },
+              }
+            }
           },
           [_c("span", { staticClass: "uil uil-cog" })]
         )
@@ -33394,15 +33180,15 @@ var render = function () {
           {
             attrs: { href: "#" },
             on: {
-              click: function ($event) {
+              click: function($event) {
                 $event.preventDefault()
                 return _vm.$emit("trash")
-              },
-            },
+              }
+            }
           },
           [_c("span", { staticClass: "uil uil-trash-alt" })]
         )
-      : _vm._e(),
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -33423,7 +33209,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -33436,10 +33222,10 @@ var render = function () {
             "cptm-widget-control-action cptm-widget-control-action-move",
           attrs: { draggable: "true" },
           on: {
-            drag: function ($event) {
+            drag: function($event) {
               return _vm.$emit("drag")
-            },
-          },
+            }
+          }
         },
         [_c("span", { staticClass: "uil uil-expand-arrows" })]
       ),
@@ -33450,10 +33236,10 @@ var render = function () {
           staticClass:
             "cptm-widget-control-action cptm-widget-control-action-edit",
           on: {
-            click: function ($event) {
+            click: function($event) {
               return _vm.$emit("edit")
-            },
-          },
+            }
+          }
         },
         [_c("span", { staticClass: "uil uil-cog" })]
       ),
@@ -33464,14 +33250,14 @@ var render = function () {
           staticClass:
             "cptm-widget-control-action cptm-widget-control-action-trash",
           on: {
-            click: function ($event) {
+            click: function($event) {
               return _vm.$emit("trash")
-            },
-          },
+            }
+          }
         },
         [_c("span", { staticClass: "uil uil-trash-alt" })]
-      ),
-    ]),
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -33492,7 +33278,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -33503,7 +33289,7 @@ var render = function () {
       _c("div", { staticClass: "cptm-option-card-header" }, [
         _c("div", { staticClass: "cptm-option-card-header-title-section" }, [
           _c("h3", { staticClass: "cptm-option-card-header-title" }, [
-            _vm._v("Insert Element"),
+            _vm._v("Insert Element")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "cptm-header-action-area" }, [
@@ -33513,16 +33299,16 @@ var render = function () {
                 staticClass: "cptm-header-action-link cptm-header-action-close",
                 attrs: { href: "#" },
                 on: {
-                  click: function ($event) {
+                  click: function($event) {
                     $event.preventDefault()
                     return _vm.$emit("close")
-                  },
-                },
+                  }
+                }
               },
               [_c("span", { staticClass: "fa fa-times" })]
-            ),
-          ]),
-        ]),
+            )
+          ])
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "cptm-option-card-body" }, [
@@ -33530,20 +33316,20 @@ var render = function () {
           ? _c(
               "div",
               { staticClass: "cptm-info-text-area" },
-              _vm._l(_vm.infoTexts, function (info, text_key) {
+              _vm._l(_vm.infoTexts, function(info, text_key) {
                 return _c(
                   "p",
                   {
                     key: text_key,
                     staticClass: "cptm-info-text",
-                    class: "cptm-" + info.type,
+                    class: "cptm-" + info.type
                   },
                   [
                     _vm._v(
                       "\n                " +
                         _vm._s(info.text) +
                         "\n            "
-                    ),
+                    )
                   ]
                 )
               }),
@@ -33555,7 +33341,7 @@ var render = function () {
           ? _c(
               "ul",
               { staticClass: "cptm-form-builder-field-list" },
-              _vm._l(_vm.unSelectedWidgetsList, function (widget, widget_key) {
+              _vm._l(_vm.unSelectedWidgetsList, function(widget, widget_key) {
                 return _c(
                   "li",
                   {
@@ -33563,10 +33349,10 @@ var render = function () {
                     staticClass: "cptm-form-builder-field-list-item",
                     class: _vm.widgetListClass(widget_key),
                     on: {
-                      click: function ($event) {
+                      click: function($event) {
                         return _vm.selectWidget(widget_key)
-                      },
-                    },
+                      }
+                    }
                   },
                   [
                     _c("pre", [_vm._v(_vm._s(widget.in_used))]),
@@ -33585,22 +33371,22 @@ var render = function () {
                           "\n                        " +
                             _vm._s(widget.label) +
                             "\n                    "
-                        ),
+                        )
                       ]
-                    ),
+                    )
                   ]
                 )
               }),
               0
             )
           : _c("p", { staticClass: "cptm-info-text" }, [
-              _vm._v("Nothing available"),
-            ]),
+              _vm._v("Nothing available")
+            ])
       ]),
       _vm._v(" "),
       _vm.bottomAchhor
         ? _c("span", { staticClass: "cptm-anchor-down" })
-        : _vm._e(),
+        : _vm._e()
     ]
   )
 }
@@ -33622,7 +33408,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -33630,14 +33416,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._m(0),
@@ -33646,23 +33432,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -33671,32 +33457,32 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
 var staticRenderFns = [
-  function () {
+  function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "cptm-placeholder-author-thumb" }, [
-      _c("img", { attrs: { src: "https://via.placeholder.com/150", alt: "" } }),
+      _c("img", { attrs: { src: "https://via.placeholder.com/150", alt: "" } })
     ])
-  },
+  }
 ]
 render._withStripped = true
 
@@ -33715,7 +33501,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -33723,14 +33509,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
@@ -33738,23 +33524,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -33763,20 +33549,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -33798,7 +33584,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -33806,14 +33592,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
@@ -33821,23 +33607,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -33846,20 +33632,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -33881,7 +33667,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -33889,14 +33675,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
@@ -33904,23 +33690,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -33929,20 +33715,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -33964,7 +33750,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -33972,14 +33758,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
@@ -33987,23 +33773,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -34012,20 +33798,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -34047,7 +33833,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34055,14 +33841,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
@@ -34070,23 +33856,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -34095,20 +33881,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -34130,7 +33916,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34138,47 +33924,47 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-list-item-card cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-list-item-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _c("div", { staticClass: "cptm-list-item" }, [
             _c("span", { staticClass: "cptm-list-item-icon" }, [
-              _c("span", { class: _vm.listIcon }),
+              _c("span", { class: _vm.listIcon })
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "cptm-list-item-label" }, [
-              _vm._v(_vm._s(_vm.label)),
-            ]),
+              _vm._v(_vm._s(_vm.label))
+            ])
           ]),
           _vm._v(" "),
           _c("widget-action-tools", {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -34187,20 +33973,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -34222,7 +34008,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34230,14 +34016,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
@@ -34245,23 +34031,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -34270,20 +34056,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -34305,7 +34091,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34313,14 +34099,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
@@ -34328,23 +34114,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -34353,20 +34139,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -34388,7 +34174,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34396,14 +34182,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
@@ -34411,23 +34197,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -34436,20 +34222,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -34471,7 +34257,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34479,14 +34265,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
@@ -34494,23 +34280,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -34519,20 +34305,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -34554,7 +34340,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34562,41 +34348,41 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _c("div", { staticClass: "cptm-widget-title-block" }, [
-            _vm._v("\n            " + _vm._s(_vm.label) + "\n        "),
+            _vm._v("\n            " + _vm._s(_vm.label) + "\n        ")
           ]),
           _vm._v(" "),
           _c("widget-action-tools", {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -34605,20 +34391,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -34640,7 +34426,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34648,14 +34434,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
@@ -34663,23 +34449,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -34688,20 +34474,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -34723,7 +34509,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34731,41 +34517,41 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _c("div", { staticClass: "cptm-widget-title-block" }, [
-            _vm._v("\n            " + _vm._s(_vm.label) + "\n        "),
+            _vm._v("\n            " + _vm._s(_vm.label) + "\n        ")
           ]),
           _vm._v(" "),
           _c("widget-action-tools", {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -34774,20 +34560,20 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
@@ -34809,7 +34595,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34817,14 +34603,14 @@ var render = function () {
     "div",
     {
       staticClass:
-        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+        "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
         },
         [
           _vm._m(0),
@@ -34833,23 +34619,23 @@ var render = function () {
             attrs: {
               canEdit: _vm.canEdit,
               canMove: _vm.canMove,
-              canTrash: _vm.canTrash,
+              canTrash: _vm.canTrash
             },
             on: {
-              drag: function ($event) {
+              drag: function($event) {
                 return _vm.dragStart()
               },
-              dragend: function ($event) {
+              dragend: function($event) {
                 return _vm.dragEnd()
               },
-              edit: function ($event) {
+              edit: function($event) {
                 return _vm.$emit("edit")
               },
-              trash: function ($event) {
+              trash: function($event) {
                 return _vm.$emit("trash")
-              },
-            },
-          }),
+              }
+            }
+          })
         ],
         1
       ),
@@ -34858,33 +34644,33 @@ var render = function () {
         staticClass: "cptm-widget-card-drop-append",
         class: _vm.dropAppendClass,
         on: {
-          dragover: function ($event) {
+          dragover: function($event) {
             $event.preventDefault()
           },
-          dragenter: function ($event) {
+          dragenter: function($event) {
             return _vm.handleDragEnter()
           },
-          dragleave: function ($event) {
+          dragleave: function($event) {
             return _vm.handleDragLeave()
           },
-          drop: function ($event) {
+          drop: function($event) {
             return _vm.handleDrop()
-          },
-        },
-      }),
+          }
+        }
+      })
     ]
   )
 }
 var staticRenderFns = [
-  function () {
+  function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticStyle: { "font-size": "16px" } }, [
       _c("i", { staticClass: "uil uil-eye" }),
-      _vm._v("\n            0\n        "),
+      _vm._v("\n            0\n        ")
     ])
-  },
+  }
 ]
 render._withStripped = true
 
@@ -34903,7 +34689,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34915,18 +34701,18 @@ var render = function () {
           class: _vm.itemClassName,
           style: _vm.listItemStyle,
           attrs: { draggable: _vm.canDrag },
-          on: { dragstart: _vm.dragStart, dragend: _vm.dragEnd },
+          on: { dragstart: _vm.dragStart, dragend: _vm.dragEnd }
         },
         [
           _c(
             "div",
             {
               staticClass: "directorist-draggable-list-item-slot",
-              style: _vm.slotStyle,
+              style: _vm.slotStyle
             },
             [_vm._t("default")],
             2
-          ),
+          )
         ]
       )
     : _c(
@@ -34936,18 +34722,18 @@ var render = function () {
           class: _vm.itemClassName,
           style: _vm.listItemStyle,
           attrs: { draggable: "canDrag" },
-          on: { dragstart: _vm.dragStart, dragend: _vm.dragEnd },
+          on: { dragstart: _vm.dragStart, dragend: _vm.dragEnd }
         },
         [
           _c(
             "div",
             {
               staticClass: "directorist-draggable-list-item-slot",
-              style: _vm.slotStyle,
+              style: _vm.slotStyle
             },
             [_vm._t("default")],
             2
-          ),
+          )
         ]
       )
 }
@@ -34969,7 +34755,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -34978,7 +34764,7 @@ var render = function () {
     {
       staticClass: "directorist-draggable-list-item-wrapper",
       style: _vm.wrapperStyle,
-      attrs: { "data-list-id": _vm.listId },
+      attrs: { "data-list-id": _vm.listId }
     },
     [
       _c(
@@ -34986,7 +34772,7 @@ var render = function () {
         {
           staticClass: "directorist-droppable-area-wrap",
           class: _vm.className,
-          style: { display: _vm.droppable ? "flex" : "none" },
+          style: { display: _vm.droppable ? "flex" : "none" }
         },
         [
           _vm.droppableBefore
@@ -34994,19 +34780,19 @@ var render = function () {
                 staticClass:
                   "directorist-droppable-area directorist-droppable-area-top",
                 on: {
-                  dragover: function ($event) {
+                  dragover: function($event) {
                     $event.preventDefault()
                   },
-                  dragenter: function ($event) {
+                  dragenter: function($event) {
                     _vm.dragenterBeforeItem = true
                   },
-                  dragleave: function ($event) {
+                  dragleave: function($event) {
                     _vm.dragenterBeforeItem = false
                   },
-                  drop: function ($event) {
+                  drop: function($event) {
                     return _vm.handleDroppedBefore()
-                  },
-                },
+                  }
+                }
               })
             : _vm._e(),
           _vm._v(" "),
@@ -35015,28 +34801,28 @@ var render = function () {
                 staticClass:
                   "directorist-droppable-area directorist-droppable-area-bottom",
                 on: {
-                  dragover: function ($event) {
+                  dragover: function($event) {
                     $event.preventDefault()
                   },
-                  dragenter: function ($event) {
+                  dragenter: function($event) {
                     _vm.dragenterAfterItem = true
                   },
-                  dragleave: function ($event) {
+                  dragleave: function($event) {
                     _vm.dragenterAfterItem = false
                   },
-                  drop: function ($event) {
+                  drop: function($event) {
                     return _vm.handleDroppedAfter()
-                  },
-                },
+                  }
+                }
               })
-            : _vm._e(),
+            : _vm._e()
         ]
       ),
       _vm._v(" "),
       _vm.dragenterBeforeItem
         ? _c("div", {
             staticClass:
-              "directorist-droppable-item-preview directorist-droppable-item-preview-before",
+              "directorist-droppable-item-preview directorist-droppable-item-preview-before"
           })
         : _vm._e(),
       _vm._v(" "),
@@ -35045,9 +34831,9 @@ var render = function () {
       _vm.dragenterAfterItem
         ? _c("div", {
             staticClass:
-              "directorist-droppable-item-preview directorist-droppable-item-preview-after",
+              "directorist-droppable-item-preview directorist-droppable-item-preview-after"
           })
-        : _vm._e(),
+        : _vm._e()
     ],
     2
   )
@@ -35070,7 +34856,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -35080,20 +34866,20 @@ var render = function () {
       staticClass: "cptm-form-builder-group-field-drop-area",
       class: _vm.className,
       on: {
-        dragover: function ($event) {
+        dragover: function($event) {
           $event.preventDefault()
         },
         dragenter: _vm.handleDragenter,
         dragleave: _vm.handleDragleave,
-        drop: _vm.handleDrop,
-      },
+        drop: _vm.handleDrop
+      }
     },
     [
       _c(
         "p",
         { staticClass: "cptm-form-builder-group-field-drop-area-label" },
         [_vm._v("Drop Here")]
-      ),
+      )
     ]
   )
 }
@@ -35115,7 +34901,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -35123,14 +34909,14 @@ var render = function () {
     _c("h3", { staticClass: "cptm-title-3" }, [_vm._v(_vm._s(_vm.title))]),
     _vm._v(" "),
     _c("p", { staticClass: "cptm-description-text" }, [
-      _vm._v(_vm._s(_vm.description)),
+      _vm._v(_vm._s(_vm.description))
     ]),
     _vm._v(" "),
     _vm.filtered_widget_list
       ? _c(
           "ul",
           { staticClass: "cptm-form-builder-field-list" },
-          _vm._l(_vm.filtered_widget_list, function (widget, widget_key) {
+          _vm._l(_vm.filtered_widget_list, function(widget, widget_key) {
             return _c(
               "draggable-list-item",
               {
@@ -35139,24 +34925,22 @@ var render = function () {
                   "list-type": "li",
                   "item-class-name": "cptm-form-builder-field-list-item",
                   "drag-type":
-                    _vm.allowMultiple || widget.allowMultiple
-                      ? "clone"
-                      : "move",
+                    _vm.allowMultiple || widget.allowMultiple ? "clone" : "move"
                 },
                 on: {
-                  "drag-start": function ($event) {
+                  "drag-start": function($event) {
                     return _vm.$emit("drag-start", {
                       widget_key: widget_key,
-                      widget: widget,
+                      widget: widget
                     })
                   },
-                  "drag-end": function ($event) {
+                  "drag-end": function($event) {
                     return _vm.$emit("drag-end", {
                       widget_key: widget_key,
-                      widget: widget,
+                      widget: widget
                     })
-                  },
-                },
+                  }
+                }
               },
               [
                 _c(
@@ -35165,7 +34949,7 @@ var render = function () {
                   [
                     widget.icon && widget.icon.length
                       ? _c("span", { class: widget.icon })
-                      : _vm._e(),
+                      : _vm._e()
                   ]
                 ),
                 _vm._v(" "),
@@ -35173,13 +34957,13 @@ var render = function () {
                   "span",
                   { staticClass: "cptm-form-builder-field-list-label" },
                   [_vm._v(_vm._s(widget.label))]
-                ),
+                )
               ]
             )
           }),
           1
         )
-      : _vm._e(),
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -35200,7 +34984,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -35217,43 +35001,43 @@ var render = function () {
                   "cptm-form-builder-group-field-item-action-link action-trash",
                 attrs: { href: "#" },
                 on: {
-                  click: function ($event) {
+                  click: function($event) {
                     $event.preventDefault()
                     return _vm.$emit("trash-widget")
-                  },
-                },
+                  }
+                }
               },
               [
                 _c("span", {
                   staticClass: "uil uil-trash-alt",
-                  attrs: { "aria-hidden": "true" },
-                }),
+                  attrs: { "aria-hidden": "true" }
+                })
               ]
             )
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
         "draggable-list-item",
         {
           on: {
-            "drag-start": function ($event) {
+            "drag-start": function($event) {
               return _vm.$emit("drag-start")
             },
-            "drag-end": function ($event) {
+            "drag-end": function($event) {
               return _vm.$emit("drag-end")
-            },
-          },
+            }
+          }
         },
         [
           _c("form-builder-widget-titlebar-component", {
             attrs: {
               label: _vm.widgetTitle,
               sublabel: _vm.widgetSubtitle,
-              expanded: _vm.expandState,
+              expanded: _vm.expandState
             },
-            on: { "toggle-expand": _vm.toggleExpand },
-          }),
+            on: { "toggle-expand": _vm.toggleExpand }
+          })
         ],
         1
       ),
@@ -35274,23 +35058,23 @@ var render = function () {
                       "field-list": _vm.widget_fields,
                       value: _vm.activeWidgets[_vm.widgetKey]
                         ? _vm.activeWidgets[_vm.widgetKey]
-                        : "",
+                        : ""
                     },
                     on: {
-                      update: function ($event) {
+                      update: function($event) {
                         return _vm.$emit("update-widget-field", {
                           widget_key: _vm.widgetKey,
-                          payload: $event,
+                          payload: $event
                         })
-                      },
-                    },
-                  }),
+                      }
+                    }
+                  })
                 ],
                 1
               )
-            : _vm._e(),
+            : _vm._e()
         ]
-      ),
+      )
     ],
     1
   )
@@ -35313,7 +35097,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -35327,9 +35111,9 @@ var render = function () {
         _vm.sublabel.length
           ? _c("span", {
               staticClass: "cptm-text-gray cptm-px-5",
-              domProps: { innerHTML: _vm._s(_vm.sublabel) },
+              domProps: { innerHTML: _vm._s(_vm.sublabel) }
             })
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -35345,21 +35129,21 @@ var render = function () {
                 : "action-collapse-down",
               attrs: { href: "#" },
               on: {
-                click: function ($event) {
+                click: function($event) {
                   $event.preventDefault()
                   return _vm.$emit("toggle-expand")
-                },
-              },
+                }
+              }
             },
             [
               _c("span", {
                 staticClass: "fa fa-angle-up",
-                attrs: { "aria-hidden": "true" },
-              }),
+                attrs: { "aria-hidden": "true" }
+              })
             ]
-          ),
+          )
         ]
-      ),
+      )
     ]
   )
 }
@@ -35381,7 +35165,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -35396,23 +35180,23 @@ var render = function () {
             attrs: {
               "widgets-expanded": _vm.widgetsExpandState,
               "can-trash": _vm.canTrashGroup,
-              "current-dragging-group": _vm.currentDraggingGroup,
+              "current-dragging-group": _vm.currentDraggingGroup
             },
             on: {
-              "update-group-field": function ($event) {
+              "update-group-field": function($event) {
                 return _vm.$emit("update-group-field", $event)
               },
               "toggle-expand-widgets": _vm.toggleExpandWidgets,
-              "trash-group": function ($event) {
+              "trash-group": function($event) {
                 return _vm.$emit("trash-group")
               },
-              "drag-start": function ($event) {
+              "drag-start": function($event) {
                 return _vm.$emit("group-drag-start")
               },
-              "drag-end": function ($event) {
+              "drag-end": function($event) {
                 return _vm.$emit("group-drag-end")
-              },
-            },
+              }
+            }
           },
           "form-builder-widget-group-header-component",
           _vm.$props,
@@ -35427,7 +35211,7 @@ var render = function () {
           _c(
             "div",
             { staticClass: "cptm-form-builder-group-fields" },
-            _vm._l(_vm.groupData.fields, function (widget_key, widget_index) {
+            _vm._l(_vm.groupData.fields, function(widget_key, widget_index) {
               return _c(
                 "draggable-list-item-wrapper",
                 {
@@ -35437,20 +35221,20 @@ var render = function () {
                     "is-dragging-self":
                       _vm.currentDraggingWidget &&
                       "active_widgets" === _vm.currentDraggingWidget.from &&
-                      widget_key === _vm.currentDraggingWidget.widget_key,
+                        widget_key === _vm.currentDraggingWidget.widget_key,
                     "class-name": "directorist-draggable-form-list-wrap",
                     droppables: true,
-                    droppable: _vm.isDroppable(widget_index),
+                    droppable: _vm.isDroppable(widget_index)
                   },
                   on: {
-                    drop: function ($event) {
+                    drop: function($event) {
                       return _vm.$emit("drop-widget", {
                         widget_key: widget_key,
                         widget_index: widget_index,
-                        drop_direction: $event.drop_direction,
+                        drop_direction: $event.drop_direction
                       })
-                    },
-                  },
+                    }
+                  }
                 },
                 [
                   _c("form-builder-widget-component", {
@@ -35460,34 +35244,34 @@ var render = function () {
                       "avilable-widgets": _vm.avilableWidgets,
                       "group-data": _vm.groupData,
                       "is-enabled-group-dragging": _vm.isEnabledGroupDragging,
-                      "untrashable-widgets": _vm.untrashableWidgets,
+                      "untrashable-widgets": _vm.untrashableWidgets
                     },
                     on: {
-                      "found-untrashable-widget": function ($event) {
+                      "found-untrashable-widget": function($event) {
                         return _vm.updateDetectedUntrashableWidgets(widget_key)
                       },
-                      "update-widget-field": function ($event) {
+                      "update-widget-field": function($event) {
                         return _vm.$emit("update-widget-field", $event)
                       },
-                      "trash-widget": function ($event) {
+                      "trash-widget": function($event) {
                         return _vm.$emit("trash-widget", {
-                          widget_key: widget_key,
+                          widget_key: widget_key
                         })
                       },
-                      "drag-start": function ($event) {
+                      "drag-start": function($event) {
                         return _vm.$emit("widget-drag-start", {
                           widget_index: widget_index,
-                          widget_key: widget_key,
+                          widget_key: widget_key
                         })
                       },
-                      "drag-end": function ($event) {
+                      "drag-end": function($event) {
                         return _vm.$emit("widget-drag-end", {
                           widget_index: widget_index,
-                          widget_key: widget_key,
+                          widget_key: widget_key
                         })
-                      },
-                    },
-                  }),
+                      }
+                    }
+                  })
                 ],
                 1
               )
@@ -35498,15 +35282,15 @@ var render = function () {
           _vm.canShowWidgetDropPlaceholder
             ? _c("form-builder-droppable-placeholder", {
                 on: {
-                  drop: function ($event) {
+                  drop: function($event) {
                     return _vm.$emit("append-widget")
-                  },
-                },
+                  }
+                }
               })
-            : _vm._e(),
+            : _vm._e()
         ],
         1
-      ),
+      )
     ],
     1
   )
@@ -35529,7 +35313,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -35546,13 +35330,13 @@ var render = function () {
             {
               attrs: { "can-drag": _vm.isEnabledGroupDragging },
               on: {
-                "drag-start": function ($event) {
+                "drag-start": function($event) {
                   return _vm.$emit("drag-start")
                 },
-                "drag-end": function ($event) {
+                "drag-end": function($event) {
                   return _vm.$emit("drag-end")
-                },
-              },
+                }
+              }
             },
             [
               _c(
@@ -35562,16 +35346,16 @@ var render = function () {
                     attrs: { "widgets-expanded": _vm.widgetsExpanded },
                     on: {
                       "toggle-expand-group": _vm.toggleGroupFieldsExpand,
-                      "toggle-expand-widgets": function ($event) {
+                      "toggle-expand-widgets": function($event) {
                         return _vm.$emit("toggle-expand-widgets")
-                      },
-                    },
+                      }
+                    }
                   },
                   "form-builder-widget-group-titlebar-component",
                   _vm.$props,
                   false
                 )
-              ),
+              )
             ],
             1
           ),
@@ -35585,21 +35369,21 @@ var render = function () {
                       "cptm-form-builder-group-field-item-action-link action-trash",
                     attrs: { href: "#" },
                     on: {
-                      click: function ($event) {
+                      click: function($event) {
                         $event.preventDefault()
                         return _vm.$emit("trash-group")
-                      },
-                    },
+                      }
+                    }
                   },
                   [
                     _c("span", {
                       staticClass: "uil uil-trash-alt",
-                      attrs: { "aria-hidden": "true" },
-                    }),
+                      attrs: { "aria-hidden": "true" }
+                    })
                   ]
                 )
-              : _vm._e(),
-          ]),
+              : _vm._e()
+          ])
         ],
         1
       ),
@@ -35615,16 +35399,16 @@ var render = function () {
               _c("field-list-component", {
                 attrs: { "field-list": _vm.groupFields, value: _vm.groupData },
                 on: {
-                  update: function ($event) {
+                  update: function($event) {
                     return _vm.$emit("update-group-field", $event)
-                  },
-                },
-              }),
+                  }
+                }
+              })
             ],
             1
-          ),
+          )
         ]
-      ),
+      )
     ],
     1
   )
@@ -35647,7 +35431,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -35662,20 +35446,20 @@ var render = function () {
                 "cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light",
               attrs: { href: "#" },
               on: {
-                click: function ($event) {
+                click: function($event) {
                   $event.preventDefault()
                   return _vm.$emit("toggle-expand-group")
-                },
-              },
+                }
+              }
             },
             [
               _c("span", {
                 staticClass: "fa fa-pen",
-                attrs: { "aria-hidden": "true" },
-              }),
+                attrs: { "aria-hidden": "true" }
+              })
             ]
           )
-        : _vm._e(),
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "cptm-form-builder-group-title-actions" }, [
@@ -35689,21 +35473,21 @@ var render = function () {
                 : "action-collapse-down",
               attrs: { href: "#" },
               on: {
-                click: function ($event) {
+                click: function($event) {
                   $event.preventDefault()
                   return _vm.$emit("toggle-expand-widgets")
-                },
-              },
+                }
+              }
             },
             [
               _c("span", {
                 staticClass: "fa fa-angle-up",
-                attrs: { "aria-hidden": "true" },
-              }),
+                attrs: { "aria-hidden": "true" }
+              })
             ]
           )
-        : _vm._e(),
-    ]),
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []
@@ -35724,7 +35508,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -35735,16 +35519,16 @@ var render = function () {
           {
             tag: "component",
             on: {
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
               },
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              validate: function ($event) {
+              validate: function($event) {
                 return _vm.$emit("validate", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -35771,7 +35555,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -35782,10 +35566,10 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -35812,7 +35596,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -35829,16 +35613,16 @@ var render = function () {
                 _c("select-field", {
                   attrs: {
                     theme: "default",
-                    options: _vm.theCardBiulderTemplateOptionList,
+                    options: _vm.theCardBiulderTemplateOptionList
                   },
                   model: {
                     value: _vm.template_id,
-                    callback: function ($$v) {
+                    callback: function($$v) {
                       _vm.template_id = $$v
                     },
-                    expression: "template_id",
-                  },
-                }),
+                    expression: "template_id"
+                  }
+                })
               ],
               1
             ),
@@ -35850,19 +35634,19 @@ var render = function () {
                   tag: "component",
                   attrs: {
                     "field-id": _vm.fieldId,
-                    value: _vm.theCardBiulderValue,
+                    value: _vm.theCardBiulderValue
                   },
                   on: {
-                    update: function ($event) {
+                    update: function($event) {
                       return _vm.updateValue($event)
-                    },
-                  },
+                    }
+                  }
                 },
                 "component",
                 _vm.theCurrentTemplateModel,
                 false
               )
-            ),
+            )
           ]
         : [
             _c(_vm.cardBiulderTemplate, {
@@ -35872,15 +35656,15 @@ var render = function () {
                 value: _vm.value,
                 widgets: _vm.widgets,
                 layout: _vm.layout,
-                "card-options": _vm.cardOptions,
+                "card-options": _vm.cardOptions
               },
               on: {
-                update: function ($event) {
+                update: function($event) {
                   return _vm.$emit("update", $event)
-                },
-              },
-            }),
-          ],
+                }
+              }
+            })
+          ]
     ],
     2
   )
@@ -35903,7 +35687,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -35919,22 +35703,22 @@ var render = function () {
                 {
                   attrs: { active: _vm.widgetOptionsWindowActiveStatus },
                   on: {
-                    update: function ($event) {
+                    update: function($event) {
                       return _vm.updateWidgetOptionsData(
                         $event,
                         _vm.widgetOptionsWindow
                       )
                     },
-                    close: function ($event) {
+                    close: function($event) {
                       return _vm.closeWidgetOptionsWindow()
-                    },
-                  },
+                    }
+                  }
                 },
                 "options-window",
                 _vm.widgetOptionsWindow,
                 false
               )
-            ),
+            )
           ],
           1
         )
@@ -35962,71 +35746,72 @@ var render = function () {
                       selectedWidgets:
                         _vm.local_layout.thumbnail.top_left.selectedWidgets,
                       maxWidget: _vm.local_layout.thumbnail.top_left.maxWidget,
-                      showWidgetsPickerWindow:
-                        _vm.getActiveInsertWindowStatus("thumbnail_top_left"),
+                      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                        "thumbnail_top_left"
+                      ),
                       widgetDropable: _vm.widgetIsDropable(
                         _vm.local_layout.thumbnail.top_left
-                      ),
+                      )
                     },
                     on: {
-                      "insert-widget": function ($event) {
+                      "insert-widget": function($event) {
                         return _vm.insertWidget(
                           $event,
                           _vm.local_layout.thumbnail.top_left
                         )
                       },
-                      "drag-widget": function ($event) {
+                      "drag-widget": function($event) {
                         return _vm.onDragStartWidget(
                           $event,
                           _vm.local_layout.thumbnail.top_left
                         )
                       },
-                      "drop-widget": function ($event) {
+                      "drop-widget": function($event) {
                         return _vm.appendWidget(
                           $event,
                           _vm.local_layout.thumbnail.top_left
                         )
                       },
-                      "dragend-widget": function ($event) {
+                      "dragend-widget": function($event) {
                         return _vm.onDragEndWidget()
                       },
-                      "edit-widget": function ($event) {
+                      "edit-widget": function($event) {
                         return _vm.editWidget($event)
                       },
-                      "trash-widget": function ($event) {
+                      "trash-widget": function($event) {
                         return _vm.trashWidget(
                           $event,
                           _vm.local_layout.thumbnail.top_left
                         )
                       },
-                      "placeholder-on-drop": function ($event) {
+                      "placeholder-on-drop": function($event) {
                         return _vm.handleDropOnPlaceholder(
                           _vm.local_layout.thumbnail.top_left
                         )
                       },
-                      "placeholder-on-dragover": function ($event) {
+                      "placeholder-on-dragover": function($event) {
                         return _vm.handleDragOverOnPlaceholder(
                           _vm.local_layout.thumbnail.top_left
                         )
                       },
-                      "placeholder-on-dragenter": function ($event) {
+                      "placeholder-on-dragenter": function($event) {
                         return _vm.handleDragEnterOnPlaceholder(
                           _vm.local_layout.thumbnail.top_left
                         )
                       },
-                      "placeholder-on-dragleave": function ($event) {
+                      "placeholder-on-dragleave": function($event) {
                         return _vm.handleDragleaveOnPlaceholder(
                           _vm.local_layout.thumbnail.top_left
                         )
                       },
-                      "open-widgets-picker-window": function ($event) {
+                      "open-widgets-picker-window": function($event) {
                         return _vm.activeInsertWindow("thumbnail_top_left")
                       },
-                      "close-widgets-picker-window": function ($event) {
+                      "close-widgets-picker-window": function($event) {
                         return _vm.closeInsertWindow()
-                      },
-                    },
-                  }),
+                      }
+                    }
+                  })
                 ],
                 1
               ),
@@ -36053,62 +35838,62 @@ var render = function () {
                       ),
                       widgetDropable: _vm.widgetIsDropable(
                         _vm.local_layout.thumbnail.top_right
-                      ),
+                      )
                     },
                     on: {
-                      "insert-widget": function ($event) {
+                      "insert-widget": function($event) {
                         return _vm.insertWidget(
                           $event,
                           _vm.local_layout.thumbnail.top_right
                         )
                       },
-                      "drag-widget": function ($event) {
+                      "drag-widget": function($event) {
                         return _vm.onDragStartWidget(
                           $event,
                           _vm.local_layout.thumbnail.top_right
                         )
                       },
-                      "drop-widget": function ($event) {
+                      "drop-widget": function($event) {
                         return _vm.appendWidget(
                           $event,
                           _vm.local_layout.thumbnail.top_right
                         )
                       },
-                      "dragend-widget": function ($event) {
+                      "dragend-widget": function($event) {
                         return _vm.onDragEndWidget()
                       },
-                      "edit-widget": function ($event) {
+                      "edit-widget": function($event) {
                         return _vm.editWidget($event)
                       },
-                      "trash-widget": function ($event) {
+                      "trash-widget": function($event) {
                         return _vm.trashWidget(
                           $event,
                           _vm.local_layout.thumbnail.top_right
                         )
                       },
-                      "placeholder-on-drop": function ($event) {
+                      "placeholder-on-drop": function($event) {
                         return _vm.handleDropOnPlaceholder(
                           _vm.local_layout.thumbnail.top_right
                         )
                       },
-                      "placeholder-on-dragover": function ($event) {
+                      "placeholder-on-dragover": function($event) {
                         return _vm.handleDragOverOnPlaceholder(
                           _vm.local_layout.thumbnail.top_right
                         )
                       },
-                      "placeholder-on-dragenter": function ($event) {
+                      "placeholder-on-dragenter": function($event) {
                         return _vm.handleDragEnterOnPlaceholder(
                           _vm.local_layout.thumbnail.top_right
                         )
                       },
-                      "open-widgets-picker-window": function ($event) {
+                      "open-widgets-picker-window": function($event) {
                         return _vm.activeInsertWindow("thumbnail_top_right")
                       },
-                      "close-widgets-picker-window": function ($event) {
+                      "close-widgets-picker-window": function($event) {
                         return _vm.closeInsertWindow()
-                      },
-                    },
-                  }),
+                      }
+                    }
+                  })
                 ],
                 1
               ),
@@ -36136,62 +35921,62 @@ var render = function () {
                       ),
                       widgetDropable: _vm.widgetIsDropable(
                         _vm.local_layout.thumbnail.bottom_left
-                      ),
+                      )
                     },
                     on: {
-                      "insert-widget": function ($event) {
+                      "insert-widget": function($event) {
                         return _vm.insertWidget(
                           $event,
                           _vm.local_layout.thumbnail.bottom_left
                         )
                       },
-                      "drag-widget": function ($event) {
+                      "drag-widget": function($event) {
                         return _vm.onDragStartWidget(
                           $event,
                           _vm.local_layout.thumbnail.bottom_left
                         )
                       },
-                      "drop-widget": function ($event) {
+                      "drop-widget": function($event) {
                         return _vm.appendWidget(
                           $event,
                           _vm.local_layout.thumbnail.bottom_left
                         )
                       },
-                      "dragend-widget": function ($event) {
+                      "dragend-widget": function($event) {
                         return _vm.onDragEndWidget()
                       },
-                      "edit-widget": function ($event) {
+                      "edit-widget": function($event) {
                         return _vm.editWidget($event)
                       },
-                      "trash-widget": function ($event) {
+                      "trash-widget": function($event) {
                         return _vm.trashWidget(
                           $event,
                           _vm.local_layout.thumbnail.bottom_left
                         )
                       },
-                      "placeholder-on-drop": function ($event) {
+                      "placeholder-on-drop": function($event) {
                         return _vm.handleDropOnPlaceholder(
                           _vm.local_layout.thumbnail.bottom_left
                         )
                       },
-                      "placeholder-on-dragover": function ($event) {
+                      "placeholder-on-dragover": function($event) {
                         return _vm.handleDragOverOnPlaceholder(
                           _vm.local_layout.thumbnail.bottom_left
                         )
                       },
-                      "placeholder-on-dragenter": function ($event) {
+                      "placeholder-on-dragenter": function($event) {
                         return _vm.handleDragEnterOnPlaceholder(
                           _vm.local_layout.thumbnail.bottom_left
                         )
                       },
-                      "open-widgets-picker-window": function ($event) {
+                      "open-widgets-picker-window": function($event) {
                         return _vm.activeInsertWindow("thumbnail_bottom_left")
                       },
-                      "close-widgets-picker-window": function ($event) {
+                      "close-widgets-picker-window": function($event) {
                         return _vm.closeInsertWindow()
-                      },
-                    },
-                  }),
+                      }
+                    }
+                  })
                 ],
                 1
               ),
@@ -36219,69 +36004,69 @@ var render = function () {
                       ),
                       widgetDropable: _vm.widgetIsDropable(
                         _vm.local_layout.thumbnail.bottom_right
-                      ),
+                      )
                     },
                     on: {
-                      "insert-widget": function ($event) {
+                      "insert-widget": function($event) {
                         return _vm.insertWidget(
                           $event,
                           _vm.local_layout.thumbnail.bottom_right
                         )
                       },
-                      "drag-widget": function ($event) {
+                      "drag-widget": function($event) {
                         return _vm.onDragStartWidget(
                           $event,
                           _vm.local_layout.thumbnail.bottom_right
                         )
                       },
-                      "drop-widget": function ($event) {
+                      "drop-widget": function($event) {
                         return _vm.appendWidget(
                           $event,
                           _vm.local_layout.thumbnail.bottom_right
                         )
                       },
-                      "dragend-widget": function ($event) {
+                      "dragend-widget": function($event) {
                         return _vm.onDragEndWidget()
                       },
-                      "edit-widget": function ($event) {
+                      "edit-widget": function($event) {
                         return _vm.editWidget($event)
                       },
-                      "trash-widget": function ($event) {
+                      "trash-widget": function($event) {
                         return _vm.trashWidget(
                           $event,
                           _vm.local_layout.thumbnail.bottom_right
                         )
                       },
-                      "placeholder-on-drop": function ($event) {
+                      "placeholder-on-drop": function($event) {
                         return _vm.handleDropOnPlaceholder(
                           _vm.local_layout.thumbnail.bottom_right
                         )
                       },
-                      "placeholder-on-dragover": function ($event) {
+                      "placeholder-on-dragover": function($event) {
                         return _vm.handleDragOverOnPlaceholder(
                           _vm.local_layout.thumbnail.bottom_right
                         )
                       },
-                      "placeholder-on-dragenter": function ($event) {
+                      "placeholder-on-dragenter": function($event) {
                         return _vm.handleDragEnterOnPlaceholder(
                           _vm.local_layout.thumbnail.bottom_right
                         )
                       },
-                      "open-widgets-picker-window": function ($event) {
+                      "open-widgets-picker-window": function($event) {
                         return _vm.activeInsertWindow("thumbnail_bottom_right")
                       },
-                      "close-widgets-picker-window": function ($event) {
+                      "close-widgets-picker-window": function($event) {
                         return _vm.closeInsertWindow()
-                      },
-                    },
-                  }),
+                      }
+                    }
+                  })
                 ],
                 1
               ),
               _vm._v(" "),
-              _vm._m(0),
-            ]),
-          ]),
+              _vm._m(0)
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c(
@@ -36304,56 +36089,57 @@ var render = function () {
                     selectedWidgets:
                       _vm.local_layout.thumbnail.avatar.selectedWidgets,
                     maxWidget: _vm.local_layout.thumbnail.avatar.maxWidget,
-                    showWidgetsPickerWindow:
-                      _vm.getActiveInsertWindowStatus("thumbnail_avatar"),
+                    showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                      "thumbnail_avatar"
+                    ),
                     widgetDropable: _vm.widgetIsDropable(
                       _vm.local_layout.thumbnail.avatar
-                    ),
+                    )
                   },
                   on: {
-                    "insert-widget": function ($event) {
+                    "insert-widget": function($event) {
                       return _vm.insertWidget(
                         $event,
                         _vm.local_layout.thumbnail.avatar
                       )
                     },
-                    "drag-widget": function ($event) {
+                    "drag-widget": function($event) {
                       return _vm.onDragStartWidget(
                         $event,
                         _vm.local_layout.thumbnail.avatar
                       )
                     },
-                    "drop-widget": function ($event) {
+                    "drop-widget": function($event) {
                       return _vm.appendWidget(
                         $event,
                         _vm.local_layout.thumbnail.avatar
                       )
                     },
-                    "dragend-widget": function ($event) {
+                    "dragend-widget": function($event) {
                       return _vm.onDragEndWidget()
                     },
-                    "edit-widget": function ($event) {
+                    "edit-widget": function($event) {
                       return _vm.editWidget($event)
                     },
-                    "trash-widget": function ($event) {
+                    "trash-widget": function($event) {
                       return _vm.trashWidget(
                         $event,
                         _vm.local_layout.thumbnail.avatar
                       )
                     },
-                    "placeholder-on-drop": function ($event) {
+                    "placeholder-on-drop": function($event) {
                       return _vm.handleDropOnPlaceholder(
                         _vm.local_layout.thumbnail.avatar
                       )
                     },
-                    "open-widgets-picker-window": function ($event) {
+                    "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("thumbnail_avatar")
                     },
-                    "close-widgets-picker-window": function ($event) {
+                    "close-widgets-picker-window": function($event) {
                       return _vm.closeInsertWindow()
-                    },
-                  },
-                }),
+                    }
+                  }
+                })
               ],
               1
             ),
@@ -36369,42 +36155,43 @@ var render = function () {
                 acceptedWidgets: _vm.local_layout.body.top.acceptedWidgets,
                 selectedWidgets: _vm.local_layout.body.top.selectedWidgets,
                 maxWidget: _vm.local_layout.body.top.maxWidget,
-                showWidgetsPickerWindow:
-                  _vm.getActiveInsertWindowStatus("thumbnail_body_top"),
-                widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.top),
+                showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                  "thumbnail_body_top"
+                ),
+                widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.top)
               },
               on: {
-                "insert-widget": function ($event) {
+                "insert-widget": function($event) {
                   return _vm.insertWidget($event, _vm.local_layout.body.top)
                 },
-                "drag-widget": function ($event) {
+                "drag-widget": function($event) {
                   return _vm.onDragStartWidget(
                     $event,
                     _vm.local_layout.body.top
                   )
                 },
-                "drop-widget": function ($event) {
+                "drop-widget": function($event) {
                   return _vm.appendWidget($event, _vm.local_layout.body.top)
                 },
-                "dragend-widget": function ($event) {
+                "dragend-widget": function($event) {
                   return _vm.onDragEndWidget()
                 },
-                "edit-widget": function ($event) {
+                "edit-widget": function($event) {
                   return _vm.editWidget($event)
                 },
-                "trash-widget": function ($event) {
+                "trash-widget": function($event) {
                   return _vm.trashWidget($event, _vm.local_layout.body.top)
                 },
-                "placeholder-on-drop": function ($event) {
+                "placeholder-on-drop": function($event) {
                   return _vm.handleDropOnPlaceholder(_vm.local_layout.body.top)
                 },
-                "open-widgets-picker-window": function ($event) {
+                "open-widgets-picker-window": function($event) {
                   return _vm.activeInsertWindow("thumbnail_body_top")
                 },
-                "close-widgets-picker-window": function ($event) {
+                "close-widgets-picker-window": function($event) {
                   return _vm.closeInsertWindow()
-                },
-              },
+                }
+              }
             }),
             _vm._v(" "),
             _c("card-widget-placeholder", {
@@ -36423,42 +36210,42 @@ var render = function () {
                 ),
                 widgetDropable: _vm.widgetIsDropable(
                   _vm.local_layout.body.bottom
-                ),
+                )
               },
               on: {
-                "insert-widget": function ($event) {
+                "insert-widget": function($event) {
                   return _vm.insertWidget($event, _vm.local_layout.body.bottom)
                 },
-                "drag-widget": function ($event) {
+                "drag-widget": function($event) {
                   return _vm.onDragStartWidget(
                     $event,
                     _vm.local_layout.body.bottom
                   )
                 },
-                "drop-widget": function ($event) {
+                "drop-widget": function($event) {
                   return _vm.appendWidget($event, _vm.local_layout.body.bottom)
                 },
-                "dragend-widget": function ($event) {
+                "dragend-widget": function($event) {
                   return _vm.onDragEndWidget()
                 },
-                "edit-widget": function ($event) {
+                "edit-widget": function($event) {
                   return _vm.editWidget($event)
                 },
-                "trash-widget": function ($event) {
+                "trash-widget": function($event) {
                   return _vm.trashWidget($event, _vm.local_layout.body.bottom)
                 },
-                "placeholder-on-drop": function ($event) {
+                "placeholder-on-drop": function($event) {
                   return _vm.handleDropOnPlaceholder(
                     _vm.local_layout.body.bottom
                   )
                 },
-                "open-widgets-picker-window": function ($event) {
+                "open-widgets-picker-window": function($event) {
                   return _vm.activeInsertWindow("thumbnail_body_bottom")
                 },
-                "close-widgets-picker-window": function ($event) {
+                "close-widgets-picker-window": function($event) {
                   return _vm.closeInsertWindow()
-                },
-              },
+                }
+              }
             }),
             _vm._v(" "),
             _c("br"),
@@ -36477,57 +36264,58 @@ var render = function () {
                     selectedWidgets:
                       _vm.local_layout.body.excerpt.selectedWidgets,
                     maxWidget: _vm.local_layout.body.excerpt.maxWidget,
-                    showWidgetsPickerWindow:
-                      _vm.getActiveInsertWindowStatus("body_excerpr"),
+                    showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                      "body_excerpr"
+                    ),
                     widgetDropable: _vm.widgetIsDropable(
                       _vm.local_layout.body.excerpt
-                    ),
+                    )
                   },
                   on: {
-                    "insert-widget": function ($event) {
+                    "insert-widget": function($event) {
                       return _vm.insertWidget(
                         $event,
                         _vm.local_layout.body.excerpt
                       )
                     },
-                    "drag-widget": function ($event) {
+                    "drag-widget": function($event) {
                       return _vm.onDragStartWidget(
                         $event,
                         _vm.local_layout.body.excerpt
                       )
                     },
-                    "drop-widget": function ($event) {
+                    "drop-widget": function($event) {
                       return _vm.appendWidget(
                         $event,
                         _vm.local_layout.body.excerpt
                       )
                     },
-                    "dragend-widget": function ($event) {
+                    "dragend-widget": function($event) {
                       return _vm.onDragEndWidget()
                     },
-                    "edit-widget": function ($event) {
+                    "edit-widget": function($event) {
                       return _vm.editWidget($event)
                     },
-                    "trash-widget": function ($event) {
+                    "trash-widget": function($event) {
                       return _vm.trashWidget(
                         $event,
                         _vm.local_layout.body.excerpt
                       )
                     },
-                    "placeholder-on-drop": function ($event) {
+                    "placeholder-on-drop": function($event) {
                       return _vm.handleDropOnPlaceholder(
                         _vm.local_layout.body.excerpt
                       )
                     },
-                    "open-widgets-picker-window": function ($event) {
+                    "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("body_excerpr")
                     },
-                    "close-widgets-picker-window": function ($event) {
+                    "close-widgets-picker-window": function($event) {
                       return _vm.closeInsertWindow()
-                    },
-                  },
+                    }
+                  }
                 })
-              : _vm._e(),
+              : _vm._e()
           ],
           1
         ),
@@ -36552,42 +36340,42 @@ var render = function () {
                 ),
                 widgetDropable: _vm.widgetIsDropable(
                   _vm.local_layout.footer.left
-                ),
+                )
               },
               on: {
-                "insert-widget": function ($event) {
+                "insert-widget": function($event) {
                   return _vm.insertWidget($event, _vm.local_layout.footer.left)
                 },
-                "drag-widget": function ($event) {
+                "drag-widget": function($event) {
                   return _vm.onDragStartWidget(
                     $event,
                     _vm.local_layout.footer.left
                   )
                 },
-                "drop-widget": function ($event) {
+                "drop-widget": function($event) {
                   return _vm.appendWidget($event, _vm.local_layout.footer.left)
                 },
-                "dragend-widget": function ($event) {
+                "dragend-widget": function($event) {
                   return _vm.onDragEndWidget()
                 },
-                "edit-widget": function ($event) {
+                "edit-widget": function($event) {
                   return _vm.editWidget($event)
                 },
-                "trash-widget": function ($event) {
+                "trash-widget": function($event) {
                   return _vm.trashWidget($event, _vm.local_layout.footer.left)
                 },
-                "placeholder-on-drop": function ($event) {
+                "placeholder-on-drop": function($event) {
                   return _vm.handleDropOnPlaceholder(
                     _vm.local_layout.footer.left
                   )
                 },
-                "open-widgets-picker-window": function ($event) {
+                "open-widgets-picker-window": function($event) {
                   return _vm.activeInsertWindow("thumbnail_footer_left")
                 },
-                "close-widgets-picker-window": function ($event) {
+                "close-widgets-picker-window": function($event) {
                   return _vm.closeInsertWindow()
-                },
-              },
+                }
+              }
             }),
             _vm._v(" "),
             _c("card-widget-placeholder", {
@@ -36606,59 +36394,59 @@ var render = function () {
                 ),
                 widgetDropable: _vm.widgetIsDropable(
                   _vm.local_layout.footer.right
-                ),
+                )
               },
               on: {
-                "insert-widget": function ($event) {
+                "insert-widget": function($event) {
                   return _vm.insertWidget($event, _vm.local_layout.footer.right)
                 },
-                "drag-widget": function ($event) {
+                "drag-widget": function($event) {
                   return _vm.onDragStartWidget(
                     $event,
                     _vm.local_layout.footer.right
                   )
                 },
-                "drop-widget": function ($event) {
+                "drop-widget": function($event) {
                   return _vm.appendWidget($event, _vm.local_layout.footer.right)
                 },
-                "dragend-widget": function ($event) {
+                "dragend-widget": function($event) {
                   return _vm.onDragEndWidget()
                 },
-                "edit-widget": function ($event) {
+                "edit-widget": function($event) {
                   return _vm.editWidget($event)
                 },
-                "trash-widget": function ($event) {
+                "trash-widget": function($event) {
                   return _vm.trashWidget($event, _vm.local_layout.footer.right)
                 },
-                "placeholder-on-drop": function ($event) {
+                "placeholder-on-drop": function($event) {
                   return _vm.handleDropOnPlaceholder(
                     _vm.local_layout.footer.right
                   )
                 },
-                "open-widgets-picker-window": function ($event) {
+                "open-widgets-picker-window": function($event) {
                   return _vm.activeInsertWindow("thumbnail_footer_right")
                 },
-                "close-widgets-picker-window": function ($event) {
+                "close-widgets-picker-window": function($event) {
                   return _vm.closeInsertWindow()
-                },
-              },
-            }),
+                }
+              }
+            })
           ],
           1
-        ),
-      ]),
-    ]),
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
-  function () {
+  function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "cptm-card-preview-thumbnail-bg" }, [
-      _c("span", { staticClass: "uil uil-scenery" }),
+      _c("span", { staticClass: "uil uil-scenery" })
     ])
-  },
+  }
 ]
 render._withStripped = true
 
@@ -36677,7 +36465,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -36693,22 +36481,22 @@ var render = function () {
                 {
                   attrs: { active: _vm.widgetOptionsWindowActiveStatus },
                   on: {
-                    update: function ($event) {
+                    update: function($event) {
                       return _vm.updateWidgetOptionsData(
                         $event,
                         _vm.widgetOptionsWindow
                       )
                     },
-                    close: function ($event) {
+                    close: function($event) {
                       return _vm.closeWidgetOptionsWindow()
-                    },
-                  },
+                    }
+                  }
                 },
                 "options-window",
                 _vm.widgetOptionsWindow,
                 false
               )
-            ),
+            )
           ],
           1
         )
@@ -36743,73 +36531,72 @@ var render = function () {
                             _vm.local_layout.thumbnail.top_left.selectedWidgets,
                           maxWidget:
                             _vm.local_layout.thumbnail.top_left.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus(
-                              "thumbnail_top_left"
-                            ),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "thumbnail_top_left"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.thumbnail.top_left
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_left
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_left
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_left
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_left
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.thumbnail.top_left
                             )
                           },
-                          "placeholder-on-dragover": function ($event) {
+                          "placeholder-on-dragover": function($event) {
                             return _vm.handleDragOverOnPlaceholder(
                               _vm.local_layout.thumbnail.top_left
                             )
                           },
-                          "placeholder-on-dragenter": function ($event) {
+                          "placeholder-on-dragenter": function($event) {
                             return _vm.handleDragEnterOnPlaceholder(
                               _vm.local_layout.thumbnail.top_left
                             )
                           },
-                          "placeholder-on-dragleave": function ($event) {
+                          "placeholder-on-dragleave": function($event) {
                             return _vm.handleDragleaveOnPlaceholder(
                               _vm.local_layout.thumbnail.top_left
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("thumbnail_top_left")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
@@ -36834,68 +36621,67 @@ var render = function () {
                               .selectedWidgets,
                           maxWidget:
                             _vm.local_layout.thumbnail.top_right.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus(
-                              "thumbnail_top_right"
-                            ),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "thumbnail_top_right"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.thumbnail.top_right
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "placeholder-on-dragover": function ($event) {
+                          "placeholder-on-dragover": function($event) {
                             return _vm.handleDragOverOnPlaceholder(
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "placeholder-on-dragenter": function ($event) {
+                          "placeholder-on-dragenter": function($event) {
                             return _vm.handleDragEnterOnPlaceholder(
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("thumbnail_top_right")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
@@ -36920,70 +36706,69 @@ var render = function () {
                               .selectedWidgets,
                           maxWidget:
                             _vm.local_layout.thumbnail.bottom_left.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus(
-                              "thumbnail_bottom_left"
-                            ),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "thumbnail_bottom_left"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.thumbnail.bottom_left
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.thumbnail.bottom_left
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.thumbnail.bottom_left
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.thumbnail.bottom_left
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.thumbnail.bottom_left
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.thumbnail.bottom_left
                             )
                           },
-                          "placeholder-on-dragover": function ($event) {
+                          "placeholder-on-dragover": function($event) {
                             return _vm.handleDragOverOnPlaceholder(
                               _vm.local_layout.thumbnail.bottom_left
                             )
                           },
-                          "placeholder-on-dragenter": function ($event) {
+                          "placeholder-on-dragenter": function($event) {
                             return _vm.handleDragEnterOnPlaceholder(
                               _vm.local_layout.thumbnail.bottom_left
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow(
                               "thumbnail_bottom_left"
                             )
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
@@ -37008,78 +36793,77 @@ var render = function () {
                               .selectedWidgets,
                           maxWidget:
                             _vm.local_layout.thumbnail.bottom_right.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus(
-                              "thumbnail_bottom_right"
-                            ),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "thumbnail_bottom_right"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.thumbnail.bottom_right
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.thumbnail.bottom_right
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.thumbnail.bottom_right
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.thumbnail.bottom_right
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.thumbnail.bottom_right
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.thumbnail.bottom_right
                             )
                           },
-                          "placeholder-on-dragover": function ($event) {
+                          "placeholder-on-dragover": function($event) {
                             return _vm.handleDragOverOnPlaceholder(
                               _vm.local_layout.thumbnail.bottom_right
                             )
                           },
-                          "placeholder-on-dragenter": function ($event) {
+                          "placeholder-on-dragenter": function($event) {
                             return _vm.handleDragEnterOnPlaceholder(
                               _vm.local_layout.thumbnail.bottom_right
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow(
                               "thumbnail_bottom_right"
                             )
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
                   _vm._v(" "),
-                  _vm._m(0),
+                  _vm._m(0)
                 ]
-              ),
-            ]),
+              )
+            ])
           ]),
           _vm._v(" "),
           _c(
@@ -37102,56 +36886,57 @@ var render = function () {
                       selectedWidgets:
                         _vm.local_layout.thumbnail.avatar.selectedWidgets,
                       maxWidget: _vm.local_layout.thumbnail.avatar.maxWidget,
-                      showWidgetsPickerWindow:
-                        _vm.getActiveInsertWindowStatus("thumbnail_avatar"),
+                      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                        "thumbnail_avatar"
+                      ),
                       widgetDropable: _vm.widgetIsDropable(
                         _vm.local_layout.thumbnail.avatar
-                      ),
+                      )
                     },
                     on: {
-                      "insert-widget": function ($event) {
+                      "insert-widget": function($event) {
                         return _vm.insertWidget(
                           $event,
                           _vm.local_layout.thumbnail.avatar
                         )
                       },
-                      "drag-widget": function ($event) {
+                      "drag-widget": function($event) {
                         return _vm.onDragStartWidget(
                           $event,
                           _vm.local_layout.thumbnail.avatar
                         )
                       },
-                      "drop-widget": function ($event) {
+                      "drop-widget": function($event) {
                         return _vm.appendWidget(
                           $event,
                           _vm.local_layout.thumbnail.avatar
                         )
                       },
-                      "dragend-widget": function ($event) {
+                      "dragend-widget": function($event) {
                         return _vm.onDragEndWidget()
                       },
-                      "edit-widget": function ($event) {
+                      "edit-widget": function($event) {
                         return _vm.editWidget($event)
                       },
-                      "trash-widget": function ($event) {
+                      "trash-widget": function($event) {
                         return _vm.trashWidget(
                           $event,
                           _vm.local_layout.thumbnail.avatar
                         )
                       },
-                      "placeholder-on-drop": function ($event) {
+                      "placeholder-on-drop": function($event) {
                         return _vm.handleDropOnPlaceholder(
                           _vm.local_layout.thumbnail.avatar
                         )
                       },
-                      "open-widgets-picker-window": function ($event) {
+                      "open-widgets-picker-window": function($event) {
                         return _vm.activeInsertWindow("thumbnail_avatar")
                       },
-                      "close-widgets-picker-window": function ($event) {
+                      "close-widgets-picker-window": function($event) {
                         return _vm.closeInsertWindow()
-                      },
-                    },
-                  }),
+                      }
+                    }
+                  })
                 ],
                 1
               ),
@@ -37167,46 +36952,47 @@ var render = function () {
                   acceptedWidgets: _vm.local_layout.body.top.acceptedWidgets,
                   selectedWidgets: _vm.local_layout.body.top.selectedWidgets,
                   maxWidget: _vm.local_layout.body.top.maxWidget,
-                  showWidgetsPickerWindow:
-                    _vm.getActiveInsertWindowStatus("thumbnail_body_top"),
+                  showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                    "thumbnail_body_top"
+                  ),
                   widgetDropable: _vm.widgetIsDropable(
                     _vm.local_layout.body.top
-                  ),
+                  )
                 },
                 on: {
-                  "insert-widget": function ($event) {
+                  "insert-widget": function($event) {
                     return _vm.insertWidget($event, _vm.local_layout.body.top)
                   },
-                  "drag-widget": function ($event) {
+                  "drag-widget": function($event) {
                     return _vm.onDragStartWidget(
                       $event,
                       _vm.local_layout.body.top
                     )
                   },
-                  "drop-widget": function ($event) {
+                  "drop-widget": function($event) {
                     return _vm.appendWidget($event, _vm.local_layout.body.top)
                   },
-                  "dragend-widget": function ($event) {
+                  "dragend-widget": function($event) {
                     return _vm.onDragEndWidget()
                   },
-                  "edit-widget": function ($event) {
+                  "edit-widget": function($event) {
                     return _vm.editWidget($event)
                   },
-                  "trash-widget": function ($event) {
+                  "trash-widget": function($event) {
                     return _vm.trashWidget($event, _vm.local_layout.body.top)
                   },
-                  "placeholder-on-drop": function ($event) {
+                  "placeholder-on-drop": function($event) {
                     return _vm.handleDropOnPlaceholder(
                       _vm.local_layout.body.top
                     )
                   },
-                  "open-widgets-picker-window": function ($event) {
+                  "open-widgets-picker-window": function($event) {
                     return _vm.activeInsertWindow("thumbnail_body_top")
                   },
-                  "close-widgets-picker-window": function ($event) {
+                  "close-widgets-picker-window": function($event) {
                     return _vm.closeInsertWindow()
-                  },
-                },
+                  }
+                }
               }),
               _vm._v(" "),
               _c("card-widget-placeholder", {
@@ -37225,48 +37011,48 @@ var render = function () {
                   ),
                   widgetDropable: _vm.widgetIsDropable(
                     _vm.local_layout.body.bottom
-                  ),
+                  )
                 },
                 on: {
-                  "insert-widget": function ($event) {
+                  "insert-widget": function($event) {
                     return _vm.insertWidget(
                       $event,
                       _vm.local_layout.body.bottom
                     )
                   },
-                  "drag-widget": function ($event) {
+                  "drag-widget": function($event) {
                     return _vm.onDragStartWidget(
                       $event,
                       _vm.local_layout.body.bottom
                     )
                   },
-                  "drop-widget": function ($event) {
+                  "drop-widget": function($event) {
                     return _vm.appendWidget(
                       $event,
                       _vm.local_layout.body.bottom
                     )
                   },
-                  "dragend-widget": function ($event) {
+                  "dragend-widget": function($event) {
                     return _vm.onDragEndWidget()
                   },
-                  "edit-widget": function ($event) {
+                  "edit-widget": function($event) {
                     return _vm.editWidget($event)
                   },
-                  "trash-widget": function ($event) {
+                  "trash-widget": function($event) {
                     return _vm.trashWidget($event, _vm.local_layout.body.bottom)
                   },
-                  "placeholder-on-drop": function ($event) {
+                  "placeholder-on-drop": function($event) {
                     return _vm.handleDropOnPlaceholder(
                       _vm.local_layout.body.bottom
                     )
                   },
-                  "open-widgets-picker-window": function ($event) {
+                  "open-widgets-picker-window": function($event) {
                     return _vm.activeInsertWindow("thumbnail_body_bottom")
                   },
-                  "close-widgets-picker-window": function ($event) {
+                  "close-widgets-picker-window": function($event) {
                     return _vm.closeInsertWindow()
-                  },
-                },
+                  }
+                }
               }),
               _vm._v(" "),
               _c("br"),
@@ -37285,57 +37071,58 @@ var render = function () {
                       selectedWidgets:
                         _vm.local_layout.body.excerpt.selectedWidgets,
                       maxWidget: _vm.local_layout.body.excerpt.maxWidget,
-                      showWidgetsPickerWindow:
-                        _vm.getActiveInsertWindowStatus("body_excerpr"),
+                      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                        "body_excerpr"
+                      ),
                       widgetDropable: _vm.widgetIsDropable(
                         _vm.local_layout.body.excerpt
-                      ),
+                      )
                     },
                     on: {
-                      "insert-widget": function ($event) {
+                      "insert-widget": function($event) {
                         return _vm.insertWidget(
                           $event,
                           _vm.local_layout.body.excerpt
                         )
                       },
-                      "drag-widget": function ($event) {
+                      "drag-widget": function($event) {
                         return _vm.onDragStartWidget(
                           $event,
                           _vm.local_layout.body.excerpt
                         )
                       },
-                      "drop-widget": function ($event) {
+                      "drop-widget": function($event) {
                         return _vm.appendWidget(
                           $event,
                           _vm.local_layout.body.excerpt
                         )
                       },
-                      "dragend-widget": function ($event) {
+                      "dragend-widget": function($event) {
                         return _vm.onDragEndWidget()
                       },
-                      "edit-widget": function ($event) {
+                      "edit-widget": function($event) {
                         return _vm.editWidget($event)
                       },
-                      "trash-widget": function ($event) {
+                      "trash-widget": function($event) {
                         return _vm.trashWidget(
                           $event,
                           _vm.local_layout.body.excerpt
                         )
                       },
-                      "placeholder-on-drop": function ($event) {
+                      "placeholder-on-drop": function($event) {
                         return _vm.handleDropOnPlaceholder(
                           _vm.local_layout.body.excerpt
                         )
                       },
-                      "open-widgets-picker-window": function ($event) {
+                      "open-widgets-picker-window": function($event) {
                         return _vm.activeInsertWindow("body_excerpr")
                       },
-                      "close-widgets-picker-window": function ($event) {
+                      "close-widgets-picker-window": function($event) {
                         return _vm.closeInsertWindow()
-                      },
-                    },
+                      }
+                    }
                   })
-                : _vm._e(),
+                : _vm._e()
             ],
             1
           ),
@@ -37360,48 +37147,48 @@ var render = function () {
                   ),
                   widgetDropable: _vm.widgetIsDropable(
                     _vm.local_layout.footer.left
-                  ),
+                  )
                 },
                 on: {
-                  "insert-widget": function ($event) {
+                  "insert-widget": function($event) {
                     return _vm.insertWidget(
                       $event,
                       _vm.local_layout.footer.left
                     )
                   },
-                  "drag-widget": function ($event) {
+                  "drag-widget": function($event) {
                     return _vm.onDragStartWidget(
                       $event,
                       _vm.local_layout.footer.left
                     )
                   },
-                  "drop-widget": function ($event) {
+                  "drop-widget": function($event) {
                     return _vm.appendWidget(
                       $event,
                       _vm.local_layout.footer.left
                     )
                   },
-                  "dragend-widget": function ($event) {
+                  "dragend-widget": function($event) {
                     return _vm.onDragEndWidget()
                   },
-                  "edit-widget": function ($event) {
+                  "edit-widget": function($event) {
                     return _vm.editWidget($event)
                   },
-                  "trash-widget": function ($event) {
+                  "trash-widget": function($event) {
                     return _vm.trashWidget($event, _vm.local_layout.footer.left)
                   },
-                  "placeholder-on-drop": function ($event) {
+                  "placeholder-on-drop": function($event) {
                     return _vm.handleDropOnPlaceholder(
                       _vm.local_layout.footer.left
                     )
                   },
-                  "open-widgets-picker-window": function ($event) {
+                  "open-widgets-picker-window": function($event) {
                     return _vm.activeInsertWindow("thumbnail_footer_left")
                   },
-                  "close-widgets-picker-window": function ($event) {
+                  "close-widgets-picker-window": function($event) {
                     return _vm.closeInsertWindow()
-                  },
-                },
+                  }
+                }
               }),
               _vm._v(" "),
               _c("card-widget-placeholder", {
@@ -37422,69 +37209,69 @@ var render = function () {
                   ),
                   widgetDropable: _vm.widgetIsDropable(
                     _vm.local_layout.footer.right
-                  ),
+                  )
                 },
                 on: {
-                  "insert-widget": function ($event) {
+                  "insert-widget": function($event) {
                     return _vm.insertWidget(
                       $event,
                       _vm.local_layout.footer.right
                     )
                   },
-                  "drag-widget": function ($event) {
+                  "drag-widget": function($event) {
                     return _vm.onDragStartWidget(
                       $event,
                       _vm.local_layout.footer.right
                     )
                   },
-                  "drop-widget": function ($event) {
+                  "drop-widget": function($event) {
                     return _vm.appendWidget(
                       $event,
                       _vm.local_layout.footer.right
                     )
                   },
-                  "dragend-widget": function ($event) {
+                  "dragend-widget": function($event) {
                     return _vm.onDragEndWidget()
                   },
-                  "edit-widget": function ($event) {
+                  "edit-widget": function($event) {
                     return _vm.editWidget($event)
                   },
-                  "trash-widget": function ($event) {
+                  "trash-widget": function($event) {
                     return _vm.trashWidget(
                       $event,
                       _vm.local_layout.footer.right
                     )
                   },
-                  "placeholder-on-drop": function ($event) {
+                  "placeholder-on-drop": function($event) {
                     return _vm.handleDropOnPlaceholder(
                       _vm.local_layout.footer.right
                     )
                   },
-                  "open-widgets-picker-window": function ($event) {
+                  "open-widgets-picker-window": function($event) {
                     return _vm.activeInsertWindow("thumbnail_footer_right")
                   },
-                  "close-widgets-picker-window": function ($event) {
+                  "close-widgets-picker-window": function($event) {
                     return _vm.closeInsertWindow()
-                  },
-                },
-              }),
+                  }
+                }
+              })
             ],
             1
-          ),
+          )
         ]
-      ),
-    ]),
+      )
+    ])
   ])
 }
 var staticRenderFns = [
-  function () {
+  function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "cptm-card-preview-thumbnail-bg" }, [
-      _c("span", { staticClass: "uil uil-scenery" }),
+      _c("span", { staticClass: "uil uil-scenery" })
     ])
-  },
+  }
 ]
 render._withStripped = true
 
@@ -37503,7 +37290,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -37519,22 +37306,22 @@ var render = function () {
                 {
                   attrs: { active: _vm.widgetOptionsWindowActiveStatus },
                   on: {
-                    update: function ($event) {
+                    update: function($event) {
                       return _vm.updateWidgetOptionsData(
                         $event,
                         _vm.widgetOptionsWindow
                       )
                     },
-                    close: function ($event) {
+                    close: function($event) {
                       return _vm.closeWidgetOptionsWindow()
-                    },
-                  },
+                    }
+                  }
                 },
                 "options-window",
                 _vm.widgetOptionsWindow,
                 false
               )
-            ),
+            )
           ],
           1
         )
@@ -37557,7 +37344,7 @@ var render = function () {
                     "div",
                     {
                       staticClass:
-                        "cptm-card-placeholder-col cptm-placeholder-top-right-col cptm-card-light",
+                        "cptm-card-placeholder-col cptm-placeholder-top-right-col cptm-card-light"
                     },
                     [
                       _c("card-widget-placeholder", {
@@ -37573,56 +37360,57 @@ var render = function () {
                           selectedWidgets:
                             _vm.local_layout.body.avatar.selectedWidgets,
                           maxWidget: _vm.local_layout.body.avatar.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus("body_avatar"),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "body_avatar"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.body.avatar
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.body.avatar
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.body.avatar
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.body.avatar
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.body.avatar
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.body.avatar
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("body_avatar")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
@@ -37631,7 +37419,7 @@ var render = function () {
                     "div",
                     {
                       staticClass:
-                        "cptm-card-placeholder-col cptm-placeholder-title-col",
+                        "cptm-card-placeholder-col cptm-placeholder-title-col"
                     },
                     [
                       _c("card-widget-placeholder", {
@@ -37647,56 +37435,57 @@ var render = function () {
                           selectedWidgets:
                             _vm.local_layout.body.title.selectedWidgets,
                           maxWidget: _vm.local_layout.body.title.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus("body_title"),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "body_title"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.body.title
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.body.title
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.body.title
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.body.title
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.body.title
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.body.title
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("body_title")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
@@ -37705,7 +37494,7 @@ var render = function () {
                     "div",
                     {
                       staticClass:
-                        "cptm-card-placeholder-col cptm-placeholder-action-col",
+                        "cptm-card-placeholder-col cptm-placeholder-action-col"
                     },
                     [
                       _c("card-widget-placeholder", {
@@ -37722,61 +37511,60 @@ var render = function () {
                             _vm.local_layout.body.quick_actions.selectedWidgets,
                           maxWidget:
                             _vm.local_layout.body.quick_actions.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus(
-                              "body_quick_actions"
-                            ),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "body_quick_actions"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.body.quick_actions
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.body.quick_actions
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.body.quick_actions
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.body.quick_actions
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.body.quick_actions
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.body.quick_actions
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("body_quick_actions")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
-                  ),
+                  )
                 ]
               ),
               _vm._v(" "),
@@ -37798,51 +37586,51 @@ var render = function () {
                   ),
                   widgetDropable: _vm.widgetIsDropable(
                     _vm.local_layout.body.quick_info
-                  ),
+                  )
                 },
                 on: {
-                  "insert-widget": function ($event) {
+                  "insert-widget": function($event) {
                     return _vm.insertWidget(
                       $event,
                       _vm.local_layout.body.quick_info
                     )
                   },
-                  "drag-widget": function ($event) {
+                  "drag-widget": function($event) {
                     return _vm.onDragStartWidget(
                       $event,
                       _vm.local_layout.body.quick_info
                     )
                   },
-                  "drop-widget": function ($event) {
+                  "drop-widget": function($event) {
                     return _vm.appendWidget(
                       $event,
                       _vm.local_layout.body.quick_info
                     )
                   },
-                  "dragend-widget": function ($event) {
+                  "dragend-widget": function($event) {
                     return _vm.onDragEndWidget()
                   },
-                  "edit-widget": function ($event) {
+                  "edit-widget": function($event) {
                     return _vm.editWidget($event)
                   },
-                  "trash-widget": function ($event) {
+                  "trash-widget": function($event) {
                     return _vm.trashWidget(
                       $event,
                       _vm.local_layout.body.quick_info
                     )
                   },
-                  "placeholder-on-drop": function ($event) {
+                  "placeholder-on-drop": function($event) {
                     return _vm.handleDropOnPlaceholder(
                       _vm.local_layout.body.quick_info
                     )
                   },
-                  "open-widgets-picker-window": function ($event) {
+                  "open-widgets-picker-window": function($event) {
                     return _vm.activeInsertWindow("thumbnail_quick_info")
                   },
-                  "close-widgets-picker-window": function ($event) {
+                  "close-widgets-picker-window": function($event) {
                     return _vm.closeInsertWindow()
-                  },
-                },
+                  }
+                }
               }),
               _vm._v(" "),
               _c("card-widget-placeholder", {
@@ -37861,48 +37649,48 @@ var render = function () {
                   ),
                   widgetDropable: _vm.widgetIsDropable(
                     _vm.local_layout.body.bottom
-                  ),
+                  )
                 },
                 on: {
-                  "insert-widget": function ($event) {
+                  "insert-widget": function($event) {
                     return _vm.insertWidget(
                       $event,
                       _vm.local_layout.body.bottom
                     )
                   },
-                  "drag-widget": function ($event) {
+                  "drag-widget": function($event) {
                     return _vm.onDragStartWidget(
                       $event,
                       _vm.local_layout.body.bottom
                     )
                   },
-                  "drop-widget": function ($event) {
+                  "drop-widget": function($event) {
                     return _vm.appendWidget(
                       $event,
                       _vm.local_layout.body.bottom
                     )
                   },
-                  "dragend-widget": function ($event) {
+                  "dragend-widget": function($event) {
                     return _vm.onDragEndWidget()
                   },
-                  "edit-widget": function ($event) {
+                  "edit-widget": function($event) {
                     return _vm.editWidget($event)
                   },
-                  "trash-widget": function ($event) {
+                  "trash-widget": function($event) {
                     return _vm.trashWidget($event, _vm.local_layout.body.bottom)
                   },
-                  "placeholder-on-drop": function ($event) {
+                  "placeholder-on-drop": function($event) {
                     return _vm.handleDropOnPlaceholder(
                       _vm.local_layout.body.bottom
                     )
                   },
-                  "open-widgets-picker-window": function ($event) {
+                  "open-widgets-picker-window": function($event) {
                     return _vm.activeInsertWindow("thumbnail_body_bottom")
                   },
-                  "close-widgets-picker-window": function ($event) {
+                  "close-widgets-picker-window": function($event) {
                     return _vm.closeInsertWindow()
-                  },
-                },
+                  }
+                }
               }),
               _vm._v(" "),
               _c("br"),
@@ -37921,57 +37709,58 @@ var render = function () {
                       selectedWidgets:
                         _vm.local_layout.body.excerpt.selectedWidgets,
                       maxWidget: _vm.local_layout.body.excerpt.maxWidget,
-                      showWidgetsPickerWindow:
-                        _vm.getActiveInsertWindowStatus("body_excerpr"),
+                      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                        "body_excerpr"
+                      ),
                       widgetDropable: _vm.widgetIsDropable(
                         _vm.local_layout.body.excerpt
-                      ),
+                      )
                     },
                     on: {
-                      "insert-widget": function ($event) {
+                      "insert-widget": function($event) {
                         return _vm.insertWidget(
                           $event,
                           _vm.local_layout.body.excerpt
                         )
                       },
-                      "drag-widget": function ($event) {
+                      "drag-widget": function($event) {
                         return _vm.onDragStartWidget(
                           $event,
                           _vm.local_layout.body.excerpt
                         )
                       },
-                      "drop-widget": function ($event) {
+                      "drop-widget": function($event) {
                         return _vm.appendWidget(
                           $event,
                           _vm.local_layout.body.excerpt
                         )
                       },
-                      "dragend-widget": function ($event) {
+                      "dragend-widget": function($event) {
                         return _vm.onDragEndWidget()
                       },
-                      "edit-widget": function ($event) {
+                      "edit-widget": function($event) {
                         return _vm.editWidget($event)
                       },
-                      "trash-widget": function ($event) {
+                      "trash-widget": function($event) {
                         return _vm.trashWidget(
                           $event,
                           _vm.local_layout.body.excerpt
                         )
                       },
-                      "placeholder-on-drop": function ($event) {
+                      "placeholder-on-drop": function($event) {
                         return _vm.handleDropOnPlaceholder(
                           _vm.local_layout.body.excerpt
                         )
                       },
-                      "open-widgets-picker-window": function ($event) {
+                      "open-widgets-picker-window": function($event) {
                         return _vm.activeInsertWindow("body_excerpr")
                       },
-                      "close-widgets-picker-window": function ($event) {
+                      "close-widgets-picker-window": function($event) {
                         return _vm.closeInsertWindow()
-                      },
-                    },
+                      }
+                    }
                   })
-                : _vm._e(),
+                : _vm._e()
             ],
             1
           ),
@@ -37996,48 +37785,48 @@ var render = function () {
                   ),
                   widgetDropable: _vm.widgetIsDropable(
                     _vm.local_layout.footer.left
-                  ),
+                  )
                 },
                 on: {
-                  "insert-widget": function ($event) {
+                  "insert-widget": function($event) {
                     return _vm.insertWidget(
                       $event,
                       _vm.local_layout.footer.left
                     )
                   },
-                  "drag-widget": function ($event) {
+                  "drag-widget": function($event) {
                     return _vm.onDragStartWidget(
                       $event,
                       _vm.local_layout.footer.left
                     )
                   },
-                  "drop-widget": function ($event) {
+                  "drop-widget": function($event) {
                     return _vm.appendWidget(
                       $event,
                       _vm.local_layout.footer.left
                     )
                   },
-                  "dragend-widget": function ($event) {
+                  "dragend-widget": function($event) {
                     return _vm.onDragEndWidget()
                   },
-                  "edit-widget": function ($event) {
+                  "edit-widget": function($event) {
                     return _vm.editWidget($event)
                   },
-                  "trash-widget": function ($event) {
+                  "trash-widget": function($event) {
                     return _vm.trashWidget($event, _vm.local_layout.footer.left)
                   },
-                  "placeholder-on-drop": function ($event) {
+                  "placeholder-on-drop": function($event) {
                     return _vm.handleDropOnPlaceholder(
                       _vm.local_layout.footer.left
                     )
                   },
-                  "open-widgets-picker-window": function ($event) {
+                  "open-widgets-picker-window": function($event) {
                     return _vm.activeInsertWindow("thumbnail_footer_left")
                   },
-                  "close-widgets-picker-window": function ($event) {
+                  "close-widgets-picker-window": function($event) {
                     return _vm.closeInsertWindow()
-                  },
-                },
+                  }
+                }
               }),
               _vm._v(" "),
               _c("card-widget-placeholder", {
@@ -38058,58 +37847,58 @@ var render = function () {
                   ),
                   widgetDropable: _vm.widgetIsDropable(
                     _vm.local_layout.footer.right
-                  ),
+                  )
                 },
                 on: {
-                  "insert-widget": function ($event) {
+                  "insert-widget": function($event) {
                     return _vm.insertWidget(
                       $event,
                       _vm.local_layout.footer.right
                     )
                   },
-                  "drag-widget": function ($event) {
+                  "drag-widget": function($event) {
                     return _vm.onDragStartWidget(
                       $event,
                       _vm.local_layout.footer.right
                     )
                   },
-                  "drop-widget": function ($event) {
+                  "drop-widget": function($event) {
                     return _vm.appendWidget(
                       $event,
                       _vm.local_layout.footer.right
                     )
                   },
-                  "dragend-widget": function ($event) {
+                  "dragend-widget": function($event) {
                     return _vm.onDragEndWidget()
                   },
-                  "edit-widget": function ($event) {
+                  "edit-widget": function($event) {
                     return _vm.editWidget($event)
                   },
-                  "trash-widget": function ($event) {
+                  "trash-widget": function($event) {
                     return _vm.trashWidget(
                       $event,
                       _vm.local_layout.footer.right
                     )
                   },
-                  "placeholder-on-drop": function ($event) {
+                  "placeholder-on-drop": function($event) {
                     return _vm.handleDropOnPlaceholder(
                       _vm.local_layout.footer.right
                     )
                   },
-                  "open-widgets-picker-window": function ($event) {
+                  "open-widgets-picker-window": function($event) {
                     return _vm.activeInsertWindow("thumbnail_footer_right")
                   },
-                  "close-widgets-picker-window": function ($event) {
+                  "close-widgets-picker-window": function($event) {
                     return _vm.closeInsertWindow()
-                  },
-                },
-              }),
+                  }
+                }
+              })
             ],
             1
-          ),
+          )
         ]
-      ),
-    ]),
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -38130,7 +37919,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -38146,22 +37935,22 @@ var render = function () {
                 {
                   attrs: { active: _vm.widgetOptionsWindowActiveStatus },
                   on: {
-                    update: function ($event) {
+                    update: function($event) {
                       return _vm.updateWidgetOptionsData(
                         $event,
                         _vm.widgetOptionsWindow
                       )
                     },
-                    close: function ($event) {
+                    close: function($event) {
                       return _vm.closeWidgetOptionsWindow()
-                    },
-                  },
+                    }
+                  }
                 },
                 "options-window",
                 _vm.widgetOptionsWindow,
                 false
               )
-            ),
+            )
           ],
           1
         )
@@ -38197,76 +37986,75 @@ var render = function () {
                               .selectedWidgets,
                           maxWidget:
                             _vm.local_layout.thumbnail.top_right.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus(
-                              "thumbnail_top_right"
-                            ),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "thumbnail_top_right"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.thumbnail.top_right
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "placeholder-on-dragover": function ($event) {
+                          "placeholder-on-dragover": function($event) {
                             return _vm.handleDragOverOnPlaceholder(
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "placeholder-on-dragenter": function ($event) {
+                          "placeholder-on-dragenter": function($event) {
                             return _vm.handleDragEnterOnPlaceholder(
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("thumbnail_top_right")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
                   _vm._v(" "),
-                  _vm._m(0),
+                  _vm._m(0)
                 ]
-              ),
-            ]),
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "cptm-listing-card-content" }, [
@@ -38291,56 +38079,57 @@ var render = function () {
                           selectedWidgets:
                             _vm.local_layout.body.top.selectedWidgets,
                           maxWidget: _vm.local_layout.body.top.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus("body_top"),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "body_top"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.body.top
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.body.top
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("body_top")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
@@ -38361,59 +38150,60 @@ var render = function () {
                           selectedWidgets:
                             _vm.local_layout.body.right.selectedWidgets,
                           maxWidget: _vm.local_layout.body.right.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus("body_right"),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "body_right"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.body.right
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.body.right
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("body_right")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
-                  ),
+                  )
                 ]),
                 _vm._v(" "),
                 _c("card-widget-placeholder", {
@@ -38428,55 +38218,56 @@ var render = function () {
                     selectedWidgets:
                       _vm.local_layout.body.bottom.selectedWidgets,
                     maxWidget: _vm.local_layout.body.bottom.maxWidget,
-                    showWidgetsPickerWindow:
-                      _vm.getActiveInsertWindowStatus("body_bottom"),
+                    showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                      "body_bottom"
+                    ),
                     widgetDropable: _vm.widgetIsDropable(
                       _vm.local_layout.body.bottom
-                    ),
+                    )
                   },
                   on: {
-                    "insert-widget": function ($event) {
+                    "insert-widget": function($event) {
                       return _vm.insertWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "drag-widget": function ($event) {
+                    "drag-widget": function($event) {
                       return _vm.onDragStartWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "drop-widget": function ($event) {
+                    "drop-widget": function($event) {
                       return _vm.appendWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "dragend-widget": function ($event) {
+                    "dragend-widget": function($event) {
                       return _vm.onDragEndWidget()
                     },
-                    "edit-widget": function ($event) {
+                    "edit-widget": function($event) {
                       return _vm.editWidget($event)
                     },
-                    "trash-widget": function ($event) {
+                    "trash-widget": function($event) {
                       return _vm.trashWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "placeholder-on-drop": function ($event) {
+                    "placeholder-on-drop": function($event) {
                       return _vm.handleDropOnPlaceholder(
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "open-widgets-picker-window": function ($event) {
+                    "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("body_bottom")
                     },
-                    "close-widgets-picker-window": function ($event) {
+                    "close-widgets-picker-window": function($event) {
                       return _vm.closeInsertWindow()
-                    },
-                  },
+                    }
+                  }
                 }),
                 _vm._v(" "),
                 _c("br"),
@@ -38494,57 +38285,58 @@ var render = function () {
                         selectedWidgets:
                           _vm.local_layout.body.excerpt.selectedWidgets,
                         maxWidget: _vm.local_layout.body.excerpt.maxWidget,
-                        showWidgetsPickerWindow:
-                          _vm.getActiveInsertWindowStatus("body_excerpt"),
+                        showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                          "body_excerpt"
+                        ),
                         widgetDropable: _vm.widgetIsDropable(
                           _vm.local_layout.body.excerpt
-                        ),
+                        )
                       },
                       on: {
-                        "insert-widget": function ($event) {
+                        "insert-widget": function($event) {
                           return _vm.insertWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "drag-widget": function ($event) {
+                        "drag-widget": function($event) {
                           return _vm.onDragStartWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "drop-widget": function ($event) {
+                        "drop-widget": function($event) {
                           return _vm.appendWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "dragend-widget": function ($event) {
+                        "dragend-widget": function($event) {
                           return _vm.onDragEndWidget()
                         },
-                        "edit-widget": function ($event) {
+                        "edit-widget": function($event) {
                           return _vm.editWidget($event)
                         },
-                        "trash-widget": function ($event) {
+                        "trash-widget": function($event) {
                           return _vm.trashWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "placeholder-on-drop": function ($event) {
+                        "placeholder-on-drop": function($event) {
                           return _vm.handleDropOnPlaceholder(
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "open-widgets-picker-window": function ($event) {
+                        "open-widgets-picker-window": function($event) {
                           return _vm.activeInsertWindow("body_excerpt")
                         },
-                        "close-widgets-picker-window": function ($event) {
+                        "close-widgets-picker-window": function($event) {
                           return _vm.closeInsertWindow()
-                        },
-                      },
+                        }
+                      }
                     })
-                  : _vm._e(),
+                  : _vm._e()
               ],
               1
             ),
@@ -38570,51 +38362,51 @@ var render = function () {
                     ),
                     widgetDropable: _vm.widgetIsDropable(
                       _vm.local_layout.footer.left
-                    ),
+                    )
                   },
                   on: {
-                    "insert-widget": function ($event) {
+                    "insert-widget": function($event) {
                       return _vm.insertWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "drag-widget": function ($event) {
+                    "drag-widget": function($event) {
                       return _vm.onDragStartWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "drop-widget": function ($event) {
+                    "drop-widget": function($event) {
                       return _vm.appendWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "dragend-widget": function ($event) {
+                    "dragend-widget": function($event) {
                       return _vm.onDragEndWidget()
                     },
-                    "edit-widget": function ($event) {
+                    "edit-widget": function($event) {
                       return _vm.editWidget($event)
                     },
-                    "trash-widget": function ($event) {
+                    "trash-widget": function($event) {
                       return _vm.trashWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "placeholder-on-drop": function ($event) {
+                    "placeholder-on-drop": function($event) {
                       return _vm.handleDropOnPlaceholder(
                         _vm.local_layout.footer.left
                       )
                     },
-                    "open-widgets-picker-window": function ($event) {
+                    "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("thumbnail_footer_left")
                     },
-                    "close-widgets-picker-window": function ($event) {
+                    "close-widgets-picker-window": function($event) {
                       return _vm.closeInsertWindow()
-                    },
-                  },
+                    }
+                  }
                 }),
                 _vm._v(" "),
                 _c("card-widget-placeholder", {
@@ -38634,70 +38426,70 @@ var render = function () {
                     ),
                     widgetDropable: _vm.widgetIsDropable(
                       _vm.local_layout.footer.right
-                    ),
+                    )
                   },
                   on: {
-                    "insert-widget": function ($event) {
+                    "insert-widget": function($event) {
                       return _vm.insertWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "drag-widget": function ($event) {
+                    "drag-widget": function($event) {
                       return _vm.onDragStartWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "drop-widget": function ($event) {
+                    "drop-widget": function($event) {
                       return _vm.appendWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "dragend-widget": function ($event) {
+                    "dragend-widget": function($event) {
                       return _vm.onDragEndWidget()
                     },
-                    "edit-widget": function ($event) {
+                    "edit-widget": function($event) {
                       return _vm.editWidget($event)
                     },
-                    "trash-widget": function ($event) {
+                    "trash-widget": function($event) {
                       return _vm.trashWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "placeholder-on-drop": function ($event) {
+                    "placeholder-on-drop": function($event) {
                       return _vm.handleDropOnPlaceholder(
                         _vm.local_layout.footer.right
                       )
                     },
-                    "open-widgets-picker-window": function ($event) {
+                    "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("thumbnail_footer_right")
                     },
-                    "close-widgets-picker-window": function ($event) {
+                    "close-widgets-picker-window": function($event) {
                       return _vm.closeInsertWindow()
-                    },
-                  },
-                }),
+                    }
+                  }
+                })
               ],
               1
-            ),
-          ]),
+            )
+          ])
         ]
-      ),
-    ]),
+      )
+    ])
   ])
 }
 var staticRenderFns = [
-  function () {
+  function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "cptm-card-preview-thumbnail-bg" }, [
-      _c("span", { staticClass: "uil uil-scenery" }),
+      _c("span", { staticClass: "uil uil-scenery" })
     ])
-  },
+  }
 ]
 render._withStripped = true
 
@@ -38716,7 +38508,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -38732,22 +38524,22 @@ var render = function () {
                 {
                   attrs: { active: _vm.widgetOptionsWindowActiveStatus },
                   on: {
-                    update: function ($event) {
+                    update: function($event) {
                       return _vm.updateWidgetOptionsData(
                         $event,
                         _vm.widgetOptionsWindow
                       )
                     },
-                    close: function ($event) {
+                    close: function($event) {
                       return _vm.closeWidgetOptionsWindow()
-                    },
-                  },
+                    }
+                  }
                 },
                 "options-window",
                 _vm.widgetOptionsWindow,
                 false
               )
-            ),
+            )
           ],
           1
         )
@@ -38758,7 +38550,7 @@ var render = function () {
         "div",
         {
           staticClass:
-            "cptm-card-preview-widget cptm-card-list-view list-view-with-thumbnail",
+            "cptm-card-preview-widget cptm-card-list-view list-view-with-thumbnail"
         },
         [
           _c("div", { staticClass: "cptm-listing-card-preview-header" }, [
@@ -38786,76 +38578,75 @@ var render = function () {
                               .selectedWidgets,
                           maxWidget:
                             _vm.local_layout.thumbnail.top_right.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus(
-                              "thumbnail_top_right"
-                            ),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "thumbnail_top_right"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.thumbnail.top_right
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "placeholder-on-dragover": function ($event) {
+                          "placeholder-on-dragover": function($event) {
                             return _vm.handleDragOverOnPlaceholder(
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "placeholder-on-dragenter": function ($event) {
+                          "placeholder-on-dragenter": function($event) {
                             return _vm.handleDragEnterOnPlaceholder(
                               _vm.local_layout.thumbnail.top_right
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("thumbnail_top_right")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
                   _vm._v(" "),
-                  _vm._m(0),
+                  _vm._m(0)
                 ]
-              ),
-            ]),
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "cptm-listing-card-content" }, [
@@ -38880,56 +38671,57 @@ var render = function () {
                           selectedWidgets:
                             _vm.local_layout.body.top.selectedWidgets,
                           maxWidget: _vm.local_layout.body.top.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus("body_top"),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "body_top"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.body.top
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.body.top
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("body_top")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
@@ -38950,59 +38742,60 @@ var render = function () {
                           selectedWidgets:
                             _vm.local_layout.body.right.selectedWidgets,
                           maxWidget: _vm.local_layout.body.right.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus("body_right"),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "body_right"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.body.right
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.body.right
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("body_right")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
-                  ),
+                  )
                 ]),
                 _vm._v(" "),
                 _c("card-widget-placeholder", {
@@ -39017,55 +38810,56 @@ var render = function () {
                     selectedWidgets:
                       _vm.local_layout.body.bottom.selectedWidgets,
                     maxWidget: _vm.local_layout.body.bottom.maxWidget,
-                    showWidgetsPickerWindow:
-                      _vm.getActiveInsertWindowStatus("body_bottom"),
+                    showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                      "body_bottom"
+                    ),
                     widgetDropable: _vm.widgetIsDropable(
                       _vm.local_layout.body.bottom
-                    ),
+                    )
                   },
                   on: {
-                    "insert-widget": function ($event) {
+                    "insert-widget": function($event) {
                       return _vm.insertWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "drag-widget": function ($event) {
+                    "drag-widget": function($event) {
                       return _vm.onDragStartWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "drop-widget": function ($event) {
+                    "drop-widget": function($event) {
                       return _vm.appendWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "dragend-widget": function ($event) {
+                    "dragend-widget": function($event) {
                       return _vm.onDragEndWidget()
                     },
-                    "edit-widget": function ($event) {
+                    "edit-widget": function($event) {
                       return _vm.editWidget($event)
                     },
-                    "trash-widget": function ($event) {
+                    "trash-widget": function($event) {
                       return _vm.trashWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "placeholder-on-drop": function ($event) {
+                    "placeholder-on-drop": function($event) {
                       return _vm.handleDropOnPlaceholder(
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "open-widgets-picker-window": function ($event) {
+                    "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("body_bottom")
                     },
-                    "close-widgets-picker-window": function ($event) {
+                    "close-widgets-picker-window": function($event) {
                       return _vm.closeInsertWindow()
-                    },
-                  },
+                    }
+                  }
                 }),
                 _vm._v(" "),
                 _c("br"),
@@ -39083,57 +38877,58 @@ var render = function () {
                         selectedWidgets:
                           _vm.local_layout.body.excerpt.selectedWidgets,
                         maxWidget: _vm.local_layout.body.excerpt.maxWidget,
-                        showWidgetsPickerWindow:
-                          _vm.getActiveInsertWindowStatus("body_excerpt"),
+                        showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                          "body_excerpt"
+                        ),
                         widgetDropable: _vm.widgetIsDropable(
                           _vm.local_layout.body.excerpt
-                        ),
+                        )
                       },
                       on: {
-                        "insert-widget": function ($event) {
+                        "insert-widget": function($event) {
                           return _vm.insertWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "drag-widget": function ($event) {
+                        "drag-widget": function($event) {
                           return _vm.onDragStartWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "drop-widget": function ($event) {
+                        "drop-widget": function($event) {
                           return _vm.appendWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "dragend-widget": function ($event) {
+                        "dragend-widget": function($event) {
                           return _vm.onDragEndWidget()
                         },
-                        "edit-widget": function ($event) {
+                        "edit-widget": function($event) {
                           return _vm.editWidget($event)
                         },
-                        "trash-widget": function ($event) {
+                        "trash-widget": function($event) {
                           return _vm.trashWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "placeholder-on-drop": function ($event) {
+                        "placeholder-on-drop": function($event) {
                           return _vm.handleDropOnPlaceholder(
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "open-widgets-picker-window": function ($event) {
+                        "open-widgets-picker-window": function($event) {
                           return _vm.activeInsertWindow("body_excerpt")
                         },
-                        "close-widgets-picker-window": function ($event) {
+                        "close-widgets-picker-window": function($event) {
                           return _vm.closeInsertWindow()
-                        },
-                      },
+                        }
+                      }
                     })
-                  : _vm._e(),
+                  : _vm._e()
               ],
               1
             ),
@@ -39159,51 +38954,51 @@ var render = function () {
                     ),
                     widgetDropable: _vm.widgetIsDropable(
                       _vm.local_layout.footer.left
-                    ),
+                    )
                   },
                   on: {
-                    "insert-widget": function ($event) {
+                    "insert-widget": function($event) {
                       return _vm.insertWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "drag-widget": function ($event) {
+                    "drag-widget": function($event) {
                       return _vm.onDragStartWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "drop-widget": function ($event) {
+                    "drop-widget": function($event) {
                       return _vm.appendWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "dragend-widget": function ($event) {
+                    "dragend-widget": function($event) {
                       return _vm.onDragEndWidget()
                     },
-                    "edit-widget": function ($event) {
+                    "edit-widget": function($event) {
                       return _vm.editWidget($event)
                     },
-                    "trash-widget": function ($event) {
+                    "trash-widget": function($event) {
                       return _vm.trashWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "placeholder-on-drop": function ($event) {
+                    "placeholder-on-drop": function($event) {
                       return _vm.handleDropOnPlaceholder(
                         _vm.local_layout.footer.left
                       )
                     },
-                    "open-widgets-picker-window": function ($event) {
+                    "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("thumbnail_footer_left")
                     },
-                    "close-widgets-picker-window": function ($event) {
+                    "close-widgets-picker-window": function($event) {
                       return _vm.closeInsertWindow()
-                    },
-                  },
+                    }
+                  }
                 }),
                 _vm._v(" "),
                 _c("card-widget-placeholder", {
@@ -39223,70 +39018,70 @@ var render = function () {
                     ),
                     widgetDropable: _vm.widgetIsDropable(
                       _vm.local_layout.footer.right
-                    ),
+                    )
                   },
                   on: {
-                    "insert-widget": function ($event) {
+                    "insert-widget": function($event) {
                       return _vm.insertWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "drag-widget": function ($event) {
+                    "drag-widget": function($event) {
                       return _vm.onDragStartWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "drop-widget": function ($event) {
+                    "drop-widget": function($event) {
                       return _vm.appendWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "dragend-widget": function ($event) {
+                    "dragend-widget": function($event) {
                       return _vm.onDragEndWidget()
                     },
-                    "edit-widget": function ($event) {
+                    "edit-widget": function($event) {
                       return _vm.editWidget($event)
                     },
-                    "trash-widget": function ($event) {
+                    "trash-widget": function($event) {
                       return _vm.trashWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "placeholder-on-drop": function ($event) {
+                    "placeholder-on-drop": function($event) {
                       return _vm.handleDropOnPlaceholder(
                         _vm.local_layout.footer.right
                       )
                     },
-                    "open-widgets-picker-window": function ($event) {
+                    "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("thumbnail_footer_right")
                     },
-                    "close-widgets-picker-window": function ($event) {
+                    "close-widgets-picker-window": function($event) {
                       return _vm.closeInsertWindow()
-                    },
-                  },
-                }),
+                    }
+                  }
+                })
               ],
               1
-            ),
-          ]),
+            )
+          ])
         ]
-      ),
-    ]),
+      )
+    ])
   ])
 }
 var staticRenderFns = [
-  function () {
+  function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "cptm-card-preview-thumbnail-bg" }, [
-      _c("span", { staticClass: "uil uil-scenery" }),
+      _c("span", { staticClass: "uil uil-scenery" })
     ])
-  },
+  }
 ]
 render._withStripped = true
 
@@ -39305,7 +39100,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -39321,22 +39116,22 @@ var render = function () {
                 {
                   attrs: { active: _vm.widgetOptionsWindowActiveStatus },
                   on: {
-                    update: function ($event) {
+                    update: function($event) {
                       return _vm.updateWidgetOptionsData(
                         $event,
                         _vm.widgetOptionsWindow
                       )
                     },
-                    close: function ($event) {
+                    close: function($event) {
                       return _vm.closeWidgetOptionsWindow()
-                    },
-                  },
+                    }
+                  }
                 },
                 "options-window",
                 _vm.widgetOptionsWindow,
                 false
               )
-            ),
+            )
           ],
           1
         )
@@ -39347,7 +39142,7 @@ var render = function () {
         "div",
         {
           staticClass:
-            "cptm-card-preview-widget cptm-card-list-view list-view-without-thumbnail",
+            "cptm-card-preview-widget cptm-card-list-view list-view-without-thumbnail"
         },
         [
           _c("div", { staticClass: "cptm-listing-card-content" }, [
@@ -39372,56 +39167,57 @@ var render = function () {
                           selectedWidgets:
                             _vm.local_layout.body.top.selectedWidgets,
                           maxWidget: _vm.local_layout.body.top.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus("body_top"),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "body_top"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.body.top
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.body.top
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.body.top
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("body_top")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
@@ -39442,59 +39238,60 @@ var render = function () {
                           selectedWidgets:
                             _vm.local_layout.body.right.selectedWidgets,
                           maxWidget: _vm.local_layout.body.right.maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus("body_right"),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "body_right"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.body.right
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.body.right
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.body.right
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow("body_right")
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
-                  ),
+                  )
                 ]),
                 _vm._v(" "),
                 _c("card-widget-placeholder", {
@@ -39509,55 +39306,56 @@ var render = function () {
                     selectedWidgets:
                       _vm.local_layout.body.bottom.selectedWidgets,
                     maxWidget: _vm.local_layout.body.bottom.maxWidget,
-                    showWidgetsPickerWindow:
-                      _vm.getActiveInsertWindowStatus("body_bottom"),
+                    showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                      "body_bottom"
+                    ),
                     widgetDropable: _vm.widgetIsDropable(
                       _vm.local_layout.body.bottom
-                    ),
+                    )
                   },
                   on: {
-                    "insert-widget": function ($event) {
+                    "insert-widget": function($event) {
                       return _vm.insertWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "drag-widget": function ($event) {
+                    "drag-widget": function($event) {
                       return _vm.onDragStartWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "drop-widget": function ($event) {
+                    "drop-widget": function($event) {
                       return _vm.appendWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "dragend-widget": function ($event) {
+                    "dragend-widget": function($event) {
                       return _vm.onDragEndWidget()
                     },
-                    "edit-widget": function ($event) {
+                    "edit-widget": function($event) {
                       return _vm.editWidget($event)
                     },
-                    "trash-widget": function ($event) {
+                    "trash-widget": function($event) {
                       return _vm.trashWidget(
                         $event,
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "placeholder-on-drop": function ($event) {
+                    "placeholder-on-drop": function($event) {
                       return _vm.handleDropOnPlaceholder(
                         _vm.local_layout.body.bottom
                       )
                     },
-                    "open-widgets-picker-window": function ($event) {
+                    "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("body_bottom")
                     },
-                    "close-widgets-picker-window": function ($event) {
+                    "close-widgets-picker-window": function($event) {
                       return _vm.closeInsertWindow()
-                    },
-                  },
+                    }
+                  }
                 }),
                 _vm._v(" "),
                 _c("br"),
@@ -39575,57 +39373,58 @@ var render = function () {
                         selectedWidgets:
                           _vm.local_layout.body.excerpt.selectedWidgets,
                         maxWidget: _vm.local_layout.body.excerpt.maxWidget,
-                        showWidgetsPickerWindow:
-                          _vm.getActiveInsertWindowStatus("body_excerpt"),
+                        showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                          "body_excerpt"
+                        ),
                         widgetDropable: _vm.widgetIsDropable(
                           _vm.local_layout.body.excerpt
-                        ),
+                        )
                       },
                       on: {
-                        "insert-widget": function ($event) {
+                        "insert-widget": function($event) {
                           return _vm.insertWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "drag-widget": function ($event) {
+                        "drag-widget": function($event) {
                           return _vm.onDragStartWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "drop-widget": function ($event) {
+                        "drop-widget": function($event) {
                           return _vm.appendWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "dragend-widget": function ($event) {
+                        "dragend-widget": function($event) {
                           return _vm.onDragEndWidget()
                         },
-                        "edit-widget": function ($event) {
+                        "edit-widget": function($event) {
                           return _vm.editWidget($event)
                         },
-                        "trash-widget": function ($event) {
+                        "trash-widget": function($event) {
                           return _vm.trashWidget(
                             $event,
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "placeholder-on-drop": function ($event) {
+                        "placeholder-on-drop": function($event) {
                           return _vm.handleDropOnPlaceholder(
                             _vm.local_layout.body.excerpt
                           )
                         },
-                        "open-widgets-picker-window": function ($event) {
+                        "open-widgets-picker-window": function($event) {
                           return _vm.activeInsertWindow("body_excerpt")
                         },
-                        "close-widgets-picker-window": function ($event) {
+                        "close-widgets-picker-window": function($event) {
                           return _vm.closeInsertWindow()
-                        },
-                      },
+                        }
+                      }
                     })
-                  : _vm._e(),
+                  : _vm._e()
               ],
               1
             ),
@@ -39651,51 +39450,51 @@ var render = function () {
                     ),
                     widgetDropable: _vm.widgetIsDropable(
                       _vm.local_layout.footer.left
-                    ),
+                    )
                   },
                   on: {
-                    "insert-widget": function ($event) {
+                    "insert-widget": function($event) {
                       return _vm.insertWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "drag-widget": function ($event) {
+                    "drag-widget": function($event) {
                       return _vm.onDragStartWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "drop-widget": function ($event) {
+                    "drop-widget": function($event) {
                       return _vm.appendWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "dragend-widget": function ($event) {
+                    "dragend-widget": function($event) {
                       return _vm.onDragEndWidget()
                     },
-                    "edit-widget": function ($event) {
+                    "edit-widget": function($event) {
                       return _vm.editWidget($event)
                     },
-                    "trash-widget": function ($event) {
+                    "trash-widget": function($event) {
                       return _vm.trashWidget(
                         $event,
                         _vm.local_layout.footer.left
                       )
                     },
-                    "placeholder-on-drop": function ($event) {
+                    "placeholder-on-drop": function($event) {
                       return _vm.handleDropOnPlaceholder(
                         _vm.local_layout.footer.left
                       )
                     },
-                    "open-widgets-picker-window": function ($event) {
+                    "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("thumbnail_footer_left")
                     },
-                    "close-widgets-picker-window": function ($event) {
+                    "close-widgets-picker-window": function($event) {
                       return _vm.closeInsertWindow()
-                    },
-                  },
+                    }
+                  }
                 }),
                 _vm._v(" "),
                 _c("card-widget-placeholder", {
@@ -39715,59 +39514,59 @@ var render = function () {
                     ),
                     widgetDropable: _vm.widgetIsDropable(
                       _vm.local_layout.footer.right
-                    ),
+                    )
                   },
                   on: {
-                    "insert-widget": function ($event) {
+                    "insert-widget": function($event) {
                       return _vm.insertWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "drag-widget": function ($event) {
+                    "drag-widget": function($event) {
                       return _vm.onDragStartWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "drop-widget": function ($event) {
+                    "drop-widget": function($event) {
                       return _vm.appendWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "dragend-widget": function ($event) {
+                    "dragend-widget": function($event) {
                       return _vm.onDragEndWidget()
                     },
-                    "edit-widget": function ($event) {
+                    "edit-widget": function($event) {
                       return _vm.editWidget($event)
                     },
-                    "trash-widget": function ($event) {
+                    "trash-widget": function($event) {
                       return _vm.trashWidget(
                         $event,
                         _vm.local_layout.footer.right
                       )
                     },
-                    "placeholder-on-drop": function ($event) {
+                    "placeholder-on-drop": function($event) {
                       return _vm.handleDropOnPlaceholder(
                         _vm.local_layout.footer.right
                       )
                     },
-                    "open-widgets-picker-window": function ($event) {
+                    "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("thumbnail_footer_right")
                     },
-                    "close-widgets-picker-window": function ($event) {
+                    "close-widgets-picker-window": function($event) {
                       return _vm.closeInsertWindow()
-                    },
-                  },
-                }),
+                    }
+                  }
+                })
               ],
               1
-            ),
-          ]),
+            )
+          ])
         ]
-      ),
-    ]),
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -39788,7 +39587,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -39805,10 +39604,10 @@ var render = function () {
                 {
                   attrs: { active: _vm.widgetCardOptionsWindowActiveStatus },
                   on: {
-                    close: function ($event) {
+                    close: function($event) {
                       return _vm.closeCardWidgetOptionsWindow()
-                    },
-                  },
+                    }
+                  }
                 },
                 "options-window",
                 _vm.widgetCardOptionsWindow,
@@ -39822,22 +39621,22 @@ var render = function () {
                 {
                   attrs: { active: _vm.widgetOptionsWindowActiveStatus },
                   on: {
-                    update: function ($event) {
+                    update: function($event) {
                       return _vm.updateWidgetOptionsData(
                         $event,
                         _vm.widgetOptionsWindow
                       )
                     },
-                    close: function ($event) {
+                    close: function($event) {
                       return _vm.closeWidgetOptionsWindow()
-                    },
-                  },
+                    }
+                  }
                 },
                 "options-window",
                 _vm.widgetOptionsWindow,
                 false
               )
-            ),
+            )
           ],
           1
         )
@@ -39856,34 +39655,34 @@ var render = function () {
                       "div",
                       { staticClass: "cptm-card-options-widgets-area" },
                       [
-                        _vm._l(
-                          _vm.card_options.general,
-                          function (widget, widget_key) {
-                            return [
-                              _c(widget.type + "-card-widget", {
-                                key: widget_key,
-                                tag: "component",
-                                attrs: {
-                                  label: _vm.getWidgetLabel(widget),
-                                  canMove: false,
-                                  canTrash: false,
-                                },
-                                on: {
-                                  edit: function ($event) {
-                                    return _vm.editOption(
-                                      _vm.card_options.general,
-                                      widget_key
-                                    )
-                                  },
-                                },
-                              }),
-                            ]
-                          }
-                        ),
+                        _vm._l(_vm.card_options.general, function(
+                          widget,
+                          widget_key
+                        ) {
+                          return [
+                            _c(widget.type + "-card-widget", {
+                              key: widget_key,
+                              tag: "component",
+                              attrs: {
+                                label: _vm.getWidgetLabel(widget),
+                                canMove: false,
+                                canTrash: false
+                              },
+                              on: {
+                                edit: function($event) {
+                                  return _vm.editOption(
+                                    _vm.card_options.general,
+                                    widget_key
+                                  )
+                                }
+                              }
+                            })
+                          ]
+                        })
                       ],
                       2
                     )
-                  : _vm._e(),
+                  : _vm._e()
               ]
             ),
             _vm._v(" "),
@@ -39915,73 +39714,73 @@ var render = function () {
                       ),
                       widgetDropable: _vm.widgetIsDropable(
                         _vm.local_layout.listings_header.quick_actions
-                      ),
+                      )
                     },
                     on: {
-                      "insert-widget": function ($event) {
+                      "insert-widget": function($event) {
                         return _vm.insertWidget(
                           $event,
                           _vm.local_layout.listings_header.quick_actions
                         )
                       },
-                      "drag-widget": function ($event) {
+                      "drag-widget": function($event) {
                         return _vm.onDragStartWidget(
                           $event,
                           _vm.local_layout.listings_header.quick_actions
                         )
                       },
-                      "drop-widget": function ($event) {
+                      "drop-widget": function($event) {
                         return _vm.appendWidget(
                           $event,
                           _vm.local_layout.listings_header.quick_actions
                         )
                       },
-                      "dragend-widget": function ($event) {
+                      "dragend-widget": function($event) {
                         return _vm.onDragEndWidget()
                       },
-                      "edit-widget": function ($event) {
+                      "edit-widget": function($event) {
                         return _vm.editWidget($event)
                       },
-                      "trash-widget": function ($event) {
+                      "trash-widget": function($event) {
                         return _vm.trashWidget(
                           $event,
                           _vm.local_layout.listings_header.quick_actions
                         )
                       },
-                      "placeholder-on-drop": function ($event) {
+                      "placeholder-on-drop": function($event) {
                         return _vm.handleDropOnPlaceholder(
                           _vm.local_layout.listings_header.quick_actions
                         )
                       },
-                      "placeholder-on-dragover": function ($event) {
+                      "placeholder-on-dragover": function($event) {
                         return _vm.handleDragOverOnPlaceholder(
                           _vm.local_layout.listings_header.quick_actions
                         )
                       },
-                      "placeholder-on-dragenter": function ($event) {
+                      "placeholder-on-dragenter": function($event) {
                         return _vm.handleDragEnterOnPlaceholder(
                           _vm.local_layout.listings_header.quick_actions
                         )
                       },
-                      "placeholder-on-dragleave": function ($event) {
+                      "placeholder-on-dragleave": function($event) {
                         return _vm.handleDragleaveOnPlaceholder(
                           _vm.local_layout.listings_header.quick_actions
                         )
                       },
-                      "open-widgets-picker-window": function ($event) {
+                      "open-widgets-picker-window": function($event) {
                         return _vm.activeInsertWindow(
                           "listings_header_quick_actions"
                         )
                       },
-                      "close-widgets-picker-window": function ($event) {
+                      "close-widgets-picker-window": function($event) {
                         return _vm.closeInsertWindow()
-                      },
-                    },
-                  }),
+                      }
+                    }
+                  })
                 ],
                 1
-              ),
-            ]),
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "cptm-listing-card-preview-header" }, [
@@ -40012,78 +39811,77 @@ var render = function () {
                           maxWidget:
                             _vm.local_layout.listings_header.thumbnail
                               .maxWidget,
-                          showWidgetsPickerWindow:
-                            _vm.getActiveInsertWindowStatus(
-                              "listings_header_thumbnail"
-                            ),
+                          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                            "listings_header_thumbnail"
+                          ),
                           widgetDropable: _vm.widgetIsDropable(
                             _vm.local_layout.listings_header.thumbnail
-                          ),
+                          )
                         },
                         on: {
-                          "insert-widget": function ($event) {
+                          "insert-widget": function($event) {
                             return _vm.insertWidget(
                               $event,
                               _vm.local_layout.listings_header.thumbnail
                             )
                           },
-                          "drag-widget": function ($event) {
+                          "drag-widget": function($event) {
                             return _vm.onDragStartWidget(
                               $event,
                               _vm.local_layout.listings_header.thumbnail
                             )
                           },
-                          "drop-widget": function ($event) {
+                          "drop-widget": function($event) {
                             return _vm.appendWidget(
                               $event,
                               _vm.local_layout.listings_header.thumbnail
                             )
                           },
-                          "dragend-widget": function ($event) {
+                          "dragend-widget": function($event) {
                             return _vm.onDragEndWidget()
                           },
-                          "edit-widget": function ($event) {
+                          "edit-widget": function($event) {
                             return _vm.editWidget($event)
                           },
-                          "trash-widget": function ($event) {
+                          "trash-widget": function($event) {
                             return _vm.trashWidget(
                               $event,
                               _vm.local_layout.listings_header.thumbnail
                             )
                           },
-                          "placeholder-on-drop": function ($event) {
+                          "placeholder-on-drop": function($event) {
                             return _vm.handleDropOnPlaceholder(
                               _vm.local_layout.listings_header.thumbnail
                             )
                           },
-                          "placeholder-on-dragover": function ($event) {
+                          "placeholder-on-dragover": function($event) {
                             return _vm.handleDragOverOnPlaceholder(
                               _vm.local_layout.listings_header.thumbnail
                             )
                           },
-                          "placeholder-on-dragenter": function ($event) {
+                          "placeholder-on-dragenter": function($event) {
                             return _vm.handleDragEnterOnPlaceholder(
                               _vm.local_layout.listings_header.thumbnail
                             )
                           },
-                          "open-widgets-picker-window": function ($event) {
+                          "open-widgets-picker-window": function($event) {
                             return _vm.activeInsertWindow(
                               "listings_header_thumbnail"
                             )
                           },
-                          "close-widgets-picker-window": function ($event) {
+                          "close-widgets-picker-window": function($event) {
                             return _vm.closeInsertWindow()
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ],
                     1
                   ),
                   _vm._v(" "),
-                  _vm._m(0),
+                  _vm._m(0)
                 ]
-              ),
-            ]),
+              )
+            ])
           ]),
           _vm._v(" "),
           _c(
@@ -40109,52 +39907,52 @@ var render = function () {
                   ),
                   widgetDropable: _vm.widgetIsDropable(
                     _vm.local_layout.listings_header.quick_info
-                  ),
+                  )
                 },
                 on: {
-                  "insert-widget": function ($event) {
+                  "insert-widget": function($event) {
                     return _vm.insertWidget(
                       $event,
                       _vm.local_layout.listings_header.quick_info
                     )
                   },
-                  "drag-widget": function ($event) {
+                  "drag-widget": function($event) {
                     return _vm.onDragStartWidget(
                       $event,
                       _vm.local_layout.listings_header.quick_info
                     )
                   },
-                  "drop-widget": function ($event) {
+                  "drop-widget": function($event) {
                     return _vm.appendWidget(
                       $event,
                       _vm.local_layout.listings_header.quick_info
                     )
                   },
-                  "dragend-widget": function ($event) {
+                  "dragend-widget": function($event) {
                     return _vm.onDragEndWidget()
                   },
-                  "edit-widget": function ($event) {
+                  "edit-widget": function($event) {
                     return _vm.editWidget($event)
                   },
-                  "trash-widget": function ($event) {
+                  "trash-widget": function($event) {
                     return _vm.trashWidget(
                       $event,
                       _vm.local_layout.listings_header.quick_info
                     )
                   },
-                  "placeholder-on-drop": function ($event) {
+                  "placeholder-on-drop": function($event) {
                     return _vm.handleDropOnPlaceholder(
                       _vm.local_layout.listings_header.quick_info
                     )
                   },
-                  "open-widgets-picker-window": function ($event) {
+                  "open-widgets-picker-window": function($event) {
                     return _vm.activeInsertWindow("listings_header_quick_info")
                   },
-                  "close-widgets-picker-window": function ($event) {
+                  "close-widgets-picker-window": function($event) {
                     return _vm.closeInsertWindow()
-                  },
-                },
-              }),
+                  }
+                }
+              })
             ],
             1
           ),
@@ -40164,48 +39962,48 @@ var render = function () {
                 "div",
                 { staticClass: "cptm-card-options-widgets-area" },
                 [
-                  _vm._l(
-                    _vm.card_options.content_settings,
-                    function (widget, widget_key) {
-                      return [
-                        _c(widget.type + "-card-widget", {
-                          key: widget_key,
-                          tag: "component",
-                          attrs: {
-                            label: _vm.getWidgetLabel(widget),
-                            canMove: false,
-                            canTrash: false,
-                          },
-                          on: {
-                            edit: function ($event) {
-                              return _vm.editOption(
-                                _vm.card_options.content_settings,
-                                widget_key
-                              )
-                            },
-                          },
-                        }),
-                      ]
-                    }
-                  ),
+                  _vm._l(_vm.card_options.content_settings, function(
+                    widget,
+                    widget_key
+                  ) {
+                    return [
+                      _c(widget.type + "-card-widget", {
+                        key: widget_key,
+                        tag: "component",
+                        attrs: {
+                          label: _vm.getWidgetLabel(widget),
+                          canMove: false,
+                          canTrash: false
+                        },
+                        on: {
+                          edit: function($event) {
+                            return _vm.editOption(
+                              _vm.card_options.content_settings,
+                              widget_key
+                            )
+                          }
+                        }
+                      })
+                    ]
+                  })
                 ],
                 2
               )
-            : _vm._e(),
-        ]),
-      ]),
-    ]),
+            : _vm._e()
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
-  function () {
+  function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "cptm-card-preview-thumbnail-bg" }, [
-      _c("span", { staticClass: "uil uil-scenery" }),
+      _c("span", { staticClass: "uil uil-scenery" })
     ])
-  },
+  }
 ]
 render._withStripped = true
 
@@ -40224,7 +40022,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40235,13 +40033,13 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -40268,7 +40066,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40279,13 +40077,13 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -40312,7 +40110,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40323,10 +40121,10 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -40353,7 +40151,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40364,10 +40162,10 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -40394,7 +40192,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40404,11 +40202,11 @@ var render = function () {
     [
       _vm.label.length
         ? _c("h3", { staticClass: "cptm-multi-option-label" }, [
-            _vm._v(_vm._s(_vm.label)),
+            _vm._v(_vm._s(_vm.label))
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm._l(_vm.local_fields, function (field, field_key) {
+      _vm._l(_vm.local_fields, function(field, field_key) {
         return [
           _c(
             field.type + "-field",
@@ -40417,18 +40215,18 @@ var render = function () {
                 key: field_key,
                 tag: "component",
                 on: {
-                  update: function ($event) {
+                  update: function($event) {
                     return _vm.updateValue(field_key, $event)
-                  },
-                },
+                  }
+                }
               },
               "component",
               field,
               false
             )
-          ),
+          )
         ]
-      }),
+      })
     ],
     2
   )
@@ -40451,7 +40249,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40463,7 +40261,7 @@ var render = function () {
         _c("p", { staticClass: "cptm-description-text" }, [
           _vm._v(
             "\n        Click on a field to edit, Drag & Drop to reorder\n      "
-          ),
+          )
         ]),
         _vm._v(" "),
         _vm.showGroupDragToggleButton
@@ -40473,7 +40271,7 @@ var render = function () {
                 staticClass: "cptm-btn",
                 class: _vm.forceExpandStateTo ? "cptm-btn-primary" : "",
                 attrs: { type: "button" },
-                on: { click: _vm.toggleEnableWidgetGroupDragging },
+                on: { click: _vm.toggleEnableWidgetGroupDragging }
               },
               [
                 _vm._v(
@@ -40484,7 +40282,7 @@ var render = function () {
                         : "Enable Section Dragging"
                     ) +
                     "\n      "
-                ),
+                )
               ]
             )
           : _vm._e(),
@@ -40493,81 +40291,81 @@ var render = function () {
           "div",
           { staticClass: "cptm-form-builder-active-fields-container" },
           [
-            _vm._l(
-              _vm.active_widget_groups,
-              function (widget_group, widget_group_key) {
-                return _c(
-                  "draggable-list-item-wrapper",
-                  {
-                    key: widget_group_key,
+            _vm._l(_vm.active_widget_groups, function(
+              widget_group,
+              widget_group_key
+            ) {
+              return _c(
+                "draggable-list-item-wrapper",
+                {
+                  key: widget_group_key,
+                  attrs: {
+                    "list-id": "widget-group",
+                    "is-dragging-self":
+                      _vm.currentDraggingGroup &&
+                      widget_group_key ===
+                        _vm.currentDraggingGroup.widget_group_key,
+                    droppable: _vm.currentDraggingGroup
+                  },
+                  on: {
+                    drop: function($event) {
+                      return _vm.handleGroupDrop(widget_group_key, $event)
+                    }
+                  }
+                },
+                [
+                  _c("form-builder-widget-group-component", {
                     attrs: {
-                      "list-id": "widget-group",
-                      "is-dragging-self":
-                        _vm.currentDraggingGroup &&
-                        widget_group_key ===
-                          _vm.currentDraggingGroup.widget_group_key,
-                      droppable: _vm.currentDraggingGroup,
+                      "group-key": widget_group_key,
+                      "field-id": _vm.fieldId,
+                      "active-widgets": _vm.active_widget_fields,
+                      "avilable-widgets": _vm.avilable_widgets,
+                      "group-data": widget_group,
+                      "group-settings": _vm.groupSettingsProp,
+                      "group-fields": _vm.groupFields,
+                      "widget-is-dragging": _vm.widgetIsDragging,
+                      "current-dragging-group": _vm.currentDraggingGroup,
+                      "current-dragging-widget": _vm.currentDraggingWidget,
+                      "is-enabled-group-dragging": _vm.isEnabledGroupDragging
                     },
                     on: {
-                      drop: function ($event) {
-                        return _vm.handleGroupDrop(widget_group_key, $event)
+                      "update-group-field": function($event) {
+                        return _vm.updateGroupField(widget_group_key, $event)
                       },
-                    },
-                  },
-                  [
-                    _c("form-builder-widget-group-component", {
-                      attrs: {
-                        "group-key": widget_group_key,
-                        "field-id": _vm.fieldId,
-                        "active-widgets": _vm.active_widget_fields,
-                        "avilable-widgets": _vm.avilable_widgets,
-                        "group-data": widget_group,
-                        "group-settings": _vm.groupSettingsProp,
-                        "group-fields": _vm.groupFields,
-                        "widget-is-dragging": _vm.widgetIsDragging,
-                        "current-dragging-group": _vm.currentDraggingGroup,
-                        "current-dragging-widget": _vm.currentDraggingWidget,
-                        "is-enabled-group-dragging": _vm.isEnabledGroupDragging,
+                      "update-widget-field": _vm.updateWidgetField,
+                      "trash-widget": function($event) {
+                        return _vm.trashWidget(widget_group_key, $event)
                       },
-                      on: {
-                        "update-group-field": function ($event) {
-                          return _vm.updateGroupField(widget_group_key, $event)
-                        },
-                        "update-widget-field": _vm.updateWidgetField,
-                        "trash-widget": function ($event) {
-                          return _vm.trashWidget(widget_group_key, $event)
-                        },
-                        "trash-group": function ($event) {
-                          return _vm.trashGroup(widget_group_key)
-                        },
-                        "widget-drag-start": function ($event) {
-                          return _vm.handleWidgetDragStart(
-                            widget_group_key,
-                            $event
-                          )
-                        },
-                        "widget-drag-end": function ($event) {
-                          return _vm.handleWidgetDragEnd()
-                        },
-                        "drop-widget": function ($event) {
-                          return _vm.handleWidgetDrop(widget_group_key, $event)
-                        },
-                        "group-drag-start": function ($event) {
-                          return _vm.handleGroupDragStart(widget_group_key)
-                        },
-                        "group-drag-end": function ($event) {
-                          return _vm.handleGroupDragEnd()
-                        },
-                        "append-widget": function ($event) {
-                          return _vm.handleAppendWidget(widget_group_key)
-                        },
+                      "trash-group": function($event) {
+                        return _vm.trashGroup(widget_group_key)
                       },
-                    }),
-                  ],
-                  1
-                )
-              }
-            ),
+                      "widget-drag-start": function($event) {
+                        return _vm.handleWidgetDragStart(
+                          widget_group_key,
+                          $event
+                        )
+                      },
+                      "widget-drag-end": function($event) {
+                        return _vm.handleWidgetDragEnd()
+                      },
+                      "drop-widget": function($event) {
+                        return _vm.handleWidgetDrop(widget_group_key, $event)
+                      },
+                      "group-drag-start": function($event) {
+                        return _vm.handleGroupDragStart(widget_group_key)
+                      },
+                      "group-drag-end": function($event) {
+                        return _vm.handleGroupDragEnd()
+                      },
+                      "append-widget": function($event) {
+                        return _vm.handleAppendWidget(widget_group_key)
+                      }
+                    }
+                  })
+                ],
+                1
+              )
+            }),
             _vm._v(" "),
             _vm.showAddNewGroupButton
               ? _c(
@@ -40578,28 +40376,28 @@ var render = function () {
                       staticClass: "cptm-btn cptm-btn-secondery",
                       attrs: { type: "button" },
                       domProps: {
-                        innerHTML: _vm._s(_vm.addNewGroupButtonLabel),
+                        innerHTML: _vm._s(_vm.addNewGroupButtonLabel)
                       },
                       on: {
-                        click: function ($event) {
+                        click: function($event) {
                           return _vm.addNewGroup()
-                        },
-                      },
-                    }),
+                        }
+                      }
+                    })
                   ]
                 )
-              : _vm._e(),
+              : _vm._e()
           ],
           2
-        ),
-      ]),
+        )
+      ])
     ]),
     _vm._v(" "),
     _c(
       "div",
       { staticClass: "cptm-col-6 cptm-col-sticky" },
       [
-        _vm._l(_vm.widgets, function (widget_group, widget_group_key) {
+        _vm._l(_vm.widgets, function(widget_group, widget_group_key) {
           return [
             _c(
               "form-builder-widget-list-section-component",
@@ -40610,34 +40408,34 @@ var render = function () {
                     "field-id": _vm.fieldId,
                     "widget-group": widget_group_key,
                     "selected-widgets": _vm.active_widget_fields,
-                    "active-widget-groups": _vm.active_widget_groups,
+                    "active-widget-groups": _vm.active_widget_groups
                   },
                   on: {
                     "update-widget-list": _vm.updateWidgetList,
-                    "drag-start": function ($event) {
+                    "drag-start": function($event) {
                       return _vm.handleWidgetListItemDragStart(
                         widget_group_key,
                         $event
                       )
                     },
-                    "drag-end": function ($event) {
+                    "drag-end": function($event) {
                       return _vm.handleWidgetListItemDragEnd(
                         widget_group_key,
                         $event
                       )
-                    },
-                  },
+                    }
+                  }
                 },
                 "form-builder-widget-list-section-component",
                 widget_group,
                 false
               )
-            ),
+            )
           ]
-        }),
+        })
       ],
       2
-    ),
+    )
   ])
 }
 var staticRenderFns = []
@@ -40658,7 +40456,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40667,13 +40465,13 @@ var render = function () {
     _vm._b(
       {
         on: {
-          update: function ($event) {
+          update: function($event) {
             return _vm.$emit("update", $event)
           },
-          "do-action": function ($event) {
+          "do-action": function($event) {
             return _vm.$emit("do-action", $event)
-          },
-        },
+          }
+        }
       },
       "text-field",
       _vm.$props,
@@ -40699,7 +40497,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40708,13 +40506,13 @@ var render = function () {
     _vm._b(
       {
         on: {
-          update: function ($event) {
+          update: function($event) {
             return _vm.$emit("update", $event)
           },
-          "do-action": function ($event) {
+          "do-action": function($event) {
             return _vm.$emit("do-action", $event)
-          },
-        },
+          }
+        }
       },
       "text-field",
       _vm.$props,
@@ -40740,7 +40538,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40750,11 +40548,11 @@ var render = function () {
     _c("input", {
       attrs: { type: "file" },
       on: {
-        change: function ($event) {
+        change: function($event) {
           return _vm.$emit("update", $event.target.files)
-        },
-      },
-    }),
+        }
+      }
+    })
   ])
 }
 var staticRenderFns = []
@@ -40775,7 +40573,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40786,10 +40584,10 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -40816,7 +40614,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40832,38 +40630,38 @@ var render = function () {
         staticClass: "cptm-form-control",
         attrs: {
           type: !_vm.hidden ? "text" : "hidden",
-          placeholder: _vm.placeholder,
+          placeholder: _vm.placeholder
         },
         domProps: { value: _vm.theValue },
         on: {
-          input: function ($event) {
+          input: function($event) {
             return _vm.updateValue($event.target.value)
-          },
-        },
+          }
+        }
       }),
       _vm._v(" "),
       !_vm.hidden && _vm.hasError
         ? _c(
             "div",
             { staticClass: "cptm-form-group-feedback" },
-            _vm._l(_vm.validationMessages, function (alert, alert_key) {
+            _vm._l(_vm.validationMessages, function(alert, alert_key) {
               return _c(
                 "div",
                 {
                   key: alert_key,
                   staticClass: "cptm-form-alert",
-                  class: "cptm-" + alert.type,
+                  class: "cptm-" + alert.type
                 },
                 [
                   _vm._v(
-                    "\r\n            " + _vm._s(alert.message) + "\r\n        "
-                  ),
+                    "\n            " + _vm._s(alert.message) + "\n        "
+                  )
                 ]
               )
             }),
             0
           )
-        : _vm._e(),
+        : _vm._e()
     ]
   )
 }
@@ -40885,7 +40683,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -40894,21 +40692,21 @@ var render = function () {
     { staticClass: "cptm-multi-option-group" },
     [
       _c("h3", { staticClass: "cptm-multi-option-label" }, [
-        _vm._v(_vm._s(_vm.label)),
+        _vm._v(_vm._s(_vm.label))
       ]),
       _vm._v(" "),
-      _vm._l(_vm.theActiveGroups, function (option_group, option_group_key) {
+      _vm._l(_vm.theActiveGroups, function(option_group, option_group_key) {
         return [
           _c(
             "div",
             {
               key: option_group_key,
-              staticClass: "cptm-multi-option-group-section",
+              staticClass: "cptm-multi-option-group-section"
             },
             [
               _c("h3", [_vm._v("# " + _vm._s(option_group_key + 1))]),
               _vm._v(" "),
-              _vm._l(option_group, function (option, option_key) {
+              _vm._l(option_group, function(option, option_key) {
                 return [
                   _c(
                     option.type + "-field",
@@ -40923,23 +40721,23 @@ var render = function () {
                             option_group_key,
                             option
                           ),
-                          value: option.value,
+                          value: option.value
                         },
                         on: {
-                          update: function ($event) {
+                          update: function($event) {
                             return _vm.updateValue(
                               option_group_key,
                               option_key,
                               $event
                             )
-                          },
-                        },
+                          }
+                        }
                       },
                       "component",
                       _vm.getSanitizedOption(option),
                       false
                     )
-                  ),
+                  )
                 ]
               }),
               _vm._v(" "),
@@ -40950,23 +40748,23 @@ var render = function () {
                     staticClass: "cptm-btn cptm-btn-secondery",
                     attrs: { type: "button" },
                     on: {
-                      click: function ($event) {
+                      click: function($event) {
                         return _vm.removeOptionGroup(option_group_key)
-                      },
-                    },
+                      }
+                    }
                   },
                   [
                     _vm._v(
                       "\n                    " +
                         _vm._s(_vm.removeButtonLabel) +
                         "\n                "
-                    ),
+                    )
                   ]
-                ),
-              ]),
+                )
+              ])
             ],
             2
-          ),
+          )
         ]
       }),
       _vm._v(" "),
@@ -40976,13 +40774,13 @@ var render = function () {
           staticClass: "cptm-btn cptm-btn-primary",
           attrs: { type: "button" },
           on: {
-            click: function ($event) {
+            click: function($event) {
               return _vm.addNewOptionGroup()
-            },
-          },
+            }
+          }
         },
         [_vm._v("\n        " + _vm._s(_vm.addNewButtonLabel) + "\n    ")]
-      ),
+      )
     ],
     2
   )
@@ -41005,7 +40803,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41016,13 +40814,13 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -41049,7 +40847,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41058,16 +40856,16 @@ var render = function () {
     _vm._b(
       {
         on: {
-          update: function ($event) {
+          update: function($event) {
             return _vm.$emit("update", $event)
           },
-          "do-action": function ($event) {
+          "do-action": function($event) {
             return _vm.$emit("do-action", $event)
           },
-          validate: function ($event) {
+          validate: function($event) {
             return _vm.$emit("validate", $event)
-          },
-        },
+          }
+        }
       },
       "text-field",
       _vm.$props,
@@ -41093,7 +40891,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41102,13 +40900,13 @@ var render = function () {
     _vm._b(
       {
         on: {
-          update: function ($event) {
+          update: function($event) {
             return _vm.$emit("update", $event)
           },
-          "do-action": function ($event) {
+          "do-action": function($event) {
             return _vm.$emit("do-action", $event)
-          },
-        },
+          }
+        }
       },
       "text-field",
       _vm.$props,
@@ -41134,7 +40932,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41145,10 +40943,10 @@ var render = function () {
           {
             tag: "component",
             on: {
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -41175,7 +40973,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41186,13 +40984,13 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -41219,7 +41017,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41230,10 +41028,10 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -41260,7 +41058,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41276,11 +41074,11 @@ var render = function () {
         attrs: { options: _vm.options_1 },
         model: {
           value: _vm.selected,
-          callback: function ($$v) {
+          callback: function($$v) {
             _vm.selected = $$v
           },
-          expression: "selected",
-        },
+          expression: "selected"
+        }
       }),
       _vm._v(" "),
       _vm.validationMessages
@@ -41289,18 +41087,18 @@ var render = function () {
               "div",
               {
                 staticClass: "cptm-form-alert",
-                class: "cptm-" + _vm.validationMessages.type,
+                class: "cptm-" + _vm.validationMessages.type
               },
               [
                 _vm._v(
                   "\n            " +
                     _vm._s(_vm.validationMessages.message) +
                     "\n        "
-                ),
+                )
               ]
-            ),
+            )
           ])
-        : _vm._e(),
+        : _vm._e()
     ],
     1
   )
@@ -41323,7 +41121,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41334,13 +41132,13 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -41367,7 +41165,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41378,16 +41176,16 @@ var render = function () {
           {
             tag: "component",
             on: {
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
               },
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              validate: function ($event) {
+              validate: function($event) {
                 return _vm.$emit("validate", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -41414,7 +41212,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41425,16 +41223,16 @@ var render = function () {
           {
             tag: "component",
             on: {
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
               },
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              validate: function ($event) {
+              validate: function($event) {
                 return _vm.$emit("validate", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -41461,7 +41259,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41472,16 +41270,16 @@ var render = function () {
           {
             tag: "component",
             on: {
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
               },
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              validate: function ($event) {
+              validate: function($event) {
                 return _vm.$emit("validate", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -41508,7 +41306,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41519,13 +41317,13 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -41552,7 +41350,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41563,13 +41361,13 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -41596,7 +41394,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41607,13 +41405,13 @@ var render = function () {
           {
             tag: "component",
             on: {
-              "do-action": function ($event) {
+              "do-action": function($event) {
                 return _vm.$emit("do-action", $event)
               },
-              update: function ($event) {
+              update: function($event) {
                 return _vm.$emit("update", $event)
-              },
-            },
+              }
+            }
           },
           "component",
           _vm.$props,
@@ -41640,7 +41438,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41651,10 +41449,10 @@ var render = function () {
       _c("sub-fields-module", {
         attrs: { "option-fields": _vm.optionFields, value: _vm.value },
         on: {
-          update: function ($event) {
+          update: function($event) {
             return _vm.updateOptionData($event)
-          },
-        },
+          }
+        }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "atbdp-row" }, [
@@ -41664,8 +41462,8 @@ var render = function () {
                 "label",
                 [
                   _c(_vm.labelType, { tag: "component" }, [
-                    _vm._v(_vm._s(_vm.label)),
-                  ]),
+                    _vm._v(_vm._s(_vm.label))
+                  ])
                 ],
                 1
               )
@@ -41674,9 +41472,9 @@ var render = function () {
           _vm.description.length
             ? _c("p", {
                 staticClass: "cptm-form-group-info",
-                domProps: { innerHTML: _vm._s(_vm.description) },
+                domProps: { innerHTML: _vm._s(_vm.description) }
               })
-            : _vm._e(),
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -41685,10 +41483,10 @@ var render = function () {
             attrs: { type: "button", disabled: _vm.button.is_disabled },
             domProps: { innerHTML: _vm._s(_vm.button.label) },
             on: {
-              click: function ($event) {
+              click: function($event) {
                 return _vm.submitAjaxRequest()
-              },
-            },
+              }
+            }
           }),
           _vm._v(" "),
           _vm.validation_message
@@ -41700,21 +41498,21 @@ var render = function () {
                     "div",
                     {
                       staticClass: "cptm-form-alert",
-                      class: "cptm-" + _vm.validation_message.type,
+                      class: "cptm-" + _vm.validation_message.type
                     },
                     [
                       _vm._v(
                         "\n                    " +
                           _vm._s(_vm.validation_message.message) +
                           "\n                "
-                      ),
+                      )
                     ]
-                  ),
+                  )
                 ]
               )
-            : _vm._e(),
-        ]),
-      ]),
+            : _vm._e()
+        ])
+      ])
     ],
     1
   )
@@ -41737,7 +41535,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41749,8 +41547,8 @@ var render = function () {
               "label",
               [
                 _c(_vm.labelType, { tag: "component" }, [
-                  _vm._v(_vm._s(_vm.label)),
-                ]),
+                  _vm._v(_vm._s(_vm.label))
+                ])
               ],
               1
             )
@@ -41759,9 +41557,9 @@ var render = function () {
         _vm.description.length
           ? _c("p", {
               staticClass: "cptm-form-group-info",
-              domProps: { innerHTML: _vm._s(_vm.description) },
+              domProps: { innerHTML: _vm._s(_vm.description) }
             })
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -41769,12 +41567,12 @@ var render = function () {
           staticClass: "settings-save-btn",
           attrs: {
             href: _vm.url,
-            target: _vm.openInNewTab ? "_blank" : "_self",
+            target: _vm.openInNewTab ? "_blank" : "_self"
           },
-          domProps: { innerHTML: _vm._s(_vm.buttonLabel) },
-        }),
-      ]),
-    ]),
+          domProps: { innerHTML: _vm._s(_vm.buttonLabel) }
+        })
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -41795,7 +41593,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41807,8 +41605,8 @@ var render = function () {
               "label",
               [
                 _c(_vm.labelType, { tag: "component" }, [
-                  _vm._v(_vm._s(_vm.label)),
-                ]),
+                  _vm._v(_vm._s(_vm.label))
+                ])
               ],
               1
             )
@@ -41817,9 +41615,9 @@ var render = function () {
         _vm.description.length
           ? _c("p", {
               staticClass: "cptm-form-group-info",
-              domProps: { innerHTML: _vm._s(_vm.description) },
+              domProps: { innerHTML: _vm._s(_vm.description) }
             })
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -41829,7 +41627,7 @@ var render = function () {
           _c(
             "div",
             { staticClass: "cptm-checkbox-area" },
-            _vm._l(_vm.theOptions, function (option, option_index) {
+            _vm._l(_vm.theOptions, function(option, option_index) {
               return _c(
                 "div",
                 { key: option_index, staticClass: "cptm-checkbox-item" },
@@ -41840,13 +41638,13 @@ var render = function () {
                         name: "model",
                         rawName: "v-model",
                         value: _vm.local_value,
-                        expression: "local_value",
-                      },
+                        expression: "local_value"
+                      }
                     ],
                     staticClass: "cptm-checkbox",
                     attrs: {
                       type: "checkbox",
-                      id: _vm.getOptionID(option, option_index, _vm.sectionId),
+                      id: _vm.getOptionID(option, option_index, _vm.sectionId)
                     },
                     domProps: {
                       value:
@@ -41858,10 +41656,10 @@ var render = function () {
                               ? option.value
                               : ""
                           ) > -1
-                        : _vm.local_value,
+                        : _vm.local_value
                     },
                     on: {
-                      change: function ($event) {
+                      change: function($event) {
                         var $$a = _vm.local_value,
                           $$el = $event.target,
                           $$c = $$el.checked ? true : false
@@ -41882,23 +41680,23 @@ var render = function () {
                         } else {
                           _vm.local_value = $$c
                         }
-                      },
-                    },
+                      }
+                    }
                   }),
                   _vm._v(" "),
                   _c("label", {
                     staticClass: "cptm-checkbox-ui",
                     attrs: {
-                      for: _vm.getOptionID(option, option_index, _vm.sectionId),
-                    },
+                      for: _vm.getOptionID(option, option_index, _vm.sectionId)
+                    }
                   }),
                   _vm._v(" "),
                   _c("label", {
                     attrs: {
-                      for: _vm.getOptionID(option, option_index, _vm.sectionId),
+                      for: _vm.getOptionID(option, option_index, _vm.sectionId)
                     },
-                    domProps: { innerHTML: _vm._s(option.label) },
-                  }),
+                    domProps: { innerHTML: _vm._s(option.label) }
+                  })
                 ]
               )
             }),
@@ -41907,7 +41705,7 @@ var render = function () {
           _vm._v(" "),
           !_vm.theOptions.length
             ? _c("p", { staticClass: "cptm-info-text" }, [
-                _vm._v(_vm._s(_vm.infoTextForNoOption)),
+                _vm._v(_vm._s(_vm.infoTextForNoOption))
               ])
             : _vm._e(),
           _vm._v(" "),
@@ -41917,25 +41715,25 @@ var render = function () {
               "field-id": _vm.fieldId,
               root: _vm.root,
               value: _vm.value,
-              rules: _vm.rules,
+              rules: _vm.rules
             },
             on: {
-              validate: function ($event) {
+              validate: function($event) {
                 return _vm.$emit("validate", $event)
-              },
+              }
             },
             model: {
               value: _vm.validationLog,
-              callback: function ($$v) {
+              callback: function($$v) {
                 _vm.validationLog = $$v
               },
-              expression: "validationLog",
-            },
-          }),
+              expression: "validationLog"
+            }
+          })
         ],
         1
-      ),
-    ]),
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -41956,7 +41754,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -41971,8 +41769,8 @@ var render = function () {
                 "label",
                 [
                   _c(_vm.labelType, { tag: "component" }, [
-                    _vm._v(_vm._s(_vm.label)),
-                  ]),
+                    _vm._v(_vm._s(_vm.label))
+                  ])
                 ],
                 1
               )
@@ -41981,9 +41779,9 @@ var render = function () {
           _vm.description.length
             ? _c("p", {
                 staticClass: "cptm-form-group-info",
-                domProps: { innerHTML: _vm._s(_vm.description) },
+                domProps: { innerHTML: _vm._s(_vm.description) }
               })
-            : _vm._e(),
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c(
@@ -41999,19 +41797,19 @@ var render = function () {
                     attrs: { value: _vm.local_value, picker: "sketch" },
                     model: {
                       value: _vm.local_value,
-                      callback: function ($$v) {
+                      callback: function($$v) {
                         _vm.local_value = $$v
                       },
-                      expression: "local_value",
-                    },
-                  }),
+                      expression: "local_value"
+                    }
+                  })
                 ],
                 1
               ),
               _vm._v(" "),
               _c("div", { staticClass: "cptm-color-picker-label" }, [
-                _vm._v(_vm._s(_vm.local_value)),
-              ]),
+                _vm._v(_vm._s(_vm.local_value))
+              ])
             ]),
             _vm._v(" "),
             _c("form-field-validatior", {
@@ -42020,25 +41818,25 @@ var render = function () {
                 "field-id": _vm.fieldId,
                 root: _vm.root,
                 value: _vm.value,
-                rules: _vm.rules,
+                rules: _vm.rules
               },
               on: {
-                validate: function ($event) {
+                validate: function($event) {
                   return _vm.$emit("validate", $event)
-                },
+                }
               },
               model: {
                 value: _vm.validationLog,
-                callback: function ($$v) {
+                callback: function($$v) {
                   _vm.validationLog = $$v
                 },
-                expression: "validationLog",
-              },
-            }),
+                expression: "validationLog"
+              }
+            })
           ],
           1
-        ),
-      ]),
+        )
+      ])
     ]
   )
 }
@@ -42060,7 +41858,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -42072,8 +41870,8 @@ var render = function () {
               "label",
               [
                 _c(_vm.labelType, { tag: "component" }, [
-                  _vm._v(_vm._s(_vm.label)),
-                ]),
+                  _vm._v(_vm._s(_vm.label))
+                ])
               ],
               1
             )
@@ -42082,9 +41880,9 @@ var render = function () {
         _vm.description.length
           ? _c("p", {
               staticClass: "cptm-form-group-info",
-              domProps: { innerHTML: _vm._s(_vm.description) },
+              domProps: { innerHTML: _vm._s(_vm.description) }
             })
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -42093,14 +41891,14 @@ var render = function () {
           attrs: { href: "#", target: "_blank" },
           domProps: { innerHTML: _vm._s(_vm.button_label) },
           on: {
-            click: function ($event) {
+            click: function($event) {
               $event.preventDefault()
-              return _vm.exportData.apply(null, arguments)
-            },
-          },
-        }),
-      ]),
-    ]),
+              return _vm.exportData($event)
+            }
+          }
+        })
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -42121,7 +41919,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -42133,8 +41931,8 @@ var render = function () {
               "label",
               [
                 _c(_vm.labelType, { tag: "component" }, [
-                  _vm._v(_vm._s(_vm.label)),
-                ]),
+                  _vm._v(_vm._s(_vm.label))
+                ])
               ],
               1
             )
@@ -42143,9 +41941,9 @@ var render = function () {
         _vm.description.length
           ? _c("p", {
               staticClass: "cptm-form-group-info",
-              domProps: { innerHTML: _vm._s(_vm.description) },
+              domProps: { innerHTML: _vm._s(_vm.description) }
             })
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -42155,18 +41953,18 @@ var render = function () {
             staticClass: "cptm-btn cptm-btn-secondery",
             attrs: { type: "button" },
             on: {
-              click: function ($event) {
+              click: function($event) {
                 return _vm.exportJSON()
-              },
-            },
+              }
+            }
           },
           [
             _c("span", { staticClass: "fa fa-upload" }),
             _vm._v(
               "\n                " + _vm._s(_vm.buttonLabel) + "\n            "
-            ),
+            )
           ]
-        ),
+        )
       ]),
       _vm._v(" "),
       _vm.validation_message
@@ -42175,19 +41973,19 @@ var render = function () {
               "div",
               {
                 staticClass: "cptm-form-alert",
-                class: "cptm-" + _vm.validation_message.type,
+                class: "cptm-" + _vm.validation_message.type
               },
               [
                 _vm._v(
                   "\n                " +
                     _vm._s(_vm.validation_message.message) +
                     "\n            "
-                ),
+                )
               ]
-            ),
+            )
           ])
-        : _vm._e(),
-    ]),
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []
@@ -42208,7 +42006,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -42220,8 +42018,8 @@ var render = function () {
               "label",
               [
                 _c(_vm.labelType, { tag: "component" }, [
-                  _vm._v(_vm._s(_vm.label)),
-                ]),
+                  _vm._v(_vm._s(_vm.label))
+                ])
               ],
               1
             )
@@ -42230,29 +42028,29 @@ var render = function () {
         _vm.description.length
           ? _c("p", {
               staticClass: "cptm-form-group-info",
-              domProps: { innerHTML: _vm._s(_vm.description) },
+              domProps: { innerHTML: _vm._s(_vm.description) }
             })
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
         _c("input", {
           staticClass: "cptm-d-none",
           attrs: { type: "file", accept: ".json", id: _vm.fieldId },
-          on: { input: _vm.importJSON },
+          on: { input: _vm.importJSON }
         }),
         _vm._v(" "),
         _c(
           "label",
           {
             staticClass: "cptm-btn cptm-label-btn cptm-btn-secondery",
-            attrs: { for: _vm.fieldId },
+            attrs: { for: _vm.fieldId }
           },
           [
             _c("span", { staticClass: "fa fa-download" }),
             _vm._v(
               "\n                " + _vm._s(_vm.buttonLabel) + "\n            "
-            ),
+            )
           ]
         ),
         _vm._v(" "),
@@ -42262,20 +42060,20 @@ var render = function () {
                 "div",
                 {
                   staticClass: "cptm-form-alert",
-                  class: "cptm-" + _vm.validation_message.type,
+                  class: "cptm-" + _vm.validation_message.type
                 },
                 [
                   _vm._v(
                     "\n                    " +
                       _vm._s(_vm.validation_message.message) +
                       "\n                "
-                  ),
+                  )
                 ]
-              ),
+              )
             ])
-          : _vm._e(),
-      ]),
-    ]),
+          : _vm._e()
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -42296,7 +42094,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -42306,16 +42104,16 @@ var render = function () {
     _c("div", [
       _c("h2", {
         staticClass: "cptm-form-note-title",
-        domProps: { innerHTML: _vm._s(_vm.title) },
+        domProps: { innerHTML: _vm._s(_vm.title) }
       }),
       _vm._v(" "),
       _vm.description.length
         ? _c("div", {
             staticClass: "cptm-form-note-content",
-            domProps: { innerHTML: _vm._s(_vm.description) },
+            domProps: { innerHTML: _vm._s(_vm.description) }
           })
-        : _vm._e(),
-    ]),
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []
@@ -42336,7 +42134,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -42348,8 +42146,8 @@ var render = function () {
               "label",
               [
                 _c(_vm.labelType, { tag: "component" }, [
-                  _vm._v(_vm._s(_vm.label)),
-                ]),
+                  _vm._v(_vm._s(_vm.label))
+                ])
               ],
               1
             )
@@ -42358,9 +42156,9 @@ var render = function () {
         _vm.description.length
           ? _c("p", {
               staticClass: "cptm-form-group-info",
-              domProps: { innerHTML: _vm._s(_vm.description) },
+              domProps: { innerHTML: _vm._s(_vm.description) }
             })
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -42370,7 +42168,7 @@ var render = function () {
           _c(
             "div",
             { staticClass: "cptm-radio-area" },
-            _vm._l(_vm.theOptions, function (option, option_index) {
+            _vm._l(_vm.theOptions, function(option, option_index) {
               return _c(
                 "div",
                 { key: option_index, staticClass: "cptm-radio-item" },
@@ -42381,14 +42179,14 @@ var render = function () {
                         name: "model",
                         rawName: "v-model",
                         value: _vm.local_value,
-                        expression: "local_value",
-                      },
+                        expression: "local_value"
+                      }
                     ],
                     staticClass: "cptm-radio",
                     attrs: {
                       type: "radio",
                       id: _vm.getOptionID(option, option_index, _vm.sectionId),
-                      name: _vm.name,
+                      name: _vm.name
                     },
                     domProps: {
                       value:
@@ -42396,16 +42194,16 @@ var render = function () {
                       checked: _vm._q(
                         _vm.local_value,
                         typeof option.value !== "undefined" ? option.value : ""
-                      ),
+                      )
                     },
                     on: {
-                      change: function ($event) {
+                      change: function($event) {
                         _vm.local_value =
                           typeof option.value !== "undefined"
                             ? option.value
                             : ""
-                      },
-                    },
+                      }
+                    }
                   }),
                   _vm._v(" "),
                   _c(
@@ -42416,17 +42214,17 @@ var render = function () {
                           option,
                           option_index,
                           _vm.sectionId
-                        ),
-                      },
+                        )
+                      }
                     },
                     [
                       _vm._v(
                         "\n                        " +
                           _vm._s(option.label) +
                           "\n                    "
-                      ),
+                      )
                     ]
-                  ),
+                  )
                 ]
               )
             }),
@@ -42435,7 +42233,7 @@ var render = function () {
           _vm._v(" "),
           !_vm.theOptions.length
             ? _c("p", { staticClass: "cptm-info-text" }, [
-                _vm._v(_vm._s(_vm.infoTextForNoOption)),
+                _vm._v(_vm._s(_vm.infoTextForNoOption))
               ])
             : _vm._e(),
           _vm._v(" "),
@@ -42445,25 +42243,25 @@ var render = function () {
               "field-id": _vm.fieldId,
               root: _vm.root,
               value: _vm.value,
-              rules: _vm.rules,
+              rules: _vm.rules
             },
             on: {
-              validate: function ($event) {
+              validate: function($event) {
                 return _vm.$emit("validate", $event)
-              },
+              }
             },
             model: {
               value: _vm.validationLog,
-              callback: function ($$v) {
+              callback: function($$v) {
                 _vm.validationLog = $$v
               },
-              expression: "validationLog",
-            },
-          }),
+              expression: "validationLog"
+            }
+          })
         ],
         1
-      ),
-    ]),
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -42484,7 +42282,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -42496,8 +42294,8 @@ var render = function () {
               "label",
               [
                 _c(_vm.labelType, { tag: "component" }, [
-                  _vm._v(_vm._s(_vm.label)),
-                ]),
+                  _vm._v(_vm._s(_vm.label))
+                ])
               ],
               1
             )
@@ -42506,9 +42304,9 @@ var render = function () {
         _vm.description.length
           ? _c("p", {
               staticClass: "cptm-form-group-info",
-              domProps: { innerHTML: _vm._s(_vm.description) },
+              domProps: { innerHTML: _vm._s(_vm.description) }
             })
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -42521,8 +42319,8 @@ var render = function () {
                 _c("span", { staticClass: "directorist_range-bar" }, [
                   _c("span", {
                     staticClass: "directorist_range-fill",
-                    style: _vm.rangeFillStyle,
-                  }),
+                    style: _vm.rangeFillStyle
+                  })
                 ]),
                 _vm._v(" "),
                 _c("input", {
@@ -42531,8 +42329,8 @@ var render = function () {
                       name: "model",
                       rawName: "v-model",
                       value: _vm.range_value,
-                      expression: "range_value",
-                    },
+                      expression: "range_value"
+                    }
                   ],
                   staticClass: "directorist_slider-input",
                   attrs: {
@@ -42541,23 +42339,23 @@ var render = function () {
                     step: _vm.theStep,
                     min: _vm.theMin,
                     max: _vm.theMax,
-                    name: _vm.name,
+                    name: _vm.name
                   },
                   domProps: { value: _vm.range_value },
                   on: {
-                    __r: function ($event) {
+                    __r: function($event) {
                       _vm.range_value = $event.target.value
-                    },
-                  },
-                }),
-              ]),
+                    }
+                  }
+                })
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "cptm-form-range-output" }, [
               _c("span", { staticClass: "cptm-form-range-output-text" }, [
-                _vm._v(_vm._s(_vm.range_value)),
-              ]),
-            ]),
+                _vm._v(_vm._s(_vm.range_value))
+              ])
+            ])
           ]),
           _vm._v(" "),
           _c("form-field-validatior", {
@@ -42566,25 +42364,25 @@ var render = function () {
               "field-id": _vm.fieldId,
               root: _vm.root,
               value: _vm.value,
-              rules: _vm.rules,
+              rules: _vm.rules
             },
             on: {
-              validate: function ($event) {
+              validate: function($event) {
                 return _vm.$emit("validate", $event)
-              },
+              }
             },
             model: {
               value: _vm.validationLog,
-              callback: function ($$v) {
+              callback: function($$v) {
                 _vm.validationLog = $$v
               },
-              expression: "validationLog",
-            },
-          }),
+              expression: "validationLog"
+            }
+          })
         ],
         1
-      ),
-    ]),
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -42605,7 +42403,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -42617,8 +42415,8 @@ var render = function () {
               "label",
               [
                 _c(_vm.labelType, { tag: "component" }, [
-                  _vm._v(_vm._s(_vm.label)),
-                ]),
+                  _vm._v(_vm._s(_vm.label))
+                ])
               ],
               1
             )
@@ -42627,9 +42425,9 @@ var render = function () {
         _vm.description.length
           ? _c("p", {
               staticClass: "cptm-form-group-info",
-              domProps: { innerHTML: _vm._s(_vm.description) },
+              domProps: { innerHTML: _vm._s(_vm.description) }
             })
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -42639,16 +42437,16 @@ var render = function () {
             staticClass: "cptm-btn cptm-btn-secondery",
             attrs: { type: "button" },
             on: {
-              click: function ($event) {
+              click: function($event) {
                 return _vm.restore()
-              },
-            },
+              }
+            }
           },
           [
             _c("span", { staticClass: "fa fa-download" }),
             _vm._v(
               "\n                " + _vm._s(_vm.buttonLabel) + "\n            "
-            ),
+            )
           ]
         ),
         _vm._v(" "),
@@ -42658,20 +42456,20 @@ var render = function () {
                 "div",
                 {
                   staticClass: "cptm-form-alert",
-                  class: "cptm-" + _vm.validation_message.type,
+                  class: "cptm-" + _vm.validation_message.type
                 },
                 [
                   _vm._v(
                     "\n                    " +
                       _vm._s(_vm.validation_message.message) +
                       "\n                "
-                  ),
+                  )
                 ]
-              ),
+              )
             ])
-          : _vm._e(),
-      ]),
-    ]),
+          : _vm._e()
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -42692,7 +42490,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _obj
   var _vm = this
   var _h = _vm.$createElement
@@ -42708,8 +42506,8 @@ var render = function () {
                 "label",
                 [
                   _c(_vm.labelType, { tag: "component" }, [
-                    _vm._v(_vm._s(_vm.label)),
-                  ]),
+                    _vm._v(_vm._s(_vm.label))
+                  ])
                 ],
                 1
               )
@@ -42718,9 +42516,9 @@ var render = function () {
           _vm.description.length
             ? _c("p", {
                 staticClass: "cptm-form-group-info",
-                domProps: { innerHTML: _vm._s(_vm.description) },
+                domProps: { innerHTML: _vm._s(_vm.description) }
               })
-            : _vm._e(),
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c(
@@ -42734,18 +42532,18 @@ var render = function () {
                   staticClass: "directorist_dropdown-toggle",
                   attrs: { href: "#" },
                   on: {
-                    click: function ($event) {
+                    click: function($event) {
                       $event.preventDefault()
                       return _vm.toggleTheOptionModal()
-                    },
-                  },
+                    }
+                  }
                 },
                 [
                   _c(
                     "span",
                     { staticClass: "directorist_dropdown-toggle__text" },
                     [_vm._v(_vm._s(_vm.theCurrentOptionLabel))]
-                  ),
+                  )
                 ]
               ),
               _vm._v(" "),
@@ -42757,7 +42555,7 @@ var render = function () {
                       class:
                         ((_obj = {}),
                         (_obj["--show"] = _vm.show_option_modal),
-                        _obj),
+                        _obj)
                     },
                     [
                       _c(
@@ -42772,48 +42570,48 @@ var render = function () {
                                       _vm.theDefaultOption.label
                                         ? _vm.theDefaultOption.label
                                         : ""
-                                    ),
+                                    )
                                   },
                                   on: {
-                                    click: function ($event) {
+                                    click: function($event) {
                                       $event.preventDefault()
                                       return _vm.updateOption(
                                         _vm.theDefaultOption.value
                                       )
-                                    },
-                                  },
-                                }),
+                                    }
+                                  }
+                                })
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          _vm._l(_vm.theOptions, function (option, option_key) {
+                          _vm._l(_vm.theOptions, function(option, option_key) {
                             return _c("li", { key: option_key }, [
                               _c("a", {
                                 class: {
                                   active:
-                                    option.value == _vm.value ? true : false,
+                                    option.value == _vm.value ? true : false
                                 },
                                 attrs: { href: "#" },
                                 domProps: {
                                   innerHTML: _vm._s(
                                     option.label ? option.label : ""
-                                  ),
+                                  )
                                 },
                                 on: {
-                                  click: function ($event) {
+                                  click: function($event) {
                                     $event.preventDefault()
                                     return _vm.updateOption(option.value)
-                                  },
-                                },
-                              }),
+                                  }
+                                }
+                              })
                             ])
-                          }),
+                          })
                         ],
                         2
-                      ),
+                      )
                     ]
                   )
-                : _vm._e(),
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c(
@@ -42822,10 +42620,10 @@ var render = function () {
                 staticClass: "cptm-d-none",
                 domProps: { value: _vm.local_value },
                 on: {
-                  change: function ($event) {
+                  change: function($event) {
                     return _vm.update_value($event.target.value)
-                  },
-                },
+                  }
+                }
               },
               [
                 _vm.showDefaultOption && _vm.theDefaultOption
@@ -42836,15 +42634,15 @@ var render = function () {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm._l(_vm.theOptions, function (option, option_key) {
+                _vm._l(_vm.theOptions, function(option, option_key) {
                   return [
                     _c(
                       "option",
                       { key: option_key, domProps: { value: option.value } },
                       [_vm._v(_vm._s(option.label))]
-                    ),
+                    )
                   ]
-                }),
+                })
               ],
               2
             ),
@@ -42855,25 +42653,25 @@ var render = function () {
                 "field-id": _vm.fieldId,
                 root: _vm.root,
                 value: _vm.value,
-                rules: _vm.rules,
+                rules: _vm.rules
               },
               on: {
-                validate: function ($event) {
+                validate: function($event) {
                   return _vm.$emit("validate", $event)
-                },
+                }
               },
               model: {
                 value: _vm.validationLog,
-                callback: function ($$v) {
+                callback: function($$v) {
                   _vm.validationLog = $$v
                 },
-                expression: "validationLog",
-              },
-            }),
+                expression: "validationLog"
+              }
+            })
           ],
           1
-        ),
-      ]),
+        )
+      ])
     ]
   )
 }
@@ -42895,7 +42693,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -42910,8 +42708,8 @@ var render = function () {
                 "label",
                 [
                   _c(_vm.labelType, { tag: "component" }, [
-                    _vm._v(_vm._s(_vm.label)),
-                  ]),
+                    _vm._v(_vm._s(_vm.label))
+                  ])
                 ],
                 1
               )
@@ -42920,9 +42718,9 @@ var render = function () {
           _vm.description.length
             ? _c("p", {
                 staticClass: "cptm-form-group-info",
-                domProps: { innerHTML: _vm._s(_vm.description) },
+                domProps: { innerHTML: _vm._s(_vm.description) }
               })
-            : _vm._e(),
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -42930,7 +42728,7 @@ var render = function () {
             ? _c("input", {
                 staticClass: "cptm-btn cptm-generate-shortcode-button",
                 attrs: { type: "button", value: "Generate Shortcode" },
-                on: { click: _vm.generate },
+                on: { click: _vm.generate }
               })
             : _vm._e(),
           _vm._v(" "),
@@ -42940,7 +42738,7 @@ var render = function () {
                 {
                   ref: "shortcode",
                   staticClass: "cptm-shortcode",
-                  on: { click: _vm.copyToClip },
+                  on: { click: _vm.copyToClip }
                 },
                 [_vm._v(_vm._s(_vm.shortcode))]
               )
@@ -42948,11 +42746,11 @@ var render = function () {
           _vm._v(" "),
           _vm.successMsg.length
             ? _c("div", { staticClass: "cptm-info-text cptm-info-success" }, [
-                _vm._v(_vm._s(_vm.successMsg)),
+                _vm._v(_vm._s(_vm.successMsg))
               ])
-            : _vm._e(),
-        ]),
-      ]),
+            : _vm._e()
+        ])
+      ])
     ]
   )
 }
@@ -42974,7 +42772,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -42989,8 +42787,8 @@ var render = function () {
                 "label",
                 [
                   _c(_vm.labelType, { tag: "component" }, [
-                    _vm._v(_vm._s(_vm.label)),
-                  ]),
+                    _vm._v(_vm._s(_vm.label))
+                  ])
                 ],
                 1
               )
@@ -42999,9 +42797,9 @@ var render = function () {
           _vm.description.length
             ? _c("p", {
                 staticClass: "cptm-form-group-info",
-                domProps: { innerHTML: _vm._s(_vm.description) },
+                domProps: { innerHTML: _vm._s(_vm.description) }
               })
-            : _vm._e(),
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -43010,7 +42808,7 @@ var render = function () {
               ? _c("span", {
                   staticClass:
                     "cptm-info-text cptm-info-success directorist-center-content-inline",
-                  domProps: { innerHTML: _vm._s(_vm.successMsg) },
+                  domProps: { innerHTML: _vm._s(_vm.successMsg) }
                 })
               : _vm._e(),
             _vm._v(" "),
@@ -43021,15 +42819,15 @@ var render = function () {
                     staticClass: "cptm-btn cptm-generate-shortcode-button",
                     attrs: { type: "button" },
                     on: {
-                      click: function ($event) {
+                      click: function($event) {
                         return _vm.copyToClip("all-shortcodes")
-                      },
-                    },
+                      }
+                    }
                   },
                   [
                     _c("span", {
-                      domProps: { innerHTML: _vm._s(_vm.copyButtonLabel) },
-                    }),
+                      domProps: { innerHTML: _vm._s(_vm.copyButtonLabel) }
+                    })
                   ]
                 )
               : _vm._e(),
@@ -43039,14 +42837,14 @@ var render = function () {
               {
                 staticClass: "cptm-btn cptm-generate-shortcode-button",
                 attrs: { type: "button" },
-                on: { click: _vm.generateShortcode },
+                on: { click: _vm.generateShortcode }
               },
               [
                 _c("span", {
-                  domProps: { innerHTML: _vm._s(_vm.generateButtonLabel) },
-                }),
+                  domProps: { innerHTML: _vm._s(_vm.generateButtonLabel) }
+                })
               ]
-            ),
+            )
           ]),
           _vm._v(" "),
           _vm.dirty
@@ -43055,26 +42853,26 @@ var render = function () {
                   ? _c(
                       "div",
                       { staticClass: "cptm-shortcodes" },
-                      _vm._l(_vm.shortcodes_list, function (shortcode, i) {
+                      _vm._l(_vm.shortcodes_list, function(shortcode, i) {
                         return _c("p", {
                           key: i,
                           ref: "shortcodes",
                           refInFor: true,
                           staticClass: "directorist-alert",
-                          domProps: { innerHTML: _vm._s(shortcode) },
+                          domProps: { innerHTML: _vm._s(shortcode) }
                         })
                       }),
                       0
                     )
                   : _c("div", [
                       _c("p", { staticClass: "directorist-alert" }, [
-                        _vm._v("Nothing to generate"),
-                      ]),
-                    ]),
+                        _vm._v("Nothing to generate")
+                      ])
+                    ])
               ])
-            : _vm._e(),
-        ]),
-      ]),
+            : _vm._e()
+        ])
+      ])
     ]
   )
 }
@@ -43096,7 +42894,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -43111,8 +42909,8 @@ var render = function () {
                 "label",
                 [
                   _c(_vm.labelType, { tag: "component" }, [
-                    _vm._v(_vm._s(_vm.label)),
-                  ]),
+                    _vm._v(_vm._s(_vm.label))
+                  ])
                 ],
                 1
               )
@@ -43121,39 +42919,43 @@ var render = function () {
           _vm.description.length
             ? _c("p", {
                 staticClass: "cptm-form-group-info",
-                domProps: { innerHTML: _vm._s(_vm.description) },
+                domProps: { innerHTML: _vm._s(_vm.description) }
               })
-            : _vm._e(),
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c(
           "div",
           { staticClass: "atbdp-col atbdp-col-8" },
           [
-            (typeof _vm.filteredValue !== "object" ? true : false)
+            (typeof _vm.filteredValue !== "object"
+            ? true
+            : false)
               ? _c("input", {
                   staticClass: "cptm-form-control",
                   class: _vm.formControlClass,
                   attrs: {
                     type: _vm.input_type,
                     placeholder: _vm.placeholder,
-                    disabled: _vm.disable,
+                    disabled: _vm.disable
                   },
                   domProps: {
-                    value: _vm.filteredValue === false ? "" : _vm.filteredValue,
+                    value: _vm.filteredValue === false ? "" : _vm.filteredValue
                   },
                   on: {
-                    input: function ($event) {
+                    input: function($event) {
                       return _vm.$emit("update", $event.target.value)
-                    },
-                  },
+                    }
+                  }
                 })
               : _vm._e(),
             _vm._v(" "),
-            (typeof _vm.filteredValue === "object" ? true : false)
+            (typeof _vm.filteredValue === "object"
+            ? true
+            : false)
               ? _c("input", {
                   attrs: { type: "hidden" },
-                  domProps: { value: JSON.stringify(_vm.filteredValue) },
+                  domProps: { value: JSON.stringify(_vm.filteredValue) }
                 })
               : _vm._e(),
             _vm._v(" "),
@@ -43163,25 +42965,25 @@ var render = function () {
                 "field-id": _vm.fieldId,
                 root: _vm.root,
                 value: _vm.filteredValue,
-                rules: _vm.rules,
+                rules: _vm.rules
               },
               on: {
-                validate: function ($event) {
+                validate: function($event) {
                   return _vm.$emit("validate", $event)
-                },
+                }
               },
               model: {
                 value: _vm.validationLog,
-                callback: function ($$v) {
+                callback: function($$v) {
                   _vm.validationLog = $$v
                 },
-                expression: "validationLog",
-              },
-            }),
+                expression: "validationLog"
+              }
+            })
           ],
           1
-        ),
-      ]),
+        )
+      ])
     ]
   )
 }
@@ -43203,7 +43005,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -43218,8 +43020,8 @@ var render = function () {
                 "label",
                 [
                   _c(_vm.labelType, { tag: "component" }, [
-                    _vm._v(_vm._s(_vm.label)),
-                  ]),
+                    _vm._v(_vm._s(_vm.label))
+                  ])
                 ],
                 1
               )
@@ -43228,9 +43030,9 @@ var render = function () {
           _vm.description.length
             ? _c("p", {
                 staticClass: "cptm-form-group-info",
-                domProps: { innerHTML: _vm._s(_vm.description) },
+                domProps: { innerHTML: _vm._s(_vm.description) }
               })
-            : _vm._e(),
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c(
@@ -43243,8 +43045,8 @@ var render = function () {
                   name: "model",
                   rawName: "v-model",
                   value: _vm.local_value,
-                  expression: "local_value",
-                },
+                  expression: "local_value"
+                }
               ],
               staticClass: "cptm-form-control",
               attrs: {
@@ -43252,17 +43054,17 @@ var render = function () {
                 id: "",
                 cols: _vm.cols,
                 rows: _vm.rows,
-                placeholder: _vm.placeholder,
+                placeholder: _vm.placeholder
               },
               domProps: { value: _vm.local_value },
               on: {
-                input: function ($event) {
+                input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
                   _vm.local_value = $event.target.value
-                },
-              },
+                }
+              }
             }),
             _vm._v(" "),
             _c("form-field-validatior", {
@@ -43271,25 +43073,25 @@ var render = function () {
                 "field-id": _vm.fieldId,
                 root: _vm.root,
                 value: _vm.local_value,
-                rules: _vm.rules,
+                rules: _vm.rules
               },
               on: {
-                validate: function ($event) {
+                validate: function($event) {
                   return _vm.$emit("validate", $event)
-                },
+                }
               },
               model: {
                 value: _vm.validationLog,
-                callback: function ($$v) {
+                callback: function($$v) {
                   _vm.validationLog = $$v
                 },
-                expression: "validationLog",
-              },
-            }),
+                expression: "validationLog"
+              }
+            })
           ],
           1
-        ),
-      ]),
+        )
+      ])
     ]
   )
 }
@@ -43311,7 +43113,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -43326,8 +43128,8 @@ var render = function () {
                 "label",
                 [
                   _c(_vm.labelType, { tag: "component" }, [
-                    _vm._v(_vm._s(_vm.label)),
-                  ]),
+                    _vm._v(_vm._s(_vm.label))
+                  ])
                 ],
                 1
               )
@@ -43336,9 +43138,9 @@ var render = function () {
           _vm.description.length
             ? _c("p", {
                 staticClass: "cptm-form-group-info",
-                domProps: { innerHTML: _vm._s(_vm.description) },
+                domProps: { innerHTML: _vm._s(_vm.description) }
               })
-            : _vm._e(),
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c(
@@ -43351,10 +43153,10 @@ var render = function () {
                   staticClass: "cptm-input-toggle",
                   class: _vm.toggleClass,
                   on: {
-                    click: function ($event) {
+                    click: function($event) {
                       return _vm.toggleValue()
-                    },
-                  },
+                    }
+                  }
                 }),
                 _vm._v(" "),
                 _c("input", {
@@ -43363,18 +43165,18 @@ var render = function () {
                       name: "model",
                       rawName: "v-model",
                       value: _vm.local_value,
-                      expression: "local_value",
-                    },
+                      expression: "local_value"
+                    }
                   ],
                   staticStyle: { display: "none" },
                   attrs: { type: "checkbox", id: _vm.name, name: _vm.name },
                   domProps: {
                     checked: Array.isArray(_vm.local_value)
                       ? _vm._i(_vm.local_value, null) > -1
-                      : _vm.local_value,
+                      : _vm.local_value
                   },
                   on: {
-                    change: function ($event) {
+                    change: function($event) {
                       var $$a = _vm.local_value,
                         $$el = $event.target,
                         $$c = $$el.checked ? true : false
@@ -43392,9 +43194,9 @@ var render = function () {
                       } else {
                         _vm.local_value = $$c
                       }
-                    },
-                  },
-                }),
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "directorist_item" }, [
@@ -43405,12 +43207,12 @@ var render = function () {
                       class: _vm.compLinkClass,
                       attrs: {
                         href: _vm.comp.link.url,
-                        target: _vm.comp.link.target,
+                        target: _vm.comp.link.target
                       },
-                      domProps: { innerHTML: _vm._s(_vm.comp.link.label) },
+                      domProps: { innerHTML: _vm._s(_vm.comp.link.label) }
                     })
-                  : _vm._e(),
-              ]),
+                  : _vm._e()
+              ])
             ]),
             _vm._v(" "),
             _c("form-field-validatior", {
@@ -43419,24 +43221,24 @@ var render = function () {
                 "field-id": _vm.fieldId,
                 root: _vm.root,
                 value: _vm.value,
-                rules: _vm.rules,
+                rules: _vm.rules
               },
               on: {
-                validate: function ($event) {
+                validate: function($event) {
                   return _vm.$emit("validate", $event)
-                },
+                }
               },
               model: {
                 value: _vm.validationLog,
-                callback: function ($$v) {
+                callback: function($$v) {
                   _vm.validationLog = $$v
                 },
-                expression: "validationLog",
-              },
-            }),
+                expression: "validationLog"
+              }
+            })
           ],
           1
-        ),
+        )
       ]),
       _vm._v(" "),
       _c(
@@ -43444,16 +43246,16 @@ var render = function () {
         _vm._b(
           {
             on: {
-              cancel: function ($event) {
+              cancel: function($event) {
                 return _vm.confirmationOnCancel()
-              },
-            },
+              }
+            }
           },
           "confirmation-modal",
           _vm.confirmation,
           false
         )
-      ),
+      )
     ],
     1
   )
@@ -43476,7 +43278,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -43488,8 +43290,8 @@ var render = function () {
               "label",
               [
                 _c(_vm.labelType, { tag: "component" }, [
-                  _vm._v(_vm._s(_vm.label)),
-                ]),
+                  _vm._v(_vm._s(_vm.label))
+                ])
               ],
               1
             )
@@ -43498,9 +43300,9 @@ var render = function () {
         _vm.description.length
           ? _c("p", {
               staticClass: "cptm-form-group-info",
-              domProps: { innerHTML: _vm._s(_vm.description) },
+              domProps: { innerHTML: _vm._s(_vm.description) }
             })
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -43515,8 +43317,8 @@ var render = function () {
                     attrs: {
                       src: _vm.thumbnailSrc,
                       width: "100%",
-                      height: "auto",
-                    },
+                      height: "auto"
+                    }
                   }),
                   _vm._v(" "),
                   _vm.hasThumbnail
@@ -43525,33 +43327,33 @@ var render = function () {
                         {
                           staticClass: "cptm-thumbnail-action action-trash",
                           on: {
-                            click: function ($event) {
+                            click: function($event) {
                               return _vm.deleteThumbnail()
-                            },
-                          },
+                            }
+                          }
                         },
                         [_c("i", { staticClass: "uil uil-trash-alt" })]
                       )
-                    : _vm._e(),
+                    : _vm._e()
                 ])
               : _vm._e(),
             _vm._v(" "),
             !_vm.thumbnailSrc.length
               ? _c("span", { staticClass: "cptm-thumbnail-placeholder" }, [
-                  _vm._m(0),
+                  _vm._m(0)
                 ])
-              : _vm._e(),
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("input", {
             staticClass: "cptm-btn cptm-btn-primary",
             attrs: { type: "button", value: _vm.theButtonLabel },
             on: {
-              click: function ($event) {
+              click: function($event) {
                 $event.preventDefault()
-                return _vm.openMediaPicker.apply(null, arguments)
-              },
-            },
+                return _vm.openMediaPicker($event)
+              }
+            }
           }),
           _vm._v(" "),
           _c("form-field-validatior", {
@@ -43560,36 +43362,36 @@ var render = function () {
               "field-id": _vm.fieldId,
               root: _vm.root,
               value: _vm.value,
-              rules: _vm.rules,
+              rules: _vm.rules
             },
             on: {
-              validate: function ($event) {
+              validate: function($event) {
                 return _vm.$emit("validate", $event)
-              },
+              }
             },
             model: {
               value: _vm.validationLog,
-              callback: function ($$v) {
+              callback: function($$v) {
                 _vm.validationLog = $$v
               },
-              expression: "validationLog",
-            },
-          }),
+              expression: "validationLog"
+            }
+          })
         ],
         1
-      ),
-    ]),
+      )
+    ])
   ])
 }
 var staticRenderFns = [
-  function () {
+  function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "cptm-thumbnail-placeholder-icon" }, [
-      _c("i", { staticClass: "uil uil-image" }),
+      _c("i", { staticClass: "uil uil-image" })
     ])
-  },
+  }
 ]
 render._withStripped = true
 
@@ -43608,7 +43410,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -43621,8 +43423,8 @@ var render = function () {
             "label",
             [
               _c(_vm.labelType, { tag: "component" }, [
-                _vm._v(_vm._s(_vm.label)),
-              ]),
+                _vm._v(_vm._s(_vm.label))
+              ])
             ],
             1
           )
@@ -43631,7 +43433,7 @@ var render = function () {
       _vm.description.length
         ? _c("p", {
             staticClass: "cptm-form-group-info",
-            domProps: { innerHTML: _vm._s(_vm.description) },
+            domProps: { innerHTML: _vm._s(_vm.description) }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -43640,10 +43442,10 @@ var render = function () {
         attrs: { type: "button", disabled: _vm.button.is_disabled },
         domProps: { innerHTML: _vm._s(_vm.button.label) },
         on: {
-          click: function ($event) {
+          click: function($event) {
             return _vm.submitAjaxRequest()
-          },
-        },
+          }
+        }
       }),
       _vm._v(" "),
       _vm.validation_message
@@ -43652,18 +43454,18 @@ var render = function () {
               "div",
               {
                 staticClass: "cptm-form-alert",
-                class: "cptm-" + _vm.validation_message.type,
+                class: "cptm-" + _vm.validation_message.type
               },
               [
                 _vm._v(
                   "\n            " +
                     _vm._s(_vm.validation_message.message) +
                     "\n        "
-                ),
+                )
               ]
-            ),
+            )
           ])
-        : _vm._e(),
+        : _vm._e()
     ]
   )
 }
@@ -43685,7 +43487,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -43698,8 +43500,8 @@ var render = function () {
             "label",
             [
               _c(_vm.labelType, { tag: "component" }, [
-                _vm._v(_vm._s(_vm.label)),
-              ]),
+                _vm._v(_vm._s(_vm.label))
+              ])
             ],
             1
           )
@@ -43708,14 +43510,14 @@ var render = function () {
       _vm.description.length
         ? _c("p", {
             staticClass: "cptm-form-group-info",
-            domProps: { innerHTML: _vm._s(_vm.description) },
+            domProps: { innerHTML: _vm._s(_vm.description) }
           })
         : _vm._e(),
       _vm._v(" "),
       _c(
         "div",
         { staticClass: "cptm-checkbox-area" },
-        _vm._l(_vm.theOptions, function (option, option_index) {
+        _vm._l(_vm.theOptions, function(option, option_index) {
           return _c(
             "div",
             { key: option_index, staticClass: "cptm-checkbox-item" },
@@ -43726,13 +43528,13 @@ var render = function () {
                     name: "model",
                     rawName: "v-model",
                     value: _vm.local_value,
-                    expression: "local_value",
-                  },
+                    expression: "local_value"
+                  }
                 ],
                 staticClass: "cptm-checkbox",
                 attrs: {
                   type: "checkbox",
-                  id: _vm.getOptionID(option, option_index, _vm.sectionId),
+                  id: _vm.getOptionID(option, option_index, _vm.sectionId)
                 },
                 domProps: {
                   value:
@@ -43742,10 +43544,10 @@ var render = function () {
                         _vm.local_value,
                         typeof option.value !== "undefined" ? option.value : ""
                       ) > -1
-                    : _vm.local_value,
+                    : _vm.local_value
                 },
                 on: {
-                  change: function ($event) {
+                  change: function($event) {
                     var $$a = _vm.local_value,
                       $$el = $event.target,
                       $$c = $$el.checked ? true : false
@@ -43766,25 +43568,25 @@ var render = function () {
                     } else {
                       _vm.local_value = $$c
                     }
-                  },
-                },
+                  }
+                }
               }),
               _vm._v(" "),
               _c("label", {
                 staticClass: "cptm-checkbox-ui",
                 attrs: {
-                  for: _vm.getOptionID(option, option_index, _vm.sectionId),
-                },
+                  for: _vm.getOptionID(option, option_index, _vm.sectionId)
+                }
               }),
               _vm._v(" "),
               _c("label", {
                 attrs: {
-                  for: _vm.getOptionID(option, option_index, _vm.sectionId),
+                  for: _vm.getOptionID(option, option_index, _vm.sectionId)
                 },
                 domProps: {
-                  innerHTML: _vm._s(option.label + " " + option_index),
-                },
-              }),
+                  innerHTML: _vm._s(option.label + " " + option_index)
+                }
+              })
             ]
           )
         }),
@@ -43793,7 +43595,7 @@ var render = function () {
       _vm._v(" "),
       !_vm.theOptions.length
         ? _c("p", { staticClass: "cptm-info-text" }, [
-            _vm._v(_vm._s(_vm.infoTextForNoOption)),
+            _vm._v(_vm._s(_vm.infoTextForNoOption))
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -43803,21 +43605,21 @@ var render = function () {
           "field-id": _vm.fieldId,
           root: _vm.root,
           value: _vm.value,
-          rules: _vm.rules,
+          rules: _vm.rules
         },
         on: {
-          validate: function ($event) {
+          validate: function($event) {
             return _vm.$emit("validate", $event)
-          },
+          }
         },
         model: {
           value: _vm.validationLog,
-          callback: function ($$v) {
+          callback: function($$v) {
             _vm.validationLog = $$v
           },
-          expression: "validationLog",
-        },
-      }),
+          expression: "validationLog"
+        }
+      })
     ],
     1
   )
@@ -43840,7 +43642,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -43855,8 +43657,8 @@ var render = function () {
                 "label",
                 [
                   _c(_vm.labelType, { tag: "component" }, [
-                    _vm._v(_vm._s(_vm.label)),
-                  ]),
+                    _vm._v(_vm._s(_vm.label))
+                  ])
                 ],
                 1
               )
@@ -43865,9 +43667,9 @@ var render = function () {
           _vm.description.length
             ? _c("p", {
                 staticClass: "cptm-form-group-info",
-                domProps: { innerHTML: _vm._s(_vm.description) },
+                domProps: { innerHTML: _vm._s(_vm.description) }
               })
-            : _vm._e(),
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -43880,19 +43682,19 @@ var render = function () {
                   attrs: { value: _vm.local_value, picker: "sketch" },
                   model: {
                     value: _vm.local_value,
-                    callback: function ($$v) {
+                    callback: function($$v) {
                       _vm.local_value = $$v
                     },
-                    expression: "local_value",
-                  },
-                }),
+                    expression: "local_value"
+                  }
+                })
               ],
               1
             ),
             _vm._v(" "),
             _c("div", { staticClass: "cptm-color-picker-label" }, [
-              _vm._v(_vm._s(_vm.local_value)),
-            ]),
+              _vm._v(_vm._s(_vm.local_value))
+            ])
           ]),
           _vm._v(" "),
           _vm.validationMessages
@@ -43901,19 +43703,19 @@ var render = function () {
                   "div",
                   {
                     staticClass: "cptm-form-alert",
-                    class: "cptm-" + _vm.validationMessages.type,
+                    class: "cptm-" + _vm.validationMessages.type
                   },
                   [
                     _vm._v(
                       "\n                    " +
                         _vm._s(_vm.validationMessages.message) +
                         "\n                "
-                    ),
+                    )
                   ]
-                ),
+                )
               ])
-            : _vm._e(),
-        ]),
+            : _vm._e()
+        ])
       ]),
       _vm._v(" "),
       _c("form-field-validatior", {
@@ -43922,21 +43724,21 @@ var render = function () {
           "field-id": _vm.fieldId,
           root: _vm.root,
           value: _vm.value,
-          rules: _vm.rules,
+          rules: _vm.rules
         },
         on: {
-          validate: function ($event) {
+          validate: function($event) {
             return _vm.$emit("validate", $event)
-          },
+          }
         },
         model: {
           value: _vm.validationLog,
-          callback: function ($$v) {
+          callback: function($$v) {
             _vm.validationLog = $$v
           },
-          expression: "validationLog",
-        },
-      }),
+          expression: "validationLog"
+        }
+      })
     ],
     1
   )
@@ -43959,7 +43761,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -43968,9 +43770,7 @@ var render = function () {
       ? _c(
           "label",
           [
-            _c(_vm.labelType, { tag: "component" }, [
-              _vm._v(_vm._s(_vm.label)),
-            ]),
+            _c(_vm.labelType, { tag: "component" }, [_vm._v(_vm._s(_vm.label))])
           ],
           1
         )
@@ -43979,7 +43779,7 @@ var render = function () {
     _vm.description.length
       ? _c("p", {
           staticClass: "cptm-form-group-info",
-          domProps: { innerHTML: _vm._s(_vm.description) },
+          domProps: { innerHTML: _vm._s(_vm.description) }
         })
       : _vm._e(),
     _vm._v(" "),
@@ -43988,12 +43788,12 @@ var render = function () {
       attrs: { href: "#", target: "_blank" },
       domProps: { innerHTML: _vm._s(_vm.button_label) },
       on: {
-        click: function ($event) {
+        click: function($event) {
           $event.preventDefault()
-          return _vm.exportData.apply(null, arguments)
-        },
-      },
-    }),
+          return _vm.exportData($event)
+        }
+      }
+    })
   ])
 }
 var staticRenderFns = []
@@ -44014,7 +43814,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -44023,9 +43823,7 @@ var render = function () {
       ? _c(
           "label",
           [
-            _c(_vm.labelType, { tag: "component" }, [
-              _vm._v(_vm._s(_vm.label)),
-            ]),
+            _c(_vm.labelType, { tag: "component" }, [_vm._v(_vm._s(_vm.label))])
           ],
           1
         )
@@ -44034,7 +43832,7 @@ var render = function () {
     _vm.description.length
       ? _c("p", {
           staticClass: "cptm-form-group-info",
-          domProps: { innerHTML: _vm._s(_vm.description) },
+          domProps: { innerHTML: _vm._s(_vm.description) }
         })
       : _vm._e(),
     _vm._v(" "),
@@ -44044,14 +43842,14 @@ var render = function () {
         staticClass: "cptm-btn cptm-btn-secondery",
         attrs: { type: "button" },
         on: {
-          click: function ($event) {
+          click: function($event) {
             return _vm.exportJSON()
-          },
-        },
+          }
+        }
       },
       [
         _c("span", { staticClass: "fa fa-upload" }),
-        _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    "),
+        _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")
       ]
     ),
     _vm._v(" "),
@@ -44061,18 +43859,18 @@ var render = function () {
             "div",
             {
               staticClass: "cptm-form-alert",
-              class: "cptm-" + _vm.validation_message.type,
+              class: "cptm-" + _vm.validation_message.type
             },
             [
               _vm._v(
                 "\n            " +
                   _vm._s(_vm.validation_message.message) +
                   "\n        "
-              ),
+              )
             ]
-          ),
+          )
         ])
-      : _vm._e(),
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -44093,7 +43891,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -44102,9 +43900,7 @@ var render = function () {
       ? _c(
           "label",
           [
-            _c(_vm.labelType, { tag: "component" }, [
-              _vm._v(_vm._s(_vm.label)),
-            ]),
+            _c(_vm.labelType, { tag: "component" }, [_vm._v(_vm._s(_vm.label))])
           ],
           1
         )
@@ -44113,25 +43909,25 @@ var render = function () {
     _vm.description.length
       ? _c("p", {
           staticClass: "cptm-form-group-info",
-          domProps: { innerHTML: _vm._s(_vm.description) },
+          domProps: { innerHTML: _vm._s(_vm.description) }
         })
       : _vm._e(),
     _vm._v(" "),
     _c("input", {
       staticClass: "cptm-d-none",
       attrs: { type: "file", accept: ".json", id: _vm.fieldId },
-      on: { input: _vm.importJSON },
+      on: { input: _vm.importJSON }
     }),
     _vm._v(" "),
     _c(
       "label",
       {
         staticClass: "cptm-btn cptm-label-btn cptm-btn-secondery",
-        attrs: { for: _vm.fieldId },
+        attrs: { for: _vm.fieldId }
       },
       [
         _c("span", { staticClass: "fa fa-download" }),
-        _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    "),
+        _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")
       ]
     ),
     _vm._v(" "),
@@ -44141,18 +43937,18 @@ var render = function () {
             "div",
             {
               staticClass: "cptm-form-alert",
-              class: "cptm-" + _vm.validation_message.type,
+              class: "cptm-" + _vm.validation_message.type
             },
             [
               _vm._v(
                 "\n            " +
                   _vm._s(_vm.validation_message.message) +
                   "\n        "
-              ),
+              )
             ]
-          ),
+          )
         ])
-      : _vm._e(),
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -44173,7 +43969,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -44183,16 +43979,16 @@ var render = function () {
     _c("div", [
       _c("h2", {
         staticClass: "cptm-form-note-title",
-        domProps: { innerHTML: _vm._s(_vm.title) },
+        domProps: { innerHTML: _vm._s(_vm.title) }
       }),
       _vm._v(" "),
       _vm.description.length
         ? _c("div", {
             staticClass: "cptm-form-note-content",
-            domProps: { innerHTML: _vm._s(_vm.description) },
+            domProps: { innerHTML: _vm._s(_vm.description) }
           })
-        : _vm._e(),
-    ]),
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []
@@ -44213,7 +44009,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -44226,8 +44022,8 @@ var render = function () {
             "label",
             [
               _c(_vm.labelType, { tag: "component" }, [
-                _vm._v(_vm._s(_vm.label)),
-              ]),
+                _vm._v(_vm._s(_vm.label))
+              ])
             ],
             1
           )
@@ -44236,14 +44032,14 @@ var render = function () {
       _vm.description.length
         ? _c("p", {
             staticClass: "cptm-info-text",
-            domProps: { innerHTML: _vm._s(_vm.description) },
+            domProps: { innerHTML: _vm._s(_vm.description) }
           })
         : _vm._e(),
       _vm._v(" "),
       _c(
         "div",
         { staticClass: "cptm-radio-area" },
-        _vm._l(_vm.theOptions, function (option, option_index) {
+        _vm._l(_vm.theOptions, function(option, option_index) {
           return _c(
             "div",
             { key: option_index, staticClass: "cptm-radio-item" },
@@ -44254,14 +44050,14 @@ var render = function () {
                     name: "model",
                     rawName: "v-model",
                     value: _vm.local_value,
-                    expression: "local_value",
-                  },
+                    expression: "local_value"
+                  }
                 ],
                 staticClass: "cptm-radio",
                 attrs: {
                   type: "radio",
                   id: _vm.getOptionID(option, option_index, _vm.sectionId),
-                  name: _vm.name,
+                  name: _vm.name
                 },
                 domProps: {
                   value:
@@ -44269,31 +44065,31 @@ var render = function () {
                   checked: _vm._q(
                     _vm.local_value,
                     typeof option.value !== "undefined" ? option.value : ""
-                  ),
+                  )
                 },
                 on: {
-                  change: function ($event) {
+                  change: function($event) {
                     _vm.local_value =
                       typeof option.value !== "undefined" ? option.value : ""
-                  },
-                },
+                  }
+                }
               }),
               _vm._v(" "),
               _c(
                 "label",
                 {
                   attrs: {
-                    for: _vm.getOptionID(option, option_index, _vm.sectionId),
-                  },
+                    for: _vm.getOptionID(option, option_index, _vm.sectionId)
+                  }
                 },
                 [
                   _vm._v(
                     "\n                " +
                       _vm._s(option.label) +
                       "\n            "
-                  ),
+                  )
                 ]
-              ),
+              )
             ]
           )
         }),
@@ -44302,7 +44098,7 @@ var render = function () {
       _vm._v(" "),
       !_vm.theOptions.length
         ? _c("p", { staticClass: "cptm-info-text" }, [
-            _vm._v(_vm._s(_vm.infoTextForNoOption)),
+            _vm._v(_vm._s(_vm.infoTextForNoOption))
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -44312,21 +44108,21 @@ var render = function () {
           "field-id": _vm.fieldId,
           root: _vm.root,
           value: _vm.value,
-          rules: _vm.rules,
+          rules: _vm.rules
         },
         on: {
-          validate: function ($event) {
+          validate: function($event) {
             return _vm.$emit("validate", $event)
-          },
+          }
         },
         model: {
           value: _vm.validationLog,
-          callback: function ($$v) {
+          callback: function($$v) {
             _vm.validationLog = $$v
           },
-          expression: "validationLog",
-        },
-      }),
+          expression: "validationLog"
+        }
+      })
     ],
     1
   )
@@ -44349,7 +44145,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -44362,8 +44158,8 @@ var render = function () {
             "label",
             [
               _c(_vm.labelType, { tag: "component" }, [
-                _vm._v(_vm._s(_vm.label)),
-              ]),
+                _vm._v(_vm._s(_vm.label))
+              ])
             ],
             1
           )
@@ -44372,7 +44168,7 @@ var render = function () {
       _vm.description.length
         ? _c("p", {
             staticClass: "cptm-form-group-info",
-            domProps: { innerHTML: _vm._s(_vm.description) },
+            domProps: { innerHTML: _vm._s(_vm.description) }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -44382,8 +44178,8 @@ var render = function () {
             _c("span", { staticClass: "directorist_range-bar" }, [
               _c("span", {
                 staticClass: "directorist_range-fill",
-                style: _vm.rangeFillStyle,
-              }),
+                style: _vm.rangeFillStyle
+              })
             ]),
             _vm._v(" "),
             _c("input", {
@@ -44392,8 +44188,8 @@ var render = function () {
                   name: "model",
                   rawName: "v-model",
                   value: _vm.range_value,
-                  expression: "range_value",
-                },
+                  expression: "range_value"
+                }
               ],
               staticClass: "directorist_slider-input",
               attrs: {
@@ -44402,23 +44198,23 @@ var render = function () {
                 step: _vm.theStep,
                 min: _vm.theMin,
                 max: _vm.theMax,
-                name: _vm.name,
+                name: _vm.name
               },
               domProps: { value: _vm.range_value },
               on: {
-                __r: function ($event) {
+                __r: function($event) {
                   _vm.range_value = $event.target.value
-                },
-              },
-            }),
-          ]),
+                }
+              }
+            })
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "cptm-form-range-output" }, [
           _c("span", { staticClass: "cptm-form-range-output-text" }, [
-            _vm._v(_vm._s(_vm.range_value)),
-          ]),
-        ]),
+            _vm._v(_vm._s(_vm.range_value))
+          ])
+        ])
       ]),
       _vm._v(" "),
       _c("form-field-validatior", {
@@ -44427,21 +44223,21 @@ var render = function () {
           "field-id": _vm.fieldId,
           root: _vm.root,
           value: _vm.value,
-          rules: _vm.rules,
+          rules: _vm.rules
         },
         on: {
-          validate: function ($event) {
+          validate: function($event) {
             return _vm.$emit("validate", $event)
-          },
+          }
         },
         model: {
           value: _vm.validationLog,
-          callback: function ($$v) {
+          callback: function($$v) {
             _vm.validationLog = $$v
           },
-          expression: "validationLog",
-        },
-      }),
+          expression: "validationLog"
+        }
+      })
     ],
     1
   )
@@ -44464,7 +44260,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -44473,9 +44269,7 @@ var render = function () {
       ? _c(
           "label",
           [
-            _c(_vm.labelType, { tag: "component" }, [
-              _vm._v(_vm._s(_vm.label)),
-            ]),
+            _c(_vm.labelType, { tag: "component" }, [_vm._v(_vm._s(_vm.label))])
           ],
           1
         )
@@ -44484,7 +44278,7 @@ var render = function () {
     _vm.description.length
       ? _c("p", {
           staticClass: "cptm-form-group-info",
-          domProps: { innerHTML: _vm._s(_vm.description) },
+          domProps: { innerHTML: _vm._s(_vm.description) }
         })
       : _vm._e(),
     _vm._v(" "),
@@ -44494,14 +44288,14 @@ var render = function () {
         staticClass: "cptm-btn cptm-btn-secondery",
         attrs: { type: "button" },
         on: {
-          click: function ($event) {
+          click: function($event) {
             return _vm.restore()
-          },
-        },
+          }
+        }
       },
       [
         _c("span", { staticClass: "fa fa-download" }),
-        _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    "),
+        _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")
       ]
     ),
     _vm._v(" "),
@@ -44511,18 +44305,18 @@ var render = function () {
             "div",
             {
               staticClass: "cptm-form-alert",
-              class: "cptm-" + _vm.validation_message.type,
+              class: "cptm-" + _vm.validation_message.type
             },
             [
               _vm._v(
                 "\n            " +
                   _vm._s(_vm.validation_message.message) +
                   "\n        "
-              ),
+              )
             ]
-          ),
+          )
         ])
-      : _vm._e(),
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -44543,7 +44337,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _obj
   var _vm = this
   var _h = _vm.$createElement
@@ -44557,8 +44351,8 @@ var render = function () {
             "label",
             [
               _c(_vm.labelType, { tag: "component" }, [
-                _vm._v(_vm._s(_vm.label)),
-              ]),
+                _vm._v(_vm._s(_vm.label))
+              ])
             ],
             1
           )
@@ -44567,7 +44361,7 @@ var render = function () {
       _vm.description.length
         ? _c("p", {
             staticClass: "cptm-form-group-info",
-            domProps: { innerHTML: _vm._s(_vm.description) },
+            domProps: { innerHTML: _vm._s(_vm.description) }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -44578,16 +44372,16 @@ var render = function () {
             staticClass: "directorist_dropdown-toggle",
             attrs: { href: "#" },
             on: {
-              click: function ($event) {
+              click: function($event) {
                 $event.preventDefault()
                 return _vm.toggleTheOptionModal()
-              },
-            },
+              }
+            }
           },
           [
             _c("span", { staticClass: "directorist_dropdown-toggle__text" }, [
-              _vm._v(_vm._s(_vm.theCurrentOptionLabel)),
-            ]),
+              _vm._v(_vm._s(_vm.theCurrentOptionLabel))
+            ])
           ]
         ),
         _vm._v(" "),
@@ -44597,35 +44391,35 @@ var render = function () {
               {
                 staticClass: "directorist_dropdown-option",
                 class:
-                  ((_obj = {}), (_obj["--show"] = _vm.show_option_modal), _obj),
+                  ((_obj = {}), (_obj["--show"] = _vm.show_option_modal), _obj)
               },
               [
                 _c(
                   "ul",
-                  _vm._l(_vm.theOptions, function (option, option_key) {
+                  _vm._l(_vm.theOptions, function(option, option_key) {
                     return _c("li", { key: option_key }, [
                       _c("a", {
                         class: {
-                          active: option.value == _vm.value ? true : false,
+                          active: option.value == _vm.value ? true : false
                         },
                         attrs: { href: "#" },
                         domProps: {
-                          innerHTML: _vm._s(option.label ? option.label : ""),
+                          innerHTML: _vm._s(option.label ? option.label : "")
                         },
                         on: {
-                          click: function ($event) {
+                          click: function($event) {
                             $event.preventDefault()
                             return _vm.updateOption(option.value)
-                          },
-                        },
-                      }),
+                          }
+                        }
+                      })
                     ])
                   }),
                   0
-                ),
+                )
               ]
             )
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -44634,27 +44428,27 @@ var render = function () {
           staticClass: "cptm-d-none",
           domProps: { value: _vm.local_value },
           on: {
-            change: function ($event) {
+            change: function($event) {
               return _vm.update_value($event.target.value)
-            },
-          },
+            }
+          }
         },
         [
           _vm.showDefaultOption && _vm.default_option
             ? _c("option", { domProps: { value: _vm.default_option.value } }, [
-                _vm._v(_vm._s(_vm.default_option.label)),
+                _vm._v(_vm._s(_vm.default_option.label))
               ])
             : _vm._e(),
           _vm._v(" "),
-          _vm._l(_vm.theOptions, function (option, option_key) {
+          _vm._l(_vm.theOptions, function(option, option_key) {
             return [
               _c(
                 "option",
                 { key: option_key, domProps: { value: option.value } },
                 [_vm._v(_vm._s(option.label))]
-              ),
+              )
             ]
-          }),
+          })
         ],
         2
       ),
@@ -44665,21 +44459,21 @@ var render = function () {
           "field-id": _vm.fieldId,
           root: _vm.root,
           value: _vm.value,
-          rules: _vm.rules,
+          rules: _vm.rules
         },
         on: {
-          validate: function ($event) {
+          validate: function($event) {
             return _vm.$emit("validate", $event)
-          },
+          }
         },
         model: {
           value: _vm.validationLog,
-          callback: function ($$v) {
+          callback: function($$v) {
             _vm.validationLog = $$v
           },
-          expression: "validationLog",
-        },
-      }),
+          expression: "validationLog"
+        }
+      })
     ],
     1
   )
@@ -44702,7 +44496,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -44715,8 +44509,8 @@ var render = function () {
             "label",
             [
               _c(_vm.labelType, { tag: "component" }, [
-                _vm._v(_vm._s(_vm.label)),
-              ]),
+                _vm._v(_vm._s(_vm.label))
+              ])
             ],
             1
           )
@@ -44725,7 +44519,7 @@ var render = function () {
       _vm.description.length
         ? _c("p", {
             staticClass: "cptm-form-group-info",
-            domProps: { innerHTML: _vm._s(_vm.description) },
+            domProps: { innerHTML: _vm._s(_vm.description) }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -44733,7 +44527,7 @@ var render = function () {
         ? _c("input", {
             staticClass: "cptm-btn cptm-generate-shortcode-button",
             attrs: { type: "button", value: "Generate Shortcode" },
-            on: { click: _vm.generate },
+            on: { click: _vm.generate }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -44743,7 +44537,7 @@ var render = function () {
             {
               ref: "shortcode",
               staticClass: "cptm-shortcode",
-              on: { click: _vm.copyToClip },
+              on: { click: _vm.copyToClip }
             },
             [_vm._v(_vm._s(_vm.shortcode))]
           )
@@ -44751,9 +44545,9 @@ var render = function () {
       _vm._v(" "),
       _vm.successMsg.length
         ? _c("div", { staticClass: "cptm-info-text cptm-info-success" }, [
-            _vm._v(_vm._s(_vm.successMsg)),
+            _vm._v(_vm._s(_vm.successMsg))
           ])
-        : _vm._e(),
+        : _vm._e()
     ]
   )
 }
@@ -44775,7 +44569,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -44790,8 +44584,8 @@ var render = function () {
                 "label",
                 [
                   _c(_vm.labelType, { tag: "component" }, [
-                    _vm._v(_vm._s(_vm.label)),
-                  ]),
+                    _vm._v(_vm._s(_vm.label))
+                  ])
                 ],
                 1
               )
@@ -44800,23 +44594,23 @@ var render = function () {
           _vm.description.length
             ? _c("p", {
                 staticClass: "cptm-form-group-info",
-                domProps: { innerHTML: _vm._s(_vm.description) },
+                domProps: { innerHTML: _vm._s(_vm.description) }
               })
-            : _vm._e(),
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c(
           "div",
           {
             staticClass:
-              "atbdp-col atbdp-col-6 directorist-text-right directorist-mb-n20",
+              "atbdp-col atbdp-col-6 directorist-text-right directorist-mb-n20"
           },
           [
             _vm.successMsg.length
               ? _c("span", {
                   staticClass:
                     "cptm-info-text cptm-info-success directorist-center-content-inline",
-                  domProps: { innerHTML: _vm._s(_vm.successMsg) },
+                  domProps: { innerHTML: _vm._s(_vm.successMsg) }
                 })
               : _vm._e(),
             _vm._v(" "),
@@ -44827,15 +44621,15 @@ var render = function () {
                     staticClass: "cptm-btn cptm-generate-shortcode-button",
                     attrs: { type: "button" },
                     on: {
-                      click: function ($event) {
+                      click: function($event) {
                         return _vm.copyToClip("all-shortcodes")
-                      },
-                    },
+                      }
+                    }
                   },
                   [
                     _c("span", {
-                      domProps: { innerHTML: _vm._s(_vm.copyButtonLabel) },
-                    }),
+                      domProps: { innerHTML: _vm._s(_vm.copyButtonLabel) }
+                    })
                   ]
                 )
               : _vm._e(),
@@ -44845,16 +44639,16 @@ var render = function () {
               {
                 staticClass: "cptm-btn cptm-generate-shortcode-button",
                 attrs: { type: "button" },
-                on: { click: _vm.generateShortcode },
+                on: { click: _vm.generateShortcode }
               },
               [
                 _c("span", {
-                  domProps: { innerHTML: _vm._s(_vm.generateButtonLabel) },
-                }),
+                  domProps: { innerHTML: _vm._s(_vm.generateButtonLabel) }
+                })
               ]
-            ),
+            )
           ]
-        ),
+        )
       ]),
       _vm._v(" "),
       _vm.dirty
@@ -44863,24 +44657,24 @@ var render = function () {
               ? _c(
                   "div",
                   { ref: "all-shortcodes", staticClass: "cptm-shortcodes" },
-                  _vm._l(_vm.shortcodes_list, function (shortcode, i) {
+                  _vm._l(_vm.shortcodes_list, function(shortcode, i) {
                     return _c("p", {
                       key: i,
                       ref: "shortcodes",
                       refInFor: true,
                       staticClass: "directorist-alert",
-                      domProps: { innerHTML: _vm._s(shortcode) },
+                      domProps: { innerHTML: _vm._s(shortcode) }
                     })
                   }),
                   0
                 )
               : _c("div", [
                   _c("p", { staticClass: "directorist-alert" }, [
-                    _vm._v("Nothing to generate"),
-                  ]),
-                ]),
+                    _vm._v("Nothing to generate")
+                  ])
+                ])
           ])
-        : _vm._e(),
+        : _vm._e()
     ]
   )
 }
@@ -44902,7 +44696,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -44915,8 +44709,8 @@ var render = function () {
             "label",
             [
               _c(_vm.labelType, { tag: "component" }, [
-                _vm._v(_vm._s(_vm.label)),
-              ]),
+                _vm._v(_vm._s(_vm.label))
+              ])
             ],
             1
           )
@@ -44925,32 +44719,36 @@ var render = function () {
       _vm.description.length
         ? _c("p", {
             staticClass: "cptm-form-group-info",
-            domProps: { innerHTML: _vm._s(_vm.description) },
+            domProps: { innerHTML: _vm._s(_vm.description) }
           })
         : _vm._e(),
       _vm._v(" "),
-      (typeof _vm.filteredValue !== "object" ? true : false)
+      (typeof _vm.filteredValue !== "object"
+      ? true
+      : false)
         ? _c("input", {
             staticClass: "cptm-form-control",
             class: _vm.formControlClass,
             attrs: {
               type: _vm.input_type,
               placeholder: _vm.placeholder,
-              disabled: _vm.disable,
+              disabled: _vm.disable
             },
             domProps: { value: _vm.filteredValue },
             on: {
-              input: function ($event) {
+              input: function($event) {
                 return _vm.$emit("update", $event.target.value)
-              },
-            },
+              }
+            }
           })
         : _vm._e(),
       _vm._v(" "),
-      (typeof _vm.filteredValue === "object" ? true : false)
+      (typeof _vm.filteredValue === "object"
+      ? true
+      : false)
         ? _c("input", {
             attrs: { type: "hidden" },
-            domProps: { value: JSON.stringify(_vm.filteredValue) },
+            domProps: { value: JSON.stringify(_vm.filteredValue) }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -44960,21 +44758,21 @@ var render = function () {
           "field-id": _vm.fieldId,
           root: _vm.root,
           value: _vm.filteredValue,
-          rules: _vm.rules,
+          rules: _vm.rules
         },
         on: {
-          validate: function ($event) {
+          validate: function($event) {
             return _vm.$emit("validate", $event)
-          },
+          }
         },
         model: {
           value: _vm.validationLog,
-          callback: function ($$v) {
+          callback: function($$v) {
             _vm.validationLog = $$v
           },
-          expression: "validationLog",
-        },
-      }),
+          expression: "validationLog"
+        }
+      })
     ],
     1
   )
@@ -44997,7 +44795,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -45010,8 +44808,8 @@ var render = function () {
             "label",
             [
               _c(_vm.labelType, { tag: "component" }, [
-                _vm._v(_vm._s(_vm.label)),
-              ]),
+                _vm._v(_vm._s(_vm.label))
+              ])
             ],
             1
           )
@@ -45020,7 +44818,7 @@ var render = function () {
       _vm.description.length
         ? _c("p", {
             staticClass: "cptm-form-group-info",
-            domProps: { innerHTML: _vm._s(_vm.description) },
+            domProps: { innerHTML: _vm._s(_vm.description) }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -45030,8 +44828,8 @@ var render = function () {
             name: "model",
             rawName: "v-model",
             value: _vm.local_value,
-            expression: "local_value",
-          },
+            expression: "local_value"
+          }
         ],
         staticClass: "cptm-form-control",
         attrs: {
@@ -45039,17 +44837,17 @@ var render = function () {
           id: "",
           cols: _vm.cols,
           rows: _vm.rows,
-          placeholder: _vm.placeholder,
+          placeholder: _vm.placeholder
         },
         domProps: { value: _vm.local_value },
         on: {
-          input: function ($event) {
+          input: function($event) {
             if ($event.target.composing) {
               return
             }
             _vm.local_value = $event.target.value
-          },
-        },
+          }
+        }
       }),
       _vm._v(" "),
       _c("form-field-validatior", {
@@ -45058,21 +44856,21 @@ var render = function () {
           "field-id": _vm.fieldId,
           root: _vm.root,
           value: _vm.local_value,
-          rules: _vm.rules,
+          rules: _vm.rules
         },
         on: {
-          validate: function ($event) {
+          validate: function($event) {
             return _vm.$emit("validate", $event)
-          },
+          }
         },
         model: {
           value: _vm.validationLog,
-          callback: function ($$v) {
+          callback: function($$v) {
             _vm.validationLog = $$v
           },
-          expression: "validationLog",
-        },
-      }),
+          expression: "validationLog"
+        }
+      })
     ],
     1
   )
@@ -45095,7 +44893,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -45109,8 +44907,8 @@ var render = function () {
               "label",
               [
                 _c(_vm.labelType, { tag: "component" }, [
-                  _vm._v(_vm._s(_vm.label)),
-                ]),
+                  _vm._v(_vm._s(_vm.label))
+                ])
               ],
               1
             )
@@ -45119,7 +44917,7 @@ var render = function () {
         _vm.description.length
           ? _c("p", {
               staticClass: "cptm-form-group-info",
-              domProps: { innerHTML: _vm._s(_vm.description) },
+              domProps: { innerHTML: _vm._s(_vm.description) }
             })
           : _vm._e(),
         _vm._v(" "),
@@ -45129,10 +44927,10 @@ var render = function () {
               staticClass: "cptm-input-toggle",
               class: _vm.toggleClass,
               on: {
-                click: function ($event) {
+                click: function($event) {
                   return _vm.toggleValue()
-                },
-              },
+                }
+              }
             }),
             _vm._v(" "),
             _c("input", {
@@ -45141,18 +44939,18 @@ var render = function () {
                   name: "model",
                   rawName: "v-model",
                   value: _vm.local_value,
-                  expression: "local_value",
-                },
+                  expression: "local_value"
+                }
               ],
               staticStyle: { display: "none" },
               attrs: { type: "checkbox", id: _vm.name, name: _vm.name },
               domProps: {
                 checked: Array.isArray(_vm.local_value)
                   ? _vm._i(_vm.local_value, null) > -1
-                  : _vm.local_value,
+                  : _vm.local_value
               },
               on: {
-                change: function ($event) {
+                change: function($event) {
                   var $$a = _vm.local_value,
                     $$el = $event.target,
                     $$c = $$el.checked ? true : false
@@ -45170,9 +44968,9 @@ var render = function () {
                   } else {
                     _vm.local_value = $$c
                   }
-                },
-              },
-            }),
+                }
+              }
+            })
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "directorist_item" }, [
@@ -45183,13 +44981,13 @@ var render = function () {
                   class: _vm.compLinkClass,
                   attrs: {
                     href: _vm.comp.link.url,
-                    target: _vm.comp.link.target,
+                    target: _vm.comp.link.target
                   },
-                  domProps: { innerHTML: _vm._s(_vm.comp.link.label) },
+                  domProps: { innerHTML: _vm._s(_vm.comp.link.label) }
                 })
-              : _vm._e(),
-          ]),
-        ]),
+              : _vm._e()
+          ])
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -45197,10 +44995,10 @@ var render = function () {
         _vm._b(
           {
             on: {
-              cancel: function ($event) {
+              cancel: function($event) {
                 return _vm.confirmationOnCancel()
-              },
-            },
+              }
+            }
           },
           "confirmation-modal",
           _vm.confirmation,
@@ -45214,21 +45012,21 @@ var render = function () {
           "field-id": _vm.fieldId,
           root: _vm.root,
           value: _vm.value,
-          rules: _vm.rules,
+          rules: _vm.rules
         },
         on: {
-          validate: function ($event) {
+          validate: function($event) {
             return _vm.$emit("validate", $event)
-          },
+          }
         },
         model: {
           value: _vm.validationLog,
-          callback: function ($$v) {
+          callback: function($$v) {
             _vm.validationLog = $$v
           },
-          expression: "validationLog",
-        },
-      }),
+          expression: "validationLog"
+        }
+      })
     ],
     1
   )
@@ -45251,7 +45049,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -45264,8 +45062,8 @@ var render = function () {
             "label",
             [
               _c(_vm.labelType, { tag: "component" }, [
-                _vm._v(_vm._s(_vm.label)),
-              ]),
+                _vm._v(_vm._s(_vm.label))
+              ])
             ],
             1
           )
@@ -45274,7 +45072,7 @@ var render = function () {
       _vm.description.length
         ? _c("p", {
             staticClass: "cptm-form-group-info",
-            domProps: { innerHTML: _vm._s(_vm.description) },
+            domProps: { innerHTML: _vm._s(_vm.description) }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -45283,7 +45081,7 @@ var render = function () {
           ? _c("div", { staticClass: "cptm-thumbnail-img-wrap" }, [
               _c("img", {
                 staticClass: "cptm-thumbnail-img",
-                attrs: { src: _vm.thumbnailSrc, width: "100%", height: "auto" },
+                attrs: { src: _vm.thumbnailSrc, width: "100%", height: "auto" }
               }),
               _vm._v(" "),
               _vm.hasThumbnail
@@ -45292,33 +45090,33 @@ var render = function () {
                     {
                       staticClass: "cptm-thumbnail-action action-trash",
                       on: {
-                        click: function ($event) {
+                        click: function($event) {
                           return _vm.deleteThumbnail()
-                        },
-                      },
+                        }
+                      }
                     },
                     [_c("i", { staticClass: "uil uil-trash-alt" })]
                   )
-                : _vm._e(),
+                : _vm._e()
             ])
           : _vm._e(),
         _vm._v(" "),
         !_vm.thumbnailSrc.length
           ? _c("span", { staticClass: "cptm-thumbnail-placeholder" }, [
-              _vm._m(0),
+              _vm._m(0)
             ])
-          : _vm._e(),
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("input", {
         staticClass: "cptm-btn cptm-btn-primary",
         attrs: { type: "button", value: _vm.theButtonLabel },
         on: {
-          click: function ($event) {
+          click: function($event) {
             $event.preventDefault()
-            return _vm.openMediaPicker.apply(null, arguments)
-          },
-        },
+            return _vm.openMediaPicker($event)
+          }
+        }
       }),
       _vm._v(" "),
       _c("form-field-validatior", {
@@ -45327,34 +45125,34 @@ var render = function () {
           "field-id": _vm.fieldId,
           root: _vm.root,
           value: _vm.value,
-          rules: _vm.rules,
+          rules: _vm.rules
         },
         on: {
-          validate: function ($event) {
+          validate: function($event) {
             return _vm.$emit("validate", $event)
-          },
+          }
         },
         model: {
           value: _vm.validationLog,
-          callback: function ($$v) {
+          callback: function($$v) {
             _vm.validationLog = $$v
           },
-          expression: "validationLog",
-        },
-      }),
+          expression: "validationLog"
+        }
+      })
     ],
     1
   )
 }
 var staticRenderFns = [
-  function () {
+  function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "cptm-thumbnail-placeholder-icon" }, [
-      _c("i", { staticClass: "uil uil-image" }),
+      _c("i", { staticClass: "uil uil-image" })
     ])
-  },
+  }
 ]
 render._withStripped = true
 
@@ -45686,20 +45484,6 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "456d":
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ".icp__input[data-v-512dc202]{height:25px;border-radius:15px;width:40px;border:none;outline:none;-webkit-appearance:none;-moz-appearance:none;appearance:none;cursor:pointer;padding:0}.icp__input[data-v-512dc202]::-webkit-color-swatch-wrapper{padding:0}.icp__input[data-v-512dc202]::-webkit-color-swatch{border:none;border-radius:15px}.icp__input[data-v-512dc202]::-moz-color-swatch{border:none;border-radius:15px}", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
 /***/ "499e":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -45966,14 +45750,14 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ "5eed":
+/***/ "5597":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputColorPicker_vue_vue_type_style_index_0_id_512dc202_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("efc7");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputColorPicker_vue_vue_type_style_index_0_id_512dc202_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputColorPicker_vue_vue_type_style_index_0_id_512dc202_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputColorPicker_vue_vue_type_style_index_0_id_573fc563_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("ddb6");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputColorPicker_vue_vue_type_style_index_0_id_573fc563_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputColorPicker_vue_vue_type_style_index_0_id_573fc563_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputColorPicker_vue_vue_type_style_index_0_id_512dc202_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputColorPicker_vue_vue_type_style_index_0_id_573fc563_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -46055,17 +45839,31 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
+/***/ "89f6":
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ".icp__input[data-v-573fc563]{height:25px;border-radius:15px;width:40px;border:none;outline:none;-webkit-appearance:none;-moz-appearance:none;appearance:none;cursor:pointer;padding:0}.icp__input[data-v-573fc563]::-webkit-color-swatch-wrapper{padding:0}.icp__input[data-v-573fc563]::-webkit-color-swatch{border:none;border-radius:15px}.icp__input[data-v-573fc563]::-moz-color-swatch{border:none;border-radius:15px}", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
 /***/ "9217":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1d8d80b6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/InputColorPicker.vue?vue&type=template&id=512dc202&scoped=true&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('input',{staticClass:"icp__input",style:(_vm.styleObject),attrs:{"type":"color"},domProps:{"value":_vm.value},on:{"input":_vm.$_icp_handleInput,"change":_vm.$_icp_handleChange}})}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"36624c45-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/InputColorPicker.vue?vue&type=template&id=573fc563&scoped=true&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('input',{staticClass:"icp__input",style:(_vm.styleObject),attrs:{"type":"color"},on:{"input":_vm.$_icp_handleInput}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/InputColorPicker.vue?vue&type=template&id=512dc202&scoped=true&
+// CONCATENATED MODULE: ./src/components/InputColorPicker.vue?vue&type=template&id=573fc563&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/InputColorPicker.vue?vue&type=script&lang=js&
 //
@@ -46076,11 +45874,8 @@ var staticRenderFns = []
 //
 //
 //
-//
-//
 /* harmony default export */ var InputColorPickervue_type_script_lang_js_ = ({
   name: 'v-input-colorpicker',
-  props: ['value'],
   data: function data() {
     return {
       styleObject: {
@@ -46091,16 +45886,13 @@ var staticRenderFns = []
   methods: {
     $_icp_handleInput: function $_icp_handleInput(e) {
       this.$emit('input', e.target.value);
-    },
-    $_icp_handleChange: function $_icp_handleChange(e) {
-      this.$emit('change', e.target.value);
     }
   }
 });
 // CONCATENATED MODULE: ./src/components/InputColorPicker.vue?vue&type=script&lang=js&
  /* harmony default export */ var components_InputColorPickervue_type_script_lang_js_ = (InputColorPickervue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/InputColorPicker.vue?vue&type=style&index=0&id=512dc202&lang=css&scoped=true&
-var InputColorPickervue_type_style_index_0_id_512dc202_lang_css_scoped_true_ = __webpack_require__("5eed");
+// EXTERNAL MODULE: ./src/components/InputColorPicker.vue?vue&type=style&index=0&id=573fc563&lang=css&scoped=true&
+var InputColorPickervue_type_style_index_0_id_573fc563_lang_css_scoped_true_ = __webpack_require__("5597");
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
@@ -46212,7 +46004,7 @@ var component = normalizeComponent(
   staticRenderFns,
   false,
   null,
-  "512dc202",
+  "573fc563",
   null
   
 )
@@ -46282,18 +46074,18 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "efc7":
+/***/ "ddb6":
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__("456d");
+var content = __webpack_require__("89f6");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__("499e").default
-var update = add("1b43c8e4", content, true, {"sourceMap":false,"shadowMode":false});
+var update = add("3022cfee", content, true, {"sourceMap":false,"shadowMode":false});
 
 /***/ }),
 
@@ -46371,8 +46163,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.6.14
- * (c) 2014-2021 Evan You
+ * Vue.js v2.6.11
+ * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
 /*  */
@@ -48074,14 +47866,13 @@ function assertProp (
       type = [type];
     }
     for (var i = 0; i < type.length && !valid; i++) {
-      var assertedType = assertType(value, type[i], vm);
+      var assertedType = assertType(value, type[i]);
       expectedTypes.push(assertedType.expectedType || '');
       valid = assertedType.valid;
     }
   }
 
-  var haveExpectedTypes = expectedTypes.some(function (t) { return t; });
-  if (!valid && haveExpectedTypes) {
+  if (!valid) {
     warn(
       getInvalidTypeMessage(name, value, expectedTypes),
       vm
@@ -48099,9 +47890,9 @@ function assertProp (
   }
 }
 
-var simpleCheckRE = /^(String|Number|Boolean|Function|Symbol|BigInt)$/;
+var simpleCheckRE = /^(String|Number|Boolean|Function|Symbol)$/;
 
-function assertType (value, type, vm) {
+function assertType (value, type) {
   var valid;
   var expectedType = getType(type);
   if (simpleCheckRE.test(expectedType)) {
@@ -48116,12 +47907,7 @@ function assertType (value, type, vm) {
   } else if (expectedType === 'Array') {
     valid = Array.isArray(value);
   } else {
-    try {
-      valid = value instanceof type;
-    } catch (e) {
-      warn('Invalid prop type: "' + String(type) + '" is not a constructor', vm);
-      valid = false;
-    }
+    valid = value instanceof type;
   }
   return {
     valid: valid,
@@ -48129,15 +47915,13 @@ function assertType (value, type, vm) {
   }
 }
 
-var functionTypeCheckRE = /^\s*function (\w+)/;
-
 /**
  * Use function string name to check built-in types,
  * because a simple equality check will fail when running
  * across different vms / iframes.
  */
 function getType (fn) {
-  var match = fn && fn.toString().match(functionTypeCheckRE);
+  var match = fn && fn.toString().match(/^\s*function (\w+)/);
   return match ? match[1] : ''
 }
 
@@ -48162,19 +47946,18 @@ function getInvalidTypeMessage (name, value, expectedTypes) {
     " Expected " + (expectedTypes.map(capitalize).join(', '));
   var expectedType = expectedTypes[0];
   var receivedType = toRawType(value);
+  var expectedValue = styleValue(value, expectedType);
+  var receivedValue = styleValue(value, receivedType);
   // check if we need to specify expected value
-  if (
-    expectedTypes.length === 1 &&
-    isExplicable(expectedType) &&
-    isExplicable(typeof value) &&
-    !isBoolean(expectedType, receivedType)
-  ) {
-    message += " with value " + (styleValue(value, expectedType));
+  if (expectedTypes.length === 1 &&
+      isExplicable(expectedType) &&
+      !isBoolean(expectedType, receivedType)) {
+    message += " with value " + expectedValue;
   }
   message += ", got " + receivedType + " ";
   // check if we need to specify received value
   if (isExplicable(receivedType)) {
-    message += "with value " + (styleValue(value, receivedType)) + ".";
+    message += "with value " + receivedValue + ".";
   }
   return message
 }
@@ -48189,9 +47972,9 @@ function styleValue (value, type) {
   }
 }
 
-var EXPLICABLE_TYPES = ['string', 'number', 'boolean'];
 function isExplicable (value) {
-  return EXPLICABLE_TYPES.some(function (elem) { return value.toLowerCase() === elem; })
+  var explicitTypes = ['string', 'number', 'boolean'];
+  return explicitTypes.some(function (elem) { return value.toLowerCase() === elem; })
 }
 
 function isBoolean () {
@@ -48418,7 +48201,7 @@ if (true) {
   var allowedGlobals = makeMap(
     'Infinity,undefined,NaN,isFinite,isNaN,' +
     'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' +
-    'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt,' +
+    'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,' +
     'require' // for Webpack/Browserify
   );
 
@@ -48921,12 +48704,6 @@ function isWhitespace (node) {
 
 /*  */
 
-function isAsyncPlaceholder (node) {
-  return node.isComment && node.asyncFactory
-}
-
-/*  */
-
 function normalizeScopedSlots (
   slots,
   normalSlots,
@@ -48983,10 +48760,9 @@ function normalizeScopedSlot(normalSlots, key, fn) {
     res = res && typeof res === 'object' && !Array.isArray(res)
       ? [res] // single vnode
       : normalizeChildren(res);
-    var vnode = res && res[0];
     return res && (
-      !vnode ||
-      (res.length === 1 && vnode.isComment && !isAsyncPlaceholder(vnode)) // #9658, #10391
+      res.length === 0 ||
+      (res.length === 1 && res[0].isComment) // #9658
     ) ? undefined
       : res
   };
@@ -49059,28 +48835,26 @@ function renderList (
  */
 function renderSlot (
   name,
-  fallbackRender,
+  fallback,
   props,
   bindObject
 ) {
   var scopedSlotFn = this.$scopedSlots[name];
   var nodes;
-  if (scopedSlotFn) {
-    // scoped slot
+  if (scopedSlotFn) { // scoped slot
     props = props || {};
     if (bindObject) {
       if ( true && !isObject(bindObject)) {
-        warn('slot v-bind without argument expects an Object', this);
+        warn(
+          'slot v-bind without argument expects an Object',
+          this
+        );
       }
       props = extend(extend({}, bindObject), props);
     }
-    nodes =
-      scopedSlotFn(props) ||
-      (typeof fallbackRender === 'function' ? fallbackRender() : fallbackRender);
+    nodes = scopedSlotFn(props) || fallback;
   } else {
-    nodes =
-      this.$slots[name] ||
-      (typeof fallbackRender === 'function' ? fallbackRender() : fallbackRender);
+    nodes = this.$slots[name] || fallback;
   }
 
   var target = props && props.slot;
@@ -49130,7 +48904,6 @@ function checkKeyCodes (
   } else if (eventKeyName) {
     return hyphenate(eventKeyName) !== key
   }
-  return eventKeyCode === undefined
 }
 
 /*  */
@@ -49662,10 +49435,8 @@ function createComponent (
 }
 
 function createComponentInstanceForVnode (
-  // we know it's MountedComponentVNode but flow doesn't
-  vnode,
-  // activeInstance in lifecycle state
-  parent
+  vnode, // we know it's MountedComponentVNode but flow doesn't
+  parent // activeInstance in lifecycle state
 ) {
   var options = {
     _isComponent: true,
@@ -49805,7 +49576,7 @@ function _createElement (
     ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag);
     if (config.isReservedTag(tag)) {
       // platform built-in elements
-      if ( true && isDef(data) && isDef(data.nativeOn) && data.tag !== 'component') {
+      if ( true && isDef(data) && isDef(data.nativeOn)) {
         warn(
           ("The .native modifier for v-on is only valid on components but it was used on <" + tag + ">."),
           context
@@ -50129,6 +49900,12 @@ function resolveAsyncComponent (
       ? factory.loadingComp
       : factory.resolved
   }
+}
+
+/*  */
+
+function isAsyncPlaceholder (node) {
+  return node.isComment && node.asyncFactory
 }
 
 /*  */
@@ -50499,8 +50276,7 @@ function updateChildComponent (
   var hasDynamicScopedSlot = !!(
     (newScopedSlots && !newScopedSlots.$stable) ||
     (oldScopedSlots !== emptyObject && !oldScopedSlots.$stable) ||
-    (newScopedSlots && vm.$scopedSlots.$key !== newScopedSlots.$key) ||
-    (!newScopedSlots && vm.$scopedSlots.$key)
+    (newScopedSlots && vm.$scopedSlots.$key !== newScopedSlots.$key)
   );
 
   // Any static slot children from the parent may have changed during parent's
@@ -50954,8 +50730,11 @@ Watcher.prototype.run = function run () {
       var oldValue = this.value;
       this.value = value;
       if (this.user) {
-        var info = "callback for watcher \"" + (this.expression) + "\"";
-        invokeWithErrorHandling(this.cb, this.vm, [value, oldValue], this.vm, info);
+        try {
+          this.cb.call(this.vm, value, oldValue);
+        } catch (e) {
+          handleError(e, this.vm, ("callback for watcher \"" + (this.expression) + "\""));
+        }
       } else {
         this.cb.call(this.vm, value, oldValue);
       }
@@ -51177,8 +50956,6 @@ function initComputed (vm, computed) {
         warn(("The computed property \"" + key + "\" is already defined in data."), vm);
       } else if (vm.$options.props && key in vm.$options.props) {
         warn(("The computed property \"" + key + "\" is already defined as a prop."), vm);
-      } else if (vm.$options.methods && key in vm.$options.methods) {
-        warn(("The computed property \"" + key + "\" is already defined as a method."), vm);
       }
     }
   }
@@ -51332,10 +51109,11 @@ function stateMixin (Vue) {
     options.user = true;
     var watcher = new Watcher(vm, expOrFn, cb, options);
     if (options.immediate) {
-      var info = "callback for immediate watcher \"" + (watcher.expression) + "\"";
-      pushTarget();
-      invokeWithErrorHandling(cb, vm, [watcher.value], vm, info);
-      popTarget();
+      try {
+        cb.call(vm, watcher.value);
+      } catch (error) {
+        handleError(error, vm, ("callback for immediate watcher \"" + (watcher.expression) + "\""));
+      }
     }
     return function unwatchFn () {
       watcher.teardown();
@@ -51634,8 +51412,6 @@ function initAssetRegisters (Vue) {
 
 
 
-
-
 function getComponentName (opts) {
   return opts && (opts.Ctor.options.name || opts.tag)
 }
@@ -51657,9 +51433,9 @@ function pruneCache (keepAliveInstance, filter) {
   var keys = keepAliveInstance.keys;
   var _vnode = keepAliveInstance._vnode;
   for (var key in cache) {
-    var entry = cache[key];
-    if (entry) {
-      var name = entry.name;
+    var cachedNode = cache[key];
+    if (cachedNode) {
+      var name = getComponentName(cachedNode.componentOptions);
       if (name && !filter(name)) {
         pruneCacheEntry(cache, key, keys, _vnode);
       }
@@ -51673,9 +51449,9 @@ function pruneCacheEntry (
   keys,
   current
 ) {
-  var entry = cache[key];
-  if (entry && (!current || entry.tag !== current.tag)) {
-    entry.componentInstance.$destroy();
+  var cached$$1 = cache[key];
+  if (cached$$1 && (!current || cached$$1.tag !== current.tag)) {
+    cached$$1.componentInstance.$destroy();
   }
   cache[key] = null;
   remove(keys, key);
@@ -51693,32 +51469,6 @@ var KeepAlive = {
     max: [String, Number]
   },
 
-  methods: {
-    cacheVNode: function cacheVNode() {
-      var ref = this;
-      var cache = ref.cache;
-      var keys = ref.keys;
-      var vnodeToCache = ref.vnodeToCache;
-      var keyToCache = ref.keyToCache;
-      if (vnodeToCache) {
-        var tag = vnodeToCache.tag;
-        var componentInstance = vnodeToCache.componentInstance;
-        var componentOptions = vnodeToCache.componentOptions;
-        cache[keyToCache] = {
-          name: getComponentName(componentOptions),
-          tag: tag,
-          componentInstance: componentInstance,
-        };
-        keys.push(keyToCache);
-        // prune oldest entry
-        if (this.max && keys.length > parseInt(this.max)) {
-          pruneCacheEntry(cache, keys[0], keys, this._vnode);
-        }
-        this.vnodeToCache = null;
-      }
-    }
-  },
-
   created: function created () {
     this.cache = Object.create(null);
     this.keys = [];
@@ -51733,17 +51483,12 @@ var KeepAlive = {
   mounted: function mounted () {
     var this$1 = this;
 
-    this.cacheVNode();
     this.$watch('include', function (val) {
       pruneCache(this$1, function (name) { return matches(val, name); });
     });
     this.$watch('exclude', function (val) {
       pruneCache(this$1, function (name) { return !matches(val, name); });
     });
-  },
-
-  updated: function updated () {
-    this.cacheVNode();
   },
 
   render: function render () {
@@ -51779,9 +51524,12 @@ var KeepAlive = {
         remove(keys, key);
         keys.push(key);
       } else {
-        // delay setting the cache until update
-        this.vnodeToCache = vnode;
-        this.keyToCache = key;
+        cache[key] = vnode;
+        keys.push(key);
+        // prune oldest entry
+        if (this.max && keys.length > parseInt(this.max)) {
+          pruneCacheEntry(cache, keys[0], keys, this._vnode);
+        }
       }
 
       vnode.data.keepAlive = true;
@@ -51864,7 +51612,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.6.14';
+Vue.version = '2.6.11';
 
 /*  */
 
@@ -51901,7 +51649,7 @@ var isBooleanAttr = makeMap(
   'default,defaultchecked,defaultmuted,defaultselected,defer,disabled,' +
   'enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,' +
   'muted,nohref,noresize,noshade,novalidate,nowrap,open,pauseonexit,readonly,' +
-  'required,reversed,scoped,seamless,selected,sortable,' +
+  'required,reversed,scoped,seamless,selected,sortable,translate,' +
   'truespeed,typemustmatch,visible'
 );
 
@@ -52025,7 +51773,7 @@ var isHTMLTag = makeMap(
 // contain child elements.
 var isSVG = makeMap(
   'svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,' +
-  'foreignobject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' +
+  'foreignObject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' +
   'polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view',
   true
 );
@@ -52230,8 +51978,7 @@ var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
 
 function sameVnode (a, b) {
   return (
-    a.key === b.key &&
-    a.asyncFactory === b.asyncFactory && (
+    a.key === b.key && (
       (
         a.tag === b.tag &&
         a.isComment === b.isComment &&
@@ -52239,6 +51986,7 @@ function sameVnode (a, b) {
         sameInputType(a, b)
       ) || (
         isTrue(a.isAsyncPlaceholder) &&
+        a.asyncFactory === b.asyncFactory &&
         isUndef(b.asyncFactory.error)
       )
     )
@@ -53128,7 +52876,7 @@ function updateAttrs (oldVnode, vnode) {
     cur = attrs[key];
     old = oldAttrs[key];
     if (old !== cur) {
-      setAttr(elm, key, cur, vnode.data.pre);
+      setAttr(elm, key, cur);
     }
   }
   // #4391: in IE9, setting type can reset value for input[type=radio]
@@ -53148,8 +52896,8 @@ function updateAttrs (oldVnode, vnode) {
   }
 }
 
-function setAttr (el, key, value, isInPre) {
-  if (isInPre || el.tagName.indexOf('-') > -1) {
+function setAttr (el, key, value) {
+  if (el.tagName.indexOf('-') > -1) {
     baseSetAttr(el, key, value);
   } else if (isBooleanAttr(key)) {
     // set attribute for blank value
@@ -54072,7 +53820,7 @@ function updateDOMProps (oldVnode, vnode) {
       // skip the update if old and new VDOM state is the same.
       // `value` is handled separately because the DOM value may be temporarily
       // out of sync with VDOM state due to focus, composition and modifiers.
-      // This  #4521 by skipping the unnecessary `checked` update.
+      // This  #4521 by skipping the unnecesarry `checked` update.
       cur !== oldProps[key]
     ) {
       // some property updates can throw
@@ -55674,7 +55422,7 @@ var isNonPhrasingTag = makeMap(
 
 // Regular Expressions for parsing tags and attributes
 var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
-var dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+?\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
+var dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
 var ncname = "[a-zA-Z_][\\-\\.0-9_a-zA-Z" + (unicodeRegExp.source) + "]*";
 var qnameCapture = "((?:" + ncname + "\\:)?" + ncname + ")";
 var startTagOpen = new RegExp(("^<" + qnameCapture));
@@ -55980,7 +55728,7 @@ var modifierRE = /\.[^.\]]+(?=[^\]]*$)/g;
 var slotRE = /^v-slot(:|$)|^#/;
 
 var lineBreakRE = /[\r\n]/;
-var whitespaceRE$1 = /[ \f\t\r\n]+/g;
+var whitespaceRE$1 = /\s+/g;
 
 var invalidAttributeRE = /[\s"'<>\/=]/;
 
@@ -56028,12 +55776,8 @@ function parse (
   platformMustUseProp = options.mustUseProp || no;
   platformGetTagNamespace = options.getTagNamespace || no;
   var isReservedTag = options.isReservedTag || no;
-  maybeComponent = function (el) { return !!(
-    el.component ||
-    el.attrsMap[':is'] ||
-    el.attrsMap['v-bind:is'] ||
-    !(el.attrsMap.is ? isReservedTag(el.attrsMap.is) : isReservedTag(el.tag))
-  ); };
+  maybeComponent = function (el) { return !!el.component || !isReservedTag(el.tag); };
+
   transforms = pluckModuleFunction(options.modules, 'transformNode');
   preTransforms = pluckModuleFunction(options.modules, 'preTransformNode');
   postTransforms = pluckModuleFunction(options.modules, 'postTransformNode');
@@ -56326,7 +56070,7 @@ function parse (
       }
     },
     comment: function comment (text, start, end) {
-      // adding anything as a sibling to the root node is forbidden
+      // adding anyting as a sibling to the root node is forbidden
       // comments should still be allowed, but ignored
       if (currentParent) {
         var child = {
@@ -57284,9 +57028,9 @@ function genHandler (handler) {
       code += genModifierCode;
     }
     var handlerCode = isMethodPath
-      ? ("return " + (handler.value) + ".apply(null, arguments)")
+      ? ("return " + (handler.value) + "($event)")
       : isFunctionExpression
-        ? ("return (" + (handler.value) + ").apply(null, arguments)")
+        ? ("return (" + (handler.value) + ")($event)")
         : isFunctionInvocation
           ? ("return " + (handler.value))
           : handler.value;
@@ -57372,8 +57116,7 @@ function generate (
   options
 ) {
   var state = new CodegenState(options);
-  // fix #11483, Root level <script> tags should not be rendered.
-  var code = ast ? (ast.tag === 'script' ? 'null' : genElement(ast, state)) : '_c("div")';
+  var code = ast ? genElement(ast, state) : '_c("div")';
   return {
     render: ("with(this){return " + code + "}"),
     staticRenderFns: state.staticRenderFns
@@ -57838,7 +57581,7 @@ function genComment (comment) {
 function genSlot (el, state) {
   var slotName = el.slotName || '"default"';
   var children = genChildren(el, state);
-  var res = "_t(" + slotName + (children ? (",function(){return " + children + "}") : '');
+  var res = "_t(" + slotName + (children ? ("," + children) : '');
   var attrs = el.attrs || el.dynamicAttrs
     ? genProps((el.attrs || []).concat(el.dynamicAttrs || []).map(function (attr) { return ({
         // slot props are camelized
@@ -58422,8 +58165,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapMutations", function() { return mapMutations; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapState", function() { return mapState; });
 /*!
- * vuex v3.6.2
- * (c) 2021 Evan You
+ * vuex v3.5.1
+ * (c) 2020 Evan You
  * @license MIT
  */
 function applyMixin (Vue) {
@@ -58709,11 +58452,7 @@ ModuleCollection.prototype.isRegistered = function isRegistered (path) {
   var parent = this.get(path.slice(0, -1));
   var key = path[path.length - 1];
 
-  if (parent) {
-    return parent.hasChild(key)
-  }
-
-  return false
+  return parent.hasChild(key)
 };
 
 function update (path, targetModule, newModule) {
@@ -59388,7 +59127,7 @@ var mapState = normalizeNamespace(function (namespace, states) {
 /**
  * Reduce the code which written in Vue.js for committing the mutation
  * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept another params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
  * @return {Object}
  */
 var mapMutations = normalizeNamespace(function (namespace, mutations) {
@@ -59653,7 +59392,7 @@ function pad (num, maxLength) {
 var index = {
   Store: Store,
   install: install,
-  version: '3.6.2',
+  version: '3.5.1',
   mapState: mapState,
   mapMutations: mapMutations,
   mapGetters: mapGetters,

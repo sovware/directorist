@@ -351,6 +351,9 @@ If you want to contribute to the project, you’re most welcome to make it happe
 
 
 == Privacy Policy ==
+
+We use WordPress REST API to confirm the authenticity of a user attempting to gain access to directorist account to manage and install themes and extensions.
+
 Directorist – Business Directory Plugin uses Appsero SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
 
 Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**

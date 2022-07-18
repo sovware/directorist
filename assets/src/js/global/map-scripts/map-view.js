@@ -4,22 +4,12 @@ import {
 
 ;(function () {
 
-    // DOM Mutation observer
-    function initObserver(params) {
-        const targetNode = document.querySelector('.directorist-archive-contents');
-        const observer = new MutationObserver( initMap );
-        if(targetNode){
-            observer.observe( targetNode, { childList: true } );
-        }
-    }
-
-    window.addEventListener('DOMContentLoaded', initObserver );
     window.addEventListener('DOMContentLoaded', initMap );
     window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
     function initMap() {
         const mapData = get_dom_data('atbdp_map');
-
+        
         // Define Marker Shapes
         const MAP_PIN =
             'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';

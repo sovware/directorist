@@ -1357,7 +1357,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
     var form_data = _objectSpread(_objectSpread({}, data), fields);
 
-    console.log(form_data);
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
       return !item;
     });

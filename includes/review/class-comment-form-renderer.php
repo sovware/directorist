@@ -37,9 +37,9 @@ class Comment_Form_Renderer {
 
 	public static function render() {
 		try {
-			$nonce      = ! empty( $_REQUEST['nonce'] ) ? $_REQUEST['nonce'] : '';
-			$post_id    = ! empty( $_REQUEST['post_id'] ) ? absint( $_REQUEST['post_id'] ) : 0;
-			$comment_id = ! empty( $_REQUEST['comment_id'] ) ? absint( $_REQUEST['comment_id'] ) : 0;
+			$nonce      = ! empty( $_REQUEST['nonce'] ) ? sanitize_text_field( $_REQUEST['nonce'] ) : '';
+			$post_id    = ! empty( $_REQUEST['post_id'] ) ? absint( sanitize_text_field( $_REQUEST['post_id'] ) ) : 0;
+			$comment_id = ! empty( $_REQUEST['comment_id'] ) ? absint( sanitize_text_field( $_REQUEST['comment_id'] ) ) : 0;
 
 			if ( ! wp_verify_nonce( $nonce, self::AJAX_ACTION ) ) {
 				throw new Exception( __( 'Invalid request.', 'directorist' ), 400 );
@@ -105,7 +105,7 @@ class Comment_Form_Renderer {
 		<form id="directorist-form-comment-edit" class="directorist-review-submit__form directorist-form-comment-edit" action="<?php echo esc_url( self::get_action_url() ); ?>" method="post" enctype="multipart/form-data">
 			<?php
 			foreach ( $fields as $field ) {
-				echo $field;
+				echo esc_html( $field );
 			}
 
 			wp_nonce_field( Comment_Form_Processor::AJAX_ACTION, 'directorist_comment_nonce' );
@@ -375,7 +375,7 @@ class Comment_Form_Renderer {
 		?>
 		<div id="respond" class="<?php echo esc_attr( $args['class_container'] ); ?>">
 			<?php
-			echo $args['title_reply_before'];
+			echo esc_html( $args['title_reply_before'] );
 
 			comment_form_title( $args['title_reply'], $args['title_reply_to'] );
 
@@ -385,11 +385,11 @@ class Comment_Form_Renderer {
 
 			// echo $args['cancel_reply_after'];
 
-			echo $args['title_reply_after'];
+			echo esc_html( $args['title_reply_after'] );
 
 			if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) :
 
-				echo $args['must_log_in'];
+				echo esc_html( $args['must_log_in'] );
 				/**
 				 * Fires after the HTML-formatted 'must log in after' message in the comment form.
 				 *
@@ -443,7 +443,7 @@ class Comment_Form_Renderer {
 
 				else :
 
-					echo $args['comment_notes_before'];
+					echo esc_html( $args['comment_notes_before'] );
 
 				endif;
 
@@ -479,7 +479,7 @@ class Comment_Form_Renderer {
 						 */
 						echo apply_filters( 'directorist_comment_form_field_comment', $field );
 
-						echo $args['comment_notes_after'];
+						echo esc_html( $args['comment_notes_after'] );
 
 					} elseif ( ! is_user_logged_in() ) {
 

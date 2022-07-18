@@ -24,9 +24,9 @@ class Comment_Form_Processor {
 
 	public static function process() {
 		try {
-			$nonce      = ! empty( $_POST['directorist_comment_nonce'] ) ? $_POST['directorist_comment_nonce'] : '';
-			$post_id    = ! empty( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
-			$comment_id = ! empty( $_POST['comment_id'] ) ? absint( $_POST['comment_id'] ) : 0;
+			$nonce      = ! empty( $_POST['directorist_comment_nonce'] ) ? sanitize_text_field( $_POST['directorist_comment_nonce'] ) : '';
+			$post_id    = ! empty( $_POST['post_id'] ) ? absint( sanitize_text_field( $_POST['post_id'] ) ) : 0;
+			$comment_id = ! empty( $_POST['comment_id'] ) ? absint( sanitize_text_field( $_POST['comment_id'] ) ) : 0;
 
 			if ( ! wp_verify_nonce( $nonce, self::AJAX_ACTION ) ) {
 				throw new Exception( __( 'Invalid request.', 'directorist' ), 400 );
@@ -70,7 +70,7 @@ class Comment_Form_Processor {
 				}
 			}
 
-			if ( empty( $_POST['comment'] ) || empty( trim( $_POST['comment'] ) ) ) {
+			if ( empty( $_POST['comment'] ) || empty( trim( sanitize_text_field( $_POST['comment'] ) ) ) ) {
 				if ( $is_review ) {
 					$text = __( 'To submit your review, please describe your rating.', 'directorist' );
 				} else {
@@ -99,7 +99,7 @@ class Comment_Form_Processor {
 			Comment::post_rating( $comment_id, $comment_data, $_POST );
 			Comment::clear_transients( $comment->comment_post_ID );
 
-			$cpage = isset( $_POST['cpage'] ) ? absint( $_POST['cpage'] ) : 0;
+			$cpage = isset( $_POST['cpage'] ) ? absint( sanitize_text_field( $_POST['cpage'] ) ) : 0;
 			$redirect_to = get_permalink( $comment->comment_post_ID );
 			if ( $cpage ) {
 				$redirect_to = add_query_arg( 'cpage', $cpage, $redirect_to );

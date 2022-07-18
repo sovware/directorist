@@ -115,7 +115,7 @@ class Metabox {
 			return;
 		}
 
-		$nonce = ! empty( $_POST['directorist_comment_nonce'] ) ?  $_POST['directorist_comment_nonce'] : '';
+		$nonce = ! empty( $_POST['directorist_comment_nonce'] ) ? sanitize_text_field( $_POST['directorist_comment_nonce'] ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'directorist_edit_comment' ) ) {
 			return;
 		}

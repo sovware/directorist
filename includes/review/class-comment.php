@@ -61,7 +61,7 @@ class Comment {
 	 * @return array
 	 */
 	public static function validate_data( $comment_data ) {
-		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( $_POST['comment_post_ID'] ) ) ) {
+		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( sanitize_text_field( $_POST['comment_post_ID'] ) ) ) ) {
 			return $comment_data;
 		}
 
@@ -76,7 +76,7 @@ class Comment {
 				throw new Exception( __( '<strong>Error</strong>: You must login to share review.', 'directorist' ), 401 );
 			}
 
-			$post_id      = absint( $_POST['comment_post_ID'] );
+			$post_id      = absint( sanitize_text_field( $_POST['comment_post_ID'] ) );
 			$user_id      = $comment_data['user_ID'];
 			$author_email = $comment_data['comment_author_email'];
 			$builder      = Builder::get( $post_id );
@@ -204,11 +204,11 @@ class Comment {
 	}
 
 	public static function preprocess_comment_data( $comment_data ) {
-		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( $_POST['comment_post_ID'] ) ) ) {
+		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( sanitize_text_field( $_POST['comment_post_ID'] ) ) ) ) {
 			return $comment_data;
 		}
 
-		$builder = Builder::get( absint( $_POST['comment_post_ID'] ) );
+		$builder = Builder::get( absint( sanitize_text_field( $_POST['comment_post_ID'] ) ) );
 
 		if ( isset( $_POST['comment_parent'], $_POST['rating'], $comment_data['comment_type'] ) &&
 			$comment_data['comment_parent'] === 0 && self::is_default_comment_type( $comment_data['comment_type'] ) &&
@@ -270,7 +270,7 @@ class Comment {
 	}
 
 	public static function on_comment_post( $comment_id, $comment_approved, $comment_data ) {
-		$post_id = isset( $_POST['comment_post_ID'] ) ? absint( $_POST['comment_post_ID'] ) : 0; // WPCS: input var ok, CSRF ok.
+		$post_id = isset( $_POST['comment_post_ID'] ) ? absint( sanitize_text_field( $_POST['comment_post_ID'] ) ) : 0; // WPCS: input var ok, CSRF ok.
 
 		if ( $post_id && ATBDP_POST_TYPE === get_post_type( $post_id ) ) {
 			self::post_rating( $comment_id, $comment_data, $_POST );

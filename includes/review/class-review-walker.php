@@ -129,7 +129,7 @@ class Walker extends Walker_Comment {
 							<div class="directorist-review-single__author__img comment-author vcard">
 								<?php
 								if ( $args['avatar_size'] != 0 ) {
-									echo get_avatar( $comment, $args['avatar_size'] );
+									echo esc_html( get_avatar( $comment, $args['avatar_size'] ) );
 								}
 								?>
 							</div>
@@ -153,13 +153,13 @@ class Walker extends Walker_Comment {
 					</div>
 				</div>
 				<?php if ( $comment->comment_approved == '0' ) : ?>
-					<p><em class="comment-awaiting-moderation"><?php echo $moderation_note; ?></em></p>
+					<p><em class="comment-awaiting-moderation"><?php echo esc_html( $moderation_note ); ?></em></p>
 				<?php endif; ?>
 
 				<?php if ( $comment_reply_link || current_user_can( 'edit_comment', $comment->comment_ID ) ) : ?>
 				<div class="directorist-review-single__reply">
 					<?php
-					echo $comment_reply_link;
+					echo esc_html( $comment_reply_link );
 
 					echo directorist_get_comment_edit_link(
 						array_merge(

@@ -58,7 +58,7 @@ class Bootstrap {
 		if ( ! empty( $_GET['redirect'] ) ) {
 			$scope = null;
 
-			if ( ! empty( $_GET['scope'] ) && $_GET['scope'] === 'review' ) {
+			if ( ! empty( $_GET['scope'] ) && sanitize_text_field( $_GET['scope'] ) === 'review' ) {
 				$scope = '#respond';
 			}
 

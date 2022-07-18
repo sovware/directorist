@@ -21,7 +21,7 @@ class Email {
 	}
 
 	public static function maybe_disable_default_email() {
-		$post_id = isset( $_POST['comment_post_ID'] ) ? absint( $_POST['comment_post_ID'] ) : 0;
+		$post_id = isset( $_POST['comment_post_ID'] ) ? absint( sanitize_text_field( $_POST['comment_post_ID'] ) ) : 0;
 
 		if ( $post_id && ATBDP_POST_TYPE === get_post_type( $post_id ) ) {
 			remove_action( 'comment_post', 'wp_new_comment_notify_moderator' );

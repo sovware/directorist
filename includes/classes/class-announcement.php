@@ -119,7 +119,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                                 </button>
                             </div>
                         </div>
-                        <?php endwhile; 
+                        <?php endwhile;
                         wp_reset_postdata();
                         ?>
                     </div>
@@ -324,7 +324,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                                 </button>
                             </div>
                         </div>
-                        <?php endwhile; 
+                        <?php endwhile;
                         wp_reset_postdata();
                         ?>
                     </div>
@@ -344,66 +344,85 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
         // send_announcement
         public function send_announcement() {
-            $to            = ( isset( $_POST['to'] ) ) ? $_POST['to'] : '';
-            $recipient     = ( isset( $_POST['recipient'] ) ) ? $_POST['recipient'] : '';
-            $subject       = ( isset( $_POST['subject'] ) ) ? $_POST['subject'] : '';
-            $message       = ( isset( $_POST['message'] ) ) ? $_POST['message'] : '';
-            $expiration    = ( isset( $_POST['expiration'] ) ) ? $_POST['expiration'] : '';
-            $send_to_email = ( isset( $_POST['send_to_email'] ) ) ? $_POST['send_to_email'] : '';
-
-            if ( empty( $expiration ) ) {
-                $expiration = 365;
-            }
+			$nonce         = isset( $_POST['nonce'] ) ? wp_unslash( $_POST['nonce'] ) : '';
+			$to            = isset( $_POST['to'] ) ? wp_unslash( $_POST['to'] ) : 'all_user';
+			$recipient     = isset( $_POST['recipient'] ) ? wp_unslash( $_POST['recipient'] ) : '';
+			$subject       = isset( $_POST['subject'] ) ? sanitize_text_field( $_POST['subject'] ) : '';
+			$message       = isset( $_POST['message'] ) ? sanitize_textarea_field( $_POST['message'] ) : '';
+			$expiration    = isset( $_POST['expiration'] ) ? intval( $_POST['expiration'] ) : 0;
+			$send_to_email = isset( $_POST['send_to_email'] ) ? (bool) $_POST['send_to_email'] : true;
 
             $status = [
                 'success' => false,
-                'message' => __( 'Sorry, something went wrong, please try again' )
+                'message' => __( 'Sorry, something went wrong, please try again', 'directorist' )
             ];
+
+			if ( ! wp_verify_nonce( $nonce, directorist_get_nonce_key() ) ) {
+				$status['message'] = __( 'Invalid request', 'directorist' );
+				wp_send_json( $status );
+			}
+
+			// Only admin can send announcements
+			if ( ! current_user_can( 'manage_options' ) ) {
+				$status['message'] = __( 'You are not allowed to send announcement', 'directorist' );
+				wp_send_json( $status );
+			}
+
+			$recipients = array();
 
             // Get Recipient
             if ( 'selected_user' === $to ) {
-                $recipient = ( 'string' === gettype( $recipient ) ) ? explode(',', $recipient ) : null;
+                $recipients = explode( ',', $recipient );
+				$recipients = array_map( 'trim', $recipients );
+				$recipients = array_filter( $recipients, 'is_email' );
+				$recipients = array_unique( $recipients );
+
+				// Validate recipient
+				if ( empty( $recipients ) ) {
+					$status['message'] = __( 'No recipient found', 'directorist' );
+					wp_send_json( $status );
+				}
             }
 
-            if ( 'all_user' === $to ) {
-                $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
-                $recipient = [];
+			if ( 'all_user' === $to ) {
+				$users = get_users( array(
+					'role__not_in' => 'Administrator',   // Administrator | Subscriber
+					'fields'       => 'user_email'
+				) );
 
                 if ( ! empty( $users ) ) {
-                    foreach ( $users as $user ) {
-                        $recipient[] = $user->user_email;
-                    }
+                    $recipients = $users;
                 }
-            }
 
-            // Validate recipient
-            if ( empty( $recipient ) ) {
-                $status['message'] = __( 'No recipient found' );
-                wp_send_json( $status );
+				// Validate recipient
+				if ( empty( $recipients ) ) {
+					$status['message'] = __( 'No recipient found', 'directorist' );
+					wp_send_json( $status );
+				}
             }
 
             // Validate Subject
             if ( empty( $subject ) ) {
-                $status['message'] = __( 'The subject cant be empty' );
+                $status['message'] = __( 'The subject cannot be empty', 'directorist' );
                 wp_send_json( $status );
             }
 
             // Validate Message
             if ( strlen( $message ) > 400 ) {
-                $status['message'] = __( 'Maximum 400 characters are allowed for the message' );
+                $status['message'] = __( 'Maximum 400 characters are allowed for the message', 'directorist' );
                 wp_send_json( $status );
             }
 
             // Save the post
-            $announcement = wp_insert_post([
+            $announcement = wp_insert_post( array(
                 'post_type'    => 'listing-announcement',
                 'post_title'   => $subject,
                 'post_content' => $message,
                 'post_status'  => 'publish',
-            ]);
+			) );
 
             if ( is_wp_error( $announcement ) ) {
-                $status['message'] = __( 'Sorry, something went wrong, please try again' );
+                $status['message'] = __( 'Sorry, something went wrong, please try again', 'directorist' );
                 wp_send_json( $status );
             }
 
@@ -420,24 +439,26 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             update_post_meta( $announcement, '_closed', false );
             update_post_meta( $announcement, '_seen', false );
 
-            if ( is_numeric( $expiration ) ) {
-                $today = date("Y-m-d");
-                $exp_date = date('Y-m-d', strtotime( $today. " + {$expiration} days" ) );
-
-                update_post_meta( $announcement, '_exp_in_days', $expiration );
-                update_post_meta( $announcement, '_exp_date', $exp_date );
+			if ( empty( $expiration ) ) {
+                $expiration = 365;
             }
+
+			$today    = date( 'Y-m-d' );
+			$exp_date = date( 'Y-m-d', strtotime( $today . " + {$expiration} days" ) );
+
+			update_post_meta( $announcement, '_exp_in_days', $expiration );
+			update_post_meta( $announcement, '_exp_date', $exp_date );
 
             // Send email if enabled
             if ( $send_to_email ) {
                 $message = atbdp_email_html( $subject, $message );
                 $headers = ATBDP()->email->get_email_headers();
 
-                ATBDP()->email->send_mail( $recipient, $subject, $message, $headers );
+                ATBDP()->email->send_mail( $recipients, $subject, $message, $headers );
             }
 
-            $status['success']  = true;
-            $status['message'] = __( 'The announcement has been sent successfully' );
+            $status['success'] = true;
+            $status['message'] = __( 'The announcement has been sent successfully', 'directorist' );
 
             wp_send_json( $status );
         }

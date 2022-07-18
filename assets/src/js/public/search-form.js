@@ -144,8 +144,10 @@ import './../global/components/select2-custom-control';
             let config = default_args;
             $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
             $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
-            directorist_callingSlider();
-            directorist_range_slider('.directorist-range-slider', config);
+            if($(this).closest('.directorist-search-form, .directorist-archive-contents').find('.direcorist-search-field-radius_search').length){
+                directorist_callingSlider();
+                directorist_range_slider('.directorist-range-slider', config);
+            }
         });
         $(".directorist-advanced-filter").parents("div").css("overflow", "visible");
 
@@ -217,9 +219,9 @@ import './../global/components/select2-custom-control';
                 el.value = "";
             });
             searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
-                const radiusDefaultValue = searchForm.querySelector('.directorist-range-slider').dataset.defaultRadius;
                 if(el.getAttribute('name') === "directory_type") return;
                 if(el.getAttribute('name') === "miles"){
+                    const radiusDefaultValue = searchForm.querySelector('.directorist-range-slider').dataset.defaultRadius;
                     el.value = radiusDefaultValue;
                     return;
                 }
@@ -259,7 +261,10 @@ import './../global/components/select2-custom-control';
                         adsFormReset(searchForm);
                     }
                 }
-                directorist_callingSlider(0);
+                if($(this).closest('.directorist-search-contents').find('.direcorist-search-field-radius_search').length){
+                    directorist_callingSlider(0);
+                }
+
             });
         }
 
@@ -273,7 +278,9 @@ import './../global/components/select2-custom-control';
                         adsFormReset(searchForm);
                     }
                 }
-                directorist_callingSlider(0);
+                if($(this).closest('.directorist-advanced-filter').find('.direcorist-search-field-radius_search').length){
+                    directorist_callingSlider(0);
+                }
             });
         }
 
@@ -292,7 +299,9 @@ import './../global/components/select2-custom-control';
                         adsFormReset(searchForm);
                     }
                 }
-                directorist_callingSlider(0);
+                if($(this).closest('.directorist-search-contents').find('.direcorist-search-field-radius_search').length){
+                    directorist_callingSlider(0);
+                }
             });
         }
 
@@ -306,7 +315,9 @@ import './../global/components/select2-custom-control';
                         adsFormReset(searchForm);
                     }
                 }
-                directorist_callingSlider(0);
+                if($(this).closest('#directorist-search-area').find('.direcorist-search-field-radius_search').length){
+                    directorist_callingSlider(0);
+                }
             });
         }
 
@@ -320,7 +331,9 @@ import './../global/components/select2-custom-control';
                         adsFormReset(searchForm);
                     }
                 }
-                directorist_callingSlider(0);
+                if($(this).closest('.search-area').find('.direcorist-search-field-radius_search').length){
+                    directorist_callingSlider(0);
+                }
             });
         }
 
@@ -390,10 +403,17 @@ import './../global/components/select2-custom-control';
                             document.body.dispatchEvent(event);
                             window.dispatchEvent(event);
                         });
+
+                        handleRadiusVisibility();
                     }
 
-                    parent.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
-                    directorist_callingSlider();
+                    const parentAfterAjax = $(this).closest('.directorist-search-contents');
+
+                    parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
+                    if(parentAfterAjax.find('.directorist-search-form-box').find('.direcorist-search-field-radius_search').length){
+                        handleRadiusVisibility()
+                        directorist_callingSlider();
+                    }
                 },
                 error(error) {
                     console.log(error);
@@ -803,6 +823,7 @@ import './../global/components/select2-custom-control';
 
         /* When location field is empty we need to hide Radius Search */
         function handleRadiusVisibility(){
+            $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
             $('.directorist-location-js').each((index,locationDom)=>{
                 if($(locationDom).val() === ''){
                     $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "none"});
@@ -818,8 +839,10 @@ import './../global/components/select2-custom-control';
         // DOM Mutation observer
         function initObserver() {
             const targetNode = document.querySelector('.directorist-location-js');
-            const observer = new MutationObserver( handleRadiusVisibility );
-            observer.observe( targetNode, { attributes: true } );
+            if(targetNode){
+                const observer = new MutationObserver( handleRadiusVisibility );
+                observer.observe( targetNode, { attributes: true } );
+            }
         }
         initObserver();
         handleRadiusVisibility();

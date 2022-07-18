@@ -5,7 +5,7 @@
     if(targetNode){
         function initObserver() {
             const observer = new MutationObserver( initMap );
-            observer.observe( targetNode, { childList: true } );
+            targetNode && observer.observe( targetNode, { childList: true } );
         }
 
         window.addEventListener('DOMContentLoaded', initObserver );

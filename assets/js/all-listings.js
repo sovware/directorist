@@ -90,14 +90,8 @@
 /*!*******************************************************************!*\
   !*** ./assets/src/js/global/components/select2-custom-control.js ***!
   \*******************************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -106,34 +100,13 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var $ = jQuery;
-window.addEventListener('load', init);
-setup_dom_observer(); // Setup DOM Observer
+window.addEventListener('load', waitAndInit);
+window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
+window.addEventListener('directorist-type-change', waitAndInit);
+window.addEventListener('directorist-instant-search-reloaded', waitAndInit);
 
-function setup_dom_observer() {
-  // Select the select fields that will be observed for mutations
-  var observableItems = {
-    searchContents: document.querySelectorAll('.directorist-search-contents'),
-    searchFormBox: document.querySelectorAll('.directorist-search-form-box'),
-    selectFields: document.querySelectorAll('.directorist-select')
-  };
-  var observableElements = [];
-  Object.values(observableItems).forEach(function (item) {
-    if (item.length) {
-      observableElements = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(observableElements), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(item));
-    }
-  });
-
-  if (observableElements.length) {
-    // Create an observer instance linked to the callback function
-    var observer = new MutationObserver(init);
-    observableElements.forEach(function (item) {
-      // Start observing the target node for configured mutations
-      observer.observe(item, {
-        attributes: true,
-        childList: true
-      });
-    });
-  }
+function waitAndInit() {
+  setTimeout(init, 0);
 } // Initialize
 
 
@@ -266,10 +239,6 @@ function selec2_remove_custom_close_button(field) {
 }
 
 function selec2_get_addon_container(field) {
-  if (field && !field.length) {
-    return;
-  }
-
   var container = field ? $(field).next('.select2-container') : $('.select2-container');
   container = $(container).find('.directorist-select2-addons-area');
 
@@ -324,6 +293,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
@@ -1387,7 +1357,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
     var form_data = _objectSpread(_objectSpread({}, data), fields);
 
-    console.log(form_data);
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
       return !item;
     });
@@ -1428,6 +1397,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
             $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').replaceWith(html.search_result);
             $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
             $(_this).closest('.directorist-instant-search').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false);
+            window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
             window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
           }
         }
@@ -1549,6 +1519,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
               $('.directorist-archive-contents').find('.directorist-archive-items').replaceWith(html.search_result);
               $('.directorist-archive-contents').find('.directorist-archive-items').removeClass('atbdp-form-fade');
               $('.directorist-archive-contents').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false);
+              window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
               window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
             }
           }
@@ -1585,10 +1556,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         if (html.directory_type) {
           $(_this).closest('.directorist-instant-search').replaceWith(html.directory_type);
           $(_this).closest('.directorist-instant-search').find('.atbdp-form-fade').removeClass('atbdp-form-fade');
+          window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
         }
 
-        var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
+        var events = [new CustomEvent('directorist-instant-search-reloaded'), new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
         events.forEach(function (event) {
           document.body.dispatchEvent(event);
           window.dispatchEvent(event);
@@ -1705,6 +1677,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
           $(_this).closest('.directorist-instant-search').find('.directorist-viewas-dropdown .directorist-dropdown__links--single').removeClass("disabled-link");
           $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single');
+          window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
           $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').css('visibility', 'visible');
         }
@@ -1813,6 +1786,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single-js');
         }
 
+        window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
       }
     });
@@ -1926,6 +1900,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           $(document).scrollTop($(".directorist-instant-search").offset().top);
         }
 
+        window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
       }
     });
@@ -2302,6 +2277,14 @@ window.addEventListener('DOMContentLoaded', function () {
       _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
         key: "init",
         value: function init() {
+          var t = setTimeout(function () {
+            if ($('.directorist-review-container').length) {
+              $(document).off('submit', '#commentform');
+            }
+
+            clearTimeout(t);
+          }, 2000);
+          $(document).off('submit', '.directorist-review-container #commentform');
           $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
         }
       }, {
@@ -2580,6 +2563,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_instantSearch__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/instantSearch */ "./assets/src/js/public/components/instantSearch.js");
 /* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__);
 /*
     File: all-listings.js
     Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin

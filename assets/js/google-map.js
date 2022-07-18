@@ -329,16 +329,6 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function () {
-  // DOM Mutation observer
-  function initObserver(params) {
-    var targetNode = document.querySelector('.directorist-archive-contents');
-    var observer = new MutationObserver(initMap);
-    observer.observe(targetNode, {
-      childList: true
-    });
-  }
-
-  window.addEventListener('DOMContentLoaded', initObserver);
   window.addEventListener('DOMContentLoaded', initMap);
   window.addEventListener('directorist-reload-listings-map-archive', initMap);
 

@@ -1,6 +1,12 @@
 <?php
+/**
+ * @author  wpWax
+ * @since   7.0
+ * @version 7.3.0
+ */
 use \Directorist\Helper;
 ?>
+
 <div id="directorist" class="atbd_wrapper directorist directory_wrapper single_area directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">

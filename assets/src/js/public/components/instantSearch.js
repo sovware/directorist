@@ -158,7 +158,7 @@ import {
             ...data,
             ...fields
         };
-        
+
         const allFieldsAreEmpty = Object.values(fields).every(item => !item);
         const tagFieldEmpty = data.in_tag.every(item => !item);
         const priceFieldEmpty = data.price.every(item => !item);

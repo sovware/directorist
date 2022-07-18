@@ -4,6 +4,13 @@ var mapListings = JSON.parse($('#map').attr('data-card'));
 
 (function ($) {
     jQuery(document).ready(function ($) {
+
+        if ( window.directoristInitOpenstreatMap ) {
+            return;
+        }
+
+        window.directoristInitOpenstreatMap = true;
+
         const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ',

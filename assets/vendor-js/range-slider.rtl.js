@@ -23,8 +23,8 @@ const directorist_range_slider = (selector, obj) => {
     const slider = document.querySelectorAll(selector);
 
     slider.forEach((id, index) => {
-        var sliderData = JSON.parse(id.getAttribute('data-slider'));
-        min = sliderData.minValue;
+        var sliderDataMin = min;
+        var sliderDataUnit = id.getAttribute('data-slider-unit');
         id.setAttribute('style', `max-width: ${obj.maxWidth}; border: ${obj.barBorder}; width: 100%; height: 4px; background: ${obj.barColor}; position: relative; border-radius: 2px;`);
         id.innerHTML = div;
         let slide1 	= id.querySelector('.directorist-range-slider1'),
@@ -32,18 +32,19 @@ const directorist_range_slider = (selector, obj) => {
 
         slide1.style.background = obj.pointerColor;
         slide1.style.border = obj.pointerBorder;
-        document.querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${min}</span> ${sliderData.miles}`;
+        id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${min}</span> ${sliderDataUnit}`;
 
         var x 			= null,
             count 		= 0,
             slid1_val 	= 0,
-            slid1_val2 	= sliderData.minValue,
+            slid1_val2 	= sliderDataMin,
             count2 		= width;
 
         if(window.outerWidth < 600){
             id.classList.add('m-device');
             slide1.classList.add('m-device2');
         }
+
         slide1.addEventListener(down, (event) => {
             if(!touch){
                 event.preventDefault();
@@ -70,9 +71,9 @@ const directorist_range_slider = (selector, obj) => {
         count = (width / max);
         if(slide1.classList.contains('directorist-rs-active1')){
             var onLoadValue 	= count * min;
-            document.querySelector('.directorist-range-slider-current-value span').innerHTML = sliderData.minValue;
-            id.querySelector('.directorist-range-slider-minimum').value = sliderData.minValue;
-            id.querySelector('.directorist-rs-active1').style.right = onLoadValue <= 0 ? 0 : onLoadValue +'px';
+            id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value span').innerHTML = sliderDataMin;
+            id.querySelector('.directorist-range-slider-minimum').value = sliderDataMin;
+            id.querySelector('.directorist-rs-active1').style.left = onLoadValue <= 0 ? 0 : onLoadValue +'px';
             id.querySelector('.directorist-range-slider-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
         }
 
@@ -85,18 +86,17 @@ const directorist_range_slider = (selector, obj) => {
                 }
                 if(count < 0){
                     count = 0;
-                } else if(count > count2 - 19){
-                    count = count2 - 19;
+                } else if(count > count2 - 18){
+                    count = count2 - 18;
                 }
             }
             if(slide1.classList.contains('directorist-rs-active')){
-                slid1_val 	= Math.floor(max/ (width -19) * count);
-                document.querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${slid1_val}</span> ${sliderData.miles}`;
+                slid1_val 	= Math.floor(max/ (width -18) * count);
+                id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${slid1_val}</span> ${sliderDataUnit}`;
                 id.querySelector('.directorist-range-slider-minimum').value = slid1_val;
-                document.querySelector('.directorist-range-slider-value').value = slid1_val;
-                id.querySelector('.directorist-rs-active').style.right = count +'px';
+                id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value = slid1_val;
+                id.querySelector('.directorist-rs-active').style.left = count +'px';
                 id.querySelector('.directorist-range-slider-child').style.width = count+'px';
-
             }
         });
 
@@ -104,9 +104,10 @@ const directorist_range_slider = (selector, obj) => {
 };
 
 function directorist_callingSlider() {
+    const minValueWrapper = document.querySelector('.directorist-range-slider-value');
     var default_args = {
         maxValue: 1000,
-        minValue: 0,
+        minValue: parseInt(minValueWrapper && minValueWrapper.value),
         maxWidth: '100%',
         barColor: '#d4d5d9',
         barBorder: 'none',
@@ -114,7 +115,7 @@ function directorist_callingSlider() {
         pointerBorder: '4px solid #444752',
     };
 
-    var config = ( ( typeof atbdp_range_slider !== 'undefined' ) && atbdp_range_slider.slider_config && typeof atbdp_range_slider.slider_config === 'object' ) ? Object.assign( default_args, atbdp_range_slider.slider_config ) : default_args;
+    var config = ( directorist.slider_config && typeof directorist.slider_config === 'object' ) ? Object.assign( default_args, directorist.slider_config ) : default_args;
 
     directorist_range_slider ('.directorist-range-slider', config);
 }

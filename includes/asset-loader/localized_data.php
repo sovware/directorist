@@ -115,8 +115,8 @@ class Localized_Data {
 	public static function get_add_listings_data() {
 
 		$listing_id  = 0;
-		$current_url = $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-		$current_listing_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : get_post_meta( $listing_id, '_directory_type', true );
+		$current_url = $current_url="//". sanitize_text_field( $_SERVER['HTTP_HOST'] ) . sanitize_text_field( $_SERVER['REQUEST_URI'] );
+		$current_listing_type = isset( $_GET['directory_type'] ) ? sanitize_text_field( $_GET['directory_type'] ) : get_post_meta( $listing_id, '_directory_type', true );
 		if( ! empty( $current_listing_type ) && ! is_numeric( $current_listing_type ) ) {
 			$term = get_term_by( 'slug', $current_listing_type, ATBDP_TYPE );
 			$current_listing_type = ! empty( $term ) ? $term->term_id : '';
@@ -231,13 +231,13 @@ class Localized_Data {
 				'added_favourite'    => __( 'Added to favorite', 'directorist' ),
 				'please_login'          => __( 'Please login first', 'directorist' ),
 				'select_listing_map' => $select_listing_map,
-				'Miles'              => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
+				'Miles'              => ! empty( $_GET['miles'] ) ? sanitize_text_field( $_GET['miles'] ) : $miles,
 			),
 			'args'                     => $args,
 			'directory_type'           => $directory_type,
 			'directory_type_term_data' => $directory_type_term_data,
 			'ajax_url'                 => admin_url( 'admin-ajax.php' ),
-			'miles'                    => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
+			'miles'                    => ! empty( $_GET['miles'] ) ? sanitize_text_field( $_GET['miles'] ) : $miles,
 			'default_val'              => $default_radius_distance,
 			'countryRestriction'       => get_directorist_option( 'country_restriction' ),
 			'restricted_countries'     => get_directorist_option( 'restricted_countries' ),

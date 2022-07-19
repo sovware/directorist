@@ -115,8 +115,8 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
 			}
 
 			$favorites = directorist_get_user_favorites( $user_id );
-			$action    = ! empty( $_GET['atbdp_action'] ) ? $_GET['atbdp_action'] : '';
-			$listing_id  = ! empty( $_GET['atbdp_listing'] ) ? absint( $_GET['atbdp_listing'] ) : 0;
+			$action    = ! empty( $_GET['atbdp_action'] ) ? sanitize_text_field( $_GET['atbdp_action'] ) : '';
+			$listing_id  = ! empty( $_GET['atbdp_listing'] ) ? absint( sanitize_text_field( $_GET['atbdp_listing'] ) ) : 0;
 
             if ( ! empty( $action ) && ! empty( $listing_id ) ) {
                 if ( in_array( $listing_id, $favorites ) ) {

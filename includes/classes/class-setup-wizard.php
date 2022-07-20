@@ -97,6 +97,13 @@ class SetupWizard
                 }
             }
         }
+
+        /**
+         * @since 7.3.0
+         */
+
+        do_action( 'directorist_setup_wizard_completed' );
+
         update_option('atbdp_option', $atbdp_option);
     }
 
@@ -727,6 +734,12 @@ class SetupWizard
     public function directorist_step_four()
     {
         update_option( 'directorist_setup_wizard_completed', true );
+
+        /**
+         * @since 7.3.0
+         */
+
+        do_action( 'directorist_setup_wizard_completed' );
         ?>
         <div class="atbdp-c-body">
             <div class="wsteps-done">

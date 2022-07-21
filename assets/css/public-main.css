@@ -10104,6 +10104,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-listing-single.directorist-listing-card .directorist-listing-single__thumb .directorist-thumb-listing-author img {
   width: 100%;
   border-radius: 50%;
+  height: auto;
 }
 
 .directorist-listing-single.directorist-listing-list {

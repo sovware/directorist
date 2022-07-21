@@ -2107,38 +2107,11 @@ class Directorist_Listings {
     }
 
     public static function list_view_business_hours() {
-    	$content = '';
-    	$plan_hours              = true;
-    	$disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
-		$bdbh_version 			 = get_post_meta(get_the_ID(), '_bdbh_version', true);
-    	$enable247hour           = get_post_meta(get_the_ID(), '_enable247hour', true);
-    	$bdbh                    = get_post_meta(get_the_ID(), '_bdbh', true);
-    	$business_hours          = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array();
-
-    	if (is_fee_manager_active()) {
-    		$plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
-    	}
-
-    	if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
-    		if ( ! empty($enable247hour) ) {
-    			$content = "<span class='atbd_badge atbd_badge_open'>" . get_directorist_option('open_badge_text') . "</span>";
-    		}
-    		else {
-    			if (class_exists('BD_Business_Hour')) {
-    				$content = BD_Business_Hour()->show_business_open_close($business_hours, false);
-    			}
-    		}
-    	}
-
-    	echo $content;
+    	_deprecated_function( __METHOD__, '7.3.1' );
     }
 
     public static function mark_as_favourite_button() {
-    	$display_mark_as_fav = apply_filters('atbdp_listings_favourite_btn',get_directorist_option( 'display_mark_as_fav', 1 ));
-
-    	if ( ! empty( $display_mark_as_fav ) ) {
-    		echo atbdp_listings_mark_as_favourite( get_the_ID() );
-    	}
+		_deprecated_function( __METHOD__, '7.3.1' );
     }
 
 }

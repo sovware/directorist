@@ -6722,7 +6722,6 @@ p.atbd-min {
   background: #444752;
   position: absolute;
   top: 0;
-  /*rtl:ignore*/
   left: 0;
 }
 
@@ -10786,6 +10785,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 #map.leaflet-container,
 .directorist-single-map.leaflet-container,
 #gmap.leaflet-container {
+  /*rtl:ignore*/
+  direction: ltr;
   margin-bottom: 30px;
 }
 #map.leaflet-container .leaflet-popup,

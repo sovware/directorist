@@ -43,7 +43,7 @@ class Directorist_Account {
 			'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
 		];
 		wp_localize_script( 'directorist-main-script', 'ajax_login_object', $data );
-		
+
 		$args = [
 			'log_username'        => get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) ),
 			'log_password'        => get_directorist_option( 'log_password', __( 'Password', 'directorist' ) ),
@@ -64,11 +64,7 @@ class Directorist_Account {
 
 		];
 
-		ob_start();
-		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-		echo Helper::get_template_contents( 'account/login', $args );
-
-		return ob_get_clean();
+		return Helper::get_template_contents( 'account/login', $args );
 	}
 
 	public function render_shortcode_registration( $atts ) {
@@ -77,7 +73,7 @@ class Directorist_Account {
 		if( ! $new_user_registration ) {
 			return;
 		}
-		
+
 		if ( ! is_user_logged_in() ) {
 			$atts = shortcode_atts( array(
 				'user_type'			  => '',
@@ -122,11 +118,7 @@ class Directorist_Account {
 				'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : '',
 			);
 
-			ob_start();
-			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-			echo Helper::get_template_contents( 'account/registration', $args );
-
-			return ob_get_clean();
+			return Helper::get_template_contents( 'account/registration', $args );
 		}
 		else {
 			$error_message = sprintf( __( 'Registration page is only for unregistered user. <a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );

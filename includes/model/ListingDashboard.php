@@ -503,11 +503,7 @@ class Directorist_Listing_Dashboard {
 			return $this->restrict_access_template();
 		}
 
-		ob_start();
-		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-		echo Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
-
-		return ob_get_clean();
+		return Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
 	}
 
 	public function can_renew() {

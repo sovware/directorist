@@ -80,7 +80,7 @@ class Helper {
 		$min  = self::debug_enabled() ? '' : '.min';
 		$rtl  = ( !empty( $script['rtl'] ) && is_rtl() ) ? '.rtl' : '';
 		$ext  = $script['type'] == 'css' ? '.css' : '.js';
-		$url = $script['path'] . $min . $rtl . $ext;
+		$url = $script['path'] . $rtl . $min . $ext;
 		return $url;
 	}
 

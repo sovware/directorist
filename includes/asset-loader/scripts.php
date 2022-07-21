@@ -66,6 +66,7 @@ class Scripts {
 			'directorist-main-style' => [
 				'type' => 'css',
 				'path' => DIRECTORIST_CSS . 'public-main',
+				'rtl' => true,
 			],
 
 			// Admin CSS

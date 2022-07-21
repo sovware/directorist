@@ -73,7 +73,7 @@ const directorist_range_slider = (selector, obj) => {
             var onLoadValue 	= count * min;
             id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value span').innerHTML = sliderDataMin;
             id.querySelector('.directorist-range-slider-minimum').value = sliderDataMin;
-            id.querySelector('.directorist-rs-active1').style.left = onLoadValue <= 0 ? 0 : onLoadValue +'px';
+            id.querySelector('.directorist-rs-active1').style.right = onLoadValue <= 0 ? 0 : onLoadValue +'px';
             id.querySelector('.directorist-range-slider-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
         }
 
@@ -95,7 +95,7 @@ const directorist_range_slider = (selector, obj) => {
                 id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${slid1_val}</span> ${sliderDataUnit}`;
                 id.querySelector('.directorist-range-slider-minimum').value = slid1_val;
                 id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value = slid1_val;
-                id.querySelector('.directorist-rs-active').style.left = count +'px';
+                id.querySelector('.directorist-rs-active').style.right = count +'px';
                 id.querySelector('.directorist-range-slider-child').style.width = count+'px';
             }
         });

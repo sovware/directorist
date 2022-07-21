@@ -51,6 +51,7 @@ class Scripts {
 			'directorist-ez-media-uploader-style' => [
 				'type' => 'css',
 				'path' => DIRECTORIST_VENDOR_CSS . 'ez-media-uploader',
+				'rtl' => true,
 			],
 			'directorist-slick-style' => [
 				'type' => 'css',
@@ -65,6 +66,7 @@ class Scripts {
 			'directorist-main-style' => [
 				'type' => 'css',
 				'path' => DIRECTORIST_CSS . 'public-main',
+				'rtl' => true,
 			],
 
 			// Admin CSS

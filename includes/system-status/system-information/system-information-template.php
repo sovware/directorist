@@ -187,7 +187,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                         <?php foreach ( $php_information as $item => $value ) { ?>
                                             <tr>
                                                 <td class="atbds_table-title"><?php echo esc_html( $item ); ?>:</td>
-                                                <td><?php echo esc_html( $value ); ?></td>
+                                                <td><?php echo wp_kses_post( $value ); ?></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
@@ -622,7 +622,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                 }
                                         ?>
                                                 <tr>
-                                                    <td class="atbds_table-title"><?php echo esc_html( $plugin_name ); ?>:</td>
+                                                    <td class="atbds_table-title"><?php echo wp_kses_post( $plugin_name ); ?>:</td>
                                                     <td class="atbds_table-pointer">
                                                         <span class="atbd_tooltip">
                                                             <span class="atbd_tooltip__text"></span>

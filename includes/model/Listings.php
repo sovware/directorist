@@ -1125,15 +1125,11 @@ class Directorist_Listings {
 	}
 
 	public function get_dropdown_toggle_button_icon_class() {
-		$icon_type = get_directorist_option( 'font_type', '', true );
-		$prefix    = ( 'line' === $icon_type ) ? 'la' : 'fa';
-		$icon      = "directorist-toggle-has-${prefix}-icon";
-
-		return $icon;
+		_deprecated_function( __METHOD__, '7.3.1' );
 	}
 
 	public function dropdown_toggle_button_icon_class() {
-		echo $this->get_dropdown_toggle_button_icon_class();
+		_deprecated_function( __METHOD__, '7.3.1' );
 	}
 
 	public function get_sort_by_link_list() {
@@ -1423,9 +1419,9 @@ class Directorist_Listings {
 		);
 
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
-
+		$map_height = !empty( $this->listings_map_height ) ? $this->listings_map_height: '';
 		?>
-		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height)?$this->listings_map_height:'';?>px;">
+		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo esc_attr( $map_height );?>px;">
 			<?php
 
 			$listings = $this->query_results;
@@ -1746,9 +1742,7 @@ class Directorist_Listings {
 		}
 
 		public function header_container_class() {
-			$header_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
-			$header_container_fluid = apply_filters( 'atbdp_listings_header_container_fluid', $header_container_fluid );
-			echo ( ! empty( $header_container_fluid ) ) ? $header_container_fluid : '';
+			_deprecated_function( __METHOD__, '7.3.1' );
 		}
 
 		public function has_listings_header() {
@@ -1846,9 +1840,9 @@ class Directorist_Listings {
 
 				if ( $load_template ) {
 					// Print $before and $after here so that empty li or other wrapper tags are not printed.
-					echo $before;
+					echo wp_kses_post( $before );
 					Helper::get_template( $template, $args );
-					echo $after;
+					echo wp_kses_post( $after );
 				}
 			}
 		}
@@ -1876,7 +1870,8 @@ class Directorist_Listings {
 		public function print_label( $label ) {
 			if ( $label ) {
 				$label_text = $label . ': ';
-				echo apply_filters( 'directorist_loop_label', $label_text, $label );
+				$label_text = apply_filters( 'directorist_loop_label', $label_text, $label );
+				echo wp_kses_post( $label_text );
 			}
 			else {
 				return;
@@ -2010,7 +2005,7 @@ class Directorist_Listings {
 			$result = apply_filters('directorist_pagination', $navigation, $links, $this->query_results, $paged );
 
 			if ( $echo ) {
-				echo $result;
+				echo wp_kses_post( $result );
 			}
 			else {
 				return $result;

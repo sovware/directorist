@@ -315,7 +315,7 @@ class Directorist_Single_Listing {
 
 	public function section_id( $id ) {
 		if ( $id ) {
-			printf( 'id="%s"', $id );
+			printf( 'id="%s"', esc_attr( $id ) );
 		}
 		else {
 			return;

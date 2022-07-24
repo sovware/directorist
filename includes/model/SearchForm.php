@@ -338,7 +338,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function range_slider_data( $data ) {
-		
+
 		$data = [
 			'miles' => $this->range_slider_unit( $data ),
 			'minValue' => $this->range_slider_minValue( $data ),
@@ -534,7 +534,7 @@ class Directorist_Listing_Search_Form {
 
 	public function the_price_range_input($range) {
 		$checked = ! empty( $_REQUEST['price_range'] ) && $_REQUEST['price_range'] == $range ? ' checked="checked"' : '';
-		printf('<input type="radio" name="price_range" value="%s"%s>', $range, $checked);
+		printf('<input type="radio" name="price_range" value="%s"%s>', esc_attr( $range ), esc_attr( $checked ) );
 	}
 
 	public function get_atts_data() {
@@ -552,11 +552,7 @@ class Directorist_Listing_Search_Form {
 			return $redirect;
 		}
 
-		ob_start();
-		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-		echo Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
-
-		return ob_get_clean();
+		return Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
 	}
 
 	public function listing_type_slug() {

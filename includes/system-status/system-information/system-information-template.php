@@ -442,7 +442,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                             <span class="atbd_tooltip__text"></span>
                                                         </span>
                                                     </td>
-                                                    <td><?php print_r( esc_html( $value ) ) ?></td>
+                                                    <td><?php print_r( $value ); ?></td>
                                                 </tr>
                                         <?php
                                             }

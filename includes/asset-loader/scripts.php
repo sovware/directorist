@@ -73,6 +73,7 @@ class Scripts {
 			'directorist-admin-style' => [
 				'type' => 'css',
 				'path' => DIRECTORIST_CSS . 'admin-main',
+				'rtl'  => true,
 				'dep' => [
 					'directorist-font-awesome',
 					'directorist-line-awesome',

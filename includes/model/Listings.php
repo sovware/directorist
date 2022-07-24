@@ -756,12 +756,12 @@ class Directorist_Listings {
 		}
 
 		if ( ! empty( $_REQUEST['ids'] ) ) {
-			$args['post__in'] = wp_parse_id_list( $_REQUEST['ids'] );
+			$args['post__in'] = wp_parse_id_list( wp_unslash( $_REQUEST['ids'] ) );
 			$this->ids = $args['post__in'];
 		}
 
 		if ( ! empty( $_REQUEST['q'] ) ) {
-			$args['s'] = sanitize_text_field( $_REQUEST['q'] );
+			$args['s'] = sanitize_text_field( wp_unslash( $_REQUEST['q'] ) );
 		}
 
 		if ( $this->has_featured ) {
@@ -781,7 +781,7 @@ class Directorist_Listings {
 			$tax_queries[] = array(
 				'taxonomy'         => ATBDP_CATEGORY,
 				'field'            => 'term_id',
-				'terms'            => wp_parse_id_list( $_REQUEST['in_cat'] ),
+				'terms'            => wp_parse_id_list( wp_unslash( $_REQUEST['in_cat'] ) ),
 				'include_children' => true,
 			);
 		}
@@ -790,7 +790,7 @@ class Directorist_Listings {
 			$tax_queries[] = array(
 				'taxonomy'         => ATBDP_LOCATION,
 				'field'            => 'term_id',
-				'terms'            => wp_parse_id_list( $_REQUEST['in_loc'] ),
+				'terms'            => wp_parse_id_list( wp_unslash( $_REQUEST['in_loc'] ) ),
 				'include_children' => true,
 			);
 		}
@@ -799,7 +799,7 @@ class Directorist_Listings {
 			$tax_queries[] = array(
 				'taxonomy' => ATBDP_TAGS,
 				'field'    => 'term_id',
-				'terms'    => wp_parse_id_list( $_REQUEST['in_tag'] ),
+				'terms'    => wp_parse_id_list( wp_unslash( $_REQUEST['in_tag'] ) ),
 			);
 		}
 
@@ -873,13 +873,14 @@ class Directorist_Listings {
 		}
 
 		if ( ! empty( $_REQUEST['price'] ) ) {
-			$price = array_filter( $_REQUEST['price'] );
+			$price = array_map( 'intval', wp_unslash( $_REQUEST['price'] ) );
+			$price = array_filter( $price );
 
 			if ($n = count($price)) {
 				if ( 2 == $n ) {
 					$meta_queries[] = array(
 						'key'     => '_price',
-						'value'   => array_map( 'intval', $price ),
+						'value'   => $price,
 						'type'    => 'NUMERIC',
 						'compare' => 'BETWEEN'
 					);
@@ -887,14 +888,14 @@ class Directorist_Listings {
 					if (empty($price[0])) {
 						$meta_queries[] = array(
 							'key'     => '_price',
-							'value'   => (int) $price[1],
+							'value'   => $price[1],
 							'type'    => 'NUMERIC',
 							'compare' => '<='
 						);
 					} else {
 						$meta_queries[] = array(
 							'key'     => '_price',
-							'value'   => (int) $price[0],
+							'value'   => $price[0],
 							'type'    => 'NUMERIC',
 							'compare' => '>='
 						);
@@ -906,7 +907,7 @@ class Directorist_Listings {
 		if ( ! empty( $_REQUEST['price_range'] ) && 'none' !== $_REQUEST['price_range'] ) {
 			$meta_queries['_price_range'] = array(
 				'key'     => '_price_range',
-				'value'   => sanitize_text_field( $_REQUEST['price_range'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['price_range'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
@@ -914,7 +915,7 @@ class Directorist_Listings {
 		if ( ! empty( $_REQUEST['website'] ) ) {
 			$meta_queries['_website'] = array(
 				'key'     => '_website',
-				'value'   => sanitize_text_field( $_REQUEST['website'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['website'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
@@ -922,13 +923,13 @@ class Directorist_Listings {
 		if ( ! empty( $_REQUEST['email'] ) ) {
 			$meta_queries['_email'] = array(
 				'key'     => '_email',
-				'value'   => sanitize_text_field( $_REQUEST['email'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['email'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
 
 		if ( ! empty( $_REQUEST['phone'] ) ) {
-			$phone = sanitize_text_field( $_REQUEST['phone'] );
+			$phone = sanitize_text_field( wp_unslash( $_REQUEST['phone'] ) );
 			$meta_queries['_phone'] = array(
 				'relation' => 'OR',
 				array(
@@ -947,7 +948,7 @@ class Directorist_Listings {
 		if ( ! empty( $_REQUEST['fax'] ) ) {
 			$meta_queries['_fax'] = array(
 				'key'     => '_fax',
-				'value'   => sanitize_text_field( $_REQUEST['fax'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['fax'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
@@ -956,15 +957,15 @@ class Directorist_Listings {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
-				'latitude'  => sanitize_text_field( $_REQUEST['cityLat'] ),
-				'longitude' => sanitize_text_field( $_REQUEST['cityLng'] ),
-				'distance'  => sanitize_text_field( $_REQUEST['miles'] ),
+				'latitude'  => sanitize_text_field( wp_unslash( $_REQUEST['cityLat'] ) ),
+				'longitude' => sanitize_text_field( wp_unslash( $_REQUEST['cityLng'] ) ),
+				'distance'  => sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ),
 				'units'     => $this->radius_search_unit
 			);
 		} elseif ( ! empty($_REQUEST['address']) ) {
 			$meta_queries['_address'] = array(
 				'key'     => '_address',
-				'value'   => sanitize_text_field( $_REQUEST['address'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['address'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
@@ -973,21 +974,21 @@ class Directorist_Listings {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
-				'latitude'  => sanitize_text_field( $_REQUEST['zip-cityLat'] ),
-				'longitude' => sanitize_text_field( $_REQUEST['zip-cityLng'] ),
-				'distance'  => sanitize_text_field( $_REQUEST['miles'] ),
+				'latitude'  => sanitize_text_field( wp_unslash( $_REQUEST['zip-cityLat'] ) ),
+				'longitude' => sanitize_text_field( wp_unslash( $_REQUEST['zip-cityLng'] ) ),
+				'distance'  => sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ),
 				'units'     => $this->radius_search_unit
 			);
 		} elseif ( ! empty( $_REQUEST['zip'] ) ) {
 			$meta_queries['_zip'] = array(
 				'key'     => '_zip',
-				'value'   => sanitize_text_field( $_REQUEST['zip'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['zip'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
 
 		if ( ! empty( $_REQUEST['search_by_rating'] ) ) {
-			$rating_query = sanitize_text_field( $_REQUEST['search_by_rating'] );
+			$rating_query = sanitize_text_field( wp_unslash( $_REQUEST['search_by_rating'] ) );
 			$meta_queries['_rating'] = array(
 				'key'     => directorist_get_rating_field_meta_key(),
 				'value'   => absint( $rating_query ),
@@ -1136,9 +1137,9 @@ class Directorist_Listings {
 		$link_list = array();
 
 		$options       = atbdp_get_listings_orderby_options( $this->sort_by_items );
-		$queryString = $_SERVER['QUERY_STRING'];
+		$queryString = sanitize_text_field( wp_unslash( $_SERVER['QUERY_STRING'] ) );
 		parse_str($queryString, $arguments);
-		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';
+		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		foreach ( $options as $value => $label ) {
 			$arguments['sort'] 		   = $value;
 
@@ -1180,7 +1181,7 @@ class Directorist_Listings {
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
 		if ( isset( $_REQUEST['directory_type'] ) ) {
-			$current = $_REQUEST['directory_type'];
+			$current = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
 		}
 		else if( $this->default_directory_type ) {
 			$current = $this->default_directory_type;
@@ -1578,7 +1579,7 @@ class Directorist_Listings {
 				}
 			}
 			elseif ( isset($_GET['address'] ) ) {
-				$loc_name = sanitize_text_field( $_GET['address'] );
+				$loc_name = sanitize_text_field( wp_unslash( $_GET['address'] ) );
 			}
 
 			if ( $cat_name && $loc_name ) {

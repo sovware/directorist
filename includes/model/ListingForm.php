@@ -41,7 +41,7 @@ class Directorist_Listing_Form {
 
 	public function init() {
 		$listing_id = get_query_var( 'atbdp_listing_id', 0 );
-		$listing_id = empty( $listing_id ) && ! empty( $_REQUEST['edit'] ) ? $_REQUEST['edit'] : $listing_id;
+		$listing_id = empty( $listing_id ) && ! empty( $_REQUEST['edit'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['edit'] ) ) : $listing_id;
 
 		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
 	}
@@ -765,7 +765,7 @@ class Directorist_Listing_Form {
 			$type = $get_listing_type;
 		}
 		else {
-			$type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
+			$type = isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : '';
 		}
 		if( !empty( $type ) && ! is_numeric( $type ) ) {
 			$term = get_term_by( 'slug', $type, ATBDP_TYPE );

@@ -80,7 +80,7 @@ class Directorist_Account {
 			), $atts );
 
 			$user_type = ! empty( $atts['user_type'] ) ? $atts['user_type'] : '';
-			$user_type = ! empty( $_REQUEST['user_type'] ) ? $_REQUEST['user_type'] : $user_type;
+			$user_type = ! empty( $_REQUEST['user_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['user_type'] ) ) : $user_type;
 
 			$args = array(
 				'parent'               => 0,

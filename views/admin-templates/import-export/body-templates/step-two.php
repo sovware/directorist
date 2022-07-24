@@ -98,7 +98,7 @@ function csv_from_builder( $data = [] ) {
 				<span class="spinner is-active"></span>
 				<h2><?php esc_html_e( 'Importing', 'directorist' );
 					?></h2>
-				<p><?php esc_html_e( 'Your listing are now being imported...', 'directorist' );
+				<p><?php esc_html_e( 'Your listings are now being imported...', 'directorist' );
 					?></p>
 			</header>
 			<section>

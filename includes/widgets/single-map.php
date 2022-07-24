@@ -60,8 +60,9 @@ class Single_Map extends \WP_Widget {
 		echo wp_kses_post( $args['before_widget'] );
 
 		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Popular Listings', 'directorist');
+		$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
 		echo '<div class="atbd_widget_title">';
-		echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
+		echo wp_kses_post( $widget_title );
 		echo '</div>';
 
 		$map_zoom_level = !empty( $instance['zoom'] ) ? (int) $instance['zoom'] : get_directorist_option('map_zoom_level', 16 );

@@ -21,6 +21,7 @@ const prodConfig = {
     }),
     new WebpackRTLPlugin({
       minify: true,
+      filename: "../css/[name].rtl.min.css",
     }),
     new CleanWebpackPlugin({
       dry: false,
@@ -56,7 +57,7 @@ const prodConfig = {
         ],
       },
     }),
-    
+
   ],
 
   output: {

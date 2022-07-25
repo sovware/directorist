@@ -631,8 +631,8 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                     <td>
                                                         <?php
                                                         /* translators: %s: plugin author */
-                                                        printf( __('by %s', 'directorist'), esc_html( $plugin['author_name'] ) );
-                                                        echo ' &ndash; ' . esc_html( $plugin['version'] ) . esc_html( $version_string ) . esc_html( $network_string );
+                                                        printf( __('by %s', 'directorist'), wp_kses_post( $plugin['author_name'] ) );
+                                                        echo ' &ndash; ' . wp_kses_post( $plugin['version'] ) . wp_kses_post( $version_string ) . wp_kses_post( $network_string );
                                                         ?>
                                                     </td>
                                                 </tr>
@@ -696,7 +696,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                             </td>
                                             <td>
                                                 <?php
-                                                echo $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf( esc_html__( 'If you are modifying Directorist on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'directorist' ), 'https://developer.wordpress.org/themes/advanced-topics/child-themes/' );
+                                                echo $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf( __( 'If you are modifying Directorist on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'directorist' ), 'https://developer.wordpress.org/themes/advanced-topics/child-themes/' );
                                                 ?>
                                             </td>
                                         </tr>
@@ -726,7 +726,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                     echo esc_html( $theme['parent_version'] );
                                                     if ( version_compare( $theme['parent_version'], $theme['parent_latest_verison'], '<' ) ) {
                                                         /* translators: %s: parant theme latest version */
-                                                        echo ' &ndash; <strong style="color:red;">' . sprintf( esc_html( '%s is available', 'directorist' ), esc_html( $theme['parent_latest_verison'] ) ) . '</strong>';
+                                                        echo ' &ndash; <strong style="color:red;">' . sprintf( esc_html__( '%s is available', 'directorist' ), esc_html( $theme['parent_latest_verison'] ) ) . '</strong>';
                                                     }
                                                     ?>
                                                 </td>

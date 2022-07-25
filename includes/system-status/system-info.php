@@ -26,20 +26,20 @@ class ATBDP_System_Info_Email_Link
 		if ( function_exists( 'memory_get_usage' ) ) {
 			$wp_memory_limit = max( $wp_memory_limit, $this->directorist_let_to_num( @ini_get( 'memory_limit' ) ) );
 		}
-		
-		// User agent
-		$user_agent = isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '';
 
+		// User agent
+		$user_agent 	= isset( $_SERVER['HTTP_USER_AGENT'] ) ? wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) : '';
+		$default_role   = get_option( 'default_role' );
 		// Test POST requests
 		$post_response = wp_safe_remote_post( 'http://api.wordpress.org/core/browse-happy/1.1/', array(
 			'timeout'     => 10,
 			'user-agent'  => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . home_url(),
 			'httpversion' => '1.1',
 			'body'        => array(
-				'useragent'	=> $user_agent,
+			    'useragent' => sanitize_text_field( $user_agent ),
 			),
 		) );
-		
+
 		$post_response_body = NULL;
 		$post_response_successful = false;
 		if ( ! is_wp_error( $post_response ) && $post_response['response']['code'] >= 200 && $post_response['response']['code'] < 300 ) {
@@ -51,7 +51,7 @@ class ATBDP_System_Info_Email_Link
 		$get_response = wp_safe_remote_get( 'https://plugins.svn.wordpress.org/directorist/trunk/readme.txt', array(
 			'timeout'     => 10,
 			'user-agent'  => 'Directorist/' . ATBDP_VERSION,
-			'httpversion' => '1.1'
+			'httpversion' => '1.1',
 		) );
 		$get_response_successful = false;
 		if ( ! is_wp_error( $post_response ) && $post_response['response']['code'] >= 200 && $post_response['response']['code'] < 300 ) {
@@ -69,7 +69,7 @@ class ATBDP_System_Info_Email_Link
 			'wp_debug_mode'             => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
 			'wp_cron'                   => ! ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ),
 			'language'                  => get_locale(),
-			'server_info'               => $_SERVER['SERVER_SOFTWARE'],
+			'server_info'               => ! empty( $_SERVER['SERVER_SOFTWARE'] ) ? wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) : '',
 			'php_version'               => phpversion(),
 			'php_post_max_size'         => $this->directorist_let_to_num( ini_get( 'post_max_size' ) ),
 			'php_max_execution_time'    => ini_get( 'max_execution_time' ),
@@ -91,7 +91,8 @@ class ATBDP_System_Info_Email_Link
 			'platform'       			=> ! empty( $post_response_body['platform'] ) ? $post_response_body['platform'] : '-',
 			'browser_name'       		=> ! empty( $post_response_body['name'] ) ? $post_response_body['name'] : '-',
 			'browser_version'       	=> ! empty( $post_response_body['version'] ) ? $post_response_body['version'] : '-',
-			'user_agent'       			=> $user_agent
+			'user_agent'       			=> $user_agent,
+			'default_role'       		=> $default_role,
 		);
     }
 
@@ -192,7 +193,7 @@ class ATBDP_System_Info_Email_Link
 		global $wpdb;
 		return $wpdb->prefix . $table;
     }
-    
+
     /**
 	 * Get array of counts of objects. Orders, products, etc.
 	 *
@@ -243,7 +244,13 @@ class ATBDP_System_Info_Email_Link
 		$available_updates   = get_plugin_updates();
 
 		foreach ( $active_plugins as $plugin ) {
-			$data           = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
+			$plugin_file = trailingslashit( WP_PLUGIN_DIR ) . $plugin;
+
+			if ( ! file_exists( $plugin_file ) ) {
+				continue;
+			}
+
+			$data = get_plugin_data( $plugin_file );
 
 			// convert plugin data to json response format.
 			$active_plugins_data[] = array(
@@ -254,7 +261,7 @@ class ATBDP_System_Info_Email_Link
 				'author_name'       => $data['AuthorName'],
 				'author_url'        => esc_url_raw( $data['AuthorURI'] ),
 				'network_activated' => $data['Network'],
-				'latest_verison'	=> ( array_key_exists( $plugin, $available_updates ) ) ? $available_updates[$plugin]->update->new_version : $data['Version']
+				'latest_verison'    => ( $plugin && array_key_exists( $plugin, $available_updates ) ) ? $available_updates[ $plugin ]->update->new_version : $data['Version'],
 			);
 		}
 
@@ -262,7 +269,7 @@ class ATBDP_System_Info_Email_Link
     }
 
     /**
-	 * Get info on the current active theme, info on parent theme (if presnet)
+	 * Get info on the current active theme, info on parent theme (if present)
 	 * and a list of template overrides.
 	 *
 	 * @return array
@@ -301,20 +308,16 @@ class ATBDP_System_Info_Email_Link
 
 			if ( file_exists( $located ) ) {
 				$theme_file = $located;
-			} elseif ( file_exists( get_stylesheet_directory() . '/' . $file ) ) {
-				$theme_file = get_stylesheet_directory() . '/' . $file;
-			} elseif ( file_exists( get_stylesheet_directory() . '/' . 'directorist/' . $file ) ) {
-				$theme_file = get_stylesheet_directory() . '/' . 'directorist/' . $file;
-			} elseif ( file_exists( get_template_directory() . '/' . $file ) ) {
-				$theme_file = get_template_directory() . '/' . $file;
-			} elseif ( file_exists( get_template_directory() . '/' . 'directorist/' . $file ) ) {
-				$theme_file = get_template_directory() . '/' . 'directorist/' . $file;
+			} elseif ( file_exists( get_stylesheet_directory() . '/directorist/' . $file ) ) {
+				$theme_file = get_stylesheet_directory() . '/directorist/' . $file;
+			} elseif ( file_exists( get_template_directory() . '/directorist/' . $file ) ) {
+				$theme_file = get_template_directory() . '/directorist/' . $file;
 			} else {
 				$theme_file = false;
 			}
-			
+
 			if ( ! empty( $theme_file ) ) {
-				$core_version  = self::get_file_version( ATBDP_DIR . '/templates' . $file );
+				$core_version  = self::get_file_version( ATBDP_DIR . 'templates/' . $file );
 				$theme_version = self::get_file_version( $theme_file );
 				if ( $core_version && ( empty( $theme_version ) || version_compare( $theme_version, $core_version, '<' ) ) ) {
 					if ( ! $outdated_templates ) {
@@ -341,7 +344,7 @@ class ATBDP_System_Info_Email_Link
 
 		return array_merge( $active_theme_info, $parent_theme_info );
     }
-    
+
     /**
 	 * Get latest version of a theme by slug.
      *
@@ -373,19 +376,20 @@ class ATBDP_System_Info_Email_Link
 
 		// Check GeoDirectory Theme Version.
 		} elseif ( strstr( $theme->{'Author URI'}, 'aazztech' ) ) {
-			$theme_dir = substr( strtolower( str_replace( ' ','', $theme->Name ) ), 0, 45 );
+			$theme_dir = substr( strtolower( str_replace( ' ', '', $theme->name ) ), 0, 45 );
+			$theme_version_data = get_transient( $theme_dir . '_version_data' );
 
-			if ( false === ( $theme_version_data = get_transient( $theme_dir . '_version_data' ) ) ) {
+			if ( false === $theme_version_data ) {
 				$theme_changelog = wp_safe_remote_get( 'http://dzv365zjfbd8v.cloudfront.net/changelogs/' . $theme_dir . '/changelog.txt' );
 				$cl_lines  = explode( "\n", wp_remote_retrieve_body( $theme_changelog ) );
 				if ( ! empty( $cl_lines ) ) {
 					foreach ( $cl_lines as $line_num => $cl_line ) {
 						if ( preg_match( '/^[0-9]/', $cl_line ) ) {
-							$theme_date         = str_replace( '.' , '-' , trim( substr( $cl_line , 0 , strpos( $cl_line , '-' ) ) ) );
-							$theme_version      = preg_replace( '~[^0-9,.]~' , '' ,stristr( $cl_line , "version" ) );
-							$theme_update       = trim( str_replace( "*" , "" , $cl_lines[ $line_num + 1 ] ) );
-							$theme_version_data = array( 'date' => $theme_date , 'version' => $theme_version , 'update' => $theme_update , 'changelog' => $theme_changelog );
-							set_transient( $theme_dir . '_version_data', $theme_version_data , DAY_IN_SECONDS );
+							$theme_date         = str_replace( '.', '-', trim( substr( $cl_line, 0, strpos( $cl_line, '-' ) ) ) );
+							$theme_version      = preg_replace( '~[^0-9,.]~', '',stristr( $cl_line, "version" ) );
+							$theme_update       = trim( str_replace( '*', '', $cl_lines[ $line_num + 1 ] ) );
+							$theme_version_data = array( 'date' => $theme_date, 'version' => $theme_version, 'update' => $theme_update, 'changelog' => $theme_changelog );
+							set_transient( $theme_dir . '_version_data', $theme_version_data, DAY_IN_SECONDS );
 							break;
 						}
 					}
@@ -429,7 +433,7 @@ class ATBDP_System_Info_Email_Link
 			'session.use_cookies',
 			'session.use_only_cookies',
 		);
-		
+
 		$dump_php['Version'] = phpversion();
 		foreach ( $php_vars as $setting ) {
 			$dump_php[ $setting ] = ini_get( $setting );
@@ -444,7 +448,7 @@ class ATBDP_System_Info_Email_Link
 	public function _error_reporting() {
 		$levels          = array();
 		$error_reporting = error_reporting();
-	
+
 		$constants = array(
 			'E_ERROR',
 			'E_WARNING',
@@ -463,7 +467,7 @@ class ATBDP_System_Info_Email_Link
 			'E_USER_DEPRECATED',
 			'E_ALL',
 		);
-	
+
 		foreach ( $constants as $level ) {
 			if ( defined( $level ) ) {
 				$c = constant( $level );
@@ -472,10 +476,10 @@ class ATBDP_System_Info_Email_Link
 				}
 			}
 		}
-	
+
 		return $levels;
     }
-    
+
     /**
 	 * Scan the template files.
 	 *
@@ -539,7 +543,7 @@ class ATBDP_System_Info_Email_Link
 
 		return $version;
 	}
-    
+
     /**
      * let_to_num function.
      *
@@ -568,9 +572,9 @@ class ATBDP_System_Info_Email_Link
     }
 
     function directorist_help_tip( $tip ) {
-	
+
         $tip = esc_attr( $tip );
-        
+
         return '<span class="atbdp-help-tip dashicons dashicons-editor-help" title="' . $tip . '"></span>';
     }
 }

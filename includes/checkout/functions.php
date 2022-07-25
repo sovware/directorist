@@ -108,7 +108,7 @@ function atbdp_send_to_success_page($query_string = null)
     if ($query_string)
         $redirect .= $query_string;
 
-    $gateway = isset($_REQUEST['atbdp-gateway']) ? $_REQUEST['atbdp-gateway'] : '';
+    $gateway = isset($_REQUEST['atbdp-gateway']) ? sanitize_text_field( $_REQUEST['atbdp-gateway'] ) : '';
 
     wp_redirect(apply_filters('atbdp_success_page_redirect', $redirect, $gateway, $query_string));
     wp_die();
@@ -124,7 +124,7 @@ function atbdp_send_to_success_page($query_string = null)
 function atbdp_get_checkout_uri($args = array())
 {
     $uri = get_directorist_option('purchase_page');
-    $uri = isset($uri) ? get_permalink($uri) : NULL;
+    $uri = isset( $uri ) ? trailingslashit( get_permalink( $uri ) ) : null;
 
     if (!empty($args)) {
         // Check for backward compatibility
@@ -220,7 +220,7 @@ function atbdp_listen_for_failed_payments()
 
     if (!empty($failed_page) && is_page($failed_page) && !empty($_GET['payment-id'])) {
 
-        $payment_id = absint($_GET['payment-id']);
+        $payment_id = absint( wp_unslash( $_GET['payment-id'] ) );
         $payment = get_post($payment_id);
         $status = atbdp_get_payment_status($payment);
 

@@ -2,7 +2,7 @@
 /**
  * Checkout
  *
- * @package       directorist
+ * @package       Directorist
  * @subpackage    directorist/includes/checkout
  * @copyright     Copyright 2018. AazzTech
  * @license       https://www.gnu.org/licenses/gpl-3.0.en.html GNU Public License

@@ -3,7 +3,7 @@
 (function ($) {
     jQuery(document).ready(function () {
         // Localized Data
-        if ($('.directorist-single-contents-area .directorist-single-map').length) {
+        if ($('.directorist-single-map').length) {
             document.querySelectorAll('.directorist-single-map').forEach(mapElm => {
                 const mapData = JSON.parse(mapElm.getAttribute('data-map'));
                 const loc_default_latitude = parseFloat(mapData.default_latitude);

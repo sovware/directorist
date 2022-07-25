@@ -1,5 +1,5 @@
 /* range slider */
-var directorist_range_slider = (selector, obj) => {
+export var directorist_range_slider = (selector, obj) => {
     var isDraging 	= false,
         max 		= obj.maxValue,
         min 		= obj.minValue,
@@ -18,6 +18,15 @@ var directorist_range_slider = (selector, obj) => {
         down 	= 'touchstart';
         up 		= 'touchend';
         move 	= 'touchmove';
+    }
+
+    //RTL
+    var isRTL = (directorist.rtl === 'true');
+    var direction;
+    if(isRTL){
+        direction = 'right';
+    }else{
+        direction = 'left';
     }
 
     var slider = document.querySelectorAll(selector);
@@ -73,15 +82,15 @@ var directorist_range_slider = (selector, obj) => {
             var onLoadValue 	= count * min;
             id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value span').innerHTML = sliderDataMin;
             id.querySelector('.directorist-range-slider-minimum').value = sliderDataMin;
-            id.querySelector('.directorist-rs-active1').style.left = onLoadValue <= 0 ? 0 : onLoadValue +'px';
+            id.querySelector('.directorist-rs-active1').style[direction] = onLoadValue <= 0 ? 0 : onLoadValue +'px';
             id.querySelector('.directorist-range-slider-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
         }
 
         document.body.addEventListener(move, (e) => {
             if(isDraging){
-                count = e.clientX + slid1_val2 * width / max - x;
+                count = !isRTL ? (e.clientX + slid1_val2 * width / max - x) : (- e.clientX + slid1_val2 * width / max + x);
                 if (touch){
-                    count = e.touches[0].clientX + slid1_val2 * width / max - x;
+                    count = !isRTL ? (e.touches[0].clientX + slid1_val2 * width / max - x) : (- e.touches[0].clientX + slid1_val2 * width / max + x);
                 }
                 if(count < 0){
                     count = 0;
@@ -94,15 +103,14 @@ var directorist_range_slider = (selector, obj) => {
                 id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${slid1_val}</span> ${sliderDataUnit}`;
                 id.querySelector('.directorist-range-slider-minimum').value = slid1_val;
                 id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value = slid1_val;
-                id.querySelector('.directorist-rs-active').style.left = count +'px';
+                id.querySelector('.directorist-rs-active').style[direction] = count +'px';
                 id.querySelector('.directorist-range-slider-child').style.width = count+'px';
             }
         });
-
     });
 };
 
-function directorist_callingSlider() {
+export function directorist_callingSlider() {
     const minValueWrapper = document.querySelector('.directorist-range-slider-value');
     var default_args = {
         maxValue: 1000,

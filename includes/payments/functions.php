@@ -754,7 +754,7 @@ function atbdp_get_payment_status_i18n($status)
 {
 
     $statuses = atbdp_get_payment_statuses();
-    return array_key_exists($status, $statuses) ? $statuses[$status] : __('Invalid', 'directorist');
+    return array_key_exists($status, $statuses) ? $statuses[$status] : esc_html__('Invalid', 'directorist');
 
 }
 

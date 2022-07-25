@@ -43,5 +43,67 @@
             alert(directorist.login_alert_message);
             return false;
         });
+
+        //password recovery
+        let on_processing = false;
+
+        $('body').on('submit', '#directorist-password-recovery', function (e) {
+            e.preventDefault();
+
+            if (on_processing) {
+                $('.directorist_password_recovery_btn').attr('disabled', true);
+                return;
+            }
+
+            $(' .directorist_password_recovery_bnt ').append('<span class="directorist_form_submited">' + directorist.loading_message + '</span>');
+
+            const $form = $(e.target);
+
+            let form_data = new FormData();
+            const fieldValuePairs = $form.serializeArray();
+
+            form_data.append('action', 'directorist_password_recovery');
+            form_data.append('directorist_nonce', directorist.directorist_nonce);
+
+            for ( const field of fieldValuePairs ) {
+
+                if ( '' === field.value ) {
+                    continue;
+                }
+    
+                form_data.append( field.name, field.value );
+            }
+            
+            on_processing = true;
+
+            $.ajax({
+                method: 'POST',
+                processData: false,
+                contentType: false,
+                url: directorist.ajax_url,
+                data: form_data,
+                success: function ( response ) {
+
+                    $(' .directorist_form_submited ').remove();
+
+                    if( response['error_msg'] ) {
+                        on_processing = false;
+                        $(' .directorist_password_recovery_bnt ').append('<span class="status-failed">' + response['error_msg'] + '</span>');
+                    }
+
+                    if( response['success_msg'] ) {
+                        $(' .directorist_password_recovery_bnt ').append('<span class="status-failed">' + response['success_msg'] + '</span>');
+                    }
+                    
+                },
+                error: function (response) {
+
+                    $(' .directorist_form_submited ').remove();
+
+                    $(' .directorist_password_recovery_bnt ').append('<span class="status-failed">' + directorist.login_error_message + '</span>');
+                }
+            });
+            e.preventDefault();
+        });
     });
 })(jQuery);

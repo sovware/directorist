@@ -111,6 +111,73 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             //instant search
             add_action('wp_ajax_directorist_instant_search', array( $this, 'instant_search' ) );
             add_action('wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
+            
+            //password recovery
+            add_action('wp_ajax_directorist_password_recovery', array( $this, 'directorist_password_recovery' ) );
+            add_action('wp_ajax_nopriv_directorist_password_recovery', array( $this, 'directorist_password_recovery' ) );
+        }
+
+
+
+        public function directorist_password_recovery() {
+
+            $data = array();
+			if ( ! directorist_verify_nonce() ) {
+                $data['error_msg'] = esc_html__( 'Something is wrong! Please refresh and retry', 'directorist');
+                wp_send_json( $data );
+            }  
+            $email = ! empty( $_POST['user_login'] ) ? sanitize_email( $_POST['user_login'] ) : '';
+           
+            if( ! $email ) {
+                $data['error_msg'] = esc_html__( 'Enter an e-mail address..', 'directorist');
+            }else if( ! is_email( $email ) ) {
+                $data['error_msg'] = esc_html__( 'Invalid e-mail address.', 'directorist');
+            }else if( ! email_exists( $email ) ) {
+                $data['error_msg'] = esc_html__( 'Email is not registered.', 'directorist');
+            }
+
+            if( ! empty( $data['error_msg'] ) ) {
+                $data['error_msg'] = $data['error_msg'];
+                wp_send_json( $data );
+            }
+
+            $user = get_user_by( 'email', $email );
+            if( ! $user ) {
+                $data['error_msg'] = esc_html__( 'User not found!.', 'directorist' );
+                wp_send_json( $user );
+            }
+
+            $random_password = wp_generate_password( 22, false );
+
+            // if  update user return true then lets send user an email containing the new password
+            $subject = esc_html__( '	Password Reset Request', 'directorist' );
+
+            $site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+            $message   = esc_html__( 'Someone has requested a password reset for the following account:', 'directorist' ) . '<br>';
+            /* translators: %s: site name */
+            $message .= sprintf( esc_html__( 'Site Name: %s', 'directorist' ), $site_name ) . '<br>';
+            /* translators: %s: user login */
+            $message .= sprintf( esc_html__( 'User: %s', 'directorist' ), $user->user_login ) . '<br>';
+            $message .= esc_html__( 'If this was a mistake, just ignore this email and nothing will happen.', 'directorist' ) . '<br>';
+            $message .= esc_html__( 'To reset your password, visit the following address:', 'directorist' ) . '<br>';
+            $link = [
+                'key'  => $random_password,
+                'user' => $email,
+            ];
+            $message .= '<a href="' . esc_url( add_query_arg( $link, ATBDP_Permalink::get_login_page_url() ) ) . '">' . esc_url( add_query_arg( $link, ATBDP_Permalink::get_login_page_url() ) ) . '</a>';
+
+            $message = atbdp_email_html( $subject, $message );
+
+            $headers[] = 'Content-Type: text/html; charset=UTF-8';
+            $mail      = wp_mail( $email, $subject, $message, $headers );
+            if ( $mail ) {
+                update_user_meta( $user->ID, '_atbdp_recovery_key', $random_password );
+                $data['success_msg'] = esc_html__( 'A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox.', 'directorist' );
+            } else {
+                $data['error_msg'] = esc_html__( 'Something went wrong sending email.', 'directorist' );
+            }
+
+            wp_send_json( $data );
         }
 
         public function instant_search() {

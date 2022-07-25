@@ -162,6 +162,12 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 ;
 
 (function ($) {
@@ -209,6 +215,68 @@
       e.preventDefault();
       alert(directorist.login_alert_message);
       return false;
+    }); //password recovery
+
+    var on_processing = false;
+    $('body').on('submit', '#directorist-password-recovery', function (e) {
+      e.preventDefault();
+
+      if (on_processing) {
+        $('.directorist_password_recovery_btn').attr('disabled', true);
+        return;
+      }
+
+      $(' .directorist_password_recovery_bnt ').append('<span class="directorist_form_submited">' + directorist.loading_message + '</span>');
+      var $form = $(e.target);
+      var form_data = new FormData();
+      var fieldValuePairs = $form.serializeArray();
+      form_data.append('action', 'directorist_password_recovery');
+      form_data.append('directorist_nonce', directorist.directorist_nonce);
+
+      var _iterator = _createForOfIteratorHelper(fieldValuePairs),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var field = _step.value;
+
+          if ('' === field.value) {
+            continue;
+          }
+
+          form_data.append(field.name, field.value);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      on_processing = true;
+      $.ajax({
+        method: 'POST',
+        processData: false,
+        contentType: false,
+        url: directorist.ajax_url,
+        data: form_data,
+        success: function success(response) {
+          $(' .directorist_form_submited ').remove();
+
+          if (response['error_msg']) {
+            on_processing = false;
+            $(' .directorist_password_recovery_bnt ').append('<span class="status-failed">' + response['error_msg'] + '</span>');
+          }
+
+          if (response['success_msg']) {
+            $(' .directorist_password_recovery_bnt ').append('<span class="status-failed">' + response['success_msg'] + '</span>');
+          }
+        },
+        error: function error(response) {
+          $(' .directorist_form_submited ').remove();
+          $(' .directorist_password_recovery_bnt ').append('<span class="status-failed">' + directorist.login_error_message + '</span>');
+        }
+      });
+      e.preventDefault();
     });
   });
 })(jQuery);

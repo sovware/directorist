@@ -26,6 +26,13 @@ $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlid
 		<?php
 		if ( ! empty( $data['images'] ) ) :
 			$img_src = $data['images'][0]['src'];
+			if( empty($img_src)) {
+				$directory_type = get_post_meta($listings_id, "_directory_type", true);
+				$general_config = get_term_meta( $directory_type, 'general_config', true );
+				$preview_image_dir_type = isset($general_config['preview_image']) && !empty($general_config['preview_image']) ? $general_config['preview_image']: '';
+				$default_image = !empty($preview_image_dir_type) ? $preview_image_dir_type:get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
+				$img_src = $default_image;
+			}
 			$img_alt = $data['images'][0]['alt'];
 			if ( 'contain' === $data['background-size'] && $data['blur-background'] ) {
 				echo "<img class='plasmaSliderTempImgBlur' src='{$img_src}' alt='{$img_alt}'>";
@@ -40,6 +47,13 @@ $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlid
 			if ( ! empty( $data['images'] )  ):
 				foreach ( $data['images'] as $image ) {
 					$img_src = $image['src'];
+					if( empty($img_src)) {
+						$directory_type = get_post_meta($listings_id, "_directory_type", true);
+						$general_config = get_term_meta( $directory_type, 'general_config', true );
+						$preview_image_dir_type = isset($general_config['preview_image']) && !empty($general_config['preview_image']) ? $general_config['preview_image']: '';
+						$default_image = !empty($preview_image_dir_type) ? $preview_image_dir_type:get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
+						$img_src = $default_image;
+					}
 					$img_alt = $image['alt'];
 					echo "<span class='plasmaSliderImageItem' data-src='{$img_src}' data-alt='{$img_alt}'></span>" . "\n";
 				}

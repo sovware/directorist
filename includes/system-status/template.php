@@ -17,7 +17,7 @@
                         <a href="#atbds_system-info" class="nav-link active" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php esc_html_e( 'System Information', 'directorist' ); ?></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#atbds_warning" class="nav-link" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Warning ', 'directorist' ); ?><?php echo esc_html( $warning_count ); ?></a>
+                        <a href="#atbds_warning" class="nav-link" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Warning ', 'directorist' ); ?><?php echo wp_kses_post( $warning_count ); ?></a>
                     </li>
                     <li class="nav-item">
                         <a href="#atbds_r-viewing" class="nav-link" data-action="atbds_tab" data-tabArea="atbds_system-status-tab"><?php _e( 'Remote Viewing', 'directorist' ); ?></a>

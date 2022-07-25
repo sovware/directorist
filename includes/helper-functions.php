@@ -8255,7 +8255,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'Add listing page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8263,7 +8263,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'Dashboard page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8271,7 +8271,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'User Profile page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8279,7 +8279,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'Single Category page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8287,7 +8287,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'Single Location page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8295,7 +8295,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'Single Location page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8303,7 +8303,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'Registration page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8311,7 +8311,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'Login page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8319,7 +8319,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'Search Result page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8327,7 +8327,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'Checkout page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8335,7 +8335,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'Payment Receipt page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8343,7 +8343,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title' => __( 'Transaction Failure page not selected', 'directorist'),
                 'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+                'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_pages",
                 'link_text' => __( 'Select Page', 'directorist' )
             );
         }
@@ -8351,7 +8351,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             $warnings[] = array(
                 'title'      => __( 'Map Api Key is missing', 'directorist'),
                 'desc'       => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
-                'link'       => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_map_setting",
+                'link'       => admin_url()."/edit.php?post_type=at_biz_dir&page=atbdp-settings#_map_setting",
                 'link_text'  => __( 'Give the Api', 'directorist' )
             );
         }

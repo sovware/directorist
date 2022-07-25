@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<ruleset name="Directorist ruleset">
+    <description>Rules for PHP CodeSniffer</description>
+
+    <config name="testVersion" value="7.4-"/>
+    
+    <rule ref="WordPress">
+        <include-pattern>*\.php$</include-pattern>
+    </rule>
+</ruleset>
+

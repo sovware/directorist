@@ -701,15 +701,15 @@ class Directorist_Single_Listing {
 
 	public function submit_link() {
 		$id = get_the_ID();
-		$payment   = isset($_GET['payment']) ? $_GET['payment'] : '';
-		$redirect  = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+		$payment   = isset($_GET['payment']) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
+		$redirect  = isset($_GET['redirect']) ? sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) : '';
 		$display_preview = get_directorist_option('preview_enable', 1);
 		$link = '';
 
 		if ($display_preview && $redirect) {
-			$post_id = isset($_GET['post_id']) ? $_GET['post_id'] : $id;
-			$edited = isset($_GET['edited']) ? $_GET['edited'] : '';
-			$pid = isset($_GET['p']) ? $_GET['p'] : '';
+			$post_id = isset($_GET['post_id']) ? sanitize_text_field( wp_unslash( $_GET['post_id'] ) ) : $id;
+			$edited = isset($_GET['edited']) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ) : '';
+			$pid = isset($_GET['p']) ? sanitize_text_field( wp_unslash( $_GET['p'] ) ) : '';
 			$pid = empty($pid) ? $post_id : $pid;
 			if (empty($payment)) {
 				$redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
@@ -721,7 +721,7 @@ class Directorist_Single_Listing {
 				}
 			}
 			else {
-				$link = add_query_arg(array('atbdp_listing_id' => $pid, 'reviewed' => 'yes'), $_GET['redirect']);
+				$link = add_query_arg( array( 'atbdp_listing_id' => $pid, 'reviewed' => 'yes' ), sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) );
 			}
 		}
 
@@ -734,7 +734,7 @@ class Directorist_Single_Listing {
 
 	public function edit_link() {
 		$id = get_the_ID();
-		$redirect  = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+		$redirect  = isset($_GET['redirect']) ? sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) : '';
 		$edit_link = !empty($payment) ? add_query_arg('redirect', $redirect, ATBDP_Permalink::get_edit_listing_page_link($id)) : ATBDP_Permalink::get_edit_listing_page_link($id);
 		return $edit_link;
 	}
@@ -785,7 +785,7 @@ class Directorist_Single_Listing {
 		if( isset( $_GET['notice'] ) ) {
 			$new_listing_status  = get_term_meta( $this->type, 'new_listing_status', true );
 			$edit_listing_status = get_term_meta( $this->type, 'edit_listing_status', true );
-			$edited = ( isset( $_GET['edited'] ) ) ? $_GET['edited'] : 'no';
+			$edited = ( isset( $_GET['edited'] ) ) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) : 'no';
 
 			$pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 			$publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );

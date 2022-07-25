@@ -179,7 +179,7 @@ class Directorist_Listing_Taxonomy {
     				if ($this->hide_empty && 0 == $count) continue;
 				}
 				if( ! empty( $_GET['directory_type'] ) ) {
-					$directory_type = $_GET['directory_type'];
+					$directory_type = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) );
 				} else {
 					$directory_type = ( 1 == $this->directory_type_count ) ? $this->directory_type[0] : '';
 				}
@@ -230,7 +230,7 @@ class Directorist_Listing_Taxonomy {
 				$type    	   = get_term_by( 'id', $current_type, ATBDP_TYPE );
 				$current_slug  = $type ? $type->slug : '';
 			}
-			$get_current_url_type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : $current_type;
+			$get_current_url_type = isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : $current_type;
 			if( in_array( $current_slug, $listing_type_meta ) || 'all' == $get_current_url_type ) {
 				$current_listing_type   = $this->current_listing_type;
 				$count 					= 0;
@@ -256,7 +256,7 @@ class Directorist_Listing_Taxonomy {
 				$child_terms = get_term_children($term->term_id, $this->tax);
 
 				if( ! empty( $_GET['directory_type'] ) ) {
-					$directory_type = $_GET['directory_type'];
+					$directory_type = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) );
 				} else {
 					$directory_type = ( 1 == $this->directory_type_count ) ? $this->directory_type[0] : '';
 				}
@@ -394,7 +394,7 @@ class Directorist_Listing_Taxonomy {
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
 		if ( isset( $_GET['directory_type'] ) && 'all' != $_GET['directory_type'] ) {
-			$current = $_GET['directory_type'] ;
+			$current = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) ;
 		}
 		else if( $this->default_directory_type ) {
 			$current = $this->default_directory_type;

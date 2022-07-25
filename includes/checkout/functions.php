@@ -108,7 +108,7 @@ function atbdp_send_to_success_page($query_string = null)
     if ($query_string)
         $redirect .= $query_string;
 
-    $gateway = isset($_REQUEST['atbdp-gateway']) ? sanitize_text_field( $_REQUEST['atbdp-gateway'] ) : '';
+    $gateway = isset($_REQUEST['atbdp-gateway']) ? sanitize_text_field( wp_unslash( $_REQUEST['atbdp-gateway'] ) ) : '';
 
     wp_redirect(apply_filters('atbdp_success_page_redirect', $redirect, $gateway, $query_string));
     wp_die();

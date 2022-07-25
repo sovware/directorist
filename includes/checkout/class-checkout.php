@@ -40,7 +40,7 @@ class ATBDP_Checkout
     {
         if (valid_js_nonce()) {
             if (!empty($_POST['amount'])) {
-                echo atbdp_format_payment_amount($_POST['amount']);
+                echo esc_html( atbdp_format_payment_amount( wp_unslash( $_POST['amount'] ) ) );
             }
         }
         wp_die();
@@ -68,7 +68,7 @@ class ATBDP_Checkout
             return __('Sorry, Something went wrong. Listing ID is missing. Please try again.', 'directorist');
         }
         // if the checkout form is submitted, then process placing order
-        if ('POST' == $_SERVER['REQUEST_METHOD'] && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) {
+        if ( isset( $_SERVER['REQUEST_METHOD'] ) && ( 'POST' == $_SERVER['REQUEST_METHOD'] ) && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) {
             // Process the order
             $this->create_order($listing_id, $_POST);
         } else {
@@ -144,7 +144,7 @@ class ATBDP_Checkout
         $order_id = (int)get_query_var('atbdp_order_id');
 
         if ( empty( $order_id ) && ! empty( $_REQUEST['order'] ) ) {
-            $order_id = $_REQUEST['order'];
+            $order_id = sanitize_text_field( wp_unslash( $_REQUEST['order'] ) );
         }
 
         if (empty($order_id)) {
@@ -185,7 +185,6 @@ class ATBDP_Checkout
         $data['order_items'] = $order_items;
 
         ob_start();
-        extract($data);
         $data['c_position']     = get_directorist_option('payment_currency_position');
         $data['currency']         = atbdp_get_payment_currency();
         $data['symbol']          = atbdp_currency_symbol( atbdp_get_payment_currency() );
@@ -328,7 +327,7 @@ class ATBDP_Checkout
     public function buffer_to_fix_redirection()
     {
         // if the checkout form is submitted, then init buffering to solve redirection problem because of header already sent
-        if ('POST' == $_SERVER['REQUEST_METHOD'] && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) {
+        if ( isset( $_SERVER['REQUEST_METHOD'] ) && ( 'POST' == $_SERVER['REQUEST_METHOD'] ) && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) {
             ob_start();
         }
     }

@@ -276,7 +276,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           $(' .directorist_password_recovery_bnt ').append('<span class="status-failed">' + directorist.login_error_message + '</span>');
         }
       });
-      e.preventDefault();
     });
   });
 })(jQuery);

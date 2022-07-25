@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.3.0
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -14,7 +14,7 @@ use \Directorist\Helper;
                 <div class="atbdp_login_form_shortcode">
                     <?php
                         // start recovery stuff
-                        $recovery = isset( $_GET['user'] ) ? $_GET['user'] : '';
+                        $recovery = isset( $_GET['user'] ) ? sanitize_email( $_GET['user'] ) : '';
                         $key      = isset( $_GET['key'] ) ? $_GET['key'] : '';
 
                         if ( ! empty( $recovery ) ) {
@@ -66,7 +66,7 @@ use \Directorist\Helper;
 
                                 <p class="directorist-form-row form-row">
                                     <input type="hidden" name="directorist_reset_password" value="true" />
-                                    <button type="submit" class="btn btn-primary" value="<?php esc_attr_e( 'Save', 'directorist' );?>"><?php esc_html_e( 'Save', 'directorist' );?></button>
+                                    <button type="submit" class="btn btn-primary" value="<?php esc_attr_e( 'Save', 'directorist' ); ?>"><?php esc_html_e( 'Save', 'directorist' );?></button>
                                 </p>
 
                             <?php wp_nonce_field( 'reset_password', 'directorist-reset-password-nonce' );?>
@@ -94,17 +94,17 @@ use \Directorist\Helper;
                                 ?>
                             <form action="#" id="login" method="POST">
                                 <div class="directorist-form-group directorist-mb-15">
-                                    <label for="username"><?php echo $log_username; ?></label>
+                                    <label for="username"><?php echo esc_html( $log_username ); ?></label>
                                     <input type="text" class="directorist-form-element" id="username" name="username">
                                 </div>
 
                                 <div class="directorist-form-group directorist-mb-15">
-                                    <label for="password"><?php echo $log_password; ?></label>
+                                    <label for="password"><?php echo esc_html( $log_password ); ?></label>
                                     <input type="password" id="password" autocomplete="off" name="password" class="directorist-form-element">
                                 </div>
 
                                 <div class="directorist-form-group atbd_login_btn_wrapper directorist-mb-15">
-                                    <button class="directorist-btn directorist-btn-block directorist-btn-primary" type="submit" value="<?php echo $log_button; ?>" name="submit"><?php echo $log_button; ?></button>
+                                    <button class="directorist-btn directorist-btn-block directorist-btn-primary" type="submit" value="<?php echo esc_attr( $log_button ); ?>" name="submit"><?php echo esc_html( $log_button ); ?></button>
                                     <?php wp_nonce_field( 'ajax-login-nonce', 'security' );?>
                                 </div>
                                 <p class="status"></p>
@@ -115,13 +115,13 @@ use \Directorist\Helper;
                                             ?>
                                         <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked>
                                         <label for="keep_signed_in" class="directorist-checkbox__label not_empty">
-                                            <?php echo $log_rememberMe; ?>
+                                            <?php echo esc_html( $log_rememberMe ); ?>
                                         </label>
                                 </div>
                                 <?php
                                         }
                                             if ( $display_recpass ) {
-                                                printf( __( '<p>%s</p>', 'directorist' ), "<a href='' class='atbdp_recovery_pass'> " . __( $recpass_text, 'directorist' ) . '</a>' );
+                                                printf( __( '<p>%s</p>', 'directorist' ), "<a href='' class='atbdp_recovery_pass'> " . esc_html( $recpass_text ) . '</a>' );
                                             }
                                         ?>
                             </form>
@@ -132,8 +132,8 @@ use \Directorist\Helper;
 
                             <?php if ( ! empty( $display_signup ) && $new_user_registration ) {?>
                                 <p>
-                                    <?php echo $reg_text; ?>
-                                    <a href="<?php echo $reg_url; ?>"><?php echo $reg_linktxt; ?></a>
+                                    <?php echo esc_html( $reg_text ); ?>
+                                    <a href="<?php echo esc_url( $reg_url ); ?>"><?php echo esc_html( $reg_linktxt ); ?></a>
                                 </p>
                             <?php }
                                     //stuff to recover password start
@@ -185,11 +185,11 @@ use \Directorist\Helper;
                                         }
 
                                         if ( ! empty( $error ) ) {
-                                            echo '<div class="message"><p class="error"><strong>' . __( 'ERROR:', 'directorist' ) . '</strong> ' . $error . '</p></div>';
+                                            echo '<div class="message"><p class="error"><strong>' . esc_html__( 'ERROR:', 'directorist' ) . '</strong> ' . esc_html( $error ) . '</p></div>';
                                         }
 
                                         if ( ! empty( $success ) ) {
-                                            echo '<div class="error_login"><p class="success">' . $success . '</p></div>';
+                                            echo '<div class="error_login"><p class="success">' . esc_html( $success ) . '</p></div>';
                                         }
 
                                 }?>

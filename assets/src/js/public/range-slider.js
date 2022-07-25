@@ -1,5 +1,5 @@
 /* range slider */
-var directorist_range_slider = (selector, obj) => {
+export var directorist_range_slider = (selector, obj) => {
     var isDraging 	= false,
         max 		= obj.maxValue,
         min 		= obj.minValue,
@@ -110,7 +110,7 @@ var directorist_range_slider = (selector, obj) => {
     });
 };
 
-function directorist_callingSlider() {
+export function directorist_callingSlider() {
     const minValueWrapper = document.querySelector('.directorist-range-slider-value');
     var default_args = {
         maxValue: 1000,

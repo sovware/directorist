@@ -3,6 +3,8 @@ import './components/directoristSelect';
 import './components/colorPicker';
 import './../global/components/setup-select2';
 import './../global/components/select2-custom-control';
+import { directorist_callingSlider } from './range-slider';
+import { directorist_range_slider } from './range-slider';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
@@ -828,7 +830,7 @@ import './../global/components/select2-custom-control';
         /* When location field is empty we need to hide Radius Search */
         function handleRadiusVisibility(){
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
-            $('.directorist-location-js').each((index, locationDom)=>{
+            $('.directorist-location-js').each((index,locationDom)=>{
                 if($(locationDom).val() === ''){
                     $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "none"});
                 }else{

@@ -127,6 +127,6 @@ function directorist_callingSlider() {
     directorist_range_slider ('.directorist-range-slider', config);
 }
 
-window.addEventListener("load", function () {
+window.addEventListener("DOMContentLoaded", function () {
     directorist_callingSlider();
 });

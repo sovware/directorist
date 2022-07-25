@@ -7,8 +7,8 @@ import './../global/components/select2-custom-control';
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
         /* ----------------
-    Search Listings
-    ------------------ */
+        Search Listings
+        ------------------ */
 
         //ad search js
         $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");

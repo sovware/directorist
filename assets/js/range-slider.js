@@ -90,11 +90,13 @@
 /*!**********************************************!*\
   !*** ./assets/src/js/public/range-slider.js ***!
   \**********************************************/
-/*! no exports provided */
+/*! exports provided: directorist_range_slider, directorist_callingSlider */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "directorist_range_slider", function() { return directorist_range_slider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "directorist_callingSlider", function() { return directorist_callingSlider; });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -210,7 +212,6 @@ var directorist_range_slider = function directorist_range_slider(selector, obj) 
     });
   });
 };
-
 function directorist_callingSlider() {
   var minValueWrapper = document.querySelector('.directorist-range-slider-value');
   var default_args = {
@@ -225,7 +226,6 @@ function directorist_callingSlider() {
   var config = directorist.slider_config && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(directorist.slider_config) === 'object' ? Object.assign(default_args, directorist.slider_config) : default_args;
   directorist_range_slider('.directorist-range-slider', config);
 }
-
 window.addEventListener("load", function () {
   directorist_callingSlider();
 });

@@ -216,33 +216,36 @@ class Localized_Data {
 		$radius_search_unit      = get_directorist_option( 'radius_search_unit', 'miles' );
 		$default_radius_distance = get_directorist_option( 'search_default_radius_distance', 0 );
 
+		$miles = ! empty( $_GET['miles'] ) ? absint( $_GET['miles'] ) : 0;
+
 		if ( 'kilometers' == $radius_search_unit ) {
-			$miles = __( ' Kilometers', 'directorist' );
+			$miles_text = __( '%d Kilometers', 'directorist' );
 		} else {
-			$miles = __( ' Miles', 'directorist' );
+			$miles_text = __( '%d Miles', 'directorist' );
 		}
 
 		$data = array(
-			'i18n_text'   => array(
+			'i18n_text' => array(
 				'category_selection' => ! empty( $category_placeholder ) ? $category_placeholder : __( 'Select a category', 'directorist' ),
 				'location_selection' => ! empty( $location_placeholder ) ? $location_placeholder : __( 'Select a location', 'directorist' ),
 				'show_more'          => __( 'Show More', 'directorist' ),
 				'show_less'          => __( 'Show Less', 'directorist' ),
 				'added_favourite'    => __( 'Added to favorite', 'directorist' ),
-				'please_login'          => __( 'Please login first', 'directorist' ),
+				'please_login'       => __( 'Please login first', 'directorist' ),
 				'select_listing_map' => $select_listing_map,
-				'Miles'              => ! empty( $_GET['miles'] ) ? sanitize_text_field( $_GET['miles'] ) : $miles,
+				'Miles'              => sprintf( $miles_text, $miles ),
 			),
 			'args'                     => $args,
 			'directory_type'           => $directory_type,
 			'directory_type_term_data' => $directory_type_term_data,
 			'ajax_url'                 => admin_url( 'admin-ajax.php' ),
-			'miles'                    => ! empty( $_GET['miles'] ) ? sanitize_text_field( $_GET['miles'] ) : $miles,
+			'miles'                    => $miles,
 			'default_val'              => $default_radius_distance,
 			'countryRestriction'       => get_directorist_option( 'country_restriction' ),
 			'restricted_countries'     => get_directorist_option( 'restricted_countries' ),
 			'use_def_lat_long'         => get_directorist_option( 'use_def_lat_long' ),
 		);
+
 		return $data;
 	}
 

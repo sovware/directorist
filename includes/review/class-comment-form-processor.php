@@ -70,7 +70,9 @@ class Comment_Form_Processor {
 				}
 			}
 
-			if ( empty( $_POST['comment'] ) || empty( trim( sanitize_text_field( $_POST['comment'] ) ) ) ) {
+			$comment_content = isset( $_POST['comment'] ) ? trim( sanitize_textarea_field( $_POST['comment'] ) ) : '';
+
+			if ( empty( $comment_content ) ) {
 				if ( $is_review ) {
 					$text = __( 'To submit your review, please describe your rating.', 'directorist' );
 				} else {
@@ -84,7 +86,7 @@ class Comment_Form_Processor {
 				'comment_ID'      => $comment->comment_ID,
 				'comment_post_ID' => $comment->comment_post_ID,
 				'comment_type'    => $comment->comment_type,
-				'comment_content' => sanitize_textarea_field( trim( $_POST['comment'] ) )
+				'comment_content' => $comment_content
 			);
 
 			$updated_comment = wp_update_comment( $comment_data, true );
@@ -99,7 +101,7 @@ class Comment_Form_Processor {
 			Comment::post_rating( $comment_id, $comment_data, $_POST );
 			Comment::clear_transients( $comment->comment_post_ID );
 
-			$cpage = isset( $_POST['cpage'] ) ? absint( sanitize_text_field( $_POST['cpage'] ) ) : 0;
+			$cpage = isset( $_POST['cpage'] ) ? absint( $_POST['cpage'] ) : 0;
 			$redirect_to = get_permalink( $comment->comment_post_ID );
 			if ( $cpage ) {
 				$redirect_to = add_query_arg( 'cpage', $cpage, $redirect_to );

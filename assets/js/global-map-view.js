@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -329,8 +329,17 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function () {
+  // DOM Mutation observer
+  function initObserver(params) {
+    var targetNode = document.querySelector('.directorist-archive-contents');
+    var observer = new MutationObserver(initMap);
+    observer.observe(targetNode, {
+      childList: true
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', initObserver);
   window.addEventListener('DOMContentLoaded', initMap);
-  window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
   function initMap() {
     var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_map'); // Define Marker Shapes
@@ -1224,7 +1233,7 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 24:
+/***/ 17:
 /*!************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/map-view.js ***!
   \************************************************************/
@@ -1237,4 +1246,4 @@ module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/map-
 /***/ })
 
 /******/ });
-//# sourceMappingURL=google-map.js.map
+//# sourceMappingURL=global-map-view.js.map

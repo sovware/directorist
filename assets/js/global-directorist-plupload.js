@@ -764,4 +764,4 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 /***/ })
 
 /******/ });
-//# sourceMappingURL=directorist-plupload.js.map
+//# sourceMappingURL=global-directorist-plupload.js.map

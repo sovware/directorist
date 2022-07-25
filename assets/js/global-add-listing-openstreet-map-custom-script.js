@@ -81,230 +81,175 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/global/map-scripts/add-listing/google-map.js":
-/*!********************************************************************!*\
-  !*** ./assets/src/js/global/map-scripts/add-listing/google-map.js ***!
-  \********************************************************************/
+/***/ "./assets/src/js/global/map-scripts/add-listing/openstreet-map.js":
+/*!************************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/add-listing/openstreet-map.js ***!
+  \************************************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../lib/helper */ "./assets/src/js/lib/helper.js");
-/* Add listing google map */
+/* Add listing OSMap */
 
+;
 
 (function ($) {
   $(document).ready(function () {
-    if ($('#gmap').length) {
-      var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // initialize all vars here to avoid hoisting related misunderstanding.
+    var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
 
-      var placeSearch;
-      var map;
-      var autocomplete;
-      var address_input;
-      var markers;
-      var info_window;
-      var $manual_lat;
-      var $manual_lng;
-      var saved_lat_lng;
-      var info_content; // Localized Data
+    var loc_default_latitude = parseFloat(mapData.default_latitude);
+    var loc_default_longitude = parseFloat(mapData.default_longitude);
+    var loc_manual_lat = parseFloat(mapData.manual_lat);
+    var loc_manual_lng = parseFloat(mapData.manual_lng);
+    var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
+    var loc_map_icon = mapData.map_icon;
+    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
 
-      var loc_default_latitude = parseFloat(localized_data.default_latitude);
-      var loc_default_longitude = parseFloat(localized_data.default_longitude);
-      var loc_manual_lat = parseFloat(localized_data.manual_lat);
-      var loc_manual_lng = parseFloat(localized_data.manual_lng);
-      var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-      loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
-      loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
-      $manual_lat = $('#manual_lat');
-      $manual_lng = $('#manual_lng');
-      saved_lat_lng = {
-        lat: loc_manual_lat,
-        lng: loc_manual_lng
-      }; // default is London city
-
-      info_content = localized_data.info_content, markers = [], // initialize the array to keep track all the marker
-      info_window = new google.maps.InfoWindow({
-        content: info_content,
-        maxWidth: 400
-      }); // if(address_input){
-      //         address_input = document.getElementById('address');
-      //         address_input.addEventListener('focus', geolocate);
-      // }
-
-      address_input = document.getElementById('address');
-
-      if (address_input !== null) {
-        address_input.addEventListener('focus', geolocate);
-      } // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
-
-
-      function geolocate() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function (position) {
-            var geolocation = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-            var circle = new google.maps.Circle({
-              center: geolocation,
-              radius: position.coords.accuracy
-            });
-            autocomplete.setBounds(circle.getBounds());
-          });
-        }
+    function mapLeaflet(lat, lon) {
+      // @todo @kowsar / remove later. fix js error
+      if ($("#gmap").length == 0) {
+        return;
       }
 
-      function initAutocomplete() {
-        // Create the autocomplete object, restricting the search to geographical
-        // location types.
-        autocomplete = new google.maps.places.Autocomplete(address_input, {
-          types: []
-        }); // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
-
-        autocomplete.addListener('place_changed', fillInAddress);
-      }
-
-      function fillInAddress() {
-        // Get the place details from the autocomplete object.
-        var place = autocomplete.getPlace(); // set the value of input field to save them to the database
-
-        $manual_lat.val(place.geometry.location.lat());
-        $manual_lng.val(place.geometry.location.lng());
-        map.setCenter(place.geometry.location);
-        var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location
-        }); // marker.addListener('click', function () {
-        //     info_window.open(map, marker);
-        // });
-        // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-
-        markers.push(marker);
-      }
-
-      initAutocomplete(); // start google map place auto complete API call
-
-      function initMap() {
-        /* Create new map instance */
-        map = new google.maps.Map(document.getElementById('gmap'), {
-          zoom: loc_map_zoom_level,
-          center: saved_lat_lng
-        });
-        var marker = new google.maps.Marker({
-          map: map,
-          position: saved_lat_lng,
-          draggable: true,
-          title: localized_data.marker_title
-        }); // marker.addListener('click', function () {
-        //     info_window.open(map, marker);
-        // });
-        // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-
-        markers.push(marker); // create a Geocode instance
-
-        var geocoder = new google.maps.Geocoder();
-        document.getElementById('generate_admin_map').addEventListener('click', function (e) {
-          e.preventDefault();
-          geocodeAddress(geocoder, map);
-        }); // This event listener calls addMarker() when the map is clicked.
-
-        google.maps.event.addListener(map, 'click', function (event) {
-          deleteMarker(); // at first remove previous marker and then set new marker;
-          // set the value of input field to save them to the database
-
-          $manual_lat.val(event.latLng.lat());
-          $manual_lng.val(event.latLng.lng()); // add the marker to the given map.
-
-          addMarker(event.latLng, map);
-        }); // This event listener update the lat long field of the form so that we can add the lat long to the database when the MARKER is drag.
-
-        google.maps.event.addListener(marker, 'dragend', function (event) {
-          // set the value of input field to save them to the database
-          $manual_lat.val(event.latLng.lat());
-          $manual_lng.val(event.latLng.lng());
-        });
-      }
-      /*
-       * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
-       * */
-
-
-      function geocodeAddress(geocoder, resultsMap) {
-        var address = address_input.value;
-        var lat = parseFloat(document.getElementById('manual_lat').value);
-        var lng = parseFloat(document.getElementById('manual_lng').value);
-        var latLng = new google.maps.LatLng(lat, lng);
-        var opt = {
-          location: latLng,
-          address: address
-        };
-        geocoder.geocode(opt, function (results, status) {
-          if (status === 'OK') {
-            // set the value of input field to save them to the database
-            $manual_lat.val(results[0].geometry.location.lat());
-            $manual_lng.val(results[0].geometry.location.lng());
-            resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: resultsMap,
-              position: results[0].geometry.location
-            }); // marker.addListener('click', function () {
-            //     info_window.open(map, marker);
-            // });
-
-            deleteMarker(); // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-
-            markers.push(marker);
-          } else {
-            alert(localized_data.geocode_error_msg + status);
+      var fontAwesomeIcon = L.icon({
+        iconUrl: loc_map_icon,
+        iconSize: [20, 25]
+      });
+      var mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
+      L.marker([lat, lon], {
+        icon: fontAwesomeIcon,
+        draggable: true
+      }).addTo(mymap).addTo(mymap).on("drag", function (e) {
+        var marker = e.target;
+        var position = marker.getLatLng();
+        $('#manual_lat').val(position.lat);
+        $('#manual_lng').val(position.lng);
+        $.ajax({
+          url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(position.lng, "&lat=").concat(position.lat),
+          type: 'POST',
+          data: {},
+          success: function success(data) {
+            $('.directorist-location-js').val(data.display_name);
           }
         });
+      });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(mymap);
+    }
+
+    $('.directorist-location-js').each(function (id, elm) {
+      $(elm).on('keyup', function (event) {
+        event.preventDefault();
+
+        if (event.keyCode !== 40 && event.keyCode !== 38) {
+          var search = $(elm).val();
+          $(elm).siblings('.address_result').css({
+            'display': 'block'
+          });
+
+          if (search === "") {
+            $(elm).siblings('.address_result').css({
+              'display': 'none'
+            });
+          }
+
+          var res = "";
+          $.ajax({
+            url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+            type: 'POST',
+            data: {},
+            success: function success(data) {
+              for (var i = 0; i < data.length; i++) {
+                res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+              }
+
+              $(elm).siblings('.address_result').find('ul').html(res);
+            }
+          });
+        }
+      });
+    });
+    var lat = loc_manual_lat,
+        lon = loc_manual_lng;
+    mapLeaflet(lat, lon);
+    $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
+      if (document.getElementById('osm')) {
+        document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
       }
 
-      initMap(); // adding features of creating marker manually on the map on add listing page.
-
-      /* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      var labelIndex = 0; */
-      // Adds a marker to the map.
-
-      function addMarker(location, map) {
-        // Add the marker at the clicked location, and add the next-available label
-        // from the array of alphabetical characters.
-        var marker = new google.maps.Marker({
-          position: location,
-
-          /* label: labels[labelIndex++ % labels.length], */
-          draggable: true,
-          title: localized_data.marker_title,
-          map: map
-        }); // marker.addListener('click', function () {
-        //     info_window.open(map, marker);
-        // });
-        // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-
-        markers.push(marker);
-      } // Delete Marker
-
-
-      $('#delete_marker').on('click', function (e) {
-        e.preventDefault();
-        deleteMarker();
+      event.preventDefault();
+      var text = $(this).text(),
+          lat = $(this).data('lat'),
+          lon = $(this).data('lon');
+      $('#manual_lat').val(lat);
+      $('#manual_lng').val(lon);
+      $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
+      $('.address_result').css({
+        'display': 'none'
       });
+      mapLeaflet(lat, lon);
+    });
+    $('body').on('click', '.location-names ul li a', function (event) {
+      event.preventDefault();
+      var text = $(this).text();
+      $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
+      $('.address_result').css({
+        'display': 'none'
+      });
+    });
+    $('body').on('click', '#generate_admin_map', function (event) {
+      event.preventDefault();
+      document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+      mapLeaflet($('#manual_lat').val(), $('#manual_lng').val());
+    }); // Popup controller by keyboard
 
-      function deleteMarker() {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(null);
+    var index = 0;
+    $('.directorist-location-js').on('keyup', function (event) {
+      event.preventDefault();
+      var length = $('#directorist.atbd_wrapper .address_result ul li a').length;
+
+      if (event.keyCode === 40) {
+        index++;
+
+        if (index > length) {
+          index = 0;
+        }
+      } else if (event.keyCode === 38) {
+        index--;
+
+        if (index < 0) {
+          index = length;
         }
 
-        markers = [];
+        ;
       }
-    }
+
+      if ($('#directorist.atbd_wrapper .address_result ul li a').length > 0) {
+        $('#directorist.atbd_wrapper .address_result ul li a').removeClass('active');
+        $($('#directorist.atbd_wrapper .address_result ul li a')[index]).addClass('active');
+
+        if (event.keyCode === 13) {
+          $($('#directorist.atbd_wrapper .address_result ul li a')[index]).click();
+          event.preventDefault();
+          index = 0;
+          return false;
+        }
+      }
+
+      ;
+    }); // $('#post').on('submit', function (event) {
+    //     event.preventDefault();
+    //     return false;
+    // });
   });
 })(jQuery);
 
@@ -554,17 +499,17 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 16:
-/*!**************************************************************************!*\
-  !*** multi ./assets/src/js/global/map-scripts/add-listing/google-map.js ***!
-  \**************************************************************************/
+/***/ 8:
+/*!******************************************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/add-listing/openstreet-map.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/add-listing/google-map.js */"./assets/src/js/global/map-scripts/add-listing/google-map.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/add-listing/openstreet-map.js */"./assets/src/js/global/map-scripts/add-listing/openstreet-map.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=add-listing-google-map.js.map
+//# sourceMappingURL=global-add-listing-openstreet-map-custom-script.js.map

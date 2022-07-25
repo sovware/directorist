@@ -69,30 +69,30 @@ class ATBDP_Order
         ?>
         <table border="0" cellspacing="0" cellpadding="7" style="border:1px solid #CCC;">
             <tr style="background-color:#F0F0F0;">
-                <th style="border-right:1px solid #CCC; border-bottom:1px solid #CCC; text-align:left;"><?php _e('Item(s)', 'directorist'); ?></th>
-                <th style="border-bottom:1px solid #CCC;"><?php printf(__('Price [%s]', 'directorist'), $currency); ?></th>
+                <th style="border-right:1px solid #CCC; border-bottom:1px solid #CCC; text-align:left;"><?php esc_html_e('Item(s)', 'directorist'); ?></th>
+                <th style="border-bottom:1px solid #CCC;"><?php printf( esc_html__('Price [%s]', 'directorist'), $currency); ?></th>
             </tr>
             <?php if (!empty($order_items)) {
                 foreach ($order_items as $order) : ?>
                     <tr>
                         <td style="border-right:1px solid #CCC; border-bottom:1px solid #CCC;">
-                            <h3><?php echo !empty($order['label']) ? $order['label'] : ''; ?></h3>
-                            <?php if (isset($order['desc'])) echo $order['desc']; ?>
+                            <h3><?php echo ! empty( $order['label'] ) ? esc_html( $order['label'] ) : ''; ?></h3>
+                            <?php echo ! empty( $order['desc'] ) ? esc_html( $order['desc'] ) : ''; ?>
                         </td>
                         <td style="border-bottom:1px solid #CCC;">
-                            <?php echo $before . esc_html($order['price']) . $after; ?>
+                            <?php echo esc_html( $before . $order['price'] . $after ); ?>
                         </td>
                     </tr>
                 <?php endforeach;
             } ?>
             <tr>
                 <td style="border-right:1px solid #CCC; text-align:right; vertical-align:middle;">
-                    <?php printf(__('Total amount [%s]', 'directorist'), $currency); ?>
+                    <?php printf( esc_html__('Total amount [%s]', 'directorist'), esc_html( $currency )); ?>
                 </td>
                 <td>
                     <?php
                     $amount = get_post_meta($order_id, '_amount', true);
-                    echo $before . esc_html($amount) . $after;
+                    echo esc_html( $before . $amount . $after );
                     do_action('atbdp_email_receipt_after_total_price', $listing_id);
                     ?>
                 </td>
@@ -222,12 +222,12 @@ class ATBDP_Order
                     'refunded'  => __( "Refunded", 'directorist' )
                 );
             */
-            $current_status = isset($_GET['payment_status']) ? $_GET['payment_status'] : '';
+            $current_status = isset($_GET['payment_status']) ? sanitize_text_field( wp_unslash( $_GET['payment_status'] ) ) : '';
 
             echo '<select name="payment_status">';
-            echo '<option value="all">' . __("All orders", 'directorist') . '</option>';
+            echo '<option value="all">' . esc_html__("All orders", 'directorist') . '</option>';
             foreach ($statuses as $value => $title) {
-                printf('<option value="%s" %s>%s</option>', $value, selected($value, $current_status), $title);
+                printf('<option value="%s" %s>%s</option>', esc_attr( $value ), selected($value, $current_status), esc_html( $title ) );
             }
             echo '</select>';
 
@@ -247,7 +247,7 @@ class ATBDP_Order
     public function parse_query($query)
     {
         global $pagenow, $post_type;
-        $st = isset($_GET['payment_status']) ? $_GET['payment_status'] : '';
+        $st = isset($_GET['payment_status']) ? sanitize_text_field( wp_unslash( $_GET['payment_status'] ) ) : '';
         if ('edit.php' == $pagenow && 'atbdp_orders' == $post_type && !empty($st)) {
             // Filter by post meta "payment_status"
             if ('' != $st && 'all' != $st) {
@@ -348,7 +348,7 @@ class ATBDP_Order
                     esc_html_e('Free Submission', 'directorist');
                 } else {
                     $label = apply_filters('atbdp_' . $gateway . 'gateway_label', '');
-                    echo !empty($label) ? esc_html( $label ) : $gateway;
+                    echo ! empty( $label ) ? esc_html( $label ) : esc_html( $gateway );
                 }
                 break;
             case 'transaction_id' :
@@ -447,7 +447,7 @@ class ATBDP_Order
 
             $modified = 0;
             foreach ($post_ids as $post_id) {
-                if (!$this->update_payment_status($action, $post_id)) wp_die(__('Error updating post.', 'directorist'));
+                if (!$this->update_payment_status($action, $post_id)) wp_die( esc_html__('Error updating post.', 'directorist'));
                 $modified++;
             }
 
@@ -532,7 +532,7 @@ class ATBDP_Order
             foreach ($allowed_actions as $action) {
                 $_action = str_replace('set_to_', '', $action);
                 if (isset($_REQUEST[$action]) && (int)$_REQUEST[$action]) {
-                    $message = sprintf(_n("Order set to $_action.", "%s orders set to $_action.", $_REQUEST[$action], 'directorist'), number_format_i18n($_REQUEST[$action]));
+                    $message = esc_html__( 'Order(s) set to ', 'directorist') . $_action ;
                     break;
                 }
             }

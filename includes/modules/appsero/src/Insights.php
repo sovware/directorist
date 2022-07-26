@@ -851,11 +851,11 @@ class Insights {
         <script type="text/javascript">
             (function($) {
                 $(function() {
-                    var modal = $( '#<?php echo esc_attr( $this->client->slug ); ?>-wd-dr-modal' );
+                    var modal = $( '#<?php echo esc_js( $this->client->slug ); ?>-wd-dr-modal' );
                     var deactivateLink = '';
 
                     // Open modal
-                    $( '#the-list' ).on('click', 'a.<?php echo esc_attr( $this->client->slug ); ?>-deactivate-link', function(e) {
+                    $( '#the-list' ).on('click', 'a.<?php echo esc_js( $this->client->slug ); ?>-deactivate-link', function(e) {
                         e.preventDefault();
 
                         modal.addClass('modal-active');
@@ -913,7 +913,7 @@ class Insights {
                             url: ajaxurl,
                             type: 'POST',
                             data: {
-                                action: '<?php echo esc_attr(  $this->client->slug ); ?>_submit-uninstall-reason',
+                                action: '<?php echo esc_js(  $this->client->slug ); ?>_submit-uninstall-reason',
                                 reason_id: ( 0 === $radio.length ) ? 'none' : $radio.val(),
                                 reason_info: ( 0 !== $input.length ) ? $input.val().trim() : ''
                             },

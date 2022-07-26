@@ -333,7 +333,7 @@ class Multi_Directory_Manager
             ], 200);
         }
 
-        $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? ( int ) sanitize_text_field( $_POST[ 'term_id' ] ) : 0;
+        $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? absint( $_POST[ 'term_id' ] ) : 0;
         $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? sanitize_text_field( $_POST[ 'directory-name' ] ) : '';
         $json_file      = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';
 
@@ -469,7 +469,7 @@ class Multi_Directory_Manager
             ], 200);
         }
 
-        $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? sanitize_text_field( $_POST['listing_type_id'] ) : 0;
+        $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? absint( $_POST['listing_type_id'] ) : 0;
         $directory_name = sanitize_text_field( $_POST['name'] );
 
         $fields     = [];
@@ -4813,7 +4813,7 @@ class Multi_Directory_Manager
         $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
         $enable_multi_directory = atbdp_is_truthy( $enable_multi_directory );
 
-        $action = isset( $_GET['action'] ) ? sanitize_text_field( $_GET['action'] ) : '';
+        $action = isset( $_GET['action'] ) ? $_GET['action'] : '';
         $listing_type_id = 0;
 
         $data = [
@@ -4824,7 +4824,7 @@ class Multi_Directory_Manager
             $this->prepare_settings();
             $this->add_missing_single_listing_section_id();
 
-            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? sanitize_text_field( $_REQUEST['listing_type_id'] ) : 0;
+            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? absint( $_REQUEST['listing_type_id'] ) : 0;
             $listing_type_id = ( ! $enable_multi_directory ) ? default_directory_type() : $listing_type_id;
 
             $this->update_fields_with_old_data( $listing_type_id );
@@ -4928,7 +4928,7 @@ class Multi_Directory_Manager
     public function handle_delete_listing_type_request()
     {
 
-        if ( ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_wpnonce'] ), 'delete_listing_type' ) ) {
+        if ( ! wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'delete_listing_type' ) ) {
             wp_die('Are you cheating? | _wpnonce');
         }
 
@@ -4936,7 +4936,7 @@ class Multi_Directory_Manager
             wp_die('Are you cheating? | manage_options');
         }
 
-        $term_id = isset( $_REQUEST['listing_type_id'] ) ? absint( sanitize_text_field( $_REQUEST['listing_type_id'] ) ) : 0;
+        $term_id = isset( $_REQUEST['listing_type_id'] ) ? absint( $_REQUEST['listing_type_id'] ) : 0;
 
         $this->delete_listing_type($term_id);
 

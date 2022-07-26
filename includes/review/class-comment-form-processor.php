@@ -24,9 +24,9 @@ class Comment_Form_Processor {
 
 	public static function process() {
 		try {
-			$nonce      = ! empty( $_POST['directorist_comment_nonce'] ) ? sanitize_text_field( $_POST['directorist_comment_nonce'] ) : '';
-			$post_id    = ! empty( $_POST['post_id'] ) ? absint( sanitize_text_field( $_POST['post_id'] ) ) : 0;
-			$comment_id = ! empty( $_POST['comment_id'] ) ? absint( sanitize_text_field( $_POST['comment_id'] ) ) : 0;
+			$nonce      = ! empty( $_POST['directorist_comment_nonce'] ) ? sanitize_key( $_POST['directorist_comment_nonce'] ) : '';
+			$post_id    = ! empty( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+			$comment_id = ! empty( $_POST['comment_id'] ) ? absint( $_POST['comment_id'] ) : 0;
 
 			if ( ! wp_verify_nonce( $nonce, self::AJAX_ACTION ) ) {
 				throw new Exception( __( 'Invalid request.', 'directorist' ), 400 );

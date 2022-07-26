@@ -268,7 +268,7 @@ class License {
                                 />
                             </div>
                             <button type="submit" name="submit" class="<?php echo 'deactive' == $action ? 'deactive-button' : ''; ?>">
-                                <?php echo $action == 'active' ? esc_html( $this->client->__trans( 'Activate License' ) ) : esc_html( $this->client->__trans( 'Deactivate License' ) ); ?>
+                                <?php echo $action == 'active' ? esc_attr( $this->client->__trans( 'Activate License' ) ) : esc_attr( $this->client->__trans( 'Deactivate License' ) ); ?>
                             </button>
                         </div>
                     </form>
@@ -513,9 +513,9 @@ class License {
                 <?php
                     if ( false !== $license['expiry_days'] ) {
                         $occupied = $license['expiry_days'] > 21 ? '' : 'occupied';
-                        echo esc_html( '<p class="' . $occupied . '">' . $license['expiry_days'] . ' days</p>' );
+                        echo '<p class="' . esc_attr( $occupied ) . '">' . $license['expiry_days'] . ' days</p>';
                     } else {
-                        echo esc_html( '<p>' . $this->client->__trans( 'Never' ) . '</p>' );
+                        echo '<p>' . esc_attr( $this->client->__trans( 'Never' ) ) . '</p>';
                     } ?>
             </div>
         </div>

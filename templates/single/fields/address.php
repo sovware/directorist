@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5.2
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -18,6 +18,6 @@ $address = ( is_string( $address_data ) ) ? wp_kses_post( $address_data ) : '';
 		<span class="directorist-single-info__label--text"><?php echo ( isset( $data['label'] ) ) ? esc_html( $data['label'] ) : ''; ?></span>
 	</div>
 	
-	<div class="directorist-single-info__value"><?php echo $address; ?></div>
+	<div class="directorist-single-info__value"><?php echo esc_html( $address ); ?></div>
 
 </div>

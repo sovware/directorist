@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.2
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -19,6 +19,6 @@ $filename = end( $name_arr );
 		<span class="directorist-single-info__label--text"><?php echo esc_html( $data['label'] ); ?></span>
 	</div>
 	
-	<div class="directorist-single-info__value"><?php printf('<a href="%s" target="_blank" download>%s</a>', esc_url( $done ), $filename ); ?></div>
+	<div class="directorist-single-info__value"><?php printf('<a href="%s" target="_blank" download>%s</a>', esc_url( $done ), esc_attr( $filename ) ); ?></div>
 	
 </div>

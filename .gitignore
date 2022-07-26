@@ -11,3 +11,4 @@ languages/directorist-en_GB.po
 languages/directorist-en_GB-backup-202002181356150.po~
 *.map
 /vendor
+phpcs.xml.dist

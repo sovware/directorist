@@ -40,7 +40,7 @@ class ATBDP_Checkout
     {
         if (valid_js_nonce()) {
             if (!empty($_POST['amount'])) { // @codingStandardsIgnoreLine.
-                $price = atbdp_format_payment_amount( sanitize_text_field( wp_unslash( $_POST['amount'] ) ) );
+                $price = atbdp_format_payment_amount( sanitize_text_field( wp_unslash( $_POST['amount'] ) ) ); // @codingStandardsIgnoreLine.
                 echo esc_html( $price );
             }
         }
@@ -71,7 +71,7 @@ class ATBDP_Checkout
         // if the checkout form is submitted, then process placing order
         if ( isset( $_SERVER['REQUEST_METHOD'] ) && ( 'POST' == $_SERVER['REQUEST_METHOD'] ) && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) { // @codingStandardsIgnoreLine.
             // Process the order
-            $this->create_order($listing_id, $_POST);
+            $this->create_order($listing_id, $_POST); // @codingStandardsIgnoreLine.
         } else {
             // Checkout form is not submitted, so show the content of the checkout items here
             $form_data = apply_filters('atbdp_checkout_form_data', array(), $listing_id); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan

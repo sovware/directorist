@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.0.6.2
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -21,12 +21,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 						if ( empty( $display_password_reg ) ) {
 							?>
 							<p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e(' Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
-								<?php printf( __( 'Click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' ); ?>
+								<?php printf( esc_html__( 'Click %s to login.', 'directorist' ), '<a href="' . esc_url( ATBDP_Permalink::get_login_page_link() ) . '"><span style="color: red">' . esc_html__( 'Here', 'directorist' ) . '</span></a>' ); ?>
 							</p>
 						<?php } else { ?>
 							<!--registration succeeded, so show notification -->
 							<p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e(' Registration completed. Please check your email for confirmation.', 'directorist'); ?>
-								<?php printf( __('Or click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' ); ?>
+								<?php printf( esc_html__('Or click %s to login.', 'directorist' ), '<a href="' . esc_url( ATBDP_Permalink::get_login_page_link() ) . '"><span style="color: red">' . esc_html__( 'Here', 'directorist' ) . '</span></a>' ); ?>
 							</p>
 						<?php
 						}
@@ -82,7 +82,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									echo esc_html( $website );
 									echo ( ! empty( $require_website ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 								?></label>
-								<input id="website" class="directorist-form-element" type="text" name="website" value="<?php echo ( isset( $_REQUEST['website']) ? esc_url( $_REQUEST['website'] ) : '' ); ?>">
+								<input id="website" class="directorist-form-element" type="text" name="website" value="<?php echo ( isset( $_REQUEST['website'] ) ? esc_url( $_REQUEST['website'] ) : '' ); ?>">
 							</div>
 						<?php } ?>
 						<?php if ( ! empty( $display_bio ) ) { ?>
@@ -98,12 +98,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 							if ( empty( $user_type ) || 'author' === $user_type ) {
 							?>
 							<div class="atbd_user_type_area directory_regi_btn directorist-radio directorist-radio-circle directorist-mb-15">
-								<input id="author_type" type="radio" name="user_type" value="author" <?php echo $author_checked; ?>><label for="author_type" class="directorist-radio__label"><?php esc_html_e( 'I am an author', 'directorist' ); ?>
+								<input id="author_type" type="radio" name="user_type" value="author" <?php echo esc_attr( $author_checked ); ?>><label for="author_type" class="directorist-radio__label"><?php esc_html_e( 'I am an author', 'directorist' ); ?>
 							</div>
 							<?php } ?>
 							<?php if ( empty( $user_type ) || 'general' == $user_type ) { ?>
 							<div class="atbd_user_type_area directory_regi_btn directorist-radio directorist-radio-circle directorist-mb-15">
-								<input id="general_type" type="radio" name="user_type" value="general" <?php echo $general_checked; ?>><label for="general_type" class="directorist-radio__label"><?php esc_html_e( 'I am a user', 'directorist' ); ?>
+								<input id="general_type" type="radio" name="user_type" value="general" <?php echo esc_attr( $general_checked ); ?>><label for="general_type" class="directorist-radio__label"><?php esc_html_e( 'I am a user', 'directorist' ); ?>
 							</div>
 							<?php } ?>
 						<?php } ?>
@@ -118,7 +118,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<div class="atbd_term_and_condition_area directory_regi_btn directorist-checkbox directorist-mb-15">
 								<input id="listing_t" type="checkbox" name="t_c_check" <?php echo( ( isset( $t_c_check ) && 'on' === $t_c_check ) ? 'checked="checked"' : '' ); ?>>
 								<label for="listing_t" class="directorist-checkbox__label"><?php echo esc_attr($terms_label); ?>
-									<a style="color: red" target="_blank" href="<?php echo esc_url($t_C_page_link)?>"><?php echo esc_attr($terms_label_link); ?></a> <span class="directorist-form-required">*</span></label>
+									<a style="color: red" target="_blank" href="<?php echo esc_url( $t_C_page_link ); ?>"><?php echo esc_attr( $terms_label_link ); ?></a> <span class="directorist-form-required">*</span></label>
 							</div>
 						<?php } ?>
 
@@ -128,14 +128,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 						 */
 						do_action( 'atbdp_before_user_registration_submit' );
 						?>
-						<?php if(!$display_password_reg) {?>
+						<?php if( ! $display_password_reg ) {?>
 						<div class="directory_regi_btn">
-							<p><?php _e('Password will be e-mailed to you.','directorist');?></p>
+							<p><?php esc_html_e( 'Password will be e-mailed to you.','directorist' );?></p>
 						</div>
 						<?php } ?>
 						<div class="directory_regi_btn directorist-mb-15">
 							<?php if ( get_directorist_option( 'redirection_after_reg' ) === 'previous_page' ) { ?>
-							<input type="hidden" name='previous_page' value='<?php echo wp_get_referer(); ?>'>
+							<input type="hidden" name='previous_page' value='<?php echo esc_html( wp_get_referer() ); ?>'>
 							<?php } ?>
 							<button type="submit" class="directorist-btn directorist-btn-primary" name="atbdp_user_submit"><?php echo esc_html( $reg_signup ); ?></button>
 							<input type="hidden" value="<?php echo wp_create_nonce( directorist_get_nonce_key() ); ?>" name="directorist_nonce">

@@ -14,7 +14,7 @@ $counter = 1;
 
 	<?php foreach ( $dashboard->dashboard_tabs() as $key => $value ): ?>
 
-		<div class="directorist-tab__pane <?php echo ( $counter == 1 ) ? 'directorist-tab__pane--active' : ''; ?>" id="<?php echo esc_attr( $key ); ?>"><?php echo wp_kses_post( $value['content'] ); ?>
+		<div class="directorist-tab__pane <?php echo ( $counter == 1 ) ? 'directorist-tab__pane--active' : ''; ?>" id="<?php echo esc_attr( $key ); ?>"><?php echo $value['content']; ?>
 		</div>
 		<?php
 			if (!empty($value['after_content_hook'])) {

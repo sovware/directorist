@@ -30,7 +30,7 @@ class Helper {
 	 * @param string $version
 	 */
 	public static function register_single_script( $handle, $script ) {
-		$version = Helper::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
+		$version = self::get_script_version();
 
         $url = self::script_file_url( $script );
 
@@ -47,6 +47,15 @@ class Helper {
         else {
             wp_register_script( $handle, $url, $dep, $version, true );
         }
+	}
+
+	/**
+	 * Get script version
+	 * 
+	 * @return string
+	 */
+	public static function get_script_version() {
+		return self::debug_enabled() ? time() : DIRECTORIST_SCRIPT_VERSION;
 	}
 
 	/**

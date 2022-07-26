@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.3.0
+ * @version 7.3.1
  */
 
 $all_tags = get_terms( ATBDP_TAGS, array( 'hide_empty' => 0 ) );
@@ -14,7 +14,7 @@ $placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
 
 	<?php $listing_form->field_label_template( $data, 'at_biz_dir-tags' ); ?>
 
-	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-tags" data-placeholder="<?php echo esc_attr( $placeholder ); ?>" <?php echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; echo !empty( $data['allow_new'] ) ? ' data-allow_new="'. $data['allow_new'] .'"' : '';  echo !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'"' : ''; ?> <?php $listing_form->required( $data ); ?>>
+	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-tags" data-placeholder="<?php echo esc_attr( $placeholder ); ?>" <?php echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; echo !empty( $data['allow_new'] ) ? ' data-allow_new="'. esc_attr( $data['allow_new'] ) .'"' : '';  echo !empty( $data['max'] ) ? 'data-max="'. esc_attr( $data['max'] ) .'"' : ''; ?> <?php $listing_form->required( $data ); ?>>
 
 		<?php
 		if ($data['type'] != 'multiple') {

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -28,7 +28,7 @@ if( is_admin() || $data['value'] ) {
 		<input id="directorist-form-listing-type__featured" type="radio" class="atbdp_radio_input" name="listing_type" value="featured">
 		<label for="directorist-form-listing-type__featured" class="directorist-form-listing-type__featured directorist-radio__label">
 			<?php echo esc_attr( $data['featured_label'] ); ?>
-			<small class="atbdp_make_str_green"><?php echo esc_html( $listing_form->featured_listing_description() ) ;?></small>
+			<small class="atbdp_make_str_green"><?php echo esc_html( $listing_form->featured_listing_description() ); ?></small>
 		</label>
 
 	</div>

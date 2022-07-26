@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.6
+ * @version 7.3.1
  */
 ?>
 <div class='atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom'>
@@ -48,7 +48,7 @@
 					<?php
 				}
 				else { ?>
-					<h3 class='atbdp-no-margin'><?php echo get_the_title();?></h3>
+					<h3 class='atbdp-no-margin'><?php echo get_the_title(); ?></h3>
 					<?php
 				}
 				?>
@@ -59,16 +59,16 @@
 		if ( ! empty( $ls_data['address'] ) ) {
 			if ( ! empty( $display_address_map ) ) { ?>
 				<div class='osm-iw-location'>
-					<span class='<?php echo atbdp_icon_type(); ?>-map-marker'></span>
-					<a href='./' class='map-info-link'><?php echo $ls_data['address'] ?></a>
+					<span class='<?php echo esc_attr( atbdp_icon_type() ); ?>-map-marker'></span>
+					<a href='./' class='map-info-link'><?php echo esc_html( $ls_data['address'] ); ?></a>
 				</div>
 				<?php
 			}
 
 			if ( ! empty( $display_direction_map ) ) { ?>
 				<div class='osm-iw-get-location'>
-					<a href='http://www.google.com/maps?daddr=<?php echo $ls_data['manual_lat'] . ',' . $ls_data['manual_lng']; ?>' target='_blank'><?php esc_html_e( 'Get Direction', 'directorist' );?></a>
-					<span class='<?php echo atbdp_icon_type(); ?>-arrow-right'></span>
+					<a href='http://www.google.com/maps?daddr=<?php echo esc_attr( $ls_data['manual_lat'] ) . ',' . esc_attr( $ls_data['manual_lng'] ); ?>' target='_blank'><?php esc_html_e( 'Get Direction', 'directorist' );?></a>
+					<span class='<?php echo esc_attr( atbdp_icon_type() ); ?>-arrow-right'></span>
 				</div>
 				<?php
 			}

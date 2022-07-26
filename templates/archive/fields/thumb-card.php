@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -22,16 +22,16 @@ $style_component = [];
 
 if ( $by_ratio ) {
 	$padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
-	$style_component[ 'padding-top' ] = "{$padding_top_value}%";
+	$style_component['padding-top'] = "{$padding_top_value}%";
 } else {
 	$height_value = (int) $ratio_height;
-	$style_component[ 'height' ] = "{$height_value}px";
+	$style_component['height'] = "{$height_value}px";
 }
 if ( $image_size !== 'full' && ! $blur_background ) {
-	$style_component[ 'background-color' ] = $background_color;
+	$style_component['background-color'] = $background_color;
 }
 if ( $image_size === 'full' ) {
-	unset( $style_component[ 'height' ] );
+	unset( $style_component['height'] );
 }
 
 $style = '';
@@ -74,12 +74,12 @@ switch ($image_size) {
 $link_start = '<a href="'.esc_url( $listings->loop['permalink'] ).'">';
 $link_end   = '</a>';
 
-if (!$listings->disable_single_listing) {
-	echo $link_start;
+if ( ! $listings->disable_single_listing ) {
+	echo wp_kses_post( $link_start );
 }
 
-echo $the_html;
+echo wp_kses_post( $the_html );
 
-if (!$listings->disable_single_listing) {
-	echo $link_end;
+if ( ! $listings->disable_single_listing ) {
+	echo wp_kses_post( $link_end );
 }

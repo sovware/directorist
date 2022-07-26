@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<?php endif; ?>
 
 					<?php if ( $listings->header_title ): ?>
-						<h3 class="directorist-header-found-title"><?php echo $listings->item_found_title(); ?></h3>
+						<h3 class="directorist-header-found-title"><?php echo wp_kses_post( $listings->item_found_title() ); ?></h3>
 					<?php endif; ?>
 				</div>
 

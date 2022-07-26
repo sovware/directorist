@@ -94,32 +94,32 @@
 			}
 
             $data                  = array();
-            $preview_image         = isset( $_POST['listing_img'] ) ? sanitize_text_field( $_POST['listing_img'] ) : '';
+            $preview_image         = isset( $_POST['listing_img'] ) ? directorist_clean( wp_unslash( $_POST['listing_img'] ) ) : '';
             $default_directory     =  directorist_default_directory();
-            $directory_type        = isset( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
+            $directory_type        = isset( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
             $directory_type        = ( empty( $directory_type ) ) ? $default_directory : $directory_type;
-            $title                 = isset( $_POST['listing_title'] ) ? sanitize_text_field( $_POST['listing_title'] ) : '';
+            $title                 = isset( $_POST['listing_title'] ) ? directorist_clean( wp_unslash( $_POST['listing_title'] ) ) : '';
             $new_listing_status    = get_term_meta( $directory_type, 'new_listing_status', 'pending');
             $supported_post_status = array_keys( get_post_statuses() );
-            $publish_date          = isset( $_POST['publish_date'] ) ? sanitize_text_field( $_POST['publish_date'] ) : '';
-            $listing_status        = isset( $_POST['listing_status'] ) ? sanitize_text_field( $_POST['listing_status'] ) : '';
-            $delimiter             = isset( $_POST['delimiter'] ) ? sanitize_text_field( $_POST['delimiter'] ) : '';
-            $description           = isset( $_POST['listing_content'] ) ? sanitize_text_field( $_POST['listing_content'] ) : '';
-            $position              = isset( $_POST['position'] ) ? sanitize_text_field( $_POST['position'] ) : 0;
+            $publish_date          = isset( $_POST['publish_date'] ) ? directorist_clean( wp_unslash( $_POST['publish_date'] ) ) : '';
+            $listing_status        = isset( $_POST['listing_status'] ) ? directorist_clean( wp_unslash( $_POST['listing_status'] ) ) : '';
+            $delimiter             = isset( $_POST['delimiter'] ) ? directorist_clean( wp_unslash( $_POST['delimiter'] ) ) : '';
+            $description           = isset( $_POST['listing_content'] ) ? directorist_clean( wp_unslash( $_POST['listing_content'] ) ) : '';
+            $position              = isset( $_POST['position'] ) ? directorist_clean( wp_unslash( $_POST['position'] ) ) : 0;
             $position              = ( is_numeric( $position ) ) ? ( int ) $position : 0;
-            $metas                 = isset( $_POST['meta'] ) ? atbdp_sanitize_array( $_POST['meta'] ) : array();
-            $tax_inputs            = isset( $_POST['tax_input'] ) ? atbdp_sanitize_array( $_POST['tax_input'] ) : array();
+            $metas                 = isset( $_POST['meta'] ) ? atbdp_sanitize_array( wp_unslash( $_POST['meta'] ) ) : array();
+            $tax_inputs            = isset( $_POST['tax_input'] ) ? atbdp_sanitize_array( wp_unslash( $_POST['tax_input'] ) ) : array();
             $limit                 = apply_filters( 'atbdp_listing_import_limit_per_cycle', 10 );
-            $all_posts             = isset( $_POST['csv_file'] ) ? csv_get_data( $_POST['csv_file'], true, $delimiter ) : [];
-            $total_length          = ( isset( $_POST['total_post'] ) && is_numeric( $_POST['total_post'] ) ) ? ( int ) $_POST['total_post'] : count( $all_posts );
+            $all_posts             = isset( $_POST['csv_file'] ) ? csv_get_data( directorist_clean( wp_unslash( $_POST['csv_file'] ) ), true, $delimiter ) : [];
+            $total_length          = ( isset( $_POST['total_post'] ) && is_numeric( $_POST['total_post'] ) ) ? ( int ) wp_unslash( $_POST['total_post'] ) : count( $all_posts );
             $limit                 = apply_filters('atbdp_listing_import_limit_per_cycle', ( $total_length > 100 ) ? 20 : ( ( $total_length < 35 ) ? 2 : 5 ) );
             $posts                 = ( ! empty( $all_posts ) ) ? array_slice( $all_posts, $position ) : [];
             $posts                 = apply_filters( 'directorist_listings_importing_posts', $posts, $position, $limit, $_POST );
 
             if ( empty( $total_length ) ) {
                 $data['error']     = __('No data found', 'directorist');
-                $data['_POST']     = $_POST;
-                $data['file']      = $_POST['csv_file'];
+                $data['_POST']     = directorist_clean( $_POST );
+                $data['file']      = directorist_clean( wp_unslash( $_POST['csv_file'] ) );
                 $data['all_posts'] = $all_posts;
 
                 wp_send_json( $data );
@@ -148,7 +148,7 @@
                     );
 
                     // Post Date
-                    $post_date = ! empty( $post[ $publish_date ] ) ? sanitize_text_field( $post[ $publish_date ] ) : '';
+                    $post_date = ! empty( $post[ $publish_date ] ) ? directorist_clean( $post[ $publish_date ] ) : '';
                     $post_date = apply_filters( 'directorist_importing_listings_post_date', $post_date, $post, $args, $index );
 
                     if ( Directorist\Helper::validate_date_format( $post_date ) ) {
@@ -255,7 +255,7 @@
 
             $data['next_position'] = ( int ) $position + ( int ) $count;
             $data['percentage']    = absint( min( round( ( ( $data['next_position'] ) / $total_length ) * 100 ), 100 ) );
-            $data['url']           = admin_url( 'edit.php?post_type=at_biz_dir&page=tools&step=3' );
+            $data['url']           = esc_url( admin_url( 'edit.php?post_type=at_biz_dir&page=tools&step=3' ) );
             $data['total']         = $total_length;
             $data['imported']      = $imported;
             $data['failed']        = $failed;
@@ -348,8 +348,8 @@
             $directory = $directory ? $directory : $this->default_directory;
             $fields    = directorist_get_form_fields_by_directory_type( 'id', $directory );
 
-            $this->importable_fields[ 'publish_date' ]   = __( 'Publish Date', 'directorist' );
-            $this->importable_fields[ 'listing_status' ] = __( 'Listing Status', 'directorist' );
+            $this->importable_fields[ 'publish_date' ]   = esc_html__( 'Publish Date', 'directorist' );
+            $this->importable_fields[ 'listing_status' ] = esc_html__( 'Listing Status', 'directorist' );
 
             if ( empty( $fields ) || ! is_array( $fields ) ) {
                 return;
@@ -364,14 +364,14 @@
 
                 if ( isset( $field['widget_name'] ) ) {
                     if( 'pricing' == $field['widget_name'] ) {
-                        $this->importable_fields[ 'price' ] = 'Price';
-                        $this->importable_fields[ 'price_range' ] = 'Price Range';
+                        $this->importable_fields[ 'price' ] = esc_html__( 'Price', 'directorist' );
+                        $this->importable_fields[ 'price_range' ] = esc_html__( 'Price Range', 'directorist' );
                         continue;
                         }
                     if( 'map' == $field['widget_name'] ) {
-                        $this->importable_fields[ 'manual_lat' ] = 'Map Latitude';
-                        $this->importable_fields[ 'manual_lng' ] = 'Map Longitude';
-                        $this->importable_fields[ 'hide_map' ]   = 'Hide Map';
+                        $this->importable_fields[ 'manual_lat' ] = esc_html__( 'Map Latitude', 'directorist' );
+                        $this->importable_fields[ 'manual_lng' ] = esc_html__( 'Map Longitude', 'directorist' );
+                        $this->importable_fields[ 'hide_map' ]   = esc_html__( 'Hide Map', 'directorist' );
                         continue;
                     }
                 }
@@ -424,7 +424,7 @@
             $template_data = [];
 
             $template_data['controller']    = $this;
-            $template_data['download_link'] = ATBDP_URL .'views/admin-templates/import-export/data/dummy.csv';
+            $template_data['download_link'] = esc_url( ATBDP_URL .'views/admin-templates/import-export/data/dummy.csv' );
             $template_data['nav_menu']      = $this->get_header_nav_menu();
             
 
@@ -472,13 +472,13 @@
          * @return array
          */
         public function get_header_nav_menu() {
-            $step = isset( $_GET['step'] ) ? sanitize_key($_GET['step']) : '';
+            $step = isset( $_GET['step'] ) ? sanitize_key( wp_unslash( $_GET['step'] ) ) : '';
             $nav_menu = [];
 
             // Item - 1
             $nav_item                   = [];
             $nav_item['nav_item_class'] = ! $step ? esc_attr('active') : ( $step > 1 ? esc_attr('done') : '');
-            $nav_item['label']          = __('Upload CSV File', 'directorist');
+            $nav_item['label']          = esc_html__('Upload CSV File', 'directorist');
             $nav_menu[]                 = $nav_item;
             
             // Item - 2
@@ -486,7 +486,7 @@
             $class                      = ( '2' == $step ) ? esc_attr('active') : ( $step > 2 ? esc_attr('done') : '' );
             $class                      = 'atbdp-mapping-step ' . $class;
             $nav_item['nav_item_class'] = trim( $class );
-            $nav_item['label']          = __('Column Mapping', 'directorist');
+            $nav_item['label']          = esc_html__('Column Mapping', 'directorist');
             $nav_menu[]                 = $nav_item;
             
             // Item - 3
@@ -494,13 +494,13 @@
             $class                      = ( $step == 3 ) ? esc_attr('done') : '';
             $class                      = 'atbdp-progress-step ' . $class;
             $nav_item['nav_item_class'] = trim( $class );
-            $nav_item['label']          = __('Import', 'directorist');
+            $nav_item['label']          = esc_html__('Import', 'directorist');
             $nav_menu[]                 = $nav_item;
 
             // Item - 4
             $nav_item                   = [];
             $nav_item['nav_item_class'] = ( '3' == $step ) ? esc_attr('active done') : '';
-            $nav_item['label']          = __('Done', 'directorist');
+            $nav_item['label']          = esc_html__('Done', 'directorist');
             $nav_menu[]                 = $nav_item;
 
             $nav_menu = apply_filters( 'directorist_listings_importer_header_nav_menu', $nav_menu, $step );
@@ -515,7 +515,7 @@
          * @return string $template
          */
         public function importer_body_template( $return = false ) {
-            $step = ( isset( $_REQUEST['step'] ) ) ? $_REQUEST['step'] : 1;
+            $step = ( isset( $_REQUEST['step'] ) ) ? directorist_clean( wp_unslash( $_REQUEST['step'] ) ) : 1;
             $step = ( ! empty( $step ) && is_numeric( $step ) ) ? ( int ) $step : 1;
             $template_base_path = 'admin-templates/import-export/body-templates';
             $template_paths = [

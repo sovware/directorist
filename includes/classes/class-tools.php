@@ -51,28 +51,28 @@
             add_action('admin_init', array($this, 'atbdp_csv_import_controller'));
 
             add_action( 'init', [$this, 'prepare_data'] );
-            $this->file = isset($_GET['csv_file']) ? wp_unslash($_GET['csv_file']) : '';
+            $this->file = isset($_GET['csv_file']) ? directorist_clean( wp_unslash( $_GET['csv_file'] ) ) : '';
 
             if ( empty( $this->file ) && isset($_GET['file'] ) ) {
-                $this->file = wp_unslash( $_GET['file'] );
+                $this->file = directorist_clean( wp_unslash( $_GET['file'] ) );
             }
 
-            $this->update_existing = isset($_REQUEST['update_existing']) ? (bool) $_REQUEST['update_existing'] : false;
-            $this->delimiter       = !empty($_REQUEST['delimiter']) ? wp_unslash($_REQUEST['delimiter']) : ',';
+            $this->update_existing = isset($_REQUEST['update_existing']) ? directorist_clean( wp_unslash( $_REQUEST['update_existing'] ) ) : false;
+            $this->delimiter       = !empty($_REQUEST['delimiter']) ? directorist_clean( wp_unslash( $_REQUEST['delimiter'] ) ) : ',';
             add_action('wp_ajax_atbdp_import_listing', array($this, 'atbdp_import_listing'));
             add_action('wp_ajax_directorist_listing_type_form_fields', array($this, 'directorist_listing_type_form_fields'));
         }
 
 
         public function directorist_listing_type_form_fields() {
-            $term_id = sanitize_text_field( $_POST['directory_type'] );
-            $file    = wp_unslash( $_POST['csv_file'] );
+            $term_id = sanitize_text_field( wp_unslash( $_POST['directory_type'] ) );
+            $file    = directorist_clean( wp_unslash( $_POST['csv_file'] ) );
 
             if ( empty( $file ) && isset( $_POST['file'] ) ) {
-                $file = wp_unslash( $_POST['file'] );
+                $file = directorist_clean( wp_unslash( $_POST['file'] ) );
             }
 
-            $delimiter = wp_unslash( $_POST['delimiter'] );
+            $delimiter = directorist_clean( wp_unslash( $_POST['delimiter'] ) );
             $this->importable_fields = [];
             $this->setup_fields( $term_id );
 
@@ -89,12 +89,12 @@
 
 			if ( ! current_user_can( 'import' ) ) {
                 wp_send_json( array(
-					'error' => __( 'Invalid request!', 'directorist' ),
+					'error' => esc_html__( 'Invalid request!', 'directorist' ),
 				) );
 			}
 
             $data                  = array();
-            $preview_image         = isset( $_POST['listing_img'] ) ? sanitize_text_field( $_POST['listing_img'] ) : '';
+            $preview_image         = isset( $_POST['listing_img'] ) ? sanitize_text_field( wp_unslash( $_POST['listing_img'] ) ) : '';
             $default_directory     = get_directorist_option( 'atbdp_default_derectory', '' );
             $directory_type        = isset( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
             $directory_type        = ( empty( $directory_type ) ) ? $default_directory : $directory_type;

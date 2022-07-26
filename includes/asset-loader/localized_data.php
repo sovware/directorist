@@ -115,7 +115,7 @@ class Localized_Data {
 	public static function get_add_listings_data() {
 
 		$listing_id           = 0;
-		$current_url          = wp_unslash( $_SERVER['REQUEST_URI'] );
+		$current_url          = ( ! empty( $_SERVER['REQUEST_URI'] ) ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		$current_listing_type = isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : get_post_meta( $listing_id, '_directory_type', true );
 		
 		if( ! empty( $current_listing_type ) && ! is_numeric( $current_listing_type ) ) {

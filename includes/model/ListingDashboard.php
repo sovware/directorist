@@ -41,6 +41,8 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function ajax_listing_tab() {
+		check_ajax_referer( directorist_get_nonce_key() );
+
 		$data     = array_filter( $_POST, 'sanitize_text_field' ); // sanitization
 		$type     = $data['tab'];
 		$paged    = $data['paged'];

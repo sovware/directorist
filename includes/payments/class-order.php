@@ -70,7 +70,7 @@ class ATBDP_Order
         <table border="0" cellspacing="0" cellpadding="7" style="border:1px solid #CCC;">
             <tr style="background-color:#F0F0F0;">
                 <th style="border-right:1px solid #CCC; border-bottom:1px solid #CCC; text-align:left;"><?php esc_html_e('Item(s)', 'directorist'); ?></th>
-                <th style="border-bottom:1px solid #CCC;"><?php printf( esc_html__('Price [%s]', 'directorist'), $currency); ?></th>
+                <th style="border-bottom:1px solid #CCC;"><?php printf( esc_html__('Price [%s]', 'directorist'), esc_html( $currency )); ?></th>
             </tr>
             <?php if (!empty($order_items)) {
                 foreach ($order_items as $order) : ?>

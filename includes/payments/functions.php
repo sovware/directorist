@@ -100,7 +100,7 @@ function atbdp_get_payment_bulk_actions()
  * @return   string     $amount               Newly formatted amount or Price Not Available
  */
 function atbdp_format_amount( $amount, $decimals = true, $currency_settings = array() ) {
-    !is_array($currency_settings) || extract($currency_settings); // if it is array then extract it. Using the magic of OR CONDITION's FLOW
+    !is_array($currency_settings) || extract($currency_settings);  // @codingStandardsIgnoreLine. if it is array then extract it. Using the magic of OR CONDITION's FLOW
 
     $currency       = ! empty( $currency )              ? $currency : get_directorist_option('g_currency', 'USD') ;
     $thousands_sep  = ! empty( $thousands_separator )   ? $thousands_separator:  get_directorist_option('g_thousand_separator', ',');
@@ -235,7 +235,7 @@ function atbdp_payment_currency_filter($price = '')
 function atbdp_currency_filter($price = '', $currency_settings = array())
 {
 
-    !is_array($currency_settings) || extract($currency_settings); // if it is an array then extract it. Using the magic of OR CONDITION's FLOW
+    !is_array($currency_settings) || extract($currency_settings); // @codingStandardsIgnoreLine. if it is an array then extract it. Using the magic of OR CONDITION's FLOW
     $currency = !empty($currency) ? $currency : get_directorist_option('g_currency', 'USD');
     $position = !empty($position) ? $position : get_directorist_option('g_currency_position', 'before');
 

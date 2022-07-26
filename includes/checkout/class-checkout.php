@@ -39,8 +39,9 @@ class ATBDP_Checkout
     public static function ajax_atbdp_format_total_amount()
     {
         if (valid_js_nonce()) {
-            if (!empty($_POST['amount'])) {
-                echo esc_html( atbdp_format_payment_amount( wp_unslash( $_POST['amount'] ) ) );
+            if (!empty($_POST['amount'])) { // @codingStandardsIgnoreLine.
+                $price = atbdp_format_payment_amount( sanitize_text_field( wp_unslash( $_POST['amount'] ) ) );
+                echo esc_html( $price );
             }
         }
         wp_die();
@@ -68,7 +69,7 @@ class ATBDP_Checkout
             return __('Sorry, Something went wrong. Listing ID is missing. Please try again.', 'directorist');
         }
         // if the checkout form is submitted, then process placing order
-        if ( isset( $_SERVER['REQUEST_METHOD'] ) && ( 'POST' == $_SERVER['REQUEST_METHOD'] ) && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) {
+        if ( isset( $_SERVER['REQUEST_METHOD'] ) && ( 'POST' == $_SERVER['REQUEST_METHOD'] ) && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) { // @codingStandardsIgnoreLine.
             // Process the order
             $this->create_order($listing_id, $_POST);
         } else {

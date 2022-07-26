@@ -2,7 +2,7 @@
 /**
  * Checkout
  *
- * @package       directorist
+ * @package       Directorist
  * @subpackage    directorist/includes/checkout
  * @copyright     Copyright 2018. AazzTech
  * @license       https://www.gnu.org/licenses/gpl-3.0.en.html GNU Public License
@@ -39,8 +39,9 @@ class ATBDP_Checkout
     public static function ajax_atbdp_format_total_amount()
     {
         if (valid_js_nonce()) {
-            if (!empty($_POST['amount'])) {
-                echo atbdp_format_payment_amount($_POST['amount']);
+            if (!empty($_POST['amount'])) { // @codingStandardsIgnoreLine.
+                $price = atbdp_format_payment_amount( sanitize_text_field( wp_unslash( $_POST['amount'] ) ) ); // @codingStandardsIgnoreLine.
+                echo esc_html( $price );
             }
         }
         wp_die();
@@ -68,9 +69,9 @@ class ATBDP_Checkout
             return __('Sorry, Something went wrong. Listing ID is missing. Please try again.', 'directorist');
         }
         // if the checkout form is submitted, then process placing order
-        if ('POST' == $_SERVER['REQUEST_METHOD'] && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) {
+        if ( isset( $_SERVER['REQUEST_METHOD'] ) && ( 'POST' == $_SERVER['REQUEST_METHOD'] ) && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) { // @codingStandardsIgnoreLine.
             // Process the order
-            $this->create_order($listing_id, $_POST);
+            $this->create_order($listing_id, $_POST); // @codingStandardsIgnoreLine.
         } else {
             // Checkout form is not submitted, so show the content of the checkout items here
             $form_data = apply_filters('atbdp_checkout_form_data', array(), $listing_id); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
@@ -144,7 +145,7 @@ class ATBDP_Checkout
         $order_id = (int)get_query_var('atbdp_order_id');
 
         if ( empty( $order_id ) && ! empty( $_REQUEST['order'] ) ) {
-            $order_id = $_REQUEST['order'];
+            $order_id = sanitize_text_field( wp_unslash( $_REQUEST['order'] ) );
         }
 
         if (empty($order_id)) {
@@ -185,7 +186,6 @@ class ATBDP_Checkout
         $data['order_items'] = $order_items;
 
         ob_start();
-        extract($data);
         $data['c_position']     = get_directorist_option('payment_currency_position');
         $data['currency']         = atbdp_get_payment_currency();
         $data['symbol']          = atbdp_currency_symbol( atbdp_get_payment_currency() );
@@ -328,7 +328,7 @@ class ATBDP_Checkout
     public function buffer_to_fix_redirection()
     {
         // if the checkout form is submitted, then init buffering to solve redirection problem because of header already sent
-        if ('POST' == $_SERVER['REQUEST_METHOD'] && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) {
+        if ( isset( $_SERVER['REQUEST_METHOD'] ) && ( 'POST' == $_SERVER['REQUEST_METHOD'] ) && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) {
             ob_start();
         }
     }

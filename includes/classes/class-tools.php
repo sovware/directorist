@@ -94,8 +94,8 @@
 			}
 
             $data                  = array();
-            $preview_image         = isset( $_POST['listing_img'] ) ? sanitize_text_field( wp_unslash( $_POST['listing_img'] ) ) : '';
-            $default_directory     = get_directorist_option( 'atbdp_default_derectory', '' );
+            $preview_image         = isset( $_POST['listing_img'] ) ? sanitize_text_field( $_POST['listing_img'] ) : '';
+            $default_directory     =  directorist_default_directory();
             $directory_type        = isset( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
             $directory_type        = ( empty( $directory_type ) ) ? $default_directory : $directory_type;
             $title                 = isset( $_POST['listing_title'] ) ? sanitize_text_field( $_POST['listing_title'] ) : '';

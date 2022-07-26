@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-19 04:40+0000\n"
+"POT-Creation-Date: 2022-07-25 09:27+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -4063,7 +4063,7 @@ msgid "Importing"
 msgstr ""
 
 #: ../includes/classes/class-setup-wizard.php:697, ../views/admin-templates/import-export/body-templates/step-two.php:101
-msgid "Your listing are now being imported..."
+msgid "Your listings are now being imported..."
 msgstr ""
 
 #: ../includes/classes/class-setup-wizard.php:701, ../views/admin-templates/import-export/body-templates/step-two.php:105

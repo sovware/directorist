@@ -3,12 +3,14 @@ import './components/directoristSelect';
 import './components/colorPicker';
 import './../global/components/setup-select2';
 import './../global/components/select2-custom-control';
+import { directorist_callingSlider } from './range-slider';
+import { directorist_range_slider } from './range-slider';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
         /* ----------------
-    Search Listings
-    ------------------ */
+        Search Listings
+        ------------------ */
 
         //ad search js
         $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");

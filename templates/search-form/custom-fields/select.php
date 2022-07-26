@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.4
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<?php
 			foreach ( $data['options'] as $option ) {
-				printf('<option value="%s"%s>%s</option>', $option['option_value'], selected(  $value === $option[ 'option_value' ] ), $option['option_label']);
+				printf('<option value="%s"%s>%s</option>', esc_attr( $option['option_value'] ), selected(  $value === $option[ 'option_value' ] ), esc_attr( $option['option_label'] ) );
 			}
 			?>
 

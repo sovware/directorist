@@ -1086,7 +1086,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Related listings slider */
 
 
-  var rtl = Boolean(directorist.rtl);
+  var rtl = directorist.rtl === 'true';
   var relLis = document.querySelector('.directorist-related-carousel');
 
   if (relLis !== null) {

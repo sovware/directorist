@@ -334,7 +334,7 @@ class Multi_Directory_Manager
         }
 
         $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? absint( $_POST[ 'term_id' ] ) : 0;
-        $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? sanitize_text_field( $_POST[ 'directory-name' ] ) : '';
+        $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'directory-name' ] ) ) : '';
         $json_file      = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';
 
         // Validation
@@ -470,7 +470,7 @@ class Multi_Directory_Manager
         }
 
         $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? absint( $_POST['listing_type_id'] ) : 0;
-        $directory_name = sanitize_text_field( $_POST['name'] );
+        $directory_name = sanitize_text_field( wp_unslash( $_POST['name'] ) );
 
         $fields     = [];
         $field_list = Helper::maybe_json( $_POST['field_list'] );

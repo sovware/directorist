@@ -338,7 +338,7 @@ final class Directorist_Base
 			$category_url = $this->get_polylang_swicher_link_for_term([
 				'term_type'            => 'category',
 				'term_default_page_id' => get_directorist_option('single_category_page'),
-				'term_query_var'       => ( ! empty( $_GET['category'] ) ) ? sanitize_text_field( $_GET['category'] ) : get_query_var('atbdp_category'),
+				'term_query_var'       => ( ! empty( $_GET['category'] ) ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : get_query_var('atbdp_category'),
 				'current_lang'         => $current_lang,
 				'url'                  => $url,
 			]);
@@ -349,7 +349,7 @@ final class Directorist_Base
 			$location_url = $this->get_polylang_swicher_link_for_term([
 				'term_type'            => 'location',
 				'term_default_page_id' => get_directorist_option('single_location_page'),
-				'term_query_var'       => ( ! empty( $_GET['location'] ) ) ? sanitize_text_field( $_GET['location'] ) : get_query_var('atbdp_location'),
+				'term_query_var'       => ( ! empty( $_GET['location'] ) ) ? sanitize_text_field( wp_unslash( $_GET['location'] ) ) : get_query_var('atbdp_location'),
 				'current_lang'         => $current_lang,
 				'url'                  => $url,
 			]);

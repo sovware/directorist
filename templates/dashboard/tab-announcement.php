@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.0.3.3
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -39,7 +39,7 @@ $announcements = $dashboard->get_announcements();
 
 	<?php else: ?>
 
-		<p class="directorist_not-found"><?php esc_html_e( 'No announcements found', 'directorist' ) ?></p>
+		<p class="directorist_not-found"><?php esc_html_e( 'No announcements found', 'directorist' ); ?></p>
 
 	<?php endif; ?>
 

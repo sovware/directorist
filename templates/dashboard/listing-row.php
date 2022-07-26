@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.3
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -23,7 +23,7 @@ if ( $query->have_posts() ) {
 				<div class="directorist-listing-table-listing-info">
 
 					<div class="directorist-listing-table-listing-info__img">
-						<a href="<?php the_permalink(); ?>"><?php echo $dashboard->get_listing_thumbnail(); ?></a>
+						<a href="<?php the_permalink(); ?>"><?php echo wp_kses_post( $dashboard->get_listing_thumbnail() ); ?></a>
 					</div>
 
 					<div class="directorist-listing-table-listing-info__content">
@@ -40,12 +40,12 @@ if ( $query->have_posts() ) {
 			<?php do_action( 'directorist_dashboard_listing_td_2', $dashboard ); ?>
 
 			<?php if ( Helper::multi_directory_enabled() ): ?>
-				<td><span class="directorist-listing-plan"><?php echo $dashboard->get_listing_type(); ?></span></td>
+				<td><span class="directorist-listing-plan"><?php echo wp_kses_post( $dashboard->get_listing_type() ); ?></span></td>
 			<?php endif; ?>
 
-			<td><span class="directorist-ex-plan"><?php echo $dashboard->get_listing_expired_html(); ?></span></td>
+			<td><span class="directorist-ex-plan"><?php echo wp_kses_post( $dashboard->get_listing_expired_html() ); ?></span></td>
 
-			<td><?php echo $dashboard->get_listing_status_html(); ?></td>
+			<td><?php echo wp_kses_post( $dashboard->get_listing_status_html() ); ?></td>
 
 			<?php do_action( 'directorist_dashboard_listing_td_6', $dashboard ); ?>
 
@@ -67,7 +67,7 @@ if ( $query->have_posts() ) {
 								if( $dropdown_items ) {
 									foreach( $dropdown_items as $item ) {
 										?>
-										<a class="directorist-dropdown-item <?php echo $item['class']; ?>" <?php echo $item['data_attr']; ?> href="<?php echo $item['link']; ?>"><?php echo $item['icon']; ?><?php echo $item['label']; ?></a>
+										<a class="directorist-dropdown-item <?php echo esc_attr( $item['class'] ); ?>" <?php echo esc_attr( $item['data_attr'] ); ?> href="<?php echo esc_url( $item['link'] ); ?>"><?php echo wp_kses_post( $item['icon'] ); ?><?php echo esc_html( $item['label'] ); ?></a>
 										<?php
 									}
 								}

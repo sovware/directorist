@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -49,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</div>
 
 					<form id="directorist-dashboard-listing-searchform">
-						<input type="text" placeholder="<?php _e( 'Search listings', 'directorist' ); ?>" name="searchtext">
+						<input type="text" placeholder="<?php esc_html_e( 'Search listings', 'directorist' ); ?>" name="searchtext">
 					</form>
 
 				</div>
@@ -95,7 +95,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<?php do_action( 'directorist_dashboard_after_loop' ); ?>
 					
 					<div class="directorist-dashboard-pagination">
-						<?php echo $dashboard->listing_pagination(); ?>
+						<?php echo wp_kses_post( $dashboard->listing_pagination() ); ?>
 					</div>
 
 				</div>

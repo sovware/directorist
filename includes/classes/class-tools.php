@@ -80,9 +80,9 @@
             
             ATBDP()->load_template( 'admin-templates/import-export/data-table', array( 'data' => csv_get_data( $file, false, $delimiter ), 'fields' => $this->importable_fields ) );
             
-            echo ob_get_clean();
+            $response = ob_get_clean();
             
-            die();
+            wp_send_json( $response );
         }
 
         public function atbdp_import_listing() {
@@ -405,13 +405,9 @@
         }
 
         public function render_tools_submenu_page() {
-            ob_start();
 
             ATBDP()->load_template( 'admin-templates/import-export/import-export', [ 'controller' => $this ] );
-
-            $template = apply_filters( 'directorist_listings_importer_template', ob_get_clean() );
-            
-            echo $template;
+        
         }
 
         /**
@@ -427,20 +423,9 @@
             $template_data['download_link'] = esc_url( ATBDP_URL .'views/admin-templates/import-export/data/dummy.csv' );
             $template_data['nav_menu']      = $this->get_header_nav_menu();
             
-
             $template_path = 'admin-templates/import-export/header-templates/header';
-
-            ob_start();
-
             ATBDP()->load_template( $template_path, $template_data );
 
-            $template = apply_filters( 'directorist_listings_importer_header_template', ob_get_clean(), $template_data );
-
-            if ( $return ) {
-                return $template;
-            }
-
-            echo $template;
         }
 
         /**
@@ -451,19 +436,9 @@
          */
         public function importer_header_nav_menu_item_template( $template_data = [], $return = false ) {
 
-            ob_start();
-
             $template_data['controller'] = $this;
-
             ATBDP()->load_template( 'admin-templates/import-export/header-templates/nav-item', $template_data );
 
-            $template = apply_filters( 'directorist_listings_importer_header_nav_menu_item_template', ob_get_clean(), $template_data );
-
-            if ( $return ) {
-                return $template;
-            }
-
-            echo $template;
         }
 
         /**
@@ -531,17 +506,8 @@
                 'step'       => $step,
             ];
 
-            ob_start();
-
             ATBDP()->load_template( $template_path, $template_data );
 
-            $template = apply_filters( 'directorist_listings_importer_body_template', ob_get_clean(), $template_data );
-
-            if ( $return ) {
-                return $template;
-            }
-
-            echo $template;
         }
     }
 

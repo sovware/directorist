@@ -109,12 +109,13 @@ class All_Tags extends \WP_Widget {
 
         if( ( ! empty( $instance['display_single_tag'] ) && ! is_singular( ATBDP_POST_TYPE ) && ! $check_tag ) || ! $allowWidget)
             return;
-        
+
 		echo wp_kses_post( $args['before_widget'] );
 
 		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Tags', 'directorist');
+		$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
 		echo '<div class="atbd_widget_title">';
-		echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
+		echo wp_kses_post( $widget_title );
 		echo '</div>';
 
         $query_args = array(

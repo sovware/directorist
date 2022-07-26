@@ -41,6 +41,8 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function ajax_listing_tab() {
+		check_ajax_referer( directorist_get_nonce_key() );
+
 		$data     = array_filter( $_POST, 'sanitize_text_field' ); // sanitization
 		$type     = $data['tab'];
 		$paged    = $data['paged'];
@@ -503,11 +505,7 @@ class Directorist_Listing_Dashboard {
 			return $this->restrict_access_template();
 		}
 
-		ob_start();
-		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-		echo Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
-
-		return ob_get_clean();
+		return Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
 	}
 
 	public function can_renew() {

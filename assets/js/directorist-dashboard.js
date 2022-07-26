@@ -357,6 +357,7 @@ __webpack_require__.r(__webpack_exports__);
         dataType: 'json',
         data: {
           'action': 'directorist_dashboard_listing_tab',
+          '_ajax_nonce': directorist.directorist_nonce,
           'tab': tab,
           'paged': paged,
           'search': search,

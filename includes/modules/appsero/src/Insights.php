@@ -356,9 +356,9 @@ class Insights {
      */
     private function is_local_server() {
 
-        $host       = $_SERVER['HTTP_HOST'];
-        $ip         = $_SERVER['SERVER_ADDR'];
-        $is_local   = false;
+        $host     = $_SERVER['HTTP_HOST']; // @codingStandardsIgnoreLine.
+        $ip       = $_SERVER['SERVER_ADDR']; // @codingStandardsIgnoreLine.
+        $is_local = false;
 
         if( in_array( $ip,array( '127.0.0.1', '::1' ) )
             || ! strpos( $host, '.' )
@@ -434,8 +434,8 @@ class Insights {
         echo '<div class="updated"><p>';
             echo esc_html( $notice );
             echo '</p><p class="submit">';
-            echo '&nbsp;<a href="' . esc_url( $optin_url ) . '" class="button-primary button-large">' . $this->client->__trans( 'Allow' ) . '</a>';
-            echo '&nbsp;<a href="' . esc_url( $optout_url ) . '" class="button-secondary button-large">' . $this->client->__trans( 'No thanks' ) . '</a>';
+            echo '&nbsp;<a href="' . esc_url( $optin_url ) . '" class="button-primary button-large">' . esc_attr( $this->client->__trans( 'Allow' ) ) . '</a>';
+            echo '&nbsp;<a href="' . esc_url( $optout_url ) . '" class="button-secondary button-large">' . esc_attr( $this->client->__trans( 'No thanks' ) ) . '</a>';
         echo '</p></div>';
 
         echo esc_js( "<script type='text/javascript'>jQuery('." . $this->client->slug . "-insights-data-we-collect').on('click', function(e) {
@@ -506,7 +506,7 @@ class Insights {
     public function get_post_count( $post_type ) {
         global $wpdb;
 
-        return (int) $wpdb->get_var( "SELECT count(ID) FROM $wpdb->posts WHERE post_type = '$post_type' and post_status = 'publish'");
+        return (int) $wpdb->get_var( $wpdb->prepare( "SELECT count(ID) FROM $wpdb->posts WHERE post_type = %s and post_status = 'publish'", $post_type ) );
     }
 
     /**
@@ -520,7 +520,7 @@ class Insights {
         $server_data = array();
 
         if ( isset( $_SERVER['SERVER_SOFTWARE'] ) && ! empty( $_SERVER['SERVER_SOFTWARE'] ) ) {
-            $server_data['software'] = $_SERVER['SERVER_SOFTWARE'];
+            $server_data['software'] = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) );
         }
 
         if ( function_exists( 'phpversion' ) ) {
@@ -772,8 +772,8 @@ class Insights {
         }
 
         $data                = $this->get_tracking_data();
-        $data['reason_id']   = sanitize_text_field( $_POST['reason_id'] );
-        $data['reason_info'] = isset( $_REQUEST['reason_info'] ) ? trim( stripslashes( $_REQUEST['reason_info'] ) ) : '';
+        $data['reason_id']   = sanitize_text_field( wp_unslash( $_POST['reason_id'] ) );
+        $data['reason_info'] = isset( $_REQUEST['reason_info'] ) ? trim( sanitize_text_field( wp_unslash( $_REQUEST['reason_info'] ) ) ) : '';
 
         $this->client->send_request( $data, 'deactivate' );
 
@@ -832,7 +832,7 @@ class Insights {
                     <p class="wd-dr-modal-reasons-bottom">
                        <?php
                        echo sprintf(
-	                       $this->client->__trans( 'We share your data with <a href="%1$s" target="_blank">Appsero</a> to troubleshoot problems &amp; make product improvements. <a href="%2$s" target="_blank">Learn more</a> about how Appsero handles your data.'),
+	                       esc_html( $this->client->__trans( 'We share your data with <a href="%1$s" target="_blank">Appsero</a> to troubleshoot problems &amp; make product improvements. <a href="%2$s" target="_blank">Learn more</a> about how Appsero handles your data.') ),
 	                       esc_url( 'https://appsero.com/' ),
                            esc_url( 'https://appsero.com/privacy-policy' )
                        );

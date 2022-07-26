@@ -252,7 +252,7 @@ class Client {
      * @return boolean
      */
     public function is_local_server() {
-        $is_local = in_array( $_SERVER['REMOTE_ADDR'], array( '127.0.0.1', '::1' ) );
+        $is_local = in_array( $_SERVER['REMOTE_ADDR'], array( '127.0.0.1', '::1' ) ); // @codingStandardsIgnoreLine.
 
         return apply_filters( 'appsero_is_local', $is_local );
     }

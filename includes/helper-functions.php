@@ -1,5 +1,8 @@
 <?php
 // Prohibit direct script loading.
+
+use Directorist\Helper;
+
 defined('ABSPATH') || die('No direct script access allowed!');
 
 if ( ! function_exists( 'directorist_get_listings_directory_type' ) ) {
@@ -8886,4 +8889,24 @@ function directorist_translate_to_listing_field_key( $header_key = '' ) {
  */
 function directorist_get_var( &$var, $default = null ) {
 	return isset( $var ) ? $var : $default;
+}
+
+/**
+ * Maybe JSON
+ *
+ * Converts input to an array if contains valid json string
+ *
+ * If input contains base64 encoded json string, then it
+ * can decode it as well
+ *
+ * @param $input_data
+ * @param $return_first_item
+ *
+ * Returns first item of the array if $return_first_item is set to true
+ * Returns original input if it is not decodable
+ *
+ * @return mixed
+ */
+function directorist_maybe_json( $input_data = '' ) {
+    return Helper::maybe_json( $input_data );
 }

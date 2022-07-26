@@ -839,9 +839,12 @@ class Directorist_Listings {
 		$this->execute_meta_query_args( $args, $meta_queries );
 
 		if ( isset( $_REQUEST['custom_field'] ) ) {
-			$custom_fields = array_filter( $_REQUEST['custom_field'] );
+			// Multi-dimensional array, sanitized inside
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$custom_fields = array_filter( wp_unslash( $_REQUEST['custom_field'] ) );
 
 			foreach ( $custom_fields as $key => $values ) {
+				$key = sanitize_text_field( $key );
 				if ( is_array( $values ) ) {
 					if ( count( $values ) > 1 ) {
 						$sub_meta_queries = array();

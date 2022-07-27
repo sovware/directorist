@@ -142,7 +142,7 @@ class Insights {
      */
     public function init_plugin() {
         // plugin deactivate popup
-        if ( true || ! $this->is_local_server() ) {
+        if ( ! $this->is_local_server() ) {
             add_filter( 'plugin_action_links_' . $this->client->basename, array( $this, 'plugin_action_links' ) );
             add_action( 'admin_footer', array( $this, 'deactivate_scripts' ) );
         }

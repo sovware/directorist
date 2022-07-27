@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+
+<ruleset name="DirectoristStandard ruleset">
+    <description>Directorist Custom Ruleset</description>
+	<config name="testVersion" value="5.4-"/>
+
+    <rule ref="WordPress">
+        <include-pattern>*\.php$</include-pattern>
+
+        <!-- Generic -->
+        <exclude name="Generic.Classes.OpeningBraceSameLine.BraceOnNewLine" />
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax" />
+        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
+        <exclude name="Generic.Commenting" />
+		<exclude name="Generic.Strings.UnnecessaryStringConcat" />
+        <exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed" />
+        <exclude name="Generic.Files.EndFileNewline.NotFound" />
+        <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect" />
+        <exclude name="Generic.Functions.FunctionCallArgumentSpacing.NoSpaceAfterComma" />
+        <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
+        <exclude name="Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma" />
+        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie.BraceOnNewLine" />
+        <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceBeforeClose" />
+        <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceAfterOpen" />
+        <exclude name="Generic.Functions.FunctionCallArgumentSpacing.TooMuchSpaceAfterComma" />
+        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie.SpaceBeforeBrace" />
+        <exclude name="Generic.Formatting.SpaceAfterCast.NoSpace" />
+
+        <!-- PSR2 -->
+        <exclude name="PSR2.Namespaces.NamespaceDeclaration.BlankLineAfter" />
+
+        <!-- Squiz -->
+		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
+		<exclude name="Squiz.Commenting" />
+		<exclude name="Squiz.PHP.DisallowMultipleAssignments" />
+		<exclude name="Squiz.Operators.IncrementDecrementUsage" />
+		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword" />
+		<exclude name="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
+		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine" />
+		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines" />
+		<exclude name="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace" />
+		<exclude name="Squiz.WhiteSpace.CastSpacing.ContainsWhiteSpace" />
+		<exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound" />
+		<exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterOpen" />
+		<exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeEnd" />
+		<exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterOpen" />
+		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis" />
+
+        <!-- PEAR -->
+		<exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.Indent" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.OpeningIndent" />
+
+        <!-- Wordpress -->
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda" />
+		<exclude name="WordPress.NamingConventions" />
+		<exclude name="WordPress.DateTime.RestrictedFunctions" />
+		<exclude name="WordPress.Files.FileName" />
+		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
+        
+		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
+        <exclude name="WordPress.Arrays.ArrayIndentation" />
+        <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions" />
+        <exclude name="WordPress.Arrays.CommaAfterArrayItem" />
+        <exclude name="WordPress.Arrays.MultipleStatementAlignment" />
+
+		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterOpenParenthesis" />
+		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceAfterCloseParenthesis" />
+		<exclude name="WordPress.WhiteSpace.OperatorSpacing.NoSpaceBefore" />
+		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.BlankLineAfterEnd" />
+		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeCloseParenthesis" />
+		<exclude name="WordPress.WhiteSpace.OperatorSpacing.SpacingAfter" />
+		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeOpenParenthesis" />
+        <exclude name="WordPress.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsed" />
+        <exclude name="WordPress.WhiteSpace.OperatorSpacing.NoSpaceAfter" />
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterStructureOpen" />
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceAfterOpenParenthesis" />
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterCloseParenthesis" />
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceBeforeCloseParenthesis" />
+    </rule>
+
+    <rule ref="WordPress.Security.NonceVerification">
+        <properties>
+            <property name="customNonceVerificationFunctions" type="array">
+                <element value="directorist_verify_nonce"/>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="WordPress.Security.ValidatedSanitizedInput">
+        <properties>
+            <property name="customSanitizingFunctions" type="array">
+                <element value="directorist_clean"/>
+                <element value="directorist_maybe_json"/>
+            </property>
+        </properties>
+    </rule>
+</ruleset>

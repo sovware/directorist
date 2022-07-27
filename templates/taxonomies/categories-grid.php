@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.6
+ * @version 7.3.1
  */
 use \Directorist\Helper;
 
@@ -44,7 +44,7 @@ $columns = floor( 12 / $taxonomy->columns );
 													<h4 class="cat-name"><?php echo esc_html($category['name']); ?></h4>
 													<?php if( $taxonomy->show_count ){ ?>
 													<span class="cat-count">
-														<?php echo $category['grid_count_html'];?> <span><?php echo ( ( $category['term']->count > 1 ) || ( $category['term']->count == 0 ) ) ? __( 'listings', 'directorist' ) : __( 'listing', 'directorist' ); ?></span>
+														<?php echo wp_kses_post( $category['grid_count_html'] ); ?> <span><?php echo ( ( $category['term']->count > 1 ) || ( $category['term']->count == 0 ) ) ? esc_html__( 'listings', 'directorist' ) : esc_html__( 'listing', 'directorist' ); ?></span>
 													</span>
 													<?php } ?>
 												</div>
@@ -57,7 +57,7 @@ $columns = floor( 12 / $taxonomy->columns );
 						<?php
 					}
 				} else {
-					_e('<p>No Results found!</p>', 'directorist');
+					echo '<p>' . esc_html__( 'No Results found!', 'directorist' ) . '</p>';
 				}
 				?>
 			</div>

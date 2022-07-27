@@ -943,7 +943,7 @@ __webpack_require__.r(__webpack_exports__);
     var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
     ad_slide.hide().slideUp();
     $(document).on('click', function (e) {
-      if (!e.target.closest('.directorist-search-form-top, .directorist-listings-header, .directorist-search-form') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')) {
+      if (!e.target.closest('.directorist-search-form-top, .directorist-listings-header, .directorist-search-form, .select2-container') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')) {
         count = 0;
         directoristAdvFilter().css({
           visibility: 'hidden',

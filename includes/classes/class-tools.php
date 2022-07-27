@@ -65,6 +65,13 @@
 
 
         public function directorist_listing_type_form_fields() {
+
+            if ( ! directorist_verify_nonce() ) {
+                wp_send_json( array(
+					'error' => esc_html__( 'Invalid nonce!', 'directorist' ),
+				) );
+            }
+
             $term_id = sanitize_text_field( wp_unslash( $_POST['directory_type'] ) );
             $file    = directorist_clean( wp_unslash( $_POST['csv_file'] ) );
 
@@ -92,6 +99,12 @@
 					'error' => esc_html__( 'Invalid request!', 'directorist' ),
 				) );
 			}
+
+            if ( ! directorist_verify_nonce() ) {
+                wp_send_json( array(
+					'error' => esc_html__( 'Invalid nonce!', 'directorist' ),
+				) );
+            }
 
             $data                  = array();
             $preview_image         = isset( $_POST['listing_img'] ) ? directorist_clean( wp_unslash( $_POST['listing_img'] ) ) : '';

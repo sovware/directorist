@@ -64,13 +64,13 @@ class Comment_Form_Processor {
 			}
 
 			if ( $is_review ) {
-				$rating = ! empty( $_POST['rating'] ) ? directorist_clean( $_POST['rating'] ) : '';
+				$rating = ! empty( $_POST['rating'] ) ? directorist_clean( wp_unslash( $_POST['rating'] ) ) : '';
 				if ( empty( $rating ) ) {
 					throw new Exception( __( 'Please share review rating.', 'directorist' ) );
 				}
 			}
 
-			$comment_content = isset( $_POST['comment'] ) ? trim( sanitize_textarea_field( $_POST['comment'] ) ) : '';
+			$comment_content = isset( $_POST['comment'] ) ? trim( sanitize_textarea_field( wp_unslash( $_POST['comment'] ) ) ) : '';
 
 			if ( empty( $comment_content ) ) {
 				if ( $is_review ) {

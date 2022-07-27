@@ -26,7 +26,7 @@ class Walker extends Walker_Comment {
 	 * @param array  $args   Optional. Uses 'style' argument for type of HTML list. Default empty array.
 	 */
 	public function start_lvl( &$output, $depth = 0, $args = array() ) {
-		$GLOBALS['comment_depth'] = $depth + 1;
+		$GLOBALS['comment_depth'] = $depth + 1; // @codingStandardsIgnoreLine.
 
 		$output .= '<ul class="directorist-review-single__comments">' . "\n";
 	}
@@ -43,7 +43,7 @@ class Walker extends Walker_Comment {
 	 *                       Default empty array.
 	 */
 	public function end_lvl( &$output, $depth = 0, $args = array() ) {
-		$GLOBALS['comment_depth'] = $depth + 1;
+		$GLOBALS['comment_depth'] = $depth + 1; // @codingStandardsIgnoreLine.
 
 		$output .= "</ul><!-- .directorist-review-single__comments -->\n";
 	}
@@ -161,7 +161,7 @@ class Walker extends Walker_Comment {
 					<?php
 					echo esc_html( $comment_reply_link );
 
-					echo directorist_get_comment_edit_link(
+					echo esc_html( directorist_get_comment_edit_link(
 						array_merge(
 							$args,
 							array(
@@ -170,7 +170,7 @@ class Walker extends Walker_Comment {
 								'max_depth'  => $args['max_depth']
 							)
 						)
-					);
+					) );
 					?>
 				</div>
 				<?php endif; ?>

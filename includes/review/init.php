@@ -72,7 +72,7 @@ class Bootstrap {
 		if ( $code === 'require_valid_comment' ) {
 			remove_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ) );
 
-			if ( ! empty( $_POST['comment_parent'] ) ) {
+			if ( ! empty( $_POST['comment_parent'] ) ) { // @codingStandardsIgnoreLine.
 				$text = __( 'To submit your reply, please add your comment.', 'directorist' );
 			} else {
 				$text = __( 'To submit your review, please describe your rating.', 'directorist' );

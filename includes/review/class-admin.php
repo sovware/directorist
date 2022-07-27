@@ -99,9 +99,9 @@ class Metabox {
 
 				if ( $_index !== -1 && isset( $submenu[ $menu_slug ][ $_index ] ) ) {
 					if ( empty( $submenu[ $menu_slug ][ $_index ][4] ) ) {
-						$submenu[ $menu_slug ][ $_index ][4] = 'current';
+						$submenu[ $menu_slug ][ $_index ][4] = 'current'; // @codingStandardsIgnoreLine.
 					} else {
-						$submenu[ $menu_slug ][ $_index ][4] .= ' current';
+						$submenu[ $menu_slug ][ $_index ][4] .= ' current'; // @codingStandardsIgnoreLine.
 					}
 				}
 			}

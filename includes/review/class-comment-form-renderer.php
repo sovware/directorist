@@ -427,7 +427,7 @@ class Comment_Form_Renderer {
 					 * @param string $user_identity  If the commenter is a registered user,
 					 *                               the display name, blank otherwise.
 					 */
-					echo apply_filters( 'directorist_comment_form_logged_in', $args['logged_in_as'], $commenter, $user_identity );
+					echo esc_html( apply_filters( 'directorist_comment_form_logged_in', $args['logged_in_as'], $commenter, $user_identity ) );
 
 					/**
 					 * Fires after the is_user_logged_in() check in the comment form.
@@ -477,7 +477,7 @@ class Comment_Form_Renderer {
 						 *
 						 * @param string $args_comment_field The content of the comment textarea field.
 						 */
-						echo apply_filters( 'directorist_comment_form_field_comment', $field );
+						echo esc_html( apply_filters( 'directorist_comment_form_field_comment', $field ) );
 
 						echo esc_html( $args['comment_notes_after'] );
 
@@ -502,7 +502,7 @@ class Comment_Form_Renderer {
 						 *
 						 * @param string $field The HTML-formatted output of the comment form field.
 						 */
-						echo apply_filters( "comment_form_field_{$name}", $field ) . "\n";
+						echo esc_html( apply_filters( "comment_form_field_{$name}", $field ) . "\n" );
 
 						if ( $last_field === $name ) {
 							/**
@@ -550,7 +550,7 @@ class Comment_Form_Renderer {
 				 * @param string $submit_field HTML markup for the submit field.
 				 * @param array  $args         Arguments passed to comment_form().
 				 */
-				echo apply_filters( 'directorist_comment_form_submit_field', $submit_field, $args );
+				echo esc_html( apply_filters( 'directorist_comment_form_submit_field', $submit_field, $args ) );
 
 				/**
 				 * Fires at the bottom of the comment form, inside the closing form tag.

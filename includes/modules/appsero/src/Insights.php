@@ -141,8 +141,9 @@ class Insights {
      * @return void
      */
     public function init_plugin() {
+
         // plugin deactivate popup
-        if ( ! $this->is_local_server() ) {
+        if ( true || ! $this->is_local_server() ) {
             add_filter( 'plugin_action_links_' . $this->client->basename, array( $this, 'plugin_action_links' ) );
             add_action( 'admin_footer', array( $this, 'deactivate_scripts' ) );
         }
@@ -796,6 +797,8 @@ class Insights {
             return;
         }
 
+        $allowed_svg_tags = directorist_get_allowed_svg_tags();
+
         $this->deactivation_modal_styles();
         $reasons = $this->get_uninstall_reasons();
         $custom_reasons = apply_filters( 'appsero_custom_deactivation_reasons', array() );
@@ -813,8 +816,8 @@ class Insights {
                             <li data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>">
                                 <label>
                                     <input type="radio" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>">
-                                    <div class="wd-de-reason-icon"><?php echo esc_html( $reason['icon'] ); ?></div>
-                                    <div class="wd-de-reason-text"><?php echo esc_html( $reason['text'] ); ?></div>
+                                    <div class="wd-de-reason-icon"><?php echo wp_kses( $reason['icon'], $allowed_svg_tags ); ?></div>
+                                    <div class="wd-de-reason-text"><?php echo wp_kses_post( $reason['text'] ); ?></div>
                                 </label>
                             </li>
                         <?php } ?>
@@ -825,8 +828,8 @@ class Insights {
                             <li data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>" data-customreason="true">
                                 <label>
                                     <input type="radio" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>">
-                                    <div class="wd-de-reason-icon"><?php echo esc_html( $reason['icon'] ); ?></div>
-                                    <div class="wd-de-reason-text"><?php echo esc_html( $reason['text'] ); ?></div>
+                                    <div class="wd-de-reason-icon"><?php echo wp_kses( $reason['icon'], $allowed_svg_tags ); ?></div>
+                                    <div class="wd-de-reason-text"><?php echo wp_kses_post( $reason['text'] ); ?></div>
                                 </label>
                             </li>
                         <?php } ?>
@@ -836,7 +839,7 @@ class Insights {
                     <p class="wd-dr-modal-reasons-bottom">
                        <?php
                        echo sprintf(
-	                       esc_html( $this->client->__trans( 'We share your data with <a href="%1$s" target="_blank">Appsero</a> to troubleshoot problems &amp; make product improvements. <a href="%2$s" target="_blank">Learn more</a> about how Appsero handles your data.') ),
+                           wp_kses_post( $this->client->__trans( 'We share your data with <a href="%1$s" target="_blank">Appsero</a> to troubleshoot problems &amp; make product improvements. <a href="%2$s" target="_blank">Learn more</a> about how Appsero handles your data.') ),
 	                       esc_url( 'https://appsero.com/' ),
                            esc_url( 'https://appsero.com/privacy-policy' )
                        );

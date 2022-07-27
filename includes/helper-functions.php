@@ -8910,3 +8910,25 @@ function directorist_get_var( &$var, $default = null ) {
 function directorist_maybe_json( $input_data = '' ) {
     return directorist_clean( Helper::maybe_json( $input_data ) );
 }
+
+/**
+ * Directorist get allowed svg tags
+ * 
+ * @return array
+ */
+function directorist_get_allowed_svg_tags() {
+    return apply_filters( 'directorist_get_allowed_svg_tags', [
+        'svg' => array(
+            'xmlns'   => array(),
+            'width'   => array(),
+            'height'  => array(),
+            'viewBox' => array(),
+        ),
+        'g' => array(
+            'fill' => array(),
+        ),
+        'path' => array(
+            'd' => array(),
+        ),
+    ] );
+}

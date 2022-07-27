@@ -230,8 +230,8 @@ class License {
      * License menu output
      */
     public function menu_output() {
-        if ( isset( $_POST['submit'] ) ) {
-            $this->license_form_submit( $_POST );
+        if ( isset( $_POST['submit'] ) ) { // @codingStandardsIgnoreLine.
+            $this->license_form_submit( $_POST ); // @codingStandardsIgnoreLine.
         }
 
         $license = $this->get_license();

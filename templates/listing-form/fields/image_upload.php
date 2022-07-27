@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.0
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -25,7 +25,7 @@ $img_upload_data = [
 	'is_required'        => $required,
 	'max_size_per_img'   => $max_file_size_kb,
 ];
-$img_upload_data = json_encode( $img_upload_data );
+$img_upload_data = wp_json_encode( $img_upload_data );
 ?>
 
 <div class="directorist-form-group directorist-form-image-upload-field">

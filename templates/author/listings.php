@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.7
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -13,9 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="directorist-author-listing-top directorist-flex directorist-justify-content-between">
 
 	<div>
-		<h2 class="directorist-author-listing-top__title"><?php esc_html_e( 'Author Listings' , 'directorist'); ?></h2>
+		<h2 class="directorist-author-listing-top__title"><?php esc_html_e( 'Author Listings', 'directorist' ); ?></h2>
 		<div class="directorist-author-listing-type">
-		<?php echo $author->archive_type( $author ); ?>
+		<?php echo wp_kses_post( $author->archive_type( $author ) ); ?>
 		</div>
 	</div>
 
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				foreach ($author->get_listing_categories() as $category) {
 					$active_class = ( isset($_GET['category']) && ($category->slug == $_GET['category']) ) ? 'active' : '';
 					$link = directorist_add_query_args_with_no_pagination( [ 'category' => $category->slug ] );
-					printf('<a class="directorist-dropdown__links--single %s" href="%s">%s</a>', $active_class, $link, $category->name);
+					printf('<a class="directorist-dropdown__links--single %s" href="%s">%s</a>', esc_attr( $active_class ), esc_url( $link ), esc_html( $category->name ) );
 				}
 				?>
 

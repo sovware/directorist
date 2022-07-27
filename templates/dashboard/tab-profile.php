@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.6
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -153,7 +153,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 									
 									<input id="facebook" class="directorist-form-element" type="url" name="user[facebook]" value="<?php echo esc_attr( $dashboard->user_info( 'facebook' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter your facebook url', 'directorist' ); ?>">
 									
-									<span class="directorist-input-extra-info"><?php esc_html_e( 'Leave it empty to hide', 'directorist' ) ?></span>
+									<span class="directorist-input-extra-info"><?php esc_html_e( 'Leave it empty to hide', 'directorist' ); ?></span>
 
 								</div>
 							
@@ -163,7 +163,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 									
 									<input id="twitter" class="directorist-form-element" type="url" name="user[twitter]" value="<?php echo esc_attr( $dashboard->user_info( 'twitter' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter your twitter url', 'directorist' ); ?>">
 									
-									<span class="directorist-input-extra-info"><?php esc_html_e( 'Leave it empty to hide', 'directorist' ) ?></span>
+									<span class="directorist-input-extra-info"><?php esc_html_e( 'Leave it empty to hide', 'directorist' ); ?></span>
 
 								</div>
 							
@@ -173,7 +173,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 									
 									<input id="linkedIn" class="directorist-form-element" type="url" name="user[linkedIn]" value="<?php echo esc_attr( $dashboard->user_info( 'linkedin' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter linkedIn url', 'directorist' ); ?>">
 									
-									<span class="directorist-input-extra-info"><?php esc_html_e( 'Leave it empty to hide', 'directorist' ) ?></span>
+									<span class="directorist-input-extra-info"><?php esc_html_e( 'Leave it empty to hide', 'directorist' ); ?></span>
 
 								</div>
 							
@@ -183,7 +183,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 									
 									<input id="youtube" class="directorist-form-element" type="url" name="user[youtube]" value="<?php echo esc_attr( $dashboard->user_info( 'youtube' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter youtube url', 'directorist' ); ?>">
 									
-									<span class="directorist-input-extra-info"><?php esc_html_e( 'Leave it empty to hide', 'directorist' ) ?></span>
+									<span class="directorist-input-extra-info"><?php esc_html_e( 'Leave it empty to hide', 'directorist' ); ?></span>
 									
 								</div>
 								

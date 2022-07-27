@@ -2,11 +2,11 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.1.1
+ * @version 7.3.1
  */
 ?>
 
-<div class="marker" data-latitude="<?php echo esc_attr( $ls_data['manual_lat'] ); ?>" data-longitude="<?php echo esc_attr($ls_data['manual_lng']); ?>" data-icon="<?php echo esc_attr($ls_data['cat_icon']); ?>">
+<div class="marker" data-latitude="<?php echo esc_attr( $ls_data['manual_lat'] ); ?>" data-longitude="<?php echo esc_attr( $ls_data['manual_lng'] ); ?>" data-icon="<?php echo esc_attr( $ls_data['cat_icon'] ); ?>">
 
 	<?php if ( ! $map_is_disabled ) { ?>
 
@@ -16,7 +16,7 @@
 				<div class="map-info-img">
 					<?php
 					if ( ! $disable_single_listing ) {
-						echo "<a href='" . esc_url(get_the_permalink()) . "'>";
+						echo "<a href='" . esc_url( get_the_permalink() ) . "'>";
 					}
 
 					if ( ! empty( $ls_data['listing_prv_img'] ) ) {
@@ -28,7 +28,7 @@
 					}
 
 					if ( empty( $ls_data['listing_img'][0] ) && empty( $ls_data['listing_prv_img'] ) ) {
-						echo '<img src="' . $ls_data['default_img'] . '" alt="' . esc_attr( get_the_title() ) . '" width="280">';
+						echo '<img src="' . esc_url( $ls_data['default_img'] ) . '" alt="' . esc_attr( get_the_title() ) . '" width="280">';
 					}
 
 					if ( ! $disable_single_listing ) {
@@ -46,7 +46,7 @@
 						<div class="atbdp-listings-title-block">
 							<h3 class="atbdp-no-margin">
 								<?php if ( ! $disable_single_listing ){ ?>
-									<a href="<?php the_permalink();?>"><?php the_title();?></a>
+									<a href="<?php the_permalink(); ?>"><?php the_title();?></a>
 									<?php
 								}
 								else {

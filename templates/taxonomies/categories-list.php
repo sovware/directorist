@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.6
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -25,14 +25,14 @@ $columns = floor( 12 / $taxonomy->columns );
 				?>
 				<div class="<?php Helper::directorist_column( $columns ); ?>">
 					<div class="atbd_category_wrapper">
-						<a href="<?php echo esc_url($category['permalink']);?>" class="atbd_parent_cat"><span><?php echo esc_html($category['name']);?></span><?php echo $category['list_count_html'];?></a><?php echo $plus_icon;?>
-						<?php echo $category['subterm_html'];?>
+						<a href="<?php echo esc_url( $category['permalink'] ); ?>" class="atbd_parent_cat"><span><?php echo esc_html( $category['name'] ); ?></span><?php echo wp_kses_post( $category['list_count_html'] ); ?></a><?php echo wp_kses_post( $plus_icon ); ?>
+						<?php echo wp_kses_post( $category['subterm_html'] ); ?>
 					</div>
 				</div>
 				<?php
 			}
 		} else {
-			_e('<p>No Results found!</p>', 'directorist');
+			echo '<p>' . esc_html__( 'No Results found!', 'directorist' ) . '</p>';
 		}
 		?>
 	</div>

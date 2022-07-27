@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.6
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -35,7 +35,7 @@ $columns = floor( 12 / $taxonomy->columns );
 									?>
 									<figcaption>
 										<h3><?php echo esc_html($location['name']); ?></h3>
-										<?php echo $location['grid_count_html'];?>
+										<?php echo wp_kses_post( $location['grid_count_html'] ); ?>
 									</figcaption>
 								</figure>
 							</a>
@@ -45,7 +45,7 @@ $columns = floor( 12 / $taxonomy->columns );
 					}
 				}
 				else {
-					_e('<p>No Results found!</p>', 'directorist');
+					echo '<p>' . esc_html__( 'No Results found!', 'directorist' ) . '</p>';
 				}
 				?>
 			</div>

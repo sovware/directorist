@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.0.5.3
+ * @version 7.3.1
  */
 
 extract( $checkout );
@@ -32,7 +32,7 @@ use \Directorist\Helper;
                 <thead class="thead-light">
                 <tr>
                     <th colspan="2">
-                        <?php _e("Details","directorist");?>
+                        <?php esc_html_e("Details","directorist");?>
                     </th>
                     <th><strong><?php printf(__('Price [%s]', 'directorist'), $currency); ?></strong></th>
                 </tr>
@@ -77,7 +77,7 @@ use \Directorist\Helper;
                             <td class="text-right vertical-middle">
                                 <span class="atbd-plan-price">
                                 <?php if (!empty($option['price'])) {
-                                    echo $before . esc_html(atbdp_format_payment_amount($option['price'])) . $after;
+                                    echo esc_attr( $before ) . esc_html(atbdp_format_payment_amount($option['price'])) . esc_attr( $after );
                                     do_action('atbdp_checkout_after_total_price', $form_data);
                                 } ?>
                                 </span>
@@ -93,13 +93,13 @@ use \Directorist\Helper;
                 ?>
                 <tr class="atbdp_ch_subtotal">
                     <td colspan="2" class="text-right vertical-middle">
-                        <h4><?php echo __( 'Subtotal', 'directorist' ); ?></h4>
+                        <h4><?php echo esc_html__( 'Subtotal', 'directorist' ); ?></h4>
                     </td>
                     <td class="text-right vertical-middle">
                         <div id="atbdp_checkout_subtotal_amount"><?php
-                            echo $before;
+                            echo esc_attr( $before );
                             echo esc_html( atbdp_format_payment_amount( $subtotal ) );
-                            echo $after;
+                            echo esc_attr( $after );
                         ?></div>
 
                     </td>
@@ -156,8 +156,8 @@ use \Directorist\Helper;
             <input type="hidden" id="listing_id" name="listing_id" value="<?php echo $listing_id; ?>"/>
             <div class="directorist-payment-action" id="atbdp_pay_notpay_btn">
                 <a href="<?php echo esc_url( apply_filters( 'atbdp_checkout_not_now_link', $url ) ); ?>" class="directorist-btn directorist-btn-outline-primary atbdp_not_now_button"><?php _e('Not Now', 'directorist'); ?></a>
-                <button type="submit" id="atbdp_checkout_submit_btn" class="directorist-btn directorist-btn-primary" value="<?php echo $submit_button_label; ?>"><?php echo $submit_button_label; ?></button>
-                <input type="hidden" id="atbdp_checkout_submit_btn_label" value="<?php echo $submit_button_label; ?>"/>
+                <button type="submit" id="atbdp_checkout_submit_btn" class="directorist-btn directorist-btn-primary" value="<?php echo esc_attr( $submit_button_label ); ?>"><?php echo esc_html( $submit_button_label ); ?></button>
+                <input type="hidden" id="atbdp_checkout_submit_btn_label" value="<?php echo esc_attr( $submit_button_label ); ?>"/>
             </div> <!--ends pull-right-->
 
             <?php do_action('atbdp_before_checkout_form_end'); ?>

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.3.0
+ * @version 7.3.1
  */
 
 $placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
@@ -12,7 +12,7 @@ $placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
 
 	<?php $listing_form->field_label_template( $data );?>
 
-	<select name="admin_category_select[]" id="at_biz_dir-categories" class="directorist-form-element" data-placeholder="<?php echo esc_attr( $placeholder ); ?>" <?php echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; echo !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'"' : ''; echo !empty( $data['create_new_cat'] ) ? ' data-allow_new="'. $data['create_new_cat'] .'"' : ''; ?> <?php $listing_form->required( $data ); ?>>
+	<select name="admin_category_select[]" id="at_biz_dir-categories" class="directorist-form-element" data-placeholder="<?php echo esc_attr( $placeholder ); ?>" <?php echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; echo !empty( $data['max'] ) ? 'data-max="'. esc_attr( $data['max'] ) .'"' : ''; echo !empty( $data['create_new_cat'] ) ? ' data-allow_new="'. esc_attr( $data['create_new_cat'] ) .'"' : ''; ?> <?php $listing_form->required( $data ); ?>>
 
 		<?php
 		if ($data['type'] != 'multiple') {

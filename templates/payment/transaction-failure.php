@@ -1,2 +1,2 @@
 <?php
-  _e('Your Transaction was not successful. Please contact support', 'directorist');
+  esc_html_e( 'Your Transaction was not successful. Please contact support', 'directorist' );

@@ -767,6 +767,10 @@ class Insights {
      */
     public function uninstall_reason_submission() {
 
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json_error();
+        }
+
         if ( ! isset( $_POST['reason_id'] ) ) {
             wp_send_json_error();
         }
@@ -914,6 +918,7 @@ class Insights {
                             type: 'POST',
                             data: {
                                 action: '<?php echo esc_js(  $this->client->slug ); ?>_submit-uninstall-reason',
+                                directorist_nonce: '<?php echo esc_js( wp_create_nonce( directorist_get_nonce_key() ) ); ?>',
                                 reason_id: ( 0 === $radio.length ) ? 'none' : $radio.val(),
                                 reason_info: ( 0 !== $input.length ) ? $input.val().trim() : ''
                             },

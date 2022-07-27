@@ -38,7 +38,7 @@ class Scripts {
 			],
 			'directorist-unicons' => [
 				'type' => 'css',
-				'ext'  => '//unicons.iconscout.com/release/v3.0.3/css/line.css',
+				'path' => DIRECTORIST_ASSETS . 'unicons-3.0.3/css/line',
 			],
 			'directorist-font-awesome' => [
 				'type' => 'css',

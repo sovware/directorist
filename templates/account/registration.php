@@ -135,7 +135,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php } ?>
 						<div class="directory_regi_btn directorist-mb-15">
 							<?php if ( get_directorist_option( 'redirection_after_reg' ) === 'previous_page' ) { ?>
-							<input type="hidden" name='previous_page' value='<?php echo esc_html( wp_get_referer() ); ?>'>
+							<input type="hidden" name='previous_page' value='<?php echo esc_url( wp_get_referer() ); ?>'>
 							<?php } ?>
 							<button type="submit" class="directorist-btn directorist-btn-primary" name="atbdp_user_submit"><?php echo esc_html( $reg_signup ); ?></button>
 							<input type="hidden" value="<?php echo wp_create_nonce( directorist_get_nonce_key() ); ?>" name="directorist_nonce">

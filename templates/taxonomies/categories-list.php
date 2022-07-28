@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.6
+ * @version 7.3
  */
 
 use \Directorist\Helper;
@@ -21,7 +21,7 @@ $columns = floor( 12 / $taxonomy->columns );
 		<?php
 		if( $categories ) {
 			foreach ($categories as $category) {
-				$plus_icon = $category['has_child'] ? '<span class="expander">+</span>' : '';
+				$plus_icon = $category['has_child'] ? '<span class="expander">&#8964;</span>' : '';
 				?>
 				<div class="<?php Helper::directorist_column( $columns ); ?>">
 					<div class="atbd_category_wrapper">

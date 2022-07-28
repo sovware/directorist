@@ -6201,7 +6201,7 @@ function atbdp_list_categories($settings)
         foreach ($terms as $term) {
             $settings['term_id'] = $term->term_id;
             $child_category = get_term_children($term->term_id, ATBDP_CATEGORY);
-            $plus_icon = !empty($child_category) ? '<span class="expander">+</span>' : '';
+            $plus_icon = !empty($child_category) ? '<span class="expander">&#8964;</span>' : '';
             $count = 0;
             if (!empty($settings['hide_empty']) || !empty($settings['show_count'])) {
                 $count = atbdp_listings_count_by_category($term->term_id);
@@ -6310,7 +6310,7 @@ function atbdp_list_locations($settings)
         foreach ($terms as $term) {
             $settings['term_id'] = $term->term_id;
             $child_category = get_term_children($term->term_id, ATBDP_LOCATION);
-            $plus_icon = !empty($child_category) ? '<span class="expander">+</span>' : '';
+            $plus_icon = !empty($child_category) ? '<span class="expander">&#8964;</span>' : '';
             $count = 0;
             if (!empty($settings['hide_empty']) || !empty($settings['show_count'])) {
                 $count = atbdp_listings_count_by_location($term->term_id);

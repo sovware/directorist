@@ -63,10 +63,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 											<?php if( $authors->display_name() ): ?>
 												<h2><?php echo esc_html( Helper::user_info( $author, 'name' ) ) ; ?></h2>
 											<?php endif; ?>
-
-											<?php if( $authors->display_role() ): ?>
-												<h3><?php echo esc_html( ucfirst( Helper::user_info( $author, 'role' ) ) ) ; ?></h3>
-											<?php endif; ?>
 										</div>
 
 										<?php if( $authors->contact_info() ) : ?>

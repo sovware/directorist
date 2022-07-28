@@ -37,10 +37,6 @@ class Directorist_All_Authors {
 		return get_directorist_option( 'all_authors_name', true );
 	}
 
-	public function display_role() {
-		return get_directorist_option( 'all_authors_role', true );
-	}
-
 	public function contact_info() {
 		return get_directorist_option( 'all_authors_contact', array( 'phone', 'address', 'website' ) );
 	}

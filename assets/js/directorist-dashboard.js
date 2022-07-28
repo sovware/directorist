@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -357,6 +357,7 @@ __webpack_require__.r(__webpack_exports__);
         dataType: 'json',
         data: {
           'action': 'directorist_dashboard_listing_tab',
+          '_ajax_nonce': directorist.directorist_nonce,
           'tab': tab,
           'paged': paged,
           'search': search,
@@ -1201,7 +1202,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 6:
+/***/ 7:
 /*!*********************************************************!*\
   !*** multi ./assets/src/js/public/modules/dashboard.js ***!
   \*********************************************************/

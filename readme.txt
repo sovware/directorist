@@ -399,7 +399,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.3.0 - Jul 18, 2022
+7.3.0 - Jul 19, 2022
 
 * New - Twenty Twenty-Two theme support
 * New - Templating support for widgets

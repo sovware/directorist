@@ -685,6 +685,10 @@ final class Directorist_Base
 
 	}
 
+	public function get_related_listings_widget( $post, $count ) {
+		_deprecated_function( __METHOD__, '7.3.1' );
+	}
+
 	public function add_custom_meta_keys_for_old_listings()
 	{
 		// get all the listings that does not have any of the following meta key missing

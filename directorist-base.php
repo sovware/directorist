@@ -550,11 +550,15 @@ final class Directorist_Base
 	 * @param bool $return_path Whether to return the path instead of including it
 	 * @return string|void
 	 */
-	public function load_template($name, $args = array(), $return_path = false)
-	{
-		global $post;
-		$path = ATBDP_VIEWS_DIR . $name . '.php';
-		if ($return_path) return $path;
+	public function load_template( $template_name, $args = array(), $return_path = false )
+	{	
+		$path = ATBDP_VIEWS_DIR . $template_name . '.php';
+		$path = apply_filters( 'directorist_admin_template', $path, $template_name, $args );
+		
+		if ( $return_path ) {
+			return $path;
+		}
+
 		include($path);
 	}
 

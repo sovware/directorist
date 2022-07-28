@@ -94,8 +94,8 @@ class ATBDP_Custom_Url
 							</div>
 							<div class="atbds_form-row">
 								<div class="atbds_buttonGroup">
-									<button id='generate-url' name="generate-url" class="atbds_btn atbds_btnDark" data-nonce="<?php echo wp_create_nonce( '_generate_custom_url' ); ?>" ><?php esc_html_e( 'Create URL', 'directorist' ); ?></button>
-									<button id='revoke-url' name="revoke-url" class="atbds_btn atbds_btnGray" data-nonce="<?php echo wp_create_nonce( '_revoke_custom_url' ); ?>" ><?php esc_html_e( 'Revoke URL', 'directorist' ); ?></button>
+									<button id='generate-url' name="generate-url" class="atbds_btn atbds_btnDark" data-nonce="<?php echo esc_attr( wp_create_nonce( '_generate_custom_url' ) ); ?>" ><?php esc_html_e( 'Create URL', 'directorist' ); ?></button>
+									<button id='revoke-url' name="revoke-url" class="atbds_btn atbds_btnGray" data-nonce="<?php echo esc_attr( wp_create_nonce( '_revoke_custom_url' ) ); ?>" ><?php esc_html_e( 'Revoke URL', 'directorist' ); ?></button>
 								</div>
 							</div>
 						</form>

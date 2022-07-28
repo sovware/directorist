@@ -479,7 +479,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                 </span>
                                             </td>
                                             <td>
-                                                <?php printf( '%.2fMB', $database['database_size']['data'] + $database['database_size']['index'] ); ?>
+                                                <?php printf( '%.2fMB', esc_attr( $database['database_size']['data'] ) + esc_attr( $database['database_size']['index'] ) ); ?>
                                             </td>
                                         </tr>
                                         <tr>
@@ -489,7 +489,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                     <span class="atbd_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span><?php printf( '%.2fMB', $database['database_size']['data'] ); ?></span></td>
+                                            <td><span><?php printf( '%.2fMB', esc_attr( $database['database_size']['data'] ) ); ?></span></td>
                                         </tr>
                                         <tr>
                                             <td class="atbds_table-title"><?php esc_html_e('Database Index Size', 'directorist'); ?>:</td>
@@ -498,7 +498,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                     <span class="atbd_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span><?php printf( '%.2fMB', $database['database_size']['index'] ); ?></span></td>
+                                            <td><span><?php printf( '%.2fMB', esc_attr( $database['database_size']['index'] ) ); ?></span></td>
                                         </tr>
                                         <?php foreach ( $database['database_tables']['directorist'] as $table => $table_data ) { ?>
                                             <tr>
@@ -512,7 +512,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                     <?php if ( ! $table_data ) {
                                                         echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html__( 'Table does not exist', 'directorist' ) . '</mark>';
                                                     } else {
-                                                        printf( esc_html__( 'Data: %.2fMB + Index: %.2fMB', 'directorist' ), $this->directorist_help_tip( $table_data['data'], 2 ), $this->directorist_help_tip( $table_data['index'], 2 ) );
+                                                        printf( esc_html__( 'Data: %.2fMB + Index: %.2fMB', 'directorist' ), wp_kses_post( $this->directorist_help_tip( $table_data['data'], 2 ) ), wp_kses_post( $this->directorist_help_tip( $table_data['index'], 2 ) ) );
                                                     } ?>
                                                 </td>
                                             </tr>
@@ -525,7 +525,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                         <span class="atbd_tooltip__text"></span>
                                                     </span>
                                                 </td>
-                                                <td><?php printf( esc_html__( 'Data: %.2fMB + Index: %.2fMB', 'directorist' ), $this->directorist_help_tip( $table_data['data'], 2 ), $this->directorist_help_tip( $table_data['index'], 2)  ); ?></td>
+                                                <td><?php printf( esc_html__( 'Data: %.2fMB + Index: %.2fMB', 'directorist' ), wp_kses_post( $this->directorist_help_tip( $table_data['data'], 2 ) ), wp_kses_post( $this->directorist_help_tip( $table_data['index'], 2 ) )  ); ?></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
@@ -631,7 +631,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                     <td>
                                                         <?php
                                                         /* translators: %s: plugin author */
-                                                        printf( __('by %s', 'directorist'), wp_kses_post( $plugin['author_name'] ) );
+                                                        printf( esc_html__('by %s', 'directorist'), wp_kses_post( $plugin['author_name'] ) );
                                                         echo ' &ndash; ' . wp_kses_post( $plugin['version'] ) . wp_kses_post( $version_string ) . wp_kses_post( $network_string );
                                                         ?>
                                                     </td>
@@ -773,10 +773,10 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                                     if ( $override['core_version'] && ( empty( $override['version'] ) || version_compare( $override['version'], $override['core_version'], '<' ) ) ) {
                                                                         $current_version = $override['version'] ? $override['version'] : '-';
                                                                         printf(
-                                                                            esc_html( '%1$s version %2$s is out of date. The core version is %3$s', 'directorist' ),
+                                                                            __( '%1$s version %2$s is out of date. The core version is %3$s', 'directorist' ),
                                                                             '<code>' . esc_html( $override['file'] ) . '</code>',
                                                                             '<strong style="color:red">' . esc_html( $current_version ) . '</strong>',
-                                                                            $override['core_version']
+                                                                            esc_attr( $override['core_version'] )
                                                                         );
                                                                     } else {
                                                                         echo esc_html( $override['file'] );

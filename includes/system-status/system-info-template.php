@@ -48,7 +48,7 @@ global $wpdb;
             <td class="help"><?php echo wp_kses_post( $this->directorist_help_tip( __( 'The maximum amount of memory (RAM) that your site can use at one time.', 'directorist' ) ) ); ?></td>
             <td><?php
 				if ( $environment['wp_memory_limit'] < 67108864 ) {
-					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( __( '%1$s - We recommend setting memory to at least 64MB. See: %2$s', 'directorist' ), esc_html( size_format( $environment['wp_memory_limit'] ) ), '<a href="https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP" target="_blank">' . __( 'Increasing memory allocated to PHP', 'directorist' ) . '</a>' ) . '</mark>';
+					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( __( '%1$s - We recommend setting memory to at least 64MB. See: %2$s', 'directorist' ), esc_html( size_format( $environment['wp_memory_limit'] ) ), '<a href="https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP" target="_blank">' . esc_html__( 'Increasing memory allocated to PHP', 'directorist' ) . '</a>' ) . '</mark>';
 				} else {
 					echo '<mark class="yes">' . esc_html( size_format( $environment['wp_memory_limit'] ) ) . '</mark>';
 				}
@@ -94,7 +94,7 @@ global $wpdb;
 		<?php foreach( $php_information as $item => $value) { ?>
         <tr>
             <td data-export-label="<?php echo esc_attr( $item ); ?>"><?php echo wp_kses_post( $item ); ?>:</td>
-            <td><?php echo $value; ?></td>
+            <td><?php echo wp_kses_post( $value ); ?></td>
 		</tr>
 		<?php } ?>
     </tbody>
@@ -152,7 +152,7 @@ global $wpdb;
 				if ( $environment['fsockopen_or_curl_enabled'] ) {
 					echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
 				} else {
-					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . __( 'Your server does not have fsockopen or cURL enabled - PayPal IPN and other scripts which communicate with other servers will not work. Contact your hosting provider.', 'directorist' ) . '</mark>';
+					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html__( 'Your server does not have fsockopen or cURL enabled - PayPal IPN and other scripts which communicate with other servers will not work. Contact your hosting provider.', 'directorist' ) . '</mark>';
 				} ?>
 			</td>
 		</tr>
@@ -238,7 +238,7 @@ global $wpdb;
 				<td class="help"><?php echo isset( $row['help'] ) ? wp_kses_post( $row['help'] ) : ''; ?></td>
 				<td>
 					<mark class="<?php echo esc_attr( $css_class ); ?>">
-						<?php echo $icon; ?>  <?php echo ! empty( $row['note'] ) ? wp_kses_data( $row['note'] ) : ''; ?>
+						<?php echo $icon; ?>  <?php echo wp_kses_data( ! empty( $row['note'] ) ? $row['note'] : '' ); ?>
 					</mark>
 				</td>
 			</tr><?php
@@ -342,7 +342,7 @@ global $wpdb;
         <td class="help">&nbsp;</td>
         <td>
 			<?php if ( ! $table_data ) {
-				echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . __( 'Table does not exist', 'directorist' ) . '</mark>';
+				echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html__( 'Table does not exist', 'directorist' ) . '</mark>';
 			} else {
 				printf( esc_html__( 'Data: %.2fMB + Index: %.2fMB', 'directorist' ), wp_kses_post( $this->directorist_help_tip( $table_data['data'], 2 ) ), wp_kses_post( $this->directorist_help_tip( $table_data['index'], 2 ) ) );
 			} ?>
@@ -397,7 +397,7 @@ global $wpdb;
 				<?php if ( $security['secure_connection'] ) : ?>
 					<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>
 				<?php else : ?>
-					<mark class="error"><span class="dashicons dashicons-warning"></span><?php echo __( 'HTTPS is not enabled on your site.', 'directorist' ); ?></mark>
+					<mark class="error"><span class="dashicons dashicons-warning"></span><?php echo esc_html__( 'HTTPS is not enabled on your site.', 'directorist' ); ?></mark>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -445,7 +445,7 @@ global $wpdb;
 				}
 				?>
 				<tr>
-					<td><?php echo $plugin_name; ?></td>
+					<td><?php echo wp_kses_post( $plugin_name ); ?></td>
 					<td class="help">&nbsp;</td>
 					<td><?php
 						/* translators: %s: plugin author */
@@ -544,9 +544,9 @@ global $wpdb;
 									$current_version = $override['version'] ? $override['version'] : '-';
 									printf(
 										esc_html__( '%1$s version %2$s is out of date. The core version is %3$s', 'directorist' ),
-										'<code>' . $override['file'] . '</code>',
+										'<code>' . esc_attr( $override['file'] ) . '</code>',
 										'<strong style="color:red">' . esc_html( $current_version ) . '</strong>',
-										$override['core_version']
+										esc_attr( $override['core_version'] )
 									);
 								} else {
 									echo esc_html( $override['file'] );

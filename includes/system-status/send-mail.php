@@ -9,17 +9,16 @@ class ATBDP_Send_Mail {
     }
 
     public function send_system_info() {
-        $nonce = isset( $_POST['_nonce'] ) ? $_POST['_nonce'] : '';
-        if ( ! wp_verify_nonce( $nonce, '_debugger_email_nonce' ) ) {
+        if ( isset( $_POST['_nonce'] ) && ! wp_verify_nonce( $_POST['_nonce'], '_debugger_email_nonce' ) ) {
             die( 'huh!' );
         }
 		$user = wp_get_current_user();
-        $email = isset( $_POST['email'] ) ? $_POST['email'] : '';
-        $sender_email = isset( $_POST['sender_email'] ) ? sanitize_email( $_POST['sender_email'] ) : '';
-		$subject = isset( $_POST['subject'] ) ? sanitize_text_field( $_POST['subject'] ) : '';
-		$system_info_url = isset( $_POST['system_info_url'] ) ? esc_url( $_POST['system_info_url'] )  : '';
-		$to = ! empty( $email ) ? sanitize_email( $email ) : '';
-		$message = isset( $_POST['message'] ) ? sanitize_textarea_field( $_POST['message'] ) : '';
+        $email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+        $sender_email = isset( $_POST['sender_email'] ) ? sanitize_email( wp_unslash( $_POST['sender_email'] ) ) : '';
+		$subject = isset( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
+		$system_info_url = isset( $_POST['system_info_url'] ) ? esc_url( wp_unslash( $_POST['system_info_url'] ) )  : '';
+		$to = ! empty( $email ) ? $email : '';
+		$message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
 		if( ! empty( $system_info_url ) ) {
             $message .= '<div><a href="' . $system_info_url . '">';
             $message .=   $system_info_url;
@@ -84,7 +83,7 @@ class ATBDP_Send_Mail {
                             </div>
                             <div class="atbds_form-row">
                             <p class='system_info_success'></p>
-                            <input type="hidden" name='_email_nonce' id='atbdp_email_nonce' value='<?php echo wp_create_nonce( '_debugger_email_nonce' ); ?>' />
+                            <input type="hidden" name='_email_nonce' id='atbdp_email_nonce' value='<?php echo esc_attr( wp_create_nonce( '_debugger_email_nonce' ) ); ?>' />
                                 <button class="atbds_btn atbds_btnPrimary" id="atbdp-send-system-info-submit"><?php esc_html_e( 'Send Mail', 'directorist' ); ?></button>
                             </div>
                         </form>

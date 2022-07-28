@@ -20,6 +20,9 @@
 	<!-- Show progress, show the error codes for each message (source). -->
 	<arg value="ps" />
 
+	<!-- Exclude Warnings. -->
+	<arg value="n" />
+
 	<file>.</file>
 
 	<!-- Configs -->
@@ -29,13 +32,13 @@
 	<arg name="tab-width" value="4"/>
 
 	<!-- Exclude paths -->
-	<exclude-pattern>__*/</exclude-pattern>
-	<exclude-pattern>.github</exclude-pattern>
-	<exclude-pattern>admin</exclude-pattern>
-	<exclude-pattern>assets</exclude-pattern>
-	<exclude-pattern>languages</exclude-pattern>
-	<exclude-pattern>*/node_modules/*</exclude-pattern>
-	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>/__*/</exclude-pattern>
+	<exclude-pattern>/.github</exclude-pattern>
+	<exclude-pattern>/admin/*</exclude-pattern>
+	<exclude-pattern>/assets/*</exclude-pattern>
+	<exclude-pattern>/languages/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/vendor/*</exclude-pattern>
 
 	<!-- Rules -->
 	<rule ref="WordPress.Security"/>

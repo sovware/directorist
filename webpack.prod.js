@@ -41,6 +41,7 @@ const prodConfig = {
               { source: './views', destination: './__build/directorist/directorist/views' },
               { source: './*.php', destination: './__build/directorist/directorist' },
               { source: './*.txt', destination: './__build/directorist/directorist' },
+              { source: './phpcs.xml.dist', destination: './__build/directorist/directorist' },
             ],
           },
           {

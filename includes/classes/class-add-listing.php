@@ -10,7 +10,7 @@
  * @since       1.0
  */
 
-// Exit if accessed directly
+// Exit if accessed directly.
 defined( 'ABSPATH' ) || die( 'Direct access is not allowed.' );
 
 if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
@@ -21,11 +21,15 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 	class ATBDP_Add_Listing {
 
 		/**
+		 * Nonce name.
+		 *
 		 * @var string
 		 */
 		public $nonce = 'add_listing_nonce';
 
 		/**
+		 * Ajax action name.
+		 *
 		 * @var string
 		 */
 		public $nonce_action = 'add_listing_action';
@@ -34,9 +38,9 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		 * ATBDP_Add_Listing constructor.
 		 */
 		public function __construct() {
-			// show the attachment of the current users only
+			// show the attachment of the current users only.
 			add_filter( 'ajax_query_attachments_args', array( $this, 'show_current_user_attachments' ) );
-			add_action( 'parse_query', array( $this, 'parse_query' ) ); // do stuff likes adding, editing, renewing, favorite etc in this hook
+			add_action( 'parse_query', array( $this, 'parse_query' ) ); // do stuff likes adding, editing, renewing, favorite etc in this hook.
 			add_action( 'wp_ajax_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
 			add_action( 'wp_ajax_nopriv_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
 		}
@@ -62,6 +66,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		}
 
 		/**
+		 * Process listing submission.
+		 *
 		 * @since 5.6.3
 		 */
 		public function atbdp_submit_listing() {
@@ -280,7 +286,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 								 * commas before parsing the list.
 								 */
 								if ( ! is_array( $terms ) ) {
-									$comma = _x( ',', 'tag delimiter' );
+									$comma = _x( ',', 'tag delimiter', 'directorist' );
 									if ( ',' !== $comma ) {
 										$terms = str_replace( $comma, ',', $terms );
 									}
@@ -384,7 +390,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						do_action( 'atbdp_listing_updated', $post_id );// for sending email notification
 					} else {
 						// kick the user out because he is trying to modify the listing of other user.
-						$data['redirect_url'] = $_SERVER['REQUEST_URI'] . '?error=true';
+						$data['redirect_url'] = esc_url_raw( directorist_get_request_uri() . '?error=true' );
 						$data['error']        = true;
 					}
 				} else {
@@ -433,7 +439,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 								 * commas before parsing the list.
 								 */
 								if ( ! is_array( $terms ) ) {
-									$comma = _x( ',', 'tag delimiter' );
+									$comma = _x( ',', 'tag delimiter', 'directorist' );
 									if ( ',' !== $comma ) {
 										$terms = str_replace( $comma, ',', $terms );
 									}
@@ -569,8 +575,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					if ( ! $attatchemt_only_for_admin ) {
 
 						$listing_images = atbdp_get_listing_attachment_ids( $post_id );
-						$files          = ! empty( $_FILES['listing_img'] ) ? $_FILES['listing_img'] : array();
-						$files_meta     = ! empty( $_POST['files_meta'] ) ? $_POST['files_meta'] : array();
+						$files          = ! empty( $_FILES['listing_img'] ) ? wp_unslash( $_FILES['listing_img'] ) : array();
+						$files_meta     = ! empty( $_POST['files_meta'] ) ? wp_unslash( $_POST['files_meta'] ) : array();
 						if ( ! empty( $listing_images ) ) {
 							foreach ( $listing_images as $__old_id ) {
 								$match_found = false;
@@ -747,15 +753,15 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		public function parse_query( $query ) {
 			$action     = $query->get( 'atbdp_action' );
 			$id         = $query->get( 'atbdp_listing_id' );
-			$temp_token = isset( $_GET['token'] ) ? wp_unslash( $_GET['token'] ) : '';
-			$renew_from = isset( $_GET['renew_from'] ) ? wp_unslash( $_GET['renew_from'] ) : '';
+			$temp_token = isset( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
+			$renew_from = isset( $_GET['renew_from'] ) ? sanitize_text_field( wp_unslash( $_GET['renew_from'] ) ) : '';
 			$token      = get_post_meta( $id, '_renewal_token', true );
 
 			if ( ! empty( $action ) && ! empty( $id ) && 'renew' == $action ) {
 				if ( $temp_token === $token || $renew_from ) {
 					$this->renew_listing( $id );
 				} else {
-					$redirect_url = add_query_arg( 'renew', 'token_expired', ATBDP_Permalink::get_dashboard_page_link() );
+					$redirect_url = esc_url_raw( add_query_arg( 'renew', 'token_expired', ATBDP_Permalink::get_dashboard_page_link() ) );
 					wp_safe_redirect( $redirect_url );
 					exit;
 				}

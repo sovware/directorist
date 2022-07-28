@@ -8887,3 +8887,13 @@ function directorist_translate_to_listing_field_key( $header_key = '' ) {
 function directorist_get_var( &$var, $default = null ) {
 	return isset( $var ) ? $var : $default;
 }
+
+/**
+ * Safe alternative for $_SERVER['REQUEST_URI'].
+ *
+ * @since 7.3.1
+ * @return string
+ */
+function directorist_get_request_uri() {
+	return empty( $_SERVER['REQUEST_URI'] ) ? home_url( '/' ) : wp_unslash( $_SERVER['REQUEST_URI'] );
+}

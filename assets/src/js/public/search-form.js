@@ -362,6 +362,7 @@ import { directorist_range_slider } from './range-slider';
 
             const form_data = new FormData();
             form_data.append('action', 'atbdp_listing_types_form');
+            form_data.append('nonce', directorist.directorist_nonce);
             form_data.append('listing_type', listing_type);
 
             const atts = parent.attr('data-atts');

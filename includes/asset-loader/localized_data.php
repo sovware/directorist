@@ -204,6 +204,7 @@ class Localized_Data {
 	}
 
 	public static function get_search_script_data( $args = [] ) {
+
 		$directory_type = ( is_array( $args ) && isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : default_directory_type();
 		$directory_type_term_data = [
 			'submission_form_fields' => get_term_meta( $directory_type, 'submission_form_fields', true ),
@@ -232,19 +233,18 @@ class Localized_Data {
 				'added_favourite'    => __( 'Added to favorite', 'directorist' ),
 				'please_login'       => __( 'Please login first', 'directorist' ),
 				'select_listing_map' => $select_listing_map,
-				'Miles'              => !empty( $_GET['miles'] ) ? absint( $_GET['miles'] ) : $miles,
+				'Miles'              => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
 			),
 			'args'                     => $args,
 			'directory_type'           => $directory_type,
 			'directory_type_term_data' => $directory_type_term_data,
 			'ajax_url'                 => admin_url( 'admin-ajax.php' ),
-			'miles'                    => !empty( $_GET['miles'] ) ? absint( $_GET['miles'] ) : $miles,
+			'miles'                    => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
 			'default_val'              => $default_radius_distance,
 			'countryRestriction'       => get_directorist_option( 'country_restriction' ),
 			'restricted_countries'     => get_directorist_option( 'restricted_countries' ),
 			'use_def_lat_long'         => get_directorist_option( 'use_def_lat_long' ),
 		);
-
 		return $data;
 	}
 

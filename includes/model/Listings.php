@@ -756,12 +756,12 @@ class Directorist_Listings {
 		}
 
 		if ( ! empty( $_REQUEST['ids'] ) ) {
-			$args['post__in'] = wp_parse_id_list( $_REQUEST['ids'] );
+			$args['post__in'] = wp_parse_id_list( wp_unslash( $_REQUEST['ids'] ) );
 			$this->ids = $args['post__in'];
 		}
 
 		if ( ! empty( $_REQUEST['q'] ) ) {
-			$args['s'] = sanitize_text_field( $_REQUEST['q'] );
+			$args['s'] = sanitize_text_field( wp_unslash( $_REQUEST['q'] ) );
 		}
 
 		if ( $this->has_featured ) {
@@ -781,7 +781,7 @@ class Directorist_Listings {
 			$tax_queries[] = array(
 				'taxonomy'         => ATBDP_CATEGORY,
 				'field'            => 'term_id',
-				'terms'            => wp_parse_id_list( $_REQUEST['in_cat'] ),
+				'terms'            => wp_parse_id_list( wp_unslash( $_REQUEST['in_cat'] ) ),
 				'include_children' => true,
 			);
 		}
@@ -790,7 +790,7 @@ class Directorist_Listings {
 			$tax_queries[] = array(
 				'taxonomy'         => ATBDP_LOCATION,
 				'field'            => 'term_id',
-				'terms'            => wp_parse_id_list( $_REQUEST['in_loc'] ),
+				'terms'            => wp_parse_id_list( wp_unslash( $_REQUEST['in_loc'] ) ),
 				'include_children' => true,
 			);
 		}
@@ -799,7 +799,7 @@ class Directorist_Listings {
 			$tax_queries[] = array(
 				'taxonomy' => ATBDP_TAGS,
 				'field'    => 'term_id',
-				'terms'    => wp_parse_id_list( $_REQUEST['in_tag'] ),
+				'terms'    => wp_parse_id_list( wp_unslash( $_REQUEST['in_tag'] ) ),
 			);
 		}
 
@@ -839,9 +839,12 @@ class Directorist_Listings {
 		$this->execute_meta_query_args( $args, $meta_queries );
 
 		if ( isset( $_REQUEST['custom_field'] ) ) {
-			$custom_fields = array_filter( $_REQUEST['custom_field'] );
+			// Multi-dimensional array, sanitized inside
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$custom_fields = array_filter( wp_unslash( $_REQUEST['custom_field'] ) );
 
 			foreach ( $custom_fields as $key => $values ) {
+				$key = sanitize_text_field( $key );
 				if ( is_array( $values ) ) {
 					if ( count( $values ) > 1 ) {
 						$sub_meta_queries = array();
@@ -873,13 +876,14 @@ class Directorist_Listings {
 		}
 
 		if ( ! empty( $_REQUEST['price'] ) ) {
-			$price = array_filter( $_REQUEST['price'] );
+			$price = array_map( 'intval', wp_unslash( $_REQUEST['price'] ) );
+			$price = array_filter( $price );
 
 			if ($n = count($price)) {
 				if ( 2 == $n ) {
 					$meta_queries[] = array(
 						'key'     => '_price',
-						'value'   => array_map( 'intval', $price ),
+						'value'   => $price,
 						'type'    => 'NUMERIC',
 						'compare' => 'BETWEEN'
 					);
@@ -887,14 +891,14 @@ class Directorist_Listings {
 					if (empty($price[0])) {
 						$meta_queries[] = array(
 							'key'     => '_price',
-							'value'   => (int) $price[1],
+							'value'   => $price[1],
 							'type'    => 'NUMERIC',
 							'compare' => '<='
 						);
 					} else {
 						$meta_queries[] = array(
 							'key'     => '_price',
-							'value'   => (int) $price[0],
+							'value'   => $price[0],
 							'type'    => 'NUMERIC',
 							'compare' => '>='
 						);
@@ -906,7 +910,7 @@ class Directorist_Listings {
 		if ( ! empty( $_REQUEST['price_range'] ) && 'none' !== $_REQUEST['price_range'] ) {
 			$meta_queries['_price_range'] = array(
 				'key'     => '_price_range',
-				'value'   => sanitize_text_field( $_REQUEST['price_range'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['price_range'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
@@ -914,7 +918,7 @@ class Directorist_Listings {
 		if ( ! empty( $_REQUEST['website'] ) ) {
 			$meta_queries['_website'] = array(
 				'key'     => '_website',
-				'value'   => sanitize_text_field( $_REQUEST['website'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['website'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
@@ -922,13 +926,13 @@ class Directorist_Listings {
 		if ( ! empty( $_REQUEST['email'] ) ) {
 			$meta_queries['_email'] = array(
 				'key'     => '_email',
-				'value'   => sanitize_text_field( $_REQUEST['email'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['email'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
 
 		if ( ! empty( $_REQUEST['phone'] ) ) {
-			$phone = sanitize_text_field( $_REQUEST['phone'] );
+			$phone = sanitize_text_field( wp_unslash( $_REQUEST['phone'] ) );
 			$meta_queries['_phone'] = array(
 				'relation' => 'OR',
 				array(
@@ -947,7 +951,7 @@ class Directorist_Listings {
 		if ( ! empty( $_REQUEST['fax'] ) ) {
 			$meta_queries['_fax'] = array(
 				'key'     => '_fax',
-				'value'   => sanitize_text_field( $_REQUEST['fax'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['fax'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
@@ -956,15 +960,15 @@ class Directorist_Listings {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
-				'latitude'  => sanitize_text_field( $_REQUEST['cityLat'] ),
-				'longitude' => sanitize_text_field( $_REQUEST['cityLng'] ),
-				'distance'  => sanitize_text_field( $_REQUEST['miles'] ),
+				'latitude'  => sanitize_text_field( wp_unslash( $_REQUEST['cityLat'] ) ),
+				'longitude' => sanitize_text_field( wp_unslash( $_REQUEST['cityLng'] ) ),
+				'distance'  => sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ),
 				'units'     => $this->radius_search_unit
 			);
 		} elseif ( ! empty($_REQUEST['address']) ) {
 			$meta_queries['_address'] = array(
 				'key'     => '_address',
-				'value'   => sanitize_text_field( $_REQUEST['address'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['address'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
@@ -973,21 +977,21 @@ class Directorist_Listings {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
-				'latitude'  => sanitize_text_field( $_REQUEST['zip-cityLat'] ),
-				'longitude' => sanitize_text_field( $_REQUEST['zip-cityLng'] ),
-				'distance'  => sanitize_text_field( $_REQUEST['miles'] ),
+				'latitude'  => sanitize_text_field( wp_unslash( $_REQUEST['zip-cityLat'] ) ),
+				'longitude' => sanitize_text_field( wp_unslash( $_REQUEST['zip-cityLng'] ) ),
+				'distance'  => sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ),
 				'units'     => $this->radius_search_unit
 			);
 		} elseif ( ! empty( $_REQUEST['zip'] ) ) {
 			$meta_queries['_zip'] = array(
 				'key'     => '_zip',
-				'value'   => sanitize_text_field( $_REQUEST['zip'] ),
+				'value'   => sanitize_text_field( wp_unslash( $_REQUEST['zip'] ) ),
 				'compare' => 'LIKE'
 			);
 		}
 
 		if ( ! empty( $_REQUEST['search_by_rating'] ) ) {
-			$rating_query = sanitize_text_field( $_REQUEST['search_by_rating'] );
+			$rating_query = sanitize_text_field( wp_unslash( $_REQUEST['search_by_rating'] ) );
 			$meta_queries['_rating'] = array(
 				'key'     => directorist_get_rating_field_meta_key(),
 				'value'   => absint( $rating_query ),
@@ -1125,24 +1129,20 @@ class Directorist_Listings {
 	}
 
 	public function get_dropdown_toggle_button_icon_class() {
-		$icon_type = get_directorist_option( 'font_type', '', true );
-		$prefix    = ( 'line' === $icon_type ) ? 'la' : 'fa';
-		$icon      = "directorist-toggle-has-${prefix}-icon";
-
-		return $icon;
+		_deprecated_function( __METHOD__, '7.3.1' );
 	}
 
 	public function dropdown_toggle_button_icon_class() {
-		echo $this->get_dropdown_toggle_button_icon_class();
+		_deprecated_function( __METHOD__, '7.3.1' );
 	}
 
 	public function get_sort_by_link_list() {
 		$link_list = array();
 
 		$options       = atbdp_get_listings_orderby_options( $this->sort_by_items );
-		$queryString = $_SERVER['QUERY_STRING'];
+		$queryString = isset( $_SERVER['QUERY_STRING'] ) ? sanitize_text_field( wp_unslash( $_SERVER['QUERY_STRING'] ) ) : '';
 		parse_str($queryString, $arguments);
-		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';
+		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		foreach ( $options as $value => $label ) {
 			$arguments['sort'] 		   = $value;
 
@@ -1184,7 +1184,7 @@ class Directorist_Listings {
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
 		if ( isset( $_REQUEST['directory_type'] ) ) {
-			$current = $_REQUEST['directory_type'];
+			$current = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
 		}
 		else if( $this->default_directory_type ) {
 			$current = $this->default_directory_type;
@@ -1423,9 +1423,9 @@ class Directorist_Listings {
 		);
 
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
-
+		$map_height = !empty( $this->listings_map_height ) ? $this->listings_map_height: '';
 		?>
-		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height)?$this->listings_map_height:'';?>px;">
+		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo esc_attr( $map_height );?>px;">
 			<?php
 
 			$listings = $this->query_results;
@@ -1582,7 +1582,7 @@ class Directorist_Listings {
 				}
 			}
 			elseif ( isset($_GET['address'] ) ) {
-				$loc_name = sanitize_text_field( $_GET['address'] );
+				$loc_name = sanitize_text_field( wp_unslash( $_GET['address'] ) );
 			}
 
 			if ( $cat_name && $loc_name ) {
@@ -1746,9 +1746,7 @@ class Directorist_Listings {
 		}
 
 		public function header_container_class() {
-			$header_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
-			$header_container_fluid = apply_filters( 'atbdp_listings_header_container_fluid', $header_container_fluid );
-			echo ( ! empty( $header_container_fluid ) ) ? $header_container_fluid : '';
+			_deprecated_function( __METHOD__, '7.3.1' );
 		}
 
 		public function has_listings_header() {
@@ -1846,9 +1844,9 @@ class Directorist_Listings {
 
 				if ( $load_template ) {
 					// Print $before and $after here so that empty li or other wrapper tags are not printed.
-					echo $before;
+					echo wp_kses_post( $before );
 					Helper::get_template( $template, $args );
-					echo $after;
+					echo wp_kses_post( $after );
 				}
 			}
 		}
@@ -1876,7 +1874,8 @@ class Directorist_Listings {
 		public function print_label( $label ) {
 			if ( $label ) {
 				$label_text = $label . ': ';
-				echo apply_filters( 'directorist_loop_label', $label_text, $label );
+				$label_text = apply_filters( 'directorist_loop_label', $label_text, $label );
+				echo wp_kses_post( $label_text );
 			}
 			else {
 				return;
@@ -2010,7 +2009,7 @@ class Directorist_Listings {
 			$result = apply_filters('directorist_pagination', $navigation, $links, $this->query_results, $paged );
 
 			if ( $echo ) {
-				echo $result;
+				echo wp_kses_post( $result );
 			}
 			else {
 				return $result;
@@ -2107,38 +2106,11 @@ class Directorist_Listings {
     }
 
     public static function list_view_business_hours() {
-    	$content = '';
-    	$plan_hours              = true;
-    	$disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
-		$bdbh_version 			 = get_post_meta(get_the_ID(), '_bdbh_version', true);
-    	$enable247hour           = get_post_meta(get_the_ID(), '_enable247hour', true);
-    	$bdbh                    = get_post_meta(get_the_ID(), '_bdbh', true);
-    	$business_hours          = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array();
-
-    	if (is_fee_manager_active()) {
-    		$plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
-    	}
-
-    	if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
-    		if ( ! empty($enable247hour) ) {
-    			$content = "<span class='atbd_badge atbd_badge_open'>" . get_directorist_option('open_badge_text') . "</span>";
-    		}
-    		else {
-    			if (class_exists('BD_Business_Hour')) {
-    				$content = BD_Business_Hour()->show_business_open_close($business_hours, false);
-    			}
-    		}
-    	}
-
-    	echo $content;
+    	_deprecated_function( __METHOD__, '7.3.1' );
     }
 
     public static function mark_as_favourite_button() {
-    	$display_mark_as_fav = apply_filters('atbdp_listings_favourite_btn',get_directorist_option( 'display_mark_as_fav', 1 ));
-
-    	if ( ! empty( $display_mark_as_fav ) ) {
-    		echo atbdp_listings_mark_as_favourite( get_the_ID() );
-    	}
+		_deprecated_function( __METHOD__, '7.3.1' );
     }
 
 }

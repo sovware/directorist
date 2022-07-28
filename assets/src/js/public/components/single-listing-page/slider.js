@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* Related listings slider */
-    var rtl = directorist.rtl;
+    var rtl = (directorist.rtl === 'true');
     const relLis = document.querySelector('.directorist-related-carousel');
     if (relLis !== null) {
         const relLisCol = relLis.getAttribute('data-columns');

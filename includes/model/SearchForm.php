@@ -334,11 +334,11 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function range_slider_minValue( $data ){
-		return !empty( $_REQUEST['miles'] ) ? $_REQUEST['miles'] : $data['default_radius_distance'];
+		return !empty( $_REQUEST['miles'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ) : $data['default_radius_distance'];
 	}
 
 	public function range_slider_data( $data ) {
-		
+
 		$data = [
 			'miles' => $this->range_slider_unit( $data ),
 			'minValue' => $this->range_slider_minValue( $data ),
@@ -356,7 +356,7 @@ class Directorist_Listing_Search_Form {
 	// custom field assign to category
 	public function assign_to_category(){
 		$submission_form_fields = get_term_meta( $this->listing_type , 'submission_form_fields', true );
-		$category_id = isset( $_REQUEST['cat_id'] ) ? $_REQUEST['cat_id'] : '';
+		$category_id = isset( $_REQUEST['cat_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['cat_id'] ) ) : '';
 		$custom_field_key = array();
 		$assign_to_cat = array();
 
@@ -379,16 +379,20 @@ class Directorist_Listing_Search_Form {
 	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
 		if ( $this->is_custom_field( $field_data ) ) {
-			$value = !empty( $_REQUEST['custom_field'][$key] ) ? $_REQUEST['custom_field'][$key] : '';
+			if ( !empty( $_REQUEST['custom_field'][$key] ) ) {
+				$value = is_array( $_REQUEST['custom_field'][$key] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['custom_field'][$key] ) ) : sanitize_text_field( wp_unslash( $_REQUEST['custom_field'][$key] ) );
+			} else {
+				$value = '';
+			}
 		}
 		else {
-			$value = $key && isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : '';
+			$value = $key && isset( $_REQUEST[$key] ) ? sanitize_text_field( wp_unslash( $_REQUEST[$key] ) ): '';
 		}
 
 		$args = array(
 			'searchform' 		=> $this,
 			'data'       		=> $field_data,
-			'value'      		=> wp_unslash( $value ),
+			'value'      		=> $value,
 		);
 		if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $this->assign_to_category()['custom_field_key'] ) ) ) {
 			$template = 'search-form/custom-fields/' . $field_data['widget_name'];
@@ -522,11 +526,11 @@ class Directorist_Listing_Search_Form {
 
 	public function price_value($arg) {
 		if ( $arg == 'min' ) {
-			return isset( $_REQUEST['price'] ) ? $_REQUEST['price'][0] : '';
+			return isset( $_REQUEST['price'][0] ) ? sanitize_text_field( wp_unslash( $_REQUEST['price'][0] ) ) : '';
 		}
 
 		if ( $arg == 'max' ) {
-			return isset( $_REQUEST['price'] ) ? $_REQUEST['price'][1] : '';
+			return isset( $_REQUEST['price'][1] ) ? sanitize_text_field( wp_unslash( $_REQUEST['price'][1] ) ) : '';
 		}
 
 		return '';
@@ -534,7 +538,7 @@ class Directorist_Listing_Search_Form {
 
 	public function the_price_range_input($range) {
 		$checked = ! empty( $_REQUEST['price_range'] ) && $_REQUEST['price_range'] == $range ? ' checked="checked"' : '';
-		printf('<input type="radio" name="price_range" value="%s"%s>', $range, $checked);
+		printf('<input type="radio" name="price_range" value="%s"%s>', esc_attr( $range ), esc_attr( $checked ) );
 	}
 
 	public function get_atts_data() {
@@ -552,11 +556,7 @@ class Directorist_Listing_Search_Form {
 			return $redirect;
 		}
 
-		ob_start();
-		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-		echo Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
-
-		return ob_get_clean();
+		return Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );
 	}
 
 	public function listing_type_slug() {
@@ -634,7 +634,7 @@ class Directorist_Listing_Search_Form {
 		$category_slug   = get_query_var( 'atbdp_category' );
 		$category        = get_term_by( 'slug', $category_slug, ATBDP_CATEGORY );
 		$category_id     = ! empty( $category->term_id ) ? $category->term_id : '';
-		$category_select = ! empty( $_REQUEST['in_cat'] ) ? $_REQUEST['in_cat'] : $category_id;
+		$category_select = ! empty( $_REQUEST['in_cat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['in_cat'] ) ) : $category_id;
 
 		if ( 'all_tags' == $tag_source || empty( $category_select ) ) {
 			$terms = get_terms( ATBDP_TAGS );
@@ -644,7 +644,7 @@ class Directorist_Listing_Search_Form {
 				'tax_query' => array(
 					array(
 						'taxonomy' => ATBDP_CATEGORY,
-						'terms'    => ! empty( $_REQUEST['in_cat'] ) ? $_REQUEST['in_cat'] : $category_id,
+						'terms'    => ! empty( $_REQUEST['in_cat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['in_cat'] ) ) : $category_id,
 					),
 				),
 			);
@@ -667,15 +667,15 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public static function get_selected_category_option_data() {
-		$id = ( isset( $_REQUEST['in_cat'] ) ) ? $_REQUEST['in_cat'] : '';
-		$id = ( isset( $_REQUEST['cat_id'] ) ) ? $_REQUEST['cat_id'] : $id;
+		$id = ( isset( $_REQUEST['in_cat'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['in_cat'] ) ) : '';
+		$id = ( isset( $_REQUEST['cat_id'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['cat_id'] ) ) : $id;
 
 		return self::get_taxonomy_select_option_data( $id );
 	}
 
 	public static function get_selected_location_option_data() {
-		$id = ( isset( $_REQUEST['in_loc'] ) ) ? $_REQUEST['in_loc'] : '';
-		$id = ( isset( $_REQUEST['loc_id'] ) ) ? $_REQUEST['loc_id'] : $id;
+		$id = ( isset( $_REQUEST['in_loc'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['in_loc'] ) ) : '';
+		$id = ( isset( $_REQUEST['loc_id'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['loc_id'] ) ) : $id;
 
 		return self::get_taxonomy_select_option_data( $id );
 	}

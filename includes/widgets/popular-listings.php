@@ -63,8 +63,9 @@ class Popular_Listings extends \WP_Widget {
 		echo wp_kses_post( $args['before_widget'] );
 
 		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Popular Listings', 'directorist');
+		$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
 		echo '<div class="atbd_widget_title">';
-		echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
+		echo wp_kses_post( $widget_title );
 		echo '</div>';
 
 		$count = !empty( $instance['pop_listing_num'] ) ? $instance['pop_listing_num'] : 5;

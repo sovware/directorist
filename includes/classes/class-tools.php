@@ -72,14 +72,14 @@
 				) );
             }
 
-            $term_id = sanitize_text_field( wp_unslash( $_POST['directory_type'] ) );
-            $file    = directorist_clean( wp_unslash( $_POST['csv_file'] ) );
+            $term_id = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_type'] ) ) : '';
+            $file    = ! empty( $_POST['csv_file'] ) ? directorist_clean( wp_unslash( $_POST['csv_file'] ) ) : '';
 
             if ( empty( $file ) && isset( $_POST['file'] ) ) {
                 $file = directorist_clean( wp_unslash( $_POST['file'] ) );
             }
 
-            $delimiter = directorist_clean( wp_unslash( $_POST['delimiter'] ) );
+            $delimiter = ! empty( $_POST['delimiter'] ) ? directorist_clean( wp_unslash( $_POST['delimiter'] ) ) : '';
             $this->importable_fields = [];
             $this->setup_fields( $term_id );
 
@@ -120,11 +120,11 @@
             $description           = isset( $_POST['listing_content'] ) ? directorist_clean( wp_unslash( $_POST['listing_content'] ) ) : '';
             $position              = isset( $_POST['position'] ) ? directorist_clean( wp_unslash( $_POST['position'] ) ) : 0;
             $position              = ( is_numeric( $position ) ) ? ( int ) $position : 0;
-            $metas                 = isset( $_POST['meta'] ) ? atbdp_sanitize_array( wp_unslash( $_POST['meta'] ) ) : array();
-            $tax_inputs            = isset( $_POST['tax_input'] ) ? atbdp_sanitize_array( wp_unslash( $_POST['tax_input'] ) ) : array();
+            $metas                 = isset( $_POST['meta'] ) ? directorist_clean( wp_unslash( $_POST['meta'] ) ) : array();
+            $tax_inputs            = isset( $_POST['tax_input'] ) ? directorist_clean( wp_unslash( $_POST['tax_input'] ) ) : array();
             $limit                 = apply_filters( 'atbdp_listing_import_limit_per_cycle', 10 );
             $all_posts             = isset( $_POST['csv_file'] ) ? csv_get_data( directorist_clean( wp_unslash( $_POST['csv_file'] ) ), true, $delimiter ) : [];
-            $total_length          = ( isset( $_POST['total_post'] ) && is_numeric( $_POST['total_post'] ) ) ? ( int ) wp_unslash( $_POST['total_post'] ) : count( $all_posts );
+            $total_length          = ( isset( $_POST['total_post'] ) && is_numeric( $_POST['total_post'] ) ) ? directorist_clean( wp_unslash( $_POST['total_post'] ) ) : count( $all_posts );
             $limit                 = apply_filters('atbdp_listing_import_limit_per_cycle', ( $total_length > 100 ) ? 20 : ( ( $total_length < 35 ) ? 2 : 5 ) );
             $posts                 = ( ! empty( $all_posts ) ) ? array_slice( $all_posts, $position ) : [];
             $posts                 = apply_filters( 'directorist_listings_importing_posts', $posts, $position, $limit, $_POST );

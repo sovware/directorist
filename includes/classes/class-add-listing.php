@@ -751,6 +751,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		 * @since 3.1.0
 		 */
 		public function parse_query( $query ) {
+			$nonce = ! empty( $_GET['_wpnonce'] ) ? wp_unslash( $_GET['_wpnonce'] ) : ''; // @codingStandardsIgnoreLine WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if ( ! wp_verify_nonce( $nonce, 'directorist_listing_renew' ) ) {
+				return;
+			}
+
 			$action     = $query->get( 'atbdp_action' );
 			$id         = $query->get( 'atbdp_listing_id' );
 			$temp_token = isset( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';

@@ -477,6 +477,7 @@ import { directorist_range_slider } from './range-slider';
                 var form_data        = new FormData();
 
                 form_data.append('action', 'directorist_category_custom_field_search');
+                form_data.append('nonce', directorist.directorist_nonce);
                 form_data.append('listing_type', directory_type);
                 form_data.append('cat_id', cat_id);
                 form_data.append('atts', JSON.stringify($container.data('atts')));

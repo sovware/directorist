@@ -709,6 +709,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
             data: {
                 action: 'atbdp_listing_default_type',
                 type_id: $(this).data('type-id'),
+                nonce: directorist_admin.nonce
             },
             success(response) {
                 defaultSubmitDom

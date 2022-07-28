@@ -739,11 +739,12 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 $props = '';
                 foreach ( $meta_attributes as $attr => $value ) {
                     if ( ! empty( $meta_attributes['content'] ) ) {
-                        $props .= "{$attr}='{$value}' ";
+						$value = esc_attr( $value );
+						$props .= "{$attr}=\"{$value}\" ";
                     }
                 }
 
-                $props = trim( $props );
+                $props = rtrim( $props );
                 if ( ! empty( $props ) ) {
                     echo "<meta {$props} />\n";
                 }
@@ -1178,17 +1179,13 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 'registration',
             ];
 
-            $current_page = '';
-
             foreach( $all_directorist_pages as $page_name ) {
-
-                if ( ! atbdp_is_page( $page_name ) ) continue;
-                $current_page = $page_name;
-
-                break;
+				if ( atbdp_is_page( $page_name ) ) {
+					return $page_name;
+				}
             }
 
-            return $current_page;
+			return '';
         }
 
         // sync_with_yoast_seo_meta

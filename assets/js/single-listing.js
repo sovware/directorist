@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1086,7 +1086,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Related listings slider */
 
 
-  var rtl = directorist.rtl;
+  var rtl = directorist.rtl === 'true';
   var relLis = document.querySelector('.directorist-related-carousel');
 
   if (relLis !== null) {
@@ -1216,7 +1216,7 @@ module.exports = _createClass, module.exports.__esModule = true, module.exports[
 
 /***/ }),
 
-/***/ 10:
+/***/ 11:
 /*!**************************************************************!*\
   !*** multi ./assets/src/js/public/modules/single-listing.js ***!
   \**************************************************************/

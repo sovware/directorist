@@ -62,7 +62,7 @@ function csv_from_builder( $data = [] ) {
 						else:
 							if( count( directory_types() ) > 1 ) { ?>
 								<label for="directory_type"><?php esc_html_e('Select Directory', 'directorist'); ?></label>
-								<select name="directory_type" id="directory_type">
+								<select class="directorist_directory_type_in_import" id="directory_type">
 									<option value="">--Select--</option>
 									<?php
 									foreach( directory_types() as $term ) {
@@ -98,7 +98,7 @@ function csv_from_builder( $data = [] ) {
 				<span class="spinner is-active"></span>
 				<h2><?php esc_html_e( 'Importing', 'directorist' );
 					?></h2>
-				<p><?php esc_html_e( 'Your listing are now being imported...', 'directorist' );
+				<p><?php esc_html_e( 'Your listings are now being imported...', 'directorist' );
 					?></p>
 			</header>
 			<section>

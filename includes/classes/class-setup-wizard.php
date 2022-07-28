@@ -97,6 +97,13 @@ class SetupWizard
                 }
             }
         }
+
+        /**
+         * @since 7.3.0
+         */
+
+        do_action( 'directorist_setup_wizard_completed' );
+
         update_option('atbdp_option', $atbdp_option);
     }
 
@@ -687,7 +694,7 @@ class SetupWizard
                         <span class="spinner is-active"></span>
                         <h2><?php esc_html_e('Importing', 'directorist');
                             ?></h2>
-                        <p><?php esc_html_e('Your listing are now being imported...', 'directorist');
+                        <p><?php esc_html_e('Your listings are now being imported...', 'directorist');
                             ?></p>
                     </header>
                     <section>
@@ -727,6 +734,12 @@ class SetupWizard
     public function directorist_step_four()
     {
         update_option( 'directorist_setup_wizard_completed', true );
+
+        /**
+         * @since 7.3.0
+         */
+
+        do_action( 'directorist_setup_wizard_completed' );
         ?>
         <div class="atbdp-c-body">
             <div class="wsteps-done">

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1357,7 +1357,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
     var form_data = _objectSpread(_objectSpread({}, data), fields);
 
-    console.log(form_data);
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
       return !item;
     });
@@ -2810,7 +2809,7 @@ module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, 
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!************************************************************!*\
   !*** multi ./assets/src/js/public/modules/all-listings.js ***!
   \************************************************************/

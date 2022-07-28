@@ -3,12 +3,14 @@ import './components/directoristSelect';
 import './components/colorPicker';
 import './../global/components/setup-select2';
 import './../global/components/select2-custom-control';
+import { directorist_callingSlider } from './range-slider';
+import { directorist_range_slider } from './range-slider';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
         /* ----------------
-    Search Listings
-    ------------------ */
+        Search Listings
+        ------------------ */
 
         //ad search js
         $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");
@@ -106,8 +108,11 @@ import './../global/components/select2-custom-control';
 
         /* Hide overlapped advanced filter */
         var directoristAdvFilter = () => $('.directorist-search-float .directorist-advanced-filter');
+        var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
+        ad_slide.hide().slideUp();
+
         $(document).on('click', function (e) {
-            if (!e.target.closest('.directorist-search-form-top, .directorist-listings-header, .directorist-search-form') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')) {
+            if (!e.target.closest('.directorist-search-form-top, .directorist-listings-header, .directorist-search-form, .select2-container') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')) {
                 count = 0;
                 directoristAdvFilter().css({
                     visibility: 'hidden',
@@ -117,6 +122,7 @@ import './../global/components/select2-custom-control';
                 });
             }
         });
+
         $('body').on('click', '.directorist-sortby-dropdown > a, .directorist-viewas-dropdown > a', function(){
             count = 0;
             directoristAdvFilter().css({
@@ -125,10 +131,10 @@ import './../global/components/select2-custom-control';
                 height: '0',
                 transition: '.3s ease'
             });
-        })
 
-        var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
-        ad_slide.hide().slideUp();
+            ad_slide.hide().slideUp();
+        });
+
         $('body').on("click", '.directorist-filter-btn', function (e) {
             e.preventDefault();
             let miles = parseInt($('.directorist-range-slider-value').val());

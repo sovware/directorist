@@ -1140,7 +1140,7 @@ class Directorist_Listings {
 		$link_list = array();
 
 		$options       = atbdp_get_listings_orderby_options( $this->sort_by_items );
-		$queryString = sanitize_text_field( wp_unslash( $_SERVER['QUERY_STRING'] ) );
+		$queryString = isset( $_SERVER['QUERY_STRING'] ) ? sanitize_text_field( wp_unslash( $_SERVER['QUERY_STRING'] ) ) : '';
 		parse_str($queryString, $arguments);
 		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		foreach ( $options as $value => $label ) {

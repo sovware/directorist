@@ -379,16 +379,20 @@ class Directorist_Listing_Search_Form {
 	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
 		if ( $this->is_custom_field( $field_data ) ) {
-			$value = !empty( $_REQUEST['custom_field'][$key] ) ? $_REQUEST['custom_field'][$key] : '';
+			if ( !empty( $_REQUEST['custom_field'][$key] ) ) {
+				$value = is_array( $_REQUEST['custom_field'][$key] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['custom_field'][$key] ) ) : sanitize_text_field( wp_unslash( $_REQUEST['custom_field'][$key] ) );
+			} else {
+				$value = '';
+			}
 		}
 		else {
-			$value = $key && isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : '';
+			$value = $key && isset( $_REQUEST[$key] ) ? sanitize_text_field( wp_unslash( $_REQUEST[$key] ) ): '';
 		}
 
 		$args = array(
 			'searchform' 		=> $this,
 			'data'       		=> $field_data,
-			'value'      		=> wp_unslash( $value ),
+			'value'      		=> $value,
 		);
 		if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $this->assign_to_category()['custom_field_key'] ) ) ) {
 			$template = 'search-form/custom-fields/' . $field_data['widget_name'];

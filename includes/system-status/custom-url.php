@@ -11,9 +11,8 @@ class ATBDP_Custom_Url
     }
 
     public function generate_url() {
-		$nonce = isset( $_POST['_nonce'] ) ? $_POST['_nonce'] : '';
-		if ( ! wp_verify_nonce( $nonce, '_generate_custom_url' ) ) {
-            die ( 'huh!' );
+		if ( isset( $_POST['_nonce'] ) && ! wp_verify_nonce( $_POST['_nonce'], '_generate_custom_url' ) ) {
+            die( 'huh!' );
         }
 		$token   = wp_rand();
 		$expires = apply_filters( 'atbdp_system_info_remote_token_expire', DAY_IN_SECONDS * 3 );
@@ -28,8 +27,7 @@ class ATBDP_Custom_Url
     }
 
     public function revoke_url() {
-		$nonce = isset( $_POST['_nonce'] ) ? $_POST['_nonce'] : '';
-		if ( ! wp_verify_nonce( $nonce, '_revoke_custom_url' ) ) {
+		if ( isset( $_POST['_nonce'] ) && ! wp_verify_nonce( $_POST['_nonce'], '_revoke_custom_url' ) ) {
             die( 'huh!' );
         }
 		delete_transient( 'system_info_remote_token' );

@@ -696,7 +696,9 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                             </td>
                                             <td>
                                                 <?php
-                                                echo $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf( __( 'If you are modifying Directorist on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'directorist' ), 'https://developer.wordpress.org/themes/advanced-topics/child-themes/' );
+                                                $_child_theme =  $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf( __( 'If you are modifying Directorist on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'directorist' ), 'https://developer.wordpress.org/themes/advanced-topics/child-themes/' );
+
+                                                echo wp_kses_post( $_child_theme );
                                                 ?>
                                             </td>
                                         </tr>
@@ -772,12 +774,13 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                                     $override = $theme['overrides'][ $i ];
                                                                     if ( $override['core_version'] && ( empty( $override['version'] ) || version_compare( $override['version'], $override['core_version'], '<' ) ) ) {
                                                                         $current_version = $override['version'] ? $override['version'] : '-';
-                                                                        printf(
+                                                                        $_core_version = sprintf(
                                                                             __( '%1$s version %2$s is out of date. The core version is %3$s', 'directorist' ),
                                                                             '<code>' . esc_html( $override['file'] ) . '</code>',
                                                                             '<strong style="color:red">' . esc_html( $current_version ) . '</strong>',
                                                                             esc_attr( $override['core_version'] )
                                                                         );
+                                                                        echo wp_kses_post( $_core_version );
                                                                     } else {
                                                                         echo esc_html( $override['file'] );
                                                                     }

@@ -48,10 +48,12 @@ global $wpdb;
             <td class="help"><?php echo wp_kses_post( $this->directorist_help_tip( __( 'The maximum amount of memory (RAM) that your site can use at one time.', 'directorist' ) ) ); ?></td>
             <td><?php
 				if ( $environment['wp_memory_limit'] < 67108864 ) {
-					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( __( '%1$s - We recommend setting memory to at least 64MB. See: %2$s', 'directorist' ), esc_html( size_format( $environment['wp_memory_limit'] ) ), '<a href="https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP" target="_blank">' . esc_html__( 'Increasing memory allocated to PHP', 'directorist' ) . '</a>' ) . '</mark>';
+					$_memory_limit =  '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( __( '%1$s - We recommend setting memory to at least 64MB. See: %2$s', 'directorist' ), esc_html( size_format( $environment['wp_memory_limit'] ) ), '<a href="https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP" target="_blank">' . esc_html__( 'Increasing memory allocated to PHP', 'directorist' ) . '</a>' ) . '</mark>';
 				} else {
-					echo '<mark class="yes">' . esc_html( size_format( $environment['wp_memory_limit'] ) ) . '</mark>';
+					$_memory_limit = '<mark class="yes">' . esc_html( size_format( $environment['wp_memory_limit'] ) ) . '</mark>';
 				}
+
+				echo wp_kses_post( $_memory_limit );
 			?></td>
         </tr>
         <tr>
@@ -161,10 +163,12 @@ global $wpdb;
 			<td class="help"><?php echo wp_kses_post( $this->directorist_help_tip( __( 'Some webservices like shipping use SOAP to get information from remote servers, for example, live shipping quotes from FedEx require SOAP to be installed.', 'directorist' ) ) ); ?></td>
 			<td><?php
 				if ( $environment['soapclient_enabled'] ) {
-					echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
+					$_soapclient_enabled = '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
 				} else {
-					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( __( 'Your server does not have the %s class enabled - some gateway plugins which use SOAP may not work as expected.', 'directorist' ), '<a href="https://php.net/manual/en/class.soapclient.php">SoapClient</a>' ) . '</mark>';
-				} ?>
+					$_soapclient_enabled = '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( __( 'Your server does not have the %s class enabled - some gateway plugins which use SOAP may not work as expected.', 'directorist' ), '<a href="https://php.net/manual/en/class.soapclient.php">SoapClient</a>' ) . '</mark>';
+				} 
+				
+				echo wp_kses_post( $_soapclient_enabled ); ?>
 			</td>
 		</tr>
 		<tr>
@@ -238,7 +242,7 @@ global $wpdb;
 				<td class="help"><?php echo isset( $row['help'] ) ? wp_kses_post( $row['help'] ) : ''; ?></td>
 				<td>
 					<mark class="<?php echo esc_attr( $css_class ); ?>">
-						<?php echo $icon; ?>  <?php echo wp_kses_data( ! empty( $row['note'] ) ? $row['note'] : '' ); ?>
+						<?php echo wp_kses_data( $icon ); ?>  <?php echo wp_kses_data( ! empty( $row['note'] ) ? $row['note'] : '' ); ?>
 					</mark>
 				</td>
 			</tr><?php
@@ -492,7 +496,9 @@ global $wpdb;
 			<td data-export-label="Child Theme"><?php esc_html_e( 'Child theme', 'directorist' ); ?>:</td>
 			<td class="help"><?php echo wp_kses_post( $this->directorist_help_tip( __( 'Displays whether or not the current theme is a child theme.', 'directorist' ) ) ); ?></td>
 			<td><?php
-				echo $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf( __( 'If you are modifying Directorist on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'directorist' ), 'https://developer.wordpress.org/themes/advanced-topics/child-themes/' );
+				$_child_theme =  $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf( __( 'If you are modifying Directorist on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'directorist' ), 'https://developer.wordpress.org/themes/advanced-topics/child-themes/' );
+
+				echo wp_kses_post( $_child_theme );	
 			?></td>
 		</tr>
 		<?php

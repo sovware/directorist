@@ -16,7 +16,7 @@ class ATBDP_Send_Mail {
         $email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
         $sender_email = isset( $_POST['sender_email'] ) ? sanitize_email( wp_unslash( $_POST['sender_email'] ) ) : '';
 		$subject = isset( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
-		$system_info_url = isset( $_POST['system_info_url'] ) ? esc_url( wp_unslash( $_POST['system_info_url'] ) )  : '';
+		$system_info_url = isset( $_POST['system_info_url'] ) ? sanitize_text_field( wp_unslash( $_POST['system_info_url'] ) )  : '';
 		$to = ! empty( $email ) ? $email : '';
 		$message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
 		if( ! empty( $system_info_url ) ) {

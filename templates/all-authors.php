@@ -69,23 +69,23 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 											<?php endif; ?>
 										</div>
 
-										<?php if( $authors->display_contact_info() ): ?>
+										<?php if( $authors->contact_info() ) : ?>
 
 											<ul class="directorist-authors__card__info-list">
 
-												<?php if( $phone = Helper::user_info( $author, 'phone' ) ): ?>
+												<?php if( in_array( 'phone', $authors->contact_info() ) && $phone = Helper::user_info( $author, 'phone' ) ): ?>
 													<li><i class="<?php atbdp_icon_type( true ); ?>-phone"></i> <a href="tel:<?php Helper::formatted_tel( $phone ); ?>"><?php echo esc_html( $phone ); ?></a></li>
 												<?php endif; ?>
 
-												<?php if( $email = Helper::user_info( $author, 'email' ) ): ?>
+												<?php if( is_user_logged_in() && in_array( 'email', $authors->contact_info() ) && $email = Helper::user_info( $author, 'email' ) ) : ?>
 													<li><i class="<?php atbdp_icon_type( true ); ?>-envelope"></i> <a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></li>
 												<?php endif; ?>
 
-												<?php if( $address = Helper::user_info( $author, 'address' ) ): ?>
+												<?php if( in_array( 'address', $authors->contact_info() ) && $address = Helper::user_info( $author, 'address' ) ): ?>
 													<li><i class="<?php atbdp_icon_type( true ); ?>-map-marker"></i> <?php echo esc_html( $address ); ?></li>
 												<?php endif; ?>
 
-												<?php if( $website = Helper::user_info( $author, 'website' ) ): ?>
+												<?php if( in_array( 'website', $authors->contact_info() ) && $website = Helper::user_info( $author, 'website' ) ): ?>
 													<li><i class="<?php atbdp_icon_type( true ); ?>-globe"></i> <a href="<?php echo esc_url( $website ); ?>"><?php echo esc_html( $website ); ?></a></li>
 												<?php endif; ?>
 

@@ -8,8 +8,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$file            = isset( $_GET['file'] ) ? wp_unslash( $_GET['file'] ) : '';
-$delimiter       = isset( $_GET['delimiter'] ) ? wp_unslash( $_GET['delimiter'] ) : ',';
+$file            = isset( $_GET['file'] ) ? sanitize_text_field( wp_unslash( $_GET['file'] ) ) : '';
+$delimiter       = isset( $_GET['delimiter'] ) ? sanitize_text_field( wp_unslash( $_GET['delimiter'] ) ) : ',';
 $posts           = csv_get_data( $file, true, $delimiter );
 $total           = count( $posts );
 $update_existing = isset( $_GET['update_existing'] ) ? sanitize_key( $_GET['update_existing'] ) : false;
@@ -52,12 +52,12 @@ function csv_from_builder( $data = [] ) {
 
 			<div class="form-content">
 				<section class="atbdp-importer-mapping-table-wrapper">
-					<h3><?php printf(__('Total %s items selected ', 'directorist'), $total); ?></h3>
+					<h3><?php printf( esc_html__('Total %s items selected ', 'directorist'), esc_attr( $total ) ); ?></h3>
 					<div class="directory_type_wrapper">
 						<?php if ( $csv_from_builder ) :
-							?><input type="hidden" class="directorist-listings-importer-config-field" name="csv_file" value="<?php echo $file ?>"><?php
+							?><input type="hidden" class="directorist-listings-importer-config-field" name="csv_file" value="<?php echo esc_attr( $file ) ?>"><?php
 							foreach ( $builder_posts[0] as $post_key => $post_value  ) {
-								?><input type="hidden" class="atbdp_map_to" name="<?php echo $post_key ?>" value="<?php echo $post_key ?>"><?php
+								?><input type="hidden" class="atbdp_map_to" name="<?php echo esc_attr( $post_key ); ?>" value="<?php echo esc_attr( $post_key ); ?>"><?php
 							}
 						else:
 							if( count( directory_types() ) > 1 ) { ?>
@@ -80,7 +80,7 @@ function csv_from_builder( $data = [] ) {
 				<button type="submit" class="button btn-run-importer" value="<?php esc_attr_e('Run the importer', 'directorist'); ?>" name="save_step_two"><?php esc_html_e('Run the importer', 'directorist'); ?></button>
 				<input type="hidden" class="directorist-listings-importer-config-field" name="csv_file" value="<?php echo esc_attr( $file ); ?>">
 				<input type="hidden" class="directorist-listings-importer-config-field" name="delimiter" value="<?php echo esc_attr( $delimiter ); ?>" />
-				<input type="hidden" class="directorist-listings-importer-config-field" name="update_existing" value="<?php echo $update_existing; ?>" />
+				<input type="hidden" class="directorist-listings-importer-config-field" name="update_existing" value="<?php echo esc_attr( $update_existing ); ?>" />
 				<?php wp_nonce_field('directorist-csv-importer'); ?>
 			</div>
 		</form>

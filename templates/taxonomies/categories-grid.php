@@ -61,7 +61,9 @@ $columns = floor( 12 / $taxonomy->columns );
 						<?php
 					}
 				} else {
-					echo wp_kses_post('<p>No Results found!</p>', 'directorist');
+					?>
+					<p><?php esc_html_e( 'No Results found!', 'directorist' ); ?></p>
+					<?php
 				}
 				?>
 			</div>

@@ -104,8 +104,9 @@ class Comment_Form_Renderer {
 		?>
 		<form id="directorist-form-comment-edit" class="directorist-review-submit__form directorist-form-comment-edit" action="<?php echo esc_url( self::get_action_url() ); ?>" method="post" enctype="multipart/form-data">
 			<?php
+
 			foreach ( $fields as $field ) {
-				echo esc_html( $field );
+				echo directorist_kses( $field );
 			}
 
 			wp_nonce_field( Comment_Form_Processor::AJAX_ACTION, 'directorist_comment_nonce' );
@@ -375,7 +376,7 @@ class Comment_Form_Renderer {
 		?>
 		<div id="respond" class="<?php echo esc_attr( $args['class_container'] ); ?>">
 			<?php
-			echo esc_html( $args['title_reply_before'] );
+			echo wp_kses_post( $args['title_reply_before'] );
 
 			comment_form_title( $args['title_reply'], $args['title_reply_to'] );
 
@@ -385,11 +386,11 @@ class Comment_Form_Renderer {
 
 			// echo $args['cancel_reply_after'];
 
-			echo esc_html( $args['title_reply_after'] );
+			echo wp_kses_post( $args['title_reply_after'] );
 
 			if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) :
 
-				echo esc_html( $args['must_log_in'] );
+				echo $args['must_log_in'];
 				/**
 				 * Fires after the HTML-formatted 'must log in after' message in the comment form.
 				 *
@@ -427,7 +428,7 @@ class Comment_Form_Renderer {
 					 * @param string $user_identity  If the commenter is a registered user,
 					 *                               the display name, blank otherwise.
 					 */
-					echo esc_html( apply_filters( 'directorist_comment_form_logged_in', $args['logged_in_as'], $commenter, $user_identity ) );
+					echo wp_kses_post( apply_filters( 'directorist_comment_form_logged_in', $args['logged_in_as'], $commenter, $user_identity ) );
 
 					/**
 					 * Fires after the is_user_logged_in() check in the comment form.
@@ -443,7 +444,7 @@ class Comment_Form_Renderer {
 
 				else :
 
-					echo esc_html( $args['comment_notes_before'] );
+					echo wp_kses_post( $args['comment_notes_before'] );
 
 				endif;
 
@@ -477,9 +478,9 @@ class Comment_Form_Renderer {
 						 *
 						 * @param string $args_comment_field The content of the comment textarea field.
 						 */
-						echo esc_html( apply_filters( 'directorist_comment_form_field_comment', $field ) );
+						echo directorist_kses( apply_filters( 'directorist_comment_form_field_comment', $field ) );
 
-						echo esc_html( $args['comment_notes_after'] );
+						echo wp_kses_post( $args['comment_notes_after'] );
 
 					} elseif ( ! is_user_logged_in() ) {
 
@@ -502,7 +503,7 @@ class Comment_Form_Renderer {
 						 *
 						 * @param string $field The HTML-formatted output of the comment form field.
 						 */
-						echo esc_html( apply_filters( "comment_form_field_{$name}", $field ) . "\n" );
+						echo directorist_kses( apply_filters( "comment_form_field_{$name}", $field ) . "\n" );
 
 						if ( $last_field === $name ) {
 							/**
@@ -550,7 +551,8 @@ class Comment_Form_Renderer {
 				 * @param string $submit_field HTML markup for the submit field.
 				 * @param array  $args         Arguments passed to comment_form().
 				 */
-				echo esc_html( apply_filters( 'directorist_comment_form_submit_field', $submit_field, $args ) );
+
+				echo wp_kses_post( apply_filters( 'directorist_comment_form_submit_field', $submit_field, $args ) );
 
 				/**
 				 * Fires at the bottom of the comment form, inside the closing form tag.

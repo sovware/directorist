@@ -44,6 +44,6 @@ class Markup {
 	}
 
 	public static function show_rating_stars( $rating = 0, $base_rating = 5 ) {
-		echo esc_html( self::get_rating_stars( $rating, $base_rating ) );
+		echo wp_kses_post( self::get_rating_stars( $rating, $base_rating ) );
 	}
 }

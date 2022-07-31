@@ -48,7 +48,7 @@ use \Directorist\Helper;
             do_action( 'directorist_before_reset_password_form' );
         ?>
                             <form method="post" class="directorist-ResetPassword lost_reset_password">
-                                <p><?php echo wp_kses_post( apply_filters( 'directorist_reset_password_message', __( 'Enter a new password below.', 'directorist' ) ) ); ?></p>
+                                <p><?php esc_html_e( 'Enter a new password below.', 'directorist' ); ?></p>
                                 <p>
                                     <label for="password_1"><?php esc_html_e( 'New password', 'directorist' );?> &nbsp;<span class="required">*</span></label>
                                     <input type="password" class="directorist-Input directorist-Input--text input-text" name="password_1" id="password_1" autocomplete="new-password" />
@@ -74,7 +74,7 @@ use \Directorist\Helper;
                             </form>
                                  <?php   } else {
                                     ?>
-                                <p><?php echo wp_kses_post( apply_filters( 'directorist_reset_password_link_exp_message', __( 'Sorry! The link is invalid.', 'directorist' ) ) ); ?></p>
+                                <p><?php esc_html_e( 'Sorry! The link is invalid.', 'directorist' ); ?></p>
                             <?php }
                                 } else {
                                     $log_username        = get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) );
@@ -122,7 +122,7 @@ use \Directorist\Helper;
                                 <?php
                                         }
                                             if ( $display_recpass ) {
-                                                $output = sprintf( __( '<p>%s</p>', 'directorist' ), "<a href='' class='atbdp_recovery_pass'> " . __( $recpass_text, 'directorist' ) . '</a>' );
+                                                $output = sprintf( __( '<p>%s</p>', 'directorist' ), "<a href='' class='atbdp_recovery_pass'> " . $recpass_text . '</a>' );
 												echo wp_kses_post( $output );
                                             }
                                         ?>

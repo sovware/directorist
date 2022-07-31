@@ -13,4 +13,4 @@ if ( ! directorist_is_review_enabled() ) {
 }
 ?>
 
-<span class="directorist-info-item directorist-rating-meta directorist-info-item-rating"><?php echo wp_kses_post( $listing->get_rating_count() );?><i class="<?php atbdp_icon_type( true ); ?>-star"></i></span>
+<span class="directorist-info-item directorist-rating-meta directorist-info-item-rating"><?php echo esc_html( $listing->get_rating_count() );?><i class="<?php atbdp_icon_type( true ); ?>-star"></i></span>

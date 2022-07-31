@@ -81,7 +81,8 @@ use \Directorist\Helper;
                             <td class="text-right vertical-middle">
                                 <span class="atbd-plan-price">
                                 <?php if (!empty($option['price'])) {
-                                    echo wp_kses_post( $before ) . esc_html(atbdp_format_payment_amount($option['price'])) . wp_kses_post( $after );
+									$output = $before. atbdp_format_payment_amount($option['price']) . $after;
+                                    echo wp_kses_post( $output );
                                     do_action('atbdp_checkout_after_total_price', $form_data);
                                 } ?>
                                 </span>
@@ -100,11 +101,12 @@ use \Directorist\Helper;
                         <h4><?php esc_html_e( 'Subtotal', 'directorist' ); ?></h4>
                     </td>
                     <td class="text-right vertical-middle">
-                        <div id="atbdp_checkout_subtotal_amount"><?php
-                            echo wp_kses_post( $before );
-                            echo esc_html( atbdp_format_payment_amount( $subtotal ) );
-                            echo wp_kses_post( $after );
-                        ?></div>
+                        <div id="atbdp_checkout_subtotal_amount">
+							<?php
+							$output = $before. atbdp_format_payment_amount( $subtotal ) . $after;
+							echo wp_kses_post( $output );
+                       		?>
+						</div>
 
                     </td>
                 </tr>

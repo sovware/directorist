@@ -2,7 +2,7 @@
 
 <div class="csv-action-btns">
 	<div class="csv-center csv-export">
-		<input type="button" value="<?php esc_attr_e( 'Download a sample CSV', 'directorist' ); ?>" class="button-secondary" name="atbdp_ie_download_sample" id="atbdp_ie_download_sample" data-sample-csv="<?php echo $args['download_link']; ?>">
+		<input type="button" value="<?php esc_attr_e( 'Download a sample CSV', 'directorist' ); ?>" class="button-secondary" name="atbdp_ie_download_sample" id="atbdp_ie_download_sample" data-sample-csv="<?php echo esc_attr( $args['download_link'] ); ?>">
 	</div>
 </div>
 

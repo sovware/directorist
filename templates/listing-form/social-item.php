@@ -18,7 +18,7 @@ $id = (array_key_exists('id', $args)) ? $args['id'] : $index; ?>
         </select>
     </div>
     <div class="directorist-form-group">
-        <input type="url" name="social[<?php echo $id; ?>][url]" class="directorist-form-element directory_field atbdp_social_input" value="<?php echo esc_url($social_info['url']); ?>" placeholder="<?php esc_attr_e('eg. http://example.com', 'directorist'); ?>" required>
+        <input type="url" name="social[<?php echo esc_attr( $id ); ?>][url]" class="directorist-form-element directory_field atbdp_social_input" value="<?php echo esc_url($social_info['url']); ?>" placeholder="<?php esc_attr_e('eg. http://example.com', 'directorist'); ?>" required>
     </div>
     <div class="directorist-form-group directorist-form-social-fields__action">
         <span data-id="<?php echo esc_attr( $id ); ?>" class="directorist-form-social-fields__remove dashicons dashicons-trash" title="<?php esc_html_e('Remove this item', 'directorist'); ?>"></span>

@@ -247,9 +247,11 @@ class Asset_Loader {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-tooltip' );
-		} elseif ( Helper::is_admin_page( 'plugins' ) ) {
+		} elseif ( Helper::is_admin_page( 'wp-plugins' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-plugins' );
+		} elseif ( Helper::is_admin_page( 'wp-users' ) ) {
+			wp_enqueue_script( 'directorist-admin-script' );
 		} elseif ( Helper::is_admin_page( 'taxonomy' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );

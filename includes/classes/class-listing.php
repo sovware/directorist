@@ -19,14 +19,6 @@ if (!class_exists('ATBDP_Listing')):
 
     class ATBDP_Listing
     {
-
-        /**
-         * ATBDP_Template Object.
-         *
-         * @var object|ATBDP_Template
-         * @since 1.0
-         */
-        public $template;
         /**
          * ATBDP_Add_Listing Object.
          *
@@ -46,7 +38,6 @@ if (!class_exists('ATBDP_Listing')):
         public function __construct()
         {
             $this->include_files();
-            $this->template = new ATBDP_Template;
             $this->add_listing = new ATBDP_Add_Listing;
             $this->db = new ATBDP_Listing_DB;
             // for search functionality

@@ -369,7 +369,9 @@ class ATBDP_Metabox {
 			wp_set_object_terms( $post_id, (int) $listing_type, ATBDP_TYPE );
 		}
 
-		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
+		if( !empty( $p['featured'] ) ){
+			$metas['_featured'] = directorist_clean( $p['featured'] );	
+		}
 
 	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : $expiration_to_forever;

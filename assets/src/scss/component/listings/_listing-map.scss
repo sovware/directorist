@@ -1,6 +1,8 @@
 #map.leaflet-container,
 .directorist-single-map.leaflet-container,
 #gmap.leaflet-container {
+    /*rtl:ignore*/
+    direction: ltr;
     margin-bottom: 30px;
 
     .leaflet-popup {
@@ -17,17 +19,19 @@
             margin: 0;
             width: 220px !important;
 
-            .atbdp-map.atbdp-body{
-                img{
+            .atbdp-map.atbdp-body {
+                img {
                     width: 100%;
                 }
             }
 
             .media-body {
                 padding: 10px 15px;
-                a{
+
+                a {
                     text-decoration: none;
                 }
+
                 h3 a {
                     font-weight: 500;
                     line-height: 1.2;
@@ -36,13 +40,15 @@
                     font-size: 18px;
                     text-decoration: none;
                 }
-                .atbdp-listings-title-block{
-                    h3.atbdp-no-margin{
+
+                .atbdp-listings-title-block {
+                    h3.atbdp-no-margin {
                         font-size: 14px;
                         margin: 0 0 10px;
                     }
                 }
-                .osm-iw-location{
+
+                .osm-iw-location {
                     margin-bottom: 6px;
                 }
             }
@@ -334,9 +340,10 @@
         }
 
         .map-info-wrapper {
-            @include m(show){
+            @include m(show) {
                 display: block !important;
             }
+
             .iw-close-btn {
                 position: absolute;
                 width: 25px;

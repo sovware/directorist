@@ -78,9 +78,9 @@ class Helper {
 		}
 
 		$min  = self::debug_enabled() ? '' : '.min';
-		$rtl  = ( $script['type'] == 'css' && !empty( $script['rtl'] ) && is_rtl() ) ? '.rtl' : '';
+		$rtl  = ( !empty( $script['rtl'] ) && is_rtl() ) ? '.rtl' : '';
 		$ext  = $script['type'] == 'css' ? '.css' : '.js';
-		$url = $script['path'] . $min . $rtl . $ext;
+		$url = $script['path'] . $rtl . $min . $ext;
 		return $url;
 	}
 
@@ -221,14 +221,20 @@ class Helper {
 				}
 				break;
 
-			case 'plugins':
+			case 'import_export':
+				if ( $screen == 'at_biz_dir_page_tools' ) {
+					$status = true;
+				}
+				break;
+
+			case 'wp-plugins':
 				if ( $screen == 'plugins' ) {
 					$status = true;
 				}
 				break;
 
-			case 'import_export':
-				if ( $screen == 'at_biz_dir_page_tools' ) {
+			case 'wp-users':
+				if ( $screen == 'users' ) {
 					$status = true;
 				}
 				break;

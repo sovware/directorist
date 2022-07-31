@@ -7,8 +7,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$imported = isset($_GET['listing-imported']) ? sanitize_text_field($_GET['listing-imported']) : '';
-$failed = isset($_GET['listing-failed']) ? sanitize_text_field($_GET['listing-failed']) : '0';
+$imported = isset( $_GET['listing-imported'] ) ? sanitize_text_field( wp_unslash( $_GET['listing-imported'] ) ) : '';
+$failed   = isset( $_GET['listing-failed'] ) ? sanitize_text_field( wp_unslash( $_GET['listing-failed'] ) ) : '0';
 ?>
 <div class="csv-wrapper">
 	<div class="csv-center csv-import-done">
@@ -16,10 +16,10 @@ $failed = isset($_GET['listing-failed']) ? sanitize_text_field($_GET['listing-fa
 			<div class="wc-actions">
 				<span class="dashicons dashicons-yes"></span>
 				<p class="import-complete"><?php esc_html_e( 'Import Completed!', 'directorist' ); ?></p>
-				<p><strong><?php echo esc_attr($imported)?></strong> <?php _e('listings imported', 'directorist');
+				<p><strong><?php echo esc_attr($imported)?></strong> <?php esc_html_e('listings imported', 'directorist');
 				if(($failed != 'NaN') && ($failed != '0')){
 				?> 
-				&<strong><?php echo ' ' .esc_attr($failed);?></strong> <?php _e('were skipped.', 'directorist');
+				&<strong><?php echo ' ' .esc_attr($failed);?></strong> <?php esc_html_e('were skipped.', 'directorist');
 				}
 				?>
 			</p>

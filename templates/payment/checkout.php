@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.0.5.3
+ * @version 7.3.1
  */
 
 extract( $checkout );
@@ -32,9 +32,9 @@ use \Directorist\Helper;
                 <thead class="thead-light">
                 <tr>
                     <th colspan="2">
-                        <?php _e("Details","directorist");?>
+                        <?php esc_html_e("Details","directorist");?>
                     </th>
-                    <th><strong><?php printf(__('Price [%s]', 'directorist'), $currency); ?></strong></th>
+                    <th><strong><?php printf( esc_html__('Price [%s]', 'directorist'), esc_html( $currency ) ); ?></strong></th>
                 </tr>
                 </thead>
 
@@ -59,25 +59,29 @@ use \Directorist\Helper;
                                         'data-price-type' => 'addition',
                                         'checked'         => isset( $option['selected'] ) ? checked( 1, $option['selected'], false ) : '',
                                     ];
-                                    $input_field = "<input type='hidden' id='{$atts['id']}' name='{$atts['name']}' class='{$atts['class']}' value='{$atts['value']}' data-price-type='{$atts['data-price-type']}' {$atts['checked']}/>";
+									?>
 
+									<input type='hidden' id="<?php echo esc_attr( $atts['id'] ); ?>" name="<?php echo esc_attr( $atts['name'] ); ?>" class="<?php echo esc_attr( $atts['class'] ); ?>" value="<?php echo esc_attr( $atts['value'] ); ?>" data-price-type="<?php echo esc_attr( $atts['data-price-type'] ); ?>" <?php echo esc_attr( $atts['checked'] ); ?>/>
+
+									<?php
                                     // Add the price and product
                                     if ( is_numeric( $atts['value'] ) && $option['selected'] && 'addition' === $atts['data-price-type'] ) {
                                         $price = ( preg_match( '/[.]/', $atts['value'] ) ) ? ( float ) $atts['value'] : ( int ) $atts['value'];
                                         $subtotal += $price;
                                         $selected_product++;
                                     }
-
-                                    //echo str_replace('checkbox', $option['type'], $input_field);
-                                    echo $input_field;
                                 ?>
-                                <?php if ( ! empty( $option['title'] ) ) echo "<label for='{$atts['id']}'><h4>" . esc_html($option['title']) . "</h4></label>"; ?>
+                                <?php
+								if ( ! empty( $option['title'] ) ) {
+									printf( '<label for="%s"><h4>%s</h4></label>', esc_attr( $atts['id'] ), esc_html( $option['title'] ) );
+								}
+								?>
                                 <?php if ( ! empty( $option['desc'] ) ) echo '<span>'. esc_html($option['desc']) . '</span>'; ?>
                             </td>
                             <td class="text-right vertical-middle">
                                 <span class="atbd-plan-price">
                                 <?php if (!empty($option['price'])) {
-                                    echo $before . esc_html(atbdp_format_payment_amount($option['price'])) . $after;
+                                    echo wp_kses_post( $before ) . esc_html(atbdp_format_payment_amount($option['price'])) . wp_kses_post( $after );
                                     do_action('atbdp_checkout_after_total_price', $form_data);
                                 } ?>
                                 </span>
@@ -93,24 +97,24 @@ use \Directorist\Helper;
                 ?>
                 <tr class="atbdp_ch_subtotal">
                     <td colspan="2" class="text-right vertical-middle">
-                        <h4><?php echo __( 'Subtotal', 'directorist' ); ?></h4>
+                        <h4><?php esc_html_e( 'Subtotal', 'directorist' ); ?></h4>
                     </td>
                     <td class="text-right vertical-middle">
                         <div id="atbdp_checkout_subtotal_amount"><?php
-                            echo $before;
+                            echo wp_kses_post( $before );
                             echo esc_html( atbdp_format_payment_amount( $subtotal ) );
-                            echo $after;
+                            echo wp_kses_post( $after );
                         ?></div>
 
                     </td>
                 </tr>
                 <tr class="atbdp_ch_total">
                     <td colspan="2" class="text-right vertical-middle">
-                        <h4 class="atbdp_ch_total_text"><?php printf(__('Total amount [%s]', 'directorist'), $currency); ?></h4>
+                        <h4 class="atbdp_ch_total_text"><?php printf( esc_html__( 'Total amount [%s]', 'directorist' ), esc_html( $currency ) ); ?></h4>
                     </td>
                     <td class="text-right vertical-middle">
                         <div id="atbdp_checkout_total_amount"><?php echo number_format( $subtotal, 2 ) ?></div>
-                        <input type="hidden" name="price" id="atbdp_checkout_total_amount_hidden" value="<?php echo $subtotal ?>">
+                        <input type="hidden" name="price" id="atbdp_checkout_total_amount_hidden" value="<?php echo esc_attr( $subtotal ) ?>">
                     </td>
                 </tr>
                 </tbody>
@@ -153,11 +157,11 @@ use \Directorist\Helper;
                 $url = add_query_arg('listing_status', $new_l_status,  ATBDP_Permalink::get_dashboard_page_link().'?listing_id='.$listing_id );
             }
             ?>
-            <input type="hidden" id="listing_id" name="listing_id" value="<?php echo $listing_id; ?>"/>
+            <input type="hidden" id="listing_id" name="listing_id" value="<?php echo esc_attr( $listing_id ); ?>"/>
             <div class="directorist-payment-action" id="atbdp_pay_notpay_btn">
-                <a href="<?php echo esc_url( apply_filters( 'atbdp_checkout_not_now_link', $url ) ); ?>" class="directorist-btn directorist-btn-outline-primary atbdp_not_now_button"><?php _e('Not Now', 'directorist'); ?></a>
-                <button type="submit" id="atbdp_checkout_submit_btn" class="directorist-btn directorist-btn-primary" value="<?php echo $submit_button_label; ?>"><?php echo $submit_button_label; ?></button>
-                <input type="hidden" id="atbdp_checkout_submit_btn_label" value="<?php echo $submit_button_label; ?>"/>
+                <a href="<?php echo esc_url( apply_filters( 'atbdp_checkout_not_now_link', $url ) ); ?>" class="directorist-btn directorist-btn-outline-primary atbdp_not_now_button"><?php esc_html_e('Not Now', 'directorist'); ?></a>
+                <button type="submit" id="atbdp_checkout_submit_btn" class="directorist-btn directorist-btn-primary" value="<?php echo esc_attr( $submit_button_label ); ?>"><?php echo esc_html( $submit_button_label ); ?></button>
+                <input type="hidden" id="atbdp_checkout_submit_btn_label" value="<?php echo esc_attr( $submit_button_label ); ?>"/>
             </div> <!--ends pull-right-->
 
             <?php do_action('atbdp_before_checkout_form_end'); ?>

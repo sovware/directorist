@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.0
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -41,11 +41,11 @@ $featured_listings = new WP_Query($featured_args);
                         <?php
                         $default_image = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
                         if (!empty($listing_prv_img)) {
-                            echo '<a href="'.get_the_permalink().'"><img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))) . '" alt="listing image"></a>';
+                            echo '<a href="'.esc_url( get_the_permalink() ).'"><img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))) . '" alt="listing image"></a>';
                         } elseif (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                            echo '<a href="'.get_the_permalink().'"><img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image"></a>';
+                            echo '<a href="'.esc_url( get_the_permalink() ).'"><img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image"></a>';
                         } else {
-                            echo '<a href="'.get_the_permalink().'"><img src="' . $default_image . '" alt="listing image"></a>';
+                            echo '<a href="'.esc_url( get_the_permalink() ).'"><img src="' . esc_url( $default_image ) . '" alt="listing image"></a>';
                         }
 
                         ?>
@@ -60,7 +60,7 @@ $featured_listings = new WP_Query($featured_args);
 
                             <?php } else {
                                 $output = atbdp_display_price_range($price_range);
-                                echo $output;
+                                echo wp_kses_post( $output );
                             } ?>
                         </div>
 
@@ -72,13 +72,13 @@ $featured_listings = new WP_Query($featured_args);
                                 <span class="
 <?php atbdp_icon_type(true);?>-tags"></span>
                                 <span>
-                                            <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
+                                            <a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_category_page($cats[0]) ); ?>">
                                                                     <?php echo esc_html($cats[0]->name); ?>
                                             </a>
                                         <?php
                                         if ($totalTerm > 1) {
                                             ?>
-                                            <span class="atbd_cat_popup">  +<?php echo $totalTerm - 1; ?>
+                                            <span class="atbd_cat_popup">  +<?php echo esc_html( $totalTerm - 1 ); ?>
                                                 <span class="atbd_cat_popup_wrapper">
                                                                 <?php
                                                                 $output = array();
@@ -87,7 +87,7 @@ $featured_listings = new WP_Query($featured_args);
                                                                     $space = str_repeat(' ', 1);
                                                                     $output [] = "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                 } ?>
-                                                    <span><?php echo join($output) ?></span>
+                                                    <span><?php echo wp_kses_post( join($output) ); ?></span>
                                                             </span>
                                                         </span>
                                         <?php } ?>

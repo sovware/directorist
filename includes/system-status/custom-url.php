@@ -11,7 +11,7 @@ class ATBDP_Custom_Url
     }
 
     public function generate_url() {
-		if ( isset( $_POST['_nonce'] ) && ! wp_verify_nonce( $_POST['_nonce'], '_generate_custom_url' ) ) {
+		if ( isset( $_POST['_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), '_generate_custom_url' ) ) {
             die( 'huh!' );
         }
 		$token   = wp_rand();
@@ -27,7 +27,7 @@ class ATBDP_Custom_Url
     }
 
     public function revoke_url() {
-		if ( isset( $_POST['_nonce'] ) && ! wp_verify_nonce( $_POST['_nonce'], '_revoke_custom_url' ) ) {
+		if ( isset( $_POST['_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), '_revoke_custom_url' ) ) {
             die( 'huh!' );
         }
 		delete_transient( 'system_info_remote_token' );
@@ -40,7 +40,7 @@ class ATBDP_Custom_Url
 			return;
 		}
 
-		$queryValue = $_GET['atbdp-system-info'];
+		$queryValue = sanitize_text_field( wp_unslash( $_GET['atbdp-system-info'] ) );
 		$token      = get_transient( 'system_info_remote_token' );
 
 		if ( $queryValue == $token ) {

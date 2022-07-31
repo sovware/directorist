@@ -9,7 +9,7 @@ class ATBDP_Send_Mail {
     }
 
     public function send_system_info() {
-        if ( isset( $_POST['_nonce'] ) && ! wp_verify_nonce( $_POST['_nonce'], '_debugger_email_nonce' ) ) {
+        if ( isset( $_POST['_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), '_debugger_email_nonce' ) ) {
             die( 'huh!' );
         }
 		$user = wp_get_current_user();

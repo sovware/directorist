@@ -23,11 +23,11 @@ $featured_args = array(
 /**
  * Filter to modify featured listings arguments. 
  *
- * @since 7.3.0
+ * @since 7.3.1
  * 
  * @param array $featured_args  Featured Arguments.
  */
-apply_filters( "directorist_featured_listings_query_arguments", $featured_args );
+apply_filters( "directorist_widget_featured_listings_query_arguments", $featured_args );
 
 $featured_listings = new WP_Query($featured_args);
 ?>

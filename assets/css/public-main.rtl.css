@@ -9701,7 +9701,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-content-active .directorist-authors__card h2 {
   font-size: 20px;
   font-weight: 500;
-  margin: 0 0 5px 0 !important;
+  margin: 0 0 16px 0 !important;
   line-height: normal;
 }
 .directorist-content-active .directorist-authors__card h2:before {

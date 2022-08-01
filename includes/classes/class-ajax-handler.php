@@ -803,7 +803,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					update_user_meta( $user_id, 'pro_pic', '' );
 				}
 
-				$success = ATBDP()->user->update_profile( $_POST['user'] ); // update_profile() will handle sanitisation, so we can just the pass the data through it
+				$success = directorist_update_profile( $_POST['user'] ); // directorist_update_profile() will handle sanitisation, so we can just the pass the data through it
 
 				if ( $success ) {
 					wp_send_json_success( array( 'message' => __( 'Profile updated successfully', 'directorist' ) ) );

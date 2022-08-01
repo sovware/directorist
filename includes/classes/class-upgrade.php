@@ -78,7 +78,7 @@ class ATBDP_Upgrade
 		}
 
 		if ( isset( $_GET['close-directorist-promo-version'] ) ) {
-			update_user_meta( get_current_user_id(), '_directorist_promo_closed', sanitize_text_field( $_GET['close-directorist-promo-version'] ) );
+			update_user_meta( get_current_user_id(), '_directorist_promo_closed', directorist_clean( wp_unslash( $_GET['close-directorist-promo-version'] ) ) );
 		}
 
 	}

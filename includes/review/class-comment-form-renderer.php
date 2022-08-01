@@ -390,7 +390,7 @@ class Comment_Form_Renderer {
 
 			if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) :
 
-				echo $args['must_log_in'];
+				echo wp_kses_post( $args['must_log_in'] );
 				/**
 				 * Fires after the HTML-formatted 'must log in after' message in the comment form.
 				 *

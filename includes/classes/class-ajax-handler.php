@@ -474,8 +474,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		public function guest_reception() {
 
 			// Get the data
-			$email = ( ! empty( $_GET['email'] ) ) ? $_GET['email'] : '';
-			$email = ( ! empty( $_POST['email'] ) ) ? $_POST['email'] : $email;
+			$email = ( ! empty( $_REQUEST['email'] ) ) ? sanitize_email( wp_unslash( $_REQUEST['email'] ) ) : '';
 
 			// Data Validation
 			// ---------------------------
@@ -593,8 +592,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$keep_signed_in = ( $_POST['rememberme'] === 1 || $_POST['rememberme'] === '1' ) ? true : false;
 
 			$info                  = array();
-			$info['user_login']    = $_POST['username'];
-			$info['user_password'] = $_POST['password'];
+			$info['user_login']    = ( ! empty( $_POST['username'] ) ) ? sanitize_user( wp_unslash( $_POST['username'] ) ) : '';
+			$info['user_password'] = ( ! empty( $_POST['password'] ) ) ? $_POST['password'] : ''; // phpcs:ignore
 			$info['remember']      = $keep_signed_in;
 
 			$user_signon = wp_signon( $info, $keep_signed_in );
@@ -773,7 +772,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				directorist_add_user_favorites( $user_id, $listing_id );
 			}
 
-			echo the_atbdp_favourites_link( $listing_id );
+			echo wp_kses_post( the_atbdp_favourites_link( $listing_id ) );
 
 			wp_die();
 		}
@@ -788,11 +787,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			// process the data and the return a success
-			if ( $_POST['user'] ) {
+			if ( ! empty( $_POST['user'] ) ) {
 
 				$user_id = ! empty( $_POST['user']['ID'] ) ? absint( $_POST['user']['ID'] ) : get_current_user_id();
 				if ( ! empty( $_POST['profile_picture_meta'] ) && count( $_POST['profile_picture_meta'] ) ) {
-					$meta_data = $_POST['profile_picture_meta'][0];
+					$meta_data = directorist_clean( $_POST['profile_picture_meta'][0] );
 
 					if ( 'true' !== $meta_data['oldFile'] ) {
 						foreach ( $_FILES as $file => $array ) {
@@ -1367,10 +1366,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				}
 
 				if ( $args['parent'] != $args['base_term'] ) {
-					ob_start();
 					bdas_dropdown_terms( $args );
-					$output = ob_get_clean();
-					print $output;
 				}
 			}
 
@@ -1420,12 +1416,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			);
 
 			// Process output
-			ob_start();
 			require ATBDP_VIEWS_DIR . 'custom-fields.php';
 			wp_reset_postdata(); // Restore global post data stomped by the_post()
-			$output = ob_get_clean();
-
-			echo $output;
 
 			if ( $ajax ) {
 				wp_die();

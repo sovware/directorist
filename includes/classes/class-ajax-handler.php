@@ -868,7 +868,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 			// sanitize form values
 			$post_id = (int) $_POST['post_id'];
-			$message = esc_textarea( $_POST['content'] );
+			$message = ( ! empty( $_POST['content'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['content'] ) ) : '';
 
 			// vars
 			$user          = wp_get_current_user();

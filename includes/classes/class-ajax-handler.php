@@ -934,7 +934,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 			// sanitize form values
 			$post_id = (int) $_POST['post_id'];
-			$message = ! empty( $_POST['content'] ) ? esc_textarea( $_POST['content'] ) : '';
+			$message = ! empty( $_POST['content'] ) ? sanitize_textarea_field( wp_unslash( $_POST['content'] ) ) : '';
 
 			// vars
 			$user          = wp_get_current_user();
@@ -1080,7 +1080,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			$listing_id = ! empty( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
-			$message    = ! empty( $_POST['message'] ) ? trim( $_POST['message'] ) : '';
+			$message    = ! empty( $_POST['message'] ) ? trim( sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) ) : '';
 
 			if ( empty( $listing_id ) || get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
 				$data['error']   = 1;
@@ -1123,7 +1123,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$name          = sanitize_text_field( $_POST['name'] );
 			$email         = sanitize_email( $_POST['email'] );
 			$listing_email = get_post_meta( $post_id, '_email', true );
-			$message       = stripslashes( esc_textarea( $_POST['message'] ) );
+			$message       = ( ! empty( $_POST['message']  ) ) ? stripslashes( sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) ) : '';
 			// vars
 			$post_author_id        = get_post_field( 'post_author', $post_id );
 			$user                  = get_userdata( $post_author_id );
@@ -1205,9 +1205,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		function atbdp_email_admin_listing_contact() {
 			// sanitize form values
 			$post_id = (int) $_POST['post_id'];
-			$name    = sanitize_text_field( $_POST['name'] );
-			$email   = sanitize_email( $_POST['email'] );
-			$message = esc_textarea( $_POST['message'] );
+			$name    = ( ! empty( $_POST['name'] ) ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+			$email   = ( ! empty( $_POST['email'] ) ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+			$message = ( ! empty( $_POST['message'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
 			// vars
 			$site_name     = get_bloginfo( 'name' );
 			$site_url      = get_bloginfo( 'url' );
@@ -1361,8 +1361,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					$args['order']   = 'ASC';
 				}
 
-				if ( isset( $_POST['class'] ) && '' != trim( $_POST['class'] ) ) {
-					$args['class'] = sanitize_text_field( $_POST['class'] );
+				if ( isset( $_POST['class'] ) && '' != trim( wp_unslash( $_POST['class'] ) ) ) { // phpcs:ignore
+					$args['class'] = sanitize_text_field( wp_unslash( $_POST['class'] ) );
 				}
 
 				if ( $args['parent'] != $args['base_term'] ) {

@@ -56,6 +56,7 @@
             <property name="customSanitizingFunctions" type="array">
                 <element value="directorist_clean"/>
                 <element value="atbdp_sanitize_array"/>
+                <element value="directorist_update_profile"/>
                 <element value="directorist_maybe_json"/>
             </property>
         </properties>

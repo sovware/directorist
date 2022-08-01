@@ -51,6 +51,7 @@
             var form_data = {
                 action: 'atbdp_close_announcement',
                 post_id: post_id,
+                nonce: directorist.directorist_nonce
             }
 
             var button_default_html = $(self).html();

@@ -5,6 +5,7 @@ jQuery(document).ready(function ($) {
     let failed = 0;
     let imported = 0;
     let redirect_url = '';
+
     $(import_dummy).on('submit', function (e) {
         e.preventDefault();
 
@@ -29,7 +30,7 @@ jQuery(document).ready(function ($) {
             form_data.append('delimiter', ',');
             form_data.append('update_existing', '');
             form_data.append('position', position);
-            form_data.append('wpnonce', $('input[name="_wpnonce"]').val());
+            form_data.append('directorist_nonce', import_export_data.directorist_nonce );
             form_data.append('pre_mapped', true);
             $.ajax({
                 method: 'POST',
@@ -39,6 +40,12 @@ jQuery(document).ready(function ($) {
                 url: import_export_data.ajaxurl,
                 data: form_data,
                 success(response) {
+
+                    if ( response.error ) {
+                        console.log({ response });
+                        return;
+                    }
+                    
                     imported += response.imported;
                     failed += response.failed;
                     redirect_url = response.url;

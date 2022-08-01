@@ -168,7 +168,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				);
 			}
 
-			$username   = ! empty( $_POST['username'] ) ? sanitize_user( $_POST['username'] ) : '';
+			$username   = ! empty( $_POST['username'] ) ? sanitize_user( wp_unslash( $_POST['username'] ) ) : '';
 			$password   = ! empty( $_POST['password'] ) ? $_POST['password'] : ''; // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$rememberme = ! empty( $_POST['rememberme'] ) ? boolval( $_POST['rememberme'] ) : false;
 
@@ -282,7 +282,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			$credentials = array(
-				'user_login'    => ! empty( $_POST['username'] ) ? sanitize_user( $_POST['username'] ) : '',
+				'user_login'    => ! empty( $_POST['username'] ) ? sanitize_user( wp_unslash( $_POST['username'] ) ) : '',
 				'user_password' => ! empty( $_POST['password'] ) ? $_POST['password'] : '',  // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				'remember'      => ! empty( $_POST['rememberme'] ) ? boolval( $_POST['rememberme'] ) : false,
 			);
@@ -439,9 +439,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		}
 
 		public function ajax_callback_custom_fields() {
-			$listing_type = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
-			$categories   = ! empty( $_POST['term_id'] ) ? atbdp_sanitize_array( $_POST['term_id'] ) : array();
-			$post_id      = ! empty( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : '';
+			$listing_type = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_type'] ) ) : '';
+			$categories   = ! empty( $_POST['term_id'] ) ? atbdp_sanitize_array( wp_unslash( $_POST['term_id'] ) ) : array(); 
+			$post_id      = ! empty( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : '';
 			// wp_send_json($post_id);
 			$template               = '';
 			$submission_form_fields = array();
@@ -589,7 +589,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			// Nonce is checked, get the POST data and sign user on
-			$keep_signed_in = ( $_POST['rememberme'] === 1 || $_POST['rememberme'] === '1' ) ? true : false;
+			$keep_signed_in = ( isset( $_POST['rememberme'] ) && ( $_POST['rememberme'] === 1 || $_POST['rememberme'] === '1' ) ) ? true : false;
 
 			$info                  = array();
 			$info['user_login']    = ( ! empty( $_POST['username'] ) ) ? sanitize_user( wp_unslash( $_POST['username'] ) ) : '';
@@ -626,7 +626,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			check_ajax_referer( 'atbdp_attachment_upload', '_ajax_nonce' );
 
 			try {
-				$field_id  = isset( $_POST['imgid'] ) ? sanitize_text_field( $_POST['imgid'] ) : '';
+				$field_id  = isset( $_POST['imgid'] ) ? sanitize_text_field( wp_unslash( $_POST['imgid'] ) ) : '';
 				$post_id   = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : '';
 				$directory = isset( $_POST['directory'] ) ? absint( $_POST['directory'] ) : 0;
 
@@ -638,7 +638,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					throw new \Exception( __( 'Invalid directory type!', 'directorist' ), 400 );
 				}
 
-				$fixed_file = $_FILES[ $field_id . 'async-upload' ];
+				$fixed_file = ( ! empty( $_FILES[ $field_id . 'async-upload' ] ) ) ? wp_unslash( $_FILES[ $field_id . 'async-upload' ] ) : '';
 
 				$form_fields  = get_term_meta( $directory, 'submission_form_fields', true );
 				$field_config = array_values( wp_list_filter( $form_fields['fields'], array( 'field_key' => $field_id ) ) );
@@ -729,7 +729,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 */
 		public function atbdp_public_add_remove_favorites_all() {
 			$user_id    = get_current_user_id();
-			$listing_id = (int) $_POST['post_id'];
+			$listing_id = ( ! empty( $_POST['post_id'] ) ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 
 			if ( ! $user_id ) {
 				$data = 'login_required';
@@ -762,7 +762,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 * @access   public
 		 */
 		public function atbdp_public_add_remove_favorites() {
-			$listing_id = (int) $_POST['post_id'];
+			$listing_id = ( ! empty( $_POST['post_id'] ) ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 			$user_id    = get_current_user_id();
 			$favorites  = directorist_get_user_favorites( $user_id );
 
@@ -791,7 +791,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 				$user_id = ! empty( $_POST['user']['ID'] ) ? absint( $_POST['user']['ID'] ) : get_current_user_id();
 				if ( ! empty( $_POST['profile_picture_meta'] ) && count( $_POST['profile_picture_meta'] ) ) {
-					$meta_data = directorist_clean( $_POST['profile_picture_meta'][0] );
+					$meta_data = ( ! empty( $_POST['profile_picture_meta'][0] ) ) ? directorist_clean( wp_unslash( $_POST['profile_picture_meta'][0] ) ) : [];
 
 					if ( 'true' !== $meta_data['oldFile'] ) {
 						foreach ( $_FILES as $file => $array ) {
@@ -803,7 +803,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					update_user_meta( $user_id, 'pro_pic', '' );
 				}
 
-				$success = directorist_update_profile( $_POST['user'] ); // directorist_update_profile() will handle sanitisation, so we can just the pass the data through it
+				$success = directorist_update_profile( wp_unslash( $_POST['user'] ) ); // directorist_update_profile() will handle sanitisation, so we can just the pass the data through it
 
 				if ( $success ) {
 					wp_send_json_success( array( 'message' => __( 'Profile updated successfully', 'directorist' ) ) );
@@ -819,7 +819,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 		private function insert_attachment( $file_handler, $post_id, $setthumb = 'false' ) {
 			// check to make sure its a successful upload
-			if ( $_FILES[ $file_handler ]['error'] !== UPLOAD_ERR_OK ) {
+			if ( ! empty( $_FILES[ $file_handler ]['error'] ) && $_FILES[ $file_handler ]['error'] !== UPLOAD_ERR_OK ) {
 				__return_false();
 			}
 
@@ -867,7 +867,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				return false;
 			}
 			// sanitize form values
-			$post_id = (int) $_POST['post_id'];
+			$post_id = ( ! empty( $_POST['post_id'] ) ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 			$message = ( ! empty( $_POST['content'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['content'] ) ) : '';
 
 			// vars
@@ -933,7 +933,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				return false; // vail if order created notification to admin off
 			}
 			// sanitize form values
-			$post_id = (int) $_POST['post_id'];
+			$post_id = ( ! empty( $_POST['post_id'] ) ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 			$message = ! empty( $_POST['content'] ) ? sanitize_textarea_field( wp_unslash( $_POST['content'] ) ) : '';
 
 			// vars
@@ -1119,9 +1119,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 */
 		function atbdp_email_listing_owner_listing_contact() {
 			// sanitize form values
-			$post_id       = (int) $_POST['post_id'];
-			$name          = sanitize_text_field( $_POST['name'] );
-			$email         = sanitize_email( $_POST['email'] );
+			$post_id       = ! empty( $_POST['post_id'] ) ? sanitize_text_field( absint( $_POST['post_id'] ) ) : '';
+			$name          = ( ! empty( $_POST['name'] ) ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+			$email         = ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
 			$listing_email = get_post_meta( $post_id, '_email', true );
 			$message       = ( ! empty( $_POST['message']  ) ) ? stripslashes( sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) ) : '';
 			// vars
@@ -1204,7 +1204,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 */
 		function atbdp_email_admin_listing_contact() {
 			// sanitize form values
-			$post_id = (int) $_POST['post_id'];
+			$post_id = ! empty( $_POST['post_id'] ) ? sanitize_text_field( absint( $_POST['post_id'] ) ) : '';
 			$name    = ( ! empty( $_POST['name'] ) ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
 			$email   = ( ! empty( $_POST['email'] ) ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
 			$message = ( ! empty( $_POST['message'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
@@ -1344,7 +1344,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if ( isset( $_POST['taxonomy'] ) && isset( $_POST['parent'] ) ) {
 
 				$args = array(
-					'taxonomy'  => sanitize_text_field( $_POST['taxonomy'] ),
+					'taxonomy'  => sanitize_text_field( wp_unslash( $_POST['taxonomy'] ) ),
 					'base_term' => 0,
 					'parent'    => (int) $_POST['parent'],
 				);

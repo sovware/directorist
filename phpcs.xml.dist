@@ -55,7 +55,6 @@
         <properties>
             <property name="customSanitizingFunctions" type="array">
                 <element value="directorist_clean"/>
-                <element value="directorist_kses"/>
                 <element value="directorist_maybe_json"/>
             </property>
         </properties>

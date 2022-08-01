@@ -5,14 +5,14 @@
  *
  * @author  wpWax
  * @since   6.6
- * @version 7.3.0
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$current_directory_type = ( ! empty( $_GET['directory_type'] ) ? $_GET['directory_type'] : '' );
+$current_directory_type = ( ! empty( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : '' );
 
 do_action( 'directorist_before_listing_types', $listings );
 ?>

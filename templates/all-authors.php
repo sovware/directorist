@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-authors__nav">
 					<ul>
 						<li>
-							<a href="#" class="directorist-alphabet ALL" data-nonce="<?php echo esc_attr( wp_create_nonce( 'directorist_author_sorting' ) ); ?>" data-alphabet="ALL"><?php _e( 'All', 'directorist' ); ?></a>
+							<a href="#" class="directorist-alphabet ALL" data-nonce="<?php echo esc_attr( wp_create_nonce( 'directorist_author_sorting' ) ); ?>" data-alphabet="ALL"><?php esc_html_e( 'All', 'directorist' ); ?></a>
 						</li>
 						<?php foreach( range( 'A', 'Z' ) as $value ): ?>
 
@@ -126,7 +126,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 										<?php endif; ?>
 
 										<?php if( $authors->display_btn() ): ?>
-											<a href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author->data->ID );?>" class="directorist-btn directorist-btn-light directorist-btn-block"><?php echo $authors->btn_text(); ?></a>
+											<a href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link( $author->data->ID ) );?>" class="directorist-btn directorist-btn-light directorist-btn-block"><?php echo esc_html( $authors->btn_text() ); ?></a>
 										<?php endif; ?>
 
 									</div>
@@ -149,7 +149,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<?php if( $authors->display_pagination() ): ?>
 
 					<div class="directorist-pagination directorist-authors__pagination directorist-authors-pagination">
-						<?php echo $authors->author_pagination(); ?>
+						<?php echo wp_kses_post( $authors->author_pagination() ); ?>
 					</div>
 
 				<?php endif; ?>

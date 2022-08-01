@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5
+ * @version 7.3.1
  */
 
 use \Directorist\Directorist_Single_Listing;
@@ -27,7 +27,7 @@ $listing = Directorist_Single_Listing::instance();
 
 					<div class="directorist-single-wrapper">
 
-						<?php echo $listing->single_page_content(); ?>
+						<?php echo wp_kses_post( $listing->single_page_content() ); ?>
 
 					</div>
 

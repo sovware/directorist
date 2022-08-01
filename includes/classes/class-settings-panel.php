@@ -2642,27 +2642,39 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __('Display Name', 'directorist'),
                     'value' => true,
                 ],
-                'all_authors_role' => [
-                    'type'  => 'toggle',
-                    'label' => __('Display Roles', 'directorist'),
-                    'value' => true,
-                ],
                 'all_authors_select_role' => [
                     'label' => __('Select Role', 'directorist'),
                     'type'  => 'select',
                     'value' => 'all',
                     'options' => $this->get_user_roles(),
-                    'show-if' => [
-                        'where' => "all_authors_role",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                ],
+                'all_authors_contact' => [
+                    'label' => esc_html__( 'Contact Info', 'directorist' ),
+                    'type'  => 'checkbox',
+                    'value' => [
+                            'phone',
+                            'address',
+                            'website',
+                        ],
+                    'description' => esc_html__( 'Email will show only for logged in user.', 'directorist' ),
+                    'options' => [
+                        [
+                            'value' => 'phone',
+                            'label' => esc_html__( 'Phone', 'directorist' ),
+                        ],
+                        [
+                            'value' => 'email',
+                            'label' => esc_html__( 'Email', 'directorist' ),
+                        ],
+                        [
+                            'value' => 'address',
+                            'label' => esc_html__( 'Address', 'directorist' ),
+                        ],
+                        [
+                            'value' => 'website',
+                            'label' => esc_html__( 'Website', 'directorist' ),
                         ],
                     ],
-                ],
-                'all_authors_info' => [
-                    'type'  => 'toggle',
-                    'label' => __('Display Contact Info', 'directorist'),
-                    'value' => true,
                 ],
                 'all_authors_description' => [
                     'type'  => 'toggle',
@@ -4910,7 +4922,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('All Authors', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'all_authors_columns', 'all_authors_sorting', 'all_authors_image', 'all_authors_name', 'all_authors_role', 'all_authors_select_role', 'all_authors_info', 'all_authors_description', 'all_authors_description_limit', 'all_authors_social_info', 'all_authors_button', 'all_authors_button_text', 'all_authors_pagination', 'all_authors_per_page'
+                                        'all_authors_columns', 'all_authors_sorting', 'all_authors_image', 'all_authors_name', 'all_authors_select_role', 'all_authors_contact', 'all_authors_description', 'all_authors_description_limit', 'all_authors_social_info', 'all_authors_button', 'all_authors_button_text', 'all_authors_pagination', 'all_authors_per_page'
                                         ],
                                 ],
                             ] ),

@@ -1140,7 +1140,7 @@ class Directorist_Listings {
 		$link_list = array();
 
 		$options       = atbdp_get_listings_orderby_options( $this->sort_by_items );
-		$queryString = sanitize_text_field( wp_unslash( $_SERVER['QUERY_STRING'] ) );
+		$queryString = isset( $_SERVER['QUERY_STRING'] ) ? sanitize_text_field( wp_unslash( $_SERVER['QUERY_STRING'] ) ) : '';
 		parse_str($queryString, $arguments);
 		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		foreach ( $options as $value => $label ) {
@@ -1363,7 +1363,8 @@ class Directorist_Listings {
 					$ls_data['prv_image'] = atbdp_get_image_source( $ls_data['listing_prv_img'], 'large' );
 				}
 
-				$ls_data['default_image'] = $this->options['default_preview_image'];
+				$listing_type  				= get_post_meta( $listings_id, '_directory_type', true );
+				$ls_data['default_image'] 	= Helper::default_preview_image_src( $listing_type );
 
 				if ( ! empty( $ls_data['listing_img'][0] ) ) {
 					$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
@@ -1470,7 +1471,8 @@ class Directorist_Listings {
 					$cat_icon = preg_replace( "/". $cat_icon_type ."(-)/", "{$preferred_icon_type}$1", $cat_icon );
 					$ls_data['cat_icon'] = $cat_icon;
 
-					$ls_data['default_img'] = atbdp_image_cropping(DIRECTORIST_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
+					$listing_type  			= get_post_meta( $listings_id, '_directory_type', true );
+					$ls_data['default_img'] = Helper::default_preview_image_src( $listing_type );
 
 					if (!empty($ls_data['listing_prv_img'])) {
 						$ls_data['prv_image']   = atbdp_get_image_source($ls_data['listing_prv_img'], 'large');

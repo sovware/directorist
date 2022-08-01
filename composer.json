@@ -18,6 +18,7 @@
         }
     },
     "scripts": {
+		"report": "@php ./vendor/bin/phpcs --report=summary,source",
 		"format": "@php ./vendor/bin/phpcbf"
 	}
 }

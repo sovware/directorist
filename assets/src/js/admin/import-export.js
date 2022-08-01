@@ -1,4 +1,5 @@
 jQuery(document).ready(function ($) {
+
     const query_string = (function (a) {
         if (a == '') return {};
         const b = {};
@@ -10,7 +11,7 @@ jQuery(document).ready(function ($) {
         return b;
     })(window.location.search.substr(1).split('&'));
 
-    $('body').on('change', 'select[name="directory_type"]', function () {
+    $('body').on('change', '.directorist_directory_type_in_import', function () {
         admin_listing_form($(this).val());
     });
 
@@ -24,12 +25,19 @@ jQuery(document).ready(function ($) {
                 action: 'directorist_listing_type_form_fields',
                 directory_type: directory_type,
                 delimiter: delimiter,
+                directorist_nonce: directorist_admin.directorist_nonce,
                 file: file,
             },
             beforeSend: function () {
                 $('#directorist-type-preloader').show();
             },
             success(response) {
+
+                if ( response.error ) {
+                    console.log({ response });
+                    return;
+                }
+
                 $('.atbdp-importer-mapping-table').remove();
                 $('.directory_type_wrapper').after(response);
             },
@@ -78,12 +86,7 @@ jQuery(document).ready(function ($) {
             form_data.append( 'action', 'atbdp_import_listing' );
             form_data.append( 'position', position );
 
-            let nonce = $( 'input[name="_wpnonce"]' );
-            nonce = ( nonce.length ) ? nonce.val() : '';
-
-            if ( nonce ) {
-                form_data.append( '_wpnonce', nonce );
-            }
+            form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
 
             // Get Config Fields Value
             if ( configFields.length ) {

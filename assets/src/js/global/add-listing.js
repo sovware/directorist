@@ -272,6 +272,7 @@ $(document).ready(function () {
 
         const data = {
             action: 'atbdp_custom_fields_listings',
+            directorist_nonce: ( typeof directorist !== 'undefined' ) ? directorist.directorist_nonce : directorist_admin.directorist_nonce,
             post_id: $('input[name="listing_id"]').val(),
             term_id: id,
             directory_type: directory_type,

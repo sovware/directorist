@@ -400,6 +400,15 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		}
 
 		public function directorist_type_slug_change() {
+
+			if ( ! directorist_verify_nonce() ) {
+				wp_send_json(
+					array(
+						'error'=> __( 'Session expired, please reload the window and try again.', 'directorist' ),
+					)
+				);
+			}
+
 			$type_id     = isset( $_POST['type_id'] ) ? sanitize_key( $_POST['type_id'] ) : '';
 			$update_slug = isset( $_POST['update_slug'] ) ? sanitize_key( $_POST['update_slug'] ) : '';
 
@@ -439,6 +448,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		}
 
 		public function ajax_callback_custom_fields() {
+
+			if ( ! directorist_verify_nonce() ) {
+				wp_send_json( '' );
+			}
+
 			$listing_type = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
 			$categories   = ! empty( $_POST['term_id'] ) ? atbdp_sanitize_array( $_POST['term_id'] ) : array();
 			$post_id      = ! empty( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : '';
@@ -473,13 +487,31 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		// guest_reception
 		public function guest_reception() {
 
-			// Get the data
-			$email = ( ! empty( $_GET['email'] ) ) ? $_GET['email'] : '';
-			$email = ( ! empty( $_POST['email'] ) ) ? $_POST['email'] : $email;
-
 			// Data Validation
 			// ---------------------------
 			$error_log = array();
+
+			if ( ! directorist_verify_nonce() ) {
+				$error_log['email'] = array(
+					'key'     => 'invalid_email',
+					'message' => 'Invalid Email',
+				);
+
+				$data = array(
+					'status'      => false,
+					'status_code' => 'nonce_varification_failed',
+					'message'     => __('The session has expired, please reload and try again.', 'directorist' ),
+					'data'        => array(
+						'error_log' => $error_log,
+					),
+				);
+
+				wp_send_json( $data, 200 );
+			}
+
+			// Get the data
+			$email = ( ! empty( $_GET['email'] ) ) ? $_GET['email'] : '';
+			$email = ( ! empty( $_POST['email'] ) ) ? $_POST['email'] : $email;
 
 			// Validate email
 			if ( empty( $email ) ) {
@@ -729,6 +761,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 * @access   public
 		 */
 		public function atbdp_public_add_remove_favorites_all() {
+
+			if ( ! directorist_verify_nonce() ) {
+				wp_send_json( false, 200 );
+			}
+
 			$user_id    = get_current_user_id();
 			$listing_id = (int) $_POST['post_id'];
 
@@ -763,6 +800,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 * @access   public
 		 */
 		public function atbdp_public_add_remove_favorites() {
+
+			if ( ! directorist_verify_nonce() ) {
+				wp_send_json( false, 200 );
+			}
+
 			$listing_id = (int) $_POST['post_id'];
 			$user_id    = get_current_user_id();
 			$favorites  = directorist_get_user_favorites( $user_id );

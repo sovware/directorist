@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.0
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -10,28 +10,21 @@ $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-co
 ?>
 
 <div class="atbdp directorist atbdp-widget-listing-contact">
-  <form id="<?php echo $form_id; ?>" class="form-vertical directorist-contact-owner-form">
+  <form id="<?php echo esc_attr( $form_id ); ?>" class="form-vertical directorist-contact-owner-form">
     <div class="form-group">
-      <input type="text" class="form-control" name="atbdp-contact-name" placeholder="<?php _e('Name', 'directorist'); ?>" required />
+      <input type="text" class="form-control" name="atbdp-contact-name" placeholder="<?php esc_attr_e('Name', 'directorist'); ?>" required />
     </div>
 
     <div class="form-group">
-      <input type="email" class="form-control" name="atbdp-contact-email" placeholder="<?php _e('Email', 'directorist'); ?>" required />
+      <input type="email" class="form-control" name="atbdp-contact-email" placeholder="<?php esc_attr_e('Email', 'directorist'); ?>" required />
     </div>
 
-    <?php
-    $msg_html = '<div class="form-group">';
-    $msg_html .= '<textarea class="form-control" name="atbdp-contact-message" rows="3" placeholder="' . __('Message', 'directorist') . '..." required ></textarea>';
-    $msg_html .= '</div>';
+	<div class="form-group">
+		<textarea class="form-control" name="atbdp-contact-message" rows="3" placeholder="<?php esc_attr_e('Message...', 'directorist'); ?>" required ></textarea>
+	</div>
 
-    /**
-     * @since 5.10.0
-     */
-    echo apply_filters('atbdp_widget_contact_form_message_field', $msg_html);
-    ?>
-
-    <input type="hidden" name="atbdp-post-id" value="<?php echo get_the_ID(); ?>" />
-    <input type="hidden" name="atbdp-listing-email" value="<?php echo ! empty( $email ) ? sanitize_email( $email ) : ''; ?>" />
+    <input type="hidden" name="atbdp-post-id" value="<?php echo esc_attr( get_the_ID() ); ?>" />
+    <input type="hidden" name="atbdp-listing-email" value="<?php echo ! empty( $email ) ? esc_attr( $email ) : ''; ?>" />
 
     <?php
     /**
@@ -43,7 +36,7 @@ $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-co
     ?>
     <p class="atbdp-widget-elm directorist-contact-message-display"></p>
 
-    <button type="submit" class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
+    <button type="submit" class="btn btn-primary"><?php esc_html_e('Submit', 'directorist'); ?></button>
   </form>
 </div>
 

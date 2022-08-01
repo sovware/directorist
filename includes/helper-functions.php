@@ -9040,3 +9040,12 @@ function directorist_kses( $content, $allowed_html = 'all' ) {
     return wp_kses( $content, $allowed_html_type );
 }
 
+/*
+ * Safe alternative for $_SERVER['REQUEST_URI'].
+ *
+ * @since 7.3.1
+ * @return string
+ */
+function directorist_get_request_uri() {
+	return empty( $_SERVER['REQUEST_URI'] ) ? home_url( '/' ) : wp_unslash( $_SERVER['REQUEST_URI'] );
+}

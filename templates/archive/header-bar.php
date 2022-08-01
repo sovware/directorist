@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -21,11 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-listings-header__left">
 
 					<?php if ( $listings->has_filters_button ): ?>
-						<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-filter-btn"><?php echo $listings->filter_btn_html(); ?></a>
+						<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-filter-btn"><?php echo wp_kses_post( $listings->filter_btn_html() ); ?></a>
 					<?php endif; ?>
 
 					<?php if ( $listings->header_title ): ?>
-						<h3 class="directorist-header-found-title"><?php echo $listings->item_found_title(); ?></h3>
+						<h3 class="directorist-header-found-title"><?php echo wp_kses_post( $listings->item_found_title() ); ?></h3>
 					<?php endif; ?>
 				</div>
 

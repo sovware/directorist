@@ -47,7 +47,7 @@ class SetupWizard
             <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start your directory!', 'directorist' ) ); ?></p>
             <p class="submit">
                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=directorist-setup' ) ); ?>" class="button-primary"><?php esc_html_e( 'Run the Setup Wizard', 'directorist' ); ?></a>
-                <a class="button-secondary skip" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'directorist-hide-notice', 'install' ), 'directorist_hide_notices_nonce', '_atbdp_notice_nonce' ) ); ?>"><?php _e( 'Skip setup', 'directorist' ); ?></a>
+                <a class="button-secondary skip" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'directorist-hide-notice', 'install' ), 'directorist_hide_notices_nonce', '_atbdp_notice_nonce' ) ); ?>"><?php esc_html_e( 'Skip setup', 'directorist' ); ?></a>
             </p>
         </div>
     <?php
@@ -109,14 +109,27 @@ class SetupWizard
 
     public function atbdp_dummy_data_import()
     {
+
+        if ( ! current_user_can( 'import' ) ) {
+            wp_send_json( array(
+                'error' => esc_html__( 'Invalid request!', 'directorist' ),
+            ) );
+        }
+
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json( array(
+                'error' => esc_html__( 'Invalid nonce!', 'directorist' ),
+            ) );
+        }
+        
         $data               = array();
         $imported           = 0;
         $failed             = 0;
         $count              = 0;
-        $preview_image      = isset($_POST['image']) ? sanitize_text_field($_POST['image']) : '';
-        $file               = isset($_POST['file']) ? sanitize_text_field($_POST['file']) : '';
-        $total_length       = isset($_POST['limit']) ? sanitize_text_field($_POST['limit']) : 0;
-        $position           = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
+        $preview_image      = isset($_POST['image']) ? sanitize_text_field( wp_unslash( $_POST['image'] ) ) : '';
+        $file               = isset($_POST['file']) ? sanitize_text_field( wp_unslash( $_POST['file'] ) ) : '';
+        $total_length       = isset($_POST['limit']) ? sanitize_text_field( wp_unslash( $_POST['limit'])) : 0;
+        $position           = isset($_POST['position']) ? sanitize_text_field( wp_unslash( $_POST['position'] ) ) : 0;
         $all_posts          = $this->read_csv($file);
         $posts              = array_slice($all_posts, $position);
         $limit              = 1;
@@ -282,7 +295,7 @@ class SetupWizard
         wp_enqueue_style('directorist-admin-style');
         wp_enqueue_script('directorist-admin-setup-wizard-script');
 
-        wp_localize_script('directorist-admin-setup-wizard-script', 'import_export_data', [ 'ajaxurl' => admin_url('admin-ajax.php') ] );
+        wp_localize_script('directorist-admin-setup-wizard-script', 'import_export_data', [ 'ajaxurl' => admin_url('admin-ajax.php'), 'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ) ] );
     }
 
     /**

@@ -1,15 +1,14 @@
 <?php
-
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.0
+ * @version 7.3.1
  */
 
 if (!defined('ABSPATH')) exit;
 
 $default_distance = $data['default_radius_distance'];
-$value = !empty($_REQUEST['miles']) ? $_REQUEST['miles'] : $default_distance;
+$value = !empty($_REQUEST['miles']) ? sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ) : $default_distance;
 ?>
 
 <div class="directorist-search-field">

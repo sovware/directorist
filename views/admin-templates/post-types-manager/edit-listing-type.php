@@ -12,12 +12,12 @@
         do_action( 'directorist_before_directory_type_edited' );
 
         if ( $enable_multi_directory ) : ?>
-            <h1 class="wp-heading-inline"><?php _e( 'Add/Edit Listing Types', 'directorist' ) ?></h1>
+            <h1 class="wp-heading-inline"><?php esc_html_e( 'Add/Edit Listing Types', 'directorist' ) ?></h1>
             <hr class="wp-header-end">
         <?php endif;?> 
     <br>
 
-    <div id="atbdp-cpt-manager" data-builder-data="<?php echo $builder_data ?>">
+    <div id="atbdp-cpt-manager" data-builder-data="<?php echo esc_attr( $builder_data ); ?>">
         <cpt-manager />
     </div>
 </div>

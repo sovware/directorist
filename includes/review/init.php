@@ -45,6 +45,19 @@ class Bootstrap {
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
 		add_filter( 'atbdp_login_redirection_page_url', array( __CLASS__, 'setup_login_redirect' ) );
+		add_filter( 'safe_style_css', array( __CLASS__, 'add_safe_style_css' ) );
+	}
+
+	/**
+	 * Allows Custom CSS Properties
+	 *
+	 * @param array $styles Allowed Style List
+	 *
+	 * @return array $styles
+	 */
+	public static function add_safe_style_css( $styles ) {
+		$styles[] = 'display';
+		return $styles;
 	}
 
 	/**

@@ -19,7 +19,7 @@ use \Directorist\Helper;
 
                         if ( ! empty( $recovery ) ) {
                             $user = get_user_by( 'email', $recovery );
-                            if ( isset( $_POST['directorist_reset_password'] ) && 'true' == $_POST['directorist_reset_password'] ) {
+                            if ( isset( $_POST['directorist_reset_password'], $_POST['directorist-reset-password-nonce'] ) && 'true' == $_POST['directorist_reset_password'] && wp_verify_nonce( sanitize_key( $_POST['directorist-reset-password-nonce'] ), 'reset_password' ) ) {
 								// Ignore password sanitization
                                 $password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
                                 $password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized

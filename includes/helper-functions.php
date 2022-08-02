@@ -7152,7 +7152,8 @@ function bdas_dropdown_terms($args = array(), $echo = true)
 
     // Echo or Return
     if ($echo) {
-        echo $html;
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo $html; 
         return '';
     } else {
         return $html;
@@ -8023,7 +8024,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
             $the_html = $image_full_html;
             break;
     }
-
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     echo $the_html;
 }
 

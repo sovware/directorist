@@ -8474,12 +8474,18 @@ function directorist_get_nonce_key() {
  * Check if the given nonce field contains a verified nonce.
  *
  * @since 7.0.6.2
+ * @since 7.3.1 $action param added
+ *
+ * @see directorist_get_nonce_key()
+ *
+ * @param string $nonce_field $_GET or $_POST field name.
+ * @param string $action Nonce action key. Default to directorist_get_nonce_key()
  *
  * @return boolen
  */
-function directorist_verify_nonce( $nonce_field = 'directorist_nonce' ) {
+function directorist_verify_nonce( $nonce_field = 'directorist_nonce', $action = '' ) {
     $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? $_REQUEST[ $nonce_field ] : '';
-    return wp_verify_nonce( $nonce, directorist_get_nonce_key() );
+    return wp_verify_nonce( $nonce, ( $action ? $action : directorist_get_nonce_key() ) );
 }
 
 /**
@@ -8900,7 +8906,7 @@ function directorist_get_request_uri() {
 
 /**
  * It updates the user profile and meta data
- * 
+ *
  * @since 7.3.1
  * @param array $data the user data to update.
  * @return bool It returns true on success and false on failure

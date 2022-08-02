@@ -350,7 +350,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// handle_plugins_update_request
 		public function handle_plugins_update_request() {
 
-			if ( ! $this->is_verified_nonce() ) {
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				$status            = array();
 				$status['success'] = false;
 				$status['message'] = 'Invalid request';
@@ -358,7 +358,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				wp_send_json( array( 'status' => $status ) );
 			}
 
-			$plugin_key = ( isset( $_POST['plugin_key'] ) ) ? wp_unslash( $_POST['plugin_key'] ) : '';
+			$plugin_key = ( isset( $_POST['plugin_key'] ) ) ? sanitize_key( wp_unslash( $_POST['plugin_key'] ) ) : '';
 			$status     = $this->update_plugins( array( 'plugin_key' => $plugin_key ) );
 
 			wp_send_json( $status );
@@ -497,15 +497,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		public function plugins_bulk_action() {
 			$status = array( 'success' => true );
 
-			if ( ! $this->is_verified_nonce() ) {
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				$status['success'] = false;
 				$status['message'] = 'Invalid request';
 
 				wp_send_json( array( 'status' => $status ) );
 			}
 
-			$task         = ( isset( $_POST['task'] ) ) ? wp_unslash( $_POST['task'] ) : '';
-			$plugin_items = ( isset( $_POST['plugin_items'] ) ) ? wp_unslash( $_POST['plugin_items'] ) : '';
+			$task         = ( isset( $_POST['task'] ) ) ? sanitize_key( wp_unslash( $_POST['task'] ) ) : '';
+			$plugin_items = ( isset( $_POST['plugin_items'] ) ) ? array_map( 'sanitize_key', (array) wp_unslash( $_POST['plugin_items'] ) ) : '';
 
 			// Validation
 			if ( empty( $task ) ) {
@@ -543,9 +543,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// activate_theme
 		public function activate_theme() {
 			$status           = array( 'success' => true );
-			$theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? wp_unslash( $_POST['theme_stylesheet'] ) : '';
+			$theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? sanitize_key( wp_unslash( $_POST['theme_stylesheet'] ) ) : '';
 
-			if ( ! $this->is_verified_nonce() ) {
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				$status['success'] = false;
 				$status['message'] = 'Invalid request';
 
@@ -566,9 +566,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// activate_plugin
 		public function activate_plugin() {
 			$status     = array( 'success' => true );
-			$plugin_key = ( isset( $_POST['item_key'] ) ) ? wp_unslash( $_POST['item_key'] ) : '';
+			$plugin_key = ( isset( $_POST['item_key'] ) ) ? sanitize_key( wp_unslash( $_POST['item_key'] ) ) : '';
 
-			if ( ! $this->is_verified_nonce() ) {
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				$status['success'] = false;
 				$status['message'] = 'Invalid request';
 
@@ -590,7 +590,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// handle_theme_update_request
 		public function handle_theme_update_request() {
 
-			if ( ! $this->is_verified_nonce() ) {
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				$status            = array();
 				$status['success'] = false;
 				$status['message'] = 'Invalid request';
@@ -598,7 +598,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				wp_send_json( array( 'status' => $status ) );
 			}
 
-			$theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? wp_unslash( $_POST['theme_stylesheet'] ) : '';
+			$theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? sanitize_key( wp_unslash( $_POST['theme_stylesheet'] ) ) : '';
 
 			$update_theme_status = $this->update_the_themes( array( 'theme_stylesheet' => $theme_stylesheet ) );
 			wp_send_json( $update_theme_status );
@@ -718,7 +718,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				'log' => array(),
 			);
 
-			if ( ! $this->is_verified_nonce() ) {
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				$status['success']                 = false;
 				$status['log']['invalid_request'] = array(
 					'type'    => 'error',
@@ -727,8 +727,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			}
 
 			// Get form data
-			$username = ( isset( $_POST['username'] ) ) ? $_POST['username'] : '';
-			$password = ( isset( $_POST['password'] ) ) ? urlencode( $_POST['password'] ) : '';
+			$username = ( isset( $_POST['username'] ) ) ? sanitize_user( $_POST['username'] ) : ''; // @codingStandardsIgnoreLine.
+			$password = ( isset( $_POST['password'] ) ) ? urlencode( $_POST['password'] ) : ''; // @codingStandardsIgnoreLine.
 
 			// Validate username
 			if ( empty( $username ) && ! empty( $password ) ) {
@@ -853,14 +853,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		public function handle_refresh_purchase_status_request() {
 			$status   = array( 'success' => true );
 
-			if ( ! $this->is_verified_nonce() ) {
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				$status['success'] = false;
 				$status['message'] = 'Invalid request';
 
 				wp_send_json( array( 'status' => $status ) );
 			}
 
-			$password = ( isset( $_POST['password'] ) ) ? $_POST['password'] : '';
+			$password = ( isset( $_POST['password'] ) ) ? $_POST['password'] : ''; // @codingStandardsIgnoreLine.
 
 			$status = $this->refresh_purchase_status( array( 'password' => $password ) );
 
@@ -934,7 +934,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// handle_close_subscriptions_sassion_request
 		public function handle_close_subscriptions_sassion_request() {
 
-			if ( ! $this->is_verified_nonce() ) {
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				$status            = array();
 				$status['success'] = false;
 				$status['message'] = 'Invalid request';
@@ -942,7 +942,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				wp_send_json( array( 'status' => $status ) );
 			}
 
-			$hard_logout_state = ( isset( $_POST['hard_logout'] ) ) ? $_POST['hard_logout'] : false;
+			$hard_logout_state = ( isset( $_POST['hard_logout'] ) ) ? boolval( $_POST['hard_logout'] ) : false;
 			$status            = $this->close_subscriptions_sassion( array( 'hard_logout' => $hard_logout_state ) );
 
 			wp_send_json( $status );
@@ -993,8 +993,16 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// handle_license_activation_request
 		public function handle_license_activation_request() {
 			$status       = array( 'success' => true );
-			$license_item = ( isset( $_POST['license_item'] ) ) ? wp_unslash( $_POST['license_item'] ) : '';
-			$product_type = ( isset( $_POST['product_type'] ) ) ? wp_unslash( $_POST['product_type'] ) : '';
+			$license_item = ( isset( $_POST['license_item'] ) ) ? sanitize_text_field( wp_unslash( $_POST['license_item'] ) ) : '';
+			$product_type = ( isset( $_POST['product_type'] ) ) ? sanitize_key( wp_unslash( $_POST['product_type'] ) ) : '';
+
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
+				$status            = array();
+				$status['success'] = false;
+				$status['message'] = 'Invalid request';
+
+				wp_send_json( array( 'status' => $status ) );
+			}
 
 			if ( empty( $license_item ) ) {
 				$status['success'] = false;
@@ -1061,10 +1069,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 		// handle_file_install_request_from_subscriptions
 		public function handle_file_install_request_from_subscriptions() {
-			$item_key = ( isset( $_POST['item_key'] ) ) ? wp_unslash( $_POST['item_key'] ) : '';
-			$type     = ( isset( $_POST['type'] ) ) ? wp_unslash( $_POST['type'] ) : '';
+			$item_key = ( isset( $_POST['item_key'] ) ) ? sanitize_key( wp_unslash( $_POST['item_key'] ) ) : '';
+			$type     = ( isset( $_POST['type'] ) ) ? sanitize_key( wp_unslash( $_POST['type'] ) ) : '';
 
-			if ( ! $this->is_verified_nonce() ) {
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				$status            = array();
 				$status['success'] = false;
 				$status['message'] = 'Invalid request';
@@ -1174,15 +1182,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		public function handle_file_download_request() {
 			$status        = array( 'success' => true );
 
-			if ( ! $this->is_verified_nonce() ) {
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				$status['success'] = false;
 				$status['message'] = 'Invalid request';
 
 				wp_send_json( array( 'status' => $status ) );
 			}
 
-			$download_item = ( isset( $_POST['download_item'] ) ) ? wp_unslash( $_POST['download_item'] ) : '';
-			$type          = ( isset( $_POST['type'] ) ) ? wp_unslash( $_POST['type'] ) : '';
+			$download_item = ( isset( $_POST['download_item'] ) ) ? sanitize_key( wp_unslash( $_POST['download_item'] ) ) : '';
+			$type          = ( isset( $_POST['type'] ) ) ? sanitize_key( wp_unslash( $_POST['type'] ) ) : '';
 
 			if ( empty( $download_item ) ) {
 				$status['success'] = false;
@@ -1622,7 +1630,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				'log' => array(),
 			);
 
-			$cart = ( isset( $_POST['customers_purchased'] ) ) ? wp_unslash( $_POST['customers_purchased'] ) : '';
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
+				$status['success'] = false;
+				$status['message'] = 'Invalid request';
+
+				wp_send_json( array( 'status' => $status ) );
+			}
+
+			$cart = ( isset( $_POST['customers_purchased'] ) ) ? directorist_clean( wp_unslash( $_POST['customers_purchased'] ) ) : '';
 
 			if ( empty( $cart ) ) {
 				$status['success']                        = false;
@@ -2263,7 +2278,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		}
 
 		private function is_verified_nonce() {
-			$nonce = ! empty( $_POST['nonce'] ) ? wp_unslash( $_POST['nonce'] ) : '';
+			$nonce = ! empty( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 			return wp_verify_nonce( $nonce, 'atbdp_nonce_action_js' );
 		}
 

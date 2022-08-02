@@ -1207,9 +1207,6 @@ class Directorist_Listings {
 		return (int) $current;
 	}
 
-	/**
-	 * @deprecated 7.3.1
-	 */
 	public function search_category_location_args() {
 		return array(
 			'parent'             => 0,
@@ -2117,4 +2114,5 @@ class Directorist_Listings {
     public static function mark_as_favourite_button() {
 		_deprecated_function( __METHOD__, '7.3.1' );
     }
+
 }

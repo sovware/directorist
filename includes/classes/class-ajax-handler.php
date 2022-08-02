@@ -879,6 +879,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		}
 
 		public function remove_listing() {
+
+			if ( ! directorist_verify_nonce() ) {
+				wp_send_json( 'error', 200 );
+			}
+
 			// delete the listing from here. first check the nonce and then delete and then send success.
 			// save the data if nonce is good and data is valid
 			if ( valid_js_nonce() && ! empty( $_POST['listing_id'] ) ) {

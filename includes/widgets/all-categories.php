@@ -261,7 +261,7 @@ class All_Categories extends \WP_Widget {
 
         $terms = get_terms( $args );
 
-		$result = array();
+        $html = '';
 
         if( count( $terms ) > 0 ) {
             $i = 1;
@@ -275,8 +275,13 @@ class All_Categories extends \WP_Widget {
                     if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
                 }
 
-				$result[] = $term;
-
+                $html .= sprintf( '<option value="%s" %s>', $term->term_id, selected( $term->term_id, $term_slug, false ) );
+                $html .= $prefix . $term->name;
+                if( ! empty( $settings['show_count'] ) ) {
+                    $html .= ' (' . $count . ')';
+                }
+                //$html .= $this->dropdown_locations( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
+                $html .= '</option>';
                 if(!empty($args['number'])) {
                     if( $i++ == $args['number'] ) break;
                 }
@@ -284,6 +289,7 @@ class All_Categories extends \WP_Widget {
 
         }
 
-        return $result;
+        return $html;
+
     }
 }

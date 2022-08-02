@@ -127,7 +127,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$args = array();
 
 			if ( ! empty( $_POST['data_atts'] ) ) {
-				$args = (array) wp_unslash( $_POST['data_atts'] );  // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				$args = directorist_clean( (array) wp_unslash( $_POST['data_atts'] ) );
 			}
 
 			if ( ! empty( $args['ids'] ) && ! isset( $_REQUEST['ids'] ) ) {
@@ -135,8 +135,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				$_POST['ids']    = $args['ids'];
 			}
 
-			$listings     = new Directorist\Directorist_Listings( $args, 'search_result' );
-			$archive_view = $listings->archive_view_template();
+			$listings = new Directorist\Directorist_Listings( $args, 'search_result' );
+
+			ob_start();
+			$listings->archive_view_template();
+			$archive_view = ob_get_clean();
 
 			wp_send_json(
 				array(
@@ -453,11 +456,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				wp_send_json( '' );
 			}
 
-			$listing_type = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
-			$categories   = ! empty( $_POST['term_id'] ) ? atbdp_sanitize_array( $_POST['term_id'] ) : array();
-			$post_id      = ! empty( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : '';
 			$listing_type = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_type'] ) ) : '';
-			$categories   = ! empty( $_POST['term_id'] ) ? atbdp_sanitize_array( wp_unslash( $_POST['term_id'] ) ) : array(); 
+			$categories   = ! empty( $_POST['term_id'] ) ? atbdp_sanitize_array( wp_unslash( $_POST['term_id'] ) ) : array();
+			$post_id      = ! empty( $_POST['post_id'] ) ? sanitize_text_field( wp_unslash( $_POST['post_id'] ) ) : '';
+			$listing_type = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_type'] ) ) : '';
+			$categories   = ! empty( $_POST['term_id'] ) ? atbdp_sanitize_array( wp_unslash( $_POST['term_id'] ) ) : array();
 			$post_id      = ! empty( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : '';
 			// wp_send_json($post_id);
 			$template               = '';
@@ -910,7 +913,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 		/**
 		 * send email to listing's owner for review
-		 * 
+		 *
 		 * @deprecated
 		 * @todo remove
 		 */
@@ -919,7 +922,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if ( ! directorist_verify_nonce() ) {
 				return;
 			}
-			
+
 			if ( ! in_array( 'listing_review', get_directorist_option( 'notify_user', array() ) ) ) {
 				return false;
 			}
@@ -979,9 +982,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 		/**
 		 * send email to admin for review
-		 * 
+		 *
 		 * @deprecated
-		 * @todo remove 
+		 * @todo remove
 		 */
 		public function atbdp_send_email_review_to_admin() {
 
@@ -1055,7 +1058,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 *
 		 * @deprecated
 		 * @todo remove
-		 * 
+		 *
 		 * @return bool It returns true if the review data is perfect and false otherwise
 		 */
 		public function validate_listing_review() {

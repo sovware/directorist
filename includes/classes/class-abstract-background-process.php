@@ -44,8 +44,9 @@ abstract class Background_Process extends \WP_Background_Process {
 		}
 
 		$key = $wpdb->esc_like( $this->identifier . '_batch_' ) . '%';
+		$sql = 'SELECT COUNT(*) FROM ' . esc_sql( $table ) . ' WHERE ' . esc_sql( $column ) . ' LIKE %s';
 
-		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE {$column} LIKE %s", $key ) ); // @codingStandardsIgnoreLine.
+		$count = $wpdb->get_var( $wpdb->prepare( $sql, $key ) );
 
 		return ! ( $count > 0 );
 	}

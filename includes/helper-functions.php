@@ -8897,3 +8897,14 @@ function directorist_get_var( &$var, $default = null ) {
 function directorist_get_request_uri() {
 	return empty( $_SERVER['REQUEST_URI'] ) ? home_url( '/' ) : wp_unslash( $_SERVER['REQUEST_URI'] );
 }
+
+/**
+ * It updates the user profile and meta data
+ * 
+ * @since 7.3.1
+ * @param array $data the user data to update.
+ * @return bool It returns true on success and false on failure
+ */
+function directorist_update_profile( $user ) {
+	return ATBDP()->user->update_profile( $user );
+}

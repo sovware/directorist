@@ -368,9 +368,6 @@ class Directorist_Listing_Form {
 		return $listing_info;
 	}
 
-	/**
-	 * @deprecated 7.3.1
-	 */
 	public function add_listing_location_fields() {
 		$terms = get_the_terms( $this->add_listing_id, ATBDP_LOCATION );
 		$ids   = array();
@@ -398,9 +395,6 @@ class Directorist_Listing_Form {
 		return $location_fields;
 	}
 
-	/**
-	 * @deprecated 7.3.1
-	 */
 	public function add_listing_cat_ids() {
 		$p_id  = $this->add_listing_id;
 		$terms = get_the_terms( $p_id, ATBDP_CATEGORY );
@@ -413,9 +407,6 @@ class Directorist_Listing_Form {
 		return $ids;
 	}
 
-	/**
-	 * @deprecated 7.3.1
-	 */
 	public function add_listing_tag_ids() {
 		$p_id    = $this->add_listing_id;
 		$tag_ids = array();
@@ -428,9 +419,6 @@ class Directorist_Listing_Form {
 		return $tag_ids;
 	}
 
-	/**
-	 * @deprecated 7.3.1
-	 */
 	public function add_listing_cat_fields() {
 		$p_id     = $this->add_listing_id;
 		$fm_plan  = get_post_meta( $p_id, '_fm_plans', true );
@@ -453,41 +441,6 @@ class Directorist_Listing_Form {
 
 		$categories_field = add_listing_category_location_filter( $this->get_current_listing_type(), $query_args, ATBDP_CATEGORY, $ids, '', $plan_cat );
 		return $categories_field;
-	}
-
-	public function add_listing_term_ids( $taxonomy ) {
-		$terms = get_the_terms( $this->add_listing_id, $taxonomy );
-		$ids   = array();
-		if ( ! empty( $terms ) ) {
-			foreach ( $terms as $term ) {
-				$ids[] = $term->term_id;
-			}
-		}
-		return $ids;
-	}
-
-	public function add_listing_all_terms( $taxonomy ) {
-		$args = array(
-			'hide_empty'   => 0,
-			'parent'       => 0,
-			'hierarchical' => false
-		);
-
-		$terms = get_terms( $taxonomy, $args );
-
-		$result = array();
-
-		foreach ($terms as $term) {
-			$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
-			$directory_type = ! empty( $directory_type ) ? $directory_type : array();
-			$directory_type = is_array( $directory_type ) ? $directory_type : array( $directory_type );
-
-			if( in_array( $this->get_current_listing_type(), $directory_type ) ) {
-				$result[] = $term;
-			}
-		}
-
-		return $result;
 	}
 
 	public function add_listing_has_contact_info( $args ) {

@@ -54,7 +54,7 @@ if ( ! function_exists( 'directorist_console_log' ) ) {
     function directorist_console_log( array $data = [] ) {
         $data = json_encode( $data ); ?>
         <script>
-            var data = JSON.parse( '<?php echo $data ?>' );
+            var data = JSON.parse( '<?php echo esc_js( $data ); ?>' );
             console.log( data );
         </script>
         <?php
@@ -108,14 +108,14 @@ if ( ! function_exists( 'atbdp_get_flush_messages' ) ) {
 
         echo '<div class="atbdp-flush-message-container">';
         foreach ( $flush_messages as $message_key => $messages ) { ?>
-            <div class="atbdp-flush-message-item type-<?php echo $messages['type'] ?>">
-                <?php echo $messages['message'] ?>
+            <div class="atbdp-flush-message-item type-<?php echo esc_attr( $messages['type'] ); ?>">
+                <?php echo esc_html( $messages['message'] ); ?>
             </div>
         <?php }
         echo '</div>';
 
         $contents = apply_filters( 'atbdp_flush_message_content', ob_get_clean(), $flush_messages );
-        echo $contents;
+        echo directorist_kses( $contents );
     }
 }
 
@@ -218,8 +218,8 @@ function atbdp_render_the_flush_alert( array $alert = [] ) {
     $classes .= ( ! empty( $alert['type'] ) ) ? ' notice-' .  $alert['type'] : '';
     $classes .= ( empty( $alert['dismissible'] ) ) ? '' : ' is-dismissible';
     ?>
-    <div class="<?php echo $classes; ?>">
-        <p><strong><?php echo $alert['message'] ?></strong></p>
+    <div class="<?php echo esc_attr( $classes ); ?>">
+        <p><strong><?php echo directorist_kses( $alert['message'] ); ?></strong></p>
     </div>
     <?php
 }
@@ -5677,7 +5677,7 @@ if (!function_exists('atbdp_icon_type')) {
         $font_type = get_directorist_option('font_type', 'line');
         $font_type = ('line' === $font_type) ? "la la" : "fa fa";
         if ($echo) {
-            echo $font_type;
+            echo esc_html( $font_type );
         } else {
             return $font_type;
         }
@@ -5711,7 +5711,7 @@ function directorist_icon( $icon, $echo = true ) {
     $html = sprintf('<i class="directorist-icon %s"></i>', $icon );
 
     if ($echo) {
-        echo $html;
+        echo wp_kses_post( $html );
     }
     else {
         return $html;
@@ -5730,7 +5730,7 @@ if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
 
         if ( ! $args['echo'] ) { return $icon; }
 
-        echo $icon;
+        echo wp_kses_post( $icon );
     }
 }
 
@@ -5830,7 +5830,7 @@ if (!function_exists('atbdp_get_paged_num')) {
         } else if (get_query_var('page')) {
             $paged = get_query_var('page');
         } else {
-            $paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1;
+            $paged = isset( $_REQUEST['paged'] ) ? directorist_clean( wp_unslash(  $_REQUEST['paged'] ) ) : 1;
         }
 
         return absint($paged);
@@ -5847,7 +5847,7 @@ if (!function_exists('valid_js_nonce')) {
      */
     function valid_js_nonce()
     {
-        if (!empty($_POST['atbdp_nonce_js']) && (wp_verify_nonce($_POST['atbdp_nonce_js'], 'atbdp_nonce_action_js')))
+        if (!empty($_POST['atbdp_nonce_js']) && (wp_verify_nonce($_POST['atbdp_nonce_js'], 'atbdp_nonce_action_js'))) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
             return true;
         return false;
     }
@@ -5887,7 +5887,7 @@ if (!function_exists('atbdp_only_logged_in_user')) {
             $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             ?>
             <section class="directory_wrapper single_area">
-                <div class="<?php echo apply_filters('atbdp_login_message_container_fluid', $container_fluid) ?>">
+                <div class="<?php echo esc_attr( apply_filters('atbdp_login_message_container_fluid', $container_fluid) ); ?>">
                     <div class="row">
                         <div class="col-md-12">
                             <?php ATBDP()->helper->show_login_message($error_message); ?>
@@ -6078,7 +6078,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
     $price = $before . atbdp_format_amount($price, $allow_decimal) . $after;
     $p = sprintf("<span class='directorist-listing-price'>%s</span>", $price);
     if ($echo) {
-        echo $p;
+        echo wp_kses_post( $p );
     } else {
         return $p;
     }
@@ -6457,9 +6457,9 @@ function atbdp_get_listings_current_order($default_order = '')
     $order = $default_order;
 
     if (isset($_REQUEST['sort'])) {
-        $order = sanitize_text_field($_REQUEST['sort']);
+        $order = directorist_clean( wp_unslash( $_REQUEST['sort'] ) );
     } else if (isset($_REQUEST['order'])) {
-        $order = sanitize_text_field($_REQUEST['order']);
+        $order = directorist_clean( wp_unslash( $_REQUEST['order'] ) );
     }
 
     return apply_filters('atbdp_get_listings_current_order', $order);
@@ -6548,7 +6548,7 @@ function atbdp_get_listings_current_view_name($view)
 
 
     if (isset($_REQUEST['view'])) {
-        $view = sanitize_text_field($_REQUEST['view']);
+        $view = directorist_clean( wp_unslash( $_REQUEST['view'] ) );
     }
 
     $allowed_views = array('list', 'grid', 'map');

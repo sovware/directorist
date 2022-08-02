@@ -202,7 +202,7 @@ use \Directorist\Helper;
 							<fieldset class="directorist-form-group">
 								<p><?php echo esc_html( $recpass_desc ); ?></p>
 								<label for="reset_user_login"><?php echo esc_html( $recpass_username ); ?></label>
-								<input type="text" class="directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $$recpass_placeholder ); ?>" required="required" />
+								<input type="text" class="directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $recpass_placeholder ); ?>" required="required" />
 								<p>
 									<input type="hidden" name="action" value="reset" />
 									<button type="submit" class="directorist-btn directorist-btn-primary" id="submit"><?php echo esc_html( $recpass_button ); ?></button>

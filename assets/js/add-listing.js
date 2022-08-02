@@ -237,7 +237,8 @@ $(document).ready(function () {
     var n = data.search(localized_data.nonceName);
 
     if (n < 0) {
-      data = "".concat(data, "&").concat(localized_data.nonceName, "=").concat(localized_data.nonce);
+      var nonce = typeof directorist !== 'undefined' ? directorist.directorist_nonce : directorist_admin.directorist_nonce;
+      data = "".concat(data, "&", 'directorist_nonce', "=").concat(nonce);
     }
 
     jQuery.ajax({

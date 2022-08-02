@@ -906,11 +906,18 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			wp_die();
 		}
 
-		/*
+		/**
 		 * send email to listing's owner for review
-		 * */
+		 * 
+		 * @deprecated
+		 * @todo remove
+		 */
 		public function atbdp_send_email_review_to_user() {
 
+			if ( ! directorist_verify_nonce() ) {
+				return;
+			}
+			
 			if ( ! in_array( 'listing_review', get_directorist_option( 'notify_user', array() ) ) ) {
 				return false;
 			}
@@ -968,10 +975,17 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			return $is_sent;
 		}
 
-		/*
+		/**
 		 * send email to admin for review
-		 * */
+		 * 
+		 * @deprecated
+		 * @todo remove 
+		 */
 		public function atbdp_send_email_review_to_admin() {
+
+			if ( ! directorist_verify_nonce() ) {
+				return false;
+			}
 
 			if ( get_directorist_option( 'disable_email_notification' ) ) {
 				return false; // vail if email notification is off
@@ -1037,9 +1051,17 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		/**
 		 * It checks if the user has filled up proper data for adding a review
 		 *
+		 * @deprecated
+		 * @todo remove
+		 * 
 		 * @return bool It returns true if the review data is perfect and false otherwise
 		 */
 		public function validate_listing_review() {
+
+			if ( ! directorist_verify_nonce() ) {
+				return false;
+			}
+
 			$enable_reviewer_content   = get_directorist_option( 'enable_reviewer_content', 1 );
 			$required_reviewer_content = get_directorist_option( 'required_reviewer_content', 1 );
 			if ( ! empty( $_POST['rating'] ) && ( empty( $enable_reviewer_content ) || ( ! empty( $_POST['content'] ) || empty( $required_reviewer_content ) ) ) && ! empty( $_POST['post_id'] ) ) {
@@ -1052,6 +1074,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 *  Add new Social Item in the member page in response to Ajax request
 		 */
 		public function atbdp_social_info_handler() {
+
+			if ( ! directorist_verify_nonce() ) {
+				wp_send_json( '' );
+			}
+
 			$id = ( ! empty( $_POST['id'] ) ) ? absint( $_POST['id'] ) : 0;
 
 			$social_info = array(
@@ -1166,6 +1193,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 * @since    4.0.0
 		 */
 		function atbdp_email_listing_owner_listing_contact() {
+			if ( ! directorist_verify_nonce() ) {
+				return false;
+			}
+
 			// sanitize form values
 			$post_id       = (int) $_POST['post_id'];
 			$name          = sanitize_text_field( $_POST['name'] );
@@ -1251,6 +1282,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 * @since    4.0
 		 */
 		function atbdp_email_admin_listing_contact() {
+
+			if ( ! directorist_verify_nonce() ) {
+				return false;
+			}
+
 			// sanitize form values
 			$post_id = (int) $_POST['post_id'];
 			$name    = sanitize_text_field( $_POST['name'] );
@@ -1327,6 +1363,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if ( ! directorist_verify_nonce() ) {
 				$data['error']   = 1;
 				$data['message'] = __( 'Something is wrong! Please refresh and retry.', 'directorist' );
+
+				wp_send_json( $data, 200 );
 			}
 
 			/**

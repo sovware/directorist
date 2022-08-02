@@ -9005,7 +9005,7 @@ function directorist_get_allowed_html() {
     $allowed_html = array_merge( 
         $allowed_html, 
         directorist_get_allowed_form_input_tags(),
-        directorist_get_allowed_svg_tags(),
+        directorist_get_allowed_svg_tags()
     );
 
     return apply_filters( 'directorist_get_allowed_html', $allowed_html );

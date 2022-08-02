@@ -335,7 +335,7 @@ class Helper {
 			return $tel;
 		}
 		else {
-			echo $tel;
+			echo esc_html( $tel );
 		}
 	}
 
@@ -641,15 +641,15 @@ class Helper {
 		?>
 		<span
 			style="display: none;"
-			class="directorist-dom-data directorist-dom-data-<?php echo $data_key; ?>"
-			data-value="<?php echo $data_value; ?>"
+			class="directorist-dom-data directorist-dom-data-<?php echo esc_attr( $data_key ); ?>"
+			data-value="<?php echo esc_attr( $data_value ); ?>"
 		>
 		</span>
 		<?php
 	}
 
 	public static function add_shortcode_comment( string $shortcode = '' ) {
-		echo "<!-- directorist-shortcode:: [{$shortcode}] -->";
+		echo "<!-- directorist-shortcode:: [ " . esc_attr( $shortcode ) . "] -->";
 	}
 
 	public static function sanitize_query_strings( $url = '' ) {

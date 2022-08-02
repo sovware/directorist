@@ -8920,7 +8920,7 @@ function directorist_maybe_json( $input_data = '' ) {
 
 /**
  * Directorist get allowed attributes
- * 
+ *
  * @return array
  */
 function directorist_get_allowed_attributes() {
@@ -8935,6 +8935,7 @@ function directorist_get_allowed_attributes() {
         'value'       => array(),
         'action'      => array(),
         'selected'    => array(),
+		'checked'     => array(),
         'for'         => array(),
         'placeholder' => array(),
         'cols'        => array(),
@@ -8948,6 +8949,8 @@ function directorist_get_allowed_attributes() {
         'viewBox' => array(),
         'fill'    => array(),
         'd'       => array(),
+
+		'data-custom-field' => array(),
     );
 
     return apply_filters( 'directorist_get_allowed_attributes', $allowed_attributes );
@@ -8955,7 +8958,7 @@ function directorist_get_allowed_attributes() {
 
 /**
  * Directorist get allowed form input tags
- * 
+ *
  * @return array
  */
 function directorist_get_allowed_form_input_tags() {
@@ -8971,7 +8974,7 @@ function directorist_get_allowed_form_input_tags() {
 
 /**
  * Directorist get allowed svg tags
- * 
+ *
  * @return array
  */
 function directorist_get_allowed_svg_tags() {
@@ -8986,7 +8989,7 @@ function directorist_get_allowed_svg_tags() {
 
 /**
  * Directorist get allowed HTML tags
- * 
+ *
  * @return array
  */
 function directorist_get_allowed_html() {
@@ -9002,6 +9005,8 @@ function directorist_get_allowed_html() {
         'h6'     => $allowed_attributes,
         'p'      => $allowed_attributes,
         'a'      => $allowed_attributes,
+		'ul'     => $allowed_attributes,
+		'li'     => $allowed_attributes,
         'span'   => $allowed_attributes,
         'form'   => $allowed_attributes,
         'div'    => $allowed_attributes,
@@ -9009,8 +9014,8 @@ function directorist_get_allowed_html() {
         'button' => $allowed_attributes,
     );
 
-    $allowed_html = array_merge( 
-        $allowed_html, 
+    $allowed_html = array_merge(
+        $allowed_html,
         directorist_get_allowed_form_input_tags(),
         directorist_get_allowed_svg_tags()
     );
@@ -9021,17 +9026,17 @@ function directorist_get_allowed_html() {
 
 /**
  * Directorist KSES
- * 
+ *
  * Filters text content and strips out disallowed HTML.
  *
  * This function makes sure that only the allowed HTML element names, attribute
  * names, attribute values, and HTML entities will occur in the given text string.
  *
  * This function expects unslashed data.
- * 
+ *
  * @param string $content
  * @param string $allowed_html
- * 
+ *
  * @return string
  */
 function directorist_kses( $content, $allowed_html = 'all' ) {

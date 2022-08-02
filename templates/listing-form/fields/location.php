@@ -21,7 +21,7 @@ $create_new  = !empty( $data['create_new_loc'] ) ? ' data-allow_new="'. $data['c
 		if ($data['type'] != 'multiple') {
 			echo '<option value="">' . esc_attr( $placeholder ) . '</option>';
 		}
-		echo $listing_form->add_listing_location_fields();
+		echo directorist_kses( $listing_form->add_listing_location_fields(), 'form_input' );
 		?>
 
 	</select>

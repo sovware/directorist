@@ -13,11 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
     <form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" role="form">
       <input type="hidden" name="q" placeholder="">
       <select class="form-control" name="in_tag" onchange="this.form.submit()">
-        <?php echo $tags; ?>
+		<?php echo directorist_kses( $tags, 'form_input' ); ?>
       </select>
     </form>
   <?php else :
-    echo $tags;
+	echo wp_kses_post( $tags );
   endif; ?>
 </div>
 

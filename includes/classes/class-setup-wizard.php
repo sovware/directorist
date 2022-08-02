@@ -342,7 +342,7 @@ class SetupWizard
         <form method="post">
             <div class="atbdp-c-body">
                 <div class="w-form-group">
-                    <label for="add_listing_page"><?php _e( 'Add Listing', 'directorist' ); ?></label>
+                    <label for="add_listing_page"><?php esc_html_e( 'Add Listing', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='add_listing' class="w-switch" id='add_listing' value=1 checked disabled>
@@ -350,7 +350,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="all_listings"><?php _e( 'All Listings', 'directorist' ); ?></label>
+                    <label for="all_listings"><?php esc_html_e( 'All Listings', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='all_listings' class="w-switch" id='all_listings' value=1 checked disabled>
@@ -358,7 +358,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="single_category"><?php _e( 'Single Category', 'directorist' ); ?></label>
+                    <label for="single_category"><?php esc_html_e( 'Single Category', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='single_category' class="w-switch" id='single_category' value=1 checked disabled>
@@ -366,7 +366,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="single_location"><?php _e( 'Single Location', 'directorist' ); ?></label>
+                    <label for="single_location"><?php esc_html_e( 'Single Location', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='single_location' class="w-switch" id='single_location' value=1 checked disabled>
@@ -374,7 +374,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="single_tag"><?php _e( 'Single Tag', 'directorist' ); ?></label>
+                    <label for="single_tag"><?php esc_html_e( 'Single Tag', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='single_tag' class="w-switch" id='single_tag' value=1 checked disabled>
@@ -382,7 +382,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="author_profile"><?php _e( 'Author Profile', 'directorist' ); ?></label>
+                    <label for="author_profile"><?php esc_html_e( 'Author Profile', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='author_profile' class="w-switch" id='author_profile' value=1 checked disabled>
@@ -390,7 +390,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="dashboard"><?php _e( 'Dashboard', 'directorist' ); ?></label>
+                    <label for="dashboard"><?php esc_html_e( 'Dashboard', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='dashboard' class="w-switch" id='dashboard' value=1 checked disabled>
@@ -398,7 +398,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="login"><?php _e( 'Login', 'directorist' ); ?></label>
+                    <label for="login"><?php esc_html_e( 'Login', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='login' class="w-switch" id='login' value=1 checked disabled>
@@ -406,7 +406,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="registration"><?php _e( 'Registration', 'directorist' ); ?></label>
+                    <label for="registration"><?php esc_html_e( 'Registration', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='registration' class="w-switch" id='registration' value=1 checked disabled>
@@ -414,7 +414,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="search_listing"><?php _e( 'Search Listing', 'directorist' ); ?></label>
+                    <label for="search_listing"><?php esc_html_e( 'Search Listing', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='search_listing' class="w-switch" id='search_listing' value=1 checked disabled>
@@ -422,7 +422,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="search_result"><?php _e( 'Search Result', 'directorist' ); ?></label>
+                    <label for="search_result"><?php esc_html_e( 'Search Result', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='search_result' class="w-switch" id='search_result' value=1 checked disabled>
@@ -430,7 +430,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="all_categories"><?php _e( 'All Categories', 'directorist' ); ?></label>
+                    <label for="all_categories"><?php esc_html_e( 'All Categories', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='all_categories' class="w-switch" id='all_categories' value=1>
@@ -438,7 +438,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="all_locations"><?php _e( 'All Locations', 'directorist' ); ?></label>
+                    <label for="all_locations"><?php esc_html_e( 'All Locations', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='all_locations' class="w-switch" id='all_locations' value=1>
@@ -446,7 +446,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="all_authors"><?php _e( 'All Authors', 'directorist' ); ?></label>
+                    <label for="all_authors"><?php esc_html_e( 'All Authors', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='all_authors' class="w-switch" id='all_authors' value=1>
@@ -454,7 +454,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="terms_conditions"><?php _e( 'Terms & Conditions', 'directorist' ); ?></label>
+                    <label for="terms_conditions"><?php esc_html_e( 'Terms & Conditions', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='terms_conditions' class="w-switch" id='terms_conditions' value=1>
@@ -462,7 +462,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="privacy_policy"><?php _e( 'Privacy Policy', 'directorist' ); ?></label>
+                    <label for="privacy_policy"><?php esc_html_e( 'Privacy Policy', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='privacy_policy' class="w-switch" id='privacy_policy' value=1>
@@ -566,18 +566,18 @@ class SetupWizard
         <form method="post">
             <div class="atbdp-c-body">
                 <div class="w-form-group">
-                    <label for="select_map"><?php _e( 'Select Map', 'directorist' ); ?></label>
+                    <label for="select_map"><?php esc_html_e( 'Select Map', 'directorist' ); ?></label>
                     <div><select name="select_listing_map" id="select_map">
-                            <option value="openstreet"><?php _e( 'Openstreet', 'directorist' ); ?></option>
-                            <option value="google"><?php _e( 'Google', 'directorist' ); ?></option>
+                            <option value="openstreet"><?php esc_html_e( 'Openstreet', 'directorist' ); ?></option>
+                            <option value="google"><?php esc_html_e( 'Google', 'directorist' ); ?></option>
                         </select></div>
                 </div>
                 <div class="w-form-group atbdp-sw-gmap-key">
-                    <label for="google_api"><?php _e( 'Google Map API key', 'directorist' ); ?></label>
-                    <div><input type="text" name="map_api_key" id="google_api"><small><?php _e( '* API Key is required for Google Map to work properly', 'directorist' ); ?></small></div>
+                    <label for="google_api"><?php esc_html_e( 'Google Map API key', 'directorist' ); ?></label>
+                    <div><input type="text" name="map_api_key" id="google_api"><small><?php esc_html_e( '* API Key is required for Google Map to work properly', 'directorist' ); ?></small></div>
                 </div>
                 <div class="w-form-group">
-                    <label for="enable_monetization"><?php _e( 'Enable Monetization Feature', 'directorist' ); ?></label>
+                    <label for="enable_monetization"><?php esc_html_e( 'Enable Monetization Feature', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='enable_monetization' class="w-switch" id='enable_monetization' value=1>
@@ -585,7 +585,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group atbdp-sw-featured-listing">
-                    <label for="enable_featured_listing"><?php _e( 'Monetize by Featured Listing', 'directorist' ); ?></label>
+                    <label for="enable_featured_listing"><?php esc_html_e( 'Monetize by Featured Listing', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='enable_featured_listing' class="w-switch" id='enable_featured_listing' value=1>
@@ -593,7 +593,7 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group atbdp-sw-listing-price">
-                    <label for="featured_listing_price"><?php _e( 'Price', 'directorist' ); ?></label>
+                    <label for="featured_listing_price"><?php esc_html_e( 'Price', 'directorist' ); ?></label>
                     <div>
                         <div class="w-input-group">
                             <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99>
@@ -677,12 +677,12 @@ class SetupWizard
         $dummy_csv = ATBDP_URL . 'views/admin-templates/import-export/data/dummy.csv';
     ?>
         <div class="atbdp-c-header">
-            <h1><?php _e( 'Import Dummy Data', 'directorist' ); ?></h1>
+            <h1><?php esc_html_e( 'Import Dummy Data', 'directorist' ); ?></h1>
         </div>
         <form method="post" id="atbdp_dummy_form">
             <div class="atbdp-c-body">
                 <div class="atbdp_dummy_body">
-                    <input type="hidden" id="dummy_csv_file" value="<?php echo $dummy_csv; ?>">
+                    <input type="hidden" id="dummy_csv_file" value="<?php echo esc_attr( $dummy_csv ); ?>">
                     <div class="w-form-group">
                         <label for="atbdp-listings-to-import"><?php esc_html_e('Number of Listings to import', 'directorist'); ?></label>
                         <div>
@@ -842,7 +842,7 @@ class SetupWizard
             <?php do_action('directorist_setup_wizard_styles'); ?>
         </head>
 
-        <body class="atbdp-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? ' directorist-setup-wizard-activated-wc' : '';  ?> <?php echo $hide; ?>">
+        <body class="atbdp-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? esc_attr( ' directorist-setup-wizard-activated-wc' ) : '';  ?> <?php echo esc_attr( $hide ); ?>">
             <div class="directorist-setup-wizard-wrapper">
             <?php
             /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.svg', directorist_FILE );*/
@@ -861,7 +861,7 @@ class SetupWizard
         $hide = ! isset( $_GET['step'] ) ? 'atbdp-none' : '';
         ?>
 
-            <ul class="atbdp-setup-steps <?php echo $hide; ?>">
+            <ul class="atbdp-setup-steps <?php echo esc_attr( $hide ); ?>">
             <li class="atbdsw-logo"><img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.svg');?>" alt="Directorist"></li>
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
@@ -882,7 +882,7 @@ class SetupWizard
                         } else if ( 'step-four' == $step_key ) {
                             $number = 4;
                         }
-                        ?>"><span class="atbdp-sw-circle"><span><?php echo $number; ?></span> <span class="dashicons dashicons-yes"></span></span><?php echo esc_html( $step['name'] ); ?> </li>
+                        ?>"><span class="atbdp-sw-circle"><span><?php echo esc_html( $number ); ?></span> <span class="dashicons dashicons-yes"></span></span><?php echo esc_html( $step['name'] ); ?> </li>
                 <?php endforeach; ?>
             </ul>
         <?php
@@ -898,7 +898,7 @@ class SetupWizard
             exit;
         }
         $introduction_class = ! isset( $_GET['step'] ) ? 'atbdp_introduction' : '';
-        echo '<div class="atbdp-setup-content '. $introduction_class .'">';
+        echo '<div class="atbdp-setup-content '. esc_attr( $introduction_class ) .'">';
         call_user_func($this->steps[$this->step]['view']);
         echo '</div> </div>';
     }

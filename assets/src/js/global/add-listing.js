@@ -130,10 +130,12 @@ $(document).ready(function () {
         // data = data ;
 
         const n = data.search(localized_data.nonceName);
-        if (n < 0) {
-            data = `${data}&${localized_data.nonceName}=${localized_data.nonce}`;
-        }
 
+        if (n < 0) {
+            const nonce = ( typeof directorist !== 'undefined' ) ? directorist.directorist_nonce : directorist_admin.directorist_nonce;
+            data = `${data}&${'directorist_nonce'}=${nonce}`;
+        }
+        
         jQuery.ajax({
             type: 'post',
             url: localized_data.ajaxurl,
@@ -272,6 +274,7 @@ $(document).ready(function () {
 
         const data = {
             action: 'atbdp_custom_fields_listings',
+            directorist_nonce: ( typeof directorist !== 'undefined' ) ? directorist.directorist_nonce : directorist_admin.directorist_nonce,
             post_id: $('input[name="listing_id"]').val(),
             term_id: id,
             directory_type: directory_type,

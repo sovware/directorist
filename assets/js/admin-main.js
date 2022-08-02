@@ -401,6 +401,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     var data = {
       action: 'atbdp_custom_fields_listings',
+      directorist_nonce: directorist_admin.directorist_nonce,
       post_id: $('#post_ID').val(),
       term_id: id,
       directory_type: directory_type ? directory_type : from_single_directory
@@ -1648,6 +1649,7 @@ window.addEventListener('DOMContentLoaded', function () {
         url: directorist_admin.ajaxurl,
         data: {
           action: 'directorist_type_slug_change',
+          directorist_nonce: directorist_admin.directorist_nonce,
           type_id: type_id,
           update_slug: update_slug
         },
@@ -1659,7 +1661,10 @@ window.addEventListener('DOMContentLoaded', function () {
               slugId.removeClass('directorist-slug-notice-success');
               slugId.addClass('directorist-slug-notice-error');
               slugId.empty().html(response.error);
-              $('.directorist-slug-text-' + type_id).text(response.old_slug);
+
+              if (response.old_slug) {
+                $('.directorist-slug-text-' + type_id).text(response.old_slug);
+              }
 
               _this.siblings('.directorist-listing-slug__edit').show();
 

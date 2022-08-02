@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.0
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
         ?>
         <div class="atbd_review_avatar"><?php if (empty($u_pro_pic)) {
-                echo $avatar_img;
+                echo wp_kses_post( $avatar_img );
             }
             if (!empty($u_pro_pic)) { ?><img
                 src="<?php echo esc_url($u_pro_pic[0]); ?>"
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <div class="atbd_name_time">
             <h4><?php echo esc_html($author_name); ?></h4>
             <span class="review_time"><?php
-                printf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
+                printf( esc_html__('Member since %s ago', 'directorist'), esc_html( human_time_diff(strtotime($user_registered), current_time('timestamp'))) ); ?></span>
         </div>
     </div>
 
@@ -99,21 +99,21 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <div class="atbd_social_wrap">
             <?php
             if ($facebook) {
-                printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-facebook"></span></a></p>', $facebook);
+                printf('<p><a target="_blank" href="%s"><span class="'.esc_attr( atbdp_icon_type() ).'-facebook"></span></a></p>', esc_url( $facebook ) );
             }
             if ($twitter) {
-                printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-twitter"></span></a></p>', $twitter);
+                printf('<p><a target="_blank" href="%s"><span class="'.esc_attr( atbdp_icon_type() ).'-twitter"></span></a></p>', esc_url( $twitter ) );
             }
             if ($linkedIn) {
-                printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-linkedin"></span></a></p>', $linkedIn);
+                printf('<p><a target="_blank" href="%s"><span class="'.esc_attr( atbdp_icon_type() ).'-linkedin"></span></a></p>', esc_url( $linkedIn ) );
             }
             if ($youtube) {
-                printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-youtube"></span></a></p>', $youtube);
+                printf('<p><a target="_blank" href="%s"><span class="'.esc_attr( atbdp_icon_type() ).'-youtube"></span></a></p>', esc_url( $youtube ) );
             }
             ?>
         </div>
     <?php } ?>
-    <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-        class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', 'directorist'); ?>
+    <a href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link($author_id) ); ?>"
+        class="<?php echo esc_attr( atbdp_directorist_button_classes() ); ?>"><?php esc_html_e('View Profile', 'directorist'); ?>
     </a>
 </div>

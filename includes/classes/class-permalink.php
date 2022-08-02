@@ -453,10 +453,10 @@ class ATBDP_Permalink {
                 }
             } else {
                 $link = get_permalink( $page_id );
-    
+
                 if( '' != get_option( 'permalink_structure' ) ) {
                     $link = user_trailingslashit( trailingslashit( $link ) . $term->slug );
-    
+
                 } else {
                     $link = add_query_arg( 'atbdp_category', $term->slug, $link );
                 }
@@ -711,6 +711,8 @@ class ATBDP_Permalink {
             } else {
                 $link = add_query_arg( array( 'atbdp_action' => 'renew', 'atbdp_listing_id ' => $listing_id ), $link );
             }
+
+			$link = wp_nonce_url( $link, 'directorist_listing_renew' );
         }
 
         return $link;

@@ -5,10 +5,12 @@
  * @version 7.3.1
  */
 
-$placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
-$multiple    = $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
-$max         = !empty( $data['max_location_creation'] ) ? 'data-max="'. $data['max_location_creation'] .'"' : '';
-$create_new  = !empty( $data['create_new_loc'] ) ? ' data-allow_new="'. $data['create_new_loc'] .'"' : '';
+$placeholder       = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
+$multiple          = $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
+$max               = !empty( $data['max_location_creation'] ) ? 'data-max="'. $data['max_location_creation'] .'"' : '';
+$create_new        = !empty( $data['create_new_loc'] ) ? ' data-allow_new="'. $data['create_new_loc'] .'"' : '';
+$all_terms         = $listing_form->add_listing_all_terms( ATBDP_LOCATION );
+$current_term_ids  = $listing_form->add_listing_term_ids( ATBDP_LOCATION );
 ?>
 
 <div class="directorist-form-group directorist-form-location-field">
@@ -21,7 +23,11 @@ $create_new  = !empty( $data['create_new_loc'] ) ? ' data-allow_new="'. $data['c
 		if ($data['type'] != 'multiple') {
 			echo '<option value="">' . esc_attr( $placeholder ) . '</option>';
 		}
-		echo $listing_form->add_listing_location_fields();
+
+		foreach ( $all_terms as $term ) {
+			$selected = in_array( $term->term_id, $current_term_ids ) ? "selected" : '';
+			printf( '<option value="%s" %s>%s</option>', esc_attr( $term->term_id ), esc_attr( $selected ), esc_html( $term->name ) );
+		}
 		?>
 
 	</select>

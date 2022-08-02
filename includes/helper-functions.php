@@ -7521,6 +7521,9 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 
 }
 
+/**
+ * @deprecated 7.3.1
+ */
 function add_listing_category_location_filter( $lisitng_type, $settings, $taxonomy_id, $term_id, $prefix = '', $plan_cat = array())
 {
     if ($settings['immediate_category']) {
@@ -8900,7 +8903,7 @@ function directorist_get_request_uri() {
 
 /**
  * It updates the user profile and meta data
- * 
+ *
  * @since 7.3.1
  * @param array $data the user data to update.
  * @return bool It returns true on success and false on failure

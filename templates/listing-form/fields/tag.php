@@ -6,7 +6,7 @@
  */
 
 $all_tags = get_terms( ATBDP_TAGS, array( 'hide_empty' => 0 ) );
-$current_tag_ids = $listing_form->add_listing_term_ids( ATBDP_TAGS );
+$current_tag_ids = $listing_form->add_listing_tag_ids();
 $placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
 $data_multiple = $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
 $data_allow_new = !empty( $data['allow_new'] ) ? ' data-allow_new="'. $data['allow_new'] .'"' : '';

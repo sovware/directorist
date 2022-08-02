@@ -537,7 +537,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 }
             }
             ?>
-            <link rel='canonical' href='<?php echo esc_url( $url ); ?>' />\n
+            <link rel='canonical' href='<?php echo esc_url( $url ); ?>' />
             <?php
         }
 
@@ -603,7 +603,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
              */
             $meta_desc = apply_filters( 'atbdp_seo_meta_description', $seo_meta['description'] );
             if ( ! empty( $meta_desc ) ) { ?>
-                <meta name="description" content="<?php echo esc_attr( $meta_desc ); ?>" />\n
+                <meta name="description" content="<?php echo esc_attr( $meta_desc ); ?>" />
             <?php
             }
         }
@@ -748,7 +748,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
                 $props = rtrim( $props );
                 if ( ! empty( $props ) ) { ?>
-                    <meta <?php echo esc_attr( $props ); ?> />\n
+                    <meta <?php echo esc_attr( $props ); ?> />
                 <?php }
             }
         }

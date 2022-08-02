@@ -506,6 +506,27 @@ class Directorist_Listing_Search_Form {
 		}
 	}
 
+	/**
+	 * @deprecated 7.3.1
+	 */
+	public function search_category_location_args() {
+		return array(
+			'parent'             => 0,
+			'term_id'            => 0,
+			'hide_empty'         => 0,
+			'orderby'            => 'name',
+			'order'              => 'asc',
+			'show_count'         => 0,
+			'single_only'        => 0,
+			'pad_counts'         => true,
+			'immediate_category' => 0,
+			'active_term_id'     => 0,
+			'ancestors'          => array(),
+			'listing_type'		 => $this->listing_type,
+			'assign_to_category' => $this->assign_to_category()
+		);
+	}
+
 	public function all_terms( $taxonomy ) {
 		$lazy_load_taxonomy_fields = get_directorist_option( 'lazy_load_taxonomy_fields', false, true );
 
@@ -742,26 +763,5 @@ class Directorist_Listing_Search_Form {
 
 	public function load_map_scripts() {
 		_deprecated_function( __METHOD__, '7.3' );
-	}
-
-	/**
-	 * @deprecated 7.3.1
-	 */
-	public function search_category_location_args() {
-		return array(
-			'parent'             => 0,
-			'term_id'            => 0,
-			'hide_empty'         => 0,
-			'orderby'            => 'name',
-			'order'              => 'asc',
-			'show_count'         => 0,
-			'single_only'        => 0,
-			'pad_counts'         => true,
-			'immediate_category' => 0,
-			'active_term_id'     => 0,
-			'ancestors'          => array(),
-			'listing_type'		 => $this->listing_type,
-			'assign_to_category' => $this->assign_to_category()
-		);
 	}
 }

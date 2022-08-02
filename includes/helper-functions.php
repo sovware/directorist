@@ -6619,7 +6619,7 @@ function atbdp_get_listings_view_options($view_as_items)
     if (empty($display_map) || !in_array('listings_map', $view_as_items)) {
         unset($options[2]);
     }
-    $options[] = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : $listings_settings;
+    $options[] = isset($_GET['view']) ? directorist_clean( wp_unslash( $_GET['view'] ) ) : $listings_settings;
     $options = array_unique($options);
 
     $views = array();
@@ -7282,11 +7282,12 @@ function atbdp_get_current_url()
 {
 
     $current_url = (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") ? "https://" : "http://";
-    $current_url .= $_SERVER["SERVER_NAME"];
-    if ($_SERVER["SERVER_PORT"] != "80" && $_SERVER["SERVER_PORT"] != "443") {
-        $current_url .= ":" . $_SERVER["SERVER_PORT"];
+    $current_url .= ! empty( $_SERVER["SERVER_NAME"] ) ? directorist_clean( wp_unslash( $_SERVER["SERVER_NAME"] ) ) : '';
+    $server_port = ! empty( $_SERVER["SERVER_PORT"] ) ? directorist_clean( wp_unslash( $_SERVER["SERVER_PORT"] ) ) : '';
+    if ($server_port != "80" && $server_port != "443") {
+        $current_url .= ":" . $server_port;
     }
-    $current_url .= $_SERVER["REQUEST_URI"];
+    $current_url .= ! empty( $_SERVER["REQUEST_URI"] ) ? directorist_clean( wp_unslash( $_SERVER["REQUEST_URI"] ) ) : '';
 
     return $current_url;
 
@@ -7466,12 +7467,12 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
         $category_slug = get_query_var('atbdp_category');
         $category = get_term_by('slug', $category_slug, ATBDP_CATEGORY);
         $category_id = !empty($category->term_id) ? $category->term_id : '';
-        $term_id = isset($_GET['in_cat']) ? $_GET['in_cat'] : $category_id;
+        $term_id = isset($_GET['in_cat']) ? directorist_clean( wp_unslash( $_GET['in_cat'] ) ) : $category_id;
     } else {
         $location_slug = get_query_var('atbdp_location');
         $location = get_term_by('slug', $location_slug, ATBDP_LOCATION);
         $location_id = !empty($location->term_id) ? $location->term_id : '';
-        $term_id = isset($_GET['in_loc']) ? $_GET['in_loc'] : $location_id;
+        $term_id = isset($_GET['in_loc']) ? directorist_clean( wp_unslash( $_GET['in_loc'] ) ) : $location_id;
     }
 
     $args =  array(
@@ -8033,7 +8034,7 @@ function the_thumbnail_card($img_src = '', $_args = array()) {
 
 function atbdp_style_example_image ($src) {
     $img = sprintf("<img src='%s'>", $src );
-    echo $img;
+    echo wp_kses_post( $img );
 }
 
 if(!function_exists('csv_get_data')){
@@ -8404,7 +8405,7 @@ function directorist_get_directory_type_nav_url( $type = 'all', $base_url = null
 function directorist_add_query_args_with_no_pagination( $query_args = [], $base_url = null ) {
 
     if ( empty( $base_url ) ) {
-		$base_url = $_SERVER['REQUEST_URI'];
+		$base_url = ! empty( $_SERVER['REQUEST_URI'] ) ? directorist_clean( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 	}
 
     $base_url = remove_query_arg( [ 'page', 'paged' ], $base_url );
@@ -8487,7 +8488,7 @@ function directorist_get_nonce_key() {
  * @return boolen
  */
 function directorist_verify_nonce( $nonce_field = 'directorist_nonce', $action = '' ) {
-    $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? $_REQUEST[ $nonce_field ] : '';
+    $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? directorist_clean( wp_unslash( $_REQUEST[ $nonce_field ] ) ) : '';
     return wp_verify_nonce( $nonce, ( $action ? $action : directorist_get_nonce_key() ) );
 }
 
@@ -9053,7 +9054,7 @@ function directorist_kses( $content, $allowed_html = 'all' ) {
  * @return string
  */
 function directorist_get_request_uri() {
-	return empty( $_SERVER['REQUEST_URI'] ) ? home_url( '/' ) : wp_unslash( $_SERVER['REQUEST_URI'] );
+	return empty( $_SERVER['REQUEST_URI'] ) ? home_url( '/' ) : directorist_clean( wp_unslash( $_SERVER['REQUEST_URI'] ) );
 }
 
 /**

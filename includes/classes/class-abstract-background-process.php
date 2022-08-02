@@ -8,6 +8,7 @@
  * @since 7.0.6
  * @package Directorist
  */
+
 namespace Directorist;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -45,7 +46,7 @@ abstract class Background_Process extends \WP_Background_Process {
 
 		$key = $wpdb->esc_like( $this->identifier . '_batch_' ) . '%';
 
-		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE {$column} LIKE %s", $key ) ); // @codingStandardsIgnoreLine.
+		$count = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . esc_sql( $table ) . ' WHERE ' . esc_sql( $column ) . ' LIKE %s', $key ) );
 
 		return ! ( $count > 0 );
 	}

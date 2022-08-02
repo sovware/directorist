@@ -61,4 +61,11 @@
             </property>
         </properties>
     </rule>
+    <rule ref="WordPress.Security.EscapeOutput">
+        <properties>
+            <property name="customEscapingFunctions" type="array">
+                <element value="directorist_kses"/>
+            </property>
+        </properties>
+    </rule>
 </ruleset>

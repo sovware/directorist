@@ -57,7 +57,7 @@ function atbdp_get_admin_template( $template, $args = [] ) {
 }
 
 function atbdp_search_result_page_link() {
-    echo ATBDP_Permalink::get_search_result_page_link();
+    echo esc_url( ATBDP_Permalink::get_search_result_page_link() );
 }
 
 function atbdp_get_template( $template_file, $args = [] ) {

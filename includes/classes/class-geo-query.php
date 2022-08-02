@@ -88,7 +88,7 @@ if ( ! class_exists( 'ATBDP_GJSGeoQuery' ) ) {
 		}
 
 		public static function the_distance( $post_obj = null, $round = false ) {
-			echo self::get_the_distance( $post_obj, $round );
+			echo esc_html( self::get_the_distance( $post_obj, $round ) );
 		}
 
 		public static function get_the_distance( $post_obj = null, $round = false ) {

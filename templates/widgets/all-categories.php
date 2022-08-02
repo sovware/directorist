@@ -30,13 +30,27 @@ $current_term_id = get_query_var( ATBDP_CATEGORY );
 
 					printf( '<option value="%s" %s>%s</option>', esc_attr( $term->term_id ), esc_attr( $selected ), esc_html( $label ) );
 				}
-
 				?>
+
             </select>
         </form>
     <?php else : ?>
 		<ul>
 			<?php
+			foreach ( $categories as $term ) {
+				$count = 0;
+				if( $query_args['hide_empty'] || $query_args['show_count'] ) {
+					$count = atbdp_listings_count_by_category( $term->term_id );
+					if( $settings['hide_empty'] && 0 == $count ) {
+						continue;
+					}
+				}
+
+				$label    = $query_args['show_count'] ? $term->name .' (' . $count . ')' : $term->name;
+				$selected = selected( $term->term_id, $current_term_id, false );
+
+				printf( '<li><a href="%s">%s</a></li>', esc_attr( $term->term_id ), esc_attr( $selected ), esc_html( $label ) );
+			}
 			?>
 		</ul>
 

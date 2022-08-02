@@ -573,10 +573,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 					// handling media files
 					if ( ! $attatchemt_only_for_admin ) {
-
 						$listing_images = atbdp_get_listing_attachment_ids( $post_id );
-						$files          = ! empty( $_FILES['listing_img'] ) ? wp_unslash( $_FILES['listing_img'] ) : array();
-						$files_meta     = ! empty( $_POST['files_meta'] ) ? wp_unslash( $_POST['files_meta'] ) : array();
+						$files          = ! empty( $_FILES['listing_img'] ) ? directorist_clean( wp_unslash(  $_FILES['listing_img'] ) ) : array();
+						$files_meta     = ! empty( $_POST['files_meta'] ) ? directorist_clean( wp_unslash( $_POST['files_meta'] ) ) : array();
+						
 						if ( ! empty( $listing_images ) ) {
 							foreach ( $listing_images as $__old_id ) {
 								$match_found = false;
@@ -597,6 +597,13 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						$attach_data = array();
 						if ( $files ) {
 							foreach ( $files['name'] as $key => $value ) {
+
+								$filetype = wp_check_filetype( $files['name'][ $key ] );
+
+								if ( empty( $filetype['ext'] ) ) {
+									continue;
+								}
+
 								if ( $files['name'][ $key ] ) {
 									$file                     = array(
 										'name'     => $files['name'][ $key ],

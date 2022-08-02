@@ -379,7 +379,7 @@ SWBD;
             }
 
 
-			$field_list = ( ! empty( $_POST['field_list'] ) ) ? Directorist\Helper::maybe_json( $_POST['field_list'] ) : [];
+			$field_list = ( ! empty( $_POST['field_list'] ) ) ? Directorist\Helper::maybe_json( sanitize_text_field( wp_unslash( $_POST['field_list'] ) ) ) : [];
 
 			// If field list is empty
 			if ( empty( $field_list ) || ! is_array( $field_list ) ) {
@@ -395,7 +395,7 @@ SWBD;
 			foreach ( $field_list as $field_key ) {
 				if ( ! isset( $_POST[ $field_key ] ) ) { continue; }
 
-				$options[ $field_key ] = $_POST[ $field_key ];
+				$options[ $field_key ] = sanitize_text_field( wp_unslash( $_POST[ $field_key ] ) );
 			}
 
             // Prepare Settings

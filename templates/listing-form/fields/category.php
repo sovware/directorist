@@ -5,12 +5,10 @@
  * @version 7.3.1
  */
 
-$placeholder       = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
-$multiple          = $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
-$max               = !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'"' : '';
-$create_new        = !empty( $data['create_new_cat'] ) ? ' data-allow_new="'. $data['create_new_cat'] .'"' : '';
-$all_terms         = $listing_form->add_listing_all_terms( ATBDP_CATEGORY );
-$current_term_ids  = $listing_form->add_listing_term_ids( ATBDP_CATEGORY );
+$placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
+$multiple    = $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
+$max         = !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'"' : '';
+$create_new  = !empty( $data['create_new_cat'] ) ? ' data-allow_new="'. $data['create_new_cat'] .'"' : '';
 ?>
 
 <div class="directorist-form-group directorist-form-categories-field">
@@ -23,11 +21,7 @@ $current_term_ids  = $listing_form->add_listing_term_ids( ATBDP_CATEGORY );
 		if ($data['type'] != 'multiple') {
 			echo '<option value="">' . esc_attr( $placeholder ) . '</option>';
 		}
-
-		foreach ( $all_terms as $term ) {
-			$selected = in_array( $term->term_id, $current_term_ids ) ? "selected" : '';
-			printf( '<option value="%s" %s>%s</option>', esc_attr( $term->term_id ), esc_attr( $selected ), esc_html( $term->name ) );
-		}
+		echo directorist_kses( $listing_form->add_listing_cat_fields(), 'form_input' );
 		?>
 
 	</select>

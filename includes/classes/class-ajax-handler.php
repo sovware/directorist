@@ -676,7 +676,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					throw new \Exception( __( 'Invalid directory type!', 'directorist' ), 400 );
 				}
 
-				$fixed_file = ( ! empty( $_FILES[ $field_id . 'async-upload' ] ) ) ? wp_unslash( $_FILES[ $field_id . 'async-upload' ] ) : '';
+				$fixed_file = ( ! empty( $_FILES[ $field_id . 'async-upload' ] ) ) ? directorist_clean( wp_unslash( $_FILES[ $field_id . 'async-upload' ] ) ) : '';
 
 				$form_fields  = get_term_meta( $directory, 'submission_form_fields', true );
 				$field_config = array_values( wp_list_filter( $form_fields['fields'], array( 'field_key' => $field_id ) ) );

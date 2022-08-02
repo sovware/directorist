@@ -11,15 +11,25 @@ $location_source = !empty($data['location_source']) && $data['location_source'] 
 
 if ( $location_source == 'listing' ) {
 	$selected_item = $searchform::get_selected_location_option_data();
+	$all_terms       = $searchform->all_terms( ATBDP_LOCATION );
+	$current_term_id = $searchform->current_term_id( ATBDP_LOCATION );
 	?>
 
 	<div class="directorist-search-field">
 		<div class="directorist-select directorist-search-location">
 			<select name="in_loc" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true" data-selected-id="<?php echo esc_attr( $selected_item['id'] ); ?>" data-selected-label="<?php echo esc_attr( $selected_item['label'] ); ?>">
+
 				<?php
 				echo '<option value="">' . esc_html__( 'Select Location', 'directorist' ) . '</option>';
-				echo $searchform->locations_fields;
+
+				foreach ( $all_terms as $term ) {
+					$selected     = ( $term->term_id == $current_term_id ) ? "selected" : '';
+					$custom_field = in_array( $term->term_id, $searchform->assign_to_category()['assign_to_cat'] ) ? true : '';
+
+					printf( '<option data-custom-field="%s" value="%s" %s>%s</option>', esc_attr( $term->custom_field ), esc_attr( $term->term_id ), esc_attr( $selected ), esc_html( $term->name ) );
+				}
 				?>
+
 			</select>
 		</div>
 	</div>

@@ -1207,23 +1207,6 @@ class Directorist_Listings {
 		return (int) $current;
 	}
 
-	public function search_category_location_args() {
-		return array(
-			'parent'             => 0,
-			'term_id'            => 0,
-			'hide_empty'         => 0,
-			'orderby'            => 'name',
-			'order'              => 'asc',
-			'show_count'         => 0,
-			'single_only'        => 0,
-			'pad_counts'         => true,
-			'immediate_category' => 0,
-			'active_term_id'     => 0,
-			'ancestors'          => array(),
-			'listing_type'		 => $this->listing_types
-		);
-	}
-
 	public function render_map() {
 		if ( 'google' == $this->select_listing_map ) {
 			$this->load_google_map();
@@ -2115,4 +2098,23 @@ class Directorist_Listings {
 		_deprecated_function( __METHOD__, '7.3.1' );
     }
 
+	/**
+	 * @deprecated 7.3.1
+	 */
+	public function search_category_location_args() {
+		return array(
+			'parent'             => 0,
+			'term_id'            => 0,
+			'hide_empty'         => 0,
+			'orderby'            => 'name',
+			'order'              => 'asc',
+			'show_count'         => 0,
+			'single_only'        => 0,
+			'pad_counts'         => true,
+			'immediate_category' => 0,
+			'active_term_id'     => 0,
+			'ancestors'          => array(),
+			'listing_type'		 => $this->listing_types
+		);
+	}
 }

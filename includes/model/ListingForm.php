@@ -381,8 +381,6 @@ class Directorist_Listing_Form {
 
 	public function add_listing_all_terms( $taxonomy ) {
 		$args = array(
-			'orderby'      => 'name',
-			'order'        => 'asc',
 			'hide_empty'   => 0,
 			'parent'       => 0,
 			'hierarchical' => false

@@ -583,6 +583,7 @@ class Directorist_Listing_Form {
 		}
 	}
 
+
 	public function add_listing_category_custom_field_template( $field_data, $listing_id = NULL ) {
 		$value = '';
 		if ( ! empty( $listing_id ) ) {
@@ -890,5 +891,4 @@ class Directorist_Listing_Form {
 			return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 		}
 	}
-
 }

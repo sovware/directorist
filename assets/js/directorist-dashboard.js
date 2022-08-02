@@ -245,7 +245,8 @@ __webpack_require__.r(__webpack_exports__);
       var post_id = $(this).closest('.directorist-announcement').data('post-id');
       var form_data = {
         action: 'atbdp_close_announcement',
-        post_id: post_id
+        post_id: post_id,
+        nonce: directorist.directorist_nonce
       };
       var button_default_html = $(self).html();
       closing_announcement = true;

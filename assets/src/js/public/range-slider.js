@@ -127,6 +127,9 @@ export function directorist_callingSlider() {
     directorist_range_slider ('.directorist-range-slider', config);
 }
 
+window.directorist_range_slider = directorist_range_slider;
+window.directorist_callingSlider = directorist_callingSlider;
+
 window.addEventListener("load", function () {
     directorist_callingSlider();
 });

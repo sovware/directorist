@@ -1,7 +1,7 @@
 <?php
 
 if ( ! defined( 'ABSPATH' ) ) {
-	die( ATBDP_ALERT_MSG );
+	die();
 }
 
 if ( ! class_exists( 'ATBDP_Helper' ) ) :
@@ -12,9 +12,6 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 		private $__nonce_name   = 'atbdp_nonce';
 
 		public function __construct() {
-			if ( ! defined( 'ABSPATH' ) ) {
-				return;
-			}
 			add_action( 'init', array( $this, 'check_req_php_version' ), 100 );
 		}
 
@@ -232,7 +229,20 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 					break;
 			}
 
-			echo $the_html;
+			echo wp_kses(
+				$the_html,
+				array(
+					'div' => array(
+						'class' => array(),
+						'style' => array(),
+					),
+					'img' => array(
+						'src' => array(),
+						'alt' => array(),
+						'class' => array(),
+					)
+				)
+			);
 		}
 
 		public function check_req_php_version() {
@@ -246,18 +256,15 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 			}
 		}
 
-		public function notice() {       ?>
-			<div class="error">
-				<p>
-					<?php
-					printf( __( '%1$s requires minimum PHP 5.4 to function properly. Please upgrade PHP version. The Plugin has been auto-deactivated.. You have PHP version %2$d', 'directorist' ), ATBDP_NAME, PHP_VERSION );
-					?>
-				</p>
-			</div>
-			<?php
+		public function notice() {
 			if ( isset( $_GET['activate'] ) ) {
 				unset( $_GET['activate'] );
 			}
+			?>
+			<div class="error">
+				<p><?php printf( esc_html__( '%1$s requires minimum PHP 5.4 to function properly. Please upgrade PHP version. The Plugin has been auto-deactivated.. You have PHP version %2$d', 'directorist' ), esc_html( ATBDP_NAME ), PHP_VERSION ); ?></p>
+			</div>
+			<?php
 		}
 
 		public function deactivate_self() {
@@ -271,7 +278,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 				$nonce        = ( ! empty( $$method[ $this->nonce_name() ] ) ) ? $$method[ $this->nonce_name() ] : null;
 				$nonce_action = $this->nonce_action();
 			} else {
-				$nonce        = ( ! empty( $_REQUEST[ $nonce ] ) ) ? $_REQUEST[ $nonce ] : null;
+				$nonce        = ( ! empty( $_REQUEST[ $nonce ] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce ] ) ) : null;
 				$nonce_action = $action;
 			}
 
@@ -421,7 +428,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 			$t = apply_filters( 'atbdp_unauthorized_access_message', $t );
 			?>
 			<div class="notice_wrapper">
-				<div class="directorist-alert directorist-alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $t; ?></div>
+				<div class="directorist-alert directorist-alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo wp_kses_post( $t ); ?></div>
 			</div>
 			<?php
 		}
@@ -441,7 +448,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 				return $time;
 			}
 
-			echo $time;
+			echo esc_html( $time );
 		}
 
 		/**
@@ -457,11 +464,11 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 					<ul>
 						<?php if ( ! empty( $cat ) ) { ?>
 							<li>
-								<p class="info_title"><?php _e( 'Category:', 'directorist' ); ?></p>
+								<p class="info_title"><?php esc_html_e( 'Category:', 'directorist' ); ?></p>
 								<p class="directory_tag">
-									<span class="fa                                                    <?php echo esc_attr( get_cat_icon( @$cat->term_id ) ); ?>" aria-hidden="true"></span>
+									<span class="fa <?php echo esc_attr( get_cat_icon( @$cat->term_id ) ); ?>" aria-hidden="true"></span>
 									<span> <?php if ( is_object( $cat ) ) { ?>
-											<a href="<?php echo ATBDP_Permalink::atbdp_get_category_page( $cat ); ?>">
+											<a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_category_page( $cat ) ); ?>">
 												<?php echo esc_html( $cat->name ); ?>
 											</a>
 										<?php } ?>
@@ -473,9 +480,9 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 						if ( ! empty( $loc ) ) {
 							?>
 							<li>
-								<p class="info_title"><?php _e( 'Location:', 'directorist' ); ?>
+								<p class="info_title"><?php esc_html_e( 'Location:', 'directorist' ); ?>
 									<span><?php if ( is_object( $loc ) ) { ?>
-											<a href="<?php echo ATBDP_Permalink::atbdp_get_location_page( $loc ); ?>">
+											<a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_location_page( $loc ) ); ?>">
 												<?php echo esc_html( $loc->name ); ?>
 											</a>
 										<?php } ?>
@@ -511,13 +518,13 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 
 		// sanitize_html
 		public static function sanitize_html( string $subject = '', string $return_type = 'echo' ) {
-			$subject = esc_html( stripslashes( $subject ) );
+			$subject = stripslashes( $subject );
 
 			if ( 'return' === $return_type ) {
 				return $subject;
 			}
 
-			echo $subject;
+			echo esc_html( $subject );
 		}
 
 		// guard
@@ -528,7 +535,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 			if ( 'auth' === $type && ! is_user_logged_in() && ! $login_redirect ) {
 				ob_start();
 				// user not logged in;
-				$error_message = sprintf( __( 'You need to be logged in to view the content of this page. You can login %1$s. Don\'t have an account? %2$s', 'directorist' ), apply_filters( 'atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __( 'Here', 'directorist' ) . '</a>' ), apply_filters( 'atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __( 'Sign Up', 'directorist' ) . '</a>' ) );
+				$error_message = sprintf( esc_html__( 'You need to be logged in to view the content of this page. You can login %1$s. Don\'t have an account? %2$s', 'directorist' ), apply_filters( 'atbdp_listing_form_login_link', "<a href='" . esc_url( ATBDP_Permalink::get_login_page_link() ) . "'> " . esc_html__( 'Here', 'directorist' ) . '</a>' ), apply_filters( 'atbdp_listing_form_signup_link', "<a href='" . esc_url( ATBDP_Permalink::get_registration_page_link() ) . "'> " . esc_html__( 'Sign Up', 'directorist' ) . '</a>' ) );
 				?>
 				<section class="directory_wrapper single_area">
 					<?php self::show_login_message( $error_message ); ?>
@@ -545,7 +552,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 					<div class="notice_wrapper">
 						<div class="directorist-alert directorist-alert-warning">
 							<span class="fa fa-info-circle" aria-hidden="true"></span>
-							<?php _e( 'Nothing to show!' ); ?>
+							<?php esc_html_e( 'Nothing to show!' ); ?>
 						</div>
 					</div>
 				</section>
@@ -561,7 +568,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 					<div class="notice_wrapper">
 						<div class="directorist-alert directorist-alert-warning">
 							<span class="fa fa-info-circle" aria-hidden="true"></span>
-							<?php _e( 'You need to be an author to add a listing.', 'directorist' ); ?>
+							<?php esc_html_e( 'You need to be an author to add a listing.', 'directorist' ); ?>
 						</div>
 					</div>
 				</section>
@@ -580,7 +587,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 				return $tel;
 			}
 
-			echo $tel;
+			echo esc_attr( $tel );
 		}
 
 		/**
@@ -601,11 +608,11 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 						<?php if ( ! empty( $cats ) && is_array( $cats ) ) { ?>
 							<li>
 								<ul>
-									<p class="info_title"><?php _e( 'Category:', 'directorist' ); ?></p>
+									<p class="info_title"><?php esc_html_e( 'Category:', 'directorist' ); ?></p>
 									<?php foreach ( $cats as $cat ) { ?>
 										<li>
 											<p class="directory_tag">
-												<span class="fa                                                                <?php echo esc_attr( get_cat_icon( @$cat->term_id ) ); ?>" aria-hidden="true"></span>
+												<span class="fa <?php echo esc_attr( get_cat_icon( @$cat->term_id ) ); ?>" aria-hidden="true"></span>
 												<span> <?php if ( is_object( $cat ) ) { ?>
 														<a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_category_page( $cat ) ); ?>">
 															<?php echo esc_html( $cat->name ); ?>
@@ -625,7 +632,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 							?>
 							<li>
 								<ul>
-									<p class="info_title"><?php _e( 'Location:', 'directorist' ); ?></p>
+									<p class="info_title"><?php esc_html_e( 'Location:', 'directorist' ); ?></p>
 									<?php
 									foreach ( $locs as $loc ) {
 										$location_count--; // reduce count to display comma for the right item

@@ -1384,7 +1384,8 @@ window.addEventListener('DOMContentLoaded', function () {
       url: directorist_admin.ajaxurl,
       data: {
         action: 'atbdp_listing_default_type',
-        type_id: $(this).data('type-id')
+        type_id: $(this).data('type-id'),
+        nonce: directorist_admin.nonce
       },
       success: function success(response) {
         defaultSubmitDom.closest('.directorist_listing-actions').siblings('.directorist_notifier').append("<span class=\"atbd-listing-type-active-status\">".concat(response, "</span>"));

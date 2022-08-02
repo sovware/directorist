@@ -506,9 +506,6 @@ class Directorist_Listing_Search_Form {
 		}
 	}
 
-	/**
-	 * @deprecated 7.3.1
-	 */
 	public function search_category_location_args() {
 		return array(
 			'parent'             => 0,
@@ -525,61 +522,6 @@ class Directorist_Listing_Search_Form {
 			'listing_type'		 => $this->listing_type,
 			'assign_to_category' => $this->assign_to_category()
 		);
-	}
-
-	public function all_terms( $taxonomy ) {
-		$lazy_load_taxonomy_fields = get_directorist_option( 'lazy_load_taxonomy_fields', false, true );
-
-		if ( $lazy_load_taxonomy_fields ) {
-			return array();
-		}
-
-		$args =  array(
-			'hide_empty'   => 0,
-			'parent'       => 0,
-			'hierarchical' => false
-		);
-
-		$terms = get_terms( $taxonomy, $args );
-
-		$result = array();
-
-		foreach ( $terms as $term ) {
-			$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
-			$directory_type = ! empty( $directory_type ) ? $directory_type : array();
-
-			if( in_array( $this->listing_type, $directory_type ) ) {
-				$result[] = $term;
-			}
-		}
-
-		return $result;
-	}
-
-	public function current_term_id( $taxonomy ) {
-		$current_term_id = '';
-
-		if ( ATBDP_CATEGORY == $taxonomy ) {
-			if ( isset( $_GET['in_cat'] ) ) {
-				$current_term_id = sanitize_text_field( wp_unslash( $_GET['in_cat'] ) );
-			} else {
-				$term_slug       = get_query_var('atbdp_category');
-				$term            = get_term_by('slug', $term_slug, $taxonomy );
-				$current_term_id = !empty( $term->term_id ) ? $term->term_id : '';
-			}
-		}
-
-		if ( ATBDP_LOCATION == $taxonomy ) {
-			if ( isset( $_GET['in_loc'] ) ) {
-				$current_term_id = sanitize_text_field( wp_unslash( $_GET['in_loc'] ) );
-			} else {
-				$term_slug       = get_query_var('atbdp_location');
-				$term            = get_term_by('slug', $term_slug, $taxonomy );
-				$current_term_id = !empty( $term->term_id ) ? $term->term_id : '';
-			}
-		}
-
-		return $current_term_id;
 	}
 
 	public function price_value($arg) {

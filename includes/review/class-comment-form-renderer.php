@@ -552,7 +552,7 @@ class Comment_Form_Renderer {
 				 * @param array  $args         Arguments passed to comment_form().
 				 */
 
-				echo wp_kses_post( apply_filters( 'directorist_comment_form_submit_field', $submit_field, $args ) );
+				echo directorist_kses( apply_filters( 'directorist_comment_form_submit_field', $submit_field, $args ) );
 
 				/**
 				 * Fires at the bottom of the comment form, inside the closing form tag.

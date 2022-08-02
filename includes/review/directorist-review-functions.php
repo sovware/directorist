@@ -188,7 +188,7 @@ function directorist_user_review_exists( $user_email, $post_id ) {
 			WHERE comment_post_ID = %d
 			AND ( comment_approved = '1' OR comment_approved = '0' )
 			AND comment_type = 'review'
-			AND comment_author_email = '%s'
+			AND comment_author_email = %s
 				",
 				$post_id,
 				$user_email

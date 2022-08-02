@@ -1326,10 +1326,17 @@ window.addEventListener('DOMContentLoaded', function () {
       data: {
         action: 'atbdp_dynamic_admin_listing_form',
         directory_type: directory_type,
-        listing_id: $('#directiost-listing-fields_wrapper').data('id')
+        listing_id: $('#directiost-listing-fields_wrapper').data('id'),
+        directorist_nonce: directorist_admin.directorist_nonce
       },
       success: function success(response) {
-        // console.log( response );
+        if (response.error) {
+          console.log({
+            response: response
+          });
+          return;
+        }
+
         $('#directiost-listing-fields_wrapper').empty().append(response.data['listing_meta_fields']);
         assetsNeedToWorkInVirtualDom();
         $('#at_biz_dir-locationchecklist').empty().html(response.data['listing_locations']);

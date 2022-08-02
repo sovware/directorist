@@ -300,7 +300,7 @@ class ATBDP_Permalink {
 
         if ( $page_id ) {
             $args = [
-                'listing_type' => isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '',
+                'listing_type' => isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : '',
                 'plan' => $plan_id,
             ];
             $link = get_permalink( $page_id );

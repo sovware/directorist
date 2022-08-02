@@ -1,5 +1,8 @@
 <?php
 // Prohibit direct script loading.
+
+use Directorist\Helper;
+
 defined('ABSPATH') || die('No direct script access allowed!');
 
 if ( ! function_exists( 'directorist_get_listings_directory_type' ) ) {
@@ -8480,12 +8483,18 @@ function directorist_get_nonce_key() {
  * Check if the given nonce field contains a verified nonce.
  *
  * @since 7.0.6.2
+ * @since 7.3.1 $action param added
+ *
+ * @see directorist_get_nonce_key()
+ *
+ * @param string $nonce_field $_GET or $_POST field name.
+ * @param string $action Nonce action key. Default to directorist_get_nonce_key()
  *
  * @return boolen
  */
-function directorist_verify_nonce( $nonce_field = 'directorist_nonce' ) {
+function directorist_verify_nonce( $nonce_field = 'directorist_nonce', $action = '' ) {
     $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? $_REQUEST[ $nonce_field ] : '';
-    return wp_verify_nonce( $nonce, directorist_get_nonce_key() );
+    return wp_verify_nonce( $nonce, ( $action ? $action : directorist_get_nonce_key() ) );
 }
 
 /**
@@ -8895,6 +8904,155 @@ function directorist_get_var( &$var, $default = null ) {
 }
 
 /**
+ * Maybe JSON
+ *
+ * Converts input to an array if contains valid json string
+ *
+ * If input contains base64 encoded json string, then it
+ * can decode it as well
+ *
+ * @param $input_data
+ * @param $return_first_item
+ *
+ * Returns first item of the array if $return_first_item is set to true
+ * Returns original input if it is not decodable
+ *
+ * @return mixed
+ */
+function directorist_maybe_json( $input_data = '' ) {
+    return directorist_clean( Helper::maybe_json( $input_data ) );
+}
+
+/**
+ * Directorist get allowed attributes
+ * 
+ * @return array
+ */
+function directorist_get_allowed_attributes() {
+    $allowed_attributes = array(
+        'style'       => array(),
+        'class'       => array(),
+        'id'          => array(),
+        'name'        => array(),
+        'rel'         => array(),
+        'type'        => array(),
+        'href'        => array(),
+        'value'       => array(),
+        'action'      => array(),
+        'selected'    => array(),
+        'for'         => array(),
+        'placeholder' => array(),
+        'cols'        => array(),
+        'rows'        => array(),
+        'maxlength'   => array(),
+        'required'    => array(),
+
+        'xmlns'   => array(),
+        'width'   => array(),
+        'height'  => array(),
+        'viewBox' => array(),
+        'fill'    => array(),
+        'd'       => array(),
+    );
+
+    return apply_filters( 'directorist_get_allowed_attributes', $allowed_attributes );
+}
+
+/**
+ * Directorist get allowed form input tags
+ * 
+ * @return array
+ */
+function directorist_get_allowed_form_input_tags() {
+    $allowed_attributes = directorist_get_allowed_attributes();
+
+    return apply_filters( 'directorist_get_allowed_form_input_tags', [
+        'input'    => $allowed_attributes,
+        'select'   => $allowed_attributes,
+        'option'   => $allowed_attributes,
+        'textarea' => $allowed_attributes,
+    ] );
+}
+
+/**
+ * Directorist get allowed svg tags
+ * 
+ * @return array
+ */
+function directorist_get_allowed_svg_tags() {
+    $allowed_attributes = directorist_get_allowed_attributes();
+
+    return apply_filters( 'directorist_get_allowed_svg_tags', [
+        'svg'  => $allowed_attributes,
+        'g'    => $allowed_attributes,
+        'path' => $allowed_attributes,
+    ] );
+}
+
+/**
+ * Directorist get allowed HTML tags
+ * 
+ * @return array
+ */
+function directorist_get_allowed_html() {
+
+    $allowed_attributes = directorist_get_allowed_attributes();
+
+    $allowed_html = array(
+        'h1'     => $allowed_attributes,
+        'h2'     => $allowed_attributes,
+        'h3'     => $allowed_attributes,
+        'h4'     => $allowed_attributes,
+        'h5'     => $allowed_attributes,
+        'h6'     => $allowed_attributes,
+        'p'      => $allowed_attributes,
+        'a'      => $allowed_attributes,
+        'span'   => $allowed_attributes,
+        'form'   => $allowed_attributes,
+        'div'    => $allowed_attributes,
+        'label'  => $allowed_attributes,
+        'button' => $allowed_attributes,
+    );
+
+    $allowed_html = array_merge( 
+        $allowed_html, 
+        directorist_get_allowed_form_input_tags(),
+        directorist_get_allowed_svg_tags()
+    );
+
+    return apply_filters( 'directorist_get_allowed_html', $allowed_html );
+}
+
+
+/**
+ * Directorist KSES
+ * 
+ * Filters text content and strips out disallowed HTML.
+ *
+ * This function makes sure that only the allowed HTML element names, attribute
+ * names, attribute values, and HTML entities will occur in the given text string.
+ *
+ * This function expects unslashed data.
+ * 
+ * @param string $content
+ * @param string $allowed_html
+ * 
+ * @return string
+ */
+function directorist_kses( $content, $allowed_html = 'all' ) {
+
+    $allowed_html_types = [
+        'all'        => directorist_get_allowed_html(),
+        'form_input' => directorist_get_allowed_form_input_tags(),
+        'svg'        => directorist_get_allowed_svg_tags(),
+    ];
+
+    $allowed_html_type = ( in_array( $allowed_html, $allowed_html_types ) ) ? $allowed_html_types[ $allowed_html ] : $allowed_html_types[ 'all' ];
+
+    return wp_kses( $content, $allowed_html_type );
+}
+
+/*
  * Safe alternative for $_SERVER['REQUEST_URI'].
  *
  * @since 7.3.1

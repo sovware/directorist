@@ -615,7 +615,7 @@ final class Directorist_Base
 		$average = directorist_get_listing_rating( $post->ID );
 		?>
 		<div class="atbd_rated_stars">
-			<?php echo esc_html( ATBDP()->review->print_static_rating( $average ) ); ?>
+			<?php echo directorist_kses( ATBDP()->review->print_static_rating( $average ) ); ?>
 		</div>
 		<?php
 	}

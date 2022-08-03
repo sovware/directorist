@@ -65,6 +65,9 @@ import {
             if (form_data.custom_field && form_data.custom_field.length) {
                 var query = (query && query.length) ? query + '&custom_field=' + form_data.custom_field : '?custom_field=' + form_data.custom_field;
             }
+            if (form_data.open_now && form_data.open_now.length) {
+                var query = (query && query.length) ? query + '&open_now=' + form_data.open_now : '?open_now=' + form_data.open_now;
+            }
 
             var newurl = query ? newurl + query : newurl;
 
@@ -147,6 +150,11 @@ import {
             website: $(this).find('input[name="website"]').val(),
             phone: $(this).find('input[name="phone"]').val(),
         };
+
+        //business hours
+        if ( $('input[name="open_now"]').is(':checked') ) {
+            fields.open_now = $(this).find('input[name="open_now"]').val();
+        }
 
         if (fields.address && fields.address.length) {
             fields.cityLat = $(this).find('#cityLat').val();
@@ -270,6 +278,10 @@ import {
                 website: $(this).find('input[name="website"]').val(),
                 phone: $(this).find('input[name="phone"]').val(),
             };
+
+            if ( $('input[name="open_now"]').is(':checked') ) {
+                fields.open_now = $(this).find('input[name="open_now"]').val();
+            }
 
             if (fields.address && fields.address.length) {
                 fields.cityLat = $(this).find('#cityLat').val();
@@ -453,6 +465,11 @@ import {
             data_atts: JSON.parse(data_atts)
         };
 
+        //business hours
+        if ( $('input[name="open_now"]').is(':checked') ) {
+            form_data.open_now = $(this).closest('.directorist-instant-search').find('input[name="open_now"]').val();
+        }
+
         if (page_no && page_no.length) {
             form_data.paged = page_no;
         }
@@ -574,6 +591,11 @@ import {
             data_atts: JSON.parse(data_atts)
         };
 
+        //business hours
+        if ( $('input[name="open_now"]').is(':checked') ) {
+            form_data.open_now = $(this).closest('.directorist-instant-search').find('input[name="open_now"]').val();
+        }
+
         if (directory_type && directory_type.length) {
             form_data.directory_type = directory_type;
         }
@@ -692,6 +714,11 @@ import {
             paged: page_no,
             data_atts: JSON.parse(data_atts)
         };
+
+        //business hours
+        if ( $('input[name="open_now"]').is(':checked') ) {
+            form_data.open_now = $(this).closest('.directorist-instant-search').find('input[name="open_now"]').val();
+        }
 
         update_instant_search_url(form_data);
 

@@ -13,11 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" role="form">
             <input type="hidden" name="q" placeholder="">
             <select id="at_biz_dir-location" name="in_loc" onchange="this.form.submit()">
-                <?php echo $categories; ?>
+				<?php echo directorist_kses( $categories, 'form_input' ); ?>
             </select>
         </form>
     <?php else :
-        echo $categories;
+        echo wp_kses_post( $categories );
     endif; ?>
 </div>
 

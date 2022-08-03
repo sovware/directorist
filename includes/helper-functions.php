@@ -7015,149 +7015,9 @@ if (!function_exists('atbdp_popular_listings')) {
  * @since    1.5.5
  *
  */
-function bdas_dropdown_terms($args = array(), $echo = true)
-{
-
-    // Vars
-    $args = array_merge(array(
-        'show_option_none' => '-- ' . __('Select a category', 'directorist') . ' --',
-        'option_none_value' => '',
-        'taxonomy' => 'at_biz_dir-category',
-        'name' => 'bdas_category',
-        'class' => 'form-control',
-        'required' => false,
-        'base_term' => 0,
-        'parent' => 0,
-        'orderby' => 'name',
-        'order' => 'ASC',
-        'selected' => 0,
-    ), $args);
-
-    if (!empty($args['selected'])) {
-        $ancestors = get_ancestors($args['selected'], $args['taxonomy']);
-        $ancestors = array_merge(array_reverse($ancestors), array($args['selected']));
-    } else {
-        $ancestors = array();
-    }
-
-    // Build data
-    $html = '';
-
-    if (isset($args['walker'])) {
-
-        $selected = count($ancestors) >= 2 ? (int)$ancestors[1] : 0;
-
-        $html .= '<div class="bdas-terms">';
-        $html .= sprintf('<input type="hidden" name="%s" class="bdas-term-hidden" value="%d" />', $args['name'], $selected);
-
-        $term_args = array(
-            'show_option_none' => $args['show_option_none'],
-            'option_none_value' => $args['option_none_value'],
-            'taxonomy' => $args['taxonomy'],
-            'child_of' => $args['parent'],
-            'orderby' => $args['orderby'],
-            'order' => $args['order'],
-            'selected' => $selected,
-            'hierarchical' => true,
-            'depth' => 2,
-            'show_count' => false,
-            'hide_empty' => false,
-            'walker' => $args['walker'],
-            'echo' => 0
-        );
-
-        unset($args['walker']);
-
-        $select = wp_dropdown_categories($term_args);
-        $required = $args['required'] ? ' required' : '';
-        $replace = sprintf('<select class="%s" data-taxonomy="%s" data-parent="%d"%s>', $args['class'], $args['taxonomy'], $args['parent'], $required);
-
-        $html .= preg_replace('#<select([^>]*)>#', $replace, $select);
-
-        if ($selected > 0) {
-            $args['parent'] = $selected;
-            $html .= bdas_dropdown_terms($args, false);
-        }
-
-        $html .= '</div>';
-
-    } else {
-
-        $has_children = 0;
-        $child_of = 0;
-
-        $term_args = array(
-            'parent' => $args['parent'],
-            'orderby' => 'name',
-            'order' => 'ASC',
-            'hide_empty' => false,
-            'hierarchical' => false,
-        );
-        $terms = get_terms($args['taxonomy'], $term_args);
-
-        if (!empty($terms) && !is_wp_error($terms)) {
-
-            if ($args['parent'] == $args['base_term']) {
-                $required = $args['required'] ? ' required' : '';
-
-                $html .= '<div class="bdas-terms">';
-                $html .= sprintf('<input type="hidden" name="%s" class="bdas-term-hidden" value="%d" />', $args['name'], $args['selected']);
-                $html .= sprintf('<select class="%s" data-taxonomy="%s" data-parent="%d"%s>', $args['class'], $args['taxonomy'], $args['parent'], $required);
-                $html .= sprintf('<option value="%s">%s</option>', $args['option_none_value'], $args['show_option_none']);
-            } else {
-                $category_placeholder = apply_filters('atbdp_search_sub_category_placeholder', __('Select a Sub Category','directorist') );
-                $location_placeholder = apply_filters('atbdp_search_sub_location_placeholder', __('Select a Sub Location','directorist') );
-                $placeholder = ( $args['taxonomy'] == 'at_biz_dir-location') ? $location_placeholder : $category_placeholder;
-                $html .= sprintf('<div class="bdas-child-terms bdas-child-terms-%d">', $args['parent']);
-                $html .= sprintf('<select class="%s" data-taxonomy="%s" data-parent="%d">', $args['class'], $args['taxonomy'], $args['parent']);
-                $html .= sprintf('<option value="%d">%s</option>', $args['parent'], $placeholder);
-            }
-
-            foreach ($terms as $term) {
-                $selected = '';
-                if (in_array($term->term_id, $ancestors)) {
-                    $has_children = 1;
-                    $child_of = $term->term_id;
-                    $selected = ' selected';
-                } else if ($term->term_id == $args['selected']) {
-                    $selected = ' selected';
-                }
-
-                $html .= sprintf('<option value="%s"%s>%s</option>', $term->term_id, $selected, $term->name);
-            }
-
-            $html .= '</select>';
-            if ($has_children) {
-                $args['parent'] = $child_of;
-                $html .= bdas_dropdown_terms($args, false);
-            }
-            $html .= '</div>';
-
-        } else {
-
-            if ($args['parent'] == $args['base_term']) {
-                $required = $args['required'] ? ' required' : '';
-
-                $html .= '<div class="bdas-terms">';
-                $html .= sprintf('<input type="hidden" name="%s" class="bdas-term-hidden" value="%d" />', $args['name'], $args['selected']);
-                $html .= sprintf('<select class="%s" data-taxonomy="%s" data-parent="%d"%s>', $args['class'], $args['taxonomy'], $args['parent'], $required);
-                $html .= sprintf('<option value="%s">%s</option>', $args['option_none_value'], $args['show_option_none']);
-                $html .= '</select>';
-                $html .= '</div>';
-            }
-
-        }
-
-    }
-
-    // Echo or Return
-    if ($echo) {
-        echo $html;
-        return '';
-    } else {
-        return $html;
-    }
-
+function bdas_dropdown_terms($args = array(), $echo = true) {
+	_deprecated_function( __METHOD__, '7.3.1' );
+	return '';
 }
 
 function atbdp_get_custom_field_ids($category = 0, $all = false)
@@ -8024,7 +7884,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
             break;
     }
 
-    echo $the_html;
+    echo wp_kses_post( $the_html );
 }
 
 function the_thumbnail_card($img_src = '', $_args = array()) {
@@ -8920,7 +8780,7 @@ function directorist_maybe_json( $input_data = '' ) {
 
 /**
  * Directorist get allowed attributes
- * 
+ *
  * @return array
  */
 function directorist_get_allowed_attributes() {
@@ -8935,6 +8795,7 @@ function directorist_get_allowed_attributes() {
         'value'       => array(),
         'action'      => array(),
         'selected'    => array(),
+		'checked'     => array(),
         'for'         => array(),
         'placeholder' => array(),
         'cols'        => array(),
@@ -8948,6 +8809,8 @@ function directorist_get_allowed_attributes() {
         'viewBox' => array(),
         'fill'    => array(),
         'd'       => array(),
+
+		'data-custom-field' => array(),
     );
 
     return apply_filters( 'directorist_get_allowed_attributes', $allowed_attributes );
@@ -8955,7 +8818,7 @@ function directorist_get_allowed_attributes() {
 
 /**
  * Directorist get allowed form input tags
- * 
+ *
  * @return array
  */
 function directorist_get_allowed_form_input_tags() {
@@ -8971,7 +8834,7 @@ function directorist_get_allowed_form_input_tags() {
 
 /**
  * Directorist get allowed svg tags
- * 
+ *
  * @return array
  */
 function directorist_get_allowed_svg_tags() {
@@ -8986,7 +8849,7 @@ function directorist_get_allowed_svg_tags() {
 
 /**
  * Directorist get allowed HTML tags
- * 
+ *
  * @return array
  */
 function directorist_get_allowed_html() {
@@ -9002,6 +8865,8 @@ function directorist_get_allowed_html() {
         'h6'     => $allowed_attributes,
         'p'      => $allowed_attributes,
         'a'      => $allowed_attributes,
+		'ul'     => $allowed_attributes,
+		'li'     => $allowed_attributes,
         'span'   => $allowed_attributes,
         'form'   => $allowed_attributes,
         'div'    => $allowed_attributes,
@@ -9009,8 +8874,8 @@ function directorist_get_allowed_html() {
         'button' => $allowed_attributes,
     );
 
-    $allowed_html = array_merge( 
-        $allowed_html, 
+    $allowed_html = array_merge(
+        $allowed_html,
         directorist_get_allowed_form_input_tags(),
         directorist_get_allowed_svg_tags()
     );
@@ -9021,17 +8886,17 @@ function directorist_get_allowed_html() {
 
 /**
  * Directorist KSES
- * 
+ *
  * Filters text content and strips out disallowed HTML.
  *
  * This function makes sure that only the allowed HTML element names, attribute
  * names, attribute values, and HTML entities will occur in the given text string.
  *
  * This function expects unslashed data.
- * 
+ *
  * @param string $content
  * @param string $allowed_html
- * 
+ *
  * @return string
  */
 function directorist_kses( $content, $allowed_html = 'all' ) {

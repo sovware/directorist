@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Directorist - Business Directory Plugin
+ * Plugin Name: Directorist - Business Directory Plugin - (RC1)
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
  * Version: 7.3.0
@@ -615,7 +615,7 @@ final class Directorist_Base
 		$average = directorist_get_listing_rating( $post->ID );
 		?>
 		<div class="atbd_rated_stars">
-			<?php echo esc_html( ATBDP()->review->print_static_rating( $average ) ); ?>
+			<?php echo wp_kses_post( ATBDP()->review->print_static_rating( $average ) ); ?>
 		</div>
 		<?php
 	}

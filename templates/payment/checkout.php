@@ -129,7 +129,7 @@ use \Directorist\Helper;
                 </div>
 
                 <div class="directorist-content-module__contents">
-                    <?php echo ATBDP_Gateway::gateways_markup(); ?>
+					<?php echo directorist_kses( ATBDP_Gateway::gateways_markup(), 'all' ); ?>
                 </div>
             </div>
             <?php endif; ?>

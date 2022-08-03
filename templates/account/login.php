@@ -19,7 +19,7 @@ use \Directorist\Helper;
 
                         if ( ! empty( $recovery ) ) {
                             $user = get_user_by( 'email', $recovery );
-                            if ( isset( $_POST['directorist_reset_password'] ) && 'true' == $_POST['directorist_reset_password'] ) {
+                            if ( isset( $_POST['directorist_reset_password'], $_POST['directorist-reset-password-nonce'] ) && 'true' == $_POST['directorist_reset_password'] && wp_verify_nonce( sanitize_key( $_POST['directorist-reset-password-nonce'] ), 'reset_password' ) ) {
 								// Ignore password sanitization
                                 $password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
                                 $password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -202,7 +202,7 @@ use \Directorist\Helper;
 							<fieldset class="directorist-form-group">
 								<p><?php echo esc_html( $recpass_desc ); ?></p>
 								<label for="reset_user_login"><?php echo esc_html( $recpass_username ); ?></label>
-								<input type="text" class="directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $$recpass_placeholder ); ?>" required="required" />
+								<input type="text" class="directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $recpass_placeholder ); ?>" required="required" />
 								<p>
 									<input type="hidden" name="action" value="reset" />
 									<button type="submit" class="directorist-btn directorist-btn-primary" id="submit"><?php echo esc_html( $recpass_button ); ?></button>

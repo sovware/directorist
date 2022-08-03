@@ -65,6 +65,9 @@ import {
             if (form_data.custom_field && form_data.custom_field.length) {
                 var query = (query && query.length) ? query + '&custom_field=' + form_data.custom_field : '?custom_field=' + form_data.custom_field;
             }
+            if (form_data.open_now && form_data.open_now.length) {
+                var query = (query && query.length) ? query + '&open_now=' + form_data.open_now : '?open_now=' + form_data.open_now;
+            }
 
             var newurl = query ? newurl + query : newurl;
 

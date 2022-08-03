@@ -1275,6 +1275,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         var query = query && query.length ? query + '&custom_field=' + form_data.custom_field : '?custom_field=' + form_data.custom_field;
       }
 
+      if (form_data.open_now && form_data.open_now.length) {
+        var query = query && query.length ? query + '&open_now=' + form_data.open_now : '?open_now=' + form_data.open_now;
+      }
+
       var newurl = query ? newurl + query : newurl;
       window.history.pushState({
         path: newurl

@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					?>
 					<!--Registration failed, so show notification.-->
 					<?php if ( isset( $_GET['errors'] ) ) { ?>
-					<p style="padding: 20px" class="alert-danger"><span class="fa fa-exclamation-triangle"></span> <?php echo esc_html( directorist_get_registration_error_message( sanitize_text_field( wp_unslash( $_GET['errors'] ) ) ) ); ?></p>
+					<p style="padding: 20px" class="alert-danger"><span class="fa fa-exclamation-triangle"></span> <?php echo wp_kses_post( directorist_get_registration_error_message( sanitize_text_field( wp_unslash( $_GET['errors'] ) ) ) ); ?></p>
 					<?php } ?>
 				</div>
 			</div>

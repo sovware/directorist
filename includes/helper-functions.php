@@ -8765,8 +8765,8 @@ function directorist_get_var( &$var, $default = null ) {
  *
  * @return mixed
  */
-function directorist_maybe_json( $input_data = '' ) {
-    return directorist_clean( Helper::maybe_json( $input_data ) );
+function directorist_maybe_json( $input_data = '', $return_first_item = false ) {
+    return directorist_clean( Helper::maybe_json( $input_data, $return_first_item ) );
 }
 
 /**

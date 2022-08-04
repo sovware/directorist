@@ -497,7 +497,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		public function plugins_bulk_action() {
 			$status = array( 'success' => true );
 
-			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
+			if ( ! directorist_verify_nonce() ) {
 				$status['success'] = false;
 				$status['message'] = 'Invalid request';
 
@@ -507,6 +507,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			$task         = ( isset( $_POST['task'] ) ) ? sanitize_key( wp_unslash( $_POST['task'] ) ) : '';
 			$plugin_items = ( isset( $_POST['plugin_items'] ) ) ? array_map( 'sanitize_key', (array) wp_unslash( $_POST['plugin_items'] ) ) : '';
 
+			wp_send_json($_POST);
 			// Validation
 			if ( empty( $task ) ) {
 				$status['success'] = false;

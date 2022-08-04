@@ -815,7 +815,7 @@ window.addEventListener('DOMContentLoaded', () => {
             action: 'atbdp_plugins_bulk_action',
             task,
             plugin_items: plugins_items,
-            nonce: directorist_admin.nonce,
+            directorist_nonce: directorist_admin.directorist_nonce,
 
         };
 
@@ -831,11 +831,11 @@ window.addEventListener('DOMContentLoaded', () => {
                     );
             },
             success(response) {
-                // console.log( response );
+                console.log( response );
                 $(self)
                     .find('button[type="submit"] .atbdp-icon')
                     .remove();
-                location.reload();
+                // location.reload();
             },
             error(error) {
                 // console.log(error);

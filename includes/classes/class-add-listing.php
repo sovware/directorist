@@ -236,7 +236,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					'post_content' => $content,
 					'post_title'   => $title,
 					'post_type'    => ATBDP_POST_TYPE,
-					'tax_input'    => ! empty( $info['tax_input'] ) ? atbdp_sanitize_array( $info['tax_input'] ) : array(),
+					'tax_input'    => ! empty( $info['tax_input'] ) ? directorist_clean( $info['tax_input'] ) : array(),
 					'meta_input'   => apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $metas, $info ),
 				);
 				// is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
@@ -576,7 +576,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						$listing_images = atbdp_get_listing_attachment_ids( $post_id );
 						$files          = ! empty( $_FILES['listing_img'] ) ? directorist_clean( wp_unslash(  $_FILES['listing_img'] ) ) : array();
 						$files_meta     = ! empty( $_POST['files_meta'] ) ? directorist_clean( wp_unslash( $_POST['files_meta'] ) ) : array();
-						
+
 						if ( ! empty( $listing_images ) ) {
 							foreach ( $listing_images as $__old_id ) {
 								$match_found = false;

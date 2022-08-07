@@ -443,7 +443,7 @@ class Insights {
             <script type='text/javascript'>jQuery('.<?php echo esc_html( $this->client->slug ); ?>-insights-data-we-collect').on('click', function(e) {
                 e.preventDefault();
                 jQuery(this).parents('.updated').find('p.description').slideToggle('fast');
-            });
+                });
             </script>
         <?php
     }

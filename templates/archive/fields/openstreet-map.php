@@ -67,7 +67,7 @@
 
 			if ( ! empty( $display_direction_map ) ) { ?>
 				<div class='osm-iw-get-location'>
-					<a href='http://www.google.com/maps?daddr=<?php echo esc_attr( $ls_data['manual_lat'] ) . ',' . esc_attr( $ls_data['manual_lng'] ); ?>' target='_blank'><?php esc_html_e( 'Get Direction', 'directorist' );?></a>
+					<a href='http://www.google.com/maps?daddr=<?php echo esc_attr( $ls_data['manual_lat'] ) . ',' . esc_attr( $ls_data['manual_lng'] ); ?>' target='_blank'><?php esc_html_e( 'Get Directions', 'directorist' );?></a>
 					<span class='<?php atbdp_icon_type( true ); ?>-arrow-right'></span>
 				</div>
 				<?php

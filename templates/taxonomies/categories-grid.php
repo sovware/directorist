@@ -45,7 +45,7 @@ $columns = floor( 12 / $taxonomy->columns );
 													<?php if( $taxonomy->show_count ){ ?>
 													<span class="cat-count">
 														<?php
-														$listing_count_text = sprintf( _nx( '%s listing', '%s listings', $category['term']->count, 'number of listings', 'directorist' ), number_format_i18n( $category['term']->count ) );
+														$listing_count_text = sprintf( _nx( 'listing', 'listings', $category['term']->count, 'number of listings', 'directorist' ), number_format_i18n( $category['term']->count ) );
 														$output = sprintf( '%s <span>%s</span>', $category['grid_count_html'], $listing_count_text );
 														echo wp_kses_post( $output );
 														?></span>

@@ -440,7 +440,7 @@ class Insights {
         echo '</p></div>';
         
         ?>
-            <script type='text/javascript'>jQuery('.<?php echo esc_attr( $this->client->slug ); ?>-insights-data-we-collect').on('click', function(e) {
+            <script type='text/javascript'>jQuery('.<?php echo esc_html( $this->client->slug ); ?>-insights-data-we-collect').on('click', function(e) {
                 e.preventDefault();
                 jQuery(this).parents('.updated').find('p.description').slideToggle('fast');
             });

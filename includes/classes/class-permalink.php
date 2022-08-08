@@ -711,8 +711,6 @@ class ATBDP_Permalink {
             } else {
                 $link = add_query_arg( array( 'atbdp_action' => 'renew', 'atbdp_listing_id ' => $listing_id ), $link );
             }
-
-			$link = wp_nonce_url( $link, 'directorist_listing_renew' );
         }
 
         return $link;

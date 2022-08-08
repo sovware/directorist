@@ -200,12 +200,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 		// directorist_author_alpha_sorting
 		public function directorist_author_alpha_sorting() {
-			if ( ! empty( $_POST['_nonce'] ) && wp_verify_nonce( wp_unslash( $_POST['_nonce'] ), 'directorist_author_sorting' ) ) { // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if ( ! empty( $_POST['_nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['_nonce'] ), 'directorist_author_sorting' ) ) {
 				$authors = new Directorist_All_Authors();
-				return Helper::get_template_contents( 'all-authors', array( 'authors' => $authors ) );
+				Helper::get_template( 'all-authors', array( 'authors' => $authors ) );
+				wp_die();
 			}
-
-			return '';
 		}
 
 		// directorist_author_pagination
@@ -457,11 +456,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			$listing_type = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_type'] ) ) : '';
-			$categories   = ! empty( $_POST['term_id'] ) ? atbdp_sanitize_array( wp_unslash( $_POST['term_id'] ) ) : array();
+			$categories   = ! empty( $_POST['term_id'] ) ? directorist_clean( wp_unslash( $_POST['term_id'] ) ) : array();
 			$post_id      = ! empty( $_POST['post_id'] ) ? sanitize_text_field( wp_unslash( $_POST['post_id'] ) ) : '';
 			$listing_type = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_type'] ) ) : '';
-			$categories   = ! empty( $_POST['term_id'] ) ? atbdp_sanitize_array( wp_unslash( $_POST['term_id'] ) ) : array();
-			$post_id      = ! empty( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : '';
 			// wp_send_json($post_id);
 			$template               = '';
 			$submission_form_fields = array();

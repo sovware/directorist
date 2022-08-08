@@ -5738,22 +5738,13 @@ if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
 if (!function_exists('atbdp_sanitize_array')) {
     /**
      * It sanitize a multi-dimensional array
+	 *
+	 * @deprecated 7.3.1
      * @param array &$array The array of the data to sanitize
      * @return mixed
      */
-    function atbdp_sanitize_array(&$array)
-    {
-
-        foreach ($array as &$value) {
-            if (!is_array($value)) {
-                // sanitize if value is not an array
-                $value = sanitize_text_field($value);
-            } else {
-                // go inside this function again
-                atbdp_sanitize_array($value);
-            }
-        }
-        return $array;
+    function atbdp_sanitize_array( $array ) {
+		return directorist_clean( $array );
     }
 }
 
@@ -8774,8 +8765,8 @@ function directorist_get_var( &$var, $default = null ) {
  *
  * @return mixed
  */
-function directorist_maybe_json( $input_data = '' ) {
-    return directorist_clean( Helper::maybe_json( $input_data ) );
+function directorist_maybe_json( $input_data = '', $return_first_item = false ) {
+    return directorist_clean( Helper::maybe_json( $input_data, $return_first_item ) );
 }
 
 /**

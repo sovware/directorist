@@ -5907,6 +5907,8 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   -webkit-box-shadow: none;
           box-shadow: none;
   width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .widget.atbd_widget[id^=bd] .atbdp-widget-listing-contact form textarea.form-control,
 .widget.atbd_widget[id^=dcl] .atbdp-widget-listing-contact form textarea.form-control,
@@ -6183,6 +6185,15 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .widget .default-ad-search .directorist-advanced-filter__basic .directorist-advanced-filter__basic--element .directorist-search-field {
   padding-right: 0 !important;
   padding-left: 0 !important;
+}
+.widget .default-ad-search .directorist-search-tags {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: 0 -8px;
+}
+.widget .default-ad-search .directorist-search-tags .directorist-checkbox {
+  margin: 4px 8px;
 }
 
 .directorist-sidebar .atbd_widget .default-ad-search .custom-control input[type=radio],

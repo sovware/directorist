@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 7.3.0
+Stable tag: 7.3.1.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -339,6 +339,7 @@ Directorist Business Directory offers free and cost-effective premium [Directori
 * Advanced Review System
 * dEvent (Theme)
 * dJobs (Theme)
+* dCourse (Theme)
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
 
@@ -398,6 +399,21 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.3.1.1 - Aug 07, 2022
+
+* Fix - Issue in admin notice 
+* Fix - Issue in directory type import
+* Fix - Count issue in All Categories page 
+
+7.3.1 - Aug 05, 2022
+
+* Improve - Plugin security
+* Add - New option to control visibility on user email in All Authors page
+* Remove - User role from All Authors page
+* Fix - Instant search issue with Business Hours extension
+* Fix - Default directory type detection while importing listings
+* Fix - RTL style issues
 
 7.3.0 - Jul 19, 2022
 

@@ -224,7 +224,8 @@
                             </div>
 
                             <p class="cptm-info-text">
-                                <?php esc_html_e( '<b>Note:</b> You can use an existed directory ID to update it the importing file', 'directorist' ) ?>
+                                <b><?php esc_html_e( 'Note:', 'directorist' ); ?></b>
+                                <?php esc_html_e( 'You can use an existed directory ID to update it the importing file', 'directorist' ); ?>
                             </p>
                         </div>
 

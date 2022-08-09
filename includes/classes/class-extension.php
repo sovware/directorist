@@ -52,7 +52,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			add_action( 'wp_ajax_atbdp_install_file_from_subscriptions', array( $this, 'handle_file_install_request_from_subscriptions' ) );
 			add_action( 'wp_ajax_atbdp_plugins_bulk_action', array( $this, 'plugins_bulk_action' ) );
 			add_action( 'wp_ajax_atbdp_activate_theme', array( $this, 'activate_theme' ) );
-			// add_action( 'wp_ajax_atbdp_activate_plugin', array( $this, 'activate_plugin' ) );
+			add_action( 'wp_ajax_atbdp_activate_plugin', array( $this, 'activate_plugin' ) );
 			add_action( 'wp_ajax_atbdp_update_plugins', array( $this, 'handle_plugins_update_request' ) );
 			add_action( 'wp_ajax_atbdp_update_theme', array( $this, 'handle_theme_update_request' ) );
 			add_action( 'wp_ajax_atbdp_refresh_purchase_status', array( $this, 'handle_refresh_purchase_status_request' ) );
@@ -67,9 +67,6 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 			wp_update_plugins();
 
-			// activate_plugin( 'directorist-adverts-manager/directorist-adverts-manager.php' );
-
-			// var_dump( activate_plugin( 'directorist-adverts-manager/directorist-adverts-manager.php' ) );
 			// Apply hook to required extensions
 			$this->required_extensions = apply_filters( 'directorist_required_extensions', array() );
 

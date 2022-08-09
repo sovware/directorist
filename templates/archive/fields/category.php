@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						$term_link  = esc_url( ATBDP_Permalink::atbdp_get_category_page( $cat ) );
 						$term_link  = esc_url( get_term_link( $cat->term_id, ATBDP_CATEGORY ) );
 
-						printf( '<a href="%s">%s</a>', esc_url( $term_link ), esc_html( $term_label ) );
+						printf( '<a href="%s">%s</a>', esc_url( $term_link ), wp_kses_post( $term_label ) );
 					} ?>
 				</div>
 

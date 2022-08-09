@@ -2470,11 +2470,10 @@ window.addEventListener('DOMContentLoaded', function () {
         $(self).find('button[type="submit"]').prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
       },
       success: function success(response) {
-        console.log(response);
-        $(self).find('button[type="submit"] .atbdp-icon').remove(); // location.reload();
+        $(self).find('button[type="submit"] .atbdp-icon').remove();
+        location.reload();
       },
       error: function error(_error8) {
-        // console.log(error);
         uninstalling = false;
       }
     }); // console.log( task, plugins_items );

@@ -831,14 +831,12 @@ window.addEventListener('DOMContentLoaded', () => {
                     );
             },
             success(response) {
-                console.log( response );
                 $(self)
                     .find('button[type="submit"] .atbdp-icon')
                     .remove();
-                // location.reload();
+                location.reload();
             },
             error(error) {
-                // console.log(error);
                 uninstalling = false;
             },
         });

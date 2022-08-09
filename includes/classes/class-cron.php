@@ -47,8 +47,8 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 			$schedules['atbdp_listing_manage'] = apply_filters(
 				'atbdp_cron_setup_args',
 				array(
-					'interval' => 300,
-					'display'  => __( 'Every 5 minutes', 'directorist' ),
+					'interval' => 1800,
+					'display'  => __( 'Every 30 minutes', 'directorist' ),
 				)
 			);
 

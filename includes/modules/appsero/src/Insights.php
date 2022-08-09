@@ -433,18 +433,19 @@ class Insights {
         $notice .= 'We are using Appsero to collect your data. <a href="' . $policy_url . '" target="_blank">Learn more</a> about how Appsero collects and handle your data.</p>';
 
         echo '<div class="updated"><p>';
-            echo esc_html( $notice );
+            echo directorist_kses( $notice );
             echo '</p><p class="submit">';
             echo '&nbsp;<a href="' . esc_url( $optin_url ) . '" class="button-primary button-large">' . esc_attr( $this->client->__trans( 'Allow' ) ) . '</a>';
             echo '&nbsp;<a href="' . esc_url( $optout_url ) . '" class="button-secondary button-large">' . esc_attr( $this->client->__trans( 'No thanks' ) ) . '</a>';
         echo '</p></div>';
-
-        echo esc_js( "<script type='text/javascript'>jQuery('." . $this->client->slug . "-insights-data-we-collect').on('click', function(e) {
+        
+        ?>
+            <script type='text/javascript'>jQuery('.<?php echo esc_html( $this->client->slug ); ?>-insights-data-we-collect').on('click', function(e) {
                 e.preventDefault();
                 jQuery(this).parents('.updated').find('p.description').slideToggle('fast');
-            });
+                });
             </script>
-        ");
+        <?php
     }
 
     /**

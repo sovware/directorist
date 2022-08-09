@@ -40,7 +40,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		public function __construct() {
 			// show the attachment of the current users only.
 			add_filter( 'ajax_query_attachments_args', array( $this, 'show_current_user_attachments' ) );
-			add_action( 'parse_query', array( $this, 'parse_query' ) ); // do stuff likes adding, editing, renewing, favorite etc in this hook.
 			add_action( 'wp_ajax_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
 			add_action( 'wp_ajax_nopriv_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
 		}
@@ -758,26 +757,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		 * @since 3.1.0
 		 */
 		public function parse_query( $query ) {
-			$nonce = ! empty( $_GET['_wpnonce'] ) ? wp_unslash( $_GET['_wpnonce'] ) : ''; // @codingStandardsIgnoreLine WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			if ( ! wp_verify_nonce( $nonce, 'directorist_listing_renew' ) ) {
-				return;
-			}
-
-			$action     = $query->get( 'atbdp_action' );
-			$id         = $query->get( 'atbdp_listing_id' );
-			$temp_token = isset( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
-			$renew_from = isset( $_GET['renew_from'] ) ? sanitize_text_field( wp_unslash( $_GET['renew_from'] ) ) : '';
-			$token      = get_post_meta( $id, '_renewal_token', true );
-
-			if ( ! empty( $action ) && ! empty( $id ) && 'renew' == $action ) {
-				if ( $temp_token === $token || $renew_from ) {
-					$this->renew_listing( $id );
-				} else {
-					$redirect_url = esc_url_raw( add_query_arg( 'renew', 'token_expired', ATBDP_Permalink::get_dashboard_page_link() ) );
-					wp_safe_redirect( $redirect_url );
-					exit;
-				}
-			}
+			_deprecated_function( __METHOD__, '7.3.1.2' );
 		}
 
 		/**

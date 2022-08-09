@@ -371,7 +371,7 @@ class ATBDP_Metabox {
 
 			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
 				$key = '_'. $field_key;
-				$metas[ $key ] = !empty( $_POST[ $field_key ] ) ? directorist_clean( wp_unslash( $_POST[ $field_key ] ) ) : '';
+				$metas[ $key ] = !empty( $_POST[ $field_key ] ) ? wp_unslash( $_POST[ $field_key ] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			}
 
 		}

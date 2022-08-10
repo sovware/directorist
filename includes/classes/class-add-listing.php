@@ -758,16 +758,16 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		 * @since 3.1.0
 		 */
 		public function parse_query( $query ) {
-			$nonce = ! empty( $_GET['_wpnonce'] ) ? wp_unslash( $_GET['_wpnonce'] ) : ''; // @codingStandardsIgnoreLine WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			if ( ! wp_verify_nonce( $nonce, 'directorist_listing_renew' ) ) {
+			$temp_token = ! empty( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
+			$renew_from = ! empty( $_GET['renew_from'] ) ? sanitize_text_field( wp_unslash( $_GET['renew_from'] ) ) : '';
+
+			if ( empty( $temp_token ) || empty( $renew_from ) ) {
 				return;
 			}
 
-			$action     = $query->get( 'atbdp_action' );
-			$id         = $query->get( 'atbdp_listing_id' );
-			$temp_token = isset( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
-			$renew_from = isset( $_GET['renew_from'] ) ? sanitize_text_field( wp_unslash( $_GET['renew_from'] ) ) : '';
-			$token      = get_post_meta( $id, '_renewal_token', true );
+			$action = $query->get( 'atbdp_action' );
+			$id     = $query->get( 'atbdp_listing_id' );
+			$token  = get_post_meta( $id, '_renewal_token', true );
 
 			if ( ! empty( $action ) && ! empty( $id ) && 'renew' == $action ) {
 				if ( $temp_token === $token || $renew_from ) {

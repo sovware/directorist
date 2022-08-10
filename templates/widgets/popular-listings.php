@@ -1,20 +1,21 @@
 <?php
+
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.1
+ * @version 7.3.2
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
-if ( !$query->have_posts() ) {
+if (!$query->have_posts()) {
     return;
 }
 ?>
 
 <div class="atbd_categorized_listings">
     <ul class="listings">
-        <?php while ( $query->have_posts() ): ?>
+        <?php while ($query->have_posts()) : ?>
 
             <?php
             $query->the_post();
@@ -24,14 +25,14 @@ if ( !$query->have_posts() ) {
             $listing_img = get_post_meta($id, '_listing_img', true);
             $listing_prv_img = get_post_meta($id, '_listing_prv_img', true);
             $cats = get_the_terms($id, ATBDP_CATEGORY);
-            $post_link = get_the_permalink( $id );
+            $post_link = get_the_permalink($id);
 
             ?>
 
             <li>
 
                 <div class="atbd_left_img">
-                    <?php if ( empty( $disable_single_listing) ) { ?>
+                    <?php if (empty($disable_single_listing)) { ?>
                         <a href="<?php the_permalink(); ?>">
                         <?php
                     }
@@ -41,12 +42,12 @@ if ( !$query->have_posts() ) {
                     } elseif (!empty($listing_img[0]) && empty($listing_prv_img)) {
                         echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="' . esc_html(get_the_title()) . '">';
                     } else {
-                        echo '<img src="' . esc_url( $default_image ) . '" alt="' . esc_html(get_the_title()) . '">';
+                        echo '<img src="' . esc_url($default_image) . '" alt="' . esc_html(get_the_title()) . '">';
                     }
                     if (empty($disable_single_listing)) {
                         echo '</a>';
                     }
-                    ?>
+                        ?>
                 </div>
 
                 <div class="atbd_right_content">
@@ -55,9 +56,9 @@ if ( !$query->have_posts() ) {
                         <h4>
                             <?php
                             if (empty($disable_single_listing)) {
-                                ?>
+                            ?>
                                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                <?php
+                            <?php
                             } else {
                                 the_title();
                             } ?>
@@ -67,34 +68,29 @@ if ( !$query->have_posts() ) {
                     <?php
                     if (!empty($cats)) {
                         $totalTerm = count($cats);
-                        ?>
+                    ?>
 
                         <p class="directory_tag">
                             <span class="<?php atbdp_icon_type(true); ?>-tags"></span>
-                            <span>
-                                    <a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_category_page($cats[0]) ); ?>">
-                                                            <?php echo esc_html($cats[0]->name); ?>
-                                    </a>
+                            <span class="atbd_cat_popup_wrapper">
                                 <?php
-                                if ($totalTerm > 1) {
-                                    ?>
-                                    <span class="atbd_cat_popup">  +<?php echo esc_html( $totalTerm - 1 ); ?>
-                                        <span class="atbd_cat_popup_wrapper">
-                                                        <?php
-                                                        $output = array();
-                                                        foreach (array_slice($cats, 1) as $cat) {
-                                                            $link = ATBDP_Permalink::atbdp_get_category_page($cat);
-                                                            $space = str_repeat(' ', 1);
-                                                            $output [] = "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
-                                                        } ?>
-                                            <span><?php echo join($output) ?></span>
-                                                    </span>
-                                                </span>
-                                <?php } ?>
-
+                                $output = array();
+                                $counter = 0;
+                                $space = '';
+                                foreach ($cats as $cat) {
+                                    $link = ATBDP_Permalink::atbdp_get_category_page($cat);
+                                    if ($totalTerm > 1) {
+                                        $space = ($counter == $totalTerm - 1) ? '' : str_repeat(', ', 1);
+                                    }
+                                    $output[] = "<a href='{$link}'>{$cat->name}<span></span></a>{$space}";
+                                    $counter = $counter + 1;
+                                } ?>
+                                <span>
+                                    <?php echo join($output) ?>
+                                </span>
                             </span>
                         </p>
-                        <?php
+                    <?php
                     }
 
                     ATBDP()->show_static_rating(get_post($id));
@@ -105,6 +101,6 @@ if ( !$query->have_posts() ) {
 
         <?php endwhile; ?>
 
-		<?php wp_reset_postdata(); ?>
+        <?php wp_reset_postdata(); ?>
     </ul>
 </div>

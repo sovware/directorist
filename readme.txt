@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 7.3.1.1
+Stable tag: 7.3.1.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,7 +21,7 @@ Want to build an online directory of business listings similar to Yelp, Yellow-P
 
 The possibilities of a directory site are endless. You can use it as an income stream, a community service, a platform for others to keep their businesses running, to elevate existing business, and whatnot. Thousands have already started their journey, what’s stopping you? Try it, you will love it.
 
-🎉 Use [OneListing](https://directorist.com/product/onelisting/) FREE multi-purpose directory theme for a quick start.
+🎉 Use [Best Listing](https://wordpress.org/themes/best-listing/) FREE multi-purpose directory theme for a quick start.
 
 == THE ONLY WORDPRESS BUSINESS DIRECTORY PLUGIN YOU NEED ==
 
@@ -399,6 +399,15 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.3.1.2 - Aug 10, 2022
+
+* Fix - Fatal Error for verifing nonce in parse_query action hook
+* Fix - Issue in changing default directory type
+* Fix - Listings page category popup
+* Fix - Extension activation issue in membership page
+* Fix - Excerpt and textarea line break issue
+* Fix - Typo in map info window
 
 7.3.1.1 - Aug 07, 2022
 

@@ -497,7 +497,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		public function plugins_bulk_action() {
 			$status = array( 'success' => true );
 
-			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
+			if ( ! directorist_verify_nonce() ) {
 				$status['success'] = false;
 				$status['message'] = 'Invalid request';
 
@@ -505,7 +505,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			}
 
 			$task         = ( isset( $_POST['task'] ) ) ? sanitize_key( wp_unslash( $_POST['task'] ) ) : '';
-			$plugin_items = ( isset( $_POST['plugin_items'] ) ) ? array_map( 'sanitize_key', (array) wp_unslash( $_POST['plugin_items'] ) ) : '';
+			$plugin_items = ( isset( $_POST['plugin_items'] ) ) ? directorist_clean( wp_unslash( $_POST['plugin_items'] ) ) : '';
 
 			// Validation
 			if ( empty( $task ) ) {
@@ -523,7 +523,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			// Activate
 			if ( 'activate' === $task ) {
 				foreach ( $plugin_items as $plugin ) {
-					activate_plugin( $plugin );
+					$activated = activate_plugin( $plugin );
+					if( is_wp_error( $activated ) ) {
+						$status['success'] = false;
+						$status['message'] = 'Error in plugin activation';
+						wp_send_json( array( 'status' => $status ) );
+					}
 				}
 			}
 

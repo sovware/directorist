@@ -364,7 +364,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		}
 
 		public function atbdp_listing_default_type() {
-			if ( ! directorist_verify_nonce( 'nonce' ) ) {
+			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				wp_send_json( 'Invalid request.' );
 			}
 

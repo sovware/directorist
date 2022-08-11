@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.3.2
  */
 
 use \Directorist\Helper;
@@ -67,7 +67,7 @@ if ( $query->have_posts() ) {
 								if( $dropdown_items ) {
 									foreach( $dropdown_items as $item ) {
 										?>
-										<a class="directorist-dropdown-item <?php echo esc_attr( $item['class'] ); ?>" <?php echo wp_kses_post( $item['data_attr'] ); ?> href="<?php echo esc_url( $item['link'] ); ?>"><?php echo wp_kses_post( $item['icon'] ); ?><?php echo esc_html( $item['label'] ); ?></a>
+										<a class="directorist-dropdown-item <?php echo esc_attr( $item['class'] ); ?>" <?php echo wp_kses_post( $item['data_attr'] ); ?> href="<?php echo esc_url( $item['link'] ); ?>"><?php echo wp_kses_post( $item['icon'] ); ?><?php echo wp_kses_post( $item['label'] ); ?></a>
 										<?php
 									}
 								}

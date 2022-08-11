@@ -1079,6 +1079,8 @@ function initSelect2() {
   {
     elm: $('#at_biz_dir-category')
   }, {
+    elm: $('#at_biz_dir-location')
+  }, {
     elm: $('#cat-type')
   }, {
     elm: $('.bdas-category-search')

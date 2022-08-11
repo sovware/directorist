@@ -2584,21 +2584,6 @@ class Multi_Directory_Manager
                                 'label'  => __( 'Label', 'directorist' ),
                                 'value' => 'Tag',
                             ],
-                            'tags_filter_source' => [
-                                'type'  => 'select',
-                                'label' => __( 'Tags Filter Source', 'directorist' ),
-                                'options' => [
-                                    [
-                                        'label' => __('All Tags', 'directorist'),
-                                        'value' => 'all_tags',
-                                    ],
-                                    [
-                                        'label' => __('Category Based Tags', 'directorist'),
-                                        'value' => 'category_based_tags',
-                                    ],
-                                ],
-                                'value' => 'all_tags',
-                            ],
                         ]
                     ],
 

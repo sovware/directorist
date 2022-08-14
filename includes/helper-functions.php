@@ -5674,7 +5674,7 @@ if (!function_exists('get_cat_icon')) {
 if (!function_exists('atbdp_icon_type')) {
     function atbdp_icon_type($echo = false)
     {
-		_deprecated_function( 'atbdp_icon_type', '7.3.1', 'directorist_icon' );
+		_deprecated_function( __FUNCTION__, '7.4.0', 'directorist_icon' );
         $font_type = '';
         if ($echo) {
             echo esc_html( $font_type );
@@ -5725,13 +5725,14 @@ function directorist_icon( $icon, $echo = true ) {
 }
 
 if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
-    function atbdp_get_term_icon( array $args = [] )
-    {
+    function atbdp_get_term_icon( array $args = [] ) {
+
+		_deprecated_function( __FUNCTION__, '7.4.0' );
+
         $default = [ 'icon' => '', 'default' => 'la la-folder-open', 'echo' => false ];
         $args = array_merge( $default, $args );
 
         $icon = ( ! empty($args['icon'] ) ) ?  $args['icon'] : $args['default'];
-		$icon = directorist_icon( $icon, false );
 
         if ( ! $args['echo'] ) { return $icon; }
 

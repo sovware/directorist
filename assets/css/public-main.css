@@ -14533,10 +14533,7 @@ Review: New Style
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-<<<<<<< HEAD
-=======
   padding: 0;
->>>>>>> alpha
   list-style-type: none;
 }
 @media only screen and (max-width: 767px) {

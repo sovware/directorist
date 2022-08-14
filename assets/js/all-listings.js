@@ -81,11 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
-=======
 /******/ 	return __webpack_require__(__webpack_require__.s = 4);
->>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,19 +90,8 @@
 /*!*******************************************************************!*\
   !*** ./assets/src/js/global/components/select2-custom-control.js ***!
   \*******************************************************************/
-<<<<<<< HEAD
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-
-=======
 /*! no static exports found */
 /***/ (function(module, exports) {
->>>>>>> alpha
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -115,36 +100,6 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var $ = jQuery;
-<<<<<<< HEAD
-window.addEventListener('load', init);
-setup_dom_observer(); // Setup DOM Observer
-
-function setup_dom_observer() {
-  // Select the select fields that will be observed for mutations
-  var observableItems = {
-    searchContents: document.querySelectorAll('.directorist-search-contents'),
-    searchFormBox: document.querySelectorAll('.directorist-search-form-box'),
-    selectFields: document.querySelectorAll('.directorist-select')
-  };
-  var observableElements = [];
-  Object.values(observableItems).forEach(function (item) {
-    if (item.length) {
-      observableElements = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(observableElements), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(item));
-    }
-  });
-
-  if (observableElements.length) {
-    // Create an observer instance linked to the callback function
-    var observer = new MutationObserver(init);
-    observableElements.forEach(function (item) {
-      // Start observing the target node for configured mutations
-      observer.observe(item, {
-        attributes: true,
-        childList: true
-      });
-    });
-  }
-=======
 window.addEventListener('load', waitAndInit);
 window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
 window.addEventListener('directorist-type-change', waitAndInit);
@@ -152,7 +107,6 @@ window.addEventListener('directorist-instant-search-reloaded', waitAndInit);
 
 function waitAndInit() {
   setTimeout(init, 0);
->>>>>>> alpha
 } // Initialize
 
 
@@ -285,13 +239,6 @@ function selec2_remove_custom_close_button(field) {
 }
 
 function selec2_get_addon_container(field) {
-<<<<<<< HEAD
-  if (field && !field.length) {
-    return;
-  }
-
-=======
->>>>>>> alpha
   var container = field ? $(field).next('.select2-container') : $('.select2-container');
   container = $(container).find('.directorist-select2-addons-area');
 
@@ -346,10 +293,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
-<<<<<<< HEAD
-=======
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
->>>>>>> alpha
 
 
 
@@ -858,12 +802,6 @@ window.addEventListener('DOMContentLoaded', function () {
     $('#atbdp-favourites').on('click', function (e) {
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
-<<<<<<< HEAD
-        'post_id': $("a.atbdp-favourites").data('post_id')
-      };
-      $.post(directorist.ajaxurl, data, function (response) {
-        $('#atbdp-favourites').html(response);
-=======
         'directorist_nonce': directorist.directorist_nonce,
         'post_id': $("a.atbdp-favourites").data('post_id')
       };
@@ -871,7 +809,6 @@ window.addEventListener('DOMContentLoaded', function () {
         if (response) {
           $('#atbdp-favourites').html(response);
         }
->>>>>>> alpha
       });
     });
     $('.directorist-favourite-remove-btn').each(function () {
@@ -879,10 +816,7 @@ window.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
         var data = {
           'action': 'atbdp-favourites-all-listing',
-<<<<<<< HEAD
-=======
           'directorist_nonce': directorist.directorist_nonce,
->>>>>>> alpha
           'post_id': $(this).data('listing_id')
         };
         $(".directorist-favorite-tooltip").hide();
@@ -900,10 +834,7 @@ window.addEventListener('DOMContentLoaded', function () {
       event.preventDefault();
       var data = {
         'action': 'atbdp-favourites-all-listing',
-<<<<<<< HEAD
-=======
         'directorist_nonce': directorist.directorist_nonce,
->>>>>>> alpha
         'post_id': $(this).data('listing_id')
       };
       var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
@@ -1344,13 +1275,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         var query = query && query.length ? query + '&custom_field=' + form_data.custom_field : '?custom_field=' + form_data.custom_field;
       }
 
-<<<<<<< HEAD
-=======
       if (form_data.open_now && form_data.open_now.length) {
         var query = query && query.length ? query + '&open_now=' + form_data.open_now : '?open_now=' + form_data.open_now;
       }
 
->>>>>>> alpha
       var newurl = query ? newurl + query : newurl;
       window.history.pushState({
         path: newurl
@@ -1428,15 +1356,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       email: $(this).find('input[name="email"]').val(),
       website: $(this).find('input[name="website"]').val(),
       phone: $(this).find('input[name="phone"]').val()
-<<<<<<< HEAD
-    };
-=======
     }; //business hours
 
     if ($('input[name="open_now"]').is(':checked')) {
       fields.open_now = $(this).find('input[name="open_now"]').val();
     }
->>>>>>> alpha
 
     if (fields.address && fields.address.length) {
       fields.cityLat = $(this).find('#cityLat').val();
@@ -1486,10 +1410,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
             $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').replaceWith(html.search_result);
             $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
             $(_this).closest('.directorist-instant-search').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false);
-<<<<<<< HEAD
-=======
             window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
->>>>>>> alpha
             window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
           }
         }
@@ -1563,13 +1484,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         phone: $(this).find('input[name="phone"]').val()
       };
 
-<<<<<<< HEAD
-=======
       if ($('input[name="open_now"]').is(':checked')) {
         fields.open_now = $(this).find('input[name="open_now"]').val();
       }
 
->>>>>>> alpha
       if (fields.address && fields.address.length) {
         fields.cityLat = $(this).find('#cityLat').val();
         fields.cityLng = $(this).find('#cityLng').val();
@@ -1618,10 +1536,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
               $('.directorist-archive-contents').find('.directorist-archive-items').replaceWith(html.search_result);
               $('.directorist-archive-contents').find('.directorist-archive-items').removeClass('atbdp-form-fade');
               $('.directorist-archive-contents').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false);
-<<<<<<< HEAD
-=======
               window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
->>>>>>> alpha
               window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
             }
           }
@@ -1658,18 +1573,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         if (html.directory_type) {
           $(_this).closest('.directorist-instant-search').replaceWith(html.directory_type);
           $(_this).closest('.directorist-instant-search').find('.atbdp-form-fade').removeClass('atbdp-form-fade');
-<<<<<<< HEAD
-          window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
-        }
-
-        var events = [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
-=======
           window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
         }
 
         var events = [new CustomEvent('directorist-instant-search-reloaded'), new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
->>>>>>> alpha
         events.forEach(function (event) {
           document.body.dispatchEvent(event);
           window.dispatchEvent(event);
@@ -1752,15 +1660,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       phone: $(this).closest('.directorist-instant-search').find('input[name="phone"]').val(),
       custom_field: custom_field,
       data_atts: JSON.parse(data_atts)
-<<<<<<< HEAD
-    };
-=======
     }; //business hours
 
     if ($('input[name="open_now"]').is(':checked')) {
       form_data.open_now = $(this).closest('.directorist-instant-search').find('input[name="open_now"]').val();
     }
->>>>>>> alpha
 
     if (page_no && page_no.length) {
       form_data.paged = page_no;
@@ -1794,10 +1698,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
           $(_this).closest('.directorist-instant-search').find('.directorist-viewas-dropdown .directorist-dropdown__links--single').removeClass("disabled-link");
           $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single');
-<<<<<<< HEAD
-=======
           window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
->>>>>>> alpha
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
           $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').css('visibility', 'visible');
         }
@@ -1877,15 +1778,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       custom_field: custom_field,
       view: view,
       data_atts: JSON.parse(data_atts)
-<<<<<<< HEAD
-    };
-=======
     }; //business hours
 
     if ($('input[name="open_now"]').is(':checked')) {
       form_data.open_now = $(this).closest('.directorist-instant-search').find('input[name="open_now"]').val();
     }
->>>>>>> alpha
 
     if (directory_type && directory_type.length) {
       form_data.directory_type = directory_type;
@@ -1914,10 +1811,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           $(_this).closest('.directorist-instant-search').find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single-js');
         }
 
-<<<<<<< HEAD
-=======
         window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
->>>>>>> alpha
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
       }
     });
@@ -2005,16 +1899,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       website: $(this).closest('.directorist-instant-search').find('input[name="website"]').val(),
       phone: $(this).closest('.directorist-instant-search').find('input[name="phone"]').val(),
       custom_field: custom_field
-<<<<<<< HEAD
-    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "data_atts", JSON.parse(data_atts)), _form_data);
-=======
     }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "data_atts", JSON.parse(data_atts)), _form_data); //business hours
 
     if ($('input[name="open_now"]').is(':checked')) {
       form_data.open_now = $(this).closest('.directorist-instant-search').find('input[name="open_now"]').val();
     }
 
->>>>>>> alpha
     update_instant_search_url(form_data);
 
     if (directory_type && directory_type.length) {
@@ -2040,10 +1930,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           $(document).scrollTop($(".directorist-instant-search").offset().top);
         }
 
-<<<<<<< HEAD
-=======
         window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
->>>>>>> alpha
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
       }
     });
@@ -2706,10 +2593,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_instantSearch__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/instantSearch */ "./assets/src/js/public/components/instantSearch.js");
 /* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
-<<<<<<< HEAD
-=======
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__);
->>>>>>> alpha
 /*
     File: all-listings.js
     Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
@@ -2955,11 +2839,7 @@ module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, 
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 3:
-=======
 /***/ 4:
->>>>>>> alpha
 /*!************************************************************!*\
   !*** multi ./assets/src/js/public/modules/all-listings.js ***!
   \************************************************************/

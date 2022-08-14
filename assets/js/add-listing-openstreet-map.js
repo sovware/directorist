@@ -81,11 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
-=======
 /******/ 	return __webpack_require__(__webpack_require__.s = 16);
->>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -486,11 +482,7 @@ module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, 
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 15:
-=======
 /***/ 16:
->>>>>>> alpha
 /*!******************************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/add-listing/openstreet-map.js ***!
   \******************************************************************************/

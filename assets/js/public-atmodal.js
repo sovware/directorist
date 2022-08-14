@@ -81,11 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
-=======
 /******/ 	return __webpack_require__(__webpack_require__.s = 12);
->>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -157,11 +153,7 @@ window.addEventListener('load', function () {
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 11:
-=======
 /***/ 12:
->>>>>>> alpha
 /*!***********************************************!*\
   !*** multi ./assets/src/js/public/atmodal.js ***!
   \***********************************************/

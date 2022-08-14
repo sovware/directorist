@@ -81,11 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
-=======
 /******/ 	return __webpack_require__(__webpack_require__.s = 11);
->>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -292,12 +288,6 @@
     $('#atbdp-favourites').on('click', function (e) {
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
-<<<<<<< HEAD
-        'post_id': $("a.atbdp-favourites").data('post_id')
-      };
-      $.post(directorist.ajaxurl, data, function (response) {
-        $('#atbdp-favourites').html(response);
-=======
         'directorist_nonce': directorist.directorist_nonce,
         'post_id': $("a.atbdp-favourites").data('post_id')
       };
@@ -305,7 +295,6 @@
         if (response) {
           $('#atbdp-favourites').html(response);
         }
->>>>>>> alpha
       });
     });
     $('.directorist-favourite-remove-btn').each(function () {
@@ -313,10 +302,7 @@
         event.preventDefault();
         var data = {
           'action': 'atbdp-favourites-all-listing',
-<<<<<<< HEAD
-=======
           'directorist_nonce': directorist.directorist_nonce,
->>>>>>> alpha
           'post_id': $(this).data('listing_id')
         };
         $(".directorist-favorite-tooltip").hide();
@@ -334,10 +320,7 @@
       event.preventDefault();
       var data = {
         'action': 'atbdp-favourites-all-listing',
-<<<<<<< HEAD
-=======
         'directorist_nonce': directorist.directorist_nonce,
->>>>>>> alpha
         'post_id': $(this).data('listing_id')
       };
       var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
@@ -1108,11 +1091,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Related listings slider */
 
 
-<<<<<<< HEAD
-  var rtl = directorist.rtl;
-=======
   var rtl = directorist.rtl === 'true';
->>>>>>> alpha
   var relLis = document.querySelector('.directorist-related-carousel');
 
   if (relLis !== null) {
@@ -1242,11 +1221,7 @@ module.exports = _createClass, module.exports.__esModule = true, module.exports[
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 10:
-=======
 /***/ 11:
->>>>>>> alpha
 /*!**************************************************************!*\
   !*** multi ./assets/src/js/public/modules/single-listing.js ***!
   \**************************************************************/

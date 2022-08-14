@@ -81,11 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
-=======
 /******/ 	return __webpack_require__(__webpack_require__.s = 26);
->>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1406,11 +1402,7 @@ module.exports = _typeof, module.exports.__esModule = true, module.exports["defa
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 25:
-=======
 /***/ 26:
->>>>>>> alpha
 /*!*******************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/markerclusterer.js ***!
   \*******************************************************************/

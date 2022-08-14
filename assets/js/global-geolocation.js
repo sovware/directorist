@@ -81,11 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
-=======
 /******/ 	return __webpack_require__(__webpack_require__.s = 18);
->>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -242,11 +238,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 17:
-=======
 /***/ 18:
->>>>>>> alpha
 /*!***************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/geolocation.js ***!
   \***************************************************************/

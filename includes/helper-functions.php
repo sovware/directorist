@@ -5714,11 +5714,10 @@ function directorist_icon( $icon, $echo = true ) {
         return;
     }
 
-    $html = sprintf( '<i class="directorist-icon-mask"><span style="mask-image:url(%1$s);-webkit-mask-image:url(%1$s);"></span></i>', $icon_src );
-	$html = apply_filters( 'directorist_icon', $html );
+    $html = sprintf( '<i class="directorist-icon-mask"><span style="mask-image:url(%1$s);-webkit-mask-image:url(%1$s);"></span></i>', esc_url( $icon_src ) );
 
-    if ($echo) {
-        echo wp_kses_post( $html );
+    if ( $echo ) {
+        echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped
     }
     else {
         return $html;

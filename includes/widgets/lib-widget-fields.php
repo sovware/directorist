@@ -1,7 +1,7 @@
 <?php
 /**
  * Library for creating widget fields.
- * 
+ *
  * @author wpWax
  */
 
@@ -30,7 +30,7 @@ class Widget_Fields {
 				call_user_func( array( __CLASS__, $field['type'] ), $id, $name, $value, $label, $options, $field );
 
 				if ( $desc ) {
-					echo '<div class="desc">' . $desc . '</div>';
+					printf( '<div class="desc">%s</div>', wp_kses_post( $desc ) );
 				}
 
 				echo '</div>';
@@ -74,8 +74,8 @@ class Widget_Fields {
 		<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?></label>
 		<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $id ); ?>">
 			<?php foreach ( $options as $key => $option ) : ?>
-				<?php $selected = ( $key == $value ) ? ' selected="selected"' : ''; ?>
-				<option value="<?php echo esc_attr( $key ); ?>"<?php echo $selected; ?>><?php echo esc_html( $option ); ?></option>
+				<?php $selected = ( $key == $value ) ? ' selected="selected2"' : ''; ?>
+				<option value="<?php echo esc_attr( $key ); ?>"<?php echo esc_attr( $selected ); ?>><?php echo esc_html( $option ); ?></option>
 			<?php endforeach; ?>
 		</select>
 		<?php

@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 7.2.2
+Stable tag: 7.3.1.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,7 +21,7 @@ Want to build an online directory of business listings similar to Yelp, Yellow-P
 
 The possibilities of a directory site are endless. You can use it as an income stream, a community service, a platform for others to keep their businesses running, to elevate existing business, and whatnot. Thousands have already started their journey, what’s stopping you? Try it, you will love it.
 
-🎉 Use [OneListing](https://directorist.com/product/onelisting/) FREE multi-purpose directory theme for a quick start.
+🎉 Use [Best Listing](https://wordpress.org/themes/best-listing/) FREE multi-purpose directory theme for a quick start.
 
 == THE ONLY WORDPRESS BUSINESS DIRECTORY PLUGIN YOU NEED ==
 
@@ -39,7 +39,7 @@ Using Directorist Business Directory plugin you can create classifieds websites 
 
 👉 Join Our FB Community : [Directorist Community](https://www.facebook.com/groups/directorist)
 👉 Official Facebook Page : [Like and Follow on Facebook](https://www.facebook.com/directorist)
-👉 Official Twitter handle : [Follow on Twitter](https://twitter.com/wpdirectorist)
+👉 Official Twitter Handle : [Follow on Twitter](https://twitter.com/wpdirectorist)
 👉 Official YouTube Channel : [Follow on YouTube](https://www.youtube.com/c/wpWax)
 👉 Official Support : [Contact](https://directorist.com/dashboard/)
 
@@ -309,6 +309,8 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 Directorist Business Directory offers free and cost-effective premium [Directorist Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
 
+🔥 **[dHotels](https://directorist.com/product/dhotels/)** - dHotels is mapped out with the aim to allow you to create a hotel directory website exactly the same way you have in your imagination.This hotel theme for WordPress is 100 % mobile responsive. Meaning, it fits any screen from mobile phones to desktops.
+
 🔥 **[dClassified](https://directorist.com/product/dclassified/)** - dClassified is a theme that is specially rigged up to create classified listing websites with aplomb. The theme is clean and simple yet one of the most powerful Classified WordPress themes with a string of useful features that you need to build your classified website.
 
 🔥 **[OneListing Pro](https://directorist.com/product/onelisting-pro/)** - If you are trying to create a directory website but are worried to give it the look the way you are portraying in your mind, OneListing Pro is the go-to theme for you. No matter which type of directory website you are going to build, OneListing Pro is designed in a way that can align with any design you can fantasize about.
@@ -337,7 +339,7 @@ Directorist Business Directory offers free and cost-effective premium [Directori
 * Advanced Review System
 * dEvent (Theme)
 * dJobs (Theme)
-* dHotels (Theme)
+* dCourse (Theme)
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
 
@@ -350,6 +352,9 @@ If you want to contribute to the project, you’re most welcome to make it happe
 
 
 == Privacy Policy ==
+
+We use WordPress REST API to confirm the authenticity of a user attempting to gain access to directorist account to manage and install themes and extensions.
+
 Directorist – Business Directory Plugin uses Appsero SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
 
 Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
@@ -394,6 +399,58 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.3.1.2 - Aug 10, 2022
+
+* Fix - Fatal Error for verifing nonce in parse_query action hook
+* Fix - Issue in changing default directory type
+* Fix - Listings page category popup
+* Fix - Extension activation issue in membership page
+* Fix - Excerpt and textarea line break issue
+* Fix - Typo in map info window
+
+7.3.1.1 - Aug 07, 2022
+
+* Fix - Issue in admin notice 
+* Fix - Issue in directory type import
+* Fix - Count issue in All Categories page 
+
+7.3.1 - Aug 05, 2022
+
+* Improve - Plugin security
+* Add - New option to control visibility on user email in All Authors page
+* Remove - User role from All Authors page
+* Fix - Instant search issue with Business Hours extension
+* Fix - Default directory type detection while importing listings
+* Fix - RTL style issues
+
+7.3.0 - Jul 19, 2022
+
+* New - Twenty Twenty-Two theme support
+* New - Templating support for widgets
+* Improve - Assets optimized to increase the webpage loading speed
+* Improve - Some styles updated
+* Fix - Admin announcement mail sending bug fixed
+* Fix - Registration redirection now works properly for new user
+* Fix - In listing archive, empty list items for custom fields without values have been removed 
+* Fix - String concatenation bug fixed for some fields in listing form
+* Fix - In search form, custom field for a specific category was taking extra space even though that category wasn’t selected
+* Fix - Radius search and geolocation now works properly in search form
+* Fix - When importing CSV, directory type was missing if multi-directory was enabled
+* Fix - Listing form submission data saving now works properly
+* Fix - In search form, category field was showing all categories regardless of selected directory type
+* Fix - Checkout redirection now works properly
+* Fix - Added missing html tag in password reset form
+* Fix - Fixed duplicate dom in search form after changing directory type
+* Fix - Review code updated to fix the compatibility with buddyboss
+* Fix - Fixed price Range data saving issue when pricing type is selected to price range
+* Fix - Fixed overall php warnings and console errors
+* Fix - Fixed elementor deprecated notice
+* Fix - Fixed few security issues
+
+7.2.3 – Jul 05, 2022
+
+* Improve – Plugin security
 
 7.2.2 – May 25, 2022
 

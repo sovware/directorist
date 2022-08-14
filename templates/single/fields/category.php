@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 6.7
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -16,6 +16,6 @@ if ( empty( $listing->get_cat_list() ) ) {
 
 	<?php directorist_icon( 'las la-tags' ); ?>
 
-	<span><?php echo $listing->get_cat_list(); ?></span>
+	<span><?php echo wp_kses_post( $listing->get_cat_list() ); ?></span>
 
 </div>

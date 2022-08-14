@@ -81,7 +81,11 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 24);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+>>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -329,6 +333,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function () {
+<<<<<<< HEAD
   // DOM Mutation observer
   function initObserver(params) {
     var targetNode = document.querySelector('.directorist-archive-contents');
@@ -342,6 +347,8 @@ __webpack_require__.r(__webpack_exports__);
   }
 
   window.addEventListener('DOMContentLoaded', initObserver);
+=======
+>>>>>>> alpha
   window.addEventListener('DOMContentLoaded', initMap);
   window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
@@ -824,7 +831,11 @@ window.addEventListener('DOMContentLoaded', function () {
   ;
 
   (function ($) {
+<<<<<<< HEAD
     if ($('.directorist-details-info-wrap .directorist-single-map').length) {
+=======
+    if ($('.directorist-single-map').length) {
+>>>>>>> alpha
       document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
         var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
 
@@ -1220,7 +1231,11 @@ module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, 
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 24:
+=======
+/***/ 25:
+>>>>>>> alpha
 /*!************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/map-view.js ***!
   \************************************************************/

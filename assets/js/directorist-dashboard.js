@@ -81,7 +81,11 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 6);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+>>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -245,7 +249,12 @@ __webpack_require__.r(__webpack_exports__);
       var post_id = $(this).closest('.directorist-announcement').data('post-id');
       var form_data = {
         action: 'atbdp_close_announcement',
+<<<<<<< HEAD
         post_id: post_id
+=======
+        post_id: post_id,
+        nonce: directorist.directorist_nonce
+>>>>>>> alpha
       };
       var button_default_html = $(self).html();
       closing_announcement = true;
@@ -357,6 +366,10 @@ __webpack_require__.r(__webpack_exports__);
         dataType: 'json',
         data: {
           'action': 'directorist_dashboard_listing_tab',
+<<<<<<< HEAD
+=======
+          '_ajax_nonce': directorist.directorist_nonce,
+>>>>>>> alpha
           'tab': tab,
           'paged': paged,
           'search': search,
@@ -740,10 +753,20 @@ __webpack_require__.r(__webpack_exports__);
     $('#atbdp-favourites').on('click', function (e) {
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
+<<<<<<< HEAD
         'post_id': $("a.atbdp-favourites").data('post_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         $('#atbdp-favourites').html(response);
+=======
+        'directorist_nonce': directorist.directorist_nonce,
+        'post_id': $("a.atbdp-favourites").data('post_id')
+      };
+      $.post(directorist.ajaxurl, data, function (response) {
+        if (response) {
+          $('#atbdp-favourites').html(response);
+        }
+>>>>>>> alpha
       });
     });
     $('.directorist-favourite-remove-btn').each(function () {
@@ -751,6 +774,10 @@ __webpack_require__.r(__webpack_exports__);
         event.preventDefault();
         var data = {
           'action': 'atbdp-favourites-all-listing',
+<<<<<<< HEAD
+=======
+          'directorist_nonce': directorist.directorist_nonce,
+>>>>>>> alpha
           'post_id': $(this).data('listing_id')
         };
         $(".directorist-favorite-tooltip").hide();
@@ -768,6 +795,10 @@ __webpack_require__.r(__webpack_exports__);
       event.preventDefault();
       var data = {
         'action': 'atbdp-favourites-all-listing',
+<<<<<<< HEAD
+=======
+        'directorist_nonce': directorist.directorist_nonce,
+>>>>>>> alpha
         'post_id': $(this).data('listing_id')
       };
       var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
@@ -1201,7 +1232,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 6:
+=======
+/***/ 7:
+>>>>>>> alpha
 /*!*********************************************************!*\
   !*** multi ./assets/src/js/public/modules/dashboard.js ***!
   \*********************************************************/

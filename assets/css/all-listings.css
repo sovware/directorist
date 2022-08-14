@@ -229,6 +229,7 @@
   display: none;
 }
 
+<<<<<<< HEAD
 .directorist-icon-mask span {
   background: #111111;
   width: 18px;
@@ -240,6 +241,8 @@
           mask-position: center;
 }
 
+=======
+>>>>>>> alpha
 .directorist-error .directorist-error__msg {
   color: #EF0000;
   font-size: 14px;
@@ -5926,6 +5929,11 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   -webkit-box-shadow: none;
           box-shadow: none;
   width: 100%;
+<<<<<<< HEAD
+=======
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+>>>>>>> alpha
 }
 .widget.atbd_widget[id^=bd] .atbdp-widget-listing-contact form textarea.form-control,
 .widget.atbd_widget[id^=dcl] .atbdp-widget-listing-contact form textarea.form-control,
@@ -6203,6 +6211,18 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+<<<<<<< HEAD
+=======
+.widget .default-ad-search .directorist-search-tags {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: 0 -8px;
+}
+.widget .default-ad-search .directorist-search-tags .directorist-checkbox {
+  margin: 4px 8px;
+}
+>>>>>>> alpha
 
 .directorist-sidebar .atbd_widget .default-ad-search .custom-control input[type=radio],
 .directorist-sidebar .atbd_widget .default-ad-search .custom-control input[type=checkbox] {
@@ -6733,7 +6753,10 @@ p.atbd-min {
   background: #444752;
   position: absolute;
   top: 0;
+<<<<<<< HEAD
   /*rtl:ignore*/
+=======
+>>>>>>> alpha
   left: 0;
 }
 
@@ -8328,6 +8351,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -ms-overflow-style: none;
   scrollbar-width: thin;
 }
+<<<<<<< HEAD
+=======
+@media only screen and (max-width: 767px) {
+  .directorist-content-active .directorist-type-nav__list {
+    -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+  }
+}
+>>>>>>> alpha
 .directorist-content-active .directorist-type-nav__list::-webkit-scrollbar {
   display: none;
 }
@@ -9714,7 +9747,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-content-active .directorist-authors__card h2 {
   font-size: 20px;
   font-weight: 500;
+<<<<<<< HEAD
   margin: 0 0 5px 0 !important;
+=======
+  margin: 0 0 16px 0 !important;
+>>>>>>> alpha
   line-height: normal;
 }
 .directorist-content-active .directorist-authors__card h2:before {
@@ -10115,6 +10152,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-listing-single.directorist-listing-card .directorist-listing-single__thumb .directorist-thumb-listing-author img {
   width: 100%;
   border-radius: 50%;
+<<<<<<< HEAD
+=======
+  height: auto;
+>>>>>>> alpha
 }
 
 .directorist-listing-single.directorist-listing-list {
@@ -10797,6 +10838,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 #map.leaflet-container,
 .directorist-single-map.leaflet-container,
 #gmap.leaflet-container {
+<<<<<<< HEAD
+=======
+  /*rtl:ignore*/
+  direction: ltr;
+>>>>>>> alpha
   margin-bottom: 30px;
 }
 #map.leaflet-container .leaflet-popup,
@@ -14513,8 +14559,26 @@ Review: New Style
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+<<<<<<< HEAD
   list-style-type: none;
 }
+=======
+  padding: 0;
+  list-style-type: none;
+}
+@media only screen and (max-width: 767px) {
+  .directorist-listing-type-selection {
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+}
+>>>>>>> alpha
 .directorist-listing-type-selection .directorist-listing-type-selection__item {
   margin-bottom: 25px;
   list-style: none;
@@ -14523,6 +14587,7 @@ Review: New Style
   margin-right: 25px;
 }
 .directorist-listing-type-selection .directorist-listing-type-selection__item a {
+<<<<<<< HEAD
   text-decoration: none;
   font-size: 15px;
   padding: 6px 0;
@@ -14530,6 +14595,16 @@ Review: New Style
   display: block;
   color: #8f8e9f;
   position: relative;
+=======
+  position: relative;
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 6px 0;
+  color: #8f8e9f;
+>>>>>>> alpha
 }
 .directorist-listing-type-selection .directorist-listing-type-selection__item a:focus {
   background-color: transparent;

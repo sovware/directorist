@@ -172,8 +172,8 @@ class Asset_Loader {
 
 			case 'search-form/custom-fields/color_picker':
 			case 'listing-form/custom-fields/color_picker':
-				wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ) );
-				wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ) );
+				wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), Helper::get_script_version() );
+				wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ), Helper::get_script_version() );
 				break;
 
 			case 'listing-form/fields/address':
@@ -244,9 +244,11 @@ class Asset_Loader {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-tooltip' );
-		} elseif ( Helper::is_admin_page( 'plugins' ) ) {
+		} elseif ( Helper::is_admin_page( 'wp-plugins' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-plugins' );
+		} elseif ( Helper::is_admin_page( 'wp-users' ) ) {
+			wp_enqueue_script( 'directorist-admin-script' );
 		} elseif ( Helper::is_admin_page( 'taxonomy' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );
@@ -267,8 +269,8 @@ class Asset_Loader {
 			wp_enqueue_script( 'directorist-add-listing' );
 			wp_enqueue_media();
 
-			wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ) );
-			wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ) );
+			wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), Helper::get_script_version() );
+			wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ), Helper::get_script_version() );
 
 			self::enqueue_map_styles();
 		}

@@ -17,7 +17,7 @@ class Comment_Meta {
 
 	const FIELD_REPORT = 'reported';
 
-	static $valid_fields = [
+	public static $valid_fields = [
 		self::FIELD_RATING,
 		self::FIELD_REPORT,
 	];

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.0
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
         ?>
         <div class="atbd_review_avatar"><?php if (empty($u_pro_pic)) {
-                echo $avatar_img;
+                echo wp_kses_post( $avatar_img );
             }
             if (!empty($u_pro_pic)) { ?><img
                 src="<?php echo esc_url($u_pro_pic[0]); ?>"
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <div class="atbd_name_time">
             <h4><?php echo esc_html($author_name); ?></h4>
             <span class="review_time"><?php
-                printf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
+                printf( esc_html__('Member since %s ago', 'directorist'), esc_html( human_time_diff(strtotime($user_registered), current_time('timestamp'))) ); ?></span>
         </div>
     </div>
 
@@ -95,25 +95,33 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
         </ul>
     </div>
-    <?php if (!empty($facebook || $twitter || $linkedIn || $youtube )) { ?>
+
+    <?php if (!empty($facebook || $twitter || $linkedIn || $youtube )): ?>
+
         <div class="atbd_social_wrap">
-            <?php
-            if ($facebook) {
-                printf('<p><a target="_blank" href="%s">%s</a></p>', $facebook, directorist_icon( 'lab la-facebook', false ));
-            }
-            if ($twitter) {
-                printf('<p><a target="_blank" href="%s">%s</a></p>', $twitter, directorist_icon( 'lab la-twitter', false ));
-            }
-            if ($linkedIn) {
-                printf('<p><a target="_blank" href="%s">%s</a></p>', $linkedIn, directorist_icon( 'lab la-linkedin', false ));
-            }
-            if ($youtube) {
-                printf('<p><a target="_blank" href="%s">%s</a></p>', $youtube, directorist_icon( 'lab la-youtube', false ));
-            }
-            ?>
+
+			<?php if ( $facebook ): ?>
+				<p><a target="_blank" href="<?php echo esc_url( $facebook ); ?>"><?php directorist_icon( 'lab la-facebook' ); ?></a></p>
+			<?php endif; ?>
+
+			<?php if ( $twitter ): ?>
+				<p><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a></p>
+			<?php endif; ?>
+
+			<?php if ( $linkedIn ): ?>
+				<p><a target="_blank" href="<?php echo esc_url( $linkedIn ); ?>"><?php directorist_icon( 'lab la-linkedin' ); ?></a></p>
+			<?php endif; ?>
+
+			<?php if ( $youtube ): ?>
+				<p><a target="_blank" href="<?php echo esc_url( $youtube ); ?>"><?php directorist_icon( 'lab la-youtube' ); ?></a></p>
+			<?php endif; ?>
+
         </div>
-    <?php } ?>
-    <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-        class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', 'directorist'); ?>
+
+	<?php endif; ?>
+
+    <a href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link($author_id) ); ?>"
+        class="<?php echo esc_attr( atbdp_directorist_button_classes() ); ?>"><?php esc_html_e('View Profile', 'directorist'); ?>
     </a>
+
 </div>

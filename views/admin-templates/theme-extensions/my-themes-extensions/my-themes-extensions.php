@@ -31,13 +31,13 @@
                 <div class="atbdp-action-group">
                     <div class="atbdp-btn-wrapper purchase-refresh-btn-wrapper">
                         <a href="#" class="ext-action-btn purchase-refresh-btn atbdp-show">
-                            <i class="la la-refresh"></i> <?php _e('Refresh Purchase', 'directorist') ?>
+                            <i class="la la-refresh"></i> <?php esc_html_e('Refresh Purchase', 'directorist') ?>
                         </a>
                     </div>
 
                     <div class="atbdp-btn-wrapper">
-                        <a href="#" class="ext-action-btn subscriptions-logout-btn" data-hard-logout="<?php echo $args['hard_logout']; ?>">
-                            <i class="fas fa-sign-out-alt"></i> <?php _e('Logout', 'directorist') ?>
+                        <a href="#" class="ext-action-btn subscriptions-logout-btn" data-hard-logout="<?php echo esc_attr( $args['hard_logout'] ); ?>">
+                            <i class="fas fa-sign-out-alt"></i> <?php esc_html_e('Logout', 'directorist') ?>
                         </a>
                     </div>
                 </div>

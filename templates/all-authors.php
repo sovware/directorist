@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0.5
- * @version 7.0.5
+ * @version 7.4.0
  */
 
 use \Directorist\Helper;
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-authors__nav">
 					<ul>
 						<li>
-							<a href="#" class="directorist-alphabet ALL" data-nonce="<?php echo esc_attr( wp_create_nonce( 'directorist_author_sorting' ) ); ?>" data-alphabet="ALL"><?php _e( 'All', 'directorist' ); ?></a>
+							<a href="#" class="directorist-alphabet ALL" data-nonce="<?php echo esc_attr( wp_create_nonce( 'directorist_author_sorting' ) ); ?>" data-alphabet="ALL"><?php esc_html_e( 'All', 'directorist' ); ?></a>
 						</li>
 						<?php foreach( range( 'A', 'Z' ) as $value ): ?>
 
@@ -63,29 +63,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 											<?php if( $authors->display_name() ): ?>
 												<h2><?php echo esc_html( Helper::user_info( $author, 'name' ) ) ; ?></h2>
 											<?php endif; ?>
-
-											<?php if( $authors->display_role() ): ?>
-												<h3><?php echo esc_html( ucfirst( Helper::user_info( $author, 'role' ) ) ) ; ?></h3>
-											<?php endif; ?>
 										</div>
 
-										<?php if( $authors->display_contact_info() ): ?>
+										<?php if( $authors->contact_info() ) : ?>
 
 											<ul class="directorist-authors__card__info-list">
 
-												<?php if( $phone = Helper::user_info( $author, 'phone' ) ): ?>
+												<?php if( in_array( 'phone', $authors->contact_info() ) && $phone = Helper::user_info( $author, 'phone' ) ): ?>
 													<li><?php directorist_icon( 'las la-phone' ); ?> <a href="tel:<?php Helper::formatted_tel( $phone ); ?>"><?php echo esc_html( $phone ); ?></a></li>
 												<?php endif; ?>
 
-												<?php if( $email = Helper::user_info( $author, 'email' ) ): ?>
+												<?php if( is_user_logged_in() && in_array( 'email', $authors->contact_info() ) && $email = Helper::user_info( $author, 'email' ) ) : ?>
 													<li><?php directorist_icon( 'las la-envelope' ); ?> <a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></li>
 												<?php endif; ?>
 
-												<?php if( $address = Helper::user_info( $author, 'address' ) ): ?>
+												<?php if( in_array( 'address', $authors->contact_info() ) && $address = Helper::user_info( $author, 'address' ) ): ?>
 													<li><?php directorist_icon( 'las la-map-marker' ); ?> <?php echo esc_html( $address ); ?></li>
 												<?php endif; ?>
 
-												<?php if( $website = Helper::user_info( $author, 'website' ) ): ?>
+												<?php if( in_array( 'website', $authors->contact_info() ) && $website = Helper::user_info( $author, 'website' ) ): ?>
 													<li><?php directorist_icon( 'las la-globe' ); ?> <a href="<?php echo esc_url( $website ); ?>"><?php echo esc_html( $website ); ?></a></li>
 												<?php endif; ?>
 
@@ -130,7 +126,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 										<?php endif; ?>
 
 										<?php if( $authors->display_btn() ): ?>
-											<a href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author->data->ID );?>" class="directorist-btn directorist-btn-light directorist-btn-block"><?php echo $authors->btn_text(); ?></a>
+											<a href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link( $author->data->ID ) );?>" class="directorist-btn directorist-btn-light directorist-btn-block"><?php echo esc_html( $authors->btn_text() ); ?></a>
 										<?php endif; ?>
 
 									</div>
@@ -153,7 +149,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<?php if( $authors->display_pagination() ): ?>
 
 					<div class="directorist-pagination directorist-authors__pagination directorist-authors-pagination">
-						<?php echo $authors->author_pagination(); ?>
+						<?php echo wp_kses_post( $authors->author_pagination() ); ?>
 					</div>
 
 				<?php endif; ?>

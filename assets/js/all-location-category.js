@@ -81,7 +81,11 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 5);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+>>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -136,7 +140,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 5:
+=======
+/***/ 6:
+>>>>>>> alpha
 /*!*********************************************************************!*\
   !*** multi ./assets/src/js/public/modules/all-location-category.js ***!
   \*********************************************************************/

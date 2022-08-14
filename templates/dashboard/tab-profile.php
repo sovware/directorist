@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.6
+ * @version 7.4.0
  */
 
 use \Directorist\Helper;
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 						<div class="directorist-user-info-wrap">
 
-							<input type="hidden" name="ID" value="<?php echo get_current_user_id(); ?>">
+							<input type="hidden" name="ID" value="<?php echo esc_attr( get_current_user_id() ); ?>">
 
 							<div class="directorist-user-full-name">
 

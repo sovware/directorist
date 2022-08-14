@@ -81,7 +81,11 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 23);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+>>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -422,7 +426,11 @@ __webpack_require__.r(__webpack_exports__);
 (function ($) {
   jQuery(document).ready(function () {
     // Localized Data
+<<<<<<< HEAD
     if ($('.directorist-details-info-wrap .directorist-single-map').length) {
+=======
+    if ($('.directorist-single-map').length) {
+>>>>>>> alpha
       document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
         var mapData = JSON.parse(mapElm.getAttribute('data-map'));
         var loc_default_latitude = parseFloat(mapData.default_latitude);
@@ -700,7 +708,11 @@ module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, 
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 23:
+=======
+/***/ 24:
+>>>>>>> alpha
 /*!******************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/openstreet-map.js ***!
   \******************************************************************/

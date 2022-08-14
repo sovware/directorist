@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.0
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
           } elseif (!empty($listing_img[0]) && empty($listing_prv_img)) {
             echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image">';
           } else {
-            echo '<img src="' . $default_image . '" alt="listing image">';
+            echo '<img src="' . esc_url( $default_image ) . '" alt="listing image">';
           }
           if (empty($disable_single_listing)) {
             echo '</a>';
@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
             <?php } else {
               $output = atbdp_display_price_range($price_range);
-              echo $output;
+              echo wp_kses_post( $output );
             } ?>
           </div>
 
@@ -73,13 +73,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             <p class="directory_tag">
 				<?php directorist_icon( 'las la-tags' ); ?>
               <span>
-                <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
+                <a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_category_page($cats[0]) ); ?>">
                   <?php echo esc_html($cats[0]->name); ?>
                 </a>
                 <?php
                 if ($totalTerm > 1) {
                 ?>
-                  <span class="atbd_cat_popup"> +<?php echo $totalTerm - 1; ?>
+                  <span class="atbd_cat_popup"> +<?php echo esc_html( $totalTerm - 1 ); ?>
                     <span class="atbd_cat_popup_wrapper">
                       <?php
                       $output = array();

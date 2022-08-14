@@ -45,6 +45,19 @@ class Bootstrap {
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
 		add_filter( 'atbdp_login_redirection_page_url', array( __CLASS__, 'setup_login_redirect' ) );
+		add_filter( 'safe_style_css', array( __CLASS__, 'add_safe_style_css' ) );
+	}
+
+	/**
+	 * Allows Custom CSS Properties
+	 *
+	 * @param array $styles Allowed Style List
+	 *
+	 * @return array $styles
+	 */
+	public static function add_safe_style_css( $styles ) {
+		$styles[] = 'display';
+		return $styles;
 	}
 
 	/**
@@ -58,7 +71,7 @@ class Bootstrap {
 		if ( ! empty( $_GET['redirect'] ) ) {
 			$scope = null;
 
-			if ( ! empty( $_GET['scope'] ) && $_GET['scope'] === 'review' ) {
+			if ( ! empty( $_GET['scope'] ) && sanitize_text_field( wp_unslash( $_GET['scope'] ) ) === 'review' ) {
 				$scope = '#respond';
 			}
 
@@ -72,7 +85,7 @@ class Bootstrap {
 		if ( $code === 'require_valid_comment' ) {
 			remove_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ) );
 
-			if ( ! empty( $_POST['comment_parent'] ) ) {
+			if ( ! empty( $_POST['comment_parent'] ) ) { // @codingStandardsIgnoreLine.
 				$text = __( 'To submit your reply, please add your comment.', 'directorist' );
 			} else {
 				$text = __( 'To submit your review, please describe your rating.', 'directorist' );

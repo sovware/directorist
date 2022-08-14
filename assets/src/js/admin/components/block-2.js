@@ -37,6 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const data = {
             action: 'atbdp_custom_fields_listings',
+            directorist_nonce: directorist_admin.directorist_nonce,
             post_id: $('#post_ID').val(),
             term_id: id,
             directory_type: directory_type ? directory_type : from_single_directory,

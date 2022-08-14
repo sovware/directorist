@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5.2
+ * @version 7.4.0
  */
 
 use \Directorist\Helper;
@@ -35,13 +35,13 @@ $avatar_img = get_avatar($author_id, 32);
 					<?php if ( $author_img ): ?>
 						<img src="<?php echo esc_url( $author_img ); ?>" alt="<?php esc_attr_e( 'Avatar', 'directorist' );?>">
 					<?php else: ?>
-						<?php echo $avatar_img; ?>
+						<?php echo wp_kses_post( $avatar_img ); ?>
 					<?php endif; ?>
 				</div>
 
 				<div class="directorist-single-author-name">
 					<h4><?php echo esc_html( $listing->author_info( 'name' ) ); ?></h4>
-					<span class="directorist-single-author-membership"><?php printf( esc_html__( 'Member since %s ago', 'directorist' ), $listing->author_info( 'member_since' ) ); ?></span>
+					<span class="directorist-single-author-membership"><?php printf( esc_html__( 'Member since %s ago', 'directorist' ), esc_html( $listing->author_info( 'member_since' ) ) ); ?></span>
 				</div>
 
 			</div>
@@ -86,25 +86,28 @@ $avatar_img = get_avatar($author_id, 32);
 			<?php if ( $listing->author_has_socials() ): ?>
 
 				<ul class="directorist-author-social">
-					<?php
-					if ( $facebook = $listing->author_info( 'facebook' ) ) {
-						printf( '<li class="directorist-author-social-item"><a target="_blank" href="%s">%s</a></li>', $facebook, directorist_icon( 'lab la-facebook', false ) );
-					}
-					if ( $twitter = $listing->author_info( 'twitter' ) ) {
-						printf( '<li class="directorist-author-social-item"><a target="_blank" href="%s">%s</a></li>', $twitter, directorist_icon( 'lab la-twitter', false ) );
-					}
-					if ( $linkedin = $listing->author_info( 'linkedin' ) ) {
-						printf( '<li class="directorist-author-social-item"><a target="_blank" href="%s">%s</a></li>', $linkedin, directorist_icon( 'lab la-linkedin', false ) );
-					}
-					if ( $youtube = $listing->author_info( 'youtube' ) ) {
-						printf( '<li class="directorist-author-social-item"><a target="_blank" href="%s">%s</a></li>', $youtube, directorist_icon( 'lab la-youtube', false ) );
-					}
-					?>
+
+					<?php if ( $facebook = $listing->author_info( 'facebook' ) ): ?>
+						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $facebook ); ?>"><?php directorist_icon( 'lab la-facebook' ); ?></a></li>
+					<?php endif; ?>
+
+					<?php if ( $twitter = $listing->author_info( 'twitter' ) ): ?>
+						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a></li>
+					<?php endif; ?>
+
+					<?php if ( $linkedin = $listing->author_info( 'linkedin' ) ): ?>
+						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $linkedin ); ?>"><?php directorist_icon( 'lab la-linkedin' ); ?></a></li>
+					<?php endif; ?>
+
+					<?php if ( $youtube = $listing->author_info( 'youtube' ) ): ?>
+						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $youtube ); ?>"><?php directorist_icon( 'lab la-youtube' ); ?></a></li>
+					<?php endif; ?>
+
 				</ul>
 
 			<?php endif; ?>
 
-			<a class="directorist-btn directorist-btn-primary directorist-btn-sm diretorist-view-profile-btn" href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author_id ); ?>"><?php esc_html_e( 'View Profile', 'directorist' ); ?></a>
+			<a class="directorist-btn directorist-btn-primary directorist-btn-sm diretorist-view-profile-btn" href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link( $author_id ) ); ?>"><?php esc_html_e( 'View Profile', 'directorist' ); ?></a>
 
 		</div>
 	</div>

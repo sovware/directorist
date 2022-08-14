@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -16,7 +16,7 @@ $alignment =  !empty( $data['align'] ) ? $data['align'] : '' ;
 			<?php
 		}
 		else {
-			echo $listings->loop['avatar_img'];
+			echo wp_kses_post( $listings->loop['avatar_img'] );
 		}
 		?>
 	</a>

@@ -81,7 +81,11 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 12);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+>>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -109,7 +113,11 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 12:
+=======
+/***/ 13:
+>>>>>>> alpha
 /*!*******************************************************!*\
   !*** multi ./assets/src/js/public/modules/widgets.js ***!
   \*******************************************************/

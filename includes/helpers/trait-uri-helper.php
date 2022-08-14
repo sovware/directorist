@@ -32,8 +32,7 @@ trait URI_Helper {
 		$template  = locate_template( $templates );
 
 		if ( ! $template ) {
-			$template = self::template_directory() . "{$template_name}.php";
-
+			$template = self::template_directory() . "{$template_name}.php";;
 		}
 
 		return apply_filters( 'directorist_template_file_path', $template, $template_name, $args );
@@ -70,6 +69,8 @@ trait URI_Helper {
 
 		$template = apply_filters( 'directorist_template', $template, $args );
 		$file     = self::template_path( $template, $args );
+
+		do_action( 'before_directorist_template_loaded', $template, $file, $args );
 
 		do_action( 'before_directorist_template_loaded', $template, $file, $args );
 

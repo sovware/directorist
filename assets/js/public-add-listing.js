@@ -81,7 +81,11 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 8);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+>>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -101,7 +105,11 @@ import '../components/colorPicker'; */
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 8:
+=======
+/***/ 9:
+>>>>>>> alpha
 /*!***********************************************************!*\
   !*** multi ./assets/src/js/public/modules/add-listing.js ***!
   \***********************************************************/

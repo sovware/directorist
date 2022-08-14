@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<div class="directorist-author-avatar">
 
-				<?php echo $author->avatar_html(); ?>
+				<?php echo wp_kses_post( $author->avatar_html() ); ?>
 
 				<div class="directorist-author-avatar__info">
 					<h2 class="directorist-author-name"><?php echo esc_html( $author->display_name() ); ?></h2>
@@ -37,13 +37,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</li>
 
 					<li class="directorist-author-meta-list__item directorist-info-meta">
-						<span class="directorist-review-count"><?php echo $author->review_count_html(); ?></span>
+						<span class="directorist-review-count"><?php echo wp_kses_post( $author->review_count_html() ); ?></span>
 					</li>
 
 				<?php endif; ?>
 
 				<li class="directorist-author-meta-list__item directorist-info-meta">
-					<span class="directorist-listing-count"><?php echo $author->listing_count_html(); ?></span>
+					<span class="directorist-listing-count"><?php echo wp_kses_post( $author->listing_count_html() ); ?></span>
 				</li>
 
 			</ul>

@@ -195,11 +195,7 @@ abstract class WP_Background_Process extends WP_Async_Request {
 
 		$key = $wpdb->esc_like( $this->identifier . '_batch_' ) . '%';
 
-		$count = $wpdb->get_var( $wpdb->prepare( "
-			SELECT COUNT(*)
-			FROM {$table}
-			WHERE {$column} LIKE %s
-		", $key ) );
+		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %s WHERE %s LIKE %s", $table, $column, $key ) );
 
 		return ( $count > 0 ) ? false : true;
 	}
@@ -272,11 +268,12 @@ abstract class WP_Background_Process extends WP_Async_Request {
 
 		$query = $wpdb->get_row( $wpdb->prepare( "
 			SELECT *
-			FROM {$table}
-			WHERE {$column} LIKE %s
-			ORDER BY {$key_column} ASC
+			FROM %s
+			WHERE %s LIKE %s
+			ORDER BY %s ASC
 			LIMIT 1
-		", $key ) );
+		", $table, $column, $key, $key_column
+		) );
 
 		$batch       = new stdClass();
 		$batch->key  = $query->$column;

@@ -1,5 +1,8 @@
 <?php
 // Prohibit direct script loading.
+
+use Directorist\Helper;
+
 defined('ABSPATH') || die('No direct script access allowed!');
 
 if ( ! function_exists( 'directorist_get_listings_directory_type' ) ) {
@@ -51,7 +54,7 @@ if ( ! function_exists( 'directorist_console_log' ) ) {
     function directorist_console_log( array $data = [] ) {
         $data = json_encode( $data ); ?>
         <script>
-            var data = JSON.parse( '<?php echo $data ?>' );
+            var data = JSON.parse( '<?php echo esc_js( $data ); ?>' );
             console.log( data );
         </script>
         <?php
@@ -105,14 +108,14 @@ if ( ! function_exists( 'atbdp_get_flush_messages' ) ) {
 
         echo '<div class="atbdp-flush-message-container">';
         foreach ( $flush_messages as $message_key => $messages ) { ?>
-            <div class="atbdp-flush-message-item type-<?php echo $messages['type'] ?>">
-                <?php echo $messages['message'] ?>
+            <div class="atbdp-flush-message-item type-<?php echo esc_attr( $messages['type'] ); ?>">
+                <?php echo esc_html( $messages['message'] ); ?>
             </div>
         <?php }
         echo '</div>';
 
         $contents = apply_filters( 'atbdp_flush_message_content', ob_get_clean(), $flush_messages );
-        echo $contents;
+        echo directorist_kses( $contents );
     }
 }
 
@@ -215,8 +218,8 @@ function atbdp_render_the_flush_alert( array $alert = [] ) {
     $classes .= ( ! empty( $alert['type'] ) ) ? ' notice-' .  $alert['type'] : '';
     $classes .= ( empty( $alert['dismissible'] ) ) ? '' : ' is-dismissible';
     ?>
-    <div class="<?php echo $classes; ?>">
-        <p><strong><?php echo $alert['message'] ?></strong></p>
+    <div class="<?php echo esc_attr( $classes ); ?>">
+        <p><strong><?php echo directorist_kses( $alert['message'] ); ?></strong></p>
     </div>
     <?php
 }
@@ -5674,7 +5677,7 @@ if (!function_exists('atbdp_icon_type')) {
 		_deprecated_function( 'atbdp_icon_type', '7.3.1', 'directorist_icon' );
         $font_type = '';
         if ($echo) {
-            echo $font_type;
+            echo esc_html( $font_type );
         } else {
             return $font_type;
         }
@@ -5715,7 +5718,7 @@ function directorist_icon( $icon, $echo = true ) {
 	$html = apply_filters( 'directorist_icon', $html );
 
     if ($echo) {
-        echo $html;
+        echo wp_kses_post( $html );
     }
     else {
         return $html;
@@ -5733,7 +5736,7 @@ if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
 
         if ( ! $args['echo'] ) { return $icon; }
 
-        echo $icon;
+        echo wp_kses_post( $icon );
     }
 }
 
@@ -5741,22 +5744,13 @@ if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
 if (!function_exists('atbdp_sanitize_array')) {
     /**
      * It sanitize a multi-dimensional array
+	 *
+	 * @deprecated 7.3.1
      * @param array &$array The array of the data to sanitize
      * @return mixed
      */
-    function atbdp_sanitize_array(&$array)
-    {
-
-        foreach ($array as &$value) {
-            if (!is_array($value)) {
-                // sanitize if value is not an array
-                $value = sanitize_text_field($value);
-            } else {
-                // go inside this function again
-                atbdp_sanitize_array($value);
-            }
-        }
-        return $array;
+    function atbdp_sanitize_array( $array ) {
+		return directorist_clean( $array );
     }
 }
 
@@ -5833,7 +5827,7 @@ if (!function_exists('atbdp_get_paged_num')) {
         } else if (get_query_var('page')) {
             $paged = get_query_var('page');
         } else {
-            $paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1;
+            $paged = isset( $_REQUEST['paged'] ) ? directorist_clean( wp_unslash(  $_REQUEST['paged'] ) ) : 1;
         }
 
         return absint($paged);
@@ -5850,7 +5844,7 @@ if (!function_exists('valid_js_nonce')) {
      */
     function valid_js_nonce()
     {
-        if (!empty($_POST['atbdp_nonce_js']) && (wp_verify_nonce($_POST['atbdp_nonce_js'], 'atbdp_nonce_action_js')))
+        if (!empty($_POST['atbdp_nonce_js']) && (wp_verify_nonce($_POST['atbdp_nonce_js'], 'atbdp_nonce_action_js'))) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
             return true;
         return false;
     }
@@ -5890,7 +5884,7 @@ if (!function_exists('atbdp_only_logged_in_user')) {
             $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             ?>
             <section class="directory_wrapper single_area">
-                <div class="<?php echo apply_filters('atbdp_login_message_container_fluid', $container_fluid) ?>">
+                <div class="<?php echo esc_attr( apply_filters('atbdp_login_message_container_fluid', $container_fluid) ); ?>">
                     <div class="row">
                         <div class="col-md-12">
                             <?php ATBDP()->helper->show_login_message($error_message); ?>
@@ -6081,7 +6075,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
     $price = $before . atbdp_format_amount($price, $allow_decimal) . $after;
     $p = sprintf("<span class='directorist-listing-price'>%s</span>", $price);
     if ($echo) {
-        echo $p;
+        echo wp_kses_post( $p );
     } else {
         return $p;
     }
@@ -6460,9 +6454,9 @@ function atbdp_get_listings_current_order($default_order = '')
     $order = $default_order;
 
     if (isset($_REQUEST['sort'])) {
-        $order = sanitize_text_field($_REQUEST['sort']);
+        $order = directorist_clean( wp_unslash( $_REQUEST['sort'] ) );
     } else if (isset($_REQUEST['order'])) {
-        $order = sanitize_text_field($_REQUEST['order']);
+        $order = directorist_clean( wp_unslash( $_REQUEST['order'] ) );
     }
 
     return apply_filters('atbdp_get_listings_current_order', $order);
@@ -6551,7 +6545,7 @@ function atbdp_get_listings_current_view_name($view)
 
 
     if (isset($_REQUEST['view'])) {
-        $view = sanitize_text_field($_REQUEST['view']);
+        $view = directorist_clean( wp_unslash( $_REQUEST['view'] ) );
     }
 
     $allowed_views = array('list', 'grid', 'map');
@@ -6622,7 +6616,7 @@ function atbdp_get_listings_view_options($view_as_items)
     if (empty($display_map) || !in_array('listings_map', $view_as_items)) {
         unset($options[2]);
     }
-    $options[] = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : $listings_settings;
+    $options[] = isset($_GET['view']) ? directorist_clean( wp_unslash( $_GET['view'] ) ) : $listings_settings;
     $options = array_unique($options);
 
     $views = array();
@@ -6978,149 +6972,9 @@ if (!function_exists('atbdp_popular_listings')) {
  * @since    1.5.5
  *
  */
-function bdas_dropdown_terms($args = array(), $echo = true)
-{
-
-    // Vars
-    $args = array_merge(array(
-        'show_option_none' => '-- ' . __('Select a category', 'directorist') . ' --',
-        'option_none_value' => '',
-        'taxonomy' => 'at_biz_dir-category',
-        'name' => 'bdas_category',
-        'class' => 'form-control',
-        'required' => false,
-        'base_term' => 0,
-        'parent' => 0,
-        'orderby' => 'name',
-        'order' => 'ASC',
-        'selected' => 0,
-    ), $args);
-
-    if (!empty($args['selected'])) {
-        $ancestors = get_ancestors($args['selected'], $args['taxonomy']);
-        $ancestors = array_merge(array_reverse($ancestors), array($args['selected']));
-    } else {
-        $ancestors = array();
-    }
-
-    // Build data
-    $html = '';
-
-    if (isset($args['walker'])) {
-
-        $selected = count($ancestors) >= 2 ? (int)$ancestors[1] : 0;
-
-        $html .= '<div class="bdas-terms">';
-        $html .= sprintf('<input type="hidden" name="%s" class="bdas-term-hidden" value="%d" />', $args['name'], $selected);
-
-        $term_args = array(
-            'show_option_none' => $args['show_option_none'],
-            'option_none_value' => $args['option_none_value'],
-            'taxonomy' => $args['taxonomy'],
-            'child_of' => $args['parent'],
-            'orderby' => $args['orderby'],
-            'order' => $args['order'],
-            'selected' => $selected,
-            'hierarchical' => true,
-            'depth' => 2,
-            'show_count' => false,
-            'hide_empty' => false,
-            'walker' => $args['walker'],
-            'echo' => 0
-        );
-
-        unset($args['walker']);
-
-        $select = wp_dropdown_categories($term_args);
-        $required = $args['required'] ? ' required' : '';
-        $replace = sprintf('<select class="%s" data-taxonomy="%s" data-parent="%d"%s>', $args['class'], $args['taxonomy'], $args['parent'], $required);
-
-        $html .= preg_replace('#<select([^>]*)>#', $replace, $select);
-
-        if ($selected > 0) {
-            $args['parent'] = $selected;
-            $html .= bdas_dropdown_terms($args, false);
-        }
-
-        $html .= '</div>';
-
-    } else {
-
-        $has_children = 0;
-        $child_of = 0;
-
-        $term_args = array(
-            'parent' => $args['parent'],
-            'orderby' => 'name',
-            'order' => 'ASC',
-            'hide_empty' => false,
-            'hierarchical' => false,
-        );
-        $terms = get_terms($args['taxonomy'], $term_args);
-
-        if (!empty($terms) && !is_wp_error($terms)) {
-
-            if ($args['parent'] == $args['base_term']) {
-                $required = $args['required'] ? ' required' : '';
-
-                $html .= '<div class="bdas-terms">';
-                $html .= sprintf('<input type="hidden" name="%s" class="bdas-term-hidden" value="%d" />', $args['name'], $args['selected']);
-                $html .= sprintf('<select class="%s" data-taxonomy="%s" data-parent="%d"%s>', $args['class'], $args['taxonomy'], $args['parent'], $required);
-                $html .= sprintf('<option value="%s">%s</option>', $args['option_none_value'], $args['show_option_none']);
-            } else {
-                $category_placeholder = apply_filters('atbdp_search_sub_category_placeholder', __('Select a Sub Category','directorist') );
-                $location_placeholder = apply_filters('atbdp_search_sub_location_placeholder', __('Select a Sub Location','directorist') );
-                $placeholder = ( $args['taxonomy'] == 'at_biz_dir-location') ? $location_placeholder : $category_placeholder;
-                $html .= sprintf('<div class="bdas-child-terms bdas-child-terms-%d">', $args['parent']);
-                $html .= sprintf('<select class="%s" data-taxonomy="%s" data-parent="%d">', $args['class'], $args['taxonomy'], $args['parent']);
-                $html .= sprintf('<option value="%d">%s</option>', $args['parent'], $placeholder);
-            }
-
-            foreach ($terms as $term) {
-                $selected = '';
-                if (in_array($term->term_id, $ancestors)) {
-                    $has_children = 1;
-                    $child_of = $term->term_id;
-                    $selected = ' selected';
-                } else if ($term->term_id == $args['selected']) {
-                    $selected = ' selected';
-                }
-
-                $html .= sprintf('<option value="%s"%s>%s</option>', $term->term_id, $selected, $term->name);
-            }
-
-            $html .= '</select>';
-            if ($has_children) {
-                $args['parent'] = $child_of;
-                $html .= bdas_dropdown_terms($args, false);
-            }
-            $html .= '</div>';
-
-        } else {
-
-            if ($args['parent'] == $args['base_term']) {
-                $required = $args['required'] ? ' required' : '';
-
-                $html .= '<div class="bdas-terms">';
-                $html .= sprintf('<input type="hidden" name="%s" class="bdas-term-hidden" value="%d" />', $args['name'], $args['selected']);
-                $html .= sprintf('<select class="%s" data-taxonomy="%s" data-parent="%d"%s>', $args['class'], $args['taxonomy'], $args['parent'], $required);
-                $html .= sprintf('<option value="%s">%s</option>', $args['option_none_value'], $args['show_option_none']);
-                $html .= '</select>';
-                $html .= '</div>';
-            }
-
-        }
-
-    }
-
-    // Echo or Return
-    if ($echo) {
-        echo $html;
-        return '';
-    } else {
-        return $html;
-    }
-
+function bdas_dropdown_terms($args = array(), $echo = true) {
+	_deprecated_function( __METHOD__, '7.3.1' );
+	return '';
 }
 
 function atbdp_get_custom_field_ids($category = 0, $all = false)
@@ -7245,11 +7099,12 @@ function atbdp_get_current_url()
 {
 
     $current_url = (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") ? "https://" : "http://";
-    $current_url .= $_SERVER["SERVER_NAME"];
-    if ($_SERVER["SERVER_PORT"] != "80" && $_SERVER["SERVER_PORT"] != "443") {
-        $current_url .= ":" . $_SERVER["SERVER_PORT"];
+    $current_url .= ! empty( $_SERVER["SERVER_NAME"] ) ? directorist_clean( wp_unslash( $_SERVER["SERVER_NAME"] ) ) : '';
+    $server_port = ! empty( $_SERVER["SERVER_PORT"] ) ? directorist_clean( wp_unslash( $_SERVER["SERVER_PORT"] ) ) : '';
+    if ($server_port != "80" && $server_port != "443") {
+        $current_url .= ":" . $server_port;
     }
-    $current_url .= $_SERVER["REQUEST_URI"];
+    $current_url .= ! empty( $_SERVER["REQUEST_URI"] ) ? directorist_clean( wp_unslash( $_SERVER["REQUEST_URI"] ) ) : '';
 
     return $current_url;
 
@@ -7429,12 +7284,12 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
         $category_slug = get_query_var('atbdp_category');
         $category = get_term_by('slug', $category_slug, ATBDP_CATEGORY);
         $category_id = !empty($category->term_id) ? $category->term_id : '';
-        $term_id = isset($_GET['in_cat']) ? $_GET['in_cat'] : $category_id;
+        $term_id = isset($_GET['in_cat']) ? directorist_clean( wp_unslash( $_GET['in_cat'] ) ) : $category_id;
     } else {
         $location_slug = get_query_var('atbdp_location');
         $location = get_term_by('slug', $location_slug, ATBDP_LOCATION);
         $location_id = !empty($location->term_id) ? $location->term_id : '';
-        $term_id = isset($_GET['in_loc']) ? $_GET['in_loc'] : $location_id;
+        $term_id = isset($_GET['in_loc']) ? directorist_clean( wp_unslash( $_GET['in_loc'] ) ) : $location_id;
     }
 
     $args =  array(
@@ -7986,7 +7841,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
             break;
     }
 
-    echo $the_html;
+    echo wp_kses_post( $the_html );
 }
 
 function the_thumbnail_card($img_src = '', $_args = array()) {
@@ -7996,7 +7851,7 @@ function the_thumbnail_card($img_src = '', $_args = array()) {
 
 function atbdp_style_example_image ($src) {
     $img = sprintf("<img src='%s'>", $src );
-    echo $img;
+    echo wp_kses_post( $img );
 }
 
 if(!function_exists('csv_get_data')){
@@ -8367,7 +8222,7 @@ function directorist_get_directory_type_nav_url( $type = 'all', $base_url = null
 function directorist_add_query_args_with_no_pagination( $query_args = [], $base_url = null ) {
 
     if ( empty( $base_url ) ) {
-		$base_url = $_SERVER['REQUEST_URI'];
+		$base_url = ! empty( $_SERVER['REQUEST_URI'] ) ? directorist_clean( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 	}
 
     $base_url = remove_query_arg( [ 'page', 'paged' ], $base_url );
@@ -8440,12 +8295,18 @@ function directorist_get_nonce_key() {
  * Check if the given nonce field contains a verified nonce.
  *
  * @since 7.0.6.2
+ * @since 7.3.1 $action param added
+ *
+ * @see directorist_get_nonce_key()
+ *
+ * @param string $nonce_field $_GET or $_POST field name.
+ * @param string $action Nonce action key. Default to directorist_get_nonce_key()
  *
  * @return boolen
  */
-function directorist_verify_nonce( $nonce_field = 'directorist_nonce' ) {
-    $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? $_REQUEST[ $nonce_field ] : '';
-    return wp_verify_nonce( $nonce, directorist_get_nonce_key() );
+function directorist_verify_nonce( $nonce_field = 'directorist_nonce', $action = '' ) {
+    $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? directorist_clean( wp_unslash( $_REQUEST[ $nonce_field ] ) ) : '';
+    return wp_verify_nonce( $nonce, ( $action ? $action : directorist_get_nonce_key() ) );
 }
 
 /**
@@ -8852,4 +8713,179 @@ function directorist_translate_to_listing_field_key( $header_key = '' ) {
  */
 function directorist_get_var( &$var, $default = null ) {
 	return isset( $var ) ? $var : $default;
+}
+
+/**
+ * Maybe JSON
+ *
+ * Converts input to an array if contains valid json string
+ *
+ * If input contains base64 encoded json string, then it
+ * can decode it as well
+ *
+ * @param $input_data
+ * @param $return_first_item
+ *
+ * Returns first item of the array if $return_first_item is set to true
+ * Returns original input if it is not decodable
+ *
+ * @return mixed
+ */
+function directorist_maybe_json( $input_data = '', $return_first_item = false ) {
+    return directorist_clean( Helper::maybe_json( $input_data, $return_first_item ) );
+}
+
+/**
+ * Directorist get allowed attributes
+ *
+ * @return array
+ */
+function directorist_get_allowed_attributes() {
+    $allowed_attributes = array(
+        'style'       => array(),
+        'class'       => array(),
+        'id'          => array(),
+        'name'        => array(),
+        'rel'         => array(),
+        'type'        => array(),
+        'href'        => array(),
+        'value'       => array(),
+        'action'      => array(),
+        'selected'    => array(),
+		'checked'     => array(),
+        'for'         => array(),
+        'placeholder' => array(),
+        'cols'        => array(),
+        'rows'        => array(),
+        'maxlength'   => array(),
+        'required'    => array(),
+
+        'xmlns'   => array(),
+        'width'   => array(),
+        'height'  => array(),
+        'viewBox' => array(),
+        'fill'    => array(),
+        'd'       => array(),
+
+		'data-custom-field' => array(),
+    );
+
+    return apply_filters( 'directorist_get_allowed_attributes', $allowed_attributes );
+}
+
+/**
+ * Directorist get allowed form input tags
+ *
+ * @return array
+ */
+function directorist_get_allowed_form_input_tags() {
+    $allowed_attributes = directorist_get_allowed_attributes();
+
+    return apply_filters( 'directorist_get_allowed_form_input_tags', [
+        'input'    => $allowed_attributes,
+        'select'   => $allowed_attributes,
+        'option'   => $allowed_attributes,
+        'textarea' => $allowed_attributes,
+    ] );
+}
+
+/**
+ * Directorist get allowed svg tags
+ *
+ * @return array
+ */
+function directorist_get_allowed_svg_tags() {
+    $allowed_attributes = directorist_get_allowed_attributes();
+
+    return apply_filters( 'directorist_get_allowed_svg_tags', [
+        'svg'  => $allowed_attributes,
+        'g'    => $allowed_attributes,
+        'path' => $allowed_attributes,
+    ] );
+}
+
+/**
+ * Directorist get allowed HTML tags
+ *
+ * @return array
+ */
+function directorist_get_allowed_html() {
+
+    $allowed_attributes = directorist_get_allowed_attributes();
+
+    $allowed_html = array(
+        'h1'     => $allowed_attributes,
+        'h2'     => $allowed_attributes,
+        'h3'     => $allowed_attributes,
+        'h4'     => $allowed_attributes,
+        'h5'     => $allowed_attributes,
+        'h6'     => $allowed_attributes,
+        'p'      => $allowed_attributes,
+        'a'      => $allowed_attributes,
+		'ul'     => $allowed_attributes,
+		'li'     => $allowed_attributes,
+        'span'   => $allowed_attributes,
+        'form'   => $allowed_attributes,
+        'div'    => $allowed_attributes,
+        'label'  => $allowed_attributes,
+        'button' => $allowed_attributes,
+    );
+
+    $allowed_html = array_merge(
+        $allowed_html,
+        directorist_get_allowed_form_input_tags(),
+        directorist_get_allowed_svg_tags()
+    );
+
+    return apply_filters( 'directorist_get_allowed_html', $allowed_html );
+}
+
+
+/**
+ * Directorist KSES
+ *
+ * Filters text content and strips out disallowed HTML.
+ *
+ * This function makes sure that only the allowed HTML element names, attribute
+ * names, attribute values, and HTML entities will occur in the given text string.
+ *
+ * This function expects unslashed data.
+ *
+ * @param string $content
+ * @param string $allowed_html
+ *
+ * @return string
+ */
+function directorist_kses( $content, $allowed_html = 'all' ) {
+
+    $allowed_html_types = [
+        'all'        => directorist_get_allowed_html(),
+        'form_input' => directorist_get_allowed_form_input_tags(),
+        'svg'        => directorist_get_allowed_svg_tags(),
+    ];
+
+    $allowed_html_type = ( in_array( $allowed_html, $allowed_html_types ) ) ? $allowed_html_types[ $allowed_html ] : $allowed_html_types[ 'all' ];
+
+    return wp_kses( $content, $allowed_html_type );
+}
+
+/*
+ * Safe alternative for $_SERVER['REQUEST_URI'].
+ *
+ * @since 7.3.1
+ * @return string
+ */
+function directorist_get_request_uri() {
+	return empty( $_SERVER['REQUEST_URI'] ) ? home_url( '/' ) : directorist_clean( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+}
+
+/**
+ * It updates the user profile and meta data
+ *
+ * @since 7.3.1
+ * @param array $data the user data to update.
+ * @return bool It returns true on success and false on failure
+ */
+function directorist_update_profile( $user ) {
+	return ATBDP()->user->update_profile( $user );
 }

@@ -81,7 +81,11 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 21);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
+>>>>>>> alpha
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -265,7 +269,11 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 21:
+=======
+/***/ 22:
+>>>>>>> alpha
 /*!************************************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/single-listing/google-map-widget.js ***!
   \************************************************************************************/

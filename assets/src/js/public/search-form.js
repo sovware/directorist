@@ -830,19 +830,42 @@ import { directorist_range_slider } from './range-slider';
         });
 
         /* When location field is empty we need to hide Radius Search */
+
+        let dom = ``
         function handleRadiusVisibility(){
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
             $('.directorist-location-js').each((index,locationDom)=>{
                 if($(locationDom).val() === ''){
-                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "none"});
+                    
+                    dom = $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').clone();
+                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').remove();
+                    
                 }else{
-                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "block"});
-                    directorist_callingSlider();
+                    console.log(dom)
+                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.directorist-advanced-filter').prepend(dom);
+                     directorist_callingSlider();
                 }
             });
         }
+        var test = '';
+
         $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
-            handleRadiusVisibility();
+
+            if(e.currentTarget.value.length >1){
+                return
+             } else{
+                 if(!test) {
+                     handleRadiusVisibility();
+                 }
+             }
+
+            if(e.currentTarget.value === ""){
+                test = ''
+            } else {
+                test = e.currentTarget.value
+            }
+
+            
         });
         // DOM Mutation observer
         function initObserver() {

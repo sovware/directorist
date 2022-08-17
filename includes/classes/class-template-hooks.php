@@ -12,6 +12,11 @@ class Directorist_Template_Hooks {
 	protected static $instance = null;
 
 	private function __construct() {
+
+		add_filter( 'safe_style_css', array( $this, 'safe_style_css' )  );
+		add_filter( 'safecss_filter_attr_allow_css', array( $this, 'safecss_filter_attr_allow_css' ), 10, 2  );
+
+
 		// Dashboard ajax
 		$dashboard = Directorist_Listing_Dashboard::instance();
 		add_action('wp_ajax_directorist_dashboard_listing_tab', array( $dashboard, 'ajax_listing_tab' ) );
@@ -73,6 +78,25 @@ class Directorist_Template_Hooks {
 		}
 
 		return $content;
+	}
+
+	public function safe_style_css( $args ) {
+		$args[] = 'mask-image';
+		$args[] = '-webkit-mask-image';
+		return $args;
+	}
+
+	public function safecss_filter_attr_allow_css( $allow_css, $css_test_string ) {
+		$parts = explode( ':', $css_test_string, 2 );
+		$attr = trim( $parts[0] );
+
+		if ( $attr == 'mask-image' || $attr == '-webkit-mask-image' ) {
+			$pattern = '/^url\(\s*([\'\"]?)(.*)(\g1)\s*\)$/'; // matches the sequence `url(*)`.
+			$is_url = preg_match( $pattern, $parts[1] );
+			return $is_url;
+		}
+
+		return $allow_css;
 	}
 
 	/**

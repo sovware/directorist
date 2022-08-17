@@ -43,10 +43,10 @@ class Background_Updater extends Background_Process {
 		// $logger     = wc_get_logger();
 
 		// if ( is_wp_error( $dispatched ) ) {
-		// 	$logger->error(
-		// 		sprintf( 'Unable to dispatch WooCommerce updater: %s', $dispatched->get_error_message() ),
-		// 		array( 'source' => 'wc_db_updates' )
-		// 	);
+		// $logger->error(
+		// sprintf( 'Unable to dispatch WooCommerce updater: %s', $dispatched->get_error_message() ),
+		// array( 'source' => 'wc_db_updates' )
+		// );
 		// }
 	}
 

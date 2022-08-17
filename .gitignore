@@ -3,6 +3,7 @@ __*/
 /node_modules
 .DS_Store
 /.vscode
+/.cache/*
 /.idea
 todo.txt
 languages/directorist-en_GB-backup-202002180310410.po~

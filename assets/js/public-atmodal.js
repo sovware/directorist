@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,10 +94,10 @@
 /***/ (function(module, exports) {
 
 /*
-    Name:  ATModal
-    Version: 1.0
-    Author: SovWare
-    Author URI: http://sovware.com
+        Name:  ATModal
+        Version: 1.0
+        Author: Sovware
+        Author URI: https://sovware.com/
 */
 
 /* disable-eslint */
@@ -153,7 +153,7 @@ window.addEventListener('load', function () {
 
 /***/ }),
 
-/***/ 11:
+/***/ 12:
 /*!***********************************************!*\
   !*** multi ./assets/src/js/public/atmodal.js ***!
   \***********************************************/

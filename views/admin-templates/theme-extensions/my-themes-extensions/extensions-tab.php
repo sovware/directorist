@@ -36,8 +36,8 @@
                                         <td>
                                             <div class="extension-name">
                                                 <div class="directorist-checkbox directorist-checkbox-success">
-                                                    <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
-                                                    <label class="directorist-checkbox__label" for="<?php echo $extension_base; ?>">
+                                                    <input type="checkbox" id="<?php echo esc_attr( $extension_base ); ?>" name="<?php echo esc_attr( $extension_base ); ?>" class="extension-name-checkbox">
+                                                    <label class="directorist-checkbox__label" for="<?php echo esc_attr( $extension_base ); ?>">
                                                         <?php
 
                                                             $ext_key       = preg_replace( '/\/.+/', '', $extension_base );
@@ -50,10 +50,10 @@
                                                                 $img = $args['extension_list'][$ext_key_alias]['thumbnail'];
                                                             }
                                                         ?>
-                                                        <img src="<?php echo $img; ?>" alt="" width="44" height="44">
+                                                        <img src="<?php echo esc_url( $img ); ?>" alt="" width="44" height="44">
                                                         <span class="ext-text">
-                                                            <?php echo $extension['Name'] ?>
-                                                            <span class="ext-version">v<?php echo $extension['Version'] ?></span>
+                                                            <?php echo esc_html( $extension['Name'] ); ?>
+                                                            <span class="ext-version">v<?php echo esc_html( $extension['Version'] ); ?></span>
                                                         </span>
                                                     </label>
                                                 </div>
@@ -77,13 +77,13 @@
                                         <td>
                                             <div class="ext-action">
                                                 <?php if (in_array($extension_base, $outdated_plugins_key)) : ?>
-                                                    <a href="#" class="ext-update-btn ext-action-btn" data-key="<?php echo $extension_base; ?>">Update</a>
+                                                    <a href="#" class="ext-update-btn ext-action-btn" data-key="<?php echo esc_attr( $extension_base ); ?>">Update</a>
                                                 <?php endif; ?>
-                                                <a href="<?php echo $args['settings_url'] ?>" class="ext-action-btn"><i class="la la-settings"></i> Settings</a>
+                                                <a href="<?php echo esc_url( $args['settings_url'] ); ?>" class="ext-action-btn"><i class="la la-settings"></i> Settings</a>
                                                 <div>
                                                     <a href="" class="ext-action-drop"><i class="la la-ellipsis-h"></i></a>
                                                     <div class="ext-action-drop__item">
-                                                        <a href="#" class="ext-action-link ext-action-uninstall" data-target="<?php echo $extension_base; ?>">Uninstall</a>
+                                                        <a href="#" class="ext-action-link ext-action-uninstall" data-target="<?php echo esc_attr( $extension_base ); ?>">Uninstall</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,14 +95,14 @@
                     </form>
                 </div>
             <?php else : ?>
-                <p class="atbdp-text-center"><?php _e('No extension found') ?></p>
+                <p class="atbdp-text-center"><?php esc_html_e('No extension found') ?></p>
             <?php endif; ?>
         </div>
     </div><!-- ends: .ext-installed -->
 
     <?php if (!empty($args['extensions_available_in_subscriptions'])) : ?>
         <div class="ext-available">
-            <h4><?php _e('Available in your subscription (' . count( array_keys( $args['extensions_available_in_subscriptions'] ) ) .')', 'directorist')  ?></h4>
+            <h4><?php esc_html_e('Available in your subscription (' . count( array_keys( $args['extensions_available_in_subscriptions'] ) ) .')', 'directorist')  ?></h4>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-my-subscribed-extensions-form" class="atbdp-my-subscribed-extensions-form" method="post">
@@ -135,8 +135,8 @@
                                         <td>
                                             <div class="extension-name">
                                                 <div class="directorist-checkbox directorist-checkbox-success">
-                                                    <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
-                                                    <label class="directorist-checkbox__label" for="<?php echo $extension_base; ?>">
+                                                    <input type="checkbox" id="<?php echo esc_attr( $extension_base ); ?>" name="<?php echo esc_attr( $extension_base ); ?>" class="extension-name-checkbox">
+                                                    <label class="directorist-checkbox__label" for="<?php echo esc_attr( $extension_base ); ?>">
                                                         <?php
                                                             $img = 'https://via.placeholder.com/44';
 
@@ -146,7 +146,7 @@
                                                                 $img = $args['extension_list'][$extension_base_alias]['thumbnail'];
                                                             }
                                                         ?>
-                                                        <img src="<?php echo $img; ?>" width="44" height="44" alt=""><?php echo $extension['title'] ?>
+                                                        <img src="<?php echo esc_url( $img ); ?>" width="44" height="44" alt=""><?php echo esc_html( $extension['title'] ) ?>
                                                     </label>
                                                 </div>
                                             </div>
@@ -156,17 +156,17 @@
                                             <span class="ext-info">
                                                 <?php
                                                 if (!empty($args['extension_list'][$extension_base])) {
-                                                    _e($args['extension_list'][$extension_base]['description'], 'directorust');
+                                                    esc_html_e($args['extension_list'][$extension_base]['description'], 'directorust');
                                                 } else if (!empty($args['extension_list'][$extension_base_alias])) {
-                                                    _e($args['extension_list'][$extension_base_alias]['description'], 'directorust');
+                                                    esc_html_e($args['extension_list'][$extension_base_alias]['description'], 'directorust');
                                                 }
                                                 ?>
                                             </span>
                                         </td>
                                         <td>
-                                            <div class="ext-action ext-action-<?php echo $extension_base; ?>">
-                                                <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo $extension_base ?>">
-                                                    <i class="la la-download"></i> <?php _e('Install', 'directorist') ?>
+                                            <div class="ext-action ext-action-<?php echo esc_attr( $extension_base ); ?>">
+                                                <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo esc_attr( $extension_base ); ?>">
+                                                    <i class="la la-download"></i> <?php esc_html_e('Install', 'directorist') ?>
                                                 </a>
                                             </div>
                                         </td>
@@ -182,7 +182,7 @@
 
     <?php if (!empty($args['required_extensions_list'])) : ?>
         <div class="ext-available">
-            <h4 class="req-ext-title"><?php _e('Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) .')', 'directorist')  ?></h4>
+            <h4 class="req-ext-title"><?php esc_html_e('Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) .')', 'directorist')  ?></h4>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-required-extensions-form" class="atbdp-my-required-extensions-form" method="post">
@@ -217,12 +217,12 @@
                                             <div class="extension-name">
                                                 <div class="directorist-checkbox directorist-checkbox-success">
                                                     <?php if ( $extension[ 'installed' ] ) : ?>
-                                                    <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo $extension[ 'base']; ?>" class="extension-name-checkbox extension-activate-checkbox">
+                                                    <input type="checkbox" id="<?php echo 'required_' . esc_attr( $extension_base ); ?>" name="<?php echo esc_attr( $extension_base ); ?>" value="<?php echo esc_attr( $extension[ 'base'] ); ?>" class="extension-name-checkbox extension-activate-checkbox">
                                                     <?php elseif ( $extension[ 'purchased' ] ) : ?>
-                                                    <input type="checkbox" id="<?php echo 'required_' . $extension_base; ?>" name="<?php echo $extension_base; ?>" value="<?php echo $extension_base; ?>" class="extension-name-checkbox extension-install-checkbox">
+                                                    <input type="checkbox" id="<?php echo 'required_' . esc_attr( $extension_base ); ?>" name="<?php echo esc_attr( $extension_base ); ?>" value="<?php echo esc_attr( $extension_base ); ?>" class="extension-name-checkbox extension-install-checkbox">
                                                     <?php endif; ?>
                                                     
-                                                    <label for="<?php echo 'required_' . $extension_base; ?>" class="directorist-checkbox__label">
+                                                    <label for="<?php echo 'required_' . esc_attr( $extension_base ); ?>" class="directorist-checkbox__label">
                                                         <?php
                                                             
                                                             $ext_name = ( isset( $args['extension_list'][$extension_base] ) ) ? $args['extension_list'][$extension_base]['name'] : '';
@@ -238,8 +238,8 @@
                                                                 $img = $args['extension_list'][$extension_base_alias]['thumbnail'];
                                                             }
 
-                                                            echo "<img src='{$img}' width='44' height='44' alt=''>";
-                                                            echo $ext_name;
+                                                            echo "<img src='". esc_url( $img ) . "' width='44' height='44' alt=''>";
+                                                            echo esc_html( $ext_name );
                                                         ?>
                                                     </label>
                                                 </div>
@@ -250,23 +250,23 @@
                                             <span class="ext-info">
                                                 <?php
                                                     if ( ! empty($args['extension_list'][$extension_base])) {
-                                                        _e($args['extension_list'][$extension_base]['description'], 'directorust');
+                                                        esc_html_e($args['extension_list'][$extension_base]['description'], 'directorust');
                                                     }
                                                     else if ( ! empty($args['extension_list'][$extension_base_alias])) {
-                                                        _e($args['extension_list'][$extension_base_alias]['description'], 'directorust');
+                                                        esc_html_e($args['extension_list'][$extension_base_alias]['description'], 'directorust');
                                                     }
                                                 ?>
                                             </span>
                                         </td>
                                         <td>
-                                            <div class="ext-action ext-action-<?php echo $extension_base; ?>">
+                                            <div class="ext-action ext-action-<?php echo esc_attr( $extension_base ); ?>">
                                                 <?php if ( $extension[ 'installed' ] ) : ?>
-                                                <a href="#" class="plugin-active-btn ext-action-btn" data-type="plugin" data-key="<?php echo $extension[ 'base' ] ?>">
-                                                    <?php _e('Activate', 'directorist') ?>
+                                                <a href="#" class="plugin-active-btn ext-action-btn" data-type="plugin" data-key="<?php echo esc_attr( $extension[ 'base' ] ); ?>">
+                                                    <?php esc_html_e('Activate', 'directorist') ?>
                                                 </a>
                                                 <?php elseif ( $extension[ 'purchased' ] ) : ?>
-                                                <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo $extension_base ?>">
-                                                    <?php _e('Install', 'directorist') ?>
+                                                <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo esc_attr( $extension_base ); ?>">
+                                                    <?php esc_html_e('Install', 'directorist') ?>
                                                 </a>
                                                 <?php else: 
                                                     $download_link = ( ! empty( $args['extension_list'][$extension_base] ) ) ? $args['extension_list'][$extension_base]['link'] : '';
@@ -275,8 +275,8 @@
                                                         $download_link = ( ! empty( $args['extension_list'][$extension_base_alias] ) ) ? $args['extension_list'][$extension_base_alias]['link'] : ''; 
                                                     }
                                                 ?>
-                                                <a href="<?php echo $download_link; ?>" class="ext-action-btn" target="_blank">
-                                                    <i class="la la-download"></i> <?php _e('Get Now', 'directorist') ?>
+                                                <a href="<?php echo esc_url( $download_link ); ?>" class="ext-action-btn" target="_blank">
+                                                    <i class="la la-download"></i> <?php esc_html_e('Get Now', 'directorist') ?>
                                                 </a>
                                                 <?php endif; ?>
                                             </div>

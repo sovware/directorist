@@ -4,15 +4,8 @@ import {
 
 ;(function () {
 
-    // DOM Mutation observer
-    function initObserver(params) {
-        const targetNode = document.querySelector('.directorist-archive-contents');
-        const observer = new MutationObserver( initMap );
-        observer.observe( targetNode, { childList: true } );
-    }
-
-    window.addEventListener('DOMContentLoaded', initObserver );
     window.addEventListener('DOMContentLoaded', initMap );
+    window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
     function initMap() {
         const mapData = get_dom_data('atbdp_map');

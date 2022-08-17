@@ -121,8 +121,8 @@ class ATBDP_Listing_DB {
 		}
 
 		$favorites  = directorist_get_user_favorites( $user_id );
-		$action     = ! empty( $_GET['atbdp_action'] ) ? $_GET['atbdp_action'] : '';
-		$listing_id = ! empty( $_GET['atbdp_listing'] ) ? absint( $_GET['atbdp_listing'] ) : 0;
+		$action     = ! empty( $_GET['atbdp_action'] ) ? directorist_clean( wp_unslash( $_GET['atbdp_action'] ) ) : '';
+		$listing_id = ! empty( $_GET['atbdp_listing'] ) ? absint( directorist_clean( wp_unslash( $_GET['atbdp_listing'] ) ) ) : 0;
 
 		if ( ! empty( $action ) && ! empty( $listing_id ) ) {
 			if ( in_array( $listing_id, $favorites ) ) {

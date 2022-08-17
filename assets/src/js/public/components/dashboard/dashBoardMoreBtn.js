@@ -1,3 +1,4 @@
+import '../../atmodal';
 ;
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {

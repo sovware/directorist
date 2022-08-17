@@ -90,14 +90,8 @@
 /*!*******************************************************************!*\
   !*** ./assets/src/js/global/components/select2-custom-control.js ***!
   \*******************************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -106,32 +100,13 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var $ = jQuery;
-window.addEventListener('load', init);
-setup_dom_observer(); // Setup DOM Observer
+window.addEventListener('load', waitAndInit);
+window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
+window.addEventListener('directorist-type-change', waitAndInit);
+window.addEventListener('directorist-instant-search-reloaded', waitAndInit);
 
-function setup_dom_observer() {
-  // Select the select fields that will be observed for mutations
-  var observableItems = {
-    searchFormBox: document.querySelectorAll('.directorist-search-form-box'),
-    selectFields: document.querySelectorAll('.directorist-select')
-  };
-  var observableElements = [];
-  Object.values(observableItems).forEach(function (item) {
-    if (item.length) {
-      observableElements = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(observableElements), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(item));
-    }
-  });
-
-  if (observableElements.length) {
-    // Create an observer instance linked to the callback function
-    var observer = new MutationObserver(init);
-    observableElements.forEach(function (item) {
-      // Start observing the target node for configured mutations
-      observer.observe(item, {
-        childList: true
-      });
-    });
-  }
+function waitAndInit() {
+  setTimeout(init, 0);
 } // Initialize
 
 
@@ -264,10 +239,6 @@ function selec2_remove_custom_close_button(field) {
 }
 
 function selec2_get_addon_container(field) {
-  if (field && !field.length) {
-    return;
-  }
-
   var container = field ? $(field).next('.select2-container') : $('.select2-container');
   container = $(container).find('.directorist-select2-addons-area');
 
@@ -321,12 +292,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 
 
 var $ = jQuery;
@@ -416,8 +390,25 @@ function initSelect2AjaxTaxonomy(args) {
   }
 
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
-    var parent = $(item).closest('.directorist-search-form');
-    var directory_type_id = parent.find('.directorist-listing-type-selection__link--current').data('listing_type_id');
+    var directory_type_id = 0;
+    var search_form_parent = $(item).closest('.directorist-search-form');
+    var archive_page_parent = $(item).closest('.directorist-archive-contents');
+    var nav_list_item = []; // If search page
+
+    if (search_form_parent.length) {
+      nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
+    } // If archive page
+
+
+    if (archive_page_parent.length) {
+      nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+    } // If has nav item
+
+
+    if (nav_list_item.length) {
+      directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
+    }
+
     var currentPage = 1;
     $(item).select2({
       allowClear: true,
@@ -659,6 +650,152 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
+/***/ "./assets/src/js/public/range-slider.js":
+/*!**********************************************!*\
+  !*** ./assets/src/js/public/range-slider.js ***!
+  \**********************************************/
+/*! exports provided: directorist_range_slider, directorist_callingSlider */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "directorist_range_slider", function() { return directorist_range_slider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "directorist_callingSlider", function() { return directorist_callingSlider; });
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/* range slider */
+var directorist_range_slider = function directorist_range_slider(selector, obj) {
+  var isDraging = false,
+      max = obj.maxValue,
+      min = obj.minValue,
+      down = 'mousedown',
+      up = 'mouseup',
+      move = 'mousemove',
+      div = "\n            <div class=\"directorist-range-slider1\" draggable=\"true\"></div>\n            <input type='hidden' class=\"directorist-range-slider-minimum\" name=\"minimum\" value=".concat(min, " />\n            <div class=\"directorist-range-slider-child\"></div>\n\t\t");
+  var touch = ("ontouchstart" in document.documentElement);
+
+  if (touch) {
+    down = 'touchstart';
+    up = 'touchend';
+    move = 'touchmove';
+  } //RTL
+
+
+  var isRTL = directorist.rtl === 'true';
+  var direction;
+
+  if (isRTL) {
+    direction = 'right';
+  } else {
+    direction = 'left';
+  }
+
+  var slider = document.querySelectorAll(selector);
+  slider.forEach(function (id, index) {
+    var sliderDataMin = min;
+    var sliderDataUnit = id.getAttribute('data-slider-unit');
+    id.setAttribute('style', "max-width: ".concat(obj.maxWidth, "; border: ").concat(obj.barBorder, "; width: 100%; height: 4px; background: ").concat(obj.barColor, "; position: relative; border-radius: 2px;"));
+    id.innerHTML = div;
+    var slide1 = id.querySelector('.directorist-range-slider1'),
+        width = id.clientWidth;
+    slide1.style.background = obj.pointerColor;
+    slide1.style.border = obj.pointerBorder;
+    id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = "<span>".concat(min, "</span> ").concat(sliderDataUnit);
+    var x = null,
+        count = 0,
+        slid1_val = 0,
+        slid1_val2 = sliderDataMin,
+        count2 = width;
+
+    if (window.outerWidth < 600) {
+      id.classList.add('m-device');
+      slide1.classList.add('m-device2');
+    }
+
+    slide1.addEventListener(down, function (event) {
+      if (!touch) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      x = event.clientX;
+
+      if (touch) {
+        x = event.touches[0].clientX;
+      }
+
+      isDraging = true;
+      event.target.classList.add('directorist-rs-active');
+    });
+    document.body.addEventListener(up, function (event2) {
+      if (!touch) {
+        event2.preventDefault();
+        event2.stopPropagation();
+      }
+
+      isDraging = false;
+      slid1_val2 = slid1_val;
+      slide1.classList.remove('directorist-rs-active');
+    });
+    slide1.classList.add('directorist-rs-active1');
+    count = width / max;
+
+    if (slide1.classList.contains('directorist-rs-active1')) {
+      var onLoadValue = count * min;
+      id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value span').innerHTML = sliderDataMin;
+      id.querySelector('.directorist-range-slider-minimum').value = sliderDataMin;
+      id.querySelector('.directorist-rs-active1').style[direction] = onLoadValue <= 0 ? 0 : onLoadValue + 'px';
+      id.querySelector('.directorist-range-slider-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue + 'px';
+    }
+
+    document.body.addEventListener(move, function (e) {
+      if (isDraging) {
+        count = !isRTL ? e.clientX + slid1_val2 * width / max - x : -e.clientX + slid1_val2 * width / max + x;
+
+        if (touch) {
+          count = !isRTL ? e.touches[0].clientX + slid1_val2 * width / max - x : -e.touches[0].clientX + slid1_val2 * width / max + x;
+        }
+
+        if (count < 0) {
+          count = 0;
+        } else if (count > count2 - 18) {
+          count = count2 - 18;
+        }
+      }
+
+      if (slide1.classList.contains('directorist-rs-active')) {
+        slid1_val = Math.floor(max / (width - 18) * count);
+        id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = "<span>".concat(slid1_val, "</span> ").concat(sliderDataUnit);
+        id.querySelector('.directorist-range-slider-minimum').value = slid1_val;
+        id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value = slid1_val;
+        id.querySelector('.directorist-rs-active').style[direction] = count + 'px';
+        id.querySelector('.directorist-range-slider-child').style.width = count + 'px';
+      }
+    });
+  });
+};
+function directorist_callingSlider() {
+  var minValueWrapper = document.querySelector('.directorist-range-slider-value');
+  var default_args = {
+    maxValue: 1000,
+    minValue: parseInt(minValueWrapper && minValueWrapper.value),
+    maxWidth: '100%',
+    barColor: '#d4d5d9',
+    barBorder: 'none',
+    pointerColor: '#fff',
+    pointerBorder: '4px solid #444752'
+  };
+  var config = directorist.slider_config && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(directorist.slider_config) === 'object' ? Object.assign(default_args, directorist.slider_config) : default_args;
+  directorist_range_slider('.directorist-range-slider', config);
+}
+window.addEventListener("load", function () {
+  directorist_callingSlider();
+});
+
+/***/ }),
+
 /***/ "./assets/src/js/public/search-form.js":
 /*!*********************************************!*\
   !*** ./assets/src/js/public/search-form.js ***!
@@ -674,7 +811,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_colorPicker__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _range_slider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./range-slider */ "./assets/src/js/public/range-slider.js");
 //import './components/directoristDropdown';
+
+
 
 
 
@@ -799,8 +940,10 @@ __webpack_require__.r(__webpack_exports__);
       return $('.directorist-search-float .directorist-advanced-filter');
     };
 
+    var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
+    ad_slide.hide().slideUp();
     $(document).on('click', function (e) {
-      if (!e.target.closest('.directorist-search-form-top, .directorist-listings-header, .directorist-search-form') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')) {
+      if (!e.target.closest('.directorist-search-form-top, .directorist-listings-header, .directorist-search-form, .select2-container') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')) {
         count = 0;
         directoristAdvFilter().css({
           visibility: 'hidden',
@@ -818,9 +961,8 @@ __webpack_require__.r(__webpack_exports__);
         height: '0',
         transition: '.3s ease'
       });
+      ad_slide.hide().slideUp();
     });
-    var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
-    ad_slide.hide().slideUp();
     $('body').on("click", '.directorist-filter-btn', function (e) {
       e.preventDefault();
       var miles = parseInt($('.directorist-range-slider-value').val());
@@ -836,49 +978,17 @@ __webpack_require__.r(__webpack_exports__);
       var config = default_args;
       $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
       $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
-      directorist_callingSlider();
-      directorist_range_slider('.directorist-range-slider', config);
+
+      if ($(this).closest('.directorist-search-form, .directorist-archive-contents').find('.direcorist-search-field-radius_search').length) {
+        Object(_range_slider__WEBPACK_IMPORTED_MODULE_4__["directorist_callingSlider"])();
+        Object(_range_slider__WEBPACK_IMPORTED_MODULE_4__["directorist_range_slider"])('.directorist-range-slider', config);
+      }
     });
     $(".directorist-advanced-filter").parents("div").css("overflow", "visible"); //remove preload after window load
 
     $(window).on('load', function () {
       $("body").removeClass("directorist-preload");
       $('.button.wp-color-result').attr('style', ' ');
-    });
-    $('body').on("click", '.directorist-mark-as-favorite__btn', function (event) {
-      event.preventDefault();
-      var data = {
-        'action': 'atbdp-favourites-all-listing',
-        'post_id': $(this).data('listing_id')
-      };
-      var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
-      var fav_tooltip_warning = '<span>' + directorist.i18n_text.please_login + '</span>';
-      $(".directorist-favorite-tooltip").hide();
-      $.post(directorist.ajax_url, data, function (response) {
-        var post_id = data['post_id'].toString();
-        var staElement = $('.directorist-fav_' + post_id);
-        var data_id = staElement.attr('data-listing_id');
-
-        if (response === "login_required") {
-          staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_warning);
-          staElement.children(".directorist-favorite-tooltip").fadeIn();
-          setTimeout(function () {
-            staElement.children(".directorist-favorite-tooltip").children("span").remove();
-          }, 3000);
-        } else if ('false' === response) {
-          staElement.removeClass('directorist-added-to-favorite');
-          $(".directorist-favorite-tooltip span").remove();
-        } else {
-          if (data_id === post_id) {
-            staElement.addClass('directorist-added-to-favorite');
-            staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_success);
-            staElement.children(".directorist-favorite-tooltip").fadeIn();
-            setTimeout(function () {
-              staElement.children(".directorist-favorite-tooltip").children("span").remove();
-            }, 3000);
-          }
-        }
-      });
     }); //reset fields
 
     function resetFields() {
@@ -943,6 +1053,14 @@ __webpack_require__.r(__webpack_exports__);
         el.value = "";
       });
       searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
+        if (el.getAttribute('name') === "directory_type") return;
+
+        if (el.getAttribute('name') === "miles") {
+          var radiusDefaultValue = searchForm.querySelector('.directorist-range-slider').dataset.defaultRadius;
+          el.value = radiusDefaultValue;
+          return;
+        }
+
         el.value = "";
       });
       searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
@@ -967,6 +1085,8 @@ __webpack_require__.r(__webpack_exports__);
       if (rangeValue !== null) {
         rangeValue.innerHTML = "0";
       }
+
+      handleRadiusVisibility();
     }
     /* Advance Search Filter For Search Home Short Code */
 
@@ -983,7 +1103,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
 
-        directorist_callingSlider(0);
+        if ($(this).closest('.directorist-search-contents').find('.direcorist-search-field-radius_search').length) {
+          Object(_range_slider__WEBPACK_IMPORTED_MODULE_4__["directorist_callingSlider"])(0);
+        }
       });
     }
     /* All Listing Advance Filter */
@@ -1001,7 +1123,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
 
-        directorist_callingSlider(0);
+        if ($(this).closest('.directorist-advanced-filter').find('.direcorist-search-field-radius_search').length) {
+          Object(_range_slider__WEBPACK_IMPORTED_MODULE_4__["directorist_callingSlider"])(0);
+        }
       });
     }
 
@@ -1025,7 +1149,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
 
-        directorist_callingSlider(0);
+        if ($(this).closest('.directorist-search-contents').find('.direcorist-search-field-radius_search').length) {
+          Object(_range_slider__WEBPACK_IMPORTED_MODULE_4__["directorist_callingSlider"])(0);
+        }
       });
     }
     /* Map Listing Search Form */
@@ -1043,7 +1169,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
 
-        directorist_callingSlider(0);
+        if ($(this).closest('#directorist-search-area').find('.direcorist-search-field-radius_search').length) {
+          Object(_range_slider__WEBPACK_IMPORTED_MODULE_4__["directorist_callingSlider"])(0);
+        }
       });
     }
     /* Single Listing widget Form */
@@ -1061,7 +1189,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
 
-        directorist_callingSlider(0);
+        if ($(this).closest('.search-area').find('.direcorist-search-field-radius_search').length) {
+          Object(_range_slider__WEBPACK_IMPORTED_MODULE_4__["directorist_callingSlider"])(0);
+        }
       });
     }
     /* ----------------
@@ -1070,7 +1200,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
     $('body').on('click', '.search_listing_types', function (event) {
-      // console.log($('.directorist-search-contents'));
       event.preventDefault();
       var parent = $(this).closest('.directorist-search-contents');
       var listing_type = $(this).attr('data-listing_type');
@@ -1084,6 +1213,7 @@ __webpack_require__.r(__webpack_exports__);
       parent.find('.listing_type').val(listing_type);
       var form_data = new FormData();
       form_data.append('action', 'atbdp_listing_types_form');
+      form_data.append('nonce', directorist.directorist_nonce);
       form_data.append('listing_type', listing_type);
       var atts = parent.attr('data-atts');
       var atts_decoded = btoa(atts);
@@ -1115,10 +1245,16 @@ __webpack_require__.r(__webpack_exports__);
               document.body.dispatchEvent(event);
               window.dispatchEvent(event);
             });
+            handleRadiusVisibility();
           }
 
-          parent.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
-          directorist_callingSlider();
+          var parentAfterAjax = $(this).closest('.directorist-search-contents');
+          parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
+
+          if (parentAfterAjax.find('.directorist-search-form-box').find('.direcorist-search-field-radius_search').length) {
+            handleRadiusVisibility();
+            Object(_range_slider__WEBPACK_IMPORTED_MODULE_4__["directorist_callingSlider"])();
+          }
         },
         error: function error(_error2) {
           console.log(_error2);
@@ -1159,9 +1295,10 @@ __webpack_require__.r(__webpack_exports__);
         var $container = $this.parents('form');
         var cat_id = $this.val();
         var directory_type = $container.find('.listing_type').val();
-        var $search_form_box = $container.find('.directorist-search-form-box');
+        var $search_form_box = $container.find('.directorist-search-form-box-wrap');
         var form_data = new FormData();
         form_data.append('action', 'directorist_category_custom_field_search');
+        form_data.append('nonce', directorist.directorist_nonce);
         form_data.append('listing_type', directory_type);
         form_data.append('cat_id', cat_id);
         form_data.append('atts', JSON.stringify($container.data('atts')));
@@ -1334,8 +1471,8 @@ __webpack_require__.r(__webpack_exports__);
               var autocomplete = new google.maps.places.Autocomplete(elm, field.options);
               google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
-                document.getElementById(field.lat_id).value = place.geometry.location.lat();
-                document.getElementById(field.lng_id).value = place.geometry.location.lng();
+                elm.closest('.directorist-search-field').querySelector("#".concat(field.lat_id)).value = place.geometry.location.lat();
+                elm.closest('.directorist-search-field').querySelector("#".concat(field.lng_id)).value = place.geometry.location.lng();
               });
             });
           };
@@ -1429,8 +1566,9 @@ __webpack_require__.r(__webpack_exports__);
           var text = $(context).text();
           var lat = $(context).data('lat');
           var lon = $(context).data('lon');
-          $('#cityLat').val(lat);
-          $('#cityLng').val(lon);
+          var _this = event.target;
+          $(_this).closest('.address_result').siblings('input[name="cityLat"]').val(lat);
+          $(_this).closest('.address_result').siblings('input[name="cityLng"]').val(lon);
           var inp = $(context).closest(args.result_list_container).parent().find('.directorist-location-js, #address_widget, #q_addressss, .atbdp-search-address');
           inp.val(text);
           $(args.result_list_container).hide();
@@ -1461,6 +1599,41 @@ __webpack_require__.r(__webpack_exports__);
         $(this).find(".directorist-search-field .address_result").css("max-height", "175px");
       }
     });
+    /* When location field is empty we need to hide Radius Search */
+
+    function handleRadiusVisibility() {
+      $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
+      $('.directorist-location-js').each(function (index, locationDom) {
+        if ($(locationDom).val() === '') {
+          $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({
+            display: "none"
+          });
+        } else {
+          $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({
+            display: "block"
+          });
+          Object(_range_slider__WEBPACK_IMPORTED_MODULE_4__["directorist_callingSlider"])();
+        }
+      });
+    }
+
+    $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
+      handleRadiusVisibility();
+    }); // DOM Mutation observer
+
+    function initObserver() {
+      var targetNode = document.querySelector('.directorist-location-js');
+
+      if (targetNode) {
+        var observer = new MutationObserver(handleRadiusVisibility);
+        observer.observe(targetNode, {
+          attributes: true
+        });
+      }
+    }
+
+    initObserver();
+    handleRadiusVisibility();
   });
 })(jQuery);
 

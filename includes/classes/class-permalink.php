@@ -300,7 +300,7 @@ class ATBDP_Permalink {
 
         if ( $page_id ) {
             $args = [
-                'listing_type' => isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '',
+                'listing_type' => isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : '',
                 'plan' => $plan_id,
             ];
             $link = get_permalink( $page_id );
@@ -453,10 +453,10 @@ class ATBDP_Permalink {
                 }
             } else {
                 $link = get_permalink( $page_id );
-    
+
                 if( '' != get_option( 'permalink_structure' ) ) {
                     $link = user_trailingslashit( trailingslashit( $link ) . $term->slug );
-    
+
                 } else {
                     $link = add_query_arg( 'atbdp_category', $term->slug, $link );
                 }
@@ -696,7 +696,7 @@ class ATBDP_Permalink {
             }
         }
 
-        return apply_filters( 'atbdp_checkout_page_url', $link, $page_id, $listing_id );
+        return apply_filters( 'atbdp_renewal_checkout_page_url', $link, $page_id, $listing_id );
     }
 
     public static function get_renewal_page_link($listing_id)

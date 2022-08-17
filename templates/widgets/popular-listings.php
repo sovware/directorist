@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  wpWax
- * @since   7.3
- * @version 7.3
+ * @since   7.3.0
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -41,7 +41,7 @@ if ( !$query->have_posts() ) {
                     } elseif (!empty($listing_img[0]) && empty($listing_prv_img)) {
                         echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="' . esc_html(get_the_title()) . '">';
                     } else {
-                        echo '<img src="' . $default_image . '" alt="' . esc_html(get_the_title()) . '">';
+                        echo '<img src="' . esc_url( $default_image ) . '" alt="' . esc_html(get_the_title()) . '">';
                     }
                     if (empty($disable_single_listing)) {
                         echo '</a>';
@@ -70,15 +70,15 @@ if ( !$query->have_posts() ) {
                         ?>
 
                         <p class="directory_tag">
-                            <span class="<?php atbdp_icon_type(true); ?>-tags"></span>
+							<?php directorist_icon( 'las la-tags' ); ?>
                             <span>
-                                    <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
+                                    <a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_category_page($cats[0]) ); ?>">
                                                             <?php echo esc_html($cats[0]->name); ?>
                                     </a>
                                 <?php
                                 if ($totalTerm > 1) {
                                     ?>
-                                    <span class="atbd_cat_popup">  +<?php echo $totalTerm - 1; ?>
+                                    <span class="atbd_cat_popup">  +<?php echo esc_html( $totalTerm - 1 ); ?>
                                         <span class="atbd_cat_popup_wrapper">
                                                         <?php
                                                         $output = array();

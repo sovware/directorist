@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 23);
+/******/ 	return __webpack_require__(__webpack_require__.s = 24);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -278,7 +278,7 @@ __webpack_require__.r(__webpack_exports__);
   if (targetNode) {
     function initObserver() {
       var observer = new MutationObserver(initMap);
-      observer.observe(targetNode, {
+      targetNode && observer.observe(targetNode, {
         childList: true
       });
     }
@@ -287,6 +287,7 @@ __webpack_require__.r(__webpack_exports__);
   }
 
   window.addEventListener('DOMContentLoaded', initMap);
+  window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
   function initMap() {
     var $ = jQuery;
@@ -421,7 +422,7 @@ __webpack_require__.r(__webpack_exports__);
 (function ($) {
   jQuery(document).ready(function () {
     // Localized Data
-    if ($('.directorist-details-info-wrap .directorist-single-map').length) {
+    if ($('.directorist-single-map').length) {
       document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
         var mapData = JSON.parse(mapElm.getAttribute('data-map'));
         var loc_default_latitude = parseFloat(mapData.default_latitude);
@@ -699,7 +700,7 @@ module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, 
 
 /***/ }),
 
-/***/ 23:
+/***/ 24:
 /*!******************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/openstreet-map.js ***!
   \******************************************************************/

@@ -147,10 +147,10 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
         $('.atbd_tagline_moto_field').fadeOut();
     }
-		if ($('.directorist-form-pricing-field').hasClass('price-type-price_range')) {
-			$('#price').hide();
-			$('#price_range').show();
-		}
+    if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+        $('#price').show();
+        $('#price_range').hide();
+    }
     $('.directorist_pricing_options label').on( 'click', function () {
         const $this = $(this);
         $this.children('input[type=checkbox]').prop('checked') == true
@@ -236,7 +236,7 @@ window.addEventListener('DOMContentLoaded', () => {
     $('.atbd_pricing_options label').on('click', function () {
         const $this = $(this);
         $this.children('input[type=checkbox]').prop('checked') == true
-            ? $(`#${$this.data('option')}`).show()
+            /? $(`#${$this.data('option')}`).show()
             : $(`#${$this.data('option')}`).hide();
         const $sibling = $this.siblings('label');
         $sibling.children('input[type=checkbox]').prop('checked', false);
@@ -631,9 +631,15 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
                 action: 'atbdp_dynamic_admin_listing_form',
                 directory_type: directory_type,
                 listing_id: $('#directiost-listing-fields_wrapper').data('id'),
+                directorist_nonce: directorist_admin.directorist_nonce,
             },
             success(response) {
-                // console.log( response );
+
+                if ( response.error ) {
+                    console.log({ response });
+                    return;
+                }
+
                 $('#directiost-listing-fields_wrapper')
                     .empty()
                     .append(response.data['listing_meta_fields']);
@@ -709,6 +715,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
             data: {
                 action: 'atbdp_listing_default_type',
                 type_id: $(this).data('type-id'),
+                nonce: directorist_admin.nonce
             },
             success(response) {
                 defaultSubmitDom
@@ -728,12 +735,12 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
 
     function assetsNeedToWorkInVirtualDom() {
         // price range
-        $('#price_range').hide();
+        /* $('#price_range').hide();
         const pricing = $('#atbd_listing_pricing').val();
         if (pricing === 'range') {
             $('#price').hide();
             $('#price_range').show();
-        }
+        } */
 
         $('.atbd_pricing_options label').on('click', function () {
             const $this = $(this);

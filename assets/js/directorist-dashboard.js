@@ -81,17 +81,89 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./assets/src/js/public/atmodal.js":
+/*!*****************************************!*\
+  !*** ./assets/src/js/public/atmodal.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+        Name:  ATModal
+        Version: 1.0
+        Author: Sovware
+        Author URI: https://sovware.com/
+*/
+
+/* disable-eslint */
+var aazztechModal1 = function aazztechModal1(selector) {
+  var element = document.querySelectorAll(selector);
+  element.forEach(function (el, index) {
+    el.style.display = 'none';
+    document.addEventListener('click', function (event) {
+      var current_elm = event.target;
+      var target_id = current_elm.getAttribute('data-target');
+      var el_id = el.getAttribute('id');
+
+      if (target_id === el_id) {
+        event.preventDefault();
+        el.style.display = 'block';
+        document.body.classList.add('atm-open');
+        setTimeout(function () {
+          el.classList.add('atm-show');
+        }, 100);
+        document.querySelector('html').style.overflow = 'hidden';
+      }
+    }, false);
+    el.querySelector('a.at-modal-close').addEventListener('click', function (e) {
+      e.preventDefault();
+      el.classList.remove('atm-show');
+      document.body.classList.remove('atm-open');
+      setTimeout(function () {
+        el.style.display = 'none';
+      }, 100);
+      document.querySelector('html').removeAttribute('style');
+    });
+    el.addEventListener('click', function (e) {
+      if (e.target.closest('.atm-contents-inner')) return;
+      el.classList.remove('atm-show');
+      document.body.classList.remove('atm-open');
+      setTimeout(function () {
+        el.style.display = 'none';
+      }, 100);
+      document.querySelector('html').removeAttribute('style');
+    });
+  });
+};
+
+function initModal() {
+  aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
+}
+
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    initModal();
+  }, 500);
+});
+
+/***/ }),
 
 /***/ "./assets/src/js/public/components/dashboard/dashBoardMoreBtn.js":
 /*!***********************************************************************!*\
   !*** ./assets/src/js/public/components/dashboard/dashBoardMoreBtn.js ***!
   \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _atmodal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../atmodal */ "./assets/src/js/public/atmodal.js");
+/* harmony import */ var _atmodal__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_atmodal__WEBPACK_IMPORTED_MODULE_0__);
 
 ;
 
@@ -173,7 +245,8 @@
       var post_id = $(this).closest('.directorist-announcement').data('post-id');
       var form_data = {
         action: 'atbdp_close_announcement',
-        post_id: post_id
+        post_id: post_id,
+        nonce: directorist.directorist_nonce
       };
       var button_default_html = $(self).html();
       closing_announcement = true;
@@ -285,6 +358,7 @@
         dataType: 'json',
         data: {
           'action': 'directorist_dashboard_listing_tab',
+          '_ajax_nonce': directorist.directorist_nonce,
           'tab': tab,
           'paged': paged,
           'search': search,
@@ -668,10 +742,13 @@
     $('#atbdp-favourites').on('click', function (e) {
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
+        'directorist_nonce': directorist.directorist_nonce,
         'post_id': $("a.atbdp-favourites").data('post_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
-        $('#atbdp-favourites').html(response);
+        if (response) {
+          $('#atbdp-favourites').html(response);
+        }
       });
     });
     $('.directorist-favourite-remove-btn').each(function () {
@@ -679,6 +756,7 @@
         event.preventDefault();
         var data = {
           'action': 'atbdp-favourites-all-listing',
+          'directorist_nonce': directorist.directorist_nonce,
           'post_id': $(this).data('listing_id')
         };
         $(".directorist-favorite-tooltip").hide();
@@ -696,6 +774,7 @@
       event.preventDefault();
       var data = {
         'action': 'atbdp-favourites-all-listing',
+        'directorist_nonce': directorist.directorist_nonce,
         'post_id': $(this).data('listing_id')
       };
       var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
@@ -1090,7 +1169,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/dashboard/dashboardListing */ "./assets/src/js/public/components/dashboard/dashboardListing.js");
 /* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/dashboard/dashBoardMoreBtn */ "./assets/src/js/public/components/dashboard/dashBoardMoreBtn.js");
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/dashboard/dashboardResponsive */ "./assets/src/js/public/components/dashboard/dashboardResponsive.js");
 /* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/dashboard/dashboardAnnouncement */ "./assets/src/js/public/components/dashboard/dashboardAnnouncement.js");
@@ -1130,7 +1208,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 6:
+/***/ 7:
 /*!*********************************************************!*\
   !*** multi ./assets/src/js/public/modules/dashboard.js ***!
   \*********************************************************/

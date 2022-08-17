@@ -102,7 +102,7 @@ class ATBDP_Review_Rating_DB {
 	 */
 	public function get_ratings_by( $field = 'id', $value = 0, $limit = PHP_INT_MAX ) {
 		if ( empty( $field ) || empty( $value ) ) {
-			return NULL;
+			return null;
 		}
 
 		if ( ! in_array( $field, array( 'id', 'post_id', 'by_user_id', 'email' ), true ) ) {

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 18);
+/******/ 	return __webpack_require__(__webpack_require__.s = 19);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -97,7 +97,7 @@
 (function ($) {
   jQuery(document).ready(function () {
     // Localized Data
-    if ($('.directorist-details-info-wrap .directorist-single-map').length) {
+    if ($('.directorist-single-map').length) {
       document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
         var mapData = JSON.parse(mapElm.getAttribute('data-map'));
         var loc_default_latitude = parseFloat(mapData.default_latitude);
@@ -148,7 +148,7 @@
 
 /***/ }),
 
-/***/ 18:
+/***/ 19:
 /*!*********************************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js ***!
   \*********************************************************************************/

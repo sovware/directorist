@@ -400,6 +400,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     var data = {
       action: 'atbdp_custom_fields_listings',
+      directorist_nonce: directorist_admin.directorist_nonce,
       post_id: $('#post_ID').val(),
       term_id: id,
       directory_type: directory_type ? directory_type : from_single_directory
@@ -916,9 +917,9 @@ window.addEventListener('DOMContentLoaded', function () {
     $('.atbd_tagline_moto_field').fadeOut();
   }
 
-  if ($('.directorist-form-pricing-field').hasClass('price-type-price_range')) {
-    $('#price').hide();
-    $('#price_range').show();
+  if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+    $('#price').show();
+    $('#price_range').hide();
   }
 
   $('.directorist_pricing_options label').on('click', function () {
@@ -988,7 +989,7 @@ window.addEventListener('DOMContentLoaded', function () {
   $('.atbd_pricing_options label').on('click', function () {
       const $this = $(this);
       $this.children('input[type=checkbox]').prop('checked') == true
-          ? $(`#${$this.data('option')}`).show()
+          /? $(`#${$this.data('option')}`).show()
           : $(`#${$this.data('option')}`).hide();
       const $sibling = $this.siblings('label');
       $sibling.children('input[type=checkbox]').prop('checked', false);
@@ -1324,10 +1325,17 @@ window.addEventListener('DOMContentLoaded', function () {
       data: {
         action: 'atbdp_dynamic_admin_listing_form',
         directory_type: directory_type,
-        listing_id: $('#directiost-listing-fields_wrapper').data('id')
+        listing_id: $('#directiost-listing-fields_wrapper').data('id'),
+        directorist_nonce: directorist_admin.directorist_nonce
       },
       success: function success(response) {
-        // console.log( response );
+        if (response.error) {
+          console.log({
+            response: response
+          });
+          return;
+        }
+
         $('#directiost-listing-fields_wrapper').empty().append(response.data['listing_meta_fields']);
         assetsNeedToWorkInVirtualDom();
         $('#at_biz_dir-locationchecklist').empty().html(response.data['listing_locations']);
@@ -1383,7 +1391,8 @@ window.addEventListener('DOMContentLoaded', function () {
       url: directorist_admin.ajaxurl,
       data: {
         action: 'atbdp_listing_default_type',
-        type_id: $(this).data('type-id')
+        type_id: $(this).data('type-id'),
+        nonce: directorist_admin.nonce
       },
       success: function success(response) {
         defaultSubmitDom.closest('.directorist_listing-actions').siblings('.directorist_notifier').append("<span class=\"atbd-listing-type-active-status\">".concat(response, "</span>"));
@@ -1397,14 +1406,13 @@ window.addEventListener('DOMContentLoaded', function () {
 
   function assetsNeedToWorkInVirtualDom() {
     // price range
-    $('#price_range').hide();
-    var pricing = $('#atbd_listing_pricing').val();
 
+    /* $('#price_range').hide();
+    const pricing = $('#atbd_listing_pricing').val();
     if (pricing === 'range') {
-      $('#price').hide();
-      $('#price_range').show();
-    }
-
+        $('#price').hide();
+        $('#price_range').show();
+    } */
     $('.atbd_pricing_options label').on('click', function () {
       var $this = $(this);
       $this.children('input[type=checkbox]').prop('checked') == true ? $("#".concat($this.data('option'))).show() : $("#".concat($this.data('option'))).hide();
@@ -1520,25 +1528,6 @@ var pureScriptTab = function pureScriptTab(selector1) {
 };
 
 pureScriptTab('.directorist_builder--tab');
-window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery;
-  /* Copy shortcodes on click */
-
-  $('body').on('click', '.atbdp_shortcodes', function () {
-    var $this = $(this);
-    var $temp = $('<input>');
-    $('body').append($temp);
-    $temp.val($(this).text()).select();
-    document.execCommand('copy');
-    $temp.remove();
-    $(this).after("<p class='copy-notify' style='color: #32cc6f; margin-top: 5px;'>Copied to clipboard!</p>");
-    setTimeout(function () {
-      $this.siblings('.copy-notify').fadeOut(300, function () {
-        $(this).remove();
-      });
-    }, 3000);
-  });
-});
 
 /***/ }),
 
@@ -1704,6 +1693,7 @@ window.addEventListener('DOMContentLoaded', function () {
         url: directorist_admin.ajaxurl,
         data: {
           action: 'directorist_type_slug_change',
+          directorist_nonce: directorist_admin.directorist_nonce,
           type_id: type_id,
           update_slug: update_slug
         },
@@ -1715,7 +1705,10 @@ window.addEventListener('DOMContentLoaded', function () {
               slugId.removeClass('directorist-slug-notice-success');
               slugId.addClass('directorist-slug-notice-error');
               slugId.empty().html(response.error);
-              $('.directorist-slug-text-' + type_id).text(response.old_slug);
+
+              if (response.old_slug) {
+                $('.directorist-slug-text-' + type_id).text(response.old_slug);
+              }
 
               _this.siblings('.directorist-listing-slug__edit').show();
 
@@ -2504,7 +2497,7 @@ window.addEventListener('DOMContentLoaded', function () {
       action: 'atbdp_plugins_bulk_action',
       task: task,
       plugin_items: plugins_items,
-      nonce: directorist_admin.nonce
+      directorist_nonce: directorist_admin.directorist_nonce
     };
     jQuery.ajax({
       type: 'post',
@@ -2514,12 +2507,10 @@ window.addEventListener('DOMContentLoaded', function () {
         $(self).find('button[type="submit"]').prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
       },
       success: function success(response) {
-        // console.log( response );
         $(self).find('button[type="submit"] .atbdp-icon').remove();
         location.reload();
       },
       error: function error(_error8) {
-        // console.log(error);
         uninstalling = false;
       }
     }); // console.log( task, plugins_items );
@@ -2902,14 +2893,8 @@ window.addEventListener('DOMContentLoaded', function () {
 /*!*******************************************************************!*\
   !*** ./assets/src/js/global/components/select2-custom-control.js ***!
   \*******************************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -2918,32 +2903,13 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var $ = jQuery;
-window.addEventListener('load', init);
-setup_dom_observer(); // Setup DOM Observer
+window.addEventListener('load', waitAndInit);
+window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
+window.addEventListener('directorist-type-change', waitAndInit);
+window.addEventListener('directorist-instant-search-reloaded', waitAndInit);
 
-function setup_dom_observer() {
-  // Select the select fields that will be observed for mutations
-  var observableItems = {
-    searchFormBox: document.querySelectorAll('.directorist-search-form-box'),
-    selectFields: document.querySelectorAll('.directorist-select')
-  };
-  var observableElements = [];
-  Object.values(observableItems).forEach(function (item) {
-    if (item.length) {
-      observableElements = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(observableElements), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(item));
-    }
-  });
-
-  if (observableElements.length) {
-    // Create an observer instance linked to the callback function
-    var observer = new MutationObserver(init);
-    observableElements.forEach(function (item) {
-      // Start observing the target node for configured mutations
-      observer.observe(item, {
-        childList: true
-      });
-    });
-  }
+function waitAndInit() {
+  setTimeout(init, 0);
 } // Initialize
 
 
@@ -3076,10 +3042,6 @@ function selec2_remove_custom_close_button(field) {
 }
 
 function selec2_get_addon_container(field) {
-  if (field && !field.length) {
-    return;
-  }
-
   var container = field ? $(field).next('.select2-container') : $('.select2-container');
   container = $(container).find('.directorist-select2-addons-area');
 
@@ -3133,12 +3095,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 
 
 var $ = jQuery;
@@ -3228,8 +3193,25 @@ function initSelect2AjaxTaxonomy(args) {
   }
 
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
-    var parent = $(item).closest('.directorist-search-form');
-    var directory_type_id = parent.find('.directorist-listing-type-selection__link--current').data('listing_type_id');
+    var directory_type_id = 0;
+    var search_form_parent = $(item).closest('.directorist-search-form');
+    var archive_page_parent = $(item).closest('.directorist-archive-contents');
+    var nav_list_item = []; // If search page
+
+    if (search_form_parent.length) {
+      nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
+    } // If archive page
+
+
+    if (archive_page_parent.length) {
+      nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+    } // If has nav item
+
+
+    if (nav_list_item.length) {
+      directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
+    }
+
     var currentPage = 1;
     $(item).select2({
       allowClear: true,
@@ -3457,6 +3439,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_modal__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_setup_select2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
 /* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__);
 
 
 

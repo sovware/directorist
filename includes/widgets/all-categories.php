@@ -118,8 +118,9 @@ class All_Categories extends \WP_Widget {
 		echo wp_kses_post( $args['before_widget'] );
 
 		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Categories', 'directorist');
+		$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
 		echo '<div class="atbd_widget_title">';
-		echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
+		echo wp_kses_post( $widget_title );
 		echo '</div>';
 
         $query_args = array(
@@ -142,18 +143,18 @@ class All_Categories extends \WP_Widget {
         if( $query_args['immediate_category'] ) {
 
             $term_slug = get_query_var( ATBDP_CATEGORY );
-        
+
             if( '' != $term_slug ) {
             $term = get_term_by( 'slug', $term_slug, ATBDP_CATEGORY );
             $query_args['active_term_id'] = $term->term_id;
-        
+
             $query_args['ancestors'] = get_ancestors( $query_args['active_term_id'], 'atbdp_categories' );
             $query_args['ancestors'][] = $query_args['active_term_id'];
             $query_args['ancestors'] = array_unique( $query_args['ancestors'] );
             }
-        
+
         }
-        
+
         if( 'dropdown' == $query_args['template'] ) {
             $categories = $this->dropdown_categories( $query_args );
         } else {

@@ -315,7 +315,7 @@ class Directorist_Single_Listing {
 
 	public function section_id( $id ) {
 		if ( $id ) {
-			printf( 'id="%s"', $id );
+			printf( 'id="%s"', esc_attr( $id ) );
 		}
 		else {
 			return;
@@ -357,6 +357,10 @@ class Directorist_Single_Listing {
 
 		if ( ! $page_id ) {
 			return '';
+		}
+
+		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->documents->get( $page_id )->is_built_with_elementor() ) {
+			return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
 		}
 
 		$page = get_post( $page_id );
@@ -697,15 +701,15 @@ class Directorist_Single_Listing {
 
 	public function submit_link() {
 		$id = get_the_ID();
-		$payment   = isset($_GET['payment']) ? $_GET['payment'] : '';
-		$redirect  = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+		$payment   = isset($_GET['payment']) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
+		$redirect  = isset($_GET['redirect']) ? sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) : '';
 		$display_preview = get_directorist_option('preview_enable', 1);
 		$link = '';
 
 		if ($display_preview && $redirect) {
-			$post_id = isset($_GET['post_id']) ? $_GET['post_id'] : $id;
-			$edited = isset($_GET['edited']) ? $_GET['edited'] : '';
-			$pid = isset($_GET['p']) ? $_GET['p'] : '';
+			$post_id = isset($_GET['post_id']) ? sanitize_text_field( wp_unslash( $_GET['post_id'] ) ) : $id;
+			$edited = isset($_GET['edited']) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ) : '';
+			$pid = isset($_GET['p']) ? sanitize_text_field( wp_unslash( $_GET['p'] ) ) : '';
 			$pid = empty($pid) ? $post_id : $pid;
 			if (empty($payment)) {
 				$redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
@@ -717,7 +721,7 @@ class Directorist_Single_Listing {
 				}
 			}
 			else {
-				$link = add_query_arg(array('atbdp_listing_id' => $pid, 'reviewed' => 'yes'), $_GET['redirect']);
+				$link = add_query_arg( array( 'atbdp_listing_id' => $pid, 'reviewed' => 'yes' ), sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) );
 			}
 		}
 
@@ -730,7 +734,7 @@ class Directorist_Single_Listing {
 
 	public function edit_link() {
 		$id = get_the_ID();
-		$redirect  = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+		$redirect  = isset($_GET['redirect']) ? sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) : '';
 		$edit_link = !empty($payment) ? add_query_arg('redirect', $redirect, ATBDP_Permalink::get_edit_listing_page_link($id)) : ATBDP_Permalink::get_edit_listing_page_link($id);
 		return $edit_link;
 	}
@@ -781,7 +785,7 @@ class Directorist_Single_Listing {
 		if( isset( $_GET['notice'] ) ) {
 			$new_listing_status  = get_term_meta( $this->type, 'new_listing_status', true );
 			$edit_listing_status = get_term_meta( $this->type, 'edit_listing_status', true );
-			$edited = ( isset( $_GET['edited'] ) ) ? $_GET['edited'] : 'no';
+			$edited = ( isset( $_GET['edited'] ) ) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ): 'no';
 
 			$pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 			$publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
@@ -1066,17 +1070,15 @@ class Directorist_Single_Listing {
 			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 		}
 		if (!empty($display_direction_map)) {
-			$info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div><span class='iw-close-btn'><i class='la la-times'></i></span></div></div>";
+			$info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Directions', 'directorist') . "</a></div><span class='iw-close-btn'><i class='la la-times'></i></span></div></div>";
 		}
 
 		$cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
 		if (!empty($cats)) {
 			$cat_icon = get_cat_icon($cats[0]->term_id);
 		}
-		$cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
-		$icon_type = substr($cat_icon, 0, 2);
-		$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
-		$cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon;
+		$cat_icon = !empty($cat_icon) ? $cat_icon : 'las la-map-marker';
+		$cat_icon = directorist_icon( $cat_icon, false );
 
 		$args = array(
 			'listing'               => $this,
@@ -1208,5 +1210,13 @@ class Directorist_Single_Listing {
 	public function get_related_columns() {
 		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
 		return 12/$columns;
+	}
+
+	public function load_map_resources() {
+		_deprecated_function( __METHOD__, '7.3' );
+	}
+
+	public function load_related_listings_script() {
+		_deprecated_function( __METHOD__, '7.3' );
 	}
 }

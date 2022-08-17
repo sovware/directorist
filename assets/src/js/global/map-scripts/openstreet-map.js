@@ -5,12 +5,13 @@
     if(targetNode){
         function initObserver() {
             const observer = new MutationObserver( initMap );
-            observer.observe( targetNode, { childList: true } );
+            targetNode && observer.observe( targetNode, { childList: true } );
         }
 
         window.addEventListener('DOMContentLoaded', initObserver );
     }
     window.addEventListener('DOMContentLoaded', initMap);
+    window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
     function initMap() {
         var $ = jQuery;

@@ -193,6 +193,7 @@
                 img {
                     width: 100%;
                     border-radius: 50%;
+                    height: auto;
                 }
             }
         }
@@ -368,7 +369,7 @@
                         margin: 0 0 10px;
                     }
 
-                    div {
+                    > div {
                         margin-bottom: 2px;
                         font-size: 14px;
                         display: flex;
@@ -706,7 +707,7 @@
                     margin: 0 0 10px;
                 }
 
-                div {
+                > div {
                     margin-bottom: 2px;
                     font-size: 14px;
                     display: flex;

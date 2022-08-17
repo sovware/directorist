@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<?php endif; ?>
 
 		<div class="directorist-user-dashboard__toggle">
-			<a href="#" class="directorist-user-dashboard__toggle__link"><?php directorist_icon( 'la la-bars' ); ?></a>
+			<a href="#" class="directorist-user-dashboard__toggle__link"><?php directorist_icon( 'las la-bars' ); ?></a>
 		</div>
 
 		<div class="directorist-user-dashboard__contents directorist-tab">

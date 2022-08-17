@@ -41,12 +41,14 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function ajax_listing_tab() {
+		check_ajax_referer( directorist_get_nonce_key() );
+
 		$data     = array_filter( $_POST, 'sanitize_text_field' ); // sanitization
 		$type     = $data['tab'];
 		$paged    = $data['paged'];
-		$search   = $data['search'];
-		$task     = $data['task'];
-		$taskdata = $data['taskdata'];
+		$search   = !empty( $data['search'] ) ? $data['search'] : '';
+		$task     = !empty( $data['task'] ) ? $data['task'] : '';
+		$taskdata = !empty( $data['taskdata'] ) ? $data['taskdata'] : '';
 
 		if ( $task ) {
 			$this->listing_task( $task, $taskdata );
@@ -219,22 +221,28 @@ class Directorist_Listing_Dashboard {
 
 		if ( $fav_listings->have_posts() ){
 			foreach ( $fav_listings->posts as $post ) {
+				$listing_type  = get_post_meta( $post->ID, '_directory_type', true );
 				$title         = ! empty( $post->post_title ) ? $post->post_title : __( 'Untitled', 'directorist' );
 				$cats          = get_the_terms( $post->ID, ATBDP_CATEGORY );
 				$category      = get_post_meta( $post->ID, '_admin_category_select', true );
 				$category_name = ! empty( $cats ) ? $cats[0]->name : 'Uncategorized';
-				$category_icon = ! empty( $cats ) ? esc_attr( get_cat_icon( $cats[0]->term_id ) ) : atbdp_icon_type() . '-tags';
 				$mark_fav_html = atbdp_listings_mark_as_favourite( $post->ID );
 
-				$icon_type     = substr( $category_icon, 0, 2 );
-				$icon          = ( 'la' === $icon_type ) ? $icon_type . ' ' . $category_icon : 'fa ' . $category_icon;
+
+				if (!empty($cats)) {
+					$cat_icon = get_cat_icon($cats[0]->term_id);
+				}
+				$cat_icon = !empty($cat_icon) ? $cat_icon : 'las la-tags';
+				$icon = directorist_icon( $cat_icon, false );
+
 				$category_link = ! empty( $cats ) ? esc_url( ATBDP_Permalink::atbdp_get_category_page( $cats[0] ) ) : '#';
 				$post_link     = esc_url( get_post_permalink( $post->ID ) );
 
-				$listing_img     = get_post_meta( $post->ID, '_listing_img', true );
-				$listing_prv_img = get_post_meta( $post->ID, '_listing_prv_img', true );
-				$crop_width      = get_directorist_option( 'crop_width', 360 );
-				$crop_height     = get_directorist_option( 'crop_height', 300 );
+				$listing_img     	= get_post_meta( $post->ID, '_listing_img', true );
+				$listing_prv_img 	= get_post_meta( $post->ID, '_listing_prv_img', true );
+				$default_image_src 	= Helper::default_preview_image_src( $listing_type );
+				$crop_width      	= get_directorist_option( 'crop_width', 360 );
+				$crop_height     	= get_directorist_option( 'crop_height', 300 );
 
 				if ( ! empty( $listing_prv_img ) ) {
 					$prv_image = atbdp_get_image_source( $listing_prv_img, 'large' );
@@ -252,7 +260,7 @@ class Directorist_Listing_Dashboard {
 
 				}
 				if ( empty( $listing_img[0] ) && empty( $listing_prv_img ) ) {
-					$img_src = DIRECTORIST_ASSETS . 'images/grid.jpg';
+					$img_src = $default_image_src;
 				}
 
 				$fav_listing_items[] = array(
@@ -503,11 +511,7 @@ class Directorist_Listing_Dashboard {
 			return $this->restrict_access_template();
 		}
 
-		ob_start();
-		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-		echo Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
-
-		return ob_get_clean();
+		return Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
 	}
 
 	public function can_renew() {

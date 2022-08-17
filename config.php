@@ -1,6 +1,6 @@
 <?php
 // Plugin version.
-if ( ! defined( 'ATBDP_VERSION' ) ) {define( 'ATBDP_VERSION', '7.2.2' );}
+if ( ! defined( 'ATBDP_VERSION' ) ) {define( 'ATBDP_VERSION', '7.3.1.2' );}
 // Plugin Folder Path.
 if ( ! defined( 'ATBDP_DIR' ) ) { define( 'ATBDP_DIR', plugin_dir_path( __FILE__ ) ); }
 // Plugin Folder URL.
@@ -31,6 +31,7 @@ if ( ! defined( 'DIRECTORIST_ASSETS' ) ) { define('DIRECTORIST_ASSETS', ATBDP_UR
 if ( ! defined( 'ATBDP_PUBLIC_ASSETS') ) { define('ATBDP_PUBLIC_ASSETS', DIRECTORIST_ASSETS ); }
 if ( ! defined( 'DIRECTORIST_CSS' ) ) { define('DIRECTORIST_CSS', DIRECTORIST_ASSETS . 'css/'); }
 if ( ! defined( 'DIRECTORIST_JS' ) ) { define('DIRECTORIST_JS', DIRECTORIST_ASSETS . 'js/'); }
+if ( ! defined( 'DIRECTORIST_ICON_PATH' ) ) { define('DIRECTORIST_ICON_PATH', ATBDP_DIR . 'assets/icons/'); }
 if ( ! defined( 'DIRECTORIST_ICON_URL' ) ) { define('DIRECTORIST_ICON_URL', DIRECTORIST_ASSETS . 'icons/'); }
 
 // Vendor Assets Path

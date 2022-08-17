@@ -206,10 +206,10 @@ trait URI_Helper {
 
 		if ( $slice[0] == 'uil' ) {
 			$filename = str_replace( 'uil-', '', $slice[1] );
-			$dir      = 'unicons/line/';
+			$dir      = 'unicons/svgs/line/';
 		} elseif ( $slice[0] == 'uis' ) {
 			$filename = str_replace( 'uis-', '', $slice[1] );
-			$dir      = 'unicons/solid/';
+			$dir      = 'unicons/svgs/solid/';
 		} else {
 			return '';
 		}

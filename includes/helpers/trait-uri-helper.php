@@ -195,7 +195,9 @@ trait URI_Helper {
 	}
 
 	/**
-	 * Unicons 4.0.1
+	 * Unicons 3.0.3
+	 *
+	 * Unicon svgs are kept only for backward compatibility
 	 *
 	 * @param string $icon
 	 *

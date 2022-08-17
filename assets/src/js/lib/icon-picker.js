@@ -5,8 +5,8 @@ const IconPicker = (args) => {
         container: null,
         onSelect: null,
         icons: null,
-
         init: function () {
+            let _this = this;
             this.container = (typeof args.container !== 'undefined') ? args.container : this.container;
             this.onSelect = (typeof args.onSelect !== 'undefined') ? args.onSelect : this.onSelect;
             this.icons = (typeof args.icons !== 'undefined') ? args.icons : this.icons;
@@ -16,11 +16,12 @@ const IconPicker = (args) => {
                 return;
             }
 
-            this.renderMarkup();
-            this.renderIcon();
-            this.attachEvents();
+            _this.renderMarkup();
+            _this.renderIcon();
+            _this.attachEvents();
+
         },
-        renderIcon(){
+        renderIcon() {
             let markup = '';
             for (const iconGroupKey of Object.keys(this.icons)) {
                 markup += `<div class="icons-group ${iconGroupKey}">`;
@@ -35,7 +36,7 @@ const IconPicker = (args) => {
                 }
                 markup += `</div></div>`;
             }
-            this.container.querySelector('#iconsWrapperElm').innerHTML = markup;
+            this.container.closest('body').querySelector('#iconsWrapperElm').innerHTML = markup;
         },
         renderMarkup() {
             let selectedIcon = this.value ? this.value.split(" ") : ['', 'icon-name'];
@@ -53,36 +54,44 @@ const IconPicker = (args) => {
                 </div>
                 <button class="icon-picker-selector__btn">Change Icon</button>
             </div>
-            <div class="icon-picker">
-                <div class="icon-picker__inner">
-                    <a href="#" class="icon-picker__close"
-                        ><span class="fas fa-times"></span
-                    ></a>
-                    <div class="icon-picker__sidebar">
-                        <div class="icon-picker__filter">
-                            <label for="">Filter By Name</label>
-                            <input type="text" placeholder="Search" />
-                        </div>
-                        <div class="icon-picker__filter">
-                            <label for="">Filter By Icon Pack</label>
-                            <select>
-                                <option value="fontAwesome">Font Awesome</option>
-                                <option value="lineAwesome">Line Awesome</option>
-                            </select>
-                        </div>
-                        <div class="icon-picker__preview">
-                            <span class="icon-picker__preview-icon ${this.value}"></span>
-                            <span class="icon-picker__preview-info">
-                                <span class="icon-picker__icon-name">${selectedIcon[1]}</span>
-                            </span>
-                        </div>
-                        <button class="cptm-btn cptm-btn-primary icon-picker__done-btn">Done</button>
-                    </div>
-                    <div class="icon-picker__content">
-                    <div id="iconsWrapperElm"></div>
-                    </div></div>
                 `;
             this.container.innerHTML = markup;
+
+            let iconPickerWrap = `
+            <div class="icon-picker">
+            <div class="icon-picker__inner">
+                <a href="#" class="icon-picker__close"
+                    ><span class="fas fa-times"></span
+                ></a>
+                <div class="icon-picker__sidebar">
+                    <div class="icon-picker__filter">
+                        <label for="">Filter By Name</label>
+                        <input type="text" placeholder="Search" />
+                    </div>
+                    <div class="icon-picker__filter">
+                        <label for="">Filter By Icon Pack</label>
+                        <select>
+                            <option value="fontAwesome">Font Awesome</option>
+                            <option value="lineAwesome">Line Awesome</option>
+                        </select>
+                    </div>
+                    <div class="icon-picker__preview">
+                        <span class="icon-picker__preview-icon ${this.value}"></span>
+                        <span class="icon-picker__preview-info">
+                            <span class="icon-picker__icon-name">${selectedIcon[1]}</span>
+                        </span>
+                    </div>
+                    <button class="cptm-btn cptm-btn-primary icon-picker__done-btn">Done</button>
+                </div>
+                <div class="icon-picker__content">
+                <div id="iconsWrapperElm" class="iconsWrapperElm">
+
+                </div>
+            </div>
+        </div>
+            `;
+
+            this.container.closest('body').insertAdjacentHTML('beforeend', iconPickerWrap)
         },
 
         attachEvents() {
@@ -92,12 +101,12 @@ const IconPicker = (args) => {
             //remove active status
             function removeActiveStatus() {
                 iconButtons.forEach(elm => {
-                    if(elm.classList.contains('cptm-btn-primary')){
+                    if (elm.classList.contains('cptm-btn-primary')) {
                         elm.classList.remove('cptm-btn-primary');
                     }
                 })
             }
-            iconButtons.forEach(elm =>{
+            iconButtons.forEach(elm => {
                 elm.addEventListener('click', function (event) {
                     event.preventDefault();
                     const iconGroupKey = event.target.getAttribute('data-group-key');
@@ -106,8 +115,8 @@ const IconPicker = (args) => {
                     icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
                     removeActiveStatus();
                     elm.classList.add('cptm-btn-primary');
-                    self.container.querySelector('.icon-picker__preview-icon').setAttribute('class', `icon-picker__preview-icon ${icon}`);
-                    self.container.querySelector('.icon-picker__icon-name').innerHTML = iconKey;
+                    self.container.closest('body').querySelector('.icon-picker__preview-icon').setAttribute('class', `icon-picker__preview-icon ${icon}`);
+                    self.container.closest('body').querySelector('.icon-picker__icon-name').innerHTML = iconKey;
                     searchIcon();
                 });
             })
@@ -126,10 +135,10 @@ const IconPicker = (args) => {
                 e.preventDefault();
                 openModal();
             });
-            document.querySelector('.icon-picker__done-btn').addEventListener('click', (e)=>{
+            document.querySelector('.icon-picker__done-btn').addEventListener('click', (e) => {
                 e.preventDefault();
                 closeModal();
-                if(typeof icon !== 'undefined'){
+                if (typeof icon !== 'undefined') {
                     self.value = icon;
                     if (typeof self.onSelect === 'function') {
                         self.onSelect(icon);
@@ -138,8 +147,8 @@ const IconPicker = (args) => {
                 }
                 //self.renderIcon();
                 //self.attachEvents();
-                self.container.querySelector('.icon-picker-selector input').value = self.value;
-                self.container.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon ${self.value}`);
+                self.container.closest('body').querySelector('.icon-picker-selector input').value = self.value;
+                self.container.closest('body').querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon ${self.value}`);
             });
             document.querySelector('.icon-picker__close').addEventListener('click', closeModal)
             document.body.addEventListener('click', (e) => {

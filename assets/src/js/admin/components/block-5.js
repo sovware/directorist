@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const onSelectIcon = function( value ) {
             iconValueElm.setAttribute( 'value', value );
-        }; 
+        };
 
         let args = {};
         args.container = iconPickerContainer;

@@ -12135,6 +12135,8 @@ var IconPicker = function IconPicker(args) {
     onSelect: null,
     icons: null,
     init: function init() {
+      var _this = this;
+
       this.container = typeof args.container !== 'undefined' ? args.container : this.container;
       this.onSelect = typeof args.onSelect !== 'undefined' ? args.onSelect : this.onSelect;
       this.icons = typeof args.icons !== 'undefined' ? args.icons : this.icons;
@@ -12144,9 +12146,11 @@ var IconPicker = function IconPicker(args) {
         return;
       }
 
-      this.renderMarkup();
-      this.renderIcon();
-      this.attachEvents();
+      _this.renderMarkup();
+
+      _this.renderIcon();
+
+      _this.attachEvents();
     },
     renderIcon: function renderIcon() {
       var markup = '';
@@ -12176,13 +12180,15 @@ var IconPicker = function IconPicker(args) {
         markup += "</div></div>";
       }
 
-      this.container.querySelector('#iconsWrapperElm').innerHTML = markup;
+      this.container.closest('body').querySelector('#iconsWrapperElm').innerHTML = markup;
     },
     renderMarkup: function renderMarkup() {
       var selectedIcon = this.value ? this.value.split(" ") : ['', 'icon-name'];
       var markup = '';
-      markup += "\n            <div class=\"icon-picker-selector\">\n                <div class=\"icon-picker-selector__icon\">\n                    <span class=\"directorist-selected-icon ".concat(this.value, "\"></span>\n                    <input\n                    type=\"text\"\n                    placeholder=\"Click to select icon\"\n                    class=\"cptm-form-control\"\n                    value=\"").concat(this.value, "\" style=\"").concat(this.value ? 'padding-left: 38px' : '', "\"\n                    />\n                </div>\n                <button class=\"icon-picker-selector__btn\">Change Icon</button>\n            </div>\n            <div class=\"icon-picker\">\n                <div class=\"icon-picker__inner\">\n                    <a href=\"#\" class=\"icon-picker__close\"\n                        ><span class=\"fas fa-times\"></span\n                    ></a>\n                    <div class=\"icon-picker__sidebar\">\n                        <div class=\"icon-picker__filter\">\n                            <label for=\"\">Filter By Name</label>\n                            <input type=\"text\" placeholder=\"Search\" />\n                        </div>\n                        <div class=\"icon-picker__filter\">\n                            <label for=\"\">Filter By Icon Pack</label>\n                            <select>\n                                <option value=\"fontAwesome\">Font Awesome</option>\n                                <option value=\"lineAwesome\">Line Awesome</option>\n                            </select>\n                        </div>\n                        <div class=\"icon-picker__preview\">\n                            <span class=\"icon-picker__preview-icon ").concat(this.value, "\"></span>\n                            <span class=\"icon-picker__preview-info\">\n                                <span class=\"icon-picker__icon-name\">").concat(selectedIcon[1], "</span>\n                            </span>\n                        </div>\n                        <button class=\"cptm-btn cptm-btn-primary icon-picker__done-btn\">Done</button>\n                    </div>\n                    <div class=\"icon-picker__content\">\n                    <div id=\"iconsWrapperElm\"></div>\n                    </div></div>\n                ");
+      markup += "\n            <div class=\"icon-picker-selector\">\n                <div class=\"icon-picker-selector__icon\">\n                    <span class=\"directorist-selected-icon ".concat(this.value, "\"></span>\n                    <input\n                    type=\"text\"\n                    placeholder=\"Click to select icon\"\n                    class=\"cptm-form-control\"\n                    value=\"").concat(this.value, "\" style=\"").concat(this.value ? 'padding-left: 38px' : '', "\"\n                    />\n                </div>\n                <button class=\"icon-picker-selector__btn\">Change Icon</button>\n            </div>\n                ");
       this.container.innerHTML = markup;
+      var iconPickerWrap = "\n            <div class=\"icon-picker\">\n            <div class=\"icon-picker__inner\">\n                <a href=\"#\" class=\"icon-picker__close\"\n                    ><span class=\"fas fa-times\"></span\n                ></a>\n                <div class=\"icon-picker__sidebar\">\n                    <div class=\"icon-picker__filter\">\n                        <label for=\"\">Filter By Name</label>\n                        <input type=\"text\" placeholder=\"Search\" />\n                    </div>\n                    <div class=\"icon-picker__filter\">\n                        <label for=\"\">Filter By Icon Pack</label>\n                        <select>\n                            <option value=\"fontAwesome\">Font Awesome</option>\n                            <option value=\"lineAwesome\">Line Awesome</option>\n                        </select>\n                    </div>\n                    <div class=\"icon-picker__preview\">\n                        <span class=\"icon-picker__preview-icon ".concat(this.value, "\"></span>\n                        <span class=\"icon-picker__preview-info\">\n                            <span class=\"icon-picker__icon-name\">").concat(selectedIcon[1], "</span>\n                        </span>\n                    </div>\n                    <button class=\"cptm-btn cptm-btn-primary icon-picker__done-btn\">Done</button>\n                </div>\n                <div class=\"icon-picker__content\">\n                <div id=\"iconsWrapperElm\" class=\"iconsWrapperElm\">\n\n                </div>\n            </div>\n        </div>\n            ");
+      this.container.closest('body').insertAdjacentHTML('beforeend', iconPickerWrap);
     },
     attachEvents: function attachEvents() {
       var iconButtons = document.querySelectorAll('.font-icon-btn');
@@ -12206,8 +12212,8 @@ var IconPicker = function IconPicker(args) {
           icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
           removeActiveStatus();
           elm.classList.add('cptm-btn-primary');
-          self.container.querySelector('.icon-picker__preview-icon').setAttribute('class', "icon-picker__preview-icon ".concat(icon));
-          self.container.querySelector('.icon-picker__icon-name').innerHTML = iconKey;
+          self.container.closest('body').querySelector('.icon-picker__preview-icon').setAttribute('class', "icon-picker__preview-icon ".concat(icon));
+          self.container.closest('body').querySelector('.icon-picker__icon-name').innerHTML = iconKey;
           searchIcon();
         });
       });
@@ -12243,8 +12249,8 @@ var IconPicker = function IconPicker(args) {
         //self.attachEvents();
 
 
-        self.container.querySelector('.icon-picker-selector input').value = self.value;
-        self.container.querySelector('.directorist-selected-icon').setAttribute('class', "directorist-selected-icon ".concat(self.value));
+        self.container.closest('body').querySelector('.icon-picker-selector input').value = self.value;
+        self.container.closest('body').querySelector('.directorist-selected-icon').setAttribute('class', "directorist-selected-icon ".concat(self.value));
       });
       document.querySelector('.icon-picker__close').addEventListener('click', closeModal);
       document.body.addEventListener('click', function (e) {

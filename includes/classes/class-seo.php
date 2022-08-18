@@ -536,8 +536,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                     $url = ATBDP_Permalink::atbdp_get_tag_page($term);
                 }
             }
-
-            echo "<link rel='canonical' href='" . esc_url($url) . "' />\n";
+            ?>
+            <link rel='canonical' href='<?php echo esc_url( $url ); ?>' />
+            <?php
         }
 
 
@@ -593,16 +594,17 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
         public function atbdp_add_meta_keywords()
         {
             $seo_meta = $this->get_seo_meta_data();
-            $meta_desc = $seo_meta['description'];
-            if ( ! empty( $meta_desc ) ) {
-                /**
-                 * Filter SEO meta description.
-                 *
-                 * @since 1.0.0
-                 *
-                 * @param string $meta_desc Meta description content.
-                 */
-                echo apply_filters('atbdp_seo_meta_description', '<meta name="description" content="' . $meta_desc . '" />', $meta_desc) . "\n";
+            /**
+             * Filter SEO meta description.
+             *
+             * @since 1.0.0
+             *
+             * @param string $meta_desc Meta description content.
+             */
+            $meta_desc = apply_filters( 'atbdp_seo_meta_description', $seo_meta['description'] );
+            if ( ! empty( $meta_desc ) ) { ?>
+                <meta name="description" content="<?php echo esc_attr( $meta_desc ); ?>" />
+            <?php
             }
         }
 
@@ -745,9 +747,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 }
 
                 $props = rtrim( $props );
-                if ( ! empty( $props ) ) {
-                    echo "<meta {$props} />\n";
-                }
+                if ( ! empty( $props ) ) { ?>
+                    <meta <?php echo esc_attr( $props ); ?> />
+                <?php }
             }
         }
 
@@ -821,9 +823,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             $settings_title = get_directorist_option('search_result_meta_title');
             if ( ! empty( $settings_title ) ) $seo_meta['title'] = $settings_title;
 
-            $query    = ( isset( $_GET['q'] ) && ( '' !== $_GET['q'] ) ) ? ucfirst( wp_unslash( $_GET['q'] ) ) : '';
-            $category = ( isset( $_GET['in_cat'] ) && ( '' !== $_GET['in_cat'] ) ) ? ucfirst( $_GET['in_cat'] ) : '';
-            $location = ( isset( $_GET['in_loc'] ) && ( '' !== $_GET['in_loc'] ) ) ? ucfirst( $_GET['in_loc'] ) : '';
+            $query    = ( isset( $_GET['q'] ) && ( '' !== $_GET['q'] ) ) ? ucfirst( directorist_clean( wp_unslash( $_GET['q'] ) ) ) : '';
+            $category = ( isset( $_GET['in_cat'] ) && ( '' !== $_GET['in_cat'] ) ) ? ucfirst( directorist_clean( wp_unslash( $_GET['in_cat'] ) ) ) : '';
+            $location = ( isset( $_GET['in_loc'] ) && ( '' !== $_GET['in_loc'] ) ) ? ucfirst( directorist_clean( wp_unslash( $_GET['in_loc'] ) ) ) : '';
 
             $category = get_term_by( 'id', $category, ATBDP_CATEGORY );
             $location = get_term_by( 'id', $location, ATBDP_LOCATION );

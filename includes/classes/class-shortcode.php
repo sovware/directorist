@@ -155,7 +155,7 @@ class ATBDP_Shortcode {
 
 	public function category_archive( $atts ) {
 		$atts             = !empty( $atts ) ? $atts : array();
-		$category_slug    = !empty( $_GET['category'] ) ? $_GET['category'] : get_query_var('atbdp_category');
+		$category_slug    = !empty( $_GET['category'] ) ? directorist_clean( wp_unslash( $_GET['category'] ) ) : get_query_var('atbdp_category');
 		$atts['category'] = sanitize_title_for_query( $category_slug );
 
 		$atts[ 'shortcode' ] = 'directorist_category';
@@ -165,7 +165,7 @@ class ATBDP_Shortcode {
 
 	public function tag_archive( $atts ) {
 		$atts        = !empty( $atts ) ? $atts : array();
-		$tag_slug    = !empty( $_GET['tag'] ) ? $_GET['tag'] : get_query_var('atbdp_tag');
+		$tag_slug    = !empty( $_GET['tag'] ) ? directorist_clean( wp_unslash( $_GET['tag'] ) ) : get_query_var('atbdp_tag');
 		$atts['tag'] = sanitize_title_for_query( $tag_slug );
 
 		$atts[ 'shortcode' ] = 'directorist_tag';
@@ -175,7 +175,7 @@ class ATBDP_Shortcode {
 
 	public function location_archive( $atts ) {
 		$atts             = !empty( $atts ) ? $atts : array();
-		$location_slug    = !empty( $_GET['location'] ) ? $_GET['location'] : get_query_var('atbdp_location');
+		$location_slug    = !empty( $_GET['location'] ) ? directorist_clean( wp_unslash( $_GET['location'] ) ) : get_query_var('atbdp_location');
 		$atts['location'] = sanitize_title_for_query( $location_slug );
 
 		$atts[ 'shortcode' ] = 'directorist_location';
@@ -249,7 +249,7 @@ class ATBDP_Shortcode {
 	public function add_listing( $atts ) {
 		$atts  = !empty( $atts ) ? $atts : array();
 		$id    = get_query_var( 'atbdp_listing_id', 0 );
-		$id    = empty( $id ) && ! empty( $_REQUEST['edit'] ) ? $_REQUEST['edit'] : $id;
+		$id    = empty( $id ) && ! empty( $_REQUEST['edit'] ) ? directorist_clean( wp_unslash( $_REQUEST['edit'] ) ) : $id;
 
 		$forms = Directorist_Listing_Form::instance($id);
 

@@ -24,7 +24,7 @@ class Comment_Form_Processor {
 
 	public static function process() {
 		try {
-			$nonce      = ! empty( $_POST['directorist_comment_nonce'] ) ? $_POST['directorist_comment_nonce'] : '';
+			$nonce      = ! empty( $_POST['directorist_comment_nonce'] ) ? sanitize_key( $_POST['directorist_comment_nonce'] ) : '';
 			$post_id    = ! empty( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
 			$comment_id = ! empty( $_POST['comment_id'] ) ? absint( $_POST['comment_id'] ) : 0;
 
@@ -64,13 +64,15 @@ class Comment_Form_Processor {
 			}
 
 			if ( $is_review ) {
-				$rating = ! empty( $_POST['rating'] ) ? directorist_clean( $_POST['rating'] ) : '';
+				$rating = ! empty( $_POST['rating'] ) ? directorist_clean( wp_unslash( $_POST['rating'] ) ) : '';
 				if ( empty( $rating ) ) {
 					throw new Exception( __( 'Please share review rating.', 'directorist' ) );
 				}
 			}
 
-			if ( empty( $_POST['comment'] ) || empty( trim( $_POST['comment'] ) ) ) {
+			$comment_content = isset( $_POST['comment'] ) ? trim( sanitize_textarea_field( wp_unslash( $_POST['comment'] ) ) ) : '';
+
+			if ( empty( $comment_content ) ) {
 				if ( $is_review ) {
 					$text = __( 'To submit your review, please describe your rating.', 'directorist' );
 				} else {
@@ -84,7 +86,7 @@ class Comment_Form_Processor {
 				'comment_ID'      => $comment->comment_ID,
 				'comment_post_ID' => $comment->comment_post_ID,
 				'comment_type'    => $comment->comment_type,
-				'comment_content' => sanitize_textarea_field( trim( $_POST['comment'] ) )
+				'comment_content' => $comment_content
 			);
 
 			$updated_comment = wp_update_comment( $comment_data, true );

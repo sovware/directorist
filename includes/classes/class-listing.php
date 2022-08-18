@@ -60,10 +60,10 @@ if (!class_exists('ATBDP_Listing')):
             global $pagenow;
             $type = 'post';
             if (isset($_GET['post_type'])) {
-                $type = $_GET['post_type'];
+                $type = ! empty( $_GET['post_type'] ) ? directorist_clean( wp_unslash( $_GET['post_type'] ) ) : '';
             }
             if ('at_biz_dir' == $type && is_admin() && $pagenow == 'edit.php' && isset($_GET['directory_type']) && ! empty( $_GET['directory_type'] ) ) {
-                $value = sanitize_text_field($_GET['directory_type']);
+                $value = ! empty( $_GET['directory_type'] ) ? directorist_clean( wp_unslash( $_GET['directory_type'] ) ) : '';
                 $tax_query = array(
                     'relation' => 'AND',
                     array(
@@ -78,16 +78,17 @@ if (!class_exists('ATBDP_Listing')):
         public function atbdp_listings_filter(  ) {
             $type = 'post';
             if (isset($_GET['post_type'])) {
-                $type = $_GET['post_type'];
+                $type = ! empty( $_GET['post_type'] ) ? directorist_clean( wp_unslash( $_GET['post_type'] ) ) : '';
             }
             $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 
             //only add filter to post type you want
             if ( ( 'at_biz_dir' == $type ) && ( atbdp_is_truthy( $enable_multi_directory ) ) ) { ?>
                 <select name="directory_type">
-                    <option value=""><?php _e('Filter by directory ', 'directorist'); ?></option>
+                    <option value=""><?php esc_html_e('Filter by directory ', 'directorist'); ?></option>
                     <?php
-                    $current_v = isset($_GET['directory_type']) ? $_GET['directory_type'] : '';
+                    $current_v = ! empty( $_GET['directory_type'] ) ? directorist_clean( wp_unslash( $_GET['directory_type'] ) ) : '';
+
                     $listing_types = get_terms([
                         'taxonomy'   => 'atbdp_listing_types',
                         'hide_empty' => false,
@@ -104,15 +105,15 @@ if (!class_exists('ATBDP_Listing')):
          * @since 6.3.5
          */
         public function atbdp_listing_status_controller() {
-            $status   = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
-            $preview  = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
-            $reviewed = isset($_GET['reviewed']) ? esc_attr($_GET['reviewed']) : '';
+            $status   = isset($_GET['listing_status']) ? directorist_clean( wp_unslash( $_GET['listing_status'] ) ) : '';
+            $preview  = isset($_GET['preview']) ? directorist_clean( wp_unslash( $_GET['preview'] ) ) : '';
+            $reviewed = isset($_GET['reviewed']) ? directorist_clean( wp_unslash( $_GET['reviewed'] ) ) : '';
 
             if ( $preview || $status || $reviewed ) {
-                $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
-                $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
+                $listing_id = isset($_GET['atbdp_listing_id']) ? directorist_clean( wp_unslash( $_GET['atbdp_listing_id'] ) ) : '';
+                $listing_id = isset($_GET['post_id']) ? directorist_clean( wp_unslash( $_GET['post_id'] ) ) : $listing_id;
 
-                $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
+                $id = isset($_GET['listing_id']) ? (int)directorist_clean( wp_unslash( $_GET['listing_id'] ) ) : '';
                 $id = ( ! empty( $id ) ) ? $id : $listing_id;
                 $id = ( ! empty( $id ) ) ? $id : get_the_ID();
 
@@ -126,7 +127,7 @@ if (!class_exists('ATBDP_Listing')):
                 $new_l_status = get_term_meta( $directory_type, 'new_listing_status', true );
                 $edit_l_status = get_term_meta( $directory_type, 'edit_listing_status', true );
 
-                $edited = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
+                $edited = isset($_GET['edited']) ? directorist_clean( wp_unslash( $_GET['edited'] ) ) : '';
                 $args = [ 'id' => $id, 'edited' => $edited, 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status ];
                 $post_status = atbdp_get_listing_status_after_submission( $args );
 
@@ -199,23 +200,26 @@ if (!class_exists('ATBDP_Listing')):
 
                 // Get Location page title
 
-                echo '<meta property="og:url" content="' . atbdp_get_current_url() . '" />';
-                echo '<meta property="og:type" content="article" />';
-                echo '<meta property="og:title" content="' . $title . '" />';
-                echo '<meta property="og:site_name" content="' . get_bloginfo('name') . '" />';
-                echo '<meta name="twitter:card" content="summary" />';
+                ?>
+                <meta property="og:url" content="<?php echo esc_url( atbdp_get_current_url() ); ?>" />
+                <meta property="og:type" content="article" />
+                <meta property="og:title" content="<?php echo esc_attr( $title ); ?>" />
+                <meta property="og:site_name" content="<?php echo esc_attr( get_bloginfo('name') ); ?>" />
+                <meta name="twitter:card" content="summary" />
 
-                if (!empty($post->post_content)) {
-                    echo '<meta property="og:description" content="' . wp_trim_words($post->post_content, 150) . '" />';
-                }
+                <?php
+                if (!empty($post->post_content)) { ?>
+                    <meta property="og:description" content="<?php echo esc_attr( wp_trim_words($post->post_content, 150) ); ?>" />
+                <?php }
 
                 $images = get_post_meta($post->ID, '_listing_prv_img', true);
                 if (!empty($images)) {
                     $thumbnail = atbdp_get_image_source($images, 'full');
-                    if (!empty($thumbnail)) {
-                        echo '<meta property="og:image" content="' . esc_attr($thumbnail) . '" />';
-                        echo '<meta name="twitter:image" content="' . esc_attr($thumbnail) . '" />';
-                    }
+
+                    if ( ! empty( $thumbnail ) ) { ?>
+                        <meta property="og:image" content="<?php echo esc_attr( $thumbnail ); ?>" />
+                        <meta name="twitter:image" content="<?php echo esc_attr( $thumbnail ); ?>" />
+                    <?php }
 
                 }
 

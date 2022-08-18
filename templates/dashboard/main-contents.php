@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -14,7 +14,12 @@ $counter = 1;
 
 	<?php foreach ( $dashboard->dashboard_tabs() as $key => $value ): ?>
 
-		<div class="directorist-tab__pane <?php echo ( $counter == 1 ) ? 'directorist-tab__pane--active' : ''; ?>" id="<?php echo esc_attr( $key ); ?>"><?php echo $value['content']; ?>
+		<div class="directorist-tab__pane <?php echo ( $counter == 1 ) ? 'directorist-tab__pane--active' : ''; ?>" id="<?php echo esc_attr( $key ); ?>">
+			<?php
+			// Contents are coming from dashboard template files which are escaped already
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $value['content'];
+			?>
 		</div>
 		<?php
 			if (!empty($value['after_content_hook'])) {

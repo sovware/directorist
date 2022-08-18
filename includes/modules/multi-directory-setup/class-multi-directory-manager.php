@@ -333,9 +333,9 @@ class Multi_Directory_Manager
             ], 200);
         }
 
-        $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? ( int ) $_POST[ 'term_id' ] : 0;
-        $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? $_POST[ 'directory-name' ] : '';
-        $json_file      = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';
+        $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? absint( $_POST[ 'term_id' ] ) : 0;
+        $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'directory-name' ] ) ) : '';
+        $json_file      = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? directorist_clean( wp_unslash( $_FILES[ 'directory-import-file' ] ) ) : '';
 
         // Validation
         $response = [
@@ -469,15 +469,15 @@ class Multi_Directory_Manager
             ], 200);
         }
 
-        $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? $_POST['listing_type_id'] : 0;
-        $directory_name = $_POST['name'];
+        $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? absint( $_POST['listing_type_id'] ) : 0;
+        $directory_name = sanitize_text_field( wp_unslash( $_POST['name'] ) );
 
         $fields     = [];
-        $field_list = Helper::maybe_json( $_POST['field_list'] );
+        $field_list = ! empty( $_POST['field_list'] ) ? directorist_maybe_json( wp_unslash( $_POST['field_list'] ) ) : [];
 
         foreach ( $field_list as $field_key ) {
             if ( isset( $_POST[$field_key] ) && 'name' !==  $field_key ) {
-                $fields[ $field_key ] = Helper::maybe_json( $_POST[$field_key], true );
+                $fields[ $field_key ] = directorist_maybe_json( wp_unslash( $_POST[ $field_key ] ), true );
             }
         }
 
@@ -515,8 +515,8 @@ class Multi_Directory_Manager
             $value = ('true' === $value || true === $value || '1' === $value || 1 === $value) ? true : 0;
         }
 
-        $value = Helper::maybe_json($value);
-        update_term_meta($term_id, $field_key, $value);
+        $value = directorist_maybe_json( $value );
+        update_term_meta( $term_id, $field_key, $value );
     }
 
     // prepare_settings
@@ -4382,7 +4382,7 @@ class Multi_Directory_Manager
                         'label' => __( "Badges", "directorist" ),
                         'icon' => 'uil uil-text-fields',
                         'options' => [
-                            'title' => __( "Badge Settings". "directorist" ),
+                            'title' => __( "Badge Settings", "directorist" ),
                             'fields' => [
                                 'new_badge' => [
                                     'type' => "toggle",
@@ -4813,7 +4813,7 @@ class Multi_Directory_Manager
         $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
         $enable_multi_directory = atbdp_is_truthy( $enable_multi_directory );
 
-        $action = isset( $_GET['action'] ) ? $_GET['action'] : '';
+        $action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
         $listing_type_id = 0;
 
         $data = [
@@ -4824,7 +4824,7 @@ class Multi_Directory_Manager
             $this->prepare_settings();
             $this->add_missing_single_listing_section_id();
 
-            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? $_REQUEST['listing_type_id'] : 0;
+            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? absint( $_REQUEST['listing_type_id'] ) : 0;
             $listing_type_id = ( ! $enable_multi_directory ) ? default_directory_type() : $listing_type_id;
 
             $this->update_fields_with_old_data( $listing_type_id );
@@ -4928,15 +4928,15 @@ class Multi_Directory_Manager
     public function handle_delete_listing_type_request()
     {
 
-        if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'delete_listing_type')) {
+        if ( ! empty( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'delete_listing_type' ) ) {
             wp_die('Are you cheating? | _wpnonce');
         }
 
-        if (!current_user_can('manage_options')) {
+        if ( ! current_user_can('manage_options') ) {
             wp_die('Are you cheating? | manage_options');
         }
 
-        $term_id = isset($_REQUEST['listing_type_id']) ? absint($_REQUEST['listing_type_id']) : 0;
+        $term_id = isset( $_REQUEST['listing_type_id'] ) ? absint( $_REQUEST['listing_type_id'] ) : 0;
 
         $this->delete_listing_type($term_id);
 
@@ -4988,7 +4988,7 @@ class Multi_Directory_Manager
      * @return array page names with key value pairs in a multi-dimensional array
      * @since 3.0.0
      */
-    function get_pages_vl_arrays()
+    public function get_pages_vl_arrays()
     {
         $pages = get_pages();
         $pages_options = array();

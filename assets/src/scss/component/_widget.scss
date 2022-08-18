@@ -616,6 +616,7 @@
         padding: 8px 15px;
         box-shadow: none;
         width: 100%;
+        box-sizing: border-box;
       }
 
       textarea.form-control {
@@ -880,6 +881,13 @@
         padding-left: 0 !important;
         padding-right: 0 !important;
       }
+    }
+  }
+  .directorist-search-tags{
+    flex-wrap: wrap;
+    margin: 0 -8px;
+    .directorist-checkbox{
+      margin: 4px 8px;
     }
   }
 }

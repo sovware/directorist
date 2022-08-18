@@ -26,8 +26,15 @@ class ATBDP_Metabox {
 	}
 
 	public function atbdp_dynamic_admin_listing_form() {
-		$term_id 		= sanitize_text_field( $_POST['directory_type'] );
-		$listing_id    	= sanitize_text_field( $_POST['listing_id'] );
+
+		if ( ! directorist_verify_nonce() ) {
+			wp_send_json( array(
+				'error' => esc_html__( 'Invalid nonce!', 'directorist' ),
+			) );
+		}
+
+		$term_id 		= ! empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
+		$listing_id    	= ! empty( $_POST['listing_id'] ) ? directorist_clean( wp_unslash( $_POST['listing_id'] ) ) : '';
 
 		// listing meta fields
 		ob_start();
@@ -96,8 +103,7 @@ class ATBDP_Metabox {
 				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
 				$checked		= in_array( $term->term_id, $saving_values ) ? 'checked' : '';
 				if( in_array( $term_id, $directory_type) ) { ?>
-					<li id="<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>"><label class="selectit"><input value="<?php echo $term->term_id; ?>" type="checkbox" name="tax_input[<?php echo $taxonomy_id; ?>][]" id="in-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>" <?php echo ! empty( $checked ) ? $checked : ''; ?>> <?php echo $term->name; ?></label></li>
-
+					<li id="<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>"><label class="selectit"><input value="<?php echo esc_attr( $term->term_id ); ?>" type="checkbox" name="tax_input[<?php echo esc_attr( $taxonomy_id ); ?>][]" id="in-<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>" <?php echo ! empty( $checked ) ? esc_attr( $checked ) : ''; ?>> <?php echo esc_html( $term->name ); ?></label></li>
 				<?php
 				}
 			}
@@ -124,7 +130,7 @@ class ATBDP_Metabox {
 				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
 				$checked		= in_array( $term->term_id, $saving_values ) ? 'checked' : '';
 				if( in_array( $term_id, $directory_type) ) { ?>
-					<li id="popular-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>" class="popular-category"><label class="selectit"><input value="<?php echo $term->term_id; ?>" type="checkbox" id="in-popular-<?php echo $taxonomy_id; ?>-<?php echo $term->term_id; ?>" <?php echo ! empty( $checked ) ? $checked : ''; ?>> <?php echo $term->name; ?></label></li>
+					<li id="popular-<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>" class="popular-category"><label class="selectit"><input value="<?php echo esc_attr( $term->term_id ); ?>" type="checkbox" id="in-popular-<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>" <?php echo ! empty( $checked ) ? esc_attr( $checked ) : ''; ?>> <?php echo esc_html( $term->name ); ?></label></li>
 
 				<?php
 				}
@@ -166,8 +172,8 @@ class ATBDP_Metabox {
 
 		if( empty($never_expire) && isset( $expiry_date ) ) : ?>
 				<span id="atbdp-timestamp">
-					<strong><?php _e( "Expiration", 'directorist' ); ?></strong>
-					<?php _e( "Date & Time", 'directorist' ); ?>
+					<strong><?php esc_html_e( "Expiration", 'directorist' ); ?></strong>
+					<?php esc_html_e( "Date & Time", 'directorist' ); ?>
 				</span>
 				<div id="atbdp-timestamp-wrap" class="atbdp-timestamp-wrap">
 					<label>
@@ -176,22 +182,22 @@ class ATBDP_Metabox {
 							$months = atbdp_get_months();// get an array of translatable month names
 							foreach( $months as $key => $month_name ) {
 								$key += 1;
-								printf( '<option value="%1$d" %2$s>%1$d-%3$s</option>', $key, selected($key, (int) $expiry_date['month']), $month_name );
+								printf( '<option value="%1$d" %2$s>%1$d-%3$s</option>', esc_attr( $key ), esc_attr( selected( $key, (int) $expiry_date['month'] ) ), esc_html( $month_name ) );
 							}
 							?>
 						</select>
 					</label>
 					<label>
-						<input type="text" id="atbdp-jj" placeholder="day" name="exp_date[jj]" value="<?php echo $expiry_date['day']; ?>" size="2" maxlength="2" />
+						<input type="text" id="atbdp-jj" placeholder="day" name="exp_date[jj]" value="<?php echo esc_attr( $expiry_date['day'] ); ?>" size="2" maxlength="2" />
 					</label>,
 					<label>
-						<input type="text" id="atbdp-aa" placeholder="year" name="exp_date[aa]" value="<?php echo $expiry_date['year']; ?>" size="4" maxlength="4" />
+						<input type="text" id="atbdp-aa" placeholder="year" name="exp_date[aa]" value="<?php echo esc_attr( $expiry_date['year'] ); ?>" size="4" maxlength="4" />
 					</label>@
 					<label>
-						<input type="text" id="atbdp-hh" placeholder="hour" name="exp_date[hh]" value="<?php echo $expiry_date['hour']; ?>" size="2" maxlength="2" />
+						<input type="text" id="atbdp-hh" placeholder="hour" name="exp_date[hh]" value="<?php echo esc_attr( $expiry_date['hour'] ); ?>" size="2" maxlength="2" />
 					</label> :
 					<label>
-						<input type="text" id="atbdp-mn" placeholder="min" name="exp_date[mn]" value="<?php echo $expiry_date['min']; ?>" size="2" maxlength="2" />
+						<input type="text" id="atbdp-mn" placeholder="min" name="exp_date[mn]" value="<?php echo esc_attr( $expiry_date['min'] ); ?>" size="2" maxlength="2" />
 					</label>
 				</div>
 		<?php endif;
@@ -214,9 +220,9 @@ class ATBDP_Metabox {
 
 		if ( $show_directory_type_nav ) { ?>
 
-		<label><?php _e( 'Listing Type', 'directorist' ); ?></label>
+		<label><?php esc_html_e( 'Listing Type', 'directorist' ); ?></label>
 		<select name="directory_type">
-			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
+			<option value=""><?php esc_attr_e( 'Select Listing Type', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ):
 				?>
 				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo selected( $type->term_id, $value ); ; ?> ><?php echo esc_attr( $type->name ); ?></option>
@@ -262,7 +268,7 @@ class ATBDP_Metabox {
 	 * @since 5.4.0
 	 */
 	public function publish_atbdp_listings( $new_status, $old_status, $post ){
-		$nonce = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : null;
+		$nonce = isset( $_REQUEST['_wpnonce'] ) ? directorist_clean( wp_unslash( $_REQUEST['_wpnonce'] ) ) : null;
 		if ( ($post->post_type == 'at_biz_dir') && ( $old_status == 'pending'  &&  $new_status == 'publish' ) && !wp_verify_nonce( $nonce, 'quick-publish-action' ) ){
 			do_action('atbdp_listing_published', $post->ID);//for sending email notification
 		}
@@ -307,11 +313,19 @@ class ATBDP_Metabox {
 	 */
 	public function save_post_meta( $post_id, $post ) {
 
-		if ( ! $this->passSecurity($post_id, $post) )  return; // vail if security check fails
-		$p = $_POST; // save some character
-		$listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
-		$listing_categories = !empty( $_POST['tax_input']['at_biz_dir-category'] ) ?  atbdp_sanitize_array( $_POST['tax_input']['at_biz_dir-category'] ) : array();
-		$listing_locations = !empty( $_POST['tax_input']['at_biz_dir-location'] ) ?  atbdp_sanitize_array( $_POST['tax_input']['at_biz_dir-location'] ) : array();
+		$nonce = !empty($_POST['listing_info_nonce']) ? directorist_clean( wp_unslash($_POST['listing_info_nonce'] ) ) : '';
+
+		if( ! wp_verify_nonce( $nonce, 'listing_info_action' ) ) {
+			return;
+		}
+
+		if ( ( ATBDP_POST_TYPE !== $post->post_type ) || wp_is_post_autosave( $post ) || wp_is_post_revision( $post ) || ! current_user_can( 'edit_'.ATBDP_POST_TYPE, $post_id ) ) {
+			return;
+		}
+		
+		$listing_type = !empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
+		$listing_categories = !empty( $_POST['tax_input']['at_biz_dir-category'] ) ?  directorist_clean( wp_unslash( $_POST['tax_input']['at_biz_dir-category'] ) ) : array();
+		$listing_locations = !empty( $_POST['tax_input']['at_biz_dir-location'] ) ?  directorist_clean( wp_unslash( $_POST['tax_input']['at_biz_dir-location'] ) ) : array();
 		$submission_form_fields = [];
 		$metas = [];
 		if( $listing_type ){
@@ -340,24 +354,24 @@ class ATBDP_Metabox {
 		foreach( $submission_form_fields as $key => $value ){
 			$field_type = !empty( $value['field_type'] ) ? $value['field_type'] : '';
 			if( 'image_upload' === $key ) {
-				$metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
-				$metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) : '';
+				$metas['_listing_img']       = !empty($_POST['listing_img'])? directorist_clean( wp_unslash( $_POST['listing_img'] ) ) : array();
+				$metas['_listing_prv_img']   = !empty($_POST['listing_prv_img'])? directorist_clean( wp_unslash( $_POST['listing_prv_img'] ) ) : '';
 			}
 			if( 'pricing' === $key ) {
-				$metas[ '_atbd_listing_pricing' ] 	= !empty( $p['atbd_listing_pricing'] ) ? $p['atbd_listing_pricing'] : '';
-				$metas[ '_price' ] 					= !empty( $p['price'] ) ? $p['price'] : '';
-				$metas[ '_price_range' ] 			= !empty( $p['price_range'] ) ? $p['price_range'] : '';
+				$metas[ '_atbd_listing_pricing' ] 	= !empty( $_POST['atbd_listing_pricing'] ) ? directorist_clean( wp_unslash( $_POST['atbd_listing_pricing'] ) ) : '';
+				$metas[ '_price' ] 					= !empty( $_POST['price'] ) ? directorist_clean( wp_unslash( $_POST['price'] ) ) : '';
+				$metas[ '_price_range' ] 			= !empty( $_POST['price_range'] ) ? directorist_clean( wp_unslash( $_POST['price_range'] ) ) : '';
 			}
 			if( 'map' === $key ) {
-				$metas[ '_hide_map' ]   = !empty( $p['hide_map'] ) ? $p['hide_map'] : '';
-				$metas[ '_manual_lat' ] = !empty( $p['manual_lat'] ) ? $p['manual_lat'] : '';
-				$metas[ '_manual_lng' ] = !empty( $p['manual_lng'] ) ? $p['manual_lng'] : '';
+				$metas[ '_hide_map' ]   = !empty( $_POST['hide_map'] ) ? directorist_clean( wp_unslash( $_POST['hide_map'] ) ) : '';
+				$metas[ '_manual_lat' ] = !empty( $_POST['manual_lat'] ) ? directorist_clean( wp_unslash( $_POST['manual_lat'] ) ) : '';
+				$metas[ '_manual_lng' ] = !empty( $_POST['manual_lng'] ) ? directorist_clean( wp_unslash( $_POST['manual_lng'] ) ) : '';
 			}
 			$field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
 
 			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
 				$key = '_'. $field_key;
-				$metas[ $key ] = !empty( $p[ $field_key ] ) ? $p[ $field_key ] : '';
+				$metas[ $key ] = !empty( $_POST[ $field_key ] ) ? wp_unslash( $_POST[ $field_key ] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			}
 
 		}
@@ -369,13 +383,13 @@ class ATBDP_Metabox {
 			wp_set_object_terms( $post_id, (int) $listing_type, ATBDP_TYPE );
 		}
 
-		if( !empty( $p['featured'] ) ){
-			$metas['_featured'] = directorist_clean( $p['featured'] );	
+		if( !empty( $_POST['featured'] ) ){
+			$metas['_featured'] = directorist_clean( wp_unslash( $_POST['featured'] ) );	
 		}
 
 	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
-		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : $expiration_to_forever;
-		$exp_dt 					 = !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
+		$metas['_never_expire']      = !empty($_POST['never_expire']) ? (int) directorist_clean( wp_unslash( $_POST['never_expire'] ) ) : $expiration_to_forever;
+		$exp_dt 					 = !empty($_POST['exp_date']) ? directorist_clean( wp_unslash( $_POST['exp_date'] ) ) : array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){
 			$exp_dt = array(
@@ -391,15 +405,15 @@ class ATBDP_Metabox {
 		}
 
 		$metas['_expiry_date']  = $exp_dt;
-		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas, $p);
+		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas, $_POST);
 		// save the meta data to the database
 
 		foreach ($metas as $meta_key => $meta_value) {
 			update_post_meta($post_id, $meta_key, $meta_value); // array value will be serialize automatically by update post meta
 		}
 
-		if (!empty($p['listing_prv_img'])){
-			set_post_thumbnail( $post_id, sanitize_text_field($p['listing_prv_img']) );
+		if (!empty($_POST['listing_prv_img'])){
+			set_post_thumbnail( $post_id, directorist_clean( wp_unslash( $_POST['listing_prv_img'] ) ) );
 		}else{
 			delete_post_thumbnail($post_id);
 		}
@@ -411,7 +425,7 @@ class ATBDP_Metabox {
 		// let's check is listing need to update
 		if ( empty( $listing_status ) || ('expired' === $listing_status) && ('private' === $post_status)){
 
-			if ( ( $exp_dt > $current_d ) || !empty( $p['never_expire'] ) ) {
+			if ( ( $exp_dt > $current_d ) || !empty( $_POST['never_expire'] ) ) {
 				wp_update_post( array(
 					'ID'           => $post_id,
 					'post_status' => $post_status, // update the status to private so that we do not run this func a second time
@@ -430,26 +444,5 @@ class ATBDP_Metabox {
 		if ( ! metadata_exists( 'post', $post_id, '_listing_status' ) ) {
 			update_post_meta( $post_id, '_listing_status', 'post_status' );
 		}
-	}
-
-
-	/**
-	 * Check if the the nonce, revision, auto_save are valid/true and the post type is ATBDP_POST_TYPE
-	 * @param int       $post_id    Post ID of the current post being saved
-	 * @param object    $post       Current post object being saved
-	 *
-	 * @return bool            Return true if all the above check passes the test.
-	 */
-	private function passSecurity( $post_id, $post ) {
-		if ( ATBDP_POST_TYPE == $post->post_type) {
-		$is_autosave = wp_is_post_autosave($post_id);
-		$is_revision = wp_is_post_revision($post_id);
-		$nonce = !empty($_POST['listing_info_nonce']) ? $_POST['listing_info_nonce'] : '';
-		$is_valid_nonce = wp_verify_nonce($nonce, 'listing_info_action');
-
-		if ( $is_autosave || $is_revision || !$is_valid_nonce || ( !current_user_can( 'edit_'.ATBDP_POST_TYPE, $post_id )) ) return false;
-		return true;
-		}
-		return false;
 	}
 }

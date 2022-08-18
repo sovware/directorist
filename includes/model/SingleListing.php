@@ -360,6 +360,7 @@ class Directorist_Single_Listing {
 		}
 
 		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->documents->get( $page_id )->is_built_with_elementor() ) {
+			// Return escaped output
 			return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
 		}
 
@@ -1070,7 +1071,7 @@ class Directorist_Single_Listing {
 			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 		}
 		if (!empty($display_direction_map)) {
-			$info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div><span class='iw-close-btn'><i class='la la-times'></i></span></div></div>";
+			$info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Directions', 'directorist') . "</a></div><span class='iw-close-btn'><i class='la la-times'></i></span></div></div>";
 		}
 
 		$cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);

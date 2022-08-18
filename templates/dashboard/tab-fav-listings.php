@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.6
+ * @version 7.3.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						<div class="directorist-dashboard-items-list__single--action">
 							<a href="#" id="directorist-fav_<?php echo esc_attr( $item['obj']->ID ); ?>" class="directorist-btn directorist-btn-sm directorist-btn-danger directorist-favourite-remove-btn" data-listing_id="<?php echo esc_attr( $item['obj']->ID ); ?>">
 								<i class="la la-trash"></i>
-								<span class="directorist-favourite-remove-text">Remove</span>
+								<span class="directorist-favourite-remove-text"><?php esc_html_e( 'Remove', 'directorist' ); ?></span>
 							</a>
 						</div>
 

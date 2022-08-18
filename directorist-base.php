@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.3.0
+ * Version: 7.3.2
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -174,7 +174,7 @@ final class Directorist_Base
 	public static function instance()
 	{
 		if (!isset(self::$instance) && !(self::$instance instanceof Directorist_Base)) {
-			self::$instance = new Directorist_Base;
+			self::$instance = new Directorist_Base();
 			self::$instance->setup_constants();
 
 			add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
@@ -186,38 +186,38 @@ final class Directorist_Base
 
 			self::$instance->includes();
 
-			self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
-			self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
+			self::$instance->custom_post = new ATBDP_Custom_Post(); // create custom post
+			self::$instance->taxonomy = new ATBDP_Custom_Taxonomy();
 
 			add_action('init', array( self::$instance, 'on_install_update_actions' ) );
 
 			Directorist\Asset_Loader\Asset_Loader::init();
 
 			// ATBDP_Listing_Type_Manager
-			self::$instance->multi_directory_manager = new Directorist\Multi_Directory_Manager;
+			self::$instance->multi_directory_manager = new Directorist\Multi_Directory_Manager();
 			self::$instance->multi_directory_manager->run();
 
-			self::$instance->settings_panel = new ATBDP_Settings_Panel;
+			self::$instance->settings_panel = new ATBDP_Settings_Panel();
 			self::$instance->settings_panel->run();
 
-			self::$instance->hooks = new ATBDP_Hooks;
-			self::$instance->metabox = new ATBDP_Metabox;
-			self::$instance->ajax_handler = new ATBDP_Ajax_Handler;
-			self::$instance->helper = new ATBDP_Helper;
-			self::$instance->listing = new ATBDP_Listing;
-			self::$instance->user = new ATBDP_User;
-			self::$instance->roles = new ATBDP_Roles;
+			self::$instance->hooks = new ATBDP_Hooks();
+			self::$instance->metabox = new ATBDP_Metabox();
+			self::$instance->ajax_handler = new ATBDP_Ajax_Handler();
+			self::$instance->helper = new ATBDP_Helper();
+			self::$instance->listing = new ATBDP_Listing();
+			self::$instance->user = new ATBDP_User();
+			self::$instance->roles = new ATBDP_Roles();
 			if( class_exists( 'ATBDP_Gateway' ) ) {
-				self::$instance->gateway = new ATBDP_Gateway;
+				self::$instance->gateway = new ATBDP_Gateway();
 			}
-			self::$instance->order = new ATBDP_Order;
-			self::$instance->shortcode = new \Directorist\ATBDP_Shortcode;
-			self::$instance->email = new ATBDP_Email;
-			self::$instance->seo = new ATBDP_SEO;
+			self::$instance->order = new ATBDP_Order();
+			self::$instance->shortcode = new \Directorist\ATBDP_Shortcode();
+			self::$instance->email = new ATBDP_Email();
+			self::$instance->seo = new ATBDP_SEO();
 			// self::$instance->validator = new ATBDP_Validator;
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
-			self::$instance->tools = new ATBDP_Tools;
-			self::$instance->announcement = new ATBDP_Announcement;
+			self::$instance->tools = new ATBDP_Tools();
+			self::$instance->announcement = new ATBDP_Announcement();
 
 			// Load widgets
 			Directorist\Widgets\Init::instance();
@@ -237,7 +237,7 @@ final class Directorist_Base
 			self::$instance->review = new ATBDP_Review_Rating();
 
 			//activate rewrite api
-			new ATBDP_Rewrite;
+			new ATBDP_Rewrite();
 			//map custom capabilities
 			add_filter('map_meta_cap', array(self::$instance->roles, 'meta_caps'), 10, 4);
 			//add dtbdp custom body class
@@ -257,11 +257,11 @@ final class Directorist_Base
 
 
 			// init offline gateway
-			new ATBDP_Offline_Gateway;
+			new ATBDP_Offline_Gateway();
 			// Init Cron jobs to run some periodic tasks
-			new ATBDP_Cron;
+			new ATBDP_Cron();
 			// add upgrade feature
-			new ATBDP_Upgrade;
+			new ATBDP_Upgrade();
 			// add uninstall menu
 			add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
 
@@ -338,7 +338,7 @@ final class Directorist_Base
 			$category_url = $this->get_polylang_swicher_link_for_term([
 				'term_type'            => 'category',
 				'term_default_page_id' => get_directorist_option('single_category_page'),
-				'term_query_var'       => ( ! empty( $_GET['category'] ) ) ? $_GET['category'] : get_query_var('atbdp_category'),
+				'term_query_var'       => ( ! empty( $_GET['category'] ) ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : get_query_var('atbdp_category'),
 				'current_lang'         => $current_lang,
 				'url'                  => $url,
 			]);
@@ -349,7 +349,7 @@ final class Directorist_Base
 			$location_url = $this->get_polylang_swicher_link_for_term([
 				'term_type'            => 'location',
 				'term_default_page_id' => get_directorist_option('single_location_page'),
-				'term_query_var'       => ( ! empty( $_GET['location'] ) ) ? $_GET['location'] : get_query_var('atbdp_location'),
+				'term_query_var'       => ( ! empty( $_GET['location'] ) ) ? sanitize_text_field( wp_unslash( $_GET['location'] ) ) : get_query_var('atbdp_location'),
 				'current_lang'         => $current_lang,
 				'url'                  => $url,
 			]);
@@ -415,7 +415,7 @@ final class Directorist_Base
 		require_once plugin_dir_path(__FILE__) . '/config.php'; // loads constant from a file so that it can be available on all files.
 	}
 
-	function autoload( $dir = '' ) {
+	private function autoload( $dir = '' ) {
 		if ( !file_exists( $dir ) ) return;
 		foreach ( scandir( $dir ) as $file ) {
 			if ( preg_match( "/.php$/i", $file ) ) {
@@ -495,7 +495,7 @@ final class Directorist_Base
 	public function __clone()
 	{
 		// Cloning instances of the class is forbidden.
-		_doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'directorist'), '1.0');
+		_doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'directorist'), '1.0'); // @codingStandardsIgnoreLine.
 	}
 
 	/**
@@ -508,7 +508,7 @@ final class Directorist_Base
 	public function __wakeup()
 	{
 		// Unserializing instances of the class is forbidden.
-		_doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'directorist'), '1.0');
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'directorist' ), '1.0'); // @codingStandardsIgnoreLine.
 	}
 
 	/**
@@ -615,7 +615,7 @@ final class Directorist_Base
 		$average = directorist_get_listing_rating( $post->ID );
 		?>
 		<div class="atbd_rated_stars">
-			<?php echo ATBDP()->review->print_static_rating($average); ?>
+			<?php echo wp_kses_post( ATBDP()->review->print_static_rating( $average ) ); ?>
 		</div>
 		<?php
 	}

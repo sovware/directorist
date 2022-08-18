@@ -3670,10 +3670,27 @@ var IconPicker = function IconPicker(args) {
         iconPicker.classList.remove('icon-picker-visible');
       }
 
-      document.querySelector('.icon-picker-selector .icon-picker-selector__btn').addEventListener('click', function (e) {
-        e.preventDefault();
-        openModal();
-      });
+      var selectIconButtons = document.querySelectorAll('.icon-picker-selector .icon-picker-selector__btn');
+
+      if (selectIconButtons.length) {
+        var _iterator2 = _createForOfIteratorHelper(selectIconButtons),
+            _step2;
+
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var selectIconButton = _step2.value;
+            selectIconButton.addEventListener('click', function (e) {
+              e.preventDefault();
+              openModal();
+            });
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
+      }
+
       document.querySelector('.icon-picker__done-btn').addEventListener('click', function (e) {
         e.preventDefault();
         closeModal();

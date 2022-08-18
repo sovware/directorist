@@ -12126,19 +12126,15 @@ var IconPicker = function IconPicker(args) {
         markup += "</div></div>";
       }
 
-      this.container.closest('body').querySelector('.iconsWrapperElm').innerHTML = markup;
+      this.container.closest('body').querySelector('#iconsWrapperElm').innerHTML = markup;
     },
     renderMarkup: function renderMarkup() {
       var selectedIcon = this.value ? this.value.split(" ") : ['', 'icon-name'];
       var markup = '';
       markup += "\n            <div class=\"icon-picker-selector\">\n                <div class=\"icon-picker-selector__icon\">\n                    <span class=\"directorist-selected-icon ".concat(this.value, "\"></span>\n                    <input\n                    type=\"text\"\n                    placeholder=\"Click to select icon\"\n                    class=\"cptm-form-control\"\n                    value=\"").concat(this.value, "\" style=\"").concat(this.value ? 'padding-left: 38px' : '', "\"\n                    />\n                </div>\n                <button class=\"icon-picker-selector__btn\">Change Icon</button>\n            </div>\n                ");
       this.container.innerHTML = markup;
-      var iconPickerWrap = "\n            <div class=\"icon-picker\">\n            <div class=\"icon-picker__inner\">\n                <a href=\"#\" class=\"icon-picker__close\"\n                    ><span class=\"fas fa-times\"></span\n                ></a>\n                <div class=\"icon-picker__sidebar\">\n                    <div class=\"icon-picker__filter\">\n                        <label for=\"\">Filter By Name</label>\n                        <input type=\"text\" placeholder=\"Search\" />\n                    </div>\n                    <div class=\"icon-picker__filter\">\n                        <label for=\"\">Filter By Icon Pack</label>\n                        <select>\n                            <option value=\"fontAwesome\">Font Awesome</option>\n                            <option value=\"lineAwesome\">Line Awesome</option>\n                        </select>\n                    </div>\n                    <div class=\"icon-picker__preview\">\n                        <span class=\"icon-picker__preview-icon ".concat(this.value, "\"></span>\n                        <span class=\"icon-picker__preview-info\">\n                            <span class=\"icon-picker__icon-name\">").concat(selectedIcon[1], "</span>\n                        </span>\n                    </div>\n                    <button class=\"cptm-btn cptm-btn-primary icon-picker__done-btn\">Done</button>\n                </div>\n                <div class=\"icon-picker__content\">\n                <div class=\"iconsWrapperElm\">\n\n                </div>\n            </div>\n        </div>\n            ");
-      var iconPickerElm = document.querySelectorAll('.icon-picker');
-
-      if (iconPickerElm.length <= 1) {
-        this.container.closest('body').insertAdjacentHTML('beforeend', iconPickerWrap);
-      }
+      var iconPickerWrap = "\n            <div class=\"icon-picker\">\n            <div class=\"icon-picker__inner\">\n                <a href=\"#\" class=\"icon-picker__close\"\n                    ><span class=\"fas fa-times\"></span\n                ></a>\n                <div class=\"icon-picker__sidebar\">\n                    <div class=\"icon-picker__filter\">\n                        <label for=\"\">Filter By Name</label>\n                        <input type=\"text\" placeholder=\"Search\" />\n                    </div>\n                    <div class=\"icon-picker__filter\">\n                        <label for=\"\">Filter By Icon Pack</label>\n                        <select>\n                            <option value=\"fontAwesome\">Font Awesome</option>\n                            <option value=\"lineAwesome\">Line Awesome</option>\n                        </select>\n                    </div>\n                    <div class=\"icon-picker__preview\">\n                        <span class=\"icon-picker__preview-icon ".concat(this.value, "\"></span>\n                        <span class=\"icon-picker__preview-info\">\n                            <span class=\"icon-picker__icon-name\">").concat(selectedIcon[1], "</span>\n                        </span>\n                    </div>\n                    <button class=\"cptm-btn cptm-btn-primary icon-picker__done-btn\">Done</button>\n                </div>\n                <div class=\"icon-picker__content\">\n                <div id=\"iconsWrapperElm\" class=\"iconsWrapperElm\">\n\n                </div>\n            </div>\n        </div>\n            ");
+      this.container.closest('body').insertAdjacentHTML('beforeend', iconPickerWrap);
     },
     attachEvents: function attachEvents() {
       var iconButtons = document.querySelectorAll('.font-icon-btn');
@@ -12179,11 +12175,27 @@ var IconPicker = function IconPicker(args) {
         iconPicker.classList.remove('icon-picker-visible');
       }
 
-      document.querySelector('.icon-picker-selector .icon-picker-selector__btn').addEventListener('click', function (e) {
-        e.preventDefault();
-        openModal();
-        console.log('first');
-      });
+      var selectIconButtons = document.querySelectorAll('.icon-picker-selector .icon-picker-selector__btn');
+
+      if (selectIconButtons.length) {
+        var _iterator2 = _createForOfIteratorHelper(selectIconButtons),
+            _step2;
+
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var selectIconButton = _step2.value;
+            selectIconButton.addEventListener('click', function (e) {
+              e.preventDefault();
+              openModal();
+            });
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
+      }
+
       document.querySelector('.icon-picker__done-btn').addEventListener('click', function (e) {
         e.preventDefault();
         closeModal();

@@ -27,7 +27,11 @@ $listing = Directorist_Single_Listing::instance();
 
 					<div class="directorist-single-wrapper">
 
-						<?php echo wp_kses_post( $listing->single_page_content() ); ?>
+						<?php
+						// Output already filtered
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo $listing->single_page_content();
+						?>
 
 					</div>
 

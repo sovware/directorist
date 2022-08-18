@@ -2460,7 +2460,7 @@ window.addEventListener('DOMContentLoaded', function () {
       action: 'atbdp_plugins_bulk_action',
       task: task,
       plugin_items: plugins_items,
-      nonce: directorist_admin.nonce
+      directorist_nonce: directorist_admin.directorist_nonce
     };
     jQuery.ajax({
       type: 'post',
@@ -2470,12 +2470,10 @@ window.addEventListener('DOMContentLoaded', function () {
         $(self).find('button[type="submit"]').prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
       },
       success: function success(response) {
-        // console.log( response );
         $(self).find('button[type="submit"] .atbdp-icon').remove();
         location.reload();
       },
       error: function error(_error8) {
-        // console.log(error);
         uninstalling = false;
       }
     }); // console.log( task, plugins_items );

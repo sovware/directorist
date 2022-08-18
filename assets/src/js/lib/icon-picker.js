@@ -136,7 +136,6 @@ const IconPicker = (args) => {
 
             const selectIconButtons = document.querySelectorAll('.icon-picker-selector .icon-picker-selector__btn');
 
-
             if ( selectIconButtons.length ) {
                 for ( const selectIconButton of selectIconButtons ) {
                     selectIconButton.addEventListener('click', (e) => {
@@ -145,11 +144,6 @@ const IconPicker = (args) => {
                     });
                 }
             }
-
-            // document.querySelector('.icon-picker-selector .icon-picker-selector__btn').addEventListener('click', (e) => {
-            //     e.preventDefault();
-            //     openModal();
-            // });
 
             document.querySelector('.icon-picker__done-btn').addEventListener('click', (e) => {
                 e.preventDefault();

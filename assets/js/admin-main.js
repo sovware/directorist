@@ -3690,11 +3690,7 @@ var IconPicker = function IconPicker(args) {
         } finally {
           _iterator2.f();
         }
-      } // document.querySelector('.icon-picker-selector .icon-picker-selector__btn').addEventListener('click', (e) => {
-      //     e.preventDefault();
-      //     openModal();
-      // });
-
+      }
 
       document.querySelector('.icon-picker__done-btn').addEventListener('click', function (e) {
         e.preventDefault();

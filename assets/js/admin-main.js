@@ -523,12 +523,12 @@ window.addEventListener('DOMContentLoaded', function () {
   );
   return $elem;
   }
-    $("#category_icon").select2({
+   $("#category_icon").select2({
   placeholder: directorist_admin.i18n_text.icon_choose_text,
   allowClear: true,
   templateResult: selecWithIcon,
   });
-    /* Show and hide manual coordinate input field */
+   /* Show and hide manual coordinate input field */
 
   if (!$('input#manual_coordinate').is(':checked')) {
     $('.directorist-map-coordinates').hide();
@@ -1025,11 +1025,11 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-    if (frame) {
+   if (frame) {
    frame.open();
    return;
   }
-    // Create a new media frame
+   // Create a new media frame
   frame = wp.media({
    title: directorist_admin.i18n_text.upload_cat_image,
    button: {
@@ -3585,7 +3585,8 @@ var IconPicker = function IconPicker(args) {
 
       if (!this.container) {
         return;
-      }
+      } // console.log( 'chk-1', { container: this.container } );
+
 
       _this.renderMarkup();
 
@@ -3670,10 +3671,31 @@ var IconPicker = function IconPicker(args) {
         iconPicker.classList.remove('icon-picker-visible');
       }
 
-      document.querySelector('.icon-picker-selector .icon-picker-selector__btn').addEventListener('click', function (e) {
-        e.preventDefault();
-        openModal();
-      });
+      var selectIconButtons = document.querySelectorAll('.icon-picker-selector .icon-picker-selector__btn');
+
+      if (selectIconButtons.length) {
+        var _iterator2 = _createForOfIteratorHelper(selectIconButtons),
+            _step2;
+
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var selectIconButton = _step2.value;
+            selectIconButton.addEventListener('click', function (e) {
+              e.preventDefault();
+              openModal();
+            });
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
+      } // document.querySelector('.icon-picker-selector .icon-picker-selector__btn').addEventListener('click', (e) => {
+      //     e.preventDefault();
+      //     openModal();
+      // });
+
+
       document.querySelector('.icon-picker__done-btn').addEventListener('click', function (e) {
         e.preventDefault();
         closeModal();

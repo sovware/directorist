@@ -26,6 +26,8 @@ export default {
     args.value = this.value;
     this.iconPicker = new IconPicker(args);
     this.iconPicker.init();
+
+    // console.log( args.container );
   },
   data() {
     return {

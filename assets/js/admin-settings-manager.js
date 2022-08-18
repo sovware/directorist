@@ -12090,8 +12090,7 @@ var IconPicker = function IconPicker(args) {
 
       if (!this.container) {
         return;
-      } // console.log( 'chk-1', { container: this.container } );
-
+      }
 
       _this.renderMarkup();
 
@@ -27323,7 +27322,7 @@ var _lib_line_awesome_json__WEBPACK_IMPORTED_MODULE_3___namespace = /*#__PURE__*
     args.icons = this.icons;
     args.value = this.value;
     this.iconPicker = new _lib_icon_picker__WEBPACK_IMPORTED_MODULE_1__["IconPicker"](args);
-    this.iconPicker.init(); // console.log( args.container );
+    this.iconPicker.init();
   },
   data: function data() {
     return {

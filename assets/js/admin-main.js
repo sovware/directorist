@@ -3585,8 +3585,7 @@ var IconPicker = function IconPicker(args) {
 
       if (!this.container) {
         return;
-      } // console.log( 'chk-1', { container: this.container } );
-
+      }
 
       _this.renderMarkup();
 

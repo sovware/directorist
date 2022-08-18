@@ -16,8 +16,6 @@ const IconPicker = (args) => {
                 return;
             }
 
-            // console.log( 'chk-1', { container: this.container } );
-
             _this.renderMarkup();
             _this.renderIcon();
             _this.attachEvents();

@@ -1,16 +1,26 @@
 const IconPicker = (args) => {
     return {
+        id: null,
         value: '',
+        iconGroups: { fa: 'fontAwesome', la: 'lineAwesome' },
         iconType: 'solid',
         container: null,
         onSelect: null,
         icons: null,
         init: function () {
             let _this = this;
+
+            const body  = document.querySelector( 'body' );
+            const count = body.getAttribute( 'data-directorist-icon-picker-count' );
+            const id    = ( count ) ? ( parseInt( count ) + 1 ) : 1;
+
+            body.setAttribute( 'data-directorist-icon-picker-count', id );
+
+            this.id = id;
             this.container = (typeof args.container !== 'undefined') ? args.container : this.container;
-            this.onSelect = (typeof args.onSelect !== 'undefined') ? args.onSelect : this.onSelect;
-            this.icons = (typeof args.icons !== 'undefined') ? args.icons : this.icons;
-            this.value = (typeof args.value === 'string') ? args.value : this.value;
+            this.onSelect  = (typeof args.onSelect !== 'undefined') ? args.onSelect : this.onSelect;
+            this.icons     = (typeof args.icons !== 'undefined') ? args.icons : this.icons;
+            this.value     = (typeof args.value === 'string') ? args.value : this.value;
 
             if (!this.container) {
                 return;
@@ -22,6 +32,12 @@ const IconPicker = (args) => {
 
         },
         renderIcon() {
+            const iconsGroup = this.container.closest('body').querySelector('#iconsWrapperElm .icons-group');
+
+            if ( iconsGroup ) {
+                return;
+            }
+
             let markup = '';
             for (const iconGroupKey of Object.keys(this.icons)) {
                 markup += `<div class="icons-group ${iconGroupKey}">`;
@@ -42,7 +58,7 @@ const IconPicker = (args) => {
             let selectedIcon = this.value ? this.value.split(" ") : ['', 'icon-name'];
             let markup = '';
             markup += `
-            <div class="icon-picker-selector">
+            <div class="icon-picker-selector icon-picker-id-${this.id}" data-icon-picker-id="${this.id}">
                 <div class="icon-picker-selector__icon">
                     <span class="directorist-selected-icon ${this.value}"></span>
                     <input
@@ -57,6 +73,10 @@ const IconPicker = (args) => {
                 `;
             this.container.innerHTML = markup;
 
+            if ( document.querySelector( '.icon-picker' ) ) {
+                return;
+            }
+
             let iconPickerWrap = `
             <div class="icon-picker">
             <div class="icon-picker__inner">
@@ -70,7 +90,7 @@ const IconPicker = (args) => {
                     </div>
                     <div class="icon-picker__filter">
                         <label for="">Filter By Icon Pack</label>
-                        <select>
+                        <select class="icon-picker__filter_select">
                             <option value="fontAwesome">Font Awesome</option>
                             <option value="lineAwesome">Line Awesome</option>
                         </select>
@@ -98,7 +118,8 @@ const IconPicker = (args) => {
             const iconButtons = document.querySelectorAll('.font-icon-btn');
             const self = this;
             let icon;
-            //remove active status
+
+            // remove active status
             function removeActiveStatus() {
                 iconButtons.forEach(elm => {
                     if (elm.classList.contains('cptm-btn-primary')) {
@@ -106,29 +127,81 @@ const IconPicker = (args) => {
                     }
                 })
             }
+
             iconButtons.forEach(elm => {
                 elm.addEventListener('click', function (event) {
                     event.preventDefault();
+
                     const iconGroupKey = event.target.getAttribute('data-group-key');
-                    const iconKey = event.target.getAttribute('data-icon-key');
-                    const iconType = event.target.getAttribute('data-icon-type').split(',');
-                    icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
+                    const iconKey      = event.target.getAttribute('data-icon-key');
+                    const iconType     = event.target.getAttribute('data-icon-type').split(',');
+                          icon         = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
+
                     removeActiveStatus();
+
                     elm.classList.add('cptm-btn-primary');
-                    self.container.closest('body').querySelector('.icon-picker__preview-icon').setAttribute('class', `icon-picker__preview-icon ${icon}`);
-                    self.container.closest('body').querySelector('.icon-picker__icon-name').innerHTML = iconKey;
+
+                    const body = self.container.closest('body');
+
+                    if ( body ) {
+                        body.querySelector('.icon-picker__preview-icon').setAttribute('class', `icon-picker__preview-icon ${icon}`);
+                        body.querySelector('.icon-picker__icon-name').innerHTML = iconKey;
+                    }
+
                     searchIcon();
                 });
             })
 
-            /* Icon picker modal */
-            const iconPicker = document.querySelector('.icon-picker');
+            function openModal( event, self ) {
+                const iconPicker = document.querySelector('.icon-picker');
 
-            function openModal() {
+                if ( iconPicker.classList.contains( 'icon-picker-visible' ) ) {
+                    return;
+                }
+
+                const id = event.target.closest( '.icon-picker-selector' ).getAttribute( 'data-icon-picker-id' );
+                const selectedIconClassList = (  self.value ) ? self.value.split( ' ' ) : [];
+
+                // Attach Modal ID
+                iconPicker.setAttribute( 'data-icon-picker-id', id );
+
+                // Update Filter Serch Text
+                iconPicker.querySelector( '.icon-picker__filter input' ).value = ( selectedIconClassList.length ) ? selectedIconClassList[1] : '';
+                searchIcon();
+
+                // Update Filter Select
+                const iconFilterSelect = iconPicker.querySelector( '.icon-picker__filter_select' );
+                const iconType  = ( selectedIconClassList.length ) ? selectedIconClassList[0].substring(0, 2) : '';
+                const iconGroup = ( Object.keys( self.iconGroups ).includes( iconType ) ) ? self.iconGroups[ iconType ] : '';
+
+                if ( iconGroup ) {
+                    iconFilterSelect.value = iconGroup;
+                }
+
+                filterIconPack( iconFilterSelect );
+
+                // Update Selected Icon Status
+                const selectedIconClasses = ( selectedIconClassList.length ) ? '.font-icon-btn.' + selectedIconClassList.join( '.' ) : '';
+                const selectedIcon        = iconPicker.querySelector( selectedIconClasses );
+
+                document.querySelectorAll( '.font-icon-btn' )
+                    .forEach( item => item.classList.remove( 'cptm-btn-primary' ) );
+
+                if ( selectedIcon ) {
+                    selectedIcon.classList.remove( 'cptm-btn-secondery' );
+                    selectedIcon.classList.add( 'cptm-btn-primary' );
+                }
+
+                // Update Preview Icon
+                const previewContainer = iconPicker.querySelector( '.icon-picker__preview' );
+                previewContainer.querySelector( '.icon-picker__preview-icon' ).setAttribute( 'class', 'icon-picker__preview-icon ' + self.value );
+                previewContainer.querySelector( '.icon-picker__icon-name' ).innerHTML = ( selectedIconClassList.length ) ? selectedIconClassList[1] : '';
+
                 iconPicker.classList.add('icon-picker-visible');
             }
 
             function closeModal() {
+                const iconPicker = document.querySelector('.icon-picker');
                 iconPicker.classList.remove('icon-picker-visible');
             }
 
@@ -138,26 +211,34 @@ const IconPicker = (args) => {
                 for ( const selectIconButton of selectIconButtons ) {
                     selectIconButton.addEventListener('click', (e) => {
                         e.preventDefault();
-                        openModal();
+                        openModal( e, self );
                     });
                 }
             }
 
             document.querySelector('.icon-picker__done-btn').addEventListener('click', (e) => {
                 e.preventDefault();
-                closeModal();
-                if (typeof icon !== 'undefined') {
-                    self.value = icon;
-                    if (typeof self.onSelect === 'function') {
-                        self.onSelect(icon);
-                    }
-                    document.querySelector('.icon-picker-selector input').style.paddingLeft = '38px';
+
+                const id = e.target.closest( '.icon-picker' ).getAttribute( 'data-icon-picker-id' );
+                const selector = document.querySelector( `.icon-picker-selector.icon-picker-id-${id}` );
+
+                if ( parseInt( id ) !== self.id ) {
+                    return;
                 }
-                //self.renderIcon();
-                //self.attachEvents();
-                self.container.closest('body').querySelector('.icon-picker-selector input').value = self.value;
-                self.container.closest('body').querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon ${self.value}`);
+
+                self.value = icon;
+
+                if ( typeof self.onSelect === 'function' ) {
+                    self.onSelect(icon);
+                }
+
+                selector.querySelector('input').style.paddingLeft = '38px';
+                selector.querySelector('input').value = self.value;
+                selector.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon ${self.value}`);
+
+                closeModal();
             });
+
             document.querySelector('.icon-picker__close').addEventListener('click', closeModal)
             document.body.addEventListener('click', (e) => {
                 if (!e.target.closest('.icon-picker__inner') && !e.target.closest('.icon-picker-selector') && !e.target.closest('.icons-group-icons')) {
@@ -180,6 +261,7 @@ const IconPicker = (args) => {
                     }
                 })
             }
+
             searchInput.addEventListener('keyup', searchIcon);
 
             /* Default icons pack */
@@ -196,9 +278,11 @@ const IconPicker = (args) => {
                     faPack.style.display = 'none';
                 }
             }
+
             iconFilter.addEventListener('change', function () {
                 filterIconPack(this);
             });
+
             filterIconPack(iconFilter);
         },
 

@@ -3570,7 +3570,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 var IconPicker = function IconPicker(args) {
   return {
+    id: null,
     value: '',
+    iconGroups: {
+      fa: 'fontAwesome',
+      la: 'lineAwesome'
+    },
     iconType: 'solid',
     container: null,
     onSelect: null,
@@ -3578,6 +3583,11 @@ var IconPicker = function IconPicker(args) {
     init: function init() {
       var _this = this;
 
+      var body = document.querySelector('body');
+      var count = body.getAttribute('data-directorist-icon-picker-count');
+      var id = count ? parseInt(count) + 1 : 1;
+      body.setAttribute('data-directorist-icon-picker-count', id);
+      this.id = id;
       this.container = typeof args.container !== 'undefined' ? args.container : this.container;
       this.onSelect = typeof args.onSelect !== 'undefined' ? args.onSelect : this.onSelect;
       this.icons = typeof args.icons !== 'undefined' ? args.icons : this.icons;
@@ -3594,6 +3604,12 @@ var IconPicker = function IconPicker(args) {
       _this.attachEvents();
     },
     renderIcon: function renderIcon() {
+      var iconsGroup = this.container.closest('body').querySelector('#iconsWrapperElm .icons-group');
+
+      if (iconsGroup) {
+        return;
+      }
+
       var markup = '';
 
       for (var _i = 0, _Object$keys = Object.keys(this.icons); _i < _Object$keys.length; _i++) {
@@ -3626,15 +3642,20 @@ var IconPicker = function IconPicker(args) {
     renderMarkup: function renderMarkup() {
       var selectedIcon = this.value ? this.value.split(" ") : ['', 'icon-name'];
       var markup = '';
-      markup += "\n            <div class=\"icon-picker-selector\">\n                <div class=\"icon-picker-selector__icon\">\n                    <span class=\"directorist-selected-icon ".concat(this.value, "\"></span>\n                    <input\n                    type=\"text\"\n                    placeholder=\"Click to select icon\"\n                    class=\"cptm-form-control\"\n                    value=\"").concat(this.value, "\" style=\"").concat(this.value ? 'padding-left: 38px' : '', "\"\n                    />\n                </div>\n                <button class=\"icon-picker-selector__btn\">Change Icon</button>\n            </div>\n                ");
+      markup += "\n            <div class=\"icon-picker-selector icon-picker-id-".concat(this.id, "\" data-icon-picker-id=\"").concat(this.id, "\">\n                <div class=\"icon-picker-selector__icon\">\n                    <span class=\"directorist-selected-icon ").concat(this.value, "\"></span>\n                    <input\n                    type=\"text\"\n                    placeholder=\"Click to select icon\"\n                    class=\"cptm-form-control\"\n                    value=\"").concat(this.value, "\" style=\"").concat(this.value ? 'padding-left: 38px' : '', "\"\n                    />\n                </div>\n                <button class=\"icon-picker-selector__btn\">Change Icon</button>\n            </div>\n                ");
       this.container.innerHTML = markup;
-      var iconPickerWrap = "\n            <div class=\"icon-picker\">\n            <div class=\"icon-picker__inner\">\n                <a href=\"#\" class=\"icon-picker__close\"\n                    ><span class=\"fas fa-times\"></span\n                ></a>\n                <div class=\"icon-picker__sidebar\">\n                    <div class=\"icon-picker__filter\">\n                        <label for=\"\">Filter By Name</label>\n                        <input type=\"text\" placeholder=\"Search\" />\n                    </div>\n                    <div class=\"icon-picker__filter\">\n                        <label for=\"\">Filter By Icon Pack</label>\n                        <select>\n                            <option value=\"fontAwesome\">Font Awesome</option>\n                            <option value=\"lineAwesome\">Line Awesome</option>\n                        </select>\n                    </div>\n                    <div class=\"icon-picker__preview\">\n                        <span class=\"icon-picker__preview-icon ".concat(this.value, "\"></span>\n                        <span class=\"icon-picker__preview-info\">\n                            <span class=\"icon-picker__icon-name\">").concat(selectedIcon[1], "</span>\n                        </span>\n                    </div>\n                    <button class=\"cptm-btn cptm-btn-primary icon-picker__done-btn\">Done</button>\n                </div>\n                <div class=\"icon-picker__content\">\n                <div id=\"iconsWrapperElm\" class=\"iconsWrapperElm\">\n\n                </div>\n            </div>\n        </div>\n            ");
+
+      if (document.querySelector('.icon-picker')) {
+        return;
+      }
+
+      var iconPickerWrap = "\n            <div class=\"icon-picker\">\n            <div class=\"icon-picker__inner\">\n                <a href=\"#\" class=\"icon-picker__close\"\n                    ><span class=\"fas fa-times\"></span\n                ></a>\n                <div class=\"icon-picker__sidebar\">\n                    <div class=\"icon-picker__filter\">\n                        <label for=\"\">Filter By Name</label>\n                        <input type=\"text\" placeholder=\"Search\" />\n                    </div>\n                    <div class=\"icon-picker__filter\">\n                        <label for=\"\">Filter By Icon Pack</label>\n                        <select class=\"icon-picker__filter_select\">\n                            <option value=\"fontAwesome\">Font Awesome</option>\n                            <option value=\"lineAwesome\">Line Awesome</option>\n                        </select>\n                    </div>\n                    <div class=\"icon-picker__preview\">\n                        <span class=\"icon-picker__preview-icon ".concat(this.value, "\"></span>\n                        <span class=\"icon-picker__preview-info\">\n                            <span class=\"icon-picker__icon-name\">").concat(selectedIcon[1], "</span>\n                        </span>\n                    </div>\n                    <button class=\"cptm-btn cptm-btn-primary icon-picker__done-btn\">Done</button>\n                </div>\n                <div class=\"icon-picker__content\">\n                <div id=\"iconsWrapperElm\" class=\"iconsWrapperElm\">\n\n                </div>\n            </div>\n        </div>\n            ");
       this.container.closest('body').insertAdjacentHTML('beforeend', iconPickerWrap);
     },
     attachEvents: function attachEvents() {
       var iconButtons = document.querySelectorAll('.font-icon-btn');
       var self = this;
-      var icon; //remove active status
+      var icon; // remove active status
 
       function removeActiveStatus() {
         iconButtons.forEach(function (elm) {
@@ -3653,20 +3674,62 @@ var IconPicker = function IconPicker(args) {
           icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
           removeActiveStatus();
           elm.classList.add('cptm-btn-primary');
-          self.container.closest('body').querySelector('.icon-picker__preview-icon').setAttribute('class', "icon-picker__preview-icon ".concat(icon));
-          self.container.closest('body').querySelector('.icon-picker__icon-name').innerHTML = iconKey;
+          var body = self.container.closest('body');
+
+          if (body) {
+            body.querySelector('.icon-picker__preview-icon').setAttribute('class', "icon-picker__preview-icon ".concat(icon));
+            body.querySelector('.icon-picker__icon-name').innerHTML = iconKey;
+          }
+
           searchIcon();
         });
       });
-      /* Icon picker modal */
 
-      var iconPicker = document.querySelector('.icon-picker');
+      function openModal(event, self) {
+        var iconPicker = document.querySelector('.icon-picker');
 
-      function openModal() {
+        if (iconPicker.classList.contains('icon-picker-visible')) {
+          return;
+        }
+
+        var id = event.target.closest('.icon-picker-selector').getAttribute('data-icon-picker-id');
+        var selectedIconClassList = self.value ? self.value.split(' ') : []; // Attach Modal ID
+
+        iconPicker.setAttribute('data-icon-picker-id', id); // Update Filter Serch Text
+
+        iconPicker.querySelector('.icon-picker__filter input').value = selectedIconClassList.length ? selectedIconClassList[1] : '';
+        searchIcon(); // Update Filter Select
+
+        var iconFilterSelect = iconPicker.querySelector('.icon-picker__filter_select');
+        var iconType = selectedIconClassList.length ? selectedIconClassList[0].substring(0, 2) : '';
+        var iconGroup = Object.keys(self.iconGroups).includes(iconType) ? self.iconGroups[iconType] : '';
+
+        if (iconGroup) {
+          iconFilterSelect.value = iconGroup;
+        }
+
+        filterIconPack(iconFilterSelect); // Update Selected Icon Status
+
+        var selectedIconClasses = selectedIconClassList.length ? '.font-icon-btn.' + selectedIconClassList.join('.') : '';
+        var selectedIcon = iconPicker.querySelector(selectedIconClasses);
+        document.querySelectorAll('.font-icon-btn').forEach(function (item) {
+          return item.classList.remove('cptm-btn-primary');
+        });
+
+        if (selectedIcon) {
+          selectedIcon.classList.remove('cptm-btn-secondery');
+          selectedIcon.classList.add('cptm-btn-primary');
+        } // Update Preview Icon
+
+
+        var previewContainer = iconPicker.querySelector('.icon-picker__preview');
+        previewContainer.querySelector('.icon-picker__preview-icon').setAttribute('class', 'icon-picker__preview-icon ' + self.value);
+        previewContainer.querySelector('.icon-picker__icon-name').innerHTML = selectedIconClassList.length ? selectedIconClassList[1] : '';
         iconPicker.classList.add('icon-picker-visible');
       }
 
       function closeModal() {
+        var iconPicker = document.querySelector('.icon-picker');
         iconPicker.classList.remove('icon-picker-visible');
       }
 
@@ -3681,7 +3744,7 @@ var IconPicker = function IconPicker(args) {
             var selectIconButton = _step2.value;
             selectIconButton.addEventListener('click', function (e) {
               e.preventDefault();
-              openModal();
+              openModal(e, self);
             });
           }
         } catch (err) {
@@ -3693,22 +3756,23 @@ var IconPicker = function IconPicker(args) {
 
       document.querySelector('.icon-picker__done-btn').addEventListener('click', function (e) {
         e.preventDefault();
+        var id = e.target.closest('.icon-picker').getAttribute('data-icon-picker-id');
+        var selector = document.querySelector(".icon-picker-selector.icon-picker-id-".concat(id));
+
+        if (parseInt(id) !== self.id) {
+          return;
+        }
+
+        self.value = icon;
+
+        if (typeof self.onSelect === 'function') {
+          self.onSelect(icon);
+        }
+
+        selector.querySelector('input').style.paddingLeft = '38px';
+        selector.querySelector('input').value = self.value;
+        selector.querySelector('.directorist-selected-icon').setAttribute('class', "directorist-selected-icon ".concat(self.value));
         closeModal();
-
-        if (typeof icon !== 'undefined') {
-          self.value = icon;
-
-          if (typeof self.onSelect === 'function') {
-            self.onSelect(icon);
-          }
-
-          document.querySelector('.icon-picker-selector input').style.paddingLeft = '38px';
-        } //self.renderIcon();
-        //self.attachEvents();
-
-
-        self.container.closest('body').querySelector('.icon-picker-selector input').value = self.value;
-        self.container.closest('body').querySelector('.directorist-selected-icon').setAttribute('class', "directorist-selected-icon ".concat(self.value));
       });
       document.querySelector('.icon-picker__close').addEventListener('click', closeModal);
       document.body.addEventListener('click', function (e) {

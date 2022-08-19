@@ -1,4 +1,4 @@
-{
+window.directoriistFontAwesomeIcons = {
     "label": "Font Awesome",
     "iconTypes": {
         "solid": {

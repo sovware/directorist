@@ -221,6 +221,12 @@ class Asset_Loader {
 	 * @return void
 	 */
 	public static function admin_scripts() {
+
+		// Icon Picker
+		wp_enqueue_script( 'directorist-icon-picker' );
+		wp_enqueue_script( 'directorist-font-awesome-icons' );
+		wp_enqueue_script( 'directorist-line-awesome-icons' );
+
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );

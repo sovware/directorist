@@ -1,7 +1,3 @@
-import { IconPicker } from "../../lib/icon-picker";
-import fontAwesome from './../../lib/font-awesome.json';
-import lineAwesome from './../../lib/line-awesome.json';
-
 window.addEventListener('DOMContentLoaded', () => {
     const $ = jQuery;
 
@@ -24,8 +20,8 @@ window.addEventListener('DOMContentLoaded', () => {
         args.container = iconPickerContainer;
         args.onSelect = onSelectIcon;
         args.icons = {
-            fontAwesome,
-            lineAwesome,
+            fontAwesome: directoriistFontAwesomeIcons,
+            lineAwesome: directoriistLineAwesomeIcons,
         };
         args.value = iconValue;
 

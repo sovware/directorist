@@ -8,9 +8,6 @@
 
 <script>
 import props from "./../../mixins/form-fields/input-field-props";
-import { IconPicker } from "./../../../../lib/icon-picker";
-import fontAwesomeIcons from "./../../../../lib/font-awesome.json";
-import lineAwesomeIcons from "./../../../../lib/line-awesome.json";
 
 export default {
   name: "icon-field",
@@ -32,8 +29,8 @@ export default {
     return {
       iconPicker: null,
       icons: {
-        fontAwesome: fontAwesomeIcons,
-        lineAwesome: lineAwesomeIcons,
+        fontAwesome: directoriistFontAwesomeIcons,
+        lineAwesome: directoriistLineAwesomeIcons,
       },
     };
   },

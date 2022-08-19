@@ -1,4 +1,4 @@
-const IconPicker = (args) => {
+window.IconPicker = function( args ) {
     return {
         id: null,
         value: '',
@@ -310,8 +310,4 @@ const IconPicker = (args) => {
             return `${prefix} ${iconKey}`;
         }
     }
-};
-
-export {
-    IconPicker
 };

@@ -1,4 +1,4 @@
-{
+window.directoriistLineAwesomeIcons = {
     "label": "Line Awesome",
     "iconTypes": {
         "solid": {

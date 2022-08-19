@@ -523,12 +523,12 @@ window.addEventListener('DOMContentLoaded', function () {
   );
   return $elem;
   }
-    $("#category_icon").select2({
+   $("#category_icon").select2({
   placeholder: directorist_admin.i18n_text.icon_choose_text,
   allowClear: true,
   templateResult: selecWithIcon,
   });
-    /* Show and hide manual coordinate input field */
+   /* Show and hide manual coordinate input field */
 
   if (!$('input#manual_coordinate').is(':checked')) {
     $('.directorist-map-coordinates').hide();
@@ -1025,11 +1025,11 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-    if (frame) {
+   if (frame) {
    frame.open();
    return;
   }
-    // Create a new media frame
+   // Create a new media frame
   frame = wp.media({
    title: directorist_admin.i18n_text.upload_cat_image,
    button: {
@@ -3572,10 +3572,6 @@ var IconPicker = function IconPicker(args) {
   return {
     id: null,
     value: '',
-    iconGroups: {
-      fa: 'fontAwesome',
-      la: 'lineAwesome'
-    },
     iconType: 'solid',
     container: null,
     onSelect: null,
@@ -3697,12 +3693,11 @@ var IconPicker = function IconPicker(args) {
 
         iconPicker.setAttribute('data-icon-picker-id', id); // Update Filter Serch Text
 
-        iconPicker.querySelector('.icon-picker__filter input').value = selectedIconClassList.length ? selectedIconClassList[1] : '';
-        searchIcon(); // Update Filter Select
+        iconPicker.querySelector('.icon-picker__filter input').value = ''; // Update Filter Select
 
         var iconFilterSelect = iconPicker.querySelector('.icon-picker__filter_select');
-        var iconType = selectedIconClassList.length ? selectedIconClassList[0].substring(0, 2) : '';
-        var iconGroup = Object.keys(self.iconGroups).includes(iconType) ? self.iconGroups[iconType] : '';
+        var iconType = selectedIconClassList.length ? selectedIconClassList[0] : '';
+        var iconGroup = self.findIconGroupByIconType(iconType);
 
         if (iconGroup) {
           iconFilterSelect.value = iconGroup;
@@ -3819,6 +3814,23 @@ var IconPicker = function IconPicker(args) {
         filterIconPack(this);
       });
       filterIconPack(iconFilter);
+    },
+    findIconGroupByIconType: function findIconGroupByIconType(type) {
+      if (!this.icons) {
+        return '';
+      }
+
+      for (var iconGroup in this.icons) {
+        for (var iconType in this.icons[iconGroup].iconTypes) {
+          if (type !== this.icons[iconGroup].iconTypes[iconType].key) {
+            continue;
+          }
+
+          return iconGroup;
+        }
+      }
+
+      return '';
     },
     getFullIcon: function getFullIcon(iconKey, iconGroupKey, iconType) {
       var prefix = '';

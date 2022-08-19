@@ -2,7 +2,6 @@ const IconPicker = (args) => {
     return {
         id: null,
         value: '',
-        iconGroups: { fa: 'fontAwesome', la: 'lineAwesome' },
         iconType: 'solid',
         container: null,
         onSelect: null,
@@ -166,15 +165,14 @@ const IconPicker = (args) => {
                 iconPicker.setAttribute( 'data-icon-picker-id', id );
 
                 // Update Filter Serch Text
-                iconPicker.querySelector( '.icon-picker__filter input' ).value = ( selectedIconClassList.length ) ? selectedIconClassList[1] : '';
-                searchIcon();
+                iconPicker.querySelector( '.icon-picker__filter input' ).value = '';
 
                 // Update Filter Select
                 const iconFilterSelect = iconPicker.querySelector( '.icon-picker__filter_select' );
-                const iconType  = ( selectedIconClassList.length ) ? selectedIconClassList[0].substring(0, 2) : '';
-                const iconGroup = ( Object.keys( self.iconGroups ).includes( iconType ) ) ? self.iconGroups[ iconType ] : '';
+                const iconType         = ( selectedIconClassList.length ) ? selectedIconClassList[0] : '';
+                const iconGroup        = self.findIconGroupByIconType( iconType );
 
-                if ( iconGroup ) {
+                if ( iconGroup ) {
                     iconFilterSelect.value = iconGroup;
                 }
 
@@ -284,6 +282,24 @@ const IconPicker = (args) => {
             });
 
             filterIconPack(iconFilter);
+        },
+
+        findIconGroupByIconType: function( type ) {
+            if ( ! this.icons ) {
+                return '';
+            }
+
+            for ( const iconGroup in this.icons ) {
+                for ( const iconType in this.icons[ iconGroup ].iconTypes ) {
+                    if ( type !== this.icons[ iconGroup ].iconTypes[ iconType ].key ) {
+                        continue;
+                    }
+
+                    return iconGroup;
+                }
+            }
+
+            return '';
         },
 
         getFullIcon(iconKey, iconGroupKey, iconType) {

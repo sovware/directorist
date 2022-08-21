@@ -194,10 +194,6 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'validator',
 			],
-			'directorist-icon-picker' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_VENDOR_JS . 'icon-picker/icon-picker',
-			],
 			'directorist-font-awesome-icons' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'icon-picker/font-awesome',
@@ -205,6 +201,14 @@ class Scripts {
 			'directorist-line-awesome-icons' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'icon-picker/line-awesome',
+			],
+			'directorist-icon-picker' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_VENDOR_JS . 'icon-picker/icon-picker',
+				'dep' => [
+					'directorist-font-awesome-icons',
+					'directorist-line-awesome-icons',
+				],
 			],
 
 			// Global JS

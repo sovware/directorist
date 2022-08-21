@@ -194,6 +194,18 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'validator',
 			],
+			'directorist-icon-picker' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_VENDOR_JS . 'icon-picker/icon-picker',
+			],
+			'directorist-font-awesome-icons' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_VENDOR_JS . 'icon-picker/font-awesome',
+			],
+			'directorist-line-awesome-icons' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_VENDOR_JS . 'icon-picker/line-awesome',
+			],
 
 			// Global JS
 			'directorist-global-script' => [

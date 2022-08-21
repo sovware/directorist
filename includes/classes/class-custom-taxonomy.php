@@ -294,16 +294,10 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			<?php } ?>
 			<tr class="form-field term-group-wrap">
 			<th scope="row"><label for="category_icon"><?php esc_html_e( 'Category Icon', 'directorist' ); ?></label></th>
-			<td><select class="postform gg" id="category_icon" name="category_icon">
-					<?php foreach ( $fa_icons as $_fa_name ) : ?>
-						<option value="<?php echo esc_attr( $_fa_name ); ?>" <?php selected( $_fa_name, $icon_name ); ?>>
-							<span>
-								<?php echo esc_html( $_fa_name ); ?>
-								<i class="<?php echo esc_attr( $_fa_name ); ?>"></i>
-							</span>
-						</option>
-					<?php endforeach; ?>
-				</select></td>
+			<td>
+                <div class="directorist-category-icon-picker"></div>
+                <input type="hidden" class="category_icon_value" value="<?php echo $icon_name ?>" name="category_icon">
+            </td>
 			</tr>
 			<?php
 			// get current cat image
@@ -458,13 +452,8 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			<?php } ?>
 			<div class="form-field term-group">
 				<label for="category_icon"><?php esc_html_e( 'Category Icon', 'directorist' ); ?></label>
-				<select class="postform" id="category_icon" name="category_icon">
-					<?php foreach ( $fa_icons as $_fa_name ) : ?>
-						<option value="<?php echo esc_attr( $_fa_name ); ?>">
-							<?php echo esc_html( $_fa_name ); ?>
-						</option>
-					<?php endforeach; ?>
-				</select>
+				<div class="directorist-category-icon-picker"></div>
+                <input type="hidden" class="category_icon_value" value="" name="category_icon">
 			</div>
 			<div class="form-field term-group">
 				<label for="atbdp-categories-image-id"><?php esc_html_e( 'Image', 'directorist' ); ?></label>

@@ -22,6 +22,8 @@ export default {
     args.onSelect = this.onSelectIcon;
     args.icons = this.icons;
     args.value = this.value;
+    args.labels = directorist_admin.icon_picker_labels;
+
     this.iconPicker = new IconPicker(args);
     this.iconPicker.init();
   },

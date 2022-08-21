@@ -11635,6 +11635,9 @@ input[type=radio].cptm-radio {
 .cptm-option-card-body .cptm-form-group:last-child {
   margin-bottom: 0;
 }
+.cptm-option-card-body .directorist-type-icon-select {
+  margin-bottom: 20px;
+}
 
 .cptm-widget-insert-area {
   position: absolute;
@@ -14819,6 +14822,9 @@ input[type=radio].cptm-radio {
 }
 .cptm-option-card-body .cptm-form-group:last-child {
   margin-bottom: 0;
+}
+.cptm-option-card-body .directorist-type-icon-select {
+  margin-bottom: 20px;
 }
 
 .cptm-widget-insert-area {
@@ -18203,6 +18209,9 @@ input[type=radio].cptm-radio {
 }
 .cptm-option-card-body .cptm-form-group:last-child {
   margin-bottom: 0;
+}
+.cptm-option-card-body .directorist-type-icon-select {
+  margin-bottom: 20px;
 }
 
 .cptm-widget-insert-area {

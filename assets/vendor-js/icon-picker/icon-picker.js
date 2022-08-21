@@ -180,7 +180,7 @@ window.IconPicker = function( args ) {
 
                 // Update Selected Icon Status
                 const selectedIconClasses = ( selectedIconClassList.length ) ? '.font-icon-btn.' + selectedIconClassList.join( '.' ) : '';
-                const selectedIcon        = iconPicker.querySelector( selectedIconClasses );
+                const selectedIcon        = selectedIconClasses !== '' ? iconPicker.querySelector( selectedIconClasses ) : '';
 
                 document.querySelectorAll( '.font-icon-btn' )
                     .forEach( item => item.classList.remove( 'cptm-btn-primary' ) );

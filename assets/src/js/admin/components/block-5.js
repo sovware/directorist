@@ -24,6 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
             lineAwesome: directoriistLineAwesomeIcons,
         };
         args.value = iconValue;
+        args.labels = directorist_admin.icon_picker_labels;
 
         const iconPicker = new IconPicker( args );
         iconPicker.init();

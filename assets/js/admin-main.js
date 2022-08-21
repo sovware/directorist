@@ -1564,6 +1564,7 @@ window.addEventListener('DOMContentLoaded', function () {
       lineAwesome: directoriistLineAwesomeIcons
     };
     args.value = iconValue;
+    args.labels = directorist_admin.icon_picker_labels;
     var iconPicker = new IconPicker(args);
     iconPicker.init();
   }

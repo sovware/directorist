@@ -6,6 +6,15 @@ window.IconPicker = function( args ) {
         container: null,
         onSelect: null,
         icons: null,
+        labels: {
+            changeIconButtonLabel: 'Change Icon',
+            changeIconButtonPlaceholder: 'Click to select icon',
+            filterByNameInputLabel: 'Filter By Name',
+            filterByNameInputPlaceholder: 'Search',
+            filterByGroupInputLabel: 'Filter By Icon Pack',
+            doneButtonLabel: 'Done',
+            iconGroupLabels: {},
+        },
         init: function () {
             let _this = this;
 
@@ -15,8 +24,9 @@ window.IconPicker = function( args ) {
 
             body.setAttribute( 'data-directorist-icon-picker-count', id );
 
-            this.id = id;
+            this.id        = id;
             this.container = (typeof args.container !== 'undefined') ? args.container : this.container;
+            this.labels    = (typeof args.labels !== 'undefined') ? { ...this.labels, ...args.labels } : this.labels;
             this.onSelect  = (typeof args.onSelect !== 'undefined') ? args.onSelect : this.onSelect;
             this.icons     = (typeof args.icons !== 'undefined') ? args.icons : this.icons;
             this.value     = (typeof args.value === 'string') ? args.value : this.value;
@@ -40,7 +50,7 @@ window.IconPicker = function( args ) {
             let markup = '';
             for (const iconGroupKey of Object.keys(this.icons)) {
                 markup += `<div class="icons-group ${iconGroupKey}">`;
-                markup += `<h4>${this.icons[ iconGroupKey ].label}</h4>`;
+                markup += `<h4>${ this.getIconGroupLabel( iconGroupKey )}</h4>`;
                 markup += `<div class="icons-group-icons">`;
                 for (const icon of this.icons[iconGroupKey].icons) {
                     const fullIcon = this.getFullIcon(icon.key, iconGroupKey, icon.types[0]);
@@ -62,12 +72,12 @@ window.IconPicker = function( args ) {
                     <span class="directorist-selected-icon ${this.value}"></span>
                     <input
                     type="text"
-                    placeholder="Click to select icon"
+                    placeholder="${this.labels.changeIconButtonPlaceholder}"
                     class="cptm-form-control"
                     value="${this.value}" style="${this.value ? 'padding-left: 38px' : '' }"
                     />
                 </div>
-                <button class="icon-picker-selector__btn">Change Icon</button>
+                <button class="icon-picker-selector__btn">${this.labels.changeIconButtonLabel}</button>
             </div>
                 `;
             this.container.innerHTML = markup;
@@ -84,14 +94,13 @@ window.IconPicker = function( args ) {
                 ></a>
                 <div class="icon-picker__sidebar">
                     <div class="icon-picker__filter">
-                        <label for="">Filter By Name</label>
-                        <input type="text" placeholder="Search" />
+                        <label for="">${this.labels.filterByNameInputLabel}</label>
+                        <input type="text" placeholder="${this.labels.filterByNameInputPlaceholder}" />
                     </div>
                     <div class="icon-picker__filter">
-                        <label for="">Filter By Icon Pack</label>
+                        <label for="">${this.labels.filterByGroupInputLabel}</label>
                         <select class="icon-picker__filter_select">
-                            <option value="fontAwesome">Font Awesome</option>
-                            <option value="lineAwesome">Line Awesome</option>
+                            ${this.getIconGroupOptions()}
                         </select>
                     </div>
                     <div class="icon-picker__preview">
@@ -100,7 +109,7 @@ window.IconPicker = function( args ) {
                             <span class="icon-picker__icon-name">${selectedIcon[1]}</span>
                         </span>
                     </div>
-                    <button class="cptm-btn cptm-btn-primary icon-picker__done-btn">Done</button>
+                    <button class="cptm-btn cptm-btn-primary icon-picker__done-btn">${this.labels.doneButtonLabel}</button>
                 </div>
                 <div class="icon-picker__content">
                 <div id="iconsWrapperElm" class="iconsWrapperElm">
@@ -111,6 +120,26 @@ window.IconPicker = function( args ) {
             `;
 
             this.container.closest('body').insertAdjacentHTML('beforeend', iconPickerWrap)
+        },
+
+        getIconGroupOptions: function() {
+            if ( ! this.icons ) {
+                return '';
+            }
+
+            let options = '';
+
+            for ( const iconGroup in this.icons ) {
+                options += `<option value="${iconGroup}">${this.getIconGroupLabel( iconGroup )}</option>` + "\n";
+            }
+
+            return options;
+        },
+
+        getIconGroupLabel( iconGroup ) {
+            const labels = ( this.labels.iconGroupLabels && typeof this.labels.iconGroupLabels === 'object' ) ? this.labels.iconGroupLabels : {};
+            return ( typeof labels[ iconGroup ] !== 'undefined' ) ? labels[ iconGroup ] : this.icons[iconGroup].label;
+
         },
 
         attachEvents() {

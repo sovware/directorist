@@ -12,6 +12,13 @@ class ATBDP_Send_Mail {
         if ( isset( $_POST['_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), '_debugger_email_nonce' ) ) {
             die( 'huh!' );
         }
+
+		$action_args = [
+			'recipient_type' => 'admin',
+		];
+
+		do_action( 'directorist_before_send_email', $action_args );
+
 		$user = wp_get_current_user();
         $email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
         $sender_email = isset( $_POST['sender_email'] ) ? sanitize_email( wp_unslash( $_POST['sender_email'] ) ) : '';
@@ -30,6 +37,9 @@ class ATBDP_Send_Mail {
 
 		// return true or false, based on the result
 		$send_email = ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
+
+		$action_args['is_sent'] = $send_email;
+		do_action( 'directorist_after_send_email', $action_args );
 
 		if ( $send_email ) {
 			wp_send_json_success();
@@ -93,6 +103,6 @@ class ATBDP_Send_Mail {
         </div>
 		<?php
 		do_action( 'atbdp_tools_email_system_info_after' );
-    
+
     }
 }

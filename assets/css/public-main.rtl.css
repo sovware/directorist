@@ -8474,6 +8474,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-content-active .directorist-listings-header__left .directorist-filter-btn {
   margin-left: 15px;
 }
+.directorist-content-active .directorist-listings-header__left .directorist-filter-btn .directorist-icon-mask span {
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+}
 .directorist-content-active .directorist-listings-header__left .directorist-header-found-title {
   margin: 0;
   padding: 0;

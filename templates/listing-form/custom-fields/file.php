@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -154,3 +154,10 @@ $multiple           = false;
 	<?php $listing_form->field_description_template( $data ); ?>
 
 </div>
+<?php
+/**
+ * @since 7.4.0
+ * Add additional field in file upload
+ */
+
+do_action( 'directorist_after_file_upload_form_field', $data );

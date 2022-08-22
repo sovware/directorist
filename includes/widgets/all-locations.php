@@ -195,7 +195,7 @@ class All_Locations extends \WP_Widget {
             $html .= '<ul class="' .$child_class. '">';
             foreach( $terms as $term ) {
                 $child_category = get_term_children($term->term_id,ATBDP_LOCATION);
-                $plus_icon = (!empty($child_category) && empty($parent) ) ? '<span class="'.atbdp_icon_type().'-plus"></span>' : '';
+                $plus_icon = (!empty($child_category) && empty($parent) ) ? directorist_icon( 'la la-plus', false ) : '';
                 $settings['term_id'] = $term->term_id;
 
                 $count = 0;

@@ -429,6 +429,12 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 				wp_send_json( $status );
 			}
 
+			$action_args = [
+				'recipient_type' => ( 'all_user' === $to ) ? 'user' : 'admin',
+			];
+
+			do_action( 'directorist_before_send_email', $action_args );
+
 			// Save the post
 			$announcement = wp_insert_post(
 				array(
@@ -472,8 +478,12 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 				$message = atbdp_email_html( $subject, $message );
 				$headers = ATBDP()->email->get_email_headers();
 
-				ATBDP()->email->send_mail( $recipients, $subject, $message, $headers );
+				$is_sent = ATBDP()->email->send_mail( $recipients, $subject, $message, $headers );
+
+				$action_args['is_sent'] = $is_sent;
 			}
+
+			do_action( 'directorist_after_send_email', $action_args );
 
 			$status['success'] = true;
 			$status['message'] = __( 'The announcement has been sent successfully', 'directorist' );

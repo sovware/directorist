@@ -1317,7 +1317,7 @@ class Directorist_Listings {
 			$cat_icon = get_term_meta( $cats[0]->term_id, 'category_icon', true );
 		}
 
-		$cat_icon = !empty( $cat_icon ) ? $cat_icon : atbdp_icon_type() . '-map-marker';
+		$cat_icon = !empty( $cat_icon ) ? $cat_icon : 'la la-map-marker';
 		/**
 		 * Get category icon for map marker.
 		 *
@@ -1968,7 +1968,7 @@ class Directorist_Listings {
 
 		public function filter_btn_html() {
 			if ( $this->has_filters_icon ) {
-				return sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $this->filter_button_text );
+				return sprintf( '%s %s', directorist_icon( 'fa fa-filter', false ), $this->filter_button_text );
 			}
 			else {
 				return $this->filter_button_text;

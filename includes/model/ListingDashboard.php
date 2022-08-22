@@ -156,8 +156,8 @@ class Directorist_Listing_Dashboard {
 			'format'    => '?paged=%#%',
 			'current'   => max(1, $paged),
 			'total'     => $query->max_num_pages,
-			'prev_text' => '<i class="la la-arrow-left"></i>',
-			'next_text' => '<i class="la la-arrow-right"></i>',
+			'prev_text' => directorist_icon( 'la la-arrow-left', false ),
+			'next_text' => directorist_icon( 'la la-arrow-right', false ),
 		));
 
 		return $links;

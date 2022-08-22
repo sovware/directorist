@@ -555,7 +555,7 @@ class Directorist_Listing_Dashboard {
 				'class'			    => '',
 				'data_attr'			=>	'',
 				'link'				=>	add_query_arg( 'renew_from', 'dashboard', esc_url( ATBDP_Permalink::get_renewal_page_link( $post_id )) ),
-				'icon'				=>  sprintf( '<i class="%s-hand-holding-usd"></i>', atbdp_icon_type() ),
+				'icon'				=>  'la la-hand-holding-usd',
 				'label'				=>  __( 'Renew', 'directorist' )
 			);
 		}
@@ -565,7 +565,7 @@ class Directorist_Listing_Dashboard {
 				'class'			    => '',
 				'data_attr'			=>	'',
 				'link'				=>	ATBDP_Permalink::get_checkout_page_link( $post_id ),
-				'icon'				=>  sprintf( '<i class="%s-ad"></i>', atbdp_icon_type() ),
+				'icon'				=>  'la la-ad',
 				'label'				=>  __( 'Promote', 'directorist' )
 			);
 		}
@@ -574,7 +574,7 @@ class Directorist_Listing_Dashboard {
 			'class'			    => '',
 			'data_attr'			=>	'data-task="delete"',
 			'link'				=>	'#',
-			'icon'				=>  sprintf( '<i class="%s-trash"></i>', atbdp_icon_type() ),
+			'icon'				=>  'la la-trash',
 			'label'				=>  __( 'Delete Listing', 'directorist' )
 		);
 

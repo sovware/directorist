@@ -296,7 +296,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			<th scope="row"><label for="category_icon"><?php esc_html_e( 'Category Icon', 'directorist' ); ?></label></th>
 			<td>
                 <div class="directorist-category-icon-picker"></div>
-                <input type="hidden" class="category_icon_value" value="<?php echo $icon_name ?>" name="category_icon">
+                <input type="hidden" class="category_icon_value" value="<?php echo esc_attr( $icon_name ); ?>" name="category_icon">
             </td>
 			</tr>
 			<?php

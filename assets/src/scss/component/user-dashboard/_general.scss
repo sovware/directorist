@@ -484,8 +484,10 @@
           padding: 10px 20px;
           font-size: 14px;
           color: #51526e;
-          display: block;
+          display: flex;
           text-decoration: none;
+          flex-wrap: wrap;
+          align-items: center;
 
           &:hover {
             background-color: #f6f7f9;

@@ -95,6 +95,12 @@
 
         .directorist_menuItem-text {
             pointer-events: none;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            .directorist_menuItem-icon{
+                line-height: 0;
+            }
         }
 
         &.directorist-tab__nav__active,

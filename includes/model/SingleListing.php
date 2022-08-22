@@ -399,17 +399,17 @@ class Directorist_Single_Listing {
 		$result = array(
 			'facebook' => array(
 				'title' => __('Facebook', 'directorist'),
-				'icon'  => atbdp_icon_type() . '-facebook',
+				'icon'  => 'la la-facebook',
 				'link'  => "https://www.facebook.com/share.php?u={$link}&title={$title}",
 			),
 			'twitter' => array(
 				'title' => __('Twitter', 'directorist'),
-				'icon'  => atbdp_icon_type() . '-twitter',
+				'icon'  => 'la la-twitter',
 				'link'  => 'https://twitter.com/intent/tweet?text=' . $title . '&amp;url=' . $link,
 			),
 			'linkedin' => array(
 				'title' => __('LinkedIn', 'directorist'),
-				'icon'  => atbdp_icon_type() . '-linkedin',
+				'icon'  => 'la la-linkedin',
 				'link'  => "http://www.linkedin.com/shareArticle?mini=true&url={$link}&title={$title}",
 			),
 		);

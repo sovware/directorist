@@ -1968,7 +1968,7 @@ class Directorist_Listings {
 
 		public function filter_btn_html() {
 			if ( $this->has_filters_icon ) {
-				return sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $this->filter_button_text );
+				return sprintf( '%s %s', directorist_icon( 'fa fa-filter', false ), $this->filter_button_text );
 			}
 			else {
 				return $this->filter_button_text;

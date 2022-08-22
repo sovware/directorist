@@ -456,7 +456,14 @@ This email is sent automatically for information purpose only. Please do not res
 					return false;
 				}
 
-				do_action( 'directorist_before_send_email', $listing_id, 'listing_owner' );
+				$hooks_args = [
+					'listing_id'     => $listing_id,
+					'order_id'       => $order_id,
+					'offline'        => $offline,
+					'recipient_type' => 'listing_owner',
+				];
+
+				do_action( 'directorist_before_send_email', $hooks_args );
 
 				$user = $this->get_owner( $listing_id );
 				// Send email according to the type of the payment that user used during checkout. get email template from the db.
@@ -481,7 +488,7 @@ This email is sent automatically for information purpose only. Please do not res
 				);
 
 				do_action( 'directorist_email_on_notify_owner_order_created', $action_args );
-				do_action( 'directorist_after_send_email', $listing_id, 'listing_owner' );
+				do_action( 'directorist_after_send_email', $hooks_args );
 
 				return $is_sent;
 			}
@@ -503,7 +510,13 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'listing_owner' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'order_id'       => $order_id,
+				'recipient_type' => 'listing_owner',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_completed_order' ), $order_id, $listing_id, $user );
@@ -525,7 +538,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_owner_order_completed', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'listing_owner' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 		}
@@ -543,7 +556,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'listing_owner' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'recipient_type' => 'listing_owner',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_new_listing' ), null, $listing_id, $user );
@@ -565,7 +583,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_owner_listing_submitted', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'listing_owner' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 		}
@@ -584,7 +602,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'admin' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'recipient_type' => 'admin',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$s = __( '[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', 'directorist' );
 			$subject = $this->replace_in_content( $s, null, $listing_id );
@@ -608,7 +631,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_admin_listing_published', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'admin' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 
@@ -628,7 +651,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'listing_owner' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'recipient_type' => 'listing_owner',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_pub_listing' ), null, $listing_id, $user );
@@ -650,7 +678,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_owner_listing_published', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'listing_owner' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 		}
@@ -670,7 +698,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'listing_owner' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'recipient_type' => 'listing_owner',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_edit_listing' ), null, $listing_id, $user );
@@ -698,7 +731,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_owner_listing_edited', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'listing_owner' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 		}
@@ -716,7 +749,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'listing_owner' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'recipient_type' => 'listing_owner',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_to_expire_listing' ), null, $listing_id, $user );
@@ -738,7 +776,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_owner_listing_to_expire', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'listing_owner' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 		}
@@ -757,7 +795,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'listing_owner' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'recipient_type' => 'listing_owner',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_expired_listing' ), null, $listing_id, $user );
@@ -779,7 +822,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_owner_listing_expired', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'listing_owner' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 		}
@@ -797,7 +840,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'listing_owner' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'recipient_type' => 'listing_owner',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_to_renewal_listing' ), null, $listing_id, $user );
@@ -819,7 +867,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_owner_to_renew', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'listing_owner' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 		}
@@ -861,7 +909,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'listing_owner' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'recipient_type' => 'listing_owner',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_deleted_listing' ), null, $listing_id, $user );
@@ -884,7 +937,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_owner_listing_deleted', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'listing_owner' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 		}
@@ -905,7 +958,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false; // vail if order created notification to admin off
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'admin' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'recipient_type' => 'admin',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$s = __( '[==SITE_NAME==] A Listing has been deleted [ID#: ==LISTING_ID==] on your website', 'directorist' );
 			$sub = $this->replace_in_content( $s, null, $listing_id );
@@ -914,7 +972,7 @@ This email is sent automatically for information purpose only. Please do not res
 
 			$is_sent = $this->send_mail( $this->get_admin_email_list(), $sub, $body, $this->get_email_headers() );
 
-			do_action( 'directorist_after_send_email', $listing_id, 'admin' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 
@@ -925,7 +983,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $user_id, 'admin' );
+			$hooks_args = [
+				'user_id'        => $user_id,
+				'recipient_type' => 'admin',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$s = __( '[==SITE_NAME==] New Author Request', 'directorist' );
 			$subject = str_replace( '==SITE_NAME==', get_option( 'blogname' ), $s );
@@ -949,7 +1012,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_admin_become_author', $action_args );
-			do_action( 'directorist_after_send_email', $user_id, 'admin' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 		}
@@ -974,7 +1037,13 @@ This email is sent automatically for information purpose only. Please do not res
 					return false; // vail if order created notification to admin off
 				}
 
-				do_action( 'directorist_before_send_email', $listing_id, 'admin' );
+				$hooks_args = [
+					'listing_id'     => $listing_id,
+					'order_id'       => $order_id,
+					'recipient_type' => 'admin',
+				];
+
+				do_action( 'directorist_before_send_email', $hooks_args );
 
 				$s = __( '[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist' );
 				$subject = $this->replace_in_content( $s, $order_id );
@@ -999,7 +1068,7 @@ This email is sent automatically for information purpose only. Please do not res
 				);
 
 				do_action( 'directorist_email_on_notify_admin_order_created', $action_args );
-				do_action( 'directorist_after_send_email', $listing_id, 'admin' );
+				do_action( 'directorist_after_send_email', $hooks_args );
 
 				return $is_sent;
 			}
@@ -1022,7 +1091,13 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'admin' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'order_id'       => $order_id,
+				'recipient_type' => 'admin',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$s = __( '[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed', 'directorist' );
 			$subject = $this->replace_in_content( $s, $order_id );
@@ -1047,7 +1122,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_admin_order_completed', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'admin' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 		}
@@ -1065,7 +1140,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'admin' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'recipient_type' => 'admin',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$s = __( '[==SITE_NAME==] A new listing has been submitted on your website', 'directorist' );
 			$subject = str_replace( '==SITE_NAME==', get_option( 'blogname' ), $s );
@@ -1089,7 +1169,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_admin_listing_submitted', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'admin' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 
@@ -1139,7 +1219,12 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
-			do_action( 'directorist_before_send_email', $listing_id, 'admin' );
+			$hooks_args = [
+				'listing_id'     => $listing_id,
+				'recipient_type' => 'admin',
+			];
+
+			do_action( 'directorist_before_send_email', $hooks_args );
 
 			$s = __( '[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website', 'directorist' );
 			$subject = $this->replace_in_content( $s, null, $listing_id );
@@ -1162,7 +1247,7 @@ This email is sent automatically for information purpose only. Please do not res
 			);
 
 			do_action( 'directorist_email_on_notify_admin_listing_edited', $action_args );
-			do_action( 'directorist_after_send_email', $listing_id, 'admin' );
+			do_action( 'directorist_after_send_email', $hooks_args );
 
 			return $is_sent;
 		}

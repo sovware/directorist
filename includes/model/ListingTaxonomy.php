@@ -277,9 +277,8 @@ class Directorist_Listing_Taxonomy {
 
 				if ($this->type == 'category') {
 					$icon = get_term_meta($term->term_id, 'category_icon', true);
-					$icon_type = substr($icon, 0,2);
 					$data['has_icon']  = ( !empty( $icon ) && ( 'none' != $icon ) ) ? true : false;
-					$data['icon_class'] = ('la' === $icon_type)? $icon_type.' '. $icon : 'fa '. $icon;
+					$data['icon_class'] = $icon;
 				}
 
 				$result[] = $data;

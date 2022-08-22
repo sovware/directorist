@@ -904,11 +904,24 @@ This email is sent automatically for information purpose only. Please do not res
 			if ( ! in_array( 'listing_renewed', get_directorist_option( 'notify_user', array( 'listing_renewed' ) ) ) ) {
 				return false;
 			}
+
+			$action_args = [
+			  	'listing_id'     => $listing_id,
+				'recipient_type' => 'user',
+			];
+
+			do_action( 'directorist_before_send_email', $action_args );
+
 			$user = $this->get_owner( $listing_id );
 			$sub = $this->replace_in_content( get_directorist_option( 'email_sub_renewed_listing' ), null, $listing_id, $user );
 			$body = $this->replace_in_content( get_directorist_option( 'email_tmpl_renewed_listing' ), null, $listing_id, $user );
 
-			return $this->send_mail( $user->user_email, $sub, $body, $this->get_email_headers() );
+			$is_sent = $this->send_mail( $user->user_email, $sub, $body, $this->get_email_headers() );
+
+			$action_args['is_sent'] = $is_sent;
+			do_action( 'directorist_after_send_email', $action_args );
+
+			return $is_sent;
 		}
 
 
@@ -1080,7 +1093,7 @@ This email is sent automatically for information purpose only. Please do not res
 				$is_sent = $this->send_mail( $to, $subject, $message, $headers );
 
 				// Action Hook
-				$action_args = array(
+				$args = array(
 					'is_sent'    => $is_sent,
 					'to_email'   => $to,
 					'subject'    => $subject,

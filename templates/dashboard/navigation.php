@@ -22,7 +22,7 @@ $counter = 1;
 					<a href="#" class="directorist-booking-nav-link directorist-tab__nav__link <?php echo ( $counter == 1 ) ? 'directorist-tab__nav__active' : ''; ?>" target="<?php echo esc_attr( $key ); ?>">
 						<span class="directorist_menuItem-text">
 							<span class="directorist_menuItem-icon">
-								<i class="<?php echo esc_attr( $value['icon'] ); ?>"></i>
+								<?php directorist_icon( $value['icon'] ); ?>
 							</span>
 							<?php echo wp_kses_post( $value['title'] ); ?>
 						</span>

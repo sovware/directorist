@@ -359,14 +359,14 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_my_listings'] = array(
 				'title'     => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
 				'content'   => Helper::get_template_contents( 'dashboard/tab-my-listings', [ 'dashboard' => $this ] ),
-				'icon'	    => atbdp_icon_type() . '-list',
+				'icon'	    => 'la la-list',
 			);
 		}
 
 		if ( $my_profile_tab ) {
 			$dashboard_tabs['dashboard_profile'] = array(
 				'title'     => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
-				'icon'	    => atbdp_icon_type() . '-user',
+				'icon'	    => 'la la-user',
 				'content'   => Helper::get_template_contents( 'dashboard/tab-profile', [ 'dashboard' => $this ] ),
 			);
 		}
@@ -375,7 +375,7 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_fav_listings'] = array(
 				'title'     => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
 				'content'   => Helper::get_template_contents( 'dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
-				'icon'		=> atbdp_icon_type() . '-heart',
+				'icon'		=> 'la la-heart',
 			);
 		}
 
@@ -383,7 +383,7 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_announcement'] = array(
 				'title'    => $this->get_announcement_label(),
 				'content'  => Helper::get_template_contents( 'dashboard/tab-announcement', [ 'dashboard' => $this ] ),
-				'icon'	   => atbdp_icon_type() . '-bullhorn',
+				'icon'	   => 'la la-bullhorn',
 			);
 		}
 

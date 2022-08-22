@@ -474,6 +474,8 @@
                 font-size: 15px;
                 margin: 0 5px;
                 color: #767792;
+                display: flex;
+                align-items: center;
 
                 i,
                 span.la,
@@ -567,24 +569,20 @@
 
     &.directorist-added-to-favorite {
         background: rgba(0, 0, 0, 0.5) !important;
-
-        .directorist-favorite-icon {
-            &:before {
-                content: '\f004';
-                font-weight: 900;
-            }
-        }
     }
 
     .directorist-favorite-icon {
-        line-height: 1;
-        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:before {
-            content: "\f004";
-            font-family: 'Line Awesome Free';
-            color: #fff;
-            font-weight: 500;
+            content: '';
+            mask-image: url("../../../../icons/line-awesome/svgs/heart.svg");
+            mask-repeat: no-repeat;
+            width: 15px;
+            height: 15px;
+            background-color: #fff;
         }
     }
 
@@ -619,30 +617,8 @@
     background: rgba(#000, 0.07);
     transition: $transition-base;
 
-    .directorist-favorite-icon::before {
-        color: #fff;
-        font-weight: 500;
-    }
-
     &.directorist-added-to-favorite {
         background: $primary !important;
-
-        .directorist-favorite-icon::before {
-            color: #fff !important;
-            font-size: 14px;
-        }
-
-        &:hover {
-            .directorist-favorite-icon::before {
-                color: #fff;
-            }
-        }
-    }
-
-    &:hover {
-        .directorist-favorite-icon::before {
-            color: #fff;
-        }
     }
 }
 

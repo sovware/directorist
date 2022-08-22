@@ -9449,6 +9449,23 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-radius: 3px;
   background: #f4f4f4;
   padding: 15px 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.directorist-alert .directorist-icon-mask {
+  margin-left: 5px;
+}
+.directorist-alert > a {
+  padding-right: 5px;
 }
 .directorist-alert .directorist-alert__content {
   display: -webkit-box;
@@ -9687,14 +9704,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
   position: absolute;
-  font-size: 10px;
   right: 4px;
   top: 3px;
-  font-weight: 900;
-  line-height: 1.2;
-  font-family: "Font Awesome 5 Free";
-  content: "\f00c";
-  color: #fff;
+  content: "";
+  -webkit-mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);
+          mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
   display: block;
   opacity: 0;
   -webkit-transition: all 0.3s ease 0s;

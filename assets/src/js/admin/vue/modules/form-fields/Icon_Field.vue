@@ -1,7 +1,6 @@
 <template>
   <div class="directorist-type-icon-select">
     <label>Icon</label>
-    <p>{{ value }}</p>
     <div class="icon-picker-wrap" ref="iconPickerElm"></div>
   </div>
 </template>

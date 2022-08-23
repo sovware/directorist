@@ -5703,7 +5703,7 @@ if ( ! function_exists( 'str_starts_with' ) ) {
 	}
 }
 
-function directorist_icon( $icon, $echo = true ) {
+function directorist_icon( $icon, $echo = true, $class = '' ) {
     if ( !$icon ) {
         return;
     }
@@ -5714,7 +5714,9 @@ function directorist_icon( $icon, $echo = true ) {
         return;
     }
 
-    $html = sprintf( '<i class="directorist-icon-mask"><span style="mask-image:url(%1$s);-webkit-mask-image:url(%1$s);"></span></i>', esc_url( $icon_src ) );
+	$class = $class ? 'directorist-icon-mask ' . $class : 'directorist-icon-mask';
+
+    $html = sprintf( '<i class="%2$s"><span style="mask-image:url(%1$s);-webkit-mask-image:url(%1$s);"></span></i>', esc_url( $icon_src ), esc_attr( $class ) );
 
     if ( $echo ) {
         echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped

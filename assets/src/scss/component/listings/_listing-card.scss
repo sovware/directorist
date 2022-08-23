@@ -517,20 +517,13 @@
 .directorist-rating-meta {
     padding: 0;
 
-    i,
-    span.la,
-    span.fa {
-        font-size: 12px;
-        color: #F80718;
-        font-weight: 900;
-
-        &:not(:last-child) {
-            margin-right: 3px;
+    i.directorist-icon-mask {
+        span {
+            background-color: #F80718;
         }
-    }
-    .far,
-    .lar{
-        color: #D1D1D1;
+        &.star-empty span {
+            background-color: #D1D1D1;
+        }
     }
 
     .directorist-rating-avg {

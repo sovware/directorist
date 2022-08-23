@@ -2,13 +2,12 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.0
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $related = $listing->get_related_listings();
-$columns = get_directorist_type_option( $listing->type, 'similar_listings_number_of_columns', 3 );
 
 if ( !$related->have_posts() ) {
 	return;
@@ -24,7 +23,7 @@ if ( !$related->have_posts() ) {
 	</div>
 
 
-	<div class="directorist-related-carousel" data-columns="<?php echo esc_attr( $columns ); ?>">
+	<div class="directorist-related-carousel" data-attr="<?php echo esc_attr( $listing->related_slider_attr() ); ?>">
 
 		<?php foreach ( $related->post_ids() as $listing_id ): ?>
 

@@ -261,7 +261,6 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			// get current group
 			$icon_name                = get_term_meta( $term->term_id, 'category_icon', true );
 			$selected_directory_types = (array) get_term_meta( $term->term_id, '_directory_type', true );
-			$fa_icons                 = get_fa_icons(); // returns the array of FA icon names
 			$directory_types          = get_terms(
 				array(
 					'taxonomy'   => ATBDP_TYPE,
@@ -423,7 +422,6 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 		}
 
 		public function add_category_form_fields( $taxonomy ) {
-			$fa_icons             = get_fa_icons(); // returns the array of FA icon names
 			$directory_types      = get_terms(
 				array(
 					'taxonomy'   => ATBDP_TYPE,

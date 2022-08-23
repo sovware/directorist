@@ -6,9 +6,6 @@
  */
 
 $placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
-$multiple    = $data['type'] == 'multiple' ? 'multiple="multiple" ' : '';
-$max         = !empty( $data['max'] ) ? 'data-max="'. $data['max'] .'" ' : '';
-$create_new  = !empty( $data['create_new_cat'] ) ? ' data-allow_new="'. $data['create_new_cat'] .'" ' : '';
 ?>
 
 <div class="directorist-form-group directorist-form-categories-field">

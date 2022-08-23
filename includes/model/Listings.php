@@ -199,7 +199,7 @@ class Directorist_Listings {
 		$this->options['crop_height']                     = get_directorist_option('crop_height', 360);
 		$this->options['map_view_zoom_level']             = get_directorist_option('map_view_zoom_level', 16);
 		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
-		$this->options['font_type']                       = get_directorist_option('font_type','line');
+		$this->options['font_type']                       = 'line';
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);

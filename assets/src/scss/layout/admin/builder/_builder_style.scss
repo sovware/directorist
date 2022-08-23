@@ -1385,6 +1385,12 @@ input[type="radio"].cptm-radio {
   }
   .directorist-type-icon-select{
     margin-bottom: 20px;
+    .icon-picker-selector{
+      display: block;
+      .icon-picker-selector__btn{
+        margin-top: 10px;
+      }
+    }
   }
 }
 

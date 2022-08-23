@@ -95,6 +95,13 @@
 
 			.directorist-filter-btn {
 				margin-right: 15px;
+				.directorist-icon-mask{
+					span{
+						width: 12px;
+						height: 12px;
+						margin-right: 5px;
+					}
+				}
 			}
 
 			.directorist-header-found-title {

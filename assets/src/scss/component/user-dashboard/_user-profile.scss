@@ -74,6 +74,9 @@
     }
 
     label {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
         .directorist-social-icon {
             margin-right: 6px;
             font-size: 16px;

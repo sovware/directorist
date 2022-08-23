@@ -948,7 +948,7 @@ class Multi_Directory_Manager
 
                     'tag' => [
                         'label' => 'Tag',
-                        'icon' => 'uil uil-tag-alt',
+                        'icon' => 'la la-tag',
                         'options' => [
                             'field_key' => [
                                 'type'   => 'hidden',

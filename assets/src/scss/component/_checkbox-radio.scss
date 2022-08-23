@@ -4,7 +4,7 @@
 .directorist-radio{
     display: flex;
     align-items: center;
-  
+
     input[type="checkbox"],
     input[type="radio"]{
         display: none;
@@ -59,14 +59,14 @@
         & +.directorist-checkbox__label{
             &:before{
                 position: absolute;
-                font-size: 10px;
                 left: 4px;
                 top: 3px;
-                font-weight: 900;
-                line-height: 1.2;
-                font-family: 'Font Awesome\ 5 Free';
-                content: "\f00c";
-                color: #fff;
+                content: "";
+                mask-image: url("../../../icons/font-awesome/svgs/solid/check.svg");
+                mask-repeat: no-repeat;
+                width: 10px;
+                height: 10px;
+                background-color: #fff;
                 display: block;
                 opacity: 0;
                 transition: all 0.3s ease 0s;

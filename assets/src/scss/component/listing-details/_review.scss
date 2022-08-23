@@ -386,7 +386,8 @@ Review: New Style
                 .directorist-rating-stars {
                     font-size: 15px;
                     color: #EF8000;
-                    display: block;
+                    display: flex;
+                    align-items: center;
                 }
 
                 .directorist-rating-overall {
@@ -588,7 +589,8 @@ Review: New Style
                                 .directorist-rating-stars {
                                     font-size: 11px;
                                     color: #EF8000;
-                                    display: block;
+                                    display: flex;
+                                    align-items: center;
                                 }
                             }
                         }

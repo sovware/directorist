@@ -2,21 +2,23 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.3.1
+ * @version 7.3.3
  */
 
 $placeholder = ! empty( $data['placeholder'] ) ? $data['placeholder'] : '';
-$multiple    = $data['type'] == 'multiple' ? 'multiple="multiple"' : '';
-$max         = !empty( $data['max_location_creation'] ) ? 'data-max="'. $data['max_location_creation'] .'"' : '';
-$create_new  = !empty( $data['create_new_loc'] ) ? ' data-allow_new="'. $data['create_new_loc'] .'"' : '';
 ?>
 
 <div class="directorist-form-group directorist-form-location-field">
 
 	<?php $listing_form->field_label_template( $data ); ?>
 
-	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-location" data-placeholder="<?php echo esc_attr( $placeholder ); ?>" <?php echo esc_attr( $multiple ) ; echo esc_attr( $max ); echo esc_attr( $create_new ); ?> <?php $listing_form->required( $data ); ?>>
-
+	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-location" data-placeholder="<?php echo esc_attr( $placeholder ); ?>"
+	<?php echo $data['type'] == 'multiple' ? esc_attr( 'multiple' ) : ''; ?>
+	data-max="<?php echo ! empty( $data['max_location_creation'] ) ? esc_attr( $data['max_location_creation'] ) : ''; ?>"
+	data-allow_new="<?php echo ! empty( $data['create_new_loc'] ) ? esc_attr( $data['create_new_loc'] ) : ''; ?>"
+	<?php 	
+	$listing_form->required( $data ); 
+	?>>
 		<?php
 		if ($data['type'] != 'multiple') {
 			echo '<option value="">' . esc_attr( $placeholder ) . '</option>';

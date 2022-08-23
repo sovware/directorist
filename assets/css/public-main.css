@@ -11826,7 +11826,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-related-carousel .directorist-slc__nav {
   width: 32px;
   height: 32px;
-  font-size: 12px;
   border-radius: 50%;
   background: #fff;
   display: -webkit-box;
@@ -11854,9 +11853,17 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-decoration: none;
   cursor: pointer;
 }
+.directorist-related-carousel .directorist-slc__nav .directorist-icon-mask span {
+  width: 12px;
+  height: 12px;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
 .directorist-related-carousel .directorist-slc__nav:hover {
   background: #444752;
-  color: #fff;
+}
+.directorist-related-carousel .directorist-slc__nav:hover .directorist-icon-mask span {
+  background-color: #fff;
 }
 .directorist-related-carousel .directorist-slc__nav--left {
   left: -16px;

@@ -1092,15 +1092,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   var rtl = directorist.rtl === 'true';
-  var relLis = document.querySelector('.directorist-related-carousel');
+  var relLis = $('.directorist-related-carousel');
 
   if (relLis !== null) {
-    var relLisCol = relLis.getAttribute('data-columns');
+    var relLisData = relLis.data('attr');
+    var prevArrow = relLisData.prevArrow;
+    var nextArrow = relLisData.nextArrow;
+    var relLisCol = relLisData.columns;
     $('.directorist-related-carousel').slick({
       dots: false,
       arrows: true,
-      prevArrow: '<a class="directorist-slc__nav directorist-slc__nav--left"><span class="las la-angle-left"></span></a>',
-      nextArrow: '<a class="directorist-slc__nav directorist-slc__nav--right"><span class="las la-angle-right"></span></a>',
+      prevArrow: prevArrow,
+      nextArrow: nextArrow,
       infinite: true,
       speed: 300,
       slidesToShow: relLisCol,

@@ -1208,6 +1208,15 @@ class Directorist_Single_Listing {
 		return $related;
 	}
 
+	public function related_slider_attr() {
+		$atts = array(
+			'columns'   => get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 ),
+			'prevArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--left">%s</a>', directorist_icon( 'las la-angle-left', false ) ),
+            'nextArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--right">%s</a>', directorist_icon( 'las la-angle-right', false ) ),
+		);
+		return json_encode( $atts );
+	}
+
 	public function get_related_columns() {
 		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
 		return 12/$columns;

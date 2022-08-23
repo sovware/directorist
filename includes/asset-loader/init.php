@@ -215,6 +215,11 @@ class Asset_Loader {
 			case 'payment/transaction-failure':
 				wp_enqueue_script( 'directorist-checkout' );
 				break;
+
+			case 'widgets/all-categories.php':
+			case 'widgets/all-locations.php':
+				wp_enqueue_script( 'directorist-select2-script' );
+				break;
 		}
 	}
 

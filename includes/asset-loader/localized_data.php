@@ -172,9 +172,6 @@ class Localized_Data {
 	}
 
 	public static function get_admin_script_data() {
-		$font_type = get_directorist_option( 'font_type', 'line' );
-		$icon_type = ( 'line' == $font_type ) ? 'la' : 'fa';
-
 		$i18n_text = array(
 			'confirmation_text'       => __( 'Are you sure', 'directorist' ),
 			'ask_conf_sl_lnk_del_txt' => __( 'Do you really want to remove this Social Link!', 'directorist' ),
@@ -211,7 +208,7 @@ class Localized_Data {
 			'restricted_countries' => get_directorist_option( 'restricted_countries' ),
 			'AdminAssetPath'       => ATBDP_ADMIN_ASSETS,
 			'i18n_text'            => $i18n_text,
-			'icon_type'            => $icon_type,
+			'icon_type'            => 'la',
 			'icon_picker_labels'   => $icon_picker_labels,
 		);
 

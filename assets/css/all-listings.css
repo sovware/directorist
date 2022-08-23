@@ -10456,21 +10456,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-rating-meta {
   padding: 0;
 }
-.directorist-rating-meta i,
-.directorist-rating-meta span.la,
-.directorist-rating-meta span.fa {
-  font-size: 12px;
-  color: #F80718;
-  font-weight: 900;
+.directorist-rating-meta i.directorist-icon-mask span {
+  background-color: #F80718;
 }
-.directorist-rating-meta i:not(:last-child),
-.directorist-rating-meta span.la:not(:last-child),
-.directorist-rating-meta span.fa:not(:last-child) {
-  margin-right: 3px;
-}
-.directorist-rating-meta .far,
-.directorist-rating-meta .lar {
-  color: #D1D1D1;
+.directorist-rating-meta i.directorist-icon-mask.star-empty span {
+  background-color: #D1D1D1;
 }
 .directorist-rating-meta .directorist-rating-avg {
   font-size: 14px;

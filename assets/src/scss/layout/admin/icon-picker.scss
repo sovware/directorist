@@ -91,7 +91,7 @@
         }
         input,
         select{
-            color: #A1A8C6;
+            color: #797d93;
             font-size: 14px;
             height: 44px;
             border: 1px solid #E3E6EF;
@@ -101,13 +101,13 @@
         }
         input{
             &::placeholder{
-                color: #A1A8C6;
+                color: #797d93;
             }
         }
         select{
             &:hover,
             &:focus{
-                color: #A1A8C6;
+                color: #797d93;
             }
         }
     }

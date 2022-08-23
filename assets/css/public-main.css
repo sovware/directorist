@@ -12605,7 +12605,14 @@ Review: New Style
 .directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars {
   font-size: 15px;
   color: #EF8000;
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .directorist-review-content .directorist-review-content__overview__rating .directorist-rating-overall {
   font-size: 14px;
@@ -12824,7 +12831,14 @@ Review: New Style
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-single__contents-wrap .directorist-review-single__header .directorist-review-single__author__details .directorist-rating-stars {
   font-size: 11px;
   color: #EF8000;
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-single__contents-wrap .directorist-review-single__header .directorist-review-single__report a {
   font-size: 13px;

@@ -10233,6 +10233,17 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top {
   margin: -4px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-badge.directorist-badge-close {
   background-color: transparent;
@@ -10251,10 +10262,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   word-break: break-all;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top .directorist-info-item.directorist-rating-meta {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
@@ -10351,6 +10362,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-transform: none;
   line-height: 1.2;
   margin-bottom: 8px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-title a {
   text-decoration: none;
@@ -12078,18 +12093,30 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           flex-wrap: wrap;
 }
 .directorist-social-links a {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-left: 5px;
   margin-bottom: 5px;
-  line-height: 35px;
+  height: 35px;
   width: 35px;
-  text-align: center;
   background: #444752 !important;
   border-radius: 4px;
-  color: #fff !important;
   overflow: hidden;
   -webkit-transition: all ease-in-out 300ms !important;
   transition: all ease-in-out 300ms !important;
+}
+.directorist-social-links a .directorist-icon-mask span {
+  background-color: #fff;
 }
 .directorist-social-links a.facebook:hover {
   background-color: #4267B2 !important;
@@ -12203,11 +12230,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 0 0 0 10px;
 }
 .directorist-rating-given-block .directorist-rating-given-block__stars .br-widget a:before {
-  content: "\f005";
-  font-size: 14px;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  color: #d4d3f3;
+  content: "";
+  -webkit-mask-image: url(../images/b59e1da5abb5673f214c90739221f21e.svg);
+          mask-image: url(../images/b59e1da5abb5673f214c90739221f21e.svg);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  width: 14px;
+  height: 14px;
+  background-color: #d4d3f3;
 }
 .directorist-rating-given-block .directorist-rating-given-block__stars .br-widget a.br-selected:before, .directorist-rating-given-block .directorist-rating-given-block__stars .br-widget a.br-active:before {
   color: #fa8b0c;
@@ -12484,6 +12514,7 @@ Review: New Style
 .directorist-review-content .directorist-review-content__header .directorist-btn span {
   display: inline-block;
   margin-left: 4px;
+  background-color: #fff;
 }
 .directorist-review-content .directorist-review-content__header--noreviews {
   padding: 6px 0;
@@ -13038,11 +13069,14 @@ Review: New Style
   outline: 0;
 }
 .directorist-review-submit__form .directorist-review-criteria__single .br-widget a:before {
-  content: "\f005";
-  font-size: 14px;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  color: #fff;
+  content: "";
+  -webkit-mask-image: url(../images/b59e1da5abb5673f214c90739221f21e.svg);
+          mask-image: url(../images/b59e1da5abb5673f214c90739221f21e.svg);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  width: 14px;
+  height: 14px;
+  background-color: #fff;
 }
 .directorist-review-submit__form .directorist-review-criteria__single .br-widget a:focus {
   background: #E1E4EC !important;

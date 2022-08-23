@@ -241,6 +241,9 @@
 
         .directorist-listing-single__info--top {
             margin: -4px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
             .directorist-badge.directorist-badge-close {
                 background-color: transparent;
                 color: $danger;
@@ -260,7 +263,7 @@
                 word-break: break-all;
             }
             .directorist-info-item.directorist-rating-meta{
-                display: flex;
+                display: inline-flex;
                 align-items: center;
             }
         }
@@ -357,6 +360,7 @@
             text-transform: none;
             line-height: 1.2;
             margin-bottom: 8px;
+            flex: 0 0 100%;
 
             a {
                 text-decoration: none;

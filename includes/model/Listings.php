@@ -864,12 +864,12 @@ class Directorist_Listings {
 						);
 					}
 				} else {
-					$field_type = get_post_meta( $key, 'type', true );
-					$operator   = ( in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=' );
+					// $field_type = get_post_meta( $key, 'type', true );
+					// $operator   = ( in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=' );
 					$meta_queries[] = array(
 						'key'     => '_' . $key,
 						'value'   => sanitize_text_field( $values ),
-						'compare' => $operator
+						'compare' => 'LIKE'
 					);
 				}
 			}

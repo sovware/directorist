@@ -259,6 +259,10 @@
             a{
                 word-break: break-all;
             }
+            .directorist-info-item.directorist-rating-meta{
+                display: flex;
+                align-items: center;
+            }
         }
 
         .directorist-listing-single__info--excerpt{
@@ -313,6 +317,24 @@
 
             span a {
                 box-shadow: none;
+            }
+            &.directorist-rating-meta{
+                display: inline-flex;
+                align-items: center;
+                .directorist-icon-mask{
+                    span{
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+            }
+            &.directorist-listing-category,
+            &.directorist-listing-location{
+                display: inline-flex;
+                align-items: center;
+                .directorist-icon-mask{
+                    margin-right: 5px;
+                }
             }
         }
 

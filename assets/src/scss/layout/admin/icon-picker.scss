@@ -35,8 +35,10 @@
         position: absolute;
         right: 20px;
         top: 23px;
+        transition: 0.3s ease;
         &:hover{
             color: #fff;
+            background: #222;
         }
     }
     &__sidebar{
@@ -70,8 +72,8 @@
                 border: 0 none;
                 transition: 0.3s ease;
                 &.cptm-btn-primary{
-                    background: #fff;
-                    color: #272B41;
+                    background: #3e62f5;
+                    color: #fff;
                     font-size: 30px;
                     box-shadow: 0 3px 10px rgba(#272B41, 0.2);
                     border: 1px solid #E3E6EF;
@@ -96,6 +98,17 @@
             border-radius: 4px;
             padding: 0 15px;
             width: 100%;
+        }
+        input{
+            &::placeholder{
+                color: #A1A8C6;
+            }
+        }
+        select{
+            &:hover,
+            &:focus{
+                color: #A1A8C6;
+            }
         }
     }
 

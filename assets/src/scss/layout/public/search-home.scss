@@ -219,6 +219,15 @@
         font-weight: 400;
         line-height: 1.75;
         padding: 11px 15px;
+
+        &:not(.directorist-filter-btn) {
+          .directorist-icon-mask {
+            span {
+              background-color: #fff;
+              margin-right: 4px;
+            }
+          }
+        }
       }
 
       button {

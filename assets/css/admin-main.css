@@ -11657,6 +11657,12 @@ input[type=radio].cptm-radio {
 .cptm-option-card-body .directorist-type-icon-select {
   margin-bottom: 20px;
 }
+.cptm-option-card-body .directorist-type-icon-select .icon-picker-selector {
+  display: block;
+}
+.cptm-option-card-body .directorist-type-icon-select .icon-picker-selector .icon-picker-selector__btn {
+  margin-top: 10px;
+}
 
 .cptm-widget-insert-area {
   position: absolute;
@@ -14845,6 +14851,12 @@ input[type=radio].cptm-radio {
 .cptm-option-card-body .directorist-type-icon-select {
   margin-bottom: 20px;
 }
+.cptm-option-card-body .directorist-type-icon-select .icon-picker-selector {
+  display: block;
+}
+.cptm-option-card-body .directorist-type-icon-select .icon-picker-selector .icon-picker-selector__btn {
+  margin-top: 10px;
+}
 
 .cptm-widget-insert-area {
   position: absolute;
@@ -16466,9 +16478,12 @@ input[type=radio] {
   position: absolute;
   right: 20px;
   top: 23px;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 .icon-picker__close:hover {
   color: #fff;
+  background: #222;
 }
 .icon-picker__sidebar {
   width: 25%;
@@ -16503,8 +16518,8 @@ input[type=radio] {
   transition: 0.3s ease;
 }
 .icon-picker__content .icons-group-icons .font-icon-btn.cptm-btn-primary {
-  background: #fff;
-  color: #272B41;
+  background: #3e62f5;
+  color: #fff;
   font-size: 30px;
   -webkit-box-shadow: 0 3px 10px rgba(39, 43, 65, 0.2);
           box-shadow: 0 3px 10px rgba(39, 43, 65, 0.2);
@@ -16528,6 +16543,24 @@ input[type=radio] {
   border-radius: 4px;
   padding: 0 15px;
   width: 100%;
+}
+.icon-picker__filter input::-webkit-input-placeholder {
+  color: #A1A8C6;
+}
+.icon-picker__filter input::-moz-placeholder {
+  color: #A1A8C6;
+}
+.icon-picker__filter input:-ms-input-placeholder {
+  color: #A1A8C6;
+}
+.icon-picker__filter input::-ms-input-placeholder {
+  color: #A1A8C6;
+}
+.icon-picker__filter input::placeholder {
+  color: #A1A8C6;
+}
+.icon-picker__filter select:hover, .icon-picker__filter select:focus {
+  color: #A1A8C6;
 }
 .icon-picker.icon-picker-visible {
   visibility: visible;
@@ -18231,6 +18264,12 @@ input[type=radio].cptm-radio {
 }
 .cptm-option-card-body .directorist-type-icon-select {
   margin-bottom: 20px;
+}
+.cptm-option-card-body .directorist-type-icon-select .icon-picker-selector {
+  display: block;
+}
+.cptm-option-card-body .directorist-type-icon-select .icon-picker-selector .icon-picker-selector__btn {
+  margin-top: 10px;
 }
 
 .cptm-widget-insert-area {

@@ -107,6 +107,7 @@ class Localized_Data {
 			'enable_reviewer_content'     => $enable_reviewer_content,
 			'add_listing_data'            => self::get_add_listings_data(),
 			'lazy_load_taxonomy_fields'   => get_directorist_option( 'lazy_load_taxonomy_fields', false, true ),
+			'current_page_id'             => get_the_ID(),
 		);
 
 		return $data;

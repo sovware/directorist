@@ -399,17 +399,17 @@ class Directorist_Single_Listing {
 		$result = array(
 			'facebook' => array(
 				'title' => __('Facebook', 'directorist'),
-				'icon'  => 'la la-facebook',
+				'icon'  => 'lab la-facebook',
 				'link'  => "https://www.facebook.com/share.php?u={$link}&title={$title}",
 			),
 			'twitter' => array(
 				'title' => __('Twitter', 'directorist'),
-				'icon'  => 'la la-twitter',
+				'icon'  => 'lab la-twitter',
 				'link'  => 'https://twitter.com/intent/tweet?text=' . $title . '&amp;url=' . $link,
 			),
 			'linkedin' => array(
 				'title' => __('LinkedIn', 'directorist'),
-				'icon'  => 'la la-linkedin',
+				'icon'  => 'lab la-linkedin',
 				'link'  => "http://www.linkedin.com/shareArticle?mini=true&url={$link}&title={$title}",
 			),
 		);
@@ -1071,7 +1071,7 @@ class Directorist_Single_Listing {
 			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 		}
 		if (!empty($display_direction_map)) {
-			$info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Directions', 'directorist') . "</a></div><span class='iw-close-btn'><i class='la la-times'></i></span></div></div>";
+			$info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Directions', 'directorist') . "</a></div><span class='iw-close-btn'>" . directorist_icon( 'las la-times', false ) . "</span></div></div>";
 		}
 
 		$cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);

@@ -172,27 +172,54 @@ trait URI_Helper {
 		$lar_file = 'line-awesome/svgs/' . $filename . '.svg';
 		$las_file = 'line-awesome/svgs/' . $filename . '-solid.svg';
 
-		// Legacy 'la' support for v1.2.1
-		if ( $prefix == 'la' ) {
-			$filename = str_replace( '-o', '', $filename );
-
-			$fa_lar_file = 'line-awesome/svgs/' . $filename . '.svg';
-			$fa_las_file = 'line-awesome/svgs/' . $filename . '-solid.svg';
-
-			if ( file_exists( DIRECTORIST_ICON_PATH . $fa_las_file ) ) {
-				return $fa_las_file;
-			} elseif ( file_exists( DIRECTORIST_ICON_PATH . $fa_lar_file ) ) {
-				return $fa_lar_file;
-			} else {
-				return '';
-			}
-		}
-
 		if ( $prefix == 'las' ) {
 			return $las_file;
 		} elseif ( in_array( $prefix, array( 'lab', 'lar' ) ) ) {
 			return $lar_file;
+		} elseif ( $prefix == 'la' ) {
+			return self::get_line_awesome_legacy_file( $filename ); // Legacy 'la' support for v1.2.1
 		} else {
+			return '';
+		}
+	}
+
+	/**
+	 * LineAwesome v1.2.1 support
+	 *
+	 * @param string $filename
+	 *
+	 * @return string
+	 */
+	private static function get_line_awesome_legacy_file( $filename ) {
+		$filename = str_replace( '-o', '', $filename );
+
+		$fa_lar_file = 'line-awesome/svgs/' . $filename . '.svg';
+		$fa_las_file = 'line-awesome/svgs/' . $filename . '-solid.svg';
+
+		if ( file_exists( DIRECTORIST_ICON_PATH . $fa_las_file ) ) {
+			return $fa_las_file;
+		} elseif ( file_exists( DIRECTORIST_ICON_PATH . $fa_lar_file ) ) {
+			return $fa_lar_file;
+		} else {
+			// Try 4 more vatiations in case of la la-x-y
+			if ( stripos( $filename, '-' ) ) {
+				$filename = explode( '-', $filename );
+				$file1 = 'line-awesome/svgs/' . $filename[0] . '.svg';
+				$file2 = 'line-awesome/svgs/' . $filename[0] . '-solid.svg';
+				$file3 = 'line-awesome/svgs/' . $filename[1] . '.svg';
+				$file4 = 'line-awesome/svgs/' . $filename[1] . '-solid.svg';
+
+				if ( file_exists( DIRECTORIST_ICON_PATH . $file1 ) ) {
+					return $file1;
+				} elseif ( file_exists( DIRECTORIST_ICON_PATH . $file2 ) ) {
+					return $file2;
+				} elseif ( file_exists( DIRECTORIST_ICON_PATH . $file3 ) ) {
+					return $file3;
+				} elseif ( file_exists( DIRECTORIST_ICON_PATH . $file4 ) ) {
+					return $file4;
+				}
+			}
+
 			return '';
 		}
 	}
@@ -200,7 +227,7 @@ trait URI_Helper {
 	/**
 	 * Unicons 3.0.3
 	 *
-	 * Unicon svgs are kept only for backward compatibility
+	 * Unicon svgs are kept only for backward compatibility.
 	 *
 	 * @param string $icon
 	 *

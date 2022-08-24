@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 7.3.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -129,12 +129,6 @@ $multiple           = false;
 				<input id="<?php echo esc_attr( $id ); ?>plupload-browse-button" type="button"
 					   value="<?php esc_attr_e( 'Select Files', 'directorist' ); ?>" class="directorist-btn directorist-btn-primary"/>
 				<div class="directorist-dropbox-file-types"><?php echo !empty( $display_file_types ) ? sprintf( esc_html__( 'Allowed file types: %s', 'directorist' ), esc_html( $display_file_types ) ) : ''; ?></div>
-				<div class="directorist-dropbox-file-limit">
-					<?php
-					$output = sprintf( _nx( '(You can upload %s file)', '(You can upload %s files)', $image_limit, 'number of files', 'directorist' ), number_format_i18n( $image_limit ) );
-					echo esc_html( $output );
-					?>
-				</div>
 				<span class="ajaxnonceplu" id="ajaxnonceplu<?php echo esc_attr( wp_create_nonce( $id . 'pluploadan' ) ); ?>"></span>
 				<div class="filelist"></div>
 			</div>

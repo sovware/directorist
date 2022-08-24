@@ -8,7 +8,7 @@
 $placeholder = $data['placeholder'] ?? '';
 $data_max    = $data['max'] ?? '';
 $data_new    = $data['allow_new'] ?? '';
-$multiple    = $data['type'] == 'multiple' ? 'multiple' : '';
+$multiple    = $data['type'] === 'multiple' ? 'multiple' : '';
 
 $all_tags        = get_terms( ATBDP_TAGS, array( 'hide_empty' => 0 ) );
 $current_tag_ids = $listing_form->add_listing_tag_ids();
@@ -21,7 +21,7 @@ $current_tag_ids = $listing_form->add_listing_tag_ids();
 	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" id="at_biz_dir-tags" data-placeholder="<?php echo esc_attr( $placeholder ); ?>" data-max="<?php echo esc_attr( $data_max ); ?>" data-allow_new="<?php echo esc_attr( $data_new ); ?>" <?php echo esc_attr( $multiple ); ?> <?php $listing_form->required( $data ); ?>>
 
 		<?php
-		if ($data['type'] != 'multiple') {
+		if ($data['type'] !== 'multiple') {
 			echo '<option value="">' . esc_attr( $placeholder ) . '</option>';
 		}
 

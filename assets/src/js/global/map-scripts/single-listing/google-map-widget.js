@@ -149,7 +149,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             strokeColor: '',
                             strokeWeight: 0
                         },
-                        map_icon_label: '<div class="atbd_map_shape"><i class="' + cat_icon + '"></i></div>'
+                        map_icon_label: '<div class="atbd_map_shape">' + cat_icon + '</div>'
                     });
 
                     if (display_map_info) {

@@ -524,7 +524,7 @@ __webpack_require__.r(__webpack_exports__);
             strokeColor: '',
             strokeWeight: 0
           },
-          map_icon_label: icon !== undefined && "<div class=\"atbd_map_shape\"><i class=\"".concat(icon, "\"></i></div>")
+          map_icon_label: icon !== undefined && "<div class=\"atbd_map_shape\">".concat(icon, "</div>")
         }); // add to array
 
         map.markers.push(marker); // if marker contains HTML, add it to an infoWindow
@@ -770,7 +770,7 @@ window.addEventListener('DOMContentLoaded', function () {
               strokeColor: '',
               strokeWeight: 0
             },
-            map_icon_label: '<div class="atbd_map_shape"><i class="' + cat_icon + '"></i></div>'
+            map_icon_label: '<div class="atbd_map_shape">' + cat_icon + '</div>'
           });
 
           if (display_map_info) {
@@ -950,7 +950,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 strokeColor: '',
                 strokeWeight: 0
               },
-              map_icon_label: '<div class="atbd_map_shape"><i class="' + cat_icon + '"></i></div>'
+              map_icon_label: "<div class=\"atbd_map_shape\">".concat(cat_icon, "</div>")
             });
 
             if (display_map_info) {

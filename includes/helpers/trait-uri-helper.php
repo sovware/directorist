@@ -5,9 +5,7 @@
 
 namespace Directorist;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 trait URI_Helper {
 
@@ -18,7 +16,7 @@ trait URI_Helper {
 	}
 
 	public static function template_directory() {
-		$dir = ATBDP_DIR . 'templates/';
+		$dir = ATBDP_DIR. 'templates/';
 		return $dir;
 	}
 
@@ -46,18 +44,14 @@ trait URI_Helper {
 		// Load extension template if exist
 
 		if ( ! empty( $shortcode_key ) ) {
-			$default = array(
-				'template_directory' => '',
-				'file_path'          => '',
-				'base_directory'     => '',
-			);
+			$default = [ 'template_directory' => '', 'file_path' => '', 'base_directory' => '' ];
 			$ex_args = apply_filters( "atbdp_ext_template_path_{$shortcode_key}", $default, $args );
 			$ex_args = array_merge( $default, $ex_args );
 
 			$extension_path = atbdp_get_extension_template_path( $ex_args['template_directory'], $ex_args['file_path'], $ex_args['base_directory'] );
 
 			if ( file_exists( $extension_path ) ) {
-				$old_template_data              = isset( $GLOBALS['atbdp_template_data'] ) ? $GLOBALS['atbdp_template_data'] : null;
+				$old_template_data = isset( $GLOBALS['atbdp_template_data'] ) ? $GLOBALS['atbdp_template_data'] : null;
 				$GLOBALS['atbdp_template_data'] = $args;
 
 				include $extension_path;
@@ -68,11 +62,7 @@ trait URI_Helper {
 		}
 
 		$template = apply_filters( 'directorist_template', $template, $args );
-		$file     = self::template_path( $template, $args );
-
-		do_action( 'before_directorist_template_loaded', $template, $file, $args );
-
-		do_action( 'before_directorist_template_loaded', $template, $file, $args );
+		$file = self::template_path( $template, $args );
 
 		do_action( 'before_directorist_template_loaded', $template, $file, $args );
 
@@ -88,9 +78,11 @@ trait URI_Helper {
 
 		if ( $template_path ) {
 			return $template_path;
-		} elseif ( $singular_path ) {
+		}
+		elseif ( $singular_path ) {
 			return $singular_path;
-		} else {
+		}
+		else {
 			return $index_path;
 		}
 	}

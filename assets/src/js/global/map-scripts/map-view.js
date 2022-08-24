@@ -214,7 +214,7 @@ import {
                         strokeColor: '',
                         strokeWeight: 0,
                     },
-                    map_icon_label: icon !== undefined && `<div class="atbd_map_shape"><i class="${icon}"></i></div>`,
+                    map_icon_label: icon !== undefined && `<div class="atbd_map_shape">${icon}</div>`,
                 });
 
                 // add to array

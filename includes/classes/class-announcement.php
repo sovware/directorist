@@ -42,7 +42,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 			<li class="directorist-tab__nav__item">
 				<a href="#" class="directorist-booking-nav-link directorist-tab__nav__link" target="announcement">
 					<span class="directorist_menuItem-text">
-						<span class="directorist_menuItem-icon"><?php directorist_icon( 'la la-bullhorn' ); ?></span><?php echo wp_kses( $nav_label, array( 'span' => array( 'class' => array() ) ) ); ?>
+						<span class="directorist_menuItem-icon"><?php directorist_icon( 'las la-bullhorn' ); ?></span><?php echo wp_kses( $nav_label, array( 'span' => array( 'class' => array() ) ) ); ?>
 					</span>
 				</a>
 			</li>
@@ -290,7 +290,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 			<li class="atbdp_tab_nav--content-link">
 				<a href="" class="atbdp_all_booking_nav-link atbd-dash-nav-dropdown atbd_tn_link" target="announcement">
 					<span class="directorist_menuItem-text">
-						<span class="directorist_menuItem-icon"><?php directorist_icon( 'la la-bullhorn' ); ?></span><?php echo wp_kses( $nav_label, array( 'span' => array( 'class' => array() ) ) ); ?>
+						<span class="directorist_menuItem-icon"><?php directorist_icon( 'las la-bullhorn' ); ?></span><?php echo wp_kses( $nav_label, array( 'span' => array( 'class' => array() ) ) ); ?>
 					</span>
 				</a>
 			</li>

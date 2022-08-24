@@ -1,4 +1,4 @@
-window.IconPicker = function( args ) {
+window.IconPicker = function (args) {
     return {
         id: null,
         value: '',
@@ -18,18 +18,21 @@ window.IconPicker = function( args ) {
         init: function () {
             let _this = this;
 
-            const body  = document.querySelector( 'body' );
-            const count = body.getAttribute( 'data-directorist-icon-picker-count' );
-            const id    = ( count ) ? ( parseInt( count ) + 1 ) : 1;
+            const body = document.querySelector('body');
+            const count = body.getAttribute('data-directorist-icon-picker-count');
+            const id = (count) ? (parseInt(count) + 1) : 1;
 
-            body.setAttribute( 'data-directorist-icon-picker-count', id );
+            body.setAttribute('data-directorist-icon-picker-count', id);
 
-            this.id        = id;
+            this.id = id;
             this.container = (typeof args.container !== 'undefined') ? args.container : this.container;
-            this.labels    = (typeof args.labels !== 'undefined') ? { ...this.labels, ...args.labels } : this.labels;
-            this.onSelect  = (typeof args.onSelect !== 'undefined') ? args.onSelect : this.onSelect;
-            this.icons     = (typeof args.icons !== 'undefined') ? args.icons : this.icons;
-            this.value     = (typeof args.value === 'string') ? args.value : this.value;
+            this.labels = (typeof args.labels !== 'undefined') ? {
+                ...this.labels,
+                ...args.labels
+            } : this.labels;
+            this.onSelect = (typeof args.onSelect !== 'undefined') ? args.onSelect : this.onSelect;
+            this.icons = (typeof args.icons !== 'undefined') ? args.icons : this.icons;
+            this.value = (typeof args.value === 'string') ? args.value : this.value;
 
             if (!this.container) {
                 return;
@@ -43,7 +46,7 @@ window.IconPicker = function( args ) {
         renderIcon() {
             const iconsGroup = this.container.closest('body').querySelector('#iconsWrapperElm .icons-group');
 
-            if ( iconsGroup ) {
+            if (iconsGroup) {
                 return;
             }
 
@@ -82,7 +85,7 @@ window.IconPicker = function( args ) {
                 `;
             this.container.innerHTML = markup;
 
-            if ( document.querySelector( '.icon-picker' ) ) {
+            if (document.querySelector('.icon-picker')) {
                 return;
             }
 
@@ -122,23 +125,23 @@ window.IconPicker = function( args ) {
             this.container.closest('body').insertAdjacentHTML('beforeend', iconPickerWrap)
         },
 
-        getIconGroupOptions: function() {
-            if ( ! this.icons ) {
+        getIconGroupOptions: function () {
+            if (!this.icons) {
                 return '';
             }
 
             let options = '';
 
-            for ( const iconGroup in this.icons ) {
+            for (const iconGroup in this.icons) {
                 options += `<option value="${iconGroup}">${this.getIconGroupLabel( iconGroup )}</option>` + "\n";
             }
 
             return options;
         },
 
-        getIconGroupLabel( iconGroup ) {
-            const labels = ( this.labels.iconGroupLabels && typeof this.labels.iconGroupLabels === 'object' ) ? this.labels.iconGroupLabels : {};
-            return ( typeof labels[ iconGroup ] !== 'undefined' ) ? labels[ iconGroup ] : this.icons[iconGroup].label;
+        getIconGroupLabel(iconGroup) {
+            const labels = (this.labels.iconGroupLabels && typeof this.labels.iconGroupLabels === 'object') ? this.labels.iconGroupLabels : {};
+            return (typeof labels[iconGroup] !== 'undefined') ? labels[iconGroup] : this.icons[iconGroup].label;
 
         },
 
@@ -161,9 +164,9 @@ window.IconPicker = function( args ) {
                     event.preventDefault();
 
                     const iconGroupKey = event.target.getAttribute('data-group-key');
-                    const iconKey      = event.target.getAttribute('data-icon-key');
-                    const iconType     = event.target.getAttribute('data-icon-type').split(',');
-                          icon         = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
+                    const iconKey = event.target.getAttribute('data-icon-key');
+                    const iconType = event.target.getAttribute('data-icon-type').split(',');
+                    icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
 
                     removeActiveStatus();
 
@@ -171,7 +174,7 @@ window.IconPicker = function( args ) {
 
                     const body = self.container.closest('body');
 
-                    if ( body ) {
+                    if (body) {
                         body.querySelector('.icon-picker__preview-icon').setAttribute('class', `icon-picker__preview-icon ${icon}`);
                         body.querySelector('.icon-picker__icon-name').innerHTML = iconKey;
                     }
@@ -180,49 +183,49 @@ window.IconPicker = function( args ) {
                 });
             })
 
-            function openModal( event, self ) {
+            function openModal(event, self) {
                 const iconPicker = document.querySelector('.icon-picker');
 
-                if ( iconPicker.classList.contains( 'icon-picker-visible' ) ) {
+                if (iconPicker.classList.contains('icon-picker-visible')) {
                     return;
                 }
 
-                const id = event.target.closest( '.icon-picker-selector' ).getAttribute( 'data-icon-picker-id' );
-                const selectedIconClassList = (  self.value ) ? self.value.split( ' ' ) : [];
+                const id = event.target.closest('.icon-picker-selector').getAttribute('data-icon-picker-id');
+                const selectedIconClassList = (self.value) ? self.value.split(' ') : [];
 
                 // Attach Modal ID
-                iconPicker.setAttribute( 'data-icon-picker-id', id );
+                iconPicker.setAttribute('data-icon-picker-id', id);
 
                 // Update Filter Serch Text
-                iconPicker.querySelector( '.icon-picker__filter input' ).value = '';
+                iconPicker.querySelector('.icon-picker__filter input').value = '';
 
                 // Update Filter Select
-                const iconFilterSelect = iconPicker.querySelector( '.icon-picker__filter_select' );
-                const iconType         = ( selectedIconClassList.length ) ? selectedIconClassList[0] : '';
-                const iconGroup        = self.findIconGroupByIconType( iconType );
+                const iconFilterSelect = iconPicker.querySelector('.icon-picker__filter_select');
+                const iconType = (selectedIconClassList.length) ? selectedIconClassList[0] : '';
+                const iconGroup = self.findIconGroupByIconType(iconType);
 
-                if ( iconGroup ) {
+                if (iconGroup) {
                     iconFilterSelect.value = iconGroup;
                 }
 
-                filterIconPack( iconFilterSelect );
+                filterIconPack(iconFilterSelect);
 
                 // Update Selected Icon Status
-                const selectedIconClasses = ( selectedIconClassList.length ) ? '.font-icon-btn.' + selectedIconClassList.join( '.' ) : '';
-                const selectedIcon        = selectedIconClasses !== '' ? iconPicker.querySelector( selectedIconClasses ) : '';
+                const selectedIconClasses = (selectedIconClassList.length) ? '.font-icon-btn.' + selectedIconClassList.join('.') : '';
+                const selectedIcon = selectedIconClasses !== '' ? iconPicker.querySelector(selectedIconClasses) : '';
 
-                document.querySelectorAll( '.font-icon-btn' )
-                    .forEach( item => item.classList.remove( 'cptm-btn-primary' ) );
+                document.querySelectorAll('.font-icon-btn')
+                    .forEach(item => item.classList.remove('cptm-btn-primary'));
 
-                if ( selectedIcon ) {
-                    selectedIcon.classList.remove( 'cptm-btn-secondery' );
-                    selectedIcon.classList.add( 'cptm-btn-primary' );
+                if (selectedIcon) {
+                    selectedIcon.classList.remove('cptm-btn-secondery');
+                    selectedIcon.classList.add('cptm-btn-primary');
                 }
 
                 // Update Preview Icon
-                const previewContainer = iconPicker.querySelector( '.icon-picker__preview' );
-                previewContainer.querySelector( '.icon-picker__preview-icon' ).setAttribute( 'class', 'icon-picker__preview-icon ' + self.value );
-                previewContainer.querySelector( '.icon-picker__icon-name' ).innerHTML = ( selectedIconClassList.length ) ? selectedIconClassList[1] : '';
+                const previewContainer = iconPicker.querySelector('.icon-picker__preview');
+                previewContainer.querySelector('.icon-picker__preview-icon').setAttribute('class', 'icon-picker__preview-icon ' + self.value);
+                previewContainer.querySelector('.icon-picker__icon-name').innerHTML = (selectedIconClassList.length) ? selectedIconClassList[1] : '';
 
                 iconPicker.classList.add('icon-picker-visible');
             }
@@ -234,11 +237,11 @@ window.IconPicker = function( args ) {
 
             const selectIconButtons = document.querySelectorAll('.icon-picker-selector .icon-picker-selector__btn');
 
-            if ( selectIconButtons.length ) {
-                for ( const selectIconButton of selectIconButtons ) {
+            if (selectIconButtons.length) {
+                for (const selectIconButton of selectIconButtons) {
                     selectIconButton.addEventListener('click', (e) => {
                         e.preventDefault();
-                        openModal( e, self );
+                        openModal(e, self);
                     });
                 }
             }
@@ -246,16 +249,16 @@ window.IconPicker = function( args ) {
             document.querySelector('.icon-picker__done-btn').addEventListener('click', (e) => {
                 e.preventDefault();
 
-                const id = e.target.closest( '.icon-picker' ).getAttribute( 'data-icon-picker-id' );
-                const selector = document.querySelector( `.icon-picker-selector.icon-picker-id-${id}` );
+                const id = e.target.closest('.icon-picker').getAttribute('data-icon-picker-id');
+                const selector = document.querySelector(`.icon-picker-selector.icon-picker-id-${id}`);
 
-                if ( parseInt( id ) !== self.id ) {
+                if (parseInt(id) !== self.id) {
                     return;
                 }
 
                 self.value = icon;
 
-                if ( typeof self.onSelect === 'function' ) {
+                if (typeof self.onSelect === 'function') {
                     self.onSelect(icon);
                 }
 
@@ -313,14 +316,14 @@ window.IconPicker = function( args ) {
             filterIconPack(iconFilter);
         },
 
-        findIconGroupByIconType: function( type ) {
-            if ( ! this.icons ) {
+        findIconGroupByIconType: function (type) {
+            if (!this.icons) {
                 return '';
             }
 
-            for ( const iconGroup in this.icons ) {
-                for ( const iconType in this.icons[ iconGroup ].iconTypes ) {
-                    if ( type !== this.icons[ iconGroup ].iconTypes[ iconType ].key ) {
+            for (const iconGroup in this.icons) {
+                for (const iconType in this.icons[iconGroup].iconTypes) {
+                    if (type !== this.icons[iconGroup].iconTypes[iconType].key) {
                         continue;
                     }
 

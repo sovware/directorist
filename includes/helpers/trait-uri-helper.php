@@ -5,9 +5,7 @@
 
 namespace Directorist;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 trait URI_Helper {
 
@@ -18,7 +16,7 @@ trait URI_Helper {
 	}
 
 	public static function template_directory() {
-		$dir = ATBDP_DIR . 'templates/';
+		$dir = ATBDP_DIR. 'templates/';
 		return $dir;
 	}
 
@@ -46,18 +44,14 @@ trait URI_Helper {
 		// Load extension template if exist
 
 		if ( ! empty( $shortcode_key ) ) {
-			$default = array(
-				'template_directory' => '',
-				'file_path'          => '',
-				'base_directory'     => '',
-			);
+			$default = [ 'template_directory' => '', 'file_path' => '', 'base_directory' => '' ];
 			$ex_args = apply_filters( "atbdp_ext_template_path_{$shortcode_key}", $default, $args );
 			$ex_args = array_merge( $default, $ex_args );
 
 			$extension_path = atbdp_get_extension_template_path( $ex_args['template_directory'], $ex_args['file_path'], $ex_args['base_directory'] );
 
 			if ( file_exists( $extension_path ) ) {
-				$old_template_data              = isset( $GLOBALS['atbdp_template_data'] ) ? $GLOBALS['atbdp_template_data'] : null;
+				$old_template_data = isset( $GLOBALS['atbdp_template_data'] ) ? $GLOBALS['atbdp_template_data'] : null;
 				$GLOBALS['atbdp_template_data'] = $args;
 
 				include $extension_path;
@@ -68,11 +62,7 @@ trait URI_Helper {
 		}
 
 		$template = apply_filters( 'directorist_template', $template, $args );
-		$file     = self::template_path( $template, $args );
-
-		do_action( 'before_directorist_template_loaded', $template, $file, $args );
-
-		do_action( 'before_directorist_template_loaded', $template, $file, $args );
+		$file = self::template_path( $template, $args );
 
 		do_action( 'before_directorist_template_loaded', $template, $file, $args );
 
@@ -88,137 +78,12 @@ trait URI_Helper {
 
 		if ( $template_path ) {
 			return $template_path;
-		} elseif ( $singular_path ) {
+		}
+		elseif ( $singular_path ) {
 			return $singular_path;
-		} else {
+		}
+		else {
 			return $index_path;
 		}
-	}
-
-	public static function get_icon_src( $icon ) {
-		$file = self::get_icon_file( $icon );
-
-		if ( ! $file ) {
-			return '';
-		}
-
-		$url = ATBDP_URL . 'assets/icons/' . $file;
-		return $url;
-	}
-
-	private static function get_icon_file( $icon ) {
-		if ( str_starts_with( $icon, 'fa' ) ) {
-			return self::get_font_awesome_file( $icon );
-		} elseif ( str_starts_with( $icon, 'la' ) ) {
-			return self::get_line_awesome_file( $icon );
-		} elseif ( str_starts_with( $icon, 'ui' ) ) {
-			return self::get_unicons_file( $icon );
-		}
-
-		return '';
-	}
-
-	/**
-	 * FontAwesome 5.15.4
-	 *
-	 * @param string $icon
-	 *
-	 * @return string
-	 */
-	private static function get_font_awesome_file( $icon ) {
-		list( $prefix, $name ) = explode( ' ', $icon );
-		$filename              = str_replace( 'fa-', '', $name );
-		$filename              = $filename . '.svg';
-
-		$far_file = 'font-awesome/svgs/regular/' . $filename;
-		$fas_file = 'font-awesome/svgs/solid/' . $filename;
-		$fab_file = 'font-awesome/svgs/brands/' . $filename;
-
-		// Legacy 'fa' support
-		if ( $prefix == 'fa' ) {
-			if ( file_exists( DIRECTORIST_ICON_PATH . $far_file ) ) {
-				return $far_file;
-			} elseif ( file_exists( DIRECTORIST_ICON_PATH . $fas_file ) ) {
-				return $fas_file;
-			} elseif ( file_exists( DIRECTORIST_ICON_PATH . $fab_file ) ) {
-				return $fab_file;
-			} else {
-				return '';
-			}
-		}
-
-		if ( $prefix == 'far' ) {
-			return $far_file;
-		} elseif ( $prefix == 'fab' ) {
-			return $fab_file;
-		} elseif ( $prefix == 'fas' ) {
-			return $fas_file;
-		} else {
-			return '';
-		}
-	}
-
-	/**
-	 * LineAwesome 1.3.0
-	 *
-	 * @param string $icon
-	 *
-	 * @return string
-	 */
-	private static function get_line_awesome_file( $icon ) {
-		list( $prefix, $name ) = explode( ' ', $icon );
-		$filename              = str_replace( 'la-', '', $name );
-
-		$lar_file = 'line-awesome/svgs/' . $filename . '.svg';
-		$las_file = 'line-awesome/svgs/' . $filename . '-solid.svg';
-
-		// Legacy 'la' support for v1.2.1
-		if ( $prefix == 'la' ) {
-			$filename = str_replace( '-o', '', $filename );
-
-			$fa_lar_file = 'line-awesome/svgs/' . $filename . '.svg';
-			$fa_las_file = 'line-awesome/svgs/' . $filename . '-solid.svg';
-
-			if ( file_exists( DIRECTORIST_ICON_PATH . $fa_las_file ) ) {
-				return $fa_las_file;
-			} elseif ( file_exists( DIRECTORIST_ICON_PATH . $fa_lar_file ) ) {
-				return $fa_lar_file;
-			} else {
-				return '';
-			}
-		}
-
-		if ( $prefix == 'las' ) {
-			return $las_file;
-		} elseif ( in_array( $prefix, array( 'lab', 'lar' ) ) ) {
-			return $lar_file;
-		} else {
-			return '';
-		}
-	}
-
-	/**
-	 * Unicons 3.0.3
-	 *
-	 * Unicon svgs are kept only for backward compatibility
-	 *
-	 * @param string $icon
-	 *
-	 * @return string
-	 */
-	private static function get_unicons_file( $icon ) {
-		$slice = explode( ' ', $icon );
-
-		if ( $slice[0] == 'uil' ) {
-			$filename = str_replace( 'uil-', '', $slice[1] );
-			$dir      = 'unicons/svgs/line/';
-		} elseif ( $slice[0] == 'uis' ) {
-			$filename = str_replace( 'uis-', '', $slice[1] );
-			$dir      = 'unicons/svgs/solid/';
-		} else {
-			return '';
-		}
-
-		return $dir . $filename . '.svg';
 	}
 }

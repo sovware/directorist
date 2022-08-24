@@ -42,7 +42,7 @@ class ATBDP_Gateway{
             if( !is_fee_manager_active() && $featured_enable ) {
                 $widgets['listing-type'] = [
                     'label' => 'Listing Type',
-                    'icon' => 'la la-toggle-on',
+                    'icon' => 'las la-toggle-on',
                     'show' => true,
                     'options' => [
                         'type' => [

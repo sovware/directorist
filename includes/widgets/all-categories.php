@@ -197,7 +197,7 @@ class All_Categories extends \WP_Widget {
             $html .= '<ul class="' .$child_class. '">';
             foreach( $terms as $term ) {
                 $child_category = get_term_children($term->term_id,ATBDP_CATEGORY);
-                $plus_icon = (!empty($child_category) && empty($parent) )? directorist_icon( 'la la-plus', false ) : '';
+                $plus_icon = (!empty($child_category) && empty($parent) )? directorist_icon( 'las la-plus', false ) : '';
 
 
                 $icon = get_term_meta($term->term_id,'category_icon',true);

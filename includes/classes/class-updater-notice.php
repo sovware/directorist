@@ -22,6 +22,11 @@ class Updater_Notice {
 	 * Hide a notice if the GET variable is set.
 	 */
 	public static function hide_notices() {
+
+		if( is_admin() && isset( $_GET["page"] ) && ( ( $_GET["page"] == 'atbdp-settings' ) || ( $_GET["page"] == 'atbdp-directory-types' ) ) ) {
+			remove_all_actions('admin_notices');
+		}
+
 		if ( isset( $_GET['directorist-hide-notice'] ) && isset( $_GET['_directorist_notice_nonce'] ) ) { // WPCS: input var ok, CSRF ok.
 			if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_directorist_notice_nonce'] ) ), 'directorist_hide_notices_nonce' ) ) { // WPCS: input var ok, CSRF ok.
 				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'directorist' ) );
@@ -137,9 +142,9 @@ class Updater_Notice {
 		}
 		?>
 		<div class="updated notice is-dismissible">
-			<a class="directorist-message-close notice-dismiss" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'directorist-hide-notice', 'update', remove_query_arg( 'do_update_directorist' ) ), 'directorist_hide_notices_nonce', '_directorist_notice_nonce' ) ); ?>"><span class="screen-reader-text"><?php _e( 'Dismiss', 'directorist' ); ?></span></a>
+			<a class="directorist-message-close notice-dismiss" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'directorist-hide-notice', 'update', remove_query_arg( 'do_update_directorist' ) ), 'directorist_hide_notices_nonce', '_directorist_notice_nonce' ) ); ?>"><span class="screen-reader-text"><?php esc_html_e( 'Dismiss', 'directorist' ); ?></span></a>
 
-			<p><?php _e( 'Directorist data update complete. Thank you for updating to the latest version!', 'directorist' ); ?></p>
+			<p><?php esc_html_e( 'Directorist data update complete. Thank you for updating to the latest version!', 'directorist' ); ?></p>
 		</div>
 		<?php
 	}

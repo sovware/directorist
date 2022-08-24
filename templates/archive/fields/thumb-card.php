@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -45,7 +45,7 @@ $back_wrap_html = "<div class='directorist-thumnail-card-back-wrap'>".$listings-
 
 $blur_bg = ( $blur_background ) ? $back_wrap_html : '';
 
-// Card Contain 
+// Card Contain
 $card_contain_wrap = "<div class='directorist-thumnail-card directorist-card-contain' style='$style'>";
 $image_contain_html = $card_contain_wrap . $blur_bg . $front_wrap_html . "</div>";
 
@@ -75,11 +75,11 @@ $link_start = '<a href="'.esc_url( $listings->loop['permalink'] ).'">';
 $link_end   = '</a>';
 
 if (!$listings->disable_single_listing) {
-	echo $link_start;
+	echo wp_kses_post( $link_start );
 }
 
-echo $the_html;
+echo wp_kses_post( $the_html );
 
 if (!$listings->disable_single_listing) {
-	echo $link_end;
+	echo wp_kses_post( $link_end );
 }

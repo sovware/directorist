@@ -26,7 +26,7 @@ class Walker extends Walker_Comment {
 	 * @param array  $args   Optional. Uses 'style' argument for type of HTML list. Default empty array.
 	 */
 	public function start_lvl( &$output, $depth = 0, $args = array() ) {
-		$GLOBALS['comment_depth'] = $depth + 1;
+		$GLOBALS['comment_depth'] = $depth + 1; // @codingStandardsIgnoreLine.
 
 		$output .= '<ul class="directorist-review-single__comments">' . "\n";
 	}
@@ -43,7 +43,7 @@ class Walker extends Walker_Comment {
 	 *                       Default empty array.
 	 */
 	public function end_lvl( &$output, $depth = 0, $args = array() ) {
-		$GLOBALS['comment_depth'] = $depth + 1;
+		$GLOBALS['comment_depth'] = $depth + 1; // @codingStandardsIgnoreLine.
 
 		$output .= "</ul><!-- .directorist-review-single__comments -->\n";
 	}
@@ -129,7 +129,7 @@ class Walker extends Walker_Comment {
 							<div class="directorist-review-single__author__img comment-author vcard">
 								<?php
 								if ( $args['avatar_size'] != 0 ) {
-									echo get_avatar( $comment, $args['avatar_size'] );
+									echo wp_kses_post( get_avatar( $comment, $args['avatar_size'] ) );
 								}
 								?>
 							</div>
@@ -153,15 +153,15 @@ class Walker extends Walker_Comment {
 					</div>
 				</div>
 				<?php if ( $comment->comment_approved == '0' ) : ?>
-					<p><em class="comment-awaiting-moderation"><?php echo $moderation_note; ?></em></p>
+					<p><em class="comment-awaiting-moderation"><?php echo esc_html( $moderation_note ); ?></em></p>
 				<?php endif; ?>
 
 				<?php if ( $comment_reply_link || current_user_can( 'edit_comment', $comment->comment_ID ) ) : ?>
 				<div class="directorist-review-single__reply">
 					<?php
-					echo $comment_reply_link;
+					echo wp_kses_post( $comment_reply_link );
 
-					echo directorist_get_comment_edit_link(
+					echo wp_kses_post( directorist_get_comment_edit_link(
 						array_merge(
 							$args,
 							array(
@@ -170,7 +170,7 @@ class Walker extends Walker_Comment {
 								'max_depth'  => $args['max_depth']
 							)
 						)
-					);
+					) );
 					?>
 				</div>
 				<?php endif; ?>

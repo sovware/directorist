@@ -110,6 +110,7 @@
       + .directorist-checkbox__label {
       font-size: 15px;
       font-weight: 700;
+      min-height: 18px;
     }
   }
   .directorist-form-element{
@@ -117,6 +118,12 @@
   }
   select.directorist-form-element {
     padding: 0 20px;
+  }
+}
+.price-type-price_range,
+.price-type-price_unit{
+  .directorist-form-pricing-field__options{
+    margin: 0;
   }
 }
 
@@ -193,7 +200,7 @@
     }
   }
 
-  @include e(remove) {
+  .directorist-form-social-fields__remove {
     color: #fff;
     height: 42px;
     background: #e23636;
@@ -250,6 +257,9 @@
 
   .ezmu__info-list-item {
     margin-right: 15px !important;
+    &:empty{
+      display: none;
+    }
   }
 
   .ezmu__thumbnail-list-item {
@@ -472,7 +482,7 @@
   justify-content: center;
 }
 
-#_listing_gallery {
+.ez-media-uploader {
   text-align: center;
 }
 
@@ -557,6 +567,20 @@
       &:after {
         content: "\f106";
       }
+    }
+  }
+}
+
+.directorist-add-listing-form .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  li {
+    margin-left: 0;
+    margin-top: 0;
+    input{
+      margin-top: 0;
     }
   }
 }

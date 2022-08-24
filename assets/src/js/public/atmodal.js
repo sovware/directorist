@@ -1,9 +1,9 @@
 /*
-		Name:  ATModal
-		Version: 1.0
-		Author: AazzTech
-		Author URI: http://aazztech.com
-	*/
+        Name:  ATModal
+        Version: 1.0
+        Author: Sovware
+        Author URI: https://sovware.com/
+*/
 /* disable-eslint */
 
 const aazztechModal1 = selector => {

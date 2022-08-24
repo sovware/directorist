@@ -25,7 +25,6 @@ class Multi_Directory_Manager
     public function run() {
         add_action( 'init', [$this, 'register_terms'] );
         add_action( 'init', [$this, 'setup_migration'] );
-        add_action( 'init', [$this, 'update_default_directory_type_option'] );
 
         if ( ! is_admin() ) {
             return;
@@ -33,7 +32,6 @@ class Multi_Directory_Manager
 
         add_filter( 'cptm_fields_before_update', [$this, 'cptm_fields_before_update'], 20, 1 );
 
-        // add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
         add_action( 'admin_menu', [$this, 'add_menu_pages'] );
         add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 
@@ -335,9 +333,9 @@ class Multi_Directory_Manager
             ], 200);
         }
 
-        $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? ( int ) $_POST[ 'term_id' ] : 0;
-        $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? $_POST[ 'directory-name' ] : '';
-        $json_file      = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';
+        $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? absint( $_POST[ 'term_id' ] ) : 0;
+        $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'directory-name' ] ) ) : '';
+        $json_file      = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? directorist_clean( wp_unslash( $_FILES[ 'directory-import-file' ] ) ) : '';
 
         // Validation
         $response = [
@@ -471,15 +469,15 @@ class Multi_Directory_Manager
             ], 200);
         }
 
-        $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? $_POST['listing_type_id'] : 0;
-        $directory_name = $_POST['name'];
+        $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? absint( $_POST['listing_type_id'] ) : 0;
+        $directory_name = sanitize_text_field( wp_unslash( $_POST['name'] ) );
 
         $fields     = [];
-        $field_list = Helper::maybe_json( $_POST['field_list'] );
+        $field_list = ! empty( $_POST['field_list'] ) ? directorist_maybe_json( wp_unslash( $_POST['field_list'] ) ) : [];
 
         foreach ( $field_list as $field_key ) {
             if ( isset( $_POST[$field_key] ) && 'name' !==  $field_key ) {
-                $fields[ $field_key ] = Helper::maybe_json( $_POST[$field_key], true );
+                $fields[ $field_key ] = directorist_maybe_json( wp_unslash( $_POST[ $field_key ] ), true );
             }
         }
 
@@ -517,8 +515,8 @@ class Multi_Directory_Manager
             $value = ('true' === $value || true === $value || '1' === $value || 1 === $value) ? true : 0;
         }
 
-        $value = Helper::maybe_json($value);
-        update_term_meta($term_id, $field_key, $value);
+        $value = directorist_maybe_json( $value );
+        update_term_meta( $term_id, $field_key, $value );
     }
 
     // prepare_settings
@@ -2970,6 +2968,15 @@ class Multi_Directory_Manager
                                     [ 'value' => 'kilometers', 'label' => 'Kilometers' ],
                                 ]
                             ],
+                            'radius_search_based_on' => [
+                                'type'  => 'radio',
+                                'label' => __( 'Radius Search Based on', 'directorist' ),
+                                'value' => 'address',
+                                'options' => [
+                                    [ 'value' => 'address', 'label' => 'Address' ],
+                                    [ 'value' => 'zip', 'label' => 'Zip Code' ],
+                                ]
+                            ],
                         ],
                     ],
                 ]
@@ -4375,7 +4382,7 @@ class Multi_Directory_Manager
                         'label' => __( "Badges", "directorist" ),
                         'icon' => 'uil uil-text-fields',
                         'options' => [
-                            'title' => __( "Badge Settings". "directorist" ),
+                            'title' => __( "Badge Settings", "directorist" ),
                             'fields' => [
                                 'new_badge' => [
                                     'type' => "toggle",
@@ -4495,7 +4502,7 @@ class Multi_Directory_Manager
         self::$layouts = apply_filters('directorist_builder_layouts', [
             'general' => [
                 'label' => 'General',
-                'icon' => '<i class="uil uil-estate"></i>',
+                'icon' => '<span class="uil uil-estate"></span>',
                 'sections' => [
                     'labels' => [
                         'title'       => __('Directory icon', 'directorist'),
@@ -4805,7 +4812,7 @@ class Multi_Directory_Manager
         $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
         $enable_multi_directory = atbdp_is_truthy( $enable_multi_directory );
 
-        $action = isset( $_GET['action'] ) ? $_GET['action'] : '';
+        $action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
         $listing_type_id = 0;
 
         $data = [
@@ -4816,12 +4823,12 @@ class Multi_Directory_Manager
             $this->prepare_settings();
             $this->add_missing_single_listing_section_id();
 
-            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? $_REQUEST['listing_type_id'] : 0;
+            $listing_type_id = ( ! empty( $_REQUEST['listing_type_id'] ) ) ? absint( $_REQUEST['listing_type_id'] ) : 0;
             $listing_type_id = ( ! $enable_multi_directory ) ? default_directory_type() : $listing_type_id;
 
             $this->update_fields_with_old_data( $listing_type_id );
 
-            $cptm_data = [
+            $directory_builder_data = [
                 'fields'  => self::$fields,
                 'layouts' => self::$layouts,
                 'config'  => self::$config,
@@ -4835,13 +4842,9 @@ class Multi_Directory_Manager
 			 * @since 7.0.5.*
 			 * TODO: Update with exact version number.
 			 */
-			$cptm_data = apply_filters( 'directorist_builder_localize_data', $cptm_data );
+			$directory_builder_data = apply_filters( 'directorist_builder_localize_data', $directory_builder_data );
 
-            wp_localize_script(
-				'directorist-multi-directory-builder',
-				'cptm_data',
-				$cptm_data
-			);
+            $data[ 'directory_builder_data' ] = $directory_builder_data;
 
             atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
             return;
@@ -4924,15 +4927,15 @@ class Multi_Directory_Manager
     public function handle_delete_listing_type_request()
     {
 
-        if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'delete_listing_type')) {
+        if ( ! empty( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'delete_listing_type' ) ) {
             wp_die('Are you cheating? | _wpnonce');
         }
 
-        if (!current_user_can('manage_options')) {
+        if ( ! current_user_can('manage_options') ) {
             wp_die('Are you cheating? | manage_options');
         }
 
-        $term_id = isset($_REQUEST['listing_type_id']) ? absint($_REQUEST['listing_type_id']) : 0;
+        $term_id = isset( $_REQUEST['listing_type_id'] ) ? absint( $_REQUEST['listing_type_id'] ) : 0;
 
         $this->delete_listing_type($term_id);
 
@@ -4984,7 +4987,7 @@ class Multi_Directory_Manager
      * @return array page names with key value pairs in a multi-dimensional array
      * @since 3.0.0
      */
-    function get_pages_vl_arrays()
+    public function get_pages_vl_arrays()
     {
         $pages = get_pages();
         $pages_options = array();
@@ -4995,21 +4998,6 @@ class Multi_Directory_Manager
         }
 
         return $pages_options;
-    }
-
-    // enqueue_scripts
-    public function enqueue_scripts( $page = '' )
-    {
-        wp_enqueue_media();
-        wp_enqueue_style('atbdp-unicons');
-        wp_enqueue_style('atbdp-font-awesome');
-        wp_enqueue_style('atbdp-line-awesome');
-        // wp_enqueue_style('atbdp-select2-style');
-        // wp_enqueue_style('atbdp-select2-bootstrap-style');
-        wp_enqueue_style('atbdp_admin_css');
-
-        wp_localize_script('atbdp_admin_app', 'ajax_data', ['ajax_url' => admin_url('admin-ajax.php')]);
-        wp_enqueue_script('atbdp_admin_app');
     }
 
 	/**

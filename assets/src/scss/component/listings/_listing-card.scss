@@ -193,6 +193,7 @@
                 img {
                     width: 100%;
                     border-radius: 50%;
+                    height: auto;
                 }
             }
         }
@@ -253,6 +254,10 @@
             .atbd_badge.atbd_badge_open {
                 background-color: transparent;
                 color: $success;
+            }
+            span,
+            a{
+                word-break: break-all;
             }
         }
 
@@ -364,7 +369,7 @@
                         margin: 0 0 10px;
                     }
 
-                    div {
+                    > div {
                         margin-bottom: 2px;
                         font-size: 14px;
                         display: flex;
@@ -380,6 +385,7 @@
                     a {
                         text-decoration: none;
                         color: #7a82a6;
+                        word-break: break-word;
                     }
                 }
             }
@@ -701,7 +707,7 @@
                     margin: 0 0 10px;
                 }
 
-                div {
+                > div {
                     margin-bottom: 2px;
                     font-size: 14px;
                     display: flex;

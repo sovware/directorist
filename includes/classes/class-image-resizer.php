@@ -48,7 +48,7 @@ class Atbdp_Image_resizer
 
         // Get the image file path
         $filePath = parse_url($attachmentUrl);
-        $filePath = $_SERVER['DOCUMENT_ROOT'] . $filePath['path'];
+        $filePath = ! empty( $_SERVER['DOCUMENT_ROOT'] ) ? directorist_clean( wp_unslash( $_SERVER['DOCUMENT_ROOT'] ) ) . $filePath['path'] : '';
 
         // Additional handling for multisite
         if (is_multisite()) {

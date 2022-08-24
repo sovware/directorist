@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.1.1
+ * @version 7.3.1.2
  */
 ?>
 
@@ -28,7 +28,7 @@
 					}
 
 					if ( empty( $ls_data['listing_img'][0] ) && empty( $ls_data['listing_prv_img'] ) ) {
-						echo '<img src="' . $ls_data['default_img'] . '" alt="' . esc_attr( get_the_title() ) . '" width="280">';
+						echo '<img src="' . esc_url( $ls_data['default_img'] ) . '" alt="' . esc_attr( get_the_title() ) . '" width="280">';
 					}
 
 					if ( ! $disable_single_listing ) {
@@ -60,13 +60,13 @@
 
 					if ( ! empty( $ls_data['address'] ) ) { ?>
 						<?php if ( ! empty( $display_address_map ) ) { ?>
-							<div class="map_addr"><span class="<?php atbdp_icon_type( true );?>-map-marker"></span> <a href="" class="map-info-link"><?php echo $ls_data['address']; ?></a></div>
+							<div class="map_addr"><span class="<?php atbdp_icon_type( true );?>-map-marker"></span> <a href="" class="map-info-link"><?php echo esc_html( $ls_data['address'] ); ?></a></div>
 							<?php
 						}
 
 						if ( ! empty( $display_direction_map ) ) { ?>
 							<div class="map_get_dir">
-								<a href='http://www.google.com/maps?daddr=<?php echo $ls_data['manual_lat']; ?>,<?php echo $ls_data['manual_lng']; ?>' target='_blank'><?php esc_html_e( 'Get Direction', 'directorist' ); ?></a>
+								<a href='http://www.google.com/maps?daddr=<?php echo esc_attr( $ls_data['manual_lat'] ); ?>,<?php echo esc_attr( $ls_data['manual_lng'] ); ?>' target='_blank'><?php esc_html_e( 'Get Directions', 'directorist' ); ?></a>
 								<span class="<?php atbdp_icon_type( true );?>-arrow-right"></span>
 							</div>
 							<?php

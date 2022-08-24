@@ -616,6 +616,7 @@
         padding: 8px 15px;
         box-shadow: none;
         width: 100%;
+        box-sizing: border-box;
       }
 
       textarea.form-control {
@@ -882,6 +883,13 @@
       }
     }
   }
+  .directorist-search-tags{
+    flex-wrap: wrap;
+    margin: 0 -8px;
+    .directorist-checkbox{
+      margin: 4px 8px;
+    }
+  }
 }
 
 .directorist-sidebar {
@@ -941,7 +949,7 @@
       font-size: 15px;
     }
 
-    .atbd-slide1 {
+    .directorist-range-slider1 {
       width: 1em;
       height: 1em;
     }

@@ -1,44 +1,82 @@
-import { convertToSelect2 } from './../../lib/helper';
+import {
+    convertToSelect2
+} from './../../lib/helper';
+import './select2-custom-control';
 
 const $ = jQuery;
 
-window.addEventListener('load', initSelect2 );
-document.body.addEventListener( 'directorist-search-form-nav-tab-reloaded', initSelect2 );
-document.body.addEventListener( 'directorist-reload-select2-fields', initSelect2 );
+window.addEventListener('load', initSelect2);
+document.body.addEventListener('directorist-search-form-nav-tab-reloaded', initSelect2);
+document.body.addEventListener('directorist-reload-select2-fields', initSelect2);
 
 // Init Static Select 2 Fields
 function initSelect2() {
-    const select_fields = [
-        { elm: $('.directorist-select').find( 'select' ) },
-        { elm: $('#directorist-select-js') },
-        { elm: $('#directorist-search-category-js') },
-        { elm: $('#directorist-select-st-s-js') },
-        { elm: $('#directorist-select-sn-s-js') },
-        { elm: $('#directorist-select-mn-e-js') },
-        { elm: $('#directorist-select-tu-e-js') },
-        { elm: $('#directorist-select-wd-s-js') },
-        { elm: $('#directorist-select-wd-e-js') },
-        { elm: $('#directorist-select-th-e-js') },
-        { elm: $('#directorist-select-fr-s-js') },
-        { elm: $('#directorist-select-fr-e-js') },
+    const select_fields = [{
+            elm: $('.directorist-select').find('select')
+        },
+        {
+            elm: $('#directorist-select-js')
+        },
+        {
+            elm: $('#directorist-search-category-js')
+        },
+        {
+            elm: $('#directorist-select-st-s-js')
+        },
+        {
+            elm: $('#directorist-select-sn-s-js')
+        },
+        {
+            elm: $('#directorist-select-mn-e-js')
+        },
+        {
+            elm: $('#directorist-select-tu-e-js')
+        },
+        {
+            elm: $('#directorist-select-wd-s-js')
+        },
+        {
+            elm: $('#directorist-select-wd-e-js')
+        },
+        {
+            elm: $('#directorist-select-th-e-js')
+        },
+        {
+            elm: $('#directorist-select-fr-s-js')
+        },
+        {
+            elm: $('#directorist-select-fr-e-js')
+        },
         // { elm: $('#directorist-location-select') },
         // { elm: $('#directorist-category-select') },
-        { elm: $('.select-basic') },
-        { elm: $('#loc-type') },
-        { elm: $('.bdas-location-search') },
+        {
+            elm: $('.select-basic')
+        },
+        {
+            elm: $('#loc-type')
+        },
+        {
+            elm: $('.bdas-location-search')
+        },
         // { elm: $('.directorist-location-select') },
-        { elm: $('#at_biz_dir-category') },
-        { elm: $('#cat-type') },
-        { elm: $('.bdas-category-search') },
+        {
+            elm: $('#at_biz_dir-category')
+        },
+        {
+            elm: $('#cat-type')
+        },
+        {
+            elm: $('.bdas-category-search')
+        },
         // { elm: $('.directorist-category-select') },
     ];
 
-    select_fields.forEach( field => {
-        convertToSelect2( field );
+    select_fields.forEach(field => {
+        convertToSelect2(field);
     });
 
-    const lazy_load_taxonomy_fields = atbdp_public_data.lazy_load_taxonomy_fields;
-    if ( lazy_load_taxonomy_fields ) {
+    const lazy_load_taxonomy_fields = directorist.lazy_load_taxonomy_fields;
+    if (lazy_load_taxonomy_fields) {
         // Init Select2 Ajax Fields
         initSelect2AjaxFields();
     }
@@ -47,35 +85,61 @@ function initSelect2() {
 
 
 // Init Select2 Ajax Fields
-function initSelect2AjaxFields () {
-    const rest_base_url = `${atbdp_public_data.rest_url}directorist/v1`;
+function initSelect2AjaxFields() {
+    const rest_base_url = `${directorist.rest_url}directorist/v1`;
 
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
-        selector: $('.directorist-search-category').find( 'select' ),
+        selector: $('.directorist-search-category').find('select'),
         url: `${rest_base_url}/listings/categories`,
     });
 
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
-        selector: $('.directorist-search-location').find( 'select' ),
+        selector: $('.directorist-search-location').find('select'),
         url: `${rest_base_url}/listings/locations`,
     });
 }
 
 
 // initSelect2AjaxTaxonomy
-function initSelect2AjaxTaxonomy( args ) {
-    const defaultArgs = { selector: '', url: '', perPage: 10};
-    args = { ...defaultArgs, ...args };
+function initSelect2AjaxTaxonomy(args) {
+    const defaultArgs = {
+        selector: '',
+        url: '',
+        perPage: 10
+    };
+    args = {
+        ...defaultArgs,
+        ...args
+    };
 
     if ( ! args.selector.length ) {
         return;
     }
 
     [ ...args.selector ].forEach( ( item, index ) => {
-        const parent = $( item ).closest( '.directorist-search-form' );
-        const directory_type_id = parent.find( '.directorist-listing-type-selection__link--current' ).data( 'listing_type_id' );
+        let directory_type_id = 0;
+
+        let search_form_parent  = $( item ).closest( '.directorist-search-form' );
+        let archive_page_parent = $( item ).closest( '.directorist-archive-contents' );
+
+        let nav_list_item = [];
+
+        // If search page
+        if ( search_form_parent.length ) {
+            nav_list_item = search_form_parent.find( '.directorist-listing-type-selection__link--current' );
+        }
+
+        // If archive page
+        if ( archive_page_parent.length ) {
+            nav_list_item = archive_page_parent.find( '.directorist-type-nav__list li.current .directorist-type-nav__link' );
+        }
+
+        // If has nav item
+        if ( nav_list_item.length ) {
+            directory_type_id = ( nav_list_item ) ? nav_list_item.data( 'listing_type_id' ) : 0;
+        }
 
         var currentPage = 1;
         $( item ).select2({

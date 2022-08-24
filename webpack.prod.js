@@ -21,6 +21,7 @@ const prodConfig = {
     }),
     new WebpackRTLPlugin({
       minify: true,
+      filename: "../css/[name].rtl.min.css",
     }),
     new CleanWebpackPlugin({
       dry: false,
@@ -39,6 +40,8 @@ const prodConfig = {
               { source: './templates', destination: './__build/directorist/directorist/templates' },
               { source: './views', destination: './__build/directorist/directorist/views' },
               { source: './*.php', destination: './__build/directorist/directorist' },
+              { source: './*.txt', destination: './__build/directorist/directorist' },
+              { source: './phpcs.xml.dist', destination: './__build/directorist/directorist' },
             ],
           },
           {
@@ -55,7 +58,7 @@ const prodConfig = {
         ],
       },
     }),
-    
+
   ],
 
   output: {

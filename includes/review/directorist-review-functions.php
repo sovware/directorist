@@ -177,7 +177,7 @@ function directorist_user_review_exists( $user_email, $post_id ) {
 
 	global $wpdb;
 
-	$cache_key = 'directorist_user_review_found_by_' . md5( $user_email );
+	$cache_key = 'directorist_user_review_found_by_' . md5( $user_email . $post_id );
 	$exists    = wp_cache_get( $cache_key );
 
 	if ( ! $exists ) {
@@ -188,8 +188,7 @@ function directorist_user_review_exists( $user_email, $post_id ) {
 			WHERE comment_post_ID = %d
 			AND ( comment_approved = '1' OR comment_approved = '0' )
 			AND comment_type = 'review'
-			AND comment_author_email = '%s'
-			LIMIT 0, 1
+			AND comment_author_email = %s
 				",
 				$post_id,
 				$user_email
@@ -233,7 +232,7 @@ function directorist_can_owner_review( $listing_id = null ) {
  * @return bool
  */
 function directorist_can_guest_review() {
-	return ( ! is_user_logged_in() && directorist_is_guest_review_enabled() );
+	return ( directorist_is_guest_review_enabled() && ! is_user_logged_in() );
 }
 
 /**

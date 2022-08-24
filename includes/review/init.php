@@ -40,12 +40,24 @@ class Bootstrap {
 
 	public static function setup_hooks() {
 		add_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ), 10, 4 );
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_comment_scripts' ) );
 		add_action( 'pre_get_posts', array( __CLASS__, 'override_comments_pagination' ) );
 		add_filter( 'comments_template', array( __CLASS__, 'load_comments_template' ), 9999 );
 		add_filter( 'register_post_type_args', array( __CLASS__, 'add_comment_support' ), 10, 2 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
 		add_filter( 'atbdp_login_redirection_page_url', array( __CLASS__, 'setup_login_redirect' ) );
+		add_filter( 'safe_style_css', array( __CLASS__, 'add_safe_style_css' ) );
+	}
+
+	/**
+	 * Allows Custom CSS Properties
+	 *
+	 * @param array $styles Allowed Style List
+	 *
+	 * @return array $styles
+	 */
+	public static function add_safe_style_css( $styles ) {
+		$styles[] = 'display';
+		return $styles;
 	}
 
 	/**
@@ -59,7 +71,7 @@ class Bootstrap {
 		if ( ! empty( $_GET['redirect'] ) ) {
 			$scope = null;
 
-			if ( ! empty( $_GET['scope'] ) && $_GET['scope'] === 'review' ) {
+			if ( ! empty( $_GET['scope'] ) && sanitize_text_field( wp_unslash( $_GET['scope'] ) ) === 'review' ) {
 				$scope = '#respond';
 			}
 
@@ -73,7 +85,7 @@ class Bootstrap {
 		if ( $code === 'require_valid_comment' ) {
 			remove_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ) );
 
-			if ( ! empty( $_POST['comment_parent'] ) ) {
+			if ( ! empty( $_POST['comment_parent'] ) ) { // @codingStandardsIgnoreLine.
 				$text = __( 'To submit your reply, please add your comment.', 'directorist' );
 			} else {
 				$text = __( 'To submit your review, please describe your rating.', 'directorist' );
@@ -96,6 +108,7 @@ class Bootstrap {
 	public static function override_comments_pagination( $wp_query ) {
 		if ( ! is_admin() && directorist_is_review_enabled() && $wp_query->is_single && $wp_query->get( 'post_type' ) === ATBDP_POST_TYPE ) {
 			add_filter( 'option_page_comments', '__return_true' );
+			add_filter( 'option_comment_registration', '__return_false' );
 			add_filter( 'option_thread_comments', 'directorist_is_review_reply_enabled' );
 			add_filter( 'option_thread_comments_depth', array( __CLASS__, 'override_comment_depth' ) );
 			add_filter( 'option_comments_per_page', 'directorist_get_review_per_page' );
@@ -171,12 +184,6 @@ class Bootstrap {
 		$args['supports'] = array_merge( $args['supports'], [ 'comments' ] );
 
 		return $args;
-	}
-
-	public static function enqueue_comment_scripts() {
-		if ( is_singular( ATBDP_POST_TYPE ) && directorist_is_review_enabled() ) {
-			wp_enqueue_script( 'comment-reply' );
-		}
 	}
 
 	public static function load_comments_template( $template ) {

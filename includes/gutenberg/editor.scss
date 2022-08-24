@@ -1,0 +1,45 @@
+.directorist-gb-fixed-control {
+    .components-input-control__container {
+        max-width: 120px;
+    }
+
+    .components-base-control__field {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+
+        .components-text-control__input {
+            max-width: 60px;
+        }
+    }
+}
+
+.directorist-gb-cb-list-control ul {
+    margin-top: 10px;
+}
+
+[class*="wp-block-directorist-"] {
+    position: relative;
+
+    &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        z-index: 9;
+        pointer-events: none;
+    }
+}
+
+.directorist-block-preview {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.directorist-gb-multiselect label {
+    font-size: 13px;
+}

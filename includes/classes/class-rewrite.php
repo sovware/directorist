@@ -13,7 +13,16 @@ class ATBDP_Rewrite {
 	public function __construct() {
 		// add the rewrite rules to the init hook
 		add_action( 'init', array( $this, 'add_write_rules' ) );
-		add_action( 'wp_loaded', array( $this, 'flush_rewrite_rules_on_demand' ) );
+
+		$flush_rewrite_rules_on_demand = apply_filters( 'directorist_flush_rewrite_rules_on_demand', false );
+
+		if ( $flush_rewrite_rules_on_demand ) {
+			add_action( 'wp_loaded', array( $this, 'flush_rewrite_rules_on_demand' ) );
+		}
+		add_action( 'directorist_setup_wizard_page_created', array( $this, 'flush_rewrite_rules_on_demand' ) );
+		add_action( 'directorist_setup_wizard_payment_page_created', array( $this, 'flush_rewrite_rules_on_demand' ) );
+		add_action( 'directorist_setup_wizard_completed', array( $this, 'flush_rewrite_rules_on_demand' ) );
+		add_action( 'directorist_options_updated', array( $this, 'flush_rewrite_rules_on_demand' ) );
 	}
 
 	protected function get_pages() {
@@ -122,7 +131,6 @@ class ATBDP_Rewrite {
 		$page_id = $this->get_page_id( 'single_category_page' );
 		if ( $page_id ) {
 			$link = $this->get_page_slug( $page_id, 'directory-single-category' );
-
 			add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$page_id.'&atbdp_category=$matches[1]&paged=$matches[2]', 'top' );
 			add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$page_id.'&atbdp_category=$matches[1]', 'top' );
 		}

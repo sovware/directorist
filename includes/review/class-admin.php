@@ -99,9 +99,9 @@ class Metabox {
 
 				if ( $_index !== -1 && isset( $submenu[ $menu_slug ][ $_index ] ) ) {
 					if ( empty( $submenu[ $menu_slug ][ $_index ][4] ) ) {
-						$submenu[ $menu_slug ][ $_index ][4] = 'current';
+						$submenu[ $menu_slug ][ $_index ][4] = 'current'; // @codingStandardsIgnoreLine.
 					} else {
-						$submenu[ $menu_slug ][ $_index ][4] .= ' current';
+						$submenu[ $menu_slug ][ $_index ][4] .= ' current'; // @codingStandardsIgnoreLine.
 					}
 				}
 			}
@@ -115,7 +115,7 @@ class Metabox {
 			return;
 		}
 
-		$nonce = ! empty( $_POST['directorist_comment_nonce'] ) ?  $_POST['directorist_comment_nonce'] : '';
+		$nonce = ! empty( $_POST['directorist_comment_nonce'] ) ? sanitize_key( $_POST['directorist_comment_nonce'] ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'directorist_edit_comment' ) ) {
 			return;
 		}

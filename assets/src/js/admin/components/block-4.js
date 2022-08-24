@@ -1,5 +1,3 @@
-const $ = jQuery;
-
 /*
     Plugin: PureScriptTab
     Version: 1.0.0
@@ -31,29 +29,12 @@ const pureScriptTab = selector1 => {
                     // console.log(element1);
                     element1.classList.remove('directorist-tab__pane--active');
                 });
-                const { target } = event.target;
+                const {
+                    target
+                } = event.target;
                 document.getElementById(target).classList.add('directorist-tab__pane--active');
             });
         });
     });
 };
-
 pureScriptTab('.directorist_builder--tab');
-
-/* Copy shortcodes on click */
-$('body').on('click', '.atbdp_shortcodes', function () {
-    const $this = $(this);
-    const $temp = $('<input>');
-    $('body').append($temp);
-    $temp.val($(this).text()).select();
-    document.execCommand('copy');
-    $temp.remove();
-    $(this).after(
-        "<p class='copy-notify' style='color: #32cc6f; margin-top: 5px;'>Copied to clipboard!</p>"
-    );
-    setTimeout(function () {
-        $this.siblings('.copy-notify').fadeOut(300, function () {
-            $(this).remove();
-        });
-    }, 3000);
-});

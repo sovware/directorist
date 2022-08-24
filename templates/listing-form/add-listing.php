@@ -2,18 +2,20 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ): '';
 ?>
 
 <div class="directorist-add-listing-wrapper directorist-w-100">
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
-		<form action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" id="directorist-add-listing-form">
+		<form action="<?php echo esc_url( $action_url ); ?>" method="post" id="directorist-add-listing-form">
 
         <?php do_action('directorist_before_add_listing_from_frontend');?>
 

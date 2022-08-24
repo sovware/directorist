@@ -1339,6 +1339,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var data = {
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
+      current_page_id: directorist.current_page_id,
       in_tag: tag,
       price: price,
       custom_field: custom_field,
@@ -1465,6 +1466,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       var data = {
         action: 'directorist_instant_search',
         _nonce: directorist.ajax_nonce,
+        current_page_id: directorist.current_page_id,
         in_tag: tag,
         price: price,
         custom_field: custom_field,
@@ -1558,6 +1560,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var form_data = {
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
+      current_page_id: directorist.current_page_id,
       directory_type: directory_type,
       data_atts: JSON.parse(data_atts)
     };
@@ -1641,6 +1644,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var form_data = {
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
+      current_page_id: directorist.current_page_id,
       view: view && view.length ? view[0].replace(/view=/, '') : '',
       q: $(this).closest('.directorist-instant-search').find('input[name="q"]').val(),
       in_cat: $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val(),
@@ -1758,6 +1762,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var form_data = {
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
+      current_page_id: directorist.current_page_id,
       sort: sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '',
       q: $(this).closest('.directorist-instant-search').find('input[name="q"]').val(),
       in_cat: $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val(),
@@ -1881,6 +1886,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var form_data = (_form_data = {
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
+      current_page_id: directorist.current_page_id,
       view: view && view.length ? view[0].replace(/view=/, '') : '',
       q: $(this).closest('.directorist-instant-search').find('input[name="q"]').val(),
       in_cat: $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val(),

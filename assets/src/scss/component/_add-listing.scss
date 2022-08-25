@@ -22,9 +22,13 @@
       text-decoration: none !important;
       text-align: center;
 
-      i {
-        display: inline-block;
+      .directorist-icon-mask {
         margin-bottom: 10px;
+        span{
+          width: 17px;
+          height: 17px;
+          background-color: #fff;
+        }
       }
     }
   }

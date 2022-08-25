@@ -7298,9 +7298,13 @@ body.stop-scrolling {
   text-decoration: none !important;
   text-align: center;
 }
-.directorist-add-listing-types__single__link i {
-  display: inline-block;
+.directorist-add-listing-types__single__link .directorist-icon-mask {
   margin-bottom: 10px;
+}
+.directorist-add-listing-types__single__link .directorist-icon-mask span {
+  width: 17px;
+  height: 17px;
+  background-color: #fff;
 }
 
 .directorist-add-listing-form .directorist-content-module,

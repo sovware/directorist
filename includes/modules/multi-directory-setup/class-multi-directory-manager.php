@@ -271,7 +271,7 @@ class Multi_Directory_Manager
 
     // import_default_directory
     public function import_default_directory( array $args = [] ) {
-        $file = DIRECTORIST_ASSETS . "sample-data/directory/directory.json';
+        $file = DIRECTORIST_ASSETS . 'sample-data/directory/directory.json';
         if ( ! file_exists( $file ) ) { return; }
         $file_contents = file_get_contents( $file );
 

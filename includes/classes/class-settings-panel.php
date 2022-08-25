@@ -343,7 +343,7 @@ SWBD;
 			$path = ( ! empty( $args['path'] ) ) ? $args['path'] : '';
 
 			// $path = 'directory/directory.json'
-			$file = trailingslashit( dirname( ATBDP_FILE ) ) . "assets/sample-data/{$path}";
+			$file = DIRECTORIST_ASSETS_DIR . "sample-data/{$path}";
 			if ( ! file_exists( $file ) ) { return ''; }
 
 			$data = file_get_contents( $file );

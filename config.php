@@ -16,6 +16,8 @@ if ( !defined('ATBDP_INC_DIR') ) { define('ATBDP_INC_DIR', ATBDP_DIR.'includes/'
 if ( !defined('ATBDP_CLASS_DIR') ) { define('ATBDP_CLASS_DIR', ATBDP_DIR.'includes/classes/'); }
 // Plugin Model Path
 if ( !defined('ATBDP_MODEL_DIR') ) { define('ATBDP_MODEL_DIR', ATBDP_DIR.'includes/model/'); }
+// Plugin Assets Path
+if ( !defined('DIRECTORIST_ASSETS_DIR') ) { define('DIRECTORIST_ASSETS_DIR', ATBDP_DIR.'assets/'); }
 
 // Plugin Template Path
 if ( !defined('ATBDP_VIEWS_DIR') ) { define('ATBDP_VIEWS_DIR', ATBDP_DIR.'views/'); }

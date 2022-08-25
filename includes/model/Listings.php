@@ -1379,19 +1379,7 @@ class Directorist_Listings {
 					$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
 				}
 
-				$cats = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
-				$cat_icon = '';
-
-				if ( ! empty( $cats ) ) {
-					$cat_icon = get_cat_icon( $cats[0]->term_id );
-				}
-
-				$cat_icon = ! empty( $cat_icon ) ? $cat_icon : 'las la-map-marker';
-				$cat_icon_type = substr( $cat_icon, 0, 2 );
-
-				$preferred_icon_type = ( 'line' === $ls_data['font_type'] ) ? 'la' : 'fa';
-				$cat_icon = preg_replace( "/". $cat_icon_type ."(\w\s)/", "{$preferred_icon_type}$1$2", $cat_icon );
-				$cat_icon = preg_replace( "/". $cat_icon_type ."(-)/", "{$preferred_icon_type}$1", $cat_icon );
+				$cat_icon = directorist_icon( $this->loop_map_cat_icon(), false );
 				$ls_data['cat_icon'] = $cat_icon;
 
 				$opt['ls_data'] = $ls_data;
@@ -1400,7 +1388,7 @@ class Directorist_Listings {
 					'content'   => Helper::get_template_contents( 'archive/fields/openstreet-map', $opt ),
 					'latitude'  => get_post_meta( $listings_id, '_manual_lat', true ),
 					'longitude' => get_post_meta( $listings_id, '_manual_lng', true ),
-					'cat_icon'  => $this->loop_map_cat_icon(),
+					'cat_icon'  => $cat_icon,
 				];
 
 			endforeach;
@@ -1465,20 +1453,8 @@ class Directorist_Listings {
 					$ls_data['fa_or_la']        = ('line' === $ls_data['font_type']) ? "la " : "fa ";
 					$ls_data['cats']            = get_the_terms($listings_id, ATBDP_CATEGORY);
 
-					$cat_icon = '';
-
-					if ( ! empty( $ls_data['cats'] ) ){
-						$cat_icon = get_cat_icon( $ls_data['cats'][0]->term_id );
-						$ls_data['chk-1::cat_icon'] = $cat_icon;
-					}
-
-					$cat_icon = ! empty( $cat_icon ) ? $cat_icon : 'las la-map-marker';
-					$cat_icon_type = substr( $cat_icon, 0, 2 );
-
-					$preferred_icon_type = ( 'line' === $ls_data['font_type'] ) ? 'la' : 'fa';
-					$cat_icon = preg_replace( "/". $cat_icon_type ."(\w\s)/", "{$preferred_icon_type}$1$2", $cat_icon );
-					$cat_icon = preg_replace( "/". $cat_icon_type ."(-)/", "{$preferred_icon_type}$1", $cat_icon );
-					$ls_data['cat_icon'] = $cat_icon;
+					$cat_icon = directorist_icon( $this->loop_map_cat_icon(), false );
+					$ls_data['cat_icon'] = json_encode( $cat_icon );
 
 					$listing_type  			= get_post_meta( $listings_id, '_directory_type', true );
 					$ls_data['default_img'] = Helper::default_preview_image_src( $listing_type );

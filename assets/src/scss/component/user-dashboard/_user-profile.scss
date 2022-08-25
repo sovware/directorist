@@ -79,11 +79,12 @@
         align-items: center;
         .directorist-social-icon {
             margin-right: 6px;
-            font-size: 16px;
-            color: #0A0B1E;
-
-            .fa {
-                font-family: "Font Awesome 5 Brands";
+            .directorist-icon-mask{
+                span{
+                    width: 16px;
+                    height: 16px;
+                    background-color: #0A0B1E;
+                }
             }
         }
     }

@@ -149,7 +149,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								<div class="directorist-form-group">
 
-									<label for="facebook"><span class="directorist-social-icon"><?php directorist_icon( 'lab la-facebook' ); ?></span> <?php esc_html_e( 'Facebook', 'directorist' ); ?></label>
+									<label for="facebook"><span class="directorist-social-icon"><?php directorist_icon( 'lab la-facebook-f' ); ?></span> <?php esc_html_e( 'Facebook', 'directorist' ); ?></label>
 
 									<input id="facebook" class="directorist-form-element" type="url" name="user[facebook]" value="<?php echo esc_attr( $dashboard->user_info( 'facebook' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter your facebook url', 'directorist' ); ?>">
 
@@ -169,7 +169,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								<div class="directorist-form-group">
 
-									<label for="linkedIn"><span class="directorist-social-icon"><?php directorist_icon( 'lab la-linkedin' ); ?></span><?php esc_html_e( 'LinkedIn', 'directorist' ); ?></label>
+									<label for="linkedIn"><span class="directorist-social-icon"><?php directorist_icon( 'lab la-linkedin-in' ); ?></span><?php esc_html_e( 'LinkedIn', 'directorist' ); ?></label>
 
 									<input id="linkedIn" class="directorist-form-element" type="url" name="user[linkedIn]" value="<?php echo esc_attr( $dashboard->user_info( 'linkedin' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter linkedIn url', 'directorist' ); ?>">
 

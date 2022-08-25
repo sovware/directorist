@@ -207,7 +207,7 @@ class Localized_Data {
 			'nonceName'            => 'atbdp_nonce_js',
 			'countryRestriction'   => get_directorist_option( 'country_restriction' ),
 			'restricted_countries' => get_directorist_option( 'restricted_countries' ),
-			'AdminAssetPath'       => ATBDP_ADMIN_ASSETS,
+			'assets_path'          => DIRECTORIST_ASSETS,
 			'i18n_text'            => $i18n_text,
 			'icon_type'            => 'la',
 			'icon_picker_labels'   => $icon_picker_labels,

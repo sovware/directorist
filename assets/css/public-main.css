@@ -8429,8 +8429,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-bottom: 2px solid transparent;
   outline: 0;
 }
-.directorist-content-active .directorist-type-nav__link span {
-  padding-right: 7px;
+.directorist-content-active .directorist-type-nav__link .directorist-icon-mask {
+  margin-right: 7px;
+}
+.directorist-content-active .directorist-type-nav__link .directorist-icon-mask span {
+  width: 15px;
+  height: 15px;
 }
 .directorist-content-active .directorist-type-nav__link:focus {
   background: none !important;

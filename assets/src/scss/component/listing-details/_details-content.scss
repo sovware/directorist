@@ -268,7 +268,6 @@
     .directorist-slc__nav{
         width: 32px;
         height: 32px;
-        font-size: 12px;
         border-radius: 50%;
         background: #fff;
         display: flex;
@@ -283,9 +282,20 @@
         opacity: 0;
         text-decoration: none;
         cursor: pointer;
+        .directorist-icon-mask{
+            span{
+                width: 12px;
+                height: 12px;
+                transition: 0.3s ease;
+            }
+        }
         &:hover{
             background: #444752;
-            color: #fff;
+            .directorist-icon-mask{
+                span{
+                    background-color: #fff;
+                }
+            }
         }
         &--left{
             left: -16px;

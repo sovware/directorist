@@ -186,7 +186,7 @@ MarkerLabel.prototype.draw = function() {
                                 strokeWeight: 0,
                         },
                         map_icon_label:
-                                icon !== undefined && `<div class="atbd_map_shape"><i class="${icon}"></i></div>`,
+                                icon !== undefined && `<div class="atbd_map_shape">${icon}</div>`,
                 });
 
                 // add to array
@@ -247,7 +247,7 @@ MarkerLabel.prototype.draw = function() {
                         if (el.innerText === 'atgm_marker') {
                                 // console.log(at_icon)
                                 el.innerText = ' ';
-                                el.innerHTML = `<i class="la ${at_icon} atbd_map_marker_icon"></i>`;
+                                el.innerHTML = `<i class="atbd_map_marker_icon">${at_icon}</i>`;
                         }
                         // ${$marker.data('icon')}
                 });
@@ -259,7 +259,7 @@ MarkerLabel.prototype.draw = function() {
                                                 abc.forEach(function(el, index) {
                                                         if (el.innerText === 'atgm_marker') {
                                                                 el.innerText = ' ';
-                                                                el.innerHTML = `<i class="la ${at_icon} atbd_map_marker_icon"></i>`;
+                                                                el.innerHTML = `<i class="atbd_map_marker_icon">${at_icon}</i>`;
                                                         }
                                                 });
                                         }, 100);

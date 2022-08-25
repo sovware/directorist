@@ -399,7 +399,10 @@
                         margin-bottom: 2px;
                         font-size: 14px;
                         display: flex;
-                        align-items: flex-start;
+                        align-items: center;
+                        .directorist-icon-mask{
+                            width: 20px;
+                        }
                     }
 
                     .directorist-icon {
@@ -460,9 +463,7 @@
 
         .directorist-listing-category {
             & > a {
-                i,
-                span.la,
-                span.fa{
+                .directorist-icon-mask{
                     width: 36px;
                     height: 36px;
                     border-radius: 50%;
@@ -471,7 +472,11 @@
                     align-items: center;
                     justify-content: center;
                     margin-right: 10px;
-                    color: #51526E;
+                    span{
+                        background-color: #51526E;
+                        width: 15px;
+                        height: 15px;
+                    }
                 }
             }
         }
@@ -503,10 +508,13 @@
                 display: flex;
                 align-items: center;
 
-                i,
-                span.la,
-                span.fa {
+                .directorist-icon-mask{
                     margin-right: 5px;
+                    span{
+                        width: 15px;
+                        height: 15px;
+                        background-color: #767792;
+                    }
                 }
             }
 

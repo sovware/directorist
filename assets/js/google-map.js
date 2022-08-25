@@ -513,7 +513,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
 
-        var icon = $marker.data('icon');
+        var icon = JSON.parse($marker.data('icon'));
         var marker = new Marker({
           position: latlng,
           map: map,
@@ -524,7 +524,7 @@ __webpack_require__.r(__webpack_exports__);
             strokeColor: '',
             strokeWeight: 0
           },
-          map_icon_label: icon !== undefined && "<div class=\"atbd_map_shape\"><i class=\"".concat(icon, "\"></i></div>")
+          map_icon_label: icon !== undefined && "<div class=\"atbd_map_shape\">".concat(icon, "</div>")
         }); // add to array
 
         map.markers.push(marker); // if marker contains HTML, add it to an infoWindow
@@ -569,9 +569,8 @@ __webpack_require__.r(__webpack_exports__);
         var abc = document.querySelectorAll('div');
         abc.forEach(function (el, index) {
           if (el.innerText === 'atgm_marker') {
-            // console.log(at_icon)
             el.innerText = ' ';
-            el.innerHTML = "<i class=\"la ".concat(at_icon, " atbd_map_marker_icon\"></i>");
+            el.innerHTML = "<i class=\"atbd_map_marker_icon\">".concat(at_icon, "</i>");
           } // ${$marker.data('icon')}
 
         });
@@ -583,7 +582,7 @@ __webpack_require__.r(__webpack_exports__);
                 abc.forEach(function (el, index) {
                   if (el.innerText === 'atgm_marker') {
                     el.innerText = ' ';
-                    el.innerHTML = "<i class=\"la ".concat(at_icon, " atbd_map_marker_icon\"></i>");
+                    el.innerHTML = "<i class=\"atbd_map_marker_icon\">".concat(at_icon, "</i>");
                   }
                 });
               }, 100);
@@ -770,7 +769,7 @@ window.addEventListener('DOMContentLoaded', function () {
               strokeColor: '',
               strokeWeight: 0
             },
-            map_icon_label: '<div class="atbd_map_shape"><i class="' + cat_icon + '"></i></div>'
+            map_icon_label: '<div class="atbd_map_shape">' + cat_icon + '</div>'
           });
 
           if (display_map_info) {
@@ -950,7 +949,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 strokeColor: '',
                 strokeWeight: 0
               },
-              map_icon_label: '<div class="atbd_map_shape"><i class="' + cat_icon + '"></i></div>'
+              map_icon_label: "<div class=\"atbd_map_shape\">".concat(cat_icon, "</div>")
             });
 
             if (display_map_info) {

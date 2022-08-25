@@ -53,11 +53,13 @@
 		color: #202428;
 		border-bottom: 2px solid transparent;
 		outline: 0;
-
-		span {
-			padding-right: 7px;
+		.directorist-icon-mask{
+			margin-right: 7px;
+			span{
+				width: 15px;
+				height: 15px;
+			}
 		}
-
 		&:focus {
 			background: none !important;
 			outline: 0 !important;
@@ -97,9 +99,9 @@
 				margin-right: 15px;
 				.directorist-icon-mask{
 					span{
-						width: 12px;
-						height: 12px;
-						margin-right: 5px;
+						width: 15px;
+						height: 15px;
+						margin-right: 2px;
 					}
 				}
 			}

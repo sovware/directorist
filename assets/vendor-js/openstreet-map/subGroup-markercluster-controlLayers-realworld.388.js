@@ -40,7 +40,7 @@
             for (i = 0; i < mapListings.length; i++) {
                 const listing = mapListings[i];
                 const fontAwesomeIcon = L.divIcon({
-                    html: `<div class="atbd_map_shape"><span class="${listing.cat_icon}"></span></div>`,
+                    html: `<div class="atbd_map_shape"><span class="">${listing.cat_icon}</span></div>`,
                     iconSize: [20, 20],
                     className: 'myDivIcon',
                 });

@@ -115,31 +115,20 @@
                 align-items: center;
                 justify-content: center;
 
-                i,
-                span.fa,
-                span.la,
-                span.las,
-                span.lab,
-                span.lar,
-                span.fas,
-                span.la {
-                    transition: .35s;
-                    color: #474868;
-                    font-weight: 900;
+                .directorist-icon-mask {
+                    span{
+                        transition: .35s;
+                        background-color: #474868;
+                    }
                 }
 
                 &:hover {
                     background-color: $danger;
 
-                    i,
-                    span.fa,
-                    span.la,
-                    span.las,
-                    span.lab,
-                    span.lar,
-                    span.fas,
-                    span.la {
-                        color: #fff;
+                    .directorist-icon-mask {
+                        span{
+                            background-color: #fff;
+                        }
                     }
                 }
             }

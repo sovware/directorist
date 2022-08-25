@@ -32,7 +32,6 @@
                     lng: loc_manual_lng,
                 };
 
-                console.log(cat_icon);
                 function mapLeaflet(lat, lon) {
                     const fontAwesomeIcon = L.divIcon({
                         html: `<div class="atbd_map_shape"><span class="">${cat_icon}</span></div>`,

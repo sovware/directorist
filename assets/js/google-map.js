@@ -513,7 +513,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
 
-        var icon = $marker.data('icon');
+        var icon = JSON.parse($marker.data('icon'));
         var marker = new Marker({
           position: latlng,
           map: map,
@@ -569,9 +569,8 @@ __webpack_require__.r(__webpack_exports__);
         var abc = document.querySelectorAll('div');
         abc.forEach(function (el, index) {
           if (el.innerText === 'atgm_marker') {
-            // console.log(at_icon)
             el.innerText = ' ';
-            el.innerHTML = "<i class=\"la ".concat(at_icon, " atbd_map_marker_icon\"></i>");
+            el.innerHTML = "<i class=\"atbd_map_marker_icon\">".concat(at_icon, "</i>");
           } // ${$marker.data('icon')}
 
         });
@@ -583,7 +582,7 @@ __webpack_require__.r(__webpack_exports__);
                 abc.forEach(function (el, index) {
                   if (el.innerText === 'atgm_marker') {
                     el.innerText = ' ';
-                    el.innerHTML = "<i class=\"la ".concat(at_icon, " atbd_map_marker_icon\"></i>");
+                    el.innerHTML = "<i class=\"atbd_map_marker_icon\">".concat(at_icon, "</i>");
                   }
                 });
               }, 100);

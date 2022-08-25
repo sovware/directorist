@@ -14640,31 +14640,16 @@ Review: New Style
       -ms-flex-pack: center;
           justify-content: center;
 }
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement i,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement span.fa,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement span.la,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement span.las,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement span.lab,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement span.lar,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement span.fas,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement span.la {
+.directorist-announcement-wrapper .directorist-announcement__close .close-announcement .directorist-icon-mask span {
   -webkit-transition: 0.35s;
   transition: 0.35s;
-  color: #474868;
-  font-weight: 900;
+  background-color: #474868;
 }
 .directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover {
   background-color: #EF0000;
 }
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover i,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover span.fa,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover span.la,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover span.las,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover span.lab,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover span.lar,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover span.fas,
-.directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover span.la {
-  color: #fff;
+.directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover .directorist-icon-mask span {
+  background-color: #fff;
 }
 
 .directorist-announcement-count {

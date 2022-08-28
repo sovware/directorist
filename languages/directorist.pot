@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-14 09:54+0000\n"
+"POT-Creation-Date: 2022-08-24 04:26+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -470,7 +470,7 @@ msgstr ""
 msgid "Do you really want to remove this review!"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:91, ../includes/asset-loader/localized_data.php:96, ../includes/asset-loader/localized_data.php:143, ../includes/asset-loader/localized_data.php:181
+#: ../includes/asset-loader/localized_data.php:91, ../includes/asset-loader/localized_data.php:96, ../includes/asset-loader/localized_data.php:144, ../includes/asset-loader/localized_data.php:182
 msgid "Yes, Delete it!"
 msgstr ""
 
@@ -502,7 +502,7 @@ msgstr ""
 msgid "Select or Upload a profile picture"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:101, ../includes/asset-loader/localized_data.php:186
+#: ../includes/asset-loader/localized_data.php:101, ../includes/asset-loader/localized_data.php:187
 msgid "Use this Image"
 msgstr ""
 
@@ -518,91 +518,91 @@ msgstr ""
 msgid "Sending the message, please wait..."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:140, ../includes/asset-loader/localized_data.php:179
+#: ../includes/asset-loader/localized_data.php:141, ../includes/asset-loader/localized_data.php:180
 msgid "Are you sure"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:141, ../includes/asset-loader/localized_data.php:180
+#: ../includes/asset-loader/localized_data.php:142, ../includes/asset-loader/localized_data.php:181
 msgid "Do you really want to remove this Social Link!"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:142
+#: ../includes/asset-loader/localized_data.php:143
 msgid "Do you really want to remove this FAQ!"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:144, ../includes/asset-loader/localized_data.php:182
+#: ../includes/asset-loader/localized_data.php:145, ../includes/asset-loader/localized_data.php:183
 msgid "Deleted!"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:146
+#: ../includes/asset-loader/localized_data.php:147
 msgid "You can only use %s"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:160
+#: ../includes/asset-loader/localized_data.php:161
 msgid "Listing gallery has invalid files"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:167
+#: ../includes/asset-loader/localized_data.php:168
 msgid "Sorry! You have crossed the maximum image limit"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:183
+#: ../includes/asset-loader/localized_data.php:184
 msgid "Select an icon"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:184
+#: ../includes/asset-loader/localized_data.php:185
 msgid "Select or Upload Slider Image"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:185
+#: ../includes/asset-loader/localized_data.php:186
 msgid "Select Category Image"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:187
+#: ../includes/asset-loader/localized_data.php:188
 msgid "Select Preview Image"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:188
+#: ../includes/asset-loader/localized_data.php:189
 msgid "Insert Preview Image"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:214, ../includes/asset-loader/localized_data.php:228, ../includes/model/Listings.php:176, ../includes/model/Listings.php:220
+#: ../includes/asset-loader/localized_data.php:215, ../includes/asset-loader/localized_data.php:229, ../includes/model/Listings.php:176, ../includes/model/Listings.php:220
 msgid "Select a category"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:215, ../includes/asset-loader/localized_data.php:229, ../includes/model/Listings.php:177, ../includes/model/Listings.php:221
+#: ../includes/asset-loader/localized_data.php:216, ../includes/asset-loader/localized_data.php:230, ../includes/model/Listings.php:177, ../includes/model/Listings.php:221
 msgid "Select a location"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:223
+#: ../includes/asset-loader/localized_data.php:224
 msgid " Miles"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:221
+#: ../includes/asset-loader/localized_data.php:222
 msgid " Kilometers"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:230, ../templates/search-form/fields/tag.php:42
+#: ../includes/asset-loader/localized_data.php:231, ../templates/search-form/fields/tag.php:42
 msgid "Show More"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:231
+#: ../includes/asset-loader/localized_data.php:232
 msgid "Show Less"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:232
+#: ../includes/asset-loader/localized_data.php:233
 msgid "Added to favorite"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:233
+#: ../includes/asset-loader/localized_data.php:234
 msgid "Please login first"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:263, ../includes/model/Account.php:42
+#: ../includes/asset-loader/localized_data.php:264, ../includes/model/Account.php:42
 msgid "Sending user info, please wait..."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:264, ../includes/classes/class-ajax-handler.php:188, ../includes/classes/class-ajax-handler.php:298, ../includes/classes/class-ajax-handler.php:639, ../includes/model/Account.php:43
+#: ../includes/asset-loader/localized_data.php:265, ../includes/classes/class-ajax-handler.php:188, ../includes/classes/class-ajax-handler.php:298, ../includes/classes/class-ajax-handler.php:639, ../includes/model/Account.php:43
 msgid "Wrong username or password."
 msgstr ""
 
@@ -821,7 +821,7 @@ msgid "The announcement has been closed successfully"
 msgstr ""
 
 #: ../includes/classes/class-cron.php:51
-msgid "Every 5 minutes"
+msgid "Every 30 minutes"
 msgstr ""
 
 #: ../includes/classes/class-custom-post.php:79, ../includes/classes/class-custom-taxonomy.php:275, ../includes/classes/class-custom-taxonomy.php:350, ../includes/classes/class-custom-taxonomy.php:443, ../includes/classes/class-custom-taxonomy.php:494, ../includes/classes/class-custom-taxonomy.php:648, ../includes/classes/class-custom-taxonomy.php:659
@@ -8351,13 +8351,6 @@ msgstr ""
 #: ../templates/listing-form/custom-fields/file.php:131
 msgid "Allowed file types: %s"
 msgstr ""
-
-#: ../templates/listing-form/custom-fields/file.php:134
-msgctxt "number of files"
-msgid "(You can upload %s file)"
-msgid_plural "(You can upload %s files)"
-msgstr[0] ""
-msgstr[1] ""
 
 #: ../templates/listing-form/fields/image_upload.php:56
 msgid "Drop Here"

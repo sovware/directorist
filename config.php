@@ -1,6 +1,6 @@
 <?php
 // Plugin version.
-if ( ! defined( 'ATBDP_VERSION' ) ) {define( 'ATBDP_VERSION', '7.3.2' );}
+if ( ! defined( 'ATBDP_VERSION' ) ) {define( 'ATBDP_VERSION', '7.3.3' );}
 // Plugin Folder Path.
 if ( ! defined( 'ATBDP_DIR' ) ) { define( 'ATBDP_DIR', plugin_dir_path( __FILE__ ) ); }
 // Plugin Folder URL.
@@ -16,6 +16,8 @@ if ( !defined('ATBDP_INC_DIR') ) { define('ATBDP_INC_DIR', ATBDP_DIR.'includes/'
 if ( !defined('ATBDP_CLASS_DIR') ) { define('ATBDP_CLASS_DIR', ATBDP_DIR.'includes/classes/'); }
 // Plugin Model Path
 if ( !defined('ATBDP_MODEL_DIR') ) { define('ATBDP_MODEL_DIR', ATBDP_DIR.'includes/model/'); }
+// Plugin Assets Path
+if ( !defined('DIRECTORIST_ASSETS_DIR') ) { define('DIRECTORIST_ASSETS_DIR', ATBDP_DIR.'assets/'); }
 
 // Plugin Template Path
 if ( !defined('ATBDP_VIEWS_DIR') ) { define('ATBDP_VIEWS_DIR', ATBDP_DIR.'views/'); }
@@ -37,7 +39,7 @@ if ( ! defined( 'DIRECTORIST_VENDOR_CSS' ) ) { define('DIRECTORIST_VENDOR_CSS', 
 if ( ! defined( 'DIRECTORIST_VENDOR_JS' ) ) { define('DIRECTORIST_VENDOR_JS', DIRECTORIST_ASSETS . 'vendor-js/'); }
 
 // Plugin Admin Assets Path
-if ( !defined('ATBDP_ADMIN_ASSETS') ) { define('ATBDP_ADMIN_ASSETS', ATBDP_URL.'admin/assets/'); }
+if ( !defined('ATBDP_ADMIN_ASSETS') ) { define('ATBDP_ADMIN_ASSETS', DIRECTORIST_ASSETS ); }
 // Plugin Language File Path
 if ( !defined('ATBDP_LANG_DIR') ) { define('ATBDP_LANG_DIR', dirname(plugin_basename( __FILE__ ) ) . '/languages'); }
 // Plugin Name

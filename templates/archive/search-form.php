@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author  wpWax
  * @since   6.6

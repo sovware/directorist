@@ -524,12 +524,12 @@ window.addEventListener('DOMContentLoaded', function () {
   );
   return $elem;
   }
-   $("#category_icon").select2({
+    $("#category_icon").select2({
   placeholder: directorist_admin.i18n_text.icon_choose_text,
   allowClear: true,
   templateResult: selecWithIcon,
   });
-   /* Show and hide manual coordinate input field */
+    /* Show and hide manual coordinate input field */
 
   if (!$('input#manual_coordinate').is(':checked')) {
     $('.directorist-map-coordinates').hide();
@@ -894,7 +894,7 @@ window.addEventListener('DOMContentLoaded', function () {
   delImgLink.on('click', function (event) {
     event.preventDefault(); // Clear out the preview image and set no image as placeholder
 
-    $('.listing-img-container').html("<img src=\"".concat(directorist_admin.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" />")); // Hide the delete image link
+    $('.listing-img-container').html("<img src=\"".concat(directorist_admin.assets_path, "images/no-image.png\" alt=\"Listing Image\" />")); // Hide the delete image link
 
     delImgLink.addClass('hidden');
   });
@@ -905,7 +905,7 @@ window.addEventListener('DOMContentLoaded', function () {
     $(this).parent().remove(); // if no image exist then add placeholder and hide remove image button
 
     if ($('.single_attachment').length === 0) {
-      $('.listing-img-container').html("<img src=\"".concat(directorist_admin.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
+      $('.listing-img-container').html("<img src=\"".concat(directorist_admin.assets_path, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
       delImgLink.addClass('hidden');
     }
   });
@@ -1026,11 +1026,11 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-   if (frame) {
+    if (frame) {
    frame.open();
    return;
   }
-   // Create a new media frame
+    // Create a new media frame
   frame = wp.media({
    title: directorist_admin.i18n_text.upload_cat_image,
    button: {
@@ -1540,7 +1540,36 @@ pureScriptTab('.directorist_builder--tab');
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery; // Category icon selection
+  var $ = jQuery; // Init Category Icon Picker
+
+  function initCategoryIconPicker() {
+    var iconPickerContainer = document.querySelector('.directorist-category-icon-picker');
+
+    if (!iconPickerContainer) {
+      return;
+    }
+
+    var iconValueElm = document.querySelector('.category_icon_value');
+    var iconValue = iconValueElm ? iconValueElm.value : '';
+
+    var onSelectIcon = function onSelectIcon(value) {
+      iconValueElm.setAttribute('value', value);
+    };
+
+    var args = {};
+    args.container = iconPickerContainer;
+    args.onSelect = onSelectIcon;
+    args.icons = {
+      fontAwesome: directoriistFontAwesomeIcons,
+      lineAwesome: directoriistLineAwesomeIcons
+    };
+    args.value = iconValue;
+    args.labels = directorist_admin.icon_picker_labels;
+    var iconPicker = new IconPicker(args);
+    iconPicker.init();
+  }
+
+  initCategoryIconPicker(); // Category icon selection
 
   function selecWithIcon(selected) {
     if (!selected.id) {

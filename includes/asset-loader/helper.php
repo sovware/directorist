@@ -51,7 +51,7 @@ class Helper {
 
 	/**
 	 * Get script version
-	 * 
+	 *
 	 * @return string
 	 */
 	public static function get_script_version() {

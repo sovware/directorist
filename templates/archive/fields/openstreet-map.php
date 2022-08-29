@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1.2
+ * @version 7.4.0
  */
 ?>
 <div class='atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom'>
@@ -59,7 +59,7 @@
 		if ( ! empty( $ls_data['address'] ) ) {
 			if ( ! empty( $display_address_map ) ) { ?>
 				<div class='osm-iw-location'>
-					<span class='<?php atbdp_icon_type( true ); ?>-map-marker'></span>
+					<?php directorist_icon( 'las la-map-marker' ); ?>
 					<a href='./' class='map-info-link'><?php echo esc_html( $ls_data['address'] ); ?></a>
 				</div>
 				<?php
@@ -68,7 +68,7 @@
 			if ( ! empty( $display_direction_map ) ) { ?>
 				<div class='osm-iw-get-location'>
 					<a href='http://www.google.com/maps?daddr=<?php echo esc_attr( $ls_data['manual_lat'] ) . ',' . esc_attr( $ls_data['manual_lng'] ); ?>' target='_blank'><?php esc_html_e( 'Get Directions', 'directorist' );?></a>
-					<span class='<?php atbdp_icon_type( true ); ?>-arrow-right'></span>
+					<?php directorist_icon( 'las la-arrow-right' ); ?>
 				</div>
 				<?php
 			}

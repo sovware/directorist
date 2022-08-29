@@ -45,42 +45,4 @@ $columns = floor( 12 / $taxonomy->columns );
      */
     do_action( 'atbdp_after_all_categories_loop' );
     ?>
-
-<!-- Category style 03 -->
-<!-- <div class="directorist-category-child">
-		<div class="directorist-row">
-			<div class="directorist-col-lg-3 directorist-col-md-4 directorist-col-sm-6">
-				<div class="directorist-category-child__card">
-					<div class="directorist-category-child__card__header">
-						<a href="" class=""><i class="la la-bed"></i> Restaurant</a>
-					</div>
-					<div class="directorist-category-child__card__body">
-						<ul>
-							<li><a href="">Cleaning <span class="directorist-category-child-count">20</span></a></li>
-							<li><a href="">Cleaning <span class="directorist-category-child-count">20</span></a></li>
-							<li><a href="">Cleaning <span class="directorist-category-child-count">20</span></a></li>
-							<li><a href="">Cleaning <span class="directorist-category-child-count">20</span></a></li>
-							<li><a href="">Cleaning <span class="directorist-category-child-count">20</span></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="directorist-col-lg-3 directorist-col-md-4 directorist-col-sm-6">
-				<div class="directorist-category-child__card">
-					<div class="directorist-category-child__card__header">
-						<a href="" class=""><i class="la la-heart"></i> Restaurant</a>
-					</div>
-					<div class="directorist-category-child__card__body">
-						<ul>
-							<li><a href="">Cleaning <span class="directorist-category-child-count">20</span></a></li>
-							<li><a href="">Cleaning <span class="directorist-category-child-count">20</span></a></li>
-							<li><a href="">Cleaning <span class="directorist-category-child-count">20</span></a></li>
-							<li><a href="">Cleaning <span class="directorist-category-child-count">20</span></a></li>
-							<li><a href="">Cleaning <span class="directorist-category-child-count">20</span></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
 </div>

@@ -634,7 +634,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
                 directorist_nonce: directorist_admin.directorist_nonce,
             },
             success(response) {
-                
+
                 if ( response.error ) {
                     console.log({ response });
                     return;

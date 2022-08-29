@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -21,10 +21,10 @@ $featured_args = array(
     )
 );
 /**
- * Filter to modify featured listings arguments. 
+ * Filter to modify featured listings arguments.
  *
  * @since 7.3.1
- * 
+ *
  * @param array $featured_args  Featured Arguments.
  */
 apply_filters( "directorist_widget_featured_listings_query_arguments", $featured_args );
@@ -78,8 +78,7 @@ $featured_listings = new WP_Query($featured_args);
                             ?>
 
                             <p class="directory_tag">
-                                <span class="
-<?php atbdp_icon_type(true);?>-tags"></span>
+							<?php directorist_icon( 'las la-tags' ); ?>
                                 <span>
                                             <a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_category_page($cats[0]) ); ?>">
                                                                     <?php echo esc_html($cats[0]->name); ?>

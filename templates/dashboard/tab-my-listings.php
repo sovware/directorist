@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 use \Directorist\Helper;
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-user-dashboard-search">
 
 					<div class="directorist-user-dashboard-search__icon">
-						<i class="la la-search"></i>
+						<?php directorist_icon( 'las la-search' ); ?>
 					</div>
 
 					<form id="directorist-dashboard-listing-searchform">

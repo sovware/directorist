@@ -14,31 +14,31 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../config.php:61
+#: ../config.php:63
 msgid "You do not have the right to access this file directly"
 msgstr ""
 
-#: ../directorist-base.php:498, ../directorist-base.php:511
+#: ../directorist-base.php:501, ../directorist-base.php:514
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: ../directorist-base.php:525
+#: ../directorist-base.php:528
 msgid "Directorist - Listing Right Sidebar"
 msgstr ""
 
-#: ../directorist-base.php:527
+#: ../directorist-base.php:530
 msgid "Add widgets for the right sidebar on single listing page"
 msgstr ""
 
-#: ../directorist-base.php:575, ../includes/classes/class-settings-panel.php:5325
+#: ../directorist-base.php:578, ../includes/classes/class-settings-panel.php:5325
 msgid "Uninstall"
 msgstr ""
 
-#: ../directorist-base.php:581
+#: ../directorist-base.php:584
 msgid "Uninstall Settings"
 msgstr ""
 
-#: ../directorist-base.php:587, ../directorist-base.php:593
+#: ../directorist-base.php:590, ../directorist-base.php:596
 msgid "Listings Import"
 msgstr ""
 
@@ -150,163 +150,163 @@ msgstr ""
 msgid "You need to be logged in to view the content of this page"
 msgstr ""
 
-#: ../includes/helper-functions.php:5876
+#: ../includes/helper-functions.php:5882
 msgid "You need to be logged in to view the content of this page. You can login %s. Don't have an account? %s"
 msgstr ""
 
-#: ../includes/helper-functions.php:5876, ../includes/classes/class-helper.php:538, ../includes/classes/class-settings-panel.php:4004, ../templates/account/registration.php:33, ../templates/account/registration.php:25
+#: ../includes/helper-functions.php:5882, ../includes/classes/class-helper.php:538, ../includes/classes/class-settings-panel.php:4004, ../templates/account/registration.php:33, ../templates/account/registration.php:25
 msgid "Here"
 msgstr ""
 
-#: ../includes/helper-functions.php:5876
+#: ../includes/helper-functions.php:5882
 msgid "Sign up"
 msgstr ""
 
-#: ../includes/helper-functions.php:5905
+#: ../includes/helper-functions.php:5911
 msgid "Jan"
 msgstr ""
 
-#: ../includes/helper-functions.php:5906
+#: ../includes/helper-functions.php:5912
 msgid "Feb"
 msgstr ""
 
-#: ../includes/helper-functions.php:5907
+#: ../includes/helper-functions.php:5913
 msgid "Mar"
 msgstr ""
 
-#: ../includes/helper-functions.php:5908
+#: ../includes/helper-functions.php:5914
 msgid "Apr"
 msgstr ""
 
-#: ../includes/helper-functions.php:5909
+#: ../includes/helper-functions.php:5915
 msgid "May"
 msgstr ""
 
-#: ../includes/helper-functions.php:5910
+#: ../includes/helper-functions.php:5916
 msgid "Jun"
 msgstr ""
 
-#: ../includes/helper-functions.php:5911
+#: ../includes/helper-functions.php:5917
 msgid "Jul"
 msgstr ""
 
-#: ../includes/helper-functions.php:5912
+#: ../includes/helper-functions.php:5918
 msgid "Aug"
 msgstr ""
 
-#: ../includes/helper-functions.php:5913
+#: ../includes/helper-functions.php:5919
 msgid "Sep"
 msgstr ""
 
-#: ../includes/helper-functions.php:5914
+#: ../includes/helper-functions.php:5920
 msgid "Oct"
 msgstr ""
 
-#: ../includes/helper-functions.php:5915
+#: ../includes/helper-functions.php:5921
 msgid "Nov"
 msgstr ""
 
-#: ../includes/helper-functions.php:5916
+#: ../includes/helper-functions.php:5922
 msgid "Dec"
 msgstr ""
 
-#: ../includes/helper-functions.php:6470, ../includes/classes/class-settings-panel.php:1696, ../includes/classes/class-settings-panel.php:3133
+#: ../includes/helper-functions.php:6476, ../includes/classes/class-settings-panel.php:1696, ../includes/classes/class-settings-panel.php:3133
 msgid "A to Z (title)"
 msgstr ""
 
-#: ../includes/helper-functions.php:6471, ../includes/classes/class-settings-panel.php:1700, ../includes/classes/class-settings-panel.php:3137
+#: ../includes/helper-functions.php:6477, ../includes/classes/class-settings-panel.php:1700, ../includes/classes/class-settings-panel.php:3137
 msgid "Z to A (title)"
 msgstr ""
 
-#: ../includes/helper-functions.php:6472, ../includes/classes/class-settings-panel.php:1704, ../includes/classes/class-settings-panel.php:3141
+#: ../includes/helper-functions.php:6478, ../includes/classes/class-settings-panel.php:1704, ../includes/classes/class-settings-panel.php:3141
 msgid "Latest listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:6473, ../includes/classes/class-settings-panel.php:1708, ../includes/classes/class-settings-panel.php:3145
+#: ../includes/helper-functions.php:6479, ../includes/classes/class-settings-panel.php:1708, ../includes/classes/class-settings-panel.php:3145
 msgid "Oldest listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:6474, ../includes/classes/class-settings-panel.php:1712, ../includes/classes/class-settings-panel.php:3149
+#: ../includes/helper-functions.php:6480, ../includes/classes/class-settings-panel.php:1712, ../includes/classes/class-settings-panel.php:3149
 msgid "Popular listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:6475, ../includes/classes/class-settings-panel.php:1716, ../includes/classes/class-settings-panel.php:3153
+#: ../includes/helper-functions.php:6481, ../includes/classes/class-settings-panel.php:1716, ../includes/classes/class-settings-panel.php:3153
 msgid "Price (low to high)"
 msgstr ""
 
-#: ../includes/helper-functions.php:6476, ../includes/classes/class-settings-panel.php:1720, ../includes/classes/class-settings-panel.php:3157
+#: ../includes/helper-functions.php:6482, ../includes/classes/class-settings-panel.php:1720, ../includes/classes/class-settings-panel.php:3157
 msgid "Price (high to low)"
 msgstr ""
 
-#: ../includes/helper-functions.php:6477, ../includes/classes/class-settings-panel.php:1724, ../includes/classes/class-settings-panel.php:3161
+#: ../includes/helper-functions.php:6483, ../includes/classes/class-settings-panel.php:1724, ../includes/classes/class-settings-panel.php:3161
 msgid "Random listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:6622, ../includes/classes/class-settings-panel.php:1765, ../includes/classes/class-settings-panel.php:1784, ../includes/classes/class-settings-panel.php:3080, ../includes/classes/class-settings-panel.php:3606, ../includes/classes/class-settings-panel.php:3694, ../includes/widgets/all-categories.php:49, ../includes/widgets/all-locations.php:49, ../includes/widgets/all-tags.php:48
+#: ../includes/helper-functions.php:6628, ../includes/classes/class-settings-panel.php:1765, ../includes/classes/class-settings-panel.php:1784, ../includes/classes/class-settings-panel.php:3080, ../includes/classes/class-settings-panel.php:3606, ../includes/classes/class-settings-panel.php:3694, ../includes/widgets/all-categories.php:49, ../includes/widgets/all-locations.php:49, ../includes/widgets/all-tags.php:48
 msgid "List"
 msgstr ""
 
-#: ../includes/helper-functions.php:6625, ../includes/classes/class-settings-panel.php:1761, ../includes/classes/class-settings-panel.php:1780, ../includes/classes/class-settings-panel.php:3076, ../includes/classes/class-settings-panel.php:3602, ../includes/classes/class-settings-panel.php:3690
+#: ../includes/helper-functions.php:6631, ../includes/classes/class-settings-panel.php:1761, ../includes/classes/class-settings-panel.php:1780, ../includes/classes/class-settings-panel.php:3076, ../includes/classes/class-settings-panel.php:3602, ../includes/classes/class-settings-panel.php:3690
 msgid "Grid"
 msgstr ""
 
-#: ../includes/helper-functions.php:6628, ../includes/classes/class-settings-panel.php:1769, ../includes/classes/class-settings-panel.php:1788, ../includes/classes/class-settings-panel.php:3084, ../includes/classes/class-settings-panel.php:4652, ../includes/classes/class-settings-panel.php:4656, ../includes/widgets/single-map.php:27
+#: ../includes/helper-functions.php:6634, ../includes/classes/class-settings-panel.php:1769, ../includes/classes/class-settings-panel.php:1788, ../includes/classes/class-settings-panel.php:3084, ../includes/classes/class-settings-panel.php:4652, ../includes/classes/class-settings-panel.php:4656, ../includes/widgets/single-map.php:27
 msgid "Map"
 msgstr ""
 
-#: ../includes/helper-functions.php:7457
+#: ../includes/helper-functions.php:7423
 msgid "Email already registered. Please login first"
 msgstr ""
 
-#: ../includes/helper-functions.php:7496, ../includes/classes/class-settings-panel.php:4560
+#: ../includes/helper-functions.php:7462, ../includes/classes/class-settings-panel.php:4560
 msgid "Remove Data on Uninstall?"
 msgstr ""
 
-#: ../includes/helper-functions.php:7497, ../includes/classes/class-settings-panel.php:4561
+#: ../includes/helper-functions.php:7463, ../includes/classes/class-settings-panel.php:4561
 msgid "Checked it if you would like Directorist to completely remove all of its data when the plugin is deleted."
 msgstr ""
 
-#: ../includes/helper-functions.php:7508
+#: ../includes/helper-functions.php:7474
 msgid "CSV"
 msgstr ""
 
-#: ../includes/helper-functions.php:7609
+#: ../includes/helper-functions.php:7575
 msgid "Search Home"
 msgstr ""
 
-#: ../includes/helper-functions.php:7613, ../includes/classes/class-settings-panel.php:4713, ../includes/classes/class-setup-wizard.php:425, ../includes/elementor/search-result.php:15
+#: ../includes/helper-functions.php:7579, ../includes/classes/class-settings-panel.php:4713, ../includes/classes/class-setup-wizard.php:425, ../includes/elementor/search-result.php:15
 msgid "Search Result"
 msgstr ""
 
-#: ../includes/helper-functions.php:7617, ../includes/classes/class-setup-wizard.php:345
+#: ../includes/helper-functions.php:7583, ../includes/classes/class-setup-wizard.php:345
 msgid "Add Listing"
 msgstr ""
 
-#: ../includes/helper-functions.php:7621, ../includes/classes/class-settings-panel.php:4585, ../includes/classes/class-setup-wizard.php:353, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:28
+#: ../includes/helper-functions.php:7587, ../includes/classes/class-settings-panel.php:4585, ../includes/classes/class-setup-wizard.php:353, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:28
 msgid "All Listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:7629, ../includes/classes/class-setup-wizard.php:361, ../includes/elementor/category.php:15
+#: ../includes/helper-functions.php:7595, ../includes/classes/class-setup-wizard.php:361, ../includes/elementor/category.php:15
 msgid "Single Category"
 msgstr ""
 
-#: ../includes/helper-functions.php:7637, ../includes/classes/class-setup-wizard.php:369, ../includes/elementor/location.php:15
+#: ../includes/helper-functions.php:7603, ../includes/classes/class-setup-wizard.php:369, ../includes/elementor/location.php:15
 msgid "Single Location"
 msgstr ""
 
-#: ../includes/helper-functions.php:7641, ../includes/classes/class-setup-wizard.php:377, ../includes/elementor/tag.php:15
+#: ../includes/helper-functions.php:7607, ../includes/classes/class-setup-wizard.php:377, ../includes/elementor/tag.php:15
 msgid "Single Tag"
 msgstr ""
 
-#: ../includes/helper-functions.php:7645, ../includes/classes/class-setup-wizard.php:385
+#: ../includes/helper-functions.php:7611, ../includes/classes/class-setup-wizard.php:385
 msgid "Author Profile"
 msgstr ""
 
-#: ../includes/helper-functions.php:7649, ../includes/classes/class-settings-panel.php:4893, ../includes/classes/class-setup-wizard.php:393, ../includes/elementor/user-dashboard.php:15
+#: ../includes/helper-functions.php:7615, ../includes/classes/class-settings-panel.php:4893, ../includes/classes/class-setup-wizard.php:393, ../includes/elementor/user-dashboard.php:15
 msgid "Dashboard"
 msgstr ""
 
-#: ../includes/helper-functions.php:7653, ../includes/classes/class-setup-wizard.php:409, ../includes/elementor/custom-registration.php:15
+#: ../includes/helper-functions.php:7619, ../includes/classes/class-setup-wizard.php:409, ../includes/elementor/custom-registration.php:15
 msgid "Registration"
 msgstr ""
 
@@ -314,107 +314,107 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: ../includes/helper-functions.php:8111
+#: ../includes/helper-functions.php:8077
 msgid "Add listing page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8112, ../includes/helper-functions.php:8120, ../includes/helper-functions.php:8128, ../includes/helper-functions.php:8136, ../includes/helper-functions.php:8144, ../includes/helper-functions.php:8152, ../includes/helper-functions.php:8160, ../includes/helper-functions.php:8168, ../includes/helper-functions.php:8176, ../includes/helper-functions.php:8184, ../includes/helper-functions.php:8192, ../includes/helper-functions.php:8200, ../includes/helper-functions.php:8208
+#: ../includes/helper-functions.php:8078, ../includes/helper-functions.php:8086, ../includes/helper-functions.php:8094, ../includes/helper-functions.php:8102, ../includes/helper-functions.php:8110, ../includes/helper-functions.php:8118, ../includes/helper-functions.php:8126, ../includes/helper-functions.php:8134, ../includes/helper-functions.php:8142, ../includes/helper-functions.php:8150, ../includes/helper-functions.php:8158, ../includes/helper-functions.php:8166, ../includes/helper-functions.php:8174
 msgid "Contains a collection of relevant data that will help you debug your website accurately and more efficiently."
 msgstr ""
 
-#: ../includes/helper-functions.php:8114, ../includes/helper-functions.php:8122, ../includes/helper-functions.php:8130, ../includes/helper-functions.php:8138, ../includes/helper-functions.php:8146, ../includes/helper-functions.php:8154, ../includes/helper-functions.php:8162, ../includes/helper-functions.php:8170, ../includes/helper-functions.php:8178, ../includes/helper-functions.php:8186, ../includes/helper-functions.php:8194, ../includes/helper-functions.php:8202
+#: ../includes/helper-functions.php:8080, ../includes/helper-functions.php:8088, ../includes/helper-functions.php:8096, ../includes/helper-functions.php:8104, ../includes/helper-functions.php:8112, ../includes/helper-functions.php:8120, ../includes/helper-functions.php:8128, ../includes/helper-functions.php:8136, ../includes/helper-functions.php:8144, ../includes/helper-functions.php:8152, ../includes/helper-functions.php:8160, ../includes/helper-functions.php:8168
 msgid "Select Page"
 msgstr ""
 
-#: ../includes/helper-functions.php:8119
+#: ../includes/helper-functions.php:8085
 msgid "Dashboard page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8127
+#: ../includes/helper-functions.php:8093
 msgid "User Profile page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8135
+#: ../includes/helper-functions.php:8101
 msgid "Single Category page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8143, ../includes/helper-functions.php:8151
+#: ../includes/helper-functions.php:8109, ../includes/helper-functions.php:8117
 msgid "Single Location page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8159
+#: ../includes/helper-functions.php:8125
 msgid "Registration page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8167
+#: ../includes/helper-functions.php:8133
 msgid "Login page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8175
+#: ../includes/helper-functions.php:8141
 msgid "Search Result page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8183
+#: ../includes/helper-functions.php:8149
 msgid "Checkout page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8191
+#: ../includes/helper-functions.php:8157
 msgid "Payment Receipt page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8199
+#: ../includes/helper-functions.php:8165
 msgid "Transaction Failure page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:8207
+#: ../includes/helper-functions.php:8173
 msgid "Map Api Key is missing"
 msgstr ""
 
-#: ../includes/helper-functions.php:8210
+#: ../includes/helper-functions.php:8176
 msgid "Give the Api"
 msgstr ""
 
-#: ../includes/helper-functions.php:8215
+#: ../includes/helper-functions.php:8181
 msgid "SMTP not configured"
 msgstr ""
 
-#: ../includes/helper-functions.php:8216
+#: ../includes/helper-functions.php:8182
 msgid "SMTP is a TCP/IP protocol responsible for email deliveries. You must configure SMTP to send or receive emails."
 msgstr ""
 
-#: ../includes/helper-functions.php:8303
+#: ../includes/helper-functions.php:8269
 msgid "Something went wrong!"
 msgstr ""
 
-#: ../includes/helper-functions.php:8304
+#: ../includes/helper-functions.php:8270
 msgid "Registration failed. Please make sure you filed up all the necessary fields marked with <span style=\"color: red\">*</span>"
 msgstr ""
 
-#: ../includes/helper-functions.php:8305
+#: ../includes/helper-functions.php:8271
 msgid "Sorry, that email already exists!"
 msgstr ""
 
-#: ../includes/helper-functions.php:8306, ../includes/classes/class-user.php:227
+#: ../includes/helper-functions.php:8272, ../includes/classes/class-user.php:227
 msgid "Username too short. At least 4 characters is required"
 msgstr ""
 
-#: ../includes/helper-functions.php:8307, ../includes/classes/class-user.php:231
+#: ../includes/helper-functions.php:8273, ../includes/classes/class-user.php:231
 msgid "Sorry, that username already exists!"
 msgstr ""
 
-#: ../includes/helper-functions.php:8308, ../includes/classes/class-user.php:241
+#: ../includes/helper-functions.php:8274, ../includes/classes/class-user.php:241
 msgid "Password length must be greater than 5"
 msgstr ""
 
-#: ../includes/helper-functions.php:8309, ../includes/classes/class-user.php:256
+#: ../includes/helper-functions.php:8275, ../includes/classes/class-user.php:256
 msgid "Email is not valid"
 msgstr ""
 
-#: ../includes/helper-functions.php:8310
+#: ../includes/helper-functions.php:8276
 msgid "Space is not allowed in username"
 msgstr ""
 
-#: ../includes/helper-functions.php:8311
+#: ../includes/helper-functions.php:8277
 msgid "Please make sure you filed up the user type"
 msgstr ""
 
@@ -780,7 +780,7 @@ msgstr ""
 msgid "Sorry! Something wrong."
 msgstr ""
 
-#: ../includes/classes/class-announcement.php:30, ../includes/classes/class-announcement.php:278, ../includes/classes/class-settings-panel.php:2592, ../includes/model/ListingDashboard.php:390
+#: ../includes/classes/class-announcement.php:30, ../includes/classes/class-announcement.php:278, ../includes/classes/class-settings-panel.php:2592, ../includes/model/ListingDashboard.php:394
 msgid "Announcements"
 msgstr ""
 
@@ -894,7 +894,7 @@ msgstr ""
 msgid "Directory Listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:250, ../includes/classes/class-settings-panel.php:3649, ../includes/classes/class-settings-panel.php:3737, ../includes/classes/class-settings-panel.php:4089, ../includes/elementor/all-categories.php:93, ../includes/elementor/all-locations.php:93, ../includes/review/class-builder-screen.php:119, ../includes/review/class-comment-form-renderer.php:212, ../includes/system-status/system-info-template.php:475, ../includes/widgets/all-categories.php:59, ../includes/widgets/all-locations.php:59, ../includes/widgets/all-tags.php:58, ../includes/system-status/system-information/system-information-template.php:652, ../templates/single-reviews.php:88, ../templates/payment/payment-receipt.php:108, ../templates/single/section-contact_listings_owner.php:30, ../templates/widgets/contact-form.php:15
+#: ../includes/classes/class-custom-post.php:250, ../includes/classes/class-settings-panel.php:3649, ../includes/classes/class-settings-panel.php:3737, ../includes/classes/class-settings-panel.php:4089, ../includes/elementor/all-categories.php:93, ../includes/elementor/all-locations.php:93, ../includes/review/class-builder-screen.php:119, ../includes/review/class-comment-form-renderer.php:212, ../includes/system-status/system-info-template.php:475, ../includes/widgets/all-categories.php:59, ../includes/widgets/all-locations.php:59, ../includes/widgets/all-tags.php:58, ../includes/system-status/system-information/system-information-template.php:652, ../templates/single-reviews.php:92, ../templates/payment/payment-receipt.php:108, ../templates/single/section-contact_listings_owner.php:30, ../templates/widgets/contact-form.php:15
 msgid "Name"
 msgstr ""
 
@@ -2591,7 +2591,7 @@ msgstr ""
 msgid "\"My Listing\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2519, ../includes/model/ListingDashboard.php:350
+#: ../includes/classes/class-settings-panel.php:2519, ../includes/model/ListingDashboard.php:354
 msgid "My Listing"
 msgstr ""
 
@@ -2607,7 +2607,7 @@ msgstr ""
 msgid "\"My Profile\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2560, ../includes/model/ListingDashboard.php:364, ../templates/dashboard/tab-profile.php:31
+#: ../includes/classes/class-settings-panel.php:2560, ../includes/model/ListingDashboard.php:368, ../templates/dashboard/tab-profile.php:31
 msgid "My Profile"
 msgstr ""
 
@@ -2619,7 +2619,7 @@ msgstr ""
 msgid "\"Favourite Listings\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2576, ../includes/model/ListingDashboard.php:372
+#: ../includes/classes/class-settings-panel.php:2576, ../includes/model/ListingDashboard.php:376
 msgid "Favorite Listings"
 msgstr ""
 
@@ -2675,11 +2675,11 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2667, ../includes/classes/class-settings-panel.php:3811, ../includes/classes/class-settings-panel.php:4757, ../includes/classes/class-settings-panel.php:4934, ../includes/model/Account.php:92, ../includes/review/class-builder-screen.php:109, ../includes/review/class-comment-form-renderer.php:225, ../templates/single-reviews.php:102, ../templates/single/section-contact_listings_owner.php:34, ../templates/widgets/contact-form.php:19
+#: ../includes/classes/class-settings-panel.php:2667, ../includes/classes/class-settings-panel.php:3811, ../includes/classes/class-settings-panel.php:4757, ../includes/classes/class-settings-panel.php:4934, ../includes/model/Account.php:92, ../includes/review/class-builder-screen.php:109, ../includes/review/class-comment-form-renderer.php:225, ../templates/single-reviews.php:106, ../templates/single/section-contact_listings_owner.php:34, ../templates/widgets/contact-form.php:19
 msgid "Email"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2675, ../includes/classes/class-settings-panel.php:3821, ../includes/classes/class-settings-panel.php:4764, ../includes/model/Account.php:94, ../includes/review/class-builder-screen.php:134, ../includes/review/class-comment-form-renderer.php:239, ../templates/single-reviews.php:117, ../templates/dashboard/tab-profile.php:105
+#: ../includes/classes/class-settings-panel.php:2675, ../includes/classes/class-settings-panel.php:3821, ../includes/classes/class-settings-panel.php:4764, ../includes/model/Account.php:94, ../includes/review/class-builder-screen.php:134, ../includes/review/class-comment-form-renderer.php:239, ../templates/single-reviews.php:121, ../templates/dashboard/tab-profile.php:105
 msgid "Website"
 msgstr ""
 
@@ -4686,19 +4686,19 @@ msgstr ""
 msgid "Untitled"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:356
+#: ../includes/model/ListingDashboard.php:360
 msgid "%s (%s)"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:555
+#: ../includes/model/ListingDashboard.php:559
 msgid "Renew"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:565
+#: ../includes/model/ListingDashboard.php:569
 msgid "Promote"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:574
+#: ../includes/model/ListingDashboard.php:578
 msgid "Delete Listing"
 msgstr ""
 
@@ -5182,7 +5182,7 @@ msgstr ""
 msgid "Cancel Editing"
 msgstr ""
 
-#: ../includes/review/class-comment-form-renderer.php:151, ../includes/review/class-comment-form-renderer.php:291, ../templates/single-reviews.php:135
+#: ../includes/review/class-comment-form-renderer.php:151, ../includes/review/class-comment-form-renderer.php:291, ../templates/single-reviews.php:139
 msgctxt "noun"
 msgid "Comment"
 msgstr ""
@@ -7853,7 +7853,7 @@ msgstr[1] ""
 msgid "Login to Write Your Review"
 msgstr ""
 
-#: ../templates/single-reviews.php:34, ../templates/single-reviews.php:159
+#: ../templates/single-reviews.php:34, ../templates/single-reviews.php:163
 msgid "Write Your Review"
 msgstr ""
 
@@ -7861,27 +7861,27 @@ msgstr ""
 msgid "There are no reviews yet."
 msgstr ""
 
-#: ../templates/single-reviews.php:93
+#: ../templates/single-reviews.php:97
 msgid "Enter your name"
 msgstr ""
 
-#: ../templates/single-reviews.php:107
+#: ../templates/single-reviews.php:111
 msgid "Enter your email"
 msgstr ""
 
-#: ../templates/single-reviews.php:120
+#: ../templates/single-reviews.php:124
 msgid "Enter your website"
 msgstr ""
 
-#: ../templates/single-reviews.php:137
+#: ../templates/single-reviews.php:141
 msgid "Share your experience and help others make better choices"
 msgstr ""
 
-#: ../templates/single-reviews.php:157
+#: ../templates/single-reviews.php:161
 msgid "Cancel Reply"
 msgstr ""
 
-#: ../templates/single-reviews.php:164
+#: ../templates/single-reviews.php:168
 msgid "Submit Review"
 msgstr ""
 
@@ -8261,7 +8261,7 @@ msgstr ""
 msgid "Your Transaction was not successful. Please contact support"
 msgstr ""
 
-#: ../templates/single/section-author_info.php:107, ../templates/widgets/author-info.php:117
+#: ../templates/single/section-author_info.php:110, ../templates/widgets/author-info.php:124
 msgid "View Profile"
 msgstr ""
 
@@ -8288,11 +8288,11 @@ msgid_plural "listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../templates/widgets/login-form.php:14
+#: ../templates/widgets/login-form.php:15
 msgid " Invalid username or password!"
 msgstr ""
 
-#: ../templates/widgets/login-form.php:19
+#: ../templates/widgets/login-form.php:21
 msgid "Don't have an account? <a href='%s'>Sign up</a>"
 msgstr ""
 

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 use \Directorist\Helper;
@@ -51,7 +51,7 @@ $avatar_img = get_avatar($author_id, 32);
 				<ul>
 					<?php if ( $address = $listing->author_info( 'address' ) ): ?>
 						<li>
-							<span class="<?php atbdp_icon_type( true );?>-map-marker"></span>
+							<?php directorist_icon( 'las la-map-marker' ); ?>
 							<span class="directorist-single-author-contact-info-text"><?php echo esc_html( $address ); ?></span>
 						</li>
 					<?php endif; ?>
@@ -59,7 +59,7 @@ $avatar_img = get_avatar($author_id, 32);
 
 					<?php if ( $phone = $listing->author_info( 'phone' ) ): ?>
 						<li>
-							<span class="<?php atbdp_icon_type(true);?>-phone"></span>
+							<?php directorist_icon( 'las la-phone' ); ?>
 							<span class="directorist-single-author-contact-info-text">
 								<a href="tel:<?php Helper::formatted_tel( $phone ); ?>"><?php echo esc_html( $phone ); ?></a>
 							</span>
@@ -68,14 +68,14 @@ $avatar_img = get_avatar($author_id, 32);
 
 					<?php if ( $listing->author_display_email() ): ?>
 						<li>
-							<span class="<?php atbdp_icon_type(true);?>-envelope"></span>
+							<?php directorist_icon( 'las la-envelope' ); ?>
 							<span class="directorist-single-author-contact-info-text"><?php echo esc_html( $listing->author_info( 'email' ) ); ?></span>
 						</li>
 					<?php endif; ?>
 
 					<?php if ( $website = $listing->author_info( 'website' ) ): ?>
 						<li>
-							<span class="<?php atbdp_icon_type(true);?>-globe"></span>
+							<?php directorist_icon( 'las la-globe' ); ?>
 							<a href="<?php echo esc_url( $website ); ?>" class="directorist-single-author-contact-info-text"><?php echo esc_url( $website ); ?></a>
 						</li>
 					<?php endif; ?>
@@ -86,20 +86,23 @@ $avatar_img = get_avatar($author_id, 32);
 			<?php if ( $listing->author_has_socials() ): ?>
 
 				<ul class="directorist-author-social">
-					<?php
-					if ( $facebook = $listing->author_info( 'facebook' ) ) {
-						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.esc_attr(  atbdp_icon_type() ).'-facebook"></span></a></li>', esc_url( $facebook ) );
-					}
-					if ( $twitter = $listing->author_info( 'twitter' ) ) {
-						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.esc_attr( atbdp_icon_type() ).'-twitter"></span></a></li>', esc_url( $twitter ) );
-					}
-					if ( $linkedin = $listing->author_info( 'linkedin' ) ) {
-						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.esc_attr(  atbdp_icon_type() ).'-linkedin"></span></a></li>', esc_url( $linkedin ) );
-					}
-					if ( $youtube = $listing->author_info( 'youtube' ) ) {
-						printf('<li class="directorist-author-social-item"><a target="_blank" href="%s"><span class="'.esc_attr(  atbdp_icon_type() ).'-youtube"></span></a></li>', esc_url( $youtube ) );
-					}
-					?>
+
+					<?php if ( $facebook = $listing->author_info( 'facebook' ) ): ?>
+						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $facebook ); ?>"><?php directorist_icon( 'lab la-facebook' ); ?></a></li>
+					<?php endif; ?>
+
+					<?php if ( $twitter = $listing->author_info( 'twitter' ) ): ?>
+						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a></li>
+					<?php endif; ?>
+
+					<?php if ( $linkedin = $listing->author_info( 'linkedin' ) ): ?>
+						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $linkedin ); ?>"><?php directorist_icon( 'lab la-linkedin' ); ?></a></li>
+					<?php endif; ?>
+
+					<?php if ( $youtube = $listing->author_info( 'youtube' ) ): ?>
+						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $youtube ); ?>"><?php directorist_icon( 'lab la-youtube' ); ?></a></li>
+					<?php endif; ?>
+
 				</ul>
 
 			<?php endif; ?>

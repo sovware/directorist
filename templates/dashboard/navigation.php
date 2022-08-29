@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.3.3
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -11,7 +11,7 @@ $counter = 1;
 ?>
 
 <div class="directorist-user-dashboard__nav directorist-tab__nav">
-	<span class="directorist-dashboard__nav--close"><i class="<?php atbdp_icon_type( true ); ?>-times"></i></span>
+	<span class="directorist-dashboard__nav--close"><?php directorist_icon( 'las la-times' ); ?></span>
 	<div class="directorist-tab__nav__wrapper">
 
 		<ul class="directorist-tab__nav__items">
@@ -22,7 +22,7 @@ $counter = 1;
 					<a href="#" class="directorist-booking-nav-link directorist-tab__nav__link <?php echo ( $counter == 1 ) ? 'directorist-tab__nav__active' : ''; ?>" target="<?php echo esc_attr( $key ); ?>">
 						<span class="directorist_menuItem-text">
 							<span class="directorist_menuItem-icon">
-								<i class="<?php echo esc_attr( $value['icon'] ); ?>"></i>
+								<?php directorist_icon( $value['icon'] ); ?>
 							</span>
 							<?php echo wp_kses_post( $value['title'] ); ?>
 						</span>

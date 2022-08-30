@@ -210,9 +210,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		// directorist_author_pagination
 		public function author_pagination() {
 			$authors = new Directorist_All_Authors();
-			ob_start();
-			Helper::get_template( 'all-authors', array( 'authors' => $authors ) );
-			$content = ob_get_clean();
+			$content = Helper::get_template_contents( 'all-authors', array( 'authors' => $authors ) );
 			wp_send_json( $content );
 		}
 

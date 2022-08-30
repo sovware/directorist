@@ -537,18 +537,25 @@
           padding-left: 10px;
           width: calc(100% - 43px);
           display: inline-block;
-
         }
 
-        span.fa {
+        .directorist-icon-mask {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           background: #f1f3f8;
-          line-height: 28px;
           width: 28px;
+          height: 28px;
           text-align: center;
           border-radius: 50%;
-          color: #7a82a6;
-          font-size: 12px;
           vertical-align: top;
+          position: relative;
+          top: 5px;
+          span{
+            background-color: #7a82a6;
+            width: 14px;
+            height: 14px;
+          }
         }
 
         a {
@@ -586,24 +593,27 @@
 
         a {
           margin: 5px;
-          display: block;
-          line-height: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 35px;
           width: 35px;
-          text-align: center;
           background-color: #f3f3f3 !important;
           border-radius: 4px;
-          color: #000 !important;
           overflow: hidden;
           transition: 0.3s ease !important;
 
-          span {
-            font-family: "Font Awesome 5 Brands";
-            font-weight: 900;
-            font-size: 15px;
+          .directorist-icon-mask span {
+            width: 15px;
+            height: 15px;
+            background-color: #000;
+            transition: 0.3s ease;
           }
           &:hover{
               background: #000 !important;
-              color: #fff !important;
+              .directorist-icon-mask span{
+                background-color: #fff;
+              }
           }
         }
       }

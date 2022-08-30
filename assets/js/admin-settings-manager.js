@@ -15894,7 +15894,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'options-window',
   model: {
@@ -15926,7 +15925,7 @@ __webpack_require__.r(__webpack_exports__);
       default: false
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     this.init();
   },
   watch: {
@@ -21764,12 +21763,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[key].options) !== 'object') {
         return;
-      } // let opt = JSON.parse( JSON.stringify( this.active_widgets[ key ].options ) );
-
+      }
 
       var opt = this.active_widgets[key].options;
-      this.widgetOptionsWindow = _objectSpread(_objectSpread({}, this.widgetOptionsWindowDefault), opt);
-      this.widgetOptionsWindow.widget = key;
+      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+      var self = this;
+      setTimeout(function () {
+        self.widgetOptionsWindow = _objectSpread(_objectSpread({}, self.widgetOptionsWindowDefault), opt);
+        self.widgetOptionsWindow.widget = key;
+      }, 0);
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
@@ -27054,13 +27056,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'icon-field',
+  name: "icon-field",
   mixins: [_mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_0__["default"]],
   model: {
-    prop: 'value',
-    event: 'input'
+    prop: "value",
+    event: "input"
+  },
+  mounted: function mounted() {
+    var args = {};
+    args.container = this.$refs.iconPickerElm;
+    args.onSelect = this.onSelectIcon;
+    args.icons = this.icons;
+    args.value = this.value;
+    args.labels = directorist_admin.icon_picker_labels;
+    this.iconPicker = new IconPicker(args);
+    this.iconPicker.init();
+  },
+  data: function data() {
+    return {
+      iconPicker: null,
+      icons: {
+        fontAwesome: directoriistFontAwesomeIcons,
+        lineAwesome: directoriistLineAwesomeIcons
+      }
+    };
+  },
+  methods: {
+    onSelectIcon: function onSelectIcon(value) {
+      this.$emit("update", value);
+    }
   }
 });
 
@@ -32830,29 +32859,25 @@ var render = function () {
         { staticClass: "cptm-option-card-body" },
         [
           _vm.local_fields
-            ? [
-                _vm._l(_vm.local_fields, function (field, field_key) {
-                  return [
-                    _c(
-                      field.type + "-field",
-                      _vm._b(
-                        {
-                          key: field_key,
-                          tag: "component",
-                          on: {
-                            update: function ($event) {
-                              return _vm.updateFieldData($event, field_key)
-                            },
-                          },
+            ? _vm._l(_vm.local_fields, function (field, field_key) {
+                return _c(
+                  field.type + "-field",
+                  _vm._b(
+                    {
+                      key: field_key,
+                      tag: "component",
+                      on: {
+                        update: function ($event) {
+                          return _vm.updateFieldData($event, field_key)
                         },
-                        "component",
-                        field,
-                        false
-                      )
-                    ),
-                  ]
-                }),
-              ]
+                      },
+                    },
+                    "component",
+                    field,
+                    false
+                  )
+                )
+              })
             : _vm._e(),
         ],
         2
@@ -40702,24 +40727,11 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "text-field",
-    _vm._b(
-      {
-        on: {
-          update: function ($event) {
-            return _vm.$emit("update", $event)
-          },
-          "do-action": function ($event) {
-            return _vm.$emit("do-action", $event)
-          },
-        },
-      },
-      "text-field",
-      _vm.$props,
-      false
-    )
-  )
+  return _c("div", { staticClass: "directorist-type-icon-select" }, [
+    _c("label", [_vm._v("Icon")]),
+    _vm._v(" "),
+    _c("div", { ref: "iconPickerElm", staticClass: "icon-picker-wrap" }),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -40,7 +40,7 @@ class Markup {
 			$rating = floor( $rating );
 		}
 
-		return str_repeat( '<i class="fas fa-star"></i>', $rating ) . str_repeat( '<i class="far fa-star"></i>', ( $base_rating - $rating ) );
+		return str_repeat( directorist_icon( 'fas fa-star', false, 'star-full' ), $rating ) . str_repeat( directorist_icon( 'far fa-star', false, 'star-empty' ), ( $base_rating - $rating ) );
 	}
 
 	public static function show_rating_stars( $rating = 0, $base_rating = 5 ) {

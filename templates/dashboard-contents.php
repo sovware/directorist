@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.4
  */
 
 use \Directorist\Helper;
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<?php endif; ?>
 
 		<div class="directorist-user-dashboard__toggle">
-			<a href="#" class="directorist-user-dashboard__toggle__link"><i class="la la-bars"></i></a>
+			<a href="#" class="directorist-user-dashboard__toggle__link"><?php directorist_icon( 'las la-bars' ); ?></a>
 		</div>
 
 		<div class="directorist-user-dashboard__contents directorist-tab">

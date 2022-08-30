@@ -400,9 +400,14 @@
           color: #2c99ff;
           font-weight: 500;
           margin-right: 20px;
+          display: flex;
+          align-items: center;
 
           i {
             margin-right: 5px;
+            span{
+              background-color: #2c99ff;
+            }
           }
         }
       }
@@ -484,8 +489,10 @@
           padding: 10px 20px;
           font-size: 14px;
           color: #51526e;
-          display: block;
+          display: flex;
           text-decoration: none;
+          flex-wrap: wrap;
+          align-items: center;
 
           &:hover {
             background-color: #f6f7f9;
@@ -632,6 +639,8 @@
           a {
             &.directorist-link-btn {
               margin-right: 15px;
+              display: flex;
+              align-items: center;
             }
           }
         }

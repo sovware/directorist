@@ -10,14 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Related listings slider */
     var rtl = (directorist.rtl === 'true');
-    const relLis = document.querySelector('.directorist-related-carousel');
+    const relLis = $('.directorist-related-carousel');
     if (relLis !== null) {
-        const relLisCol = relLis.getAttribute('data-columns');
+        const relLisData = relLis.data('attr');
+        const prevArrow = relLisData.prevArrow;
+        const nextArrow = relLisData.nextArrow;
+        const relLisCol = relLisData.columns;
         $('.directorist-related-carousel').slick({
             dots: false,
             arrows: true,
-            prevArrow: '<a class="directorist-slc__nav directorist-slc__nav--left"><span class="las la-angle-left"></span></a>',
-            nextArrow: '<a class="directorist-slc__nav directorist-slc__nav--right"><span class="las la-angle-right"></span></a>',
+            prevArrow: prevArrow,
+            nextArrow: nextArrow,
             infinite: true,
             speed: 300,
             slidesToShow: relLisCol,

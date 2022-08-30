@@ -399,17 +399,17 @@ class Directorist_Single_Listing {
 		$result = array(
 			'facebook' => array(
 				'title' => __('Facebook', 'directorist'),
-				'icon'  => atbdp_icon_type() . '-facebook',
+				'icon'  => 'lab la-facebook',
 				'link'  => "https://www.facebook.com/share.php?u={$link}&title={$title}",
 			),
 			'twitter' => array(
 				'title' => __('Twitter', 'directorist'),
-				'icon'  => atbdp_icon_type() . '-twitter',
+				'icon'  => 'lab la-twitter',
 				'link'  => 'https://twitter.com/intent/tweet?text=' . $title . '&amp;url=' . $link,
 			),
 			'linkedin' => array(
 				'title' => __('LinkedIn', 'directorist'),
-				'icon'  => atbdp_icon_type() . '-linkedin',
+				'icon'  => 'lab la-linkedin',
 				'link'  => "http://www.linkedin.com/shareArticle?mini=true&url={$link}&title={$title}",
 			),
 		);
@@ -1071,17 +1071,15 @@ class Directorist_Single_Listing {
 			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 		}
 		if (!empty($display_direction_map)) {
-			$info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Directions', 'directorist') . "</a></div><span class='iw-close-btn'><i class='la la-times'></i></span></div></div>";
+			$info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Directions', 'directorist') . "</a></div><span class='iw-close-btn'>" . directorist_icon( 'las la-times', false ) . "</span></div></div>";
 		}
 
 		$cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
 		if (!empty($cats)) {
 			$cat_icon = get_cat_icon($cats[0]->term_id);
 		}
-		$cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
-		$icon_type = substr($cat_icon, 0, 2);
-		$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
-		$cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon;
+		$cat_icon = !empty($cat_icon) ? $cat_icon : 'las la-map-marker';
+		$cat_icon = directorist_icon( $cat_icon, false );
 
 		$args = array(
 			'listing'               => $this,
@@ -1208,6 +1206,15 @@ class Directorist_Single_Listing {
 		$related = new Directorist_Listings( [], 'related', $args, ['cache' => false] );
 
 		return $related;
+	}
+
+	public function related_slider_attr() {
+		$atts = array(
+			'columns'   => get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 ),
+			'prevArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--left">%s</a>', directorist_icon( 'las la-angle-left', false ) ),
+            'nextArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--right">%s</a>', directorist_icon( 'las la-angle-right', false ) ),
+		);
+		return json_encode( $atts );
 	}
 
 	public function get_related_columns() {

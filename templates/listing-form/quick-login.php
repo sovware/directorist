@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.8
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</div>
 
 					<div class="directorist-modal-actions-area">
-						<a href="#" class="directorist-toggle-modal" data-target="#directorist-quick-login"><span class="fas fa-times"></span></a>
+						<a href="#" class="directorist-toggle-modal" data-target="#directorist-quick-login"><?php directorist_icon( 'fas fa-times' ); ?></a>
 					</div>
 				</div>
 

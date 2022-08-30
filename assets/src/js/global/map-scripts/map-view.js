@@ -9,7 +9,7 @@ import {
 
     function initMap() {
         const mapData = get_dom_data('atbdp_map');
-        
+
         // Define Marker Shapes
         const MAP_PIN =
             'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
@@ -203,7 +203,7 @@ import {
                     }
                 }
 
-                const icon = $marker.data('icon');
+                const icon = JSON.parse($marker.data('icon'));
                 const marker = new Marker({
                     position: latlng,
                     map,
@@ -214,7 +214,7 @@ import {
                         strokeColor: '',
                         strokeWeight: 0,
                     },
-                    map_icon_label: icon !== undefined && `<div class="atbd_map_shape"><i class="${icon}"></i></div>`,
+                    map_icon_label: icon !== undefined && `<div class="atbd_map_shape">${icon}</div>`,
                 });
 
                 // add to array
@@ -261,9 +261,8 @@ import {
                 const abc = document.querySelectorAll('div');
                 abc.forEach(function (el, index) {
                     if (el.innerText === 'atgm_marker') {
-                        // console.log(at_icon)
                         el.innerText = ' ';
-                        el.innerHTML = `<i class="la ${at_icon} atbd_map_marker_icon"></i>`;
+                        el.innerHTML = `<i class="atbd_map_marker_icon">${at_icon}</i>`;
                     }
                     // ${$marker.data('icon')}
                 });
@@ -276,7 +275,7 @@ import {
                                 abc.forEach(function (el, index) {
                                     if (el.innerText === 'atgm_marker') {
                                         el.innerText = ' ';
-                                        el.innerHTML = `<i class="la ${at_icon} atbd_map_marker_icon"></i>`;
+                                        el.innerHTML = `<i class="atbd_map_marker_icon">${at_icon}</i>`;
                                     }
                                 });
                             }, 100);

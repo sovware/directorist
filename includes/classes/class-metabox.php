@@ -322,7 +322,7 @@ class ATBDP_Metabox {
 		if ( ( ATBDP_POST_TYPE !== $post->post_type ) || wp_is_post_autosave( $post ) || wp_is_post_revision( $post ) || ! current_user_can( 'edit_'.ATBDP_POST_TYPE, $post_id ) ) {
 			return;
 		}
-		
+
 		$listing_type = !empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
 		$listing_categories = !empty( $_POST['tax_input']['at_biz_dir-category'] ) ?  directorist_clean( wp_unslash( $_POST['tax_input']['at_biz_dir-category'] ) ) : array();
 		$listing_locations = !empty( $_POST['tax_input']['at_biz_dir-location'] ) ?  directorist_clean( wp_unslash( $_POST['tax_input']['at_biz_dir-location'] ) ) : array();
@@ -384,7 +384,7 @@ class ATBDP_Metabox {
 		}
 
 		if( !empty( $_POST['featured'] ) ){
-			$metas['_featured'] = directorist_clean( wp_unslash( $_POST['featured'] ) );	
+			$metas['_featured'] = directorist_clean( wp_unslash( $_POST['featured'] ) );
 		}
 
 	   	$expiration_to_forever		 = ! $expiration ? 1 : '';

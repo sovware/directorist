@@ -894,7 +894,7 @@ window.addEventListener('DOMContentLoaded', function () {
   delImgLink.on('click', function (event) {
     event.preventDefault(); // Clear out the preview image and set no image as placeholder
 
-    $('.listing-img-container').html("<img src=\"".concat(directorist_admin.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" />")); // Hide the delete image link
+    $('.listing-img-container').html("<img src=\"".concat(directorist_admin.assets_path, "images/no-image.png\" alt=\"Listing Image\" />")); // Hide the delete image link
 
     delImgLink.addClass('hidden');
   });
@@ -905,7 +905,7 @@ window.addEventListener('DOMContentLoaded', function () {
     $(this).parent().remove(); // if no image exist then add placeholder and hide remove image button
 
     if ($('.single_attachment').length === 0) {
-      $('.listing-img-container').html("<img src=\"".concat(directorist_admin.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
+      $('.listing-img-container').html("<img src=\"".concat(directorist_admin.assets_path, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
       delImgLink.addClass('hidden');
     }
   });
@@ -1540,7 +1540,36 @@ pureScriptTab('.directorist_builder--tab');
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery; // Category icon selection
+  var $ = jQuery; // Init Category Icon Picker
+
+  function initCategoryIconPicker() {
+    var iconPickerContainer = document.querySelector('.directorist-category-icon-picker');
+
+    if (!iconPickerContainer) {
+      return;
+    }
+
+    var iconValueElm = document.querySelector('.category_icon_value');
+    var iconValue = iconValueElm ? iconValueElm.value : '';
+
+    var onSelectIcon = function onSelectIcon(value) {
+      iconValueElm.setAttribute('value', value);
+    };
+
+    var args = {};
+    args.container = iconPickerContainer;
+    args.onSelect = onSelectIcon;
+    args.icons = {
+      fontAwesome: directoriistFontAwesomeIcons,
+      lineAwesome: directoriistLineAwesomeIcons
+    };
+    args.value = iconValue;
+    args.labels = directorist_admin.icon_picker_labels;
+    var iconPicker = new IconPicker(args);
+    iconPicker.init();
+  }
+
+  initCategoryIconPicker(); // Category icon selection
 
   function selecWithIcon(selected) {
     if (!selected.id) {

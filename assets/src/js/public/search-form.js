@@ -122,7 +122,6 @@ import { directorist_range_slider } from './range-slider';
                 });
             }
         });
-
         $('body').on('click', '.directorist-sortby-dropdown > a, .directorist-viewas-dropdown > a', function(){
             count = 0;
             directoristAdvFilter().css({

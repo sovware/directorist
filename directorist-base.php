@@ -222,6 +222,9 @@ final class Directorist_Base
 			// Load widgets
 			Directorist\Widgets\Init::instance();
 
+			// Load widgets
+			Directorist\Widgets\Init::instance();
+
 			/*Extensions Link*/
 			/*initiate extensions link*/
 
@@ -551,10 +554,10 @@ final class Directorist_Base
 	 * @return string|void
 	 */
 	public function load_template( $template_name, $args = array(), $return_path = false )
-	{	
+	{
 		$path = ATBDP_VIEWS_DIR . $template_name . '.php';
 		$path = apply_filters( 'directorist_admin_template', $path, $template_name, $args );
-		
+
 		if ( $return_path ) {
 			return $path;
 		}

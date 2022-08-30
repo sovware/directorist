@@ -294,6 +294,11 @@
                         border-radius: 50%;
                         background-color: $primary;
                         margin: auto auto 20px auto;
+                        .directorist-icon-mask{
+                            span{
+                                background-color: #fff;
+                            }
+                        }
 
                         span,
                         i,

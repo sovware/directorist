@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             $youtube = get_user_meta($author_id, 'atbdp_youtube', true);
             if (!empty($address)) { ?>
                 <li>
-                    <span class="<?php atbdp_icon_type(true);?>-map-marker"></span>
+                    <?php directorist_icon( 'las la-map-marker' ); ?>
                     <span class="atbd_info"><?php echo !empty($address) ? esc_html($address) : ''; ?></span>
                 </li>
             <?php } ?>
@@ -56,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             if (isset($phone) && !is_empty_v($phone)) { ?>
                 <!-- In Future, We will have to use a loop to print more than 1 number-->
                 <li>
-                    <span class="<?php atbdp_icon_type(true);?>-phone"></span>
+                    <?php directorist_icon( 'las la-phone' ); ?>
                     <span class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a></span>
                 </li>
             <?php } ?>
@@ -68,7 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                 if (!empty($email)) {
                     ?>
                     <li>
-                        <span class="<?php atbdp_icon_type(true);?>-envelope"></span>
+                        <?php directorist_icon( 'las la-envelope' ); ?>
                         <span class="atbd_info"><?php echo esc_html($email); ?></span>
                     </li>
                     <?php
@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                     if (!empty($email)) {
                         ?>
                         <li>
-                            <span class="<?php atbdp_icon_type(true);?>-envelope"></span>
+							<?php directorist_icon( 'las la-envelope' ); ?>
                             <span class="atbd_info"><?php echo esc_html($email); ?></span>
                         </li>
                         <?php
@@ -87,7 +87,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             }
             if (!empty($website)) { ?>
                 <li>
-                    <span class="<?php atbdp_icon_type(true);?>-globe"></span>
+                    <?php directorist_icon( 'las la-globe' ); ?>
                     <a href="<?php echo esc_url($website); ?>"
                         class="atbd_info" <?php echo is_directoria_active() ? 'style="text-transform: none;"' : ''; ?>><?php echo esc_url($website); ?></a>
                 </li>
@@ -95,25 +95,33 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
         </ul>
     </div>
-    <?php if (!empty($facebook || $twitter || $linkedIn || $youtube )) { ?>
+
+    <?php if (!empty($facebook || $twitter || $linkedIn || $youtube )): ?>
+
         <div class="atbd_social_wrap">
-            <?php
-            if ($facebook) {
-                printf('<p><a target="_blank" href="%s"><span class="'.esc_attr( atbdp_icon_type() ).'-facebook"></span></a></p>', esc_url( $facebook ) );
-            }
-            if ($twitter) {
-                printf('<p><a target="_blank" href="%s"><span class="'.esc_attr( atbdp_icon_type() ).'-twitter"></span></a></p>', esc_url( $twitter ) );
-            }
-            if ($linkedIn) {
-                printf('<p><a target="_blank" href="%s"><span class="'.esc_attr( atbdp_icon_type() ).'-linkedin"></span></a></p>', esc_url( $linkedIn ) );
-            }
-            if ($youtube) {
-                printf('<p><a target="_blank" href="%s"><span class="'.esc_attr( atbdp_icon_type() ).'-youtube"></span></a></p>', esc_url( $youtube ) );
-            }
-            ?>
+
+			<?php if ( $facebook ): ?>
+				<p><a target="_blank" href="<?php echo esc_url( $facebook ); ?>"><?php directorist_icon( 'lab la-facebook' ); ?></a></p>
+			<?php endif; ?>
+
+			<?php if ( $twitter ): ?>
+				<p><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a></p>
+			<?php endif; ?>
+
+			<?php if ( $linkedIn ): ?>
+				<p><a target="_blank" href="<?php echo esc_url( $linkedIn ); ?>"><?php directorist_icon( 'lab la-linkedin' ); ?></a></p>
+			<?php endif; ?>
+
+			<?php if ( $youtube ): ?>
+				<p><a target="_blank" href="<?php echo esc_url( $youtube ); ?>"><?php directorist_icon( 'lab la-youtube' ); ?></a></p>
+			<?php endif; ?>
+
         </div>
-    <?php } ?>
+
+	<?php endif; ?>
+
     <a href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link($author_id) ); ?>"
         class="<?php echo esc_attr( atbdp_directorist_button_classes() ); ?>"><?php esc_html_e('View Profile', 'directorist'); ?>
     </a>
+
 </div>

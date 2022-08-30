@@ -38,15 +38,15 @@ class Scripts {
 			],
 			'directorist-unicons' => [
 				'type' => 'css',
-				'path' => DIRECTORIST_ASSETS . 'unicons-3.0.3/css/line',
+				'path' => DIRECTORIST_ICON_URL . 'unicons/css/line',
 			],
 			'directorist-font-awesome' => [
 				'type' => 'css',
-				'path' => DIRECTORIST_VENDOR_CSS . 'font-awesome',
+				'path' => DIRECTORIST_ICON_URL . 'font-awesome/css/all',
 			],
 			'directorist-line-awesome' => [
 				'type' => 'css',
-				'path' => DIRECTORIST_VENDOR_CSS . 'line-awesome',
+				'path' => DIRECTORIST_ICON_URL . 'line-awesome/css/line-awesome',
 			],
 			'directorist-ez-media-uploader-style' => [
 				'type' => 'css',
@@ -193,6 +193,22 @@ class Scripts {
 			'directorist-validator' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'validator',
+			],
+			'directorist-font-awesome-icons' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_VENDOR_JS . 'icon-picker/font-awesome',
+			],
+			'directorist-line-awesome-icons' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_VENDOR_JS . 'icon-picker/line-awesome',
+			],
+			'directorist-icon-picker' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_VENDOR_JS . 'icon-picker/icon-picker',
+				'dep' => [
+					'directorist-font-awesome-icons',
+					'directorist-line-awesome-icons',
+				],
 			],
 
 			// Global JS

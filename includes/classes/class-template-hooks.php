@@ -12,6 +12,11 @@ class Directorist_Template_Hooks {
 	protected static $instance = null;
 
 	private function __construct() {
+
+		// Allow mask-image inline style in wp_kses_post, mask-image is used in directorist_icon()
+		add_filter( 'safe_style_css', array( $this, 'add_style_attr' )  );
+		add_filter( 'safecss_filter_attr_allow_css', array( $this, 'allow_style_attr' ), 10, 2  );
+
 		// Dashboard ajax
 		$dashboard = Directorist_Listing_Dashboard::instance();
 		add_action('wp_ajax_directorist_dashboard_listing_tab', array( $dashboard, 'ajax_listing_tab' ) );
@@ -55,6 +60,24 @@ class Directorist_Template_Hooks {
 			self::$instance = new self;
 		}
 		return self::$instance;
+	}
+
+	public function add_style_attr( $args ) {
+		$args = array_merge( $args, array( 'mask-image', '-webkit-mask-image' ) );
+		return $args;
+	}
+
+	public function allow_style_attr( $allow_css, $css_test_string ) {
+		$parts = explode( ':', $css_test_string, 2 );
+		$attr = trim( $parts[0] );
+
+		if ( in_array( $attr, array( 'mask-image', '-webkit-mask-image' ) ) ) {
+			$pattern = '/^url\(\s*([\'\"]?)(.*)(\g1)\s*\)$/'; // matches the sequence `url(*)`.
+			$is_url = preg_match( $pattern, $parts[1] );
+			return $is_url;
+		}
+
+		return $allow_css;
 	}
 
 	public static function single_content( $content ) {

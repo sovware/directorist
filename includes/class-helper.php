@@ -13,6 +13,7 @@ class Helper {
 
 	use URI_Helper;
 	use Markup_Helper;
+	use Icon_Helper;
 
 	public static function is_legacy_mode() {
 		return false;

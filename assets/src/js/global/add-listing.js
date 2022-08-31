@@ -135,7 +135,7 @@ $(document).ready(function () {
             const nonce = ( typeof directorist !== 'undefined' ) ? directorist.directorist_nonce : directorist_admin.directorist_nonce;
             data = `${data}&${'directorist_nonce'}=${nonce}`;
         }
-        
+
         jQuery.ajax({
             type: 'post',
             url: localized_data.ajaxurl,

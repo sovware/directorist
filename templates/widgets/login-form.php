@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -11,7 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="directorist">
     <?php
     if (isset($_GET['login']) && $_GET['login'] == 'failed') {
-        printf('<p class="alert-danger">  <span class="' . esc_attr( atbdp_icon_type() ) . '-exclamation"></span>%s</p>', esc_html__(' Invalid username or password!', 'directorist'));
+		?>
+		<p class="alert-danger"> <?php directorist_icon( 'las la-exclamation' ); ?><?php esc_html_e(' Invalid username or password!', 'directorist');?></p>
+		<?php
     }
     wp_login_form();
     wp_register();

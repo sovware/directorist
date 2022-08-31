@@ -343,7 +343,7 @@ SWBD;
 			$path = ( ! empty( $args['path'] ) ) ? $args['path'] : '';
 
 			// $path = 'directory/directory.json'
-			$file = trailingslashit( dirname( ATBDP_FILE ) ) . "admin/assets/simple-data/{$path}";
+			$file = DIRECTORIST_ASSETS_DIR . "sample-data/{$path}";
 			if ( ! file_exists( $file ) ) { return ''; }
 
 			$data = file_get_contents( $file );
@@ -1429,22 +1429,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'color',
                     'label' => __('Border Color', 'directorist'),
                     'value' => '#444752',
-                ],
-
-                'font_type' => [
-                    'label' => __('Icon Library', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'line',
-                    'options' => [
-                        [
-                            'label' => __('Font Awesome', 'directorist'),
-                            'value' => 'font',
-                        ],
-                        [
-                            'label' => __('Line Awesome', 'directorist'),
-                            'value' => 'line',
-                        ],
-                    ],
                 ],
                 'can_renew_listing' => [
                     'label' => __('Can User Renew Listing?', 'directorist'),
@@ -4575,7 +4559,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'general_settings' => [
                                     'fields'      => [
                                         'enable_multi_directory',
-                                        'font_type', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings',
+                                        'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings',
                                     ],
                                 ],
 

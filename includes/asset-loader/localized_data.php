@@ -173,9 +173,6 @@ class Localized_Data {
 	}
 
 	public static function get_admin_script_data() {
-		$font_type = get_directorist_option( 'font_type', 'line' );
-		$icon_type = ( 'line' == $font_type ) ? 'la' : 'fa';
-
 		$i18n_text = array(
 			'confirmation_text'       => __( 'Are you sure', 'directorist' ),
 			'ask_conf_sl_lnk_del_txt' => __( 'Do you really want to remove this Social Link!', 'directorist' ),
@@ -188,6 +185,20 @@ class Localized_Data {
 			'select_prv_img'          => __( 'Select Preview Image', 'directorist' ),
 			'insert_prv_img'          => __( 'Insert Preview Image', 'directorist' ),
 		);
+
+		$icon_picker_labels = [
+            'changeIconButtonLabel'        => __( 'Change Icon', 'directorist' ),
+            'changeIconButtonPlaceholder'  => __( 'Click to select icon', 'directorist' ),
+            'filterByNameInputLabel'       => __( 'Filter By Name', 'directorist' ),
+            'filterByNameInputPlaceholder' => __( 'Search', 'directorist' ),
+            'filterByGroupInputLabel'      => __( 'Filter By Icon Pack', 'directorist' ),
+            'doneButtonLabel'              => __( 'Done', 'directorist' ),
+            'iconGroupLabels'              => [
+				'fontAwesome' => __( 'Font Awesome', 'directorist' ),
+                'lineAwesome' => __( 'Line Awesome', 'directorist' ),
+			],
+		];
+
 		// is MI extension enabled and active?
 		$data = array(
 			'nonce'                => wp_create_nonce( 'atbdp_nonce_action_js' ),
@@ -196,10 +207,13 @@ class Localized_Data {
 			'nonceName'            => 'atbdp_nonce_js',
 			'countryRestriction'   => get_directorist_option( 'country_restriction' ),
 			'restricted_countries' => get_directorist_option( 'restricted_countries' ),
-			'AdminAssetPath'       => ATBDP_ADMIN_ASSETS,
+			'assets_path'          => DIRECTORIST_ASSETS,
 			'i18n_text'            => $i18n_text,
-			'icon_type'            => $icon_type
+			'icon_type'            => 'la',
+			'icon_picker_labels'   => $icon_picker_labels,
 		);
+
+
 
 		return $data;
 	}

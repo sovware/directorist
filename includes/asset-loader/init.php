@@ -43,9 +43,6 @@ class Asset_Loader {
 		// Map CSS
 		self::enqueue_map_styles();
 
-		// Icon CSS
-		self::enqueue_icon_styles();
-
 		// CSS
 		wp_enqueue_style( 'directorist-main-style' );
 		wp_enqueue_style( 'directorist-select2-style' );
@@ -224,6 +221,7 @@ class Asset_Loader {
 	 * @return void
 	 */
 	public static function admin_scripts() {
+
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );
@@ -231,6 +229,7 @@ class Asset_Loader {
 			wp_enqueue_script( 'directorist-tooltip' );
 		} elseif ( Helper::is_admin_page( 'builder-edit' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_script( 'directorist-icon-picker' );
 			wp_enqueue_style( 'directorist-unicons' );
 			wp_enqueue_script( 'directorist-multi-directory-builder' );
 			wp_enqueue_media();
@@ -255,6 +254,7 @@ class Asset_Loader {
 		} elseif ( Helper::is_admin_page( 'taxonomy' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );
+			wp_enqueue_script( 'directorist-icon-picker' );
 			wp_enqueue_script( 'directorist-tooltip' );
 			wp_enqueue_style( 'directorist-select2-style' );
 			wp_enqueue_script( 'directorist-select2-script' );

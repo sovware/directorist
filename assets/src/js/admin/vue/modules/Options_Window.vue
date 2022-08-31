@@ -14,16 +14,15 @@
 
         <div class="cptm-option-card-body">
             <template v-if="local_fields">
-                <template v-for="( field, field_key ) in local_fields">
-                    <component 
-                        :is="field.type + '-field'" 
-                        v-bind="field" 
-                        :key="field_key"
-                        @update="updateFieldData( $event, field_key )">
-                    </component>
-                </template>
+                <component
+                    v-for="( field, field_key ) in local_fields"
+                    :is="field.type + '-field'"
+                    v-bind="field"
+                    :key="field_key"
+                    @update="updateFieldData( $event, field_key )">
+                </component>
             </template>
-            
+
         </div>
 
         <span class="cptm-anchor-down" v-if="bottomAchhor"></span>
@@ -63,10 +62,10 @@ export default {
             type: Boolean,
             default: false,
         },
-        
+
     },
 
-    mounted() {
+    created() {
         this.init();
     },
 
@@ -76,7 +75,7 @@ export default {
                 this.local_fields = this.fields;
                 this.$emit( 'update', this.local_fields );
             }
-        }
+        },
     },
 
     computed: {

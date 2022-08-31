@@ -36,6 +36,17 @@
     display: none;
 }
 
+.directorist-icon-mask {
+    span {
+        background: #444752;
+        width: 18px;
+        height: 18px;
+        display:block;
+        mask-repeat: no-repeat;
+        mask-position: center;
+    }
+}
+
 // Error Class
 
 .directorist-error {

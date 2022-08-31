@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -38,7 +38,7 @@ Directorist\Helper::add_hidden_data_to_dom( 'map_data', $map_data );
 
 		<?php if ('google' == $select_listing_map): ?>
 
-			<small class="map_drag_info"><i class="fa fa-info-circle" aria-hidden="true"></i> <?php esc_html_e('You can drag pinpoint to place the correct address manually.', 'directorist'); ?></small>
+			<small class="map_drag_info"><?php directorist_icon( 'las la-info-circle' ); ?> <?php esc_html_e('You can drag pinpoint to place the correct address manually.', 'directorist'); ?></small>
 
 		<?php endif; ?>
 

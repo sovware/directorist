@@ -11677,6 +11677,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-listing-action .directorist-single-listing-action i {
   font-size: 17px;
 }
+.directorist-single-listing-action .directorist-single-listing-action .directorist-added-to-favorite span {
+  background-color: red;
+}
 .directorist-single-listing-action .directorist-single-listing-action.directorist-tooltip[data-label]:after {
   line-height: 1.75;
 }

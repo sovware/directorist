@@ -807,6 +807,10 @@ window.addEventListener('DOMContentLoaded', function () {
         'post_id': $("a.atbdp-favourites").data('post_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
+        console.log('added');
+        console.log(response);
+        console.log(directorist.ajaxurl);
+
         if (response) {
           $('#atbdp-favourites').html(response);
         }

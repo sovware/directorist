@@ -5848,33 +5848,17 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_widget_contact_info ul li .directorist-icon-mask,
 .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_widget_contact_info ul li .directorist-icon-mask,
 .widget.atbd_widget .atbd_author_info_widget .atbd_widget_contact_info ul li .directorist-icon-mask {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  background: #f1f3f8;
-  width: 28px;
-  height: 28px;
+  display: inline-block;
   text-align: center;
-  border-radius: 50%;
-  vertical-align: top;
   position: relative;
-  top: 5px;
+  top: 11px;
+  vertical-align: top;
 }
 .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_widget_contact_info ul li .directorist-icon-mask span,
 .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_widget_contact_info ul li .directorist-icon-mask span,
 .widget.atbd_widget .atbd_author_info_widget .atbd_widget_contact_info ul li .directorist-icon-mask span {
-  background-color: #7a82a6;
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
 }
 .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_widget_contact_info ul li a,
 .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_widget_contact_info ul li a,

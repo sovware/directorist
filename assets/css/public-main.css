@@ -10006,6 +10006,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 30px;
   width: 25px;
 }
+.directorist-select2-dropdown-close .directorist-icon-mask span {
+  width: 15px;
+  height: 15px;
+}
+
+.directorist-select2-addon .directorist-icon-mask span {
+  width: 13px;
+  height: 13px;
+}
 
 .directorist-form-section {
   font-size: 15px;

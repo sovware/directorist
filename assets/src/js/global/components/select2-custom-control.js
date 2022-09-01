@@ -44,7 +44,7 @@ function selec2_add_custom_dropdown_toggle_button() {
 
     if ( ! dropdown.length ) {
         // Add Dropdown Toggle Button
-        const dropdownHTML = '<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="fas fa-chevron-down"></i></span>';
+        const dropdownHTML = '<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="directorist-icon-mask"><span style="mask-image:url(/wp-content/plugins/directorist/assets/icons/line-awesome/svgs/angle-down-solid.svg);-webkit-mask-image:url(/wp-content/plugins/directorist/assets/icons/line-awesome/svgs/angle-down-solid.svg);"></span></i></span>';
         addon_container.append( dropdownHTML );
     }
 
@@ -107,7 +107,7 @@ function selec2_add_custom_close_button(field) {
     addon_container.find('.directorist-select2-dropdown-close').remove();
 
     // Add
-    addon_container.prepend( '<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="fas fa-times"></i></span>' );
+    addon_container.prepend( '<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="directorist-icon-mask"><span style="mask-image:url(/wp-content/plugins/directorist/assets/icons/line-awesome/svgs/times-solid.svg);-webkit-mask-image:url(/wp-content/plugins/directorist/assets/icons/line-awesome/svgs/times-solid.svg);"></span></i></span>' );
     const selec2_custom_close = addon_container.find( '.directorist-select2-dropdown-close' );
 
     selec2_custom_close.on( 'click', function( e ) {

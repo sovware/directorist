@@ -11536,17 +11536,28 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-rated-stars ul li span,
 .atbd_rated_stars ul li span {
   color: #d4d3f3;
+  display: block;
+  width: 14px;
+  height: 14px;
+  position: relative;
 }
 .directorist-rated-stars ul li span:before,
 .atbd_rated_stars ul li span:before {
-  content: "\f005";
-  font-size: 14px;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
+  content: "";
+  -webkit-mask-image: url(../images/aed596d0759d79c9d876e6fb28897b27.svg);
+          mask-image: url(../images/aed596d0759d79c9d876e6fb28897b27.svg);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  width: 14px;
+  height: 14px;
+  background-color: #d4d3f3;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
-.directorist-rated-stars ul li span.directorist-rate-active,
-.atbd_rated_stars ul li span.directorist-rate-active {
-  color: #fa8b0c;
+.directorist-rated-stars ul li span.directorist-rate-active:before,
+.atbd_rated_stars ul li span.directorist-rate-active:before {
+  background-color: #fa8b0c;
 }
 
 .directorist-listing-details .directorist-listing-single {

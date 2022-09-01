@@ -109,16 +109,26 @@
             margin: 0;
             span {
                 color: #d4d3f3;
-
+                display: block;
+                width: 14px;
+                height: 14px;
+                position: relative;
                 &:before {
-                    content: "\f005";
-                    font-size: 14px;
-                    font-family: 'Font Awesome 5 Free';
-                    font-weight: 900;
+                    content: '';
+                    mask-image: url("../../../../icons/font-awesome/svgs/regular/star.svg");
+                    mask-repeat: no-repeat;
+                    width: 14px;
+                    height: 14px;
+                    background-color: #d4d3f3;
+                    position: absolute;
+                    left: 0;
+                    top:0;
                 }
 
                 &.directorist-rate-active {
-                    color: #fa8b0c;
+                   &:before{
+                    background-color: #fa8b0c;
+                   }
                 }
             }
         }

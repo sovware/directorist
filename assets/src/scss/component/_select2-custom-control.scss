@@ -31,4 +31,13 @@
 .directorist-select2-dropdown-close {
     height: 30px;
     width: 25px;
+    .directorist-icon-mask span{
+        width: 15px;
+        height: 15px;
+    }
+}
+
+.directorist-select2-addon .directorist-icon-mask span{
+    width: 13px;
+    height: 13px;
 }

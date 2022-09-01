@@ -179,3 +179,39 @@
         width: 100%;
     }
 }
+
+/* Responsive fix */
+@media only screen and (max-width: 1441px){
+    .icon-picker__inner{
+        width: 825px;
+        height: 660px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .icon-picker__inner{
+        width: 615px;
+        height: 500px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .icon-picker__inner{
+        width: 500px;
+        height: 450px;
+    }
+}
+@media only screen and (max-width: 575px){
+    .icon-picker__inner {
+        display: block;
+        width: calc(100% - 30px);
+        overflow: scroll;
+    }
+    .icon-picker__sidebar,
+    .icon-picker__content{
+        width: auto;
+    }
+    .icon-picker__content .icons-group-icons .font-icon-btn{
+        width: 55px;
+        height: 55px;
+        font-size: 16px;
+    }
+}

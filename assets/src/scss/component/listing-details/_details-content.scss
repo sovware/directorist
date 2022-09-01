@@ -91,6 +91,11 @@
         i {
             font-size: 17px;
         }
+        .directorist-added-to-favorite{
+            span{
+                background-color: red;
+            }
+        }
 
         &.directorist-tooltip[data-label]:after {
             line-height: 1.75;

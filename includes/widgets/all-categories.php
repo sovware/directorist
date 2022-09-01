@@ -196,14 +196,11 @@ class All_Categories extends \WP_Widget {
             $i = 1;
             $html .= '<ul class="' .$child_class. '">';
             foreach( $terms as $term ) {
+				$settings['term_id'] = $term->term_id;
                 $child_category = get_term_children($term->term_id,ATBDP_CATEGORY);
                 $plus_icon = (!empty($child_category) && empty($parent) )? directorist_icon( 'las la-plus', false ) : '';
-
-
                 $icon = get_term_meta($term->term_id,'category_icon',true);
-                $icon_type = substr($icon, 0,2);
-                $settings['term_id'] = $term->term_id;
-                $span = empty($parent)  ? '<span class="'. $icon .'"></span>' : '';
+                $child_icon = empty($parent)  ? directorist_icon( $icon, false ) : '';
 
                 $count = 0;
                 if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
@@ -213,7 +210,7 @@ class All_Categories extends \WP_Widget {
                 }
 
                 $html .= '<li>';
-                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_category_page( $term ) . '">'. $span .'';
+                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_category_page( $term ) . '">'. $child_icon .'';
                 $html .= $term->name;
                 if( ! empty( $settings['show_count'] ) ) {
                     $expired_listings = atbdp_get_expired_listings(ATBDP_CATEGORY, $term->term_id);

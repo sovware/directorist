@@ -127,4 +127,4 @@ function directorist_add_custom_single_listing_page_content_from_elementor( $con
 
 	return $content;
 }
-add_filter( 'directorist_custom_single_listing_pre_page_content', __NAMESPACE__ . '\directorist_add_custom_single_listing_page_content_from_elementor', 10, 2 );
+add_filter( 'directorist_custom_single_listing_pre_page_content', __NAMESPACE__ . '\\directorist_add_custom_single_listing_page_content_from_elementor', 10, 2 );

@@ -304,6 +304,12 @@
 
           .directory_tag {
             margin: 4px 0 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            .directorist-icon-mask{
+              margin-right: 4px;
+            }
           }
 
           .atbd_rated_stars {
@@ -358,9 +364,11 @@
     >ul.atbdp_parent_location>li {
       &:hover {
         >a {
-          span {
+          .directorist-icon-mask {
             @extend .atbd_bg-primary;
-            color: $light;
+            span{
+              background-color: $light;
+            }
           }
         }
       }
@@ -383,6 +391,7 @@
           width: 28px;
           background: #f1f3f8;
           border-radius: 50%;
+          transition: 0.3s ease;
           span{
             width: 12px;
             height: 12px;

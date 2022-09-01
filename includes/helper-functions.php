@@ -1809,7 +1809,7 @@ function the_atbdp_favourites_link( $post_id = 0 ) {
 
         $favourites = directorist_get_user_favorites( get_current_user_id() );
         if ( in_array( $post_id, $favourites ) ) {
-            return directorist_icon( 'las la-heart', false ) . '<a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
+            return directorist_icon( 'las la-heart', false, 'directorist-added-to-favorite') . '<a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         } else {
             return directorist_icon( 'las la-heart', false ) . '<a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         }

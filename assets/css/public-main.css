@@ -352,6 +352,9 @@
 .plupload-thumbs .thumb {
   position: relative;
 }
+.plupload-thumbs .thumb img {
+  width: 100%;
+}
 .plupload-thumbs .thumb:hover .atbdp-thumb-actions {
   display: -webkit-box !important;
   display: -webkit-flex !important;
@@ -394,6 +397,11 @@
   border-radius: 50%;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
+}
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink .directorist-icon-mask span {
+  width: 14px;
+  height: 14px;
+  background-color: #fff;
 }
 .plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink:hover {
   background: #e23636;

@@ -428,7 +428,7 @@ function plu_show_thumbs(imgId) {
         file_display = '<i title="' + file_name + '" class="la ' + file_type_class + ' atbdp-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" aria-hidden="true"></i>';
       }
 
-      var thumb = $('<div class="thumb ' + file_display_class + '" id="thumb' + imgId + i + '">' + image_title_html + file_display + image_caption_html + '<div class="atbdp-thumb-actions">' + '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '"><i class="fa fa-trash" aria-hidden="true"></i></span>' + '</div>' + '</div>');
+      var thumb = $('<div class="thumb ' + file_display_class + '" id="thumb' + imgId + i + '">' + image_title_html + file_display + image_caption_html + '<div class="atbdp-thumb-actions">' + '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '"><i class="directorist-icon-mask"><span style="mask-image:url(' + directorist.assets_url + 'icons/font-awesome/svgs/solid/trash.svg);-webkit-mask-image:url(' + directorist.assets_url + 'icons/font-awesome/svgs/solid/trash.svg);"></span></i></span>' + '</div>' + '</div>');
       thumbsC.append(thumb);
       thumb.find(".thumbremovelink").click(function () {
         //console.log("plu_show_thumbs-thumbremovelink");

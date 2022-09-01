@@ -11541,8 +11541,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-rated-stars ul li span:before,
 .atbd_rated_stars ul li span:before {
   content: "";
-  -webkit-mask-image: url(../images/aed596d0759d79c9d876e6fb28897b27.svg);
-          mask-image: url(../images/aed596d0759d79c9d876e6fb28897b27.svg);
+  -webkit-mask-image: url(../images/9a1043337f37b65647d77feb64df21dd.svg);
+          mask-image: url(../images/9a1043337f37b65647d77feb64df21dd.svg);
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
   width: 14px;

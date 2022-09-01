@@ -71,6 +71,7 @@ class Localized_Data {
 			'directorist_nonce'           => wp_create_nonce( directorist_get_nonce_key() ),
 			'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
 			'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
+			'assets_url'                  => DIRECTORIST_ASSETS,
 			'home_url'                    => home_url(),
 			'rest_url'                    => rest_url(),
 			'nonceName'                   => 'atbdp_nonce_js',

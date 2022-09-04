@@ -225,7 +225,7 @@
                         update_post_meta($post_id, '_never_expire', 1);
                     }
                     else {
-                        $exp_dt = calc_listing_expiry_date();
+                        $exp_dt = calc_listing_expiry_date('', $default_expiration);
                         update_post_meta($post_id, '_expiry_date', $exp_dt);   
                     }
                     update_post_meta($post_id, '_featured', 0);

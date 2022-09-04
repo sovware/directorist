@@ -13,7 +13,7 @@ class Directorist_Template_Hooks {
 
 	private function __construct() {
 
-		// Allow mask-image inline style in wp_kses_post, mask-image is used in directorist_icon()
+		// Allow '--directorist-icon' inline style var in wp_kses_post, which is used in directorist_icon()
 		add_filter( 'safe_style_css', array( $this, 'add_style_attr' )  );
 		add_filter( 'safecss_filter_attr_allow_css', array( $this, 'allow_style_attr' ), 10, 2  );
 
@@ -63,7 +63,7 @@ class Directorist_Template_Hooks {
 	}
 
 	public function add_style_attr( $args ) {
-		$args = array_merge( $args, array( 'mask-image', '-webkit-mask-image' ) );
+		$args[] = '--directorist-icon';
 		return $args;
 	}
 
@@ -71,7 +71,7 @@ class Directorist_Template_Hooks {
 		$parts = explode( ':', $css_test_string, 2 );
 		$attr = trim( $parts[0] );
 
-		if ( in_array( $attr, array( 'mask-image', '-webkit-mask-image' ) ) ) {
+		if ( $attr === '--directorist-icon' ) {
 			$pattern = '/^url\(\s*([\'\"]?)(.*)(\g1)\s*\)$/'; // matches the sequence `url(*)`.
 			$is_url = preg_match( $pattern, $parts[1] );
 			return $is_url;

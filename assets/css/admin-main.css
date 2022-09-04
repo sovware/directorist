@@ -5695,6 +5695,8 @@ img.atbdp-file-info {
 }
 
 .directorist-icon-mask span {
+  -webkit-mask-image: var(--directorist-icon);
+          mask-image: var(--directorist-icon);
   background: #444752;
   width: 18px;
   height: 18px;

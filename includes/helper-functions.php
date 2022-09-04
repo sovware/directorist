@@ -831,7 +831,7 @@ function directorist_icon( $icon, $echo = true, $class = '' ) {
 
 	$class = $class ? 'directorist-icon-mask ' . $class : 'directorist-icon-mask';
 
-    $html = sprintf( '<i class="%2$s"><span style="mask-image:url(%1$s);-webkit-mask-image:url(%1$s);"></span></i>', esc_url( $icon_src ), esc_attr( $class ) );
+	$html = sprintf( '<i class="%s"><span style="--directorist-icon:url(%s);"></span></i>', esc_attr( $class ), esc_url( $icon_src ) );
 
     if ( $echo ) {
         echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped
@@ -4005,4 +4005,21 @@ function directorist_get_request_uri() {
  */
 function directorist_update_profile( $user ) {
 	return ATBDP()->user->update_profile( $user );
+}
+
+/**
+ * Escape JSON for use on HTML or attribute text nodes.
+ *
+ * @since 7.4.0
+ * @param string $json JSON to escape.
+ * @param bool   $html True if escaping for HTML text node, false for attributes. Determines how quotes are handled.
+ * @return string Escaped JSON.
+ */
+function directorist_esc_json( $json, $html = false ) {
+	return _wp_specialchars(
+		$json,
+		$html ? ENT_NOQUOTES : ENT_QUOTES, // Escape quotes in attribute nodes only.
+		'UTF-8',                           // json_encode() outputs UTF-8 (really just ASCII), not the blog's charset.
+		true                               // Double escape entities: `&amp;` -> `&amp;amp;`.
+	);
 }

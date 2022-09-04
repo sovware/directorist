@@ -304,6 +304,17 @@
 
           .directory_tag {
             margin: 4px 0 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            .directorist-icon-mask{
+              margin-right: 4px;
+              span{
+                width: 20px;
+                height: 20px;
+                color: #202428;
+              }
+            }
           }
 
           .atbd_rated_stars {
@@ -352,15 +363,23 @@
 
     .atbdp_child_location {
       padding-left: 15px;
+      flex: 0 0 100%;
     }
-
+    ul.atbdp_child_category{
+      flex: 0 0 100%;
+    }
     >ul.atbdp_parent_category>li,
     >ul.atbdp_parent_location>li {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
       &:hover {
         >a {
-          span {
+          .directorist-icon-mask {
             @extend .atbd_bg-primary;
-            color: $light;
+            span{
+              background-color: $light;
+            }
           }
         }
       }
@@ -374,23 +393,34 @@
         margin-bottom: 0;
         display: inline-block;
 
-        span {
-          font-size: 12px;
-          display: inline-block;
+        .directorist-icon-mask {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           margin-right: 10px;
-          line-height: 28px;
+          height: 28px;
           width: 28px;
-          text-align: center;
           background: #f1f3f8;
-          color: #9299b8;
           border-radius: 50%;
+          transition: 0.3s ease;
+          span{
+            width: 12px;
+            height: 12px;
+            background-color: #9299b8;
+          }
         }
 
       }
 
-      >span {
-        cursor: pointer;
-        font-size: 10px;
+      .directorist-icon-mask{
+        position: relative;
+        top: 2px;
+        span{
+          cursor: pointer;
+          width: 11px;
+          height: 11px;
+          background-color: #28303d;
+        }
       }
     }
 

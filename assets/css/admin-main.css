@@ -5695,6 +5695,8 @@ img.atbdp-file-info {
 }
 
 .directorist-icon-mask span {
+  -webkit-mask-image: var(--directorist-icon);
+          mask-image: var(--directorist-icon);
   background: #444752;
   width: 18px;
   height: 18px;
@@ -5817,6 +5819,9 @@ img.atbdp-file-info {
 .plupload-thumbs .thumb {
   position: relative;
 }
+.plupload-thumbs .thumb img {
+  width: 100%;
+}
 .plupload-thumbs .thumb:hover .atbdp-thumb-actions {
   display: -webkit-box !important;
   display: -webkit-flex !important;
@@ -5859,6 +5864,11 @@ img.atbdp-file-info {
   border-radius: 50%;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
+}
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink .directorist-icon-mask span {
+  width: 14px;
+  height: 14px;
+  background-color: #fff;
 }
 .plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink:hover {
   background: #e23636;

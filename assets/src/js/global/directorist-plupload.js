@@ -347,7 +347,7 @@ function plu_show_thumbs(imgId) {
                 file_display +
                 image_caption_html +
                 '<div class="atbdp-thumb-actions">' +
-                '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '"><i class="fa fa-trash" aria-hidden="true"></i></span>' +
+                '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '"><i class="directorist-icon-mask"><span style="--directorist-icon:url('+directorist.assets_url+'icons/font-awesome/svgs/solid/trash.svg);"></span></i></span>' +
                 '</div>' +
                 '</div>');
 

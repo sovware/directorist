@@ -412,10 +412,15 @@
 
       }
 
-      .directorist-icon-mask span{
-        cursor: pointer;
-        width: 10px;
-        height: 10px;
+      .directorist-icon-mask{
+        position: relative;
+        top: 2px;
+        span{
+          cursor: pointer;
+          width: 11px;
+          height: 11px;
+          background-color: #28303d;
+        }
       }
     }
 

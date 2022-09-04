@@ -5656,6 +5656,14 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
 }
+.widget.atbd_widget[id^=bd] .atbdp-widget-categories ul.atbdp_child_category,
+.widget.atbd_widget[id^=dcl] .atbdp-widget-categories ul.atbdp_child_category,
+.widget.atbd_widget .atbdp-widget-categories ul.atbdp_child_category {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
 .widget.atbd_widget[id^=bd] .atbdp-widget-categories > ul.atbdp_parent_category > li,
 .widget.atbd_widget[id^=bd] .atbdp-widget-categories > ul.atbdp_parent_location > li,
 .widget.atbd_widget[id^=dcl] .atbdp-widget-categories > ul.atbdp_parent_category > li,

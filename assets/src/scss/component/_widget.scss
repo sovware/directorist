@@ -365,7 +365,9 @@
       padding-left: 15px;
       flex: 0 0 100%;
     }
-
+    ul.atbdp_child_category{
+      flex: 0 0 100%;
+    }
     >ul.atbdp_parent_category>li,
     >ul.atbdp_parent_location>li {
       display: flex;

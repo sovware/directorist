@@ -107,7 +107,7 @@ function selec2_add_custom_close_button(field) {
     addon_container.find('.directorist-select2-dropdown-close').remove();
 
     // Add
-    addon_container.prepend( `<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="directorist-icon-mask"><span style="mask-image:url(${directorist.assets_url}icons/font-awesome/svgs/solid/times.svg);-webkit-mask-image:url(${directorist.assets_url}icons/font-awesome/svgs/solid/times.svg);"></span></i></span>` );
+    addon_container.prepend( `<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="directorist-icon-mask"><span style="--directorist-icon:url(${directorist.assets_url}icons/font-awesome/svgs/solid/times.svg);"></span></i></span>` );
     const selec2_custom_close = addon_container.find( '.directorist-select2-dropdown-close' );
 
     selec2_custom_close.on( 'click', function( e ) {

@@ -356,7 +356,7 @@ function directorist_payment_guard(){
     $listing_id = get_query_var('atbdp_listing_id');
 
 	if ( empty( $listing_id ) && isset( $_GET['submit'] ) ) {
-		$listing_id = $_GET['submit'];
+		$listing_id = sanitize_text_field( wp_unslash( $_GET['submit'] ) );
 	}
 
     // vail if the id is empty or post type is not our post type.

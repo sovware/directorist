@@ -65,6 +65,7 @@
         <properties>
             <property name="customEscapingFunctions" type="array">
                 <element value="directorist_kses"/>
+                <element value="directorist_esc_json"/>
             </property>
         </properties>
     </rule>

@@ -17,7 +17,7 @@ $data_max = $data['max'] ?? '';
 
 	if ( 'textarea' === $data['type'] ) {
 		?>
-		<textarea name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" rows="8" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" max="<?php echo esc_attr( $data_max ); ?>" <?php $listing_form->required( $data ); ?>><?php echo esc_html( $data['value'] ); ?></textarea>
+		<textarea name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" rows="8" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" maxlength="<?php echo esc_attr( $data_max ); ?>" <?php $listing_form->required( $data ); ?>><?php echo esc_html( $data['value'] ); ?></textarea>
 		<?php
 	}
 	else {

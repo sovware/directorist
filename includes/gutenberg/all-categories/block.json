@@ -1,0 +1,9 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "directorist/all-categories",
+    "title": "All Categories",
+    "category": "directorist-blocks-collection",
+    "description": "Create directory category listing grid view and list view.",
+    "textdomain": "directorist"
+}

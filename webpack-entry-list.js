@@ -4,12 +4,22 @@ module.exports = {
         // -------------------------------------------
         // JS
         ['public-main']: ["./assets/src/js/public/main.js"],
-        ['public-checkout']: ["./assets/src/js/public/checkout.js"],
-        ['public-search-listing']: ["./assets/src/js/public/search-listing.js"],
-        ['public-search-form-listing']: ["./assets/src/js/public/search-form-listing.js"],
+        ['checkout']: ["./assets/src/js/public/checkout.js"],
+        ['search-form']: ["./assets/src/js/public/search-form.js"],
+        ['range-slider']: ["./assets/src/js/public/range-slider.js"],
 
+        //Pages
+        ['all-listings']: ["./assets/src/js/public/modules/all-listings.js"],
+        ['all-authors']: ["./assets/src/js/public/modules/all-authors.js"],
+        ['all-location-category']: ["./assets/src/js/public/modules/all-location-category.js"],
+        ['directorist-dashboard']: ["./assets/src/js/public/modules/dashboard.js"],
+        ['author-profile']: ["./assets/src/js/public/modules/author-profile.js"],
+        //['search-home']: ["./assets/src/js/public/modules/search-home.js"],
+        ['public-add-listing']: ["./assets/src/js/public/modules/add-listing.js"],
+        ['account']: ["./assets/src/js/public/modules/account.js"],
+        ['single-listing']: ["./assets/src/js/public/modules/single-listing.js"],
         ['public-atmodal']: ["./assets/src/js/public/atmodal.js"],
-        ['public-releated-listings-slider']: ["./assets/src/js/public/releated-listings-slider.js"],
+        ['widgets']: ["./assets/src/js/public/modules/widgets.js"],
 
         // Admin
         // -------------------------------------------
@@ -19,27 +29,25 @@ module.exports = {
         ['admin-import-export']: "./assets/src/js/admin/import-export.js",
         ['admin-plugins']: "./assets/src/js/admin/plugins.js",
         ['admin-setup-wizard']: "./assets/src/js/admin/setup-wizard.js",
-        ['admin-multi-directory-archive']: "./assets/src/js/admin/multi-directory-archive.js",
+        ['admin-builder-archive']: "./assets/src/js/admin/multi-directory-archive.js",
 
         // Global
         // -------------------------------------------
         // JS
         ['global-main']: ["./assets/src/js/global/global.js"],
-        ['global-add-listing']: ["./assets/src/js/global/add-listing.js"],
-
-        ['global-add-listing-openstreet-map-custom-script']: ["./assets/src/js/global/map-scripts/add-listing/openstreet-map.js"],
-        ['global-add-listing-gmap-custom-script']: ["./assets/src/js/global/map-scripts/add-listing/google-map.js"],
+        ['add-listing']: ["./assets/src/js/global/add-listing.js"],
+        ['add-listing-openstreet-map']: ["./assets/src/js/global/map-scripts/add-listing/openstreet-map.js"],
+        ['add-listing-google-map']: ["./assets/src/js/global/map-scripts/add-listing/google-map.js"],
         ['global-geolocation']: ["./assets/src/js/global/map-scripts/geolocation.js"],
-        ['public-single-listing-openstreet-map-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map.js"],
-        ['public-single-listing-openstreet-map-widget-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js"],
-        ['public-single-listing-gmap-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/google-map.js"],
-        ['public-single-listing-gmap-widget-custom-script']: ["./assets/src/js/global/map-scripts/single-listing/google-map-widget.js"],
+        ['single-listing-openstreet-map']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map.js"],
+        ['single-listing-openstreet-map-widget']: ["./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js"],
+        ['single-listing-google-map']: ["./assets/src/js/global/map-scripts/single-listing/google-map.js"],
+        ['single-listing-google-map-widget']: ["./assets/src/js/global/map-scripts/single-listing/google-map-widget.js"],
         ['public-geolocation-widget']: ["./assets/src/js/global/map-scripts/geolocation-widget.js"],
-        ['global-load-osm-map']: ["./assets/src/js/global/map-scripts/load-osm-map.js"],
-        ['global-map-view']: ["./assets/src/js/global/map-scripts/map-view.js"],
+        ['openstreet-map']: ["./assets/src/js/global/map-scripts/openstreet-map.js"],
+        ['google-map']: ["./assets/src/js/global/map-scripts/map-view.js"],
         ['global-markerclusterer']: ["./assets/src/js/global/map-scripts/markerclusterer.js"],
-
-        ['global-directorist-plupload']: "./assets/src/js/global/directorist-plupload.js",
+        ['directorist-plupload']: "./assets/src/js/global/directorist-plupload.js",
     },
 
     vueEntries: {

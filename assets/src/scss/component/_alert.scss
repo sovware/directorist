@@ -5,7 +5,15 @@
     border-radius: 3px;
     background: #f4f4f4;
     padding: 15px 20px;
-
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    .directorist-icon-mask{
+        margin-right: 5px;
+    }
+    > a{
+        padding-left: 5px;
+    }
     .directorist-alert__content {
         display: flex;
         align-items: flex-start;

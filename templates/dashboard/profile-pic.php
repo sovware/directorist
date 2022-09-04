@@ -2,10 +2,8 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.0
  */
-
-use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -16,7 +14,7 @@ $u_pro_pic    = $u_pro_pic_id ? wp_get_attachment_image_src( $u_pro_pic_id, 'dir
 
 <div class="directorist-image-profile-wrap">
 
-	<div id="user_profile_pic" class="ez-media-uploader directorist-profile-uploader" data-type="jpg, jpeg, png, gif" data-min-file-items="0" data-max-file-items="1" data-max-total-file-size="0" data-allow-multiple="0" data-show-alerts="false" data-show-file-size="false" data-featured="false" data-allow-sorting="false" data-show-info="false" data-uploader-type="avater">
+	<div class="ez-media-uploader directorist-profile-uploader">
 
 		<div class="ezmu__loading-section ezmu--show">
 
@@ -27,7 +25,7 @@ $u_pro_pic    = $u_pro_pic_id ? wp_get_attachment_image_src( $u_pro_pic_id, 'dir
 			</span>
 
 		</div>
-		
+
 		<div class="ezmu__old-files">
 
 			<?php if ($u_pro_pic) { ?>

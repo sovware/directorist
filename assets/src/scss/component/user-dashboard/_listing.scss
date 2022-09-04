@@ -96,11 +96,16 @@
             }
 
             @include m(action){
-
                 .directorist-favourite-remove-btn{
-
+                    .directorist-icon-mask{
+                        margin-right: 5px;
+                        span{
+                            background-color: #fff;
+                        }
+                    }
                     font-weight: 500;
-                    display: inline-block;
+                    display: inline-flex;
+                    align-items: center;
                     border-radius: 6px;
                     padding: 0px 14px;
                     color: #fff !important;

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0.5
- * @version 7.0.5
+ * @version 7.4.0
  */
 
 use \Directorist\Helper;
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-authors__nav">
 					<ul>
 						<li>
-							<a href="#" class="directorist-alphabet ALL" data-nonce="<?php echo esc_attr( wp_create_nonce( 'directorist_author_sorting' ) ); ?>" data-alphabet="ALL"><?php _e( 'All', 'directorist' ); ?></a>
+							<a href="#" class="directorist-alphabet ALL" data-nonce="<?php echo esc_attr( wp_create_nonce( 'directorist_author_sorting' ) ); ?>" data-alphabet="ALL"><?php esc_html_e( 'All', 'directorist' ); ?></a>
 						</li>
 						<?php foreach( range( 'A', 'Z' ) as $value ): ?>
 
@@ -63,30 +63,26 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 											<?php if( $authors->display_name() ): ?>
 												<h2><?php echo esc_html( Helper::user_info( $author, 'name' ) ) ; ?></h2>
 											<?php endif; ?>
-
-											<?php if( $authors->display_role() ): ?>
-												<h3><?php echo esc_html( ucfirst( Helper::user_info( $author, 'role' ) ) ) ; ?></h3>
-											<?php endif; ?>
 										</div>
 
-										<?php if( $authors->display_contact_info() ): ?>
+										<?php if( $authors->contact_info() ) : ?>
 
 											<ul class="directorist-authors__card__info-list">
 
-												<?php if( $phone = Helper::user_info( $author, 'phone' ) ): ?>
-													<li><i class="<?php atbdp_icon_type( true ); ?>-phone"></i> <a href="tel:<?php Helper::formatted_tel( $phone ); ?>"><?php echo esc_html( $phone ); ?></a></li>
+												<?php if( in_array( 'phone', $authors->contact_info() ) && $phone = Helper::user_info( $author, 'phone' ) ): ?>
+													<li><?php directorist_icon( 'las la-phone' ); ?> <a href="tel:<?php Helper::formatted_tel( $phone ); ?>"><?php echo esc_html( $phone ); ?></a></li>
 												<?php endif; ?>
 
-												<?php if( $email = Helper::user_info( $author, 'email' ) ): ?>
-													<li><i class="<?php atbdp_icon_type( true ); ?>-envelope"></i> <a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></li>
+												<?php if( is_user_logged_in() && in_array( 'email', $authors->contact_info() ) && $email = Helper::user_info( $author, 'email' ) ) : ?>
+													<li><?php directorist_icon( 'las la-envelope' ); ?> <a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></li>
 												<?php endif; ?>
 
-												<?php if( $address = Helper::user_info( $author, 'address' ) ): ?>
-													<li><i class="<?php atbdp_icon_type( true ); ?>-map-marker"></i> <?php echo esc_html( $address ); ?></li>
+												<?php if( in_array( 'address', $authors->contact_info() ) && $address = Helper::user_info( $author, 'address' ) ): ?>
+													<li><?php directorist_icon( 'las la-map-marker' ); ?> <?php echo esc_html( $address ); ?></li>
 												<?php endif; ?>
 
-												<?php if( $website = Helper::user_info( $author, 'website' ) ): ?>
-													<li><i class="<?php atbdp_icon_type( true ); ?>-globe"></i> <a href="<?php echo esc_url( $website ); ?>"><?php echo esc_html( $website ); ?></a></li>
+												<?php if( in_array( 'website', $authors->contact_info() ) && $website = Helper::user_info( $author, 'website' ) ): ?>
+													<li><?php directorist_icon( 'las la-globe' ); ?> <a href="<?php echo esc_url( $website ); ?>"><?php echo esc_html( $website ); ?></a></li>
 												<?php endif; ?>
 
 											</ul>
@@ -103,25 +99,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 												<?php if( $facebook = Helper::user_info( $author, 'facebook' ) ): ?>
 													<li class="directorist-author-social-item">
-														<a target="_blank" href="<?php echo esc_url( $facebook ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-facebook"></span></a>
+														<a target="_blank" href="<?php echo esc_url( $facebook ); ?>"><?php directorist_icon( 'lab la-facebook' ); ?></a>
 													</li>
 												<?php endif; ?>
 
 												<?php if( $twitter = Helper::user_info( $author, 'twitter' ) ): ?>
 													<li class="directorist-author-social-item">
-														<a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-twitter"></span></a>
+														<a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a>
 													</li>
 												<?php endif; ?>
 
 												<?php if( $linkedin = Helper::user_info( $author, 'linkedin' ) ): ?>
 													<li class="directorist-author-social-item">
-														<a target="_blank" href="<?php echo esc_url( $linkedin ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-linkedin"></span></a>
+														<a target="_blank" href="<?php echo esc_url( $linkedin ); ?>"><?php directorist_icon( 'lab la-linkedin' ); ?></a>
 													</li>
 												<?php endif; ?>
 
 												<?php if( $youtube = Helper::user_info( $author, 'youtube' ) ): ?>
 													<li class="directorist-author-social-item">
-														<a target="_blank" href="<?php echo esc_url( $youtube ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-youtube"></span></a>
+														<a target="_blank" href="<?php echo esc_url( $youtube ); ?>"><?php directorist_icon( 'lab la-youtube' ); ?></span></a>
 													</li>
 												<?php endif; ?>
 
@@ -130,7 +126,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 										<?php endif; ?>
 
 										<?php if( $authors->display_btn() ): ?>
-											<a href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author->data->ID );?>" class="directorist-btn directorist-btn-light directorist-btn-block"><?php echo $authors->btn_text(); ?></a>
+											<a href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link( $author->data->ID ) );?>" class="directorist-btn directorist-btn-light directorist-btn-block"><?php echo esc_html( $authors->btn_text() ); ?></a>
 										<?php endif; ?>
 
 									</div>
@@ -153,7 +149,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<?php if( $authors->display_pagination() ): ?>
 
 					<div class="directorist-pagination directorist-authors__pagination directorist-authors-pagination">
-						<?php echo $authors->author_pagination(); ?>
+						<?php echo wp_kses_post( $authors->author_pagination() ); ?>
 					</div>
 
 				<?php endif; ?>

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -96,33 +96,35 @@
 ;
 
 (function ($) {
-  // Recovery Password Modal
-  $("#recover-pass-modal").hide();
-  $(".atbdp_recovery_pass").on("click", function (e) {
-    e.preventDefault();
-    $("#recover-pass-modal").slideToggle().show();
-  }); // Contact form [on modal closed]
+  window.addEventListener('DOMContentLoaded', function () {
+    // Recovery Password Modal
+    $("#recover-pass-modal").hide();
+    $(".atbdp_recovery_pass").on("click", function (e) {
+      e.preventDefault();
+      $("#recover-pass-modal").slideToggle().show();
+    }); // Contact form [on modal closed]
 
-  $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
-    $('#atbdp-contact-message').val('');
-    $('#atbdp-contact-message-display').html('');
-  }); // Template Restructured
-  // Modal
+    $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
+      $('#atbdp-contact-message').val('');
+      $('#atbdp-contact-message-display').html('');
+    }); // Template Restructured
+    // Modal
 
-  var directoristModal = document.querySelector('.directorist-modal-js');
-  $('body').on('click', '.directorist-btn-modal-js', function (e) {
-    e.preventDefault();
-    var data_target = $(this).attr("data-directorist_target");
-    document.querySelector(".".concat(data_target)).classList.add('directorist-show');
-  });
-  $('body').on('click', '.directorist-modal-close-js', function (e) {
-    e.preventDefault();
-    $(this).closest('.directorist-modal-js').removeClass('directorist-show');
-  });
-  $(document).bind('click', function (e) {
-    if (e.target == directoristModal) {
-      directoristModal.classList.remove('directorist-show');
-    }
+    var directoristModal = document.querySelector('.directorist-modal-js');
+    $('body').on('click', '.directorist-btn-modal-js', function (e) {
+      e.preventDefault();
+      var data_target = $(this).attr("data-directorist_target");
+      document.querySelector(".".concat(data_target)).classList.add('directorist-show');
+    });
+    $('body').on('click', '.directorist-modal-close-js', function (e) {
+      e.preventDefault();
+      $(this).closest('.directorist-modal-js').removeClass('directorist-show');
+    });
+    $(document).bind('click', function (e) {
+      if (e.target == directoristModal) {
+        directoristModal.classList.remove('directorist-show');
+      }
+    });
   });
 })(jQuery);
 
@@ -135,14 +137,24 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var $ = jQuery;
-window.addEventListener('load', function () {
+window.addEventListener('load', waitAndInit);
+window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
+window.addEventListener('directorist-type-change', waitAndInit);
+window.addEventListener('directorist-instant-search-reloaded', waitAndInit);
+
+function waitAndInit() {
+  setTimeout(init, 0);
+} // Initialize
+
+
+function init() {
   // Add custom dropdown toggle button
   selec2_add_custom_dropdown_toggle_button(); // Add custom close button where needed
 
@@ -157,18 +169,28 @@ window.addEventListener('load', function () {
 
     selec2_add_custom_close_button($(this));
   });
-});
+}
 
 function selec2_add_custom_dropdown_toggle_button() {
   // Remove Default
   $('.select2-selection__arrow').css({
     'display': 'none'
   });
-  var addon_container = selec2_get_addon_container(); // Add Dropdown Toggle Button
+  var addon_container = selec2_get_addon_container('.select2-hidden-accessible');
 
-  addon_container.append('<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="fas fa-chevron-down"></i></span>');
+  if (!addon_container) {
+    return;
+  }
+
+  var dropdown = addon_container.find('.directorist-select2-dropdown-toggle');
+
+  if (!dropdown.length) {
+    // Add Dropdown Toggle Button
+    var dropdownHTML = "<span class=\"directorist-select2-addon directorist-select2-dropdown-toggle\"><i class=\"directorist-icon-mask\"><span style=\"mask-image:url(".concat(directorist.assets_url, "icons/font-awesome/svgs/solid/chevron-down.svg);-webkit-mask-image:url(").concat(directorist.assets_url, "icons/font-awesome/svgs/solid/chevron-down.svg);\"></span></i></span>");
+    addon_container.append(dropdownHTML);
+  }
+
   var selec2_custom_dropdown = addon_container.find('.directorist-select2-dropdown-toggle'); // Toggle --is-open class
-  // -----------------------------
 
   $('.select2-hidden-accessible').on('select2:open', function (e) {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
@@ -178,7 +200,6 @@ function selec2_add_custom_dropdown_toggle_button() {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.removeClass('--is-open');
   }); // Toggle Dropdown
-  // -----------------------------
 
   selec2_custom_dropdown.on('click', function (e) {
     var isOpen = $(this).hasClass('--is-open');
@@ -207,7 +228,7 @@ function selec2_add_custom_close_button_if_needed() {
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var field = _step.value;
-      var value = $(field).children("option:selected").val();
+      var value = $(field).children('option:selected').val();
 
       if (!value) {
         continue;
@@ -236,10 +257,10 @@ function selec2_add_custom_close_button(field) {
 
   addon_container.find('.directorist-select2-dropdown-close').remove(); // Add
 
-  addon_container.prepend('<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="fas fa-times"></i></span>');
+  addon_container.prepend("<span class=\"directorist-select2-addon directorist-select2-dropdown-close\"><i class=\"directorist-icon-mask\"><span style=\"mask-image:url(".concat(directorist.assets_url, "icons/font-awesome/svgs/solid/times.svg);-webkit-mask-image:url(").concat(directorist.assets_url, "icons/font-awesome/svgs/solid/times.svg);\"></span></i></span>"));
   var selec2_custom_close = addon_container.find('.directorist-select2-dropdown-close');
   selec2_custom_close.on('click', function (e) {
-    var field = $(this).closest(".select2-container").siblings('select:enabled');
+    var field = $(this).closest('.select2-container').siblings('select:enabled');
     field.val(null).trigger('change');
     addon_container.find('.directorist-select2-dropdown-close').remove();
     selec2_adjust_space_for_addons();
@@ -262,10 +283,6 @@ function selec2_remove_custom_close_button(field) {
 }
 
 function selec2_get_addon_container(field) {
-  if (field && !field.length) {
-    return;
-  }
-
   var container = field ? $(field).next('.select2-container') : $('.select2-container');
   container = $(container).find('.directorist-select2-addons-area');
 
@@ -274,7 +291,20 @@ function selec2_get_addon_container(field) {
     container = $('.select2-container').find('.directorist-select2-addons-area');
   }
 
-  return container;
+  var container = field ? $(field).next('.select2-container') : null;
+
+  if (!container) {
+    return null;
+  }
+
+  var addonsArea = $(container).find('.directorist-select2-addons-area');
+
+  if (!addonsArea.length) {
+    container.append('<span class="directorist-select2-addons-area"></span>');
+    return container.find('.directorist-select2-addons-area');
+  }
+
+  return addonsArea;
 }
 
 function selec2_adjust_space_for_addons() {
@@ -301,14 +331,20 @@ function selec2_adjust_space_for_addons() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 
 
 var $ = jQuery;
@@ -359,9 +395,9 @@ function initSelect2() {
   } // { elm: $('.directorist-category-select') },
   ];
   select_fields.forEach(function (field) {
-    Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["convertToSelect2"])(field);
+    Object(_lib_helper__WEBPACK_IMPORTED_MODULE_2__["convertToSelect2"])(field);
   });
-  var lazy_load_taxonomy_fields = atbdp_public_data.lazy_load_taxonomy_fields;
+  var lazy_load_taxonomy_fields = directorist.lazy_load_taxonomy_fields;
 
   if (lazy_load_taxonomy_fields) {
     // Init Select2 Ajax Fields
@@ -371,7 +407,7 @@ function initSelect2() {
 
 
 function initSelect2AjaxFields() {
-  var rest_base_url = "".concat(atbdp_public_data.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
+  var rest_base_url = "".concat(directorist.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
 
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
@@ -392,56 +428,207 @@ function initSelect2AjaxTaxonomy(args) {
     perPage: 10
   };
   args = _objectSpread(_objectSpread({}, defaultArgs), args);
-  var currentPage = 1;
-  $(args.selector).select2({
-    allowClear: true,
-    width: '100%',
-    escapeMarkup: function escapeMarkup(text) {
-      return text;
-    },
-    ajax: {
-      url: args.url,
-      dataType: 'json',
-      cache: true,
-      data: function data(params) {
-        currentPage = params.page || 1;
-        var search_term = params.term ? params.term : '';
-        var query = {
-          search: search_term,
-          page: currentPage,
-          per_page: args.perPage
-        };
-        return query;
+
+  if (!args.selector.length) {
+    return;
+  }
+
+  _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
+    var directory_type_id = 0;
+    var search_form_parent = $(item).closest('.directorist-search-form');
+    var archive_page_parent = $(item).closest('.directorist-archive-contents');
+    var nav_list_item = []; // If search page
+
+    if (search_form_parent.length) {
+      nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
+    } // If archive page
+
+
+    if (archive_page_parent.length) {
+      nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+    } // If has nav item
+
+
+    if (nav_list_item.length) {
+      directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
+    }
+
+    var currentPage = 1;
+    $(item).select2({
+      allowClear: true,
+      width: '100%',
+      escapeMarkup: function escapeMarkup(text) {
+        return text;
       },
-      processResults: function processResults(data) {
-        return {
-          results: data.items,
-          pagination: {
-            more: data.paginationMore
-          }
-        };
-      },
-      transport: function transport(params, success, failure) {
-        var $request = $.ajax(params);
-        $request.then(function (data, textStatus, jqXHR) {
-          var totalPage = parseInt(jqXHR.getResponseHeader('x-wp-totalpages'));
-          var paginationMore = currentPage < totalPage;
-          var items = data.map(function (item) {
-            return {
-              id: item.id,
-              text: item.name
-            };
-          });
-          return {
-            items: items,
-            paginationMore: paginationMore
+      ajax: {
+        url: args.url,
+        dataType: 'json',
+        cache: true,
+        data: function data(params) {
+          currentPage = params.page || 1;
+          var search_term = params.term ? params.term : '';
+          var query = {
+            search: search_term,
+            page: currentPage,
+            per_page: args.perPage
           };
-        }).then(success);
-        $request.fail(failure);
-        return $request;
+
+          if (directory_type_id) {
+            query.directory = directory_type_id;
+          }
+
+          return query;
+        },
+        processResults: function processResults(data) {
+          return {
+            results: data.items,
+            pagination: {
+              more: data.paginationMore
+            }
+          };
+        },
+        transport: function transport(params, success, failure) {
+          var $request = $.ajax(params);
+          $request.then(function (data, textStatus, jqXHR) {
+            var totalPage = parseInt(jqXHR.getResponseHeader('x-wp-totalpages'));
+            var paginationMore = currentPage < totalPage;
+            var items = data.map(function (item) {
+              return {
+                id: item.id,
+                text: item.name
+              };
+            });
+            return {
+              items: items,
+              paginationMore: paginationMore
+            };
+          }).then(success);
+          $request.fail(failure);
+          return $request;
+        }
       }
+    }); // Setup Preselected Option
+
+    var selected_item_id = $(item).data('selected-id');
+    var selected_item_label = $(item).data('selected-label');
+
+    if (selected_item_id) {
+      var option = new Option(selected_item_label, selected_item_id, true, true);
+      $(item).append(option);
+      $(item).trigger({
+        type: 'select2:select',
+        params: {
+          data: {
+            id: selected_item_id,
+            text: selected_item_label
+          }
+        }
+      });
     }
   });
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/tabs.js":
+/*!*************************************************!*\
+  !*** ./assets/src/js/global/components/tabs.js ***!
+  \*************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
+
+document.addEventListener('DOMContentLoaded', init, false);
+
+function Tasks() {
+  return {
+    init: function init() {
+      this.initToggleTabLinks();
+    },
+    initToggleTabLinks: function initToggleTabLinks() {
+      var links = document.querySelectorAll('.directorist-toggle-tab');
+
+      if (!links) {
+        return;
+      }
+
+      var self = this;
+
+      _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(links).forEach(function (item) {
+        item.addEventListener('click', function (event) {
+          self.handleToggleTabLinksEvent(item, event);
+        });
+      });
+    },
+    handleToggleTabLinksEvent: function handleToggleTabLinksEvent(item, event) {
+      event.preventDefault();
+      var navContainerClass = item.getAttribute('data-nav-container');
+      var tabContainerClass = item.getAttribute('data-tab-container');
+      var tabClass = item.getAttribute('data-tab');
+
+      if (!navContainerClass || !tabContainerClass || !tabClass) {
+        return;
+      }
+
+      var navContainer = item.closest('.' + navContainerClass);
+      var tabContainer = document.querySelector('.' + tabContainerClass);
+
+      if (!navContainer || !tabContainer) {
+        return;
+      }
+
+      var tab = tabContainer.querySelector('.' + tabClass);
+
+      if (!tab) {
+        return;
+      } // Remove Active Class
+
+
+      var removeActiveClass = function removeActiveClass(item) {
+        item.classList.remove('--is-active');
+      }; // Toggle Nav
+
+
+      var activeNavItems = navContainer.querySelectorAll('.--is-active');
+
+      if (activeNavItems) {
+        _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(activeNavItems).forEach(removeActiveClass);
+      }
+
+      item.classList.add('--is-active'); // Toggle Tab
+
+      var activeTabItems = tabContainer.querySelectorAll('.--is-active');
+
+      if (activeTabItems) {
+        _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(activeTabItems).forEach(removeActiveClass);
+      }
+
+      tab.classList.add('--is-active'); // Update Query Var
+
+      var queryVarKey = item.getAttribute('data-query-var-key');
+      var queryVarValue = item.getAttribute('data-query-var-value');
+
+      if (!queryVarKey || !queryVarValue) {
+        return;
+      }
+
+      this.addQueryParam(queryVarKey, queryVarValue);
+    },
+    addQueryParam: function addQueryParam(key, value) {
+      var url = new URL(window.location.href);
+      url.searchParams.set(key, value);
+      window.history.pushState({}, '', url.toString());
+    }
+  };
+}
+
+function init() {
+  var tasks = new Tasks();
+  tasks.init();
 }
 
 /***/ }),
@@ -453,24 +640,26 @@ function initSelect2AjaxTaxonomy(args) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var $ = jQuery;
-document.querySelectorAll('.la-icon i').forEach(function (item) {
-  className.push(item.getAttribute('class'));
-}); // Handle Disabled Link Action
+window.addEventListener('DOMContentLoaded', function () {
+  var $ = jQuery;
+  document.querySelectorAll('.la-icon i').forEach(function (item) {
+    className.push(item.getAttribute('class'));
+  }); // Handle Disabled Link Action
 
-$('.atbdp-disabled').on('click', function (e) {
-  e.preventDefault();
-}); // Toggle Modal
+  $('.atbdp-disabled').on('click', function (e) {
+    e.preventDefault();
+  }); // Toggle Modal
 
-$('.cptm-modal-toggle').on('click', function (e) {
-  e.preventDefault();
-  var target_class = $(this).data('target');
-  $('.' + target_class).toggleClass('active');
-}); // Change label on file select/change
+  $('.cptm-modal-toggle').on('click', function (e) {
+    e.preventDefault();
+    var target_class = $(this).data('target');
+    $('.' + target_class).toggleClass('active');
+  }); // Change label on file select/change
 
-$('.cptm-file-field').on('change', function (e) {
-  var target_id = $(this).attr('id');
-  $('label[for=' + target_id + ']').text('Change');
+  $('.cptm-file-field').on('change', function (e) {
+    var target_id = $(this).attr('id');
+    $('label[for=' + target_id + ']').text('Change');
+  });
 });
 
 /***/ }),
@@ -486,11 +675,13 @@ $('.cptm-file-field').on('change', function (e) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_utility__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/utility */ "./assets/src/js/global/components/utility.js");
 /* harmony import */ var _components_utility__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_utility__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/global/components/modal.js");
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_modal__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_setup_select2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
-/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
-/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_tabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/tabs */ "./assets/src/js/global/components/tabs.js");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/global/components/modal.js");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_modal__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_setup_select2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
+/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
@@ -511,10 +702,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
+
 
 var $ = jQuery;
 
 function get_dom_data(key, parent) {
+  // var elmKey = 'directorist-dom-data-' + key;
   var elmKey = 'directorist-dom-data-' + key;
   var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
 
@@ -522,7 +717,7 @@ function get_dom_data(key, parent) {
     return '';
   }
 
-  var is_script_debugging = directorist_options && directorist_options.script_debugging && directorist_options.script_debugging == '1' ? true : false;
+  var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
 
   try {
     var dataValue = atob(dataElm[0].dataset.value);
@@ -530,7 +725,7 @@ function get_dom_data(key, parent) {
     return dataValue;
   } catch (error) {
     if (is_script_debugging) {
-      console.log({
+      console.warn({
         key: key,
         dataElm: dataElm,
         error: error
@@ -554,34 +749,74 @@ function convertToSelect2(field) {
     return;
   }
 
-  var default_args = {
-    allowClear: true,
-    width: '100%',
-    templateResult: function templateResult(data) {
-      // We only really care if there is an field to pull classes from
-      if (!data.field) {
-        return data.text;
+  _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(field.elm).forEach(function (item) {
+    var default_args = {
+      allowClear: true,
+      width: '100%',
+      templateResult: function templateResult(data) {
+        // We only really care if there is an field to pull classes from
+        if (!data.field) {
+          return data.text;
+        }
+
+        var $field = $(data.field);
+        var $wrapper = $('<span></span>');
+        $wrapper.addClass($field[0].className);
+        $wrapper.text(data.text);
+        return $wrapper;
       }
+    };
+    var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
+    var options = $(item).find('option');
+    var placeholder = options.length ? options[0].innerHTML : '';
 
-      var $field = $(data.field);
-      var $wrapper = $('<span></span>');
-      $wrapper.addClass($field[0].className);
-      $wrapper.text(data.text);
-      return $wrapper;
+    if (placeholder.length) {
+      args.placeholder = placeholder;
     }
-  };
-  var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
-  var options = field.elm.find('option');
-  var placeholder = options.length ? options[0].innerHTML : '';
 
-  if (placeholder.length) {
-    args.placeholder = placeholder;
-  }
-
-  field.elm.select2(args);
+    $(item).select2(args);
+  });
 }
 
 
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -607,8 +842,60 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-module.exports = _defineProperty;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArray.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toConsumableArray.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
+
+var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -622,29 +909,40 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    module.exports = _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  } else {
-    module.exports = _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  }
-
-  return _typeof(obj);
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
 }
 
-module.exports = _typeof;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
-/***/ 6:
+/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 14:
 /*!**********************************************!*\
   !*** multi ./assets/src/js/global/global.js ***!
   \**********************************************/

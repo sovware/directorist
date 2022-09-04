@@ -8,7 +8,7 @@ $headers = $args['data'];
 $fields = $args['fields'];
 
 ?>
-<input type="hidden" name="csv_file" value="<?php echo $args['csv_file'] ?>">
+<input type="hidden" name="csv_file" value="<?php echo esc_attr( $args['csv_file'] ) ?>">
 <table class="widefat atbdp-importer-mapping-table">
     <thead>
         <tr>
@@ -19,7 +19,9 @@ $fields = $args['fields'];
     <tbody>
         <?php
         if ( is_array( $headers ) ) :
-            foreach ($headers as $index => $name) : ?>
+            foreach ($headers as $index => $name) :
+				$field_key = directorist_translate_to_listing_field_key( $index );
+				?>
                 <tr>
                     <td class="atbdp-importer-mapping-table-name">
                         <p><?php echo esc_html($index); ?></p>
@@ -33,12 +35,12 @@ $fields = $args['fields'];
                             <option value=""><?php esc_html_e('Do not import', 'directorist'); ?></option>
                             <option value="">--------------</option>
                             <?php foreach ($fields as $key => $value) : ?>
-                                <option value="<?php echo esc_attr($key); ?>" <?php // selected( $mapped_value, $key ); ?>><?php echo esc_html($value); ?></option>
+                                <option value="<?php echo esc_attr($key); ?>" <?php selected( $key, $field_key ); ?>><?php echo esc_html($value); ?></option>
                             <?php endforeach ?>
                         </select>
                     </td>
                 </tr>
-            <?php 
+            <?php
             endforeach;
         endif;
         ?>

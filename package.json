@@ -7,7 +7,7 @@
     "dev": "webpack --config webpack.dev.js",
     "dev-vue": "webpack --config webpack.dev.vue.js",
     "prod": "node pot.js && webpack --config webpack.prod.js",
-    "blocks:build": "wp-scripts build ./includes/gutenberg/src/index.js --output-path=includes/gutenberg/assets"
+    "blocks:build": "wp-scripts build ./includes/gutenberg/index.js --output-path=includes/gutenberg/assets"
   },
   "repository": {
     "type": "git",
@@ -58,7 +58,7 @@
   },
   "engines": {
     "node": "16.13.2",
-    "npm": "8.4.1"
+    "npm": "8.1.2"
   },
   "browserslist": [
     "defaults",

@@ -38,11 +38,12 @@
     .directorist-rating-given-block__stars {
         .br-widget a {
             &:before {
-                content: "\f005";
-                font-size: 14px;
-                font-family: 'Font Awesome 5 Free';
-                font-weight: 900;
-                color: #d4d3f3;
+                content: "";
+                mask-image: url("../../../../icons/line-awesome/svgs/star.svg");
+                mask-repeat: no-repeat;
+                width: 14px;
+                height: 14px;
+                background-color: #d4d3f3;
             }
 
             &.br-selected,
@@ -332,6 +333,7 @@ Review: New Style
                 span{
                     display: inline-block;
                     margin-right: 4px;
+                    background-color: #fff;
                 }
             }
             @include m(noreviews){
@@ -384,7 +386,8 @@ Review: New Style
                 .directorist-rating-stars {
                     font-size: 15px;
                     color: #EF8000;
-                    display: block;
+                    display: flex;
+                    align-items: center;
                 }
 
                 .directorist-rating-overall {
@@ -586,7 +589,8 @@ Review: New Style
                                 .directorist-rating-stars {
                                     font-size: 11px;
                                     color: #EF8000;
-                                    display: block;
+                                    display: flex;
+                                    align-items: center;
                                 }
                             }
                         }
@@ -648,9 +652,9 @@ Review: New Style
                     .directorist-review-single--comment {
                         padding-left: 40px;
 
-                        &:last-child {
+                        /* &:last-child {
                             padding-bottom: 0;
-                        }
+                        } */
 
                         .directorist-review-single__contents-wrap {
                             position: relative;
@@ -803,11 +807,12 @@ Review: New Style
                         outline: 0;
 
                         &:before {
-                            content: "\f005";
-                            font-size: 14px;
-                            font-family: 'Font Awesome 5 Free';
-                            font-weight: 900;
-                            color: #fff;
+                            content: "";
+                            mask-image: url("../../../../icons/line-awesome/svgs/star.svg");
+                            mask-repeat: no-repeat;
+                            width: 14px;
+                            height: 14px;
+                            background-color: #fff;
                         }
                         &:focus{
                             background: #E1E4EC !important;

@@ -537,18 +537,18 @@
           padding-left: 10px;
           width: calc(100% - 43px);
           display: inline-block;
-
         }
 
-        span.fa {
-          background: #f1f3f8;
-          line-height: 28px;
-          width: 28px;
+        .directorist-icon-mask {
+          display: inline-block;
           text-align: center;
-          border-radius: 50%;
-          color: #7a82a6;
-          font-size: 12px;
+          position: relative;
+          top: 11px;
           vertical-align: top;
+          span{
+            width: 18px;
+            height: 18px;
+          }
         }
 
         a {
@@ -586,24 +586,27 @@
 
         a {
           margin: 5px;
-          display: block;
-          line-height: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 35px;
           width: 35px;
-          text-align: center;
           background-color: #f3f3f3 !important;
           border-radius: 4px;
-          color: #000 !important;
           overflow: hidden;
           transition: 0.3s ease !important;
 
-          span {
-            font-family: "Font Awesome 5 Brands";
-            font-weight: 900;
-            font-size: 15px;
+          .directorist-icon-mask span {
+            width: 15px;
+            height: 15px;
+            background-color: #000;
+            transition: 0.3s ease;
           }
           &:hover{
               background: #000 !important;
-              color: #fff !important;
+              .directorist-icon-mask span{
+                background-color: #fff;
+              }
           }
         }
       }
@@ -616,6 +619,7 @@
         padding: 8px 15px;
         box-shadow: none;
         width: 100%;
+        box-sizing: border-box;
       }
 
       textarea.form-control {
@@ -882,6 +886,13 @@
       }
     }
   }
+  .directorist-search-tags{
+    flex-wrap: wrap;
+    margin: 0 -8px;
+    .directorist-checkbox{
+      margin: 4px 8px;
+    }
+  }
 }
 
 .directorist-sidebar {
@@ -941,7 +952,7 @@
       font-size: 15px;
     }
 
-    .atbd-slide1 {
+    .directorist-range-slider1 {
       width: 1em;
       height: 1em;
     }

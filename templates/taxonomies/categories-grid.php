@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.6
+ * @version 7.4.0
  */
 use \Directorist\Helper;
 
@@ -36,7 +36,7 @@ $columns = floor( 12 / $taxonomy->columns );
 											<div>
 												<?php
 												if ($category['has_icon']) { ?>
-													<div class="icon"><span class="<?php echo esc_attr($category['icon_class']);?>"></span></div>
+													<div class="icon"><?php directorist_icon( $category['icon_class'] ); ?></div>
 													<?php
 												}
 												?>
@@ -44,7 +44,11 @@ $columns = floor( 12 / $taxonomy->columns );
 													<h4 class="cat-name"><?php echo esc_html($category['name']); ?></h4>
 													<?php if( $taxonomy->show_count ){ ?>
 													<span class="cat-count">
-														<?php echo $category['grid_count_html'];?> <span><?php echo ( ( $category['term']->count > 1 ) || ( $category['term']->count == 0 ) ) ? __( 'listings', 'directorist' ) : __( 'listing', 'directorist' ); ?></span>
+														<?php
+														$listing_count_text = sprintf( _nx( 'listing', 'listings', $category['term']->count, 'number of listings', 'directorist' ), number_format_i18n( $category['term']->count ) );
+														$output = sprintf( '%s <span>%s</span>', $category['grid_count_html'], $listing_count_text );
+														echo wp_kses_post( $output );
+														?></span>
 													</span>
 													<?php } ?>
 												</div>
@@ -57,7 +61,9 @@ $columns = floor( 12 / $taxonomy->columns );
 						<?php
 					}
 				} else {
-					_e('<p>No Results found!</p>', 'directorist');
+					?>
+					<p><?php esc_html_e( 'No Results found!', 'directorist' ); ?></p>
+					<?php
 				}
 				?>
 			</div>

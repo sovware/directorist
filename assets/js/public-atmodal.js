@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,11 +94,11 @@
 /***/ (function(module, exports) {
 
 /*
-		Name:  ATModal
-		Version: 1.0
-		Author: AazzTech
-		Author URI: http://aazztech.com
-	*/
+        Name:  ATModal
+        Version: 1.0
+        Author: Sovware
+        Author URI: https://sovware.com/
+*/
 
 /* disable-eslint */
 var aazztechModal1 = function aazztechModal1(selector) {
@@ -153,7 +153,7 @@ window.addEventListener('load', function () {
 
 /***/ }),
 
-/***/ 4:
+/***/ 12:
 /*!***********************************************!*\
   !*** multi ./assets/src/js/public/atmodal.js ***!
   \***********************************************/

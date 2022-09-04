@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.6
+ * @version 7.3.1
  */
 
 use \Directorist\Helper;
@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-contents" data-atts='<?php echo esc_attr( $searchform->get_atts_data() ); ?>' style="<?php echo $searchform->background_img_style(); ?>">
+<div class="directorist-search-contents" data-atts='<?php echo esc_attr( $searchform->get_atts_data() ); ?>' style="<?php echo esc_attr( $searchform->background_img_style() ); ?>">
 
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php endif; ?>
 
-		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form">
+		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form" data-atts="<?php echo esc_attr( $searchform->get_atts_data() ); ?>">
 
 			<div class="directorist-search-form-wrap <?php echo esc_attr( $searchform->border_class() ); ?>">
 
@@ -40,34 +40,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<input type="hidden" name="directory_type" class="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
 
-				<div class="directorist-search-form-box">
+				<div class="directorist-search-form-box-wrap">
 
-					<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline">
-
-						<?php
-						foreach ( $searchform->form_data[0]['fields'] as $field ){
-							$searchform->field_template( $field );
-						}
-						if ( $searchform->more_filters_display !== 'always_open' ){
-							$searchform->more_buttons_template();
-						}
-						?>
-
-					</div>
-
-					<?php
-					if ( $searchform->more_filters_display == 'always_open' ){
-						$searchform->advanced_search_form_fields_template();
-					}
-					else {
-						if ($searchform->has_more_filters_button) { ?>
-							<div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
-								<?php $searchform->advanced_search_form_fields_template();?>
-							</div>
-							<?php
-						}
-					}
-					?>
+					<?php Helper::get_template( 'search-form/form-box', ['searchform' =>  $searchform] ); ?>
 
 				</div>
 

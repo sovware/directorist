@@ -929,6 +929,9 @@ div[draggable="true"].cptm-form-builder-group-title-area {
       margin-bottom: 0;
     }
   }
+  .directorist-type-icon-select + .cptm-form-group{
+    margin-top: 20px;
+  }
 }
 
 .cptm-form-builder-field-list {
@@ -1382,6 +1385,15 @@ input[type="radio"].cptm-radio {
 
   .cptm-form-group:last-child {
     margin-bottom: 0;
+  }
+  .directorist-type-icon-select{
+    margin-bottom: 20px;
+    .icon-picker-selector{
+      display: block;
+      .icon-picker-selector__btn{
+        margin-top: 10px;
+      }
+    }
   }
 }
 
@@ -2799,6 +2811,12 @@ input[type=radio] {
         }
       }
     }
+  }
+}
+
+.cptm-import-directory-modal{
+  .cptm-file-input-wrap{
+    margin: 16px -5px 0 -5px;
   }
 }
 

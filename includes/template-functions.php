@@ -16,7 +16,7 @@ function atbdp_get_extension_template_path( string $base_path = '', string $file
     $extension_template = "{$ext_dir_path}{$ext_file_path}.php";
     $theme_template     = get_template_directory() . "/directorist/extensions/{$base_dirrectory}/{$ext_file_path}.php";
 
-    if ( file_exists( $extension_template ) ) {
+    if ( ! empty( $ext_dir_path ) && ! empty( $ext_file_path ) && file_exists( $extension_template ) ) {
         $template_file = $extension_template;
     }
 
@@ -57,7 +57,7 @@ function atbdp_get_admin_template( $template, $args = [] ) {
 }
 
 function atbdp_search_result_page_link() {
-    echo ATBDP_Permalink::get_search_result_page_link();
+    echo esc_url( ATBDP_Permalink::get_search_result_page_link() );
 }
 
 function atbdp_get_template( $template_file, $args = [] ) {

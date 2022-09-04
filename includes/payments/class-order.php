@@ -69,30 +69,30 @@ class ATBDP_Order
         ?>
         <table border="0" cellspacing="0" cellpadding="7" style="border:1px solid #CCC;">
             <tr style="background-color:#F0F0F0;">
-                <th style="border-right:1px solid #CCC; border-bottom:1px solid #CCC; text-align:left;"><?php _e('Item(s)', 'directorist'); ?></th>
-                <th style="border-bottom:1px solid #CCC;"><?php printf(__('Price [%s]', 'directorist'), $currency); ?></th>
+                <th style="border-right:1px solid #CCC; border-bottom:1px solid #CCC; text-align:left;"><?php esc_html_e('Item(s)', 'directorist'); ?></th>
+                <th style="border-bottom:1px solid #CCC;"><?php printf( esc_html__('Price [%s]', 'directorist'), esc_html( $currency )); ?></th>
             </tr>
             <?php if (!empty($order_items)) {
                 foreach ($order_items as $order) : ?>
                     <tr>
                         <td style="border-right:1px solid #CCC; border-bottom:1px solid #CCC;">
-                            <h3><?php echo !empty($order['label']) ? $order['label'] : ''; ?></h3>
-                            <?php if (isset($order['desc'])) echo $order['desc']; ?>
+                            <h3><?php echo ! empty( $order['label'] ) ? esc_html( $order['label'] ) : ''; ?></h3>
+                            <?php echo ! empty( $order['desc'] ) ? esc_html( $order['desc'] ) : ''; ?>
                         </td>
                         <td style="border-bottom:1px solid #CCC;">
-                            <?php echo $before . esc_html($order['price']) . $after; ?>
+                            <?php echo esc_html( $before . $order['price'] . $after ); ?>
                         </td>
                     </tr>
                 <?php endforeach;
             } ?>
             <tr>
                 <td style="border-right:1px solid #CCC; text-align:right; vertical-align:middle;">
-                    <?php printf(__('Total amount [%s]', 'directorist'), $currency); ?>
+                    <?php printf( esc_html__('Total amount [%s]', 'directorist'), esc_html( $currency )); ?>
                 </td>
                 <td>
                     <?php
                     $amount = get_post_meta($order_id, '_amount', true);
-                    echo $before . esc_html($amount) . $after;
+                    echo esc_html( $before . $amount . $after );
                     do_action('atbdp_email_receipt_after_total_price', $listing_id);
                     ?>
                 </td>
@@ -222,12 +222,12 @@ class ATBDP_Order
                     'refunded'  => __( "Refunded", 'directorist' )
                 );
             */
-            $current_status = isset($_GET['payment_status']) ? $_GET['payment_status'] : '';
+            $current_status = isset($_GET['payment_status']) ? sanitize_text_field( wp_unslash( $_GET['payment_status'] ) ) : '';
 
             echo '<select name="payment_status">';
-            echo '<option value="all">' . __("All orders", 'directorist') . '</option>';
+            echo '<option value="all">' . esc_html__("All orders", 'directorist') . '</option>';
             foreach ($statuses as $value => $title) {
-                printf('<option value="%s" %s>%s</option>', $value, selected($value, $current_status), $title);
+                printf('<option value="%s" %s>%s</option>', esc_attr( $value ), selected($value, $current_status), esc_html( $title ) );
             }
             echo '</select>';
 
@@ -247,7 +247,7 @@ class ATBDP_Order
     public function parse_query($query)
     {
         global $pagenow, $post_type;
-        $st = isset($_GET['payment_status']) ? $_GET['payment_status'] : '';
+        $st = isset($_GET['payment_status']) ? sanitize_text_field( wp_unslash( $_GET['payment_status'] ) ) : '';
         if ('edit.php' == $pagenow && 'atbdp_orders' == $post_type && !empty($st)) {
             // Filter by post meta "payment_status"
             if ('' != $st && 'all' != $st) {
@@ -303,22 +303,33 @@ class ATBDP_Order
         $listing_id = get_post_meta($post_id, '_listing_id', true);
         switch ($column) {
             case 'ID' :
-                printf('<a href="%s" target="_blank">Order #%d</a>', ATBDP_Permalink::get_payment_receipt_page_link($post_id), $post_id);
+                ?>
+                <a href="<?php echo esc_url( ATBDP_Permalink::get_payment_receipt_page_link($post_id) ); ?>"><?php echo esc_html__( 'Order #', 'directorist' ) . esc_html( $post_id ); ?></a>
+                <?php
                 break;
             case 'details' :
                 $listing_id = get_post_meta($post_id, '_listing_id', true);
-                printf('<p><a href="%s"> %s: [Listing ID #%d]</a></p>', get_edit_post_link($listing_id), get_the_title($listing_id), $listing_id);
-
-                $order_details = apply_filters('atbdp_order_details', array(), $post_id, $listing_id);
-                foreach (array($order_details) as $order_detail) {
+                ?>
+                <p>
+                    <a href="<?php echo esc_url( get_edit_post_link( $listing_id ) ); ?>"><?php echo esc_html( get_the_title( $listing_id ) ) ; ?></a>
+                </p>
+                <?php
+                $order_details = apply_filters( 'atbdp_order_details', array(), $post_id, $listing_id );
+                foreach ( array( $order_details ) as $order_detail ) {
                     $title = !empty($order_detail['label']) ? $order_detail['label'] : "";
-                    echo '<div>#Order for: ' . $title . '</div>';
-                }
-
-                $featured = apply_filters( 'atbdp_order_for', get_post_meta( $post_id, '_featured', true), $post_id ); // is this listing featured ?
-                if ($featured) {
-                    $f_title = apply_filters( 'atbdp_order_for', get_directorist_option('featured_listing_title'), $post_id );
-                    echo "<div>({$f_title})</div>";
+                    ?>
+                    <div>
+                        <?php echo esc_html__( '#Order for: ', 'directorist' ) . esc_html( $title );
+                        $featured = apply_filters( 'atbdp_order_for', get_post_meta( $post_id, '_featured', true), $post_id ); // is this listing featured ?
+                        if ($featured) {
+                            $f_title = apply_filters( 'atbdp_order_for', get_directorist_option('featured_listing_title'), $post_id );
+                            echo esc_html( $f_title );
+                        }else{
+                            echo esc_html_e( 'Others', 'directorist' );
+                        }
+                        ?>
+                    </div>
+                    <?php
                 }
                 break;
             case 'amount' :
@@ -329,35 +340,39 @@ class ATBDP_Order
                 $currency        = atbdp_get_payment_currency();
                 $symbol          = atbdp_currency_symbol($currency);
                 ('after' == $c_position) ? $after = $symbol : $before = $symbol;
-                echo $before.atbdp_format_payment_amount($value).$after;
+                echo esc_attr( $before . atbdp_format_payment_amount( $value ) . $after );
                 break;
             case 'type' :
                 $gateway = get_post_meta($post_id, '_payment_gateway', true);
                 if ('free' == $gateway) {
-                    _e('Free Submission', 'directorist');
+                    esc_html_e('Free Submission', 'directorist');
                 } else {
                     $label = apply_filters('atbdp_' . $gateway . 'gateway_label', '');
-                    echo !empty($label) ? $label : $gateway;
+                    echo ! empty( $label ) ? esc_html( $label ) : esc_html( $gateway );
                 }
                 break;
             case 'transaction_id' :
-                echo get_post_meta($post_id, '_transaction_id', true);
+                echo esc_html( get_post_meta($post_id, '_transaction_id', true) );
                 break;
             case 'customer' :
                 $user_info = get_userdata($post->post_author);
 
-                printf('<p><a href="%s">%s</a></p>', get_edit_user_link($user_info->ID), $user_info->display_name);
-                echo $user_info->user_email;
+                ?>
+                <p>
+                    <a href="<?php echo esc_url( get_edit_user_link($user_info->ID) ); ?>"><?php echo esc_html( $user_info->display_name ); ?></a>
+                </p>
+                <?php
+                echo esc_html( $user_info->user_email );
                 break;
             case 'date' :
                 $date = strtotime($post->post_date);
                 $value = date_i18n(get_option('date_format'), $date);
 
-                echo $value;
+                echo esc_attr( $value );
                 break;
             case 'status' :
                 $value = get_post_meta($post_id, '_payment_status', true);
-                echo atbdp_get_payment_status_i18n($value);
+                echo esc_attr( atbdp_get_payment_status_i18n( $value ) );
                 break;
 
         }
@@ -432,7 +447,7 @@ class ATBDP_Order
 
             $modified = 0;
             foreach ($post_ids as $post_id) {
-                if (!$this->update_payment_status($action, $post_id)) wp_die(__('Error updating post.', 'directorist'));
+                if (!$this->update_payment_status($action, $post_id)) wp_die( esc_html__('Error updating post.', 'directorist'));
                 $modified++;
             }
 
@@ -517,13 +532,16 @@ class ATBDP_Order
             foreach ($allowed_actions as $action) {
                 $_action = str_replace('set_to_', '', $action);
                 if (isset($_REQUEST[$action]) && (int)$_REQUEST[$action]) {
-                    $message = sprintf(_n("Order set to $_action.", "%s orders set to $_action.", $_REQUEST[$action], 'directorist'), number_format_i18n($_REQUEST[$action]));
+                    $message = esc_html__( 'Order(s) set to ', 'directorist') . $_action ;
                     break;
                 }
             }
 
-            if (!empty($message)) echo "<div class='updated'> <p>{$message}</p></div>";
-
+            if( $message ) { ?>
+                <div class="updated">
+                    <p><?php echo esc_html( $message ); ?></p>
+                </div>
+            <?php }
         }
 
     }
@@ -566,7 +584,7 @@ class ATBDP_Order
     public function set_payment_receipt_link($actions, WP_Post $post)
     {
         if ($post->post_type != 'atbdp_orders') return $actions;
-        $actions['view'] = sprintf("<a href='%s'>%s</a>", ATBDP_Permalink::get_payment_receipt_page_link($post->ID), __('View', 'directorist'));
+        $actions['view'] = sprintf("<a href='%s'>%s</a>", esc_url( ATBDP_Permalink::get_payment_receipt_page_link( $post->ID ) ), __('View', 'directorist'));
         unset($actions['edit']);
         unset($actions['inline hide-if-no-js']);
         return $actions;

@@ -17,7 +17,7 @@ class Comment {
 	public static function init() {
 		// Rating posts.
 		add_filter( 'comments_open', [ __CLASS__, 'comments_open' ], 10, 2 );
-		add_filter( 'preprocess_comment', [ __CLASS__, 'validate_comment_data' ], 0 );
+		add_filter( 'preprocess_comment', [ __CLASS__, 'validate_data' ], 0 );
 		add_action( 'comment_post', [ __CLASS__, 'on_comment_post' ], 10, 3 );
 
 		// Support avatars for `review` comment type.
@@ -60,8 +60,8 @@ class Comment {
 	 * @param  array $comment_data Comment data.
 	 * @return array
 	 */
-	public static function validate_comment_data( $comment_data ) {
-		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( $_POST['comment_post_ID'] ) ) ) {
+	public static function validate_data( $comment_data ) {
+		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( $_POST['comment_post_ID'] ) ) ) { // @codingStandardsIgnoreLine.
 			return $comment_data;
 		}
 
@@ -76,16 +76,16 @@ class Comment {
 				throw new Exception( __( '<strong>Error</strong>: You must login to share review.', 'directorist' ), 401 );
 			}
 
-			$post_id      = absint( $_POST['comment_post_ID'] );
+			$post_id      = absint( $_POST['comment_post_ID'] ); // @codingStandardsIgnoreLine.
 			$user_id      = $comment_data['user_ID'];
 			$author_email = $comment_data['comment_author_email'];
 			$builder      = Builder::get( $post_id );
 			$errors       = array();
 
-			if ( isset( $_POST['comment_parent'], $_POST['rating'], $comment_data['comment_type'] ) &&
+			if ( isset( $_POST['comment_parent'], $_POST['rating'], $comment_data['comment_type'] ) && // @codingStandardsIgnoreLine.
 				$comment_data['comment_parent'] === 0 && self::is_default_comment_type( $comment_data['comment_type'] ) ) {
 
-				$rating_is_missing = ( $builder->is_rating_type_single() && empty( $_POST['rating'] ) );
+				$rating_is_missing = ( $builder->is_rating_type_single() && empty( $_POST['rating'] ) ); // @codingStandardsIgnoreLine.
 
 				// Validate review is shared or not
 				if ( $rating_is_missing ) {
@@ -109,9 +109,9 @@ class Comment {
 				}
 			}
 
-			do_action( 'directorist/review/validate_comment_data', $comment_data );
+			do_action( 'directorist_review_validate_data', $comment_data );
 		} catch( Exception $e ) {
-			wp_die( $e->getMessage(), $e->getCode() );
+			wp_die( esc_attr( $e->getMessage() ) );
 			exit;
 		}
 
@@ -204,15 +204,15 @@ class Comment {
 	}
 
 	public static function preprocess_comment_data( $comment_data ) {
-		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( $_POST['comment_post_ID'] ) ) ) {
+		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( $_POST['comment_post_ID'] ) ) ) { // @codingStandardsIgnoreLine.
 			return $comment_data;
 		}
 
-		$builder = Builder::get( absint( $_POST['comment_post_ID'] ) );
+		$builder = Builder::get( absint( $_POST['comment_post_ID'] ) ); // @codingStandardsIgnoreLine.
 
-		if ( isset( $_POST['comment_parent'], $_POST['rating'], $comment_data['comment_type'] ) &&
+		if ( isset( $_POST['comment_parent'], $_POST['rating'], $comment_data['comment_type'] ) && // @codingStandardsIgnoreLine.
 			$comment_data['comment_parent'] === 0 && self::is_default_comment_type( $comment_data['comment_type'] ) &&
-			( $builder->is_rating_type_single() && ! empty( $_POST['rating'] ) ) ) {
+			( $builder->is_rating_type_single() && ! empty( $_POST['rating'] ) ) ) { // @codingStandardsIgnoreLine.
 			$comment_data['comment_type'] = 'review';
 		}
 
@@ -273,10 +273,10 @@ class Comment {
 		$post_id = isset( $_POST['comment_post_ID'] ) ? absint( $_POST['comment_post_ID'] ) : 0; // WPCS: input var ok, CSRF ok.
 
 		if ( $post_id && ATBDP_POST_TYPE === get_post_type( $post_id ) ) {
-			do_action( 'directorist/review/save_comment' );
-
-			self::post_rating( $comment_id, $comment_data, $_POST );
+			self::post_rating( $comment_id, $comment_data, $_POST ); // @codingStandardsIgnoreLine.
 			self::clear_transients( $post_id );
+
+			do_action( 'directorist_review_updated', $comment_id, $comment_data );
 		}
 	}
 
@@ -297,7 +297,7 @@ class Comment {
 		Review_Meta::update_review_count( $listing_id, self::get_review_count_for_listing( $listing_id ) );
 		Review_Meta::update_rating( $listing_id, self::get_average_rating_for_listing( $listing_id ) );
 
-		do_action( 'directorist/review/maybe_clear_transients', $listing_id );
+		do_action( 'directorist_review_clear_cache', $listing_id );
 	}
 
 	/**
@@ -439,6 +439,8 @@ class Comment {
 		} else {
 			delete_comment_meta( $comment_id, 'rating' );
 		}
+
+		do_action( 'directorist_review_rating_updated', $rating, $comment_data );
 	}
 
 	public static function get_rating( $comment_id ) {

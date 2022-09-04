@@ -1,14 +1,11 @@
 <?php
 /**
- * Custom field file upload field template.
- *
  * @author  wpWax
  * @since   6.6
- * @version 7.0.6.3
+ * @version 7.3.3
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	die();
-}
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 $post_id    = ! empty( $data['field_key'] ) ? $data['field_key'] : rand();
 $file_types = 'all_types';
@@ -68,7 +65,7 @@ $text_value    = array(
 $thumb_img_arr = array();
 
 if ( isset( $_REQUEST['pid'] ) && $_REQUEST['pid'] != '' ) {
-	$thumb_img_arr = atbdp_get_images( $_REQUEST['pid'] );
+	$thumb_img_arr = atbdp_get_images( sanitize_text_field( wp_unslash( $_REQUEST['pid'] ) ) );
 }
 
 $totImg      = '';
@@ -84,18 +81,10 @@ $gd_plupload_init     = array(
 	// 'upload_img_size' => $file_size
 );
 
-wp_localize_script( 'directorist-plupload-public', 'atbdp_plupload_params', $gd_plupload_init );
-wp_localize_script( 'directorist-plupload-public', 'atbdp_params', $text_value );
-wp_localize_script( 'directorist-plupload-admin', 'atbdp_plupload_params', $gd_plupload_init );
-wp_localize_script( 'directorist-plupload-admin', 'atbdp_params', $text_value );
 
 Directorist\Helper::add_hidden_data_to_dom( 'atbdp_plupload_params', $gd_plupload_init );
 Directorist\Helper::add_hidden_data_to_dom( 'atbdp_params', $text_value );
 
- wp_localize_script( 'atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init );
- wp_localize_script( 'atbdp-plupload-min', 'atbdp_plupload_params', $gd_plupload_init );
- wp_localize_script( 'atbdp-plupload', 'atbdp_params', $text_value );
- wp_localize_script( 'atbdp-plupload-min', 'atbdp_params', $text_value );
 $id                 = $post_id;
 $is_required        = 0;
 $image_limit        = 0;
@@ -109,25 +98,25 @@ $multiple           = false;
 	<?php $listing_form->field_label_template( $data );?>
 
 	<div class="directorist-custom-field-file-upload__wrapper">
-		<div class="" id="<?php echo $id; ?>dropbox">
-			<input type="hidden" name="<?php echo $data['field_key']; ?>" id="<?php echo $post_id; ?>" value="<?php echo !empty( $data['value'] ) ? $data['value'] : '' ; ?>"
+		<div class="" id="<?php echo esc_attr( $id ); ?>dropbox">
+			<input type="hidden" name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $post_id ); ?>" value="<?php echo !empty( $data['value'] ) ? esc_attr( $data['value'] ) : '' ; ?>"
 			/>
-			<input type="hidden" name="<?php echo $id; ?>image_limit" id="<?php echo $id; ?>image_limit"
-				   value="<?php echo $image_limit; ?>"/>
-			<input type="hidden" name="<?php echo $id; ?>totImg" id="<?php echo $id; ?>totImg"
-				   value="<?php echo $total_files; ?>"/>
+			<input type="hidden" name="<?php echo esc_attr( $id ); ?>image_limit" id="<?php echo esc_attr( $id ); ?>image_limit"
+				   value="<?php echo esc_attr( $image_limit ); ?>"/>
+			<input type="hidden" name="<?php echo esc_attr( $id ); ?>totImg" id="<?php echo esc_attr( $id ); ?>totImg"
+				   value="<?php echo esc_attr( $total_files ); ?>"/>
 			<?php if ( $allowed_file_types != '' ) { ?>
-				<input type="hidden" name="<?php echo $id; ?>_allowed_types" id="<?php echo $id; ?>_allowed_types"
+				<input type="hidden" name="<?php echo esc_attr( $id ); ?>_allowed_types" id="<?php echo esc_attr( $id ); ?>_allowed_types"
 					   value="<?php echo esc_attr( $allowed_file_types ); ?>"
 					   data-exts="<?php echo esc_attr( $display_file_types ); ?>"/>
 			<?php } ?>
 
 			<?php if ( ! empty( $file_size ) ) { ?>
-				<input type="hidden" name="<?php echo $id; ?>_file_size" id="<?php echo $id; ?>_file_size"
+				<input type="hidden" name="<?php echo esc_attr( $id ); ?>_file_size" id="<?php echo esc_attr( $id ); ?>_file_size"
 					   value="<?php echo esc_attr( $file_size ); ?>"/>
 			<?php } ?>
 
-			<input type="hidden" name="<?php echo $id; ?>_directory" id="<?php echo $id; ?>_directory" value="general"/>
+			<input type="hidden" name="<?php echo esc_attr( $id ); ?>_directory" id="<?php echo esc_attr( $id ); ?>_directory" value="general"/>
 
 			<div class="plupload-upload-uic hide-if-no-js
 			<?php
@@ -135,24 +124,12 @@ $multiple           = false;
 				echo 'plupload-upload-uic-multiple';
 			}
 			?>
-			" id="<?php echo $id; ?>plupload-upload-ui">
-				<div class="directorist-dropbox-title"><?php _e( 'Drop files here <small>or</small>', 'directorist' ); ?></div>
-				<input id="<?php echo $id; ?>plupload-browse-button" type="button"
+			" id="<?php echo esc_attr( $id ); ?>plupload-upload-ui">
+				<div class="directorist-dropbox-title"><?php echo wp_kses_post( __( 'Drop files here <small>or</small>', 'directorist' ) ); ?></div>
+				<input id="<?php echo esc_attr( $id ); ?>plupload-browse-button" type="button"
 					   value="<?php esc_attr_e( 'Select Files', 'directorist' ); ?>" class="directorist-btn directorist-btn-primary"/>
-				<div class="directorist-dropbox-file-types"><?php echo( $display_file_types != '' ? __( 'Allowed file types:', 'directorist' ) . ' ' . $display_file_types : '' ); ?></div>
-				<div class="directorist-dropbox-file-limit">
-					<?php
-					if ( $image_limit == 1 ) {
-						echo '(' . __( 'You can upload', 'directorist' ) . ' ' . $image_limit . ' ' . __( 'file', 'directorist' ) . ')';
-					}
-					?>
-					<?php
-					if ( $image_limit > 1 ) {
-						echo '(' . __( 'You can upload', 'directorist' ) . ' ' . $image_limit . ' ' . __( 'files', 'directorist' ) . ')';
-					}
-					?>
-				</div>
-				<span class="ajaxnonceplu" id="ajaxnonceplu<?php echo wp_create_nonce( $id . 'pluploadan' ); ?>"></span>
+				<div class="directorist-dropbox-file-types"><?php echo !empty( $display_file_types ) ? sprintf( esc_html__( 'Allowed file types: %s', 'directorist' ), esc_html( $display_file_types ) ) : ''; ?></div>
+				<span class="ajaxnonceplu" id="ajaxnonceplu<?php echo esc_attr( wp_create_nonce( $id . 'pluploadan' ) ); ?>"></span>
 				<div class="filelist"></div>
 			</div>
 
@@ -162,8 +139,8 @@ $multiple           = false;
 				echo 'plupload-thumbs-multiple';
 			}
 			?>
-			 clearfix" id="<?php echo $id; ?>plupload-thumbs"></div>
-			<span id="<?php echo $id; ?>upload-error" style="display:none"></span>
+			 clearfix" id="<?php echo esc_attr( $id ); ?>plupload-thumbs"></div>
+			<span id="<?php echo esc_attr( $id ); ?>upload-error" style="display:none"></span>
 			<span style="display: none" id="atbdp-image-meta-input" class="lity-hide lity-show"></span>
 		</div>
 	</div>
@@ -171,3 +148,10 @@ $multiple           = false;
 	<?php $listing_form->field_description_template( $data ); ?>
 
 </div>
+<?php
+/**
+ * @since 7.4.0
+ * Add additional field in file upload
+ */
+
+do_action( 'directorist_after_file_upload_form_field', $data );

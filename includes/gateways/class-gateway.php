@@ -42,7 +42,7 @@ class ATBDP_Gateway{
             if( !is_fee_manager_active() && $featured_enable ) {
                 $widgets['listing-type'] = [
                     'label' => 'Listing Type',
-                    'icon' => 'la la-toggle-on',
+                    'icon' => 'las la-toggle-on',
                     'show' => true,
                     'options' => [
                         'type' => [
@@ -207,7 +207,7 @@ class ATBDP_Gateway{
      * @param array $submenus       Array of Submenus
      * @return array                It returns gateway submenu
      */
-    function gateway_settings_submenu($submenus){
+    public function gateway_settings_submenu($submenus){
         $submenus['gateway_submenu'] =  array(
             'title' => __('Gateways Settings', 'directorist'),
             'name' => 'gateway_general',
@@ -228,7 +228,7 @@ class ATBDP_Gateway{
      * It register gateway settings fields
      * @return array It returns an array of gateway settings fields
      */
-    function get_gateway_settings_fields(){
+    public function get_gateway_settings_fields(){
 
         return apply_filters('atbdp_gateway_settings_fields', array(
                'gateway_promotion' => array(
@@ -338,7 +338,7 @@ class ATBDP_Gateway{
 
 
 
-    static function gateways_markup()
+    public static function gateways_markup()
     {
         $active_gateways = get_directorist_option('active_gateways', [ 'bank_transfer' ]);
         $default_gw = get_directorist_option('default_gateway', 'bank_transfer');

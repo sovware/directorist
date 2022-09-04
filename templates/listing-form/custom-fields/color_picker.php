@@ -2,12 +2,10 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.3
+ * @version 7.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-
-$listing_form->load_color_picker_script( $data );
 ?>
 
 <div class="directorist-form-group directorist-custom-field-color">

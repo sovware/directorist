@@ -220,11 +220,16 @@
                             update_post_meta( $post_id, '_' . $index, $meta_value );
                         }
                     }
-
-                    $exp_dt = calc_listing_expiry_date();
-                    update_post_meta( $post_id, '_expiry_date', $exp_dt );
-                    update_post_meta( $post_id, '_featured', 0 );
-                    update_post_meta( $post_id, '_listing_status', 'post_status' );
+                    $default_expiration = get_term_meta( $directory_type, 'default_expiration', true );
+                    if( ! $default_expiration ){
+                        update_post_meta($post_id, '_never_expire', 1);
+                    }
+                    else {
+                        $exp_dt = calc_listing_expiry_date('', $default_expiration);
+                        update_post_meta($post_id, '_expiry_date', $exp_dt);   
+                    }
+                    update_post_meta($post_id, '_featured', 0);
+                    update_post_meta($post_id, '_listing_status', 'post_status');
 
                     if ( ! empty( $post['directory_type'] ) ) {
                         $directory_type_slug = $post['directory_type'];

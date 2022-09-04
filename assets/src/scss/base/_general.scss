@@ -39,6 +39,7 @@
 
 .directorist-icon-mask {
     span {
+        mask-image: var( --directorist-icon );
         background: #444752;
         width: 18px;
         height: 18px;

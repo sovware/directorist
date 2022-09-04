@@ -2937,7 +2937,6 @@ function selec2_add_custom_dropdown_toggle_button() {
 
   if (!dropdown.length) {
     // Add Dropdown Toggle Button
-    // const dropdownHTML = `<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="directorist-icon-mask"><span style="mask-image:url(${directorist.assets_url}icons/font-awesome/svgs/solid/chevron-down.svg);-webkit-mask-image:url(${directorist.assets_url}icons/font-awesome/svgs/solid/chevron-down.svg);"></span></i></span>`;
     var dropdownHTML = "<span class=\"directorist-select2-addon directorist-select2-dropdown-toggle\"><i class=\"directorist-icon-mask\"><span style=\"--directorist-icon:url(".concat(directorist.assets_url, "icons/font-awesome/svgs/solid/chevron-down.svg);\"></span></i></span>");
     addon_container.append(dropdownHTML);
   }

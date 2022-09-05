@@ -44,7 +44,7 @@ function selec2_add_custom_dropdown_toggle_button() {
 
     if ( ! dropdown.length ) {
         // Add Dropdown Toggle Button
-        const dropdownHTML = `<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="directorist-icon-mask"><span style="--directorist-icon:url(${directorist.assets_url}icons/font-awesome/svgs/solid/chevron-down.svg);"></span></i></span>`;
+        const dropdownHTML = `<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="directorist-icon-mask" style="--directorist-icon:url(${directorist.assets_url}icons/font-awesome/svgs/solid/chevron-down.svg);"></i></span>`;
         addon_container.append( dropdownHTML );
     }
 
@@ -107,7 +107,7 @@ function selec2_add_custom_close_button(field) {
     addon_container.find('.directorist-select2-dropdown-close').remove();
 
     // Add
-    addon_container.prepend( `<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="directorist-icon-mask"><span style="--directorist-icon:url(${directorist.assets_url}icons/font-awesome/svgs/solid/times.svg);"></span></i></span>` );
+    addon_container.prepend( `<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="directorist-icon-mask" style="--directorist-icon:url(${directorist.assets_url}icons/font-awesome/svgs/solid/times.svg);"></i></span>` );
     const selec2_custom_close = addon_container.find( '.directorist-select2-dropdown-close' );
 
     selec2_custom_close.on( 'click', function( e ) {

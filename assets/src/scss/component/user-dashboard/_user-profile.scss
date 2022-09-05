@@ -80,7 +80,7 @@
         .directorist-social-icon {
             margin-right: 6px;
             .directorist-icon-mask{
-                span{
+                &:after{
                     width: 16px;
                     height: 16px;
                     background-color: #0A0B1E;

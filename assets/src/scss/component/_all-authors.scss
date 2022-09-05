@@ -131,7 +131,7 @@
                     .directorist-icon-mask {
                         margin-right: 5px;
                         margin-top: 3px;
-                        span{
+                        &:after{
                             width: 16px;
                             height: 16px;
                         }

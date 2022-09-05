@@ -99,7 +99,7 @@
                 .directorist-favourite-remove-btn{
                     .directorist-icon-mask{
                         margin-right: 5px;
-                        span{
+                        &:after{
                             background-color: #fff;
                         }
                     }

@@ -222,7 +222,7 @@
 
         &:not(.directorist-filter-btn) {
           .directorist-icon-mask {
-            span {
+            &:after {
               background-color: #fff;
               margin-right: 4px;
             }

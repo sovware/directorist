@@ -309,7 +309,7 @@
             align-items: center;
             .directorist-icon-mask{
               margin-right: 4px;
-              span{
+              &:after{
                 width: 20px;
                 height: 20px;
                 color: #202428;
@@ -377,7 +377,7 @@
         >a {
           .directorist-icon-mask {
             @extend .atbd_bg-primary;
-            span{
+            &:after{
               background-color: $light;
             }
           }
@@ -403,7 +403,7 @@
           background: #f1f3f8;
           border-radius: 50%;
           transition: 0.3s ease;
-          span{
+          &:after{
             width: 12px;
             height: 12px;
             background-color: #9299b8;
@@ -415,7 +415,7 @@
       .directorist-icon-mask{
         position: relative;
         top: 2px;
-        span{
+        &:after{
           cursor: pointer;
           width: 11px;
           height: 11px;
@@ -575,7 +575,7 @@
           position: relative;
           top: 11px;
           vertical-align: top;
-          span{
+          &:after{
             width: 18px;
             height: 18px;
           }
@@ -626,7 +626,7 @@
           overflow: hidden;
           transition: 0.3s ease !important;
 
-          .directorist-icon-mask span {
+          .directorist-icon-mask:after {
             width: 15px;
             height: 15px;
             background-color: #000;
@@ -634,7 +634,7 @@
           }
           &:hover{
               background: #000 !important;
-              .directorist-icon-mask span{
+              .directorist-icon-mask:after{
                 background-color: #fff;
               }
           }

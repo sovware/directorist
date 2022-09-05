@@ -72,9 +72,7 @@ class Directorist_Template_Hooks {
 		$attr = trim( $parts[0] );
 
 		if ( $attr === '--directorist-icon' ) {
-			$pattern = '/^url\(\s*([\'\"]?)(.*)(\g1)\s*\)$/'; // matches the sequence `url(*)`.
-			$is_url = preg_match( $pattern, $parts[1] );
-			return $is_url;
+			return true;
 		}
 
 		return $allow_css;

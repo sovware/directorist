@@ -98,7 +98,7 @@
         transition: all ease-in-out 300ms !important;
 
         .directorist-icon-mask{
-            span{
+            &:after{
                 background-color: #fff;
             }
         }

@@ -5694,17 +5694,18 @@ img.atbdp-file-info {
   display: none;
 }
 
-.directorist-icon-mask span {
-  -webkit-mask-image: var(--directorist-icon);
-          mask-image: var(--directorist-icon);
-  background: #444752;
+.directorist-icon-mask::after {
+  content: "";
+  display: block;
   width: 18px;
   height: 18px;
-  display: block;
+  background-color: #444752;
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-          mask-position: center;
+  -webkit-mask-position: left center;
+          mask-position: left center;
+  -webkit-mask-image: var(--directorist-icon);
+          mask-image: var(--directorist-icon);
 }
 
 .directorist-error .directorist-error__msg {

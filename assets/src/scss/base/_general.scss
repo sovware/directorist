@@ -38,14 +38,15 @@
 }
 
 .directorist-icon-mask {
-    span {
-        mask-image: var( --directorist-icon );
-        background: #444752;
+    &::after {
+        content: "";
+        display: block;
         width: 18px;
         height: 18px;
-        display: block;
+        background-color: #444752;
         mask-repeat: no-repeat;
-        mask-position: center;
+        mask-position: left center;
+        mask-image: var(--directorist-icon);
     }
 }
 

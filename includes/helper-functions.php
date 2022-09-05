@@ -831,7 +831,11 @@ function directorist_icon( $icon, $echo = true, $class = '' ) {
 
 	$class = $class ? 'directorist-icon-mask ' . $class : 'directorist-icon-mask';
 
-	$html = sprintf( '<i class="%s"><span style="--directorist-icon:url(%s);"></span></i>', esc_attr( $class ), esc_url( $icon_src ) );
+	$html = sprintf(
+		'<i class="%1$s" aria-hidden="true" style="--directorist-icon: url(%2$s)"></i>',
+		esc_attr( $class ),
+		esc_url( $icon_src )
+	);
 
     if ( $echo ) {
         echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped

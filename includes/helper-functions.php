@@ -791,10 +791,11 @@ if (!function_exists('atbdp_icon_type')) {
     function atbdp_icon_type($echo = false)
     {
 		_deprecated_function( __FUNCTION__, '7.4.0', 'directorist_icon' );
+		$font_type = 'la la';
         if ($echo) {
-            echo '';
+            echo esc_html( $font_type );
         } else {
-            return '';
+            return $font_type;
         }
     }
 }

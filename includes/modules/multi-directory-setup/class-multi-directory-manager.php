@@ -1550,7 +1550,7 @@ class Multi_Directory_Manager
 
             'custom' => [
                 'title' => __( 'Custom Fields', 'directorist' ),
-                'description' => __( 'Click on a field type you want to create. Need help?', 'directorist' ),
+                'description' => __( 'Click on a field type you want to create.', 'directorist' ),
                 'allowMultiple' => true,
                 'widgets' => apply_filters('atbdp_form_custom_widgets', [
                     'text' => [
@@ -4553,7 +4553,7 @@ class Multi_Directory_Manager
                         'sections' => [
                             'form_fields' => [
                                 'title' => __( 'Select or create fields for the add listing form', 'directorist' ),
-                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/add-listing-form-layout/"> '. __( 'Need help?', 'directorist' ) .' </a>',
+                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/form-and-layout-builder/ '. __( 'Need help?', 'directorist' ) .' </a>',
                                 'fields' => [
                                     'submission_form_fields'
                                 ],

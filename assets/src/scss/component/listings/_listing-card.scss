@@ -325,7 +325,7 @@
                 display: inline-flex;
                 align-items: center;
                 .directorist-icon-mask{
-                    span{
+                    &:after{
                         width: 15px;
                         height: 15px;
                     }
@@ -472,7 +472,7 @@
                     align-items: center;
                     justify-content: center;
                     margin-right: 10px;
-                    span{
+                    &:after{
                         background-color: #51526E;
                         width: 15px;
                         height: 15px;
@@ -510,7 +510,7 @@
 
                 .directorist-icon-mask{
                     margin-right: 5px;
-                    span{
+                    &:after{
                         width: 15px;
                         height: 15px;
                         background-color: #767792;
@@ -552,10 +552,10 @@
     padding: 0;
 
     i.directorist-icon-mask {
-        span {
+        &:after {
             background-color: #F80718;
         }
-        &.star-empty span {
+        &.star-empty:after {
             background-color: #D1D1D1;
         }
     }

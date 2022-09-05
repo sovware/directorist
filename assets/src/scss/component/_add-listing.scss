@@ -24,7 +24,7 @@
 
       .directorist-icon-mask {
         margin-bottom: 10px;
-        span{
+        &:after{
           width: 17px;
           height: 17px;
           background-color: #fff;

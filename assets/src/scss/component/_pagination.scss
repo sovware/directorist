@@ -19,7 +19,7 @@
     border-radius: 4px;
     margin: 4px;
     .directorist-icon-mask{
-      span{
+      &:after{
         width: 14px;
         height: 14px;
         background-color: #81879e;

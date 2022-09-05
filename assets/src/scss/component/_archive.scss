@@ -55,7 +55,7 @@
 		outline: 0;
 		.directorist-icon-mask{
 			margin-right: 7px;
-			span{
+			&:after{
 				width: 15px;
 				height: 15px;
 			}
@@ -98,7 +98,7 @@
 			.directorist-filter-btn {
 				margin-right: 15px;
 				.directorist-icon-mask{
-					span{
+					&:after{
 						width: 15px;
 						height: 15px;
 						margin-right: 2px;

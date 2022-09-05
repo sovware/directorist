@@ -5694,7 +5694,7 @@ img.atbdp-file-info {
   display: none;
 }
 
-.directorist-icon-mask::after {
+.directorist-icon-mask:after {
   content: "";
   display: block;
   width: 18px;
@@ -5702,8 +5702,8 @@ img.atbdp-file-info {
   background-color: #444752;
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
-  -webkit-mask-position: left center;
-          mask-position: left center;
+  -webkit-mask-position: center;
+          mask-position: center;
   -webkit-mask-image: var(--directorist-icon);
           mask-image: var(--directorist-icon);
 }
@@ -5866,7 +5866,7 @@ img.atbdp-file-info {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink .directorist-icon-mask span {
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink .directorist-icon-mask:after {
   width: 14px;
   height: 14px;
   background-color: #fff;
@@ -7315,7 +7315,7 @@ body.stop-scrolling {
 .directorist-add-listing-types__single__link .directorist-icon-mask {
   margin-bottom: 10px;
 }
-.directorist-add-listing-types__single__link .directorist-icon-mask span {
+.directorist-add-listing-types__single__link .directorist-icon-mask:after {
   width: 17px;
   height: 17px;
   background-color: #fff;
@@ -10050,12 +10050,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 30px;
   width: 25px;
 }
-.directorist-select2-dropdown-close .directorist-icon-mask span {
+.directorist-select2-dropdown-close .directorist-icon-mask:after {
   width: 15px;
   height: 15px;
 }
 
-.directorist-select2-addon .directorist-icon-mask span {
+.directorist-select2-addon .directorist-icon-mask:after {
   width: 13px;
   height: 13px;
 }

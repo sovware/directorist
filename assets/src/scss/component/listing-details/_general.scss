@@ -162,7 +162,7 @@
             background: #f1f3f8;
             margin-right: 10px;
             transition: 0.3s ease;
-            span{
+            &:after{
                 font-size: 15px;
             }
         }

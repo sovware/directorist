@@ -61,6 +61,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'description' => __( 'Loads unminified .css, .js files', 'directorist' ),
             ];
 
+            $fields['legacy_icon'] = [
+                'type'  => 'toggle',
+                'label' => __( 'Legacy Icon', 'directorist' ),
+                'description' => __( 'Icon support for Legacy v7.3.3', 'directorist' ),
+            ];
+
             $fields['import_settings'] = [
                 'type'         => 'import',
                 'label'        => 'Import Settings',
@@ -5303,6 +5309,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title' => __( 'Debugging', 'directorist' ),
                                     'fields'      => [
                                         'script_debugging',
+                                     ],
+                                ],
+                                'others' => [
+                                    'title' => __( 'Others', 'directorist' ),
+                                    'fields'      => [
+                                        'legacy_icon',
                                      ],
                                 ],
                                 'uninstall' => [

@@ -91,8 +91,8 @@
         i {
             font-size: 17px;
         }
-        .directorist-added-to-favorite{
-            span{
+        .directorist-icon-mask.directorist-added-to-favorite{
+            &:after{
                 background-color: red;
             }
         }

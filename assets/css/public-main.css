@@ -11803,7 +11803,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-listing-action .directorist-single-listing-action i {
   font-size: 17px;
 }
-.directorist-single-listing-action .directorist-single-listing-action .directorist-added-to-favorite span {
+.directorist-single-listing-action .directorist-single-listing-action .directorist-icon-mask.directorist-added-to-favorite:after {
   background-color: red;
 }
 .directorist-single-listing-action .directorist-single-listing-action.directorist-tooltip[data-label]:after {

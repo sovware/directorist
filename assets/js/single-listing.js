@@ -1098,11 +1098,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var rtl = directorist.rtl === 'true';
   var relLis = $('.directorist-related-carousel');
-  console.log(relLis);
 
-  if (relLis.length) {
+  if (relLis.length !== 0) {
     var relLisData = relLis.data('attr');
-    console.log(directorist);
     var prevArrow = relLisData.prevArrow;
     var nextArrow = relLisData.nextArrow;
     var relLisCol = relLisData.columns;

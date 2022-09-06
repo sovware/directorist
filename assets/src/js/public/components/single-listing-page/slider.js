@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     let $ = jQuery;
     // Plasma Slider Initialization
-    if($('.plasmaSlider').length !==0){
+    if($('.plasmaSlider').length !== 0){
         var single_listing_slider = new PlasmaSlider({
             containerID: "directorist-single-listing-slider",
         });
@@ -10,11 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Related listings slider */
     var rtl = (directorist.rtl === 'true');
-    var relLis = $('.directorist-related-carousel');
-    console.log(relLis);
-    if (relLis.length) {
+    const relLis = $('.directorist-related-carousel');
+    if (relLis.length !== 0) {
         const relLisData = relLis.data('attr');
-        console.log(directorist)
         const prevArrow = relLisData.prevArrow;
         const nextArrow = relLisData.nextArrow;
         const relLisCol = relLisData.columns;

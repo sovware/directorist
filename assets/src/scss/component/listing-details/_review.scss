@@ -660,6 +660,18 @@ Review: New Style
                         display: block;
                         margin: 0 8px;
                         background: none;
+                        &.directorist-comment-edit-link{
+                            display: inline-flex;
+                            align-items: center;
+                            .directorist-icon-mask{
+                                margin-right: 3px;
+                                &::after{
+                                    width: 0.9em;
+                                    height: 0.9em;
+                                    background-color: #8C90A4;
+                                }
+                            }
+                        }
                     }
                 }
 

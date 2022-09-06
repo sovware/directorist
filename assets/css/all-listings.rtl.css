@@ -13088,6 +13088,24 @@ Review: New Style
   margin: 0 8px;
   background: none;
 }
+.directorist-review-content .directorist-review-content__reviews .directorist-review-single__reply a.directorist-comment-edit-link {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.directorist-review-content .directorist-review-content__reviews .directorist-review-single__reply a.directorist-comment-edit-link .directorist-icon-mask {
+  margin-left: 3px;
+}
+.directorist-review-content .directorist-review-content__reviews .directorist-review-single__reply a.directorist-comment-edit-link .directorist-icon-mask::after {
+  width: 0.9em;
+  height: 0.9em;
+  background-color: #8C90A4;
+}
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single__comments .directorist-review-single--comment {
   padding-right: 40px;
   /* &:last-child {

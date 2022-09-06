@@ -11,6 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 trait Icon_Helper {
 
+	/**
+	 * Get the url of icon svg file.
+	 *
+	 * Supports FontAwesome 5.15.4, LineAwesome 1.3.0, Unicons 3.0.3
+	 *
+	 * @param string $icon Icon class name eg. 'las la-home'.
+	 *
+	 * @return string Svg file url eg. https:/example.com/.../line-awesome/svgs/home-solid.svg
+	 */
 	public static function get_icon_src( $icon ) {
 		$file = self::get_icon_file( $icon );
 

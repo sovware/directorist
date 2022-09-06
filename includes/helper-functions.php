@@ -818,6 +818,19 @@ if ( ! function_exists( 'str_starts_with' ) ) {
 	}
 }
 
+/**
+ * Renders icon html.
+ *
+ * Supports FontAwesome 5.15.4, LineAwesome 1.3.0.
+ *
+ * Also supports Unicons 3.0.3 for backward compatibility, but should not be used.
+ *
+ * @param string  $icon   Icon class name eg. 'las la-home'.
+ * @param bool    $echo   Either echo or return the html. Default true.
+ * @param string  $class  Extra wrapper class. Default empty string.
+ *
+ * @return string Echo or return icon html string.
+ */
 function directorist_icon( $icon, $echo = true, $class = '' ) {
     if ( !$icon ) {
         return;

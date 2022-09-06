@@ -9442,8 +9442,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: inline-block;
 }
 #directorist.atbd_wrapper .atbd_all_categories .atbd_category_single:not(.atbd_category_no_image) .icon .directorist-icon-mask::after {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   background-color: #fff;
 }
 #directorist.atbd_wrapper .atbd_all_categories .atbd_category_single:not(.atbd_category_no_image) .cat-info {

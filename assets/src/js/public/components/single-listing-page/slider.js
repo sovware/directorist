@@ -10,9 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Related listings slider */
     var rtl = (directorist.rtl === 'true');
-    const relLis = $('.directorist-related-carousel');
-    if (relLis !== null) {
+    var relLis = $('.directorist-related-carousel');
+    console.log(relLis);
+    if (relLis.length) {
         const relLisData = relLis.data('attr');
+        console.log(directorist)
         const prevArrow = relLisData.prevArrow;
         const nextArrow = relLisData.nextArrow;
         const relLisCol = relLisData.columns;

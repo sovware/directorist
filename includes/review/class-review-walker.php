@@ -165,7 +165,7 @@ class Walker extends Walker_Comment {
 						array_merge(
 							$args,
 							array(
-								'edit_text' => sprintf( __( '%s Edit', 'directorist' ), '<i class="fas fa-pencil-alt" aria-hidden="true"></i>' ),
+								'edit_text' => sprintf( __( '%s Edit', 'directorist' ), directorist_icon( 'fas fa-pencil-alt', false ) ),
 								'depth'      => $depth,
 								'max_depth'  => $args['max_depth']
 							)

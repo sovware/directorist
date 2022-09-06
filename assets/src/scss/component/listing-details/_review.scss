@@ -388,6 +388,14 @@ Review: New Style
                     color: #EF8000;
                     display: flex;
                     align-items: center;
+                    margin-bottom: 3px;
+                    .directorist-icon-mask{
+                        &::after{
+                            width: 15px;
+                            height: 15px;
+                            background-color: #EF8000;
+                        }
+                    }
                 }
 
                 .directorist-rating-overall {
@@ -591,6 +599,14 @@ Review: New Style
                                     color: #EF8000;
                                     display: flex;
                                     align-items: center;
+                                    margin-bottom: 3px;
+                                    .directorist-icon-mask{
+                                        &::after{
+                                            width: 11px;
+                                            height: 11px;
+                                            background-color: #EF8000;
+                                        }
+                                    }
                                 }
                             }
                         }

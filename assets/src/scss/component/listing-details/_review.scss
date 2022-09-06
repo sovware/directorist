@@ -39,7 +39,7 @@
         .br-widget a {
             &:before {
                 content: "";
-                mask-image: url("../../../../icons/line-awesome/svgs/star.svg");
+                mask-image: url("../../../../icons/line-awesome/svgs/star-solid.svg");
                 mask-repeat: no-repeat;
                 width: 14px;
                 height: 14px;
@@ -808,7 +808,7 @@ Review: New Style
 
                         &:before {
                             content: "";
-                            mask-image: url("../../../../icons/line-awesome/svgs/star.svg");
+                            mask-image: url("../../../../icons/line-awesome/svgs/star-solid.svg");
                             mask-repeat: no-repeat;
                             width: 14px;
                             height: 14px;

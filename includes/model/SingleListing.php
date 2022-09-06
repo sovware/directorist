@@ -359,14 +359,24 @@ class Directorist_Single_Listing {
 			return '';
 		}
 
-		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->documents->get( $page_id )->is_built_with_elementor() ) {
-			// Return escaped output
-			return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
-		}
-
 		$page = get_post( $page_id );
 		if ( $page->post_type !== 'page' ) {
 			return '';
+		}
+
+		/**
+		 * Usually this hook is used to inject page builder content.
+		 *
+		 * @hook directorist_add_custom_single_listing_page_content_from_elementor
+		 *
+		 * @param string Page content.
+		 * @param WP_Post $page
+		 *
+		 * @since 7.4.0
+		 */
+		$content = apply_filters( 'directorist_custom_single_listing_pre_page_content', '', $page );
+		if ( ! empty( $content ) ) {
+			return $content;
 		}
 
 		global $post, $wp_embed;

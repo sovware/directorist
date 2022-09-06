@@ -226,6 +226,8 @@ function directorist_callingSlider() {
   var config = directorist.slider_config && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(directorist.slider_config) === 'object' ? Object.assign(default_args, directorist.slider_config) : default_args;
   directorist_range_slider('.directorist-range-slider', config);
 }
+window.directorist_range_slider = directorist_range_slider;
+window.directorist_callingSlider = directorist_callingSlider;
 window.addEventListener("load", function () {
   directorist_callingSlider();
 });

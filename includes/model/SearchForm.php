@@ -337,6 +337,7 @@ class Directorist_Listing_Search_Form {
 		return !empty( $_REQUEST['miles'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ) : $data['default_radius_distance'];
 	}
 
+	// @todo remove. unused method
 	public function range_slider_data( $data ) {
 
 		$data = [

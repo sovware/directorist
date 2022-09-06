@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.0
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -30,7 +30,7 @@ $img_upload_data = json_encode( $img_upload_data );
 
 <div class="directorist-form-group directorist-form-image-upload-field">
 
-	<div class="ez-media-uploader directorist-image-upload" data-uploader="<?php echo esc_attr( $img_upload_data ); ?>">
+	<div class="ez-media-uploader directorist-image-upload" data-uploader="<?php echo directorist_esc_json( $img_upload_data ); ?>">
 
 		<div class="ezmu__loading-section ezmu--show">
 			<span class="ezmu__loading-icon"><span class="ezmu__loading-icon-img-bg"></span></span>

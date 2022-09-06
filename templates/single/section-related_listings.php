@@ -23,7 +23,7 @@ if ( !$related->have_posts() ) {
 	</div>
 
 
-	<div class="directorist-related-carousel" data-attr="<?php echo esc_attr( $listing->related_slider_attr() ); ?>">
+	<div class="directorist-related-carousel" data-attr="<?php echo directorist_esc_json( $listing->related_slider_attr() ); ?>">
 
 		<?php foreach ( $related->post_ids() as $listing_id ): ?>
 

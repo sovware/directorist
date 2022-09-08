@@ -8213,7 +8213,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-author-info-widget .directorist-author-info-list__item span.fa {
   margin-top: 2px;
   font-size: 17px;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .directorist-author-info-widget .directorist-author-info-list__item .directorist-info {
   word-break: break-all;
@@ -8267,6 +8267,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   overflow: hidden;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
+  text-decoration: none;
 }
 .directorist-author-info-widget .directorist-author-social-item a span,
 .directorist-single-author-info .directorist-author-social-item a span,
@@ -13592,6 +13593,7 @@ Review: New Style
   }
 }
 .directorist-favourite-items-wrap .directorist-dashboard-items-list__single--action .directorist-favourite-remove-btn {
+  /* Legacy Icon */
   font-weight: 500;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -13613,6 +13615,9 @@ Review: New Style
 }
 .directorist-favourite-items-wrap .directorist-dashboard-items-list__single--action .directorist-favourite-remove-btn .directorist-icon-mask:after {
   background-color: #fff;
+}
+.directorist-favourite-items-wrap .directorist-dashboard-items-list__single--action .directorist-favourite-remove-btn > i:not(.directorist-icon-mask) {
+  margin-left: 5px;
 }
 @media only screen and (max-width: 991px) {
   .directorist-favourite-items-wrap .directorist-dashboard-items-list__single--action .directorist-favourite-remove-btn {

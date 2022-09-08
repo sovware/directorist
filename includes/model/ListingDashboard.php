@@ -540,6 +540,10 @@ class Directorist_Listing_Dashboard {
 
 		return false;
 	}
+	
+	public function get_renewal_link( $listing_id ) {
+		return get_directorist_option( 'enable_monetization' ) && get_directorist_option( 'enable_featured_listing' ) ? ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id ) : ATBDP_Permalink::get_renewal_page_link( $listing_id );
+	}
 
 	public function get_action_dropdown_item() {
 		$dropdown_items = apply_filters( 'directorist_dashboard_listing_action_items', [], $this );
@@ -550,7 +554,7 @@ class Directorist_Listing_Dashboard {
 			$dropdown_items['renew'] = array(
 				'class'			    => '',
 				'data_attr'			=>	'',
-				'link'				=>	add_query_arg( 'renew_from', 'dashboard', esc_url( ATBDP_Permalink::get_fee_renewal_checkout_page_link( $post_id )) ),
+				'link'				=>	add_query_arg( 'renew_from', 'dashboard', esc_url( $this->get_renewal_link( $post_id ) ) ),
 				'icon'				=>  sprintf( '<i class="%s-hand-holding-usd"></i>', atbdp_icon_type() ),
 				'label'				=>  __( 'Renew', 'directorist' )
 			);

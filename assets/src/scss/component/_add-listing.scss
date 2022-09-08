@@ -30,6 +30,11 @@
           background-color: #fff;
         }
       }
+      /* Legacy Icon */
+      & > i:not(.directorist-icon-mask){
+        display: inline-block;
+        margin-bottom: 10px;
+      }
     }
   }
 }

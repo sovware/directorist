@@ -620,10 +620,6 @@
         text-decoration: none !important;
     }
 
-    &.directorist-added-to-favorite {
-        background: rgba(0, 0, 0, 0.5) !important;
-    }
-
     .directorist-favorite-icon {
         display: flex;
         align-items: center;
@@ -636,6 +632,16 @@
             width: 15px;
             height: 15px;
             background-color: #fff;
+            transition: 0.3s ease;
+        }
+    }
+
+    &.directorist-added-to-favorite {
+        background: rgba(0, 0, 0, 0.5) !important;
+        .directorist-favorite-icon {
+            &:before {
+                mask-image: url("../../../../icons/line-awesome/svgs/heart-solid.svg");
+            }
         }
     }
 

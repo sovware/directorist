@@ -352,28 +352,50 @@ class Directorist_Single_Listing {
 		return get_directorist_type_option( $this->type, 'enable_single_listing_page', false );
 	}
 
+	/**
+	 * Single Listing content when custom single listing page is enabled.
+	 *
+	 * @return string Single Listing content html.
+	 */
 	public function single_page_content() {
 		$page_id = (int) get_directorist_type_option( $this->type, 'single_listing_page' );
 
+		// Bail if custom single listing page is disabled
 		if ( ! $page_id ) {
 			return '';
 		}
 
-		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->documents->get( $page_id )->is_built_with_elementor() ) {
-			// Return escaped output
-			return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
-		}
-
+		// Bail if selected custom single listing page is not really a page
 		$page = get_post( $page_id );
 		if ( $page->post_type !== 'page' ) {
 			return '';
 		}
 
-		global $post, $wp_embed;
-		$_temp_post = $post; // Cache listing post.
-		$post       = $page; // Assign custom single page as post.
+		/**
+		 * Usually this hook is used to inject page builder content.
+		 *
+		 * @hook directorist_add_custom_single_listing_page_content_from_elementor
+		 *
+		 * @param string Page content.
+		 * @param WP_Post $page
+		 *
+		 * @since 7.4.0
+		 */
+		$content = apply_filters( 'directorist_custom_single_listing_pre_page_content', '', $page );
 
-		$content = get_post_field( 'post_content', $page_id );
+		// Return page builder or other injected content if exists
+		if ( ! empty( $content ) ) {
+			return $content;
+		}
+
+		$content = get_post_field( 'post_content', $page_id ); // Raw content
+		$content = $this->filter_single_listing_content( $content ); // Actual content after running several filters
+
+		return $content;
+	}
+
+	private function filter_single_listing_content( $content ) {
+		global $wp_embed;
 		$content = $wp_embed->run_shortcode( $content );
 		$content = $wp_embed->autoembed( $content );
 		// do_blocks available from WP 5.0
@@ -384,11 +406,6 @@ class Directorist_Single_Listing {
 		$content = wp_filter_content_tags( $content );
 		$content = do_shortcode( $content );
 		$content = str_replace( ']]>', ']]&gt;', $content );
-
-		// Restore listing post.
-		$post = $_temp_post;
-		unset( $_temp_post );
-
 		return $content;
 	}
 

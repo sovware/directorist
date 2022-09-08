@@ -307,6 +307,10 @@
                             margin-bottom: 0;
                             color: #fff;
                         }
+                        .directorist-icon-mask:after{
+                            width: 25px;
+                            height: 25px;
+                        }
                     }
                 }
 
@@ -397,6 +401,14 @@
             .icon {
                 span {
                     color: #fff;
+                }
+                .directorist-icon-mask{
+                    display: inline-block;
+                    &::after{
+                        width: 30px;
+                        height: 30px;
+                        background-color: #fff;
+                    }
                 }
             }
 

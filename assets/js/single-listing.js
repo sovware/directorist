@@ -1099,7 +1099,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var rtl = directorist.rtl === 'true';
   var relLis = $('.directorist-related-carousel');
 
-  if (relLis !== null) {
+  if (relLis.length !== 0) {
     var relLisData = relLis.data('attr');
     var prevArrow = relLisData.prevArrow;
     var nextArrow = relLisData.nextArrow;

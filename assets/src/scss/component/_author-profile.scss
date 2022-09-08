@@ -171,6 +171,13 @@
                 span{
                     background-color: #fff;
                 }
+
+                /* Legacy Icon */
+                span.la,
+                span.fa{
+                    background: none;
+                    color: #fff;
+                }
             }
         }
     }

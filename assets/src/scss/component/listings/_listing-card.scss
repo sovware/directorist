@@ -338,6 +338,11 @@
                 .directorist-icon-mask{
                     margin-right: 5px;
                 }
+
+                /* Legacy Icon */
+                > span:not(.directorist-icon-mask){
+                    margin-right: 5px;
+                }
             }
         }
 

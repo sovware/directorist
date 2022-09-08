@@ -554,7 +554,7 @@ class Directorist_Listing_Dashboard {
 			$dropdown_items['renew'] = array(
 				'class'			    => '',
 				'data_attr'			=>	'',
-				'link'				=>	add_query_arg( 'renew_from', 'dashboard', esc_url( ATBDP_Permalink::get_renewal_page_link( $post_id )) ),
+				'link'				=>	add_query_arg( 'renew_from', 'dashboard', esc_url( ATBDP_Permalink::get_fee_renewal_checkout_page_link( $post_id )) ),
 				'icon'				=>  'las la-hand-holding-usd',
 				'label'				=>  __( 'Renew', 'directorist' )
 			);

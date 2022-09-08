@@ -565,7 +565,7 @@ class Directorist_Listing_Dashboard {
 				'class'			    => '',
 				'data_attr'			=>	'',
 				'link'				=>	ATBDP_Permalink::get_checkout_page_link( $post_id ),
-				'icon'				=>  directorist_icon( 'las la-hand-holding-usd', false ),
+				'icon'				=>  directorist_icon( 'las la-ad', false ),
 				'label'				=>  __( 'Promote', 'directorist' )
 			);
 		}
@@ -574,7 +574,7 @@ class Directorist_Listing_Dashboard {
 			'class'			    => '',
 			'data_attr'			=>	'data-task="delete"',
 			'link'				=>	'#',
-			'icon'				=>  directorist_icon( 'las la-hand-holding-usd', false ),
+			'icon'				=>  directorist_icon( 'las la-trash', false ),
 			'label'				=>  __( 'Delete Listing', 'directorist' )
 		);
 

@@ -65,6 +65,12 @@
 			outline: 0 !important;
 			text-decoration: none !important;
 		}
+
+		/* Legacy Icon */
+		> span{
+			margin-right: 7px;
+			display: inline-block;
+		}
 	}
 }
 

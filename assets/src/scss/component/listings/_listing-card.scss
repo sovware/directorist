@@ -478,6 +478,21 @@
                         height: 15px;
                     }
                 }
+
+                /* Legacy Icon */
+                > span{
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    background: #F3F3F3;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 10px;
+                    &:before{
+                        color: #51526E;
+                    }
+                }
             }
         }
 
@@ -515,6 +530,12 @@
                         height: 15px;
                         background-color: #767792;
                     }
+                }
+
+                /* Legacy Icon */
+                > span{
+                    display: inline-block;
+                    margin-right: 5px;
                 }
             }
 

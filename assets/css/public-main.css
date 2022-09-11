@@ -8755,7 +8755,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   min-width: 150px;
 }
 .directorist-advanced-filter__advanced--element .directorist-search-field .directorist-btn-ml {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 14px;
   color: #7a82a6;
   text-decoration: none;
@@ -15273,13 +15280,18 @@ Review: New Style
   margin-left: 0;
 }
 .directorist-search-contents .directorist-btn-ml::after {
-  font-family: "Line Awesome Free";
-  content: "\f107";
-  font-weight: 900;
-  padding-left: 5px;
+  content: "";
+  display: inline-block;
+  margin-left: 5px;
+  -webkit-mask-image: url(../images/05feea3d261c8b97573023a74fd26f03.svg);
+          mask-image: url(../images/05feea3d261c8b97573023a74fd26f03.svg);
+  width: 12px;
+  height: 12px;
+  background-color: #7a82a6;
 }
 .directorist-search-contents .directorist-btn-ml.active:after {
-  content: "\f106";
+  -webkit-mask-image: url(../images/c90867d23032298fc0ff1d456a6fdb30.svg);
+          mask-image: url(../images/c90867d23032298fc0ff1d456a6fdb30.svg);
 }
 
 .directorist-content-active .directorist-listing-category-top {

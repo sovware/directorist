@@ -864,8 +864,6 @@ class Directorist_Listings {
 						);
 					}
 				} else {
-					// $field_type = get_post_meta( $key, 'type', true );
-					// $operator   = ( in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=' );
 					$meta_queries[] = array(
 						'key'     => '_' . $key,
 						'value'   => sanitize_text_field( $values ),
@@ -1319,13 +1317,13 @@ class Directorist_Listings {
 
 		$cat_icon = !empty( $cat_icon ) ? $cat_icon : atbdp_icon_type() . '-map-marker';
 		/**
-		 * Get category icon for map marker. 
+		 * Get category icon for map marker.
 		 *
 		 * @since 7.3.1
-		 * 
+		 *
 		 * @param array $cats Categories for the post.
 		 * @param string $cat_icon First category
-		 * 
+		 *
 		 * @return string CATEGORY ICON NAME
 		 */
 		return apply_filters( "directorist_listings_map_view_marker_icon", $cat_icon, $cats );

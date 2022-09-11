@@ -87,12 +87,6 @@ class Directorist_Template_Hooks {
 			return Helper::get_template_contents( 'single-contents' );
 		}
 
-		$directory_types = Helper::get_directory_types_with_custom_single_page( get_the_ID() );
-		if ( get_post_type() === 'page' && ! empty( $directory_types ) ) {
-			$directory_names = wp_list_pluck( $directory_types, 'name' );
-			return sprintf( __( '<p style="text-align:center" class="directorist-alert directorist-alert-info">This page is currently selected as single Listing details page for %s directory.</p>', 'directorist' ) , implode( ', ', $directory_names ) );
-		}
-
 		return $content;
 	}
 

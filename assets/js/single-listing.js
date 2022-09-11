@@ -1103,7 +1103,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var relLisData = relLis.data('attr');
     var prevArrow = typeof relLisData !== 'undefined' ? relLisData.prevArrow : '';
     var nextArrow = typeof relLisData !== 'undefined' ? relLisData.nextArrow : '';
-    var relLisCol = typeof relLisData !== 'undefined' ? relLisData.columns : '';
+    var relLisCol = typeof relLisData !== 'undefined' ? relLisData.columns : 3;
     $('.directorist-related-carousel').slick({
       dots: false,
       arrows: true,

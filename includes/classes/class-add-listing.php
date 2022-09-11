@@ -825,7 +825,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			// Update the post_meta into the database
 			$old_status = get_post_meta( $listing_id, '_listing_status', true );
 			if ( 'expired' == $old_status ) {
-				$expiry_date = calc_listing_expiry_date( '', '', $directory_type );
+				$expiry_date = calc_listing_expiry_date();
 			} else {
 				$old_expiry_date = get_post_meta( $listing_id, '_expiry_date', true );
 				$expiry_date     = calc_listing_expiry_date( $old_expiry_date, '',  $directory_type );

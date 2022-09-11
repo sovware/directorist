@@ -864,10 +864,12 @@ class Directorist_Listings {
 						);
 					}
 				} else {
+					$field_type = str_replace( 'custom-', '', $key );
+					$operator   = in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=';
 					$meta_queries[] = array(
 						'key'     => '_' . $key,
 						'value'   => sanitize_text_field( $values ),
-						'compare' => 'LIKE'
+						'compare' => $operator
 					);
 				}
 			}

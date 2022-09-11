@@ -536,8 +536,22 @@ class Helper {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 
+	public static function single_listing_dummy_shortcode( $shortcode, $atts = [] ) {
+		$atts_string = '';
+
+		if ( $atts ) {
+			foreach ( $atts as $key => $value ) {
+				$atts_string .= sprintf( ' %s="%s"', $key, $value );
+			}
+		}
+
+		return sprintf( '<div class="directorist-single-dummy-shortcode">%s%s</div>', $shortcode, $atts_string );
+	}
+
 	/**
 	 * Get a list of directories that has custom single listing page enabled and set.
+	 *
+	 * @todo remove this unused method
 	 *
 	 * @param  int|null $page_id Optional page id.
 	 *

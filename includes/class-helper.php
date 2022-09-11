@@ -549,17 +549,6 @@ class Helper {
 		return sprintf( '<div class="directorist-single-dummy-shortcode">%s%s</div>', $shortcode, $atts_string );
 	}
 
-	/*
-	 * @todo remove this unused method
-	 */
-	public static function is_builder_single_page() {
-		$selected_single_pages = self::builder_selected_single_pages();
-		if( !empty( $selected_single_pages ) && is_page( array_keys( $selected_single_pages ) ) ) {
-			return true;
-		}
-		return false;
-	}
-
 	/**
 	 * Get a list of directories that has custom single listing page enabled and set.
 	 *

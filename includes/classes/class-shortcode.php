@@ -75,11 +75,11 @@ class ATBDP_Shortcode {
 		return self::$instance;
 	}
 
-	// single_listings_header
 	public function single_listings_header( $atts ) {
 
+		// Make sure actual shortcode runs on single listing page only
 		if ( !is_singular( ATBDP_POST_TYPE ) ) {
-			return '';
+			return Helper::single_shortcode_string( 'directorist_single_listings_header', $atts );
 		}
 
 		$listing_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
@@ -107,6 +107,12 @@ class ATBDP_Shortcode {
 	}
 
 	public function single_listing_section( $atts = array() ) {
+
+		// Make sure actual shortcode runs on single listing page only
+		if ( !is_singular( ATBDP_POST_TYPE ) ) {
+			return Helper::single_shortcode_string( 'directorist_single_listing_section', $atts );
+		}
+
 		$listing_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
 
 		if ( ! $listing_id ) {

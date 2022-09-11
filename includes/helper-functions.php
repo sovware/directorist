@@ -1067,9 +1067,9 @@ if (!function_exists('calc_listing_expiry_date')) {
      * @since    3.1.0
      *
      */
-    function calc_listing_expiry_date($start_date = NULL, $expire = NULL)
+    function calc_listing_expiry_date($start_date = NULL, $expire = NULL, $directory_type = '')
     {
-        $exp_days = get_term_meta( default_directory_type(), 'default_expiration', true );
+        $exp_days = get_term_meta( $directory_type, 'default_expiration', true );
         $exp_days = !empty( $exp_days ) ? $exp_days : 0;
         $expired_date = !empty($expire) ? $expire : $exp_days;
         // Current time

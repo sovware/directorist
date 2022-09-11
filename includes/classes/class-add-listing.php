@@ -761,7 +761,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$temp_token = ! empty( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
 			$renew_from = ! empty( $_GET['renew_from'] ) ? sanitize_text_field( wp_unslash( $_GET['renew_from'] ) ) : '';
 
-			if ( empty( $temp_token ) || empty( $renew_from ) ) {
+			if ( empty( $temp_token ) && empty( $renew_from ) ) {
 				return;
 			}
 
@@ -820,23 +820,22 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			// Updating listing
 			wp_update_post( $post_array );
-
+			
+			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
 			// Update the post_meta into the database
 			$old_status = get_post_meta( $listing_id, '_listing_status', true );
 			if ( 'expired' == $old_status ) {
-				$expiry_date = calc_listing_expiry_date();
+				$expiry_date = calc_listing_expiry_date( '', '', $directory_type );
 			} else {
 				$old_expiry_date = get_post_meta( $listing_id, '_expiry_date', true );
-				$expiry_date     = calc_listing_expiry_date( $old_expiry_date );
+				$expiry_date     = calc_listing_expiry_date( $old_expiry_date, '',  $directory_type );
 			}
 
 			// update related post metas
 			update_post_meta( $listing_id, '_expiry_date', $expiry_date );
 			update_post_meta( $listing_id, '_listing_status', 'post_status' );
 
-			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
 			$exp_days       = get_term_meta( $directory_type, 'default_expiration', true );
-
 			if ( $exp_days <= 0 ) {
 				update_post_meta( $listing_id, '_never_expire', 1 );
 			} else {

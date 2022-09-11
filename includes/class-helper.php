@@ -537,7 +537,7 @@ class Helper {
 		return get_directorist_option('feature_badge_text', 'Featured');
 	}
 
-	public static function single_shortcode_string( $shortcode, $atts = [] ) {
+	public static function single_listing_dummy_shortcode( $shortcode, $atts = [] ) {
 		$atts_string = '';
 
 		if ( $atts ) {

@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								<h4 class="directorist-listing-title"><a href="<?php echo esc_url( $item['permalink'] );?>"><?php echo esc_html( $item['title'] );?></a></h4>
 
-								<a class="directorist-listing-category" href="<?php echo esc_url( $item['category_link'] );?>"><span class="<?php echo esc_attr( $item['icon'] );?>"></span><?php echo esc_html( $item['category_name'] );?></a>
+								<a class="directorist-listing-category" href="<?php echo esc_url( $item['category_link'] );?>"><?php echo wp_kses_post( $item['icon'] );?><?php echo esc_html( $item['category_name'] );?></a>
 
 							</div>
 

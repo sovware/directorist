@@ -63,8 +63,9 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
             $fields['legacy_icon'] = [
                 'type'  => 'toggle',
-                'label' => __( 'Legacy Icon', 'directorist' ),
-                'description' => __( 'Icon support for Legacy v7.3.3', 'directorist' ),
+                'label' => __( 'Legacy Icon Support', 'directorist' ),
+				'value' => false,
+                'description' => sprintf( __( 'Icon support for legacy v7.3.3 templates. Enable this only if there are outdated directorist templates in your theme <a href="%s" target="__blank">here</a>.', 'directorist' ), menu_page_url( 'directorist-status', false ) . '#atbds_template' ),
             ];
 
             $fields['import_settings'] = [

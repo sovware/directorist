@@ -142,7 +142,6 @@
             $imported = 0;
             $failed   = 0;
             $count    = 0;
-            $dummy    = [];
 
             foreach ( $posts as $index => $post ) {
 
@@ -353,19 +352,6 @@
         wp_update_attachment_metadata($id, wp_generate_attachment_metadata($id, $upload['file']));
         return $id;
 
-        }
-
-        private static function file_get_contents_curl($url)
-        {
-            $ch = curl_init();
-    
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_URL, $url);
-    
-            $data = curl_exec($ch);
-            curl_close($ch);
-            return $data;
         }
 
         public function atbdp_csv_import_controller()

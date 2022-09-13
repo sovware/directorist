@@ -864,11 +864,10 @@ if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
 
 		_deprecated_function( __FUNCTION__, '7.4.0' );
 
-        $default = [ 'icon' => '', 'default' => 'la la-folder-open', 'echo' => false ];
+        $default = [ 'icon' => '', 'default' => 'lar la-folder-open', 'echo' => false ];
         $args = array_merge( $default, $args );
 
-        $icon = ( ! empty($args['icon'] ) ) ?  'la ' . $args['icon'] : $args['default'];
-        $icon = ( ! empty( $icon ) ) ?  'la ' . $icon : '';
+        $icon = ( ! empty($args['icon'] ) ) ? $args['icon'] : $args['default'];
         $icon = ( ! empty( $icon ) ) ? '<span class="'. $icon .'"></span>' : $icon;
 
         if ( ! $args['echo'] ) { return $icon; }

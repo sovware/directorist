@@ -142,6 +142,7 @@
             $imported = 0;
             $failed   = 0;
             $count    = 0;
+            $dummy    = [];
 
             foreach ( $posts as $index => $post ) {
 
@@ -249,7 +250,6 @@
                                 $attachment_ids[] = $attachment_id;
                             }
                         }
-
                         update_post_meta($post_id, '_listing_img', $attachment_ids );
                     }
 
@@ -297,13 +297,48 @@
             return false;
         }
         $contents = @file_get_contents($file_url);
+        
         if ($contents === false) {
             return false;
         }
-        $upload = wp_upload_bits(basename($file_url), null, $contents);
+
+        if( ! wp_check_filetype( $file_url )['ext'] ) {
+
+            $headers = array(
+                'Accept'     => 'application/json',
+            );
+    
+            $config = array(
+                'method'      => 'GET',
+                'timeout'     => 30,
+                'redirection' => 5,
+                'httpversion' => '1.0',
+                'headers'     => $headers,
+                'cookies'     => array(),
+            );
+    
+            $upload = array();
+    
+            try {
+                $response = wp_remote_get( $file_url, $config );
+    
+                if ( ! is_wp_error( $response ) ) {
+                    $type = wp_remote_retrieve_header( $response, 'content-type' );
+                    $extension = preg_replace("/\w+\//", '', $type );
+                    $upload = wp_upload_bits(basename( $file_url . '.'. $extension ), '', wp_remote_retrieve_body($response));
+    
+                }
+            } catch ( Exception $e ) {
+    
+            }
+        }else{
+            $upload = wp_upload_bits(basename($file_url), null, $contents);
+        }
+
         if (isset($upload['error']) && $upload['error']) {
             return false;
         }
+
         $type = '';
         if (!empty($upload['type'])) {
             $type = $upload['type'];
@@ -318,6 +353,19 @@
         wp_update_attachment_metadata($id, wp_generate_attachment_metadata($id, $upload['file']));
         return $id;
 
+        }
+
+        private static function file_get_contents_curl($url)
+        {
+            $ch = curl_init();
+    
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_URL, $url);
+    
+            $data = curl_exec($ch);
+            curl_close($ch);
+            return $data;
         }
 
         public function atbdp_csv_import_controller()

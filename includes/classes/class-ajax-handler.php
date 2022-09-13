@@ -924,9 +924,17 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if ( ! in_array( 'listing_review', get_directorist_option( 'notify_user', array() ) ) ) {
 				return false;
 			}
+
 			// sanitize form values
 			$post_id = ( ! empty( $_POST['post_id'] ) ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 			$message = ( ! empty( $_POST['content'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['content'] ) ) : '';
+
+			$action_args = [
+				'listing_id'     => $post_id,
+				'recipient_type' => 'user',
+			];
+
+			do_action( 'directorist_before_send_email', $action_args );
 
 			// vars
 			$user          = wp_get_current_user();
@@ -962,8 +970,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$to      = $user->user_email;
 			$is_sent = ATBDP()->email->send_mail( $to, $subject, $message, $headers );
 
+			$action_args['is_sent'] = $is_sent;
+
 			// Action Hook
-			$action_args = array(
+			$args = array(
 				'is_sent'    => $is_sent,
 				'to_email'   => $to,
 				'subject'    => $subject,
@@ -973,7 +983,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				'reviewer'   => $user,
 			);
 
+			$action_args = array_merge( $action_args, $args );
+
 			do_action( 'directorist_email_on_send_email_review_to_user', $action_args );
+			do_action( 'directorist_after_send_email', $action_args );
 
 			return $is_sent;
 		}
@@ -1000,6 +1013,13 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			// sanitize form values
 			$post_id = ( ! empty( $_POST['post_id'] ) ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 			$message = ! empty( $_POST['content'] ) ? sanitize_textarea_field( wp_unslash( $_POST['content'] ) ) : '';
+
+			$action_args = [
+				'listing_id'     => $post_id,
+				'recipient_type' => 'admin',
+			];
+
+			do_action( 'directorist_before_send_email', $action_args );
 
 			// vars
 			$user          = wp_get_current_user();
@@ -1034,8 +1054,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 			$is_sent = ATBDP()->email->send_mail( $to, $subject, $message, $headers );
 
+			$action_args['is_sent'] = $is_sent;
+
 			// Action Hook
-			$action_args = array(
+			$args = array(
 				'is_sent'    => $is_sent,
 				'to_email'   => $to,
 				'subject'    => $subject,
@@ -1045,7 +1067,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				'reviewer'   => $user,
 			);
 
+			$action_args = array_merge( $action_args, $args );
+
 			do_action( 'directorist_email_on_send_email_review_to_admin', $action_args );
+			do_action( 'directorist_after_send_email', $action_args );
 
 			return $is_sent;
 		}
@@ -1106,6 +1131,15 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 * @return bool
 		 */
 		public function send_listing_report_email_to_admin( $user_id, $listing_id, $report_message ) {
+
+			$action_args = [
+				'user_id'        => $user_id,
+			  	'listing_id'     => $listing_id,
+				'recipient_type' => 'admin',
+			];
+
+			do_action( 'directorist_before_send_email', $action_args );
+
 			$message       = esc_textarea( $report_message );
 			$user          = get_user_by( 'id', $user_id );
 			$site_name     = get_bloginfo( 'name' );
@@ -1142,7 +1176,13 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$headers  = "From: {$user->display_name} <{$user->user_email}>\r\n";
 			$headers .= "Reply-To: {$user->user_email}\r\n";
 
-			return ATBDP()->email->send_mail( $admin_email, $subject, $message, $headers );
+			$is_sent = ATBDP()->email->send_mail( $admin_email, $subject, $message, $headers );
+
+			$action_args['is_sent'] = $is_sent;
+
+			do_action( 'directorist_after_send_email', $action_args );
+
+			return $is_sent;
 		}
 
 		public function ajax_callback_report_abuse() {
@@ -1204,8 +1244,17 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$post_id       = ! empty( $_POST['post_id'] ) ? sanitize_text_field( absint( $_POST['post_id'] ) ) : '';
 			$name          = ( ! empty( $_POST['name'] ) ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
 			$email         = ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+
+			$action_args = [
+				'listing_id'     => $post_id,
+				'recipient_type' => 'user',
+			];
+
+			do_action( 'directorist_before_send_email', $action_args );
+
 			$listing_email = get_post_meta( $post_id, '_email', true );
 			$message       = ( ! empty( $_POST['message']  ) ) ? stripslashes( sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) ) : '';
+
 			// vars
 			$post_author_id        = get_post_field( 'post_author', $post_id );
 			$user                  = get_userdata( $post_author_id );
@@ -1251,7 +1300,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$is_sent = ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
 
 			// Action Hook
-			$action_args = array(
+			$args = array(
 				'is_sent'        => $is_sent,
 
 				'to_email'       => $to,
@@ -1274,7 +1323,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				'site_name'      => $site_name,
 			);
 
+			$action_args = array_merge( $action_args, $args );
+
 			do_action( 'directorist_email_on_send_contact_messaage_to_listing_owner', $action_args );
+			do_action( 'directorist_after_send_email', $action_args );
 
 			return $is_sent;
 		}
@@ -1295,6 +1347,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$name    = ( ! empty( $_POST['name'] ) ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
 			$email   = ( ! empty( $_POST['email'] ) ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
 			$message = ( ! empty( $_POST['message'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
+
+			$action_args = [
+				'listing_id'     => $post_id,
+				'recipient_type' => 'admin',
+			];
+
+			do_action( 'directorist_before_send_email', $action_args );
+
 			// vars
 			$site_name     = get_bloginfo( 'name' );
 			$site_url      = get_bloginfo( 'url' );
@@ -1329,7 +1389,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$is_sent = ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
 
 			// Action Hook
-			$action_args = array(
+			$args = array(
 				'is_sent'       => $is_sent,
 
 				'to_email'      => $to,
@@ -1349,7 +1409,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				'site_name'     => $site_name,
 			);
 
+			$action_args = array_merge(  $action_args, $args );
+
 			do_action( 'directorist_email_on_send_contact_messaage_to_admin', $action_args );
+			do_action( 'directorist_after_send_email', $action_args );
 
 			return $is_sent;
 		}

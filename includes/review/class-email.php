@@ -34,6 +34,13 @@ class Email {
 			return false;
 		}
 
+		$action_args = [
+		  'comment_id'     => $comment_id,
+		  'recipient_type' => 'user',
+		];
+
+		do_action( 'directorist_before_send_email', $action_args );
+
 		$review = self::get_review( $comment_id );
 		if ( ! $review ) {
 			return false;
@@ -83,7 +90,12 @@ class Email {
 		$headers = "From: {$review->comment_author_email} <{$review->comment_author_email}>\r\n";
 		$headers .= "Reply-To: {$review->comment_author_email}\r\n";
 
-		return ATBDP()->email->send_mail( $user->user_email, $subject, $message, $headers );
+		$is_sent = ATBDP()->email->send_mail( $user->user_email, $subject, $message, $headers );
+
+		$action_args['is_sent'] = $is_sent;
+		do_action( 'directorist_after_send_email', $action_args );
+
+		return $is_sent;
 	}
 
 	public static function notify_admin( $comment_id ) {
@@ -95,6 +107,13 @@ class Email {
 		if ( ! $review ) {
 			return false;
 		}
+
+		$action_args = [
+		  'comment_id'     => $comment_id,
+		  'recipient_type' => 'admin',
+		];
+
+		do_action( 'directorist_before_send_email', $action_args );
 
 		$post          = get_post( $review->comment_post_ID );
 		$site_name     = get_bloginfo( 'name' );
@@ -129,7 +148,13 @@ class Email {
 		$headers = "From: {$review->comment_author_email} <{$review->comment_author_email}>\r\n";
 		$headers .= "Reply-To: {$review->comment_author_email}\r\n";
 
-		return ATBDP()->email->send_mail( $to, $subject, $message, $headers );
+		$is_sent = ATBDP()->email->send_mail( $to, $subject, $message, $headers );
+
+
+		$action_args['is_sent'] = $is_sent;
+		do_action( 'directorist_after_send_email', $action_args );
+
+		return $is_sent;
 	}
 
 	public static function get_review( $comment_id ) {

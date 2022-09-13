@@ -206,6 +206,13 @@ class Listings_Actions_Controller extends Abstract_Controller {
 	}
 
 	public function send_listing_report( $listing_id, $message ) {
+		$action_args = [
+			'listing_id'     => $listing_id,
+			'recipient_type' => 'admin',
+		];
+
+		do_action( 'directorist_before_send_email', $action_args );
+
 		// sanitize form values
 		$post_id = $listing_id;
 		$message = esc_textarea( $message );
@@ -243,7 +250,12 @@ class Listings_Actions_Controller extends Abstract_Controller {
 		$headers .= "Reply-To: {$user->user_email}\r\n";
 
 		// return true or false, based on the result
-		return (bool) ATBDP()->email->send_mail( $to, $subject, $message, $headers );
+		$is_sent = (bool) ATBDP()->email->send_mail( $to, $subject, $message, $headers );
+
+		$action_args['is_sent'] = $is_sent;
+		do_action( 'directorist_after_send_email', $action_args );
+
+		return $is_sent;
 	}
 
 	public function contact_listing_owner( $listing_id, $name, $email, $message ) {

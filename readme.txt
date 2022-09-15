@@ -400,7 +400,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.3.4 - Sep 13, 2022
+7.3.4 - Sep 15, 2022
 
 * Add - New hook in the custom single listing page
 * Add - Helper function `directorist_esc_json()` to sanitize any JSON output

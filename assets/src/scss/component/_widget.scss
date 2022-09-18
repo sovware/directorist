@@ -322,6 +322,36 @@
               list-style: none !important;
             }
           }
+
+          .directorist-listing-category {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            a{
+              display: inline-flex;
+              align-items: center;
+              .directorist-icon-mask {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: #F3F3F3;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 10px;
+                &:after {
+                  background-color: #51526E;
+                  width: 15px;
+                  height: 15px;
+                }
+              }
+            }
+            .directorist-listing-category__popup {
+              position: relative;
+              margin-left: 5px;
+              cursor: pointer;
+            }
+          }
         }
 
         .atbd_left_img+.atbd_right_content {

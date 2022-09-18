@@ -1431,7 +1431,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value' => '#444752',
                 ],
                 'can_renew_listing' => [
-                    'label' => __('Can User Renew Listing?', 'directorist'),
+                    'label' => __('Renew Listings', 'directorist'),
                     'type'  => 'toggle',
                     'value' => true,
                     'description' => __('Here YES means users can renew their listings.', 'directorist'),
@@ -1457,7 +1457,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'delete_expired_listing' => [
-                    'label' => __('Delete/Trash Expired Listings', 'directorist'),
+                    'label' => __('Delete Expired Listings', 'directorist'),
                     'type'  => 'toggle',
                     'value' => true,
                 ],
@@ -1593,27 +1593,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'text',
                     'label' => __('Filters Button Text', 'directorist'),
                     'value' => __('Filters', 'directorist'),
-                ],
-                'listing_tags_field' => [
-                    'label' => __('Tags Filter Source', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'all_tags',
-                    'options' => [
-                        [
-                            'value' => 'category_based_tags',
-                            'label' => __('Category Based Tags', 'directorist'),
-                        ],
-                        [
-                            'value' => 'all_tags',
-                            'label' => __('All Tags', 'directorist'),
-                        ],
-                    ],
-                ],
-                'listing_default_radius_distance' => [
-                    'label' => __('Default Radius Distance', 'directorist'),
-                    'type'  => 'number',
-                    'value' => 0,
-                    'placeholder' => '10',
                 ],
                 'listings_filters_button' => [
                     'label' => __('Filter Buttons', 'directorist'),
@@ -1944,40 +1923,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'description' => __('Here Yes means display all the informations (i.e. title, tagline, excerpt etc.) of grid view on single line', 'directorist'),
                     'value' => false,
                 ],
-
-                'address_location' => [
-                    'label' => __('Address', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'contact',
-                    'description' => __('Choose which address you want to show on listings page', 'directorist'),
-                    'options' => [
-                        [
-                            'value' => 'location',
-                            'label' => __('Display From Location', 'directorist'),
-                        ],
-                        [
-                            'value' => 'contact',
-                            'label' => __('Display From Contact Information', 'directorist'),
-                        ],
-                    ],
-                ],
-
-                'publish_date_format' => [
-                    'label' => __('Publish Date Format', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'time_ago',
-                    'options' => [
-                        [
-                            'value' => 'time_ago',
-                            'label' => __('Number of Days Ago', 'directorist'),
-                        ],
-                        [
-                            'value' => 'publish_date',
-                            'label' => __('Standard Date Format', 'directorist'),
-                        ],
-                    ],
-                ],
-
                 'paginate_all_listings' => [
                     'type' => 'toggle',
                     'label' => __('Paginate Listings'),
@@ -2724,12 +2669,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'         => __('Search Bar Sub-title', 'directorist'),
                     'value'         => __( 'Find the best match of your interest', 'directorist' ),
                 ],
-                'search_border' => [
-                    'type'  => 'toggle',
-                    'label' => __('Search Bar Border', 'directorist'),
-                    'value' => true,
-                ],
-
                 'search_more_filter' => [
                     'type'  => 'toggle',
                     'label' => __('Display More Filters', 'directorist'),
@@ -2808,20 +2747,6 @@ Please remember that your order may be canceled if you do not make your payment 
                         [
                             'value' => 'search_apply_filters',
                             'label' => __('Apply', 'directorist'),
-                        ],
-                    ],
-                ],
-                'search_default_radius_distance' => [
-                    'label'         => __('Default Radius Distance', 'directorist'),
-                    'type'          => 'number',
-                    'value'         => '0',
-                    'min'           => '0',
-                    'max'           => '750',
-                    'step'          => '1',
-                    'show-if' => [
-                        'where' => "search_more_filter",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
                     ],
                 ],
@@ -2952,20 +2877,6 @@ Please remember that your order may be canceled if you do not make your payment 
                         [
                             'value' => 'sliding',
                             'label' => __('Sliding', 'directorist'),
-                        ],
-                    ],
-                ],
-                'sresult_default_radius_distance' => [
-                    'label'         => __('Default Radius Distance', 'directorist'),
-                    'type'          => 'number',
-                    'value'         => '0',
-                    'min'           => '0',
-                    'max'           => '1000',
-                    'step'          => '1',
-                    'show-if' => [
-                        'where' => "search_header",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
                     ],
                 ],
@@ -3204,21 +3115,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'min'           => '1',
                     'max'           => '100',
                     'step'          => '1',
-                ],
-                'radius_search_unit' => [
-                    'label' => __('Radius Search Unit', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'miles',
-                    'options' => [
-                        [
-                            'value' => 'miles',
-                            'label' => __('Miles', 'directorist'),
-                        ],
-                        [
-                            'value' => 'kilometers',
-                            'label' => __('Kilometers', 'directorist'),
-                        ],
-                    ],
                 ],
                 // upgrade/ regenerate pages
                 'shortcode-updated' => [
@@ -4558,80 +4454,12 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
                                 'general_settings' => [
                                     'fields'      => [
-                                        'enable_multi_directory',
-                                        'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings',
+                                        'enable_multi_directory', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode',
                                     ],
                                 ],
 
                             ] ),
                         ],
-                        'listings_page' => [
-                            'label' => __('All Listings', 'directorist'),
-                            'icon' => '<i class="fa fa-archive"></i>',
-                            'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
-                                'labels' => [
-                                    'fields'      => [
-                                        'display_listings_header', 'all_listing_title', 'listing_instant_search', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'address_location', 'publish_date_format', 'paginate_all_listings', 'all_listing_page_items'
-                                    ],
-                                ],
-                            ] ),
-                        ],
-                        'single_listing' => [
-                            'label' => __('Single Listings', 'directorist'),
-                            'icon' => '<i class="fa fa-info"></i>',
-                            'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
-                                'labels' => [
-                                    'fields'      => [
-                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'user_email', 'rel_listings_logic', 'fix_listing_double_thumb'
-                                    ],
-                                ],
-                            ] ),
-                        ],
-                        'categories_locations' => [
-                            'label' => __( 'Location & Category', 'directorist' ),
-                            'icon' => '<i class="fa fa-list-alt"></i>',
-                            'sections' => apply_filters( 'atbdp_categories_settings_sections', [
-                                'categories_settings' => [
-                                    'title'       => __('Categories Page Settings', 'directorist'),
-                                    'fields'      => [
-                                        'display_categories_as', 'categories_column_number', 'categories_depth_number', 'order_category_by', 'sort_category_by', 'display_listing_count', 'hide_empty_categories'
-                                     ],
-                                ],
-                                'locations_settings' => [
-                                    'title'       => __('Locations Page Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [
-                                        'display_locations_as', 'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
-                                     ],
-                                ],
-                            ] ),
-                        ],
-
-
-                        // 'review' => [
-                        //     'label' => __('Review', 'directorist'),
-                        //     'icon' => '<i class="fa fa-star"></i>',
-                        //     'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
-                        //         'labels' => [
-                        //             'fields'      => [
-                        //                 'enable_review', 'enable_owner_review', 'approve_immediately', 'review_approval_text', 'enable_reviewer_img', 'enable_reviewer_content', 'required_reviewer_content', 'review_num', 'guest_review'
-                        //             ],
-                        //         ],
-                        //     ] ),
-                        // ],
-
-                        'currency_settings' => [
-                            'label' => __( 'Listing Currency', 'directorist' ),
-                            'icon' => '<i class="fa fa-money-bill"></i>',
-                            'sections' => apply_filters( 'atbdp_currency_settings_sections', [
-                                'title_metas' => [
-                                    'fields'      => [
-                                        'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
-                                     ],
-                                ],
-                            ] ),
-                        ],
-
                         'map' => [
                             'label' => __('Map', 'directorist'),
                             'icon' => '<i class="fa fa-map"></i>',
@@ -4652,28 +4480,68 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ],
                             ] ),
                         ],
-
-                    ]),
-                ],
-
-                'page_settings' => [
-                    'label' => __( 'Page Setup', 'directorist' ),
-                    'icon' => '<i class="fa fa-desktop directorist_wordpress"></i>',
-                    'sections' => apply_filters( 'atbdp_listing_settings_page_settings_sections', [
-                        'upgrade_pages' => [
-                            'title'       => __('Upgrade/Regenerate Pages', 'directorist'),
-                            'description' => '',
-                            'fields'      => [
-                                'regenerate_pages'
-                             ],
+                        'listings_page' => [
+                            'label' => __('All Listings', 'directorist'),
+                            'icon' => '<i class="fa fa-archive"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
+                                'labels' => [
+                                    'fields'      => [
+                                        'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_listings_header', 'all_listing_title', 'listing_instant_search', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'paginate_all_listings', 'all_listing_page_items'
+                                    ],
+                                ],
+                            ] ),
                         ],
-                        'pages_links_views' => [
-                            'title'       => __('Page, Links & View Settings', 'directorist'),
-                            'description' => '',
-                            'fields'      => apply_filters( 'atbdp_pages_settings_fields', [
-                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'custom_registration', 'user_login', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
-                             ] ),
+                        'single_listing' => [
+                            'label' => __('Single Listings', 'directorist'),
+                            'icon' => '<i class="fa fa-info"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
+                                'labels' => [
+                                    'fields'      => [
+                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'user_email', 'rel_listings_logic', 'fix_listing_double_thumb'
+                                    ],
+                                ],
+                            ] ),
                         ],
+                        'categories_locations' => [
+                            'label' => __( 'Location & Category Archive', 'directorist' ),
+                            'icon' => '<i class="fa fa-list-alt"></i>',
+                            'sections' => apply_filters( 'atbdp_categories_settings_sections', [
+                                'categories_settings' => [
+                                    'title'       => __('Categories Page Settings', 'directorist'),
+                                    'fields'      => [
+                                        'display_categories_as', 'categories_column_number', 'categories_depth_number', 'order_category_by', 'sort_category_by', 'display_listing_count', 'hide_empty_categories'
+                                     ],
+                                ],
+                                'locations_settings' => [
+                                    'title'       => __('Locations Page Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'display_locations_as', 'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
+                                     ],
+                                ],
+                            ] ),
+                        ],
+                        'page_settings' => [
+                            'label' => __( 'Page Setup', 'directorist' ),
+                            'icon' => '<i class="fa fa-desktop directorist_wordpress"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_page_settings_sections', [
+                                'upgrade_pages' => [
+                                    'title'       => __('Upgrade/Regenerate Pages', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'regenerate_pages'
+                                     ],
+                                ],
+                                'pages_links_views' => [
+                                    'title'       => __('Page, Links & View Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => apply_filters( 'atbdp_pages_settings_fields', [
+                                        'add_listing_page', 'all_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'custom_registration', 'user_login', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
+                                     ] ),
+                                ],
+                            ]),
+                        ],
+        
                     ]),
                 ],
 
@@ -4687,7 +4555,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'directorist_search_setting_sections', [
                                 'search_form' => [
                                     'fields'      => [
-                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg', 'lazy_load_taxonomy_fields'
+                                        'search_title', 'search_subtitle', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg', 'lazy_load_taxonomy_fields'
                                      ],
                                 ],
                             ] ),
@@ -4699,7 +4567,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'search_result' => [
                                     'fields'      => [
-                                        'search_header', 'search_result_filters_button_display', 'search_result_filter_button_text', 'search_result_display_filter', 'sresult_default_radius_distance', 'search_result_filters_button', 'sresult_reset_text', 'sresult_apply_text', 'search_view_as', 'search_viewas_text', 'search_view_as_items', 'search_sort_by', 'search_sortby_text', 'search_sort_by_items', 'search_order_listing_by', 'search_sort_listing_by', 'search_listing_columns', 'paginate_search_results', 'search_posts_num', 'radius_search_unit'
+                                        'search_header', 'search_result_filters_button_display', 'search_result_filter_button_text', 'search_result_display_filter', 'search_result_filters_button', 'sresult_reset_text', 'sresult_apply_text', 'search_view_as', 'search_viewas_text', 'search_view_as_items', 'search_sort_by', 'search_sortby_text', 'search_sort_by_items', 'search_order_listing_by', 'search_sort_listing_by', 'search_listing_columns', 'paginate_search_results', 'search_posts_num',
                                      ],
                                 ],
                             ] ),
@@ -4911,6 +4779,18 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ],
                             ] ),
                         ],
+                        'author_profile' => [
+                            'label' => __('Author Profile', 'directorist'),
+                            'icon' => '<i class="fa fa-user"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_author_profile_sections', [
+                                'single_author_profile' => [
+                                    'description' => '',
+                                    'fields'      => [
+                                        'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings',
+                                        ],
+                                ],
+                            ] ),
+                        ],
                     ]),
                 ],
 
@@ -5107,8 +4987,26 @@ Please remember that your order may be canceled if you do not make your payment 
                     ]),
                 ],
 
+                'extension_settings' => [
+                    'label' => __( 'Extensions', 'directorist' ),
+                    'icon' => '<i class="fa fa-magic directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_extension_settings_submenu', [
+                        'extensions_general' => [
+                            'label' => __('Extensions General', 'directorist'),
+                            'icon' => '<i class="fa fa-home"></i>',
+                            'sections' => apply_filters( 'atbdp_extension_settings_controls', [
+                                'general_settings' => [
+                                    'fields' =>  apply_filters( 'atbdp_extension_fields', [
+                                         'extension_promotion'
+                                    ]) ,
+                                ],
+                            ] ),
+                        ],
+                    ]),
+                ],
+
                 'style_settings' => [
-                    'label' => __( 'Personalization', 'directorist' ),
+                    'label' => __( 'Appearance', 'directorist' ),
                     'icon' => '<i class="fa fa-paint-brush directorist_success"></i>',
                     'submenu' => apply_filters('atbdp_style_settings_submenu', [
                         'single_template' => [
@@ -5209,24 +5107,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     ]),
                 ],
 
-                'extension_settings' => [
-                    'label' => __( 'Extensions', 'directorist' ),
-                    'icon' => '<i class="fa fa-magic directorist_danger"></i>',
-                    'submenu' => apply_filters('atbdp_extension_settings_submenu', [
-                        'extensions_general' => [
-                            'label' => __('Extensions General', 'directorist'),
-                            'icon' => '<i class="fa fa-home"></i>',
-                            'sections' => apply_filters( 'atbdp_extension_settings_controls', [
-                                'general_settings' => [
-                                    'fields' =>  apply_filters( 'atbdp_extension_fields', [
-                                         'extension_promotion'
-                                    ]) ,
-                                ],
-                            ] ),
-                        ],
-                    ]),
-                ],
-
                 'tools' => [
                     'label' => __( 'Tools', 'directorist' ),
                     'icon' => '<i class="fa fa-tools directorist_info"></i>',
@@ -5308,6 +5188,22 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'uninstall' => [
                                     'title' => __( 'Uninstall', 'directorist' ),
                                     'fields' => [ 'enable_uninstall' ]
+                                ],
+                                'others' => [
+                                    'title' => __( 'Others', 'directorist' ),
+                                    'fields' => [ 'font_type' ]
+                                ],
+                                
+                            ] ),
+                        ],
+                        'currency_settings' => [
+                            'label' => __( 'Listing Currency', 'directorist' ),
+                            'icon' => '<i class="fa fa-money-bill"></i>',
+                            'sections' => apply_filters( 'directorist_listing_currency_settings_sections', [
+                                'title_metas' => [
+                                    'fields'      => [
+                                        'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
+                                     ],
                                 ],
                             ] ),
                         ],

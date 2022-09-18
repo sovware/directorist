@@ -438,7 +438,7 @@ class Listings_Controller extends Posts_Controller {
 				'latitude'  => $request['radius']['latitude'],
 				'longitude' => $request['radius']['longitude'],
 				'distance'  => $request['radius']['distance'],
-				'units'     => get_directorist_option( 'radius_search_unit', 'miles' )
+				'units'     => apply_filters( 'directorist_default_radius_search_unit', 'miles' ),
 			);
 		}
 

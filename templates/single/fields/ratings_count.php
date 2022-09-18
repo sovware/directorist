@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -13,4 +13,4 @@ if ( ! directorist_is_review_enabled() ) {
 }
 ?>
 
-<span class="directorist-info-item directorist-rating-meta directorist-info-item-rating"><?php echo esc_html( $listing->get_rating_count() );?><i class="<?php atbdp_icon_type( true ); ?>-star"></i></span>
+<span class="directorist-info-item directorist-rating-meta directorist-info-item-rating"><?php echo esc_html( $listing->get_rating_count() );?><?php directorist_icon( 'las la-star' ); ?></span>

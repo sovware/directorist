@@ -428,7 +428,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 			$t = apply_filters( 'atbdp_unauthorized_access_message', $t );
 			?>
 			<div class="notice_wrapper">
-				<div class="directorist-alert directorist-alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo wp_kses_post( $t ); ?></div>
+				<div class="directorist-alert directorist-alert-warning"><?php directorist_icon( 'las la-info-circle' ); ?> <?php echo wp_kses_post( $t ); ?></div>
 			</div>
 			<?php
 		}
@@ -551,7 +551,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 				<section class="directory_wrapper single_area">
 					<div class="notice_wrapper">
 						<div class="directorist-alert directorist-alert-warning">
-							<span class="fa fa-info-circle" aria-hidden="true"></span>
+							<?php directorist_icon( 'las la-info-circle' ); ?>
 							<?php esc_html_e( 'Nothing to show!' ); ?>
 						</div>
 					</div>
@@ -567,7 +567,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 				<section class="directory_wrapper single_area">
 					<div class="notice_wrapper">
 						<div class="directorist-alert directorist-alert-warning">
-							<span class="fa fa-info-circle" aria-hidden="true"></span>
+							<?php directorist_icon( 'las la-info-circle' ); ?>
 							<?php esc_html_e( 'You need to be an author to add a listing.', 'directorist' ); ?>
 						</div>
 					</div>

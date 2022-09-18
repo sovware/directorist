@@ -352,28 +352,50 @@ class Directorist_Single_Listing {
 		return get_directorist_type_option( $this->type, 'enable_single_listing_page', false );
 	}
 
+	/**
+	 * Single Listing content when custom single listing page is enabled.
+	 *
+	 * @return string Single Listing content html.
+	 */
 	public function single_page_content() {
 		$page_id = (int) get_directorist_type_option( $this->type, 'single_listing_page' );
 
+		// Bail if custom single listing page is disabled
 		if ( ! $page_id ) {
 			return '';
 		}
 
-		if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->documents->get( $page_id )->is_built_with_elementor() ) {
-			// Return escaped output
-			return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $page_id );
-		}
-
+		// Bail if selected custom single listing page is not really a page
 		$page = get_post( $page_id );
 		if ( $page->post_type !== 'page' ) {
 			return '';
 		}
 
-		global $post, $wp_embed;
-		$_temp_post = $post; // Cache listing post.
-		$post       = $page; // Assign custom single page as post.
+		/**
+		 * Usually this hook is used to inject page builder content.
+		 *
+		 * @hook directorist_add_custom_single_listing_page_content_from_elementor
+		 *
+		 * @param string Page content.
+		 * @param WP_Post $page
+		 *
+		 * @since 7.4.0
+		 */
+		$content = apply_filters( 'directorist_custom_single_listing_pre_page_content', '', $page );
 
-		$content = get_post_field( 'post_content', $page_id );
+		// Return page builder or other injected content if exists
+		if ( ! empty( $content ) ) {
+			return $content;
+		}
+
+		$content = get_post_field( 'post_content', $page_id ); // Raw content
+		$content = $this->filter_single_listing_content( $content ); // Actual content after running several filters
+
+		return $content;
+	}
+
+	private function filter_single_listing_content( $content ) {
+		global $wp_embed;
 		$content = $wp_embed->run_shortcode( $content );
 		$content = $wp_embed->autoembed( $content );
 		// do_blocks available from WP 5.0
@@ -384,11 +406,6 @@ class Directorist_Single_Listing {
 		$content = wp_filter_content_tags( $content );
 		$content = do_shortcode( $content );
 		$content = str_replace( ']]>', ']]&gt;', $content );
-
-		// Restore listing post.
-		$post = $_temp_post;
-		unset( $_temp_post );
-
 		return $content;
 	}
 
@@ -399,17 +416,17 @@ class Directorist_Single_Listing {
 		$result = array(
 			'facebook' => array(
 				'title' => __('Facebook', 'directorist'),
-				'icon'  => atbdp_icon_type() . '-facebook',
+				'icon'  => 'lab la-facebook',
 				'link'  => "https://www.facebook.com/share.php?u={$link}&title={$title}",
 			),
 			'twitter' => array(
 				'title' => __('Twitter', 'directorist'),
-				'icon'  => atbdp_icon_type() . '-twitter',
+				'icon'  => 'lab la-twitter',
 				'link'  => 'https://twitter.com/intent/tweet?text=' . $title . '&amp;url=' . $link,
 			),
 			'linkedin' => array(
 				'title' => __('LinkedIn', 'directorist'),
-				'icon'  => atbdp_icon_type() . '-linkedin',
+				'icon'  => 'lab la-linkedin',
 				'link'  => "http://www.linkedin.com/shareArticle?mini=true&url={$link}&title={$title}",
 			),
 		);
@@ -1071,17 +1088,15 @@ class Directorist_Single_Listing {
 			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 		}
 		if (!empty($display_direction_map)) {
-			$info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Directions', 'directorist') . "</a></div><span class='iw-close-btn'><i class='la la-times'></i></span></div></div>";
+			$info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Directions', 'directorist') . "</a></div><span class='iw-close-btn'>" . directorist_icon( 'las la-times', false ) . "</span></div></div>";
 		}
 
 		$cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
 		if (!empty($cats)) {
 			$cat_icon = get_cat_icon($cats[0]->term_id);
 		}
-		$cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
-		$icon_type = substr($cat_icon, 0, 2);
-		$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
-		$cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon;
+		$cat_icon = !empty($cat_icon) ? $cat_icon : 'las la-map-marker';
+		$cat_icon = directorist_icon( $cat_icon, false );
 
 		$args = array(
 			'listing'               => $this,
@@ -1208,6 +1223,15 @@ class Directorist_Single_Listing {
 		$related = new Directorist_Listings( [], 'related', $args, ['cache' => false] );
 
 		return $related;
+	}
+
+	public function related_slider_attr() {
+		$atts = array(
+			'columns'   => get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 ),
+			'prevArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--left">%s</a>', directorist_icon( 'las la-angle-left', false ) ),
+            'nextArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--right">%s</a>', directorist_icon( 'las la-angle-right', false ) ),
+		);
+		return json_encode( $atts );
 	}
 
 	public function get_related_columns() {

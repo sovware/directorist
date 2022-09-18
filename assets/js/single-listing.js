@@ -286,12 +286,17 @@
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
     $('#atbdp-favourites').on('click', function (e) {
+      e.preventDefault();
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
         'directorist_nonce': directorist.directorist_nonce,
         'post_id': $("a.atbdp-favourites").data('post_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
+        console.log('added');
+        console.log(response);
+        console.log(directorist.ajaxurl);
+
         if (response) {
           $('#atbdp-favourites').html(response);
         }
@@ -1092,15 +1097,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   var rtl = directorist.rtl === 'true';
-  var relLis = document.querySelector('.directorist-related-carousel');
+  var relLis = $('.directorist-related-carousel');
 
-  if (relLis !== null) {
-    var relLisCol = relLis.getAttribute('data-columns');
+  if (relLis.length !== 0) {
+    var relLisData = relLis.data('attr');
+    var prevArrow = typeof relLisData !== 'undefined' ? relLisData.prevArrow : '';
+    var nextArrow = typeof relLisData !== 'undefined' ? relLisData.nextArrow : '';
+    var relLisCol = typeof relLisData !== 'undefined' ? relLisData.columns : 3;
     $('.directorist-related-carousel').slick({
       dots: false,
       arrows: true,
-      prevArrow: '<a class="directorist-slc__nav directorist-slc__nav--left"><span class="las la-angle-left"></span></a>',
-      nextArrow: '<a class="directorist-slc__nav directorist-slc__nav--right"><span class="las la-angle-right"></span></a>',
+      prevArrow: prevArrow,
+      nextArrow: nextArrow,
       infinite: true,
       speed: 300,
       slidesToShow: relLisCol,

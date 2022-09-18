@@ -53,11 +53,13 @@
 		color: #202428;
 		border-bottom: 2px solid transparent;
 		outline: 0;
-
-		span {
-			padding-right: 7px;
+		.directorist-icon-mask{
+			margin-right: 7px;
+			&:after{
+				width: 15px;
+				height: 15px;
+			}
 		}
-
 		&:focus {
 			background: none !important;
 			outline: 0 !important;
@@ -95,6 +97,13 @@
 
 			.directorist-filter-btn {
 				margin-right: 15px;
+				.directorist-icon-mask{
+					&:after{
+						width: 15px;
+						height: 15px;
+						margin-right: 2px;
+					}
+				}
 			}
 
 			.directorist-header-found-title {

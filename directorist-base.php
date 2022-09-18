@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.3.2
+ * Version: 7.3.3
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -218,6 +218,9 @@ final class Directorist_Base
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools();
 			self::$instance->announcement = new ATBDP_Announcement();
+
+			// Load widgets
+			Directorist\Widgets\Init::instance();
 
 			// Load widgets
 			Directorist\Widgets\Init::instance();
@@ -551,10 +554,10 @@ final class Directorist_Base
 	 * @return string|void
 	 */
 	public function load_template( $template_name, $args = array(), $return_path = false )
-	{	
+	{
 		$path = ATBDP_VIEWS_DIR . $template_name . '.php';
 		$path = apply_filters( 'directorist_admin_template', $path, $template_name, $args );
-		
+
 		if ( $return_path ) {
 			return $path;
 		}

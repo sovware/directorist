@@ -18,7 +18,7 @@
         <div class="cptm-listing-card-preview-header">
           <div class="cptm-card-preview-thumbnail">
             <div class="cptm-card-preview-thumbnail-overlay">
-              
+
               <div class="cptm-card-preview-top-left">
                 <!-- cptm-card-preview-top-left -->
                 <card-widget-placeholder
@@ -350,7 +350,7 @@ export default {
             if ( ! this.active_widgets[widget_name] && typeof this.active_widgets[widget_name] !== "object") {
               continue;
             }
-            
+
             let widget_data = {};
             for ( let root_option in this.active_widgets[widget_name] ) {
               if ( 'options' === root_option ) { continue; }
@@ -370,7 +370,7 @@ export default {
               output[section][section_area].push(widget_data);
               continue;
             }
-            
+
             // widget_data.options = {};
             let widget_options = this.active_widgets[widget_name].options.fields;
 
@@ -399,7 +399,7 @@ export default {
         if ( this.isObject( available_widgets[ widget ].show_if ) ) {
           show_if_cond_state = this.checkShowIfCondition( { condition: available_widgets[ widget ].show_if } );
           let main_widget = available_widgets[ widget ];
-          
+
           delete available_widgets[ widget ];
 
           if ( show_if_cond_state.status ) {
@@ -424,7 +424,7 @@ export default {
           }
         }
       }
-      
+
       return available_widgets;
     },
 
@@ -440,7 +440,7 @@ export default {
     },
 
     getAvatarPlaceholderClass() {
-      
+
       let accepted_align_options = [ 'right', 'center', 'left' ];
       let align_option = '';
       let active_widgets = JSON.parse( JSON.stringify( this.active_widgets ) );
@@ -625,7 +625,7 @@ export default {
         for ( let root_option in widgets_template ) {
           if ( 'options' === root_option ) { continue; }
           if ( typeof active_widgets_data[ widget_key ][root_option] === 'undefined' ) { continue; }
-          
+
           widgets_template[ root_option ] = active_widgets_data[widget_key][root_option];
         }
 
@@ -651,7 +651,7 @@ export default {
         let length = this.local_layout[ item.section ][ item.area ].selectedWidgets.length;
         this.local_layout[ item.section ][ item.area ].selectedWidgets.splice( length, 0, item.widget );
       }
-      
+
     },
 
     importWidgets() {
@@ -666,7 +666,7 @@ export default {
       }
 
       for ( let section in this.local_layout ) {
-        
+
         if ( ! this.isTruthyObject( this.layout[ section ] ) ) {
           continue;
         }
@@ -729,7 +729,7 @@ export default {
       if ( ! this.widgetIsAccepted( path, this._currentDraggingWidget.key ) ) {
         return false;
       }
-      
+
       return true;
     },
 
@@ -748,8 +748,8 @@ export default {
 
       this.onDragEndWidget();
     },
-    
-    
+
+
     handleDropOnPlaceholder( dest ) {
       // return;
       const key  = this.currentDraggingWidget.key;
@@ -776,7 +776,7 @@ export default {
     handleDragOverOnPlaceholder( where ) {
       // console.log( 'handleDragOverOnPlaceholder', where );
     },
-    
+
     handleDragleaveOnPlaceholder( where ) {
       // console.log( 'handleDragleaveOnPlaceholder', where );
     },
@@ -790,11 +790,16 @@ export default {
       if ( ! this.active_widgets[ key ].options && typeof this.active_widgets[ key ].options !== 'object' ) {
         return;
       }
-      
-      // let opt = JSON.parse( JSON.stringify( this.active_widgets[ key ].options ) );
+
       let opt = this.active_widgets[ key ].options;
-      this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...opt };
-      this.widgetOptionsWindow.widget = key;
+      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+
+      const self = this;
+
+      setTimeout( () => {
+        self.widgetOptionsWindow = { ...self.widgetOptionsWindowDefault, ...opt };
+        self.widgetOptionsWindow.widget = key;
+      }, 0 );
     },
 
     updateWidgetOptionsData( data, widget ) {
@@ -817,7 +822,7 @@ export default {
 
     trashWidget( key, where ) {
       if ( ! where.selectedWidgets.includes( key ) ) { return; }
-      
+
       let index = where.selectedWidgets.indexOf( key );
       Vue.delete( where.selectedWidgets, index);
 
@@ -861,7 +866,7 @@ export default {
     },
 
     placeholderIsActive( layout ) {
-      
+
       if ( ! this.isObject( layout.show_if ) ) {
         return true;
       }

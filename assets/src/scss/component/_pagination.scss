@@ -18,10 +18,12 @@
     border: 1px solid #e1e4ec;
     border-radius: 4px;
     margin: 4px;
-    i,
-    span.la,
-    span.fa {
-      font-size: 14px;
+    .directorist-icon-mask{
+      &:after{
+        width: 14px;
+        height: 14px;
+        background-color: #81879e;
+      }
     }
     &.current {
       border-width: 2px;

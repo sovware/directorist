@@ -142,7 +142,9 @@ function selec2_add_custom_dropdown_toggle_button() {
 
   if (!dropdown.length) {
     // Add Dropdown Toggle Button
-    var dropdownHTML = '<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="fas fa-chevron-down"></i></span>';
+    var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/chevron-down.svg';
+    var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+    var dropdownHTML = "<span class=\"directorist-select2-addon directorist-select2-dropdown-toggle\">".concat(iconHTML, "</span>");
     addon_container.append(dropdownHTML);
   }
 
@@ -213,7 +215,9 @@ function selec2_add_custom_close_button(field) {
 
   addon_container.find('.directorist-select2-dropdown-close').remove(); // Add
 
-  addon_container.prepend('<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="fas fa-times"></i></span>');
+  var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/times.svg';
+  var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+  addon_container.prepend("<span class=\"directorist-select2-addon directorist-select2-dropdown-close\">".concat(iconHTML, "</span>"));
   var selec2_custom_close = addon_container.find('.directorist-select2-dropdown-close');
   selec2_custom_close.on('click', function (e) {
     var field = $(this).closest('.select2-container').siblings('select:enabled');
@@ -800,12 +804,17 @@ window.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
     $('#atbdp-favourites').on('click', function (e) {
+      e.preventDefault();
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
         'directorist_nonce': directorist.directorist_nonce,
         'post_id': $("a.atbdp-favourites").data('post_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
+        console.log('added');
+        console.log(response);
+        console.log(directorist.ajaxurl);
+
         if (response) {
           $('#atbdp-favourites').html(response);
         }

@@ -38,11 +38,12 @@
     .directorist-rating-given-block__stars {
         .br-widget a {
             &:before {
-                content: "\f005";
-                font-size: 14px;
-                font-family: 'Font Awesome 5 Free';
-                font-weight: 900;
-                color: #d4d3f3;
+                content: "";
+                mask-image: url("../../../../icons/line-awesome/svgs/star-solid.svg");
+                mask-repeat: no-repeat;
+                width: 14px;
+                height: 14px;
+                background-color: #d4d3f3;
             }
 
             &.br-selected,
@@ -332,6 +333,7 @@ Review: New Style
                 span{
                     display: inline-block;
                     margin-right: 4px;
+                    background-color: #fff;
                 }
             }
             @include m(noreviews){
@@ -384,7 +386,16 @@ Review: New Style
                 .directorist-rating-stars {
                     font-size: 15px;
                     color: #EF8000;
-                    display: block;
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 3px;
+                    .directorist-icon-mask{
+                        &::after{
+                            width: 15px;
+                            height: 15px;
+                            background-color: #EF8000;
+                        }
+                    }
                 }
 
                 .directorist-rating-overall {
@@ -586,7 +597,16 @@ Review: New Style
                                 .directorist-rating-stars {
                                     font-size: 11px;
                                     color: #EF8000;
-                                    display: block;
+                                    display: flex;
+                                    align-items: center;
+                                    margin-bottom: 3px;
+                                    .directorist-icon-mask{
+                                        &::after{
+                                            width: 11px;
+                                            height: 11px;
+                                            background-color: #EF8000;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -640,6 +660,18 @@ Review: New Style
                         display: block;
                         margin: 0 8px;
                         background: none;
+                        &.directorist-comment-edit-link{
+                            display: inline-flex;
+                            align-items: center;
+                            .directorist-icon-mask{
+                                margin-right: 3px;
+                                &::after{
+                                    width: 0.9em;
+                                    height: 0.9em;
+                                    background-color: #8C90A4;
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -803,11 +835,12 @@ Review: New Style
                         outline: 0;
 
                         &:before {
-                            content: "\f005";
-                            font-size: 14px;
-                            font-family: 'Font Awesome 5 Free';
-                            font-weight: 900;
-                            color: #fff;
+                            content: "";
+                            mask-image: url("../../../../icons/line-awesome/svgs/star-solid.svg");
+                            mask-repeat: no-repeat;
+                            width: 14px;
+                            height: 14px;
+                            background-color: #fff;
                         }
                         &:focus{
                             background: #E1E4EC !important;

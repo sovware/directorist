@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 use \Directorist\Helper;
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<?php if ( $author->review_enabled() ): ?>
 
 					<li class="directorist-author-meta-list__item">
-						<span class="directorist-listing-rating-meta"><?php echo esc_html( $author->rating_count() ); ?><i class="<?php atbdp_icon_type(true); ?>-star"></i></span>
+						<span class="directorist-listing-rating-meta"><?php echo esc_html( $author->rating_count() ); ?><?php directorist_icon( 'las la-star' ); ?></span>
 					</li>
 
 					<li class="directorist-author-meta-list__item directorist-info-meta">

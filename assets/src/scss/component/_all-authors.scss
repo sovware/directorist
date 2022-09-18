@@ -128,12 +128,13 @@
                         text-decoration: none;
                     }
 
-                    i {
-                        width: 16px;
-                        font-size: 16px;
-                        display: inline-block;
+                    .directorist-icon-mask {
                         margin-right: 5px;
                         margin-top: 3px;
+                        &:after{
+                            width: 16px;
+                            height: 16px;
+                        }
                     }
                 }
             }

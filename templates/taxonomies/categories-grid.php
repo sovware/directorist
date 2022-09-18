@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1.1
+ * @version 7.4.0
  */
 use \Directorist\Helper;
 
@@ -36,7 +36,7 @@ $columns = floor( 12 / $taxonomy->columns );
 											<div>
 												<?php
 												if ($category['has_icon']) { ?>
-													<div class="icon"><span class="<?php echo esc_attr($category['icon_class']);?>"></span></div>
+													<div class="icon"><?php directorist_icon( $category['icon_class'] ); ?></div>
 													<?php
 												}
 												?>

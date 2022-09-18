@@ -343,7 +343,7 @@ SWBD;
 			$path = ( ! empty( $args['path'] ) ) ? $args['path'] : '';
 
 			// $path = 'directory/directory.json'
-			$file = trailingslashit( dirname( ATBDP_FILE ) ) . "admin/assets/simple-data/{$path}";
+			$file = DIRECTORIST_ASSETS_DIR . "sample-data/{$path}";
 			if ( ! file_exists( $file ) ) { return ''; }
 
 			$data = file_get_contents( $file );
@@ -1429,22 +1429,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'color',
                     'label' => __('Border Color', 'directorist'),
                     'value' => '#444752',
-                ],
-
-                'font_type' => [
-                    'label' => __('Icon Library', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'line',
-                    'options' => [
-                        [
-                            'label' => __('Font Awesome', 'directorist'),
-                            'value' => 'font',
-                        ],
-                        [
-                            'label' => __('Line Awesome', 'directorist'),
-                            'value' => 'line',
-                        ],
-                    ],
                 ],
                 'can_renew_listing' => [
                     'label' => __('Renew Listings', 'directorist'),

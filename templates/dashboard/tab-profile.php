@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 use \Directorist\Helper;
@@ -149,7 +149,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								<div class="directorist-form-group">
 
-									<label for="facebook"><span class="directorist-social-icon"><i class="<?php atbdp_icon_type( true ); ?>-facebook"></i></span> <?php esc_html_e( 'Facebook', 'directorist' ); ?></label>
+									<label for="facebook"><span class="directorist-social-icon"><?php directorist_icon( 'lab la-facebook-f' ); ?></span> <?php esc_html_e( 'Facebook', 'directorist' ); ?></label>
 
 									<input id="facebook" class="directorist-form-element" type="url" name="user[facebook]" value="<?php echo esc_attr( $dashboard->user_info( 'facebook' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter your facebook url', 'directorist' ); ?>">
 
@@ -159,7 +159,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								<div class="directorist-form-group">
 
-									<label for="twitter"><span class="directorist-social-icon"><i class="<?php atbdp_icon_type( true ); ?>-twitter"></i></span><?php esc_html_e( 'Twitter', 'directorist' ); ?></label>
+									<label for="twitter"><span class="directorist-social-icon"><?php directorist_icon( 'lab la-twitter' ); ?></span><?php esc_html_e( 'Twitter', 'directorist' ); ?></label>
 
 									<input id="twitter" class="directorist-form-element" type="url" name="user[twitter]" value="<?php echo esc_attr( $dashboard->user_info( 'twitter' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter your twitter url', 'directorist' ); ?>">
 
@@ -169,7 +169,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								<div class="directorist-form-group">
 
-									<label for="linkedIn"><span class="directorist-social-icon"><i class="<?php atbdp_icon_type( true ); ?>-linkedin"></i></span><?php esc_html_e( 'LinkedIn', 'directorist' ); ?></label>
+									<label for="linkedIn"><span class="directorist-social-icon"><?php directorist_icon( 'lab la-linkedin-in' ); ?></span><?php esc_html_e( 'LinkedIn', 'directorist' ); ?></label>
 
 									<input id="linkedIn" class="directorist-form-element" type="url" name="user[linkedIn]" value="<?php echo esc_attr( $dashboard->user_info( 'linkedin' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter linkedIn url', 'directorist' ); ?>">
 
@@ -179,7 +179,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								<div class="directorist-form-group">
 
-									<label for="youtube"><span class="directorist-social-icon"><i class="<?php atbdp_icon_type( true ); ?>-youtube"></i></span><?php esc_html_e( 'Youtube', 'directorist' ); ?></label>
+									<label for="youtube"><span class="directorist-social-icon"><?php directorist_icon( 'lab la-youtube' ); ?></span><?php esc_html_e( 'Youtube', 'directorist' ); ?></label>
 
 									<input id="youtube" class="directorist-form-element" type="url" name="user[youtube]" value="<?php echo esc_attr( $dashboard->user_info( 'youtube' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter youtube url', 'directorist' ); ?>">
 

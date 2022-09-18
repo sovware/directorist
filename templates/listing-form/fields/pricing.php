@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -67,9 +67,9 @@ $current_price_type      = '';
 
 	<?php
 	if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_unit' ) {
-		$step = $allow_decimal ? ' step="any"' : '';
+		$step = $allow_decimal ? 'any' : 1;
 		?>
-		<input type="<?php echo esc_attr( $data['price_unit_field_type'] ); ?>"<?php echo esc_attr( $step ); ?> id="price" name="price" value="<?php echo esc_attr($price); ?>" class="directorist-form-element directory_field directory_pricing_field" placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
+		<input type="<?php echo esc_attr( $data['price_unit_field_type'] ); ?>" step="<?php echo esc_attr( $step ); ?>" id="price" name="price" value="<?php echo esc_attr($price); ?>" class="directorist-form-element directory_field directory_pricing_field" placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 		<?php
 	}
 

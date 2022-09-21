@@ -38,4 +38,4 @@ body:
       label: Isolating the problem
       options:
         - label: I have reproduced this bug in localhost.
-        - label:  This bug happens with a default WordPress theme active (eg. 2021, 2022 etc).
+        - label: This bug happens with a default WordPress theme active (eg. 2021, 2022 etc).

@@ -26,10 +26,10 @@ body:
       label: Steps to reproduce
       description: Attach screenshot(s) or recording(s) directly by dragging & dropping.
       placeholder: |
-        1. Go to
-        2. Click on
-        3. Scroll down to
-        4. See error
+        1. Go to ..
+        2. Click on ..
+        3. Scroll down to ..
+        4. See error ..
     validations:
       required: true
   - type: checkboxes

@@ -61,6 +61,13 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'description' => __( 'Loads unminified .css, .js files', 'directorist' ),
             ];
 
+            $fields['legacy_icon'] = [
+                'type'  => 'toggle',
+                'label' => __( 'Legacy Icon Support', 'directorist' ),
+				'value' => false,
+                'description' => sprintf( __( 'Icon support for legacy v7.3.3 templates. Enable this only if there are outdated directorist templates in your theme, you can check them <a href="%s" target="__blank">here</a>.<br/>Note: This setting is temporary and will be removed in the future.', 'directorist' ), menu_page_url( 'directorist-status', false ) . '#atbds_template' ),
+            ];
+
             $fields['import_settings'] = [
                 'type'         => 'import',
                 'label'        => 'Import Settings',
@@ -5303,6 +5310,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title' => __( 'Debugging', 'directorist' ),
                                     'fields'      => [
                                         'script_debugging',
+                                     ],
+                                ],
+                                'others' => [
+                                    'title' => __( 'Others', 'directorist' ),
+                                    'fields'      => [
+                                        'legacy_icon',
                                      ],
                                 ],
                                 'uninstall' => [

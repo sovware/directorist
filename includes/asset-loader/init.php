@@ -43,6 +43,12 @@ class Asset_Loader {
 		// Map CSS
 		self::enqueue_map_styles();
 
+		// Load all icon web-fonts if legacy-icon option is enabled
+		$legacy_icon = get_directorist_option( 'legacy_icon' );
+		if ( $legacy_icon ) {
+			self::enqueue_icon_styles();
+		}
+
 		// CSS
 		wp_enqueue_style( 'directorist-main-style' );
 		wp_enqueue_style( 'directorist-select2-style' );

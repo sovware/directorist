@@ -201,6 +201,12 @@ class Helper {
 				}
 				break;
 
+			case 'all_listings':
+				if ( $_GET['post_type'] == 'at_biz_dir' && $screen == 'edit' ) {
+					$status = true;
+				}
+				break;
+
 			case 'add_listing':
 				if ( $screen == 'post' ) {
 					if ( get_post_type( get_the_ID() ) === 'at_biz_dir' ) {

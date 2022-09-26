@@ -202,7 +202,7 @@ class Helper {
 				break;
 
 			case 'all_listings':
-				if ( $_GET['post_type'] == 'at_biz_dir' && $screen == 'edit' ) {
+				if ( $screen == 'edit' && !empty( $_GET['post_type'] ) && $_GET['post_type'] == 'at_biz_dir' ) {
 					$status = true;
 				}
 				break;

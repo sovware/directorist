@@ -408,6 +408,22 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Fixed missing icons from all-listings page in backend
 * Fix - Import style issue
 
+7.3.4 - Sep 15, 2022
+
+* Add - New hook in the custom single listing page
+* Add - Helper function `directorist_esc_json()` to sanitize any JSON output
+* Fix - Documentation link in Builder
+* Fix - Pagination in All Authors page
+* Fix - Rewrite role URL slug issue with checkout page
+* Fix - Max attribute issue in listing form textarea and number fields
+* Fix - Listing can't be renewed if monetization is turned off
+* Fix - Expiration date is not forwarding after renewal
+* Fix - Multiple invalid emails send in a listing renewal
+* Fix - Single listing page conflict in Divi builder
+* Fix - Listing can't be unfeatured from the admin listing form
+* Remove - Outdated code for search meta query
+* Remove - All assets in the admin root folder
+
 7.3.3 - Aug 24, 2022
 
 * Fix - Limit restriction issue of location, category, tag, number and textarea fields

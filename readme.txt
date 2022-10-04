@@ -402,7 +402,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 7.4.1 - Oct 04, 2022
 
-* Build - Some missing assets
+* Add - Some missing assets
 
 7.4.0 - Oct 03, 2022
 

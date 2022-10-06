@@ -1849,7 +1849,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'options' => [
                         [
                             'value' => 'directorist_preview',
-                            'label' => sprintf( __( 'Default', 'directorist' ), $default_preview_size_text ),
+                            'label' => __( 'Default', 'directorist' ),
                         ],
                         [
                             'value' => 'medium',
@@ -1864,7 +1864,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Full', 'directorist'),
                         ],
                     ],
-					'description' => sprintf( __( 'Default: %s.<br/>If you change this option, please regenerate all thumbnails using <a href="%s" target="__blank">this</a> plugin. Otherwise it may not work properly.', 'directorist' ), $default_preview_size_text, 'https://wordpress.org/plugins/regenerate-thumbnails/' ),
+					'description' => sprintf( __( 'Default: %s.<br/>If you change this option, please regenerate all thumbnails using <a href="%s" target="_blank">this</a> plugin. Otherwise it may not work properly.', 'directorist' ), $default_preview_size_text, 'https://wordpress.org/plugins/regenerate-thumbnails/' ),
                 ],
                 'way_to_show_preview' => [
                     'label' => __('Image Size', 'directorist'),

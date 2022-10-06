@@ -4043,3 +4043,13 @@ function directorist_esc_json( $json, $html = false ) {
 		true                               // Double escape entities: `&amp;` -> `&amp;amp;`.
 	);
 }
+
+function directorist_default_preview_size() {
+	return apply_filters(
+		'directorist_default_preview_size', array(
+			'width'  => 640,
+			'height' => 360,
+			'crop'   => true,
+		)
+	);
+}

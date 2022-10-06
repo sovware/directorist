@@ -115,7 +115,7 @@
     "all_listing_columns": "3",
     "order_listing_by": "date",
     "sort_listing_by": "desc",
-    "preview_image_quality": "large",
+    "preview_image_quality": "default",
     "way_to_show_preview": "cover",
     "crop_width": "350",
     "crop_height": "260",

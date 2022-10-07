@@ -739,6 +739,14 @@ class Directorist_Listings {
 			$args['meta_query'] = array_merge( array( 'relation' => 'AND' ), $meta_queries );
 		}
 
+		/**
+		 * @since 4.0.2
+		 * @param $args All listing query arguments
+		 * @param $this Listings object
+		 * @return array $args
+		 */
+		$args = apply_filters( 'directorist_all_listings_query_arguments', $args, $this );
+
 		return apply_filters( 'atbdp_all_listings_query_arguments', $args );
 	}
 

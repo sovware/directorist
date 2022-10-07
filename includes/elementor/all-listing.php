@@ -249,6 +249,6 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 			}
 		}
 
-		$this->az_run_shortcode( 'directorist_all_listing', $atts );
+		$this->az_run_shortcode( 'directorist_all_listing', apply_filters( 'directorist_all_listings_elementor_widget_atts', $atts, $settings ) );
 	}
 }

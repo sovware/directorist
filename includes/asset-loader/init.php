@@ -43,6 +43,12 @@ class Asset_Loader {
 		// Map CSS
 		self::enqueue_map_styles();
 
+		// Load all icon web-fonts if legacy-icon option is enabled
+		$legacy_icon = get_directorist_option( 'legacy_icon' );
+		if ( $legacy_icon ) {
+			self::enqueue_icon_styles();
+		}
+
 		// CSS
 		wp_enqueue_style( 'directorist-main-style' );
 		wp_enqueue_style( 'directorist-select2-style' );
@@ -263,6 +269,8 @@ class Asset_Loader {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-import-export' );
+		} elseif ( Helper::is_admin_page( 'all_listings' ) ) {
+			wp_enqueue_style( 'directorist-font-awesome' );
 		} elseif ( Helper::is_admin_page( 'add_listing' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_style( 'directorist-unicons' );

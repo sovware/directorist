@@ -24,11 +24,16 @@
 
       .directorist-icon-mask {
         margin-bottom: 10px;
-        span{
+        &:after{
           width: 17px;
           height: 17px;
           background-color: #fff;
         }
+      }
+      /* Legacy Icon */
+      & > i:not(.directorist-icon-mask){
+        display: inline-block;
+        margin-bottom: 10px;
       }
     }
   }

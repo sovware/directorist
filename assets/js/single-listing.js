@@ -1099,11 +1099,11 @@ document.addEventListener('DOMContentLoaded', function () {
   var rtl = directorist.rtl === 'true';
   var relLis = $('.directorist-related-carousel');
 
-  if (relLis !== null) {
+  if (relLis.length !== 0) {
     var relLisData = relLis.data('attr');
-    var prevArrow = relLisData.prevArrow;
-    var nextArrow = relLisData.nextArrow;
-    var relLisCol = relLisData.columns;
+    var prevArrow = typeof relLisData !== 'undefined' ? relLisData.prevArrow : '';
+    var nextArrow = typeof relLisData !== 'undefined' ? relLisData.nextArrow : '';
+    var relLisCol = typeof relLisData !== 'undefined' ? relLisData.columns : 3;
     $('.directorist-related-carousel').slick({
       dots: false,
       arrows: true,

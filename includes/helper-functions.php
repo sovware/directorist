@@ -791,10 +791,11 @@ if (!function_exists('atbdp_icon_type')) {
     function atbdp_icon_type($echo = false)
     {
 		_deprecated_function( __FUNCTION__, '7.4.0', 'directorist_icon' );
+		$font_type = 'la la';
         if ($echo) {
-            echo '';
+            echo esc_html( $font_type );
         } else {
-            return '';
+            return $font_type;
         }
     }
 }
@@ -818,6 +819,19 @@ if ( ! function_exists( 'str_starts_with' ) ) {
 	}
 }
 
+/**
+ * Renders icon html.
+ *
+ * Supports FontAwesome 5.15.4, LineAwesome 1.3.0.
+ *
+ * Also supports Unicons 3.0.3 for backward compatibility, but should not be used.
+ *
+ * @param string  $icon   Icon class name eg. 'las la-home'.
+ * @param bool    $echo   Either echo or return the html. Default true.
+ * @param string  $class  Extra wrapper class. Default empty string.
+ *
+ * @return string Echo or return icon html string.
+ */
 function directorist_icon( $icon, $echo = true, $class = '' ) {
     if ( !$icon ) {
         return;
@@ -831,7 +845,11 @@ function directorist_icon( $icon, $echo = true, $class = '' ) {
 
 	$class = $class ? 'directorist-icon-mask ' . $class : 'directorist-icon-mask';
 
-	$html = sprintf( '<i class="%s"><span style="--directorist-icon:url(%s);"></span></i>', esc_attr( $class ), esc_url( $icon_src ) );
+	$html = sprintf(
+		'<i class="%1$s" aria-hidden="true" style="--directorist-icon: url(%2$s)"></i>',
+		esc_attr( $class ),
+		esc_url( $icon_src )
+	);
 
     if ( $echo ) {
         echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped
@@ -849,7 +867,8 @@ if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
         $default = [ 'icon' => '', 'default' => 'lar la-folder-open', 'echo' => false ];
         $args = array_merge( $default, $args );
 
-        $icon = ( ! empty($args['icon'] ) ) ?  $args['icon'] : $args['default'];
+        $icon = ( ! empty($args['icon'] ) ) ? $args['icon'] : $args['default'];
+        $icon = ( ! empty( $icon ) ) ? '<span class="'. $icon .'"></span>' : $icon;
 
         if ( ! $args['echo'] ) { return $icon; }
 
@@ -1050,9 +1069,10 @@ if (!function_exists('calc_listing_expiry_date')) {
      * @since    3.1.0
      *
      */
-    function calc_listing_expiry_date($start_date = NULL, $expire = NULL)
+    function calc_listing_expiry_date($start_date = NULL, $expire = NULL, $directory_type = '' )
     {
-        $exp_days = get_term_meta( default_directory_type(), 'default_expiration', true );
+        $type = $directory_type ? $directory_type : default_directory_type();
+        $exp_days = get_term_meta( $type, 'default_expiration', true );
         $exp_days = !empty( $exp_days ) ? $exp_days : 0;
         $expired_date = !empty($expire) ? $expire : $exp_days;
         // Current time
@@ -4021,5 +4041,24 @@ function directorist_esc_json( $json, $html = false ) {
 		$html ? ENT_NOQUOTES : ENT_QUOTES, // Escape quotes in attribute nodes only.
 		'UTF-8',                           // json_encode() outputs UTF-8 (really just ASCII), not the blog's charset.
 		true                               // Double escape entities: `&amp;` -> `&amp;amp;`.
+	);
+}
+
+/**
+ * This image size will be used as the default value of preview image. It can be seen in action
+ * on all-listing page's grid view.
+ *
+ * Custom image size "directorist_preview" is generated based on this size.
+ *
+ * @since 7.4.2
+ * @return array Image size data.
+ */
+function directorist_default_preview_size() {
+	return apply_filters(
+		'directorist_default_preview_size', array(
+			'width'  => 640,
+			'height' => 360,
+			'crop'   => true,
+		)
 	);
 }

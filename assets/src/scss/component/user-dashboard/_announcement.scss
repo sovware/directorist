@@ -116,7 +116,7 @@
                 justify-content: center;
 
                 .directorist-icon-mask {
-                    span{
+                    &:after{
                         transition: .35s;
                         background-color: #474868;
                     }
@@ -126,7 +126,7 @@
                     background-color: $danger;
 
                     .directorist-icon-mask {
-                        span{
+                        &:after{
                             background-color: #fff;
                         }
                     }

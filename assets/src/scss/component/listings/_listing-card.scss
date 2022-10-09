@@ -325,7 +325,7 @@
                 display: inline-flex;
                 align-items: center;
                 .directorist-icon-mask{
-                    span{
+                    &:after{
                         width: 15px;
                         height: 15px;
                     }
@@ -336,6 +336,11 @@
                 display: inline-flex;
                 align-items: center;
                 .directorist-icon-mask{
+                    margin-right: 5px;
+                }
+
+                /* Legacy Icon */
+                > span:not(.directorist-icon-mask){
                     margin-right: 5px;
                 }
             }
@@ -472,10 +477,25 @@
                     align-items: center;
                     justify-content: center;
                     margin-right: 10px;
-                    span{
+                    &:after{
                         background-color: #51526E;
                         width: 15px;
                         height: 15px;
+                    }
+                }
+
+                /* Legacy Icon */
+                > span{
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    background: #F3F3F3;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 10px;
+                    &:before{
+                        color: #51526E;
                     }
                 }
             }
@@ -510,11 +530,17 @@
 
                 .directorist-icon-mask{
                     margin-right: 5px;
-                    span{
+                    &:after{
                         width: 15px;
                         height: 15px;
                         background-color: #767792;
                     }
+                }
+
+                /* Legacy Icon */
+                > span{
+                    display: inline-block;
+                    margin-right: 5px;
                 }
             }
 
@@ -552,10 +578,10 @@
     padding: 0;
 
     i.directorist-icon-mask {
-        span {
+        &:after {
             background-color: #F80718;
         }
-        &.star-empty span {
+        &.star-empty:after {
             background-color: #D1D1D1;
         }
     }
@@ -594,10 +620,6 @@
         text-decoration: none !important;
     }
 
-    &.directorist-added-to-favorite {
-        background: rgba(0, 0, 0, 0.5) !important;
-    }
-
     .directorist-favorite-icon {
         display: flex;
         align-items: center;
@@ -610,6 +632,16 @@
             width: 15px;
             height: 15px;
             background-color: #fff;
+            transition: 0.3s ease;
+        }
+    }
+
+    &.directorist-added-to-favorite {
+        background: rgba(0, 0, 0, 0.5) !important;
+        .directorist-favorite-icon {
+            &:before {
+                mask-image: url("../../../../icons/line-awesome/svgs/heart-solid.svg");
+            }
         }
     }
 

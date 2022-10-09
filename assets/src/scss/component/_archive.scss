@@ -55,7 +55,7 @@
 		outline: 0;
 		.directorist-icon-mask{
 			margin-right: 7px;
-			span{
+			&:after{
 				width: 15px;
 				height: 15px;
 			}
@@ -64,6 +64,12 @@
 			background: none !important;
 			outline: 0 !important;
 			text-decoration: none !important;
+		}
+
+		/* Legacy Icon */
+		> span{
+			margin-right: 7px;
+			display: inline-block;
 		}
 	}
 }
@@ -98,7 +104,7 @@
 			.directorist-filter-btn {
 				margin-right: 15px;
 				.directorist-icon-mask{
-					span{
+					&:after{
 						width: 15px;
 						height: 15px;
 						margin-right: 2px;

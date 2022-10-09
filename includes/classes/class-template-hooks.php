@@ -72,9 +72,7 @@ class Directorist_Template_Hooks {
 		$attr = trim( $parts[0] );
 
 		if ( $attr === '--directorist-icon' ) {
-			$pattern = '/^url\(\s*([\'\"]?)(.*)(\g1)\s*\)$/'; // matches the sequence `url(*)`.
-			$is_url = preg_match( $pattern, $parts[1] );
-			return $is_url;
+			return true;
 		}
 
 		return $allow_css;
@@ -87,12 +85,6 @@ class Directorist_Template_Hooks {
 
 		if ( is_singular( ATBDP_POST_TYPE ) && get_directorist_option( 'single_listing_template', 'directorist_template' ) !== 'directorist_template' ) {
 			return Helper::get_template_contents( 'single-contents' );
-		}
-
-		$directory_types = Helper::get_directory_types_with_custom_single_page( get_the_ID() );
-		if ( get_post_type() === 'page' && ! empty( $directory_types ) ) {
-			$directory_names = wp_list_pluck( $directory_types, 'name' );
-			return sprintf( __( '<p style="text-align:center" class="directorist-alert directorist-alert-info">This page is currently selected as single Listing details page for %s directory.</p>', 'directorist' ) , implode( ', ', $directory_names ) );
 		}
 
 		return $content;

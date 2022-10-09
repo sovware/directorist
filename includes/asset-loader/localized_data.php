@@ -109,6 +109,7 @@ class Localized_Data {
 			'add_listing_data'            => self::get_add_listings_data(),
 			'lazy_load_taxonomy_fields'   => get_directorist_option( 'lazy_load_taxonomy_fields', false, true ),
 			'current_page_id'             => get_the_ID(),
+			'icon_markup'                 => '<i class="directorist-icon-mask ##CLASS##" aria-hidden="true" style="--directorist-icon: url(##URL##)"></i>',
 		);
 
 		return $data;

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.4.0
+ * @version 7.4.2
  */
 
 use \Directorist\Helper;
@@ -61,9 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									echo esc_html( $password );
 									echo ( ! empty( $require_password ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 								?></label>
-								<input id="password" class="directorist-form-element" type="password" name="password" value="" <?php
-									echo ( ! empty( $require_password ) ? 'required' : '' );
-								?>>
+								<input id="password" class="directorist-form-element" type="password" name="password" value="" <?php echo ( ! empty( $require_password ) ? 'required' : '' ); ?>>
 							</div>
 						<?php } ?>
 						<?php if ( ! empty( $display_fname ) ) { ?>
@@ -72,9 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								echo esc_html( $first_name );
 								echo ( ! empty( $require_fname ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 							?></label>
-							<input id="fname" class="directorist-form-element" type="text" name="fname" value="<?php echo isset( $_REQUEST['fname']) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['fname'] ) ) ) : ''; ?>" <?php
-									echo ( ! empty( $require_fname ) ? 'required' : '' );
-								?>>
+							<input id="fname" class="directorist-form-element" type="text" name="fname" value="<?php echo isset( $_REQUEST['fname']) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['fname'] ) ) ) : ''; ?>" <?php echo ( ! empty( $require_fname ) ? 'required' : '' ); ?>>
 						</div>
 						<?php } ?>
 						<?php if ( ! empty( $display_lname ) ) { ?>
@@ -83,9 +79,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								echo esc_html( $last_name );
 								echo ( ! empty( $require_lname ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 							?></label>
-							<input class="directorist-form-element" id="lname" type="text" name="lname" value="<?php echo isset( $_REQUEST['lname']) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['lname'] ) ) ) : ''; ?>" <?php
-									echo ( ! empty( $require_lname ) ? 'required' : '' );
-								?>>
+							<input class="directorist-form-element" id="lname" type="text" name="lname" value="<?php echo isset( $_REQUEST['lname']) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['lname'] ) ) ) : ''; ?>" <?php echo ( ! empty( $require_lname ) ? 'required' : '' ); ?>>
 						</div>
 						<?php } ?>
 						<?php if ( ! empty( $display_website ) ) {  ?>
@@ -94,9 +88,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									echo esc_html( $website );
 									echo ( ! empty( $require_website ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 								?></label>
-								<input id="website" class="directorist-form-element" type="text" name="website" value="<?php echo isset( $_REQUEST['website']) ? esc_url( sanitize_text_field( wp_unslash( $_REQUEST['website'] ) ) ) : ''; ?>" <?php
-									echo ( ! empty( $require_website ) ? 'required' : '' );
-								?>>
+								<input id="website" class="directorist-form-element" type="text" name="website" value="<?php echo isset( $_REQUEST['website']) ? esc_url( sanitize_text_field( wp_unslash( $_REQUEST['website'] ) ) ) : ''; ?>" <?php echo ( ! empty( $require_website ) ? 'required' : '' ); ?>>
 							</div>
 						<?php } ?>
 						<?php if ( ! empty( $display_bio ) ) { ?>
@@ -105,9 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								echo esc_html( $bio );
 								echo ( ! empty( $require_bio ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 							?></label>
-							<textarea id="bio" class="directorist-form-element" name="bio" rows="10" <?php
-									echo ( ! empty( $require_bio ) ? 'required' : '' );
-								?>><?php echo isset( $_REQUEST['bio']) ? esc_textarea( sanitize_text_field( wp_unslash( $_REQUEST['bio'] ) ) ) : ''; ?></textarea>
+							<textarea id="bio" class="directorist-form-element" name="bio" rows="10" <?php echo ( ! empty( $require_bio ) ? 'required' : '' ); ?>> <?php echo isset( $_REQUEST['bio']) ? esc_textarea( sanitize_text_field( wp_unslash( $_REQUEST['bio'] ) ) ) : ''; ?></textarea>
 						</div>
 						<?php } ?>
 						<?php if ( ! empty( get_directorist_option( 'display_user_type' ) ) ) {
@@ -126,13 +116,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 						<?php if ( ! empty( get_directorist_option( 'registration_privacy', 1 ) ) ) { ?>
 							<div class="atbd_privacy_policy_area directory_regi_btn directorist-checkbox directorist-mb-15">
-								<input id="privacy_policy" type="checkbox" name="privacy_policy" <?php echo( ( isset( $privacy_policy ) && 'on' === $privacy_policy ) ? 'checked="checked"' : '' ); ?> required>
+								<input id="privacy_policy" type="checkbox" name="privacy_policy" <?php echo( ( isset( $privacy_policy ) && 'on' === $privacy_policy ) ? 'checked="checked"' : '' ); ?>>
 								<label for="privacy_policy" class="directorist-checkbox__label"><?php echo esc_html( $privacy_label ); ?> <a style="color: red" target="_blank" href="<?php echo esc_url( $privacy_page_link ); ?>"><?php echo esc_html( $privacy_label_link ); ?></a> <span class="directorist-form-required">*</span></label>
 							</div>
 						<?php } ?>
 						<?php if ( ! empty( get_directorist_option('regi_terms_condition', 1 ) ) ) { ?>
 							<div class="atbd_term_and_condition_area directory_regi_btn directorist-checkbox directorist-mb-15">
-								<input id="listing_t" type="checkbox" name="t_c_check" <?php echo( ( isset( $t_c_check ) && 'on' === $t_c_check ) ? 'checked="checked"' : '' ); ?> required>
+								<input id="listing_t" type="checkbox" name="t_c_check" <?php echo( ( isset( $t_c_check ) && 'on' === $t_c_check ) ? 'checked="checked"' : '' ); ?>>
 								<label for="listing_t" class="directorist-checkbox__label"><?php echo esc_attr($terms_label); ?>
 									<a style="color: red" target="_blank" href="<?php echo esc_url($t_C_page_link)?>"><?php echo esc_attr($terms_label_link); ?></a> <span class="directorist-form-required">*</span></label>
 							</div>

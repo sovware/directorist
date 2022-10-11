@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const relLis = $('.directorist-related-carousel');
     if (relLis.length !== 0) {
         const relLisData = relLis.data('attr');
-        const prevArrow = relLisData.prevArrow;
-        const nextArrow = relLisData.nextArrow;
-        const relLisCol = relLisData.columns;
+        const prevArrow = typeof relLisData !== 'undefined' ? relLisData.prevArrow : '';
+        const nextArrow = typeof relLisData !== 'undefined' ? relLisData.nextArrow: '';
+        const relLisCol = typeof relLisData !== 'undefined' ? relLisData.columns : 3;
         $('.directorist-related-carousel').slick({
             dots: false,
             arrows: true,

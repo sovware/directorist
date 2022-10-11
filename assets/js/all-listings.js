@@ -1502,7 +1502,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       if (fields.address && fields.address.length) {
         fields.cityLat = $(this).find('#cityLat').val();
         fields.cityLng = $(this).find('#cityLng').val();
-        fields.miles = $(this).find('.atbdrs-value').val();
+        fields.miles = $(this).find('input[name="miles"]').val();
       }
 
       var form_data = _objectSpread(_objectSpread({}, data), fields);
@@ -1664,7 +1664,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       search_by_rating: $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val(),
       cityLat: $(this).closest('.directorist-instant-search').find('#cityLat').val(),
       cityLng: $(this).closest('.directorist-instant-search').find('#cityLng').val(),
-      miles: $(this).closest('.directorist-instant-search').find('.atbdrs-value').val(),
+      miles: $(this).closest('.directorist-instant-search').find('input[name="miles"]').val(),
       address: $(this).closest('.directorist-instant-search').find('input[name="address"]').val(),
       zip: $(this).closest('.directorist-instant-search').find('input[name="zip"]').val(),
       fax: $(this).closest('.directorist-instant-search').find('input[name="fax"]').val(),
@@ -1782,7 +1782,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       search_by_rating: $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val(),
       cityLat: $(this).closest('.directorist-instant-search').find('#cityLat').val(),
       cityLng: $(this).closest('.directorist-instant-search').find('#cityLng').val(),
-      miles: $(this).closest('.directorist-instant-search').find('.atbdrs-value').val(),
+      miles: $(this).closest('.directorist-instant-search').find('input[name="miles"]').val(),
       address: $(this).closest('.directorist-instant-search').find('input[name="address"]').val(),
       zip: $(this).closest('.directorist-instant-search').find('input[name="zip"]').val(),
       fax: $(this).closest('.directorist-instant-search').find('input[name="fax"]').val(),
@@ -1906,7 +1906,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       search_by_rating: $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val(),
       cityLat: $(this).closest('.directorist-instant-search').find('#cityLat').val(),
       cityLng: $(this).closest('.directorist-instant-search').find('#cityLng').val(),
-      miles: $(this).closest('.directorist-instant-search').find('.atbdrs-value').val(),
+      miles: $(this).closest('.directorist-instant-search').find('input[name="miles"]').val(),
       address: $(this).closest('.directorist-instant-search').find('input[name="address"]').val(),
       zip: $(this).closest('.directorist-instant-search').find('input[name="zip"]').val(),
       fax: $(this).closest('.directorist-instant-search').find('input[name="fax"]').val(),

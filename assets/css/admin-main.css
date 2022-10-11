@@ -1129,6 +1129,9 @@ span.atbdp-tick-cross {
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-name .description {
   color: #9299b8;
 }
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-name code {
+  line-break: anywhere;
+}
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-field {
   padding-top: 20px;
   padding-right: 0;
@@ -7311,6 +7314,7 @@ body.stop-scrolling {
   min-height: 118px;
   text-decoration: none !important;
   text-align: center;
+  /* Legacy Icon */
 }
 .directorist-add-listing-types__single__link .directorist-icon-mask {
   margin-bottom: 10px;
@@ -7319,6 +7323,10 @@ body.stop-scrolling {
   width: 17px;
   height: 17px;
   background-color: #fff;
+}
+.directorist-add-listing-types__single__link > i:not(.directorist-icon-mask) {
+  display: inline-block;
+  margin-bottom: 10px;
 }
 
 .directorist-add-listing-form .directorist-content-module,

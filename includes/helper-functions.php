@@ -4043,3 +4043,22 @@ function directorist_esc_json( $json, $html = false ) {
 		true                               // Double escape entities: `&amp;` -> `&amp;amp;`.
 	);
 }
+
+/**
+ * This image size will be used as the default value of preview image. It can be seen in action
+ * on all-listing page's grid view.
+ *
+ * Custom image size "directorist_preview" is generated based on this size.
+ *
+ * @since 7.4.2
+ * @return array Image size data.
+ */
+function directorist_default_preview_size() {
+	return apply_filters(
+		'directorist_default_preview_size', array(
+			'width'  => 640,
+			'height' => 360,
+			'crop'   => true,
+		)
+	);
+}

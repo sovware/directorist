@@ -478,6 +478,9 @@ Please remember that your order may be canceled if you do not make your payment 
         $bank_payment_desc = __('You can make your payment directly to our bank account using this gateway. Please use your ORDER ID as a reference when making the payment. We will complete your order as soon as your deposit is cleared in our bank.', 'directorist');
         $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
 
+		$default_size = directorist_default_preview_size();
+		$default_preview_size_text = $default_size['width'].'x'.$default_size['height'].' px';
+
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
 
                 'enable_monetization' => [
@@ -1845,6 +1848,10 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value' => 'large',
                     'options' => [
                         [
+                            'value' => 'directorist_preview',
+                            'label' => __( 'Default', 'directorist' ),
+                        ],
+                        [
                             'value' => 'medium',
                             'label' => __('Medium', 'directorist'),
                         ],
@@ -1857,6 +1864,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Full', 'directorist'),
                         ],
                     ],
+					'description' => sprintf( __( 'Default: %s.<br/>If you change this option, please regenerate all thumbnails using <a href="%s" target="_blank">this</a> plugin. Otherwise it may not work properly.', 'directorist' ), $default_preview_size_text, 'https://wordpress.org/plugins/regenerate-thumbnails/' ),
                 ],
                 'way_to_show_preview' => [
                     'label' => __('Image Size', 'directorist'),

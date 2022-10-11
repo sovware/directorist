@@ -1129,6 +1129,9 @@ span.atbdp-tick-cross {
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-name .description {
   color: #9299b8;
 }
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-name code {
+  line-break: anywhere;
+}
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-field {
   padding-top: 20px;
   padding-left: 0;

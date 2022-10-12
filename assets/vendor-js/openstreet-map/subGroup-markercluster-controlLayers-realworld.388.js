@@ -8,7 +8,7 @@
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ',
         });
 
-        let defCordEnabled = mapOptions.use_def_lat_long;
+        let defCordEnabled = mapOptions.force_default_location;
         const latlng = defCordEnabled ? L.latLng(mapOptions.default_latitude, mapOptions.default_longitude) : L.latLng(mapOptions.base_latitude, mapOptions.base_longitude);
         const fullCount = mapListings.length;
         const quarterCount = Math.round(fullCount / 4);

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 7.4.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -11,8 +11,8 @@ $p_id                    = $listing_form->get_add_listing_id();
 $price                   = get_post_meta( $p_id, '_price', true );
 $price_range             = get_post_meta( $p_id, '_price_range', true );
 $atbd_listing_pricing    = get_post_meta( $p_id, '_atbd_listing_pricing', true );
-$price_placeholder       = get_directorist_option( 'price_placeholder', __( 'Price of this listing. Eg. 100', 'directorist' ) );
-$price_range_placeholder = get_directorist_option( 'price_range_placeholder', __( 'Price Range', 'directorist' ) );
+$price_placeholder       = $data['price_unit_field_placeholder'];
+$price_range_placeholder = $data['price_range_placeholder'];
 $allow_decimal           = get_directorist_option( 'allow_decimal', 1 );
 $currency                = get_directorist_option( 'g_currency', 'USD' );
 $c_symbol                = atbdp_currency_symbol( $currency );

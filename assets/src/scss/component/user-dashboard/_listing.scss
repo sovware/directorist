@@ -103,6 +103,12 @@
                             background-color: #fff;
                         }
                     }
+
+                    /* Legacy Icon */
+                    > i:not(.directorist-icon-mask){
+                        margin-right: 5px;
+                    }
+
                     font-weight: 500;
                     display: inline-flex;
                     align-items: center;

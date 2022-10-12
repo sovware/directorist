@@ -598,10 +598,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		}
 
 		public function atbdp_ajax_login() {
-			// First check the nonce, if it fails the function will break
-			$check_ajax_referer = check_ajax_referer( 'ajax-login-nonce', 'security', false );
-
-			if ( ! $check_ajax_referer ) {
+			
+			if ( ! directorist_verify_nonce( 'security', 'ajax-login-nonce' ) ) {
 				echo json_encode(
 					array(
 						'loggedin'    => false,

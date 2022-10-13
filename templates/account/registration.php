@@ -97,7 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								echo esc_html( $bio );
 								echo ( ! empty( $require_bio ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 							?></label>
-							<textarea id="bio" class="directorist-form-element" name="bio" rows="10" <?php echo ( ! empty( $require_bio ) ? 'required' : '' ); ?>> <?php echo isset( $_REQUEST['bio']) ? esc_textarea( sanitize_text_field( wp_unslash( $_REQUEST['bio'] ) ) ) : ''; ?></textarea>
+							<textarea id="bio" class="directorist-form-element" name="bio" rows="10" <?php echo ( ! empty( $require_bio ) ? 'required' : '' ); ?>><?php echo isset( $_REQUEST['bio']) ? esc_textarea( sanitize_text_field( wp_unslash( $_REQUEST['bio'] ) ) ) : ''; ?></textarea>
 						</div>
 						<?php } ?>
 						<?php if ( ! empty( get_directorist_option( 'display_user_type' ) ) ) {

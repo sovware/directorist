@@ -740,10 +740,12 @@ class Directorist_Listings {
 		}
 
 		/**
-		 * @since 4.0.2
-		 * @param $args All listing query arguments
-		 * @param $this Listings object
-		 * @return array $args
+		 * Filters the All Listing main query to modify or extend it
+		 * 
+		 * @since 7.4.2
+		 * 
+		 * @param array 	$args 		All listing query arguments
+		 * @param object 	$this 		Listings object
 		 */
 		$args = apply_filters( 'directorist_all_listings_query_arguments', $args, $this );
 

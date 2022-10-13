@@ -250,11 +250,16 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 		}
 
 		/**
-		 * @since 4.0.2
-		 * @param $atts All listing atts
-		 * @param $settings Widget controls
-		 * @return array $atts
+		 * Filters the Elementor All Listing atts to modify or extend it
+		 * 
+		 * @since 7.4.2
+		 * 
+		 * @param array 	$atts 		Available atts in the widgers
+		 * @param array 	$settings 	All the settings of the widget
 		 */
-		$this->az_run_shortcode( 'directorist_all_listing', apply_filters( 'directorist_all_listings_elementor_widget_atts', $atts, $settings ) );
+
+		$atts = apply_filters( 'directorist_all_listings_elementor_widget_atts', $atts, $settings );
+
+		$this->az_run_shortcode( 'directorist_all_listing', $atts );
 	}
 }

@@ -217,6 +217,7 @@ import {
             let tag = [];
             let price = [];
             let custom_field = {};
+            let data_atts = [];
 
             $(this).find('input[name^="in_tag["]:checked').each(function (index, el) {
                 tag.push($(el).val())
@@ -255,7 +256,13 @@ import {
             let type_href = $('.directorist-type-nav__list .current a').attr('href');
             let type = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
             let directory_type = getURLParameter(type_href, 'directory_type');
-            let data_atts = $('.directorist-instant-search').attr('data-atts');
+            if( $('.directorist-instant-search').length > 1 ) {
+                $('.directorist-instant-search').each( function( index, element ) {
+                    data_atts.push( $( element ).attr('data-atts') );
+                })
+            }else{
+                data_atts.push( $('.directorist-instant-search').attr('data-atts') );
+            }
 
             var data = {
                 action: 'directorist_instant_search',
@@ -264,7 +271,7 @@ import {
                 in_tag: tag,
                 price: price,
                 custom_field: custom_field,
-                data_atts: JSON.parse(data_atts)
+                data_atts: data_atts,
             };
 
             var fields = {
@@ -325,11 +332,27 @@ import {
                         $(document).scrollTop($(".directorist-archive-contents").offset().top);
                     },
                     success: function (html) {
+                        console.log( html );
+                        return;
                         if (html.search_result) {
-                            $('.directorist-archive-contents').find('.directorist-header-found-title span').text(html.count);
-                            $('.directorist-archive-contents').find('.directorist-archive-items').replaceWith(html.search_result);
-                            $('.directorist-archive-contents').find('.directorist-archive-items').removeClass('atbdp-form-fade');
-                            $('.directorist-archive-contents').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false)
+                            if( html.search_result.length > 1 ){
+                                $('.directorist-instant-search').each( function( index, element ) {
+                                    console.log({
+                                        element: element,
+                                        response: html,
+                                        html_out: html.search_result[index],
+                                    });
+                                    $( element ).find('.directorist-header-found-title span').text(html.count);
+                                    $( element ).find('.directorist-archive-items').replaceWith(html.search_result[index]);
+                                    $( element ).find('.directorist-archive-items').removeClass('atbdp-form-fade');
+                                    $( element ).find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false)
+                                });
+                            }else{
+                                $('.directorist-archive-contents').find('.directorist-header-found-title span').text(html.count);
+                                $('.directorist-archive-contents').find('.directorist-archive-items').replaceWith(html.search_result);
+                                $('.directorist-archive-contents').find('.directorist-archive-items').removeClass('atbdp-form-fade');
+                                $('.directorist-archive-contents').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false)
+                            }
                             window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
                             window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
                         }

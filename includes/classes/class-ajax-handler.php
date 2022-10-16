@@ -126,26 +126,50 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 			$args = array();
 
-			if ( ! empty( $_POST['data_atts'] ) ) {
-				$args = directorist_clean( (array) wp_unslash( $_POST['data_atts'] ) );
-			}
-
+			$atts = ! empty( $_POST['data_atts'] ) ? directorist_clean( wp_unslash( $_POST['data_atts'] ) ) : [];
+			
 			if ( ! empty( $args['ids'] ) && ! isset( $_REQUEST['ids'] ) ) {
 				$_REQUEST['ids'] = $args['ids'];
 				$_POST['ids']    = $args['ids'];
 			}
+			
+			if ( ! empty( $atts ) ) {
+				if( count( $atts ) > 1 ) {
+					foreach( $atts as $data ) {
+						$args[] = directorist_clean( wp_unslash( $data ) );
+					}
+				}else{
+					$args = directorist_clean( wp_unslash( $atts ) );
+				}
+			}
+			$templates = [];
+			if( $args > 1 ) {
+				foreach( $args as $arguments ) {
+					$listings = new Directorist\Directorist_Listings( json_decode( $arguments ), 'search_result' );
+					ob_start();
+					$listings->archive_view_template();
+					$cached = ob_get_contents();
+					array_push( $templates, $cached );
+					ob_end_clean();
 
-			$listings = new Directorist\Directorist_Listings( $args, 'search_result' );
-
-			ob_start();
-			$listings->archive_view_template();
-			$archive_view = ob_get_clean();
+				}
+				ob_get_clean();
+			}else{
+				$listings = new Directorist\Directorist_Listings( $args, 'search_result' );
+				ob_start();
+				$listings->archive_view_template();
+				$templates .= ob_get_clean();			
+			}
+			
+			
+			
+			wp_send_json($templates);
 
 			wp_send_json(
 				array(
-					'search_result'  => $archive_view,
+					'search_result'  => $templates,
 					'directory_type' => $listings->render_shortcode(),
-					'view_as'        => $archive_view,
+					'view_as'        => $templates,
 					'count'          => $listings->query_results->total,
 				)
 			);

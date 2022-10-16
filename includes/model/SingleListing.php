@@ -709,6 +709,24 @@ class Directorist_Single_Listing {
 		return $price_html;
 	}
 
+	public function get_review_section_data() {
+		$data = array();
+
+		foreach ( $this->content_data as $section_data ) {
+			if ( isset( $section_data['widget_name'] ) && $section_data['widget_name'] == 'review' ) {
+				$data = array(
+					'section_data' => $section_data,
+					'icon'         => !empty( $section_data['icon'] ) ? $section_data['icon'] : '',
+					'label'        => !empty( $section_data['label'] ) ? $section_data['label'] : '',
+					'id'           => !empty( $section_data['custom_block_id'] ) ? $section_data['custom_block_id'] : 'reviews',
+					'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
+				);
+			}
+		}
+
+		return $data;
+	}
+
 	public function get_review_count() {
 		return directorist_get_listing_review_count( $this->id );
 	}

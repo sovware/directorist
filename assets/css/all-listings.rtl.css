@@ -7346,13 +7346,25 @@ p.atbd-min {
 .directorist-alert .directorist-alert__close {
   padding: 0 5px;
   font-size: 20px !important;
-  background: none;
+  background: none !important;
   text-decoration: none;
   margin-right: auto !important;
   border: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
   line-height: 1.2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 .directorist-alert .directorist-alert__close .la,
 .directorist-alert .directorist-alert__close .fa,
@@ -13761,6 +13773,9 @@ Review: New Style
       -ms-flex: 1;
           flex: 1;
   width: calc(100% - 230px);
+}
+.directorist-user-dashboard .directorist-alert {
+  margin-bottom: 15px;
 }
 
 /* user dashboard loader */

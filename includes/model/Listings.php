@@ -749,7 +749,7 @@ class Directorist_Listings {
 		 */
 		$args = apply_filters( 'directorist_all_listings_query_arguments', $args, $this );
 
-		return apply_filters_deprecated( 'atbdp_all_listings_query_arguments', $args, '7.4.2', 'directorist_all_listings_query_arguments' );
+		return apply_filters_deprecated( 'atbdp_all_listings_query_arguments', array( $args ), '7.4.2', 'directorist_all_listings_query_arguments' );
 	}
 
 	public function parse_search_query_args() {

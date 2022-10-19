@@ -538,9 +538,9 @@ final class Directorist_Base
 	}
 
 	public function add_image_sizes() {
-		$current_preview_size = get_directorist_option( 'preview_image_quality', 'large' );
+		$current_preview_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
 
-		if ( $current_preview_size == 'default' ) {
+		if ( $current_preview_size == 'directorist_preview' ) {
 			$preview_size = directorist_default_preview_size();
 			add_image_size( 'directorist_preview', $preview_size['width'], $preview_size['height'], $preview_size['crop'] );
 		}

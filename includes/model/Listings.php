@@ -739,7 +739,17 @@ class Directorist_Listings {
 			$args['meta_query'] = array_merge( array( 'relation' => 'AND' ), $meta_queries );
 		}
 
-		return apply_filters( 'atbdp_all_listings_query_arguments', $args );
+		/**
+		 * Filters the All Listing main query to modify or extend it
+		 *
+		 * @since 7.4.2
+		 *
+		 * @param array 	$args 		All listing query arguments
+		 * @param object 	$this 		Listings object
+		 */
+		$args = apply_filters( 'directorist_all_listings_query_arguments', $args, $this );
+
+		return apply_filters_deprecated( 'atbdp_all_listings_query_arguments', array( $args ), '7.4.2', 'directorist_all_listings_query_arguments' );
 	}
 
 	public function parse_search_query_args() {
@@ -1484,7 +1494,7 @@ class Directorist_Listings {
 			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
 
 			$id = get_the_ID();
-			$image_quality     = get_directorist_option('preview_image_quality', 'large');
+			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
 			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 			$listing_img       = get_post_meta($id, '_listing_img', true);
 

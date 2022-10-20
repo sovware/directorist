@@ -609,6 +609,31 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/public/components/directoristAlert.js":
+/*!*************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristAlert.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  window.addEventListener('DOMContentLoaded', function () {
+    /* Directorist alert dismiss */
+    if ($('.directorist-alert__close') !== null) {
+      $('.directorist-alert__close').each(function (i, e) {
+        $(e).on('click', function (e) {
+          e.preventDefault();
+          $(this).closest('.directorist-alert').remove();
+        });
+      });
+    }
+  });
+})(jQuery);
+
+/***/ }),
+
 /***/ "./assets/src/js/public/components/directoristDropdown.js":
 /*!****************************************************************!*\
   !*** ./assets/src/js/public/components/directoristDropdown.js ***!
@@ -1194,6 +1219,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/directoristFavorite */ "./assets/src/js/public/components/directoristFavorite.js");
 /* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_14__);
 // Dashboard Js
 
 
@@ -1202,6 +1229,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // General Components
+
 
 
 

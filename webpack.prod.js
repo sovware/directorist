@@ -33,7 +33,6 @@ const prodConfig = {
         onEnd: [
           {
             copy: [
-              { source: './admin', destination: './__build/directorist/directorist/admin' },
               { source: './assets', destination: './__build/directorist/directorist/assets' },
               { source: './languages', destination: './__build/directorist/directorist/languages' },
               { source: './includes', destination: './__build/directorist/directorist/includes' },
@@ -41,7 +40,6 @@ const prodConfig = {
               { source: './views', destination: './__build/directorist/directorist/views' },
               { source: './*.php', destination: './__build/directorist/directorist' },
               { source: './*.txt', destination: './__build/directorist/directorist' },
-              { source: './phpcs.xml.dist', destination: './__build/directorist/directorist' },
             ],
           },
           {

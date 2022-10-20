@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.3.3
+ * Version: 7.4.2
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -180,6 +180,7 @@ final class Directorist_Base
 			add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
 			add_action('plugins_loaded', array(self::$instance, 'add_polylang_swicher_support') );
 			add_action('widgets_init', array(self::$instance, 'register_widgets'));
+			add_action('after_setup_theme', array(self::$instance, 'add_image_sizes'));
 
 			add_action( 'template_redirect', [ self::$instance, 'check_single_listing_page_restrictions' ] );
 			add_action( 'atbdp_show_flush_messages', [ self::$instance, 'show_flush_messages' ] );
@@ -533,6 +534,15 @@ final class Directorist_Base
 				'before_title' => '<div class="atbd_widget_title"><h4>',
 				'after_title' => '</h4></div>',
 			));
+		}
+	}
+
+	public function add_image_sizes() {
+		$current_preview_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
+
+		if ( $current_preview_size == 'directorist_preview' ) {
+			$preview_size = directorist_default_preview_size();
+			add_image_size( 'directorist_preview', $preview_size['width'], $preview_size['height'], $preview_size['crop'] );
 		}
 	}
 

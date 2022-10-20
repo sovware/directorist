@@ -791,10 +791,11 @@ if (!function_exists('atbdp_icon_type')) {
     function atbdp_icon_type($echo = false)
     {
 		_deprecated_function( __FUNCTION__, '7.4.0', 'directorist_icon' );
+		$font_type = 'la la';
         if ($echo) {
-            echo '';
+            echo esc_html( $font_type );
         } else {
-            return '';
+            return $font_type;
         }
     }
 }
@@ -866,7 +867,8 @@ if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
         $default = [ 'icon' => '', 'default' => 'lar la-folder-open', 'echo' => false ];
         $args = array_merge( $default, $args );
 
-        $icon = ( ! empty($args['icon'] ) ) ?  $args['icon'] : $args['default'];
+        $icon = ( ! empty($args['icon'] ) ) ? $args['icon'] : $args['default'];
+        $icon = ( ! empty( $icon ) ) ? '<span class="'. $icon .'"></span>' : $icon;
 
         if ( ! $args['echo'] ) { return $icon; }
 
@@ -2857,7 +2859,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
     $ratio_height      = get_directorist_option('crop_height', 300);
     $blur_background   = $is_blur;
     $background_color  = get_directorist_option('prv_background_color', '#fff');
-    $image_quality     = get_directorist_option('preview_image_quality', 'large');  // medium | large | full
+    $image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');  // medium | large | full
 
     $thumbnail_img = '';
 
@@ -3168,8 +3170,11 @@ if( !function_exists('get_listing_types') ){
 if( !function_exists('directorist_get_form_fields_by_directory_type') ){
     function directorist_get_form_fields_by_directory_type( $field = 'id', $value = '' ) {
         $term                   = get_term_by( $field, $value, ATBDP_TYPE );
+        if( is_wp_error( $term ) ) {
+            return [];
+        }
         $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
-        $submission_form_fields = $submission_form['fields'];
+        $submission_form_fields = ! empty( $submission_form['fields'] ) ? $submission_form['fields'] : [];
         return $submission_form_fields;
     }
 }
@@ -4039,5 +4044,24 @@ function directorist_esc_json( $json, $html = false ) {
 		$html ? ENT_NOQUOTES : ENT_QUOTES, // Escape quotes in attribute nodes only.
 		'UTF-8',                           // json_encode() outputs UTF-8 (really just ASCII), not the blog's charset.
 		true                               // Double escape entities: `&amp;` -> `&amp;amp;`.
+	);
+}
+
+/**
+ * This image size will be used as the default value of preview image. It can be seen in action
+ * on all-listing page's grid view.
+ *
+ * Custom image size "directorist_preview" is generated based on this size.
+ *
+ * @since 7.4.2
+ * @return array Image size data.
+ */
+function directorist_default_preview_size() {
+	return apply_filters(
+		'directorist_default_preview_size', array(
+			'width'  => 640,
+			'height' => 360,
+			'crop'   => true,
+		)
 	);
 }

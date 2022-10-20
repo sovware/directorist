@@ -61,6 +61,13 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'description' => __( 'Loads unminified .css, .js files', 'directorist' ),
             ];
 
+            $fields['legacy_icon'] = [
+                'type'  => 'toggle',
+                'label' => __( 'Legacy Icon Support', 'directorist' ),
+				'value' => false,
+                'description' => sprintf( __( 'Icon support for legacy v7.3.3 templates. Enable this only if there are outdated directorist templates in your theme, you can check them <a href="%s" target="__blank">here</a>.<br/>Note: This setting is temporary and will be removed in the future.', 'directorist' ), menu_page_url( 'directorist-status', false ) . '#atbds_template' ),
+            ];
+
             $fields['import_settings'] = [
                 'type'         => 'import',
                 'label'        => 'Import Settings',
@@ -470,6 +477,9 @@ Please remember that your order may be canceled if you do not make your payment 
 
         $bank_payment_desc = __('You can make your payment directly to our bank account using this gateway. Please use your ORDER ID as a reference when making the payment. We will complete your order as soon as your deposit is cleared in our bank.', 'directorist');
         $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
+
+		$default_size = directorist_default_preview_size();
+		$default_preview_size_text = $default_size['width'].'x'.$default_size['height'].' px';
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
 
@@ -1835,8 +1845,12 @@ Please remember that your order may be canceled if you do not make your payment 
                 'preview_image_quality' => [
                     'label' => __('Preview Image Quality', 'directorist'),
                     'type'  => 'select',
-                    'value' => 'large',
+                    'value' => 'directorist_preview',
                     'options' => [
+                        [
+                            'value' => 'directorist_preview',
+                            'label' => __( 'Default', 'directorist' ),
+                        ],
                         [
                             'value' => 'medium',
                             'label' => __('Medium', 'directorist'),
@@ -1850,6 +1864,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Full', 'directorist'),
                         ],
                     ],
+					'description' => sprintf( __( 'Default: %s.<br/>If you change this option, please regenerate all thumbnails using <a href="%s" target="_blank">this</a> plugin. Otherwise it may not work properly.', 'directorist' ), $default_preview_size_text, 'https://wordpress.org/plugins/regenerate-thumbnails/' ),
                 ],
                 'way_to_show_preview' => [
                     'label' => __('Image Size', 'directorist'),
@@ -5303,6 +5318,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title' => __( 'Debugging', 'directorist' ),
                                     'fields'      => [
                                         'script_debugging',
+                                     ],
+                                ],
+                                'others' => [
+                                    'title' => __( 'Others', 'directorist' ),
+                                    'fields'      => [
+                                        'legacy_icon',
                                      ],
                                 ],
                                 'uninstall' => [

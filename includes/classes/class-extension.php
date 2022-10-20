@@ -1770,7 +1770,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			$total_available_extensions           = $total_installed_ext_list + $total_ext_available_in_subscriptions;
 
 			$overview = array(
-				'outdated_plugin_list'                  => $outdated_plugins,
+				'outdated_plugin_list'                  => is_array( $outdated_plugins ) ? $outdated_plugins : [],
 				'outdated_plugins_key'                  => $outdated_plugins_key,
 				'all_installed_plugins_list'            => $all_installed_plugins_list,
 				'installed_extension_list'              => $installed_extensions,

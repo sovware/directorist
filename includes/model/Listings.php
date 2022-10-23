@@ -5,8 +5,7 @@
 
 namespace Directorist;
 
-use \ATBDP_Listings_Data_Store;
-use \ATBDP_Permalink;
+use ATBDP_Permalink;
 use Directorist\database\DB;
 
 if ( ! defined( 'ABSPATH' ) ) exit;

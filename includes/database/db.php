@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class DB {
 
+
 	public static function get_listings_query_result( $args ) {
 		$args['fields'] = 'ids';
 		$query       = new \WP_Query( $args );
@@ -27,6 +28,19 @@ class DB {
 		];
 
 		return $results;
+	}
+
+	public static function get_listings_by_author( $author_id ) {
+		$args = array(
+			'post_type'      => ATBDP_POST_TYPE,
+			'post_status'    => 'publish',
+			'author'         => $author_id,
+			'orderby'        => 'post_date',
+			'order'          => 'ASC',
+			'posts_per_page' => -1,
+		);
+
+		return self::get_listings_query_result( $args );
 	}
 
 }

@@ -454,6 +454,7 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'rest-api/init',
 		]);
 
+		load_dependencies('all', ATBDP_INC_DIR . 'database/');
 		load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
 		load_dependencies('all', ATBDP_INC_DIR . 'model/');
 		load_dependencies('all', ATBDP_INC_DIR . 'hooks/');

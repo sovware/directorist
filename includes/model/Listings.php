@@ -7,8 +7,7 @@ namespace Directorist;
 
 use \ATBDP_Listings_Data_Store;
 use \ATBDP_Permalink;
-use Directory;
-use WP_Query;
+use Directorist\database\DB;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -140,7 +139,7 @@ class Directorist_Listings {
 			}
 		}
 
-		$this->query_results = $this->get_query_results( $caching_options );
+		$this->query_results = DB::get_listings_query_result( $this->query_args );
 	}
 
 	// set_options
@@ -660,23 +659,9 @@ class Directorist_Listings {
 	}
 
 	// get_query_results
-	public function get_query_results( array $caching_options = [] ) {
-		if ( ! empty( $this->query_args['orderby'] ) ) {
-			if ( is_string( $this->query_args['orderby'] ) && preg_match( '/rand/', $this->query_args['orderby'] ) ) {
-				$caching_options['cache'] = false;
-			}
-
-			if ( is_array( $this->query_args['orderby'] ) ) {
-				foreach ( $this->query_args['orderby'] as $key => $value ) {
-					if ( preg_match( '/rand/', $value ) ) {
-						$caching_options['cache'] = false;
-					}
-				}
-			}
-
-		}
-
-		return ATBDP_Listings_Data_Store::get_archive_listings_query( $this->query_args, $caching_options );
+	public function get_query_results() {
+		_deprecated_function( __METHOD__, '7.4.3', 'DB::get_listings_query_result' );
+		return DB::get_listings_query_result( $this->query_args );
 	}
 
 	public function parse_query_args() {

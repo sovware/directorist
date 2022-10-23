@@ -741,9 +741,9 @@ class Directorist_Listings {
 
 		/**
 		 * Filters the All Listing main query to modify or extend it
-		 * 
+		 *
 		 * @since 7.4.2
-		 * 
+		 *
 		 * @param array 	$args 		All listing query arguments
 		 * @param object 	$this 		Listings object
 		 */
@@ -1494,7 +1494,7 @@ class Directorist_Listings {
 			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
 
 			$id = get_the_ID();
-			$image_quality     = get_directorist_option('preview_image_quality', 'large');
+			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
 			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 			$listing_img       = get_post_meta($id, '_listing_img', true);
 

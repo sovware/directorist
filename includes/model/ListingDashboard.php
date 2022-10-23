@@ -182,7 +182,7 @@ class Directorist_Listing_Dashboard {
 		$type              = get_post_meta( $id, '_directory_type', true );
 
 		$default_image_src = Helper::default_preview_image_src( $type );
-		$image_quality     = get_directorist_option('preview_image_quality', 'large');
+		$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
 		$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 		$listing_img       = get_post_meta($id, '_listing_img', true);
 

@@ -2859,7 +2859,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
     $ratio_height      = get_directorist_option('crop_height', 300);
     $blur_background   = $is_blur;
     $background_color  = get_directorist_option('prv_background_color', '#fff');
-    $image_quality     = get_directorist_option('preview_image_quality', 'large');  // medium | large | full
+    $image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');  // medium | large | full
 
     $thumbnail_img = '';
 

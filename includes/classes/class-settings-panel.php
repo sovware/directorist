@@ -1845,7 +1845,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'preview_image_quality' => [
                     'label' => __('Preview Image Quality', 'directorist'),
                     'type'  => 'select',
-                    'value' => 'large',
+                    'value' => 'directorist_preview',
                     'options' => [
                         [
                             'value' => 'directorist_preview',

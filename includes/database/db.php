@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class DB {
 
-
 	public static function get_listings( $args ) {
 		$args['fields'] = 'ids';
 		$query       = new \WP_Query( $args );

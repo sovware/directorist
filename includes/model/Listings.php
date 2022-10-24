@@ -138,7 +138,7 @@ class Directorist_Listings {
 			}
 		}
 
-		$this->query_results = DB::get_listings_query_result( $this->query_args );
+		$this->query_results = DB::get_listings( $this->query_args );
 	}
 
 	// set_options
@@ -659,8 +659,8 @@ class Directorist_Listings {
 
 	// get_query_results
 	public function get_query_results() {
-		_deprecated_function( __METHOD__, '7.4.3', 'DB::get_listings_query_result' );
-		return DB::get_listings_query_result( $this->query_args );
+		_deprecated_function( __METHOD__, '7.4.3', 'DB::get_listings' );
+		return DB::get_listings( $this->query_args );
 	}
 
 	public function parse_query_args() {

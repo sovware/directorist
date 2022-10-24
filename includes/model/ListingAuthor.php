@@ -37,9 +37,17 @@ class Directorist_Listing_Author {
 		return $this->id;
 	}
 
-	// @todo @remove
 	private function get_all_posts() {
-		return DB::get_listings_by_author( $this->id );;
+		$args = array(
+			'post_type'      => ATBDP_POST_TYPE,
+			'post_status'    => 'publish',
+			'author'         => $this->id,
+			'orderby'        => 'post_date',
+			'order'          => 'ASC',
+			'posts_per_page' => -1,
+		);
+
+		return DB::get_listings( $args );
 	}
 
 	// extract_user_id
@@ -71,7 +79,7 @@ class Directorist_Listing_Author {
 			return \ATBDP_Helper::guard( [ 'type' => '404' ] );
 		}
 
-		$this->all_listings = DB::get_listings_by_author( $this->id );
+		$this->all_listings = $this->get_all_posts();
 		$this->get_rating();
 
 	}

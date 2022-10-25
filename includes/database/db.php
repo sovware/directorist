@@ -2,6 +2,8 @@
 /**
  * Handles database queries.
  *
+ * All queries should be initiated from here.
+ *
  * @author wpWax
  */
 

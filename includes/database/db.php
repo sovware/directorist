@@ -51,7 +51,7 @@ class DB {
 	 *
 	 * @param int $user_id
 	 *
-	 * @return object WP_Query
+	 * @return object WP_Query object
 	 */
 	public static function favourite_listings_query( $user_id = 0 ) {
 		$user_id   = $user_id ? $user_id : get_current_user_id();

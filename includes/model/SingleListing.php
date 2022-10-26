@@ -1007,70 +1007,14 @@ class Directorist_Single_Listing {
 		return $result;
 	}
 
-	public function get_custom_field_data()
-	{
-		$result = array();
-
-		$id = $this->id;
-
-		$args = array(
-			'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-			'posts_per_page' => -1,
-			'post_status' => 'publish',
-		);
-
-		$custom_fields = \ATBDP_Cache_Helper::get_the_transient([
-			'group'      => 'atbdp_custom_field_query',
-			'name'       => 'atbdp_all_custom_fields',
-			'query_args' => $args,
-			'cache'      => apply_filters('atbdp_cache_atbdp_all_custom_fields', 1),
-			'value'      => function ($data) {
-				return  new \WP_Query($data['query_args']);
-			}
-		]);
-
-		$cats = get_the_terms($id, ATBDP_CATEGORY);
-		$category_ids = array();
-		if (!empty($cats)) {
-			foreach ($cats as $single_val) {
-				$category_ids[] = $single_val->term_id;
-			}
-		}
-
-		$field_ids = array();
-
-		foreach ($custom_fields->posts as $custom_fields_post) {
-			$custom_field_id = $custom_fields_post->ID;
-			$fields = get_post_meta($custom_field_id, 'associate', true);
-			if ('form' != $fields) {
-				$fields_id_with_cat = get_post_meta($custom_field_id, 'category_pass', true);
-				if (in_array($fields_id_with_cat, $category_ids)) {
-					$has_field_details = get_post_meta($id, $custom_fields_post->ID, true);
-					if (!empty($has_field_details)) {
-						$field_ids[] = $custom_field_id;
-					}
-				}
-			} else {
-				$has_field_details = get_post_meta($id, $custom_fields_post->ID, true);
-				if (!empty($has_field_details)) {
-					$field_ids[] = $custom_field_id;
-				}
-			}
-		}
-
-		foreach ($field_ids as $field_id) {
-			$field_details = get_post_meta($id, $field_id, true);
-			$field_type    = get_post_meta($field_id, 'type', true);
-
-			if (!empty($field_details)) {
-				$result[] = array(
-					'title' => get_the_title($field_id),
-					'value' => $this->get_custom_field_type_value($field_id, $field_type, $field_details)
-				);
-			}
-		}
-
-		return $result;
+	/**
+	 * Unused method
+	 *
+	 * @return array
+	 */
+	public function get_custom_field_data() {
+		_deprecated_function( __METHOD__, '7.4.3' );
+		return array();
 	}
 
 	public function map_data() {

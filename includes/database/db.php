@@ -9,6 +9,8 @@
 
 namespace Directorist\database;
 
+use WP_Query;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -28,7 +30,7 @@ class DB {
 	 */
 	public static function get_listings( $args ) {
 		$args['fields'] = 'ids';
-		$query       = new \WP_Query( $args );
+		$query       = new WP_Query( $args );
 		$paginated   = ! $query->get( 'no_found_rows' );
 
 		$results = (object) [
@@ -40,6 +42,34 @@ class DB {
 		];
 
 		return $results;
+	}
+
+	/**
+	 * favourite_listings_query
+	 *
+	 * @todo Improvement - add pagination later.
+	 *
+	 * @param int $user_id
+	 *
+	 * @return object WP_Query
+	 */
+	public static function favourite_listings_query( $user_id = 0 ) {
+		$user_id   = $user_id ? $user_id : get_current_user_id();
+		$favorites = directorist_get_user_favorites( $user_id );
+
+		if ( !$favorites ) {
+			return new WP_Query();
+		}
+
+		$args = array(
+			'post_type'      => ATBDP_POST_TYPE,
+			'posts_per_page' => -1,
+			'order'          => 'DESC',
+			'post__in'       => $favorites,
+			'orderby'        => 'date'
+	   );
+
+		return new WP_Query( $args );
 	}
 
 }

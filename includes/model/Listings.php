@@ -657,7 +657,11 @@ class Directorist_Listings {
 		}
 	}
 
-	// get_query_results
+	/**
+	 * get_query_results
+	 *
+	 * @return object
+	 */
 	public function get_query_results() {
 		_deprecated_function( __METHOD__, '7.4.3', 'DB::get_listings' );
 		return DB::get_listings( $this->query_args );

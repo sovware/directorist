@@ -13,8 +13,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once __DIR__ . '/trait-deprecated.php';
+
 class DB {
 
+	use Deprecated;
+
+	/**
+	 * get_listings
+	 *
+	 * @param array $args
+	 *
+	 * @return object
+	 */
 	public static function get_listings( $args ) {
 		$args['fields'] = 'ids';
 		$query       = new \WP_Query( $args );

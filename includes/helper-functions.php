@@ -2,6 +2,7 @@
 // Prohibit direct script loading.
 
 use Directorist\Helper;
+use Directorist\database\DB;
 
 defined('ABSPATH') || die('No direct script access allowed!');
 
@@ -2200,17 +2201,9 @@ function get_advance_search_result_page_link()
  * @since 1.0.0
  */
 if (!function_exists('get_atbdp_listings_ids')) {
-    function get_atbdp_listings_ids()
-    {
-        $arg = array(
-            'post_type'      => 'at_biz_dir',
-            'posts_per_page' => -1,
-            'post_status'    => 'publish',
-            'fields'         => 'ids'
-        );
-
-        $query = new WP_Query( $arg );
-        return $query;
+    function get_atbdp_listings_ids() {
+		_deprecated_function( __FUNCTION__, '7.4.3' );
+		return DB::_get_atbdp_listings_ids();
     }
 }
 
@@ -2363,42 +2356,15 @@ function send_review_for_approval($data)
 }
 
 /**
+ * Check is user already submitted review for this listing
+ *
  * @since 5.7.1
- * check is user already submitted review for this listing
+ * @return bool
  */
 if (!function_exists('tract_duplicate_review')) {
-    function tract_duplicate_review($reviewer, $listing)
-    {
-        $args = [
-            'post_type' => 'atbdp_listing_review',
-            'posts_per_page' => -1,
-            'post_status' => 'publish',
-            'meta_query' => array(
-                'relation' => 'AND',
-                array(
-                    'key' => '_listing_reviewer',
-                    'value' => $reviewer,
-                ),
-                array(
-                    'key' => '_review_listing',
-                    'value' => $listing,
-                ),
-                array(
-                    'key' => '_review_status',
-                    'value' => 'pending',
-                )
-            )
-        ];
-
-
-        $reviews = new WP_Query( $args );
-
-        $review_meta = array();
-        foreach ($reviews->posts as $key => $val) {
-            $review_meta[] = !empty($val) ? $val : array();
-        }
-
-        return ( $review_meta ) ? $review_meta : false;
+    function tract_duplicate_review($reviewer, $listing) {
+		_deprecated_function( __FUNCTION__, '7.4.3' );
+		return false;
     }
 }
 

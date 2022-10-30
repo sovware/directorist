@@ -14,7 +14,11 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
 			return DB::get_listings( $query_args );
         }
 
-        // get_listings
+		/**
+		 * Unused method
+		 *
+		 * @return object WP_Query
+		 */
         public static function get_listings( array $args = [] ) {
 			return get_posts( $args );
         }

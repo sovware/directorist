@@ -1510,8 +1510,9 @@ function atbdp_listings_count_by_tag($term_id)
         ))
     );
 
-    return count(get_posts($args));
-
+	$query = new WP_Query( $args );
+	$count = count( $query->posts );
+    return $count;
 }
 
 /**

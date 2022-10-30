@@ -20,6 +20,7 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
 		 * @return object WP_Query
 		 */
         public static function get_listings( array $args = [] ) {
+			_deprecated_function( __METHOD__, '7.4.3' );
 			return get_posts( $args );
         }
 

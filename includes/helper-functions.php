@@ -550,48 +550,16 @@ if (!function_exists('aazztech_enc_unserialize')) {
     }
 }
 
-
+/**
+ * Unused function
+ *
+ * @return object WP_Query
+ */
 if (!function_exists('atbd_get_related_posts')) {
     // get related post based on tags or categories
-    function atbd_get_related_posts()
-    {
-        global $post;
-        // get all tags assigned to current post
-        $tags = wp_get_post_tags($post->ID);
-        $args = array();
-        // set args to get related posts based on tags
-        if (!empty($tags)) {
-            $tag_ids = array();
-            foreach ($tags as $tag) $tag_ids[] = $tag->term_id;
-            $args = array(
-                'tag__in' => $tag_ids,
-                'post__not_in' => array($post->ID),
-                'ignore_sticky_posts' => true,
-                'posts_per_page' => 5,
-                'orderby' => 'rand',
-            );
-        } else {
-            // get all cats assigned to current post
-            $cats = get_the_category($post->ID);
-            // set the args to get all related posts based on category.
-            if ($cats) {
-                $cat_ids = array();
-                foreach ($cats as $cat) $cat_ids[] = $cat->term_id;
-                $args = array(
-                    'category__in' => $cat_ids,
-                    'post__not_in' => array($post->ID),
-                    'ignore_sticky_posts' => true,
-                    'posts_per_page' => 5,
-                    'orderby' => 'rand',
-                );
-            }
-        }
-        if (!empty($args)) {
-            // build the markup and return
-            return new WP_Query($args);
-
-        }
-        return null;
+    function atbd_get_related_posts() {
+		_deprecated_function( __FUNCTION__, '7.4.3' );
+		return new WP_Query();
     }
 }
 

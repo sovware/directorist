@@ -630,72 +630,13 @@ final class Directorist_Base
 	}
 
 	/**
-	 * It gets the related listings of the given listing/post
-	 * @param object|WP_Post $post The WP Post Object of whose related listing we would like to show
-	 * @return object|WP_Query It returns the related listings if found.
+	 * Unused method
+	 *
+	 * @return object WP_Query
 	 */
-	public function get_related_listings($post)
-	{
-		$rel_listing_num = get_directorist_option('rel_listing_num', 2);
-		$atbd_cats = get_the_terms($post, ATBDP_CATEGORY);
-		$atbd_tags = get_the_terms($post, ATBDP_TAGS);
-		// get the tag ids of the listing post type
-		$atbd_cats_ids = array();
-		$atbd_tags_ids = array();
-
-		if (!empty($atbd_cats)) {
-			foreach ($atbd_cats as $atbd_cat) {
-				$atbd_cats_ids[] = $atbd_cat->term_id;
-			}
-		}
-		if (!empty($atbd_tags)) {
-			foreach ($atbd_tags as $atbd_tag) {
-				$atbd_tags_ids[] = $atbd_tag->term_id;
-			}
-		}
-		$relationship = get_directorist_option('rel_listings_logic','OR');
-		$args = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'tax_query' => array(
-				'relation' => $relationship,
-				array(
-					'taxonomy' => ATBDP_CATEGORY,
-					'field' => 'term_id',
-					'terms' => $atbd_cats_ids,
-				),
-				array(
-					'taxonomy' => ATBDP_TAGS,
-					'field' => 'term_id',
-					'terms' => $atbd_tags_ids,
-				),
-			),
-			'posts_per_page' => (int)$rel_listing_num,
-			'post__not_in' => array($post->ID),
-		);
-
-		$meta_queries = array();
-		$meta_queries[] = array(
-			'relation' => 'OR',
-			array(
-				'key' => '_expiry_date',
-				'value' => current_time('mysql'),
-				'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
-				'type' => 'DATETIME'
-			),
-			array(
-				'key' => '_never_expire',
-				'value' => 1,
-			)
-		);
-
-		$meta_queries = apply_filters('atbdp_related_listings_meta_queries', $meta_queries);
-		$count_meta_queries = count($meta_queries);
-		if ($count_meta_queries) {
-			$args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
-		}
-
-		//return new WP_Query(apply_filters('atbdp_related_listing_args', $args));
-
+	public function get_related_listings($post) {
+		_deprecated_function( __METHOD__, '7.4.3' );
+		return new WP_Query();
 	}
 
 	public function get_related_listings_widget( $post, $count ) {

@@ -3466,7 +3466,6 @@ function directorist_has_no_listing() {
 		'post_type'      => ATBDP_POST_TYPE,
 		'posts_per_page' => 1,
 		'no_found_rows'  => true,
-		'cache_results'  => false
 	]);
 
 	$has_no_listing = empty( $listings->posts );

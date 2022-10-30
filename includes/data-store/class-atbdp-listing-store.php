@@ -46,17 +46,14 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
             ]);
         }
 
-        // get_listings_query
+		/**
+		 * Unused method
+		 *
+		 * @return object WP_Query
+		 */
         public static function get_listings_query( array $args = [] ) {
-            return ATBDP_Cache_Helper::get_the_transient([
-                'group'      => 'atbdp_listings_query',
-                'name'       => 'atbdp_listings_query',
-                'query_args' => $args,
-                'cache'      => apply_filters( 'atbdp_cache_listings', true ),
-                'value'      => function( $data ) {
-                    return new WP_Query( $data['query_args'] );
-                }
-            ]);
+			_deprecated_function( __METHOD__, '7.4.3' );
+			return new WP_Query();
         }
 
         // get_listings_ids
@@ -80,67 +77,24 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
             ]);
         }
 
-        // get_listings_by_user
+		/**
+		 * Unused method
+		 *
+		 * @return object WP_Query
+		 */
         public static function get_listings_by_user( $user_id = 0 ) {
-            $pagination        = get_directorist_option('user_listings_pagination',1);
-            $listings_per_page = get_directorist_option('user_listings_per_page',9);
-
-            //for pagination
-            $paged = atbdp_get_paged_num();
-            $query_args = array(
-                'author'         => !empty($user_id) ? absint($user_id) :  get_current_user_id(),
-                'post_type'      => ATBDP_POST_TYPE,
-                'posts_per_page' => (int) $listings_per_page,
-                'order'          => 'DESC',
-                'orderby'        => 'date',
-                'post_status'    => array('publish', 'pending', 'private'),
-                'fields'         => 'ids',
-            );
-
-            if ( ! empty($pagination)) {
-                $query_args['paged'] = $paged;
-            } else {
-                $query_args['no_found_rows'] = false;
-            }
-
-            $query_args = apply_filters('atbdp_user_dashboard_query_arguments', $query_args);
-            return self::get_archive_listings_query( $query_args );
+			_deprecated_function( __METHOD__, '7.4.3' );
+			return new WP_Query();
         }
 
-        // get_favourite_listings
+		/**
+		 * Unused method
+		 *
+		 * @return object WP_Query
+		 */
         public static function get_favourite_listings( $user_id = 0 ) {
-			$user_id = absint( $user_id );
-			if ( ! $user_id ) {
-				$user_id = get_current_user_id();
-			}
-
-			$favorites  = directorist_get_user_favorites( $user_id );
-			$action     = ! empty( $_GET['atbdp_action'] ) ? sanitize_text_field( wp_unslash( $_GET['atbdp_action'] ) ): '';
-			$listing_id = ! empty( $_GET['atbdp_listing'] ) ? absint( $_GET['atbdp_listing'] ) : 0;
-
-            if ( ! empty( $action ) && ! empty( $listing_id ) ) {
-                if ( in_array( $listing_id, $favorites ) ) {
-					directorist_delete_user_favorites( $user_id, $listing_id );
-                } else {
-					directorist_add_user_favorites( $user_id, $listing_id );
-                }
-
-				$favorites = directorist_get_user_favorites( $user_id );
-            }
-
-            if ( ! empty( $favorites ) ) {
-                $query_args = array(
-                    'post_type'      => ATBDP_POST_TYPE,
-                    'posts_per_page' => -1,                //@todo; Add pagination in future.
-                    'order'          => 'DESC',
-                    'post__in'       => $favorites,
-                    'orderby'        => 'date'
-                );
-            } else {
-                $query_args = array();
-            }
-
-            return self::get_archive_listings_query( $query_args );
+			_deprecated_function( __METHOD__, '7.4.3' );
+			return new WP_Query();
         }
     }
 endif;

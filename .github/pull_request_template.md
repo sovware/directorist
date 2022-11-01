@@ -1,14 +1,24 @@
-### How to reproduce the issue or how to test the changes in this Pull Request:
+## PR Type
+What kind of change does this PR introduce?
+<!-- Mark completed items with an [x] -->
+- [ ] Bugfix
+- [ ] Feature
+- [ ] Code style update (formatting, local variables)
+- [ ] Refactoring (no functional changes, no api changes)
+- [ ] Build related changes
+- [ ] Text changes
+- [ ] Other... Please describe:
+
+## Description
+How to reproduce the issue or how to test the changes
+
 1.
 2.
 3.
 
-### Any linked issues:
-Closes #
+## Any linked issues
+Fixes #
 
-### Checklist:
+## Checklist
 
--   [ ] Does your code follow the [WordPress coding standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/)?
--   [ ] Have you added an explanation of what your changes do and why you'd like us to include them?
-
-<!-- Mark completed items with an [x] -->
+-   [ ] My code follows the [WordPress coding standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/)

@@ -644,6 +644,11 @@ final class Directorist_Base
 		_deprecated_function( __METHOD__, '7.3.1' );
 	}
 
+	/**
+	 * Unused method
+	 *
+	 * @return object WP_Query
+	 */
 	public function add_custom_meta_keys_for_old_listings() {
 		_deprecated_function( __METHOD__, '7.4.3' );
 	}

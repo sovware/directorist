@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.4.0
+ * @version 7.4.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if ( !$query->have_posts() ) {
     return;
 }
+$default_icon = 'las la-folder-open';
 ?>
 
 <div class="atbd_categorized_listings">

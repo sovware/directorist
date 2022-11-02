@@ -6,7 +6,7 @@
  * @version 7.4.0
  */
 
-if (!defined('ABSPATH')) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 $default_icon = 'las la-folder-open';
 ?>
 
@@ -39,7 +39,7 @@ $default_icon = 'las la-folder-open';
           } elseif (!empty($listing_img[0]) && empty($listing_prv_img)) {
             echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image">';
           } else {
-            echo '<img src="' . esc_url($default_image) . '" alt="listing image">';
+            echo '<img src="' . esc_url( $default_image ) . '" alt="listing image">';
           }
           if (empty($disable_single_listing)) {
             echo '</a>';
@@ -64,7 +64,7 @@ $default_icon = 'las la-folder-open';
 
             <?php } else {
               $output = atbdp_display_price_range($price_range);
-              echo wp_kses_post($output);
+              echo wp_kses_post( $output );
             } ?>
           </div>
 

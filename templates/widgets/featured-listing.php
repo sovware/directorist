@@ -6,7 +6,7 @@
  * @version 7.4.0
  */
 
-if (!defined('ABSPATH')) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 $f_listing_num = !empty($instance['f_listing_num']) ? $instance['f_listing_num'] : 5;
 
 $featured_args = array(
@@ -28,7 +28,7 @@ $featured_args = array(
  *
  * @param array $featured_args  Featured Arguments.
  */
-apply_filters("directorist_widget_featured_listings_query_arguments", $featured_args);
+apply_filters( "directorist_widget_featured_listings_query_arguments", $featured_args );
 
 $featured_listings = new WP_Query($featured_args);
 $default_icon = 'las la-folder-open';
@@ -52,11 +52,11 @@ $default_icon = 'las la-folder-open';
                         <?php
                         $default_image = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
                         if (!empty($listing_prv_img)) {
-                            echo '<a href="' . esc_url(get_the_permalink()) . '"><img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))) . '" alt="listing image"></a>';
+                            echo '<a href="'.esc_url( get_the_permalink() ).'"><img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))) . '" alt="listing image"></a>';
                         } elseif (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                            echo '<a href="' . esc_url(get_the_permalink()) . '"><img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image"></a>';
+                            echo '<a href="'.esc_url( get_the_permalink() ).'"><img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image"></a>';
                         } else {
-                            echo '<a href="' . esc_url(get_the_permalink()) . '"><img src="' . esc_url($default_image) . '" alt="listing image"></a>';
+                            echo '<a href="'.esc_url( get_the_permalink() ).'"><img src="' . esc_url( $default_image ) . '" alt="listing image"></a>';
                         }
 
                         ?>
@@ -71,7 +71,7 @@ $default_icon = 'las la-folder-open';
 
                             <?php } else {
                                 $output = atbdp_display_price_range($price_range);
-                                echo wp_kses_post($output);
+                                echo wp_kses_post( $output );
                             } ?>
                         </div>
 

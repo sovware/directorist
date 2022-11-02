@@ -138,7 +138,7 @@ class Directorist_Listings {
 			}
 		}
 
-		$this->query_results = DB::get_listings( $this->query_args );
+		$this->query_results = $this->get_query_results();
 	}
 
 	// set_options
@@ -663,8 +663,7 @@ class Directorist_Listings {
 	 * @return object
 	 */
 	public function get_query_results() {
-		_deprecated_function( __METHOD__, '7.4.3', 'DB::get_listings' );
-		return DB::get_listings( $this->query_args );
+		return DB::get_listings_data( $this->query_args );
 	}
 
 	public function parse_query_args() {

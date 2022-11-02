@@ -1,10 +1,9 @@
 <?php
 /**
- * Handles database queries.
- *
- * All queries should be initiated from here.
+ * Common database queries will go here.
  *
  * @author wpWax
+ * @since  7.4.3
  */
 
 namespace Directorist\database;
@@ -18,13 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class DB {
 
 	/**
-	 * get_listings
+	 * Get listings data
 	 *
 	 * @param array $args
 	 *
 	 * @return object
 	 */
-	public static function get_listings( $args ) {
+	public static function get_listings_data( $args ) {
 		$args['fields'] = 'ids';
 		$query       = new WP_Query( $args );
 		$paginated   = ! $query->get( 'no_found_rows' );
@@ -41,9 +40,7 @@ class DB {
 	}
 
 	/**
-	 * favourite_listings_query
-	 *
-	 * @todo Improvement - add pagination later.
+	 * Get favourite listings query
 	 *
 	 * @param int $user_id
 	 *

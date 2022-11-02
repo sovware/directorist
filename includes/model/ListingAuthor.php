@@ -47,7 +47,7 @@ class Directorist_Listing_Author {
 			'posts_per_page' => -1,
 		);
 
-		return DB::get_listings( $args );
+		return DB::get_listings_data( $args );
 	}
 
 	// extract_user_id

@@ -11,7 +11,7 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
 		 */
         public static function get_archive_listings_query( array $query_args = [], array $custom_option = [] ) {
 			_deprecated_function( __METHOD__, '7.4.3', 'DB::get_listings' );
-			return DB::get_listings( $query_args );
+			return DB::get_listings_data( $query_args );
         }
 
 		/**

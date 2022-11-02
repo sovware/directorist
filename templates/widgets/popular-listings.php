@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if ( !$query->have_posts() ) {
     return;
 }
-$default_icon = 'las la-folder-open';
+$default_icon = 'las la-tags';
 ?>
 
 <div class="atbd_categorized_listings">

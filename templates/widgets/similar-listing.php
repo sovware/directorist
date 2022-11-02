@@ -7,7 +7,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-$default_icon = 'las la-folder-open';
+$default_icon = 'las la-tags';
 ?>
 
 <div class="atbd_categorized_listings">

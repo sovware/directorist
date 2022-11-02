@@ -31,7 +31,7 @@ $featured_args = array(
 apply_filters( "directorist_widget_featured_listings_query_arguments", $featured_args );
 
 $featured_listings = new WP_Query($featured_args);
-$default_icon = 'las la-folder-open';
+$default_icon = 'las la-tags';
 ?>
 <div class="atbd_categorized_listings">
     <ul class="listings">

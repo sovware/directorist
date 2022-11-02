@@ -861,7 +861,7 @@ class Directorist_Listings {
 						foreach ( $values as $value ) {
 							$sub_meta_queries[] = array(
 								'key'     => '_' . $key,
-								'value'   => sanitize_text_field( $value ),
+								'value'   => sanitize_text_field( serialize( $value ) ),
 								'compare' => 'LIKE'
 							);
 						}
@@ -869,7 +869,7 @@ class Directorist_Listings {
 					} else {
 						$meta_queries[] = array(
 							'key'     => '_' . $key,
-							'value'   => sanitize_text_field( $values[0] ),
+							'value'   => sanitize_text_field( serialize( $values[0] ) ),
 							'compare' => 'LIKE'
 						);
 					}

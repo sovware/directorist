@@ -135,7 +135,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				$_POST['ids']    = $args['ids'];
 			}
 
-			$listings = new Directorist\Directorist_Listings( $args, 'search_result' );
+			$listings = new Directorist\Directorist_Listings( $args, 'instant_search' );
 
 			ob_start();
 			$listings->archive_view_template();
@@ -598,7 +598,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		}
 
 		public function atbdp_ajax_login() {
-			
+
 			if ( ! directorist_verify_nonce( 'security', 'ajax-login-nonce' ) ) {
 				echo json_encode(
 					array(

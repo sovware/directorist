@@ -1,11 +1,10 @@
 <?php
 /**
  * This class is kept to avoid PHP errors
- * on some themes.
+ * on method calls.
  *
  * @author  wpWax
  * @since   7.0
- * @version 7.3
  */
 
 namespace Directorist;

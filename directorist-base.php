@@ -464,7 +464,7 @@ final class Directorist_Base
 		load_dependencies('all', ATBDP_INC_DIR . 'payments/');
 		load_dependencies('all', ATBDP_INC_DIR . 'checkout/');
 
-
+		$this->autoload( ATBDP_INC_DIR . 'deprecated/' );
 	}
 
 	// require_files

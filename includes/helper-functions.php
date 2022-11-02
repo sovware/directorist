@@ -2104,17 +2104,6 @@ function get_advance_search_result_page_link()
 
 /**
  * @return Wp_Query
- * @since 1.0.0
- */
-if (!function_exists('get_atbdp_listings_ids')) {
-    function get_atbdp_listings_ids() {
-		_deprecated_function( __FUNCTION__, '7.4.3' );
-		return DB::_get_atbdp_listings_ids();
-    }
-}
-
-/**
- * @return Wp_Query
  * @since 4.7.7
  */
 if (!function_exists('atbdp_get_expired_listings')) {

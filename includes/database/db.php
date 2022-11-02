@@ -15,11 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once __DIR__ . '/trait-deprecated.php';
-
 class DB {
-
-	use Deprecated;
 
 	/**
 	 * get_listings

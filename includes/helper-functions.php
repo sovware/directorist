@@ -759,20 +759,6 @@ if(!function_exists('get_review_by_ids')) {
 
         return $items;
     }
- }
-
-if ( ! function_exists('get_fa_icons') ) {
-    function get_fa_icons() {
-		_deprecated_function( __FUNCTION__, '7.4.0' );
-		return array();
-    }
-}
-
-if (!function_exists('get_fa_icons_full')) {
-    function get_fa_icons_full() {
-		_deprecated_function( __FUNCTION__, '7.4.0' );
-		return array();
-    }
 }
 
 if (!function_exists('get_cat_icon')) {
@@ -780,23 +766,6 @@ if (!function_exists('get_cat_icon')) {
     {
         $icon = get_term_meta($term_id, 'category_icon', true);
         return !empty($icon) ? $icon : '';
-    }
-}
-
-/**
- * @since 5.3.0
- */
-
-if (!function_exists('atbdp_icon_type')) {
-    function atbdp_icon_type($echo = false)
-    {
-		_deprecated_function( __FUNCTION__, '7.4.0', 'directorist_icon' );
-		$font_type = 'la la';
-        if ($echo) {
-            echo esc_html( $font_type );
-        } else {
-            return $font_type;
-        }
     }
 }
 
@@ -859,22 +828,7 @@ function directorist_icon( $icon, $echo = true, $class = '' ) {
     }
 }
 
-if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
-    function atbdp_get_term_icon( array $args = [] ) {
 
-		_deprecated_function( __FUNCTION__, '7.4.0' );
-
-        $default = [ 'icon' => '', 'default' => 'lar la-folder-open', 'echo' => false ];
-        $args = array_merge( $default, $args );
-
-        $icon = ( ! empty($args['icon'] ) ) ? $args['icon'] : $args['default'];
-        $icon = ( ! empty( $icon ) ) ? '<span class="'. $icon .'"></span>' : $icon;
-
-        if ( ! $args['echo'] ) { return $icon; }
-
-        echo wp_kses_post( $icon );
-    }
-}
 
 
 if (!function_exists('atbdp_sanitize_array')) {
@@ -2100,20 +2054,6 @@ if (!function_exists('atbdp_popular_listings')) {
     }
 }
 
-/**
- * Outputs the directorist categories/locations dropdown.
- *
- * @param array $args Array of options to control the field output.
- * @param bool $echo Whether to echo or just return the string.
- * @return   string             HTML attribute or empty string.
- * @since    1.5.5
- *
- */
-function bdas_dropdown_terms($args = array(), $echo = true) {
-	_deprecated_function( __METHOD__, '7.3.1' );
-	return '';
-}
-
 function atbdp_get_custom_field_ids($category = 0, $all = false)
 {
     // Get global fields
@@ -2979,11 +2919,6 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
     }
 
     echo wp_kses_post( $the_html );
-}
-
-function the_thumbnail_card($img_src = '', $_args = array()) {
-    _deprecated_function( __FUNCTION__, '7.0', 'atbdp_thumbnail_card()' );
-    return atbdp_thumbnail_card($img_src,$_args);
 }
 
 function atbdp_style_example_image ($src) {

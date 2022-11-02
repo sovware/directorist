@@ -132,7 +132,7 @@ class Directorist_Listings {
 			$this->query_args = $query_args;
 		}
 		else {
-			if ( $this->type == 'search_result' || ! empty( $_GET ) ) {
+			if ( $this->type == 'search_result' || $this->type == 'instant_search' || ! empty( $_GET ) ) {
 				$this->query_args = $this->parse_search_query_args();
 			}
 			else {
@@ -875,6 +875,7 @@ class Directorist_Listings {
 					}
 				} else {
 					$field_type = str_replace( 'custom-', '', $key );
+					$field_type = preg_replace( '/([!^0-9])|(-)/', '', $field_type ); //replaces any additional numbering to just keep the field name, for example if previous line gives us "text-2", this line makes it "text"
 					$operator   = in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=';
 					$meta_queries[] = array(
 						'key'     => '_' . $key,
@@ -1560,6 +1561,13 @@ class Directorist_Listings {
 			return in_array( get_the_id() , $favourites );
 		}
 
+		/**
+		 * Unused method
+		 *
+		 * @todo remove
+		 *
+		 * @return string
+		 */
 		public function item_found_title_for_search($count) {
 			$cat_name = $loc_name = '';
 
@@ -1604,13 +1612,7 @@ class Directorist_Listings {
 
 		public function item_found_title() {
 			$count = $this->query_results->total;
-
-			if ( $this->type == 'search_result' ) {
-				$title = $this->item_found_title_for_search( $count );
-			}
-			else {
-				$title = sprintf('<span>%s</span> %s', $count, $this->header_title );
-			}
+			$title = sprintf('<span>%s</span> %s', $count, $this->header_title );
 			return apply_filters('directorist_listings_found_text', $title );
 		}
 

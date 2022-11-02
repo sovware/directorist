@@ -2,8 +2,9 @@
 What kind of change does this PR introduce?
 <!-- Mark completed items with an [x] -->
 - [ ] Bugfix
-- [ ] Feature
-- [ ] Code style update (formatting, local variables)
+- [ ] Security fix
+- [ ] Improvement
+- [ ] New Feature
 - [ ] Refactoring (no functional changes, no api changes)
 - [ ] Build related changes
 - [ ] Text changes

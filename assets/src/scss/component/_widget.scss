@@ -348,8 +348,23 @@
             }
             .directorist-listing-category__popup {
               position: relative;
+              width: 150px;
               margin-left: 5px;
               cursor: pointer;
+              .directorist-listing-category__popup__content {
+                a {
+                  margin-bottom: 10px;
+                  &:last-child {
+                    margin-bottom: 0;
+                  }
+                  i {
+                    width: 30px;
+                    min-width: 30px;
+                    height: 30px;
+                    margin: 0 10px 0 0;
+                  }
+                }
+              }
             }
           }
         }

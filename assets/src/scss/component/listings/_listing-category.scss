@@ -10,7 +10,7 @@
         @include e(content) {
             display: block;
             position: absolute;
-            width: 120px;
+            width: 150px;
             visibility: hidden;
             opacity: 0;
             pointer-events: none;
@@ -38,6 +38,16 @@
                 display: flex;
                 line-height: normal;
                 align-items: flex-start;
+                margin-bottom: 10px;
+                &:last-child {
+                  margin-bottom: 0;
+                }
+                i {
+                    width: 30px;
+                    min-width: 30px;
+                    height: 30px;
+                    margin: 0 10px 0 0;
+                }
 
                 &:hover {
                     color: #fff !important;

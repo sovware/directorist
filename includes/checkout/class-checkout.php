@@ -242,6 +242,12 @@ class ATBDP_Checkout
                     $amount = $detail['price'];
                 }
             }
+
+            /**
+             * Filter the order amount before tax calculation
+             *
+             * @since 2.1.3
+             */
             $amount = apply_filters( 'atbdp_order_amount_pre', $amount, $order_id, $data );
 
             /*Lowercase alphanumeric characters, dashes and underscores are allowed.*/

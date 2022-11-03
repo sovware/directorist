@@ -246,9 +246,9 @@ class ATBDP_Checkout
             /**
              * Filter the order amount before tax calculation
              *
-             * @since 2.1.3
+             * @since v7.4.3
              */
-            $amount = apply_filters( 'atbdp_order_amount_pre', $amount, $order_id, $data );
+            $amount = apply_filters( 'directorist_order_amount_before_tax_calculation', $amount, $order_id, $data );
 
             /*Lowercase alphanumeric characters, dashes and underscores are allowed.*/
             $gateway = !empty($amount) && !empty($data['payment_gateway']) ? sanitize_key($data['payment_gateway']) : 'free';

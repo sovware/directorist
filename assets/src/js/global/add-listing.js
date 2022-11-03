@@ -425,7 +425,6 @@ $(document).ready(function () {
                 }
             }
         }
-        console.log( images);
         if( images.length ) {
             let counter = 0;
 

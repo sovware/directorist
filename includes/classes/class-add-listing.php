@@ -690,9 +690,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						if( $image_ids ) {
 							update_post_meta( $post_id, '_listing_prv_img', $image_ids[0] );
 							set_post_thumbnail( $post_id, $image_ids[0] );
+							unset($image_ids[0]);
 							update_post_meta( $post_id, '_listing_img', array_merge( $image_ids, $new_files_meta ) );
+						}else{
+							update_post_meta( $post_id, '_listing_img', $new_files_meta );
 						}
-						update_post_meta( $post_id, '_listing_img', $new_files_meta );
 					}
 					$permalink = get_permalink( $post_id );
 					// no pay extension own yet let treat as general user

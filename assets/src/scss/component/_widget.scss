@@ -257,6 +257,7 @@
       float: none;
 
       >li {
+        align-items: flex-start;
         padding: 15px 0;
         list-style-type: none !important;
 
@@ -358,9 +359,9 @@
                     margin-bottom: 0;
                   }
                   i {
-                    width: 30px;
-                    min-width: 30px;
-                    height: 30px;
+                    width: 36px;
+                    min-width: 36px;
+                    height: 36px;
                     margin: 0 10px 0 0;
                   }
                 }

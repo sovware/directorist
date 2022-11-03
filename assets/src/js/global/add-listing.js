@@ -425,7 +425,8 @@ $(document).ready(function () {
                 }
             }
         }
-        if( images.length > 1 ) {
+        console.log( images);
+        if( images.length ) {
             let counter = 0;
 
             function processMultiple(){

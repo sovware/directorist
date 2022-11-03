@@ -506,44 +506,22 @@ $(document).ready(function () {
     var error_count = 0;
     var err_log = {};
 
-    if (on_processing) {
-      $('.directorist-form-submit__btn').attr('disabled', true);
-      return;
+    if (on_processing) {// $('.directorist-form-submit__btn').attr('disabled', true);
+      // return;
     }
 
-    var form_data = new FormData();
-    form_data.append('action', 'add_listing_action');
-    form_data.append('directorist_nonce', directorist.directorist_nonce);
-    $('.directorist-form-submit__btn').addClass('atbd_loading');
-    var fieldValuePairs = $form.serializeArray(); // Append Form Fields Values
+    $('#listing_notifier').empty().show().html("<span class=\"atbdp_success\">".concat('Processing your submission, plese wait..', "</span>")); // images
 
-    var _iterator2 = _createForOfIteratorHelper(fieldValuePairs),
-        _step2;
-
-    try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var field = _step2.value;
-
-        if ('' === field.value) {
-          continue;
-        }
-
-        form_data.append(field.name, field.value);
-      } // images
-
-    } catch (err) {
-      _iterator2.e(err);
-    } finally {
-      _iterator2.f();
-    }
+    var images = [];
+    var image_ids = [];
 
     if (mediaUploaders.length) {
-      var _iterator3 = _createForOfIteratorHelper(mediaUploaders),
-          _step3;
+      var _iterator2 = _createForOfIteratorHelper(mediaUploaders),
+          _step2;
 
       try {
-        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-          var uploader = _step3.value;
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var uploader = _step2.value;
 
           if (uploader.media_uploader && has_media) {
             var hasValidFiles = uploader.media_uploader.hasValidFiles();
@@ -551,13 +529,116 @@ $(document).ready(function () {
             if (hasValidFiles) {
               // files
               var files = uploader.media_uploader.getTheFiles();
+              images = files;
+            } else {
+              $('.directorist-form-submit__btn').removeClass('atbd_loading');
+              err_log.listing_gallery = {
+                msg: uploader.uploaders_data['error_msg']
+              };
+              error_count++;
 
-              if (files) {
-                for (var i = 0; i < files.length; i++) {
-                  form_data.append(uploader.uploaders_data['meta_name'] + '[]', files[i]);
-                }
+              if ($('#' + uploader.uploaders_data['element_id']).length) {
+                scrollToEl('#' + uploader.uploaders_data['element_id']);
               }
 
+              if ($('.' + uploader.uploaders_data['element_id']).length) {
+                scrollToEl('.' + uploader.uploaders_data['element_id']);
+              }
+            }
+          }
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+    }
+
+    if (images.length > 1) {
+      var counter = 0;
+
+      function processMultiple() {
+        var image_form_data = new FormData();
+        image_form_data.append('action', 'directorist_process_listing_image');
+        image_form_data.append('directorist_nonce', directorist.directorist_nonce);
+        image_form_data.append('images', images[counter]);
+        $.ajax({
+          method: 'POST',
+          processData: false,
+          contentType: false,
+          url: localized_data.ajaxurl,
+          data: image_form_data,
+          success: function success(response) {
+            image_ids.push(response.data.id);
+            console.log(response);
+            counter++;
+            $('#listing_notifier').empty().show().html("<span class=\"atbdp_success\">".concat('Uploading ' + counter + ' image out of ' + images.length, "</span>"));
+
+            if (counter < images.length) {
+              processMultiple();
+            } else {
+              handleListingForm($form, image_ids);
+            }
+          }
+        });
+      }
+
+      processMultiple();
+    } else {
+      handleListingForm($form, image_ids);
+    }
+  });
+
+  function handleListingForm($form) {
+    var image_ids = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+    var error_count = 0;
+    var err_log = {};
+    var form_data = new FormData();
+    form_data.append('action', 'add_listing_action');
+    form_data.append('directorist_nonce', directorist.directorist_nonce);
+    form_data.append('image_ids', image_ids);
+    $('.directorist-form-submit__btn').addClass('atbd_loading');
+    var fieldValuePairs = $form.serializeArray(); // Append Form Fields Values
+
+    var _iterator3 = _createForOfIteratorHelper(fieldValuePairs),
+        _step3;
+
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var field = _step3.value;
+
+        if ('' === field.value) {
+          continue;
+        }
+
+        form_data.append(field.name, field.value);
+      } //images
+
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
+    }
+
+    if (mediaUploaders.length) {
+      var _iterator4 = _createForOfIteratorHelper(mediaUploaders),
+          _step4;
+
+      try {
+        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+          var uploader = _step4.value;
+
+          if (uploader.media_uploader && has_media) {
+            var hasValidFiles = uploader.media_uploader.hasValidFiles();
+
+            if (hasValidFiles) {
+              // files
+              // var files = uploader.media_uploader.getTheFiles();
+              // if (files) {
+              //     for (var i = 0; i < files.length; i++) {
+              //         form_data.append(uploader.uploaders_data['meta_name'] + '[]', files[i]);
+              //     }
+              // }
               var files_meta = uploader.media_uploader.getFilesMeta();
 
               if (files_meta) {
@@ -587,9 +668,9 @@ $(document).ready(function () {
           }
         }
       } catch (err) {
-        _iterator3.e(err);
+        _iterator4.e(err);
       } finally {
-        _iterator3.f();
+        _iterator4.f();
       }
     } // categories
 
@@ -632,7 +713,9 @@ $(document).ready(function () {
       return;
     }
 
-    on_processing = true;
+    on_processing = true; // console.log( 'Form submission prevented!' );
+    // return;
+
     $.ajax({
       method: 'POST',
       processData: false,
@@ -710,7 +793,8 @@ $(document).ready(function () {
         console.log(_error);
       }
     });
-  }); // Custom Field Checkbox Button More
+  } // Custom Field Checkbox Button More
+
 
   function customFieldSeeMore() {
     if ($('.directorist-custom-field-btn-more').length) {

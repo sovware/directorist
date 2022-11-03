@@ -43,6 +43,43 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			add_action( 'parse_query', array( $this, 'parse_query' ) ); // do stuff likes adding, editing, renewing, favorite etc in this hook.
 			add_action( 'wp_ajax_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
 			add_action( 'wp_ajax_nopriv_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
+			
+			add_action( 'wp_ajax_directorist_process_listing_image', array( $this, 'directorist_process_listing_image' ) );
+			add_action( 'wp_ajax_nopriv_directorist_process_listing_image', array( $this, 'directorist_process_listing_image' ) );
+		}
+
+		public function directorist_process_listing_image() {
+
+			if ( ! directorist_verify_nonce() ) {
+				$data['error']     = true;
+				$data['error_msg'] = __( 'Something is wrong! Please refresh and retry.', 'directorist' );
+
+				return wp_send_json( $data );
+			}
+
+			$files 		= ! empty( $_FILES['images'] ) ? directorist_clean( wp_unslash(  $_FILES['images'] ) ) : array();
+			$filetype 	= wp_check_filetype( $files['name'] );
+
+			if ( empty( $filetype['ext'] ) ) {
+				wp_send_json_error( 'Error uploading fiele ' );
+			}
+
+			if ( ! $files['name'] ) {
+				wp_send_json_error( 'Error uploading fiele ' );
+
+			}
+			$file                     = array(
+				'name'     => $files['name'],
+				'type'     => $files['type'],
+				'tmp_name' => $files['tmp_name'],
+				'error'    => $files['error'],
+				'size'     => $files['size'],
+			);
+			$_FILES['my_file_upload'] = $file;
+			$meta_data                = array();
+			$meta_data['name']        = $files['name'];
+			$meta_data['id']          = atbdp_handle_attachment( 'my_file_upload', 0 );			
+			wp_send_json_success( $meta_data );
 		}
 
 		/**
@@ -576,6 +613,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						$listing_images = atbdp_get_listing_attachment_ids( $post_id );
 						$files          = ! empty( $_FILES['listing_img'] ) ? directorist_clean( wp_unslash(  $_FILES['listing_img'] ) ) : array();
 						$files_meta     = ! empty( $_POST['files_meta'] ) ? directorist_clean( wp_unslash( $_POST['files_meta'] ) ) : array();
+						$image_ids      = ! empty( $_POST['image_ids'] ) ? directorist_clean( wp_unslash( $_POST['image_ids'] ) ) : array();
+						$image_ids      = ! empty( $image_ids ) ? explode(',', $image_ids) : array();
 
 						if ( ! empty( $listing_images ) ) {
 							foreach ( $listing_images as $__old_id ) {
@@ -647,6 +686,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 									}
 								}
 							}
+						}
+						if( $image_ids ) {
+							update_post_meta( $post_id, '_listing_prv_img', $image_ids[0] );
+							set_post_thumbnail( $post_id, $image_ids[0] );
+							update_post_meta( $post_id, '_listing_img', array_merge( $image_ids, $new_files_meta ) );
 						}
 						update_post_meta( $post_id, '_listing_img', $new_files_meta );
 					}

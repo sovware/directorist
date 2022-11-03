@@ -39,14 +39,18 @@
                 line-height: normal;
                 align-items: flex-start;
                 margin-bottom: 10px;
+                width: 100%;
                 &:last-child {
                   margin-bottom: 0;
                 }
                 i {
-                    width: 30px;
-                    min-width: 30px;
-                    height: 30px;
+                    width: unset;
+                    min-width: unset;
+                    height: unset;
                     margin: 0 10px 0 0;
+                    &:after {
+                        background-color: #fff !important;
+                    }
                 }
 
                 &:hover {

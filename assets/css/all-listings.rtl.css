@@ -5633,10 +5633,9 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .widget.atbd_widget[id^=bd] .atbd_categorized_listings .listings > li .atbd_right_content .directorist-listing-category a .directorist-icon-mask,
 .widget.atbd_widget[id^=dcl] .atbd_categorized_listings .listings > li .atbd_right_content .directorist-listing-category a .directorist-icon-mask,
 .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_right_content .directorist-listing-category a .directorist-icon-mask {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #F3F3F3;
+  width: unset;
+  height: unset;
+  background: transparent;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -5679,9 +5678,9 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .widget.atbd_widget[id^=bd] .atbd_categorized_listings .listings > li .atbd_right_content .directorist-listing-category .directorist-listing-category__popup .directorist-listing-category__popup__content a i,
 .widget.atbd_widget[id^=dcl] .atbd_categorized_listings .listings > li .atbd_right_content .directorist-listing-category .directorist-listing-category__popup .directorist-listing-category__popup__content a i,
 .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_right_content .directorist-listing-category .directorist-listing-category__popup .directorist-listing-category__popup__content a i {
-  width: 36px;
-  min-width: 36px;
-  height: 36px;
+  width: unset;
+  min-width: unset;
+  height: unset;
   margin: 0 0 0 10px;
 }
 .widget.atbd_widget[id^=bd] .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content,
@@ -11214,15 +11213,19 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-align: start;
           align-items: flex-start;
   margin-bottom: 10px;
+  width: 100%;
 }
 .directorist-listing-category__popup__content a:last-child {
   margin-bottom: 0;
 }
 .directorist-listing-category__popup__content a i {
-  width: 30px;
-  min-width: 30px;
-  height: 30px;
+  width: unset;
+  min-width: unset;
+  height: unset;
   margin: 0 0 0 10px;
+}
+.directorist-listing-category__popup__content a i:after {
+  background-color: #fff !important;
 }
 .directorist-listing-category__popup__content a:hover {
   color: #fff !important;

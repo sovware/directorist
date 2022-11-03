@@ -332,10 +332,9 @@
               display: inline-flex;
               align-items: center;
               .directorist-icon-mask {
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                background: #F3F3F3;
+                width: unset;
+                height: unset;
+                background: transparent;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
@@ -359,9 +358,9 @@
                     margin-bottom: 0;
                   }
                   i {
-                    width: 36px;
-                    min-width: 36px;
-                    height: 36px;
+                    width: unset;
+                    min-width: unset;
+                    height: unset;
                     margin: 0 10px 0 0;
                   }
                 }

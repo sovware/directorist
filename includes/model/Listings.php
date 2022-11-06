@@ -749,6 +749,7 @@ class Directorist_Listings {
 		 */
 		$args = apply_filters( 'directorist_all_listings_query_arguments', $args, $this );
 
+		// var_dump( $meta_queries );
 		return apply_filters_deprecated( 'atbdp_all_listings_query_arguments', array( $args ), '7.4.2', 'directorist_all_listings_query_arguments' );
 	}
 
@@ -859,19 +860,23 @@ class Directorist_Listings {
 					if ( count( $values ) > 1 ) {
 						$sub_meta_queries = array();
 						foreach ( $values as $value ) {
-							$sub_meta_queries[] = array(
-								'key'     => '_' . $key,
-								'value'   => sanitize_text_field( serialize( $value ) ),
-								'compare' => 'LIKE'
-							);
+							if ( $value ) {
+								$sub_meta_queries[] = array(
+									'key'     => '_' . $key,
+									'value'   => sanitize_text_field( serialize( $value ) ),
+									'compare' => 'LIKE'
+								);
+							}
 						}
 						$meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
 					} else {
-						$meta_queries[] = array(
-							'key'     => '_' . $key,
-							'value'   => sanitize_text_field( serialize( $values[0] ) ),
-							'compare' => 'LIKE'
-						);
+						if ( $values[0] ) {
+							$meta_queries[] = array(
+								'key'     => '_' . $key,
+								'value'   => sanitize_text_field( serialize( $values[0] ) ),
+								'compare' => 'LIKE'
+							);
+						}
 					}
 				} else {
 					$field_type = str_replace( 'custom-', '', $key );

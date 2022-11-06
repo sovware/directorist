@@ -168,6 +168,10 @@
           $('body').removeClass('atbdp-form-fade');
           $('#directorist-all-authors').empty().append(response);
           authorsMasonry();
+
+          if ($('.directorist-authors__nav').length) {
+            $('.directorist-authors__nav ul li:first-child').addClass('active');
+          }
         },
         error: function error(_error2) {
           console.log(_error2);

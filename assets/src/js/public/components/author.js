@@ -70,6 +70,9 @@
                     $('body').removeClass('atbdp-form-fade');
                     $('#directorist-all-authors').empty().append(response);
                     authorsMasonry();
+                    if ($('.directorist-authors__nav').length) {
+                        $('.directorist-authors__nav ul li:first-child').addClass('active');
+                    }
                 },
                 error(error) {
                     console.log(error);

@@ -331,6 +331,7 @@
             a{
               display: inline-flex;
               align-items: center;
+              line-height: 25px;
               .directorist-icon-mask {
                 width: unset;
                 height: unset;
@@ -353,6 +354,7 @@
               cursor: pointer;
               .directorist-listing-category__popup__content {
                 a {
+                  line-height: 1;
                   margin-bottom: 10px;
                   &:last-child {
                     margin-bottom: 0;

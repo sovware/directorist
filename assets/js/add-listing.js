@@ -554,8 +554,6 @@ $(document).ready(function () {
       }
     }
 
-    console.log(images);
-
     if (images.length) {
       var counter = 0;
 

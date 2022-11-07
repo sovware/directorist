@@ -5691,7 +5691,8 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 .widget.atbd_widget[id^=bd] .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content,
 .widget.atbd_widget[id^=dcl] .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content,
 .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content {
-  padding-right: 5px;
+  padding-right: 10px;
+  margin-top: -5px;
 }
 .widget.atbd_widget[id^=bd] .atbdp-widget-categories ul li,
 .widget.atbd_widget[id^=dcl] .atbdp-widget-categories ul li,

@@ -7425,6 +7425,21 @@ p.atbd-min {
   background: rgba(232, 0, 0, 0.3);
 }
 
+/* Add listing notice alert */
+.directorist-single-listing-notice .directorist-alert__content {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+.directorist-single-listing-notice .directorist-alert__content button {
+  cursor: pointer;
+}
+.directorist-single-listing-notice .directorist-alert__content button span {
+  font-size: 20px;
+}
+
 /* Modal Core Styles */
 .directorist-modal {
   position: fixed;

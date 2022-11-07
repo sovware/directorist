@@ -3221,6 +3221,18 @@ body.stop-scrolling {
 .directorist-add-listing-form__action #listing_notifier {
   margin-top: 10px;
 }
+.directorist-add-listing-form__action .directorist-progressbar {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+  background: #e4e4e4;
+}
+.directorist-add-listing-form__action .directorist-progressbar span {
+  display: block;
+  height: 10px;
+  border-radius: 6px;
+  background: #00AC17;
+}
 .directorist-add-listing-form__action .directorist-form-group {
   text-align: center;
 }

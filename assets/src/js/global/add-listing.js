@@ -444,12 +444,15 @@ $(document).ready(function () {
 
                         image_ids.push( response.data.id );
 
-                        console.log( response );
                         counter++;
                         $('#listing_notifier')
                                 .empty()
                                 .show()
-                                .html(`<span class="atbdp_success">${'Uploading ' + counter + ' image out of ' + images.length }</span>`);
+                                .html(`
+                                <span class="directorist-progressbar">
+                                    <span style="width: ${(100/images.length)*counter}%;"></span>
+                                </span>
+                                <span class="atbdp_success">${'Uploading ' + counter + ' image out of ' + images.length }</span>`);
                         if(counter < images.length){
                             processMultiple();
                         }else{

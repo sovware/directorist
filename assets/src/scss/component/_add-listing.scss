@@ -362,6 +362,19 @@
     margin-top: 10px;
   }
 
+  .directorist-progressbar{
+    display: block;
+    width: 100%;
+    border-radius: 6px;
+    background: #e4e4e4;
+    span{
+      display: block;
+      height: 10px;
+      border-radius: 6px;
+      background: #00AC17;
+    }
+  }
+
   .directorist-form-group {
     text-align: center;
   }

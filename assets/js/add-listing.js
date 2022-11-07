@@ -570,9 +570,8 @@ $(document).ready(function () {
           data: image_form_data,
           success: function success(response) {
             image_ids.push(response.data.id);
-            console.log(response);
             counter++;
-            $('#listing_notifier').empty().show().html("<span class=\"atbdp_success\">".concat('Uploading ' + counter + ' image out of ' + images.length, "</span>"));
+            $('#listing_notifier').empty().show().html("\n                                <span class=\"directorist-progressbar\">\n                                    <span style=\"width: ".concat(100 / images.length * counter, "%;\"></span>\n                                </span>\n                                <span class=\"atbdp_success\">").concat('Uploading ' + counter + ' image out of ' + images.length, "</span>"));
 
             if (counter < images.length) {
               processMultiple();

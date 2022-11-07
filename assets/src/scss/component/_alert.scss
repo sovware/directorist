@@ -131,3 +131,14 @@
         }
     }
 }
+.directorist-user-dashboard{
+    .directorist-container-fluid{
+        box-sizing: border-box;
+    }
+    .directorist-alert-info{
+        .directorist-alert__close{
+            cursor: pointer;
+            padding-right: 0;
+        }
+    }
+}

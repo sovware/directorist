@@ -9609,6 +9609,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 20px;
 }
 
+.directorist-user-dashboard .directorist-container-fluid {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.directorist-user-dashboard .directorist-alert-info .directorist-alert__close {
+  cursor: pointer;
+  padding-left: 0;
+}
+
 .directorist-badge {
   display: inline-block;
   font-size: 10px;

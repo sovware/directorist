@@ -7448,6 +7448,15 @@ p.atbd-min {
   font-size: 20px;
 }
 
+.directorist-user-dashboard .directorist-container-fluid {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.directorist-user-dashboard .directorist-alert-info .directorist-alert__close {
+  cursor: pointer;
+  padding-right: 0;
+}
+
 /* Modal Core Styles */
 .directorist-modal {
   position: fixed;

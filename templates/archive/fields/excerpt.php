@@ -7,9 +7,11 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !$value ) {
+if ( empty( $value ) && empty( get_the_excerpt() ) ) {
 	return;
 }
+
+$value = $value ? $value : get_the_excerpt();
 ?>
 
 <p>

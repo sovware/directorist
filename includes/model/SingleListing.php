@@ -82,35 +82,45 @@ class Directorist_Single_Listing {
 					continue;
 				}
 
+				// Make sure form key name is valid
+				if ( !isset( $value['original_widget_key'] ) ) {
+					unset( $single_fields['fields'][$key] );
+					continue;
+				}
+
+				$form_key = $value['original_widget_key'];
+
+				// Make sure the same form field exists
+				if ( empty( $submission_form_fields['fields'][$form_key] ) ) {
+					unset( $single_fields['fields'][$key] );
+					continue;
+				}
+
 				$single_fields['fields'][$key]['field_key'] = '';
 				$single_fields['fields'][$key]['options'] = [];
-
-				$form_key = isset( $value['original_widget_key'] ) ? $value['original_widget_key'] : '';
 
 				unset( $single_fields['fields'][$key]['widget_key'] );
 				unset( $single_fields['fields'][$key]['original_widget_key'] );
 
 				// Added form_field, field_key, label, widget_group from submission form
-				if ( $form_key && !empty( $submission_form_fields['fields'][$form_key] ) ) {
-					$form_data = $submission_form_fields['fields'][$form_key];
+				$form_data = $submission_form_fields['fields'][$form_key];
 
-					$single_fields['fields'][$key]['form_data'] = $form_data;
+				$single_fields['fields'][$key]['form_data'] = $form_data;
 
-					if ( !empty( $form_data['field_key'] ) ) {
-						$single_fields['fields'][$key]['field_key'] = $form_data['field_key'];
-					}
+				if ( !empty( $form_data['field_key'] ) ) {
+					$single_fields['fields'][$key]['field_key'] = $form_data['field_key'];
+				}
 
-					if ( !empty( $form_data['options'] ) ) {
-						$single_fields['fields'][$key]['options'] = $form_data['options'];
-					}
+				if ( !empty( $form_data['options'] ) ) {
+					$single_fields['fields'][$key]['options'] = $form_data['options'];
+				}
 
-					if( !empty( $form_data['label'] ) ) {
-						$single_fields['fields'][$key]['label'] = $form_data['label'];
-					}
+				if( !empty( $form_data['label'] ) ) {
+					$single_fields['fields'][$key]['label'] = $form_data['label'];
+				}
 
-					if( !empty( $form_data['widget_group'] ) ) {
-						$single_fields['fields'][$key]['widget_group'] = $form_data['widget_group'];
-					}
+				if( !empty( $form_data['widget_group'] ) ) {
+					$single_fields['fields'][$key]['widget_group'] = $form_data['widget_group'];
 				}
 			}
 		}

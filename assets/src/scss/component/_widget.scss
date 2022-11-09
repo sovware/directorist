@@ -293,7 +293,7 @@
         }
 
         .atbd_right_content {
-          width: calc(100% - 75px);
+          width: calc(100% - 80px);
           display: inline-block;
           vertical-align: top;
 
@@ -366,6 +366,7 @@
                     width: unset;
                     min-width: unset;
                     height: unset;
+                    top: 0;
                     margin: 0 10px 0 0;
                   }
                 }

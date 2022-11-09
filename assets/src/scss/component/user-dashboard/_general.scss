@@ -84,7 +84,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: #fff;
-    box-shadow: 0 5px 10px rgba(#8f8e9f, 0.05);
+    box-shadow: 0 0 15px rgba(0,0,0, 0.05);
     border-radius: 4px;
     padding: 0 20px;
   }
@@ -94,6 +94,7 @@
     list-style: none;
     display: flex;
     align-items: center;
+    padding-left: 0;
 
     li {
       list-style: none;
@@ -172,7 +173,7 @@
 
 .directorist-user-dashboard-tabcontent {
   background-color: #fff;
-  box-shadow: 0 5px 10px rgba(#8f8e9f, 0.05);
+  box-shadow: 0 0 15px rgba(0,0,0, 0.05);
   border-radius: 4px;
   margin-top: 15px;
 

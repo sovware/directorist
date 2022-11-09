@@ -13804,6 +13804,10 @@ Review: New Style
             transform: rotate(360deg);
   }
 }
+.directorist-favourite-items-wrap {
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
 .directorist-favourite-items-wrap .directorist-favourirte-items {
   background-color: #fff;
   padding: 20px 10px;
@@ -14040,8 +14044,8 @@ Review: New Style
       -ms-flex-pack: justify;
           justify-content: space-between;
   background-color: #fff;
-  -webkit-box-shadow: 0 5px 10px rgba(143, 142, 159, 0.05);
-          box-shadow: 0 5px 10px rgba(143, 142, 159, 0.05);
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
   border-radius: 4px;
   padding: 0 20px;
 }
@@ -14056,6 +14060,7 @@ Review: New Style
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  padding-left: 0;
 }
 .directorist-user-dashboard-tab ul li {
   list-style: none;
@@ -14123,8 +14128,8 @@ Review: New Style
 
 .directorist-user-dashboard-tabcontent {
   background-color: #fff;
-  -webkit-box-shadow: 0 5px 10px rgba(143, 142, 159, 0.05);
-          box-shadow: 0 5px 10px rgba(143, 142, 159, 0.05);
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
   border-radius: 4px;
   margin-top: 15px;
 }
@@ -14776,14 +14781,9 @@ Review: New Style
   left: 0;
   border-radius: 4px;
   background-color: #fff;
-  -webkit-box-shadow: 0 5px 10px rgba(143, 142, 159, 0.0196078431);
-          box-shadow: 0 5px 10px rgba(143, 142, 159, 0.0196078431);
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
   /* user dashboard sidebar nav action */
-}
-@media only screen and (min-width: 1199px) {
-  .directorist-user-dashboard__nav {
-    padding: 20px 0;
-  }
 }
 @media only screen and (max-width: 1199px) {
   .directorist-user-dashboard__nav {
@@ -15013,6 +15013,8 @@ Review: New Style
   background-color: #fff;
   border-radius: 4px;
   padding: 25px 20px;
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
 }
 .directorist-announcement-wrapper .directorist-announcement {
   font-size: 15px;

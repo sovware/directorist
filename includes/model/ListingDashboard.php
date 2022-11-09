@@ -218,7 +218,7 @@ class Directorist_Listing_Dashboard {
 	public function fav_listing_items() {
 		$fav_listing_items = array();
 
-		$fav_listings = DB::favourite_listings_query();
+		$fav_listings = DB::favorite_listings_query();
 
 		if ( $fav_listings->have_posts() ){
 			foreach ( $fav_listings->posts as $post ) {

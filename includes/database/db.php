@@ -40,13 +40,13 @@ class DB {
 	}
 
 	/**
-	 * Get favourite listings query
+	 * Get favorite listings query
 	 *
 	 * @param int $user_id
 	 *
 	 * @return object WP_Query object.
 	 */
-	public static function favourite_listings_query( $user_id = 0 ) {
+	public static function favorite_listings_query( $user_id = 0 ) {
 		$user_id   = $user_id ? $user_id : get_current_user_id();
 		$favorites = directorist_get_user_favorites( $user_id );
 

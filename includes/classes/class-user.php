@@ -473,8 +473,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		*/
 		public function current_user_fav_listings()
 		{
-			_deprecated_function( __METHOD__, '7.4.3', 'DB::favourite_listings_query' );
-			return DB::favourite_listings_query();
+			_deprecated_function( __METHOD__, '7.4.3', 'DB::favorite_listings_query' );
+			return DB::favorite_listings_query();
 		}
 
 		/**

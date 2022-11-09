@@ -113,8 +113,8 @@ class ATBDP_Listing_DB {
     //@TODO; methods to add: delete all listing by user
 
     public function get_favourites( $user_id = 0 ) {
-		_deprecated_function( __METHOD__, '7.4.3', 'DB::favourite_listings_query' );
-		return DB::favourite_listings_query();
+		_deprecated_function( __METHOD__, '7.4.3', 'DB::favorite_listings_query' );
+		return DB::favorite_listings_query();
     }
 
 } // ends class ATBDP_Listing_DB

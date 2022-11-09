@@ -7975,6 +7975,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   line-height: 1.3;
   font-weight: 400;
   color: #767792;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
 .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox] + .directorist-radio__label:after,
 .directorist-checkbox input[type=radio] + .directorist-checkbox__label:after,
@@ -14846,7 +14848,10 @@ Review: New Style
   margin-bottom: 25px;
 }
 .directorist-user-info-wrap .directorist-form-group > label {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   margin-bottom: 5px;
 }
 .directorist-user-info-wrap .directorist-form-group .directorist-input-extra-info {

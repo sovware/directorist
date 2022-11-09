@@ -9737,6 +9737,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   line-height: 1.3;
   font-weight: 400;
   color: #767792;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
 .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox] + .directorist-radio__label:after,
 .directorist-checkbox input[type=radio] + .directorist-checkbox__label:after,

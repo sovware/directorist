@@ -35,19 +35,20 @@
 
             a {
                 color: rgba(255, 255, 255, 0.8) !important;
-                display: flex;
+                display: flex !important;
                 line-height: normal;
                 align-items: flex-start;
+                margin-bottom: 5px;
 
                 &:hover {
                     color: #fff !important;
                 }
 
-                span {
-                    background-color: rgba(255, 255, 255, 0.8);
-                    position: relative;
-                    top: 1px;
+                .directorist-icon-mask {
                     margin-right: 5px;
+                    &::after{
+                        background-color: rgba(255, 255, 255, 0.8);
+                    }
                 }
             }
         }

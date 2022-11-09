@@ -9557,7 +9557,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 #directorist.atbd_wrapper .atbd_all_categories .atbd_category_single.atbd_category_no_image figcaption {
   position: relative;
   background-color: #fff;
-  padding: 35px 0 30px;
+  padding: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -14779,6 +14779,11 @@ Review: New Style
   -webkit-box-shadow: 0 5px 10px rgba(143, 142, 159, 0.0196078431);
           box-shadow: 0 5px 10px rgba(143, 142, 159, 0.0196078431);
   /* user dashboard sidebar nav action */
+}
+@media only screen and (min-width: 1199px) {
+  .directorist-user-dashboard__nav {
+    padding: 20px 0;
+  }
 }
 @media only screen and (max-width: 1199px) {
   .directorist-user-dashboard__nav {

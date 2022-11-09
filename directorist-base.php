@@ -254,11 +254,6 @@ final class Directorist_Base
 			if (get_option('atbdp_pages_version') < 1) {
 				add_action('wp_loaded', array(self::$instance, 'add_custom_directorist_pages'));
 			}
-			//fire up one time compatibility increasing function.
-			if (get_option('atbdp_meta_version') < 1) {
-				add_action('init', array(self::$instance, 'add_custom_meta_keys_for_old_listings'));
-			}
-
 
 			// init offline gateway
 			new ATBDP_Offline_Gateway();
@@ -454,6 +449,8 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'rest-api/init',
 		]);
 
+		$this->autoload( ATBDP_INC_DIR . 'database/' );
+
 		load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
 		load_dependencies('all', ATBDP_INC_DIR . 'model/');
 		load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
@@ -634,140 +631,26 @@ final class Directorist_Base
 	}
 
 	/**
-	 * It gets the related listings of the given listing/post
-	 * @param object|WP_Post $post The WP Post Object of whose related listing we would like to show
-	 * @return object|WP_Query It returns the related listings if found.
+	 * Unused method
+	 *
+	 * @return object WP_Query
 	 */
-	public function get_related_listings($post)
-	{
-		$rel_listing_num = get_directorist_option('rel_listing_num', 2);
-		$atbd_cats = get_the_terms($post, ATBDP_CATEGORY);
-		$atbd_tags = get_the_terms($post, ATBDP_TAGS);
-		// get the tag ids of the listing post type
-		$atbd_cats_ids = array();
-		$atbd_tags_ids = array();
-
-		if (!empty($atbd_cats)) {
-			foreach ($atbd_cats as $atbd_cat) {
-				$atbd_cats_ids[] = $atbd_cat->term_id;
-			}
-		}
-		if (!empty($atbd_tags)) {
-			foreach ($atbd_tags as $atbd_tag) {
-				$atbd_tags_ids[] = $atbd_tag->term_id;
-			}
-		}
-		$relationship = get_directorist_option('rel_listings_logic','OR');
-		$args = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'tax_query' => array(
-				'relation' => $relationship,
-				array(
-					'taxonomy' => ATBDP_CATEGORY,
-					'field' => 'term_id',
-					'terms' => $atbd_cats_ids,
-				),
-				array(
-					'taxonomy' => ATBDP_TAGS,
-					'field' => 'term_id',
-					'terms' => $atbd_tags_ids,
-				),
-			),
-			'posts_per_page' => (int)$rel_listing_num,
-			'post__not_in' => array($post->ID),
-		);
-
-		$meta_queries = array();
-		$meta_queries[] = array(
-			'relation' => 'OR',
-			array(
-				'key' => '_expiry_date',
-				'value' => current_time('mysql'),
-				'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
-				'type' => 'DATETIME'
-			),
-			array(
-				'key' => '_never_expire',
-				'value' => 1,
-			)
-		);
-
-		$meta_queries = apply_filters('atbdp_related_listings_meta_queries', $meta_queries);
-		$count_meta_queries = count($meta_queries);
-		if ($count_meta_queries) {
-			$args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
-		}
-
-		//return new WP_Query(apply_filters('atbdp_related_listing_args', $args));
-
+	public function get_related_listings($post) {
+		_deprecated_function( __METHOD__, '7.4.3' );
+		return new WP_Query();
 	}
 
 	public function get_related_listings_widget( $post, $count ) {
 		_deprecated_function( __METHOD__, '7.3.1' );
 	}
 
-	public function add_custom_meta_keys_for_old_listings()
-	{
-		// get all the listings that does not have any of the following meta key missing
-		// loop through then and find which one does not contain a meta key
-		// if they return false then add new meta keys to them
-		$args = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'post_status' => 'any',
-			'posts_per_page' => -1,
-			'meta_query' => array(
-				'relation' => 'OR',
-				array(
-					'key' => '_featured',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key' => '_expiry_date',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key' => '_never_expire',
-					'compare' => 'NOT EXISTS',
-				),
-				array(
-					'key' => '_listing_status',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key' => '_price',
-					'compare' => 'NOT EXISTS',
-				),
-			)
-
-		);
-		$listings = new WP_Query($args);
-
-		foreach ($listings->posts as $l) {
-			$ft = get_post_meta($l->ID, '_featured', true);
-			$ep = get_post_meta($l->ID, '_expiry_date', true);
-			$np = get_post_meta($l->ID, '_never_expire', true);
-			$ls = get_post_meta($l->ID, '_listing_status', true);
-			$pr = get_post_meta($l->ID, '_price', true);
-			$exp_d = calc_listing_expiry_date();
-			if (empty($ft)) {
-				update_post_meta($l->ID, '_featured', 0);
-			}
-			if (empty($ep)) {
-				update_post_meta($l->ID, '_expiry_date', $exp_d);
-			}
-			if (empty($np)) {
-				update_post_meta($l->ID, '_never_expire', 0);
-			}
-			if (empty($ls)) {
-				update_post_meta($l->ID, '_listing_status', 'post_status');
-			}
-			if (empty($pr)) {
-				update_post_meta($l->ID, '_price', 0);
-			}
-		}
-		// update db version to avoid duplication
-		update_option('atbdp_meta_version', 1);
-
+	/**
+	 * Unused method
+	 *
+	 * @return object WP_Query
+	 */
+	public function add_custom_meta_keys_for_old_listings() {
+		_deprecated_function( __METHOD__, '7.4.3' );
 	}
 
 	/**

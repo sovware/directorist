@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author  wpWax
  * @since   7.3.0
@@ -7,6 +6,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
 $default_icon = 'las la-tags';
 ?>
 

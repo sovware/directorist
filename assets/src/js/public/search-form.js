@@ -20,6 +20,9 @@ import { directorist_range_slider } from './range-slider';
                 let item = $(element).siblings('.atbdp_cf_checkbox, .direcorist-search-field-tag, .directorist-search-tags');
                 var abc2 = $(item).find('.directorist-checkbox');
                 $(abc2).slice(4, abc2.length).fadeOut();
+                if(abc2.length <= 4){
+                    $(element).css('display', 'none');
+                }
             });
         }
         $(window).on('load', defaultTags);

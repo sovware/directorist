@@ -432,6 +432,12 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   justify-content: center;
   background-color: #d4d4d4;
 }
+@media screen and (max-width: 1399px) and (min-width: 1199px) {
+  .ezmu__thumbnail-list-item_back{
+    width: 100px;
+    height: 100px;
+  }
+}
 .ezmu__thumbnail-img {
   display: block;
   width: 100%;
@@ -466,7 +472,12 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   height: 140px;
   border-radius: 50%;
 }
-
+@media screen and (max-width: 1399px) and (min-width: 1199px) {
+  .ezmu__thumbnail-list-item.ezmu__thumbnail_avater{
+    width: 100px;
+    height: 100px;
+  }
+}
 .ezmu__thumbnail-list-item.ezmu__thumbnail_avater .ezmu__thumbnail-img {
   object-fit: cover;
 }

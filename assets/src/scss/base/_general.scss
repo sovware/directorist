@@ -135,6 +135,8 @@
 .atbd_login_btn_wrapper {
     .directorist-btn {
         line-height: 2.55;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
     .keep_signed.directorist-checkbox {
@@ -145,14 +147,28 @@
 }
 
 .atbdp_login_form_shortcode {
+    .directorist-form-group{
+        label{
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    }
     a {
         text-decoration: none;
     }
 }
 
 .directory_register_form_wrap {
+    .directorist-form-group{
+        label{
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    }
     .directorist-btn {
         line-height: 2.55;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 }
 

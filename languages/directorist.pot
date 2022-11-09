@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-09 03:19+0000\n"
+"POT-Creation-Date: 2022-11-09 08:41+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -18,39 +18,39 @@ msgstr ""
 msgid "You do not have the right to access this file directly"
 msgstr ""
 
-#: ../directorist-base.php:502, ../directorist-base.php:515
+#: ../directorist-base.php:499, ../directorist-base.php:512
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: ../directorist-base.php:529
+#: ../directorist-base.php:526
 msgid "Directorist - Listing Right Sidebar"
 msgstr ""
 
-#: ../directorist-base.php:531
+#: ../directorist-base.php:528
 msgid "Add widgets for the right sidebar on single listing page"
 msgstr ""
 
-#: ../directorist-base.php:588, ../includes/classes/class-settings-panel.php:5330
+#: ../directorist-base.php:585, ../includes/classes/class-settings-panel.php:5330
 msgid "Uninstall"
 msgstr ""
 
-#: ../directorist-base.php:594
+#: ../directorist-base.php:591
 msgid "Uninstall Settings"
 msgstr ""
 
-#: ../directorist-base.php:600, ../directorist-base.php:606
+#: ../directorist-base.php:597, ../directorist-base.php:603
 msgid "Listings Import"
 msgstr ""
 
-#: ../includes/class-helper.php:234, ../includes/classes/class-helper.php:298, ../includes/model/SingleListing.php:418, ../templates/dashboard/tab-profile.php:152
+#: ../includes/class-helper.php:234, ../includes/classes/class-helper.php:298, ../includes/model/SingleListing.php:428, ../templates/dashboard/tab-profile.php:152
 msgid "Facebook"
 msgstr ""
 
-#: ../includes/class-helper.php:235, ../includes/classes/class-helper.php:299, ../includes/model/SingleListing.php:423, ../templates/dashboard/tab-profile.php:162
+#: ../includes/class-helper.php:235, ../includes/classes/class-helper.php:299, ../includes/model/SingleListing.php:433, ../templates/dashboard/tab-profile.php:162
 msgid "Twitter"
 msgstr ""
 
-#: ../includes/class-helper.php:236, ../includes/classes/class-helper.php:300, ../includes/model/SingleListing.php:428, ../templates/dashboard/tab-profile.php:172
+#: ../includes/class-helper.php:236, ../includes/classes/class-helper.php:300, ../includes/model/SingleListing.php:438, ../templates/dashboard/tab-profile.php:172
 msgid "LinkedIn"
 msgstr ""
 
@@ -146,275 +146,275 @@ msgstr ""
 msgid "Enter your extension license keys here to receive updates for purchased extensions. Click %s to know more about licensing."
 msgstr ""
 
-#: ../includes/helper-functions.php:127
+#: ../includes/helper-functions.php:126
 msgid "You need to be logged in to view the content of this page"
 msgstr ""
 
-#: ../includes/helper-functions.php:972
+#: ../includes/helper-functions.php:939
 msgid "You need to be logged in to view the content of this page. You can login %s. Don't have an account? %s"
 msgstr ""
 
-#: ../includes/helper-functions.php:972, ../includes/classes/class-helper.php:538, ../includes/classes/class-settings-panel.php:4003, ../templates/account/registration.php:33, ../templates/account/registration.php:25
+#: ../includes/helper-functions.php:939, ../includes/classes/class-helper.php:538, ../includes/classes/class-settings-panel.php:4003, ../templates/account/registration.php:33, ../templates/account/registration.php:25
 msgid "Here"
 msgstr ""
 
-#: ../includes/helper-functions.php:972
+#: ../includes/helper-functions.php:939
 msgid "Sign up"
 msgstr ""
 
-#: ../includes/helper-functions.php:1001
+#: ../includes/helper-functions.php:968
 msgid "Jan"
 msgstr ""
 
-#: ../includes/helper-functions.php:1002
+#: ../includes/helper-functions.php:969
 msgid "Feb"
 msgstr ""
 
-#: ../includes/helper-functions.php:1003
+#: ../includes/helper-functions.php:970
 msgid "Mar"
 msgstr ""
 
-#: ../includes/helper-functions.php:1004
+#: ../includes/helper-functions.php:971
 msgid "Apr"
 msgstr ""
 
-#: ../includes/helper-functions.php:1005
+#: ../includes/helper-functions.php:972
 msgid "May"
 msgstr ""
 
-#: ../includes/helper-functions.php:1006
+#: ../includes/helper-functions.php:973
 msgid "Jun"
 msgstr ""
 
-#: ../includes/helper-functions.php:1007
+#: ../includes/helper-functions.php:974
 msgid "Jul"
 msgstr ""
 
-#: ../includes/helper-functions.php:1008
+#: ../includes/helper-functions.php:975
 msgid "Aug"
 msgstr ""
 
-#: ../includes/helper-functions.php:1009
+#: ../includes/helper-functions.php:976
 msgid "Sep"
 msgstr ""
 
-#: ../includes/helper-functions.php:1010
+#: ../includes/helper-functions.php:977
 msgid "Oct"
 msgstr ""
 
-#: ../includes/helper-functions.php:1011
+#: ../includes/helper-functions.php:978
 msgid "Nov"
 msgstr ""
 
-#: ../includes/helper-functions.php:1012
+#: ../includes/helper-functions.php:979
 msgid "Dec"
 msgstr ""
 
-#: ../includes/helper-functions.php:1567, ../includes/classes/class-settings-panel.php:1690, ../includes/classes/class-settings-panel.php:3132
+#: ../includes/helper-functions.php:1534, ../includes/classes/class-settings-panel.php:1690, ../includes/classes/class-settings-panel.php:3132
 msgid "A to Z (title)"
 msgstr ""
 
-#: ../includes/helper-functions.php:1568, ../includes/classes/class-settings-panel.php:1694, ../includes/classes/class-settings-panel.php:3136
+#: ../includes/helper-functions.php:1535, ../includes/classes/class-settings-panel.php:1694, ../includes/classes/class-settings-panel.php:3136
 msgid "Z to A (title)"
 msgstr ""
 
-#: ../includes/helper-functions.php:1569, ../includes/classes/class-settings-panel.php:1698, ../includes/classes/class-settings-panel.php:3140
+#: ../includes/helper-functions.php:1536, ../includes/classes/class-settings-panel.php:1698, ../includes/classes/class-settings-panel.php:3140
 msgid "Latest listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:1570, ../includes/classes/class-settings-panel.php:1702, ../includes/classes/class-settings-panel.php:3144
+#: ../includes/helper-functions.php:1537, ../includes/classes/class-settings-panel.php:1702, ../includes/classes/class-settings-panel.php:3144
 msgid "Oldest listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:1571, ../includes/classes/class-settings-panel.php:1706, ../includes/classes/class-settings-panel.php:3148
+#: ../includes/helper-functions.php:1538, ../includes/classes/class-settings-panel.php:1706, ../includes/classes/class-settings-panel.php:3148
 msgid "Popular listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:1572, ../includes/classes/class-settings-panel.php:1710, ../includes/classes/class-settings-panel.php:3152
+#: ../includes/helper-functions.php:1539, ../includes/classes/class-settings-panel.php:1710, ../includes/classes/class-settings-panel.php:3152
 msgid "Price (low to high)"
 msgstr ""
 
-#: ../includes/helper-functions.php:1573, ../includes/classes/class-settings-panel.php:1714, ../includes/classes/class-settings-panel.php:3156
+#: ../includes/helper-functions.php:1540, ../includes/classes/class-settings-panel.php:1714, ../includes/classes/class-settings-panel.php:3156
 msgid "Price (high to low)"
 msgstr ""
 
-#: ../includes/helper-functions.php:1574, ../includes/classes/class-settings-panel.php:1718, ../includes/classes/class-settings-panel.php:3160
+#: ../includes/helper-functions.php:1541, ../includes/classes/class-settings-panel.php:1718, ../includes/classes/class-settings-panel.php:3160
 msgid "Random listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:1719, ../includes/classes/class-settings-panel.php:1759, ../includes/classes/class-settings-panel.php:1778, ../includes/classes/class-settings-panel.php:3079, ../includes/classes/class-settings-panel.php:3605, ../includes/classes/class-settings-panel.php:3693, ../includes/widgets/all-categories.php:49, ../includes/widgets/all-locations.php:49, ../includes/widgets/all-tags.php:48
+#: ../includes/helper-functions.php:1686, ../includes/classes/class-settings-panel.php:1759, ../includes/classes/class-settings-panel.php:1778, ../includes/classes/class-settings-panel.php:3079, ../includes/classes/class-settings-panel.php:3605, ../includes/classes/class-settings-panel.php:3693, ../includes/widgets/all-categories.php:49, ../includes/widgets/all-locations.php:49, ../includes/widgets/all-tags.php:48
 msgid "List"
 msgstr ""
 
-#: ../includes/helper-functions.php:1722, ../includes/classes/class-settings-panel.php:1755, ../includes/classes/class-settings-panel.php:1774, ../includes/classes/class-settings-panel.php:3075, ../includes/classes/class-settings-panel.php:3601, ../includes/classes/class-settings-panel.php:3689
+#: ../includes/helper-functions.php:1689, ../includes/classes/class-settings-panel.php:1755, ../includes/classes/class-settings-panel.php:1774, ../includes/classes/class-settings-panel.php:3075, ../includes/classes/class-settings-panel.php:3601, ../includes/classes/class-settings-panel.php:3689
 msgid "Grid"
 msgstr ""
 
-#: ../includes/helper-functions.php:1725, ../includes/classes/class-settings-panel.php:1763, ../includes/classes/class-settings-panel.php:1782, ../includes/classes/class-settings-panel.php:3083, ../includes/classes/class-settings-panel.php:4651, ../includes/classes/class-settings-panel.php:4655, ../includes/widgets/single-map.php:27
+#: ../includes/helper-functions.php:1692, ../includes/classes/class-settings-panel.php:1763, ../includes/classes/class-settings-panel.php:1782, ../includes/classes/class-settings-panel.php:3083, ../includes/classes/class-settings-panel.php:4651, ../includes/classes/class-settings-panel.php:4655, ../includes/widgets/single-map.php:27
 msgid "Map"
 msgstr ""
 
-#: ../includes/helper-functions.php:2500
+#: ../includes/helper-functions.php:2421
 msgid "Email already registered. Please login first"
 msgstr ""
 
-#: ../includes/helper-functions.php:2539, ../includes/classes/class-settings-panel.php:4559
+#: ../includes/helper-functions.php:2460, ../includes/classes/class-settings-panel.php:4559
 msgid "Remove Data on Uninstall?"
 msgstr ""
 
-#: ../includes/helper-functions.php:2540, ../includes/classes/class-settings-panel.php:4560
+#: ../includes/helper-functions.php:2461, ../includes/classes/class-settings-panel.php:4560
 msgid "Checked it if you would like Directorist to completely remove all of its data when the plugin is deleted."
 msgstr ""
 
-#: ../includes/helper-functions.php:2551
+#: ../includes/helper-functions.php:2472
 msgid "CSV"
 msgstr ""
 
-#: ../includes/helper-functions.php:2652
+#: ../includes/helper-functions.php:2573
 msgid "Search Home"
 msgstr ""
 
-#: ../includes/helper-functions.php:2656, ../includes/classes/class-settings-panel.php:4712, ../includes/classes/class-setup-wizard.php:425, ../includes/elementor/search-result.php:15
+#: ../includes/helper-functions.php:2577, ../includes/classes/class-settings-panel.php:4712, ../includes/classes/class-setup-wizard.php:425, ../includes/elementor/search-result.php:15
 msgid "Search Result"
 msgstr ""
 
-#: ../includes/helper-functions.php:2660, ../includes/classes/class-setup-wizard.php:345
+#: ../includes/helper-functions.php:2581, ../includes/classes/class-setup-wizard.php:345
 msgid "Add Listing"
 msgstr ""
 
-#: ../includes/helper-functions.php:2664, ../includes/classes/class-settings-panel.php:4584, ../includes/classes/class-setup-wizard.php:353, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:28
+#: ../includes/helper-functions.php:2585, ../includes/classes/class-settings-panel.php:4584, ../includes/classes/class-setup-wizard.php:353, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:28
 msgid "All Listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:2672, ../includes/classes/class-setup-wizard.php:361, ../includes/elementor/category.php:15
+#: ../includes/helper-functions.php:2593, ../includes/classes/class-setup-wizard.php:361, ../includes/elementor/category.php:15
 msgid "Single Category"
 msgstr ""
 
-#: ../includes/helper-functions.php:2680, ../includes/classes/class-setup-wizard.php:369, ../includes/elementor/location.php:15
+#: ../includes/helper-functions.php:2601, ../includes/classes/class-setup-wizard.php:369, ../includes/elementor/location.php:15
 msgid "Single Location"
 msgstr ""
 
-#: ../includes/helper-functions.php:2684, ../includes/classes/class-setup-wizard.php:377, ../includes/elementor/tag.php:15
+#: ../includes/helper-functions.php:2605, ../includes/classes/class-setup-wizard.php:377, ../includes/elementor/tag.php:15
 msgid "Single Tag"
 msgstr ""
 
-#: ../includes/helper-functions.php:2688, ../includes/classes/class-setup-wizard.php:385
+#: ../includes/helper-functions.php:2609, ../includes/classes/class-setup-wizard.php:385
 msgid "Author Profile"
 msgstr ""
 
-#: ../includes/helper-functions.php:2692, ../includes/classes/class-settings-panel.php:4892, ../includes/classes/class-setup-wizard.php:393, ../includes/elementor/user-dashboard.php:15
+#: ../includes/helper-functions.php:2613, ../includes/classes/class-settings-panel.php:4892, ../includes/classes/class-setup-wizard.php:393, ../includes/elementor/user-dashboard.php:15
 msgid "Dashboard"
 msgstr ""
 
-#: ../includes/helper-functions.php:2696, ../includes/classes/class-setup-wizard.php:409, ../includes/elementor/custom-registration.php:15
+#: ../includes/helper-functions.php:2617, ../includes/classes/class-setup-wizard.php:409, ../includes/elementor/custom-registration.php:15
 msgid "Registration"
 msgstr ""
 
-#: ../includes/helper-functions.php:2700, ../includes/classes/class-setup-wizard.php:401, ../includes/elementor/user-login.php:15, ../includes/model/SingleListing.php:1169, ../templates/listing-form/quick-login.php:41
+#: ../includes/helper-functions.php:2621, ../includes/classes/class-setup-wizard.php:401, ../includes/elementor/user-login.php:15, ../templates/listing-form/quick-login.php:41
 msgid "Login"
 msgstr ""
 
-#: ../includes/helper-functions.php:3152
+#: ../includes/helper-functions.php:3073
 msgid "Add listing page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3153, ../includes/helper-functions.php:3161, ../includes/helper-functions.php:3169, ../includes/helper-functions.php:3177, ../includes/helper-functions.php:3185, ../includes/helper-functions.php:3193, ../includes/helper-functions.php:3201, ../includes/helper-functions.php:3209, ../includes/helper-functions.php:3217, ../includes/helper-functions.php:3225, ../includes/helper-functions.php:3233, ../includes/helper-functions.php:3241, ../includes/helper-functions.php:3249
+#: ../includes/helper-functions.php:3074, ../includes/helper-functions.php:3082, ../includes/helper-functions.php:3090, ../includes/helper-functions.php:3098, ../includes/helper-functions.php:3106, ../includes/helper-functions.php:3114, ../includes/helper-functions.php:3122, ../includes/helper-functions.php:3130, ../includes/helper-functions.php:3138, ../includes/helper-functions.php:3146, ../includes/helper-functions.php:3154, ../includes/helper-functions.php:3162, ../includes/helper-functions.php:3170
 msgid "Contains a collection of relevant data that will help you debug your website accurately and more efficiently."
 msgstr ""
 
-#: ../includes/helper-functions.php:3155, ../includes/helper-functions.php:3163, ../includes/helper-functions.php:3171, ../includes/helper-functions.php:3179, ../includes/helper-functions.php:3187, ../includes/helper-functions.php:3195, ../includes/helper-functions.php:3203, ../includes/helper-functions.php:3211, ../includes/helper-functions.php:3219, ../includes/helper-functions.php:3227, ../includes/helper-functions.php:3235, ../includes/helper-functions.php:3243
+#: ../includes/helper-functions.php:3076, ../includes/helper-functions.php:3084, ../includes/helper-functions.php:3092, ../includes/helper-functions.php:3100, ../includes/helper-functions.php:3108, ../includes/helper-functions.php:3116, ../includes/helper-functions.php:3124, ../includes/helper-functions.php:3132, ../includes/helper-functions.php:3140, ../includes/helper-functions.php:3148, ../includes/helper-functions.php:3156, ../includes/helper-functions.php:3164
 msgid "Select Page"
 msgstr ""
 
-#: ../includes/helper-functions.php:3160
+#: ../includes/helper-functions.php:3081
 msgid "Dashboard page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3168
+#: ../includes/helper-functions.php:3089
 msgid "User Profile page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3176
+#: ../includes/helper-functions.php:3097
 msgid "Single Category page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3184, ../includes/helper-functions.php:3192
+#: ../includes/helper-functions.php:3105, ../includes/helper-functions.php:3113
 msgid "Single Location page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3200
+#: ../includes/helper-functions.php:3121
 msgid "Registration page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3208
+#: ../includes/helper-functions.php:3129
 msgid "Login page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3216
+#: ../includes/helper-functions.php:3137
 msgid "Search Result page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3224
+#: ../includes/helper-functions.php:3145
 msgid "Checkout page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3232
+#: ../includes/helper-functions.php:3153
 msgid "Payment Receipt page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3240
+#: ../includes/helper-functions.php:3161
 msgid "Transaction Failure page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3248
+#: ../includes/helper-functions.php:3169
 msgid "Map Api Key is missing"
 msgstr ""
 
-#: ../includes/helper-functions.php:3251
+#: ../includes/helper-functions.php:3172
 msgid "Give the Api"
 msgstr ""
 
-#: ../includes/helper-functions.php:3256
+#: ../includes/helper-functions.php:3177
 msgid "SMTP not configured"
 msgstr ""
 
-#: ../includes/helper-functions.php:3257
+#: ../includes/helper-functions.php:3178
 msgid "SMTP is a TCP/IP protocol responsible for email deliveries. You must configure SMTP to send or receive emails."
 msgstr ""
 
-#: ../includes/helper-functions.php:3344
+#: ../includes/helper-functions.php:3265
 msgid "Something went wrong!"
 msgstr ""
 
-#: ../includes/helper-functions.php:3345
+#: ../includes/helper-functions.php:3266
 msgid "Registration failed. Please make sure you filed up all the necessary fields marked with <span style=\"color: red\">*</span>"
 msgstr ""
 
-#: ../includes/helper-functions.php:3346
+#: ../includes/helper-functions.php:3267
 msgid "Sorry, that email already exists!"
 msgstr ""
 
-#: ../includes/helper-functions.php:3347, ../includes/classes/class-user.php:227
+#: ../includes/helper-functions.php:3268, ../includes/classes/class-user.php:229
 msgid "Username too short. At least 4 characters is required"
 msgstr ""
 
-#: ../includes/helper-functions.php:3348, ../includes/classes/class-user.php:231
+#: ../includes/helper-functions.php:3269, ../includes/classes/class-user.php:233
 msgid "Sorry, that username already exists!"
 msgstr ""
 
-#: ../includes/helper-functions.php:3349, ../includes/classes/class-user.php:241
+#: ../includes/helper-functions.php:3270, ../includes/classes/class-user.php:243
 msgid "Password length must be greater than 5"
 msgstr ""
 
-#: ../includes/helper-functions.php:3350, ../includes/classes/class-user.php:256
+#: ../includes/helper-functions.php:3271, ../includes/classes/class-user.php:258
 msgid "Email is not valid"
 msgstr ""
 
-#: ../includes/helper-functions.php:3351
+#: ../includes/helper-functions.php:3272
 msgid "Space is not allowed in username"
 msgstr ""
 
-#: ../includes/helper-functions.php:3352
+#: ../includes/helper-functions.php:3273
 msgid "Please make sure you filed up the user type"
 msgstr ""
 
@@ -598,11 +598,11 @@ msgstr ""
 msgid "Line Awesome"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:231, ../includes/asset-loader/localized_data.php:245, ../includes/model/Listings.php:176, ../includes/model/Listings.php:220
+#: ../includes/asset-loader/localized_data.php:231, ../includes/asset-loader/localized_data.php:245, ../includes/model/Listings.php:174, ../includes/model/Listings.php:218
 msgid "Select a category"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:232, ../includes/asset-loader/localized_data.php:246, ../includes/model/Listings.php:177, ../includes/model/Listings.php:221
+#: ../includes/asset-loader/localized_data.php:232, ../includes/asset-loader/localized_data.php:246, ../includes/model/Listings.php:175, ../includes/model/Listings.php:219
 msgid "Select a location"
 msgstr ""
 
@@ -646,7 +646,7 @@ msgstr ""
 msgid "Sorry, Something went wrong. Listing ID is missing. Please try again."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:86, ../includes/checkout/class-checkout.php:182, ../includes/classes/class-custom-post.php:259, ../includes/classes/class-custom-post.php:267, ../includes/classes/class-settings-panel.php:511, ../includes/classes/class-settings-panel.php:2246, ../includes/model/Listings.php:183, ../includes/model/Listings.php:2037, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3317, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
+#: ../includes/checkout/class-checkout.php:86, ../includes/checkout/class-checkout.php:182, ../includes/classes/class-custom-post.php:259, ../includes/classes/class-custom-post.php:267, ../includes/classes/class-settings-panel.php:511, ../includes/classes/class-settings-panel.php:2246, ../includes/model/Listings.php:181, ../includes/model/Listings.php:2024, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3317, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
 msgid "Featured"
 msgstr ""
 
@@ -708,11 +708,11 @@ msgstr ""
 msgid "Login successful, redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:240, ../includes/classes/class-settings-panel.php:4727, ../includes/classes/class-user.php:63
+#: ../includes/classes/class-ajax-handler.php:240, ../includes/classes/class-settings-panel.php:4727, ../includes/classes/class-user.php:65
 msgid "User"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:252, ../includes/classes/class-custom-post.php:256, ../includes/classes/class-user.php:61
+#: ../includes/classes/class-ajax-handler.php:252, ../includes/classes/class-custom-post.php:256, ../includes/classes/class-user.php:63
 msgid "Author"
 msgstr ""
 
@@ -812,7 +812,7 @@ msgstr ""
 msgid "Sorry! Something wrong."
 msgstr ""
 
-#: ../includes/classes/class-announcement.php:30, ../includes/classes/class-announcement.php:278, ../includes/classes/class-settings-panel.php:2591, ../includes/model/ListingDashboard.php:394
+#: ../includes/classes/class-announcement.php:30, ../includes/classes/class-announcement.php:278, ../includes/classes/class-settings-panel.php:2591, ../includes/model/ListingDashboard.php:395
 msgid "Announcements"
 msgstr ""
 
@@ -934,7 +934,7 @@ msgstr ""
 msgid "Directory"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:254, ../includes/model/SingleListing.php:1125, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:670
+#: ../includes/classes/class-custom-post.php:254, ../includes/model/SingleListing.php:1085, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:670
 msgid "Location"
 msgstr ""
 
@@ -960,7 +960,7 @@ msgctxt "Author filter link"
 msgid "Filter by %1$s"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:345, ../includes/classes/class-email.php:116, ../includes/model/ListingDashboard.php:144, ../views/admin-templates/listing-form/expiration-featured-fields.php:45
+#: ../includes/classes/class-custom-post.php:345, ../includes/classes/class-email.php:116, ../includes/model/ListingDashboard.php:145, ../views/admin-templates/listing-form/expiration-featured-fields.php:45
 msgid "Never Expires"
 msgstr ""
 
@@ -1154,154 +1154,154 @@ msgstr ""
 
 #: ../includes/classes/class-email.php:185
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"The following Listing has been deleted on your website ==SITE_NAME==\n"
-"\n"
-"Listing Summary:\n"
-"ID: ==LISTING_ID==\n"
-"Title: ==LISTING_TITLE==\n"
-"\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"The following Listing has been deleted on your website ==SITE_NAME==\n"
+"\n"
+"Listing Summary:\n"
+"ID: ==LISTING_ID==\n"
+"Title: ==LISTING_TITLE==\n"
+"\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:209
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"You have received a new order\n"
-"\n"
-"This notification was for the order #==ORDER_ID== on the website ==SITE_NAME==.\n"
-"You can access the order details directly by clicking on the link below after logging in your back end:\n"
-"\n"
-"==ORDER_RECEIPT_URL==\n"
-"\n"
-"Here is the order summery:\n"
-"\n"
-"==ORDER_DETAILS==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"You have received a new order\n"
+"\n"
+"This notification was for the order #==ORDER_ID== on the website ==SITE_NAME==.\n"
+"You can access the order details directly by clicking on the link below after logging in your back end:\n"
+"\n"
+"==ORDER_RECEIPT_URL==\n"
+"\n"
+"Here is the order summery:\n"
+"\n"
+"==ORDER_DETAILS==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:237
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"Congratulations!\n"
-"You have received a payment against the order #==ORDER_ID==. The order is now completed.\n"
-"\n"
-"You can access the order details directly by clicking on the link below after logging in your back end:\n"
-"\n"
-"==ORDER_RECEIPT_URL==\n"
-"\n"
-"Here is the order summery:\n"
-"\n"
-"==ORDER_DETAILS==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"Congratulations!\n"
+"You have received a payment against the order #==ORDER_ID==. The order is now completed.\n"
+"\n"
+"You can access the order details directly by clicking on the link below after logging in your back end:\n"
+"\n"
+"==ORDER_RECEIPT_URL==\n"
+"\n"
+"Here is the order summery:\n"
+"\n"
+"==ORDER_DETAILS==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:265
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"A new listing has been submitted on your website [==SITE_NAME==].\n"
-"\n"
-"Listing Summary:\n"
-"ID: ==LISTING_ID==\n"
-"Title: ==LISTING_TITLE==\n"
-"Link: ==LISTING_LINK==\n"
-"You can Edit/Review the listing using the link below:\n"
-"==LISTING_EDIT_URL==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"A new listing has been submitted on your website [==SITE_NAME==].\n"
+"\n"
+"Listing Summary:\n"
+"ID: ==LISTING_ID==\n"
+"Title: ==LISTING_TITLE==\n"
+"Link: ==LISTING_LINK==\n"
+"You can Edit/Review the listing using the link below:\n"
+"==LISTING_EDIT_URL==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:291
 msgid ""
-"\n"
-"Dear User,\n"
-"\n"
-"Please use the following PIN to reset your password\n"
-"<div style='margin: 10px 0; text-align: center;'>\n"
-"<h2>==PIN==</h2>\n"
-"<div>\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear User,\n"
+"\n"
+"Please use the following PIN to reset your password\n"
+"<div style='margin: 10px 0; text-align: center;'>\n"
+"<h2>==PIN==</h2>\n"
+"<div>\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:313
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"The listing #==LISTING_ID== has been been published on your website [==SITE_NAME==].\n"
-"\n"
-"Listing Summary:\n"
-"ID: ==LISTING_ID==\n"
-"Title: ==LISTING_TITLE==\n"
-"Link: ==LISTING_LINK==\n"
-"You can Edit/Review the listing using the link below:\n"
-"==LISTING_EDIT_URL==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"The listing #==LISTING_ID== has been been published on your website [==SITE_NAME==].\n"
+"\n"
+"Listing Summary:\n"
+"ID: ==LISTING_ID==\n"
+"Title: ==LISTING_TITLE==\n"
+"Link: ==LISTING_LINK==\n"
+"You can Edit/Review the listing using the link below:\n"
+"==LISTING_EDIT_URL==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:339
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"The listing #==LISTING_ID== has been been edited on your website [==SITE_NAME==].\n"
-"\n"
-"Listing Summary:\n"
-"ID: ==LISTING_ID==\n"
-"Title: ==LISTING_TITLE==\n"
-"Link: ==LISTING_LINK==\n"
-"You can Edit/Review the listing using the link below:\n"
-"==LISTING_EDIT_URL==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"The listing #==LISTING_ID== has been been edited on your website [==SITE_NAME==].\n"
+"\n"
+"Listing Summary:\n"
+"ID: ==LISTING_ID==\n"
+"Title: ==LISTING_TITLE==\n"
+"Link: ==LISTING_LINK==\n"
+"You can Edit/Review the listing using the link below:\n"
+"==LISTING_EDIT_URL==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:365
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"The listing #==LISTING_ID== has a new review [==SITE_NAME==].\n"
-"\n"
-"Listing Summary:\n"
-"ID: ==LISTING_ID==\n"
-"Title: ==LISTING_TITLE==\n"
-"Link: ==LISTING_LINK==\n"
-"You can see the review using the link below:\n"
-"==LISTING_EDIT_URL==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"The listing #==LISTING_ID== has a new review [==SITE_NAME==].\n"
+"\n"
+"Listing Summary:\n"
+"ID: ==LISTING_ID==\n"
+"Title: ==LISTING_TITLE==\n"
+"Link: ==LISTING_LINK==\n"
+"You can see the review using the link below:\n"
+"==LISTING_EDIT_URL==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:385
 msgid ""
-"\n"
-"                        Hello Administrator,\n"
-"\n"
-"                        A user wants to become an author, ==USER_DASHBOARD== to review.\n"
-"\n"
-"                        Regards\n"
+"\n"
+"                        Hello Administrator,\n"
+"\n"
+"                        A user wants to become an author, ==USER_DASHBOARD== to review.\n"
+"\n"
+"                        Regards\n"
 "                        "
 msgstr ""
 
@@ -1509,7 +1509,7 @@ msgstr ""
 msgid "Location:"
 msgstr ""
 
-#: ../includes/classes/class-helper.php:513, ../includes/model/Listings.php:184
+#: ../includes/classes/class-helper.php:513, ../includes/model/Listings.php:182
 msgid "Read More"
 msgstr ""
 
@@ -1517,7 +1517,7 @@ msgstr ""
 msgid "You need to be logged in to view the content of this page. You can login %1$s. Don't have an account? %2$s"
 msgstr ""
 
-#: ../includes/classes/class-helper.php:538, ../includes/classes/class-settings-panel.php:3982, ../includes/classes/class-settings-panel.php:4073, ../includes/model/Account.php:61, ../includes/model/Account.php:105, ../includes/model/SingleListing.php:1170, ../templates/account/login.php:93
+#: ../includes/classes/class-helper.php:538, ../includes/classes/class-settings-panel.php:3982, ../includes/classes/class-settings-panel.php:4073, ../includes/model/Account.php:61, ../includes/model/Account.php:105, ../templates/account/login.php:93
 msgid "Sign Up"
 msgstr ""
 
@@ -1615,7 +1615,7 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:277
 msgid ""
-"Enable this option to force the default latitude and longitude to create a default location on all listings map view.\n"
+"Enable this option to force the default latitude and longitude to create a default location on all listings map view.\n"
 "                Otherwise default location works only on the add listing form map."
 msgstr ""
 
@@ -1631,7 +1631,7 @@ msgstr ""
 msgid "Pending Confirmation Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:315, ../includes/model/ListingDashboard.php:464, ../includes/model/SingleListing.php:826
+#: ../includes/classes/class-settings-panel.php:315, ../includes/model/ListingDashboard.php:465, ../includes/model/SingleListing.php:836
 msgid "Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review."
 msgstr ""
 
@@ -1639,7 +1639,7 @@ msgstr ""
 msgid "Publish Confirmation Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:327, ../includes/model/ListingDashboard.php:465, ../includes/model/SingleListing.php:827
+#: ../includes/classes/class-settings-panel.php:327, ../includes/model/ListingDashboard.php:466, ../includes/model/SingleListing.php:837
 msgid "Congratulations! Your listing has been approved/published. Now it is publicly available."
 msgstr ""
 
@@ -2119,7 +2119,7 @@ msgstr ""
 msgid "Header Title"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1573, ../includes/elementor/category.php:37, ../includes/model/Listings.php:154
+#: ../includes/classes/class-settings-panel.php:1573, ../includes/elementor/category.php:37, ../includes/model/Listings.php:152
 msgid "Items Found"
 msgstr ""
 
@@ -2139,7 +2139,7 @@ msgstr ""
 msgid "Filters Button Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1605, ../includes/classes/class-settings-panel.php:2944, ../includes/model/Listings.php:178, ../includes/model/Listings.php:214, ../includes/model/Listings.php:215
+#: ../includes/classes/class-settings-panel.php:1605, ../includes/classes/class-settings-panel.php:2944, ../includes/model/Listings.php:176, ../includes/model/Listings.php:212, ../includes/model/Listings.php:213
 msgid "Filters"
 msgstr ""
 
@@ -2191,7 +2191,7 @@ msgstr ""
 msgid "\"Sort By\" Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1666, ../includes/classes/class-settings-panel.php:3101, ../includes/classes/class-settings-panel.php:3188, ../includes/model/Listings.php:171, ../includes/model/Listings.php:226
+#: ../includes/classes/class-settings-panel.php:1666, ../includes/classes/class-settings-panel.php:3101, ../includes/classes/class-settings-panel.php:3188, ../includes/model/Listings.php:169, ../includes/model/Listings.php:224
 msgid "Sort By"
 msgstr ""
 
@@ -2207,7 +2207,7 @@ msgstr ""
 msgid "\"View As\" Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1736, ../includes/classes/class-settings-panel.php:3049, ../includes/elementor/all-categories.php:65, ../includes/elementor/all-listing.php:87, ../includes/elementor/all-locations.php:65, ../includes/elementor/category.php:43, ../includes/elementor/location.php:43, ../includes/elementor/search-result.php:50, ../includes/elementor/tag.php:43, ../includes/model/Listings.php:162, ../includes/model/Listings.php:224
+#: ../includes/classes/class-settings-panel.php:1736, ../includes/classes/class-settings-panel.php:3049, ../includes/elementor/all-categories.php:65, ../includes/elementor/all-listing.php:87, ../includes/elementor/all-locations.php:65, ../includes/elementor/category.php:43, ../includes/elementor/location.php:43, ../includes/elementor/search-result.php:50, ../includes/elementor/tag.php:43, ../includes/model/Listings.php:160, ../includes/model/Listings.php:222
 msgid "View As"
 msgstr ""
 
@@ -2507,7 +2507,7 @@ msgstr ""
 msgid "Popular Badge Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2251, ../includes/model/Listings.php:182, ../includes/model/Listings.php:2049, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3331, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
+#: ../includes/classes/class-settings-panel.php:2251, ../includes/model/Listings.php:180, ../includes/model/Listings.php:2036, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3331, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
 msgid "Popular"
 msgstr ""
 
@@ -2623,7 +2623,7 @@ msgstr ""
 msgid "\"My Listing\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2518, ../includes/model/ListingDashboard.php:354
+#: ../includes/classes/class-settings-panel.php:2518, ../includes/model/ListingDashboard.php:355
 msgid "My Listing"
 msgstr ""
 
@@ -2639,7 +2639,7 @@ msgstr ""
 msgid "\"My Profile\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2559, ../includes/model/ListingDashboard.php:368, ../templates/dashboard/tab-profile.php:31
+#: ../includes/classes/class-settings-panel.php:2559, ../includes/model/ListingDashboard.php:369, ../templates/dashboard/tab-profile.php:31
 msgid "My Profile"
 msgstr ""
 
@@ -2651,7 +2651,7 @@ msgstr ""
 msgid "\"Favourite Listings\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2575, ../includes/model/ListingDashboard.php:376
+#: ../includes/classes/class-settings-panel.php:2575, ../includes/model/ListingDashboard.php:377
 msgid "Favorite Listings"
 msgstr ""
 
@@ -2675,7 +2675,7 @@ msgstr ""
 msgid "\"Become An Author\" button Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2612, ../includes/model/ListingDashboard.php:29
+#: ../includes/classes/class-settings-panel.php:2612, ../includes/model/ListingDashboard.php:30
 msgid "Become An Author"
 msgstr ""
 
@@ -3357,14 +3357,14 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4242
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    This email is to notify you that your listing '==LISTING_TITLE==' has been received and it is under review now.\n"
-"                    It may take up to 24 hours to complete the review.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    This email is to notify you that your listing '==LISTING_TITLE==' has been received and it is under review now.\n"
+"                    It may take up to 24 hours to complete the review.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3382,12 +3382,12 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4262
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"                    Congratulations! Your listing '==LISTING_TITLE==' has been approved/published. Now it is publicly available at ==LISTING_URL==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"                    Congratulations! Your listing '==LISTING_TITLE==' has been approved/published. Now it is publicly available at ==LISTING_URL==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3405,12 +3405,12 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4280
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"                    Congratulations! Your listing '==LISTING_TITLE==' has been edited. It is publicly available at ==LISTING_URL==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"                    Congratulations! Your listing '==LISTING_TITLE==' has been edited. It is publicly available at ==LISTING_URL==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3428,12 +3428,12 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4298
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"                    Your listing '==LISTING_TITLE==' is about to expire. It will expire on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"                    Your listing '==LISTING_TITLE==' is about to expire. It will expire on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3451,12 +3451,12 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4316
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"                    Your listing '==LISTING_TITLE==' has expired on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"                    Your listing '==LISTING_TITLE==' has expired on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3474,13 +3474,13 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4334
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    We have noticed that you might have forgot to renew your listing '==LISTING_TITLE==' at ==SITE_LINK==. We would like to remind you that it expired on ==EXPIRATION_DATE==. But please don't worry.  You can still renew it by clicking this link: ==RENEWAL_LINK==.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    We have noticed that you might have forgot to renew your listing '==LISTING_TITLE==' at ==SITE_LINK==. We would like to remind you that it expired on ==EXPIRATION_DATE==. But please don't worry.  You can still renew it by clicking this link: ==RENEWAL_LINK==.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3498,15 +3498,15 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4353
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    Congratulations!\n"
-"                    Your listing '==LISTING_LINK==' with the ID #==LISTING_ID== has been renewed successfully at ==SITE_LINK==.\n"
-"                    Your listing is now publicly viewable at ==LISTING_URL==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    Congratulations!\n"
+"                    Your listing '==LISTING_LINK==' with the ID #==LISTING_ID== has been renewed successfully at ==SITE_LINK==.\n"
+"                    Your listing is now publicly viewable at ==LISTING_URL==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3524,13 +3524,13 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4374
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    Your listing '==LISTING_LINK==' with the ID #==LISTING_ID== has been deleted successfully at ==SITE_LINK==.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    Your listing '==LISTING_LINK==' with the ID #==LISTING_ID== has been deleted successfully at ==SITE_LINK==.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3548,22 +3548,22 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4393
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    Thank you very much for your order.\n"
-"                    This email is to notify you that your order (#==ORDER_ID==) has been received. You can check your order details and progress by clicking the link below.\n"
-"\n"
-"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
-"\n"
-"                    Your order summery:\n"
-"                    ==ORDER_DETAILS==\n"
-"\n"
-"\n"
-"                    NB. You need to be logged in your account to access the order details page.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    Thank you very much for your order.\n"
+"                    This email is to notify you that your order (#==ORDER_ID==) has been received. You can check your order details and progress by clicking the link below.\n"
+"\n"
+"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
+"\n"
+"                    Your order summery:\n"
+"                    ==ORDER_DETAILS==\n"
+"\n"
+"\n"
+"                    NB. You need to be logged in your account to access the order details page.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3577,25 +3577,25 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4421
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    Thank you very much for your order.\n"
-"                    This email is to notify you that your order (#==ORDER_ID==) has been received.\n"
-"\n"
-"                    %s\n"
-"\n"
-"                    You can check your order details and progress by clicking the link below.\n"
-"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
-"\n"
-"                    Your order summery:\n"
-"                    ==ORDER_DETAILS==\n"
-"\n"
-"\n"
-"                    NB. You need to be logged in your account to access the order details page.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    Thank you very much for your order.\n"
+"                    This email is to notify you that your order (#==ORDER_ID==) has been received.\n"
+"\n"
+"                    %s\n"
+"\n"
+"                    You can check your order details and progress by clicking the link below.\n"
+"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
+"\n"
+"                    Your order summery:\n"
+"                    ==ORDER_DETAILS==\n"
+"\n"
+"\n"
+"                    NB. You need to be logged in your account to access the order details page.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3613,22 +3613,22 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4452
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    Congratulation! This email is to notify you that your order #==ORDER_ID== has been completed.\n"
-"\n"
-"                    You can check your order details by clicking the link below.\n"
-"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
-"\n"
-"                    Your order summery:\n"
-"                    ==ORDER_DETAILS==\n"
-"\n"
-"\n"
-"                    NB. You need to be logged in your account to access the order details page.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    Congratulation! This email is to notify you that your order #==ORDER_ID== has been completed.\n"
+"\n"
+"                    You can check your order details by clicking the link below.\n"
+"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
+"\n"
+"                    Your order summery:\n"
+"                    ==ORDER_DETAILS==\n"
+"\n"
+"\n"
+"                    NB. You need to be logged in your account to access the order details page.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3646,18 +3646,18 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4480
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    You have received a message from your listing at ==LISTING_URL==.\n"
-"\n"
-"                    Name: ==SENDER_NAME==\n"
-"                    Email: ==SENDER_EMAIL==\n"
-"                    Message: ==MESSAGE==\n"
-"                    Time: ==NOW==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    You have received a message from your listing at ==LISTING_URL==.\n"
+"\n"
+"                    Name: ==SENDER_NAME==\n"
+"                    Email: ==SENDER_EMAIL==\n"
+"                    Message: ==MESSAGE==\n"
+"                    Time: ==NOW==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -3667,11 +3667,11 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4504
 msgid ""
-"\n"
-"                    Hi ==USERNAME==,\n"
-"\n"
-"                    Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. You can access your account area to view listings, change your password, and more at: ==DASHBOARD_LINK==\n"
-"\n"
+"\n"
+"                    Hi ==USERNAME==,\n"
+"\n"
+"                    Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. You can access your account area to view listings, change your password, and more at: ==DASHBOARD_LINK==\n"
+"\n"
 "                    We look forward to seeing you soon"
 msgstr ""
 
@@ -4251,55 +4251,55 @@ msgstr ""
 msgid "<p class=\"directorist__notice_new_action\"><a href=\"%s\" class=\"directorist__notice_new__btn\">Continue using Directorist 7.0 </a><a target=\"blank\" href=\"%s\"> Roll back to v6.5.8</a></p>"
 msgstr ""
 
-#: ../includes/classes/class-user.php:82
+#: ../includes/classes/class-user.php:84
 msgid "User Type"
 msgstr ""
 
-#: ../includes/classes/class-user.php:223
+#: ../includes/classes/class-user.php:225
 msgid "Required form field is missing. Please fill all required fields."
 msgstr ""
 
-#: ../includes/classes/class-user.php:234
+#: ../includes/classes/class-user.php:236
 msgid "Sorry, space is not allowed in username!"
 msgstr ""
 
-#: ../includes/classes/class-user.php:237
+#: ../includes/classes/class-user.php:239
 msgid "Sorry, the username you entered is not valid"
 msgstr ""
 
-#: ../includes/classes/class-user.php:245
+#: ../includes/classes/class-user.php:247
 msgid "Privacy field is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:248, ../includes/classes/class-user.php:252
+#: ../includes/classes/class-user.php:250, ../includes/classes/class-user.php:254
 msgid "Terms and Condition field is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:259
+#: ../includes/classes/class-user.php:261
 msgid "Email Already in use"
 msgstr ""
 
-#: ../includes/classes/class-user.php:263
+#: ../includes/classes/class-user.php:265
 msgid "First Name must be letters or combination of letters and number"
 msgstr ""
 
-#: ../includes/classes/class-user.php:268
+#: ../includes/classes/class-user.php:270
 msgid "Last Name must be letters or combination of letters and number"
 msgstr ""
 
-#: ../includes/classes/class-user.php:274
+#: ../includes/classes/class-user.php:276
 msgid "Website is not a valid URL"
 msgstr ""
 
-#: ../includes/classes/class-user.php:520
+#: ../includes/classes/class-user.php:523
 msgid "Password should be matched and more than five character"
 msgstr ""
 
-#: ../includes/classes/class-user.php:530
+#: ../includes/classes/class-user.php:533
 msgid "Oops! Something wrong."
 msgstr ""
 
-#: ../includes/classes/class-user.php:526
+#: ../includes/classes/class-user.php:529
 msgid "Congratulations! Your profile updated successfully"
 msgstr ""
 
@@ -4684,140 +4684,140 @@ msgstr ""
 msgid "here"
 msgstr ""
 
-#: ../includes/model/ListingAuthor.php:258, ../templates/single/section-author_info.php:44, ../templates/widgets/author-info.php:33
+#: ../includes/model/ListingAuthor.php:259, ../templates/single/section-author_info.php:44, ../templates/widgets/author-info.php:33
 msgid "Member since %s ago"
 msgstr ""
 
-#: ../includes/model/ListingAuthor.php:264
+#: ../includes/model/ListingAuthor.php:265
 msgctxt "author review count"
 msgid "<span>%s</span> Review"
 msgid_plural "<span>%s</span> Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/ListingAuthor.php:270
+#: ../includes/model/ListingAuthor.php:271
 msgctxt "author review count"
 msgid "<span>%s</span> Listing"
 msgid_plural "<span>%s</span> Listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/ListingDashboard.php:145, ../templates/dashboard/tab-my-listings.php:40
+#: ../includes/model/ListingDashboard.php:146, ../templates/dashboard/tab-my-listings.php:40
 msgid "Expired"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:225
+#: ../includes/model/ListingDashboard.php:226
 msgid "Untitled"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:360
+#: ../includes/model/ListingDashboard.php:361
 msgid "%s (%s)"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:563
+#: ../includes/model/ListingDashboard.php:564
 msgid "Renew"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:573
+#: ../includes/model/ListingDashboard.php:574
 msgid "Promote"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:582
+#: ../includes/model/ListingDashboard.php:583
 msgid "Delete Listing"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:180
+#: ../includes/model/ListingForm.php:142
 msgid "- Select an Option -"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:315
+#: ../includes/model/ListingForm.php:277
 msgid "No Title "
 msgstr ""
 
-#: ../includes/model/ListingForm.php:469
+#: ../includes/model/ListingForm.php:431
 msgid "I agree to the %Privacy & Policy%"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:476
+#: ../includes/model/ListingForm.php:438
 msgid "I agree with all %terms & conditions%"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:489, ../includes/model/ListingForm.php:509, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4011, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4018
+#: ../includes/model/ListingForm.php:451, ../includes/model/ListingForm.php:471, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4011, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4018
 msgid "Save & Preview"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:486
+#: ../includes/model/ListingForm.php:448
 msgid "Preview Changes"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:501, ../includes/model/SingleListing.php:927, ../includes/model/SingleListing.php:1165, ../includes/review/class-builder-screen.php:114
+#: ../includes/model/ListingForm.php:463, ../includes/model/SingleListing.php:943, ../includes/review/class-builder-screen.php:114
 msgid "Your Email"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:816
+#: ../includes/model/ListingForm.php:778
 msgid "You can drag the marker to your desired place to place a marker"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:817
+#: ../includes/model/ListingForm.php:779
 msgid "Geocode was not successful for the following reason: "
 msgstr ""
 
-#: ../includes/model/ListingForm.php:873
+#: ../includes/model/ListingForm.php:835
 msgid "Notice: Your given directory type is not valid. Please use a valid directory type"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:870
+#: ../includes/model/ListingForm.php:832
 msgid "There's something unexpected happen. Please contact site admin."
 msgstr ""
 
-#: ../includes/model/ListingForm.php:868
+#: ../includes/model/ListingForm.php:830
 msgid "Please add a directory type first %s"
 msgstr ""
 
-#: ../includes/model/Listings.php:429
+#: ../includes/model/Listings.php:427
 msgctxt "Listing grid review text"
 msgid "Review"
 msgid_plural "Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1119
+#: ../includes/model/Listings.php:1106
 msgid "No listing found."
 msgstr ""
 
-#: ../includes/model/Listings.php:1537
+#: ../includes/model/Listings.php:1524
 msgid "Posted %s ago"
 msgstr ""
 
-#: ../includes/model/Listings.php:1603
+#: ../includes/model/Listings.php:1590
 msgctxt "search result header"
 msgid "%s result"
 msgid_plural "%s results"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1600
+#: ../includes/model/Listings.php:1587
 msgctxt "search result header"
 msgid "%s result in %s"
 msgid_plural "%s results in %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1597
+#: ../includes/model/Listings.php:1584
 msgctxt "search result header"
 msgid "%s result for %s"
 msgid_plural "%s results for %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1594
+#: ../includes/model/Listings.php:1581
 msgctxt "search result header"
 msgid "%s result for %s in %s"
 msgid_plural "%s results for %s in %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/ListingTaxonomy.php:327
+#: ../includes/model/ListingTaxonomy.php:326
 msgid "<p>No Results found!</p>"
 msgstr ""
 
@@ -4853,22 +4853,22 @@ msgstr ""
 msgid "1 Star & Up"
 msgstr ""
 
-#: ../includes/model/SingleListing.php:905, ../includes/model/SingleListing.php:1160
+#: ../includes/model/SingleListing.php:915
 msgctxt "Number of reviews"
 msgid "Review"
 msgid_plural "Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/SingleListing.php:931, ../includes/model/SingleListing.php:1166
+#: ../includes/model/SingleListing.php:947
 msgid "example@gmail.com"
 msgstr ""
 
-#: ../includes/model/SingleListing.php:1096, ../includes/widgets/single-map.php:75
+#: ../includes/model/SingleListing.php:1056, ../includes/widgets/single-map.php:75
 msgid "No Title"
 msgstr ""
 
-#: ../includes/model/SingleListing.php:1109, ../templates/archive/fields/google-map.php:69, ../templates/archive/fields/openstreet-map.php:70
+#: ../includes/model/SingleListing.php:1069, ../templates/archive/fields/google-map.php:69, ../templates/archive/fields/openstreet-map.php:70
 msgid "Get Directions"
 msgstr ""
 

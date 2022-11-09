@@ -3,8 +3,8 @@
  * This class is kept to avoid PHP errors
  * on method calls.
  *
- * @author  wpWax
- * @since   7.0
+ * @since      7.0
+ * @deprecated 7.3.0
  */
 
 namespace Directorist;

@@ -5,7 +5,8 @@
 
 namespace Directorist;
 
-use \ATBDP_Permalink;
+use ATBDP_Permalink;
+use Directorist\database\DB;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -217,7 +218,7 @@ class Directorist_Listing_Dashboard {
 	public function fav_listing_items() {
 		$fav_listing_items = array();
 
-		$fav_listings = ATBDP()->user->current_user_fav_listings(); //@cache @kowsar
+		$fav_listings = DB::favorite_listings_query();
 
 		if ( $fav_listings->have_posts() ){
 			foreach ( $fav_listings->posts as $post ) {

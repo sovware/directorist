@@ -8,6 +8,45 @@
 
 use Directorist\Helper;
 
+function atbdp_get_shortcode_template_paths( $template_file ) {
+    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template()' );
+    $theme_template_file  = '/directorist/shortcodes/' . $template_file . '.php';
+    $theme_template_path  = get_stylesheet_directory() . $theme_template_file;
+    $plugin_template_path = Helper::template_directory() . 'public-templates/shortcodes/' . $template_file . '.php';
+
+    return [
+        'theme'  => $theme_template_path,
+        'plugin' => $plugin_template_path,
+    ];
+}
+
+function atbdp_get_shortcode_template( $template, $args = [] ) {
+    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template()' );
+
+    return Helper::get_template( $template, $args );
+}
+
+function atbdp_return_shortcode_template( $template, $args = [] ) {
+    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template_contents()' );
+
+    return Helper::get_template_contents( $template, $args );
+}
+
+function atbdp_return_widget_template( $template, $args = [] ) {
+    _deprecated_function( __FUNCTION__, '7.0' );
+    ob_start();
+    atbdp_get_widget_template( $template, $args );
+
+    return ob_get_clean();
+}
+
+function atbdp_get_shortcode_template_path( $template ) {
+    _deprecated_function( __FUNCTION__, '7.0' );
+    $template = 'shortcodes/' . $template;
+
+    return atbdp_get_template_path( $template );
+}
+
 function bdas_dropdown_terms($args = array(), $echo = true) {
 	_deprecated_function( __METHOD__, '7.3.1' );
 	return '';
@@ -61,41 +100,17 @@ if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
     }
 }
 
-function atbdp_get_shortcode_template_paths( $template_file ) {
-    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template()' );
-    $theme_template_file  = '/directorist/shortcodes/' . $template_file . '.php';
-    $theme_template_path  = get_stylesheet_directory() . $theme_template_file;
-    $plugin_template_path = Helper::template_directory() . 'public-templates/shortcodes/' . $template_file . '.php';
+if (!function_exists('get_atbdp_listings_ids')) {
+    function get_atbdp_listings_ids() {
+		_deprecated_function( __FUNCTION__, '7.4.3' );
+        $arg = array(
+            'post_type'      => 'at_biz_dir',
+            'posts_per_page' => -1,
+            'post_status'    => 'publish',
+            'fields'         => 'ids'
+        );
 
-    return [
-        'theme'  => $theme_template_path,
-        'plugin' => $plugin_template_path,
-    ];
-}
-
-function atbdp_get_shortcode_template( $template, $args = [] ) {
-    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template()' );
-
-    return Helper::get_template( $template, $args );
-}
-
-function atbdp_return_shortcode_template( $template, $args = [] ) {
-    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template_contents()' );
-
-    return Helper::get_template_contents( $template, $args );
-}
-
-function atbdp_return_widget_template( $template, $args = [] ) {
-    _deprecated_function( __FUNCTION__, '7.0' );
-    ob_start();
-    atbdp_get_widget_template( $template, $args );
-
-    return ob_get_clean();
-}
-
-function atbdp_get_shortcode_template_path( $template ) {
-    _deprecated_function( __FUNCTION__, '7.0' );
-    $template = 'shortcodes/' . $template;
-
-    return atbdp_get_template_path( $template );
+        $query = new \WP_Query( $arg );
+        return $query;
+    }
 }

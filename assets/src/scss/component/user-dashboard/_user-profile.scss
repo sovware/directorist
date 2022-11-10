@@ -46,7 +46,10 @@
 .directorist-user-info-wrap {
     .directorist-form-group {
         margin-bottom: 25px;
-
+        > label {
+            display: inline-flex;
+            margin-bottom: 5px;
+        }
         .directorist-input-extra-info {
             color: $light-gray;
             display: inline-block;

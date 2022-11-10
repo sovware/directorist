@@ -85,7 +85,6 @@ class Directorist_Listing_Taxonomy {
 		$this->depth      = ($type == 'category') ? get_directorist_option('categories_depth_number', 1) : get_directorist_option('locations_depth_number', 1);
 		$this->listing_types              = $this->get_listing_types();
 		$this->current_listing_type       = $this->get_current_listing_type();
-		//$this->taxonomy_from_directory_type();
 		$this->set_terms();
 
 
@@ -328,41 +327,14 @@ class Directorist_Listing_Taxonomy {
     	}
 	}
 
+	/**
+	 * Unused method
+	 *
+	 * @return string
+	 */
 	public function taxonomy_from_directory_type() {
-		if ( empty( $this->directory_type ) ) {
-			return;
-		}
-		$listings = new \WP_Query( array(
-			'post_type'     => ATBDP_POST_TYPE,
-			'posts_per_page'=> -1,
-			'post_status'    => 'public',
-			'tax_query'     => array(
-				array(
-					'taxonomy'         => ATBDP_DIRECTORY_TYPE,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->directory_type ) ? $this->directory_type : array(),
-				),
-			)
-
-		) );
-
-		$slug = [];
-		if( $listings->have_posts() ) {
-			while( $listings->have_posts() ) : $listings->the_post();
-			global $post;
-			$terms  = get_the_terms( $post->id, $this->tax );
-			if( $terms ) {
-				foreach( $terms as $term ) {
-					$slug[] = $term->slug;
-				}
-			}
-			endwhile;
-			wp_reset_postdata();
-		}
-		$this->slug = ( $slug ) ? implode( ',', $slug ) : ' ';
-
-		return $slug;
-
+		_deprecated_function( __METHOD__, '7.4.3' );
+		return '';
 	}
 
 	public function get_listing_types() {

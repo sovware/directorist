@@ -1,7 +1,6 @@
 <?php
-// Prohibit direct script loading.
-
 use Directorist\Helper;
+use Directorist\database\DB;
 
 defined('ABSPATH') || die('No direct script access allowed!');
 
@@ -551,48 +550,16 @@ if (!function_exists('aazztech_enc_unserialize')) {
     }
 }
 
-
+/**
+ * Unused function
+ *
+ * @return object WP_Query
+ */
 if (!function_exists('atbd_get_related_posts')) {
     // get related post based on tags or categories
-    function atbd_get_related_posts()
-    {
-        global $post;
-        // get all tags assigned to current post
-        $tags = wp_get_post_tags($post->ID);
-        $args = array();
-        // set args to get related posts based on tags
-        if (!empty($tags)) {
-            $tag_ids = array();
-            foreach ($tags as $tag) $tag_ids[] = $tag->term_id;
-            $args = array(
-                'tag__in' => $tag_ids,
-                'post__not_in' => array($post->ID),
-                'ignore_sticky_posts' => true,
-                'posts_per_page' => 5,
-                'orderby' => 'rand',
-            );
-        } else {
-            // get all cats assigned to current post
-            $cats = get_the_category($post->ID);
-            // set the args to get all related posts based on category.
-            if ($cats) {
-                $cat_ids = array();
-                foreach ($cats as $cat) $cat_ids[] = $cat->term_id;
-                $args = array(
-                    'category__in' => $cat_ids,
-                    'post__not_in' => array($post->ID),
-                    'ignore_sticky_posts' => true,
-                    'posts_per_page' => 5,
-                    'orderby' => 'rand',
-                );
-            }
-        }
-        if (!empty($args)) {
-            // build the markup and return
-            return new WP_Query($args);
-
-        }
-        return null;
+    function atbd_get_related_posts() {
+		_deprecated_function( __FUNCTION__, '7.4.3' );
+		return new WP_Query();
     }
 }
 
@@ -1252,9 +1219,8 @@ function atbdp_listings_count_by_category( $term_id, $lisitng_type = '' )
         );
     }
 
-    $total_categories = ATBDP_Listings_Data_Store::get_listings( $args );
-
-    return count( $total_categories );
+	$query = new WP_Query( $args );
+    return count( $query->posts );
 }
 
 /**
@@ -1326,8 +1292,7 @@ function atbdp_list_categories($settings)
  * @since    4.0.0
  *
  */
-function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' )
-{
+function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' ) {
     $args = array(
         'fields' => 'ids',
         'posts_per_page' => -1,
@@ -1361,8 +1326,9 @@ function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' )
         );
     }
 
-    $total_location = ATBDP_Listings_Data_Store::get_listings( $args );
-    return count( $total_location );
+	$query = new WP_Query( $args );
+	$count = count( $query->posts );
+    return $count;
 }
 
 /**
@@ -1466,8 +1432,9 @@ function atbdp_listings_count_by_tag($term_id)
         ))
     );
 
-    return count(get_posts($args));
-
+	$query = new WP_Query( $args );
+	$count = count( $query->posts );
+    return $count;
 }
 
 /**
@@ -2137,25 +2104,6 @@ function get_advance_search_result_page_link()
 
 /**
  * @return Wp_Query
- * @since 1.0.0
- */
-if (!function_exists('get_atbdp_listings_ids')) {
-    function get_atbdp_listings_ids()
-    {
-        $arg = array(
-            'post_type'      => 'at_biz_dir',
-            'posts_per_page' => -1,
-            'post_status'    => 'publish',
-            'fields'         => 'ids'
-        );
-
-        $query = new WP_Query( $arg );
-        return $query;
-    }
-}
-
-/**
- * @return Wp_Query
  * @since 4.7.7
  */
 if (!function_exists('atbdp_get_expired_listings')) {
@@ -2303,42 +2251,15 @@ function send_review_for_approval($data)
 }
 
 /**
+ * Check is user already submitted review for this listing
+ *
  * @since 5.7.1
- * check is user already submitted review for this listing
+ * @return bool
  */
 if (!function_exists('tract_duplicate_review')) {
-    function tract_duplicate_review($reviewer, $listing)
-    {
-        $args = [
-            'post_type' => 'atbdp_listing_review',
-            'posts_per_page' => -1,
-            'post_status' => 'publish',
-            'meta_query' => array(
-                'relation' => 'AND',
-                array(
-                    'key' => '_listing_reviewer',
-                    'value' => $reviewer,
-                ),
-                array(
-                    'key' => '_review_listing',
-                    'value' => $listing,
-                ),
-                array(
-                    'key' => '_review_status',
-                    'value' => 'pending',
-                )
-            )
-        ];
-
-
-        $reviews = new WP_Query( $args );
-
-        $review_meta = array();
-        foreach ($reviews->posts as $key => $val) {
-            $review_meta[] = !empty($val) ? $val : array();
-        }
-
-        return ( $review_meta ) ? $review_meta : false;
+    function tract_duplicate_review($reviewer, $listing) {
+		_deprecated_function( __FUNCTION__, '7.4.3' );
+		return false;
     }
 }
 
@@ -3437,7 +3358,6 @@ function directorist_has_no_listing() {
 		'post_type'      => ATBDP_POST_TYPE,
 		'posts_per_page' => 1,
 		'no_found_rows'  => true,
-		'cache_results'  => false
 	]);
 
 	$has_no_listing = empty( $listings->posts );

@@ -483,7 +483,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		{
 			$userdata = array();
 			// we need to sanitize the data and then save it.
-			$ID = !empty($data['ID']) ? absint($data['ID']) : get_current_user_id();
+			$ID = get_current_user_id();
 			$userdata['ID'] = $ID;
 			$userdata['display_name'] = !empty($data['full_name']) ? sanitize_text_field(trim($data['full_name'])) : '';
 			$userdata['user_email'] = !empty($data['user_email']) ? sanitize_email($data['user_email'] ): '';

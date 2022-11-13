@@ -826,6 +826,13 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 */
 		public function update_user_profile() {
 
+			$user_id = get_current_user_id();
+
+			// Make sure current user have appropriate permission
+			if ( ! current_user_can( 'edit_user', $user_id ) ) {
+				wp_send_json_error( array( 'message' => __( 'You are not allowed to perform this operation', 'directorist' ) ) );
+			}
+
 			if ( ! directorist_verify_nonce() ) {
 				wp_send_json_error( array( 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ) );
 			}
@@ -833,7 +840,6 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			// process the data and the return a success
 			if ( ! empty( $_POST['user'] ) ) {
 
-				$user_id = ! empty( $_POST['user']['ID'] ) ? absint( $_POST['user']['ID'] ) : get_current_user_id();
 				if ( ! empty( $_POST['profile_picture_meta'] ) && count( $_POST['profile_picture_meta'] ) ) {
 					$meta_data = ( ! empty( $_POST['profile_picture_meta'][0] ) ) ? directorist_clean( wp_unslash( $_POST['profile_picture_meta'][0] ) ) : [];
 

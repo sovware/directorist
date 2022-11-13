@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-24 01:08+0000\n"
+"POT-Creation-Date: 2022-11-13 05:46+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -667,7 +667,7 @@ msgstr ""
 msgid "Every %d minutes"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:78, ../includes/classes/class-ajax-handler.php:222, ../includes/classes/class-ajax-handler.php:1153, ../includes/classes/class-ajax-handler.php:1366, ../includes/classes/class-settings-panel.php:373, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:235, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:315, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:437
+#: ../includes/classes/class-add-listing.php:78, ../includes/classes/class-ajax-handler.php:222, ../includes/classes/class-ajax-handler.php:1159, ../includes/classes/class-ajax-handler.php:1372, ../includes/classes/class-settings-panel.php:373, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:235, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:315, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:437
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
@@ -756,59 +756,63 @@ msgstr ""
 msgid "Invalid directory type!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:830, ../includes/classes/class-ajax-handler.php:856, ../includes/classes/class-ajax-handler.php:860
+#: ../includes/classes/class-ajax-handler.php:833
+msgid "You are not allowed to perform this operation"
+msgstr ""
+
+#: ../includes/classes/class-ajax-handler.php:837, ../includes/classes/class-ajax-handler.php:862, ../includes/classes/class-ajax-handler.php:866
 msgid "Ops! something went wrong. Try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:853
+#: ../includes/classes/class-ajax-handler.php:859
 msgid "Profile updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:951, ../includes/classes/class-ajax-handler.php:1024, ../includes/review/class-email.php:77, ../includes/review/class-email.php:123
+#: ../includes/classes/class-ajax-handler.php:957, ../includes/classes/class-ajax-handler.php:1030, ../includes/review/class-email.php:77, ../includes/review/class-email.php:123
 msgid "[{site_name}] New review at \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:954
+#: ../includes/classes/class-ajax-handler.php:960
 msgid "Dear User,<br /><br />A new review at {listing_url}.<br /><br />"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1027
+#: ../includes/classes/class-ajax-handler.php:1033
 msgid "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1133, ../includes/rest-api/Version1/class-listings-actions-controller.php:235
+#: ../includes/classes/class-ajax-handler.php:1139, ../includes/rest-api/Version1/class-listings-actions-controller.php:235
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1136, ../includes/rest-api/Version1/class-listings-actions-controller.php:238
+#: ../includes/classes/class-ajax-handler.php:1142, ../includes/rest-api/Version1/class-listings-actions-controller.php:238
 msgid "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1163
+#: ../includes/classes/class-ajax-handler.php:1169
 msgid "Trying to report invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1170
+#: ../includes/classes/class-ajax-handler.php:1176
 msgid "Report message cannot be empty."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1178, ../includes/classes/class-ajax-handler.php:1403, ../includes/classes/class-ajax-handler.php:1411
+#: ../includes/classes/class-ajax-handler.php:1184, ../includes/classes/class-ajax-handler.php:1409, ../includes/classes/class-ajax-handler.php:1417
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1183, ../includes/classes/class-ajax-handler.php:1416
+#: ../includes/classes/class-ajax-handler.php:1189, ../includes/classes/class-ajax-handler.php:1422
 msgid "Your message sent successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1319
+#: ../includes/classes/class-ajax-handler.php:1325
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1321
+#: ../includes/classes/class-ajax-handler.php:1327
 msgid "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1387, ../includes/classes/class-ajax-handler.php:1394
+#: ../includes/classes/class-ajax-handler.php:1393, ../includes/classes/class-ajax-handler.php:1400
 msgid "Sorry! Something wrong."
 msgstr ""
 

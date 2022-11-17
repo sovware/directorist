@@ -70,7 +70,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function build_content_data() {
-		$content_data = array();
+		$content_data           = array();
 		$single_fields          = get_term_meta( $this->type, 'single_listings_contents', true );
 		$submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
 
@@ -79,6 +79,11 @@ class Directorist_Single_Listing {
 			foreach ( $single_fields['fields'] as $key => $value ) {
 
 				if ( ! is_array( $value ) ) {
+					continue;
+				}
+
+				// If 'other_widgets', then no need to set values from submission form fields
+				if ( $value['widget_group'] === 'other_widgets' ) {
 					continue;
 				}
 

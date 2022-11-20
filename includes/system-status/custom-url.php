@@ -43,6 +43,10 @@ class ATBDP_Custom_Url
 			wp_send_json_error( __( 'Invalid request', 'directorist' ),  400 );
 		}
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You are not allowed to revoke secret url', 'directorist' ),  403 );
+		}
+
 		delete_transient( 'system_info_remote_token' );
 		wp_send_json_success( __( 'Secret URL has been revoked.', 'directorist' ) );
     }

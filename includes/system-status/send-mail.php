@@ -9,16 +9,17 @@ class ATBDP_Send_Mail {
     }
 
     public function send_system_info() {
-        if ( isset( $_POST['_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), '_debugger_email_nonce' ) ) {
-            die( 'huh!' );
-        }
-		$user = wp_get_current_user();
-        $email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
-        $sender_email = isset( $_POST['sender_email'] ) ? sanitize_email( wp_unslash( $_POST['sender_email'] ) ) : '';
-		$subject = isset( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
+        if ( ! directorist_verify_nonce( '_nonce', '_debugger_email_nonce' ) ) {
+			wp_send_json_error( __( 'Invalid request', 'directorist' ), 400);
+		}
+
+		$user            = wp_get_current_user();
+		$email           = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+		$sender_email    = isset( $_POST['sender_email'] ) ? sanitize_email( wp_unslash( $_POST['sender_email'] ) ) : '';
+		$subject         = isset( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
 		$system_info_url = isset( $_POST['system_info_url'] ) ? sanitize_text_field( wp_unslash( $_POST['system_info_url'] ) )  : '';
-		$to = ! empty( $email ) ? $email : '';
-		$message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
+		$message         = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
+
 		if( ! empty( $system_info_url ) ) {
             $message .= '<div><a href="' . $system_info_url . '">';
             $message .=   $system_info_url;
@@ -29,7 +30,7 @@ class ATBDP_Send_Mail {
 		$headers .= "Reply-To: {$sender_email}\r\n";
 
 		// return true or false, based on the result
-		$send_email = ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
+		$send_email = ATBDP()->email->send_mail( $email, $subject, $message, $headers ) ? true : false;
 
 		if ( $send_email ) {
 			wp_send_json_success();
@@ -93,6 +94,6 @@ class ATBDP_Send_Mail {
         </div>
 		<?php
 		do_action( 'atbdp_tools_email_system_info_after' );
-    
+
     }
 }

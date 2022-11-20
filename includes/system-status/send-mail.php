@@ -10,7 +10,11 @@ class ATBDP_Send_Mail {
 
     public function send_system_info() {
         if ( ! directorist_verify_nonce( '_nonce', '_debugger_email_nonce' ) ) {
-			wp_send_json_error( __( 'Invalid request', 'directorist' ), 400);
+			wp_send_json_error( __( 'Invalid request', 'directorist' ), 400 );
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You are not allowed to send debug info email', 'directorist' ), 403 );
 		}
 
 		$user            = wp_get_current_user();

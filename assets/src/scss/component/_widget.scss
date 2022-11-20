@@ -257,6 +257,7 @@
       float: none;
 
       >li {
+        align-items: flex-start;
         padding: 15px 0;
         list-style-type: none !important;
 
@@ -292,7 +293,7 @@
         }
 
         .atbd_right_content {
-          width: calc(100% - 75px);
+          width: calc(100% - 80px);
           display: inline-block;
           vertical-align: top;
 
@@ -322,10 +323,61 @@
               list-style: none !important;
             }
           }
+
+          .directorist-listing-category {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            a{
+              display: inline-flex;
+              align-items: flex-start;
+              line-height: 25px;
+              word-break: break-word;
+              .directorist-icon-mask {
+                width: unset;
+                height: unset;
+                background: transparent;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 10px;
+                position: relative;
+                top: 5px;
+                &:after {
+                  background-color: #51526E;
+                  width: 15px;
+                  height: 15px;
+                }
+              }
+            }
+            .directorist-listing-category__popup {
+              position: relative;
+              width: 150px;
+              margin-left: 5px;
+              cursor: pointer;
+              .directorist-listing-category__popup__content {
+                a {
+                  line-height: 1;
+                  margin-bottom: 10px;
+                  &:last-child {
+                    margin-bottom: 0;
+                  }
+                  i {
+                    width: unset;
+                    min-width: unset;
+                    height: unset;
+                    top: 0;
+                    margin: 0 10px 0 0;
+                  }
+                }
+              }
+            }
+          }
         }
 
         .atbd_left_img+.atbd_right_content {
-          padding-left: 5px;
+          padding-left: 10px;
+          margin-top: -5px;
         }
       }
     }

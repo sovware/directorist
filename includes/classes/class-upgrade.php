@@ -28,16 +28,29 @@ class ATBDP_Upgrade
 		add_action( 'admin_notices', array( $this, 'bfcm_notice') );
 	}
 
-	public function promo_banner(){
+	public function is_pro_user() {
 		$plugin = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
 		$theme  = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
-		if( ! $plugin && ! $theme ) {
+
+		if( $plugin || $theme ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function promo_banner(){
+		if( ! self::is_pro_user() ) {
 			ATBDP()->load_template( 'admin-templates/admin-promo-banner' );
 		}
 	}
 
 	public function bfcm_notice() {
 		if ( !current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		if( ! self::is_pro_user() ) {
 			return;
 		}
 

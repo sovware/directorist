@@ -7,7 +7,7 @@
 
 $response_body       = ATBDP_Upgrade::promo_remote_get();
 $display_promo       = ! empty( $response_body->display_promo ) ? $response_body->display_promo : '';
-$promo_version       = ! empty( $response_body->promo_version ) ? $response_body->promo_version : 'sdas';
+$promo_version       = ! empty( $response_body->promo_version ) ? $response_body->promo_version : '';
 $directorist_promo_closed = get_user_meta( get_current_user_id(), '_directorist_promo_closed', true );
 
 if( ! $display_promo || ( $directorist_promo_closed && ( $directorist_promo_closed == $promo_version ) ) ) {

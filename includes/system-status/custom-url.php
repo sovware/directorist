@@ -100,9 +100,7 @@ class ATBDP_Custom_Url
 						<form action="#">
 							<div class="atbds_form-row">
 								<input type="url" id="system-info-url" onclick="this.focus();this.select()" value="<?php echo esc_url( $url ); ?>">
-								<?php if ( ! empty( $url ) ) : ?>
 								<a class="button-secondary" href="<?php echo esc_url( $url ? $url : '#' ); ?>" target="_blank" id="system-info-url-text-link" style="display: <?php echo $url ? 'display-inline' : 'none'; ?>"><?php esc_html_e( 'View', 'directorist' ); ?></a>
-								<?php endif; ?>
 							</div>
 							<div class="atbds_form-row">
 								<div class="atbds_buttonGroup">

@@ -52,14 +52,14 @@ class ATBDP_Custom_Url
 
     public function view_debug_info() {
 		if ( empty( $_GET['directorist_debug_token'] ) ) {
-			wp_die( esc_html__( 'Sorry, you forgot something!', 'directorist' ) );
+			return;
 		}
 
 		$debug_token = sanitize_text_field( wp_unslash( $_GET['directorist_debug_token'] ) );
 		$stored_debug_token = get_transient( 'system_info_remote_token' );
 
 		if ( wp_hash( $stored_debug_token, 'nonce' ) !== $debug_token ) {
-			wp_die( esc_html__( 'Edison tried 1000 times, what is stopping you?', 'directorist' ) );
+			wp_die( esc_html__( 'Time is precious. Please ask the admin for system information.', 'directorist' ) );
 		}
 
 		/** WordPress Plugin Administration API */

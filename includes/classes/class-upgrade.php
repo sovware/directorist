@@ -50,7 +50,7 @@ class ATBDP_Upgrade
 			return;
 		}
 
-		if( ! self::is_pro_user() ) {
+		if( self::is_pro_user() ) {
 			return;
 		}
 

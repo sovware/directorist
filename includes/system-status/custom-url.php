@@ -19,15 +19,12 @@ class ATBDP_Custom_Url
 			wp_send_json_error( __( 'You are not allowed to create secret url', 'directorist' ),  403 );
 		}
 
-		$token   = wp_rand();
-		$expires = apply_filters( 'atbdp_system_info_remote_token_expire', DAY_IN_SECONDS * 3 );
+		$token = wp_rand();
 
-		set_transient( 'system_info_remote_token', $token, $expires );
+		set_transient( 'system_info_remote_token', $token, DAY_IN_SECONDS * 3 );
 
 		$url = add_query_arg( array(
-			'directorist_debug'       => 1,
-			'directorist_debug_token' => $token,
-			'directorist_debug_nonce' => wp_create_nonce( 'directorist_get_debug_info' ),
+			'directorist_debug_token' => wp_hash( $token, 'nonce' ),
 		), home_url( '/' ) );
 
 		wp_send_json_success(
@@ -52,18 +49,15 @@ class ATBDP_Custom_Url
     }
 
     public function view_debug_info() {
-		if ( empty( $_GET['directorist_debug'] ) ) {
-			return;
+		$debug_token = sanitize_text_field( wp_unslash( $_GET['directorist_debug_token'] ) );
+
+		if ( empty( $debug_token ) ) {
+			wp_die( __( 'Sorry, you forgot something!', 'directorist' ) );
 		}
 
-		if ( ! directorist_verify_nonce( 'directorist_debug_nonce', 'directorist_get_debug_info' ) ) {
-			wp_die( __( 'Invalid request', 'directorist' ) );
-		}
-
-		$debug_token        = sanitize_text_field( wp_unslash( $_GET['directorist_debug_token'] ) );
 		$stored_debug_token = get_transient( 'system_info_remote_token' );
 
-		if ( $stored_debug_token !== $debug_token ) {
+		if ( wp_hash( $stored_debug_token, 'nonce' ) !== $debug_token ) {
 			wp_die( __( 'Edison tried 1000 times, what is stopping you?', 'directorist' ) );
 		}
 

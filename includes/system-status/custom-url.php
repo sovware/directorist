@@ -23,17 +23,19 @@ class ATBDP_Custom_Url
 
 		set_transient( 'system_info_remote_token', $token, DAY_IN_SECONDS * 3 );
 
-		$url = add_query_arg( array(
-			'directorist_debug_token' => wp_hash( $token, 'nonce' ),
-		), home_url( '/' ) );
-
 		wp_send_json_success(
 			array(
-				'url'     => $url,
+				'url'     => $this->get_token_url( $token ),
 				'message' => __( 'Secret URL has been created.', 'directorist' ),
 			)
 		);
     }
+
+	public function get_token_url( $token ) {
+		return add_query_arg( array(
+			'directorist_debug_token' => wp_hash( $token, 'nonce' ),
+		), home_url( '/' ) );
+	}
 
     public function revoke_url() {
 		if ( ! directorist_verify_nonce( '_nonce', '_revoke_custom_url' ) ) {
@@ -80,8 +82,11 @@ class ATBDP_Custom_Url
 	}
 
     public function custom_link() {
-		$token = get_transient( 'system_info_remote_token' );
-		$url   = $token ? home_url() . '/?atbdp-system-info=' . $token : '';
+		$url = '';
+		if ( get_transient( 'system_info_remote_token' ) ) {
+			$url = $this->get_token_url( get_transient( 'system_info_remote_token' ) );
+		}
+
 		?>
 		<div class="card atbds_card">
 			<div class="card-head">
@@ -95,10 +100,10 @@ class ATBDP_Custom_Url
 						<p><?php esc_html_e( 'This secret URL expires after 72 hours, but you can revoke it anytime.', 'directorist' ); ?></p>
 						<form action="#">
 							<div class="atbds_form-row">
-								<input type="url" id="system-info-url" onclick="this.focus();this.select()" value="<?php echo esc_url( $url ? $url : '' ); ?>">
-								<a class="button-secondary" href="<?php echo esc_url( $url ? $url : '#' ); ?>" target="_blank"
-												id="system-info-url-text-link" style="display: <?php echo $url ? 'display-inline' : 'none'; ?>"><?php esc_html_e( 'View', 'directorist' ); ?></a>
-
+								<input type="url" id="system-info-url" onclick="this.focus();this.select()" value="<?php echo esc_url( $url ); ?>">
+								<?php if ( ! empty( $url ) ) : ?>
+								<a class="button-secondary" href="<?php echo esc_url( $url ? $url : '#' ); ?>" target="_blank" id="system-info-url-text-link" style="display: <?php echo $url ? 'display-inline' : 'none'; ?>"><?php esc_html_e( 'View', 'directorist' ); ?></a>
+								<?php endif; ?>
 							</div>
 							<div class="atbds_form-row">
 								<div class="atbds_buttonGroup">

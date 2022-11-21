@@ -4928,11 +4928,11 @@ class Multi_Directory_Manager
     public function handle_delete_listing_type_request()
     {
         if ( ! directorist_verify_nonce( '_wpnonce', 'delete_listing_type' ) ) {
-            wp_die( __( 'Invalid request', 'directorist' ) );
+            wp_die( esc_html__( 'Invalid request', 'directorist' ) );
         }
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( __( 'You are not allowed to delete directory type', 'directorist' ) );
+            wp_die( esc_html__( 'You are not allowed to delete directory type', 'directorist' ) );
         }
 
         $term_id = isset( $_REQUEST['listing_type_id'] ) ? absint( $_REQUEST['listing_type_id'] ) : 0;

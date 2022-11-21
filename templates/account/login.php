@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.3.1
+ * @version 7.4.4
  */
 
 use \Directorist\Helper;
@@ -187,7 +187,7 @@ use \Directorist\Helper;
 									if ( $mail ) {
 										$success = __( 'A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox.', 'directorist' );
 									} else {
-										$error = __( 'Password updated! But something went wrong sending email.', 'directorist' );
+										$error = __( 'Something went wrong, unable to send the password reset email. If the issue persists please contact with the site administrator.', 'directorist' );
 									}
 								} else {
 									$error = __( 'Oops something went wrong updating your account.', 'directorist' );

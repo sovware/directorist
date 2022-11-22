@@ -353,8 +353,7 @@ $(document).ready(function () {
   $('#listing_t_c').on('click', function (e) {
     e.preventDefault();
     $('#tc_container').toggleClass('active');
-  });
-  $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>'); // Load custom fields of the selected category in the custom post type "atbdp_listings"
+  }); // Load custom fields of the selected category in the custom post type "atbdp_listings"
 
   var qs = function (a) {
     if (a == '') return {};
@@ -368,7 +367,7 @@ $(document).ready(function () {
     return b;
   }(window.location.search.substr(1).split('&'));
 
-  $('#at_biz_dir-categories').on('change', function () {
+  function render_category_based_fields() {
     var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
     var length = $('#at_biz_dir-categories option:selected');
     var id = [];
@@ -407,41 +406,15 @@ $(document).ready(function () {
         $('.atbdp_category_custom_fields').empty();
       }
     });
-  }); // Load custom fields of the selected category in the custom post type "atbdp_listings"
+  } // Create container div after category
 
-  var directory_type = qs.listing_type ? qs.listing_type : $('input[name="directory_type"]').val();
-  var length = $('#at_biz_dir-categories option:selected');
-  var id = [];
-  length.each(function (el, index) {
-    id.push($(index).val());
-  });
-  var data = {
-    action: 'atbdp_custom_fields_listings',
-    post_id: $('input[name="listing_id"]').val(),
-    term_id: id,
-    directory_type: directory_type
-  };
-  $.post(localized_data.ajaxurl, data, function (response) {
-    if (response) {
-      $('.atbdp_category_custom_fields').empty().append(response);
 
-      function atbdp_tooltip() {
-        var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
-        atbd_tooltip.forEach(function (el) {
-          if (el.getAttribute('aria-label') !== " ") {
-            document.body.addEventListener('mouseover', function (e) {
-              for (var target = e.target; target && target != this; target = target.parentNode) {
-                if (target.matches('.atbd_tooltip')) {
-                  el.classList.add('atbd_tooltip_active');
-                }
-              }
-            }, false);
-          }
-        });
-      }
+  $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>'); // Render category based fields in first load
 
-      atbdp_tooltip();
-    }
+  render_category_based_fields(); // Render category based fields on category change
+
+  $('#at_biz_dir-categories').on('change', function () {
+    render_category_based_fields();
   });
 
   function scrollToEl(selector) {

@@ -72,7 +72,7 @@ class ATBDP_Upgrade
 			atbdp_get_current_url()
 		);
 
-		$notice = '<div class="notice notice-info is-dismissible"><p style="font-size: 16px;">' . $text . '</p><a href="'.esc_url( $dismiss_url ).'" class="notice-dismiss" style="text-decoration: none;"><span class="screen-reader-text">Dismiss this notice.</span></a></div>';
+		$notice = '<div class="notice notice-info is-dismissible"><p style="font-size: 16px;">' . $text . '</p><a href="'.esc_url( $dismiss_url ).'" class="notice-dismiss" style="text-decoration: none;"><span class="screen-reader-text">'. __( 'Dismiss this notice.', 'directorist' ) .'</span></a></div>';
 
 		echo wp_kses_post( $notice );
 	}

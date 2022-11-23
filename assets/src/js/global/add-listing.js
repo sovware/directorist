@@ -282,7 +282,11 @@ $(document).ready(function () {
 
         $.post(localized_data.ajaxurl, data, function (response) {
             if (response) {
-                $('.atbdp_category_custom_fields').empty().append(response);
+                $('.atbdp_category_custom_fields').empty();
+                $.each(response, function( id, content ) {
+                    $('.atbdp_category_custom_fields').append(content);
+                });
+
                 customFieldSeeMore();
             } else {
                 $('.atbdp_category_custom_fields').empty();

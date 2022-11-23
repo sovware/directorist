@@ -461,7 +461,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$post_id      = ! empty( $_POST['post_id'] ) ? sanitize_text_field( wp_unslash( $_POST['post_id'] ) ) : '';
 
 			// wp_send_json($post_id);
-			$template               = '';
+			$result               = array();
 			$submission_form_fields = array();
 
 			if ( is_string( $listing_type ) && ! is_numeric( $listing_type ) ) {
@@ -481,11 +481,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					if ( in_array( $category, $categories ) ) {
 						ob_start();
 						\Directorist\Directorist_Listing_Form::instance()->add_listing_category_custom_field_template( $value, $post_id );
-						$template .= ob_get_clean();
+						$result[$key]= ob_get_clean();
 					}
 				}
 			}
-			wp_send_json( $template );
+
+			$result = !empty( $result ) ? $result : '';
+
+			wp_send_json( $result );
 		}
 
 		// guest_reception

@@ -459,7 +459,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$listing_type = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_type'] ) ) : '';
 			$categories   = ! empty( $_POST['term_id'] ) ? directorist_clean( wp_unslash( $_POST['term_id'] ) ) : array();
 			$post_id      = ! empty( $_POST['post_id'] ) ? sanitize_text_field( wp_unslash( $_POST['post_id'] ) ) : '';
-			$listing_type = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_type'] ) ) : '';
+
 			// wp_send_json($post_id);
 			$template               = '';
 			$submission_form_fields = array();

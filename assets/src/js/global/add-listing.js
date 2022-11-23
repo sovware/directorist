@@ -265,7 +265,7 @@ $(document).ready(function () {
     })(window.location.search.substr(1).split('&'));
 
     function render_category_based_fields() {
-        var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
+        var directory_type = $('input[name="directory_type"]').val();
         const length = $('#at_biz_dir-categories option:selected');
         const id = [];
         length.each((el, index) => {
@@ -283,22 +283,6 @@ $(document).ready(function () {
         $.post(localized_data.ajaxurl, data, function (response) {
             if (response) {
                 $('.atbdp_category_custom_fields').empty().append(response);
-
-                function atbdp_tooltip() {
-                    var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
-                    atbd_tooltip.forEach(function (el) {
-                        if (el.getAttribute('aria-label') !== " ") {
-                            document.body.addEventListener('mouseover', function (e) {
-                                for (var target = e.target; target && target != this; target = target.parentNode) {
-                                    if (target.matches('.atbd_tooltip')) {
-                                        el.classList.add('atbd_tooltip_active');
-                                    }
-                                }
-                            }, false);
-                        }
-                    });
-                }
-                atbdp_tooltip();
                 customFieldSeeMore();
             } else {
                 $('.atbdp_category_custom_fields').empty();

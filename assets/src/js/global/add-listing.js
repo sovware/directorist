@@ -300,9 +300,33 @@ $(document).ready(function () {
     // Render category based fields in first load
     render_category_based_fields();
 
+    /* Store custom fields data */
+    let formData = [];
+    function storeCustomFieldsData(){
+        let customFields = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-element');
+        let newArr = [];
+        if(customFields.length){
+            customFields.forEach(elm=>{
+                let elmValue = elm.value;
+                let elmId = elm.getAttribute('id');
+                newArr.push({"id": elmId, "value": elmValue});
+                formData = [...newArr];
+            })
+        }
+        formData.forEach(item =>{
+            setTimeout(() => {
+                let fieldSingle = document.getElementById(`${item.id}`);
+                if(fieldSingle !== null){
+                    fieldSingle.value = item.value;
+                }
+            }, 1000);
+        })
+    }
+
     // Render category based fields on category change
     $('#at_biz_dir-categories').on('change', function () {
         render_category_based_fields();
+        storeCustomFieldsData();
     });
 
     function scrollToEl(selector) {

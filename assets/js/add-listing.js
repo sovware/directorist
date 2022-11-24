@@ -385,7 +385,6 @@ $(document).ready(function () {
       if (response) {
         $('.atbdp_category_custom_fields').empty();
         $.each(response, function (id, content) {
-          console.log(id);
           $('.atbdp_category_custom_fields').append(content);
         });
         customFieldSeeMore();
@@ -398,10 +397,42 @@ $(document).ready(function () {
 
   $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>'); // Render category based fields in first load
 
-  render_category_based_fields(); // Render category based fields on category change
+  render_category_based_fields();
+  /* Store custom fields data */
+
+  var formData = [];
+
+  function storeCustomFieldsData() {
+    var customFields = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-element');
+    var newArr = [];
+
+    if (customFields.length) {
+      customFields.forEach(function (elm) {
+        var elmValue = elm.value;
+        var elmId = elm.getAttribute('id');
+        newArr.push({
+          "id": elmId,
+          "value": elmValue
+        });
+        formData = [].concat(newArr);
+      });
+    }
+
+    formData.forEach(function (item) {
+      setTimeout(function () {
+        var fieldSingle = document.getElementById("".concat(item.id));
+
+        if (fieldSingle !== null) {
+          fieldSingle.value = item.value;
+        }
+      }, 1000);
+    });
+  } // Render category based fields on category change
+
 
   $('#at_biz_dir-categories').on('change', function () {
     render_category_based_fields();
+    storeCustomFieldsData();
   });
 
   function scrollToEl(selector) {

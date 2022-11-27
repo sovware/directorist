@@ -159,6 +159,66 @@
 
 /***/ }),
 
+/***/ "./assets/src/js/public/components/login.js":
+/*!**************************************************!*\
+  !*** ./assets/src/js/public/components/login.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  window.addEventListener('DOMContentLoaded', function () {
+    // Perform AJAX login on form submit
+    $('form#login').on('submit', function (e) {
+      e.preventDefault();
+      $('p.status').show().html(directorist.loading_message);
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: directorist.ajax_url,
+        data: {
+          'action': 'ajaxlogin',
+          //calls wp_ajax_nopriv_ajaxlogin
+          'username': $('form#login #username').val(),
+          'password': $('form#login #password').val(),
+          'rememberme': $('form#login #keep_signed_in').is(':checked') ? 1 : 0,
+          'security': $('#security').val()
+        },
+        success: function success(data) {
+          if ('nonce_faild' in data && data.nonce_faild) {
+            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+          }
+
+          if (data.loggedin == true) {
+            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            document.location.href = directorist.redirect_url;
+          } else {
+            $('p.status').html('<span class="status-failed">' + data.message + '</span>');
+          }
+        },
+        error: function error(data) {
+          if ('nonce_faild' in data && data.nonce_faild) {
+            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+          }
+
+          $('p.status').show().html('<span class="status-failed">' + directorist.login_error_message + '</span>');
+        }
+      });
+      e.preventDefault();
+    }); // Alert users to login (only if applicable)
+
+    $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
+      e.preventDefault();
+      alert(directorist.login_alert_message);
+      return false;
+    });
+  });
+})(jQuery);
+
+/***/ }),
+
 /***/ "./assets/src/js/public/modules/account.js":
 /*!*************************************************!*\
   !*** ./assets/src/js/public/modules/account.js ***!
@@ -170,9 +230,12 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
 /* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
-/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/login */ "./assets/src/js/public/components/login.js");
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_2__);
 // General Components
+
 
 
 

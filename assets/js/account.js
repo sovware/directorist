@@ -211,6 +211,7 @@
 
     $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
       e.preventDefault();
+      e.stopImmediatePropagation();
       alert(directorist.login_alert_message);
       return false;
     });

@@ -524,12 +524,12 @@ window.addEventListener('DOMContentLoaded', function () {
   );
   return $elem;
   }
-   $("#category_icon").select2({
+    $("#category_icon").select2({
   placeholder: directorist_admin.i18n_text.icon_choose_text,
   allowClear: true,
   templateResult: selecWithIcon,
   });
-   /* Show and hide manual coordinate input field */
+    /* Show and hide manual coordinate input field */
 
   if (!$('input#manual_coordinate').is(':checked')) {
     $('.directorist-map-coordinates').hide();
@@ -1026,11 +1026,11 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-   if (frame) {
+    if (frame) {
    frame.open();
    return;
   }
-   // Create a new media frame
+    // Create a new media frame
   frame = wp.media({
    title: directorist_admin.i18n_text.upload_cat_image,
    button: {
@@ -3436,6 +3436,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_setup_select2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
 /* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 /* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _public_components_login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../public/components/login */ "./assets/src/js/public/components/login.js");
+/* harmony import */ var _public_components_login__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_public_components_login__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
@@ -3534,6 +3537,66 @@ function convertToSelect2(field) {
 }
 
 
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/login.js":
+/*!**************************************************!*\
+  !*** ./assets/src/js/public/components/login.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  window.addEventListener('DOMContentLoaded', function () {
+    // Perform AJAX login on form submit
+    $('form#login').on('submit', function (e) {
+      e.preventDefault();
+      $('p.status').show().html(directorist.loading_message);
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: directorist.ajax_url,
+        data: {
+          'action': 'ajaxlogin',
+          //calls wp_ajax_nopriv_ajaxlogin
+          'username': $('form#login #username').val(),
+          'password': $('form#login #password').val(),
+          'rememberme': $('form#login #keep_signed_in').is(':checked') ? 1 : 0,
+          'security': $('#security').val()
+        },
+        success: function success(data) {
+          if ('nonce_faild' in data && data.nonce_faild) {
+            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+          }
+
+          if (data.loggedin == true) {
+            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            document.location.href = directorist.redirect_url;
+          } else {
+            $('p.status').html('<span class="status-failed">' + data.message + '</span>');
+          }
+        },
+        error: function error(data) {
+          if ('nonce_faild' in data && data.nonce_faild) {
+            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+          }
+
+          $('p.status').show().html('<span class="status-failed">' + directorist.login_error_message + '</span>');
+        }
+      });
+      e.preventDefault();
+    }); // Alert users to login (only if applicable)
+
+    $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
+      e.preventDefault();
+      alert(directorist.login_alert_message);
+      return false;
+    });
+  });
+})(jQuery);
 
 /***/ }),
 

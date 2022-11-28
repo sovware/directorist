@@ -264,6 +264,7 @@ $(document).ready(function () {
         return b;
     })(window.location.search.substr(1).split('&'));
 
+    let termId;
     function render_category_based_fields() {
         var directory_type = $('input[name="directory_type"]').val();
         const length = $('#at_biz_dir-categories option:selected');
@@ -283,13 +284,24 @@ $(document).ready(function () {
         $.post(localized_data.ajaxurl, data, function (response) {
             if (response) {
                 $('.atbdp_category_custom_fields').empty();
+                $('.atbdp_category_custom_fields').removeClass (function (index, css) {
+                    return (css.match (/(^|\s)custom-fields-\S+/g) || []).join(' ');
+                });
                 $.each(response, function( id, content ) {
                     $('.atbdp_category_custom_fields').append(content);
+                    $('.atbdp_category_custom_fields').removeClass (function (index, css) {
+                        return (css.match (/(^|\s)custom-fields-\S+/g) || []).join(' ');
+                    });
+                    $('.atbdp_category_custom_fields').addClass('custom-fields-' + data.term_id[0]);
                 });
 
                 customFieldSeeMore();
+                termId = data.term_id[0];
             } else {
                 $('.atbdp_category_custom_fields').empty();
+                $('.atbdp_category_custom_fields').removeClass (function (index, css) {
+                    return (css.match (/(^|\s)custom-fields-\S+/g) || []).join(' ');
+                });
             }
         });
     }
@@ -313,19 +325,49 @@ $(document).ready(function () {
                 formData = [...newArr];
             })
         }
+
+        let cheksArr = [];
+        let inputChecks = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-checks');
+        if(inputChecks.length){
+            inputChecks.forEach(elm=>{
+                let elmChecked = elm.checked;
+                let elmId = elm.getAttribute('id');
+                cheksArr.push({"id": elmId, "checked": elmChecked});
+                formData = [...newArr, ...cheksArr];
+            })
+        }
+
         formData.forEach(item =>{
             setTimeout(() => {
                 let fieldSingle = document.getElementById(`${item.id}`);
-                if(fieldSingle !== null){
+                if(fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element') ){
                     fieldSingle.value = item.value;
                 }
-            }, 1000);
+                if(fieldSingle !== null && !fieldSingle.classList.contains('directorist-form-element')){
+                    fieldSingle.checked = item.checked;
+                }
+            }, 1500);
         })
+
     }
 
     // Render category based fields on category change
+    function modifyCustomFiledChecks(selector, type){
+        let inputChecks = document.querySelectorAll(selector);
+        if(inputChecks.length){
+            inputChecks.forEach((elm, i)=>{
+                elm.querySelector('input').id = `custom-${type}-${i}`;
+                elm.querySelector('label').setAttribute('for', `custom-${type}-${i}`);
+                elm.querySelector('input').classList.add('directorist-form-checks');
+            })
+        }
+    }
     $('#at_biz_dir-categories').on('change', function () {
         render_category_based_fields();
+        setTimeout(() => {
+            modifyCustomFiledChecks('.directorist-custom-field-radio .directorist-radio', 'radio');
+            modifyCustomFiledChecks('.directorist-custom-field-checkbox .directorist-checkbox', 'checkbox');
+        }, 1000);
         storeCustomFieldsData();
     });
 

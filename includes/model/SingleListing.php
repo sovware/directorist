@@ -173,6 +173,12 @@ class Directorist_Single_Listing {
 		$has_contents = false;
 
 		foreach ( $section_data['fields'] as $field ) {
+
+			if ( 'other_widgets' === $field['widget_group'] ) {
+				$has_contents = true;
+				break;
+			}
+
 			$value = $this->get_field_value( $field );
 
 			if ( $value ) {
@@ -222,7 +228,7 @@ class Directorist_Single_Listing {
 			return $data['content'];
 		}
 
-		if ( isset( $data['field_key'] ) ) {
+		if ( !empty( $data['field_key'] ) ) {
 			$value = get_post_meta( $post_id, '_'.$data['field_key'], true );
 
 			if ( empty( $value ) ) {

@@ -41,8 +41,6 @@
         $('.atbdp-require-login, .directorist-action-report-not-loggedin').one('click', function (e) {
             e.preventDefault();
             alert(directorist.login_alert_message);
-            $('.directorist-report-abuse-modal').css('display', 'none');
-            throw {message : directorist.login_alert_message};
         });
     });
 })(jQuery);

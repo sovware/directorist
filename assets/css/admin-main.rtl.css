@@ -6065,6 +6065,19 @@ p.status:empty {
   color: #fff;
 }
 
+.directorist-add-listing-wrapper .directorist-add-listing-form .select2-selection__rendered li:not(:first-child) input.select2-search__field {
+  display: none;
+}
+.directorist-add-listing-wrapper .directorist-add-listing-form .select2-selection__rendered li:not(:first-child) input.select2-search__field:-moz-placeholder-shown {
+  display: block;
+}
+.directorist-add-listing-wrapper .directorist-add-listing-form .select2-selection__rendered li:not(:first-child) input.select2-search__field:-ms-input-placeholder {
+  display: block;
+}
+.directorist-add-listing-wrapper .directorist-add-listing-form .select2-selection__rendered li:not(:first-child) input.select2-search__field:placeholder-shown {
+  display: block;
+}
+
 .reset-pseudo-link:visited, .atbdp-nav-link:visited, .cptm-modal-action-link:visited, .cptm-header-action-link:visited, .cptm-sub-nav__item-link:visited, .cptm-form-builder-header-action-link:visited, .cptm-link-light:visited, .cptm-header-nav__list-item-link:visited, .cptm-btn:visited, .reset-pseudo-link:active, .atbdp-nav-link:active, .cptm-modal-action-link:active, .cptm-header-action-link:active, .cptm-sub-nav__item-link:active, .cptm-form-builder-header-action-link:active, .cptm-link-light:active, .cptm-header-nav__list-item-link:active, .cptm-btn:active, .reset-pseudo-link:focus, .atbdp-nav-link:focus, .cptm-modal-action-link:focus, .cptm-header-action-link:focus, .cptm-sub-nav__item-link:focus, .cptm-form-builder-header-action-link:focus, .cptm-link-light:focus, .cptm-header-nav__list-item-link:focus, .cptm-btn:focus {
   outline: none;
   -webkit-box-shadow: none;

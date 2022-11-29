@@ -212,6 +212,7 @@
     $('.atbdp-require-login, .directorist-action-report-not-loggedin').one('click', function (e) {
       e.preventDefault();
       alert(directorist.login_alert_message);
+      return false;
     });
   });
 })(jQuery);

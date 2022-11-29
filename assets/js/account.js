@@ -209,10 +209,22 @@
       e.preventDefault();
     }); // Alert users to login (only if applicable)
 
-    $('.atbdp-require-login, .directorist-action-report-not-loggedin').one('click', function (e) {
+    $('.directorist-action-report-not-loggedin').on('click', function (e) {
       e.preventDefault();
       alert(directorist.login_alert_message);
-      return false;
+      $('.directorist-report-abuse-modal').length ? $('.directorist-report-abuse-modal').css('display', 'none') : '';
+      throw {
+        message: directorist.login_alert_message
+      };
+    });
+    $('#atbdp-favourites').on('click', function (e) {
+      if ($(this).children('a').hasClass('atbdp-require-login')) {
+        e.preventDefault();
+        alert(directorist.login_alert_message);
+        throw {
+          message: directorist.login_alert_message
+        };
+      }
     });
   });
 })(jQuery);

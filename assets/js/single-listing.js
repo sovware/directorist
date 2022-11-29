@@ -545,16 +545,13 @@ window.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
     }); // Alert users to login (only if applicable)
 
-    $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
+    $('.atbdp-require-login, .directorist-action-report-not-loggedin').one('click', function (e) {
       e.preventDefault();
-      var loginAlert = document.createElement("div");
-      loginAlert.setAttribute("style", "position:fixed;top:30px;left:50%;background-color:#2f2f2f;z-index:9999;transform:translateX(-50%);padding:15px;text-align:center;color:#fff;border-radius:4px;");
-      loginAlert.innerHTML = directorist.login_alert_message;
-      setTimeout(function () {
-        loginAlert.parentNode.removeChild(loginAlert);
-      }, 3000);
-      document.body.appendChild(loginAlert);
-      return false;
+      alert(directorist.login_alert_message);
+      $('.directorist-report-abuse-modal').css('display', 'none');
+      throw {
+        message: directorist.login_alert_message
+      };
     });
   });
 })(jQuery);

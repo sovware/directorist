@@ -413,7 +413,9 @@ $(document).ready(function () {
   render_category_based_fields();
   /* Store custom fields data */
 
+  var formsAllData = {};
   var formData = [];
+  var terms = [];
 
   function storeCustomFieldsData() {
     var customFields = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-element');
@@ -428,6 +430,7 @@ $(document).ready(function () {
           "value": elmValue
         });
         formData = [].concat(newArr);
+        !terms.includes(termId) ? terms.push(termId) : '';
       });
     }
 
@@ -443,9 +446,14 @@ $(document).ready(function () {
           "checked": elmChecked
         });
         formData = [].concat(newArr, cheksArr);
+        !terms.includes(termId) ? terms.push(termId) : '';
       });
     }
+    /* terms.forEach(elm =>{
+      }); */
 
+
+    formsAllData.termId = formData;
     formData.forEach(function (item) {
       setTimeout(function () {
         var fieldSingle = document.getElementById("".concat(item.id));

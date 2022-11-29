@@ -313,7 +313,9 @@ $(document).ready(function () {
     render_category_based_fields();
 
     /* Store custom fields data */
+    let formsAllData = {};
     let formData = [];
+    let terms = [];
     function storeCustomFieldsData(){
         let customFields = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-element');
         let newArr = [];
@@ -323,6 +325,7 @@ $(document).ready(function () {
                 let elmId = elm.getAttribute('id');
                 newArr.push({"id": elmId, "value": elmValue});
                 formData = [...newArr];
+                !terms.includes(termId) ? terms.push(termId) : '';
             })
         }
 
@@ -334,9 +337,13 @@ $(document).ready(function () {
                 let elmId = elm.getAttribute('id');
                 cheksArr.push({"id": elmId, "checked": elmChecked});
                 formData = [...newArr, ...cheksArr];
+                !terms.includes(termId) ? terms.push(termId) : '';
             })
         }
+        /* terms.forEach(elm =>{
 
+        }); */
+        formsAllData.termId = formData;
         formData.forEach(item =>{
             setTimeout(() => {
                 let fieldSingle = document.getElementById(`${item.id}`);
@@ -348,7 +355,6 @@ $(document).ready(function () {
                 }
             }, 1500);
         })
-
     }
 
     // Render category based fields on category change

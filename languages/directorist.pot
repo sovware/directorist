@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-20 01:51+0000\n"
+"POT-Creation-Date: 2022-11-22 02:17+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -828,7 +828,7 @@ msgstr ""
 msgid "Sorry, something went wrong, please try again"
 msgstr ""
 
-#: ../includes/classes/class-announcement.php:375
+#: ../includes/classes/class-announcement.php:375, ../includes/system-status/custom-url.php:15, ../includes/system-status/custom-url.php:42, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4931
 msgid "Invalid request"
 msgstr ""
 
@@ -982,7 +982,7 @@ msgstr ""
 msgid "View &#8220;%s&#8221; archive"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:185, ../includes/classes/class-custom-taxonomy.php:175, ../includes/payments/class-order.php:587, ../includes/system-status/custom-url.php:90
+#: ../includes/classes/class-custom-taxonomy.php:185, ../includes/classes/class-custom-taxonomy.php:175, ../includes/payments/class-order.php:587, ../includes/system-status/custom-url.php:103
 msgid "View"
 msgstr ""
 
@@ -1521,7 +1521,7 @@ msgstr ""
 msgid "You need to be logged in to view the content of this page. You can login %1$s. Don't have an account? %2$s"
 msgstr ""
 
-#: ../includes/classes/class-helper.php:538, ../includes/classes/class-settings-panel.php:3982, ../includes/classes/class-settings-panel.php:4073, ../includes/model/Account.php:61, ../includes/model/Account.php:105, ../templates/account/login.php:93
+#: ../includes/classes/class-helper.php:538, ../includes/classes/class-settings-panel.php:3982, ../includes/classes/class-settings-panel.php:4073, ../includes/model/Account.php:61, ../includes/model/Account.php:105, ../templates/account/login.php:97
 msgid "Sign Up"
 msgstr ""
 
@@ -1549,7 +1549,7 @@ msgstr ""
 msgid "Date & Time"
 msgstr ""
 
-#: ../includes/classes/class-metabox.php:223, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4975
+#: ../includes/classes/class-metabox.php:223, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4974
 msgid "Listing Type"
 msgstr ""
 
@@ -1875,7 +1875,7 @@ msgstr ""
 msgid "Selected User"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:710, ../includes/system-status/send-mail.php:73, ../includes/system-status/send-mail.php:74
+#: ../includes/classes/class-settings-panel.php:710
 msgid "Subject"
 msgstr ""
 
@@ -3179,7 +3179,7 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3788, ../includes/classes/class-settings-panel.php:4031, ../includes/classes/class-settings-panel.php:4749, ../includes/classes/class-settings-panel.php:4847, ../includes/model/Account.php:49, ../includes/model/Account.php:89, ../templates/account/login.php:81
+#: ../includes/classes/class-settings-panel.php:3788, ../includes/classes/class-settings-panel.php:4031, ../includes/classes/class-settings-panel.php:4749, ../includes/classes/class-settings-panel.php:4847, ../includes/model/Account.php:49, ../includes/model/Account.php:89, ../templates/account/login.php:85
 msgid "Password"
 msgstr ""
 
@@ -3235,27 +3235,27 @@ msgstr ""
 msgid "Redirection after Registration"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4026, ../includes/model/Account.php:48, ../templates/account/login.php:80
+#: ../includes/classes/class-settings-panel.php:4026, ../includes/model/Account.php:48, ../templates/account/login.php:84
 msgid "Username or Email Address"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4041, ../includes/model/Account.php:51, ../templates/account/login.php:83
+#: ../includes/classes/class-settings-panel.php:4041, ../includes/model/Account.php:51, ../templates/account/login.php:87
 msgid "Remember Me"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4052, ../includes/model/Account.php:52, ../templates/account/login.php:84
+#: ../includes/classes/class-settings-panel.php:4052, ../includes/model/Account.php:52, ../templates/account/login.php:88
 msgid "Log In"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4062, ../includes/model/Account.php:59, ../templates/account/login.php:91
+#: ../includes/classes/class-settings-panel.php:4062, ../includes/model/Account.php:59, ../templates/account/login.php:95
 msgid "Don't have an account?"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4089, ../includes/classes/class-settings-panel.php:4875, ../includes/model/Account.php:54, ../templates/account/login.php:86
+#: ../includes/classes/class-settings-panel.php:4089, ../includes/classes/class-settings-panel.php:4875, ../includes/model/Account.php:54, ../templates/account/login.php:90
 msgid "Recover Password"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4100, ../includes/model/Account.php:55, ../templates/account/login.php:87
+#: ../includes/classes/class-settings-panel.php:4100, ../includes/model/Account.php:55, ../templates/account/login.php:91
 msgid "Lost your password? Please enter your email address. You will receive a link to create a new password via email."
 msgstr ""
 
@@ -3271,7 +3271,7 @@ msgstr ""
 msgid "Username or Email Placeholder"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4122, ../includes/model/Account.php:57, ../templates/account/login.php:89
+#: ../includes/classes/class-settings-panel.php:4122, ../includes/model/Account.php:57, ../templates/account/login.php:93
 msgid "eg. mail@example.com"
 msgstr ""
 
@@ -3279,7 +3279,7 @@ msgstr ""
 msgid "Button Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4133, ../includes/model/Account.php:58, ../templates/account/login.php:90
+#: ../includes/classes/class-settings-panel.php:4133, ../includes/model/Account.php:58, ../templates/account/login.php:94
 msgid "Get New Password"
 msgstr ""
 
@@ -4247,11 +4247,15 @@ msgstr ""
 msgid "Directorist data update complete. Thank you for updating to the latest version!"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:53
+#: ../includes/classes/class-upgrade.php:75
+msgid "Dismiss this notice."
+msgstr ""
+
+#: ../includes/classes/class-upgrade.php:132
 msgid "<p class=\"directorist__notice_new\"><span>Congratulations!</span> You are now using the latest version of Directorist with some cool <a href=\"%s\" target=\"blank\">new features</a>. If you are using any of our premium theme or extension, please update them from this <a href=\"%s\">page</a> </p>"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:55
+#: ../includes/classes/class-upgrade.php:134
 msgid "<p class=\"directorist__notice_new_action\"><a href=\"%s\" class=\"directorist__notice_new__btn\">Continue using Directorist 7.0 </a><a target=\"blank\" href=\"%s\"> Roll back to v6.5.8</a></p>"
 msgstr ""
 
@@ -4676,7 +4680,7 @@ msgstr ""
 msgid "Login page is not for logged-in user. <a href=\"%s\">Go to Dashboard</a>"
 msgstr ""
 
-#: ../includes/model/Account.php:56, ../templates/account/login.php:88
+#: ../includes/model/Account.php:56, ../templates/account/login.php:92
 msgid "E-mail:"
 msgstr ""
 
@@ -5389,60 +5393,44 @@ msgstr ""
 msgid "Help & Support"
 msgstr ""
 
-#: ../includes/system-status/custom-url.php:24
+#: ../includes/system-status/custom-url.php:19
+msgid "You are not allowed to create secret url"
+msgstr ""
+
+#: ../includes/system-status/custom-url.php:29
 msgid "Secret URL has been created."
 msgstr ""
 
-#: ../includes/system-status/custom-url.php:34
+#: ../includes/system-status/custom-url.php:46
+msgid "You are not allowed to revoke secret url"
+msgstr ""
+
+#: ../includes/system-status/custom-url.php:50
 msgid "Secret URL has been revoked."
 msgstr ""
 
-#: ../includes/system-status/custom-url.php:78, ../includes/system-status/template.php:23
+#: ../includes/system-status/custom-url.php:62
+msgid "Time is precious. Please ask the admin for system information."
+msgstr ""
+
+#: ../includes/system-status/custom-url.php:92, ../includes/system-status/template.php:23
 msgid "Remote Viewing"
 msgstr ""
 
-#: ../includes/system-status/custom-url.php:84
+#: ../includes/system-status/custom-url.php:98
 msgid "Create a secret URL to show system information with others. If you face any technical problem to your site then you can share this URL with support agent for faster debugging."
 msgstr ""
 
-#: ../includes/system-status/custom-url.php:85
+#: ../includes/system-status/custom-url.php:99
 msgid "This secret URL expires after 72 hours, but you can revoke it anytime."
 msgstr ""
 
-#: ../includes/system-status/custom-url.php:95
+#: ../includes/system-status/custom-url.php:107
 msgid "Create URL"
 msgstr ""
 
-#: ../includes/system-status/custom-url.php:96
+#: ../includes/system-status/custom-url.php:108
 msgid "Revoke URL"
-msgstr ""
-
-#: ../includes/system-status/send-mail.php:58, ../views/admin-templates/post-types-manager/all-listing-types.php:33, ../views/admin-templates/settings-manager/settings.php:31
-msgid "Support"
-msgstr ""
-
-#: ../includes/system-status/send-mail.php:65
-msgid "Sender Email Address"
-msgstr ""
-
-#: ../includes/system-status/send-mail.php:66, ../includes/system-status/send-mail.php:70, ../templates/listing-form/quick-login.php:29
-msgid "user@email.com"
-msgstr ""
-
-#: ../includes/system-status/send-mail.php:69
-msgid "Receiver Email Address"
-msgstr ""
-
-#: ../includes/system-status/send-mail.php:77
-msgid "Additional Message"
-msgstr ""
-
-#: ../includes/system-status/send-mail.php:81
-msgid "Remote Viewing Url"
-msgstr ""
-
-#: ../includes/system-status/send-mail.php:87
-msgid "Send Mail"
 msgstr ""
 
 #: ../includes/system-status/system-info-template.php:17
@@ -6902,45 +6890,49 @@ msgstr ""
 msgid "Directory Builder"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4961
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4935
+msgid "You are not allowed to delete directory type"
+msgstr ""
+
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4960
 msgid "Failed to delete the listing type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4954
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4953
 msgid "Successfully Deleted the listing type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4972
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4971
 msgctxt "taxonomy general name"
 msgid "Listing Type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4973
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4972
 msgctxt "taxonomy singular name"
 msgid "Listing Type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4974
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4973
 msgid "Search Listing Type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5012
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5011
 msgid "All types"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5016
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5015
 msgid "Image types"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5020
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5019
 msgid "Audio types"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5024
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5023
 msgid "Video types"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5028
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:5027
 msgid "Document types"
 msgstr ""
 
@@ -7909,59 +7901,59 @@ msgstr ""
 msgid "Submit Review"
 msgstr ""
 
-#: ../templates/account/login.php:125
+#: ../templates/account/login.php:128
 msgid "<p>%s</p>"
 msgstr ""
 
-#: ../templates/account/login.php:185
+#: ../templates/account/login.php:193
 msgid "Oops something went wrong updating your account."
 msgstr ""
 
-#: ../templates/account/login.php:158
+#: ../templates/account/login.php:166
 msgid "	Password Reset Request"
 msgstr ""
 
-#: ../templates/account/login.php:162
+#: ../templates/account/login.php:170
 msgid "Someone has requested a password reset for the following account:"
 msgstr ""
 
-#: ../templates/account/login.php:164
+#: ../templates/account/login.php:172
 msgid "Site Name: %s"
 msgstr ""
 
-#: ../templates/account/login.php:166
+#: ../templates/account/login.php:174
 msgid "User: %s"
 msgstr ""
 
-#: ../templates/account/login.php:167
+#: ../templates/account/login.php:175
 msgid "If this was a mistake, just ignore this email and nothing will happen."
 msgstr ""
 
-#: ../templates/account/login.php:168
+#: ../templates/account/login.php:176
 msgid "To reset your password, visit the following address:"
 msgstr ""
 
-#: ../templates/account/login.php:182
-msgid "Password updated! But something went wrong sending email."
+#: ../templates/account/login.php:190
+msgid "Something went wrong, unable to send the password reset email. If the issue persists please contact with the site administrator."
 msgstr ""
 
-#: ../templates/account/login.php:180
+#: ../templates/account/login.php:188
 msgid "A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox."
 msgstr ""
 
-#: ../templates/account/login.php:151
+#: ../templates/account/login.php:159
 msgid "There is no user registered with that email address."
 msgstr ""
 
-#: ../templates/account/login.php:149
+#: ../templates/account/login.php:157
 msgid "Invalid e-mail address."
 msgstr ""
 
-#: ../templates/account/login.php:147
+#: ../templates/account/login.php:155
 msgid "Enter an e-mail address.."
 msgstr ""
 
-#: ../templates/account/login.php:190
+#: ../templates/account/login.php:198
 msgid "ERROR:"
 msgstr ""
 
@@ -7973,31 +7965,31 @@ msgstr ""
 msgid "Fields are required!"
 msgstr ""
 
-#: ../templates/account/login.php:33
+#: ../templates/account/login.php:35
 msgid "Password changed successfully!"
 msgstr ""
 
-#: ../templates/account/login.php:35
+#: ../templates/account/login.php:36
 msgid " Login"
 msgstr ""
 
-#: ../templates/account/login.php:77
+#: ../templates/account/login.php:79
 msgid "Sorry! The link is invalid."
 msgstr ""
 
-#: ../templates/account/login.php:51
+#: ../templates/account/login.php:52
 msgid "Enter a new password below."
 msgstr ""
 
-#: ../templates/account/login.php:53
+#: ../templates/account/login.php:54
 msgid "New password"
 msgstr ""
 
-#: ../templates/account/login.php:58
+#: ../templates/account/login.php:59
 msgid "Re-enter new password"
 msgstr ""
 
-#: ../templates/account/login.php:70, ../templates/account/login.php:70
+#: ../templates/account/login.php:71, ../templates/account/login.php:71
 msgid "Save"
 msgstr ""
 
@@ -8207,6 +8199,10 @@ msgstr ""
 
 #: ../templates/listing-form/quick-login.php:17
 msgid "Quick Login"
+msgstr ""
+
+#: ../templates/listing-form/quick-login.php:29
+msgid "user@email.com"
 msgstr ""
 
 #: ../templates/listing-form/restrict-access.php:11
@@ -8546,6 +8542,10 @@ msgstr ""
 
 #: ../views/admin-templates/post-types-manager/all-listing-types.php:27, ../views/admin-templates/settings-manager/settings.php:25
 msgid "Documentation"
+msgstr ""
+
+#: ../views/admin-templates/post-types-manager/all-listing-types.php:33, ../views/admin-templates/settings-manager/settings.php:31
+msgid "Support"
 msgstr ""
 
 #: ../views/admin-templates/post-types-manager/all-listing-types.php:39

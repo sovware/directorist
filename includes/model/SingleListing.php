@@ -120,9 +120,7 @@ class Directorist_Single_Listing {
 					$single_fields['fields'][$key]['options'] = $form_data['options'];
 				}
 
-				if( !empty( $form_data['label'] ) ) {
-					$single_fields['fields'][$key]['label'] = $form_data['label'];
-				}
+				$single_fields['fields'][$key]['label'] = !empty( $form_data['label'] ) ? $form_data['label'] : '';
 
 				if( !empty( $form_data['widget_group'] ) ) {
 					$single_fields['fields'][$key]['widget_group'] = $form_data['widget_group'];

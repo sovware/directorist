@@ -508,6 +508,8 @@ import { directorist_range_slider } from './range-slider';
                         document.body.dispatchEvent(event);
                         window.dispatchEvent(event);
                       });
+
+                      console.log('sfjsdf sdkfjsdlkf sdklfjskdljfklsdfjkl');
                     }
 
                     $search_form_box.removeClass('atbdp-form-fade');

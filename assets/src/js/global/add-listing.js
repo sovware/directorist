@@ -293,6 +293,10 @@ $(document).ready(function () {
                         return (css.match (/(^|\s)custom-fields-\S+/g) || []).join(' ');
                     });
                     $('.atbdp_category_custom_fields').addClass('custom-fields-' + data.term_id[0]);
+                    $('.atbdp_category_custom_fields .directorist-form-element').each((id, elm) =>{
+                        let getElmId = $(elm).attr('id');
+                        $(elm).attr('data-id', `${getElmId}-${data.term_id[0]}`);
+                    });
                 });
 
                 customFieldSeeMore();
@@ -313,40 +317,28 @@ $(document).ready(function () {
     render_category_based_fields();
 
     /* Store custom fields data */
-    let formsAllData = {};
     let formData = [];
-    let terms = [];
     function storeCustomFieldsData(){
-        let customFields = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-element');
-        let newArr = [];
+        let customFields = document.querySelectorAll(`.atbdp_category_custom_fields .directorist-form-element`);
+        let checksField = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-checks');
         if(customFields.length){
             customFields.forEach(elm=>{
                 let elmValue = elm.value;
-                let elmId = elm.getAttribute('id');
-                newArr.push({"id": elmId, "value": elmValue});
-                formData = [...newArr];
-                !terms.includes(termId) ? terms.push(termId) : '';
-            })
+                let elmId = elm.getAttribute('data-id');
+                formData.push({"id": elmId, "value": elmValue});
+            });
         }
-
-        let cheksArr = [];
-        let inputChecks = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-checks');
-        if(inputChecks.length){
-            inputChecks.forEach(elm=>{
+        if(checksField.length){
+            checksField.forEach(elm=>{
                 let elmChecked = elm.checked;
                 let elmId = elm.getAttribute('id');
-                cheksArr.push({"id": elmId, "checked": elmChecked});
-                formData = [...newArr, ...cheksArr];
-                !terms.includes(termId) ? terms.push(termId) : '';
-            })
+                formData.push({"id": elmId, "checked": elmChecked});
+            });
         }
-        /* terms.forEach(elm =>{
 
-        }); */
-        formsAllData.termId = formData;
         formData.forEach(item =>{
             setTimeout(() => {
-                let fieldSingle = document.getElementById(`${item.id}`);
+                let fieldSingle = document.querySelector(`[data-id="${item.id}"]`);
                 if(fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element') ){
                     fieldSingle.value = item.value;
                 }
@@ -362,8 +354,9 @@ $(document).ready(function () {
         let inputChecks = document.querySelectorAll(selector);
         if(inputChecks.length){
             inputChecks.forEach((elm, i)=>{
-                elm.querySelector('input').id = `custom-${type}-${i}`;
-                elm.querySelector('label').setAttribute('for', `custom-${type}-${i}`);
+                elm.querySelector('input').id = `custom-${type}-${i}-${termId}`;
+                elm.querySelector('label').setAttribute('for', `custom-${type}-${i}-${termId}`);
+                elm.querySelector('input').setAttribute('data-id', `custom-${type}-${i}-${termId}`);
                 elm.querySelector('input').classList.add('directorist-form-checks');
             })
         }

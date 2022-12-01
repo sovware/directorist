@@ -288,6 +288,7 @@ $(document).ready(function () {
                     return (css.match (/(^|\s)custom-fields-\S+/g) || []).join(' ');
                 });
                 $.each(response, function( id, content ) {
+                    console.log(id);
                     let $newMarkup  = $(content);
                     if($newMarkup.find('.directorist-form-element')[0] !== undefined){
                         $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', `${id}`);
@@ -365,7 +366,7 @@ $(document).ready(function () {
         setTimeout(() => {
             modifyCustomFiledChecks('.directorist-custom-field-radio .directorist-radio', 'radio');
             modifyCustomFiledChecks('.directorist-custom-field-checkbox .directorist-checkbox', 'checkbox');
-        }, 1000);
+        }, 450);
         storeCustomFieldsData();
     });
 

@@ -390,6 +390,7 @@ $(document).ready(function () {
           return (css.match(/(^|\s)custom-fields-\S+/g) || []).join(' ');
         });
         $.each(response, function (id, content) {
+          console.log(id);
           var $newMarkup = $(content);
 
           if ($newMarkup.find('.directorist-form-element')[0] !== undefined) {
@@ -480,7 +481,7 @@ $(document).ready(function () {
     setTimeout(function () {
       modifyCustomFiledChecks('.directorist-custom-field-radio .directorist-radio', 'radio');
       modifyCustomFiledChecks('.directorist-custom-field-checkbox .directorist-checkbox', 'checkbox');
-    }, 1000);
+    }, 450);
     storeCustomFieldsData();
   });
 

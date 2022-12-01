@@ -302,6 +302,16 @@ $(document).ready(function () {
                 });
 
                 customFieldSeeMore();
+
+                formData.forEach(item =>{
+                    let fieldSingle = document.querySelector(`[data-id="${item.id}"]`);
+                    if(fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element') ){
+                        fieldSingle.value = item.value;
+                    }
+                    if(fieldSingle !== null && !fieldSingle.classList.contains('directorist-form-element')){
+                        fieldSingle.checked = item.checked;
+                    }
+                })
             } else {
                 $('.atbdp_category_custom_fields').empty();
             }
@@ -333,18 +343,6 @@ $(document).ready(function () {
                 formData.push({"id": elmId, "checked": elmChecked});
             });
         }
-
-        formData.forEach(item =>{
-            setTimeout(() => {
-                let fieldSingle = document.querySelector(`[data-id="${item.id}"]`);
-                if(fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element') ){
-                    fieldSingle.value = item.value;
-                }
-                if(fieldSingle !== null && !fieldSingle.classList.contains('directorist-form-element')){
-                    fieldSingle.checked = item.checked;
-                }
-            }, 500);
-        })
     }
 
     // Render category based fields on category change

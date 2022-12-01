@@ -405,6 +405,17 @@ $(document).ready(function () {
           $('.atbdp_category_custom_fields').append($newMarkup);
         });
         customFieldSeeMore();
+        formData.forEach(function (item) {
+          var fieldSingle = document.querySelector("[data-id=\"".concat(item.id, "\"]"));
+
+          if (fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element')) {
+            fieldSingle.value = item.value;
+          }
+
+          if (fieldSingle !== null && !fieldSingle.classList.contains('directorist-form-element')) {
+            fieldSingle.checked = item.checked;
+          }
+        });
       } else {
         $('.atbdp_category_custom_fields').empty();
       }
@@ -444,20 +455,6 @@ $(document).ready(function () {
         });
       });
     }
-
-    formData.forEach(function (item) {
-      setTimeout(function () {
-        var fieldSingle = document.querySelector("[data-id=\"".concat(item.id, "\"]"));
-
-        if (fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element')) {
-          fieldSingle.value = item.value;
-        }
-
-        if (fieldSingle !== null && !fieldSingle.classList.contains('directorist-form-element')) {
-          fieldSingle.checked = item.checked;
-        }
-      }, 500);
-    });
   } // Render category based fields on category change
 
 

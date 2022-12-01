@@ -289,7 +289,9 @@ $(document).ready(function () {
                 });
                 $.each(response, function( id, content ) {
                     let $newMarkup  = $(content);
-                    $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', `${id}`);
+                    if($newMarkup.find('.directorist-form-element')[0] !== undefined){
+                        $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', `${id}`);
+                    }
                     $('.atbdp_category_custom_fields').append($newMarkup);
                     $('.atbdp_category_custom_fields').removeClass (function (index, css) {
                         return (css.match (/(^|\s)custom-fields-\S+/g) || []).join(' ');

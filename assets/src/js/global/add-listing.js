@@ -278,7 +278,7 @@ $(document).ready(function () {
             directorist_nonce: ( typeof directorist !== 'undefined' ) ? directorist.directorist_nonce : directorist_admin.directorist_nonce,
             post_id: $('input[name="listing_id"]').val(),
             term_id: id,
-            directory_type: directory_type,
+            directory_type: directory_type
         };
 
         $.post(localized_data.ajaxurl, data, function (response) {
@@ -288,14 +288,11 @@ $(document).ready(function () {
                     return (css.match (/(^|\s)custom-fields-\S+/g) || []).join(' ');
                 });
                 $.each(response, function( id, content ) {
-                    $('.atbdp_category_custom_fields').append(content);
+                    let $newMarkup  = $(content);
+                    $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', `${id}`);
+                    $('.atbdp_category_custom_fields').append($newMarkup);
                     $('.atbdp_category_custom_fields').removeClass (function (index, css) {
                         return (css.match (/(^|\s)custom-fields-\S+/g) || []).join(' ');
-                    });
-                    $('.atbdp_category_custom_fields').addClass('custom-fields-' + data.term_id[0]);
-                    $('.atbdp_category_custom_fields .directorist-form-element').each((id, elm) =>{
-                        let getElmId = $(elm).attr('id');
-                        $(elm).attr('data-id', `${getElmId}-${data.term_id[0]}`);
                     });
                 });
 
@@ -345,7 +342,7 @@ $(document).ready(function () {
                 if(fieldSingle !== null && !fieldSingle.classList.contains('directorist-form-element')){
                     fieldSingle.checked = item.checked;
                 }
-            }, 1500);
+            }, 500);
         })
     }
 

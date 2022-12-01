@@ -390,11 +390,12 @@ $(document).ready(function () {
           return (css.match(/(^|\s)custom-fields-\S+/g) || []).join(' ');
         });
         $.each(response, function (id, content) {
-          $('.atbdp_category_custom_fields').append(content);
+          var $newMarkup = $(content);
+          $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', "".concat(id));
+          $('.atbdp_category_custom_fields').append($newMarkup);
           $('.atbdp_category_custom_fields').removeClass(function (index, css) {
             return (css.match(/(^|\s)custom-fields-\S+/g) || []).join(' ');
           });
-          $('.atbdp_category_custom_fields').addClass('custom-fields-' + data.term_id[0]);
         });
         customFieldSeeMore();
         termId = data.term_id[0];
@@ -413,50 +414,37 @@ $(document).ready(function () {
   render_category_based_fields();
   /* Store custom fields data */
 
-  var formsAllData = {};
   var formData = [];
-  var terms = [];
 
   function storeCustomFieldsData() {
-    var customFields = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-element');
-    var newArr = [];
+    var customFields = document.querySelectorAll(".atbdp_category_custom_fields .directorist-form-element");
+    var checksField = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-checks');
 
     if (customFields.length) {
       customFields.forEach(function (elm) {
         var elmValue = elm.value;
-        var elmId = elm.getAttribute('id');
-        newArr.push({
+        var elmId = elm.getAttribute('data-id');
+        formData.push({
           "id": elmId,
           "value": elmValue
         });
-        formData = [].concat(newArr);
-        !terms.includes(termId) ? terms.push(termId) : '';
       });
     }
 
-    var cheksArr = [];
-    var inputChecks = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-checks');
-
-    if (inputChecks.length) {
-      inputChecks.forEach(function (elm) {
+    if (checksField.length) {
+      checksField.forEach(function (elm) {
         var elmChecked = elm.checked;
         var elmId = elm.getAttribute('id');
-        cheksArr.push({
+        formData.push({
           "id": elmId,
           "checked": elmChecked
         });
-        formData = [].concat(newArr, cheksArr);
-        !terms.includes(termId) ? terms.push(termId) : '';
       });
     }
-    /* terms.forEach(elm =>{
-      }); */
 
-
-    formsAllData.termId = formData;
     formData.forEach(function (item) {
       setTimeout(function () {
-        var fieldSingle = document.getElementById("".concat(item.id));
+        var fieldSingle = document.querySelector("[data-id=\"".concat(item.id, "\"]"));
 
         if (fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element')) {
           fieldSingle.value = item.value;
@@ -465,7 +453,7 @@ $(document).ready(function () {
         if (fieldSingle !== null && !fieldSingle.classList.contains('directorist-form-element')) {
           fieldSingle.checked = item.checked;
         }
-      }, 1500);
+      }, 500);
     });
   } // Render category based fields on category change
 
@@ -475,8 +463,9 @@ $(document).ready(function () {
 
     if (inputChecks.length) {
       inputChecks.forEach(function (elm, i) {
-        elm.querySelector('input').id = "custom-".concat(type, "-").concat(i);
-        elm.querySelector('label').setAttribute('for', "custom-".concat(type, "-").concat(i));
+        elm.querySelector('input').id = "custom-".concat(type, "-").concat(i, "-").concat(termId);
+        elm.querySelector('label').setAttribute('for', "custom-".concat(type, "-").concat(i, "-").concat(termId));
+        elm.querySelector('input').setAttribute('data-id', "custom-".concat(type, "-").concat(i, "-").concat(termId));
         elm.querySelector('input').classList.add('directorist-form-checks');
       });
     }

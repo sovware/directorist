@@ -1326,6 +1326,7 @@ __webpack_require__.r(__webpack_exports__);
                 document.body.dispatchEvent(event);
                 window.dispatchEvent(event);
               });
+              console.log('sfjsdf sdkfjsdlkf sdklfjskdljfklsdfjkl');
             }
 
             $search_form_box.removeClass('atbdp-form-fade');

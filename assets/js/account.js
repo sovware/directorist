@@ -169,6 +169,13 @@
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once
+  if (typeof window.directorist_loginjs_executed === 'undefined') {
+    window.directorist_loginjs_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {

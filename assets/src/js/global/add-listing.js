@@ -283,9 +283,6 @@ $(document).ready(function () {
         $.post(localized_data.ajaxurl, data, function (response) {
             if (response) {
                 $('.atbdp_category_custom_fields').empty();
-                $('.atbdp_category_custom_fields').removeClass (function (index, css) {
-                    return (css.match (/(^|\s)custom-fields-\S+/g) || []).join(' ');
-                });
                 $.each(response, function( id, content ) {
                     let $newMarkup  = $(content);
                     if($newMarkup.find('.directorist-form-element')[0] !== undefined){
@@ -302,17 +299,11 @@ $(document).ready(function () {
                         })
                     }
                     $('.atbdp_category_custom_fields').append($newMarkup);
-                    $('.atbdp_category_custom_fields').removeClass (function (index, css) {
-                        return (css.match (/(^|\s)custom-fields-\S+/g) || []).join(' ');
-                    });
                 });
 
                 customFieldSeeMore();
             } else {
                 $('.atbdp_category_custom_fields').empty();
-                $('.atbdp_category_custom_fields').removeClass (function (index, css) {
-                    return (css.match (/(^|\s)custom-fields-\S+/g) || []).join(' ');
-                });
             }
         });
     }

@@ -384,9 +384,6 @@ $(document).ready(function () {
     $.post(localized_data.ajaxurl, data, function (response) {
       if (response) {
         $('.atbdp_category_custom_fields').empty();
-        $('.atbdp_category_custom_fields').removeClass(function (index, css) {
-          return (css.match(/(^|\s)custom-fields-\S+/g) || []).join(' ');
-        });
         $.each(response, function (id, content) {
           var $newMarkup = $(content);
 
@@ -406,16 +403,10 @@ $(document).ready(function () {
           }
 
           $('.atbdp_category_custom_fields').append($newMarkup);
-          $('.atbdp_category_custom_fields').removeClass(function (index, css) {
-            return (css.match(/(^|\s)custom-fields-\S+/g) || []).join(' ');
-          });
         });
         customFieldSeeMore();
       } else {
         $('.atbdp_category_custom_fields').empty();
-        $('.atbdp_category_custom_fields').removeClass(function (index, css) {
-          return (css.match(/(^|\s)custom-fields-\S+/g) || []).join(' ');
-        });
       }
     });
   } // Create container div after category

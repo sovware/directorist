@@ -30,4 +30,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<?php endif; ?>
 
 	<?php $listing_form->field_description_template( $data ); ?>
+	
 </div>

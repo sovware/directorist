@@ -403,6 +403,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 					array(
 						'role__not_in' => 'Administrator',   // Administrator | Subscriber
 						'fields'       => 'user_email',
+						'number'       => apply_filters( 'directorist_announcement_user_query_num', 1000 ),
 					)
 				);
 

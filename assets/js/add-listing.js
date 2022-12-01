@@ -367,8 +367,6 @@ $(document).ready(function () {
     return b;
   }(window.location.search.substr(1).split('&'));
 
-  var termId;
-
   function render_category_based_fields() {
     var directory_type = $('input[name="directory_type"]').val();
     var length = $('#at_biz_dir-categories option:selected');
@@ -390,11 +388,21 @@ $(document).ready(function () {
           return (css.match(/(^|\s)custom-fields-\S+/g) || []).join(' ');
         });
         $.each(response, function (id, content) {
-          console.log(id);
           var $newMarkup = $(content);
 
           if ($newMarkup.find('.directorist-form-element')[0] !== undefined) {
             $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', "".concat(id));
+          }
+
+          if ($($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').length) {
+            $($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').each(function (i, item) {
+              $(item).attr('id', "directorist-cf-".concat(id, "-").concat(i));
+              $(item).attr('data-id', "directorist-cf-".concat(id, "-").concat(i));
+              $(item).addClass('directorist-form-checks');
+            });
+            $($newMarkup[0]).find('.directorist-radio label, .directorist-checkbox label').each(function (i, item) {
+              $(item).attr('for', "directorist-cf-".concat(id, "-").concat(i));
+            });
           }
 
           $('.atbdp_category_custom_fields').append($newMarkup);
@@ -403,7 +411,6 @@ $(document).ready(function () {
           });
         });
         customFieldSeeMore();
-        termId = data.term_id[0];
       } else {
         $('.atbdp_category_custom_fields').empty();
         $('.atbdp_category_custom_fields').removeClass(function (index, css) {
@@ -463,25 +470,8 @@ $(document).ready(function () {
   } // Render category based fields on category change
 
 
-  function modifyCustomFiledChecks(selector, type) {
-    var inputChecks = document.querySelectorAll(selector);
-
-    if (inputChecks.length) {
-      inputChecks.forEach(function (elm, i) {
-        elm.querySelector('input').id = "custom-".concat(type, "-").concat(i, "-").concat(termId);
-        elm.querySelector('label').setAttribute('for', "custom-".concat(type, "-").concat(i, "-").concat(termId));
-        elm.querySelector('input').setAttribute('data-id', "custom-".concat(type, "-").concat(i, "-").concat(termId));
-        elm.querySelector('input').classList.add('directorist-form-checks');
-      });
-    }
-  }
-
   $('#at_biz_dir-categories').on('change', function () {
     render_category_based_fields();
-    setTimeout(function () {
-      modifyCustomFiledChecks('.directorist-custom-field-radio .directorist-radio', 'radio');
-      modifyCustomFiledChecks('.directorist-custom-field-checkbox .directorist-checkbox', 'checkbox');
-    }, 450);
     storeCustomFieldsData();
   });
 

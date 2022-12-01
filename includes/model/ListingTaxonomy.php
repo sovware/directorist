@@ -257,7 +257,8 @@ class Directorist_Listing_Taxonomy {
 				if( ! empty( $_GET['directory_type'] ) ) {
 					$directory_type = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) );
 				} else {
-					$directory_type = ( 1 == $this->directory_type_count ) ? $this->directory_type[0] : $this->current_listing_type;
+					$current = get_term_by( 'id', $this->current_listing_type, ATBDP_TYPE );
+					$directory_type = ( 1 == $this->directory_type_count ) ? $this->directory_type[0] : $current->slug;
 				}
 
 				$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $directory_type );

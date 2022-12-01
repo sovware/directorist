@@ -277,17 +277,41 @@ $(document).ready(function () {
             directorist_nonce: ( typeof directorist !== 'undefined' ) ? directorist.directorist_nonce : directorist_admin.directorist_nonce,
             post_id: $('input[name="listing_id"]').val(),
             term_id: id,
-            directory_type: directory_type,
+            directory_type: directory_type
         };
 
         $.post(localized_data.ajaxurl, data, function (response) {
             if (response) {
                 $('.atbdp_category_custom_fields').empty();
                 $.each(response, function( id, content ) {
-                    $('.atbdp_category_custom_fields').append(content);
+                    let $newMarkup  = $(content);
+                    if($newMarkup.find('.directorist-form-element')[0] !== undefined){
+                        $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', `${id}`);
+                    }
+                    if($($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').length){
+                        $($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').each((i, item)=>{
+                            $(item).attr('id', `directorist-cf-${id}-${i}`);
+                            $(item).attr('data-id', `directorist-cf-${id}-${i}`);
+                            $(item).addClass('directorist-form-checks');
+                        })
+                        $($newMarkup[0]).find('.directorist-radio label, .directorist-checkbox label').each((i, item)=>{
+                            $(item).attr('for', `directorist-cf-${id}-${i}`);
+                        })
+                    }
+                    $('.atbdp_category_custom_fields').append($newMarkup);
                 });
 
                 customFieldSeeMore();
+
+                formData.forEach(item =>{
+                    let fieldSingle = document.querySelector(`[data-id="${item.id}"]`);
+                    if(fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element') ){
+                        fieldSingle.value = item.value;
+                    }
+                    if(fieldSingle !== null && !fieldSingle.classList.contains('directorist-form-element')){
+                        fieldSingle.checked = item.checked;
+                    }
+                })
             } else {
                 $('.atbdp_category_custom_fields').empty();
             }
@@ -300,9 +324,31 @@ $(document).ready(function () {
     // Render category based fields in first load
     render_category_based_fields();
 
+    /* Store custom fields data */
+    let formData = [];
+    function storeCustomFieldsData(){
+        let customFields = document.querySelectorAll(`.atbdp_category_custom_fields .directorist-form-element`);
+        let checksField = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-checks');
+        if(customFields.length){
+            customFields.forEach(elm=>{
+                let elmValue = elm.value;
+                let elmId = elm.getAttribute('data-id');
+                formData.push({"id": elmId, "value": elmValue});
+            });
+        }
+        if(checksField.length){
+            checksField.forEach(elm=>{
+                let elmChecked = elm.checked;
+                let elmId = elm.getAttribute('id');
+                formData.push({"id": elmId, "checked": elmChecked});
+            });
+        }
+    }
+
     // Render category based fields on category change
     $('#at_biz_dir-categories').on('change', function () {
         render_category_based_fields();
+        storeCustomFieldsData();
     });
 
     function scrollToEl(selector) {
@@ -554,10 +600,10 @@ $(document).ready(function () {
             $('.directorist-custom-field-btn-more').each((index, element) => {
                 let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
                 let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
-                $(customField).slice(20, customField.length).slideUp();
+                $(customField).slice(20, customField.length).hide();
 
                 if (customField.length <= 20) {
-                    $(element).slideUp();
+                    $(element).hide();
                 }
             });
         }

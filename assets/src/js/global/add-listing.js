@@ -600,10 +600,10 @@ $(document).ready(function () {
             $('.directorist-custom-field-btn-more').each((index, element) => {
                 let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
                 let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
-                $(customField).slice(20, customField.length).slideUp();
+                $(customField).slice(20, customField.length).hide();
 
                 if (customField.length <= 20) {
-                    $(element).slideUp();
+                    $(element).hide();
                 }
             });
         }

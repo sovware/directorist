@@ -134,7 +134,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 			$users = get_users(
 				array(
 					'role__not_in' => 'Administrator',   // Administrator | Subscriber
-					'number'       => apply_filters( 'directorist_announcement_user_query_num', '' ),
+					'number'       => apply_filters( 'directorist_announcement_user_query_num', 1000 ),
 				)
 			);
             $recipient = [];

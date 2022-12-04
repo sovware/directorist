@@ -98,7 +98,6 @@ export var directorist_range_slider = (selector, obj) => {
                     count = count2 - 18;
                 }
             }
-            console.log(count);
             if(slide1.classList.contains('directorist-rs-active')){
                 slid1_val 	= Math.floor(max/ (width -18) * count);
                 id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${slid1_val}</span> ${sliderDataUnit}`;
@@ -114,7 +113,7 @@ export var directorist_range_slider = (selector, obj) => {
 export function directorist_callingSlider() {
     const minValueWrapper = document.querySelector('.directorist-range-slider-value');
     var default_args = {
-        maxValue: 1000.05,
+        maxValue: 1000,
         minValue: parseInt(minValueWrapper && minValueWrapper.value),
         maxWidth: '100%',
         barColor: '#d4d5d9',

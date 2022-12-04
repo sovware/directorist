@@ -169,7 +169,7 @@
 ;
 
 (function ($) {
-  // Make sure the codes in this file runs only once
+  // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_loginjs_executed === 'undefined') {
     window.directorist_loginjs_executed = true;
   } else {

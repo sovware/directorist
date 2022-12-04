@@ -160,7 +160,7 @@ class ATBDP_Metabox {
 		$never_expire           = !empty( $never_expire ) ? (int) $never_expire : '';
 
 		$e_d                    = get_post_meta( $listing_id, '_expiry_date', true );
-		$e_d                    = !empty( $e_d ) ? $e_d : calc_listing_expiry_date( '', $expire_in_days );
+		$e_d                    = !empty( $e_d ) ? $e_d : calc_listing_expiry_date( '', $expire_in_days, $directory_type );
 		$expiry_date            = atbdp_parse_mysql_date( $e_d );
 
 		$featured               = get_post_meta( $listing_id, '_featured', true);
@@ -315,6 +315,10 @@ class ATBDP_Metabox {
 
 		$nonce = !empty($_POST['listing_info_nonce']) ? directorist_clean( wp_unslash($_POST['listing_info_nonce'] ) ) : '';
 
+		if( ! is_admin() ){
+			return;
+		}
+
 		if( ! wp_verify_nonce( $nonce, 'listing_info_action' ) ) {
 			return;
 		}
@@ -322,7 +326,7 @@ class ATBDP_Metabox {
 		if ( ( ATBDP_POST_TYPE !== $post->post_type ) || wp_is_post_autosave( $post ) || wp_is_post_revision( $post ) || ! current_user_can( 'edit_'.ATBDP_POST_TYPE, $post_id ) ) {
 			return;
 		}
-		
+
 		$listing_type = !empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
 		$listing_categories = !empty( $_POST['tax_input']['at_biz_dir-category'] ) ?  directorist_clean( wp_unslash( $_POST['tax_input']['at_biz_dir-category'] ) ) : array();
 		$listing_locations = !empty( $_POST['tax_input']['at_biz_dir-location'] ) ?  directorist_clean( wp_unslash( $_POST['tax_input']['at_biz_dir-location'] ) ) : array();
@@ -371,7 +375,7 @@ class ATBDP_Metabox {
 
 			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
 				$key = '_'. $field_key;
-				$metas[ $key ] = !empty( $_POST[ $field_key ] ) ? directorist_clean( wp_unslash( $_POST[ $field_key ] ) ) : '';
+				$metas[ $key ] = !empty( $_POST[ $field_key ] ) ? wp_unslash( $_POST[ $field_key ] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			}
 
 		}
@@ -383,9 +387,7 @@ class ATBDP_Metabox {
 			wp_set_object_terms( $post_id, (int) $listing_type, ATBDP_TYPE );
 		}
 
-		if( !empty( $_POST['featured'] ) ){
-			$metas['_featured'] = directorist_clean( wp_unslash( $_POST['featured'] ) );	
-		}
+		$metas['_featured'] = !empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
 
 	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
 		$metas['_never_expire']      = !empty($_POST['never_expire']) ? (int) directorist_clean( wp_unslash( $_POST['never_expire'] ) ) : $expiration_to_forever;
@@ -401,7 +403,7 @@ class ATBDP_Metabox {
 			);
 			$exp_dt = get_date_in_mysql_format($exp_dt);
 		}else{
-			$exp_dt = calc_listing_expiry_date( '', $expiration ); // get the expiry date in mysql date format using the default expiration date.
+			$exp_dt = calc_listing_expiry_date( '', $expiration, $directory_type ); // get the expiry date in mysql date format using the default expiration date.
 		}
 
 		$metas['_expiry_date']  = $exp_dt;

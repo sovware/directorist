@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 use \Directorist\Helper;
@@ -52,11 +52,11 @@ if ( $query->have_posts() ) {
 			<td>
 				<div class="directorist-actions">
 
-					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist-link-btn"><i class="la la-edit"></i><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
+					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist-link-btn"><?php directorist_icon( 'las la-edit' ); ?><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
 
 					<div class="directorist-dropdown">
 
-						<a href="#" class="directorist-btn-more"><i class="<?php atbdp_icon_type( true );?>-ellipsis-h"></i><?php esc_html_e( 'More', 'directorist' ); ?></a>
+						<a href="#" class="directorist-btn-more"><?php directorist_icon( 'las la-ellipsis-h' ); ?><?php esc_html_e( 'More', 'directorist' ); ?></a>
 
 						<div class="directorist-dropdown-menu directorist-dashboard-listing-actions">
 							<div class="directorist-dropdown-menu__list">
@@ -67,7 +67,7 @@ if ( $query->have_posts() ) {
 								if( $dropdown_items ) {
 									foreach( $dropdown_items as $item ) {
 										?>
-										<a class="directorist-dropdown-item <?php echo esc_attr( $item['class'] ); ?>" <?php echo wp_kses_post( $item['data_attr'] ); ?> href="<?php echo esc_url( $item['link'] ); ?>"><?php echo wp_kses_post( $item['icon'] ); ?><?php echo esc_html( $item['label'] ); ?></a>
+										<a class="directorist-dropdown-item <?php echo esc_attr( $item['class'] ); ?>" <?php echo wp_kses_post( $item['data_attr'] ); ?> href="<?php echo esc_url( $item['link'] ); ?>"><?php echo wp_kses_post( $item['icon'] ); ?><?php echo wp_kses_post( $item['label'] ); ?></a>
 										<?php
 									}
 								}

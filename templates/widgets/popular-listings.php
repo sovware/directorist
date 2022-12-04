@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.1
+ * @version 7.4.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if ( !$query->have_posts() ) {
     return;
 }
+$default_icon = 'las la-tags';
 ?>
 
 <div class="atbd_categorized_listings">
@@ -64,38 +65,47 @@ if ( !$query->have_posts() ) {
                         </h4>
                     </div>
 
-                    <?php
-                    if (!empty($cats)) {
-                        $totalTerm = count($cats);
-                        ?>
-
-                        <p class="directory_tag">
-                            <span class="<?php atbdp_icon_type(true); ?>-tags"></span>
-                            <span>
-                                    <a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_category_page($cats[0]) ); ?>">
-                                                            <?php echo esc_html($cats[0]->name); ?>
-                                    </a>
+                        <div class="directorist-listing-category">
+                        <?php if ( ! empty( $cats ) ) {
+                            $term_icon  = get_term_meta( $cats[0]->term_id, 'category_icon', true );
+                            $term_icon  = $term_icon ? $term_icon : $default_icon;
+                            $term_link  = esc_url( get_term_link( $cats[0]->term_id, ATBDP_CATEGORY ) );
+                            $term_label = $cats[0]->name;
+                            ?>
+                            <a href="<?php echo esc_url( $term_link ); ?>"><?php directorist_icon( $term_icon );?><?php echo esc_html( $term_label ); ?></a>
+                            <?php
+                            $totalTerm = count($cats);
+                            if ( $totalTerm > 1 ) { $totalTerm = $totalTerm - 1; ?>
+                                <div class="directorist-listing-category__popup">
+                                    <span class="directorist-listing-category__extran-count">+<?php echo esc_html( $totalTerm ); ?></span>
+                                    <div class="directorist-listing-category__popup__content">
+                                        <?php
+                                        foreach (array_slice($cats, 1) as $cat) {
+                                            $term_icon  = get_term_meta( $cat->term_id, 'category_icon', true );
+                                            $term_icon  = $term_icon ? $term_icon : $default_icon;
+                                            $term_link  = esc_url( ATBDP_Permalink::atbdp_get_category_page( $cat ) );
+                                            $term_link  = esc_url( get_term_link( $cat->term_id, ATBDP_CATEGORY ) );
+                                            $term_label = $cat->name;
+                                            ?>
+                    
+                                            <a href="<?php echo esc_url( $term_link );?>"><?php directorist_icon( $term_icon );?> <?php echo esc_html( $term_label ); ?></a>
+                    
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                    
+                                </div>
                                 <?php
-                                if ($totalTerm > 1) {
-                                    ?>
-                                    <span class="atbd_cat_popup">  +<?php echo esc_html( $totalTerm - 1 ); ?>
-                                        <span class="atbd_cat_popup_wrapper">
-                                                        <?php
-                                                        $output = array();
-                                                        foreach (array_slice($cats, 1) as $cat) {
-                                                            $link = ATBDP_Permalink::atbdp_get_category_page($cat);
-                                                            $space = str_repeat(' ', 1);
-                                                            $output [] = "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
-                                                        } ?>
-                                            <span><?php echo join($output) ?></span>
-                                                    </span>
-                                                </span>
-                                <?php } ?>
-
-                            </span>
-                        </p>
+                            }
+                        }
+                        else { ?>
+                            <a href="#"><?php directorist_icon( $default_icon );?><?php esc_html_e('Uncategorized', 'directorist'); ?></a>
+                            <?php
+                        }
+                        ?>
+                    </div>
                         <?php
-                    }
 
                     ATBDP()->show_static_rating(get_post($id));
                     ?>

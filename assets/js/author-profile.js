@@ -98,10 +98,14 @@
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     /* Directorist alert dismiss */
+    var getUrl = window.location.href;
+    var newUrl = getUrl.replace('notice=1', '');
+
     if ($('.directorist-alert__close') !== null) {
       $('.directorist-alert__close').each(function (i, e) {
         $(e).on('click', function (e) {
           e.preventDefault();
+          history.pushState({}, null, newUrl);
           $(this).closest('.directorist-alert').remove();
         });
       });
@@ -242,12 +246,17 @@
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
     $('#atbdp-favourites').on('click', function (e) {
+      e.preventDefault();
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
         'directorist_nonce': directorist.directorist_nonce,
         'post_id': $("a.atbdp-favourites").data('post_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
+        console.log('added');
+        console.log(response);
+        console.log(directorist.ajaxurl);
+
         if (response) {
           $('#atbdp-favourites').html(response);
         }

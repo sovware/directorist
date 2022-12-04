@@ -131,6 +131,7 @@ import {
         var data = {
             action: 'directorist_instant_search',
             _nonce: directorist.ajax_nonce,
+            current_page_id: directorist.current_page_id,
             in_tag: tag,
             price: price,
             custom_field: custom_field,
@@ -166,7 +167,7 @@ import {
             ...data,
             ...fields
         };
-        
+
         const allFieldsAreEmpty = Object.values(fields).every(item => !item);
         const tagFieldEmpty = data.in_tag.every(item => !item);
         const priceFieldEmpty = data.price.every(item => !item);
@@ -259,6 +260,7 @@ import {
             var data = {
                 action: 'directorist_instant_search',
                 _nonce: directorist.ajax_nonce,
+                current_page_id: directorist.current_page_id,
                 in_tag: tag,
                 price: price,
                 custom_field: custom_field,
@@ -286,7 +288,7 @@ import {
             if (fields.address && fields.address.length) {
                 fields.cityLat = $(this).find('#cityLat').val();
                 fields.cityLng = $(this).find('#cityLng').val();
-                fields.miles = $(this).find('.atbdrs-value').val();
+                fields.miles = $(this).find('input[name="miles"]').val();
             }
 
             var form_data = {
@@ -349,6 +351,7 @@ import {
         var form_data = {
             action: 'directorist_instant_search',
             _nonce: directorist.ajax_nonce,
+            current_page_id: directorist.current_page_id,
             directory_type: directory_type,
             data_atts: JSON.parse(data_atts)
         };
@@ -444,6 +447,7 @@ import {
         var form_data = {
             action: 'directorist_instant_search',
             _nonce: directorist.ajax_nonce,
+            current_page_id: directorist.current_page_id,
             view: (view && view.length) ? view[0].replace(/view=/, '') : '',
             q: $(this).closest('.directorist-instant-search').find('input[name="q"]').val(),
             in_cat: $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val(),
@@ -454,7 +458,7 @@ import {
             search_by_rating: $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val(),
             cityLat: $(this).closest('.directorist-instant-search').find('#cityLat').val(),
             cityLng: $(this).closest('.directorist-instant-search').find('#cityLng').val(),
-            miles: $(this).closest('.directorist-instant-search').find('.atbdrs-value').val(),
+            miles: $(this).closest('.directorist-instant-search').find('input[name="miles"]').val(),
             address: $(this).closest('.directorist-instant-search').find('input[name="address"]').val(),
             zip: $(this).closest('.directorist-instant-search').find('input[name="zip"]').val(),
             fax: $(this).closest('.directorist-instant-search').find('input[name="fax"]').val(),
@@ -569,6 +573,7 @@ import {
         var form_data = {
             action: 'directorist_instant_search',
             _nonce: directorist.ajax_nonce,
+            current_page_id: directorist.current_page_id,
             sort: (sort_by && sort_by.length) ? sort_by[0].replace(/sort=/, '') : '',
             q: $(this).closest('.directorist-instant-search').find('input[name="q"]').val(),
             in_cat: $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val(),
@@ -579,7 +584,7 @@ import {
             search_by_rating: $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val(),
             cityLat: $(this).closest('.directorist-instant-search').find('#cityLat').val(),
             cityLng: $(this).closest('.directorist-instant-search').find('#cityLng').val(),
-            miles: $(this).closest('.directorist-instant-search').find('.atbdrs-value').val(),
+            miles: $(this).closest('.directorist-instant-search').find('input[name="miles"]').val(),
             address: $(this).closest('.directorist-instant-search').find('input[name="address"]').val(),
             zip: $(this).closest('.directorist-instant-search').find('input[name="zip"]').val(),
             fax: $(this).closest('.directorist-instant-search').find('input[name="fax"]').val(),
@@ -692,6 +697,7 @@ import {
         var form_data = {
             action: 'directorist_instant_search',
             _nonce: directorist.ajax_nonce,
+            current_page_id: directorist.current_page_id,
             view: (view && view.length) ? view[0].replace(/view=/, '') : '',
             q: $(this).closest('.directorist-instant-search').find('input[name="q"]').val(),
             in_cat: $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val(),
@@ -702,7 +708,7 @@ import {
             search_by_rating: $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val(),
             cityLat: $(this).closest('.directorist-instant-search').find('#cityLat').val(),
             cityLng: $(this).closest('.directorist-instant-search').find('#cityLng').val(),
-            miles: $(this).closest('.directorist-instant-search').find('.atbdrs-value').val(),
+            miles: $(this).closest('.directorist-instant-search').find('input[name="miles"]').val(),
             address: $(this).closest('.directorist-instant-search').find('input[name="address"]').val(),
             zip: $(this).closest('.directorist-instant-search').find('input[name="zip"]').val(),
             fax: $(this).closest('.directorist-instant-search').find('input[name="fax"]').val(),

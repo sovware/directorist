@@ -3,6 +3,7 @@
     background-color: #fff;
     border-radius: 4px;
     padding: 25px 20px;
+    box-shadow: 0 0 15px rgba(0,0,0, 0.05);
 
     .directorist-announcement {
         font-size: 15px;
@@ -115,31 +116,20 @@
                 align-items: center;
                 justify-content: center;
 
-                i,
-                span.fa,
-                span.la,
-                span.las,
-                span.lab,
-                span.lar,
-                span.fas,
-                span.la {
-                    transition: .35s;
-                    color: #474868;
-                    font-weight: 900;
+                .directorist-icon-mask {
+                    &:after{
+                        transition: .35s;
+                        background-color: #474868;
+                    }
                 }
 
                 &:hover {
                     background-color: $danger;
 
-                    i,
-                    span.fa,
-                    span.la,
-                    span.las,
-                    span.lab,
-                    span.lar,
-                    span.fas,
-                    span.la {
-                        color: #fff;
+                    .directorist-icon-mask {
+                        &:after{
+                            background-color: #fff;
+                        }
                     }
                 }
             }

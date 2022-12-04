@@ -12,6 +12,11 @@ class Directorist_Template_Hooks {
 	protected static $instance = null;
 
 	private function __construct() {
+
+		// Allow '--directorist-icon' inline style var in wp_kses_post, which is used in directorist_icon()
+		add_filter( 'safe_style_css', array( $this, 'add_style_attr' )  );
+		add_filter( 'safecss_filter_attr_allow_css', array( $this, 'allow_style_attr' ), 10, 2  );
+
 		// Dashboard ajax
 		$dashboard = Directorist_Listing_Dashboard::instance();
 		add_action('wp_ajax_directorist_dashboard_listing_tab', array( $dashboard, 'ajax_listing_tab' ) );
@@ -57,6 +62,22 @@ class Directorist_Template_Hooks {
 		return self::$instance;
 	}
 
+	public function add_style_attr( $args ) {
+		$args[] = '--directorist-icon';
+		return $args;
+	}
+
+	public function allow_style_attr( $allow_css, $css_test_string ) {
+		$parts = explode( ':', $css_test_string, 2 );
+		$attr = trim( $parts[0] );
+
+		if ( $attr === '--directorist-icon' ) {
+			return true;
+		}
+
+		return $allow_css;
+	}
+
 	public static function single_content( $content ) {
 		if ( ! in_the_loop() || ! is_main_query() ) {
 			return $content;
@@ -64,12 +85,6 @@ class Directorist_Template_Hooks {
 
 		if ( is_singular( ATBDP_POST_TYPE ) && get_directorist_option( 'single_listing_template', 'directorist_template' ) !== 'directorist_template' ) {
 			return Helper::get_template_contents( 'single-contents' );
-		}
-
-		$directory_types = Helper::get_directory_types_with_custom_single_page( get_the_ID() );
-		if ( get_post_type() === 'page' && ! empty( $directory_types ) ) {
-			$directory_names = wp_list_pluck( $directory_types, 'name' );
-			return sprintf( __( '<p style="text-align:center" class="directorist-alert directorist-alert-info">This page is currently selected as single Listing details page for %s directory.</p>', 'directorist' ) , implode( ', ', $directory_names ) );
 		}
 
 		return $content;

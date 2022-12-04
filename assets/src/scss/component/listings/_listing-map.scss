@@ -50,6 +50,20 @@
 
                 .osm-iw-location {
                     margin-bottom: 6px;
+                    display: flex;
+                    align-items: center;
+                    .directorist-icon-mask{
+                        display: inline-block;
+                        margin-right: 4px;
+                    }
+                }
+                .osm-iw-get-location{
+                    display: flex;
+                    align-items: center;
+                    .directorist-icon-mask{
+                        display: inline-block;
+                        margin-left: 5px;
+                    }
                 }
             }
 
@@ -242,7 +256,9 @@
 
             .map-info-details {
                 padding: 0 20px;
-
+                a{
+                    text-decoration: none;
+                }
                 .atbdp-listings-title-block {
                     margin-top: 0;
 
@@ -350,15 +366,20 @@
                 height: 25px;
                 background: rgba(#444752, 0.5);
                 border-radius: 50%;
-                color: #fff;
                 right: 10px;
                 top: 10px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 13px;
                 cursor: pointer;
                 transition: 0.3s ease;
+                .directorist-icon-mask{
+                    &:after{
+                        background-color: #fff;
+                        width: 13px;
+                        height: 13px;
+                    }
+                }
 
                 &:hover {
                     background: #444752;

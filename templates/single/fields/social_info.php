@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5.2
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -25,8 +25,9 @@ if ( empty( $socials ) ) {
 
 	<div class="directorist-social-links">
 		<?php  foreach ( $socials as $social ): ?>
+			<?php $icon = 'lab la-' . $social['id']; ?>
 			<a target='_blank' href="<?php echo esc_url( $social['url'] ); ?>" class="<?php echo esc_attr( $social['id'] ); ?>">
-				<span class="<?php atbdp_icon_type( true );?>-<?php echo esc_attr( $social['id'] ); ?>"></span>
+				<?php directorist_icon( $icon ); ?>
 			</a>
 		<?php endforeach; ?>
 	</div>

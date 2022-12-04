@@ -10,6 +10,8 @@
  * @since       1.0
  */
 
+use Directorist\database\DB;
+
 // Exit if accessed directly
 if ( ! defined('ABSPATH') ) { die( 'Sorry, it is not your place to have fun..' ); }
 
@@ -46,16 +48,12 @@ class ATBDP_Listing_DB {
     }
 
     /**
-     *It returns all the listing
-     * @return bool|WP_Query it returns an object of WP_Query with all listings on success and false on failure
+     * Unused method
+	 *
+     * @return bool
      */
-    public function all_listing()
-    {
-        $listings = new WP_Query(array(
-            'post_type' => ATBDP_POST_TYPE,
-            'post_per_page'=>-1
-        ));
-        if ($listings->found_posts) return $listings;
+    public function all_listing() {
+		_deprecated_function( __METHOD__, '7.4.3' );
         return false;
     }
 
@@ -115,39 +113,8 @@ class ATBDP_Listing_DB {
     //@TODO; methods to add: delete all listing by user
 
     public function get_favourites( $user_id = 0 ) {
-		$user_id = absint( $user_id );
-		if ( ! $user_id ) {
-			$user_id = get_current_user_id();
-		}
-
-		$favorites  = directorist_get_user_favorites( $user_id );
-		$action     = ! empty( $_GET['atbdp_action'] ) ? directorist_clean( wp_unslash( $_GET['atbdp_action'] ) ) : '';
-		$listing_id = ! empty( $_GET['atbdp_listing'] ) ? absint( directorist_clean( wp_unslash( $_GET['atbdp_listing'] ) ) ) : 0;
-
-		if ( ! empty( $action ) && ! empty( $listing_id ) ) {
-			if ( in_array( $listing_id, $favorites ) ) {
-				directorist_delete_user_favorites( $user_id, $listing_id );
-			} else {
-				directorist_add_user_favorites( $user_id, $listing_id );
-			}
-
-			$favorites = directorist_get_user_favorites( $user_id );
-		}
-
-        if ( ! empty( $favorites ) ) {
-            $args = array(
-               // 'author'=> $user_id,
-                'post_type'=> ATBDP_POST_TYPE,
-                'posts_per_page' => -1, //@todo; Add pagination in future.
-                'order'=> 'DESC',
-                'post__in' => $favorites,
-                'orderby' => 'date'
-            );
-        } else {
-            $args = array();
-        }
-
-        return new WP_Query( $args );
+		_deprecated_function( __METHOD__, '7.4.3', 'DB::favorite_listings_query' );
+		return DB::favorite_listings_query();
     }
 
 } // ends class ATBDP_Listing_DB

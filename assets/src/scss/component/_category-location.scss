@@ -269,6 +269,7 @@
                 box-shadow: 0 5px 25px rgba(#8F8E9F, .15);
                 border-radius: 6px;
                 height: 205px;
+                text-decoration: none;
 
                 figure {
                     position: relative;
@@ -294,12 +295,21 @@
                         border-radius: 50%;
                         background-color: $primary;
                         margin: auto auto 20px auto;
+                        .directorist-icon-mask{
+                            &:after{
+                                background-color: #fff;
+                            }
+                        }
 
                         span,
                         i,
                         svg {
                             margin-bottom: 0;
                             color: #fff;
+                        }
+                        .directorist-icon-mask:after{
+                            width: 25px;
+                            height: 25px;
                         }
                     }
                 }
@@ -335,7 +345,7 @@
                 figcaption {
                     position: relative;
                     background-color: #fff;
-                    padding: 35px 0 30px;
+                    padding: 0;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -391,6 +401,14 @@
             .icon {
                 span {
                     color: #fff;
+                }
+                .directorist-icon-mask{
+                    display: inline-block;
+                    &::after{
+                        width: 30px;
+                        height: 30px;
+                        background-color: #fff;
+                    }
                 }
             }
 

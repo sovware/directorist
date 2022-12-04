@@ -119,7 +119,7 @@
 
         function mapLeaflet(lat, lon) {
           var fontAwesomeIcon = L.divIcon({
-            html: "<div class=\"atbd_map_shape\"><span class=\"".concat(cat_icon, "\"></span></div>"),
+            html: "<div class=\"atbd_map_shape\"><span class=\"\">".concat(cat_icon, "</span></div>"),
             iconSize: [20, 20],
             className: 'myDivIcon'
           });

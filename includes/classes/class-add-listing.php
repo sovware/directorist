@@ -758,16 +758,16 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		 * @since 3.1.0
 		 */
 		public function parse_query( $query ) {
-			$nonce = ! empty( $_GET['_wpnonce'] ) ? wp_unslash( $_GET['_wpnonce'] ) : ''; // @codingStandardsIgnoreLine WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			if ( ! wp_verify_nonce( $nonce, 'directorist_listing_renew' ) ) {
+			$temp_token = ! empty( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
+			$renew_from = ! empty( $_GET['renew_from'] ) ? sanitize_text_field( wp_unslash( $_GET['renew_from'] ) ) : '';
+
+			if ( empty( $temp_token ) && empty( $renew_from ) ) {
 				return;
 			}
 
-			$action     = $query->get( 'atbdp_action' );
-			$id         = $query->get( 'atbdp_listing_id' );
-			$temp_token = isset( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
-			$renew_from = isset( $_GET['renew_from'] ) ? sanitize_text_field( wp_unslash( $_GET['renew_from'] ) ) : '';
-			$token      = get_post_meta( $id, '_renewal_token', true );
+			$action = $query->get( 'atbdp_action' );
+			$id     = $query->get( 'atbdp_listing_id' );
+			$token  = get_post_meta( $id, '_renewal_token', true );
 
 			if ( ! empty( $action ) && ! empty( $id ) && 'renew' == $action ) {
 				if ( $temp_token === $token || $renew_from ) {
@@ -820,23 +820,22 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			// Updating listing
 			wp_update_post( $post_array );
-
+			
+			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
 			// Update the post_meta into the database
 			$old_status = get_post_meta( $listing_id, '_listing_status', true );
 			if ( 'expired' == $old_status ) {
 				$expiry_date = calc_listing_expiry_date();
 			} else {
 				$old_expiry_date = get_post_meta( $listing_id, '_expiry_date', true );
-				$expiry_date     = calc_listing_expiry_date( $old_expiry_date );
+				$expiry_date     = calc_listing_expiry_date( $old_expiry_date, '',  $directory_type );
 			}
 
 			// update related post metas
 			update_post_meta( $listing_id, '_expiry_date', $expiry_date );
 			update_post_meta( $listing_id, '_listing_status', 'post_status' );
 
-			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
 			$exp_days       = get_term_meta( $directory_type, 'default_expiration', true );
-
 			if ( $exp_days <= 0 ) {
 				update_post_meta( $listing_id, '_never_expire', 1 );
 			} else {

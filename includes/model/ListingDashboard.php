@@ -5,7 +5,8 @@
 
 namespace Directorist;
 
-use \ATBDP_Permalink;
+use ATBDP_Permalink;
+use Directorist\database\DB;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -156,8 +157,8 @@ class Directorist_Listing_Dashboard {
 			'format'    => '?paged=%#%',
 			'current'   => max(1, $paged),
 			'total'     => $query->max_num_pages,
-			'prev_text' => '<i class="la la-arrow-left"></i>',
-			'next_text' => '<i class="la la-arrow-right"></i>',
+			'prev_text' => directorist_icon( 'las la-arrow-left', false ),
+			'next_text' => directorist_icon( 'las la-arrow-right', false ),
 		));
 
 		return $links;
@@ -182,7 +183,7 @@ class Directorist_Listing_Dashboard {
 		$type              = get_post_meta( $id, '_directory_type', true );
 
 		$default_image_src = Helper::default_preview_image_src( $type );
-		$image_quality     = get_directorist_option('preview_image_quality', 'large');
+		$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
 		$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 		$listing_img       = get_post_meta($id, '_listing_img', true);
 
@@ -217,7 +218,7 @@ class Directorist_Listing_Dashboard {
 	public function fav_listing_items() {
 		$fav_listing_items = array();
 
-		$fav_listings = ATBDP()->user->current_user_fav_listings(); //@cache @kowsar
+		$fav_listings = DB::favorite_listings_query();
 
 		if ( $fav_listings->have_posts() ){
 			foreach ( $fav_listings->posts as $post ) {
@@ -226,11 +227,15 @@ class Directorist_Listing_Dashboard {
 				$cats          = get_the_terms( $post->ID, ATBDP_CATEGORY );
 				$category      = get_post_meta( $post->ID, '_admin_category_select', true );
 				$category_name = ! empty( $cats ) ? $cats[0]->name : 'Uncategorized';
-				$category_icon = ! empty( $cats ) ? esc_attr( get_cat_icon( $cats[0]->term_id ) ) : atbdp_icon_type() . '-tags';
 				$mark_fav_html = atbdp_listings_mark_as_favourite( $post->ID );
 
-				$icon_type     = substr( $category_icon, 0, 2 );
-				$icon          = ( 'la' === $icon_type ) ? $icon_type . ' ' . $category_icon : 'fa ' . $category_icon;
+
+				if (!empty($cats)) {
+					$cat_icon = get_cat_icon($cats[0]->term_id);
+				}
+				$cat_icon = !empty($cat_icon) ? $cat_icon : 'las la-tags';
+				$icon = directorist_icon( $cat_icon, false );
+
 				$category_link = ! empty( $cats ) ? esc_url( ATBDP_Permalink::atbdp_get_category_page( $cats[0] ) ) : '#';
 				$post_link     = esc_url( get_post_permalink( $post->ID ) );
 
@@ -355,14 +360,14 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_my_listings'] = array(
 				'title'     => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
 				'content'   => Helper::get_template_contents( 'dashboard/tab-my-listings', [ 'dashboard' => $this ] ),
-				'icon'	    => atbdp_icon_type() . '-list',
+				'icon'	    => 'las la-list',
 			);
 		}
 
 		if ( $my_profile_tab ) {
 			$dashboard_tabs['dashboard_profile'] = array(
 				'title'     => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
-				'icon'	    => atbdp_icon_type() . '-user',
+				'icon'	    => 'las la-user',
 				'content'   => Helper::get_template_contents( 'dashboard/tab-profile', [ 'dashboard' => $this ] ),
 			);
 		}
@@ -371,7 +376,7 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_fav_listings'] = array(
 				'title'     => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
 				'content'   => Helper::get_template_contents( 'dashboard/tab-fav-listings', [ 'dashboard' => $this ] ),
-				'icon'		=> atbdp_icon_type() . '-heart',
+				'icon'		=> 'las la-heart',
 			);
 		}
 
@@ -379,7 +384,7 @@ class Directorist_Listing_Dashboard {
 			$dashboard_tabs['dashboard_announcement'] = array(
 				'title'    => $this->get_announcement_label(),
 				'content'  => Helper::get_template_contents( 'dashboard/tab-announcement', [ 'dashboard' => $this ] ),
-				'icon'	   => atbdp_icon_type() . '-bullhorn',
+				'icon'	   => 'las la-bullhorn',
 			);
 		}
 
@@ -541,6 +546,10 @@ class Directorist_Listing_Dashboard {
 		return false;
 	}
 
+	public function get_renewal_link( $listing_id ) {
+		return get_directorist_option( 'enable_monetization' ) && get_directorist_option( 'enable_featured_listing' ) ? ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id ) : ATBDP_Permalink::get_renewal_page_link( $listing_id );
+	}
+
 	public function get_action_dropdown_item() {
 		$dropdown_items = apply_filters( 'directorist_dashboard_listing_action_items', [], $this );
 
@@ -550,8 +559,8 @@ class Directorist_Listing_Dashboard {
 			$dropdown_items['renew'] = array(
 				'class'			    => '',
 				'data_attr'			=>	'',
-				'link'				=>	add_query_arg( 'renew_from', 'dashboard', esc_url( ATBDP_Permalink::get_renewal_page_link( $post_id )) ),
-				'icon'				=>  sprintf( '<i class="%s-hand-holding-usd"></i>', atbdp_icon_type() ),
+				'link'				=>	add_query_arg( 'renew_from', 'dashboard', esc_url( $this->get_renewal_link( $post_id ) ) ),
+				'icon'				=>  directorist_icon( 'las la-hand-holding-usd', false ),
 				'label'				=>  __( 'Renew', 'directorist' )
 			);
 		}
@@ -561,7 +570,7 @@ class Directorist_Listing_Dashboard {
 				'class'			    => '',
 				'data_attr'			=>	'',
 				'link'				=>	ATBDP_Permalink::get_checkout_page_link( $post_id ),
-				'icon'				=>  sprintf( '<i class="%s-ad"></i>', atbdp_icon_type() ),
+				'icon'				=>  directorist_icon( 'las la-ad', false ),
 				'label'				=>  __( 'Promote', 'directorist' )
 			);
 		}
@@ -570,7 +579,7 @@ class Directorist_Listing_Dashboard {
 			'class'			    => '',
 			'data_attr'			=>	'data-task="delete"',
 			'link'				=>	'#',
-			'icon'				=>  sprintf( '<i class="%s-trash"></i>', atbdp_icon_type() ),
+			'icon'				=>  directorist_icon( 'las la-trash', false ),
 			'label'				=>  __( 'Delete Listing', 'directorist' )
 		);
 

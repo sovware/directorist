@@ -894,7 +894,7 @@ window.addEventListener('DOMContentLoaded', function () {
   delImgLink.on('click', function (event) {
     event.preventDefault(); // Clear out the preview image and set no image as placeholder
 
-    $('.listing-img-container').html("<img src=\"".concat(directorist_admin.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" />")); // Hide the delete image link
+    $('.listing-img-container').html("<img src=\"".concat(directorist_admin.assets_path, "images/no-image.png\" alt=\"Listing Image\" />")); // Hide the delete image link
 
     delImgLink.addClass('hidden');
   });
@@ -905,7 +905,7 @@ window.addEventListener('DOMContentLoaded', function () {
     $(this).parent().remove(); // if no image exist then add placeholder and hide remove image button
 
     if ($('.single_attachment').length === 0) {
-      $('.listing-img-container').html("<img src=\"".concat(directorist_admin.AdminAssetPath, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
+      $('.listing-img-container').html("<img src=\"".concat(directorist_admin.assets_path, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
       delImgLink.addClass('hidden');
     }
   });
@@ -1540,7 +1540,36 @@ pureScriptTab('.directorist_builder--tab');
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery; // Category icon selection
+  var $ = jQuery; // Init Category Icon Picker
+
+  function initCategoryIconPicker() {
+    var iconPickerContainer = document.querySelector('.directorist-category-icon-picker');
+
+    if (!iconPickerContainer) {
+      return;
+    }
+
+    var iconValueElm = document.querySelector('.category_icon_value');
+    var iconValue = iconValueElm ? iconValueElm.value : '';
+
+    var onSelectIcon = function onSelectIcon(value) {
+      iconValueElm.setAttribute('value', value);
+    };
+
+    var args = {};
+    args.container = iconPickerContainer;
+    args.onSelect = onSelectIcon;
+    args.icons = {
+      fontAwesome: directoriistFontAwesomeIcons,
+      lineAwesome: directoriistLineAwesomeIcons
+    };
+    args.value = iconValue;
+    args.labels = directorist_admin.icon_picker_labels;
+    var iconPicker = new IconPicker(args);
+    iconPicker.init();
+  }
+
+  initCategoryIconPicker(); // Category icon selection
 
   function selecWithIcon(selected) {
     if (!selected.id) {
@@ -2460,7 +2489,7 @@ window.addEventListener('DOMContentLoaded', function () {
       action: 'atbdp_plugins_bulk_action',
       task: task,
       plugin_items: plugins_items,
-      nonce: directorist_admin.nonce
+      directorist_nonce: directorist_admin.directorist_nonce
     };
     jQuery.ajax({
       type: 'post',
@@ -2470,12 +2499,10 @@ window.addEventListener('DOMContentLoaded', function () {
         $(self).find('button[type="submit"]').prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
       },
       success: function success(response) {
-        // console.log( response );
         $(self).find('button[type="submit"] .atbdp-icon').remove();
         location.reload();
       },
       error: function error(_error8) {
-        // console.log(error);
         uninstalling = false;
       }
     }); // console.log( task, plugins_items );
@@ -2910,7 +2937,9 @@ function selec2_add_custom_dropdown_toggle_button() {
 
   if (!dropdown.length) {
     // Add Dropdown Toggle Button
-    var dropdownHTML = '<span class="directorist-select2-addon directorist-select2-dropdown-toggle"><i class="fas fa-chevron-down"></i></span>';
+    var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/chevron-down.svg';
+    var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+    var dropdownHTML = "<span class=\"directorist-select2-addon directorist-select2-dropdown-toggle\">".concat(iconHTML, "</span>");
     addon_container.append(dropdownHTML);
   }
 
@@ -2981,7 +3010,9 @@ function selec2_add_custom_close_button(field) {
 
   addon_container.find('.directorist-select2-dropdown-close').remove(); // Add
 
-  addon_container.prepend('<span class="directorist-select2-addon directorist-select2-dropdown-close"><i class="fas fa-times"></i></span>');
+  var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/times.svg';
+  var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+  addon_container.prepend("<span class=\"directorist-select2-addon directorist-select2-dropdown-close\">".concat(iconHTML, "</span>"));
   var selec2_custom_close = addon_container.find('.directorist-select2-dropdown-close');
   selec2_custom_close.on('click', function (e) {
     var field = $(this).closest('.select2-container').siblings('select:enabled');

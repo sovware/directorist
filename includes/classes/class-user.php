@@ -8,6 +8,8 @@
  * @since       1.0
  */
 
+use Directorist\database\DB;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
@@ -33,7 +35,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		}
 
 		public function registration_redirection() {
-			
+
 			$registration_page = get_directorist_option( 'custom_registration' );
 			if( ! get_directorist_option( 'new_user_registration', true ) && $registration_page && is_page( $registration_page ) ) {
 				wp_redirect( home_url( '/' ) );
@@ -471,7 +473,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		*/
 		public function current_user_fav_listings()
 		{
-			return ATBDP()->listing->db->get_favourites(); // it returns all the listing of the current user.
+			_deprecated_function( __METHOD__, '7.4.3', 'DB::favorite_listings_query' );
+			return DB::favorite_listings_query();
 		}
 
 		/**
@@ -483,7 +486,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		{
 			$userdata = array();
 			// we need to sanitize the data and then save it.
-			$ID = !empty($data['ID']) ? absint($data['ID']) : get_current_user_id();
+			$ID = get_current_user_id();
 			$userdata['ID'] = $ID;
 			$userdata['display_name'] = !empty($data['full_name']) ? sanitize_text_field(trim($data['full_name'])) : '';
 			$userdata['user_email'] = !empty($data['user_email']) ? sanitize_email($data['user_email'] ): '';
@@ -499,7 +502,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$bio = !empty($data['bio']) ? sanitize_textarea_field(trim($data['bio'] )): '';
 			$new_pass = !empty($data['new_pass']) ? $data['new_pass'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			$confirm_pass = !empty($data['confirm_pass']) ? $data['confirm_pass']: ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-			
+
 			// now lets save the data to the db without password
 			$uid = wp_update_user($userdata);
 			update_user_meta( $ID, 'address', $address );

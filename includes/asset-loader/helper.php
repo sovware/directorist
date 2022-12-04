@@ -51,7 +51,7 @@ class Helper {
 
 	/**
 	 * Get script version
-	 * 
+	 *
 	 * @return string
 	 */
 	public static function get_script_version() {
@@ -197,6 +197,12 @@ class Helper {
 
 			case 'settings':
 				if ( $screen == 'at_biz_dir_page_atbdp-settings' ) {
+					$status = true;
+				}
+				break;
+
+			case 'all_listings':
+				if ( $screen == 'edit' && !empty( $_GET['post_type'] ) && $_GET['post_type'] == 'at_biz_dir' ) {
 					$status = true;
 				}
 				break;

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.3.1
+ * @version 7.4.2
  */
 
 use \Directorist\Helper;
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					if ( ! empty( $_GET['registration_status'] ) && true == $_GET['registration_status'] ) {
 						if ( empty( $display_password_reg ) ) {
 							?>
-							<p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php esc_html_e(' Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
+							<p style="padding: 20px" class="alert-success"><?php directorist_icon( 'las la-check' ); ?><?php esc_html_e(' Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
 								<?php
 								$output = sprintf( __( 'Click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' );
 								echo wp_kses_post( $output );
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							</p>
 						<?php } else { ?>
 							<!--registration succeeded, so show notification -->
-							<p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php esc_html_e(' Registration completed. Please check your email for confirmation.', 'directorist'); ?>
+							<p style="padding: 20px" class="alert-success"><?php directorist_icon( 'las la-check' ); ?><?php esc_html_e(' Registration completed. Please check your email for confirmation.', 'directorist'); ?>
 								<?php
 								$output = sprintf( __('Or click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' );
 								echo wp_kses_post( $output );
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					?>
 					<!--Registration failed, so show notification.-->
 					<?php if ( isset( $_GET['errors'] ) ) { ?>
-					<p style="padding: 20px" class="alert-danger"><span class="fa fa-exclamation-triangle"></span> <?php echo wp_kses_post( directorist_get_registration_error_message( sanitize_text_field( wp_unslash( $_GET['errors'] ) ) ) ); ?></p>
+					<p style="padding: 20px" class="alert-danger"><?php directorist_icon( 'las la-exclamation-triangle' ); ?> <?php echo wp_kses_post( directorist_get_registration_error_message( sanitize_text_field( wp_unslash( $_GET['errors'] ) ) ) ); ?></p>
 					<?php } ?>
 				</div>
 			</div>
@@ -49,11 +49,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<form action="<?php the_permalink(); ?>" method="post">
 						<div class="directorist-form-group directorist-mb-15">
 							<label for="username"><?php echo esc_html( $username ); ?> <strong class="directorist-form-required">*</strong></label>
-							<input id="username" class="directorist-form-element" type="text" name="username" value="<?php echo isset( $_REQUEST['username'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['username'] ) ) ) : ''; ?>">
+							<input id="username" class="directorist-form-element" type="text" name="username" value="<?php echo isset( $_REQUEST['username'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['username'] ) ) ) : ''; ?>" required>
 						</div>
 						<div class="directorist-form-group directorist-mb-15">
 							<label for="email"><?php echo esc_html( $email ); ?> <strong class="directorist-form-required">*</strong></label>
-							<input id="email" class="directorist-form-element" type="text" name="email" value="<?php echo isset( $_REQUEST['email'] ) ? esc_attr( sanitize_email( wp_unslash( $_REQUEST['email'] ) ) ) : ''; ?>">
+							<input id="email" class="directorist-form-element" type="text" name="email" value="<?php echo isset( $_REQUEST['email'] ) ? esc_attr( sanitize_email( wp_unslash( $_REQUEST['email'] ) ) ) : ''; ?>" required>
 						</div>
 						<?php if ( ! empty( $display_password_reg ) ) { ?>
 							<div class="directorist-form-group directorist-mb-15">
@@ -61,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									echo esc_html( $password );
 									echo ( ! empty( $require_password ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 								?></label>
-								<input id="password" class="directorist-form-element" type="password" name="password" value="">
+								<input id="password" class="directorist-form-element" type="password" name="password" value="" <?php echo ( ! empty( $require_password ) ? 'required' : '' ); ?>>
 							</div>
 						<?php } ?>
 						<?php if ( ! empty( $display_fname ) ) { ?>
@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								echo esc_html( $first_name );
 								echo ( ! empty( $require_fname ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 							?></label>
-							<input id="fname" class="directorist-form-element" type="text" name="fname" value="<?php echo isset( $_REQUEST['fname']) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['fname'] ) ) ) : ''; ?>">
+							<input id="fname" class="directorist-form-element" type="text" name="fname" value="<?php echo isset( $_REQUEST['fname']) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['fname'] ) ) ) : ''; ?>" <?php echo ( ! empty( $require_fname ) ? 'required' : '' ); ?>>
 						</div>
 						<?php } ?>
 						<?php if ( ! empty( $display_lname ) ) { ?>
@@ -79,7 +79,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								echo esc_html( $last_name );
 								echo ( ! empty( $require_lname ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 							?></label>
-							<input class="directorist-form-element" id="lname" type="text" name="lname" value="<?php echo isset( $_REQUEST['lname']) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['lname'] ) ) ) : ''; ?>">
+							<input class="directorist-form-element" id="lname" type="text" name="lname" value="<?php echo isset( $_REQUEST['lname']) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['lname'] ) ) ) : ''; ?>" <?php echo ( ! empty( $require_lname ) ? 'required' : '' ); ?>>
 						</div>
 						<?php } ?>
 						<?php if ( ! empty( $display_website ) ) {  ?>
@@ -88,7 +88,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									echo esc_html( $website );
 									echo ( ! empty( $require_website ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 								?></label>
-								<input id="website" class="directorist-form-element" type="text" name="website" value="<?php echo isset( $_REQUEST['website']) ? esc_url( sanitize_text_field( wp_unslash( $_REQUEST['website'] ) ) ) : ''; ?>">
+								<input id="website" class="directorist-form-element" type="text" name="website" value="<?php echo isset( $_REQUEST['website']) ? esc_url( sanitize_text_field( wp_unslash( $_REQUEST['website'] ) ) ) : ''; ?>" <?php echo ( ! empty( $require_website ) ? 'required' : '' ); ?>>
 							</div>
 						<?php } ?>
 						<?php if ( ! empty( $display_bio ) ) { ?>
@@ -97,7 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								echo esc_html( $bio );
 								echo ( ! empty( $require_bio ) ? '<strong class="directorist-form-required">*</strong>' : '' );
 							?></label>
-							<textarea id="bio" class="directorist-form-element" name="bio" rows="10"><?php echo isset( $_REQUEST['bio']) ? esc_textarea( sanitize_text_field( wp_unslash( $_REQUEST['bio'] ) ) ) : ''; ?></textarea>
+							<textarea id="bio" class="directorist-form-element" name="bio" rows="10" <?php echo ( ! empty( $require_bio ) ? 'required' : '' ); ?>><?php echo isset( $_REQUEST['bio']) ? esc_textarea( sanitize_text_field( wp_unslash( $_REQUEST['bio'] ) ) ) : ''; ?></textarea>
 						</div>
 						<?php } ?>
 						<?php if ( ! empty( get_directorist_option( 'display_user_type' ) ) ) {

@@ -46,7 +46,10 @@
 .directorist-user-info-wrap {
     .directorist-form-group {
         margin-bottom: 25px;
-
+        > label {
+            display: inline-flex;
+            margin-bottom: 5px;
+        }
         .directorist-input-extra-info {
             color: $light-gray;
             display: inline-block;
@@ -74,13 +77,17 @@
     }
 
     label {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
         .directorist-social-icon {
             margin-right: 6px;
-            font-size: 16px;
-            color: #0A0B1E;
-
-            .fa {
-                font-family: "Font Awesome 5 Brands";
+            .directorist-icon-mask{
+                &:after{
+                    width: 16px;
+                    height: 16px;
+                    background-color: #0A0B1E;
+                }
             }
         }
     }

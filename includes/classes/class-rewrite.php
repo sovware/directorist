@@ -63,7 +63,7 @@ class ATBDP_Rewrite {
 		$slug     = rtrim( $slug, '/' );
 		$slug     = preg_match( '/([?])/', $slug ) ? $default_slug : $slug;
 
-		return $slug;
+		return apply_filters( 'directorist_rewrite_get_page_slug', $slug, $page_id, $default_slug );
 	}
 
 	public function add_write_rules() {

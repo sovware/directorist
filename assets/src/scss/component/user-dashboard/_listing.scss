@@ -1,5 +1,6 @@
 // Favourite Listings Style
 .directorist-favourite-items-wrap{
+    box-shadow: 0 0 15px rgba(0,0,0, 0.05);
     .directorist-favourirte-items{
         background-color: #fff;
         padding: 20px 10px;
@@ -96,11 +97,22 @@
             }
 
             @include m(action){
-
                 .directorist-favourite-remove-btn{
+                    .directorist-icon-mask{
+                        margin-right: 5px;
+                        &:after{
+                            background-color: #fff;
+                        }
+                    }
+
+                    /* Legacy Icon */
+                    > i:not(.directorist-icon-mask){
+                        margin-right: 5px;
+                    }
 
                     font-weight: 500;
-                    display: inline-block;
+                    display: inline-flex;
+                    align-items: center;
                     border-radius: 6px;
                     padding: 0px 14px;
                     color: #fff !important;

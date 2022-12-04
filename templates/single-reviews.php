@@ -3,7 +3,7 @@
  * Comment and review template for single view.
  *
  * @since   7.1.0
- * @version 7.3.1
+ * @version 7.4.2
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -14,6 +14,7 @@ use Directorist\Review\Builder;
 use Directorist\Review\Markup;
 use Directorist\Review\Walker as Review_Walker;
 use Directorist\Review\Comment_Form_Renderer;
+use Directorist\Directorist_Single_Listing;
 
 $builder       = Builder::get( get_the_ID() );
 $review_rating = directorist_get_listing_rating( get_the_ID() );
@@ -23,17 +24,21 @@ $review_text   = sprintf( _n( '%s review', '%s reviews', $review_count, 'directo
 // Load walker class
 Bootstrap::load_walker();
 
+$listing       = Directorist_Single_Listing::instance();
+$section_data  = $listing->get_review_section_data();
+$section_id    = $section_data['id'];
+$section_class = $section_data['class'];
 ?>
-<div id="reviews" class="directorist-review-container">
+<div id="<?php echo esc_attr( $section_id ); ?>" class="directorist-review-container <?php echo esc_attr( $section_class ); ?>">
 	<div class="directorist-review-content">
 		<div class="directorist-review-content__header <?php if ( ! have_comments() ) : ?>directorist-review-content__header--noreviews<?php endif;?>">
 			<?php if ( ! have_comments() ) : ?><div><?php endif;?>
 			<h3><?php printf( '%s <span>%s</span>', esc_html( get_the_title() ), esc_html( $review_text ) ); ?></h3>
 
 			<?php if ( directorist_can_current_user_review() || directorist_can_guest_review() ) : ?>
-				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><i class="fa fa-star" aria-hidden="true"></i><?php esc_attr_e( 'Write Your Review', 'directorist' ); ?></a>
+				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Write Your Review', 'directorist' ); ?></a>
 			<?php elseif ( ! is_user_logged_in() ) : ?>
-				<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url( array( 'redirect' => get_the_permalink(), 'scope' => 'review' ) ) ); ?>" rel="nofollow" class="directorist-btn directorist-btn-primary"><i class="fa fa-star" aria-hidden="true"></i><?php esc_attr_e( 'Login to Write Your Review', 'directorist' ); ?></a>
+				<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url( array( 'redirect' => get_the_permalink(), 'scope' => 'review' ) ) ); ?>" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Login to Write Your Review', 'directorist' ); ?></a>
 			<?php endif; ?>
 
 			<?php if ( ! have_comments() ) : ?>
@@ -63,12 +68,16 @@ Bootstrap::load_walker();
 
 			<?php if ( get_comment_pages_count() > 1 ) : ?>
 			<nav class="directorist-review-content__pagination directorist-pagination">
-				<?php paginate_comments_links( array(
-					'prev_text'    => '<i class="la la-arrow-left"></i>',
-					'next_text'    => '<i class="la la-arrow-right"></i>',
+				<?php
+				$prev_text = directorist_icon( 'las la-arrow-left', false );
+				$next_text = directorist_icon( 'las la-arrow-right', false );
+				paginate_comments_links( array(
+					'prev_text'    => $prev_text,
+					'next_text'    => $next_text,
 					'type'         => 'list',
-					'add_fragment' => '#reviews',
-				) ); ?>
+					'add_fragment' => '#' . $section_id,
+				) );
+				?>
 			</nav>
 			<?php endif;?>
 		<?php endif;?>

@@ -241,6 +241,9 @@
 
         .directorist-listing-single__info--top {
             margin: -4px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
             .directorist-badge.directorist-badge-close {
                 background-color: transparent;
                 color: $danger;
@@ -258,6 +261,10 @@
             span,
             a{
                 word-break: break-all;
+            }
+            .directorist-info-item.directorist-rating-meta{
+                display: inline-flex;
+                align-items: center;
             }
         }
 
@@ -314,6 +321,29 @@
             span a {
                 box-shadow: none;
             }
+            &.directorist-rating-meta{
+                display: inline-flex;
+                align-items: center;
+                .directorist-icon-mask{
+                    &:after{
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+            }
+            &.directorist-listing-category,
+            &.directorist-listing-location{
+                display: inline-flex;
+                align-items: center;
+                .directorist-icon-mask{
+                    margin-right: 5px;
+                }
+
+                /* Legacy Icon */
+                > span:not(.directorist-icon-mask){
+                    margin-right: 5px;
+                }
+            }
         }
 
         .directorist-badge+.directorist-badge {
@@ -335,6 +365,7 @@
             text-transform: none;
             line-height: 1.2;
             margin-bottom: 8px;
+            flex: 0 0 100%;
 
             a {
                 text-decoration: none;
@@ -373,7 +404,10 @@
                         margin-bottom: 2px;
                         font-size: 14px;
                         display: flex;
-                        align-items: flex-start;
+                        align-items: center;
+                        .directorist-icon-mask{
+                            width: 20px;
+                        }
                     }
 
                     .directorist-icon {
@@ -434,9 +468,7 @@
 
         .directorist-listing-category {
             & > a {
-                i,
-                span.la,
-                span.fa{
+                .directorist-icon-mask{
                     width: 36px;
                     height: 36px;
                     border-radius: 50%;
@@ -445,7 +477,26 @@
                     align-items: center;
                     justify-content: center;
                     margin-right: 10px;
-                    color: #51526E;
+                    &:after{
+                        background-color: #51526E;
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+
+                /* Legacy Icon */
+                > span{
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    background: #F3F3F3;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 10px;
+                    &:before{
+                        color: #51526E;
+                    }
                 }
             }
         }
@@ -474,10 +525,21 @@
                 font-size: 15px;
                 margin: 0 5px;
                 color: #767792;
+                display: flex;
+                align-items: center;
 
-                i,
-                span.la,
-                span.fa {
+                .directorist-icon-mask{
+                    margin-right: 5px;
+                    &:after{
+                        width: 15px;
+                        height: 15px;
+                        background-color: #767792;
+                    }
+                }
+
+                /* Legacy Icon */
+                > span{
+                    display: inline-block;
                     margin-right: 5px;
                 }
             }
@@ -515,20 +577,13 @@
 .directorist-rating-meta {
     padding: 0;
 
-    i,
-    span.la,
-    span.fa {
-        font-size: 12px;
-        color: #F80718;
-        font-weight: 900;
-
-        &:not(:last-child) {
-            margin-right: 3px;
+    i.directorist-icon-mask {
+        &:after {
+            background-color: #F80718;
         }
-    }
-    .far,
-    .lar{
-        color: #D1D1D1;
+        &.star-empty:after {
+            background-color: #D1D1D1;
+        }
     }
 
     .directorist-rating-avg {
@@ -565,26 +620,28 @@
         text-decoration: none !important;
     }
 
-    &.directorist-added-to-favorite {
-        background: rgba(0, 0, 0, 0.5) !important;
+    .directorist-favorite-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        .directorist-favorite-icon {
-            &:before {
-                content: '\f004';
-                font-weight: 900;
-            }
+        &:before {
+            content: '';
+            mask-image: url("../../../../icons/line-awesome/svgs/heart.svg");
+            mask-repeat: no-repeat;
+            width: 15px;
+            height: 15px;
+            background-color: #fff;
+            transition: 0.3s ease;
         }
     }
 
-    .directorist-favorite-icon {
-        line-height: 1;
-        font-size: 15px;
-
-        &:before {
-            content: "\f004";
-            font-family: 'Line Awesome Free';
-            color: #fff;
-            font-weight: 500;
+    &.directorist-added-to-favorite {
+        background: rgba(0, 0, 0, 0.5) !important;
+        .directorist-favorite-icon {
+            &:before {
+                mask-image: url("../../../../icons/line-awesome/svgs/heart-solid.svg");
+            }
         }
     }
 
@@ -619,30 +676,8 @@
     background: rgba(#000, 0.07);
     transition: $transition-base;
 
-    .directorist-favorite-icon::before {
-        color: #fff;
-        font-weight: 500;
-    }
-
     &.directorist-added-to-favorite {
         background: $primary !important;
-
-        .directorist-favorite-icon::before {
-            color: #fff !important;
-            font-size: 14px;
-        }
-
-        &:hover {
-            .directorist-favorite-icon::before {
-                color: #fff;
-            }
-        }
-    }
-
-    &:hover {
-        .directorist-favorite-icon::before {
-            color: #fff;
-        }
     }
 }
 

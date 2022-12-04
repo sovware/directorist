@@ -64,6 +64,11 @@ class ATBDP_Checkout
         // user logged in & monetization is active, so lets continue
         // get the listing id from the url query var
         $listing_id = get_query_var('atbdp_listing_id');
+
+		if ( empty( $listing_id ) && isset( $_GET['submit'] ) ) {
+			$listing_id = sanitize_text_field( wp_unslash( $_GET['submit'] ) );
+		}
+
         // vail if the id is empty or post type is not our post type.
         if ( directorist_payment_guard() ) {
             return __('Sorry, Something went wrong. Listing ID is missing. Please try again.', 'directorist');
@@ -237,6 +242,14 @@ class ATBDP_Checkout
                     $amount = $detail['price'];
                 }
             }
+
+            /**
+             * Filter the order amount before tax calculation
+             *
+             * @since v7.4.3
+             */
+            $amount = apply_filters( 'directorist_order_amount_before_tax_calculation', $amount, $order_id, $data );
+
             /*Lowercase alphanumeric characters, dashes and underscores are allowed.*/
             $gateway = !empty($amount) && !empty($data['payment_gateway']) ? sanitize_key($data['payment_gateway']) : 'free';
             // save required data as order post meta

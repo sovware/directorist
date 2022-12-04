@@ -117,7 +117,7 @@ window.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         // Clear out the preview image and set no image as placeholder
         $('.listing-img-container').html(
-            `<img src="${directorist_admin.AdminAssetPath}images/no-image.png" alt="Listing Image" />`
+            `<img src="${directorist_admin.assets_path}images/no-image.png" alt="Listing Image" />`
         );
         // Hide the delete image link
         delImgLink.addClass('hidden');
@@ -132,7 +132,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // if no image exist then add placeholder and hide remove image button
         if ($('.single_attachment').length === 0) {
             $('.listing-img-container').html(
-                `<img src="${directorist_admin.AdminAssetPath
+                `<img src="${directorist_admin.assets_path
             }images/no-image.png" alt="Listing Image" /><p>No images</p> ` +
                 `<small>(allowed formats jpeg. png. gif)</small>`
             );
@@ -634,7 +634,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
                 directorist_nonce: directorist_admin.directorist_nonce,
             },
             success(response) {
-                
+
                 if ( response.error ) {
                     console.log({ response });
                     return;

@@ -5,10 +5,8 @@
 
 namespace Directorist;
 
-use \ATBDP_Listings_Data_Store;
-use \ATBDP_Permalink;
-use Directory;
-use WP_Query;
+use ATBDP_Permalink;
+use Directorist\database\DB;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -121,7 +119,9 @@ class Directorist_Listings {
 
 		$this->set_options();
 
-		if ( 'search_result' == $this->type ) {
+		$current_page = !empty( $this->atts['_current_page'] ) ? $this->atts['_current_page'] : '';
+
+		if ( 'search_result' === $this->type || ( 'instant_search' == $this->type && 'search_result' === $current_page ) ) {
 			$this->update_search_options();
 		}
 
@@ -132,7 +132,7 @@ class Directorist_Listings {
 			$this->query_args = $query_args;
 		}
 		else {
-			if ( $this->type == 'search_result' || ! empty( $_GET ) ) {
+			if ( $this->type == 'search_result' || $this->type == 'instant_search' || ! empty( $_GET ) ) {
 				$this->query_args = $this->parse_search_query_args();
 			}
 			else {
@@ -140,7 +140,7 @@ class Directorist_Listings {
 			}
 		}
 
-		$this->query_results = $this->get_query_results( $caching_options );
+		$this->query_results = $this->get_query_results();
 	}
 
 	// set_options
@@ -199,7 +199,7 @@ class Directorist_Listings {
 		$this->options['crop_height']                     = get_directorist_option('crop_height', 360);
 		$this->options['map_view_zoom_level']             = get_directorist_option('map_view_zoom_level', 16);
 		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
-		$this->options['font_type']                       = get_directorist_option('font_type','line');
+		$this->options['font_type']                       = 'line';
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
@@ -400,9 +400,9 @@ class Directorist_Listings {
 		$reviews_count     = directorist_get_listing_review_count( get_the_ID() );
 
 		// Icons
-		$icon_empty_star = '<i class="'. 'far fa-star'.'"></i>';
-		$icon_half_star  = '<i class="'. 'fas fa-star-half-alt'.'"></i>';
-		$icon_full_star  = '<i class="'. 'fas fa-star'.'"></i>';
+		$icon_empty_star = directorist_icon( 'far fa-star', false, 'star-empty' );
+		$icon_half_star  = directorist_icon( 'fas fa-star-half-alt', false, 'star-half' );
+		$icon_full_star  = directorist_icon( 'fas fa-star', false, 'star-full' );
 
 		// Stars
 		$star_1 = ( $average >= 0.5 && $average < 1) ? $icon_half_star : $icon_empty_star;
@@ -659,24 +659,13 @@ class Directorist_Listings {
 		}
 	}
 
-	// get_query_results
-	public function get_query_results( array $caching_options = [] ) {
-		if ( ! empty( $this->query_args['orderby'] ) ) {
-			if ( is_string( $this->query_args['orderby'] ) && preg_match( '/rand/', $this->query_args['orderby'] ) ) {
-				$caching_options['cache'] = false;
-			}
-
-			if ( is_array( $this->query_args['orderby'] ) ) {
-				foreach ( $this->query_args['orderby'] as $key => $value ) {
-					if ( preg_match( '/rand/', $value ) ) {
-						$caching_options['cache'] = false;
-					}
-				}
-			}
-
-		}
-
-		return ATBDP_Listings_Data_Store::get_archive_listings_query( $this->query_args, $caching_options );
+	/**
+	 * get_query_results
+	 *
+	 * @return object
+	 */
+	public function get_query_results() {
+		return DB::get_listings_data( $this->query_args );
 	}
 
 	public function parse_query_args() {
@@ -739,7 +728,17 @@ class Directorist_Listings {
 			$args['meta_query'] = array_merge( array( 'relation' => 'AND' ), $meta_queries );
 		}
 
-		return apply_filters( 'atbdp_all_listings_query_arguments', $args );
+		/**
+		 * Filters the All Listing main query to modify or extend it
+		 *
+		 * @since 7.4.2
+		 *
+		 * @param array 	$args 		All listing query arguments
+		 * @param object 	$this 		Listings object
+		 */
+		$args = apply_filters( 'directorist_all_listings_query_arguments', $args, $this );
+
+		return apply_filters_deprecated( 'atbdp_all_listings_query_arguments', array( $args ), '7.4.2', 'directorist_all_listings_query_arguments' );
 	}
 
 	public function parse_search_query_args() {
@@ -864,8 +863,9 @@ class Directorist_Listings {
 						);
 					}
 				} else {
-					$field_type = get_post_meta( $key, 'type', true );
-					$operator   = ( in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=' );
+					$field_type = str_replace( 'custom-', '', $key );
+					$field_type = preg_replace( '/([!^0-9])|(-)/', '', $field_type ); //replaces any additional numbering to just keep the field name, for example if previous line gives us "text-2", this line makes it "text"
+					$operator   = in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=';
 					$meta_queries[] = array(
 						'key'     => '_' . $key,
 						'value'   => sanitize_text_field( $values ),
@@ -1281,7 +1281,7 @@ class Directorist_Listings {
 		$options = json_encode( $this->map_options() );
 		$style = 'height:' . $this->listings_map_height . 'px';
 		?>
-		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo esc_attr( $card ); ?>" data-options="<?php echo esc_attr( $options ); ?>"></div>
+		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo directorist_esc_json( $card ); ?>" data-options="<?php echo directorist_esc_json( $options ); ?>"></div>
 		<?php
 	}
 
@@ -1317,15 +1317,15 @@ class Directorist_Listings {
 			$cat_icon = get_term_meta( $cats[0]->term_id, 'category_icon', true );
 		}
 
-		$cat_icon = !empty( $cat_icon ) ? $cat_icon : atbdp_icon_type() . '-map-marker';
+		$cat_icon = !empty( $cat_icon ) ? $cat_icon : 'las la-map-marker';
 		/**
-		 * Get category icon for map marker. 
+		 * Get category icon for map marker.
 		 *
 		 * @since 7.3.1
-		 * 
+		 *
 		 * @param array $cats Categories for the post.
 		 * @param string $cat_icon First category
-		 * 
+		 *
 		 * @return string CATEGORY ICON NAME
 		 */
 		return apply_filters( "directorist_listings_map_view_marker_icon", $cat_icon, $cats );
@@ -1379,19 +1379,7 @@ class Directorist_Listings {
 					$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
 				}
 
-				$cats = get_the_terms( get_the_ID(), ATBDP_CATEGORY );
-				$cat_icon = '';
-
-				if ( ! empty( $cats ) ) {
-					$cat_icon = get_cat_icon( $cats[0]->term_id );
-				}
-
-				$cat_icon = ! empty( $cat_icon ) ? $cat_icon : 'las la-map-marker';
-				$cat_icon_type = substr( $cat_icon, 0, 2 );
-
-				$preferred_icon_type = ( 'line' === $ls_data['font_type'] ) ? 'la' : 'fa';
-				$cat_icon = preg_replace( "/". $cat_icon_type ."(\w\s)/", "{$preferred_icon_type}$1$2", $cat_icon );
-				$cat_icon = preg_replace( "/". $cat_icon_type ."(-)/", "{$preferred_icon_type}$1", $cat_icon );
+				$cat_icon = directorist_icon( $this->loop_map_cat_icon(), false );
 				$ls_data['cat_icon'] = $cat_icon;
 
 				$opt['ls_data'] = $ls_data;
@@ -1400,7 +1388,7 @@ class Directorist_Listings {
 					'content'   => Helper::get_template_contents( 'archive/fields/openstreet-map', $opt ),
 					'latitude'  => get_post_meta( $listings_id, '_manual_lat', true ),
 					'longitude' => get_post_meta( $listings_id, '_manual_lng', true ),
-					'cat_icon'  => $this->loop_map_cat_icon(),
+					'cat_icon'  => $cat_icon,
 				];
 
 			endforeach;
@@ -1465,20 +1453,8 @@ class Directorist_Listings {
 					$ls_data['fa_or_la']        = ('line' === $ls_data['font_type']) ? "la " : "fa ";
 					$ls_data['cats']            = get_the_terms($listings_id, ATBDP_CATEGORY);
 
-					$cat_icon = '';
-
-					if ( ! empty( $ls_data['cats'] ) ){
-						$cat_icon = get_cat_icon( $ls_data['cats'][0]->term_id );
-						$ls_data['chk-1::cat_icon'] = $cat_icon;
-					}
-
-					$cat_icon = ! empty( $cat_icon ) ? $cat_icon : 'las la-map-marker';
-					$cat_icon_type = substr( $cat_icon, 0, 2 );
-
-					$preferred_icon_type = ( 'line' === $ls_data['font_type'] ) ? 'la' : 'fa';
-					$cat_icon = preg_replace( "/". $cat_icon_type ."(\w\s)/", "{$preferred_icon_type}$1$2", $cat_icon );
-					$cat_icon = preg_replace( "/". $cat_icon_type ."(-)/", "{$preferred_icon_type}$1", $cat_icon );
-					$ls_data['cat_icon'] = $cat_icon;
+					$cat_icon = directorist_icon( $this->loop_map_cat_icon(), false );
+					$ls_data['cat_icon'] = json_encode( $cat_icon );
 
 					$listing_type  			= get_post_meta( $listings_id, '_directory_type', true );
 					$ls_data['default_img'] = Helper::default_preview_image_src( $listing_type );
@@ -1508,7 +1484,7 @@ class Directorist_Listings {
 			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
 
 			$id = get_the_ID();
-			$image_quality     = get_directorist_option('preview_image_quality', 'large');
+			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
 			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 			$listing_img       = get_post_meta($id, '_listing_img', true);
 
@@ -1574,6 +1550,13 @@ class Directorist_Listings {
 			return in_array( get_the_id() , $favourites );
 		}
 
+		/**
+		 * Unused method
+		 *
+		 * @todo remove
+		 *
+		 * @return string
+		 */
 		public function item_found_title_for_search($count) {
 			$cat_name = $loc_name = '';
 
@@ -1618,13 +1601,7 @@ class Directorist_Listings {
 
 		public function item_found_title() {
 			$count = $this->query_results->total;
-
-			if ( $this->type == 'search_result' ) {
-				$title = $this->item_found_title_for_search( $count );
-			}
-			else {
-				$title = sprintf('<span>%s</span> %s', $count, $this->header_title );
-			}
+			$title = sprintf('<span>%s</span> %s', $count, $this->header_title );
 			return apply_filters('directorist_listings_found_text', $title );
 		}
 
@@ -1739,6 +1716,7 @@ class Directorist_Listings {
 		}
 
 		public function data_atts() {
+			$this->atts['_current_page'] = $this->type; // search_result or listing
 			// Separates class names with a single space, collates class names for wrapper tag element.
 			echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
 		}
@@ -1968,7 +1946,7 @@ class Directorist_Listings {
 
 		public function filter_btn_html() {
 			if ( $this->has_filters_icon ) {
-				return sprintf( '<span class="%s-filter"></span> %s', atbdp_icon_type(), $this->filter_button_text );
+				return sprintf( '%s %s', directorist_icon( 'las la-filter', false ), $this->filter_button_text );
 			}
 			else {
 				return $this->filter_button_text;
@@ -2008,8 +1986,8 @@ class Directorist_Listings {
 				'format'    => '?paged=%#%',
 				'current'   => max(1, $paged),
 				'total'     => $total,
-				'prev_text' => apply_filters('directorist_pagination_prev_text', '<span class="fa fa-chevron-left"></span>'),
-				'next_text' => apply_filters('directorist_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
+				'prev_text' => apply_filters('directorist_pagination_prev_text', directorist_icon( 'fas fa-chevron-left', false )),
+				'next_text' => apply_filters('directorist_pagination_next_text', directorist_icon( 'fas fa-chevron-right', false )),
 			));
 
 			if ( $links ) {

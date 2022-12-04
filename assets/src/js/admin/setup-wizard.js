@@ -45,7 +45,7 @@ jQuery(document).ready(function ($) {
                         console.log({ response });
                         return;
                     }
-                    
+
                     imported += response.imported;
                     failed += response.failed;
                     redirect_url = response.url;

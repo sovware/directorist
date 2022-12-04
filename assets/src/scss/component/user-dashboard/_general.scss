@@ -29,6 +29,10 @@
     flex: 1;
     width: calc(100% - 230px);
   }
+
+  .directorist-alert{
+    margin-bottom: 15px;
+  }
 }
 
 /* user dashboard loader */
@@ -80,7 +84,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: #fff;
-    box-shadow: 0 5px 10px rgba(#8f8e9f, 0.05);
+    box-shadow: 0 0 15px rgba(0,0,0, 0.05);
     border-radius: 4px;
     padding: 0 20px;
   }
@@ -90,6 +94,7 @@
     list-style: none;
     display: flex;
     align-items: center;
+    padding-left: 0;
 
     li {
       list-style: none;
@@ -168,7 +173,7 @@
 
 .directorist-user-dashboard-tabcontent {
   background-color: #fff;
-  box-shadow: 0 5px 10px rgba(#8f8e9f, 0.05);
+  box-shadow: 0 0 15px rgba(0,0,0, 0.05);
   border-radius: 4px;
   margin-top: 15px;
 
@@ -400,9 +405,14 @@
           color: #2c99ff;
           font-weight: 500;
           margin-right: 20px;
+          display: flex;
+          align-items: center;
 
           i {
             margin-right: 5px;
+            span{
+              background-color: #2c99ff;
+            }
           }
         }
       }
@@ -484,8 +494,10 @@
           padding: 10px 20px;
           font-size: 14px;
           color: #51526e;
-          display: block;
+          display: flex;
           text-decoration: none;
+          flex-wrap: wrap;
+          align-items: center;
 
           &:hover {
             background-color: #f6f7f9;
@@ -632,6 +644,8 @@
           a {
             &.directorist-link-btn {
               margin-right: 15px;
+              display: flex;
+              align-items: center;
             }
           }
         }

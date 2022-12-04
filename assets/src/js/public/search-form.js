@@ -496,8 +496,8 @@ import { directorist_range_slider } from './range-slider';
                     if (response) {
                       $search_form_box.html(response['search_form']);
 
-                      $container.find('.directorist-category-select option[value="'+cat_id+'"]').attr('selected', true);
                       $container.find('.directorist-category-select option').data('custom-field', 1);
+                      $container.find('.directorist-category-select').val(cat_id);
 
                       [
                         new CustomEvent('directorist-search-form-nav-tab-reloaded'),

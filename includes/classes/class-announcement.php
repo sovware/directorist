@@ -356,6 +356,46 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 			<?php
 		}
 
+		private function get_all_user_emails() {
+			$result = array();
+			$number = 300;
+
+			// Initiate first query
+			$args = array(
+				'role__not_in' => 'Administrator',
+				'fields'       => 'user_email',
+				'paged'        => 1,
+				'number'       => $number,
+			);
+
+			$query  = new WP_User_Query( $args );
+			$users  = (array) $query->get_results();
+			$result = array_merge( $users, $result );
+
+			$total = $query->get_total();
+
+			if ( $total <= $number ) {
+				return array_filter( $result );
+			}
+
+			$number_of_loops = ceil( $total/$number );
+
+			// Run subsequent queries
+			for ( $i = 2; $i <= $number_of_loops ; $i++ ) {
+				$args = array(
+					'role__not_in' => 'Administrator',
+					'fields'       => 'user_email',
+					'paged'        => $i,
+					'number'       => $number,
+				);
+				$query  = new WP_User_Query( $args );
+				$users  = (array) $query->get_results();
+				$result = array_merge( $users, $result );
+			}
+
+			return array_filter( $result );
+		}
+
 		// send_announcement
 		public function send_announcement() {
 			$nonce         = isset( $_POST['nonce'] ) ? wp_unslash( $_POST['nonce'] ) : ''; // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -380,42 +420,6 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 			if ( ! current_user_can( 'manage_options' ) ) {
 				$status['message'] = __( 'You are not allowed to send announcement', 'directorist' );
 				wp_send_json( $status );
-			}
-
-			$recipients = array();
-
-			// Get Recipient
-			if ( 'selected_user' === $to ) {
-				$recipients = explode( ',', $recipient );
-				$recipients = array_map( 'trim', $recipients );
-				$recipients = array_filter( $recipients, 'is_email' );
-				$recipients = array_unique( $recipients );
-
-				// Validate recipient
-				if ( empty( $recipients ) ) {
-					$status['message'] = __( 'No recipient found', 'directorist' );
-					wp_send_json( $status );
-				}
-			}
-
-			if ( 'all_user' === $to ) {
-				$users = get_users(
-					array(
-						'role__not_in' => 'Administrator',   // Administrator | Subscriber
-						'fields'       => 'user_email',
-						'number'       => apply_filters( 'directorist_announcement_user_query_num', 1000 ),
-					)
-				);
-
-				if ( ! empty( $users ) ) {
-					$recipients = $users;
-				}
-
-				// Validate recipient
-				if ( empty( $recipients ) ) {
-					$status['message'] = __( 'No recipient found', 'directorist' );
-					wp_send_json( $status );
-				}
 			}
 
 			// Validate Subject
@@ -446,6 +450,36 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 			}
 
 			$status['announcement'] = $announcement;
+
+			$recipients = array();
+
+			// Get Recipient
+			if ( 'selected_user' === $to ) {
+				$recipients = explode( ',', $recipient );
+				$recipients = array_map( 'trim', $recipients );
+				$recipients = array_filter( $recipients, 'is_email' );
+				$recipients = array_unique( $recipients );
+
+				// Validate recipient
+				if ( empty( $recipients ) ) {
+					$status['message'] = __( 'No recipient found', 'directorist' );
+					wp_send_json( $status );
+				}
+			}
+
+			if ( 'all_user' === $to ) {
+				$users = $this->get_all_user_emails();
+
+				if ( ! empty( $users ) ) {
+					$recipients = $users;
+				}
+
+				// Validate recipient
+				if ( empty( $recipients ) ) {
+					$status['message'] = __( 'No recipient found', 'directorist' );
+					wp_send_json( $status );
+				}
+			}
 
 			if ( 'all_user' !== $to ) {
 				update_post_meta( $announcement, '_recepents', $recipient );

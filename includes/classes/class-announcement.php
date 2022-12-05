@@ -429,6 +429,11 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 			}
 
 			// Validate Message
+			if ( empty( $message ) ) {
+				$status['message'] = __( 'The message cannot be empty', 'directorist' );
+				wp_send_json( $status );
+			}
+
 			if ( strlen( $message ) > 400 ) {
 				$status['message'] = __( 'Maximum 400 characters are allowed for the message', 'directorist' );
 				wp_send_json( $status );

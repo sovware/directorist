@@ -4,7 +4,14 @@
         // User Dashboard Tab
         $(function () {
             var hash = window.location.hash;
-            var selectedTab = $('.navbar .menu li a [target= "' + hash + '"]');
+            var newHash = hash.replace('#active_', '');
+            var selectedTab = document.querySelectorAll('.directorist-tab__nav__link');
+            selectedTab.forEach(elm=>{
+                let elmAttr = elm.getAttribute('target');
+                if(elmAttr == newHash){
+                    elm.click();
+                }
+            })
         });
 
         // store the currently selected tab in the hash value

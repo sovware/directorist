@@ -596,7 +596,15 @@ __webpack_require__.r(__webpack_exports__);
     // User Dashboard Tab
     $(function () {
       var hash = window.location.hash;
-      var selectedTab = $('.navbar .menu li a [target= "' + hash + '"]');
+      var newHash = hash.replace('#active_', '');
+      var selectedTab = document.querySelectorAll('.directorist-tab__nav__link');
+      selectedTab.forEach(function (elm) {
+        var elmAttr = elm.getAttribute('target');
+
+        if (elmAttr == newHash) {
+          elm.click();
+        }
+      });
     }); // store the currently selected tab in the hash value
 
     $("ul.directorist-tab__nav__items > li > a.directorist-tab__nav__link").on("click", function (e) {

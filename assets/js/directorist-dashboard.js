@@ -627,6 +627,13 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_alert_executed === 'undefined') {
+    window.directorist_alert_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     /* Directorist alert dismiss */
     var getUrl = window.location.href;
@@ -656,6 +663,13 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_dropdown_executed === 'undefined') {
+    window.directorist_dropdown_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
@@ -774,6 +788,13 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_favorite_executed === 'undefined') {
+    window.directorist_favorite_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
     $('#atbdp-favourites').on('click', function (e) {
@@ -861,7 +882,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  //custom select
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_select_executed === 'undefined') {
+    window.directorist_select_executed = true;
+  } else {
+    return;
+  } //custom select
+
+
   var atbdSelect = document.querySelectorAll('.atbd-drop-select');
 
   if (atbdSelect !== null) {

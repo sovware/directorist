@@ -519,6 +519,21 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				// password will be updated here
 				if ( ( $new_pass == $confirm_pass ) && ( strlen( $confirm_pass) > 5 ) ){
 					wp_set_password($new_pass, $ID); // set the password to the database
+					/**
+					 * Fire password changed action after successful password change
+					 *
+					 * This can be used to do stuff like sending emails after successful password change from
+					 * user dashboard
+					 * Usage:
+					 * add_action( 'directorist_password_changed', function( $ID ) {
+					 *     //do stuff
+					 * } );
+					 *
+					 * @since 7.4.6
+					 *
+					 * @param integer ID of the user who changed their password
+					 */
+					do_action( 'directorist_password_changed', $ID );
 				}else{
 					$pass_match = esc_html__('Password should be matched and more than five character', 'directorist');
 					wp_send_json_error($pass_match, 'directorist');

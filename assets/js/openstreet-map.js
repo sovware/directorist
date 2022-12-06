@@ -448,7 +448,9 @@ __webpack_require__.r(__webpack_exports__);
             iconSize: [20, 20],
             className: 'myDivIcon'
           });
-          var mymap = L.map(mapElm).setView([lat, lon], loc_map_zoom_level);
+          var mymap = L.map(mapElm, {
+            scrollWheelZoom: false
+          }).setView([lat, lon], loc_map_zoom_level);
 
           if (display_map_info) {
             L.marker([lat, lon], {

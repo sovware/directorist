@@ -408,7 +408,11 @@ window.addEventListener('DOMContentLoaded', function () {
     };
     $.post(directorist_admin.ajaxurl, data, function (response) {
       if (response) {
-        var response = "<div class=\"form-group atbd_content_module\">\n                                <div class=\"atbdb_content_module_contents\">\n                                  ".concat(response, "\n                                </div>\n                              </div>");
+        var html = '';
+        $.each(response, function (id, content) {
+          html += content;
+        });
+        var response = "<div class=\"form-group atbd_content_module\">\n                                <div class=\"atbdb_content_module_contents\">\n                                  ".concat(html, "\n                                </div>\n                              </div>");
         $('.atbdp_category_custom_fields').empty().append(response);
 
         function atbdp_tooltip() {

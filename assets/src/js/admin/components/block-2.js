@@ -44,9 +44,15 @@ window.addEventListener('DOMContentLoaded', () => {
         };
         $.post(directorist_admin.ajaxurl, data, function (response) {
             if (response) {
+                var html = '';
+
+                $.each(response, function( id, content ) {
+                    html += content;
+                });
+
                 var response = `<div class="form-group atbd_content_module">
                                 <div class="atbdb_content_module_contents">
-                                  ${response}
+                                  ${html}
                                 </div>
                               </div>`;
                 $('.atbdp_category_custom_fields')

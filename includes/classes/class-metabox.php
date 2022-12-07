@@ -233,7 +233,7 @@ class ATBDP_Metabox {
 			<input type="hidden" name="directory_type" value="<?php echo esc_attr( $default ); ?>">
 		<?php } ?>
 
-		<div class="form-group atbd_content_module">
+		<div class="form-group atbd_content_module atbdp_category_custom_fields-wrapper diectorist-hide">
 			<div class="atbdb_content_module_contents">
 				<div class="form-group atbdp_category_custom_fields"></div>
 			</div>

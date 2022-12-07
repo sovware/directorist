@@ -323,6 +323,7 @@ $(document).ready(function () {
 
                     $('.atbdp_category_custom_fields').append($newMarkup);
                 });
+                $('.atbdp_category_custom_fields-wrapper').show();
 
                 customFieldSeeMore();
 
@@ -337,6 +338,7 @@ $(document).ready(function () {
                 })
             } else {
                 $('.atbdp_category_custom_fields').empty();
+                $('.atbdp_category_custom_fields-wrapper').hide();
             }
         });
     }

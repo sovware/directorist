@@ -422,6 +422,7 @@ $(document).ready(function () {
 
           $('.atbdp_category_custom_fields').append($newMarkup);
         });
+        $('.atbdp_category_custom_fields-wrapper').show();
         customFieldSeeMore();
         formData.forEach(function (item) {
           var fieldSingle = document.querySelector("[data-id=\"".concat(item.id, "\"]"));
@@ -436,6 +437,7 @@ $(document).ready(function () {
         });
       } else {
         $('.atbdp_category_custom_fields').empty();
+        $('.atbdp_category_custom_fields-wrapper').hide();
       }
     });
   } // Create container div after category (in frontend)

@@ -5229,6 +5229,16 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   z-index: 99999;
 }
 
+.select2-container .directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+  position: absolute;
+  left: 0;
+  pointer-events: none;
+}
+.select2-container .directorist-select2-addons-area .directorist-select2-dropdown-close {
+  position: absolute;
+  left: 25px;
+}
+
 .directorist-widget {
   padding: 0;
   background-color: #ffffff;

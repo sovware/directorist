@@ -597,6 +597,19 @@ p.status:empty {
   color: #fff;
 }
 
+.directorist-add-listing-wrapper .directorist-add-listing-form .select2-selection__rendered li:not(:first-child) input.select2-search__field {
+  display: none;
+}
+.directorist-add-listing-wrapper .directorist-add-listing-form .select2-selection__rendered li:not(:first-child) input.select2-search__field:-moz-placeholder-shown {
+  display: block;
+}
+.directorist-add-listing-wrapper .directorist-add-listing-form .select2-selection__rendered li:not(:first-child) input.select2-search__field:-ms-input-placeholder {
+  display: block;
+}
+.directorist-add-listing-wrapper .directorist-add-listing-form .select2-selection__rendered li:not(:first-child) input.select2-search__field:placeholder-shown {
+  display: block;
+}
+
 /* Directorist custom grid */
 .directorist-container,
 .directorist-container-fluid,

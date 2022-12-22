@@ -1,5 +1,11 @@
 ;
 (function ($) {
+    // Make sure the codes in this file runs only once, even if enqueued twice
+    if ( typeof window.directorist_dropdown_executed === 'undefined' ) {
+        window.directorist_dropdown_executed = true;
+    } else {
+        return;
+    }
     window.addEventListener('DOMContentLoaded', () => {
         /* custom dropdown */
         const atbdDropdown = document.querySelectorAll('.directorist-dropdown-select');

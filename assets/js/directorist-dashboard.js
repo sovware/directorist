@@ -1058,6 +1058,14 @@ window.addEventListener('DOMContentLoaded', function () {
           submit_button.removeClass("directorist-loader"); // console.log(response);
 
           if (response.success) {
+            // Reload if password updated
+            var newPass = form_data.get('user[new_pass]');
+
+            if (typeof newPass == 'string' && newPass.length > 0) {
+              location.reload();
+              return false;
+            }
+
             $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
           } else {
             $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');

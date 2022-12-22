@@ -1,20 +1,22 @@
-
 /* Directorist all authors card */
-.directorist-authors-section{
+.directorist-authors-section {
     position: relative;
 }
-.directorist-content-active{
-    .directorist-authors{
-        @include e(cards){
+
+.directorist-content-active {
+    .directorist-authors {
+        @include e(cards) {
             margin-top: -30px;
-            .directorist-row > *{
+
+            .directorist-row>* {
                 margin-top: 30px;
             }
         }
 
-        @include e(nav){
+        @include e(nav) {
             margin-bottom: 30px;
-            ul{
+
+            ul {
                 list-style-type: none;
                 display: flex;
                 flex-wrap: wrap;
@@ -22,9 +24,11 @@
                 justify-content: center;
                 margin: 0;
                 padding: 0;
-                li{
+
+                li {
                     list-style: none;
-                    a{
+
+                    a {
                         display: block;
                         line-height: 20px;
                         padding: 0 17px 10px;
@@ -35,12 +39,14 @@
                         box-shadow: none;
                         text-decoration: none;
                         transition: 0.3s ease;
-                        &:hover{
+
+                        &:hover {
                             border-bottom-color: $primary;
                         }
                     }
-                    &.active{
-                        a{
+
+                    &.active {
+                        a {
                             border-bottom-color: $primary;
                         }
                     }
@@ -48,15 +54,17 @@
             }
         }
 
-        @include e(card){
+        @include e(card) {
             border: 1px solid #eee;
             border-radius: 10px;
             padding: 20px;
             background: #fff;
-            @include e(img){
+
+            @include e(img) {
                 margin-bottom: 15px;
                 text-align: center;
-                img{
+
+                img {
                     border-radius: 50%;
                     width: 150px;
                     height: 150px;
@@ -64,23 +72,27 @@
                     object-fit: cover;
                 }
             }
-            @include e(details){
-                @include e(top){
+
+            @include e(details) {
+                @include e(top) {
                     text-align: center;
                     border-bottom: 1px solid $border-color;
                     margin: 5px 0 15px;
                 }
             }
-            h2{
+
+            h2 {
                 font-size: 20px;
                 font-weight: 500;
-                margin: 0 0 5px 0 !important;
+                margin: 0 0 16px 0 !important;
                 line-height: normal;
-                &:before{
+
+                &:before {
                     content: none;
                 }
             }
-            h3{
+
+            h3 {
                 font-size: 14px;
                 font-weight: 400;
                 color: #8F8E9F;
@@ -89,12 +101,14 @@
                 text-transform: none;
                 letter-spacing: normal;
             }
-            @include e(info-list){
+
+            @include e(info-list) {
                 list-style-type: none;
                 padding: 0;
                 margin: 0;
                 margin-bottom: 15px !important;
-                li{
+
+                li {
                     font-size: 14px;
                     color: #767792;
                     list-style: none;
@@ -102,47 +116,72 @@
                     word-break: break-all;
                     display: flex;
                     margin: 0;
-                    &:not(:last-child){
+
+                    &:not(:last-child) {
                         margin-bottom: 5px;
                     }
-                    a{
+
+                    a {
                         color: #767792;
                         border: 0 none;
                         box-shadow: none;
                         text-decoration: none;
                     }
-                    i{
-                       width: 16px;
-                       font-size: 16px;
-                       display: inline-block;
-                       margin-right: 5px;
-                       margin-top: 3px;
+
+                    .directorist-icon-mask {
+                        margin-right: 5px;
+                        margin-top: 3px;
+                        &:after{
+                            width: 16px;
+                            height: 16px;
+                        }
+                    }
+
+                    /* Legacy Icon */
+                    > i:not(.directorist-icon-mask){
+                        display: inline-block;
+                        margin-right: 5px;
+                        margin-top: 5px;
+                        font-size: 16px;
                     }
                 }
             }
-            .directorist-author-social{
-                margin:-5px -5px 15px;
-                li{
+
+            .directorist-author-social {
+                margin: -5px -5px 15px;
+
+                li {
                     margin: 0;
                 }
-                a{
+
+                a {
                     border: 0 none;
                     box-shadow: none;
-                    &:hover{
+                    text-decoration: none;
+
+                    &:hover {
                         background: #000;
+                        /* Legacy Icon */
+                        >span{
+                            background: none;
+                            color: #fff;
+                        }
                     }
                 }
             }
-            p{
+
+            p {
                 font-size: 14px;
                 color: #767792;
                 margin-bottom: 20px;
             }
-            .directorist-btn{
+
+            .directorist-btn {
                 border: 0 none;
                 box-shadow: none;
                 transition: 0.3s ease;
-                &:hover{
+
+                &:hover {
                     background: #000;
                     color: #fff;
                 }
@@ -152,48 +191,58 @@
 }
 
 /* Directorist All author Grid */
-.directorist-authors{
-    @include e(cards){
-        .directorist-col-6{
+.directorist-authors {
+    @include e(cards) {
+        .directorist-col-6 {
             @media (max-width: 575px) {
                 width: 100%;
             }
         }
-        .directorist-col-4{
+
+        .directorist-col-4 {
             @media (max-width: 991px) {
                 width: 50%;
             }
+
             @media (max-width: 575px) {
                 width: 100%;
             }
         }
-        .directorist-col-3{
+
+        .directorist-col-3 {
             @media (max-width: 1199px) {
                 width: 33.33%;
             }
+
             @media (max-width: 991px) {
                 width: 50%;
             }
+
             @media (max-width: 575px) {
                 width: 100%;
             }
         }
-        .directorist-col-2{
+
+        .directorist-col-2 {
             @media (max-width: 1199px) {
                 width: 25%;
             }
+
             @media (max-width: 991px) {
                 width: 33.33%;
             }
+
             @media (max-width: 767px) {
                 width: 50%;
             }
+
             @media (max-width: 575px) {
                 width: 100%;
             }
         }
     }
-    @include e(pagination){
+
+    @include e(pagination) {
         margin-top: 25px;
     }
 }

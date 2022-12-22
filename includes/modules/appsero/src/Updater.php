@@ -59,7 +59,7 @@ class Updater {
         global $pagenow;
 
         if ( ! is_object( $transient_data ) ) {
-            $transient_data = new \stdClass;
+            $transient_data = new \stdClass();
         }
 
         if ( 'plugins.php' == $pagenow && is_multisite() ) {
@@ -211,7 +211,7 @@ class Updater {
         global $pagenow;
 
         if ( ! is_object( $transient_data ) ) {
-            $transient_data = new \stdClass;
+            $transient_data = new \stdClass();
         }
 
         if ( 'themes.php' == $pagenow && is_multisite() ) {

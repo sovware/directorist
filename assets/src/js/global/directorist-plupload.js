@@ -1,24 +1,26 @@
-import { get_dom_data } from './../lib/helper';
+import {
+    get_dom_data
+} from './../lib/helper';
 
-jQuery.fn.exists = function() {
+jQuery.fn.exists = function () {
     return jQuery(this).length > 0;
 }
-var atbdp_plupload_params = get_dom_data( 'atbdp_plupload_params' );
-var atbdp_params = get_dom_data( 'atbdp_params' );
+var atbdp_plupload_params = get_dom_data('atbdp_plupload_params');
+var atbdp_params = get_dom_data('atbdp_params');
 const $ = jQuery;
 
 // Init
-if ( atbdp_plupload_params ) {
-    jQuery( document ).ready( init );
-    window.addEventListener( 'directorist-reload-plupload', init );
+if (atbdp_plupload_params) {
+    jQuery(document).ready(init);
+    window.addEventListener('directorist-reload-plupload', init);
 }
 
 
 function init() {
-    atbdp_plupload_params = get_dom_data( 'atbdp_plupload_params' );
-    atbdp_params = get_dom_data( 'atbdp_params' );
+    atbdp_plupload_params = get_dom_data('atbdp_plupload_params');
+    atbdp_params = get_dom_data('atbdp_params');
 
-    if ( $(".plupload-upload-uic").exists() ) {
+    if ($(".plupload-upload-uic").exists()) {
         let pluploadConfig, msgErr, post_id;
 
         // set the post id
@@ -28,7 +30,7 @@ function init() {
             post_id = jQuery("#post input[name='post_ID']").val(); // backend
         }
 
-        $(".plupload-upload-uic").each(function(ind, el) {
+        $(".plupload-upload-uic").each(function (ind, el) {
             const $this = $(this);
             const imgId = $this.attr("id").replace("plupload-upload-ui", "");
             const $errorHolder = jQuery('#' + imgId + 'upload-error');
@@ -69,20 +71,20 @@ function init() {
 
             var uploader = new plupload.Uploader(pluploadConfig);
 
-            uploader.bind('Init', function(up, params) {
+            uploader.bind('Init', function (up, params) {
                 if (uploader.features.dragdrop) {
                     var drop_id = imgId + 'dropbox';
                     var target = jQuery('#' + drop_id);
 
-                    target.on("dragenter", function(event) {
+                    target.on("dragenter", function (event) {
                         target.addClass("dragover");
                     });
 
-                    target.on("dragleave", function(event) {
+                    target.on("dragleave", function (event) {
                         target.removeClass("dragover");
                     });
 
-                    target.on("drop", function() {
+                    target.on("drop", function () {
                         target.removeClass("dragover");
                     });
                 }
@@ -90,7 +92,7 @@ function init() {
 
             uploader.init();
 
-            uploader.bind('Error', function(up, files) {
+            uploader.bind('Error', function (up, files) {
                 let errorMessage;
 
                 $errorHolder.addClass('upload-error');
@@ -125,7 +127,7 @@ function init() {
             //a file was added in the queue
             //totalImg = atbdp_plupload_params.totalImg;
             //limitImg = atbdp_plupload_params.image_limit;
-            uploader.bind('FilesAdded', function(up, files) {
+            uploader.bind('FilesAdded', function (up, files) {
                 var totalImg = parseInt(jQuery("#" + imgId + "totImg").val());
                 var limitImg = parseInt(jQuery("#" + imgId + "image_limit").val());
 
@@ -166,7 +168,7 @@ function init() {
                     }
                 }
 
-                $.each(files, function(i, file) {
+                $.each(files, function (i, file) {
                     $this.find('.filelist').append('<div class="file" id="' + file.id + '"><b>' + file.name + '</b> (<span>' + plupload.formatSize(0) + '</span>/' + plupload.formatSize(file.size) + ') ' + '<div class="fileprogress"></div></div>');
                 });
 
@@ -174,7 +176,7 @@ function init() {
                 up.start();
             });
 
-            uploader.bind('UploadProgress', function(up, file) {
+            uploader.bind('UploadProgress', function (up, file) {
                 $('#' + file.id + " .fileprogress").width(file.percent + "%");
                 $('#' + file.id + " span").html(plupload.formatSize(parseInt(file.size * file.percent / 100)));
             });
@@ -182,10 +184,10 @@ function init() {
             var timer;
             var i = 0;
             var indexes = new Array();
-            uploader.bind('FileUploaded', function(up, file, response) {
+            uploader.bind('FileUploaded', function (up, file, response) {
                 response = JSON.parse(response["response"]);
 
-                if ( ! response.success ) {
+                if (!response.success) {
                     $errorHolder.addClass('upload-error').html(response.data);
                     return;
                 }
@@ -224,7 +226,7 @@ function init() {
     }
 }
 
-function atbdp_esc_entities(str){
+function atbdp_esc_entities(str) {
     var entityMap = {
         '&': '&amp;',
         '<': '&lt;',
@@ -236,7 +238,7 @@ function atbdp_esc_entities(str){
         '=': '&#x3D;'
     };
 
-    return String(str).replace(/[&<>"'`=\/]/g, function(s) {
+    return String(str).replace(/[&<>"'`=\/]/g, function (s) {
         return entityMap[s];
     });
 }
@@ -264,7 +266,9 @@ function plu_show_thumbs(imgId) {
         txtRemove = atbdp_params.action_remove;
     }
 
-    if (!imagesS) { return; }
+    if (!imagesS) {
+        return;
+    }
 
     var images = imagesS.split("::");
 
@@ -293,7 +297,7 @@ function plu_show_thumbs(imgId) {
             }
 
             //Esc title and caption
-            image_title   = atbdp_esc_entities(image_title);
+            image_title = atbdp_esc_entities(image_title);
             image_caption = atbdp_esc_entities(image_caption);
 
             var file_ext = image_url.substring(image_url.lastIndexOf('.') + 1);
@@ -313,10 +317,10 @@ function plu_show_thumbs(imgId) {
             var file_display_class = '';
             if (file_ext == 'jpg' || file_ext == 'jpe' || file_ext == 'jpeg' || file_ext == 'png' || file_ext == 'gif' || file_ext == 'bmp' || file_ext == 'ico') {
                 file_display = '<img class="atbdp-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" src="' + image_url + '" alt=""  />';
-                if(!!image_title.trim()){
+                if (!!image_title.trim()) {
                     image_title_html = '<span class="atbdp-title-preview">' + image_title + '</span>';
                 }
-                if(!!image_caption.trim()){
+                if (!!image_caption.trim()) {
                     image_caption_html = '<span class="atbdp-caption-preview">' + image_caption + '</span>';
                 }
             } else {
@@ -338,18 +342,21 @@ function plu_show_thumbs(imgId) {
                 file_display = '<i title="' + file_name + '" class="la ' + file_type_class + ' atbdp-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" aria-hidden="true"></i>';
             }
 
+            let iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/trash.svg';
+            let iconHTML = directorist.icon_markup.replace( '##URL##', iconURL ).replace( '##CLASS##', '' );
+
             var thumb = $('<div class="thumb ' + file_display_class + '" id="thumb' + imgId + i + '">' +
                 image_title_html +
                 file_display +
                 image_caption_html +
                 '<div class="atbdp-thumb-actions">' +
-                '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '"><i class="fa fa-trash" aria-hidden="true"></i></span>' +
+                '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '">'+iconHTML+'</span>' +
                 '</div>' +
                 '</div>');
 
             thumbsC.append(thumb);
 
-            thumb.find(".thumbremovelink").click(function() {
+            thumb.find(".thumbremovelink").click(function () {
                 //console.log("plu_show_thumbs-thumbremovelink");
                 if (jQuery('#' + imgId + 'plupload-upload-ui').hasClass("plupload-upload-uic-multiple")) {
                     totalImg--; // remove image from total
@@ -378,9 +385,9 @@ function plu_show_thumbs(imgId) {
     if (images.length > 1) {
         //console.log("plu_show_thumbs-sortable");
         thumbsC.sortable({
-            update: function(event, ui) {
+            update: function (event, ui) {
                 var kimages = [];
-                thumbsC.find(".atbdp-file-info").each(function() {
+                thumbsC.find(".atbdp-file-info").each(function () {
                     kimages[kimages.length] = $(this).data("src") + "|" + $(this).data("id") + "|" + $(this).data("title") + "|" + $(this).data("caption");
                     $("#" + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(kimages.join("::"));
                     plu_show_thumbs(imgId);
@@ -395,7 +402,7 @@ function plu_show_thumbs(imgId) {
     //console.log("run basics");
 
     var kimages = [];
-    thumbsC.find(".atbdp-file-info").each(function() {
+    thumbsC.find(".atbdp-file-info").each(function () {
         kimages[kimages.length] = $(this).data("src") + "|" + $(this).data("id") + "|" + $(this).data("title") + "|" + $(this).data("caption");
         $("#" + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(kimages.join("::"));
     });
@@ -432,4 +439,3 @@ function gd_set_image_meta(input_id, order_id) {
     plu_show_thumbs(input_id);
     jQuery('[data-lity-close]', window.parent.document).trigger('click');
 }
-

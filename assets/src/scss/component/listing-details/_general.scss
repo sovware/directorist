@@ -109,16 +109,26 @@
             margin: 0;
             span {
                 color: #d4d3f3;
-
+                display: block;
+                width: 14px;
+                height: 14px;
+                position: relative;
                 &:before {
-                    content: "\f005";
-                    font-size: 14px;
-                    font-family: 'Font Awesome 5 Free';
-                    font-weight: 900;
+                    content: '';
+                    mask-image: url("../../../../icons/font-awesome/svgs/solid/star.svg");
+                    mask-repeat: no-repeat;
+                    width: 15px;
+                    height: 15px;
+                    background-color: #d4d3f3;
+                    position: absolute;
+                    left: 0;
+                    top:0;
                 }
 
                 &.directorist-rate-active {
-                    color: #fa8b0c;
+                   &:before{
+                    background-color: #fa8b0c;
+                   }
                 }
             }
         }
@@ -140,18 +150,37 @@
         text-decoration: none;
         color: #51526E;
         transition: 0.3s ease;
-        span{
+        display: flex;
+        align-items: center;
+        .directorist-icon-mask{
             display: inline-flex;
             align-items: center;
             justify-content: center;
             width: 35px;
             height: 35px;
             border-radius: 50%;
-            font-size: 15px;
             background: #f1f3f8;
             margin-right: 10px;
             transition: 0.3s ease;
+            &:after{
+                font-size: 15px;
+            }
         }
+
+        /* Legacy Icon */
+        > span:not(.directorist-icon-mask){
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #f1f3f8;
+            margin-right: 10px;
+            transition: 0.3s ease;
+            font-size: 15px;
+        }
+        
         &:hover{
             color: #000;
             span{
@@ -161,3 +190,15 @@
         }
     }
 }
+
+.directorist-single-dummy-shortcode {
+    width: 100%;
+    background-color: #556166;
+    color: #fff;
+    margin: 10px 0;
+    text-align: center;
+    padding: 40px 10px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+  }

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -16,13 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<?php foreach ( $top_categories as $cat ): ?>
 
 			<li>
-				<a href="<?php echo ATBDP_Permalink::atbdp_get_category_page( $cat ); ?>">
-					<span class="<?php echo esc_attr( $searchform->category_icon_class( $cat ) ); ?>"></span>
+				<a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_category_page( $cat ) ); ?>">
+					<?php directorist_icon( get_cat_icon( $cat->term_id ) ); ?>
 					<p><?php echo esc_html( $cat->name ); ?></p>
 				</a>
 			</li>
-			
+
 		<?php endforeach; ?>
 	</ul>
-	
+
 </div>

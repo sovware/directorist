@@ -160,7 +160,7 @@ function atbdp_create_picvacyAndTerms_pages()
 function atbdp_handle_attachment($file_handler, $post_id, $set_thu = false)
 {
     // check to make sure its a successful upload
-    if ($_FILES[$file_handler]['error'] !== UPLOAD_ERR_OK) __return_false();
+    if ( ! empty( $_FILES[$file_handler]['error'] ) && ( $_FILES[$file_handler]['error'] !== UPLOAD_ERR_OK ) ) __return_false();
 
     require_once(ABSPATH . "wp-admin" . '/includes/image.php');
     require_once(ABSPATH . "wp-admin" . '/includes/file.php');
@@ -178,15 +178,16 @@ function atbdp_get_preview_button()
     $preview_enable = get_directorist_option('preview_enable', 1);
     if (!empty($preview_enable)){
         if (isset($_GET['redirect'])) {
-            $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
-            $id = isset($_GET['p']) ? $_GET['p'] : '';
-            $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : get_the_ID();
-            $edited = isset($_GET['edited']) ? $_GET['edited'] : '';
+            $payment = isset($_GET['payment']) ? directorist_clean( wp_unslash( $_GET['payment'] ) ) : '';
+            $id = isset($_GET['p']) ? directorist_clean( wp_unslash( $_GET['p'] ) ) : '';
+            $post_id = isset($_GET['post_id']) ? directorist_clean( wp_unslash( $_GET['post_id'] ) ) : get_the_ID();
+            $edited = isset($_GET['edited']) ? directorist_clean( wp_unslash( $_GET['edited'] ) ) : '';
+            $redirect =  directorist_clean( wp_unslash( $_GET['redirect'] ) );
             $id = empty($id) ? $post_id : $id;
             if (empty($payment)){
-                $url = add_query_arg(array('p' => $id, 'post_id' => $id, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $_GET['redirect']);
+                $url = add_query_arg(array('p' => $id, 'post_id' => $id, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $redirect );
             }else{
-                $url = add_query_arg(array('atbdp_listing_id' => $id, 'reviewed' => 'yes'), $_GET['redirect']);
+                $url = add_query_arg(array('atbdp_listing_id' => $id, 'reviewed' => 'yes'), $redirect );
             }
             return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text',  esc_html__(' Continue','directorist') )  . '</a>';
         }

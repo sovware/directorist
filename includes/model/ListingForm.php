@@ -40,7 +40,9 @@ class Directorist_Listing_Form {
 	}
 
 	public function init() {
-		$this->add_listing_id   = get_query_var( 'atbdp_listing_id', 0 );
+		$listing_id = get_query_var( 'atbdp_listing_id', 0 );
+		$listing_id = empty( $listing_id ) && ! empty( $_REQUEST['edit'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['edit'] ) ) : $listing_id;
+
 		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
 	}
 
@@ -69,52 +71,14 @@ class Directorist_Listing_Form {
 		echo ! empty( $data['required'] ) ? 'required="required"' : '';
 	}
 
+	/**
+	 * Unused method
+	 *
+	 * @return array
+	 */
 	public function get_custom_fields_query() {
-		$p_id    = $this->get_add_listing_id();
-		$fm_plan = get_post_meta( $p_id, '_fm_plans', true );
-
-		$custom_fields      = array(
-			'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-			'posts_per_page' => -1,
-			'post_status'    => 'publish',
-		);
-		$meta_queries       = array();
-		$meta_queries[]     = array(
-			'key'     => 'associate',
-			'value'   => 'form',
-			'compare' => 'LIKE',
-		);
-		$meta_queries[]     = array(
-			array(
-				'relation' => 'OR',
-				array(
-					'key'     => 'admin_use',
-					'compare' => 'NOT EXISTS',
-				),
-				array(
-					'key'     => 'admin_use',
-					'value'   => 1,
-					'compare' => '!=',
-				),
-			),
-		);
-		$meta_queries       = apply_filters( 'atbdp_custom_fields_meta_queries', $meta_queries );
-		$count_meta_queries = count( $meta_queries );
-		if ( $count_meta_queries ) {
-			$custom_fields['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
-		}
-		$custom_fields     = new \WP_Query( $custom_fields );
-		$plan_custom_field = true;
-		if ( is_fee_manager_active() ) {
-			$plan_custom_field = is_plan_allowed_custom_fields( $fm_plan );
-		}
-		if ( $plan_custom_field ) {
-			$fields = $custom_fields->posts;
-		} else {
-			$fields = array();
-		}
-
-		return $fields;
+		_deprecated_function( __METHOD__, '7.4.3' );
+		return array();
 	}
 
 	public function get_custom_field_input( $id, $value ) {
@@ -128,18 +92,18 @@ class Directorist_Listing_Form {
 		switch ( $cf_meta_val ) {
 			case 'text':
 				echo '<div>';
-				printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $id, $cf_placeholder, $value );
+				printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', esc_attr( $id ), esc_attr( $cf_placeholder ), esc_attr( $value ) );
 				echo '</div>';
 				break;
 			case 'number':
 				echo '<div>';
-				printf( '<input type="number" %s  name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', ! empty( $allow_decimal ) ? 'step="any"' : '', $id, $cf_placeholder, $value );
+				printf( '<input type="number" %s  name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', ! empty( $allow_decimal ) ? 'step="any"' : '', esc_attr( $id ), esc_attr( $cf_placeholder ), esc_attr( $value ) );
 				echo '</div>';
 				break;
 			case 'textarea':
 				echo '<div>';
 				$row = ( (int) $cf_rows > 0 ) ? (int) $cf_rows : 1;
-				printf( '<textarea  class="form-control directory_field" name="custom_field[%d]" rows="%d" placeholder="%s">%s</textarea>', $id, $row, esc_attr( $cf_placeholder ), esc_textarea( $value ) );
+				printf( '<textarea  class="form-control directory_field" name="custom_field[%d]" rows="%d" placeholder="%s">%s</textarea>', esc_attr( $id ), esc_attr( $row ), esc_attr( $cf_placeholder ), esc_textarea( $value ) );
 				echo '</div>';
 				break;
 			case 'radio':
@@ -163,7 +127,7 @@ class Directorist_Listing_Form {
 						$_checked = ' checked="checked"';
 					}
 
-					printf( '<li><label><input type="radio" name="custom_field[%d]" value="%s"%s>%s</label></li>', $id, $_value, $_checked, $_label );
+					printf( '<li><label><input type="radio" name="custom_field[%d]" value="%s"%s>%s</label></li>', esc_attr( $id ), esc_attr( $_value ), esc_attr( $_checked ), esc_html( $_label ) );
 				}
 				echo '</ul>';
 				echo '</div>';
@@ -173,9 +137,9 @@ class Directorist_Listing_Form {
 				echo '<div>';
 				$choices = get_post_meta( $id, 'choices', true );
 				$choices = explode( "\n", $choices );
-				printf( '<select name="custom_field[%d]" class="form-control directory_field">', $id );
+				printf( '<select name="custom_field[%d]" class="form-control directory_field">', esc_attr( $id ) );
 				if ( ! empty( $field_meta['allow_null'][0] ) ) {
-					printf( '<option value="">%s</option>', '- ' . __( 'Select an Option', 'directorist' ) . ' -' );
+					printf( '<option value="">%s</option>', esc_html__( '- Select an Option -', 'directorist' ) );
 				}
 				foreach ( $choices as $choice ) {
 					if ( strpos( $choice, ':' ) !== false ) {
@@ -194,7 +158,7 @@ class Directorist_Listing_Form {
 						$_selected = ' selected="selected"';
 					}
 
-					printf( '<option value="%s"%s>%s</option>', $_value, $_selected, $_label );
+					printf( '<option value="%s"%s>%s</option>', esc_attr( $_value ), esc_attr( $_selected ), esc_html( $_label ) );
 				}
 				echo '</select>';
 				echo '</div>';
@@ -226,37 +190,37 @@ class Directorist_Listing_Form {
 						$_checked = ' checked="checked"';
 					}
 
-					printf( '<li><label><input type="hidden" name="custom_field[%s][]" value="" /><input type="checkbox" name="custom_field[%d][]" value="%s"%s> %s</label></li>', $id, $id, $_value, $_checked, $_label );
+					printf( '<li><label><input type="hidden" name="custom_field[%s][]" value="" /><input type="checkbox" name="custom_field[%d][]" value="%s"%s> %s</label></li>', esc_attr( $id ), esc_attr( $id ), esc_attr( $_value ), esc_attr( $_checked ), esc_html( $_label ) );
 				}
 				echo '</ul>';
 				echo '</div>';
 				break;
 			case 'url':
 				echo '<div>';
-				printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $id, esc_attr( $cf_placeholder ), esc_url( $value ) );
+				printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', esc_attr( $id ), esc_attr( $cf_placeholder ), esc_url( $value ) );
 				echo '</div>';
 				break;
 
 			case 'date':
 				echo '<div>';
-				printf( '<input type="date" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', $id, esc_attr( $value ) );
+				printf( '<input type="date" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', esc_attr( $id ), esc_attr( $value ) );
 				echo '</div>';
 				break;
 
 			case 'email':
 				echo '<div>';
-				printf( '<input type="email" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $id, esc_attr( $cf_placeholder ), esc_attr( $value ) );
+				printf( '<input type="email" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', esc_attr( $id ), esc_attr( $cf_placeholder ), esc_attr( $value ) );
 				echo '</div>';
 				break;
 			case 'color':
 				echo '<div>';
-				printf( '<input type="text" name="custom_field[%d]" class="directorist-color-field-js" value="%s"/>', $id, $value );
+				printf( '<input type="text" name="custom_field[%d]" class="directorist-color-field-js" value="%s"/>', esc_attr( $id ), esc_attr( $value ) );
 				echo '</div>';
 				break;
 
 			case 'time':
 				echo '<div>';
-				printf( '<input type="time" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', $id, esc_attr( $value ) );
+				printf( '<input type="time" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', esc_attr( $id ), esc_attr( $value ) );
 				echo '</div>';
 				break;
 			case 'file':
@@ -442,9 +406,8 @@ class Directorist_Listing_Form {
 	}
 
 	public function add_listing_has_contact_info( $args ) {
-		extract( $args );
-		$result = ( empty( $display_fax_for ) || empty( $display_phone2_for ) || empty( $display_phone_for ) || empty( $display_address_for ) || empty( $display_email_for ) || empty( $display_website_for ) || empty( $display_zip_for ) || empty( $display_social_info_for ) ) && ( ! empty( $display_address_field ) || ! empty( $display_phone_field ) || ! empty( $display_phone2_field ) || ! empty( $display_fax_field ) || ! empty( $display_email_field ) || ! empty( $display_website_field ) || ! empty( $display_zip_field ) || ! empty( $display_social_info_field ) ) ? true : false;
-		return $result;
+		_deprecated_function( __METHOD__, '7.3.1' );
+		return false;
 	}
 
 	public function featured_listing_description() {
@@ -548,7 +511,7 @@ class Directorist_Listing_Form {
 		$default_directory 		= default_directory_type();
 		$directory_type         = ! empty( $current_directory_type ) ? $current_directory_type : $default_directory;
 		$current_type      		= ! empty( $value ) ? $value : $directory_type;
-		echo '<input type="hidden" name="directory_type" value="'.$current_type.'">';
+		printf( '<input type="hidden" name="directory_type" value="%s">', esc_attr( $current_type ) );
 	}
 
 	public function field_label_template( $data, $label_id = '' ) {
@@ -763,7 +726,7 @@ class Directorist_Listing_Form {
 			$type = $get_listing_type;
 		}
 		else {
-			$type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
+			$type = isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : '';
 		}
 		if( !empty( $type ) && ! is_numeric( $type ) ) {
 			$term = get_term_by( 'slug', $type, ATBDP_TYPE );
@@ -857,13 +820,7 @@ class Directorist_Listing_Form {
 			$args['form_data'] = $this->build_form_data( $type );
 			$args['is_edit_mode'] = true;
 
-			$this->enqueue_scripts();
-
-			ob_start();
-			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-			echo Helper::get_template_contents( 'listing-form/add-listing', $args );
-
-			return ob_get_clean();
+			return Helper::get_template_contents( 'listing-form/add-listing', $args );
 		} else {
 			// if no listing type exists
 			if ( $listing_type_count == 0 ) {
@@ -888,36 +845,12 @@ class Directorist_Listing_Form {
 				$args['single_directory'] = $type;
 				$template = Helper::get_template_contents( 'listing-form/add-listing', $args );
 
-				$this->enqueue_scripts();
-
-				ob_start();
-				if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-
-				echo apply_filters( 'atbdp_add_listing_page_template', $template, $args );
-
-				return ob_get_clean();
+				return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 			}
 
 			// multiple directory available
 			$template = Helper::get_template_contents( 'listing-form/add-listing-type', [ 'listing_form' => $this ] );
 			return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
-		}
-	}
-
-
-	// enqueue_scripts
-	public function enqueue_scripts() {
-		wp_enqueue_media();
-		wp_enqueue_script( 'directorist-ez-media-uploader' );
-		wp_enqueue_script( 'directorist-plupload-public' );
-		wp_enqueue_script( 'directorist-add-listing-public' );
-
-		// Map Scrips
-		if ( Script_Helper::is_enable_map( 'openstreet' ) ) {
-			wp_enqueue_script( 'directorist-add-listing-openstreet-map-custom-script-public' );
-		} else {
-			wp_enqueue_script( 'directorist-add-listing-gmap-custom-script-public' );
-
 		}
 	}
 }

@@ -10,7 +10,7 @@
         @include e(content) {
             display: block;
             position: absolute;
-            width: 120px;
+            width: 150px;
             visibility: hidden;
             opacity: 0;
             pointer-events: none;
@@ -35,19 +35,33 @@
 
             a {
                 color: rgba(255, 255, 255, 0.8) !important;
-                display: flex;
+                display: flex !important;
                 line-height: normal;
                 align-items: flex-start;
+                margin-bottom: 10px;
+                width: 100%;
+                &:last-child {
+                  margin-bottom: 0;
+                }
+                i {
+                    width: unset;
+                    min-width: unset;
+                    height: unset;
+                    margin: 0 10px 0 0;
+                    &:after {
+                        background-color: #fff !important;
+                    }
+                }
 
                 &:hover {
                     color: #fff !important;
                 }
 
-                span {
-                    color: rgba(255, 255, 255, 0.8) !important;
-                    position: relative;
-                    top: 1px;
+                .directorist-icon-mask {
                     margin-right: 5px;
+                    &::after{
+                        background-color: rgba(255, 255, 255, 0.8);
+                    }
                 }
             }
         }

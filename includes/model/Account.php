@@ -35,21 +35,52 @@ class Directorist_Account {
 			return ob_get_clean();
 		}
 
-		ob_start();
-		if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-		echo Helper::get_template_contents( 'account/login' );
+		$redirection = ATBDP_Permalink::get_login_redirection_page_link();
+		$data        = [
+			'ajax_url'            => admin_url( 'admin-ajax.php' ),
+			'redirect_url'        => $redirection ? $redirection : ATBDP_Permalink::get_dashboard_page_link(),
+			'loading_message'     => esc_html__( 'Sending user info, please wait...', 'directorist' ),
+			'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
+		];
+		wp_localize_script( 'directorist-main-script', 'ajax_login_object', $data );
 
-		return ob_get_clean();
+		$args = [
+			'log_username'        => get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) ),
+			'log_password'        => get_directorist_option( 'log_password', __( 'Password', 'directorist' ) ),
+			'display_rememberMe'  => get_directorist_option( 'display_rememberme', 1 ),
+			'log_rememberMe'      => get_directorist_option( 'log_rememberme', __( 'Remember Me', 'directorist' ) ),
+			'log_button'          => get_directorist_option( 'log_button', __( 'Log In', 'directorist' ) ),
+			'display_recpass'     => get_directorist_option( 'display_recpass', 1 ),
+			'recpass_text'        => get_directorist_option( 'recpass_text', __( 'Recover Password', 'directorist' ) ),
+			'recpass_desc'        => get_directorist_option( 'recpass_desc', __( 'Lost your password? Please enter your email address. You will receive a link to create a new password via email.', 'directorist' ) ),
+			'recpass_username'    => get_directorist_option( 'recpass_username', __( 'E-mail:', 'directorist' ) ),
+			'recpass_placeholder' => get_directorist_option( 'recpass_placeholder', __( 'eg. mail@example.com', 'directorist' ) ),
+			'recpass_button'      => get_directorist_option( 'recpass_button', __( 'Get New Password', 'directorist' ) ),
+			'reg_text'            => get_directorist_option( 'reg_text', __( "Don't have an account?", 'directorist' ) ),
+			'reg_url'             => ATBDP_Permalink::get_registration_page_link(),
+			'reg_linktxt'         => get_directorist_option( 'reg_linktxt', __( 'Sign Up', 'directorist' ) ),
+			'display_signup'      => get_directorist_option( 'display_signup', 1 ),
+			'new_user_registration' => get_directorist_option( 'new_user_registration', true ),
+
+		];
+
+		return Helper::get_template_contents( 'account/login', $args );
 	}
 
 	public function render_shortcode_registration( $atts ) {
+
+		$new_user_registration = get_directorist_option( 'new_user_registration', true );
+		if( ! $new_user_registration ) {
+			return;
+		}
+
 		if ( ! is_user_logged_in() ) {
 			$atts = shortcode_atts( array(
 				'user_type'			  => '',
 			), $atts );
 
 			$user_type = ! empty( $atts['user_type'] ) ? $atts['user_type'] : '';
-			$user_type = ! empty( $_REQUEST['user_type'] ) ? $_REQUEST['user_type'] : $user_type;
+			$user_type = ! empty( $_REQUEST['user_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['user_type'] ) ) : $user_type;
 
 			$args = array(
 				'parent'               => 0,
@@ -84,14 +115,10 @@ class Directorist_Account {
 				'privacy_label_link'   => get_directorist_option( 'registration_privacy_label_link', __( 'Privacy & Policy', 'directorist' ) ),
 				'user_type'			   => $user_type,
 				'author_checked'	   => ( 'general' != $user_type ) ? 'checked' : '',
-				'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : ''
+				'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : '',
 			);
 
-			ob_start();
-			if ( ! empty( $atts['shortcode'] ) ) { Helper::add_shortcode_comment( $atts['shortcode'] ); }
-			echo Helper::get_template_contents( 'account/registration', $args );
-
-			return ob_get_clean();
+			return Helper::get_template_contents( 'account/registration', $args );
 		}
 		else {
 			$error_message = sprintf( __( 'Registration page is only for unregistered user. <a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );

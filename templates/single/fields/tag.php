@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5.2
+ * @version 7.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -17,9 +17,9 @@ if ( empty( $listing->get_tags() ) ) {
 	<?php foreach ( $listing->get_tags() as $tag ): ?>
 
 		<li>
-			<a href="<?php echo esc_url( get_term_link( $tag->term_id, ATBDP_TAGS ) ); ?>"><span class="<?php echo apply_filters('atbdp_single_listing_tags_icon', atbdp_icon_type().'-tag'); ?>"></span> <?php echo esc_html( $tag->name ); ?></a>
+			<a href="<?php echo esc_url( get_term_link( $tag->term_id, ATBDP_TAGS ) ); ?>"><?php directorist_icon( $icon ); ?> <?php echo esc_html( $tag->name ); ?></a>
 		</li>
-	
+
 	<?php endforeach; ?>
 
 </ul>

@@ -85,17 +85,23 @@
     flex-wrap: wrap;
 
     a {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         margin-right: 5px;
         margin-bottom: 5px;
-        line-height: 35px;
+        height: 35px;
         width: 35px;
-        text-align: center;
         background: $primary !important;
         border-radius: 4px;
-        color: #fff !important;
         overflow: hidden;
         transition: all ease-in-out 300ms !important;
+
+        .directorist-icon-mask{
+            &:after{
+                background-color: #fff;
+            }
+        }
 
         &.facebook:hover {
             background-color: #4267B2 !important;

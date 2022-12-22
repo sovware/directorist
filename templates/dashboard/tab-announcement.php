@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.0.3.3
+ * @version 7.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -30,7 +30,7 @@ $announcements = $dashboard->get_announcements();
 					</div>
 
 					<div class="directorist-announcement__close">
-						<a href="#" class="close-announcement"><i class="<?php atbdp_icon_type( true ); ?>-times"></i></a>
+						<a href="#" class="close-announcement"><?php directorist_icon( 'las la-times' ); ?></a>
 					</div>
 
 				</div>

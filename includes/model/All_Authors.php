@@ -37,12 +37,8 @@ class Directorist_All_Authors {
 		return get_directorist_option( 'all_authors_name', true );
 	}
 
-	public function display_role() {
-		return get_directorist_option( 'all_authors_role', true );
-	}
-
-	public function display_contact_info() {
-		return get_directorist_option( 'all_authors_info', true );
+	public function contact_info() {
+		return get_directorist_option( 'all_authors_contact', array( 'phone', 'address', 'website' ) );
 	}
 
 	public function display_description() {
@@ -79,7 +75,7 @@ class Directorist_All_Authors {
 		$all_authors_per_page	 = get_directorist_option( 'all_authors_per_page', 9 );
 
 		if( $this->display_pagination() ) {
-			$paged					 = ! empty( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : atbdp_get_paged_num();
+			$paged					 = ! empty( $_REQUEST['paged'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['paged'] ) ) : atbdp_get_paged_num();
 			$offset 				 = ( $paged - 1 ) * $all_authors_per_page;
 			$args['paged'] 			 = $paged;
 			$args['offset'] 		 = $offset;
@@ -90,13 +86,13 @@ class Directorist_All_Authors {
 		}
 
 		$args['orderby'] 		 = 'display_name';
-		
+
 		if( 'all' != $all_authors_select_role ) {
 			$args['role__in']	= array( $all_authors_select_role );
 		}
 
 		if( ! empty( $_REQUEST['alphabet'] ) && 'ALL' != $_REQUEST['alphabet'] ) {
-			$args['search'] 		= $_REQUEST['alphabet'] . '*';
+			$args['search'] 		= sanitize_text_field( wp_unslash( $_REQUEST['alphabet'] ) ) . '*';
 			$args['search_columns'] = array('display_name');
 		}
 
@@ -106,7 +102,7 @@ class Directorist_All_Authors {
 	public function author_pagination( $base = '', $paged = '' ) {
 		$all_authors_per_page	 = get_directorist_option( 'all_authors_per_page', 9 );
 		$query 					 = $this->author_list('pagination');
-		$paged 					 = ! empty( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : atbdp_get_paged_num();
+		$paged 					 = ! empty( $_REQUEST['paged'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['paged'] ) ) : atbdp_get_paged_num();
 		$big   					 = 999999999;
 		$total_pages 			 = ceil( count( $query ) / $all_authors_per_page );
 
@@ -115,8 +111,8 @@ class Directorist_All_Authors {
 			'format'    => '?paged=%#%',
 			'current'   => max( 1, $paged ),
 			'total'     => $total_pages,
-			'prev_text' => '<i class="la la-arrow-left"></i>',
-			'next_text' => '<i class="la la-arrow-right"></i>',
+			'prev_text' => directorist_icon( 'las la-arrow-left', false ),
+			'next_text' => directorist_icon( 'las la-arrow-right', false ),
 		) );
 
 		return $links;

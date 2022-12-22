@@ -1,5 +1,8 @@
 #map.leaflet-container,
+.directorist-single-map.leaflet-container,
 #gmap.leaflet-container {
+    /*rtl:ignore*/
+    direction: ltr;
     margin-bottom: 30px;
 
     .leaflet-popup {
@@ -16,11 +19,19 @@
             margin: 0;
             width: 220px !important;
 
+            .atbdp-map.atbdp-body {
+                img {
+                    width: 100%;
+                }
+            }
+
             .media-body {
                 padding: 10px 15px;
-                a{
+
+                a {
                     text-decoration: none;
                 }
+
                 h3 a {
                     font-weight: 500;
                     line-height: 1.2;
@@ -28,6 +39,31 @@
                     letter-spacing: normal;
                     font-size: 18px;
                     text-decoration: none;
+                }
+
+                .atbdp-listings-title-block {
+                    h3.atbdp-no-margin {
+                        font-size: 14px;
+                        margin: 0 0 10px;
+                    }
+                }
+
+                .osm-iw-location {
+                    margin-bottom: 6px;
+                    display: flex;
+                    align-items: center;
+                    .directorist-icon-mask{
+                        display: inline-block;
+                        margin-right: 4px;
+                    }
+                }
+                .osm-iw-get-location{
+                    display: flex;
+                    align-items: center;
+                    .directorist-icon-mask{
+                        display: inline-block;
+                        margin-left: 5px;
+                    }
                 }
             }
 
@@ -220,7 +256,9 @@
 
             .map-info-details {
                 padding: 0 20px;
-
+                a{
+                    text-decoration: none;
+                }
                 .atbdp-listings-title-block {
                     margin-top: 0;
 
@@ -318,24 +356,30 @@
         }
 
         .map-info-wrapper {
-            @include m(show){
+            @include m(show) {
                 display: block !important;
             }
+
             .iw-close-btn {
                 position: absolute;
                 width: 25px;
                 height: 25px;
                 background: rgba(#444752, 0.5);
                 border-radius: 50%;
-                color: #fff;
                 right: 10px;
                 top: 10px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 13px;
                 cursor: pointer;
                 transition: 0.3s ease;
+                .directorist-icon-mask{
+                    &:after{
+                        background-color: #fff;
+                        width: 13px;
+                        height: 13px;
+                    }
+                }
 
                 &:hover {
                     background: #444752;

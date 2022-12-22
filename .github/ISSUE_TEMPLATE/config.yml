@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: ❓ Support
+    url: https://directorist.com/contact/
+    about: For any support or feature request, please head over to our official support channel.
+  - name: Documentation
+    url: https://directorist.com/documentation/directorist/
+    about: To know more about directorist, please check out our official documentation.

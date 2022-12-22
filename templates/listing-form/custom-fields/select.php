@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -12,15 +12,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<?php $listing_form->field_label_template( $data );?>
 
-	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" <?php $listing_form->required( $data ); ?>>
+	<?php if( !empty( $data['options'] ) ) : ?>
 
-		<?php foreach( $data['options'] as $key => $value ): ?>
+		<select name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="directorist-form-element" <?php $listing_form->required( $data ); ?>>
 
-			<option value="<?php echo esc_attr( $value['option_value'] )?>" <?php selected( $value['option_value'], $data['value'] ); ?>><?php echo esc_attr( $value['option_label'] )?></option>
+			<?php foreach( $data['options'] as $key => $value ): ?>
 
-		<?php endforeach ?>
+				<option value="<?php echo esc_attr( $value['option_value'] )?>" <?php selected( $value['option_value'], $data['value'] ); ?>><?php echo esc_attr( $value['option_label'] )?></option>
 
-	</select>
+			<?php endforeach ?>
+
+		</select>
+
+	<?php endif; ?>
 
 	<?php $listing_form->field_description_template( $data ); ?>
 

@@ -5,7 +5,15 @@
     border-radius: 3px;
     background: #f4f4f4;
     padding: 15px 20px;
-
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    .directorist-icon-mask{
+        margin-right: 5px;
+    }
+    > a{
+        padding-left: 5px;
+    }
     .directorist-alert__content {
         display: flex;
         align-items: flex-start;
@@ -25,12 +33,15 @@
     .directorist-alert__close {
         padding: 0 5px;
         font-size: 20px !important;
-        background: none;
+        background: none !important;
         text-decoration: none;
         margin-left: auto !important;
         border: 0 none;
         box-shadow: none;
         line-height: 1.2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         .la,
         .fa,
@@ -105,4 +116,29 @@
 //alert-danger in registration page
 .alert-danger {
     background: rgba(#E80000, 0.3);
+}
+
+/* Add listing notice alert */
+.directorist-single-listing-notice{
+    .directorist-alert__content{
+        justify-content: space-between;
+        width: 100%;
+        button{
+            cursor: pointer;
+            span{
+                font-size: 20px;
+            }
+        }
+    }
+}
+.directorist-user-dashboard{
+    .directorist-container-fluid{
+        box-sizing: border-box;
+    }
+    .directorist-alert-info{
+        .directorist-alert__close{
+            cursor: pointer;
+            padding-right: 0;
+        }
+    }
 }

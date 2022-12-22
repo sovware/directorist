@@ -405,12 +405,11 @@
       text-align: center;
     }
   }
-
-  /***********************************************************
-************************************************************
-css for Custom Field
-*************************************************************
-**************************************************************/
+	/***********************************************************
+	************************************************************
+	css for Custom Field
+	*************************************************************
+	**************************************************************/
   .postbox table.widefat {
     box-shadow: none;
     background: #eff2f5;
@@ -828,7 +827,7 @@ a {
   position: relative;
   &:after {
     content: "\f0c5";
-    font-family: "Line Awesome Free";
+    font-family: "Font Awesome 5 Free";
     color: #000;
     font-weight: normal;
     line-height: initial;
@@ -1244,6 +1243,10 @@ span.atbdp-tick-cross {
 
               .description {
                 color: #9299b8;
+              }
+
+              code {
+                line-break: anywhere;
               }
             }
 
@@ -2436,7 +2439,7 @@ span.atbdp-tick-cross {
 
 // Listing Gallery
 .atbdb_content_module_contents {
-  #_listing_gallery {
+  .ez-media-uploader {
     text-align: center;
   }
 }
@@ -4952,8 +4955,8 @@ input.atbdp-form-control {
     transition: 0.3s ease;
     &:before {
       content: "\f044";
-      font-family: "Line Awesome Free";
-      font-weight: 900;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 400;
       font-size: 15px;
       color: $info;
     }
@@ -4978,8 +4981,10 @@ input.atbdp-form-control {
     background: #08bf9c;
     box-shadow: none;
     display: none;
-    &:before {
-      content: "\f00c";
+    &:before{
+      content: '\f00c';
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       color: #fff;
     }
     &.active {
@@ -5004,7 +5009,7 @@ input.atbdp-form-control {
     color: #fff;
     &:before {
       content: "\f00d";
-      font-family: "Line Awesome Free";
+      font-family: "Font Awesome 5 Free";
       font-weight: 900;
       font-size: 15px;
       color: #fff;
@@ -5545,6 +5550,10 @@ img.atbdp-file-info {
 // Admin Style
 @import "../../component/drag_drop";
 @import "../../component/form";
+@import "../../component/layout";
+@import "../../component/tab";
+@import "../../component/typography";
+@import "../../component/utility";
 @import "../../component/button";
 @import "../../component/modal";
 @import "../../component/alert";

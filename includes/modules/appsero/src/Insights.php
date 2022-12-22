@@ -141,6 +141,7 @@ class Insights {
      * @return void
      */
     public function init_plugin() {
+
         // plugin deactivate popup
         if ( ! $this->is_local_server() ) {
             add_filter( 'plugin_action_links_' . $this->client->basename, array( $this, 'plugin_action_links' ) );
@@ -356,9 +357,9 @@ class Insights {
      */
     private function is_local_server() {
 
-        $host       = $_SERVER['HTTP_HOST'];
-        $ip         = $_SERVER['SERVER_ADDR'];
-        $is_local   = false;
+        $host     = $_SERVER['HTTP_HOST']; // @codingStandardsIgnoreLine.
+        $ip       = $_SERVER['SERVER_ADDR']; // @codingStandardsIgnoreLine.
+        $is_local = false;
 
         if( in_array( $ip,array( '127.0.0.1', '::1' ) )
             || ! strpos( $host, '.' )
@@ -432,18 +433,19 @@ class Insights {
         $notice .= 'We are using Appsero to collect your data. <a href="' . $policy_url . '" target="_blank">Learn more</a> about how Appsero collects and handle your data.</p>';
 
         echo '<div class="updated"><p>';
-            echo $notice;
+            echo directorist_kses( $notice );
             echo '</p><p class="submit">';
-            echo '&nbsp;<a href="' . esc_url( $optin_url ) . '" class="button-primary button-large">' . $this->client->__trans( 'Allow' ) . '</a>';
-            echo '&nbsp;<a href="' . esc_url( $optout_url ) . '" class="button-secondary button-large">' . $this->client->__trans( 'No thanks' ) . '</a>';
+            echo '&nbsp;<a href="' . esc_url( $optin_url ) . '" class="button-primary button-large">' . esc_attr( $this->client->__trans( 'Allow' ) ) . '</a>';
+            echo '&nbsp;<a href="' . esc_url( $optout_url ) . '" class="button-secondary button-large">' . esc_attr( $this->client->__trans( 'No thanks' ) ) . '</a>';
         echo '</p></div>';
-
-        echo "<script type='text/javascript'>jQuery('." . $this->client->slug . "-insights-data-we-collect').on('click', function(e) {
+        
+        ?>
+            <script type='text/javascript'>jQuery('.<?php echo esc_html( $this->client->slug ); ?>-insights-data-we-collect').on('click', function(e) {
                 e.preventDefault();
                 jQuery(this).parents('.updated').find('p.description').slideToggle('fast');
-            });
+                });
             </script>
-        ";
+        <?php
     }
 
     /**
@@ -506,7 +508,7 @@ class Insights {
     public function get_post_count( $post_type ) {
         global $wpdb;
 
-        return (int) $wpdb->get_var( "SELECT count(ID) FROM $wpdb->posts WHERE post_type = '$post_type' and post_status = 'publish'");
+        return (int) $wpdb->get_var( $wpdb->prepare( "SELECT count(ID) FROM $wpdb->posts WHERE post_type = %s and post_status = 'publish'", $post_type ) );
     }
 
     /**
@@ -520,7 +522,7 @@ class Insights {
         $server_data = array();
 
         if ( isset( $_SERVER['SERVER_SOFTWARE'] ) && ! empty( $_SERVER['SERVER_SOFTWARE'] ) ) {
-            $server_data['software'] = $_SERVER['SERVER_SOFTWARE'];
+            $server_data['software'] = sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) );
         }
 
         if ( function_exists( 'phpversion' ) ) {
@@ -767,13 +769,17 @@ class Insights {
      */
     public function uninstall_reason_submission() {
 
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json_error();
+        }
+
         if ( ! isset( $_POST['reason_id'] ) ) {
             wp_send_json_error();
         }
 
         $data                = $this->get_tracking_data();
-        $data['reason_id']   = sanitize_text_field( $_POST['reason_id'] );
-        $data['reason_info'] = isset( $_REQUEST['reason_info'] ) ? trim( stripslashes( $_REQUEST['reason_info'] ) ) : '';
+        $data['reason_id']   = sanitize_text_field( wp_unslash( $_POST['reason_id'] ) );
+        $data['reason_info'] = isset( $_REQUEST['reason_info'] ) ? trim( sanitize_text_field( wp_unslash( $_REQUEST['reason_info'] ) ) ) : '';
 
         $this->client->send_request( $data, 'deactivate' );
 
@@ -792,12 +798,14 @@ class Insights {
             return;
         }
 
+        $allowed_svg_tags = directorist_get_allowed_svg_tags();
+
         $this->deactivation_modal_styles();
         $reasons = $this->get_uninstall_reasons();
         $custom_reasons = apply_filters( 'appsero_custom_deactivation_reasons', array() );
         ?>
 
-        <div class="wd-dr-modal" id="<?php echo $this->client->slug; ?>-wd-dr-modal">
+        <div class="wd-dr-modal" id="<?php echo esc_attr( $this->client->slug ); ?>-wd-dr-modal">
             <div class="wd-dr-modal-wrap">
                 <div class="wd-dr-modal-header">
                     <h3><?php $this->client->_etrans( 'Goodbyes are always hard. If you have a moment, please let us know how we can improve.' ); ?></h3>
@@ -808,9 +816,9 @@ class Insights {
                         <?php foreach ( $reasons as $reason ) { ?>
                             <li data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>">
                                 <label>
-                                    <input type="radio" name="selected-reason" value="<?php echo $reason['id']; ?>">
-                                    <div class="wd-de-reason-icon"><?php echo $reason['icon']; ?></div>
-                                    <div class="wd-de-reason-text"><?php echo $reason['text']; ?></div>
+                                    <input type="radio" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>">
+                                    <div class="wd-de-reason-icon"><?php echo wp_kses( $reason['icon'], $allowed_svg_tags ); ?></div>
+                                    <div class="wd-de-reason-text"><?php echo wp_kses_post( $reason['text'] ); ?></div>
                                 </label>
                             </li>
                         <?php } ?>
@@ -820,9 +828,9 @@ class Insights {
                         <?php foreach ( $custom_reasons as $reason ) { ?>
                             <li data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>" data-customreason="true">
                                 <label>
-                                    <input type="radio" name="selected-reason" value="<?php echo $reason['id']; ?>">
-                                    <div class="wd-de-reason-icon"><?php echo $reason['icon']; ?></div>
-                                    <div class="wd-de-reason-text"><?php echo $reason['text']; ?></div>
+                                    <input type="radio" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>">
+                                    <div class="wd-de-reason-icon"><?php echo wp_kses( $reason['icon'], $allowed_svg_tags ); ?></div>
+                                    <div class="wd-de-reason-text"><?php echo wp_kses_post( $reason['text'] ); ?></div>
                                 </label>
                             </li>
                         <?php } ?>
@@ -832,7 +840,7 @@ class Insights {
                     <p class="wd-dr-modal-reasons-bottom">
                        <?php
                        echo sprintf(
-	                       $this->client->__trans( 'We share your data with <a href="%1$s" target="_blank">Appsero</a> to troubleshoot problems &amp; make product improvements. <a href="%2$s" target="_blank">Learn more</a> about how Appsero handles your data.'),
+                           wp_kses_post( $this->client->__trans( 'We share your data with <a href="%1$s" target="_blank">Appsero</a> to troubleshoot problems &amp; make product improvements. <a href="%2$s" target="_blank">Learn more</a> about how Appsero handles your data.') ),
 	                       esc_url( 'https://appsero.com/' ),
                            esc_url( 'https://appsero.com/privacy-policy' )
                        );
@@ -851,11 +859,11 @@ class Insights {
         <script type="text/javascript">
             (function($) {
                 $(function() {
-                    var modal = $( '#<?php echo $this->client->slug; ?>-wd-dr-modal' );
+                    var modal = $( '#<?php echo esc_js( $this->client->slug ); ?>-wd-dr-modal' );
                     var deactivateLink = '';
 
                     // Open modal
-                    $( '#the-list' ).on('click', 'a.<?php echo $this->client->slug; ?>-deactivate-link', function(e) {
+                    $( '#the-list' ).on('click', 'a.<?php echo esc_js( $this->client->slug ); ?>-deactivate-link', function(e) {
                         e.preventDefault();
 
                         modal.addClass('modal-active');
@@ -913,7 +921,8 @@ class Insights {
                             url: ajaxurl,
                             type: 'POST',
                             data: {
-                                action: '<?php echo $this->client->slug; ?>_submit-uninstall-reason',
+                                action: '<?php echo esc_js(  $this->client->slug ); ?>_submit-uninstall-reason',
+                                directorist_nonce: '<?php echo esc_js( wp_create_nonce( directorist_get_nonce_key() ) ); ?>',
                                 reason_id: ( 0 === $radio.length ) ? 'none' : $radio.val(),
                                 reason_info: ( 0 !== $input.length ) ? $input.val().trim() : ''
                             },

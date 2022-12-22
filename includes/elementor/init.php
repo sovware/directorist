@@ -90,7 +90,15 @@ class Widget_Init {
 			require_once $file;
 
 			$classname = __NAMESPACE__ . '\\' . $class;
-			Plugin::instance()->widgets_manager->register_widget_type( new $classname );
+
+			$elementor_widgets_manager = Plugin::instance()->widgets_manager;
+
+			if ( method_exists( $elementor_widgets_manager, 'register' ) ) {
+				$elementor_widgets_manager->register( new $classname );
+			} else {
+				// Remove this deprececated check safely after 30 June, 2024
+				$elementor_widgets_manager->register_widget_type( new $classname );
+			}
 		}
 	}
 }
@@ -103,3 +111,20 @@ add_action( 'after_setup_theme', function() {
 		}
 	}
 } );
+
+/**
+ * Elementor compatibility with custom single listing page.
+ *
+ * @param  string $content
+ * @param  WP_Post $page
+ *
+ * @return string
+ */
+function directorist_add_custom_single_listing_page_content_from_elementor( $content, $page ) {
+	if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::instance()->documents->get( $page->ID )->is_built_with_elementor() ) {
+		return \Elementor\Plugin::instance()->frontend->get_builder_content_for_display( $page->ID );
+	}
+
+	return $content;
+}
+add_filter( 'directorist_custom_single_listing_pre_page_content', __NAMESPACE__ . '\\directorist_add_custom_single_listing_page_content_from_elementor', 10, 2 );

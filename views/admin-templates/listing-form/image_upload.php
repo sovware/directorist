@@ -29,7 +29,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
             <div class="listing-prv-img-container">
                 <div class="single_prv_attachment">
                     <input class="listing_prv_img" name="listing_prv_img" type="hidden"
-                        value="<?php echo $listing_prv_img_id; ?>">
+                        value="<?php echo esc_attr( $listing_prv_img_id ); ?>">
                     <div>
                         <img style="max-height: 150px;max-width: 150px" class="change_listing_prv_img"
                             src="<?php echo $listing_prv_img ? esc_url($listing_prv_img) : ''; ?>">
@@ -60,11 +60,11 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                                 src="<?php echo esc_url($image_link) ?>"
                                 alt="<?php esc_attr_e('Listing Image', 'directorist'); ?>">
                             <span class="remove_image  dashicons dashicons-dismiss"
-                                title="<?php echo __('Remove it', 'directorist'); ?>"></span>
+                                title="<?php echo esc_html__('Remove it', 'directorist'); ?>"></span>
                         </div>
                     <?php }  // ends foreach for looping image
                 } else { ?>
-                    <img src="<?php echo esc_url(ATBDP_ADMIN_ASSETS . 'images/no-image.png'); ?>"
+                    <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/no-image.png'); ?>"
                         alt="<?php esc_attr_e('No Image Found', 'directorist'); ?>">
                     <p><?php esc_attr_e('No Images', 'directorist'); ?></p>
                 <?php } //  ends if statement  ?>
@@ -81,7 +81,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                     esc_html_e($gallery_label, 'directorist'); ?>
                 </a>
                 <a id="delete-custom-img" class="btn btn-danger <?php echo (!empty($image_links)) ? '' : 'hidden' ?>"
-                href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images', 'directorist') : esc_html__('Remove Image', 'directorist'); ?></a>
+                href="#"> <?php echo esc_html( (1 == $active_mi_ext) ? esc_html__('Remove Images', 'directorist') : esc_html__('Remove Image', 'directorist') ); ?></a>
             </p>
         </div>
     <?php } ?>

@@ -108,7 +108,7 @@ function atbdp_send_to_success_page($query_string = null)
     if ($query_string)
         $redirect .= $query_string;
 
-    $gateway = isset($_REQUEST['atbdp-gateway']) ? $_REQUEST['atbdp-gateway'] : '';
+    $gateway = isset($_REQUEST['atbdp-gateway']) ? sanitize_text_field( wp_unslash( $_REQUEST['atbdp-gateway'] ) ) : '';
 
     wp_redirect(apply_filters('atbdp_success_page_redirect', $redirect, $gateway, $query_string));
     wp_die();
@@ -124,7 +124,7 @@ function atbdp_send_to_success_page($query_string = null)
 function atbdp_get_checkout_uri($args = array())
 {
     $uri = get_directorist_option('purchase_page');
-    $uri = isset($uri) ? get_permalink($uri) : NULL;
+    $uri = isset( $uri ) ? trailingslashit( get_permalink( $uri ) ) : null;
 
     if (!empty($args)) {
         // Check for backward compatibility
@@ -220,7 +220,7 @@ function atbdp_listen_for_failed_payments()
 
     if (!empty($failed_page) && is_page($failed_page) && !empty($_GET['payment-id'])) {
 
-        $payment_id = absint($_GET['payment-id']);
+        $payment_id = absint( wp_unslash( $_GET['payment-id'] ) );
         $payment = get_post($payment_id);
         $status = atbdp_get_payment_status($payment);
 
@@ -317,128 +317,6 @@ function atbdp_is_email_banned($email = '')
 }
 
 /**
- * Determines if secure checkout pages are enforced
- *
- * @return      bool True if enforce SSL is enabled, false otherwise
- * @since      3.0.0
- */
-function atbdp_is_ssl_enforced()
-{
-    $ssl_enforced = get_directorist_option('enforce_ssl', false);
-    return (bool)apply_filters('atbdp_is_ssl_enforced', $ssl_enforced);
-}
-
-/**
- * Handle redirections for SSL enforced checkouts
- *
- * @return void
- * @since 3.0.0
- */
-function atbdp_enforced_ssl_redirect_handler()
-{
-
-    if (!atbdp_is_ssl_enforced() || !atbdp_is_checkout() || is_admin() || is_ssl()) {
-        return;
-    }
-
-    if (atbdp_is_checkout() && false !== strpos(ATBDP_Permalink::get_current_page_url(), 'https://')) {
-        return;
-    }
-
-    $uri = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
-    wp_safe_redirect($uri);
-    exit;
-}
-
-add_action('template_redirect', 'atbdp_enforced_ssl_redirect_handler');
-
-/**
- * Handle rewriting asset URLs for SSL enforced checkouts
- *
- * @return void
- * @since 3.0
- */
-function atbdp_enforced_ssl_asset_handler()
-{
-    if (!atbdp_is_ssl_enforced() || !atbdp_is_checkout() || is_admin()) {
-        return;
-    }
-
-    $filters = array(
-        'post_thumbnail_html',
-        'wp_get_attachment_url',
-        'wp_get_attachment_image_attributes',
-        'wp_get_attachment_url',
-        'option_stylesheet_url',
-        'option_template_url',
-        'script_loader_src',
-        'style_loader_src',
-        'template_directory_uri',
-        'stylesheet_directory_uri',
-        'site_url'
-    );
-
-    $filters = apply_filters('atbdp_enforced_ssl_asset_filters', $filters);
-
-    foreach ($filters as $filter) {
-        add_filter($filter, 'atbdp_enforced_ssl_asset_filter', 1);
-    }
-}
-
-add_action('template_redirect', 'atbdp_enforced_ssl_asset_handler');
-
-/**
- * Filter filters and convert http to https
- *
- * @param mixed $content
- * @return mixed
- * @since 3.0
- */
-function atbdp_enforced_ssl_asset_filter($content)
-{
-
-    if (is_array($content)) {
-
-        $content = array_map('atbdp_enforced_ssl_asset_filter', $content);
-
-    } else {
-
-        // Detect if URL ends in a common domain suffix. We want to only affect assets
-        $extension = untrailingslashit(atbdp_get_file_extension($content));
-        $suffixes = array(
-            'br',
-            'ca',
-            'cn',
-            'com',
-            'de',
-            'dev',
-            'edu',
-            'fr',
-            'in',
-            'info',
-            'jp',
-            'local',
-            'mobi',
-            'name',
-            'net',
-            'nz',
-            'org',
-            'ru',
-        );
-
-        if (!in_array($extension, $suffixes)) {
-
-            $content = str_replace('http:', 'https:', $content);
-
-        }
-
-    }
-
-    return $content;
-}
-
-/**
  * Given a number and algorithm, determine if we have a valid credit card format
  *
  * @param integer $number The Credit Card Number to validate
@@ -476,6 +354,11 @@ function atbdp_validate_card_number_format($number = 0)
 
 function directorist_payment_guard(){
     $listing_id = get_query_var('atbdp_listing_id');
+
+	if ( empty( $listing_id ) && isset( $_GET['submit'] ) ) {
+		$listing_id = sanitize_text_field( wp_unslash( $_GET['submit'] ) );
+	}
+
     // vail if the id is empty or post type is not our post type.
     $guard = empty($listing_id) || (!empty($listing_id) && ATBDP_POST_TYPE != get_post_type($listing_id));
     return apply_filters( 'directorist_checkout_guard', $guard );

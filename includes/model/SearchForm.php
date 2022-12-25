@@ -285,6 +285,10 @@ class Directorist_Listing_Search_Form {
 						$search_form_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
 					}
 
+					if ( !empty( $submission_form_fields['fields'][$form_key]['assign_to'] ) ) {
+						$search_form_fields['fields'][$key]['assign_to'] = $submission_form_fields['fields'][$form_key]['assign_to'];
+					}
+
 					if ( !empty( $submission_form_fields['fields'][$form_key]['options'] ) ) {
 						$search_form_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key]['options'];
 					}
@@ -300,6 +304,11 @@ class Directorist_Listing_Search_Form {
 
 				foreach ( $group['fields'] as $field ) {
 					$search_field = $search_form_fields['fields'][$field];
+
+					// If search field is assigned to any category, exclude it from array
+					if( ! empty( $search_field['assign_to'] ) && $search_field['assign_to'] === 'category' ) {
+						continue;
+					}
 
 					if ( $this->is_field_allowed_in_atts( $search_field['widget_name'] ) ) {
 						$section['fields'][ $field ] = $search_field;
@@ -394,7 +403,8 @@ class Directorist_Listing_Search_Form {
 			'data'       		=> $field_data,
 			'value'      		=> $value,
 		);
-		if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $this->assign_to_category()['custom_field_key'] ) ) ) {
+
+		if ( $this->is_custom_field( $field_data ) ) {
 			$template = 'search-form/custom-fields/' . $field_data['widget_name'];
 		}
 		else {
@@ -408,6 +418,21 @@ class Directorist_Listing_Search_Form {
 	public function is_custom_field( $data ) {
 		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
 		return in_array( $data['widget_name'], $fields ) ? true : false;
+	}
+
+	public function category_based_custom_fields_list() {
+		$submission_form_fields = get_term_meta( $this->listing_type , 'submission_form_fields', true );
+		$result = array();
+
+		if( $submission_form_fields['fields'] ) {
+			foreach( $submission_form_fields['fields'] as $field ) {
+				if( ! empty( $field['assign_to'] ) && $field['assign_to'] === 'category' ) {
+					$result[$field['field_key']] = $field['category'];
+				}
+			}
+		}
+
+		return $result;
 	}
 
 	public function get_listing_type_data() {

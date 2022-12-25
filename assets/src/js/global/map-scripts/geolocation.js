@@ -130,8 +130,8 @@ window.addEventListener('DOMContentLoaded', () => {
                         },
                     });
                 }
-                $('.directorist-filter-location-icon').on('click', (event) => {
-                    navigator.geolocation.getCurrentPosition((position) => displayLocation(position, event));
+                $('body').on("click", ".directorist-filter-location-icon", function (e) {
+                    navigator.geolocation.getCurrentPosition((position) => displayLocation(position, e));
                 });
             }
 

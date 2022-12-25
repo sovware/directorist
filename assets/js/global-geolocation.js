@@ -215,9 +215,9 @@ window.addEventListener('DOMContentLoaded', function () {
             }
           });
         }
-        $('.directorist-filter-location-icon').on('click', function (event) {
+        $('body').on("click", ".directorist-filter-location-icon", function (e) {
           navigator.geolocation.getCurrentPosition(function (position) {
-            return displayLocation(position, event);
+            return displayLocation(position, e);
           });
         });
       }

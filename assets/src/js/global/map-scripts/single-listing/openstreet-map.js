@@ -39,7 +39,7 @@
                         className: 'myDivIcon',
                     });
 
-                    const mymap = L.map(mapElm).setView([lat, lon], loc_map_zoom_level);
+                    const mymap = L.map(mapElm, {scrollWheelZoom:false}).setView([lat, lon], loc_map_zoom_level);
 
                     if (display_map_info) {
                         L.marker([lat, lon], {

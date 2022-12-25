@@ -553,6 +553,12 @@ function convertToSelect2(field) {
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_catloc_executed === 'undefined') {
+    window.directorist_catloc_executed = true;
+  } else {
+    return;
+  }
   (function ($) {
     /* Multi level hierarchy content */
     /* Category */
@@ -588,6 +594,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /* Initialize wpColorPicker */
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_colorPicker_executed === 'undefined') {
+    window.directorist_colorPicker_executed = true;
+  } else {
+    return;
+  }
   $(document).ready(function () {
     /* Initialize wp color picker */
     function colorPickerInit() {
@@ -616,6 +628,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
 ;
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_alert_executed === 'undefined') {
+    window.directorist_alert_executed = true;
+  } else {
+    return;
+  }
   window.addEventListener('DOMContentLoaded', function () {
     /* Directorist alert dismiss */
     var getUrl = window.location.href;
@@ -643,6 +661,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
 ;
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_dropdown_executed === 'undefined') {
+    window.directorist_dropdown_executed = true;
+  } else {
+    return;
+  }
   window.addEventListener('DOMContentLoaded', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select');
@@ -761,6 +785,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
 ;
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_favorite_executed === 'undefined') {
+    window.directorist_favorite_executed = true;
+  } else {
+    return;
+  }
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
     $('#atbdp-favourites').on('click', function (e) {
@@ -845,6 +875,12 @@ window.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_select_executed === 'undefined') {
+    window.directorist_select_executed = true;
+  } else {
+    return;
+  }
   //custom select
   var atbdSelect = document.querySelectorAll('.atbd-drop-select');
   if (atbdSelect !== null) {
@@ -886,6 +922,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
 ;
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_sorting_executed === 'undefined') {
+    window.directorist_sorting_executed = true;
+  } else {
+    return;
+  }
   window.addEventListener('DOMContentLoaded', function () {
     // Sorting Js
     if (!$('.directorist-instant-search').length) {

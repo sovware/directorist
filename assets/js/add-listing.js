@@ -1273,6 +1273,12 @@ function convertToSelect2(field) {
 
 /* Initialize wpColorPicker */
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_colorPicker_executed === 'undefined') {
+    window.directorist_colorPicker_executed = true;
+  } else {
+    return;
+  }
   $(document).ready(function () {
     /* Initialize wp color picker */
     function colorPickerInit() {
@@ -1301,6 +1307,12 @@ function convertToSelect2(field) {
 
 ;
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_dropdown_executed === 'undefined') {
+    window.directorist_dropdown_executed = true;
+  } else {
+    return;
+  }
   window.addEventListener('DOMContentLoaded', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select');
@@ -1418,6 +1430,12 @@ function convertToSelect2(field) {
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_select_executed === 'undefined') {
+    window.directorist_select_executed = true;
+  } else {
+    return;
+  }
   //custom select
   var atbdSelect = document.querySelectorAll('.atbd-drop-select');
   if (atbdSelect !== null) {

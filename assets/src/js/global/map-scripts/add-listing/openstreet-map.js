@@ -112,10 +112,8 @@ import {
                                 }
                                 result_container.find('ul').html(res);
                                 if (res.length) {
-                                    console.log('Responsed');
                                     result_container.show();
                                 } else {
-                                    console.log('No Response');
                                     result_container.hide();
                                 }
                                 locationAddressField.removeClass('atbdp-form-fade');
@@ -123,7 +121,7 @@ import {
                         });
                     }
                 } else {
-                    console.log('Key Blocked');
+                    
                 }
                 
             }, 750));

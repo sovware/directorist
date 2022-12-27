@@ -196,19 +196,15 @@ __webpack_require__.r(__webpack_exports__);
                 }
                 result_container.find('ul').html(res);
                 if (res.length) {
-                  console.log('Responsed');
                   result_container.show();
                 } else {
-                  console.log('No Response');
                   result_container.hide();
                 }
                 locationAddressField.removeClass('atbdp-form-fade');
               }
             });
           }
-        } else {
-          console.log('Key Blocked');
-        }
+        } else {}
       }, 750));
     });
     var lat = loc_manual_lat,

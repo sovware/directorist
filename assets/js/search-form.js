@@ -1457,9 +1457,7 @@ __webpack_require__.r(__webpack_exports__);
                   }
                 });
               }
-            } else {
-              console.log('Key Blocked');
-            }
+            } else {}
           }, 750));
         });
 

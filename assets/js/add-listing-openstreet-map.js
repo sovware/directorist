@@ -157,15 +157,15 @@ __webpack_require__.r(__webpack_exports__);
         });
         if (!keyBlocked) {
           var search = $(elm).val();
-          $(elm).siblings('.address_result').css({
-            'display': 'block'
-          });
           if (search.length < '3') {
             $(elm).siblings('.address_result').css({
               'display': 'none'
             });
           }
           if (search.length >= '3') {
+            $(elm).siblings('.address_result').css({
+              'display': 'block'
+            });
             var res = "";
             $.ajax({
               url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),

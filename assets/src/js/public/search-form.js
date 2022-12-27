@@ -734,7 +734,7 @@ import { directorist_range_slider } from './range-slider';
 
                     $(field.input_elm).on('keyup', directorist_debounce(function (event) {
                         event.preventDefault();
-            
+                        var result_container = field.getResultContainer(this, field);
                         var keyCode = event.keyCode;
                         var keyBlocked = false;
             
@@ -747,12 +747,8 @@ import { directorist_range_slider } from './range-slider';
                         })
             
                         if(!keyBlocked) {
-                          var search = $(this).val();
-                          var result_container = field.getResultContainer(this, field);
-                          result_container.css({
-                            display: 'block'
-                          });
-                          
+                          var search = $(this).val(); 
+
                           if (search.length < '3') {
                             result_container.css({
                               display: 'none'
@@ -760,6 +756,10 @@ import { directorist_range_slider } from './range-slider';
                           }
             
                           if(search.length >= '3') {
+                            result_container.css({
+                              display: 'block'
+                            });
+                            
                             var res = '';
                             $.ajax({
                               url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),

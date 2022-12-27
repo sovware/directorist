@@ -59,7 +59,6 @@ import {
         $('.directorist-location-js').each(function (id, elm) {
             $(elm).on('keyup', function (event) {
                 event.preventDefault();
-
                 var keyCode = event.keyCode;
                 var keyBlocked = false;
     
@@ -67,15 +66,12 @@ import {
     
                 blockedKeyCode.forEach((e) => {
                     if (keyCode == e) {
-                    keyBlocked = true;
+                        keyBlocked = true;
                     }
                 })
 
                 if(!keyBlocked) {
                     var search = $(elm).val();
-                    $(elm).siblings('.address_result').css({
-                        'display': 'block'
-                    });
                     
                     if (search.length < '3') {
                         $(elm).siblings('.address_result').css({
@@ -84,6 +80,10 @@ import {
                     }
 
                     if(search.length >= '3') {
+                        $(elm).siblings('.address_result').css({
+                            'display': 'block'
+                        });
+
                         var res = "";
                         $.ajax({
                             url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,

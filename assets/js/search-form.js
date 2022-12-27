@@ -1411,6 +1411,7 @@ __webpack_require__.r(__webpack_exports__);
           }
           $(field.input_elm).on('keyup', directorist_debounce(function (event) {
             event.preventDefault();
+            var result_container = field.getResultContainer(this, field);
             var keyCode = event.keyCode;
             var keyBlocked = false;
             var blockedKeyCode = ['16', '17', '18', '19', '20', '27', '33', '34', '35', '36', '37', '38', '39', '40', '45', '91', '93', '112', '113', '114', '115', '116', '117', '118', '119', '120', '121', '122', '123', '144', '145'];
@@ -1421,16 +1422,15 @@ __webpack_require__.r(__webpack_exports__);
             });
             if (!keyBlocked) {
               var search = $(this).val();
-              var result_container = field.getResultContainer(this, field);
-              result_container.css({
-                display: 'block'
-              });
               if (search.length < '3') {
                 result_container.css({
                   display: 'none'
                 });
               }
               if (search.length >= '3') {
+                result_container.css({
+                  display: 'block'
+                });
                 var res = '';
                 $.ajax({
                   url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),

@@ -147,6 +147,41 @@ __webpack_require__.r(__webpack_exports__);
     $('.directorist-location-js').each(function (id, elm) {
       $(elm).on('keyup', function (event) {
         event.preventDefault();
+        var keyCode = event.keyCode;
+        var keyBlocked = false;
+        var blockedKeyCode = ['16', '17', '18', '19', '20', '27', '33', '34', '35', '36', '37', '38', '39', '40', '45', '91', '93', '112', '113', '114', '115', '116', '117', '118', '119', '120', '121', '122', '123', '144', '145'];
+        blockedKeyCode.forEach(function (e) {
+          if (keyCode == e) {
+            keyBlocked = true;
+          }
+        });
+        if (!keyBlocked) {
+          var search = $(elm).val();
+          $(elm).siblings('.address_result').css({
+            'display': 'block'
+          });
+          if (search.length < '3') {
+            $(elm).siblings('.address_result').css({
+              'display': 'none'
+            });
+          }
+          if (search.length >= '3') {
+            var res = "";
+            $.ajax({
+              url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+              type: 'POST',
+              data: {},
+              success: function success(data) {
+                for (var i = 0; i < data.length; i++) {
+                  res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+                }
+                $(elm).siblings('.address_result').find('ul').html(res);
+              }
+            });
+          }
+        } else {
+          console.log('Key Blocked');
+        }
         if (event.keyCode !== 40 && event.keyCode !== 38) {
           var search = $(elm).val();
           $(elm).siblings('.address_result').css({

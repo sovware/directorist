@@ -1409,41 +1409,55 @@ __webpack_require__.r(__webpack_exports__);
           if (!$(field.input_elm).length) {
             return;
           }
-          $(field.input_elm).on('keyup', function (event) {
+          $(field.input_elm).on('keyup', directorist_debounce(function (event) {
             event.preventDefault();
-            var search = $(this).val();
-            var result_container = field.getResultContainer(this, field);
-            result_container.css({
-              display: 'block'
-            });
-            if (search === '') {
-              result_container.css({
-                display: 'none'
-              });
-            }
-            var res = '';
-            $.ajax({
-              url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-              type: 'POST',
-              data: {},
-              success: function success(data) {
-                for (var i = 0; i < data.length; i++) {
-                  res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
-                }
-                result_container.html("<ul>".concat(res, "</ul>"));
-                if (res.length) {
-                  result_container.show();
-                } else {
-                  result_container.hide();
-                }
-              },
-              error: function error(_error3) {
-                console.log({
-                  error: _error3
-                });
+            var keyCode = event.keyCode;
+            var keyBlocked = false;
+            var blockedKeyCode = ['16', '17', '18', '19', '20', '27', '33', '34', '35', '36', '37', '38', '39', '40', '45', '91', '93', '112', '113', '114', '115', '116', '117', '118', '119', '120', '121', '122', '123', '144', '145'];
+            blockedKeyCode.forEach(function (e) {
+              if (keyCode == e) {
+                keyBlocked = true;
               }
             });
-          });
+            if (!keyBlocked) {
+              var search = $(this).val();
+              var result_container = field.getResultContainer(this, field);
+              result_container.css({
+                display: 'block'
+              });
+              if (search.length < '3') {
+                result_container.css({
+                  display: 'none'
+                });
+              }
+              if (search.length >= '3') {
+                var res = '';
+                $.ajax({
+                  url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+                  type: 'POST',
+                  data: {},
+                  success: function success(data) {
+                    for (var i = 0; i < data.length; i++) {
+                      res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+                    }
+                    result_container.html("<ul>".concat(res, "</ul>"));
+                    if (res.length) {
+                      result_container.show();
+                    } else {
+                      result_container.hide();
+                    }
+                  },
+                  error: function error(_error3) {
+                    console.log({
+                      error: _error3
+                    });
+                  }
+                });
+              }
+            } else {
+              console.log('Key Blocked');
+            }
+          }, 750));
         });
 
         // hide address result when click outside the input field

@@ -2,11 +2,9 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.5.0
  */
-?>
 
-<?php
 if (is_numeric($searchform->listing_type)) {
 	$term = get_term_by('id', $searchform->listing_type, ATBDP_TYPE);
 	$listing_type = $term->slug;
@@ -14,7 +12,7 @@ if (is_numeric($searchform->listing_type)) {
 ?>
 
 <div class="directorist-archive-adv-filter directorist-advanced-filter">
-	<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
+	<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form" data-atts="<?php echo esc_attr( $searchform->get_atts_data() ); ?>">
 		<input type="hidden" name='directory_type' value='<?php echo !empty($listing_type) ? esc_attr( $listing_type ) : esc_attr( $searchform->listing_type ); ?>'>
 		<div class="directorist-advanced-filter__basic">
 			<?php foreach ($searchform->form_data[0]['fields'] as $field) : ?>
@@ -23,10 +21,17 @@ if (is_numeric($searchform->listing_type)) {
 		</div>
 
 		<div class="directorist-advanced-filter__advanced">
+
+			<div class="directorist-search-form-cat-fields" data-inner-class="directorist-form-group directorist-advanced-filter__advanced--element direcorist-search-field-WIDGETNAME"></div>
+
 			<?php foreach ($searchform->form_data[1]['fields'] as $field) : ?>
+
 				<div class="directorist-form-group directorist-advanced-filter__advanced--element direcorist-search-field-<?php echo esc_attr($field['widget_name']) ?>"><?php $searchform->field_template($field); ?></div>
+
 			<?php endforeach; ?>
+
 		</div>
+
 		<?php $searchform->buttons_template(); ?>
 	</form>
 </div>

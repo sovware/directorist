@@ -1411,6 +1411,7 @@ __webpack_require__.r(__webpack_exports__);
           }
           $(field.input_elm).on('keyup', directorist_debounce(function (event) {
             event.preventDefault();
+            var locationAddressField = $(this).parent('.directorist-search-field');
             var result_container = field.getResultContainer(this, field);
             var keyCode = event.keyCode;
             var keyBlocked = false;
@@ -1428,6 +1429,7 @@ __webpack_require__.r(__webpack_exports__);
                 });
               }
               if (search.length >= '3') {
+                locationAddressField.addClass('atbdp-form-fade');
                 result_container.css({
                   display: 'block'
                 });
@@ -1446,6 +1448,7 @@ __webpack_require__.r(__webpack_exports__);
                     } else {
                       result_container.hide();
                     }
+                    locationAddressField.removeClass('atbdp-form-fade');
                   },
                   error: function error(_error3) {
                     console.log({

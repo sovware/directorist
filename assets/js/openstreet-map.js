@@ -147,6 +147,7 @@ __webpack_require__.r(__webpack_exports__);
     $('.directorist-location-js').each(function (id, elm) {
       $(elm).on('keyup', function (event) {
         event.preventDefault();
+        var locationAddressField = $(this).parent('.directorist-search-field');
         var keyCode = event.keyCode;
         var keyBlocked = false;
         var blockedKeyCode = ['16', '17', '18', '19', '20', '27', '33', '34', '35', '36', '37', '38', '39', '40', '45', '91', '93', '112', '113', '114', '115', '116', '117', '118', '119', '120', '121', '122', '123', '144', '145'];
@@ -163,6 +164,7 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
           if (search.length >= '3') {
+            locationAddressField.addClass('atbdp-form-fade');
             $(elm).siblings('.address_result').css({
               'display': 'block'
             });
@@ -176,6 +178,7 @@ __webpack_require__.r(__webpack_exports__);
                   res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
                 }
                 $(elm).siblings('.address_result').find('ul').html(res);
+                locationAddressField.removeClass('atbdp-form-fade');
               }
             });
           }

@@ -15351,6 +15351,12 @@ Review: New Style
 .directorist-search-contents .directorist-search-form-top .directorist-search-form-action__filter .directorist-filter-btn {
   background-color: #fff;
 }
+.directorist-search-contents .directorist-search-form-top .atbdp-form-fade:before {
+  width: 15px;
+  height: 15px;
+  right: unset;
+  left: 0;
+}
 
 .directorist-search-contents .directorist-advanced-filter {
   border: 1px solid #e3e6ef;

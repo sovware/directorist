@@ -59,6 +59,7 @@ import {
         $('.directorist-location-js').each(function (id, elm) {
             $(elm).on('keyup', function (event) {
                 event.preventDefault();
+                var locationAddressField = $(this).parent('.directorist-search-field');
                 var keyCode = event.keyCode;
                 var keyBlocked = false;
     
@@ -80,6 +81,7 @@ import {
                     }
 
                     if(search.length >= '3') {
+                        locationAddressField.addClass('atbdp-form-fade');
                         $(elm).siblings('.address_result').css({
                             'display': 'block'
                         });
@@ -94,6 +96,7 @@ import {
                                     res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
                                 }
                                 $(elm).siblings('.address_result').find('ul').html(res);
+                                locationAddressField.removeClass('atbdp-form-fade');
                             }
                         });
                     }

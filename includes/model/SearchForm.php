@@ -14,6 +14,7 @@ class Directorist_Listing_Search_Form {
 	public $type;
 	public $listing_type;
 	public $form_data;
+	public $category_fields_data;
 
 	public $atts;
 	public $defaults;
@@ -83,7 +84,7 @@ class Directorist_Listing_Search_Form {
 			$this->prepare_listing_data();
 		}
 
-		$this->form_data          = $this->build_form_data();
+		$this->build_form_data();
 
 		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
 		$this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
@@ -260,7 +261,8 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function build_form_data() {
-		$form_data          = array();
+		$form_data              = array();
+		$category_fields_data   = array();
 		$search_form_fields     = get_term_meta( $this->listing_type, 'search_form_fields', true );
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
@@ -285,8 +287,9 @@ class Directorist_Listing_Search_Form {
 						$search_form_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
 					}
 
-					if ( !empty( $submission_form_fields['fields'][$form_key]['assign_to'] ) ) {
+					if ( !empty( $submission_form_fields['fields'][$form_key]['assign_to'] ) && !empty( $submission_form_fields['fields'][$form_key]['category'] ) ) {
 						$search_form_fields['fields'][$key]['assign_to'] = $submission_form_fields['fields'][$form_key]['assign_to'];
+						$search_form_fields['fields'][$key]['category'] = $submission_form_fields['fields'][$form_key]['category'];
 					}
 
 					if ( !empty( $submission_form_fields['fields'][$form_key]['options'] ) ) {
@@ -307,6 +310,8 @@ class Directorist_Listing_Search_Form {
 
 					// If search field is assigned to any category, exclude it from array
 					if( ! empty( $search_field['assign_to'] ) && $search_field['assign_to'] === 'category' ) {
+						$cat_id = $search_field['category'];
+						$category_fields_data[$cat_id][] = $search_field;
 						continue;
 					}
 
@@ -319,7 +324,8 @@ class Directorist_Listing_Search_Form {
 			}
 		}
 
-		return $form_data;
+		$this->form_data            = $form_data;
+		$this->category_fields_data = $category_fields_data;
 	}
 
 	public function is_field_allowed_in_atts( $widget_name ) {

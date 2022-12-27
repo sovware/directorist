@@ -771,12 +771,14 @@ import { directorist_range_slider } from './range-slider';
                                 for (var i = 0; i < data.length; i++) {
                                   res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
                                 }
+                                
                                 result_container.html("<ul>".concat(res, "</ul>"));
                                 if (res.length) {
                                   result_container.show();
                                 } else {
                                   result_container.hide();
                                 }
+
                                 locationAddressField.removeClass('atbdp-form-fade');
                               },
                               error: function error(_error3) {

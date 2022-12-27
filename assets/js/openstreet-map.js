@@ -144,9 +144,26 @@ __webpack_require__.r(__webpack_exports__);
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(mymap);
     }
+    function directorist_debounce(func, wait, immediate) {
+      var timeout;
+      return function () {
+        var context = this,
+          args = arguments;
+        var later = function later() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    }
+    ;
     $('.directorist-location-js').each(function (id, elm) {
-      $(elm).on('keyup', function (event) {
+      $(elm).on('keyup', directorist_debounce(function (event) {
         event.preventDefault();
+        var result_container = $(elm).siblings('.address_result');
         var locationAddressField = $(this).parent('.directorist-form-address-field');
         var keyCode = event.keyCode;
         var keyBlocked = false;
@@ -159,13 +176,13 @@ __webpack_require__.r(__webpack_exports__);
         if (!keyBlocked) {
           var search = $(elm).val();
           if (search.length < '3') {
-            $(elm).siblings('.address_result').css({
+            result_container.css({
               'display': 'none'
             });
           }
           if (search.length >= '3') {
             locationAddressField.addClass('atbdp-form-fade');
-            $(elm).siblings('.address_result').css({
+            result_container.css({
               'display': 'block'
             });
             var res = "";
@@ -177,7 +194,14 @@ __webpack_require__.r(__webpack_exports__);
                 for (var i = 0; i < data.length; i++) {
                   res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
                 }
-                $(elm).siblings('.address_result').find('ul').html(res);
+                result_container.find('ul').html(res);
+                if (res.length) {
+                  console.log('Responsed');
+                  result_container.show();
+                } else {
+                  console.log('No Response');
+                  result_container.hide();
+                }
                 locationAddressField.removeClass('atbdp-form-fade');
               }
             });
@@ -185,7 +209,7 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           console.log('Key Blocked');
         }
-      });
+      }, 750));
     });
     var lat = loc_manual_lat,
       lon = loc_manual_lng;

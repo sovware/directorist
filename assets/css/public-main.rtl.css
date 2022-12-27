@@ -2787,6 +2787,23 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group:not(:last-child) {
   margin-bottom: 15px;
 }
+.directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade {
+  padding: 0;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade:before,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade:before {
+  width: 15px;
+  height: 15px;
+  right: unset;
+  left: 0;
+  top: 54px;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade:after {
+  height: 42px;
+  top: 34px;
+}
 .directorist-add-listing-form .directorist-alert-required,
 #directiost-listing-fields_wrapper .directorist-alert-required {
   display: block;

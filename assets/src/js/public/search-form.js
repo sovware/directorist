@@ -469,6 +469,40 @@ import { directorist_range_slider } from './range-slider';
             }
         });
 
+        function render_category_custom_search_fields( $container ) {
+            const $cat_container = $container.find('.directorist-search-form-cat-fields');
+
+            const data = {
+                action: 'directorist_search_form_category_fields',
+                directorist_nonce: directorist.directorist_nonce,
+                category: $container.find('.directorist-search-category select').val(),
+                directory_type: $container.find('[name="directory_type"]').val(),
+                inner_class: $cat_container.data('inner-class'),
+                atts: JSON.stringify($container.data('atts'))
+            };
+
+            $.post(directorist.ajaxurl, data, function (response) {
+                if (response) {
+                    $cat_container.empty();
+
+                    $.each(response, function( id, content ) {
+                        $cat_container.append(content);
+                    });
+
+                } else {
+                    $cat_container.empty();
+                }
+            });
+        }
+
+        if( $( '.directorist-search-category' ).length ) {
+            $('body').on('change', '.directorist-search-category select', function (event) {
+                const $container = $(this).parents('form');
+                render_category_custom_search_fields( $container );
+            });
+        }
+
+        /*
         if( $( '.directorist-search-contents' ).length ) {
             $('body').on('change', '.directorist-category-select', function (event) {
                 var $this            = $(this);
@@ -554,6 +588,7 @@ import { directorist_range_slider } from './range-slider';
                 });
             }
         });
+        */
 
         // Returns a function, that, as long as it continues to be invoked, will not
         // be triggered. The function will be called after it stops being called for

@@ -573,6 +573,9 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function get_atts_data() {
+		if ( !$this->params ) {
+			return '';
+		}
 		return json_encode( $this->params );
 	}
 

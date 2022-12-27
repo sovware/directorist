@@ -529,7 +529,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					 *     //do stuff
 					 * } );
 					 *
-					 * @since 7.4.6
+					 * @since 7.5.0
 					 *
 					 * @param integer ID of the user who changed their password
 					 */

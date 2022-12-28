@@ -524,10 +524,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					 *
 					 * This can be used to do stuff like sending emails after successful password change from
 					 * user dashboard
-					 * Usage:
-					 * add_action( 'directorist_password_changed', function( $ID ) {
-					 *     //do stuff
-					 * } );
 					 *
 					 * @since 7.5.0
 					 *

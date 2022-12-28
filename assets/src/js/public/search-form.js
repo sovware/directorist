@@ -485,20 +485,91 @@ import { directorist_range_slider } from './range-slider';
                 if (response) {
                     $cat_container.empty();
 
-                    $.each(response, function( id, content ) {
-                        $cat_container.append(content);
+                    $.each(response, function (id, content) {
+                        var $newMarkup = $(content);
+
+                        if ($newMarkup.find('.directorist-form-element')[0] !== undefined) {
+                          $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', "".concat(id));
+                        }
+              
+                        if ($($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').length) {
+                          $($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').each(function (i, item) {
+                            $(item).attr('id', "".concat(id, "-").concat(i));
+                            $(item).attr('name', "".concat(id, "-").concat(i));
+                            $(item).attr('data-id', "".concat(id, "-").concat(i));
+                            $(item).addClass('custom-checkbox');
+                          });
+                          $($newMarkup[0]).find('.directorist-radio label, .directorist-checkbox label').each(function (i, item) {
+                            $(item).attr('for', "".concat(id, "-").concat(i));
+                          });
+                        }
+              
+                        $cat_container.append($newMarkup);
                     });
+
+                    formData.forEach(function (item) {
+                        var fieldSingle = document.querySelector("[id=\"".concat(item.id, "\"]"));
+                
+                        if (fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element')) {
+                            fieldSingle.value = item.value;
+                        }
+                
+                        if (fieldSingle !== null && fieldSingle.classList.contains('custom-checkbox')) {
+                            fieldSingle.checked = item.checked;
+                        }
+
+                    });                    
+
+                    $container.removeClass('atbdp-form-fade');
 
                 } else {
                     $cat_container.empty();
+                    $container.removeClass('atbdp-form-fade');
                 }
             });
         }
+
+        var formData = [];
+
+        function storeCustomFieldsData() {
+
+            var customFields = document.querySelectorAll(".directorist-search-form-cat-fields .direcorist-search-field-select .directorist-custom-field-select #custom-selectbox");
+            var checksField = document.querySelectorAll('.directorist-search-form-cat-fields .direcorist-search-field-checkbox .directorist-custom-field-checkbox .directorist-checkbox-wrapper .directorist-checkbox .custom-checkbox');
+            
+      
+          if (customFields.length) {
+            customFields.forEach(function (elm) {
+              var elmValue = elm.value;
+              var elmId = elm.getAttribute('id');
+              formData.push({
+                "id": elmId,
+                "value": elmValue
+              });
+            });
+          }
+      
+          if (checksField.length) {
+            checksField.forEach(function (elm) {
+                var elmValue = elm.value;
+                var elmChecked = elm.checked;
+                var elmId = elm.getAttribute('id');
+
+                formData.push({
+                    "id": elmId,
+                    "value": elmValue,
+                    "checked": elmChecked
+                });
+            });
+          }
+        } // Render category based fields on category change (frontend)
+      
 
         if( $( '.directorist-search-category' ).length ) {
             $('body').on('change', '.directorist-search-category select', function (event) {
                 const $container = $(this).parents('form');
                 render_category_custom_search_fields( $container );
+                storeCustomFieldsData();
+                $container.addClass('atbdp-form-fade');
             });
         }
 

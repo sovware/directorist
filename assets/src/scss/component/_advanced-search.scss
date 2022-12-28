@@ -337,6 +337,14 @@
     }
 }
 
+// Custom Category Fields
+.directorist-search-form-cat-fields {
+    display: flex;
+    .directorist-form-group {
+        margin: 5px;
+    }
+}
+
 /* google map location suggestion container */
 .pac-container {
     z-index: 99999 !important;

@@ -302,11 +302,13 @@ class Directorist_Single_Listing {
 		switch ( $type ) {
 			case 'radio':
 			case 'select':
-			foreach( $data['options'] as $option ) {
-				$key = $option['option_value'];
-				if( $key === $value ) {
-					$result = $option['option_label'];
-					break;
+			if(!empty($data['options'])) {
+				foreach( $data['options'] as $option ) {
+					$key = $option['option_value'];
+					if( $key === $value ) {
+						$result = $option['option_label'];
+						break;
+					}
 				}
 			}
 			break;
@@ -545,7 +547,9 @@ class Directorist_Single_Listing {
 			];
 		}
 
-		$padding_top         = $data['height'] / $data['width'] * 100;
+		$height = !empty($data['height']) ? $data['height'] : 580; //set default height if no height present
+		$width = !empty($data['width']) ? $data['width'] : 740;  //set default width if no width present
+		$padding_top         = $height / $width * 100;
 		$data['padding-top'] = $padding_top;
 		return $data;
 	}

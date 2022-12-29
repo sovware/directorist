@@ -9163,6 +9163,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 7.5px;
 }
 
+.directorist-search-form-cat-fields {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.directorist-search-form-cat-fields .directorist-form-group {
+  margin: 5px;
+}
+
 /* google map location suggestion container */
 .pac-container {
   z-index: 99999 !important;

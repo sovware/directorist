@@ -1325,18 +1325,83 @@ __webpack_require__.r(__webpack_exports__);
         if (response) {
           $cat_container.empty();
           $.each(response, function (id, content) {
-            $cat_container.append(content);
+            var $newMarkup = $(content);
+
+            if ($newMarkup.find('.directorist-form-element')[0] !== undefined) {
+              $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', "".concat(id));
+            }
+
+            if ($($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').length) {
+              $($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').each(function (i, item) {
+                $(item).attr('id', "".concat(id, "-").concat(i));
+                $(item).attr('name', "".concat(id, "-").concat(i));
+                $(item).attr('data-id', "".concat(id, "-").concat(i));
+                $(item).addClass('custom-checkbox');
+              });
+              $($newMarkup[0]).find('.directorist-radio label, .directorist-checkbox label').each(function (i, item) {
+                $(item).attr('for', "".concat(id, "-").concat(i));
+              });
+            }
+
+            $cat_container.append($newMarkup);
           });
+          formData.forEach(function (item) {
+            var fieldSingle = document.querySelector("[id=\"".concat(item.id, "\"]"));
+
+            if (fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element')) {
+              fieldSingle.value = item.value;
+            }
+
+            if (fieldSingle !== null && fieldSingle.classList.contains('custom-checkbox')) {
+              fieldSingle.checked = item.checked;
+            }
+          });
+          $container.removeClass('atbdp-form-fade');
         } else {
           $cat_container.empty();
+          $container.removeClass('atbdp-form-fade');
         }
       });
     }
+
+    var formData = [];
+
+    function storeCustomFieldsData() {
+      var customFields = document.querySelectorAll(".directorist-search-form-cat-fields .direcorist-search-field-select .directorist-custom-field-select #custom-selectbox");
+      var checksField = document.querySelectorAll('.directorist-search-form-cat-fields .direcorist-search-field-checkbox .directorist-custom-field-checkbox .directorist-checkbox-wrapper .directorist-checkbox .custom-checkbox');
+
+      if (customFields.length) {
+        customFields.forEach(function (elm) {
+          var elmValue = elm.value;
+          var elmId = elm.getAttribute('id');
+          formData.push({
+            "id": elmId,
+            "value": elmValue
+          });
+        });
+      }
+
+      if (checksField.length) {
+        checksField.forEach(function (elm) {
+          var elmValue = elm.value;
+          var elmChecked = elm.checked;
+          var elmId = elm.getAttribute('id');
+          formData.push({
+            "id": elmId,
+            "value": elmValue,
+            "checked": elmChecked
+          });
+        });
+      }
+    } // Render category based fields on category change (frontend)
+
 
     if ($('.directorist-search-category').length) {
       $('body').on('change', '.directorist-search-category select', function (event) {
         var $container = $(this).parents('form');
         render_category_custom_search_fields($container);
+        storeCustomFieldsData();
+        $container.addClass('atbdp-form-fade');
       });
     }
     /*
@@ -1348,13 +1413,13 @@ __webpack_require__.r(__webpack_exports__);
             var directory_type   = $container.find('.listing_type').val();
             var $search_form_box = $container.find('.directorist-search-form-box-wrap');
             var form_data        = new FormData();
-             form_data.append('action', 'directorist_category_custom_field_search');
+              form_data.append('action', 'directorist_category_custom_field_search');
             form_data.append('nonce', directorist.directorist_nonce);
             form_data.append('listing_type', directory_type);
             form_data.append('cat_id', cat_id);
             form_data.append('atts', JSON.stringify($container.data('atts')));
-             $search_form_box.addClass('atbdp-form-fade');
-             $.ajax({
+              $search_form_box.addClass('atbdp-form-fade');
+              $.ajax({
               method     : 'POST',
               processData: false,
               contentType: false,
@@ -1363,9 +1428,9 @@ __webpack_require__.r(__webpack_exports__);
               success: function success(response) {
                 if (response) {
                   $search_form_box.html(response['search_form']);
-                   $container.find('.directorist-category-select option').data('custom-field', 1);
+                    $container.find('.directorist-category-select option').data('custom-field', 1);
                   $container.find('.directorist-category-select').val(cat_id);
-                   [
+                    [
                     new CustomEvent('directorist-search-form-nav-tab-reloaded'),
                     new CustomEvent('directorist-reload-select2-fields'),
                     new CustomEvent('directorist-reload-map-api-field'),
@@ -1375,7 +1440,7 @@ __webpack_require__.r(__webpack_exports__);
                     window.dispatchEvent(event);
                   });
                 }
-                 $search_form_box.removeClass('atbdp-form-fade');
+                  $search_form_box.removeClass('atbdp-form-fade');
               },
               error: function error(_error) {
                 //console.log(_error);
@@ -1383,19 +1448,19 @@ __webpack_require__.r(__webpack_exports__);
             });
           });
     }
-     // load custom fields of the selected category in the search form
+      // load custom fields of the selected category in the search form
     $('body').on('change', '.bdas-category-search, .directorist-category-select', function () {
         const $search_elem = $(this)
             .closest('form')
             .find('.atbdp-custom-fields-search');
-         if ($search_elem.length) {
+          if ($search_elem.length) {
             $search_elem.html('<div class="atbdp-spinner"></div>');
-             const data = {
+              const data = {
                 action: 'atbdp_custom_fields_search',
                 term_id: $(this).val(),
                 security: directorist.ajaxnonce,
             };
-             $.post(directorist.ajax_url, data, function (response) {
+              $.post(directorist.ajax_url, data, function (response) {
                 $search_elem.html(response);
                 const item = $('.custom-control').closest('.bads-custom-checks');
                 item.each(function (index, el) {

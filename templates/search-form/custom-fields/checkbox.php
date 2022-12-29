@@ -12,7 +12,7 @@ if ( $value == '' ) {
 }
 ?>
 
-<div class="directorist-search-field">
+<div class="directorist-search-field directorist-form-group directorist-custom-field-checkbox">
 
 	<?php if ( !empty($data['label']) ): ?>
 		<label><?php echo esc_html( $data['label'] ); ?></label>
@@ -26,7 +26,7 @@ if ( $value == '' ) {
 			?>
 
 			<div class="directorist-checkbox directorist-checkbox-primary">
-				<input <?php checked( in_array( $option[ 'option_value' ], $value ) ); ?> type="checkbox" id="<?php echo esc_attr( $uniqid ); ?>" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>][]" value="<?php echo esc_attr( $option['option_value'] ); ?>">
+				<input <?php checked( in_array( $option[ 'option_value' ], $value ) ); ?> type="checkbox" id="<?php echo esc_attr( $uniqid ); ?>" name="custom-checkbox" class="custom-checkbox" value="<?php echo esc_attr( $option['option_value'] ); ?>">
 				<label class="directorist-checkbox__label" for="<?php echo esc_attr( $uniqid ); ?>"><?php echo esc_html( $option['option_label'] ); ?></label>
 			</div>
 

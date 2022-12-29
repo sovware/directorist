@@ -6,6 +6,18 @@ document.addEventListener('DOMContentLoaded', () => {
             containerID: "directorist-single-listing-slider",
         });
         single_listing_slider.init();
+        
+        var singleListingSlider = document.getElementById("directorist-single-listing-slider");
+
+        var width = singleListingSlider.getAttribute("data-width");
+        var height = singleListingSlider.getAttribute("data-height");
+        
+        if(width) {
+            singleListingSlider.style.setProperty('width', width + "px");           
+        }        
+        if(height) {
+            singleListingSlider.style.setProperty('height', height + "px");            
+        }
     }
 
     /* Related listings slider */

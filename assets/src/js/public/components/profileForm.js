@@ -82,7 +82,9 @@
                     // console.log(response);
 
                     if (response.success) {
-
+                        
+                        $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
+                        
                         // Reload if password updated
                         let newPass = form_data.get('user[new_pass]');
                         if ( typeof newPass == 'string' && newPass.length > 0 ) {
@@ -90,7 +92,6 @@
                             return false;
                         }
 
-                        $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
                     } else {
                         $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
                     }

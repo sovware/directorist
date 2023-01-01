@@ -1328,7 +1328,12 @@ __webpack_require__.r(__webpack_exports__);
             var $newMarkup = $(content);
 
             if ($newMarkup.find('.directorist-form-element')[0] !== undefined) {
-              $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', "".concat(id));
+              $($newMarkup[0]).find('.directorist-form-element').each(function (i, item) {
+                $(item).attr('id', "".concat(id, "-").concat(i));
+                $(item).attr('name', "".concat(id, "-").concat(i));
+                $(item).attr('data-id', "".concat(id, "-").concat(i));
+                $(item).addClass('custom-form-element');
+              });
             }
 
             if ($($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').length) {
@@ -1348,7 +1353,7 @@ __webpack_require__.r(__webpack_exports__);
           formData.forEach(function (item) {
             var fieldSingle = document.querySelector("[id=\"".concat(item.id, "\"]"));
 
-            if (fieldSingle !== null && fieldSingle.classList.contains('custom-select')) {
+            if (fieldSingle !== null && fieldSingle.classList.contains('custom-form-element')) {
               fieldSingle.value = item.value;
             }
 
@@ -1367,7 +1372,7 @@ __webpack_require__.r(__webpack_exports__);
     var formData = [];
 
     function storeCustomFieldsData() {
-      var customFields = document.querySelectorAll(".directorist-search-form-cat-fields .direcorist-search-field-select .directorist-custom-field-select #custom-selectbox");
+      var customFields = document.querySelectorAll(".directorist-search-form-cat-fields .directorist-form-group .custom-form-element");
       var checksField = document.querySelectorAll('.directorist-search-form-cat-fields .direcorist-search-field-checkbox .directorist-custom-field-checkbox .directorist-checkbox-wrapper .directorist-checkbox .custom-checkbox');
 
       if (customFields.length) {

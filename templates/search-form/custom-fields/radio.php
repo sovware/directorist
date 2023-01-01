@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		?>
 
 		<div class="directorist-radio directorist-radio-circle">
-			<input <?php checked(  $value === $option[ 'option_value' ] ); ?> type="radio" id="<?php echo esc_attr( $uniqid ); ?>" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $option['option_value'] ); ?>">
+			<input name='custom-radio' <?php checked(  $value === $option[ 'option_value' ] ); ?> type="radio" id="<?php echo esc_attr( $uniqid ); ?>" value="<?php echo esc_attr( $option['option_value'] ); ?>">
 			<label class="directorist-radio__label" for="<?php echo esc_attr( $uniqid ); ?>"><?php echo esc_html( $option['option_label'] ); ?></label>
 		</div>
 

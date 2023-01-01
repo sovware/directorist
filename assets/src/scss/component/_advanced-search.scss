@@ -340,8 +340,9 @@
 // Custom Category Fields
 .directorist-search-form-cat-fields {
     display: flex;
+    flex-wrap: wrap;
     .directorist-form-group {
-        margin: 5px;
+        flex: 0 0 100%;
     }
 }
 

@@ -487,19 +487,23 @@ import { directorist_range_slider } from './range-slider';
 
                     $.each(response, function (id, content) {
                         var $newMarkup = $(content);
-
                         if ($newMarkup.find('.directorist-form-element')[0] !== undefined) {
-                          $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', "".concat(id));
+                            $($newMarkup[0]).find('.directorist-form-element').each(function (i, item) {                                
+                                $(item).attr('id', "".concat(id, "-").concat(i));
+                                $(item).attr('name', "".concat(id, "-").concat(i));
+                                $(item).attr('data-id', "".concat(id, "-").concat(i));
+                                $(item).addClass('custom-form-element');
+                            });
                         }
               
                         if ($($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').length) {
-                          $($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').each(function (i, item) {
+                          $($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').each(function (i, item) {                            
                             $(item).attr('id', "".concat(id, "-").concat(i));
                             $(item).attr('name', "".concat(id, "-").concat(i));
                             $(item).attr('data-id', "".concat(id, "-").concat(i));
                             $(item).addClass('custom-checkbox');
                           });
-                          $($newMarkup[0]).find('.directorist-radio label, .directorist-checkbox label').each(function (i, item) {
+                          $($newMarkup[0]).find('.directorist-radio label, .directorist-checkbox label').each(function (i, item) {                            
                             $(item).attr('for', "".concat(id, "-").concat(i));
                           });
                         }
@@ -509,8 +513,7 @@ import { directorist_range_slider } from './range-slider';
 
                     formData.forEach(function (item) {
                         var fieldSingle = document.querySelector("[id=\"".concat(item.id, "\"]"));
-                
-                        if (fieldSingle !== null && fieldSingle.classList.contains('custom-select')) {
+                        if (fieldSingle !== null && fieldSingle.classList.contains('custom-form-element')) {
                             fieldSingle.value = item.value;
                         }
                 
@@ -532,35 +535,34 @@ import { directorist_range_slider } from './range-slider';
         var formData = [];
 
         function storeCustomFieldsData() {
-
-            var customFields = document.querySelectorAll(".directorist-search-form-cat-fields .direcorist-search-field-select .directorist-custom-field-select #custom-selectbox");
+            var customFields = document.querySelectorAll(".directorist-search-form-cat-fields .directorist-form-group .custom-form-element");
             var checksField = document.querySelectorAll('.directorist-search-form-cat-fields .direcorist-search-field-checkbox .directorist-custom-field-checkbox .directorist-checkbox-wrapper .directorist-checkbox .custom-checkbox');
             
-      
-          if (customFields.length) {
-            customFields.forEach(function (elm) {
-              var elmValue = elm.value;
-              var elmId = elm.getAttribute('id');
-              formData.push({
-                "id": elmId,
-                "value": elmValue
-              });
-            });
-          }
-      
-          if (checksField.length) {
-            checksField.forEach(function (elm) {
-                var elmValue = elm.value;
-                var elmChecked = elm.checked;
-                var elmId = elm.getAttribute('id');
-
-                formData.push({
-                    "id": elmId,
-                    "value": elmValue,
-                    "checked": elmChecked
+            if (customFields.length) {
+                customFields.forEach(function (elm) {
+                    var elmValue = elm.value;
+                    var elmId = elm.getAttribute('id');
+                    formData.push({
+                        "id": elmId,
+                        "value": elmValue
+                    });
                 });
-            });
-          }
+            }
+      
+      
+            if (checksField.length) {
+                checksField.forEach(function (elm) {
+                    var elmValue = elm.value;
+                    var elmChecked = elm.checked;
+                    var elmId = elm.getAttribute('id');
+
+                    formData.push({
+                        "id": elmId,
+                        "value": elmValue,
+                        "checked": elmChecked
+                    });
+                });
+            }
         } // Render category based fields on category change (frontend)
       
 

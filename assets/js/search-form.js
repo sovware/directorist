@@ -1348,7 +1348,7 @@ __webpack_require__.r(__webpack_exports__);
           formData.forEach(function (item) {
             var fieldSingle = document.querySelector("[id=\"".concat(item.id, "\"]"));
 
-            if (fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element')) {
+            if (fieldSingle !== null && fieldSingle.classList.contains('custom-select')) {
               fieldSingle.value = item.value;
             }
 

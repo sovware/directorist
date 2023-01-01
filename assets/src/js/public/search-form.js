@@ -510,7 +510,7 @@ import { directorist_range_slider } from './range-slider';
                     formData.forEach(function (item) {
                         var fieldSingle = document.querySelector("[id=\"".concat(item.id, "\"]"));
                 
-                        if (fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element')) {
+                        if (fieldSingle !== null && fieldSingle.classList.contains('custom-select')) {
                             fieldSingle.value = item.value;
                         }
                 

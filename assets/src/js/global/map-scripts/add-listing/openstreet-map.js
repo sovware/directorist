@@ -72,58 +72,51 @@ import {
         };
 
         $('.directorist-location-js').each(function (id, elm) {
+            const result_container = $(elm).siblings('.address_result');
+
             $(elm).on('keyup', directorist_debounce(function (event) {
                 event.preventDefault();
-                var result_container = $(elm).siblings('.address_result');
-                var locationAddressField = $(this).parent('.directorist-form-address-field');
-                var keyCode = event.keyCode;
-                var keyBlocked = false;
-    
-                const blockedKeyCode = ['16', '17', '18', '19', '20', '27', '33', '34', '35', '36', '37', '38', '39', '40', '45', '91', '93', '112','113','114','115','116','117','118','119','120','121','122','123', '144', '145'];
-    
-                blockedKeyCode.forEach((e) => {
-                    if (keyCode == e) {
-                        keyBlocked = true;
-                    }
-                })
 
-                if(!keyBlocked) {
-                    var search = $(elm).val();
-                    if (search.length < '3') {
-                        result_container.css({
-                            'display': 'none'
-                        });
-                    }
+                const blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
 
-                    if(search.length >= '3') {
-                        locationAddressField.addClass('atbdp-form-fade');
-                        result_container.css({
-                            'display': 'block'
-                        });
-
-                        var res = "";
-                        $.ajax({
-                            url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
-                            type: 'POST',
-                            data: {},
-                            success: function (data) {
-                                for (var i = 0; i < data.length; i++) {
-                                    res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
-                                }
-                                result_container.find('ul').html(res);
-                                if (res.length) {
-                                    result_container.show();
-                                } else {
-                                    result_container.hide();
-                                }
-                                locationAddressField.removeClass('atbdp-form-fade');
-                            }
-                        });
-                    }
-                } else {
-                    
+                // Return early when blocked key is pressed.
+                if (blockedKeyCodes.includes(event.keyCode)) {
+                    return;
                 }
-                
+
+                const locationAddressField = $(this).parent('.directorist-form-address-field');
+                const search = $(elm).val();
+
+                if (search.length < 3) {
+                    result_container.css({
+                        'display': 'none'
+                    });
+                } else {
+                    locationAddressField.addClass('atbdp-form-fade');
+                    result_container.css({
+                        'display': 'block'
+                    });
+
+                    $.ajax({
+                        url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
+                        type: 'POST',
+                        data: {},
+                        success: function (data) {
+                            let res = '';
+
+                            for (var i = 0; i < data.length; i++) {
+                                res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
+                            }
+                            result_container.find('ul').html(res);
+                            if (res.length) {
+                                result_container.show();
+                            } else {
+                                result_container.hide();
+                            }
+                            locationAddressField.removeClass('atbdp-form-fade');
+                        }
+                    });
+                }
             }, 750));
         })
 

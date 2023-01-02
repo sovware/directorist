@@ -166,56 +166,50 @@ __webpack_require__.r(__webpack_exports__);
 
     ;
     $('.directorist-location-js').each(function (id, elm) {
+      var result_container = $(elm).siblings('.address_result');
       $(elm).on('keyup', directorist_debounce(function (event) {
         event.preventDefault();
-        var result_container = $(elm).siblings('.address_result');
+        var blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145]; // Return early when blocked key is pressed.
+
+        if (blockedKeyCodes.includes(event.keyCode)) {
+          return;
+        }
+
         var locationAddressField = $(this).parent('.directorist-form-address-field');
-        var keyCode = event.keyCode;
-        var keyBlocked = false;
-        var blockedKeyCode = ['16', '17', '18', '19', '20', '27', '33', '34', '35', '36', '37', '38', '39', '40', '45', '91', '93', '112', '113', '114', '115', '116', '117', '118', '119', '120', '121', '122', '123', '144', '145'];
-        blockedKeyCode.forEach(function (e) {
-          if (keyCode == e) {
-            keyBlocked = true;
-          }
-        });
+        var search = $(elm).val();
 
-        if (!keyBlocked) {
-          var search = $(elm).val();
+        if (search.length < 3) {
+          result_container.css({
+            'display': 'none'
+          });
+        } else {
+          locationAddressField.addClass('atbdp-form-fade');
+          result_container.css({
+            'display': 'block'
+          });
+          $.ajax({
+            url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+            type: 'POST',
+            data: {},
+            success: function success(data) {
+              var res = '';
 
-          if (search.length < '3') {
-            result_container.css({
-              'display': 'none'
-            });
-          }
-
-          if (search.length >= '3') {
-            locationAddressField.addClass('atbdp-form-fade');
-            result_container.css({
-              'display': 'block'
-            });
-            var res = "";
-            $.ajax({
-              url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-              type: 'POST',
-              data: {},
-              success: function success(data) {
-                for (var i = 0; i < data.length; i++) {
-                  res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
-                }
-
-                result_container.find('ul').html(res);
-
-                if (res.length) {
-                  result_container.show();
-                } else {
-                  result_container.hide();
-                }
-
-                locationAddressField.removeClass('atbdp-form-fade');
+              for (var i = 0; i < data.length; i++) {
+                res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
               }
-            });
-          }
-        } else {}
+
+              result_container.find('ul').html(res);
+
+              if (res.length) {
+                result_container.show();
+              } else {
+                result_container.hide();
+              }
+
+              locationAddressField.removeClass('atbdp-form-fade');
+            }
+          });
+        }
       }, 750));
     });
     var lat = loc_manual_lat,

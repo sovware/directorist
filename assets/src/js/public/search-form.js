@@ -734,57 +734,69 @@ import { directorist_range_slider } from './range-slider';
 
                     $(field.input_elm).on('keyup', directorist_debounce(function (event) {
                         event.preventDefault();
+                        var locationAddressField = $(this).parent('.directorist-search-field');
+                        var result_container = field.getResultContainer(this, field);
+                        var keyCode = event.keyCode;
+                        var keyBlocked = false;
+            
+                        const blockedKeyCode = ['16', '17', '18', '19', '20', '27', '33', '34', '35', '36', '37', '38', '39', '40', '45', '91', '93', '112','113','114','115','116','117','118','119','120','121','122','123', '144', '145'];
+            
+                        blockedKeyCode.forEach((e) => {
+                          if (keyCode == e) {
+                            keyBlocked = true;
+                          }
+                        })
+            
+                        if(!keyBlocked) {
+                          var search = $(this).val(); 
 
-                        const blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112,113,114,115,116,117,118,119,120,121,122,123, 144, 145];
-
-                        // Return early when blocked key is pressed.
-                        if (blockedKeyCodes.includes(event.keyCode)) {
-                            return;
-                        }
-
-                        const locationAddressField = $(this).parent('.directorist-search-field');
-                        const result_container = field.getResultContainer(this, field);
-                        const search = $(this).val();
-
-                        if (search.length < 3) {
+                          if (search.length < '3') {
                             result_container.css({
-                                display: 'none'
+                              display: 'none'
                             });
-                        } else {
+                          }
+            
+                          if(search.length >= '3') {
                             locationAddressField.addClass('atbdp-form-fade');
                             result_container.css({
-                                display: 'block'
+                              display: 'block'
                             });
-
+                            
+                            var res = '';
                             $.ajax({
-                                url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-                                type: 'POST',
-                                data: {},
-                                success: function success(data) {
-                                    let res = '';
-
-                                    for (let i = 0, len = data.length; i < len; i++) {
-                                        res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
-                                    }
-
-                                    result_container.html("<ul>".concat(res, "</ul>"));
-                                    if (res.length) {
-                                        result_container.show();
-                                    } else {
-                                        result_container.hide();
-                                    }
-
-                                    locationAddressField.removeClass('atbdp-form-fade');
-                                },
-                                error: function error(_error3) {
-                                    console.log({
-                                        error: _error3
-                                    });
+                              url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+                              type: 'POST',
+                              data: {},
+                              success: function success(data) {
+                                for (var i = 0; i < data.length; i++) {
+                                  res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
                                 }
+
+                                result_container.html("<ul>".concat(res, "</ul>"));
+                                if (res.length) {
+                                  result_container.show();
+                                } else {
+                                  result_container.hide();
+                                }
+
+                                locationAddressField.removeClass('atbdp-form-fade');
+                              },
+                              error: function error(_error3) {
+                                console.log({
+                                  error: _error3
+                                });
+                              }
                             });
+                          }
+                          
+                        } else {
+                          
                         }
+            
+                        
                     }, 750));
                 });
+
 
                 // hide address result when click outside the input field
                 $(document).on('click', function (e) {

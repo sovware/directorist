@@ -735,7 +735,7 @@ import { directorist_range_slider } from './range-slider';
                     $(field.input_elm).on('keyup', directorist_debounce(function (event) {
                         event.preventDefault();
 
-                        const blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112,113,114,115,116,117,118,119,120,121,122,123, 144, 145];
+                        const blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
 
                         // Return early when blocked key is pressed.
                         if (blockedKeyCodes.includes(event.keyCode)) {

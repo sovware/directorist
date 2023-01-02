@@ -535,7 +535,6 @@ import { directorist_range_slider } from './range-slider';
         var formData = [];
 
         function storeCustomFieldsData() {
-            console.log('Category Stored');
             var customFields = document.querySelectorAll(".directorist-search-form-cat-fields .directorist-form-group .custom-form-element");
             var checksField = document.querySelectorAll('.directorist-search-form-cat-fields .direcorist-search-field-checkbox .directorist-custom-field-checkbox .directorist-checkbox-wrapper .directorist-checkbox .custom-checkbox');
             
@@ -568,13 +567,7 @@ import { directorist_range_slider } from './range-slider';
       
 
         if( $( '.directorist-search-category' ).length ) {
-            console.log('Category Updated');
-            const $container = $(this).parents('form');
-            render_category_custom_search_fields( $container );
-            storeCustomFieldsData();
-
             $('body').on('change', '.directorist-search-category select', function (event) {
-                console.log('Category Changed');
                 const $container = $(this).parents('form');
                 render_category_custom_search_fields( $container );
                 storeCustomFieldsData();
@@ -583,10 +576,12 @@ import { directorist_range_slider } from './range-slider';
         }
 
         $(window).on('load', function () { 
-            console.log('Loaded');
-            const $container = $('.directorist-search-category').parents('form');
-            render_category_custom_search_fields( $container );
-            storeCustomFieldsData();
+            if( $( '.directorist-search-category' ).length ) {
+                const $container = $('.directorist-search-category').parents('form');
+                render_category_custom_search_fields( $container );
+                storeCustomFieldsData();
+
+            }
         });
 
         /*

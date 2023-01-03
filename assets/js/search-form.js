@@ -1426,13 +1426,13 @@ __webpack_require__.r(__webpack_exports__);
             var directory_type   = $container.find('.listing_type').val();
             var $search_form_box = $container.find('.directorist-search-form-box-wrap');
             var form_data        = new FormData();
-              form_data.append('action', 'directorist_category_custom_field_search');
+             form_data.append('action', 'directorist_category_custom_field_search');
             form_data.append('nonce', directorist.directorist_nonce);
             form_data.append('listing_type', directory_type);
             form_data.append('cat_id', cat_id);
             form_data.append('atts', JSON.stringify($container.data('atts')));
-              $search_form_box.addClass('atbdp-form-fade');
-              $.ajax({
+             $search_form_box.addClass('atbdp-form-fade');
+             $.ajax({
               method     : 'POST',
               processData: false,
               contentType: false,
@@ -1441,9 +1441,9 @@ __webpack_require__.r(__webpack_exports__);
               success: function success(response) {
                 if (response) {
                   $search_form_box.html(response['search_form']);
-                    $container.find('.directorist-category-select option').data('custom-field', 1);
+                   $container.find('.directorist-category-select option').data('custom-field', 1);
                   $container.find('.directorist-category-select').val(cat_id);
-                    [
+                   [
                     new CustomEvent('directorist-search-form-nav-tab-reloaded'),
                     new CustomEvent('directorist-reload-select2-fields'),
                     new CustomEvent('directorist-reload-map-api-field'),
@@ -1453,7 +1453,7 @@ __webpack_require__.r(__webpack_exports__);
                     window.dispatchEvent(event);
                   });
                 }
-                  $search_form_box.removeClass('atbdp-form-fade');
+                 $search_form_box.removeClass('atbdp-form-fade');
               },
               error: function error(_error) {
                 //console.log(_error);
@@ -1461,19 +1461,19 @@ __webpack_require__.r(__webpack_exports__);
             });
           });
     }
-      // load custom fields of the selected category in the search form
+     // load custom fields of the selected category in the search form
     $('body').on('change', '.bdas-category-search, .directorist-category-select', function () {
         const $search_elem = $(this)
             .closest('form')
             .find('.atbdp-custom-fields-search');
-          if ($search_elem.length) {
+         if ($search_elem.length) {
             $search_elem.html('<div class="atbdp-spinner"></div>');
-              const data = {
+             const data = {
                 action: 'atbdp_custom_fields_search',
                 term_id: $(this).val(),
                 security: directorist.ajaxnonce,
             };
-              $.post(directorist.ajax_url, data, function (response) {
+             $.post(directorist.ajax_url, data, function (response) {
                 $search_elem.html(response);
                 const item = $('.custom-control').closest('.bads-custom-checks');
                 item.each(function (index, el) {
@@ -1653,45 +1653,56 @@ __webpack_require__.r(__webpack_exports__);
             return;
           }
 
-          $(field.input_elm).on('keyup', function (event) {
+          $(field.input_elm).on('keyup', directorist_debounce(function (event) {
             event.preventDefault();
-            var search = $(this).val();
-            var result_container = field.getResultContainer(this, field);
-            result_container.css({
-              display: 'block'
-            });
+            var blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145]; // Return early when blocked key is pressed.
 
-            if (search === '') {
+            if (blockedKeyCodes.includes(event.keyCode)) {
+              return;
+            }
+
+            var locationAddressField = $(this).parent('.directorist-search-field');
+            var result_container = field.getResultContainer(this, field);
+            var search = $(this).val();
+
+            if (search.length < 3) {
               result_container.css({
                 display: 'none'
               });
+            } else {
+              locationAddressField.addClass('atbdp-form-fade');
+              result_container.css({
+                display: 'block'
+              });
+              $.ajax({
+                url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+                type: 'POST',
+                data: {},
+                success: function success(data) {
+                  var res = '';
+
+                  for (var i = 0, len = data.length; i < len; i++) {
+                    res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+                  }
+
+                  result_container.html("<ul>".concat(res, "</ul>"));
+
+                  if (res.length) {
+                    result_container.show();
+                  } else {
+                    result_container.hide();
+                  }
+
+                  locationAddressField.removeClass('atbdp-form-fade');
+                },
+                error: function error(_error3) {
+                  console.log({
+                    error: _error3
+                  });
+                }
+              });
             }
-
-            var res = '';
-            $.ajax({
-              url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-              type: 'POST',
-              data: {},
-              success: function success(data) {
-                for (var i = 0; i < data.length; i++) {
-                  res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
-                }
-
-                result_container.html("<ul>".concat(res, "</ul>"));
-
-                if (res.length) {
-                  result_container.show();
-                } else {
-                  result_container.hide();
-                }
-              },
-              error: function error(_error2) {
-                console.log({
-                  error: _error2
-                });
-              }
-            });
-          });
+          }, 750));
         }); // hide address result when click outside the input field
 
         $(document).on('click', function (e) {

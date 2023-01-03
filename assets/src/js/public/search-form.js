@@ -575,6 +575,15 @@ import { directorist_range_slider } from './range-slider';
             });
         }
 
+        $(window).on('load', function () { 
+            if( $( '.directorist-search-category' ).length ) {
+                const $container = $('.directorist-search-category').parents('form');
+                render_category_custom_search_fields( $container );
+                storeCustomFieldsData();
+
+            }
+        });
+
         /*
         if( $( '.directorist-search-contents' ).length ) {
             $('body').on('change', '.directorist-category-select', function (event) {

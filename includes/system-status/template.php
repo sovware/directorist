@@ -1,4 +1,4 @@
-<?php 
+<?php
     $warnings      = directorist_warnings();
     $_count        = count( $warnings );
     $warning_count = ! empty( $_count ) ? '<span class="directorist-badge directorist-badge-warning">' . $_count . '</span>' : '';
@@ -29,24 +29,19 @@
         <div class="atbds_col-right">
             <div class="atbds_content">
                 <div class="tab-content" id="myTabContent" data-tabArea="atbds_system-status-tab">
-                    <?php 
+                    <?php
                         new ATBDP_System_Info();
                     ?>
                     <div class="tab-pane" id="atbds_warning">
-                        <?php 
+                        <?php
                         include_once ATBDP_INC_DIR . 'system-status/warning.php';
-                        ?>
-                    </div><!-- ends: .tab-pane -->
-                    <div class="tab-pane" id="atbds_support">
-                        <?php 
-                        $this->send_mail->send_email_to();
                         ?>
                     </div><!-- ends: .tab-pane -->
                     <div class="tab-pane" id="atbds_r-viewing">
                         <?php
                         $custom_url = new ATBDP_Custom_Url();
                         $custom_url->custom_link();
-                        ?>              
+                        ?>
                     </div><!-- ends: .tab-pane -->
                 </div>
             </div>

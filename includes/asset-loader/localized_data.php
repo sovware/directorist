@@ -70,6 +70,7 @@ class Localized_Data {
 			'nonce'                       => wp_create_nonce( 'atbdp_nonce_action_js' ),
 			'directorist_nonce'           => wp_create_nonce( directorist_get_nonce_key() ),
 			'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
+			'is_admin'		              => is_admin(),
 			'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
 			'assets_url'                  => DIRECTORIST_ASSETS,
 			'home_url'                    => home_url(),

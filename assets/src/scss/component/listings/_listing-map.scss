@@ -50,6 +50,20 @@
 
                 .osm-iw-location {
                     margin-bottom: 6px;
+                    display: flex;
+                    align-items: center;
+                    .directorist-icon-mask{
+                        display: inline-block;
+                        margin-right: 4px;
+                    }
+                }
+                .osm-iw-get-location{
+                    display: flex;
+                    align-items: center;
+                    .directorist-icon-mask{
+                        display: inline-block;
+                        margin-left: 5px;
+                    }
                 }
             }
 
@@ -242,7 +256,9 @@
 
             .map-info-details {
                 padding: 0 20px;
-
+                a{
+                    text-decoration: none;
+                }
                 .atbdp-listings-title-block {
                     margin-top: 0;
 

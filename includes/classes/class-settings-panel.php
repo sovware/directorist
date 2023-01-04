@@ -131,7 +131,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'data'                       => [],
             ];
 
-            $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
+			$users = get_users(
+				array(
+					'role__not_in' => 'Administrator',   // Administrator | Subscriber
+					'number'       => apply_filters( 'directorist_announcement_user_query_num', 1000 ),
+				)
+			);
             $recipient = [];
 
             if ( ! empty( $users ) ) {
@@ -1845,7 +1850,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'preview_image_quality' => [
                     'label' => __('Preview Image Quality', 'directorist'),
                     'type'  => 'select',
-                    'value' => 'large',
+                    'value' => 'directorist_preview',
                     'options' => [
                         [
                             'value' => 'directorist_preview',

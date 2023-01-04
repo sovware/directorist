@@ -289,9 +289,7 @@ class Asset_Loader {
 
 	public static function register_scripts() {
 		$scripts = Scripts::get_all_scripts();
-		foreach ( $scripts as $handle => $script ) {
-			Helper::register_single_script( $handle, $script );
-		}
+		Helper::register_all_scripts( $scripts );
 	}
 
 	public static function localized_data() {

@@ -50,6 +50,23 @@
         margin-bottom: 15px;
       }
     }
+
+    .directorist-form-address-field {
+      &.atbdp-form-fade {
+        padding: 0;
+        &:before {
+          width: 15px;
+          height: 15px;
+          left: unset;
+          right: 0; 
+          top: 54px;       
+        }
+        &:after {
+          height: 42px;
+          top: 34px;
+        }
+      }
+    }
   }
   .directorist-alert-required{
     display: block;

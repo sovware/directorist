@@ -1,5 +1,11 @@
 /* Initialize wpColorPicker */
 (function($){
+    // Make sure the codes in this file runs only once, even if enqueued twice
+    if ( typeof window.directorist_colorPicker_executed === 'undefined' ) {
+        window.directorist_colorPicker_executed = true;
+    } else {
+        return;
+    }
     $(document).ready(function(){
         /* Initialize wp color picker */
         function colorPickerInit(){

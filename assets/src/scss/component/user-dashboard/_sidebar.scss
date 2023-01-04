@@ -7,8 +7,7 @@
     left: 0;
     border-radius: 4px;
     background-color: #fff;
-    box-shadow: 0 5px 10px #8f8e9f05;
-
+    box-shadow: 0 0 15px rgba(0,0,0, 0.05);
     @media only screen and (max-width: 1199px) {
         position: fixed;
         top: 0;
@@ -24,7 +23,6 @@
     @media only screen and (max-width: 479px) {
         padding-top: 80px;
     }
-
     .directorist-dashboard__nav--close {
         display: none;
         position: absolute;

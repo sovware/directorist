@@ -5,6 +5,8 @@
 
 namespace Directorist;
 
+use Directorist\database\DB;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Listing_Author {
@@ -45,8 +47,7 @@ class Directorist_Listing_Author {
 			'posts_per_page' => -1,
 		);
 
-		$posts = \ATBDP_Listings_Data_Store::get_archive_listings_query( $args, [ 'cache' => false ]);
-		return $posts;
+		return DB::get_listings_data( $args );
 	}
 
 	// extract_user_id

@@ -110,7 +110,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }
 
         (function () {
-          eventDelegation('click', '.directorist-filter-location-icon span', function (e) {
+          eventDelegation('click', '.directorist-filter-location-icon > i, .directorist-filter-location-icon > span', function (e) {
             var locationInput = e.target.closest('.directorist-search-field').querySelector('.location-name');
             var get_lat = e.target.closest('.directorist-search-field').querySelector("#cityLat");
             var get_lng = e.target.closest('.directorist-search-field').querySelector("#cityLng");

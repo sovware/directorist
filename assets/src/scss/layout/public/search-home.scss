@@ -263,6 +263,15 @@
         }
       }
     }
+
+    .atbdp-form-fade {
+      &:before {
+        width: 15px;
+        height: 15px;
+        left: unset;
+        right: 0;        
+      }
+    }
   }
 }
 
@@ -389,6 +398,7 @@
             color: #7a82a6;
             line-height: 22px;
             display: block;
+            text-decoration: none;
 
             &:hover {
               color: $primary;

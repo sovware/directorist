@@ -596,7 +596,15 @@ __webpack_require__.r(__webpack_exports__);
     // User Dashboard Tab
     $(function () {
       var hash = window.location.hash;
-      var selectedTab = $('.navbar .menu li a [target= "' + hash + '"]');
+      var newHash = hash.replace('#active_', '');
+      var selectedTab = document.querySelectorAll('.directorist-tab__nav__link');
+      selectedTab.forEach(function (elm) {
+        var elmAttr = elm.getAttribute('target');
+
+        if (elmAttr == newHash) {
+          elm.click();
+        }
+      });
     }); // store the currently selected tab in the hash value
 
     $("ul.directorist-tab__nav__items > li > a.directorist-tab__nav__link").on("click", function (e) {
@@ -604,6 +612,42 @@ __webpack_require__.r(__webpack_exports__);
       window.location.hash = "#active_" + id;
       e.stopPropagation();
     });
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/directoristAlert.js":
+/*!*************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristAlert.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_alert_executed === 'undefined') {
+    window.directorist_alert_executed = true;
+  } else {
+    return;
+  }
+
+  window.addEventListener('DOMContentLoaded', function () {
+    /* Directorist alert dismiss */
+    var getUrl = window.location.href;
+    var newUrl = getUrl.replace('notice=1', '');
+
+    if ($('.directorist-alert__close') !== null) {
+      $('.directorist-alert__close').each(function (i, e) {
+        $(e).on('click', function (e) {
+          e.preventDefault();
+          history.pushState({}, null, newUrl);
+          $(this).closest('.directorist-alert').remove();
+        });
+      });
+    }
   });
 })(jQuery);
 
@@ -619,6 +663,13 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_dropdown_executed === 'undefined') {
+    window.directorist_dropdown_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
@@ -737,6 +788,13 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_favorite_executed === 'undefined') {
+    window.directorist_favorite_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
     $('#atbdp-favourites').on('click', function (e) {
@@ -824,7 +882,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  //custom select
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_select_executed === 'undefined') {
+    window.directorist_select_executed = true;
+  } else {
+    return;
+  } //custom select
+
+
   var atbdSelect = document.querySelectorAll('.atbd-drop-select');
 
   if (atbdSelect !== null) {
@@ -993,7 +1058,14 @@ window.addEventListener('DOMContentLoaded', function () {
           submit_button.removeClass("directorist-loader"); // console.log(response);
 
           if (response.success) {
-            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
+            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>'); // Reload if password updated
+
+            var newPass = form_data.get('user[new_pass]');
+
+            if (typeof newPass == 'string' && newPass.length > 0) {
+              location.reload();
+              return false;
+            }
           } else {
             $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
           }
@@ -1194,6 +1266,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/directoristFavorite */ "./assets/src/js/public/components/directoristFavorite.js");
 /* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_14__);
 // Dashboard Js
 
 
@@ -1202,6 +1276,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // General Components
+
 
 
 

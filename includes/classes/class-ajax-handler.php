@@ -476,7 +476,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$searchform = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
 			$category_fields_data = $searchform->category_fields_data;
 
-			if ( !empty( $category_fields_data[$category] ) ) {
+			if ( ! empty( $category ) && ! empty( $category_fields_data[$category] ) ) {
 				foreach ( $category_fields_data[$category] as $field_data ) {
 					$key            = $field_data['field_key'];
 					$wrapper_class  = str_replace( 'WIDGETNAME', $field_data['widget_name'], $inner_class );

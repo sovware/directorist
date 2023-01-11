@@ -464,9 +464,6 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				wp_send_json( '' );
 			}
 
-			$result          = array();
-			$category        = ! empty( $_POST['category'] ) ? directorist_clean( wp_unslash( $_POST['category'] ) ) : array();
-			$inner_class     = ! empty( $_POST['inner_class'] ) ? directorist_clean( wp_unslash( $_POST['inner_class'] ) ) : array();
 			$directory_type  = ! empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
 			$atts            = ! empty( $_POST['atts'] ) ? json_decode( wp_unslash( $_POST['atts'] ), true ) : array(); // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$term            = get_term_by( 'slug', $directory_type, ATBDP_TYPE );
@@ -474,24 +471,22 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 
 			$searchform = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
-			$category_fields_data = $searchform->category_fields_data;
+			// search form
+			ob_start();
+			Helper::get_template( 'search-form/form-box', array( 'searchform' => $searchform ) );
+			$search_form = ob_get_clean();
 
-			if ( ! empty( $category ) && ! empty( $category_fields_data[$category] ) ) {
-				foreach ( $category_fields_data[$category] as $field_data ) {
-					$key            = $field_data['field_key'];
-					$wrapper_class  = str_replace( 'WIDGETNAME', $field_data['widget_name'], $inner_class );
+			// all listings
+			ob_start();
+			Helper::get_template( 'archive/search-form', array( 'searchform' => $searchform ) );
+			$all_listing = ob_get_clean();
 
-					ob_start();
-					$searchform->field_template( $field_data );
-					$content = ob_get_clean();
-
-					$result[$key] = sprintf( '<div data-id="%s" class="%s">%s</div>', $key, $wrapper_class, $content );
-				}
-			}
-
-			$result = !empty( $result ) ? $result : '';
-
-			wp_send_json( $result );
+			wp_send_json(
+				array(
+					'search_form' => $search_form,
+					'all_listing' => $all_listing
+				)
+			);
 		}
 
 		// guest_reception

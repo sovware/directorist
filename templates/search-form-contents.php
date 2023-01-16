@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.4.0
  */
 
 use \Directorist\Helper;
@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-contents" data-atts='<?php echo esc_attr( $searchform->get_atts_data() ); ?>' style="<?php echo esc_attr( $searchform->background_img_style() ); ?>">
+<div class="directorist-search-contents" data-atts='<?php echo directorist_esc_json( $searchform->get_atts_data() ); ?>' style="<?php echo esc_attr( $searchform->background_img_style() ); ?>">
 
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php endif; ?>
 
-		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form" data-atts="<?php echo esc_attr( $searchform->get_atts_data() ); ?>">
+		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form" data-atts="<?php echo directorist_esc_json( $searchform->get_atts_data() ); ?>">
 
 			<div class="directorist-search-form-wrap <?php echo esc_attr( $searchform->border_class() ); ?>">
 

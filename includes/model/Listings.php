@@ -1718,7 +1718,7 @@ class Directorist_Listings {
 		public function data_atts() {
 			$this->atts['_current_page'] = $this->type; // search_result or listing
 			// Separates class names with a single space, collates class names for wrapper tag element.
-			echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
+			echo 'data-atts="' . directorist_esc_json( json_encode( $this->atts ) ) . '"';
 		}
 
 		public function loop_link_attr() {

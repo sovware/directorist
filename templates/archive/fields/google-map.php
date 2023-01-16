@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="marker" data-latitude="<?php echo esc_attr( $ls_data['manual_lat'] ); ?>" data-longitude="<?php echo esc_attr($ls_data['manual_lng']); ?>" data-icon="<?php echo esc_attr($ls_data['cat_icon']); ?>">
+<div class="marker" data-latitude="<?php echo esc_attr( $ls_data['manual_lat'] ); ?>" data-longitude="<?php echo esc_attr($ls_data['manual_lng']); ?>" data-icon="<?php echo directorist_esc_json( $ls_data['cat_icon'] ); ?>">
 
 	<?php if ( ! $map_is_disabled ) { ?>
 

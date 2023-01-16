@@ -1343,34 +1343,48 @@ __webpack_require__.r(__webpack_exports__);
           window.dispatchEvent(event);
         });
         $container.removeClass('atbdp-form-fade');
+        customFormData.forEach(function (item) {
+          var fieldSingle = document.querySelector("[name=\"".concat(item.name, "\"]"));
+
+          if (fieldSingle !== null && fieldSingle.name == item.name) {
+            fieldSingle.value = item.value;
+          }
+        });
+        customCheckboxData.forEach(function (item) {
+          var checkboxSingle = document.getElementById("#".concat(item.id));
+
+          if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
+            checkboxSingle.checked = item.checked;
+          }
+        });
       });
     }
 
-    var formData = [];
+    var customFormData = [];
+    var customCheckboxData = [];
 
     function storeCustomFieldsData() {
-      var customFields = document.querySelectorAll(".directorist-search-form-cat-fields .directorist-form-group .custom-form-element");
-      var checksField = document.querySelectorAll('.directorist-search-form-cat-fields .direcorist-search-field-checkbox .directorist-custom-field-checkbox .directorist-checkbox-wrapper .directorist-checkbox .custom-checkbox');
+      var customFields = document.querySelectorAll(".directorist-form-element");
+      var customCheckbox = document.querySelectorAll(".custom-checkbox");
 
       if (customFields.length) {
         customFields.forEach(function (elm) {
           var elmValue = elm.value;
-          var elmId = elm.getAttribute('id');
-          formData.push({
-            "id": elmId,
+          var elmChecked = elm.checked;
+          var elmName = elm.getAttribute('name');
+          customFormData.push({
+            "name": elmName,
             "value": elmValue
           });
         });
       }
 
-      if (checksField.length) {
-        checksField.forEach(function (elm) {
-          var elmValue = elm.value;
+      if (customCheckbox.length) {
+        customCheckbox.forEach(function (elm) {
           var elmChecked = elm.checked;
           var elmId = elm.getAttribute('id');
-          formData.push({
+          customCheckboxData.push({
             "id": elmId,
-            "value": elmValue,
             "checked": elmChecked
           });
         });
@@ -1405,13 +1419,13 @@ __webpack_require__.r(__webpack_exports__);
             var directory_type   = $container.find('.listing_type').val();
             var $search_form_box = $container.find('.directorist-search-form-box-wrap');
             var form_data        = new FormData();
-             form_data.append('action', 'directorist_category_custom_field_search');
+              form_data.append('action', 'directorist_category_custom_field_search');
             form_data.append('nonce', directorist.directorist_nonce);
             form_data.append('listing_type', directory_type);
             form_data.append('cat_id', cat_id);
             form_data.append('atts', JSON.stringify($container.data('atts')));
-             $search_form_box.addClass('atbdp-form-fade');
-             $.ajax({
+              $search_form_box.addClass('atbdp-form-fade');
+              $.ajax({
               method     : 'POST',
               processData: false,
               contentType: false,
@@ -1420,9 +1434,9 @@ __webpack_require__.r(__webpack_exports__);
               success: function success(response) {
                 if (response) {
                   $search_form_box.html(response['search_form']);
-                   $container.find('.directorist-category-select option').data('custom-field', 1);
+                    $container.find('.directorist-category-select option').data('custom-field', 1);
                   $container.find('.directorist-category-select').val(cat_id);
-                   [
+                    [
                     new CustomEvent('directorist-search-form-nav-tab-reloaded'),
                     new CustomEvent('directorist-reload-select2-fields'),
                     new CustomEvent('directorist-reload-map-api-field'),
@@ -1432,7 +1446,7 @@ __webpack_require__.r(__webpack_exports__);
                     window.dispatchEvent(event);
                   });
                 }
-                 $search_form_box.removeClass('atbdp-form-fade');
+                  $search_form_box.removeClass('atbdp-form-fade');
               },
               error: function error(_error) {
                 //console.log(_error);
@@ -1440,19 +1454,19 @@ __webpack_require__.r(__webpack_exports__);
             });
           });
     }
-     // load custom fields of the selected category in the search form
+      // load custom fields of the selected category in the search form
     $('body').on('change', '.bdas-category-search, .directorist-category-select', function () {
         const $search_elem = $(this)
             .closest('form')
             .find('.atbdp-custom-fields-search');
-         if ($search_elem.length) {
+          if ($search_elem.length) {
             $search_elem.html('<div class="atbdp-spinner"></div>');
-             const data = {
+              const data = {
                 action: 'atbdp_custom_fields_search',
                 term_id: $(this).val(),
                 security: directorist.ajaxnonce,
             };
-             $.post(directorist.ajax_url, data, function (response) {
+              $.post(directorist.ajax_url, data, function (response) {
                 $search_elem.html(response);
                 const item = $('.custom-control').closest('.bads-custom-checks');
                 item.each(function (index, el) {

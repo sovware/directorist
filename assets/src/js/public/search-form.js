@@ -498,47 +498,64 @@ import { directorist_range_slider } from './range-slider';
                     $container.find('.directorist-category-select option[value="' + data.cat_id + '"]').attr('selected', true);
                     $container.find('.directorist-category-select option').data('custom-field', 1);
                     
-                  }
+                }
 
-                  [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field'), new CustomEvent('triggerSlice')].forEach(function (event) {
+                [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field'), new CustomEvent('triggerSlice')].forEach(function (event) {
                     document.body.dispatchEvent(event);
                     window.dispatchEvent(event);
-                  });
-                  $container.removeClass('atbdp-form-fade');
+                });
+
+                $container.removeClass('atbdp-form-fade');
+
+                customFormData.forEach(function (item) {
+                    var fieldSingle = document.querySelector(`[name="${item.name}"]`);
+                    if (fieldSingle !== null && fieldSingle.name == item.name) {
+                        fieldSingle.value = item.value; 
+                    }
+                }); 
+          
+                customCheckboxData.forEach(function (item) {
+                    var checkboxSingle = document.getElementById(`#${item.id}`);
+
+                    if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
+                        checkboxSingle.checked = item.checked;
+                    }
+                }); 
+
             });
         }
 
-        var formData = [];
+        var customFormData = [];
+        var customCheckboxData = [];
 
         function storeCustomFieldsData() {
-            var customFields = document.querySelectorAll(".directorist-search-form-cat-fields .directorist-form-group .custom-form-element");
-            var checksField = document.querySelectorAll('.directorist-search-form-cat-fields .direcorist-search-field-checkbox .directorist-custom-field-checkbox .directorist-checkbox-wrapper .directorist-checkbox .custom-checkbox');
+            var customFields = document.querySelectorAll(".directorist-form-element");
+            var customCheckbox = document.querySelectorAll(".custom-checkbox");
             
             if (customFields.length) {
                 customFields.forEach(function (elm) {
                     var elmValue = elm.value;
-                    var elmId = elm.getAttribute('id');
-                    formData.push({
-                        "id": elmId,
+                    var elmChecked = elm.checked;
+                    var elmName = elm.getAttribute('name');
+                    customFormData.push({
+                        "name": elmName,
                         "value": elmValue
                     });
                 });
             }
-      
-      
-            if (checksField.length) {
-                checksField.forEach(function (elm) {
-                    var elmValue = elm.value;
-                    var elmChecked = elm.checked;
-                    var elmId = elm.getAttribute('id');
 
-                    formData.push({
-                        "id": elmId,
-                        "value": elmValue,
-                        "checked": elmChecked
-                    });
+            if (customCheckbox.length) {
+                customCheckbox.forEach(function (elm) {
+                  var elmChecked = elm.checked;
+                  var elmId = elm.getAttribute('id');
+                  customCheckboxData.push({
+                    "id": elmId,
+                    "checked": elmChecked
+                  });
                 });
             }
+            
+
         } // Render category based fields on category change (frontend)
       
 

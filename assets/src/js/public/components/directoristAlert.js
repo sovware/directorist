@@ -1,5 +1,11 @@
 ;
 (function ($) {
+    // Make sure the codes in this file runs only once, even if enqueued twice
+    if ( typeof window.directorist_alert_executed === 'undefined' ) {
+        window.directorist_alert_executed = true;
+    } else {
+        return;
+    }
     window.addEventListener('DOMContentLoaded', () => {
         /* Directorist alert dismiss */
         let getUrl = window.location.href;

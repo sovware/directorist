@@ -1291,7 +1291,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				WP_Filesystem();
 			}
 
-			$plugin_path = ABSPATH . 'wp-content/plugins';
+			$plugin_path = WP_CONTENT_DIR . '/plugins';
 			$temp_dest   = "{$plugin_path}/atbdp-temp-dir";
 			$file_url    = $args['url'];
 			$file_name   = basename( $file_url );
@@ -1400,7 +1400,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				WP_Filesystem();
 			}
 
-			$theme_path = ABSPATH . 'wp-content/themes';
+			$theme_path = WP_CONTENT_DIR . '/themes';
 			$temp_dest  = "{$theme_path}/atbdp-temp-dir";
 			$file_url   = $args['url'];
 			$file_name  = basename( $file_url );
@@ -1495,7 +1495,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 		// install_theme_from_zip
 		public function install_themes_from_zip_files( $zip_files, $temp_dest, $wp_filesystem ) {
-			$theme_path = ABSPATH . 'wp-content/themes';
+			$theme_path = WP_CONTENT_DIR . '/themes';
 
 			foreach ( $zip_files as $zip ) {
 				$file     = basename( $zip );

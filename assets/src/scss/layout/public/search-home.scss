@@ -263,6 +263,15 @@
         }
       }
     }
+
+    .atbdp-form-fade {
+      &:before {
+        width: 15px;
+        height: 15px;
+        left: unset;
+        right: 0;        
+      }
+    }
   }
 }
 

@@ -1,5 +1,11 @@
 ;
 (function ($) {
+    // Make sure the codes in this file runs only once, even if enqueued twice
+    if ( typeof window.directorist_favorite_executed === 'undefined' ) {
+        window.directorist_favorite_executed = true;
+    } else {
+        return;
+    }
     window.addEventListener('DOMContentLoaded', () => {
         // Add or Remove from favourites
         $('#atbdp-favourites').on('click', function (e) {

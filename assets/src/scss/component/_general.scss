@@ -190,3 +190,19 @@
 .select2-container.select2-container--open{
   z-index: 99999;
 }
+
+
+.select2-container {
+  .directorist-select2-addons-area {
+    .directorist-select2-dropdown-toggle {
+      position: absolute;
+      right: 0;
+      pointer-events: none;
+    }
+    .directorist-select2-dropdown-close {
+      position: absolute;
+      right: 25px;
+    }
+  }
+
+}

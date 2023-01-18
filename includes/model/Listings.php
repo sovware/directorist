@@ -956,7 +956,7 @@ class Directorist_Listings {
 			);
 		}
 
-		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
+		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['address'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',

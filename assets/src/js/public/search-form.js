@@ -514,6 +514,14 @@ import { directorist_range_slider } from './range-slider';
                     }
                 }); 
           
+                customSelectboxData.forEach(function (item) {
+                    var selectboxSingle = document.getElementById(`${item.id}`);
+
+                    if (selectboxSingle !== null && selectboxSingle.id == item.id) {
+                        selectboxSingle.value = item.value; 
+                    }
+                }); 
+          
                 customCheckboxData.forEach(function (item) {
                     var checkboxSingle = document.getElementById(`${item.id}`);
 
@@ -526,19 +534,31 @@ import { directorist_range_slider } from './range-slider';
         }
 
         var customFormData = [];
+        var customSelectboxData = [];
         var customCheckboxData = [];
 
         function storeCustomFieldsData() {
             var customFields = document.querySelectorAll(".directorist-form-element");
+            var customSelectbox = document.querySelectorAll(".custom-select");
             var customCheckbox = document.querySelectorAll(".custom-checkbox");
             
             if (customFields.length) {
                 customFields.forEach(function (elm) {
                     var elmValue = elm.value;
-                    var elmChecked = elm.checked;
                     var elmName = elm.getAttribute('name');
                     customFormData.push({
                         "name": elmName,
+                        "value": elmValue
+                    });
+                });
+            }
+            
+            if (customSelectbox.length) {
+                customSelectbox.forEach(function (elm) {
+                    var elmValue = elm.value;
+                    var elmId = elm.getAttribute('id');
+                    customSelectboxData.push({
+                        "id": elmId,
                         "value": elmValue
                     });
                 });

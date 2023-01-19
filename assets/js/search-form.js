@@ -1350,6 +1350,13 @@ __webpack_require__.r(__webpack_exports__);
             fieldSingle.value = item.value;
           }
         });
+        customSelectboxData.forEach(function (item) {
+          var selectboxSingle = document.getElementById("".concat(item.id));
+
+          if (selectboxSingle !== null && selectboxSingle.id == item.id) {
+            selectboxSingle.value = item.value;
+          }
+        });
         customCheckboxData.forEach(function (item) {
           var checkboxSingle = document.getElementById("".concat(item.id));
 
@@ -1361,19 +1368,31 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     var customFormData = [];
+    var customSelectboxData = [];
     var customCheckboxData = [];
 
     function storeCustomFieldsData() {
       var customFields = document.querySelectorAll(".directorist-form-element");
+      var customSelectbox = document.querySelectorAll(".custom-select");
       var customCheckbox = document.querySelectorAll(".custom-checkbox");
 
       if (customFields.length) {
         customFields.forEach(function (elm) {
           var elmValue = elm.value;
-          var elmChecked = elm.checked;
           var elmName = elm.getAttribute('name');
           customFormData.push({
             "name": elmName,
+            "value": elmValue
+          });
+        });
+      }
+
+      if (customSelectbox.length) {
+        customSelectbox.forEach(function (elm) {
+          var elmValue = elm.value;
+          var elmId = elm.getAttribute('id');
+          customSelectboxData.push({
+            "id": elmId,
             "value": elmValue
           });
         });

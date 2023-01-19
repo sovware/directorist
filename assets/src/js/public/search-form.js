@@ -585,17 +585,6 @@ import { directorist_range_slider } from './range-slider';
             render_category_custom_search_fields( $container, search_from );
             storeCustomFieldsData();
             $container.addClass('atbdp-form-fade');
-
-        });
-
-        $(window).on('load', function () { 
-            if( $( '.directorist-search-category' ).length ) {
-                const $container = $('.directorist-search-category').parents('form');
-                const search_from = 'page_load';
-                render_category_custom_search_fields( $container, search_from );
-                storeCustomFieldsData();
-
-            }
         });
 
         /*

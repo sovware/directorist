@@ -515,7 +515,7 @@ import { directorist_range_slider } from './range-slider';
                 }); 
           
                 customCheckboxData.forEach(function (item) {
-                    var checkboxSingle = document.getElementById(`#${item.id}`);
+                    var checkboxSingle = document.getElementById(`${item.id}`);
 
                     if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
                         checkboxSingle.checked = item.checked;

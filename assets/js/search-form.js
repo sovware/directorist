@@ -1351,7 +1351,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
         customCheckboxData.forEach(function (item) {
-          var checkboxSingle = document.getElementById("#".concat(item.id));
+          var checkboxSingle = document.getElementById("".concat(item.id));
 
           if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
             checkboxSingle.checked = item.checked;

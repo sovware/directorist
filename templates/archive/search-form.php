@@ -18,7 +18,7 @@ $category_id = ! empty( $_REQUEST['cat_id'] ) ? $_REQUEST['cat_id'] : '';
 		<div class="directorist-advanced-filter__basic">
 			<?php foreach ($searchform->form_data[0]['fields'] as $field) : ?>
 
-				<?php if( ! isset( $field['assign_to'] ) || ( $field['assign_to'] == 'category' && $field['category'] == $category_id ) ) : ?>
+				<?php if( ! isset( $field['assign_to'] ) || ( $field['assign_to'] != 'category' ) || ( $field['assign_to'] == 'category' && $field['category'] == $category_id ) ) : ?>
 
 					<div class="directorist-advanced-filter__basic--element"><?php $searchform->field_template($field); ?></div>
 
@@ -33,7 +33,7 @@ $category_id = ! empty( $_REQUEST['cat_id'] ) ? $_REQUEST['cat_id'] : '';
 
 			<?php foreach ( $searchform->form_data[1]['fields'] as $field ) : ?>
 
-				<?php if( ! isset( $field['assign_to'] ) || ( $field['assign_to'] == 'category' && $field['category'] == $category_id ) ) : ?>
+				<?php if( ! isset( $field['assign_to'] ) || ( $field['assign_to'] != 'category' ) || ( $field['assign_to'] == 'category' && $field['category'] == $category_id ) ) : ?>
 
 					<div class="directorist-form-group directorist-advanced-filter__advanced--element direcorist-search-field-<?php echo esc_attr($field['widget_name']) ?>"><?php $searchform->field_template($field); ?></div>
 

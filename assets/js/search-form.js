@@ -1411,16 +1411,13 @@ __webpack_require__.r(__webpack_exports__);
     } // Render category based fields on category change (frontend)
 
 
-    if ($('.directorist-search-category').length) {
-      $('body').on('change', '.directorist-search-category select', function (event) {
-        var $container = $(this).parents('form');
-        var search_from = 'category';
-        render_category_custom_search_fields($container, search_from);
-        storeCustomFieldsData();
-        $container.addClass('atbdp-form-fade');
-      });
-    }
-
+    $('body').on('change', '.directorist-search-category select', function (event) {
+      var $container = $(this).parents('form');
+      var search_from = 'category';
+      render_category_custom_search_fields($container, search_from);
+      storeCustomFieldsData();
+      $container.addClass('atbdp-form-fade');
+    });
     $(window).on('load', function () {
       if ($('.directorist-search-category').length) {
         var $container = $('.directorist-search-category').parents('form');

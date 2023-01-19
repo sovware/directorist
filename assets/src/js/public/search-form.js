@@ -491,6 +491,7 @@ import { directorist_range_slider } from './range-slider';
                     if( search_from === "category" ) {
                         $('.directorist-advanced-filter').css("display", "block");
                     }
+
                 }
 
                 if ( response['search_form'] ) {
@@ -577,17 +578,15 @@ import { directorist_range_slider } from './range-slider';
             
 
         } // Render category based fields on category change (frontend)
-      
 
-        if( $( '.directorist-search-category' ).length ) {
-            $('body').on('change', '.directorist-search-category select', function (event) {
-                const $container  = $(this).parents('form');
-                const search_from = 'category'; 
-                render_category_custom_search_fields( $container, search_from );
-                storeCustomFieldsData();
-                $container.addClass('atbdp-form-fade');
-            });
-        }
+        $('body').on('change', '.directorist-search-category select', function (event) {
+            const $container  = $(this).parents('form');
+            const search_from = 'category'; 
+            render_category_custom_search_fields( $container, search_from );
+            storeCustomFieldsData();
+            $container.addClass('atbdp-form-fade');
+
+        });
 
         $(window).on('load', function () { 
             if( $( '.directorist-search-category' ).length ) {

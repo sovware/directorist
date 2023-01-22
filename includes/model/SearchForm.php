@@ -84,7 +84,7 @@ class Directorist_Listing_Search_Form {
 			$this->prepare_listing_data();
 		}
 
-		$this->build_form_data();
+		$this->form_data = $this->build_form_data();
 
 		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
 		$this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
@@ -261,11 +261,10 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function build_form_data() {
-		$form_data              = array();
-		$category_fields_data   = array();
+		$form_data          = array();
 		$search_form_fields     = get_term_meta( $this->listing_type, 'search_form_fields', true );
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
-
+		
 		if ( !empty( $search_form_fields['fields'] ) ) {
 
 			foreach ( $search_form_fields['fields'] as $key => $value ) {
@@ -287,13 +286,16 @@ class Directorist_Listing_Search_Form {
 						$search_form_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
 					}
 
-					if ( !empty( $submission_form_fields['fields'][$form_key]['assign_to'] ) && !empty( $submission_form_fields['fields'][$form_key]['category'] ) ) {
-						$search_form_fields['fields'][$key]['assign_to'] = $submission_form_fields['fields'][$form_key]['assign_to'];
-						$search_form_fields['fields'][$key]['category'] = $submission_form_fields['fields'][$form_key]['category'];
-					}
-
 					if ( !empty( $submission_form_fields['fields'][$form_key]['options'] ) ) {
 						$search_form_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key]['options'];
+					}
+
+					if ( !empty( $submission_form_fields['fields'][$form_key]['assign_to'] ) ) {
+						$search_form_fields['fields'][$key]['assign_to'] = $submission_form_fields['fields'][$form_key]['assign_to'];
+						
+						if( 'category' == $submission_form_fields['fields'][$form_key]['assign_to'] ) {
+							$search_form_fields['fields'][$key]['category'] = $submission_form_fields['fields'][$form_key]['category'];
+						}
 					}
 				}
 
@@ -308,13 +310,6 @@ class Directorist_Listing_Search_Form {
 				foreach ( $group['fields'] as $field ) {
 					$search_field = $search_form_fields['fields'][$field];
 
-					// If search field is assigned to any category, exclude it from array
-					if( ! empty( $search_field['assign_to'] ) && $search_field['assign_to'] === 'category' ) {
-						$cat_id = $search_field['category'];
-						$category_fields_data[$cat_id][] = $search_field;
-						continue;
-					}
-
 					if ( $this->is_field_allowed_in_atts( $search_field['widget_name'] ) ) {
 						$section['fields'][ $field ] = $search_field;
 					}
@@ -324,8 +319,7 @@ class Directorist_Listing_Search_Form {
 			}
 		}
 
-		$this->form_data            = $form_data;
-		$this->category_fields_data = $category_fields_data;
+		return $form_data;
 	}
 
 	public function is_field_allowed_in_atts( $widget_name ) {
@@ -410,7 +404,7 @@ class Directorist_Listing_Search_Form {
 			'value'      		=> $value,
 		);
 
-		if ( $this->is_custom_field( $field_data ) ) {
+		if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $this->assign_to_category()['custom_field_key'] ) ) ) {
 			$template = 'search-form/custom-fields/' . $field_data['widget_name'];
 		}
 		else {

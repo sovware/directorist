@@ -6,6 +6,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+$category_id = ! empty( $_REQUEST['cat_id'] ) ? $_REQUEST['cat_id'] : '';
 ?>
 
 <div class="directorist-search-adv-filter directorist-advanced-filter">
@@ -14,7 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<?php foreach ( $searchform->form_data[1]['fields'] as $field ): ?>
 
-		<div class="directorist-form-group directorist-advanced-filter__advanced--element direcorist-search-field-<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
+		<?php if( ! isset( $field['assign_to'] ) || ( $field['assign_to'] != 'category' ) || ( $field['assign_to'] == 'category' && $field['category'] == $category_id ) ) : ?>
+
+			<div class="directorist-form-group directorist-advanced-filter__advanced--element direcorist-search-field-<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
+
+		<?php endif; ?>
 
 	<?php endforeach; ?>
 

@@ -610,3 +610,19 @@
     }
   }
 }
+
+.directorist-add-listing-form {
+  #wp-listing_content-editor-container {
+    .mce-container-body {
+      .mce-statusbar {
+        border: none;
+        .mce-container-body {
+          .mce-path {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  
+}

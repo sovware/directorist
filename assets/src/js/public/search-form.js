@@ -472,7 +472,8 @@ import { directorist_range_slider } from './range-slider';
         function render_category_custom_search_fields( $container, search_from ) {
             const $cat_container   = $container.find('.directorist-search-form-cat-fields');
             const $search_form_box = $container.find('.directorist-search-form-box-wrap');
-           
+            let allListingContainer = $('.directorist-search-category').parents('form.directorist-advanced-filter__form');
+
             const data = {
                 action: 'directorist_search_form_category_fields',
                 directorist_nonce: directorist.directorist_nonce,
@@ -481,15 +482,16 @@ import { directorist_range_slider } from './range-slider';
                 inner_class: $cat_container.data('inner-class'),
                 atts: JSON.stringify($container.data('atts'))
             };
-            
+
             $.post(directorist.ajaxurl, data, function ( response ) {
 
                 if( response['all_listing'] ) {
-                    $('.directorist-search-slide').html( response['all_listing'] );
-                    $('.directorist-category-select option[value="' + data.cat_id + '"]').attr('selected', true);
+                    $container.parents('.directorist-archive-contents').find('.directorist-search-slide').html( response['all_listing'] );
+
+                    $container.find('.directorist-category-select option[value="' + data.cat_id + '"]').attr('selected', true);
 
                     if( search_from === "category" ) {
-                        $('.directorist-advanced-filter').css("display", "block");
+                        $container.find('.directorist-advanced-filter').css("display", "block");
                     }
 
                 }
@@ -498,7 +500,7 @@ import { directorist_range_slider } from './range-slider';
                     $search_form_box.html(response['search_form']);
                     $container.find('.directorist-category-select option[value="' + data.cat_id + '"]').attr('selected', true);
                     $container.find('.directorist-category-select option').data('custom-field', 1);
-                    
+
                 }
 
                 [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field'), new CustomEvent('triggerSlice')].forEach(function (event) {
@@ -511,25 +513,25 @@ import { directorist_range_slider } from './range-slider';
                 customFormData.forEach(function (item) {
                     var fieldSingle = document.querySelector(`[name="${item.name}"]`);
                     if (fieldSingle !== null && fieldSingle.name == item.name) {
-                        fieldSingle.value = item.value; 
+                        fieldSingle.value = item.value;
                     }
-                }); 
-          
+                });
+
                 customSelectboxData.forEach(function (item) {
                     var selectboxSingle = document.getElementById(`${item.id}`);
 
                     if (selectboxSingle !== null && selectboxSingle.id == item.id) {
-                        selectboxSingle.value = item.value; 
+                        selectboxSingle.value = item.value;
                     }
-                }); 
-          
+                });
+
                 customCheckboxData.forEach(function (item) {
                     var checkboxSingle = document.getElementById(`${item.id}`);
 
                     if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
                         checkboxSingle.checked = item.checked;
                     }
-                }); 
+                });
 
             });
         }
@@ -542,7 +544,7 @@ import { directorist_range_slider } from './range-slider';
             var customFields = document.querySelectorAll(".directorist-form-element");
             var customSelectbox = document.querySelectorAll(".custom-select");
             var customCheckbox = document.querySelectorAll(".custom-checkbox");
-            
+
             if (customFields.length) {
                 customFields.forEach(function (elm) {
                     var elmValue = elm.value;
@@ -553,7 +555,7 @@ import { directorist_range_slider } from './range-slider';
                     });
                 });
             }
-            
+
             if (customSelectbox.length) {
                 customSelectbox.forEach(function (elm) {
                     var elmValue = elm.value;
@@ -575,25 +577,35 @@ import { directorist_range_slider } from './range-slider';
                   });
                 });
             }
-            
+
 
         } // Render category based fields on category change (frontend)
 
-        $('body').on('change', '.directorist-search-category select', function (event) {
-            const $container  = $(this).parents('form');
-            const search_from = 'category'; 
+        $('body').on('change', '.directorist-search-form .directorist-category-select', function (event) {
+            const $container  = $(this).parents('form.directorist-search-form');
+            const search_from = 'category';
             render_category_custom_search_fields( $container, search_from );
             storeCustomFieldsData();
             $container.addClass('atbdp-form-fade');
+
+        });
+        $('body').on('change', '.directorist-advanced-filter__form .directorist-category-select', function (event) {
+            const $container  = $(this).parents('form.directorist-advanced-filter__form');
+            const search_from = 'category';
+            render_category_custom_search_fields( $container, search_from );
+            storeCustomFieldsData();
+            $container.addClass('atbdp-form-fade');
+
         });
 
-        $(window).on('load', function () { 
+        $(window).on('load', function () {
             if( $( '.directorist-search-category' ).length ) {
-                const $container = $('.directorist-search-category').parents('form');
+                const $containerOne  = $('.directorist-search-category').parents('form.directorist-search-form');
+                const $containerTwo  = $('.directorist-search-category').parents('form.directorist-advanced-filter__form');
                 const search_from = 'page_load';
-                render_category_custom_search_fields( $container, search_from );
+                render_category_custom_search_fields( $containerOne, search_from );
+                render_category_custom_search_fields( $containerTwo, search_from );
                 storeCustomFieldsData();
-
             }
         });
 

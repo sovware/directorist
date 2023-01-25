@@ -191,6 +191,7 @@
                             $final_terms = ( ! empty( $final_term ) ) ? explode( ',', $final_term ) : [];
 
                             if ( ! empty( $final_terms ) ) {
+                                $append = $final_terms > 0;
                                 foreach( $final_terms as $term_item ) {
                                     $term_exists = get_term_by( 'name', $term_item, $taxonomy );
                                 
@@ -199,11 +200,11 @@
                                         
                                         if ( ! is_wp_error( $result ) ) {
                                             $term_id = $result['term_id'];
-                                            wp_set_object_terms( $post_id, $term_id, $taxonomy);
+                                            wp_set_object_terms( $post_id, $term_id, $taxonomy, $append );
                                             update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
                                         }
                                     } else {
-                                        wp_set_object_terms( $post_id, $term_exists->term_id, $taxonomy, true );
+                                        wp_set_object_terms( $post_id, $term_exists->term_id, $taxonomy, $append );
                                         update_term_meta( $term_exists->term_id, '_directory_type', [ $directory_type ] );
                                     }
                                 }

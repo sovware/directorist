@@ -531,7 +531,7 @@ import { directorist_range_slider } from './range-slider';
                     });
     
                     allListingTagData.forEach(function (item) {
-                        var checkboxSingle = allListingSection.querySelector(`[name="${item.name}"]`);
+                        var checkboxSingle = allListingSection.querySelector(`[value="${item.value}"].directorist-review-checkbox`);
     
                         if (checkboxSingle !== null && checkboxSingle.classList.contains('directorist-review-checkbox')) {
                             checkboxSingle.checked = item.checked;
@@ -576,7 +576,7 @@ import { directorist_range_slider } from './range-slider';
                     });
     
                     customTagData.forEach(function (item) {
-                        var checkboxSingle = document.querySelector(`[name="${item.name}"]`);
+                        var checkboxSingle = document.querySelector(`[value="${item.value}"].directorist-review-checkbox`);
     
                         if (checkboxSingle !== null && checkboxSingle.classList.contains('directorist-review-checkbox')) {
                             checkboxSingle.checked = item.checked;
@@ -666,9 +666,9 @@ import { directorist_range_slider } from './range-slider';
                 if (allListingTag.length) {
                     allListingTag.forEach(function (elm) {
                         var elmChecked = elm.checked;
-                        var elmName = elm.getAttribute('name');
+                        var elmValue = elm.getAttribute('value');
                         allListingTagData.push({
-                            "name": elmName,
+                            "value": elmValue,
                             "checked": elmChecked
                         });
                     });
@@ -714,12 +714,12 @@ import { directorist_range_slider } from './range-slider';
 
                 if (customCheckbox.length) {
                     customCheckbox.forEach(function (elm) {
-                    var elmChecked = elm.checked;
-                    var elmId = elm.getAttribute('id');
-                    customCheckboxData.push({
-                        "id": elmId,
-                        "checked": elmChecked
-                    });
+                        var elmChecked = elm.checked;
+                        var elmId = elm.getAttribute('id');
+                        customCheckboxData.push({
+                            "id": elmId,
+                            "checked": elmChecked
+                        });
                     });
                 }
                 
@@ -737,9 +737,9 @@ import { directorist_range_slider } from './range-slider';
                 if (customTag.length) {
                     customTag.forEach(function (elm) {
                         var elmChecked = elm.checked;
-                        var elmName = elm.getAttribute('name');
+                        var elmValue = elm.getAttribute('value');
                         customTagData.push({
-                            "name": elmName,
+                            "value": elmValue,
                             "checked": elmChecked
                         });
                     });

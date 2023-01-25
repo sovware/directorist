@@ -1246,7 +1246,7 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
           allListingTagData.forEach(function (item) {
-            var checkboxSingle = allListingSection.querySelector("[name=\"".concat(item.name, "\"]"));
+            var checkboxSingle = allListingSection.querySelector("[value=\"".concat(item.value, "\"].directorist-review-checkbox"));
             if (checkboxSingle !== null && checkboxSingle.classList.contains('directorist-review-checkbox')) {
               checkboxSingle.checked = item.checked;
             }
@@ -1281,7 +1281,7 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
           customTagData.forEach(function (item) {
-            var checkboxSingle = document.querySelector("[name=\"".concat(item.name, "\"]"));
+            var checkboxSingle = document.querySelector("[value=\"".concat(item.value, "\"].directorist-review-checkbox"));
             if (checkboxSingle !== null && checkboxSingle.classList.contains('directorist-review-checkbox')) {
               checkboxSingle.checked = item.checked;
             }
@@ -1357,9 +1357,9 @@ __webpack_require__.r(__webpack_exports__);
         if (allListingTag.length) {
           allListingTag.forEach(function (elm) {
             var elmChecked = elm.checked;
-            var elmName = elm.getAttribute('name');
+            var elmValue = elm.getAttribute('value');
             allListingTagData.push({
-              "name": elmName,
+              "value": elmValue,
               "checked": elmChecked
             });
           });
@@ -1419,9 +1419,9 @@ __webpack_require__.r(__webpack_exports__);
         if (customTag.length) {
           customTag.forEach(function (elm) {
             var elmChecked = elm.checked;
-            var elmName = elm.getAttribute('name');
+            var elmValue = elm.getAttribute('value');
             customTagData.push({
-              "name": elmName,
+              "value": elmValue,
               "checked": elmChecked
             });
           });

@@ -179,34 +179,36 @@
 
                     if ( $tax_inputs ) {
                         foreach ( $tax_inputs as $taxonomy => $value ) {
+                            
+                            $taxonomy = ATBDP_TAGS;
+
                             if ('category' == $taxonomy) {
                                 $taxonomy = ATBDP_CATEGORY;
-                            } elseif ('location' == $taxonomy) {
+                            }
+                            
+                            if ('location' == $taxonomy) {
                                 $taxonomy = ATBDP_LOCATION;
-                            } else {
-                                $taxonomy = ATBDP_TAGS;
                             }
 
-                            $terms = ( isset( $post[ $value ] ) && ! empty( $final_term ) ) ? explode( ',', $final_term ) : [];
+                            $terms = ( isset( $post[ $value ] ) && ! empty( $value ) ) ? explode( ',', $value ) : array();
                             
                             if ( ! empty( $terms ) ) {
 
                                 $multiple = $terms > 0;
-                                $term_ids = [];
+                                $term_ids = array();
 
                                 foreach( $terms as $term ) {
-
                                     $term_exists = get_term_by( 'name', $term, $taxonomy );
-                                
                                     if ( ! $term_exists ) {
 
                                         $new_term = wp_insert_term( $term, $taxonomy );
-                                        
                                         if ( ! is_wp_error( $new_term ) ) {
+
                                             array_push( $term_ids, $new_term['term_id'] );
                                             update_term_meta( $new_term['term_id'], '_directory_type', [ $directory_type ] );
                                         }
                                     } else {
+
                                         array_push( $term_ids, $term_exists->term_id );
                                         update_term_meta( $term_exists->term_id, '_directory_type', [ $directory_type ] );
                                     }

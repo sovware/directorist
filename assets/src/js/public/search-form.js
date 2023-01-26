@@ -495,47 +495,47 @@ import { directorist_range_slider } from './range-slider';
                     $container.find('.directorist-category-select option[value="' + data.cat_id + '"]').attr('selected', true);
 
                     if( search_from === "category" ) {
-                        $container.find('.directorist-advanced-filter').css("display", "block");
+                        $('.directorist-advanced-filter').css("display", "block");
                     }
 
                     allListingFormData.forEach(function (item) {
                         var singleField = allListingSection.querySelector(`[name="${item.name}"]`);
-    
+
                         if (singleField !== null && singleField.name == item.name) {
                             singleField.value = item.value;
                         }
-                    }); 
-                
+                    });
+
                     allListingSelectboxData.forEach(function (item) {
                         var selectboxSingle = allListingSection.querySelector(`[name="${item.name}"].custom-select`);
 
                         if (selectboxSingle !== null && selectboxSingle.name == item.name) {
-                            selectboxSingle.value = item.value; 
+                            selectboxSingle.value = item.value;
                         }
-                    }); 
-            
+                    });
+
                     allListingCheckboxData.forEach(function (item) {
                         var checkboxSingle = allListingSection.querySelector(`[value="${item.value}"].custom-checkbox`);
                         if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
                             checkboxSingle.checked = item.checked;
                         }
                     });
-    
+
                     allListingReviewData.forEach(function (item) {
                         var selectboxSingle = allListingSection.querySelector(`[name="${item.name}"]`)
-    
+
                         if (selectboxSingle !== null && selectboxSingle.name == item.name) {
                             selectboxSingle.value = item.value;
                         }
                     });
-    
+
                     allListingTagData.forEach(function (item) {
                         var checkboxSingle = allListingSection.querySelector(`[value="${item.value}"].directorist-review-checkbox`);
-    
+
                         if (checkboxSingle !== null && checkboxSingle.classList.contains('directorist-review-checkbox')) {
                             checkboxSingle.checked = item.checked;
                         }
-                    }); 
+                    });
                 }
 
                 if ( response['search_form'] ) {
@@ -549,10 +549,10 @@ import { directorist_range_slider } from './range-slider';
                             fieldSingle.value = item.value;
                         }
                     });
-    
+
                     customSelectboxData.forEach(function (item) {
                         var selectboxSingle = document.querySelector(`[name="${item.name}"].custom-select`);
-    
+
                         if (selectboxSingle !== null && selectboxSingle.name == item.name) {
                             selectboxSingle.value = item.value;
                         }
@@ -560,23 +560,23 @@ import { directorist_range_slider } from './range-slider';
 
                     customCheckboxData.forEach(function (item) {
                         var checkboxSingle = searchSection.querySelector(`[value="${item.value}"].custom-checkbox`);
-    
+
                         if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
                             checkboxSingle.checked = item.checked;
                         }
                     });
-    
+
                     customReviewData.forEach(function (item) {
                         var selectboxSingle = document.querySelector(`[name="${item.name}"]`)
-    
+
                         if (selectboxSingle !== null && selectboxSingle.name == item.name) {
                             selectboxSingle.value = item.value;
                         }
                     });
-    
+
                     customTagData.forEach(function (item) {
                         var checkboxSingle = document.querySelector(`[value="${item.value}"].directorist-review-checkbox`);
-    
+
                         if (checkboxSingle !== null && checkboxSingle.classList.contains('directorist-review-checkbox')) {
                             checkboxSingle.checked = item.checked;
                         }
@@ -615,7 +615,7 @@ import { directorist_range_slider } from './range-slider';
                 var allListingCheckbox = allListingSelector.querySelectorAll(".custom-checkbox");
                 var allListingReview = allListingSelector.querySelectorAll(".directorist-review-selectbox");
                 var allListingTag = allListingSelector.querySelectorAll(".directorist-review-checkbox");
-                
+
                 if (allListingFields.length) {
                     allListingFields.forEach(function (elm) {
                         if(elm.value!=='') {
@@ -628,7 +628,7 @@ import { directorist_range_slider } from './range-slider';
                         }
                     });
                 }
-                
+
                 if (allListingSelectbox.length) {
                     allListingSelectbox.forEach(function (elm) {
                         var elmValue = elm.value;
@@ -650,7 +650,7 @@ import { directorist_range_slider } from './range-slider';
                         });
                     });
                 }
-                
+
                 if (allListingReview.length) {
                     allListingReview.forEach(function (elm) {
                         var elmValue = elm.value;
@@ -672,21 +672,21 @@ import { directorist_range_slider } from './range-slider';
                         });
                     });
                 }
-                
+
             }
 
-        } 
+        }
 
         function storeCustomFieldsData($container) {
             var searchFormSection = $container.parents('.directorist-search-contents').find('.directorist-search-form').prevObject.prevObject[0];
-            
+
             if(searchFormSection) {
                 var customFields = searchFormSection.querySelectorAll(".directorist-form-element");
                 var customSelectbox = searchFormSection.querySelectorAll(".custom-select");
                 var customCheckbox = searchFormSection.querySelectorAll(".custom-checkbox");
                 var customReview = searchFormSection.querySelectorAll(".directorist-review-selectbox");
                 var customTag = searchFormSection.querySelectorAll(".directorist-review-checkbox");
-                
+
                 if (customFields.length) {
                     customFields.forEach(function (elm) {
                         if(elm.value!=='') {
@@ -699,7 +699,7 @@ import { directorist_range_slider } from './range-slider';
                         }
                     });
                 }
-                
+
                 if (customSelectbox.length) {
                     customSelectbox.forEach(function (elm) {
                         var elmValue = elm.value;
@@ -721,7 +721,7 @@ import { directorist_range_slider } from './range-slider';
                         });
                     });
                 }
-                
+
                 if (customReview.length) {
                     customReview.forEach(function (elm) {
                         var elmValue = elm.value;
@@ -743,8 +743,8 @@ import { directorist_range_slider } from './range-slider';
                         });
                     });
                 }
-                
-            }  
+
+            }
 
         } // Render category based fields on category change (frontend)
 

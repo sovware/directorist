@@ -1219,7 +1219,7 @@ __webpack_require__.r(__webpack_exports__);
           $container.parents('.directorist-archive-contents').find('.directorist-search-slide').html(response['all_listing']);
           $container.find('.directorist-category-select option[value="' + data.cat_id + '"]').attr('selected', true);
           if (search_from === "category") {
-            $container.find('.directorist-advanced-filter').css("display", "block");
+            $('.directorist-advanced-filter').css("display", "block");
           }
           allListingSection.forEach(function (elm) {
             allListingFormData.forEach(function (item) {
@@ -1371,7 +1371,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
     function storeCustomFieldsData($container) {
-      var searchFormSection = $container.parents('.directorist-search-contents').find('.directorist-search-form')[0];
+      var searchFormSection = $container.parents('.directorist-search-contents').find('.directorist-search-form').prevObject.prevObject[0];
       if (searchFormSection) {
         var customFields = searchFormSection.querySelectorAll(".directorist-form-element");
         var customSelectbox = searchFormSection.querySelectorAll(".custom-select");

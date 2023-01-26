@@ -421,12 +421,17 @@ window.addEventListener('DOMContentLoaded', function () {
   );
   return $elem;
   }
-   $("#category_icon").select2({
+    $("#category_icon").select2({
   placeholder: directorist_admin.i18n_text.icon_choose_text,
   allowClear: true,
   templateResult: selecWithIcon,
   });
+<<<<<<< HEAD
    /* Show and hide manual coordinate input field */
+=======
+    /* Show and hide manual coordinate input field */
+
+>>>>>>> 31f8f979f275bd097d7014d73f6deaeef62a2f03
   if (!$('input#manual_coordinate').is(':checked')) {
     $('.directorist-map-coordinates').hide();
   }
@@ -915,11 +920,11 @@ window.addEventListener('DOMContentLoaded', function () {
 
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-   if (frame) {
+    if (frame) {
    frame.open();
    return;
   }
-   // Create a new media frame
+    // Create a new media frame
   frame = wp.media({
    title: directorist_admin.i18n_text.upload_cat_image,
    button: {

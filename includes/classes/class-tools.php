@@ -197,31 +197,31 @@
                                 $taxonomy = ATBDP_TAGS;
                             }
 
-                            $texonomy_terms = get_terms( array(
-                                'taxonomy' => $taxonomy,
-                                'hide_empty' => false,
-                            ) );
-
                             $term_ids = array();
                             $multiple = $terms > 0;
 
+                            $texonomy_terms = get_terms( array(
+                                'taxonomy' => $taxonomy,
+                                'hide_empty' => false,
+                                'name' => $terms
+                            ) );
+                            
                             foreach( $terms as $term ) {
 
                                 $key = array_search( $term, array_column( $texonomy_terms, 'name' ) );
+
                                 if( $key !== false ) {
                                     array_push( $term_ids, $texonomy_terms[$key]->term_id );
                                     update_term_meta( $texonomy_terms[$key]->term_id, '_directory_type', [ $directory_type ] );
-                                    continue;
-                                }
-                                $new_term = wp_insert_term( $term, $taxonomy );
-                                if( ! is_wp_error( $new_term ) ) {
-                                    array_push( $term_ids, $new_term['term_id'] );
-                                    update_term_meta( $new_term['term_id'], '_directory_type', [ $directory_type ] );
+                                }else{
+                                    $new_term = wp_insert_term( $term, $taxonomy );
+                                    if( ! is_wp_error( $new_term ) ) {
+                                        array_push( $term_ids, $new_term['term_id'] );
+                                        update_term_meta( $new_term['term_id'], '_directory_type', [ $directory_type ] );
+                                    }
                                 }
                             }
-
                             wp_set_object_terms( $post_id, $term_ids, $taxonomy, $multiple );
-                            
                         }
                     }
 
@@ -284,7 +284,6 @@
             $data['total']         = $total_length;
             $data['imported']      = $imported;
             $data['failed']        = $failed;
-            $data['dummy']        = $dummy;
 
             wp_send_json( $data );
         }

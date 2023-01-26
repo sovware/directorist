@@ -8699,7 +8699,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: none;
 }
 .directorist-search-slide .directorist-advanced-filter--show {
-  display: block !important;
+  display: block;
 }
 
 /* Advanced search filter float style  */

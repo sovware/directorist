@@ -180,42 +180,47 @@
                     if ( $tax_inputs ) {
                         foreach ( $tax_inputs as $taxonomy => $value ) {
                             
-                            $taxonomy = ATBDP_TAGS;
+                            if( ! $value ) {
+                                continue;
+                            }
+
+                            $terms = isset( $post[ $value ] ) && ! empty( $post[ $value ] ) ? explode( ',', $post[ $value ] ) : array();
+                            if( ! $terms ) {
+                                continue;
+                            }
 
                             if ('category' == $taxonomy) {
                                 $taxonomy = ATBDP_CATEGORY;
-                            }
-                            
-                            if ('location' == $taxonomy) {
+                            }elseif ('location' == $taxonomy) {
                                 $taxonomy = ATBDP_LOCATION;
+                            }else{
+                                $taxonomy = ATBDP_TAGS;
                             }
 
-                            $terms = ( isset( $post[ $value ] ) && ! empty( $value ) ) ? explode( ',', $value ) : array();
-                            
-                            if ( ! empty( $terms ) ) {
+                            $texonomy_terms = get_terms( array(
+                                'taxonomy' => $taxonomy,
+                                'hide_empty' => false,
+                            ) );
 
-                                $multiple = $terms > 0;
-                                $term_ids = array();
+                            $term_ids = array();
+                            $multiple = $terms > 0;
 
-                                foreach( $terms as $term ) {
-                                    $term_exists = get_term_by( 'name', $term, $taxonomy );
-                                    if ( ! $term_exists ) {
+                            foreach( $terms as $term ) {
 
-                                        $new_term = wp_insert_term( $term, $taxonomy );
-                                        if ( ! is_wp_error( $new_term ) ) {
-
-                                            array_push( $term_ids, $new_term['term_id'] );
-                                            update_term_meta( $new_term['term_id'], '_directory_type', [ $directory_type ] );
-                                        }
-                                    } else {
-
-                                        array_push( $term_ids, $term_exists->term_id );
-                                        update_term_meta( $term_exists->term_id, '_directory_type', [ $directory_type ] );
-                                    }
+                                $key = array_search( $term, array_column( $texonomy_terms, 'name' ) );
+                                if( $key !== false ) {
+                                    array_push( $term_ids, $texonomy_terms[$key]->term_id );
+                                    update_term_meta( $texonomy_terms[$key]->term_id, '_directory_type', [ $directory_type ] );
+                                    continue;
                                 }
-                                wp_set_object_terms( $post_id, $term_ids, $taxonomy, $multiple );
-
+                                $new_term = wp_insert_term( $term, $taxonomy );
+                                if( ! is_wp_error( $new_term ) ) {
+                                    array_push( $term_ids, $new_term['term_id'] );
+                                    update_term_meta( $new_term['term_id'], '_directory_type', [ $directory_type ] );
+                                }
                             }
+
+                            wp_set_object_terms( $post_id, $term_ids, $taxonomy, $multiple );
                             
                         }
                     }
@@ -279,6 +284,7 @@
             $data['total']         = $total_length;
             $data['imported']      = $imported;
             $data['failed']        = $failed;
+            $data['dummy']        = $dummy;
 
             wp_send_json( $data );
         }

@@ -1228,13 +1228,13 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
           allListingSelectboxData.forEach(function (item) {
-            var selectboxSingle = document.getElementById("".concat(item.id));
-            if (selectboxSingle !== null && selectboxSingle.id == item.id) {
+            var selectboxSingle = allListingSection.querySelector("[name=\"".concat(item.name, "\"].custom-select"));
+            if (selectboxSingle !== null && selectboxSingle.name == item.name) {
               selectboxSingle.value = item.value;
             }
           });
           allListingCheckboxData.forEach(function (item) {
-            var checkboxSingle = document.getElementById("".concat(item.id));
+            var checkboxSingle = allListingSection.querySelector("[value=\"".concat(item.value, "\"].custom-checkbox"));
             if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
               checkboxSingle.checked = item.checked;
             }
@@ -1263,13 +1263,13 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
           customSelectboxData.forEach(function (item) {
-            var selectboxSingle = document.getElementById("".concat(item.id));
-            if (selectboxSingle !== null && selectboxSingle.id == item.id) {
+            var selectboxSingle = document.querySelector("[name=\"".concat(item.name, "\"].custom-select"));
+            if (selectboxSingle !== null && selectboxSingle.name == item.name) {
               selectboxSingle.value = item.value;
             }
           });
           customCheckboxData.forEach(function (item) {
-            var checkboxSingle = document.getElementById("".concat(item.id));
+            var checkboxSingle = searchSection.querySelector("[value=\"".concat(item.value, "\"].custom-checkbox"));
             if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
               checkboxSingle.checked = item.checked;
             }
@@ -1327,9 +1327,9 @@ __webpack_require__.r(__webpack_exports__);
         if (allListingSelectbox.length) {
           allListingSelectbox.forEach(function (elm) {
             var elmValue = elm.value;
-            var elmId = elm.getAttribute('id');
+            var elmName = elm.getAttribute('name');
             allListingSelectboxData.push({
-              "id": elmId,
+              "name": elmName,
               "value": elmValue
             });
           });
@@ -1337,9 +1337,9 @@ __webpack_require__.r(__webpack_exports__);
         if (allListingCheckbox.length) {
           allListingCheckbox.forEach(function (elm) {
             var elmChecked = elm.checked;
-            var elmId = elm.getAttribute('id');
+            var elmValue = elm.getAttribute('value');
             allListingCheckboxData.push({
-              "id": elmId,
+              "value": elmValue,
               "checked": elmChecked
             });
           });
@@ -1389,9 +1389,9 @@ __webpack_require__.r(__webpack_exports__);
         if (customSelectbox.length) {
           customSelectbox.forEach(function (elm) {
             var elmValue = elm.value;
-            var elmId = elm.getAttribute('id');
+            var elmName = elm.getAttribute('name');
             customSelectboxData.push({
-              "id": elmId,
+              "name": elmName,
               "value": elmValue
             });
           });
@@ -1399,9 +1399,9 @@ __webpack_require__.r(__webpack_exports__);
         if (customCheckbox.length) {
           customCheckbox.forEach(function (elm) {
             var elmChecked = elm.checked;
-            var elmId = elm.getAttribute('id');
+            var elmId = elm.getAttribute('value');
             customCheckboxData.push({
-              "id": elmId,
+              "value": elmId,
               "checked": elmChecked
             });
           });

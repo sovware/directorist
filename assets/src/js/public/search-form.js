@@ -494,6 +494,7 @@ import { directorist_range_slider } from './range-slider';
 
                     $container.find('.directorist-category-select option[value="' + data.cat_id + '"]').attr('selected', true);
 
+
                     if( search_from === "category" ) {
                         $('.directorist-advanced-filter').css("display", "block");
                     }

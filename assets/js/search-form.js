@@ -1329,7 +1329,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (response['all_listing']) {
           $container.parents('.directorist-archive-contents').find('.directorist-search-slide').html(response['all_listing']);
-          $container.find('.directorist-category-select option[value="' + data.cat_id + '"]').attr('selected', true);
+          $(".".concat($container[0].classList[0], " .directorist-category-select option[value=\"").concat(data.cat_id, "\"]")).attr('selected', true);
 
           if (search_from === "category") {
             $('.directorist-advanced-filter').css("display", "block");

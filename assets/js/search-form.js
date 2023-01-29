@@ -1324,8 +1324,8 @@ __webpack_require__.r(__webpack_exports__);
         atts: JSON.stringify($container.data('atts'))
       };
       $.post(directorist.ajaxurl, data, function (response) {
-        var allListingSection = document.querySelector('.directorist-archive-contents');
-        var searchSection = document.querySelector('.directorist-search-form');
+        var allListingSection = document.querySelectorAll('.directorist-archive-contents');
+        var searchSection = document.querySelectorAll('.directorist-search-form');
 
         if (response['all_listing']) {
           $container.parents('.directorist-archive-contents').find('.directorist-search-slide').html(response['all_listing']);
@@ -1335,40 +1335,42 @@ __webpack_require__.r(__webpack_exports__);
             $('.directorist-advanced-filter').css("display", "block");
           }
 
-          allListingFormData.forEach(function (item) {
-            var singleField = allListingSection.querySelector("[name=\"".concat(item.name, "\"]"));
+          allListingSection.forEach(function (elm) {
+            allListingFormData.forEach(function (item) {
+              var singleField = elm.querySelector("[name=\"".concat(item.name, "\"]"));
 
-            if (singleField !== null && singleField.name == item.name) {
-              singleField.value = item.value;
-            }
-          });
-          allListingSelectboxData.forEach(function (item) {
-            var selectboxSingle = allListingSection.querySelector("[name=\"".concat(item.name, "\"].custom-select"));
+              if (singleField !== null && singleField.name == item.name) {
+                singleField.value = item.value;
+              }
+            });
+            allListingSelectboxData.forEach(function (item) {
+              var selectboxSingle = elm.querySelector("[name=\"".concat(item.name, "\"].custom-select"));
 
-            if (selectboxSingle !== null && selectboxSingle.name == item.name) {
-              selectboxSingle.value = item.value;
-            }
-          });
-          allListingCheckboxData.forEach(function (item) {
-            var checkboxSingle = allListingSection.querySelector("[value=\"".concat(item.value, "\"].custom-checkbox"));
+              if (selectboxSingle !== null && selectboxSingle.name == item.name) {
+                selectboxSingle.value = item.value;
+              }
+            });
+            allListingCheckboxData.forEach(function (item) {
+              var checkboxSingle = elm.querySelector("[value=\"".concat(item.value, "\"].custom-checkbox"));
 
-            if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
-              checkboxSingle.checked = item.checked;
-            }
-          });
-          allListingReviewData.forEach(function (item) {
-            var selectboxSingle = allListingSection.querySelector("[name=\"".concat(item.name, "\"]"));
+              if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
+                checkboxSingle.checked = item.checked;
+              }
+            });
+            allListingReviewData.forEach(function (item) {
+              var selectboxSingle = elm.querySelector("[name=\"".concat(item.name, "\"]"));
 
-            if (selectboxSingle !== null && selectboxSingle.name == item.name) {
-              selectboxSingle.value = item.value;
-            }
-          });
-          allListingTagData.forEach(function (item) {
-            var checkboxSingle = allListingSection.querySelector("[value=\"".concat(item.value, "\"].directorist-review-checkbox"));
+              if (selectboxSingle !== null && selectboxSingle.name == item.name) {
+                selectboxSingle.value = item.value;
+              }
+            });
+            allListingTagData.forEach(function (item) {
+              var checkboxSingle = elm.querySelector("[value=\"".concat(item.value, "\"].directorist-review-checkbox"));
 
-            if (checkboxSingle !== null && checkboxSingle.classList.contains('directorist-review-checkbox')) {
-              checkboxSingle.checked = item.checked;
-            }
+              if (checkboxSingle !== null && checkboxSingle.classList.contains('directorist-review-checkbox')) {
+                checkboxSingle.checked = item.checked;
+              }
+            });
           });
         }
 
@@ -1376,40 +1378,42 @@ __webpack_require__.r(__webpack_exports__);
           $search_form_box.html(response['search_form']);
           $container.find('.directorist-category-select option[value="' + data.cat_id + '"]').attr('selected', true);
           $container.find('.directorist-category-select option').data('custom-field', 1);
-          customFormData.forEach(function (item) {
-            var fieldSingle = document.querySelector("[name=\"".concat(item.name, "\"]"));
+          searchSection.forEach(function (elm) {
+            customFormData.forEach(function (item) {
+              var fieldSingle = elm.querySelector("[name=\"".concat(item.name, "\"]"));
 
-            if (fieldSingle !== null && fieldSingle.name == item.name) {
-              fieldSingle.value = item.value;
-            }
-          });
-          customSelectboxData.forEach(function (item) {
-            var selectboxSingle = document.querySelector("[name=\"".concat(item.name, "\"].custom-select"));
+              if (fieldSingle !== null && fieldSingle.name == item.name) {
+                fieldSingle.value = item.value;
+              }
+            });
+            customSelectboxData.forEach(function (item) {
+              var selectboxSingle = elm.querySelector("[name=\"".concat(item.name, "\"].custom-select"));
 
-            if (selectboxSingle !== null && selectboxSingle.name == item.name) {
-              selectboxSingle.value = item.value;
-            }
-          });
-          customCheckboxData.forEach(function (item) {
-            var checkboxSingle = searchSection.querySelector("[value=\"".concat(item.value, "\"].custom-checkbox"));
+              if (selectboxSingle !== null && selectboxSingle.name == item.name) {
+                selectboxSingle.value = item.value;
+              }
+            });
+            customCheckboxData.forEach(function (item) {
+              var checkboxSingle = elm.querySelector("[value=\"".concat(item.value, "\"].custom-checkbox"));
 
-            if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
-              checkboxSingle.checked = item.checked;
-            }
-          });
-          customReviewData.forEach(function (item) {
-            var selectboxSingle = document.querySelector("[name=\"".concat(item.name, "\"]"));
+              if (checkboxSingle !== null && checkboxSingle.classList.contains('custom-checkbox')) {
+                checkboxSingle.checked = item.checked;
+              }
+            });
+            customReviewData.forEach(function (item) {
+              var selectboxSingle = elm.querySelector("[name=\"".concat(item.name, "\"]"));
 
-            if (selectboxSingle !== null && selectboxSingle.name == item.name) {
-              selectboxSingle.value = item.value;
-            }
-          });
-          customTagData.forEach(function (item) {
-            var checkboxSingle = document.querySelector("[value=\"".concat(item.value, "\"].directorist-review-checkbox"));
+              if (selectboxSingle !== null && selectboxSingle.name == item.name) {
+                selectboxSingle.value = item.value;
+              }
+            });
+            customTagData.forEach(function (item) {
+              var checkboxSingle = elm.querySelector("[value=\"".concat(item.value, "\"].directorist-review-checkbox"));
 
-            if (checkboxSingle !== null && checkboxSingle.classList.contains('directorist-review-checkbox')) {
-              checkboxSingle.checked = item.checked;
-            }
+              if (checkboxSingle !== null && checkboxSingle.classList.contains('directorist-review-checkbox')) {
+                checkboxSingle.checked = item.checked;
+              }
+            });
           });
         }
 

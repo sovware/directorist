@@ -10,7 +10,7 @@
         display: none;
 
         @include m(show) {
-            display: block !important;
+            display: block;
         }
     }
 }

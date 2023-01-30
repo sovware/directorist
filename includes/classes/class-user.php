@@ -486,7 +486,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		{
 			$userdata = array();
 			// we need to sanitize the data and then save it.
-			$ID = !empty($data['ID']) ? absint($data['ID']) : get_current_user_id();
+			$ID = get_current_user_id();
 			$userdata['ID'] = $ID;
 			$userdata['display_name'] = !empty($data['full_name']) ? sanitize_text_field(trim($data['full_name'])) : '';
 			$userdata['user_email'] = !empty($data['user_email']) ? sanitize_email($data['user_email'] ): '';
@@ -519,6 +519,17 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				// password will be updated here
 				if ( ( $new_pass == $confirm_pass ) && ( strlen( $confirm_pass) > 5 ) ){
 					wp_set_password($new_pass, $ID); // set the password to the database
+					/**
+					 * Fire password changed action after successful password change
+					 *
+					 * This can be used to do stuff like sending emails after successful password change from
+					 * user dashboard
+					 *
+					 * @since 7.5.0
+					 *
+					 * @param integer ID of the user who changed their password
+					 */
+					do_action( 'directorist_password_changed', $ID );
 				}else{
 					$pass_match = esc_html__('Password should be matched and more than five character', 'directorist');
 					wp_send_json_error($pass_match, 'directorist');

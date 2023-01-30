@@ -496,8 +496,8 @@ import { directorist_range_slider } from './range-slider';
                     if (response) {
                       $search_form_box.html(response['search_form']);
 
-                      $container.find('.directorist-category-select option[value="'+cat_id+'"]').attr('selected', true);
                       $container.find('.directorist-category-select option').data('custom-field', 1);
+                      $container.find('.directorist-category-select').val(cat_id);
 
                       [
                         new CustomEvent('directorist-search-form-nav-tab-reloaded'),
@@ -732,49 +732,59 @@ import { directorist_range_slider } from './range-slider';
                         return;
                     }
 
-                    $(field.input_elm).on('keyup', function (event) {
+                    $(field.input_elm).on('keyup', directorist_debounce(function (event) {
                         event.preventDefault();
+
+                        const blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
+
+                        // Return early when blocked key is pressed.
+                        if (blockedKeyCodes.includes(event.keyCode)) {
+                            return;
+                        }
+
+                        const locationAddressField = $(this).parent('.directorist-search-field');
+                        const result_container = field.getResultContainer(this, field);
                         const search = $(this).val();
 
-                        let result_container = field.getResultContainer(this, field);
-                        result_container.css({
-                            display: 'block'
-                        });
-
-                        if (search === '') {
+                        if (search.length < 3) {
                             result_container.css({
                                 display: 'none'
                             });
+                        } else {
+                            locationAddressField.addClass('atbdp-form-fade');
+                            result_container.css({
+                                display: 'block'
+                            });
+
+                            $.ajax({
+                                url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+                                type: 'POST',
+                                data: {},
+                                success: function success(data) {
+                                    let res = '';
+
+                                    for (let i = 0, len = data.length; i < len; i++) {
+                                        res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+                                    }
+
+                                    result_container.html("<ul>".concat(res, "</ul>"));
+                                    if (res.length) {
+                                        result_container.show();
+                                    } else {
+                                        result_container.hide();
+                                    }
+
+                                    locationAddressField.removeClass('atbdp-form-fade');
+                                },
+                                error: function error(_error3) {
+                                    console.log({
+                                        error: _error3
+                                    });
+                                }
+                            });
                         }
-
-                        let res = '';
-                        $.ajax({
-                            url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
-                            type: 'POST',
-                            data: {},
-                            success(data) {
-
-                                for (let i = 0; i < data.length; i++) {
-                                    res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`;
-                                }
-
-                                result_container.html(`<ul>${res}</ul>`);
-
-                                if (res.length) {
-                                    result_container.show();
-                                } else {
-                                    result_container.hide();
-                                }
-                            },
-                            error(error) {
-                                console.log({
-                                    error
-                                });
-                            }
-                        });
-                    });
+                    }, 750));
                 });
-
 
                 // hide address result when click outside the input field
                 $(document).on('click', function (e) {

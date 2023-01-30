@@ -70,7 +70,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function build_content_data() {
-		$content_data = array();
+		$content_data           = array();
 		$single_fields          = get_term_meta( $this->type, 'single_listings_contents', true );
 		$submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
 
@@ -79,6 +79,11 @@ class Directorist_Single_Listing {
 			foreach ( $single_fields['fields'] as $key => $value ) {
 
 				if ( ! is_array( $value ) ) {
+					continue;
+				}
+
+				// If 'other_widgets', then no need to set values from submission form fields
+				if ( $value['widget_group'] === 'other_widgets' ) {
 					continue;
 				}
 
@@ -115,9 +120,7 @@ class Directorist_Single_Listing {
 					$single_fields['fields'][$key]['options'] = $form_data['options'];
 				}
 
-				if( !empty( $form_data['label'] ) ) {
-					$single_fields['fields'][$key]['label'] = $form_data['label'];
-				}
+				$single_fields['fields'][$key]['label'] = !empty( $form_data['label'] ) ? $form_data['label'] : '';
 
 				if( !empty( $form_data['widget_group'] ) ) {
 					$single_fields['fields'][$key]['widget_group'] = $form_data['widget_group'];
@@ -168,6 +171,12 @@ class Directorist_Single_Listing {
 		$has_contents = false;
 
 		foreach ( $section_data['fields'] as $field ) {
+
+			if ( 'other_widgets' === $field['widget_group'] ) {
+				$has_contents = true;
+				break;
+			}
+
 			$value = $this->get_field_value( $field );
 
 			if ( $value ) {
@@ -217,7 +226,7 @@ class Directorist_Single_Listing {
 			return $data['content'];
 		}
 
-		if ( isset( $data['field_key'] ) ) {
+		if ( !empty( $data['field_key'] ) ) {
 			$value = get_post_meta( $post_id, '_'.$data['field_key'], true );
 
 			if ( empty( $value ) ) {

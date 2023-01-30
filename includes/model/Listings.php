@@ -119,7 +119,9 @@ class Directorist_Listings {
 
 		$this->set_options();
 
-		if ( 'search_result' == $this->type ) {
+		$current_page = !empty( $this->atts['_current_page'] ) ? $this->atts['_current_page'] : '';
+
+		if ( 'search_result' === $this->type || ( 'instant_search' == $this->type && 'search_result' === $current_page ) ) {
 			$this->update_search_options();
 		}
 
@@ -954,7 +956,7 @@ class Directorist_Listings {
 			);
 		}
 
-		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
+		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['address'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
@@ -1714,6 +1716,7 @@ class Directorist_Listings {
 		}
 
 		public function data_atts() {
+			$this->atts['_current_page'] = $this->type; // search_result or listing
 			// Separates class names with a single space, collates class names for wrapper tag element.
 			echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
 		}

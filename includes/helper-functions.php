@@ -1193,7 +1193,7 @@ function atbdp_listings_count_by_category( $term_id, $lisitng_type = '' )
         'post_status'    => 'publish',
     );
 
-    if( ! empty( $lisitng_type ) ) {
+    if( ! empty( $lisitng_type ) && 'all' != $lisitng_type ) {
         $args['tax_query'] = array(
             'relation' => 'AND',
             array(
@@ -1300,7 +1300,7 @@ function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' ) {
         'post_status' => 'publish',
     );
 
-    if( ! empty( $lisitng_type ) ) {
+    if( ! empty( $lisitng_type ) && 'all' != $lisitng_type ) {
         $args['tax_query'] = array(
             'relation' => 'AND',
             array(

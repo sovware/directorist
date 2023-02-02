@@ -22,12 +22,13 @@ if ( $value == '' ) {
 
 		<?php
 		foreach ( $data['options'] as $option ) {
-			$id = preg_replace( "/[^\w]+/", "-", $option['option_value'] );
+			$id 	= preg_replace( "/[^\w]+/", "-", $option['option_value'] );
+			$uniqid = $id . '-' . wp_rand();
 			?>
 
 			<div class="directorist-checkbox directorist-checkbox-primary">
-				<input <?php checked( in_array( $option[ 'option_value' ], $value ) ); ?> type="checkbox" id="<?php echo esc_attr( $id ); ?>" name="custom-checkbox" class="custom-checkbox" value="<?php echo esc_attr( $option['option_value'] ); ?>">
-				<label class="directorist-checkbox__label" for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $option['option_label'] ); ?></label>
+				<input <?php checked( in_array( $option[ 'option_value' ], $value ) ); ?> type="checkbox" id="<?php echo esc_attr( $uniqid ); ?>" name="custom-checkbox" class="custom-checkbox" value="<?php echo esc_attr( $option['option_value'] ); ?>">
+				<label class="directorist-checkbox__label" for="<?php echo esc_attr( $uniqid ); ?>"><?php echo esc_html( $option['option_label'] ); ?></label>
 			</div>
 
 			<?php

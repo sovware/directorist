@@ -24,8 +24,8 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			add_filter( 'load-edit.php', array( $this, 'work_row_actions_for_quick_view' ), 10, 2 );
 
 			// bulk directory type assign
-			add_filter( 'quick_edit_custom_box', array( $this, 'on_quick_edit_custom_box' ), 10, 2 );
-			add_filter( 'bulk_edit_custom_box', array( $this, 'on_quick_edit_custom_box' ), 10, 2 );
+			add_action( 'quick_edit_custom_box', array( $this, 'on_quick_edit_custom_box' ), 10, 2 );
+			add_action( 'bulk_edit_custom_box', array( $this, 'on_quick_edit_custom_box' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'save_quick_edit_custom_box' ) );
 
 			// Customize listing slug
@@ -71,30 +71,30 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 		}
 
 		public function on_quick_edit_custom_box( $column_name, $post_type ) {
-
-			if ( 'directory_type' === $column_name && ATBDP_POST_TYPE == $post_type ) { ?>
-				<fieldset class="inline-edit-col-right" style="margin-top: 0;">
-					<div class="inline-edit-group wp-clearfix">
-						<?php wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' ); ?>
-						<span class="title"><?php esc_html_e( 'Directory Type', 'directorist' ); ?></span>
+			if ( ATBDP_POST_TYPE !== $post_type || 'directory_type' !== $column_name ) {
+				return;
+			}
+			?>
+			<fieldset class="inline-edit-col-right" style="margin-top: 0;">
+				<div class="inline-edit-group wp-clearfix">
+					<?php wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' ); ?>
+					<label class="inline-edit-directory-type alignleft">
+						<span class="title"><?php esc_html_e( 'Directory', 'directorist' ); ?></span>
 						<select name="directory_type">
-							<option value="">- <?php esc_html_e( 'Select', 'directorist' ); ?> -</option>
+							<option value="">— <?php esc_html_e( 'Select type', 'directorist' ); ?> —</option>
 							<?php
-							$listing_types = get_terms(
-								array(
-									'taxonomy'   => ATBDP_TYPE,
-									'hide_empty' => false,
-								)
-							);
-							foreach ( $listing_types as $listing_type ) {
-								?>
+							$listing_types = get_terms( array(
+								'taxonomy'   => ATBDP_TYPE,
+								'hide_empty' => false,
+							) );
+							foreach ( $listing_types as $listing_type ) { ?>
 								<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
 							<?php } ?>
 						</select>
-					</div>
-				</fieldset>
-				<?php
-			};
+					</label>
+				</div>
+			</fieldset>
+			<?php
 		}
 
 		public function add_cpt_to_pll( $post_types, $hide ) {

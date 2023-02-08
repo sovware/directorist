@@ -353,8 +353,7 @@ $(document).ready(function () {
   $('#listing_t_c').on('click', function (e) {
     e.preventDefault();
     $('#tc_container').toggleClass('active');
-  });
-  $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>'); // Load custom fields of the selected category in the custom post type "atbdp_listings"
+  }); // Load custom fields of the selected category in the custom post type "atbdp_listings"
 
   var qs = function (a) {
     if (a == '') return {};
@@ -368,80 +367,125 @@ $(document).ready(function () {
     return b;
   }(window.location.search.substr(1).split('&'));
 
-  $('#at_biz_dir-categories').on('change', function () {
-    var directory_type = qs.directory_type ? qs.directory_type : $('input[name="directory_type"]').val();
-    var length = $('#at_biz_dir-categories option:selected');
-    var id = [];
-    length.each(function (el, index) {
-      id.push($(index).val());
-    });
+  function render_category_based_fields() {
+    if (directorist.is_admin) {
+      var directory_type = $('select[name="directory_type"]').val();
+      var from_single_directory = $('input[name="directory_type"]').val();
+      directory_type = directory_type ? directory_type : from_single_directory;
+      var length = $('#at_biz_dir-categorychecklist input:checked');
+      var id = [];
+
+      if (length) {
+        length.each(function (el, index) {
+          id.push($(index).val());
+        });
+      }
+
+      var post_id = $('#post_ID').val();
+    } else {
+      var directory_type = $('input[name="directory_type"]').val();
+      var length = $('#at_biz_dir-categories option:selected');
+      var id = [];
+      length.each(function (el, index) {
+        id.push($(index).val());
+      });
+      var post_id = $('input[name="listing_id"]').val();
+    }
+
     var data = {
       action: 'atbdp_custom_fields_listings',
-      directorist_nonce: typeof directorist !== 'undefined' ? directorist.directorist_nonce : directorist_admin.directorist_nonce,
-      post_id: $('input[name="listing_id"]').val(),
+      directorist_nonce: directorist.directorist_nonce,
+      post_id: post_id,
       term_id: id,
       directory_type: directory_type
     };
     $.post(localized_data.ajaxurl, data, function (response) {
       if (response) {
-        $('.atbdp_category_custom_fields').empty().append(response);
-
-        function atbdp_tooltip() {
-          var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
-          atbd_tooltip.forEach(function (el) {
-            if (el.getAttribute('aria-label') !== " ") {
-              document.body.addEventListener('mouseover', function (e) {
-                for (var target = e.target; target && target != this; target = target.parentNode) {
-                  if (target.matches('.atbd_tooltip')) {
-                    el.classList.add('atbd_tooltip_active');
-                  }
-                }
-              }, false);
-            }
-          });
-        }
-
-        atbdp_tooltip();
-        customFieldSeeMore();
-      } else {
         $('.atbdp_category_custom_fields').empty();
-      }
-    });
-  }); // Load custom fields of the selected category in the custom post type "atbdp_listings"
+        $.each(response, function (id, content) {
+          var $newMarkup = $(content);
 
-  var directory_type = qs.listing_type ? qs.listing_type : $('input[name="directory_type"]').val();
-  var length = $('#at_biz_dir-categories option:selected');
-  var id = [];
-  length.each(function (el, index) {
-    id.push($(index).val());
-  });
-  var data = {
-    action: 'atbdp_custom_fields_listings',
-    post_id: $('input[name="listing_id"]').val(),
-    term_id: id,
-    directory_type: directory_type
-  };
-  $.post(localized_data.ajaxurl, data, function (response) {
-    if (response) {
-      $('.atbdp_category_custom_fields').empty().append(response);
+          if ($newMarkup.find('.directorist-form-element')[0] !== undefined) {
+            $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', "".concat(id));
+          }
 
-      function atbdp_tooltip() {
-        var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
-        atbd_tooltip.forEach(function (el) {
-          if (el.getAttribute('aria-label') !== " ") {
-            document.body.addEventListener('mouseover', function (e) {
-              for (var target = e.target; target && target != this; target = target.parentNode) {
-                if (target.matches('.atbd_tooltip')) {
-                  el.classList.add('atbd_tooltip_active');
-                }
-              }
-            }, false);
+          if ($($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').length) {
+            $($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').each(function (i, item) {
+              $(item).attr('id', "directorist-cf-".concat(id, "-").concat(i));
+              $(item).attr('data-id', "directorist-cf-".concat(id, "-").concat(i));
+              $(item).addClass('directorist-form-checks');
+            });
+            $($newMarkup[0]).find('.directorist-radio label, .directorist-checkbox label').each(function (i, item) {
+              $(item).attr('for', "directorist-cf-".concat(id, "-").concat(i));
+            });
+          }
+
+          $('.atbdp_category_custom_fields').append($newMarkup);
+        });
+        $('.atbdp_category_custom_fields-wrapper').show();
+        customFieldSeeMore();
+        formData.forEach(function (item) {
+          var fieldSingle = document.querySelector("[data-id=\"".concat(item.id, "\"]"));
+
+          if (fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element')) {
+            fieldSingle.value = item.value;
+          }
+
+          if (fieldSingle !== null && !fieldSingle.classList.contains('directorist-form-element')) {
+            fieldSingle.checked = item.checked;
           }
         });
+      } else {
+        $('.atbdp_category_custom_fields').empty();
+        $('.atbdp_category_custom_fields-wrapper').hide();
       }
+    });
+  } // Create container div after category (in frontend)
 
-      atbdp_tooltip();
+
+  $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>'); // Render category based fields in first load
+
+  render_category_based_fields();
+  /* Store custom fields data */
+
+  var formData = [];
+
+  function storeCustomFieldsData() {
+    var customFields = document.querySelectorAll(".atbdp_category_custom_fields .directorist-form-element");
+    var checksField = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-checks');
+
+    if (customFields.length) {
+      customFields.forEach(function (elm) {
+        var elmValue = elm.value;
+        var elmId = elm.getAttribute('data-id');
+        formData.push({
+          "id": elmId,
+          "value": elmValue
+        });
+      });
     }
+
+    if (checksField.length) {
+      checksField.forEach(function (elm) {
+        var elmChecked = elm.checked;
+        var elmId = elm.getAttribute('id');
+        formData.push({
+          "id": elmId,
+          "checked": elmChecked
+        });
+      });
+    }
+  } // Render category based fields on category change (frontend)
+
+
+  $('#at_biz_dir-categories').on('change', function () {
+    render_category_based_fields();
+    storeCustomFieldsData();
+  }); // Render category based fields on category change (backend)
+
+  $('#at_biz_dir-categorychecklist').on('change', function (event) {
+    render_category_based_fields();
+    storeCustomFieldsData();
   });
 
   function scrollToEl(selector) {
@@ -717,10 +761,10 @@ $(document).ready(function () {
       $('.directorist-custom-field-btn-more').each(function (index, element) {
         var fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
         var customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
-        $(customField).slice(20, customField.length).slideUp();
+        $(customField).slice(20, customField.length).hide();
 
         if (customField.length <= 20) {
-          $(element).slideUp();
+          $(element).hide();
         }
       });
     }
@@ -1326,6 +1370,13 @@ function convertToSelect2(field) {
 
 /* Initialize wpColorPicker */
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_colorPicker_executed === 'undefined') {
+    window.directorist_colorPicker_executed = true;
+  } else {
+    return;
+  }
+
   $(document).ready(function () {
     /* Initialize wp color picker */
     function colorPickerInit() {
@@ -1357,6 +1408,13 @@ function convertToSelect2(field) {
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_dropdown_executed === 'undefined') {
+    window.directorist_dropdown_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
@@ -1473,7 +1531,14 @@ function convertToSelect2(field) {
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  //custom select
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_select_executed === 'undefined') {
+    window.directorist_select_executed = true;
+  } else {
+    return;
+  } //custom select
+
+
   var atbdSelect = document.querySelectorAll('.atbd-drop-select');
 
   if (atbdSelect !== null) {

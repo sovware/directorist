@@ -140,6 +140,13 @@
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_alert_executed === 'undefined') {
+    window.directorist_alert_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     /* Directorist alert dismiss */
     var getUrl = window.location.href;
@@ -169,6 +176,13 @@
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_loginjs_executed === 'undefined') {
+    window.directorist_loginjs_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {

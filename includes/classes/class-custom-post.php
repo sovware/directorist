@@ -33,6 +33,47 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 				add_filter( 'post_type_link', array( $this, 'customize_listing_slug' ), 20, 2 );
 				add_filter( 'post_link ', array( $this, 'customize_listing_slug' ), 20, 2 );
 			}
+
+			add_action( 'admin_footer', array( $this, 'quick_edit_scripts' ) );
+		}
+
+		public function quick_edit_scripts() {
+			global $current_screen;
+
+			if ( ATBDP_POST_TYPE !== $current_screen->post_type ) {
+				return;
+			}
+			?>
+			<script>
+			jQuery( function( $ ) {
+				var wp_inline_edit_function = inlineEditPost.edit;
+
+				// we overwrite the it with our own
+				inlineEditPost.edit = function( post_id ) {
+					// let's merge arguments of the original function
+					wp_inline_edit_function.apply( this, arguments );
+
+					// get the post ID from the argument
+					if ( typeof( post_id ) === 'object' ) { // if it is object, get the ID number
+						post_id = Number( this.getId( post_id ) );
+					}
+
+					// add rows to variables
+					var $edit_row = $( '#edit-' + post_id );
+					var $post_row = $( '#post-' + post_id );
+					var directory_type = $( '.column-directory_type', $post_row ).text().trim();
+					var $directory_select = $( 'select[name="directory_type"]', $edit_row );
+					var $selected_option = $directory_select.find('option').filter(function(index, element) {
+						return element.textContent.trim() === directory_type;
+					});
+
+					if ($selected_option.length > 0) {
+						$directory_select.val($selected_option[0].value);
+					}
+				}
+			});
+			</script>
+			<?php
 		}
 
 		// customize_listing_slug

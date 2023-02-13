@@ -107,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 // General Components
 
 
@@ -547,49 +547,41 @@ $(document).ready(function () {
       _iterator2.f();
     }
     if (mediaUploaders.length) {
-      var _iterator3 = _createForOfIteratorHelper(mediaUploaders),
-        _step3;
-      try {
-        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-          var uploader = _step3.value;
-          if (uploader.media_uploader && has_media) {
-            var hasValidFiles = uploader.media_uploader.hasValidFiles();
-            if (hasValidFiles) {
-              // files
-              var files = uploader.media_uploader.getTheFiles();
-              if (files) {
-                for (var i = 0; i < files.length; i++) {
-                  form_data.append(uploader.uploaders_data['meta_name'] + '[]', files[i]);
+      for (var _i = 0, _mediaUploaders = mediaUploaders; _i < _mediaUploaders.length; _i++) {
+        var uploader = _mediaUploaders[_i];
+        if (uploader.media_uploader && has_media) {
+          var hasValidFiles = uploader.media_uploader.hasValidFiles();
+          if (hasValidFiles) {
+            // files
+            var files = uploader.media_uploader.getTheFiles();
+            if (files) {
+              for (var i = 0; i < files.length; i++) {
+                form_data.append(uploader.uploaders_data['meta_name'] + '[]', files[i]);
+              }
+            }
+            var files_meta = uploader.media_uploader.getFilesMeta();
+            if (files_meta) {
+              for (var i = 0; i < files_meta.length; i++) {
+                var elm = files_meta[i];
+                for (var key in elm) {
+                  form_data.append("".concat(uploader.uploaders_data['files_meta_name'], "[").concat(i, "][").concat(key, "]"), elm[key]);
                 }
               }
-              var files_meta = uploader.media_uploader.getFilesMeta();
-              if (files_meta) {
-                for (var i = 0; i < files_meta.length; i++) {
-                  var elm = files_meta[i];
-                  for (var key in elm) {
-                    form_data.append("".concat(uploader.uploaders_data['files_meta_name'], "[").concat(i, "][").concat(key, "]"), elm[key]);
-                  }
-                }
-              }
-            } else {
-              $('.directorist-form-submit__btn').removeClass('atbd_loading');
-              err_log.listing_gallery = {
-                msg: uploader.uploaders_data['error_msg']
-              };
-              error_count++;
-              if ($('#' + uploader.uploaders_data['element_id']).length) {
-                scrollToEl('#' + uploader.uploaders_data['element_id']);
-              }
-              if ($('.' + uploader.uploaders_data['element_id']).length) {
-                scrollToEl('.' + uploader.uploaders_data['element_id']);
-              }
+            }
+          } else {
+            $('.directorist-form-submit__btn').removeClass('atbd_loading');
+            err_log.listing_gallery = {
+              msg: uploader.uploaders_data['error_msg']
+            };
+            error_count++;
+            if ($('#' + uploader.uploaders_data['element_id']).length) {
+              scrollToEl('#' + uploader.uploaders_data['element_id']);
+            }
+            if ($('.' + uploader.uploaders_data['element_id']).length) {
+              scrollToEl('.' + uploader.uploaders_data['element_id']);
             }
           }
         }
-      } catch (err) {
-        _iterator3.e(err);
-      } finally {
-        _iterator3.f();
       }
     }
 
@@ -814,7 +806,7 @@ $(document).ready(function () {
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 var $ = jQuery;
 window.addEventListener('load', waitAndInit);
 window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
@@ -1477,9 +1469,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
 }
 module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;

@@ -148,6 +148,7 @@ class Localized_Data {
 			'deleted'                 => __( 'Deleted!', 'directorist' ),
 			'max_location_creation'   => esc_attr( $max_loc_creation ),
 			'max_location_msg'        => sprintf( __('You can only use %s', 'directorist'), $max_loc_creation ),
+			'phone_number'                 => __( 'Phone Number', 'directorist' ),
 		);
 
 		//get listing is if the screen in edit listing

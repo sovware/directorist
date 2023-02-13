@@ -68,6 +68,7 @@ $(document).ready(function () {
         // now add the new elements. we could do it here without using ajax but it would require more markup here.
         atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
             social_wrap.append(data);
+            modifySocialField();
         });
     });
     document.addEventListener('directorist-reload-plupload', function(){
@@ -739,4 +740,23 @@ $(document).ready(function () {
             },
         });
     });
+
+    //add listing social field modify
+    function modifySocialField(){
+        $('#social_info_sortable_container select.directorist-form-element').each(function(id, elm){
+            $(elm).on('change', function(){
+                let input = $(elm).closest('.directorist-form-social-fields').find('input.directorist-form-element');
+                if($(elm).val() === "whatsapp"){
+                    $(input).attr("type", "number");
+                    $(input).attr("placeholder", localized_data.i18n_text.phone_number);
+                    $(input).attr("min", 0)
+                }else{
+                    $(input).attr("type", "url");
+                    $(input).attr("placeholder", "eg. http://example.com");
+                    $(input).removeAttr("min")
+                }
+            })
+        })
+    }
+    modifySocialField();
 })

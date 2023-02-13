@@ -24,12 +24,17 @@ if ( empty( $socials ) ) {
 	<?php endif; ?>
 
 	<div class="directorist-social-links">
-		<?php  foreach ( $socials as $social ): ?>
-			<?php $icon = 'lab la-' . $social['id']; ?>
-			<a target='_blank' href="<?php echo esc_url( $social['url'] ); ?>" class="<?php echo esc_attr( $social['id'] ); ?>">
-				<?php directorist_icon( $icon ); ?>
-			</a>
-		<?php endforeach; ?>
-	</div>
+
+        <?php foreach ( $socials as $social ): ?>
+            <?php
+                $icon = 'lab la-' . $social['id'];
+                $link = ($social['id'] !== 'whatsapp') ? esc_url( $social['url'] ) : "https://api.whatsapp.com/send?phone=" . esc_attr( $social['url'] );
+            ?>
+            <a target='_blank' href="<?php echo esc_url( $link ); ?>" class="<?php echo esc_attr( $social['id'] ); ?>">
+                <?php directorist_icon( $icon ); ?>
+            </a>
+        <?php endforeach; ?>
+
+    </div>
 
 </div>

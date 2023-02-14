@@ -181,9 +181,17 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				if ( 'map' === $field_key ) {
-					$meta_data['_hide_map']   = ! empty( $posted_data['hide_map'] ) ? $posted_data['hide_map'] : '';
-					$meta_data['_manual_lat'] = ! empty( $posted_data['manual_lat'] ) ? $posted_data['manual_lat'] : '';
-					$meta_data['_manual_lng'] = ! empty( $posted_data['manual_lng'] ) ? $posted_data['manual_lng'] : '';
+					if ( ! empty( $posted_data['hide_map'] ) ) {
+						$meta_data['_hide_map'] = $posted_data['hide_map'];
+					}
+
+					if ( ! empty( $posted_data['manual_lat'] ) ) {
+						$meta_data['_manual_lat'] = $posted_data['manual_lat'];
+					}
+
+					if ( ! empty( $posted_data['manual_lng'] ) ) {
+						$meta_data['_manual_lng'] = $posted_data['manual_lng'];
+					}
 				}
 
 				if ( ! in_array( $field_key, array( 'listing_title', 'listing_content', 'tax_input' ), true ) && isset( $posted_data[ $field_key ] ) ) {

@@ -186,15 +186,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$meta_data['_manual_lng'] = ! empty( $posted_data['manual_lng'] ) ? $posted_data['manual_lng'] : '';
 				}
 
-				if ( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ) {
-					$field_key = '_' . $field_key;
-					if ( isset( $posted_data[ $field_key ] ) ) {
-						$meta_data[ $field_key ] = $posted_data[ $field_key ];
-					}
+				if ( ! in_array( $field_key, array( 'listing_title', 'listing_content', 'tax_input' ), true ) && isset( $posted_data[ $field_key ] ) ) {
+					$meta_field_key = '_' . $field_key;
+					$meta_data[ $meta_field_key ] = $posted_data[ $field_key ];
 				}
 			}
-
-			file_put_contents( __DIR__ . '/data.txt', print_r( array( $meta_data, array_keys( $posted_data ) ), 1 ) );
 
 			// wp_send_json( $error );
 			$title   = ! empty( $posted_data['listing_title'] ) ? sanitize_text_field( $posted_data['listing_title'] ) : '';

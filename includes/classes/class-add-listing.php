@@ -89,8 +89,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			 * */
 			do_action( 'atbdp_before_processing_submitted_listing_frontend', $posted_data );
 
-			$guest            = get_directorist_option( 'guest_listings', 0 );
-			$featured_enabled = get_directorist_option( 'enable_featured_listing' );
+			$guest_listing_enabled = (bool) get_directorist_option( 'guest_listings', 0 );
+			$featured_enabled      = get_directorist_option( 'enable_featured_listing' );
 
 			// data validation
 			$directory             = ! empty( $posted_data['directory_type'] ) ? sanitize_text_field( $posted_data['directory_type'] ) : '';
@@ -209,9 +209,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			// guest user
 			if ( ! is_user_logged_in() ) {
-				// TODO: replace esc_attr with santize_email
-				$guest_email = isset( $posted_data['guest_user_email'] ) ? esc_attr( $posted_data['guest_user_email'] ) : '';
-				if ( ! empty( $guest && $guest_email ) ) {
+				$guest_email = isset( $posted_data['guest_user_email'] ) ? sanitize_email( $posted_data['guest_user_email'] ) : '';
+				if ( $guest_listing_enabled && is_email( $guest_email ) ) {
 					atbdp_guest_submission( $guest_email );
 				}
 			}

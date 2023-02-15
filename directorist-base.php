@@ -149,6 +149,13 @@ final class Directorist_Base
 	public $tools;
 
 	/**
+	 * ATBDP_Announcement Object.
+	 *
+	 * @var ATBDP_Announcement
+	 */
+	public $announcement;
+
+	/**
 	 * ATBDP_Single_Templates Object.
 	 *
 	 * @var ATBDP_Single_Templates

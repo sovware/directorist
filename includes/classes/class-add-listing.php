@@ -121,12 +121,13 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$attachment_only_for_admin = false;
 
 			// meta input
-			foreach ( $submission_form_fields as $field_key => $form_field ) {
+			foreach ( $submission_form_fields as $field_internal_key => $form_field ) {
 				$field_key        = ! empty( $form_field['field_key'] ) ? $form_field['field_key'] : '';
 				$submitted_data   = ! empty( $posted_data[ $field_key ] ) ? $posted_data[ $field_key ] : '';
-				$required         = ! empty( $form_field['required'] ) ? $form_field['required'] : '';
-				$only_for_admin   = ! empty( $form_field['only_for_admin'] ) ? $form_field['only_for_admin'] : '';
+				$required         = ! empty( $form_field['required'] ) ? true : false;
+				$only_for_admin   = ! empty( $form_field['only_for_admin'] ) ? true : false;
 				$label            = ! empty( $form_field['label'] ) ? $form_field['label'] : '';
+
 				$additional_logic = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $form_field, $posted_data );
 
 				$field_category = ! empty( $form_field['category'] ) ? $form_field['category'] : '';
@@ -136,32 +137,32 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				if ( $additional_logic ) {
 					// error handling
-					if ( ( 'category' === $field_key ) && $required && ! $only_for_admin && ! $admin_category_select ) {
+					if ( ( 'category' === $field_internal_key ) && $required && ! $only_for_admin && ! $admin_category_select ) {
 						// translators: %s field label.
 						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
 					}
 
-					if ( ( 'location' === $field_key ) && $required && ! $only_for_admin && ! $location ) {
+					if ( ( 'location' === $field_internal_key ) && $required && ! $only_for_admin && ! $location ) {
 						// translators: %s field label.
 						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
 					}
 
-					if ( ( 'tag' === $field_key ) && $required && ! $only_for_admin && ! $tag ) {
+					if ( ( 'tag' === $field_internal_key ) && $required && ! $only_for_admin && ! $tag ) {
 						// translators: %s field label.
 						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
 					}
 
-					if ( ( 'image_upload' === $field_key ) && $required && ! $only_for_admin && ! $images ) {
+					if ( ( 'image_upload' === $field_internal_key ) && $required && ! $only_for_admin && ! $images ) {
 						// translators: %s field label.
 						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
 					}
 
-					if ( ( 'map' === $field_key ) && $required && ! $only_for_admin && ! $map ) {
+					if ( ( 'map' === $field_internal_key ) && $required && ! $only_for_admin && ! $map ) {
 						// translators: %s field label.
 						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
 					}
 
-					if ( ( 'category' !== $field_key ) && ( 'tag' !== $field_key ) && ( 'location' !== $field_key ) && ( 'image_upload' !== $field_key ) && ( 'map' !== $field_key ) ) {
+					if ( ( 'category' !== $field_internal_key ) && ( 'tag' !== $field_internal_key ) && ( 'location' !== $field_internal_key ) && ( 'image_upload' !== $field_internal_key ) && ( 'map' !== $field_internal_key ) ) {
 						if ( $required && ! $submitted_data && ! $only_for_admin ) {
 							// translators: %s field label.
 							$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
@@ -169,52 +170,46 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 				}
 
-				if ( ( 'image_upload' == $field_key ) && $only_for_admin ) {
+				if ( ( 'image_upload' === $field_internal_key ) && $only_for_admin ) {
 					$attachment_only_for_admin = true;
 				}
 
 				// process meta
-				if ( 'pricing' === $field_key ) {
-					$meta_data['_atbd_listing_pricing'] = ! empty( $posted_data['atbd_listing_pricing'] ) ? $posted_data['atbd_listing_pricing'] : '';
-					$meta_data['_price']                = ! empty( $posted_data['price'] ) ? $posted_data['price'] : '';
-					$meta_data['_price_range']          = ! empty( $posted_data['price_range'] ) ? $posted_data['price_range'] : '';
+				if ( 'pricing' === $field_internal_key ) {
+					$meta_data['_atbd_listing_pricing'] = isset( $posted_data['atbd_listing_pricing'] ) ? sanitize_text_field( $posted_data['atbd_listing_pricing'] ) : '';
+					$meta_data['_price'] = isset( $posted_data['price'] ) ? sanitize_text_field( $posted_data['price'] ) : '';
+					$meta_data['_price_range'] = isset( $posted_data['price_range'] ) ? sanitize_text_field( $posted_data['price_range'] ) : '';
 				}
 
-				if ( 'map' === $field_key ) {
-					if ( ! empty( $posted_data['hide_map'] ) ) {
-						$meta_data['_hide_map'] = $posted_data['hide_map'];
-					}
-
-					if ( ! empty( $posted_data['manual_lat'] ) ) {
-						$meta_data['_manual_lat'] = $posted_data['manual_lat'];
-					}
-
-					if ( ! empty( $posted_data['manual_lng'] ) ) {
-						$meta_data['_manual_lng'] = $posted_data['manual_lng'];
-					}
+				if ( 'map' === $field_internal_key ) {
+					$meta_data['_hide_map'] = isset( $posted_data['hide_map'] ) ? sanitize_text_field( $posted_data['hide_map'] ) : '';
+					$meta_data['_manual_lat'] = isset( $posted_data['manual_lat'] ) ? sanitize_text_field( $posted_data['manual_lat'] ) : '';
+					$meta_data['_manual_lng'] = isset( $posted_data['manual_lng'] ) ? sanitize_text_field( $posted_data['manual_lng'] ) : '';
 				}
 
 				if ( ! in_array( $field_key, array( 'listing_title', 'listing_content', 'tax_input' ), true ) && isset( $posted_data[ $field_key ] ) ) {
 					$meta_field_key = '_' . $field_key;
-					$meta_data[ $meta_field_key ] = $posted_data[ $field_key ];
+					$meta_data[ $meta_field_key ] = sanitize_text_field( $posted_data[ $field_key ] );
 				}
 			}
 
 			// wp_send_json( $error );
 			$title   = ! empty( $posted_data['listing_title'] ) ? sanitize_text_field( $posted_data['listing_title'] ) : '';
-			$content = ! empty( $posted_data['listing_content'] ) ? wp_kses( $posted_data['listing_content'], wp_kses_allowed_html( 'post' ) ) : '';
+			$content = ! empty( $posted_data['listing_content'] ) ? wp_kses_post( $posted_data['listing_content'] ) : '';
 
 			if ( ! empty( $posted_data['privacy_policy'] ) ) {
-				$meta_data['_privacy_policy'] = $posted_data['privacy_policy'] ? $posted_data['privacy_policy'] : '';
+				$meta_data['_privacy_policy'] = $posted_data['privacy_policy'];
 			}
+
 			if ( ! empty( $posted_data['t_c_check'] ) ) {
-				$meta_data['_t_c_check'] = $posted_data['t_c_check'] ? $posted_data['t_c_check'] : '';
+				$meta_data['_t_c_check'] = $posted_data['t_c_check'];
 			}
 
 			$meta_data['_directory_type'] = $directory_type;
 
 			// guest user
 			if ( ! is_user_logged_in() ) {
+				// TODO: replace esc_attr with santize_email
 				$guest_email = isset( $posted_data['guest_user_email'] ) ? esc_attr( $posted_data['guest_user_email'] ) : '';
 				if ( ! empty( $guest && $guest_email ) ) {
 					atbdp_guest_submission( $guest_email );
@@ -232,23 +227,33 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			 */
 
 			$meta_data = apply_filters( 'atbdp_listing_meta_user_submission', $meta_data );
-			// wp_send_json($meta_data);
+			$meta_data = apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $meta_data, $posted_data );
+			$meta_input = array_filter( $meta_data, static function( $value ) {
+				return ( $value !== '' );
+			} );
+
 			$args = array(
 				'post_content' => $content,
 				'post_title'   => $title,
 				'post_type'    => ATBDP_POST_TYPE,
 				'tax_input'    => ! empty( $posted_data['tax_input'] ) ? directorist_clean( $posted_data['tax_input'] ) : array(),
-				'meta_input'   => apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $meta_data, $posted_data ),
+				'meta_input'   => $meta_input,
 			);
 
 			// is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
 			if ( ! empty( $posted_data['listing_id'] ) ) {
+				$listing_id = absint( $posted_data['listing_id'] );
+
 				/**
 				 * @since 5.4.0
 				 */
 				do_action( 'atbdp_before_processing_to_update_listing' );
 
-				$listing_id  = absint( $posted_data['listing_id'] );
+				$deletable_meta_data = array_diff_key( $meta_data, $meta_input );
+				foreach ( $deletable_meta_data as $deletable_meta_key => $v ) {
+					delete_post_meta( $listing_id, $deletable_meta_key );
+				}
+				
 				$_args       = array(
 					'id'            => $listing_id,
 					'edited'        => true,

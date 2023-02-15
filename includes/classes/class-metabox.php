@@ -336,121 +336,134 @@ class ATBDP_Metabox {
 		$listing_type = !empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
 		$listing_categories = !empty( $_POST['tax_input']['at_biz_dir-category'] ) ?  directorist_clean( wp_unslash( $_POST['tax_input']['at_biz_dir-category'] ) ) : array();
 		$listing_locations = !empty( $_POST['tax_input']['at_biz_dir-location'] ) ?  directorist_clean( wp_unslash( $_POST['tax_input']['at_biz_dir-location'] ) ) : array();
-		$submission_form_fields = [];
-		$metas = [];
-		if( $listing_type ){
+		$submission_form_fields = array();
+		$meta_data = array();
+
+		if ( $listing_type ) {
 			$term = get_term_by( is_numeric( $listing_type ) ? 'id' : 'slug', $listing_type, ATBDP_TYPE );
 			$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
 			$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
 			$submission_form_fields = $submission_form['fields'];
 		}
 
-		if( ( ! empty( $listing_categories ) || ! empty( $listing_locations ) ) && ! empty( $listing_type ) ) {
-			foreach( $listing_categories as $category ) {
+		if ( ( ! empty( $listing_categories ) || ! empty( $listing_locations ) ) && ! empty( $listing_type ) ) {
+			foreach ( $listing_categories as $category ) {
 				$directory_type = get_term_meta( $category, '_directory_type', true );
-				if( empty( $directory_type ) ) {
+				if ( empty( $directory_type ) ) {
 					update_term_meta( $category, '_directory_type', array( $term->term_id ) );
 				}
 			}
 
-			foreach( $listing_locations as $location ) {
+			foreach ( $listing_locations as $location ) {
 				$directory_type = get_term_meta( $location, '_directory_type', true );
-				if( empty( $directory_type ) ) {
+				if ( empty( $directory_type ) ) {
 					update_term_meta( $location, '_directory_type', array( $term->term_id ) );
 				}
 			}
 		}
 
-		foreach( $submission_form_fields as $key => $value ){
+		foreach ( $submission_form_fields as $key => $value ) {
 			$field_type = !empty( $value['field_type'] ) ? $value['field_type'] : '';
-			if( 'image_upload' === $key ) {
-				$metas['_listing_img']       = !empty($_POST['listing_img'])? directorist_clean( wp_unslash( $_POST['listing_img'] ) ) : array();
-				$metas['_listing_prv_img']   = !empty($_POST['listing_prv_img'])? directorist_clean( wp_unslash( $_POST['listing_prv_img'] ) ) : '';
-			}
-			if( 'pricing' === $key ) {
-				$metas[ '_atbd_listing_pricing' ] 	= !empty( $_POST['atbd_listing_pricing'] ) ? directorist_clean( wp_unslash( $_POST['atbd_listing_pricing'] ) ) : '';
-				$metas[ '_price' ] 					= !empty( $_POST['price'] ) ? directorist_clean( wp_unslash( $_POST['price'] ) ) : '';
-				$metas[ '_price_range' ] 			= !empty( $_POST['price_range'] ) ? directorist_clean( wp_unslash( $_POST['price_range'] ) ) : '';
-			}
-			if( 'map' === $key ) {
-				$metas[ '_hide_map' ]   = !empty( $_POST['hide_map'] ) ? directorist_clean( wp_unslash( $_POST['hide_map'] ) ) : '';
-				$metas[ '_manual_lat' ] = !empty( $_POST['manual_lat'] ) ? directorist_clean( wp_unslash( $_POST['manual_lat'] ) ) : '';
-				$metas[ '_manual_lng' ] = !empty( $_POST['manual_lng'] ) ? directorist_clean( wp_unslash( $_POST['manual_lng'] ) ) : '';
-			}
-			$field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
 
-			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
-				$key = '_'. $field_key;
-				$metas[ $key ] = !empty( $_POST[ $field_key ] ) ? wp_unslash( $_POST[ $field_key ] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if ( 'image_upload' === $key ) {
+				$meta_data['_listing_img']     = ! empty( $_POST['listing_img'] ) ? (array) directorist_clean( wp_unslash( $_POST['listing_img'] ) ) : array();
+				$meta_data['_listing_prv_img'] = isset( $_POST['listing_prv_img'] ) ? directorist_clean( wp_unslash( $_POST['listing_prv_img'] ) ) : '';
 			}
 
+			if ( 'pricing' === $key ) {
+				$meta_data['_atbd_listing_pricing'] = isset( $_POST['atbd_listing_pricing'] ) ? directorist_clean( wp_unslash( $_POST['atbd_listing_pricing'] ) ) : '';
+				$meta_data['_price' ]               = isset( $_POST['price'] ) ? directorist_clean( wp_unslash( $_POST['price'] ) ) : '';
+				$meta_data['_price_range']          = isset( $_POST['price_range'] ) ? directorist_clean( wp_unslash( $_POST['price_range'] ) ) : '';
+			}
+
+			if ( 'map' === $key ) {
+				$meta_data['_hide_map']   = isset( $_POST['hide_map'] ) ? directorist_clean( wp_unslash( $_POST['hide_map'] ) ) : '';
+				$meta_data['_manual_lat'] = isset( $_POST['manual_lat'] ) ? directorist_clean( wp_unslash( $_POST['manual_lat'] ) ) : '';
+				$meta_data['_manual_lng'] = isset( $_POST['manual_lng'] ) ? directorist_clean( wp_unslash( $_POST['manual_lng'] ) ) : '';
+			}
+
+			$field_key = ! empty( $value['field_key'] ) ? $value['field_key'] : '';
+
+			if ( ! in_array( $field_key, array( 'listing_title', 'listing_content', 'tax_input' ), true ) ) {
+				$meta_field_key = '_' . $field_key;
+				$meta_data[ $meta_field_key ] = isset( $_POST[ $field_key ] ) ? directorist_clean( wp_unslash( $_POST[ $field_key ] ) ) : '';
+			}
 		}
 
-		$metas['_directory_type'] = $listing_type;
-		$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', ! empty( $metas['_directory_type'] ) );
+		$meta_data['_directory_type'] = $listing_type;
+		$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', (bool) $meta_data['_directory_type'] );
 
 		if ( $should_update_directory_type ) {
 			wp_set_object_terms( $post_id, (int) $listing_type, ATBDP_TYPE );
 		}
 
-		$metas['_featured'] = !empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
+		$meta_data['_featured'] = ! empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
 
-	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
-		$metas['_never_expire']      = !empty($_POST['never_expire']) ? (int) directorist_clean( wp_unslash( $_POST['never_expire'] ) ) : $expiration_to_forever;
-		$exp_dt 					 = !empty($_POST['exp_date']) ? directorist_clean( wp_unslash( $_POST['exp_date'] ) ) : array(); // get expiry date from the $_POST and then later sanitize it.
+		$expiration_to_forever      = ! $expiration ? 1 : '';
+		$meta_data['_never_expire'] = ! empty( $_POST['never_expire'] ) ? (int) directorist_clean( wp_unslash( $_POST['never_expire'] ) ) : $expiration_to_forever;
+		$expire_date                = ! empty( $_POST['exp_date'] ) ? directorist_clean( wp_unslash( $_POST['exp_date'] ) ) : array();                               // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
-		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){
-			$exp_dt = array(
-				'year'  => (int) $exp_dt['aa'],
-				'month' => (int) $exp_dt['mm'],
-				'day'   => (int) $exp_dt['jj'],
-				'hour'  => (int) $exp_dt['hh'],
-				'min'   => (int) $exp_dt['mn']
-			);
-			$exp_dt = get_date_in_mysql_format($exp_dt);
-		}else{
-			$exp_dt = calc_listing_expiry_date( '', $expiration, $directory_type ); // get the expiry date in mysql date format using the default expiration date.
+		if ( ! is_empty_v( $expire_date ) && ! empty( $expire_date['aa'] ) ) {
+			$expire_date = get_date_in_mysql_format( array(
+				'year'  => (int) $expire_date['aa'],
+				'month' => (int) $expire_date['mm'],
+				'day'   => (int) $expire_date['jj'],
+				'hour'  => (int) $expire_date['hh'],
+				'min'   => (int) $expire_date['mn']
+			) );
+		} else {
+			$expire_date = calc_listing_expiry_date( '', $expiration, $directory_type ); // get the expiry date in mysql date format using the default expiration date.
 		}
 
-		$metas['_expiry_date']  = $exp_dt;
-		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas, $_POST);
-		// save the meta data to the database
+		$meta_data['_expiry_date'] = $expire_date;
+		$meta_data                 = apply_filters( 'atbdp_listing_meta_admin_submission', $meta_data, $_POST );
+		$updatable_meta_data       = array_filter( $meta_data, static function( $value ) {
+			if ( is_array( $value ) ) {
+				return ! empty( $value );
+			}
+			return $value !== '';
+		} );
 
-		foreach ($metas as $meta_key => $meta_value) {
-			update_post_meta($post_id, $meta_key, $meta_value); // array value will be serialize automatically by update post meta
+		foreach ( $updatable_meta_data as $meta_key => $meta_value) {
+			update_post_meta( $post_id, $meta_key, $meta_value );
 		}
 
-		if (!empty($_POST['listing_prv_img'])){
+		$deletable_meta_data = array_diff_key( $meta_data, $updatable_meta_data );
+		foreach ( $deletable_meta_data as $deletable_meta_key => $v ) {
+			delete_post_meta( $post_id, $deletable_meta_key );
+		}
+
+		if ( ! empty( $_POST['listing_prv_img'] ) ) {
 			set_post_thumbnail( $post_id, directorist_clean( wp_unslash( $_POST['listing_prv_img'] ) ) );
-		}else{
-			delete_post_thumbnail($post_id);
+		} else {
+			delete_post_thumbnail( $post_id );
 		}
 
-		$listing_status = get_post_meta($post_id, '_listing_status', true);
-		$post_status = get_post_status($post_id);
-		$current_d = current_time('mysql');
+		$listing_status = get_post_meta( $post_id, '_listing_status', true );
+		$post_status    = get_post_status( $post_id );
+		$current_date   = current_time( 'mysql' );
 
 		// let's check is listing need to update
-		if ( empty( $listing_status ) || ('expired' === $listing_status) && ('private' === $post_status)){
-
-			if ( ( $exp_dt > $current_d ) || !empty( $_POST['never_expire'] ) ) {
+		if ( empty( $listing_status ) || ( 'expired' === $listing_status ) && ( 'private' === $post_status ) ) {
+			if ( ( $expire_date > $current_date ) || ! empty( $_POST['never_expire'] ) ) {
 				wp_update_post( array(
-					'ID'           => $post_id,
-					'post_status' => $post_status, // update the status to private so that we do not run this func a second time
-					'meta_input' => array(
+					'ID'          => $post_id,
+					'post_status' => $post_status,   // update the status to private so that we do not run this func a second time
+					'meta_input'  => array(
 						'_listing_status' => 'post_status',
 					), // insert all meta data once to reduce update meta query
 				) );
 			}
 		}
 
-
-		if ( ! metadata_exists( 'post', $post_id, '_featured' ) ) {
-			update_post_meta( $post_id, '_featured', false );
-		}
-
-		if ( ! metadata_exists( 'post', $post_id, '_listing_status' ) ) {
-			update_post_meta( $post_id, '_listing_status', 'post_status' );
-		}
+		// No need to save false value. It's false when the value doesn't exists.
+		// if ( ! metadata_exists( 'post', $post_id, '_featured' ) ) {
+		// 	update_post_meta( $post_id, '_featured', false );
+		// }
+		
+		// Already being saved.
+		// if ( ! metadata_exists( 'post', $post_id, '_listing_status' ) ) {
+		// 	update_post_meta( $post_id, '_listing_status', 'post_status' );
+		// }
 	}
 }

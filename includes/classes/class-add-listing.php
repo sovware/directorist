@@ -228,6 +228,9 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$meta_data = apply_filters( 'atbdp_listing_meta_user_submission', $meta_data );
 			$meta_data = apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $meta_data, $posted_data );
 			$meta_input = array_filter( $meta_data, static function( $value ) {
+				if ( is_array( $value ) ) {
+					return ! empty( $value );
+				}
 				return ( $value !== '' );
 			} );
 

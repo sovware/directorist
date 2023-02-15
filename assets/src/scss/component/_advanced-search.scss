@@ -86,10 +86,13 @@
             .directorist-search-field{
                 label{
                     min-width: 150px;
+                    margin-bottom: 6px;
+                    display: inline-block;
                 }
 
                 .directorist-btn-ml{
-                    display: inline-block;
+                    display: inline-flex;
+                    align-items: center;
                     font-size: 14px;
                     color: #7a82a6;
                     text-decoration: none;
@@ -104,6 +107,12 @@
                     .directorist-checkbox{
                         margin: 5px;
                     }
+                }
+            }
+            .directorist-search-tags{
+                flex-wrap: wrap;
+                .directorist-checkbox{
+                    margin-bottom: 5px;
                 }
             }
         }
@@ -316,7 +325,6 @@
             }
 
             .directorist-checkbox__label{
-
                 margin-left: 0;
             }
 

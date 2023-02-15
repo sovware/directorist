@@ -12,9 +12,9 @@ window.addEventListener('DOMContentLoaded', () => {
                             }
                         })
                     });
-                }
+                } 
                 (function () {
-                    eventDelegation('click', '.directorist-filter-location-icon span', function (e) {
+                    eventDelegation('click', '.directorist-filter-location-icon > i, .directorist-filter-location-icon > span', function (e) {
                         const locationInput = e.target.closest('.directorist-search-field').querySelector('.location-name');
                         const get_lat = e.target.closest('.directorist-search-field').querySelector("#cityLat");
                         const get_lng = e.target.closest('.directorist-search-field').querySelector("#cityLng");
@@ -130,8 +130,8 @@ window.addEventListener('DOMContentLoaded', () => {
                         },
                     });
                 }
-                $('.directorist-filter-location-icon').on('click', (event) => {
-                    navigator.geolocation.getCurrentPosition((position) => displayLocation(position, event));
+                $('body').on("click", ".directorist-filter-location-icon", function (e) {
+                    navigator.geolocation.getCurrentPosition((position) => displayLocation(position, e));
                 });
             }
 

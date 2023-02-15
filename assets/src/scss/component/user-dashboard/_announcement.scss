@@ -3,6 +3,7 @@
     background-color: #fff;
     border-radius: 4px;
     padding: 25px 20px;
+    box-shadow: 0 0 15px rgba(0,0,0, 0.05);
 
     .directorist-announcement {
         font-size: 15px;
@@ -116,7 +117,7 @@
                 justify-content: center;
 
                 .directorist-icon-mask {
-                    span{
+                    &:after{
                         transition: .35s;
                         background-color: #474868;
                     }
@@ -126,7 +127,7 @@
                     background-color: $danger;
 
                     .directorist-icon-mask {
-                        span{
+                        &:after{
                             background-color: #fff;
                         }
                     }

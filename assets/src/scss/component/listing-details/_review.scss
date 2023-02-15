@@ -39,7 +39,7 @@
         .br-widget a {
             &:before {
                 content: "";
-                mask-image: url("../../../../icons/line-awesome/svgs/star.svg");
+                mask-image: url("../../../../icons/line-awesome/svgs/star-solid.svg");
                 mask-repeat: no-repeat;
                 width: 14px;
                 height: 14px;
@@ -330,10 +330,12 @@ Review: New Style
                 align-items: center;
                 margin-top: 10px;
                 margin-bottom: 10px;
-                span{
+                .directorist-icon-mask{
                     display: inline-block;
                     margin-right: 4px;
-                    background-color: #fff;
+                    &::after{
+                        background-color: #fff;
+                    }
                 }
             }
             @include m(noreviews){
@@ -388,6 +390,14 @@ Review: New Style
                     color: #EF8000;
                     display: flex;
                     align-items: center;
+                    margin-bottom: 3px;
+                    .directorist-icon-mask{
+                        &::after{
+                            width: 15px;
+                            height: 15px;
+                            background-color: #EF8000;
+                        }
+                    }
                 }
 
                 .directorist-rating-overall {
@@ -591,6 +601,14 @@ Review: New Style
                                     color: #EF8000;
                                     display: flex;
                                     align-items: center;
+                                    margin-bottom: 3px;
+                                    .directorist-icon-mask{
+                                        &::after{
+                                            width: 11px;
+                                            height: 11px;
+                                            background-color: #EF8000;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -644,6 +662,18 @@ Review: New Style
                         display: block;
                         margin: 0 8px;
                         background: none;
+                        &.directorist-comment-edit-link{
+                            display: inline-flex;
+                            align-items: center;
+                            .directorist-icon-mask{
+                                margin-right: 3px;
+                                &::after{
+                                    width: 0.9em;
+                                    height: 0.9em;
+                                    background-color: #8C90A4;
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -808,7 +838,7 @@ Review: New Style
 
                         &:before {
                             content: "";
-                            mask-image: url("../../../../icons/line-awesome/svgs/star.svg");
+                            mask-image: url("../../../../icons/line-awesome/svgs/star-solid.svg");
                             mask-repeat: no-repeat;
                             width: 14px;
                             height: 14px;

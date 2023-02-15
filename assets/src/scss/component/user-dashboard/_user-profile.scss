@@ -46,7 +46,10 @@
 .directorist-user-info-wrap {
     .directorist-form-group {
         margin-bottom: 25px;
-
+        > label {
+            display: inline-flex;
+            margin-bottom: 5px;
+        }
         .directorist-input-extra-info {
             color: $light-gray;
             display: inline-block;
@@ -80,7 +83,7 @@
         .directorist-social-icon {
             margin-right: 6px;
             .directorist-icon-mask{
-                span{
+                &:after{
                     width: 16px;
                     height: 16px;
                     background-color: #0A0B1E;

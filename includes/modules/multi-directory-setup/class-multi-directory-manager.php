@@ -1550,7 +1550,7 @@ class Multi_Directory_Manager
 
             'custom' => [
                 'title' => __( 'Custom Fields', 'directorist' ),
-                'description' => __( 'Click on a field type you want to create. Need help?', 'directorist' ),
+                'description' => __( 'Click on a field type you want to create.', 'directorist' ),
                 'allowMultiple' => true,
                 'widgets' => apply_filters('atbdp_form_custom_widgets', [
                     'text' => [
@@ -4553,7 +4553,7 @@ class Multi_Directory_Manager
                         'sections' => [
                             'form_fields' => [
                                 'title' => __( 'Select or create fields for the add listing form', 'directorist' ),
-                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/add-listing-form-layout/"> '. __( 'Need help?', 'directorist' ) .' </a>',
+                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/form-and-layout-builder/">'. __( 'Need help?', 'directorist' ) .' </a>',
                                 'fields' => [
                                     'submission_form_fields'
                                 ],
@@ -4927,13 +4927,12 @@ class Multi_Directory_Manager
     // handle_delete_listing_type_request
     public function handle_delete_listing_type_request()
     {
-
-        if ( ! empty( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'delete_listing_type' ) ) {
-            wp_die('Are you cheating? | _wpnonce');
+        if ( ! directorist_verify_nonce( '_wpnonce', 'delete_listing_type' ) ) {
+            wp_die( esc_html__( 'Invalid request', 'directorist' ) );
         }
 
-        if ( ! current_user_can('manage_options') ) {
-            wp_die('Are you cheating? | manage_options');
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( esc_html__( 'You are not allowed to delete directory type', 'directorist' ) );
         }
 
         $term_id = isset( $_REQUEST['listing_type_id'] ) ? absint( $_REQUEST['listing_type_id'] ) : 0;

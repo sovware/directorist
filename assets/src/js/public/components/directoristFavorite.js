@@ -1,14 +1,24 @@
 ;
 (function ($) {
+    // Make sure the codes in this file runs only once, even if enqueued twice
+    if ( typeof window.directorist_favorite_executed === 'undefined' ) {
+        window.directorist_favorite_executed = true;
+    } else {
+        return;
+    }
     window.addEventListener('DOMContentLoaded', () => {
         // Add or Remove from favourites
         $('#atbdp-favourites').on('click', function (e) {
+            e.preventDefault();
             var data = {
                 'action': 'atbdp_public_add_remove_favorites',
                 'directorist_nonce': directorist.directorist_nonce,
                 'post_id': $("a.atbdp-favourites").data('post_id')
             };
             $.post(directorist.ajaxurl, data, function (response) {
+                console.log('added')
+                console.log(response)
+                console.log(directorist.ajaxurl)
                 if ( response ) {
                     $('#atbdp-favourites').html(response);
                 }
@@ -26,7 +36,6 @@
 
                 $(".directorist-favorite-tooltip").hide();
                 $.post(directorist.ajaxurl, data, function (response) {
-
                     var post_id = data['post_id'].toString();
                     var staElement = $('.directorist_favourite_' + post_id);
 

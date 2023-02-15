@@ -70,7 +70,9 @@ class Localized_Data {
 			'nonce'                       => wp_create_nonce( 'atbdp_nonce_action_js' ),
 			'directorist_nonce'           => wp_create_nonce( directorist_get_nonce_key() ),
 			'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
+			'is_admin'		              => is_admin(),
 			'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
+			'assets_url'                  => DIRECTORIST_ASSETS,
 			'home_url'                    => home_url(),
 			'rest_url'                    => rest_url(),
 			'nonceName'                   => 'atbdp_nonce_js',
@@ -108,6 +110,7 @@ class Localized_Data {
 			'add_listing_data'            => self::get_add_listings_data(),
 			'lazy_load_taxonomy_fields'   => get_directorist_option( 'lazy_load_taxonomy_fields', false, true ),
 			'current_page_id'             => get_the_ID(),
+			'icon_markup'                 => '<i class="directorist-icon-mask ##CLASS##" aria-hidden="true" style="--directorist-icon: url(##URL##)"></i>',
 		);
 
 		return $data;

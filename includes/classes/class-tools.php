@@ -178,37 +178,51 @@
                     $imported++;
 
                     if ( $tax_inputs ) {
-                        foreach ( $tax_inputs as $taxonomy => $term ) {
+                        foreach ( $tax_inputs as $taxonomy => $value ) {
+                            
+                            if( ! $value ) {
+                                continue;
+                            }
+
+                            $terms = isset( $post[ $value ] ) && ! empty( $post[ $value ] ) ? explode( ',', $post[ $value ] ) : array();
+                            if( ! $terms ) {
+                                continue;
+                            }
+
                             if ('category' == $taxonomy) {
                                 $taxonomy = ATBDP_CATEGORY;
-                            } elseif ('location' == $taxonomy) {
+                            }elseif ('location' == $taxonomy) {
                                 $taxonomy = ATBDP_LOCATION;
-                            } else {
+                            }else{
                                 $taxonomy = ATBDP_TAGS;
                             }
 
-                            $final_term  = isset( $post[ $term ] ) ? $post[ $term ] : '';
-                            $final_terms = ( ! empty( $final_term ) ) ? explode( ',', $final_term ) : [];
-
-                            if ( ! empty( $final_terms ) ) {
-                                foreach( $final_terms as $term_item ) {
-                                    $term_exists = get_term_by( 'name', $term_item, $taxonomy );
-                                
-                                    if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
-                                        $result = wp_insert_term( $term_item, $taxonomy );
-                                        
-                                        if ( ! is_wp_error( $result ) ) {
-                                            $term_id = $result['term_id'];
-                                            wp_set_object_terms( $post_id, $term_id, $taxonomy);
-                                            update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
-                                        }
-                                    } else {
-                                        wp_set_object_terms( $post_id, $term_exists->term_id, $taxonomy, true );
-                                        update_term_meta( $term_exists->term_id, '_directory_type', [ $directory_type ] );
-                                    }
-                                }
-                            }
+                            $term_ids = array();
+                            $multiple = $terms > 0;
                             
+                            foreach( $terms as $term ) {
+
+                                $_term = wp_insert_term( $term, $taxonomy );
+
+                                if ( is_wp_error( $_term ) ) {
+                                    if ( $_term->get_error_code() === 'term_exists' ) {
+                                        // When term exists, error data should contain existing term id.
+                                        $term_id = $_term->get_error_data();
+
+                                    } else {
+                                        break; // We cannot continue on any other error.
+                                    }
+                                } else {
+                                    // New term.
+                                    $term_id = $_term['term_id'];
+                                }
+
+                                update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
+
+                                $term_ids[] = $term_id;
+
+                            }
+                            wp_set_object_terms( $post_id, $term_ids, $taxonomy, $multiple );
                         }
                     }
 
@@ -221,7 +235,7 @@
                         }
                     }
 
-                    $exp_dt = calc_listing_expiry_date();
+                    $exp_dt = calc_listing_expiry_date( '', '', $directory_type );
                     update_post_meta( $post_id, '_expiry_date', $exp_dt );
                     update_post_meta( $post_id, '_featured', 0 );
                     update_post_meta( $post_id, '_listing_status', 'post_status' );
@@ -249,7 +263,6 @@
                                 $attachment_ids[] = $attachment_id;
                             }
                         }
-
                         update_post_meta($post_id, '_listing_img', $attachment_ids );
                     }
 
@@ -297,13 +310,48 @@
             return false;
         }
         $contents = @file_get_contents($file_url);
+        
         if ($contents === false) {
             return false;
         }
-        $upload = wp_upload_bits(basename($file_url), null, $contents);
+
+        if( ! wp_check_filetype( $file_url )['ext'] ) {
+
+            $headers = array(
+                'Accept'     => 'application/json',
+            );
+    
+            $config = array(
+                'method'      => 'GET',
+                'timeout'     => 30,
+                'redirection' => 5,
+                'httpversion' => '1.0',
+                'headers'     => $headers,
+                'cookies'     => array(),
+            );
+    
+            $upload = array();
+    
+            try {
+                $response = wp_remote_get( $file_url, $config );
+    
+                if ( ! is_wp_error( $response ) ) {
+                    $type = wp_remote_retrieve_header( $response, 'content-type' );
+                    $extension = preg_replace("/\w+\//", '', $type );
+                    $upload = wp_upload_bits(basename( $file_url . '.'. $extension ), '', wp_remote_retrieve_body($response));
+    
+                }
+            } catch ( Exception $e ) {
+    
+            }
+        }else{
+            $upload = wp_upload_bits(basename($file_url), null, $contents);
+        }
+
         if (isset($upload['error']) && $upload['error']) {
             return false;
         }
+
         $type = '';
         if (!empty($upload['type'])) {
             $type = $upload['type'];

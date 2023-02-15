@@ -13,7 +13,7 @@ class Directorist_Template_Hooks {
 
 	private function __construct() {
 
-		// Allow mask-image inline style in wp_kses_post, mask-image is used in directorist_icon()
+		// Allow '--directorist-icon' inline style var in wp_kses_post, which is used in directorist_icon()
 		add_filter( 'safe_style_css', array( $this, 'add_style_attr' )  );
 		add_filter( 'safecss_filter_attr_allow_css', array( $this, 'allow_style_attr' ), 10, 2  );
 
@@ -63,7 +63,7 @@ class Directorist_Template_Hooks {
 	}
 
 	public function add_style_attr( $args ) {
-		$args = array_merge( $args, array( 'mask-image', '-webkit-mask-image' ) );
+		$args[] = '--directorist-icon';
 		return $args;
 	}
 
@@ -71,10 +71,8 @@ class Directorist_Template_Hooks {
 		$parts = explode( ':', $css_test_string, 2 );
 		$attr = trim( $parts[0] );
 
-		if ( in_array( $attr, array( 'mask-image', '-webkit-mask-image' ) ) ) {
-			$pattern = '/^url\(\s*([\'\"]?)(.*)(\g1)\s*\)$/'; // matches the sequence `url(*)`.
-			$is_url = preg_match( $pattern, $parts[1] );
-			return $is_url;
+		if ( $attr === '--directorist-icon' ) {
+			return true;
 		}
 
 		return $allow_css;
@@ -87,12 +85,6 @@ class Directorist_Template_Hooks {
 
 		if ( is_singular( ATBDP_POST_TYPE ) && get_directorist_option( 'single_listing_template', 'directorist_template' ) !== 'directorist_template' ) {
 			return Helper::get_template_contents( 'single-contents' );
-		}
-
-		$directory_types = Helper::get_directory_types_with_custom_single_page( get_the_ID() );
-		if ( get_post_type() === 'page' && ! empty( $directory_types ) ) {
-			$directory_names = wp_list_pluck( $directory_types, 'name' );
-			return sprintf( __( '<p style="text-align:center" class="directorist-alert directorist-alert-info">This page is currently selected as single Listing details page for %s directory.</p>', 'directorist' ) , implode( ', ', $directory_names ) );
 		}
 
 		return $content;

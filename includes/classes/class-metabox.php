@@ -160,7 +160,7 @@ class ATBDP_Metabox {
 		$never_expire           = !empty( $never_expire ) ? (int) $never_expire : '';
 
 		$e_d                    = get_post_meta( $listing_id, '_expiry_date', true );
-		$e_d                    = !empty( $e_d ) ? $e_d : calc_listing_expiry_date( '', $expire_in_days );
+		$e_d                    = !empty( $e_d ) ? $e_d : calc_listing_expiry_date( '', $expire_in_days, $directory_type );
 		$expiry_date            = atbdp_parse_mysql_date( $e_d );
 
 		$featured               = get_post_meta( $listing_id, '_featured', true);
@@ -232,7 +232,13 @@ class ATBDP_Metabox {
 		<?php } else {?>
 			<input type="hidden" name="directory_type" value="<?php echo esc_attr( $default ); ?>">
 		<?php } ?>
-		<div class="form-group atbdp_category_custom_fields"></div>
+
+		<div class="form-group atbd_content_module atbdp_category_custom_fields-wrapper diectorist-hide">
+			<div class="atbdb_content_module_contents">
+				<div class="form-group atbdp_category_custom_fields"></div>
+			</div>
+		</div>
+
 		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"><?php $this->render_listing_meta_fields( $value, $post->ID ); ?></div>
 		<?php
 	}
@@ -315,6 +321,10 @@ class ATBDP_Metabox {
 
 		$nonce = !empty($_POST['listing_info_nonce']) ? directorist_clean( wp_unslash($_POST['listing_info_nonce'] ) ) : '';
 
+		if( ! is_admin() ){
+			return;
+		}
+
 		if( ! wp_verify_nonce( $nonce, 'listing_info_action' ) ) {
 			return;
 		}
@@ -383,9 +393,7 @@ class ATBDP_Metabox {
 			wp_set_object_terms( $post_id, (int) $listing_type, ATBDP_TYPE );
 		}
 
-		if( !empty( $_POST['featured'] ) ){
-			$metas['_featured'] = directorist_clean( wp_unslash( $_POST['featured'] ) );
-		}
+		$metas['_featured'] = !empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
 
 	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
 		$metas['_never_expire']      = !empty($_POST['never_expire']) ? (int) directorist_clean( wp_unslash( $_POST['never_expire'] ) ) : $expiration_to_forever;
@@ -401,7 +409,7 @@ class ATBDP_Metabox {
 			);
 			$exp_dt = get_date_in_mysql_format($exp_dt);
 		}else{
-			$exp_dt = calc_listing_expiry_date( '', $expiration ); // get the expiry date in mysql date format using the default expiration date.
+			$exp_dt = calc_listing_expiry_date( '', $expiration, $directory_type ); // get the expiry date in mysql date format using the default expiration date.
 		}
 
 		$metas['_expiry_date']  = $exp_dt;

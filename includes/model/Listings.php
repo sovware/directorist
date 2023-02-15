@@ -5,10 +5,8 @@
 
 namespace Directorist;
 
-use \ATBDP_Listings_Data_Store;
-use \ATBDP_Permalink;
-use Directory;
-use WP_Query;
+use ATBDP_Permalink;
+use Directorist\database\DB;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -121,7 +119,9 @@ class Directorist_Listings {
 
 		$this->set_options();
 
-		if ( 'search_result' == $this->type ) {
+		$current_page = !empty( $this->atts['_current_page'] ) ? $this->atts['_current_page'] : '';
+
+		if ( 'search_result' === $this->type || ( 'instant_search' == $this->type && 'search_result' === $current_page ) ) {
 			$this->update_search_options();
 		}
 
@@ -132,7 +132,7 @@ class Directorist_Listings {
 			$this->query_args = $query_args;
 		}
 		else {
-			if ( $this->type == 'search_result' || ! empty( $_GET ) ) {
+			if ( $this->type == 'search_result' || $this->type == 'instant_search' || ! empty( $_GET ) ) {
 				$this->query_args = $this->parse_search_query_args();
 			}
 			else {
@@ -140,7 +140,7 @@ class Directorist_Listings {
 			}
 		}
 
-		$this->query_results = $this->get_query_results( $caching_options );
+		$this->query_results = $this->get_query_results();
 	}
 
 	// set_options
@@ -659,24 +659,13 @@ class Directorist_Listings {
 		}
 	}
 
-	// get_query_results
-	public function get_query_results( array $caching_options = [] ) {
-		if ( ! empty( $this->query_args['orderby'] ) ) {
-			if ( is_string( $this->query_args['orderby'] ) && preg_match( '/rand/', $this->query_args['orderby'] ) ) {
-				$caching_options['cache'] = false;
-			}
-
-			if ( is_array( $this->query_args['orderby'] ) ) {
-				foreach ( $this->query_args['orderby'] as $key => $value ) {
-					if ( preg_match( '/rand/', $value ) ) {
-						$caching_options['cache'] = false;
-					}
-				}
-			}
-
-		}
-
-		return ATBDP_Listings_Data_Store::get_archive_listings_query( $this->query_args, $caching_options );
+	/**
+	 * get_query_results
+	 *
+	 * @return object
+	 */
+	public function get_query_results() {
+		return DB::get_listings_data( $this->query_args );
 	}
 
 	public function parse_query_args() {
@@ -739,7 +728,17 @@ class Directorist_Listings {
 			$args['meta_query'] = array_merge( array( 'relation' => 'AND' ), $meta_queries );
 		}
 
-		return apply_filters( 'atbdp_all_listings_query_arguments', $args );
+		/**
+		 * Filters the All Listing main query to modify or extend it
+		 *
+		 * @since 7.4.2
+		 *
+		 * @param array 	$args 		All listing query arguments
+		 * @param object 	$this 		Listings object
+		 */
+		$args = apply_filters( 'directorist_all_listings_query_arguments', $args, $this );
+
+		return apply_filters_deprecated( 'atbdp_all_listings_query_arguments', array( $args ), '7.4.2', 'directorist_all_listings_query_arguments' );
 	}
 
 	public function parse_search_query_args() {
@@ -864,8 +863,9 @@ class Directorist_Listings {
 						);
 					}
 				} else {
-					$field_type = get_post_meta( $key, 'type', true );
-					$operator   = ( in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=' );
+					$field_type = str_replace( 'custom-', '', $key );
+					$field_type = preg_replace( '/([!^0-9])|(-)/', '', $field_type ); //replaces any additional numbering to just keep the field name, for example if previous line gives us "text-2", this line makes it "text"
+					$operator   = in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=';
 					$meta_queries[] = array(
 						'key'     => '_' . $key,
 						'value'   => sanitize_text_field( $values ),
@@ -956,7 +956,7 @@ class Directorist_Listings {
 			);
 		}
 
-		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
+		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['address'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
@@ -1281,7 +1281,7 @@ class Directorist_Listings {
 		$options = json_encode( $this->map_options() );
 		$style = 'height:' . $this->listings_map_height . 'px';
 		?>
-		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo esc_attr( $card ); ?>" data-options="<?php echo esc_attr( $options ); ?>"></div>
+		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo directorist_esc_json( $card ); ?>" data-options="<?php echo directorist_esc_json( $options ); ?>"></div>
 		<?php
 	}
 
@@ -1484,7 +1484,7 @@ class Directorist_Listings {
 			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
 
 			$id = get_the_ID();
-			$image_quality     = get_directorist_option('preview_image_quality', 'large');
+			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
 			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 			$listing_img       = get_post_meta($id, '_listing_img', true);
 
@@ -1550,6 +1550,13 @@ class Directorist_Listings {
 			return in_array( get_the_id() , $favourites );
 		}
 
+		/**
+		 * Unused method
+		 *
+		 * @todo remove
+		 *
+		 * @return string
+		 */
 		public function item_found_title_for_search($count) {
 			$cat_name = $loc_name = '';
 
@@ -1594,13 +1601,7 @@ class Directorist_Listings {
 
 		public function item_found_title() {
 			$count = $this->query_results->total;
-
-			if ( $this->type == 'search_result' ) {
-				$title = $this->item_found_title_for_search( $count );
-			}
-			else {
-				$title = sprintf('<span>%s</span> %s', $count, $this->header_title );
-			}
+			$title = sprintf('<span>%s</span> %s', $count, $this->header_title );
 			return apply_filters('directorist_listings_found_text', $title );
 		}
 
@@ -1715,6 +1716,7 @@ class Directorist_Listings {
 		}
 
 		public function data_atts() {
+			$this->atts['_current_page'] = $this->type; // search_result or listing
 			// Separates class names with a single space, collates class names for wrapper tag element.
 			echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
 		}

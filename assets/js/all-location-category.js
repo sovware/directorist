@@ -94,9 +94,14 @@
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_catloc_executed === 'undefined') {
+    window.directorist_catloc_executed = true;
+  } else {
+    return;
+  }
   (function ($) {
     /* Multi level hierarchy content */
-
     /* Category */
     $('.atbdp_child_category').hide();
     $('.atbd_category_wrapper > .expander').on('click', function () {
@@ -106,8 +111,8 @@ window.addEventListener('DOMContentLoaded', function () {
       $(this).siblings('.atbdp_child_category').slideToggle();
       $(this).parent('li').siblings('li').children('.atbdp_child_category').slideUp();
     });
-    /* Location */
 
+    /* Location */
     $('.atbdp_child_location').hide();
     $('.atbd_location_wrapper > .expander').on('click', function () {
       $(this).siblings('.atbdp_child_location').slideToggle();

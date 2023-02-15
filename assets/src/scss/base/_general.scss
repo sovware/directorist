@@ -32,18 +32,21 @@
 .directorist-justify-content-end {
     justify-content: flex-end;
 }
-.directorist-display-none{
+
+.directorist-display-none {
     display: none;
 }
 
 .directorist-icon-mask {
-    span {
-        background: #444752;
+    &:after {
+        content: "";
+        display: block;
         width: 18px;
         height: 18px;
-        display:block;
+        background-color: #444752;
         mask-repeat: no-repeat;
         mask-position: center;
+        mask-image: var(--directorist-icon);
     }
 }
 
@@ -123,7 +126,8 @@
             margin-bottom: 8px !important;
         }
     }
-    a{
+
+    a {
         text-decoration: none;
     }
 }
@@ -131,6 +135,8 @@
 .atbd_login_btn_wrapper {
     .directorist-btn {
         line-height: 2.55;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
     .keep_signed.directorist-checkbox {
@@ -139,15 +145,30 @@
         }
     }
 }
-.atbdp_login_form_shortcode{
-    a{
+
+.atbdp_login_form_shortcode {
+    .directorist-form-group{
+        label{
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    }
+    a {
         text-decoration: none;
     }
 }
 
 .directory_register_form_wrap {
+    .directorist-form-group{
+        label{
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    }
     .directorist-btn {
         line-height: 2.55;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 }
 
@@ -180,7 +201,9 @@
 .plupload-thumbs {
     .thumb {
         position: relative;
-
+        img{
+            width: 100%;
+        }
         &:hover {
             .atbdp-thumb-actions {
                 display: flex !important;
@@ -207,7 +230,11 @@
                 justify-content: center;
                 border-radius: 50%;
                 transition: .3s ease;
-
+                .directorist-icon-mask:after{
+                    width: 14px;
+                    height: 14px;
+                    background-color: #fff;
+                }
                 &:hover {
                     background: #e23636;
                 }
@@ -263,6 +290,7 @@
             list-style-type: none;
             margin: 0;
             padding: 0;
+
             li {
                 margin-bottom: 0;
                 border-bottom: 1px solid #eee;
@@ -290,42 +318,49 @@ p.status:empty {
 }
 
 //checkout
-.directorist-checkout-form ul{
+.directorist-checkout-form ul {
     list-style-type: none;
 }
 
 //select 2
-.select2-container--open .select2-dropdown--above{
+.select2-container--open .select2-dropdown--above {
     top: 32px;
     border-color: #ececec;
 }
-.select2-container--default{
-    .select2-search--dropdown .select2-search__field:focus{
+
+.select2-container--default {
+    .select2-search--dropdown .select2-search__field:focus {
         outline: 0;
     }
-    .select2-results__option{
+
+    .select2-results__option {
         margin: 0;
     }
-.taxonomy-at_biz_dir-category .select2-container--open .select2-dropdown--above{
+}
+
+.taxonomy-at_biz_dir-category .select2-container--open .select2-dropdown--above {
     top: 0;
 }
 
-.select2-container--default{
-    .select2-selection--multiple{
-        .select2-selection__rendered{
-            li{
+.select2-container--default {
+    .select2-selection--multiple {
+        .select2-selection__rendered {
+            li {
                 margin-left: 0;
                 margin-top: 8.5px;
-                &.select2-search--inline{
-                    &.form-group{
+
+                &.select2-search--inline {
+                    &.form-group {
                         margin-bottom: 0;
                         padding: 0;
-                        .form-control{
+
+                        .form-control {
                             height: 24.5px;
                         }
                     }
                 }
-                .select2-search__field{
+
+                .select2-search__field {
                     margin: 0;
                 }
             }
@@ -380,17 +415,21 @@ p.status:empty {
             border: 2px solid #C6D0DC;
         }
     }
-    input[type=radio]+.radio--select+label{
-        &:before{
+
+    input[type=radio]+.radio--select+label {
+        &:before {
             top: 8px;
             font-size: 9px;
         }
-        &:after{
+
+        &:after {
             border-radius: 50%;
         }
-        span{
+
+        span {
             color: #eee;
-            &.active{
+
+            &.active {
                 color: $rating-color;
             }
         }
@@ -408,5 +447,7 @@ p.status:empty {
             color: #fff;
         }
     }
-	}
 }
+
+
+

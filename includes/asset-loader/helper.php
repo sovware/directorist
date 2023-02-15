@@ -23,15 +23,29 @@ class Helper {
 	}
 
 	/**
+	 * Register all scripts.
+	 *
+	 * @param array $script single item of Scripts::get_all_scripts() array.
+	 * @param string $version
+	 */
+	public static function register_all_scripts( $scripts, $version = '' ) {
+		if ( !$version ) {
+			$version = self::get_script_version();
+		}
+
+		foreach ( $scripts as $handle => $script ) {
+			Helper::register_single_script( $handle, $script, $version );
+		}
+	}
+
+	/**
 	 * Register a script.
 	 *
 	 * @param string $handle
 	 * @param array $script single item of Scripts::get_all_scripts() array.
 	 * @param string $version
 	 */
-	public static function register_single_script( $handle, $script ) {
-		$version = self::get_script_version();
-
+	public static function register_single_script( $handle, $script, $version = '' ) {
         $url = self::script_file_url( $script );
 
         if ( !empty( $script['dep'] ) ) {
@@ -197,6 +211,12 @@ class Helper {
 
 			case 'settings':
 				if ( $screen == 'at_biz_dir_page_atbdp-settings' ) {
+					$status = true;
+				}
+				break;
+
+			case 'all_listings':
+				if ( $screen == 'edit' && !empty( $_GET['post_type'] ) && $_GET['post_type'] == 'at_biz_dir' ) {
 					$status = true;
 				}
 				break;

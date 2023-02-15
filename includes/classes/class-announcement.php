@@ -95,10 +95,10 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 						while ( $announcements->have_posts() ) :
 							$announcements->the_post();
 
-							// Check recepent restriction
-							$recipient = get_post_meta( get_the_ID(), '_recepents', true );
-							if ( ! empty( $recipient ) && is_array( $recipient ) ) {
-								if ( ! in_array( $current_user_email, $recipient ) ) {
+							// Check recipients restriction
+							$recipients = get_post_meta( get_the_ID(), '_recipients', true );
+							if ( ! empty( $recipients ) && is_array( $recipients ) ) {
+								if ( ! in_array( $current_user_email, $recipients ) ) {
 									$skipped_post_count++;
 									continue;
 								}
@@ -181,10 +181,10 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 			if ( $new_announcements->have_posts() ) {
 				while ( $new_announcements->have_posts() ) {
 					$new_announcements->the_post();
-					// Check recepent restriction
-					$recipient = get_post_meta( get_the_ID(), '_recepents', true );
-					if ( ! empty( $recipient ) && is_array( $recipient ) ) {
-						if ( ! in_array( $current_user_email, $recipient ) ) {
+					// Check recipients restriction
+					$recipients = get_post_meta( get_the_ID(), '_recipients', true );
+					if ( ! empty( $recipients ) && is_array( $recipients ) ) {
+						if ( ! in_array( $current_user_email, $recipients ) ) {
 							continue;
 						}
 					}
@@ -230,10 +230,10 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 			if ( $new_announcements->have_posts() ) {
 				while ( $new_announcements->have_posts() ) {
 					$new_announcements->the_post();
-					// Check recepent restriction
-					$recipient = get_post_meta( get_the_ID(), '_recepents', true );
-					if ( ! empty( $recipient ) && is_array( $recipient ) ) {
-						if ( ! in_array( $current_user_email, $recipient ) ) {
+					// Check recipients restriction
+					$recipients = get_post_meta( get_the_ID(), '_recipients', true );
+					if ( ! empty( $recipients ) && is_array( $recipients ) ) {
+						if ( ! in_array( $current_user_email, $recipients ) ) {
 							$skipped_post_count++;
 							continue;
 						}
@@ -312,10 +312,10 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 						while ( $announcements->have_posts() ) :
 							$announcements->the_post();
 
-							// Check recepent restriction
-							$recipient = get_post_meta( get_the_ID(), '_recepents', true );
-							if ( ! empty( $recipient ) && is_array( $recipient ) ) {
-								if ( ! in_array( $current_user_email, $recipient ) ) {
+							// Check recipients restriction
+							$recipients = get_post_meta( get_the_ID(), '_recipients', true );
+							if ( ! empty( $recipients ) && is_array( $recipients ) ) {
+								if ( ! in_array( $current_user_email, $recipients ) ) {
 									$skipped_post_count++;
 									continue;
 								}
@@ -487,9 +487,9 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 			}
 
 			if ( 'all_user' !== $to ) {
-				update_post_meta( $announcement, '_recepents', $recipient );
+				update_post_meta( $announcement, '_recipients', $recipients );
 			} else {
-				update_post_meta( $announcement, '_recepents', '' );
+				update_post_meta( $announcement, '_recipients', '' );
 			}
 
 			// Update the post meta

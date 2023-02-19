@@ -369,16 +369,13 @@ class Directorist_Listing_Form {
 		return $ids;
 	}
 
+	/**
+	 * Get current listing tag ids.
+	 *
+	 * @return int[]
+	 */
 	public function add_listing_tag_ids() {
-		$p_id    = $this->add_listing_id;
-		$tag_ids = array();
-		$p_tags  = wp_get_post_terms( $p_id, ATBDP_TAGS );
-		if ( ! empty( $p_tags ) ) {
-			foreach ( $p_tags as $p_tag ) {
-				$tag_ids[] = $p_tag->term_id;
-			}
-		}
-		return $tag_ids;
+		return directorist_get_object_terms( $this->add_listing_id, ATBDP_TAGS, 'term_id' );
 	}
 
 	public function add_listing_cat_fields() {

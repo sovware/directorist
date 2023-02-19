@@ -194,7 +194,10 @@ class Directorist_Single_Listing {
 
 			if( 'map' === $field['widget_name'] ) {
 				$address = get_post_meta( $this->id, '_address', true );
-				if( $address ) {
+				$manual_lat = get_post_meta( $this->id, '_manual_lat', true );
+				$manual_lng = get_post_meta( $this->id, '_manual_lng', true );
+
+				if( $address || ( $manual_lat && $manual_lng ) ) {
 					$has_contents = true;
 					break;
 				}

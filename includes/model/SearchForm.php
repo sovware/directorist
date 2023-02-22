@@ -97,23 +97,21 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function __get( $prop ) {
-		if ( ! in_array( $prop, $this->deferred_props, true ) ) {
-			return $this->{$prop};
-		}
+		if ( in_array( $prop, $this->deferred_props, true ) ) {
+			if ( array_key_exists( $prop, $this->deferred_data ) ) {
+				return $this->deferred_data[ $prop ];
+			}
 
-		if ( array_key_exists( $prop, $this->deferred_data ) ) {
+			if ( $prop === 'categories_fields' ) {
+				$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+			}
+
+			if ( $prop === 'locations_fields' ) {
+				$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+			}
+
 			return $this->deferred_data[ $prop ];
 		}
-
-		if ( $prop === 'categories_fields' ) {
-			$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
-		}
-
-		if ( $prop === 'locations_fields' ) {
-			$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
-		}
-
-		return $this->deferred_data[ $prop ];
 	}
 
 	// set_default_options

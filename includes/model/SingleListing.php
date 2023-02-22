@@ -513,17 +513,19 @@ class Directorist_Single_Listing {
 		}
 
 		// Get the options
-		$background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
+		$background_type = get_directorist_option( 'single_slider_background_type', 'custom-color' );
+		$height          = (int) get_directorist_option( 'gallery_crop_width', 670 );
+		$width           = (int) get_directorist_option( 'gallery_crop_height', 750 );
 
 		// Set the options
 		$data = array(
 			'images'             => [],
 			'alt'                => $listing_title,
-			'background-size'    => get_directorist_option('single_slider_image_size', 'cover'),
+			'background-size'    => get_directorist_option( 'single_slider_image_size', 'cover' ),
 			'blur-background'    => ( 'blur' === $background_type ) ? '1' : '0',
-			'width'              => get_directorist_option('gallery_crop_width', 670),
-			'height'             => get_directorist_option('gallery_crop_height', 750),
-			'background-color'   => get_directorist_option('single_slider_background_color', 'gainsboro'),
+			'width'              => empty( $width ) ? 740 : $width,
+			'height'             => empty( $height ) ? 580 : $height,
+			'background-color'   => get_directorist_option( 'single_slider_background_color', 'gainsboro' ),
 			'thumbnail-bg-color' => '#fff',
 			'show-thumbnails'    => !empty( $this->header_data['listings_header']['thumbnail'][0]['footer_thumbail'] ) ? '1' : '0',
 			'gallery'            => true,
@@ -550,10 +552,8 @@ class Directorist_Single_Listing {
 			];
 		}
 
-		$height = !empty($data['height']) ? $data['height'] : 580; //set default height if no height present
-		$width = !empty($data['width']) ? $data['width'] : 740;  //set default width if no width present
-		$padding_top         = $height / $width * 100;
-		$data['padding-top'] = $padding_top;
+		$data['padding-top'] = ( $data['height'] / $data['width'] ) * 100;
+
 		return $data;
 	}
 

@@ -11,6 +11,8 @@ use Directorist\database\DB;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Listings {
+	protected $thumbnails_cached = false;
+
 	public $query_args = [];
 	public $query_results = [];
 	public $options = [];
@@ -1480,40 +1482,47 @@ class Directorist_Listings {
 			echo "</div>";
 		}
 
+		protected function cache_thumbnails() {
+			if ( $this->thumbnails_cached || empty( $this->query_results->ids ) ) {
+				return;
+			}
+
+			$thumb_ids = array();
+			foreach ( $this->query_results->ids as $id ) {
+				$id = get_post_thumbnail_id( $id );
+				if ( $id ) {
+					$thumb_ids[] = $id;
+				}
+			}
+
+			if ( ! empty( $thumb_ids ) ) {
+				_prime_post_caches( $thumb_ids, false, true );
+			}
+
+			$this->thumbnails_cached = true;
+		}
+
 		public function loop_get_the_thumbnail( $class='' ) {
-			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
+			$image_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
 
-			$id = get_the_ID();
-			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
-			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
-			$listing_img       = get_post_meta($id, '_listing_img', true);
-
-			if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
-				$thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
-				$thumbnail_id = $listing_img[0];
+			if ( has_post_thumbnail( get_the_ID() ) ) {
+				$this->cache_thumbnails();
+				$image_id = get_post_thumbnail_id();
+				$image_src = wp_get_attachment_image_url( $image_id, $image_size );
+				$image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true);
+			} else {
+				$image_src = Helper::default_preview_image_src( $this->current_listing_type );
 			}
 
-			if ( ! empty( $listing_prv_img ) ) {
-				$thumbnail_img = atbdp_get_image_source( $listing_prv_img, $image_quality );
-				$thumbnail_id = $listing_prv_img;
+			if ( empty( $image_alt ) ) {
+				$image_alt = get_the_title( get_the_ID() );
 			}
 
-			if ( ! empty( $img_src ) ) {
-				$thumbnail_img = $img_src;
-				$thumbnail_id = 0;
-			}
-
-			if ( empty( $thumbnail_img ) ) {
-				$thumbnail_img = $default_image_src;
-				$thumbnail_id = 0;
-			}
-
-			$image_src    = $thumbnail_img;
-			$image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-			$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
-			$image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
-
-			return "<img src='$image_src' alt='$image_alt' class='$class' />";
+			return sprintf( '<img src="%1$s" alt="%2$s" class="%3$s"/>',
+				esc_url( $image_src ),
+				esc_attr( $image_alt ),
+				esc_attr( $class )
+			);
 		}
 
 		public function loop_thumb_card_template() {

@@ -578,6 +578,13 @@ import { directorist_range_slider } from './range-slider';
             var zipcode         = $(this).val();
             var zipcode_search  = $(this).closest('.directorist-zipcode-search');
             var country_suggest = zipcode_search.find('.directorist-country');
+            var zipcode_search  = $(this).closest('.directorist-zipcode-search');
+
+            if( directorist.i18n_text.select_listing_map === 'google' ) {
+              var url = directorist.ajax_url;
+            } else {
+                url = `https://nominatim.openstreetmap.org/?postalcode=+${zipcode}+&format=json&addressdetails=1`;
+            }
 
             $('.directorist-country').css({
                 display: 'block'
@@ -590,27 +597,36 @@ import { directorist_range_slider } from './range-slider';
             }
             let res = '';
             $.ajax({
-                url: `https://nominatim.openstreetmap.org/?postalcode=+${zipcode}+&format=json&addressdetails=1`,
-                type: "POST",
-                data: {},
+                url: url,
+                method: 'POST',
+                data: {
+                    'nonce' : directorist.directorist_nonce,
+                    'action' : 'directorist_zipcode_search',
+                    'zipcode' : zipcode
+                },
                 success: function( data ) {
-                    if( data.length === 1 ) {
-                        var lat = data[0].lat;
-                        var lon = data[0].lon;
-                        zipcode_search.find('.zip-cityLat').val(lat);
-                        zipcode_search.find('.zip-cityLng').val(lon);
+                    if( directorist.i18n_text.select_listing_map === 'google' && typeof data.lat !== 'undefined' && typeof data.lng !== 'undefined' ) {
+                        zipcode_search.find('.zip-cityLat').val( data.lat );
+                        zipcode_search.find('.zip-cityLng').val( data.lng );
                     } else {
-                        for (let i = 0; i < data.length; i++) {
-                            res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].address.country}</a></li>`;
+                        if( data.length === 1 ) {
+                            var lat = data[0].lat;
+                            var lon = data[0].lon;
+                            zipcode_search.find('.zip-cityLat').val(lat);
+                            zipcode_search.find('.zip-cityLng').val(lon);
+                        } else {
+                            for (let i = 0; i < data.length; i++) {
+                                res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].address.country}</a></li>`;
+                            }
                         }
-                    }
 
-                    $(country_suggest).html(`<ul>${res}</ul>`);
+                        $(country_suggest).html(`<ul>${res}</ul>`);
 
-                    if (res.length) {
-                        $('.directorist-country').show();
-                    } else {
-                        $('.directorist-country').hide();
+                        if (res.length) {
+                            $('.directorist-country').show();
+                        } else {
+                            $('.directorist-country').hide();
+                        }
                     }
                 }
             });

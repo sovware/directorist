@@ -26,27 +26,3 @@ function atbdp_directorist_button_classes($type='primary'){
     $image_obj = wp_get_attachment_image_src($id, $size);
     return is_array($image_obj) ? $image_obj[0] : '';
  }
-
-add_filter( 'post_thumbnail_id', static function( $thumbnail_id, $post ) {
-	if ( $post->post_type !== ATBDP_POST_TYPE ) {
-		return $thumbnail_id;
-	}
-
-	if ( ! empty( $thumbnail_id ) ) {
-		return $thumbnail_id;
-	}
-
-	$preview_image = (int) get_post_meta( $post->ID, '_listing_prv_img', true );
-
-	if ( ! empty( $preview_image ) ) {
-		$thumbnail_id = $preview_image;
-	}
-
-	if ( empty( $thumbnail_id ) ) {
-		$gallery      = get_post_meta( $post->ID, '_listing_img', true );
-		$gallery      = is_array( $gallery ) ? wp_parse_id_list( $gallery ) : array();
-		$thumbnail_id = empty( $gallery ) ? 0 : $gallery[0];
-	}
-
-	return $thumbnail_id;
-}, 10, 2 );

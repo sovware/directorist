@@ -1489,7 +1489,7 @@ class Directorist_Listings {
 
 			$thumb_ids = array();
 			foreach ( $this->query_results->ids as $id ) {
-				$id = get_post_thumbnail_id( $id );
+				$id = directorist_get_listing_thumbnail_id( $id );
 				if ( $id ) {
 					$thumb_ids[] = $id;
 				}
@@ -1505,20 +1505,21 @@ class Directorist_Listings {
 		public function loop_get_the_thumbnail( $class = '' ) {
 			$image_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
 
-			if ( has_post_thumbnail( get_the_ID() ) ) {
+			if ( directorist_has_listing_thumbnail_id( get_the_ID() ) ) {
 				$this->cache_thumbnails();
-				$image_id = get_post_thumbnail_id();
-				$image_src = wp_get_attachment_image_url( $image_id, $image_size );
-				$image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true);
+
+				$thumbnail_id = directorist_get_listing_thumbnail_id( get_the_ID() );
+				$image_url    = wp_get_attachment_image_url( $thumbnail_id, $image_size );
+				$image_alt    = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
 			} else {
-				$image_src = Helper::default_preview_image_src( $this->current_listing_type );
+				$image_url = Helper::default_preview_image_src( $this->current_listing_type );
 			}
 
 			if ( empty( $image_alt ) ) {
 				$image_alt = get_the_title( get_the_ID() );
 			}
 
-			return '<img class="' . esc_attr( $class ) . '" src="' . esc_url( $image_src ) . '" alt="' . esc_attr( $image_alt ) . '"/>';
+			return '<img class="' . esc_attr( $class ) . '" src="' . esc_url( $image_url ) . '" alt="' . esc_attr( $image_alt ) . '"/>';
 		}
 
 		public function loop_thumb_card_template() {

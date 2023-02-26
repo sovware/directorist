@@ -1411,16 +1411,15 @@ __webpack_require__.r(__webpack_exports__);
         var url = directorist.ajax_url;
       } else {
         url = "https://nominatim.openstreetmap.org/?postalcode=+".concat(zipcode, "+&format=json&addressdetails=1");
-      }
-
-      $('.directorist-country').css({
-        display: 'block'
-      });
-
-      if (zipcode === '') {
         $('.directorist-country').css({
-          display: 'none'
+          display: 'block'
         });
+
+        if (zipcode === '') {
+          $('.directorist-country').css({
+            display: 'none'
+          });
+        }
       }
 
       var res = '';

@@ -584,17 +584,19 @@ import { directorist_range_slider } from './range-slider';
               var url = directorist.ajax_url;
             } else {
                 url = `https://nominatim.openstreetmap.org/?postalcode=+${zipcode}+&format=json&addressdetails=1`;
-            }
 
-            $('.directorist-country').css({
-                display: 'block'
-            });
-
-            if (zipcode === '') {
                 $('.directorist-country').css({
-                    display: 'none'
+                    display: 'block'
                 });
+    
+                if (zipcode === '') {
+                    $('.directorist-country').css({
+                        display: 'none'
+                    });
+                }
+                
             }
+            
             let res = '';
             $.ajax({
                 url: url,

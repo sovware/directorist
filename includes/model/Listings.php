@@ -1502,7 +1502,7 @@ class Directorist_Listings {
 			$this->thumbnails_cached = true;
 		}
 
-		public function loop_get_the_thumbnail( $class='' ) {
+		public function loop_get_the_thumbnail( $class = '' ) {
 			$image_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
 
 			if ( has_post_thumbnail( get_the_ID() ) ) {
@@ -1518,11 +1518,7 @@ class Directorist_Listings {
 				$image_alt = get_the_title( get_the_ID() );
 			}
 
-			return sprintf( '<img src="%1$s" alt="%2$s" class="%3$s"/>',
-				esc_url( $image_src ),
-				esc_attr( $image_alt ),
-				esc_attr( $class )
-			);
+			return '<img class="' . esc_attr( $class ) . '" src="' . esc_url( $image_src ) . '" alt="' . esc_attr( $image_alt ) . '"/>';
 		}
 
 		public function loop_thumb_card_template() {

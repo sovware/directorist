@@ -607,6 +607,9 @@ import { directorist_range_slider } from './range-slider';
                     'zipcode' : zipcode
                 },
                 success: function( data ) {
+                    if( data.data.error_message ) {
+                        zipcode_search.append( data.data.error_message )
+                    }
                     if( directorist.i18n_text.select_listing_map === 'google' && typeof data.lat !== 'undefined' && typeof data.lng !== 'undefined' ) {
                         zipcode_search.find('.zip-cityLat').val( data.lat );
                         zipcode_search.find('.zip-cityLng').val( data.lng );

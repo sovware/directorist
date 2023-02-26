@@ -130,8 +130,16 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$response = wp_remote_retrieve_body( $data );
 			$json     = $response ? json_decode( $response, true ) : array();
 			$lat_long = ! empty( $json['results'][0]['geometry']['location'] ) ? directorist_clean( $json['results'][0]['geometry']['location'] ) : array();
-		
-			wp_send_json( $lat_long );
+			if( ! empty( $lat_long ) ) {
+				wp_send_json( $lat_long );
+			} else {
+				wp_send_json_error( 
+					array( 
+						'error_message' => __( '<p>Sorry, you entered wrong zip code</p>', 'directorist' )
+					)
+				);
+			}
+			
 
 		}
 

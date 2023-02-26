@@ -182,14 +182,11 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 		 * @access   public
 		 */
 		public function add_row_actions_for_quick_view( $actions, $post ) {
-
-			global $current_screen;
-
-			if ( ATBDP_POST_TYPE != $current_screen->post_type ) {
+			if ( ATBDP_POST_TYPE !== $post->post_type ) {
 				return $actions;
 			}
 
-			if ( get_post_status( $post ) != 'publish' && current_user_can( 'publish_at_biz_dirs' ) ) {
+			if ( get_post_status( $post ) !== 'publish' && current_user_can( 'publish_at_biz_dirs' ) ) {
 				$nonce              = wp_create_nonce( 'quick-publish-action' );
 				$link               = admin_url( "edit.php?update_id={$post->ID}&_wpnonce={$nonce}&post_type=at_biz_dir" );
 				$actions['publish'] = "<a href='$link' style='color: #4caf50; font-weight: bold'>Publish</a>";

@@ -14075,6 +14075,14 @@ Review: New Style
 .directorist-user-dashboard-tabcontent .directorist-listing-table tr th.directorist-table-category {
   min-width: 180px;
 }
+.directorist-user-dashboard-tabcontent .directorist-listing-table tr th.directorist-table-view-count {
+  min-width: 125px;
+}
+@media (max-width: 1499px) {
+  .directorist-user-dashboard-tabcontent .directorist-listing-table tr th.directorist-table-view-count {
+    min-width: 120px;
+  }
+}
 .directorist-user-dashboard-tabcontent .directorist-listing-table tr th.directorist-table-ex-date {
   min-width: 250px;
 }

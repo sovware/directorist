@@ -4265,6 +4265,11 @@ class Multi_Directory_Manager
                             'options' => [
                                 'title' => __( "Section Title Options", "directorist" ),
                                 'fields' => [
+                                    'use_listing_title' => [
+                                        'type' => "toggle",
+                                        'label' => __( "Use Listing Title", "directorist" ),
+                                        'value' => false,
+                                    ],
                                     'label' => [
                                         'type' => "text",
                                         'label' => __( "Label", "directorist" ),

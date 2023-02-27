@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5.3
+ * @version 7.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -12,8 +12,16 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<div class="directorist-card__header directorist-flex directorist-align-center directorist-justify-content-between">
 
-		<?php if ( $section_title ) : ?>
-			<h4 class="directorist-card__header--title"><?php directorist_icon( $section_icon );?><?php echo esc_html( $section_title ); ?></h4>
+		<?php if ( $use_listing_title || $section_title ) : ?>
+			<h4 class="directorist-card__header--title"><?php directorist_icon( $section_icon );?>
+				<?php 
+					if( empty( $use_listing_title ) ) { 
+						echo esc_html( $section_title );
+					} else {
+						echo esc_html( $listing->get_title() );
+					}	
+				?>
+			</h4>
 		<?php endif; ?>
 
 		<?php $listing->quick_actions_template(); ?>

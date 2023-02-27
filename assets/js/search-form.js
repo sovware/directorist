@@ -1290,7 +1290,9 @@ __webpack_require__.r(__webpack_exports__);
       var zipcode_search = $(this).closest('.directorist-zipcode-search');
       var country_suggest = zipcode_search.find('.directorist-country');
       var zipcode_search = $(this).closest('.directorist-zipcode-search');
-      zipcode_search.addClass('dir_loading');
+      if (zipcode) {
+        zipcode_search.addClass('dir_loading');
+      }
       if (directorist.i18n_text.select_listing_map === 'google') {
         var url = directorist.ajax_url;
       } else {
@@ -1314,9 +1316,9 @@ __webpack_require__.r(__webpack_exports__);
           'zipcode': zipcode
         },
         success: function success(data) {
-          // if( data.data.error_message ) {
-          //     zipcode_search.append( data.data.error_message )
-          // }
+          if (data.data.error_message) {
+            zipcode_search.append(data.data.error_message);
+          }
           zipcode_search.removeClass('dir_loading');
           if (directorist.i18n_text.select_listing_map === 'google' && typeof data.lat !== 'undefined' && typeof data.lng !== 'undefined') {
             zipcode_search.find('.zip-cityLat').val(data.lat);

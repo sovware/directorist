@@ -11,6 +11,8 @@ use Directorist\database\DB;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Listings {
+	protected $thumbnails_cached = false;
+
 	public $query_args = [];
 	public $query_results = [];
 	public $options = [];
@@ -1505,40 +1507,44 @@ class Directorist_Listings {
 			echo "</div>";
 		}
 
-		public function loop_get_the_thumbnail( $class='' ) {
-			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
-
-			$id = get_the_ID();
-			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
-			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
-			$listing_img       = get_post_meta($id, '_listing_img', true);
-
-			if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
-				$thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
-				$thumbnail_id = $listing_img[0];
+		protected function cache_thumbnails() {
+			if ( $this->thumbnails_cached || empty( $this->query_results->ids ) ) {
+				return;
 			}
 
-			if ( ! empty( $listing_prv_img ) ) {
-				$thumbnail_img = atbdp_get_image_source( $listing_prv_img, $image_quality );
-				$thumbnail_id = $listing_prv_img;
+			$thumb_ids = array();
+			foreach ( $this->query_results->ids as $id ) {
+				$id = directorist_get_listing_thumbnail_id( $id );
+				if ( $id ) {
+					$thumb_ids[] = $id;
+				}
 			}
 
-			if ( ! empty( $img_src ) ) {
-				$thumbnail_img = $img_src;
-				$thumbnail_id = 0;
+			if ( ! empty( $thumb_ids ) ) {
+				_prime_post_caches( $thumb_ids, false, true );
 			}
 
-			if ( empty( $thumbnail_img ) ) {
-				$thumbnail_img = $default_image_src;
-				$thumbnail_id = 0;
+			$this->thumbnails_cached = true;
+		}
+
+		public function loop_get_the_thumbnail( $class = '' ) {
+			$image_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
+
+			if ( directorist_has_listing_thumbnail( get_the_ID() ) ) {
+				$this->cache_thumbnails();
+
+				$thumbnail_id = directorist_get_listing_thumbnail_id( get_the_ID() );
+				$image_url    = wp_get_attachment_image_url( $thumbnail_id, $image_size );
+				$image_alt    = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
+			} else {
+				$image_url = Helper::default_preview_image_src( $this->current_listing_type );
 			}
 
-			$image_src    = $thumbnail_img;
-			$image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-			$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
-			$image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
+			if ( empty( $image_alt ) ) {
+				$image_alt = get_the_title( get_the_ID() );
+			}
 
-			return "<img src='$image_src' alt='$image_alt' class='$class' />";
+			return '<img class="' . esc_attr( $class ) . '" src="' . esc_url( $image_url ) . '" alt="' . esc_attr( $image_alt ) . '"/>';
 		}
 
 		public function loop_thumb_card_template() {

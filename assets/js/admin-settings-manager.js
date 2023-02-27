@@ -15894,6 +15894,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'options-window',
   model: {
@@ -32866,6 +32867,7 @@ var render = function () {
                     {
                       key: field_key,
                       tag: "component",
+                      attrs: { root: _vm.local_fields },
                       on: {
                         update: function ($event) {
                           return _vm.updateFieldData($event, field_key)

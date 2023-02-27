@@ -19,6 +19,7 @@
                     :is="field.type + '-field'"
                     v-bind="field"
                     :key="field_key"
+                    :root="local_fields"
                     @update="updateFieldData( $event, field_key )">
                 </component>
             </template>

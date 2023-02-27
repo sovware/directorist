@@ -77,7 +77,7 @@ class Directorist_Listings {
 	public $views;
 
 	public $location_placeholder;
-	public $locations_fields;
+	public $category_placeholder;
 
 	public $c_symbol;
 	public $popular_badge_text;
@@ -114,6 +114,7 @@ class Directorist_Listings {
 	public $display_title_map;
 	public $display_address_map;
 	public $display_direction_map;
+	public $filter_button_text;
 
 	protected $deferred_data = array();
 

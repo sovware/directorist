@@ -77,7 +77,7 @@ class Directorist_Listings {
 	public $views;
 
 	public $location_placeholder;
-	public $locations_fields;
+	public $category_placeholder;
 
 	public $c_symbol;
 	public $popular_badge_text;
@@ -114,6 +114,14 @@ class Directorist_Listings {
 	public $display_title_map;
 	public $display_address_map;
 	public $display_direction_map;
+	public $filter_button_text;
+
+	protected $deferred_data = array();
+
+	protected $deferred_props = array(
+		'categories_fields',
+		'locations_fields',
+	);
 
 	public function __construct( $atts = array(), $type = 'listing', $query_args = false, array $caching_options = [] ) {
 		$this->atts = !empty( $atts ) ? $atts : array();
@@ -143,6 +151,24 @@ class Directorist_Listings {
 		}
 
 		$this->query_results = $this->get_query_results();
+	}
+
+	public function __get( $prop ) {
+		if ( in_array( $prop, $this->deferred_props, true ) ) {
+			if ( array_key_exists( $prop, $this->deferred_data ) ) {
+				return $this->deferred_data[ $prop ];
+			}
+
+			if ( $prop === 'categories_fields' ) {
+				$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+			}
+
+			if ( $prop === 'locations_fields' ) {
+				$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+			}
+
+			return $this->deferred_data[ $prop ];
+		}
 	}
 
 	// set_options
@@ -330,8 +356,8 @@ class Directorist_Listings {
 		$this->views                 = atbdp_get_listings_view_options( $view_as_items );
 		$this->category_placeholder  = $this->options['listings_category_placeholder'];
 		$this->location_placeholder  = $this->options['listings_location_placeholder'];
-		$this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
-		$this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+		// $this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+		// $this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 		$this->c_symbol                   = atbdp_currency_symbol( $this->options['g_currency'] );
 		$this->popular_badge_text         = $this->options['popular_badge_text'];
 		$this->feature_badge_text         = $this->options['feature_badge_text'];

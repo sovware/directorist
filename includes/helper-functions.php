@@ -1526,66 +1526,72 @@ function atbdp_get_listings_current_order($default_order = '')
  * @since    1.0.0
  *
  */
-function atbdp_get_listings_orderby_options($sort_by_items)
-{
-    $options = array(
-        'title-asc' => __("A to Z (title)", 'directorist'),
-        'title-desc' => __("Z to A (title)", 'directorist'),
-        'date-desc' => __("Latest listings", 'directorist'),
-        'date-asc' => __("Oldest listings", 'directorist'),
-        'views-desc' => __("Popular listings", 'directorist'),
-        'price-asc' => __("Price (low to high)", 'directorist'),
-        'price-desc' => __("Price (high to low)", 'directorist'),
-        'rand' => __("Random listings", 'directorist'),
+function atbdp_get_listings_orderby_options( $orderby = array() ) {
+    $orderby_options = array(
+        'title-asc'  => __( 'A to Z (title)', 'directorist' ),
+        'title-desc' => __( 'Z to A (title)', 'directorist' ),
+        'date-desc'  => __( 'Latest listings', 'directorist' ),
+        'date-asc'   => __( 'Oldest listings', 'directorist' ),
+        'views-desc' => __( 'Popular listings', 'directorist' ),
+        'price-asc'  => __( 'Price (low to high)', 'directorist' ),
+        'price-desc' => __( 'Price (high to low)', 'directorist' ),
+        'rand'       => __( 'Random listings', 'directorist' ),
     );
-    $sort_by_items 	= is_array( $sort_by_items ) ? $sort_by_items : [];
-    if (!in_array('a_z', $sort_by_items)) {
-        unset($options['title-asc']);
+
+    if ( ! is_array( $orderby ) ) {
+		$orderby = (array) $orderby;
+	}
+
+    if ( ! in_array('a_z', $orderby, true ) ) {
+        unset( $orderby_options['title-asc'] );
     }
-    if (!in_array('z_a', $sort_by_items)) {
-        unset($options['title-desc']);
+    if ( ! in_array( 'z_a', $orderby, true ) ) {
+        unset( $orderby_options['title-desc'] );
     }
-    if (!in_array('latest', $sort_by_items)) {
-        unset($options['date-desc']);
+    if ( ! in_array( 'latest', $orderby, true ) ) {
+        unset( $orderby_options['date-desc'] );
     }
-    if (!in_array('oldest', $sort_by_items)) {
-        unset($options['date-asc']);
+    if ( ! in_array( 'oldest', $orderby, true ) ) {
+        unset( $orderby_options['date-asc'] );
     }
-    if (!in_array('popular', $sort_by_items)) {
-        unset($options['views-desc']);
+    if ( ! in_array( 'popular', $orderby, true ) ) {
+        unset( $orderby_options['views-desc'] );
     }
-    if (!in_array('price_low_high', $sort_by_items)) {
-        unset($options['price-asc']);
+    if ( ! in_array( 'price_low_high', $orderby, true ) ) {
+        unset( $orderby_options['price-asc'] );
     }
-    if (!in_array('price_high_low', $sort_by_items)) {
-        unset($options['price-desc']);
+    if ( ! in_array( 'price_high_low', $orderby, true ) ) {
+        unset( $orderby_options['price-desc'] );
     }
-    if (!in_array('random', $sort_by_items)) {
-        unset($options['rand']);
+    if ( ! in_array( 'random', $orderby, true ) ) {
+        unset( $orderby_options['rand'] );
     }
+
     $args = array(
-        'post_type'   => ATBDP_POST_TYPE,
-        'post_status' => 'publish',
-        'meta_key'    => '_price'
+		'post_type'     => ATBDP_POST_TYPE,
+		'post_status'   => 'publish',
+		'meta_key'      => '_price',
+		'no_found_rows' => true,
     );
 
-    $values = new WP_Query($args);
+    $listings_with_price = new WP_Query( $args );
     $prices = array();
-    if ($values->have_posts()) {
-        while ($values->have_posts()) {
-            $values->the_post();
-            $prices[] = get_post_meta(get_the_ID(), '_price', true);
+
+    if ( $listings_with_price->have_posts() ) {
+        while ( $listings_with_price->have_posts() ) {
+            $listings_with_price->the_post();
+            $prices[] = (int) get_post_meta( get_the_ID(), '_price', true );
         }
-        wp_reset_postdata();
-        $has_price = join($prices);
-    }
-    $disabled_price_by_admin = get_directorist_option('disable_list_price', 0);
-    if ($disabled_price_by_admin || empty($has_price)) {
-        unset($options['price-asc'], $options['price-desc']);
+		wp_reset_postdata();
     }
 
-    return apply_filters('atbdp_get_listings_orderby_options', $options);
+	$prices = array_filter( $prices );
+    $listings_price_disabled = (bool) get_directorist_option( 'disable_list_price', 0 );
+    if ( $listings_price_disabled || empty( $prices ) ) {
+        unset( $orderby_options['price-asc'], $orderby_options['price-desc'] );
+    }
 
+    return apply_filters( 'atbdp_get_listings_orderby_options', $orderby_options );
 }
 
 /**
@@ -3926,7 +3932,7 @@ function directorist_default_preview_size() {
  * @return int Page ID
  */
 function directorist_get_page_id( string $page_name = '' ) : int {
-    
+
     $page_to_option_map = apply_filters( 'directorist_pages', array(
         'location'      => 'single_location_page',
         'category'      => 'single_category_page',

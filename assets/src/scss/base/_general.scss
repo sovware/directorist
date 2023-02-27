@@ -324,8 +324,11 @@ p.status:empty {
 
 //select 2
 .select2-container--open .select2-dropdown--above {
-    top: 32px;
+    top: 0;
     border-color: #ececec;
+}
+body.logged-in .select2-container--open .select2-dropdown--above {
+    top: 32px;
 }
 
 .select2-container--default {

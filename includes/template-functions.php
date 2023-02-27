@@ -138,6 +138,6 @@ function directorist_get_listing_thumbnail_id( $listing = null ) {
 	return $gallery_image_ids[0];
 }
 
-function directorist_has_listing_thumbnail_id( $listing = null ) {
+function directorist_has_listing_thumbnail( $listing = null ) {
 	return (bool) directorist_get_listing_thumbnail_id( $listing );
 }

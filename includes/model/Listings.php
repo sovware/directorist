@@ -1505,7 +1505,7 @@ class Directorist_Listings {
 		public function loop_get_the_thumbnail( $class = '' ) {
 			$image_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
 
-			if ( directorist_has_listing_thumbnail_id( get_the_ID() ) ) {
+			if ( directorist_has_listing_thumbnail( get_the_ID() ) ) {
 				$this->cache_thumbnails();
 
 				$thumbnail_id = directorist_get_listing_thumbnail_id( get_the_ID() );

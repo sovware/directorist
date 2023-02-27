@@ -5134,6 +5134,40 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   left: 10px;
 }
 
+.directorist-zipcode-search {
+  position: relative;
+}
+.directorist-zipcode-search .error_message {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  right: 0;
+  bottom: -22px;
+  margin: 0;
+  padding-right: 20px;
+}
+.directorist-zipcode-search .error_message:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.directorist-zipcode-search .error_message p {
+  margin: 0;
+}
+.directorist-zipcode-search .error_message i {
+  margin-left: 10px;
+}
+.directorist-zipcode-search .error_message i:after {
+  background: #f00;
+}
+
 .directorist-widget {
   padding: 0;
   background-color: #ffffff;

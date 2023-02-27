@@ -72,7 +72,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 								<?php if ( Helper::multi_directory_enabled() ): ?>
 									<th class="directorist-table-listing-type"><?php esc_html_e( 'Type', 'directorist' ); ?></th>
 								<?php endif; ?>
-
+								
+								<th class="directorist-table-view-count"><?php esc_html_e( 'View Count', 'directorist' ); ?></th>
 
 								<th class="directorist-table-ex-date"><?php esc_html_e( 'Expiration Date', 'directorist' ); ?></th>
 

@@ -178,6 +178,12 @@ class Directorist_Listing_Dashboard {
 		return !empty( $term->name ) ? $term->name : '';
 	}
 
+	public function get_listing_view_count() {
+		$id         = get_the_ID();
+		$view_count = directorist_get_listing_views_count( $id );
+		return $view_count;
+	}
+
 	public function get_listing_thumbnail() {
 		$id                = get_the_ID();
 		$type              = get_post_meta( $id, '_directory_type', true );

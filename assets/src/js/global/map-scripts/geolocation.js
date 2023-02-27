@@ -137,4 +137,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
         }, 1000);
     })(jQuery);
-});
+}); 

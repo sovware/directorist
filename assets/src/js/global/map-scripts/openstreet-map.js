@@ -54,7 +54,7 @@
         }
         setup_map();
     }
-})();
+})(); 
 
 /* Add listing OSMap */
 import './add-listing/openstreet-map';

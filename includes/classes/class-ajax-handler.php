@@ -136,8 +136,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				wp_send_json_error( 
 					array( 
 						'error_message' => sprintf( 
-							__( '<div class="error_message">%s <p >Sorry, you entered wrong zip code</p></div>', 'directorist' ), 
-							directorist_icon('fas fa-info-circle', false))
+							__( '<div class="error_message">%s <p>%s</p></div>', 'directorist' ), 
+							directorist_icon('fas fa-info-circle', false), __( 'Please enter a valid zip code.', 'directorist' ) )
 					)
 				);
 			}

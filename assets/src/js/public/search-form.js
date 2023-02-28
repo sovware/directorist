@@ -611,11 +611,13 @@ import { directorist_range_slider } from './range-slider';
                     'zipcode' : zipcode
                 },
                 success: function( data ) {
-                    if( data.data.error_message ) {
-                        zipcode_search.append( data.data.error_message )
+                    if( data.data && data.data.error_message ) {
+                        zipcode_search.find('.error_message').remove();
+                        zipcode_search.append( data.data.error_message );
                     }
                     zipcode_search.removeClass('dir_loading');
                     if( directorist.i18n_text.select_listing_map === 'google' && typeof data.lat !== 'undefined' && typeof data.lng !== 'undefined' ) {
+                        zipcode_search.find('.error_message').remove();
                         zipcode_search.find('.zip-cityLat').val( data.lat );
                         zipcode_search.find('.zip-cityLng').val( data.lng );
                     } else {

@@ -94,6 +94,7 @@
 /***/ (function(module, exports) {
 
 ;
+
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     // Recovery Password Modal
@@ -101,16 +102,14 @@
     $(".atbdp_recovery_pass").on("click", function (e) {
       e.preventDefault();
       $("#recover-pass-modal").slideToggle().show();
-    });
+    }); // Contact form [on modal closed]
 
-    // Contact form [on modal closed]
     $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
       $('#atbdp-contact-message').val('');
       $('#atbdp-contact-message-display').html('');
-    });
-
-    // Template Restructured
+    }); // Template Restructured
     // Modal
+
     var directoristModal = document.querySelector('.directorist-modal-js');
     $('body').on('click', '.directorist-btn-modal-js', function (e) {
       e.preventDefault();
@@ -139,6 +138,7 @@
 /***/ (function(module, exports) {
 
 ;
+
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_alert_executed === 'undefined') {
@@ -146,10 +146,12 @@
   } else {
     return;
   }
+
   window.addEventListener('DOMContentLoaded', function () {
     /* Directorist alert dismiss */
     var getUrl = window.location.href;
     var newUrl = getUrl.replace('notice=1', '');
+
     if ($('.directorist-alert__close') !== null) {
       $('.directorist-alert__close').each(function (i, e) {
         $(e).on('click', function (e) {
@@ -172,6 +174,7 @@
 /***/ (function(module, exports) {
 
 ;
+
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_loginjs_executed === 'undefined') {
@@ -179,6 +182,7 @@
   } else {
     return;
   }
+
   window.addEventListener('DOMContentLoaded', function () {
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {
@@ -200,6 +204,7 @@
           if ('nonce_faild' in data && data.nonce_faild) {
             $('p.status').html('<span class="status-success">' + data.message + '</span>');
           }
+
           if (data.loggedin == true) {
             $('p.status').html('<span class="status-success">' + data.message + '</span>');
             document.location.href = directorist.redirect_url;
@@ -211,13 +216,13 @@
           if ('nonce_faild' in data && data.nonce_faild) {
             $('p.status').html('<span class="status-success">' + data.message + '</span>');
           }
+
           $('p.status').show().html('<span class="status-failed">' + directorist.login_error_message + '</span>');
         }
       });
       e.preventDefault();
-    });
+    }); // Alert users to login (only if applicable)
 
-    // Alert users to login (only if applicable)
     $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
       e.preventDefault();
       alert(directorist.login_alert_message);

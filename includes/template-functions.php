@@ -141,3 +141,7 @@ function directorist_get_listing_thumbnail_id( $listing = null ) {
 function directorist_has_listing_thumbnail( $listing = null ) {
 	return (bool) directorist_get_listing_thumbnail_id( $listing );
 }
+
+function directorist_the_locations( $before = '', $sep = ', ', $after = '', $listing_id = null ) {
+	the_terms( $listing_id, ATBDP_LOCATION, $before, $sep, $after );
+}

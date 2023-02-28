@@ -387,6 +387,7 @@ class Directorist_Listings {
 		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
 		$bdbh        = get_post_meta( $id, '_bdbh', true );
 
+
 		$listing_type 		= $this->current_listing_type;
 		$card_fields  		= get_term_meta( $listing_type, 'listings_card_grid_view', true );
 		$list_fields  		= get_term_meta( $listing_type, 'listings_card_list_view', true );
@@ -1073,10 +1074,16 @@ class Directorist_Listings {
 	}
 
 	public function loop_template( $loop = 'grid', $id = NULL ) {
-		if( ! $id ) return;
+		if ( ! $id ) {
+			return;
+		}
+
+		_prime_post_caches( $this->post_ids() );
+
 		global $post;
 		$post = get_post( $id );
-		setup_postdata( $id );
+		setup_postdata( $post );
+
 		$this->set_loop_data();
 
 		if ( $loop == 'grid' && !empty( $this->loop['card_fields'] ) ) {
@@ -1650,30 +1657,7 @@ class Directorist_Listings {
 		}
 
 		public function get_the_location() {
-
-			$id = get_the_ID();
-			$locs = get_the_terms( $id, ATBDP_LOCATION );
-
-			if ( empty( $locs ) ) {
-				return;
-			}
-
-			$local_names = array();
-			foreach ($locs as $term) {
-				$local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
-				ksort($local_names);
-				$locals = array_reverse($local_names);
-			}
-			$output = array();
-			$link = array();
-			foreach ($locals as $location) {
-				$term = get_term_by('slug', $location, ATBDP_LOCATION);
-				$link = esc_url( get_term_link( $term->term_id, ATBDP_LOCATION ) );
-				$space = str_repeat(' ', 1);
-				$output[] = "<a href='{$link}'>{$term->name}</a>";
-			}
-
-			return implode(', ', $output);
+			return get_the_term_list( get_the_ID(), ATBDP_LOCATION, '', ', ', '' );
 		}
 
 		public function loop_wrapper_class() {

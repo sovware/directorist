@@ -179,8 +179,7 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function get_listing_view_count() {
-		$id         = get_the_ID();
-		$view_count = directorist_get_listing_views_count( $id );
+		$view_count = directorist_get_listing_views_count( get_the_ID() );
 		return $view_count;
 	}
 

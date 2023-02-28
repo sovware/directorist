@@ -163,10 +163,17 @@ __webpack_require__.r(__webpack_exports__);
 
       function initAutocomplete() {
         // Create the autocomplete object, restricting the search to geographical
-        // location types.
-        autocomplete = new google.maps.places.Autocomplete(address_input, {
+        var opt = {
+          types: ['geocode'],
+          componentRestrictions: {
+            country: directorist.restricted_countries
+          }
+        };
+        var options = directorist.countryRestriction ? opt : {
           types: []
-        }); // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
+        }; // location types.
+
+        autocomplete = new google.maps.places.Autocomplete(address_input, options); // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
 
         autocomplete.addListener('place_changed', fillInAddress);
       }

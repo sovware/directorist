@@ -111,7 +111,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			add_action( 'wp_ajax_directorist_instant_search', array( $this, 'instant_search' ) );
 			add_action( 'wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
 
-			// instant search
+			// zipcode search
 			add_action( 'wp_ajax_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
 			add_action( 'wp_ajax_nopriv_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
 		}

@@ -4274,6 +4274,12 @@ class Multi_Directory_Manager
                                         'type' => "text",
                                         'label' => __( "Label", "directorist" ),
                                         'value' => "Section Title",
+                                        'show_if' => [
+                                            'where' => "single_listing_header.value.options.general.section_title",
+                                            'conditions' => [
+                                                ['key' => 'use_listing_title', 'compare' => '=', 'value' => false],
+                                            ],
+                                        ],
                                     ],
                                     'icon' => [
                                         'type' => "icon",

@@ -1542,7 +1542,7 @@ function atbdp_get_listings_orderby_options( $orderby = array() ) {
 		$orderby = (array) $orderby;
 	}
 
-    if ( ! in_array('a_z', $orderby, true ) ) {
+    if ( ! in_array( 'a_z', $orderby, true ) ) {
         unset( $orderby_options['title-asc'] );
     }
     if ( ! in_array( 'z_a', $orderby, true ) ) {
@@ -1567,31 +1567,27 @@ function atbdp_get_listings_orderby_options( $orderby = array() ) {
         unset( $orderby_options['rand'] );
     }
 
-    $args = array(
-		'post_type'     => ATBDP_POST_TYPE,
-		'post_status'   => 'publish',
-		'meta_key'      => '_price',
-		'no_found_rows' => true,
-    );
-
-    $listings_with_price = new WP_Query( $args );
-    $prices = array();
-
-    if ( $listings_with_price->have_posts() ) {
-        while ( $listings_with_price->have_posts() ) {
-            $listings_with_price->the_post();
-            $prices[] = (int) get_post_meta( get_the_ID(), '_price', true );
-        }
-		wp_reset_postdata();
-    }
-
-	$prices = array_filter( $prices );
     $listings_price_disabled = (bool) get_directorist_option( 'disable_list_price', 0 );
-    if ( $listings_price_disabled || empty( $prices ) ) {
+	if ( $listings_price_disabled || ! directorist_have_listings_with_price() ) {
         unset( $orderby_options['price-asc'], $orderby_options['price-desc'] );
     }
 
     return apply_filters( 'atbdp_get_listings_orderby_options', $orderby_options );
+}
+
+function directorist_have_listings_with_price() {
+	$args = array(
+		'post_type'              => ATBDP_POST_TYPE,
+		'post_status'            => 'publish',
+		'meta_key'               => '_price',
+		'no_found_rows'          => true,
+		'posts_per_page'         => 1,
+		'update_post_meta_cache' => false,
+		'update_post_term_cache' => false,
+    );
+
+	$listings_with_price = new WP_Query( $args );
+	return $listings_with_price->have_posts();
 }
 
 /**

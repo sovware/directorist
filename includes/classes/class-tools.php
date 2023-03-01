@@ -114,7 +114,7 @@
             $title                 = isset( $_POST['listing_title'] ) ? directorist_clean( wp_unslash( $_POST['listing_title'] ) ) : '';
             $new_listing_status    = get_term_meta( $directory_type, 'new_listing_status', 'pending');
             $supported_post_status = array_keys( get_post_statuses() );
-            $publish_date          = isset( $_POST['publish_date'] ) ? directorist_clean( wp_unslash( $_POST['publish_date'] ) ) : '';
+            $publish_date          = isset( $_POST['meta']['publish_date'] ) ? directorist_clean( wp_unslash( $_POST['meta']['publish_date'] ) ) : '';
             $listing_status        = isset( $_POST['listing_status'] ) ? directorist_clean( wp_unslash( $_POST['listing_status'] ) ) : '';
             $delimiter             = isset( $_POST['delimiter'] ) ? directorist_clean( wp_unslash( $_POST['delimiter'] ) ) : '';
             $description           = isset( $_POST['listing_content'] ) ? directorist_clean( wp_unslash( $_POST['listing_content'] ) ) : '';

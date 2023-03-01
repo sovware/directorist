@@ -732,7 +732,11 @@ class Helper {
 	 * @param string $format Date Format
 	 * @return bool
 	 */
-	public static function validate_date_format( $date, $format = 'Y-m-d h:i:s' ) {
+	public static function validate_date_format( $date, $format = '' ) {
+
+		if( empty( $format ) ) {
+			$format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+		}
 
 		$d = \DateTime::createFromFormat( $format, $date );
 

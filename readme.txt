@@ -416,7 +416,7 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Select2 automatic selected when clicking on the input box
 * Fix - Compatibility issue with PHP 8
 * Fix - Country restriction issue on add listing page
-* Fix - Theme and Extension installation issue in wordpress.com hosted sites - pending
+* Fix - Theme and Extension installation issue in wordpress.com hosted sites
 * Fix - The tag Icon can not be changed in a single listing (Issue #1270)
 * Fix - Creating more than one tag from add listing page
 * Fix - Search issue with default radius (PR #1315)
@@ -430,9 +430,9 @@ Directorist is a complete directory solution and in combination with its advance
 * Improve - Password changing experience from user dashboard (add redirection after changing password)
 * Improve - Wheel scrolling experience for OpenStreetMap map in single listing
 * Improve - Too many requests to map autosuggest API (PR #1320)
-* Improve - Asset loader - pending
+* Improve - Asset loader
 * Improve - Announcement query
-* Improve - Js loading multiple times - pending
+* Improve - Js loading multiple times
 * Improve - Codebase
 
 7.4.6 - Dec 8, 2022

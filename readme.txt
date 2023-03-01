@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 7.4.6
+Stable tag: 7.5.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -399,6 +399,33 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.5.0 - Feb 28, 2023
+
+* Add - Builder option to set the listing  title as the single listing header title
+* Add - New filters hook directorist_page_id
+* Add - Action hook directorist_password_changed
+* Fix - Select2 automatic selected when clicking on the input box
+* Fix - Compatibility issue with PHP 8
+* Fix - Country restriction issue on add listing page
+* Fix - Theme and Extension installation issue in wordpress.com hosted sites - pending
+* Fix - The tag Icon can not be changed in a single listing (Issue #1270)
+* Fix - Creating more than one tag from add listing page
+* Fix - Search issue with default radius (PR #1315)
+* Fix - Select2 toggle icon issue (dropdown icon in the search form).
+* Fix - Compatibility issue with Elementor Plugin - (PR #1344)
+* Fix - PHP warning issue in listing REST controller
+* Fix - Location detector click issue after category selection in the search form
+* Fix - Listing quick edit directory type select
+* Fix - CSV importer misses assigning multiple taxonomies per listing
+* Fix - Map issue in the single listing when address is not set but manual latitude and longitude are present
+* Improve - Password changing experience from user dashboard (add redirection after changing password)
+* Improve - Wheel scrolling experience for OpenStreetMap map in single listing
+* Improve - Too many requests to map autosuggest API (PR #1320)
+* Improve - Asset loader - pending
+* Improve - Announcement query
+* Improve - Js loading multiple times - pending
+* Improve - Codebase
 
 7.4.6 - Dec 8, 2022
 

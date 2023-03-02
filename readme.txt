@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 7.5.0
+Stable tag: 7.5.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -303,11 +303,15 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 🔥 **[WPML Integration](https://directorist.com/product/directorist-wpml-integration/)** - Directorist WPML Integration allows you to create multilingual directory with few steps.
 
+🔥 **[Digital Marketplace](https://directorist.com/product/digital-marketplace/)** - If you want to create a marketplace of fixed-price services or digital downloads, then the Digital Marketplace Extension will be a worth-investment to kickstart.
+
 🔥 **[Connections to Directorist Migrator](https://wordpress.org/plugins/connections-to-directorist-migrator/)** - Directorist offers a user-friendly tool to simplify the migration process by letting you import thousands of Connections listings data to Directorist without the need to import/export CSV.
 
 == Themes ==
 
 Directorist Business Directory offers free and cost-effective premium [Directorist Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
+
+🔥 **[dJobs](https://directorist.com/product/djobs/)** - dJobs is a WordPress directory theme enabling you to create a job directory website where you can turn the employers to submit their job listings.
 
 🔥 **[dHotels](https://directorist.com/product/dhotels/)** - dHotels is mapped out with the aim to allow you to create a hotel directory website exactly the same way you have in your imagination.This hotel theme for WordPress is 100 % mobile responsive. Meaning, it fits any screen from mobile phones to desktops.
 
@@ -335,10 +339,8 @@ Directorist Business Directory offers free and cost-effective premium [Directori
 
 == 🔔🔔🔔 Coming soon... ==
 
-* Digital Marketplace
 * Advanced Review System
 * dEvent (Theme)
-* dJobs (Theme)
 * dCourse (Theme)
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
@@ -358,6 +360,12 @@ We use WordPress REST API to confirm the authenticity of a user attempting to ga
 Directorist – Business Directory Plugin uses Appsero SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
 
 Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
+
+**OTHER AMAZING PRODUCTS FROM WPWAX**
+
+👉  [HelpGent](https://wordpress.org/plugins/helpgent/) – Your Ultimate Help Agent for Video, Voice, and Text Messaging with Screen Record Facility
+
+👉  [Legal Pages](https://wordpress.org/plugins/legal-pages/) – Privacy Policy, Terms & Conditions, GDPR, CCPA, and Cookie Notice Generator
 
 == Installation ==
 
@@ -400,6 +408,10 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
+7.5.1 - Mar 02, 2023
+
+* Fix - Single listing image height issue
+
 7.5.0 - Feb 28, 2023
 
 * Add - Builder option to set the listing  title as the single listing header title
@@ -408,7 +420,7 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - Select2 automatic selected when clicking on the input box
 * Fix - Compatibility issue with PHP 8
 * Fix - Country restriction issue on add listing page
-* Fix - Theme and Extension installation issue in wordpress.com hosted sites - pending
+* Fix - Theme and Extension installation issue in wordpress.com hosted sites
 * Fix - The tag Icon can not be changed in a single listing (Issue #1270)
 * Fix - Creating more than one tag from add listing page
 * Fix - Search issue with default radius (PR #1315)
@@ -422,9 +434,9 @@ Directorist is a complete directory solution and in combination with its advance
 * Improve - Password changing experience from user dashboard (add redirection after changing password)
 * Improve - Wheel scrolling experience for OpenStreetMap map in single listing
 * Improve - Too many requests to map autosuggest API (PR #1320)
-* Improve - Asset loader - pending
+* Improve - Asset loader
 * Improve - Announcement query
-* Improve - Js loading multiple times - pending
+* Improve - Js loading multiple times
 * Improve - Codebase
 
 7.4.6 - Dec 8, 2022

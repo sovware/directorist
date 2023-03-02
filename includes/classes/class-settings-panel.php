@@ -131,83 +131,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'data'                       => [],
             ];
 
-			$users = get_users(
-				array(
-					'role__not_in' => 'Administrator',   // Administrator | Subscriber
-					'number'       => apply_filters( 'directorist_announcement_user_query_num', 1000 ),
-				)
-			);
-            $recipient = [];
-
-            if ( ! empty( $users ) ) {
-                foreach ( $users as $user ) {
-                    $recipient[] = [
-                        'value' => $user->user_email,
-                        'label' => ( ! empty( $user->display_name ) ) ? $user->display_name : $user->user_nicename,
-                    ];
-                }
-            }
-
-            $fields['announcement'] = [
-                'type'                       => 'ajax-action',
-                'action'                     => 'atbdp_send_announcement',
-                'label'                      => '',
-                'button-label'               => 'Send',
-                'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Sending',
-                'option-fields' => [
-                    'to' => [
-                        'type' => 'select',
-                        'label' => 'To',
-                        'options' => [
-                            [ 'value' => 'all_user', 'label' => 'All User' ],
-                            [ 'value' => 'selected_user', 'label' => 'Selected User' ],
-                        ],
-                        'value' => 'all_user',
-                    ],
-                    'recipient' => [
-                        'type'    => 'checkbox',
-                        'label'   => 'Recipients',
-                        'options' => $recipient,
-                        'value'   => '',
-                        'show-if' => [
-                            'where' => "self.to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => 'selected_user'],
-                            ],
-                        ],
-                    ],
-                    'subject' => [
-                        'type'  => 'text',
-                        'label' => 'Subject',
-                        'value' => '',
-                    ],
-                    'message' => [
-                        'type'        => 'textarea',
-                        'label'       => 'Message',
-                        'description' => 'Maximum 400 characters are allowed',
-                        'value'       => '',
-                    ],
-                    'expiration' => [
-                        'type'  => 'range',
-                        'min'   => '0',
-                        'max'   => '365',
-                        'label' => 'Expires in Days',
-                        'value' => 0,
-                    ],
-                    'send_to_email' => [
-                        'type'  => 'toggle',
-                        'label' => 'Send a copy to email',
-                        'value' => true,
-                    ],
-					'nonce' => [
-						'type'  => 'hidden',
-						'value' => wp_create_nonce( directorist_get_nonce_key() ),
-                    ],
-                ],
-                'value' => '',
-                'save-option-data' => false,
-            ];
-
             $fields['listing_import_button'] = [
                 'type'            => 'button',
                 'url'             => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
@@ -693,34 +616,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'          => 'note',
                     'title'         => __('Need more Features?', 'directorist'),
                     'description'   => sprintf(__('You can add new features and expand the functionality of the plugin even more by using extensions. %s', 'directorist'), $this->extension_url),
-                ],
-
-                'announcement_to' => [
-                    'label'     => __('To', 'directorist'),
-                    'type'      => 'select',
-                    'value'     => 'all_user',
-                    'options'   => [
-                        [
-                            'value' => 'all_user',
-                            'label' => __( 'All User', 'directorist' )
-                        ],
-                        [
-                            'value' => 'selected_user',
-                            'label' => __( 'Selected User', 'directorist' )
-                        ]
-                    ]
-                ],
-
-                'announcement_subject' => [
-                    'label' => __('Subject', 'directorist'),
-                    'type'  => 'text',
-                    'value' => false
-                ],
-
-                'announcement_send_to_email' => [
-                    'label'   => __('Send a copy to email', 'directorist'),
-                    'type'    => 'toggle',
-                    'value' => true,
                 ],
 
                 'button_type' => [
@@ -2580,22 +2475,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value'         => __('Favorite Listings', 'directorist'),
                     'show-if' => [
                         'where' => "fav_listings_tab",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'announcement_tab' => [
-                    'type'  => 'toggle',
-                    'label' => __('Display Announcements Tab', 'directorist'),
-                    'value' => true,
-                ],
-                'announcement_tab_text'    => [
-                    'type'          => 'text',
-                    'label'         => __('"Announcement" Tab Label', 'directorist'),
-                    'value'         => __('Announcements', 'directorist'),
-                    'show-if' => [
-                        'where' => "announcement_tab",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4899,7 +4778,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
                                 'general_dashboard' => [
                                     'fields'      => [
-                                         'my_profile_tab', 'my_profile_tab_text', 'fav_listings_tab', 'fav_listings_tab_text', 'announcement_tab', 'announcement_tab_text'
+                                         'my_profile_tab', 'my_profile_tab_text', 'fav_listings_tab', 'fav_listings_tab_text'
                                     ],
                                 ],
                                 'author_dashboard' => [
@@ -5251,17 +5130,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __( 'Tools', 'directorist' ),
                     'icon' => '<i class="fa fa-tools directorist_info"></i>',
                     'submenu' => apply_filters('atbdp_tools_submenu', [
-                        'announcement_settings' => [
-                            'label'     => __('Announcement', 'directorist'),
-                            'icon' => '<i class="fa fa-bullhorn"></i>',
-                            'sections'  => apply_filters('atbdp_announcement_settings_controls', [
-                                'send-announcement'     => [
-                                    'fields'        => [
-                                        'announcement',
-                                    ]
-                                ],
-                            ]),
-                        ],
 
                         'listings_import' => [
                             'label' => __('Listings Import/Export', 'directorist'),

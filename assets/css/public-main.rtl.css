@@ -3075,6 +3075,10 @@ body.stop-scrolling {
   background-color: #202428;
   color: #fff;
 }
+.directorist-add-listing-wrapper .max-file-reached .ezmu__upload-button-wrap .ezmu__btn {
+  pointer-events: none;
+  opacity: 0.7;
+}
 .directorist-add-listing-wrapper .ezmu__info-list .ezmu__info-list-item:not(:last-child) {
   margin-left: 30px;
 }

@@ -612,19 +612,6 @@
       var drop_area = this.container[0]
       var drag_events = ["dragenter", "dragleave", "dragover", "drop"];
 
-
-
-      var dirImageUpload = document.querySelector(".directorist-image-upload")
-
-      if(dirImageUpload.classList.contains('max-file-reached')) {
-        console.log('Maximum FIle Uploaded');
-        drop_area.removeEventListener("dragenter", onDragEnter);
-        drop_area.removeEventListener("dragleave", onDragLeave);
-        drop_area.removeEventListener("dragover", onDragOver);
-        drop_area.removeEventListener("drop", onDrop);
-        return;
-      }
-
       var dragEnter = function (e) {
         if (self.draggingCounter < 1) {
           self.draggingCounter++;
@@ -641,7 +628,7 @@
         }
 
         if (self.draggingCounter < 1) {
-          removeClass(self.container, "highlight");
+          removeClass(self.container[0], "highlight");
         }
       };
 
@@ -660,7 +647,7 @@
         document.addEventListener(
           event_name,
           function () {
-            addClass(self.container, "drag-enter");
+            addClass(self.container[0], "drag-enter");
           },
           false
         );

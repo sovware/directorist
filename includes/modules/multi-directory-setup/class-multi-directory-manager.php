@@ -2506,12 +2506,6 @@ class Multi_Directory_Manager
                                 'label' => __( 'Required', 'directorist' ),
                                 'value' => false,
                             ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => '',
-                                'sync' => false,
-                            ],
                             'placeholder' => [
                                 'type'  => 'text',
                                 'label' => __( 'Placeholder', 'directorist' ),

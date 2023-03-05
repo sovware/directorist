@@ -333,7 +333,9 @@
           errorKey: "maxFileItems",
           message: alerts.maxFileItems.replace(/(__DT__)/g, max_file_items)
         });
+      }
 
+      if (valid_max_file_items && (filesMeta.length >= max_file_items)) {
         this.container[0].classList.add('max-file-reached');
       }
 
@@ -372,6 +374,9 @@
             errorKey: "maxTotalFileSize",
             message: alerts.maxTotalFileSize.replace(/(__DT__)/g, max_total_file_size_in_text)
           });
+        }
+
+        if (total_file_size_in_byte > max_total_file_size_in_byte) {
           this.container[0].classList.add('max-file-reached');
         }
       }
@@ -606,6 +611,19 @@
       var self = this;
       var drop_area = this.container[0]
       var drag_events = ["dragenter", "dragleave", "dragover", "drop"];
+
+
+
+      var dirImageUpload = document.querySelector(".directorist-image-upload")
+
+      if(dirImageUpload.classList.contains('max-file-reached')) {
+        console.log('Maximum FIle Uploaded');
+        drop_area.removeEventListener("dragenter", onDragEnter);
+        drop_area.removeEventListener("dragleave", onDragLeave);
+        drop_area.removeEventListener("dragover", onDragOver);
+        drop_area.removeEventListener("drop", onDrop);
+        return;
+      }
 
       var dragEnter = function (e) {
         if (self.draggingCounter < 1) {

@@ -515,7 +515,7 @@ class Listings_Controller extends Posts_Controller {
 	public function prepare_item_for_response( $object, $request ) {
 		$context       = ! empty( $request['context'] ) ? $request['context'] : 'view';
 		$this->request = $request;
-		$data          = $this->get_listing_data( $object, $context, $request );
+		$data          = $this->get_listing_data( $object, $request, $context );
 
 		$data     = $this->add_additional_fields_to_object( $data, $request );
 		$data     = $this->filter_response_by_context( $data, $context );
@@ -640,11 +640,12 @@ class Listings_Controller extends Posts_Controller {
 	 * Get listing data.
 	 *
 	 * @param WP_Post   $listing WP_Post instance.
+	 * @param WP_REST_Request $request Request object.
 	 * @param string    $context Request context. Options: 'view' and 'edit'.
-	 *
+	 * 
 	 * @return array
 	 */
-	protected function get_listing_data( $listing, $context = 'view', $request ) {
+	protected function get_listing_data( $listing, $request, $context = 'view' ) {
 		$fields  = $this->get_fields_for_response( $request );
 
 		$base_data = array();

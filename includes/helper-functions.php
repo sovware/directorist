@@ -5,11 +5,9 @@ use Directorist\database\DB;
 defined('ABSPATH') || die('No direct script access allowed!');
 
 if ( ! function_exists( 'directorist_get_listings_directory_type' ) ) {
-    function directorist_get_listings_directory_type( $listing_id = '' ) {
-        $directory_type = wp_get_post_terms( $listing_id, ATBDP_DIRECTORY_TYPE );
-        if ( empty( $directory_type ) || ! is_array( $directory_type ) ) return '';
-
-        return $directory_type[0]->term_id;
+    function directorist_get_listings_directory_type( $listing_id = 0 ) {
+		$directory_type = directorist_get_object_terms( $listing_id, ATBDP_DIRECTORY_TYPE, 'term_id' );
+		return empty( $directory_type ) ? 0 : $directory_type[0];
     }
 }
 
@@ -3919,4 +3917,46 @@ function directorist_default_preview_size() {
 			'crop'   => true,
 		)
 	);
+}
+
+/**
+ *
+ * @param $page_name
+ * @since 7.5
+ * @return int Page ID
+ */
+function directorist_get_page_id( string $page_name = '' ) : int {
+    
+    $page_to_option_map = apply_filters( 'directorist_pages', array(
+        'location'      => 'single_location_page',
+        'category'      => 'single_category_page',
+        'tag'           => 'single_tag_page',
+        'form'          => 'add_listing_page',
+        'listings'      => 'all_listing_page',
+        'dashboard'     => 'user_dashboard',
+        'author'        => 'author_profile_page',
+        'categories'    => 'all_categories_page',
+        'locations'     => 'all_locations_page',
+        'registration'  => 'custom_registration',
+        'login'         => 'user_login',
+        'search'        => 'search_listing',
+        'results'       => 'search_result_page',
+        'checkout'      => 'checkout_page',
+        'receipt'       => 'payment_receipt_page',
+        'failed'        => 'transaction_failure_page',
+        'privacy'       => 'privacy_policy',
+        'terms'         => 'terms_conditions',
+    ));
+
+    if ( ! isset( $page_to_option_map[ $page_name ] ) ) {
+        return 0;
+    }
+
+    $page_id = (int) get_directorist_option( $page_to_option_map[ $page_name ] );
+
+    if ( ! $page_id ) {
+        return 0;
+    }
+
+    return (int) apply_filters( 'directorist_page_id', $page_id, $page_name );
 }

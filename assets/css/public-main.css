@@ -491,8 +491,12 @@ p.status:empty {
 }
 
 .select2-container--open .select2-dropdown--above {
-  top: 32px;
+  top: 0;
   border-color: #ececec;
+}
+
+body.logged-in .select2-container--open .select2-dropdown--above {
+  top: 32px;
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field:focus {
@@ -2786,6 +2790,23 @@ body.stop-scrolling {
 .directorist-add-listing-form .directorist-content-module .directorist-form-group:not(:last-child),
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group:not(:last-child) {
   margin-bottom: 15px;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade {
+  padding: 0;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade:before,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade:before {
+  width: 15px;
+  height: 15px;
+  left: unset;
+  right: 0;
+  top: 54px;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade:after {
+  height: 42px;
+  top: 34px;
 }
 .directorist-add-listing-form .directorist-alert-required,
 #directiost-listing-fields_wrapper .directorist-alert-required {
@@ -5096,6 +5117,16 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 
 .select2-container.select2-container--open {
   z-index: 99999;
+}
+
+.select2-container .directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+  position: absolute;
+  right: 0;
+  pointer-events: none;
+}
+.select2-container .directorist-select2-addons-area .directorist-select2-dropdown-close {
+  position: absolute;
+  right: 25px;
 }
 
 .directorist-widget {
@@ -15362,6 +15393,12 @@ Review: New Style
 }
 .directorist-search-contents .directorist-search-form-top .directorist-search-form-action__filter .directorist-filter-btn {
   background-color: #fff;
+}
+.directorist-search-contents .directorist-search-form-top .atbdp-form-fade:before {
+  width: 15px;
+  height: 15px;
+  left: unset;
+  right: 0;
 }
 
 .directorist-search-contents .directorist-advanced-filter {

@@ -2878,6 +2878,11 @@ class Multi_Directory_Manager
                                 'label'  => __( 'Label', 'directorist' ),
                                 'value' => 'Tag',
                             ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => __( 'Placeholder', 'directorist' ),
+                                'value' => 'Select',
+                            ],
                             'required' => [
                                 'type'  => 'toggle',
                                 'label'  => __( 'Required', 'directorist' ),

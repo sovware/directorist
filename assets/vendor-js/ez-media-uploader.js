@@ -316,6 +316,12 @@
           message: alerts.minFileItems.replace(/(__DT__)/g, min_file_items)
         });
       }
+      
+      var dirImageUpload = document.querySelector(".directorist-image-upload")
+
+      if(dirImageUpload.classList.contains('max-file-reached')) {
+        dirImageUpload.classList.remove('max-file-reached');
+      }
 
       // Validate Max File Items
       var max_file_items = this.options.maxFileItems;
@@ -327,6 +333,8 @@
           errorKey: "maxFileItems",
           message: alerts.maxFileItems.replace(/(__DT__)/g, max_file_items)
         });
+
+        this.container[0].classList.add('max-file-reached');
       }
 
       // Validate Max File Size
@@ -364,6 +372,7 @@
             errorKey: "maxTotalFileSize",
             message: alerts.maxTotalFileSize.replace(/(__DT__)/g, max_total_file_size_in_text)
           });
+          this.container[0].classList.add('max-file-reached');
         }
       }
 

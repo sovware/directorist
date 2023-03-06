@@ -112,17 +112,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_admin_user__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_admin_user__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/subscriptionManagement */ "./assets/src/js/admin/components/subscriptionManagement.js");
 /* harmony import */ var _components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__);
- // Global
-
- // Blocks
 
 
+// Global
+
+
+// Blocks
 
 
 
 
- // subscriptionManagement
 
+
+
+// subscriptionManagement
 
 
 /***/ }),
@@ -195,34 +198,31 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener('DOMContentLoaded', function () {
   var $ = jQuery;
-  var content = ''; // Category icon selection
+  var content = '';
 
+  // Category icon selection
   function selecWithIcon(selected) {
     if (!selected.id) {
       return selected.text;
     }
-
     var $elem = $("<span><span class='".concat(directorist_admin.icon_type, " ").concat(selected.element.value, "'></span> ").concat(selected.text, "</span>"));
     return $elem;
   }
-
   if ($("[data-toggle='tooltip']").length) {
     $("[data-toggle='tooltip']").tooltip();
-  } // price range
+  }
 
-
+  // price range
   var pricerange = $('#pricerange_val').val();
-
   if (pricerange) {
     $('#pricerange').fadeIn(100);
   }
-
   $('#price_range_option').on('click', function () {
     $('#pricerange').fadeIn(500);
-  }); // enable sorting if only the container has any social or skill field
+  });
 
+  // enable sorting if only the container has any social or skill field
   var $s_wrap = $('#social_info_sortable_container'); // cache it
-
   if (window.outerWidth > 1700) {
     if ($s_wrap.length) {
       $s_wrap.sortable({
@@ -230,9 +230,9 @@ window.addEventListener('DOMContentLoaded', function () {
         opacity: '0.7'
       });
     }
-  } // SOCIAL SECTION
+  }
+  // SOCIAL SECTION
   // Rearrange the IDS and Add new social field
-
   /* $('body').on('click', '#addNewSocial', function () {
       const social_wrap = $('#social_info_sortable_container'); // cache it
       const currentItems = $('.directorist-form-social-fields').length;
@@ -251,15 +251,13 @@ window.addEventListener('DOMContentLoaded', function () {
           //social_wrap.append(data);
       });
   }); */
+
   // remove the social field and then reset the ids while maintaining position
-
-
   $(document).on('click', '.directorist-form-social-fields__remove', function (e) {
     var id = $(this).data('id');
     var elementToRemove = $("div#socialID-".concat(id));
     e.preventDefault();
     /* Act on the event */
-
     swal({
       title: directorist_admin.i18n_text.confirmation_text,
       text: directorist_admin.i18n_text.ask_conf_sl_lnk_del_txt,
@@ -272,8 +270,8 @@ window.addEventListener('DOMContentLoaded', function () {
       if (isConfirm) {
         // user has confirmed, no remove the item and reset the ids
         elementToRemove.slideUp('fast', function () {
-          elementToRemove.remove(); // reorder the index
-
+          elementToRemove.remove();
+          // reorder the index
           $('.directorist-form-social-fields').each(function (index, element) {
             var e = $(element);
             e.attr('id', "socialID-".concat(index));
@@ -281,8 +279,9 @@ window.addEventListener('DOMContentLoaded', function () {
             e.find('.atbdp_social_input').attr('name', "social[".concat(index, "][url]"));
             e.find('.directorist-form-social-fields__remove').attr('data-id', index);
           });
-        }); // show success message
+        });
 
+        // show success message
         swal({
           title: directorist_admin.i18n_text.deleted,
           // text: "Item has been deleted.",
@@ -292,26 +291,28 @@ window.addEventListener('DOMContentLoaded', function () {
         });
       }
     });
-  }); // upgrade old listing
+  });
 
+  // upgrade old listing
   $('#upgrade_directorist').on('click', function (event) {
     event.preventDefault();
-    var $this = $(this); // display a notice to user to wait
+    var $this = $(this);
+    // display a notice to user to wait
     // send an ajax request to the back end
-
     atbdp_do_ajax($this, 'atbdp_upgrade_old_listings', null, function (response) {
       if (response.success) {
         $this.after("<p>".concat(response.data, "</p>"));
       }
     });
-  }); // upgrade old pages
+  });
 
+  // upgrade old pages
   $('#shortcode-updated input[name="shortcode-updated"]').on('change', function (event) {
     event.preventDefault();
     $('#success_msg').hide();
-    var $this = $(this); // display a notice to user to wait
+    var $this = $(this);
+    // display a notice to user to wait
     // send an ajax request to the back end
-
     atbdp_do_ajax($this, 'atbdp_upgrade_old_pages', null, function (response) {
       if (response.success) {
         $('#shortcode-updated').after("<p id=\"success_msg\">".concat(response.data, "</p>"));
@@ -320,26 +321,26 @@ window.addEventListener('DOMContentLoaded', function () {
     $('.atbdp_ajax_loading').css({
       display: 'none'
     });
-  }); // redirect to import import_page_link
+  });
 
+  // redirect to import import_page_link
   $('#csv_import input[name="csv_import"]').on('change', function (event) {
     event.preventDefault();
     window.location = directorist_admin.import_page_link;
   });
-  /* This function handles all ajax request */
 
+  /* This function handles all ajax request */
   function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler) {
     var data;
     if (ActionName) data = "action=".concat(ActionName);
     if (arg) data = "".concat(arg, "&action=").concat(ActionName);
-    if (arg && !ActionName) data = arg; // data = data ;
+    if (arg && !ActionName) data = arg;
+    // data = data ;
 
     var n = data.search(directorist_admin.nonceName);
-
     if (n < 0) {
       data = "".concat(data, "&").concat(directorist_admin.nonceName, "=").concat(directorist_admin.nonce);
     }
-
     jQuery.ajax({
       type: 'post',
       url: directorist_admin.ajaxurl,
@@ -365,23 +366,20 @@ window.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery; // Set all variables to be used in scope
-
+  var $ = jQuery;
+  // Set all variables to be used in scope
   var has_tagline = $('#has_tagline').val();
   var has_excerpt = $('#has_excerpt').val();
-
   if (has_excerpt && has_tagline) {
     $('.atbd_tagline_moto_field').fadeIn();
   } else {
     $('.atbd_tagline_moto_field').fadeOut();
   }
-
   $('#atbd_optional_field_check').on('change', function () {
     $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut();
   });
   var avg_review = $('#average_review_for_popular').hide();
   var logged_count = $('#views_for_popular').hide();
-
   if ($('#listing_popular_by select[name="listing_popular_by"]').val() === 'average_rating') {
     avg_review.show();
     logged_count.hide();
@@ -392,7 +390,6 @@ window.addEventListener('DOMContentLoaded', function () {
     avg_review.show();
     logged_count.show();
   }
-
   $('#listing_popular_by select[name="listing_popular_by"]').on('change', function () {
     if ($(this).val() === 'average_rating') {
       avg_review.show();
@@ -405,6 +402,7 @@ window.addEventListener('DOMContentLoaded', function () {
       logged_count.show();
     }
   });
+
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   (function ($) {
   "use strict";
@@ -429,11 +427,9 @@ window.addEventListener('DOMContentLoaded', function () {
   templateResult: selecWithIcon,
   });
    /* Show and hide manual coordinate input field */
-
   if (!$('input#manual_coordinate').is(':checked')) {
     $('.directorist-map-coordinates').hide();
   }
-
   $('#manual_coordinate').on('click', function (e) {
     if ($('input#manual_coordinate').is(':checked')) {
       $('.directorist-map-coordinates').show();
@@ -441,24 +437,21 @@ window.addEventListener('DOMContentLoaded', function () {
       $('.directorist-map-coordinates').hide();
     }
   });
-
   if ($("[data-toggle='tooltip']").length) {
     $("[data-toggle='tooltip']").tooltip();
-  } // price range
+  }
 
-
+  // price range
   var pricerange = $('#pricerange_val').val();
-
   if (pricerange) {
     $('#pricerange').fadeIn(100);
   }
-
   $('#price_range_option').on('click', function () {
     $('#pricerange').fadeIn(500);
-  }); // enable sorting if only the container has any social or skill field
+  });
 
+  // enable sorting if only the container has any social or skill field
   var $s_wrap = $('#social_info_sortable_container'); // cache it
-
   if (window.outerWidth > 1700) {
     if ($s_wrap.length) {
       $s_wrap.sortable({
@@ -466,9 +459,10 @@ window.addEventListener('DOMContentLoaded', function () {
         opacity: '0.7'
       });
     }
-  } // SOCIAL SECTION
-  // Rearrange the IDS and Add new social field
+  }
 
+  // SOCIAL SECTION
+  // Rearrange the IDS and Add new social field
   /* $('body').on('click', '#addNewSocial', function () {
       const currentItems = $('.directorist-form-social-fields').length;
       const ID = `id=${currentItems}`; // eg. 'id=3'
@@ -486,15 +480,13 @@ window.addEventListener('DOMContentLoaded', function () {
           //$s_wrap.append(data);
       });
   }); */
+
   // remove the social field and then reset the ids while maintaining position
-
-
   $(document).on('click', '.directorist-form-social-fields__remove', function (e) {
     var id = $(this).data('id');
     var elementToRemove = $("div#socialID-".concat(id));
     event.preventDefault();
     /* Act on the event */
-
     swal({
       title: directorist_admin.i18n_text.confirmation_text,
       text: directorist_admin.i18n_text.ask_conf_sl_lnk_del_txt,
@@ -507,8 +499,8 @@ window.addEventListener('DOMContentLoaded', function () {
       if (isConfirm) {
         // user has confirmed, no remove the item and reset the ids
         elementToRemove.slideUp('fast', function () {
-          elementToRemove.remove(); // reorder the index
-
+          elementToRemove.remove();
+          // reorder the index
           $('.directorist-form-social-fields').each(function (index, element) {
             var e = $(element);
             e.attr('id', "socialID-".concat(index));
@@ -516,8 +508,9 @@ window.addEventListener('DOMContentLoaded', function () {
             e.find('.atbdp_social_input').attr('name', "social[".concat(index, "][url]"));
             e.find('.directorist-form-social-fields__remove').attr('data-id', index);
           });
-        }); // show success message
+        });
 
+        // show success message
         swal({
           title: directorist_admin.i18n_text.deleted,
           // text: "Item has been deleted.",
@@ -527,26 +520,28 @@ window.addEventListener('DOMContentLoaded', function () {
         });
       }
     });
-  }); // upgrade old listing
+  });
 
+  // upgrade old listing
   $('#upgrade_directorist').on('click', function (event) {
     event.preventDefault();
-    var $this = $(this); // display a notice to user to wait
+    var $this = $(this);
+    // display a notice to user to wait
     // send an ajax request to the back end
-
     atbdp_do_ajax($this, 'atbdp_upgrade_old_listings', null, function (response) {
       if (response.success) {
         $this.after("<p>".concat(response.data, "</p>"));
       }
     });
-  }); // upgrade old pages
+  });
 
+  // upgrade old pages
   $('#shortcode-updated input[name="shortcode-updated"]').on('change', function (event) {
     event.preventDefault();
     $('#success_msg').hide();
-    var $this = $(this); // display a notice to user to wait
+    var $this = $(this);
+    // display a notice to user to wait
     // send an ajax request to the back end
-
     atbdp_do_ajax($this, 'atbdp_upgrade_old_pages', null, function (response) {
       if (response.success) {
         $('#shortcode-updated').after("<p id=\"success_msg\">".concat(response.data, "</p>"));
@@ -555,26 +550,23 @@ window.addEventListener('DOMContentLoaded', function () {
     $('.atbdp_ajax_loading').css({
       display: 'none'
     });
-  }); // send system info to admin
+  });
 
+  // send system info to admin
   $('#atbdp-send-system-info-submit').on('click', function (event) {
     event.preventDefault();
-
     if (!$('#atbdp-email-subject').val()) {
       alert('The Subject field is required');
       return;
     }
-
     if (!$('#atbdp-email-address').val()) {
       alert('The Email field is required');
       return;
     }
-
     if (!$('#atbdp-email-message').val()) {
       alert('The Message field is required');
       return;
     }
-
     $.ajax({
       type: 'post',
       url: directorist_admin.ajaxurl,
@@ -602,10 +594,10 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
+
   /**
    * Generate new Remote View URL and display it on the admin page
    */
-
   $('#generate-url').on('click', function (e) {
     e.preventDefault();
     $.ajax({
@@ -621,7 +613,8 @@ window.addEventListener('DOMContentLoaded', function () {
         $('#system-info-url, #atbdp-system-info-url').val(response.data.url);
         $('#system-info-url-text-link').attr('href', response.data.url).css('display', 'inline-block');
       },
-      error: function error(response) {// $('#atbdp-remote-response').val(response.data.error);
+      error: function error(response) {
+        // $('#atbdp-remote-response').val(response.data.error);
       }
     });
     return false;
@@ -641,30 +634,31 @@ window.addEventListener('DOMContentLoaded', function () {
         $('#system-info-url, #atbdp-system-info-url').val('');
         $('#system-info-url-text-link').attr('href', '#').css('display', 'none');
       },
-      error: function error(response) {// $('#atbdp-remote-response').val(response.data.error);
+      error: function error(response) {
+        // $('#atbdp-remote-response').val(response.data.error);
       }
     });
     return false;
-  }); // redirect to import import_page_link
+  });
 
+  // redirect to import import_page_link
   $('#csv_import input[name="csv_import"]').on('change', function (event) {
     event.preventDefault();
     window.location = directorist_admin.import_page_link;
   });
-  /* This function handles all ajax request */
 
+  /* This function handles all ajax request */
   function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler) {
     var data;
     if (ActionName) data = "action=".concat(ActionName);
     if (arg) data = "".concat(arg, "&action=").concat(ActionName);
-    if (arg && !ActionName) data = arg; // data = data ;
+    if (arg && !ActionName) data = arg;
+    // data = data ;
 
     var n = data.search(directorist_admin.nonceName);
-
     if (n < 0) {
       data = "".concat(data, "&").concat(directorist_admin.nonceName, "=").concat(directorist_admin.nonce);
     }
-
     jQuery.ajax({
       type: 'post',
       url: directorist_admin.ajaxurl,
@@ -689,7 +683,7 @@ window.addEventListener('DOMContentLoaded', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/assets/src/js/admin/components/block-3.js: Unexpected token (724:0)\n\n\u001b[0m \u001b[90m 722 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 723 |\u001b[39m     }\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 724 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n    at instantiate (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:72:32)\n    at constructor (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:358:12)\n    at Object.raise (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:3336:19)\n    at Object.unexpected (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:3374:16)\n    at Object.parseExprAtom (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13120:22)\n    at Object.parseExprAtom (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:8036:20)\n    at Object.parseExprSubscripts (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12645:23)\n    at Object.parseUpdate (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12624:21)\n    at Object.parseMaybeUnary (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12595:23)\n    at Object.parseMaybeUnaryOrPrivate (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12389:61)\n    at Object.parseExprOps (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12396:23)\n    at Object.parseMaybeConditional (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12366:23)\n    at Object.parseMaybeAssign (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12318:21)\n    at Object.parseExpressionBase (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12254:23)\n    at /Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12248:39\n    at Object.allowInAnd (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:14343:16)\n    at Object.parseExpression (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12248:17)\n    at Object.parseStatementContent (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:14783:23)\n    at Object.parseStatement (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:14640:17)\n    at Object.parseBlockOrModuleBlockBody (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:15283:25)\n    at Object.parseBlockBody (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:15274:10)\n    at Object.parseProgram (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:14558:10)\n    at Object.parseTopLevel (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:14545:25)\n    at Object.parse (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:16508:10)\n    at parse (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:16560:38)\n    at parser (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/core/lib/parser/index.js:52:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/core/lib/transformation/normalize-file.js:87:38)\n    at normalizeFile.next (<anonymous>)\n    at run (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/@babel/core/lib/transformation/index.js:31:50)");
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/assets/src/js/admin/components/block-3.js: Unexpected token (724:0)\n\n\u001b[0m \u001b[90m 722 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 723 |\u001b[39m     }\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 724 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n    at instantiate (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:64:32)\n    at constructor (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:364:12)\n    at JSXParserMixin.raise (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:3253:19)\n    at JSXParserMixin.unexpected (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:3283:16)\n    at JSXParserMixin.parseExprAtom (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11248:22)\n    at JSXParserMixin.parseExprAtom (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:6992:20)\n    at JSXParserMixin.parseExprSubscripts (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10859:23)\n    at JSXParserMixin.parseUpdate (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10842:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10818:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10656:61)\n    at JSXParserMixin.parseExprOps (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10661:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10638:23)\n    at JSXParserMixin.parseMaybeAssign (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10599:21)\n    at JSXParserMixin.parseExpressionBase (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10553:23)\n    at /Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10549:39\n    at JSXParserMixin.allowInAnd (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12239:16)\n    at JSXParserMixin.parseExpression (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10549:17)\n    at JSXParserMixin.parseStatementContent (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12682:23)\n    at JSXParserMixin.parseStatementLike (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12548:17)\n    at JSXParserMixin.parseModuleItem (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12525:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13120:36)\n    at JSXParserMixin.parseBlockBody (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13113:10)\n    at JSXParserMixin.parseProgram (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12439:10)\n    at JSXParserMixin.parseTopLevel (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12429:25)\n    at JSXParserMixin.parse (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:14250:10)\n    at parse (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:14292:38)\n    at parser (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/core/lib/parser/index.js:41:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/core/lib/transformation/normalize-file.js:64:38)\n    at normalizeFile.next (<anonymous>)\n    at run (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/core/lib/transformation/index.js:21:50)\n    at run.next (<anonymous>)\n    at transform (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/@babel/core/lib/transform.js:22:41)\n    at transform.next (<anonymous>)\n    at step (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/gensync/index.js:261:32)\n    at /Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/gensync/index.js:273:13\n    at async.call.result.err.err (/Users/macbookpro/Local Sites/testdir/app/public/wp-content/plugins/directorist/node_modules/gensync/index.js:223:11)");
 
 /***/ }),
 
@@ -705,6 +699,7 @@ throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index
     Version: 1.0.0
     License: MIT
 */
+
 var pureScriptTab = function pureScriptTab(selector1) {
   var selector = document.querySelectorAll(selector1);
   selector.forEach(function (el, index) {
@@ -732,7 +727,6 @@ var pureScriptTab = function pureScriptTab(selector1) {
     });
   });
 };
-
 pureScriptTab('.directorist_builder--tab');
 
 /***/ }),
@@ -745,22 +739,19 @@ pureScriptTab('.directorist_builder--tab');
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery; // Init Category Icon Picker
+  var $ = jQuery;
 
+  // Init Category Icon Picker
   function initCategoryIconPicker() {
     var iconPickerContainer = document.querySelector('.directorist-category-icon-picker');
-
     if (!iconPickerContainer) {
       return;
     }
-
     var iconValueElm = document.querySelector('.category_icon_value');
     var iconValue = iconValueElm ? iconValueElm.value : '';
-
     var onSelectIcon = function onSelectIcon(value) {
       iconValueElm.setAttribute('value', value);
     };
-
     var args = {};
     args.container = iconPickerContainer;
     args.onSelect = onSelectIcon;
@@ -773,18 +764,16 @@ window.addEventListener('DOMContentLoaded', function () {
     var iconPicker = new IconPicker(args);
     iconPicker.init();
   }
+  initCategoryIconPicker();
 
-  initCategoryIconPicker(); // Category icon selection
-
+  // Category icon selection
   function selecWithIcon(selected) {
     if (!selected.id) {
       return selected.text;
     }
-
     var $elem = $("<span><span class='".concat(selected.element.value, "'></span> ").concat(selected.text, "</span>"));
     return $elem;
   }
-
   if ($('#category_icon').length) {
     $('#category_icon').select2({
       placeholder: directorist_admin.i18n_text.icon_choose_text,
@@ -792,7 +781,6 @@ window.addEventListener('DOMContentLoaded', function () {
       templateResult: selecWithIcon
     });
   }
-
   $('body').on('click', '.directorist_settings-trigger', function () {
     $('.setting-left-sibebar').toggleClass('active');
     $('.directorist_settings-panel-shade').toggleClass('active');
@@ -800,8 +788,9 @@ window.addEventListener('DOMContentLoaded', function () {
   $('body').on('click', '.directorist_settings-panel-shade', function () {
     $('.setting-left-sibebar').removeClass('active');
     $(this).removeClass('active');
-  }); // Directorist More Dropdown
+  });
 
+  // Directorist More Dropdown
   $('body').on('click', '.directorist_more-dropdown-toggle', function (e) {
     e.preventDefault();
     $(this).toggleClass('active');
@@ -815,50 +804,53 @@ window.addEventListener('DOMContentLoaded', function () {
       $('.directorist_more-dropdown-option').removeClass('active');
       $('.directorist_more-dropdown-toggle').removeClass('active');
     }
-  }); // Select Dropdown
+  });
 
+  // Select Dropdown
   $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function (e) {
     e.preventDefault();
     $(this).siblings('.directorist_dropdown-option').toggle();
-  }); // Select Option after click
+  });
 
+  // Select Option after click
   $('body').on('click', '.directorist_dropdown .directorist_dropdown-option ul li a', function (e) {
     e.preventDefault();
     var optionText = $(this).html();
     $(this).children('.directorist_dropdown-toggle__text').html(optionText);
     $(this).closest('.directorist_dropdown-option').siblings('.directorist_dropdown-toggle').children('.directorist_dropdown-toggle__text').html(optionText);
     $('.directorist_dropdown-option').hide();
-  }); // Hide Clicked Anywhere
+  });
 
+  // Hide Clicked Anywhere
   $(document).bind('click', function (e) {
     var clickedDom = $(e.target);
-
     if (!clickedDom.parents().hasClass('directorist_dropdown')) {
       $('.directorist_dropdown-option').hide();
     }
   });
   $('.directorist-type-slug-content').each(function (id, element) {
-    var findElmSlug = $(element).find('.directorist_listing-slug-text'); // Store old slug value
+    var findElmSlug = $(element).find('.directorist_listing-slug-text');
 
+    // Store old slug value
     var slugWrapper = $(element).children('.directorist_listing-slug-text');
-    var oldSlugVal = slugWrapper.attr('data-value'); // Slug Edit
+    var oldSlugVal = slugWrapper.attr('data-value');
 
+    // Slug Edit
     slugWrapper.on('input keypress', function (e) {
       var slugText = $(this).text();
       $(this).attr('data-value', slugText);
       var setSlugBtn = $(this).siblings('.directorist-listing-slug-edit-wrap').children('.directorist_listing-slug-formText-add');
       $(this).attr('data-value') === '' ? setSlugBtn.addClass('disabled') : setSlugBtn.removeClass('disabled');
-
       if (e.key === 'Enter' && $(this).attr('data-value') !== '') {
         e.preventDefault();
         setSlugBtn.click();
       }
-
       if ($(this).attr('data-value') === '' && e.key === 'Enter') {
         e.preventDefault();
       }
-    }); // Edit Form Open
+    });
 
+    // Edit Form Open
     $('body').on('click', '.directorist-listing-slug__edit', function (e) {
       e.preventDefault();
       $('.directorist_listing-slug-formText-remove').click();
@@ -869,18 +861,15 @@ window.addEventListener('DOMContentLoaded', function () {
       $(this).siblings('.directorist_listing-slug-formText-add').addClass('active');
       $(this).siblings('.directorist_listing-slug-formText-remove').removeClass('directorist_listing-slug-formText-remove--hidden');
       editableSlug.focus();
-    }); // edit directory type slug
+    });
 
+    // edit directory type slug
     $(element).find('.directorist_listing-slug-formText-add').on('click', function (e) {
       e.preventDefault();
-
       var _this = $(this);
-
       var type_id = $(this).data('type-id');
       var update_slug = $('.directorist-slug-text-' + type_id).attr('data-value');
-      oldSlugVal = slugWrapper.attr('data-value');
-      /* Update the slug values */
-
+      oldSlugVal = slugWrapper.attr('data-value'); /* Update the slug values */
       var addSlug = $(this);
       var slugId = $('.directorist-slug-notice-' + type_id);
       var thisSiblings = $(_this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text');
@@ -896,19 +885,15 @@ window.addEventListener('DOMContentLoaded', function () {
         },
         success: function success(response) {
           addSlug.closest('.directorist-listing-slug-edit-wrap').children('.directorist_loader').remove();
-
           if (response) {
             if (response.error) {
               slugId.removeClass('directorist-slug-notice-success');
               slugId.addClass('directorist-slug-notice-error');
               slugId.empty().html(response.error);
-
               if (response.old_slug) {
                 $('.directorist-slug-text-' + type_id).text(response.old_slug);
               }
-
               _this.siblings('.directorist-listing-slug__edit').show();
-
               setTimeout(function () {
                 slugId.empty().html("");
               }, 3000);
@@ -916,9 +901,7 @@ window.addEventListener('DOMContentLoaded', function () {
               slugId.empty().html(response.success);
               slugId.removeClass('directorist-slug-notice-error');
               slugId.addClass('directorist-slug-notice-success');
-
               _this.siblings('.directorist-listing-slug__edit').show();
-
               setTimeout(function () {
                 addSlug.closest('.directorist-listing-slug__form').css({
                   "display": "none"
@@ -927,15 +910,15 @@ window.addEventListener('DOMContentLoaded', function () {
               }, 1500);
             }
           }
-
           $(_this).removeClass('active');
           $(_this).siblings('.directorist_listing-slug-formText-remove').addClass('directorist_listing-slug-formText-remove--hidden');
           thisSiblings.removeClass('directorist_listing-slug-text--editable');
           thisSiblings.attr('contenteditable', 'false');
         }
       });
-    }); // Edit Form Remove
+    });
 
+    // Edit Form Remove
     $(element).find('.directorist_listing-slug-formText-remove').on('click', function (e) {
       e.preventDefault();
       var thisClosestSibling = $(this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text');
@@ -946,8 +929,9 @@ window.addEventListener('DOMContentLoaded', function () {
       $(this).addClass('directorist_listing-slug-formText-remove--hidden');
       thisClosestSibling.attr('data-value', oldSlugVal);
       thisClosestSibling.text(oldSlugVal);
-    }); // Hide Slug Form outside click
+    });
 
+    // Hide Slug Form outside click
     $(document).on('click', function (e) {
       if (!e.target.closest('.directorist-type-slug')) {
         findElmSlug.attr('data-value', oldSlugVal);
@@ -959,44 +943,47 @@ window.addEventListener('DOMContentLoaded', function () {
         findElmSlug.siblings('.directorist-listing-slug-edit-wrap').children('.directorist_listing-slug-formText-remove').addClass('directorist_listing-slug-formText-remove--hidden');
       }
     });
-  }); // Tab Content
-  // Modular, classes has no styling, so reusable
+  });
 
+  // Tab Content
+  // Modular, classes has no styling, so reusable
   $('.atbdp-tab__nav-link').on('click', function (e) {
     e.preventDefault();
     var data_target = $(this).data('target');
-    var current_item = $(this).parent(); // Active Nav Item
-
+    var current_item = $(this).parent();
+    // Active Nav Item
     $('.atbdp-tab__nav-item').removeClass('active');
-    current_item.addClass('active'); // Active Tab Content
-
+    current_item.addClass('active');
+    // Active Tab Content
     $('.atbdp-tab__content').removeClass('active');
     $(data_target).addClass('active');
-  }); // Custom
+  });
 
+  // Custom
   $('.atbdp-tab-nav-menu__link').on('click', function (e) {
     e.preventDefault();
     var data_target = $(this).data('target');
-    var current_item = $(this).parent(); // Active Nav Item
-
+    var current_item = $(this).parent();
+    // Active Nav Item
     $('.atbdp-tab-nav-menu__item').removeClass('active');
-    current_item.addClass('active'); // Active Tab Content
-
+    current_item.addClass('active');
+    // Active Tab Content
     $('.atbdp-tab-content').removeClass('active');
     $(data_target).addClass('active');
-  }); // Section Toggle
+  });
 
+  // Section Toggle
   $('.atbdp-section-toggle').on('click', function (e) {
     e.preventDefault();
     var data_target = $(this).data('target');
     $(data_target).slideToggle();
-  }); // Accordion Toggle
+  });
 
+  // Accordion Toggle
   $('.atbdp-accordion-toggle').on('click', function (e) {
     e.preventDefault();
     var data_parent = $(this).data('parent');
     var data_target = $(this).data('target');
-
     if ($(data_target).hasClass('active')) {
       $(data_target).removeClass('active');
       $(data_target).slideUp();
@@ -1019,24 +1006,20 @@ window.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports) {
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery; // License Authentication
+  var $ = jQuery;
+
+  // License Authentication
   // ----------------------------------------------------------
   // atbdp_get_license_authentication
-
   var is_sending = false;
   $('#atbdp-directorist-license-login-form').on('submit', function (e) {
     e.preventDefault();
-
     if (is_sending) {
       return;
     }
-
     var form = $(this);
     var submit_button = form.find('button[type="submit"]');
     var form_data = {
@@ -1057,17 +1040,15 @@ window.addEventListener('DOMContentLoaded', function () {
       },
       success: function success(response) {
         var _response$status, _response$status2;
-
         // console.log({response});
+
         if (response.has_previous_subscriptions) {
           location.reload();
           return;
         }
-
         is_sending = false;
         submit_button.attr('disabled', false);
         submit_button.find('.atbdp-loading').remove();
-
         if (response !== null && response !== void 0 && (_response$status = response.status) !== null && _response$status !== void 0 && _response$status.log) {
           for (var feedback in response.status.log) {
             var alert_type = response.status.log[feedback].type;
@@ -1077,20 +1058,22 @@ window.addEventListener('DOMContentLoaded', function () {
             $('.atbdp-form-feedback').append(_alert);
           }
         }
-
         if (response !== null && response !== void 0 && (_response$status2 = response.status) !== null && _response$status2 !== void 0 && _response$status2.success) {
           location.reload();
           return;
           form.attr('id', 'atbdp-product-download-form');
           form.find('.atbdp-form-page').remove();
           var form_response_page = form.find('.atbdp-form-response-page');
-          form_response_page.removeClass('atbdp-d-none'); // Append Response
+          form_response_page.removeClass('atbdp-d-none');
 
+          // Append Response
           form_response_page.append('<div class="atbdp-form-feedback"></div>');
           var themes = response.license_data && response.license_data.themes ? response.license_data.themes : [];
           var plugins = response.license_data && response.license_data.plugins ? response.license_data.plugins : [];
           var total_theme = themes.length;
-          var total_plugin = plugins.length; // console.log( { plugins, themes } );
+          var total_plugin = plugins.length;
+
+          // console.log( { plugins, themes } );
 
           if (!plugins.length && !themes.length) {
             var title = '<h3 class="h3 form-header-title">There is no product in your purchase, redirecting...</h3>';
@@ -1098,10 +1081,10 @@ window.addEventListener('DOMContentLoaded', function () {
             location.reload();
             return;
           }
-
           var title = '<h3 class="h3 form-header-title">Activate your products</h3>';
-          form_response_page.find('.atbdp-form-feedback').append(title); // Show Log - Themes
+          form_response_page.find('.atbdp-form-feedback').append(title);
 
+          // Show Log - Themes
           if (total_theme) {
             var theme_section = '<div class="atbdp-checklist-section atbdp-themes-list-section"></div>';
             form_response_page.find('.atbdp-form-feedback').append(theme_section);
@@ -1110,10 +1093,8 @@ window.addEventListener('DOMContentLoaded', function () {
             form_response_page.find('.atbdp-themes-list-section').append(theme_title);
             form_response_page.find('.atbdp-themes-list-section').append(theme_check_lists);
             var counter = 0;
-
             var _iterator = _createForOfIteratorHelper(themes),
-                _step;
-
+              _step;
             try {
               for (_iterator.s(); !(_step = _iterator.n()).done;) {
                 var theme = _step.value;
@@ -1130,9 +1111,9 @@ window.addEventListener('DOMContentLoaded', function () {
             } finally {
               _iterator.f();
             }
-          } // Show Log - Extensions
+          }
 
-
+          // Show Log - Extensions
           if (total_plugin) {
             var plugin_section = '<div class="atbdp-checklist-section atbdp-extensions-list-section"></div>';
             form_response_page.find('.atbdp-form-feedback').append(plugin_section);
@@ -1141,10 +1122,8 @@ window.addEventListener('DOMContentLoaded', function () {
             form_response_page.find('.atbdp-extensions-list-section').append(plugin_title);
             form_response_page.find('.atbdp-extensions-list-section').append(plugin_check_lists);
             var counter = 0;
-
             var _iterator2 = _createForOfIteratorHelper(plugins),
-                _step2;
-
+              _step2;
             try {
               for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
                 var extension = _step2.value;
@@ -1162,7 +1141,6 @@ window.addEventListener('DOMContentLoaded', function () {
               _iterator2.f();
             }
           }
-
           var continue_button = '<div class="account-connect__form-btn"><button type="button" class="account-connect__btn atbdp-download-products-btn">Continue <span class="la la-arrow-right"></span></button></div>';
           var skip_button = '<a href="#" class="atbdp-link atbdp-link-secondery reload">Skip</a>';
           form_response_page.append(continue_button);
@@ -1172,7 +1150,6 @@ window.addEventListener('DOMContentLoaded', function () {
             var skiped_themes = 0;
             $('.atbdp-theme-checklist-item .atbdp-list-action .atbdp-checkbox').each(function (i, e) {
               var is_checked = $(e).is(':checked');
-
               if (!is_checked) {
                 var id = $(e).attr('id');
                 var list_item = $(".check-list-item-".concat(id));
@@ -1183,7 +1160,6 @@ window.addEventListener('DOMContentLoaded', function () {
             var skiped_plugins = 0;
             $('.atbdp-plugin-checklist-item .atbdp-list-action .atbdp-checkbox').each(function (i, e) {
               var is_checked = $(e).is(':checked');
-
               if (!is_checked) {
                 var id = $(e).attr('id');
                 var list_item = $(".check-list-item-".concat(id));
@@ -1202,17 +1178,16 @@ window.addEventListener('DOMContentLoaded', function () {
               failed_plugin_downloads: [],
               succeeded_theme_downloads: [],
               failed_theme_downloads: []
-            }; // Download Files
+            };
 
+            // Download Files
             var download_files = function download_files(file_list, counter, callback) {
               if (counter > file_list.length - 1) {
                 if (callback) {
                   callback();
                 }
-
                 return;
               }
-
               var next_index = counter + 1;
               var file_item = file_list[counter];
               var file = file_item.file;
@@ -1221,12 +1196,10 @@ window.addEventListener('DOMContentLoaded', function () {
               var icon_elm = list_item.find('.atbdp-list-action .atbdp-icon');
               var list_checkbox = $(".atbdp-".concat(file_type, "-checkbox-item-").concat(file.item_id));
               var is_checked = list_checkbox.is(':checked');
-
               if (!is_checked) {
                 download_files(file_list, next_index, callback);
                 return;
               }
-
               var form_data = {
                 action: 'atbdp_download_file',
                 download_item: file,
@@ -1243,14 +1216,13 @@ window.addEventListener('DOMContentLoaded', function () {
                 },
                 success: function success(response) {
                   // console.log('success', counter, response);
+
                   if (response.status.success) {
                     icon_elm.addClass('atbdp-text-success');
                     icon_elm.html('<span class="fas fa-check"></span>');
-
                     if (file_type == 'plugin') {
                       files_download_states.succeeded_plugin_downloads.push(file);
                     }
-
                     if (file_type == 'theme') {
                       files_download_states.succeeded_theme_downloads.push(file);
                     }
@@ -1259,16 +1231,13 @@ window.addEventListener('DOMContentLoaded', function () {
                     list_item.append(msg);
                     icon_elm.addClass('atbdp-text-danger');
                     icon_elm.html('<span class="fas fa-times"></span>');
-
                     if (file_type == 'plugin') {
                       files_download_states.failed_plugin_downloads.push(file);
                     }
-
                     if (file_type == 'theme') {
                       files_download_states.failed_theme_downloads.push(file);
                     }
                   }
-
                   download_files(file_list, next_index, callback);
                 },
                 error: function error(_error) {
@@ -1277,28 +1246,25 @@ window.addEventListener('DOMContentLoaded', function () {
                   icon_elm.html('<span class="fas fa-times"></span>');
                 }
               });
-            }; // Remove Unnecessary Sections
+            };
 
-
+            // Remove Unnecessary Sections
             if (!new_theme_count) {
               $('.atbdp-themes-list-section').remove();
             }
-
             if (!new_plugin_count) {
               $('.atbdp-extensions-list-section').remove();
             }
-
             if (new_theme_count || new_plugin_count) {
               var form_header_title = 'Activating your products';
               form_response_page.find('.atbdp-form-feedback .form-header-title').html(form_header_title);
             }
+            var downloading_files = [];
 
-            var downloading_files = []; // Download Themes
-
+            // Download Themes
             if (new_theme_count) {
               var _iterator3 = _createForOfIteratorHelper(themes),
-                  _step3;
-
+                _step3;
               try {
                 for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
                   var _theme = _step3.value;
@@ -1312,13 +1278,12 @@ window.addEventListener('DOMContentLoaded', function () {
               } finally {
                 _iterator3.f();
               }
-            } // Download Plugins
+            }
 
-
+            // Download Plugins
             if (new_plugin_count) {
               var _iterator4 = _createForOfIteratorHelper(plugins),
-                  _step4;
-
+                _step4;
               try {
                 for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
                   var plugin = _step4.value;
@@ -1333,38 +1298,30 @@ window.addEventListener('DOMContentLoaded', function () {
                 _iterator4.f();
               }
             }
-
             var self = this;
-
             var after_download_callback = function after_download_callback() {
               // Check invalid themes
               var all_thmes_are_invalid = false;
               var failed_download_themes_count = files_download_states.failed_theme_downloads.length;
-
               if (new_theme_count && failed_download_themes_count === new_theme_count) {
                 all_thmes_are_invalid = true;
-              } // Check invalid plugin
+              }
 
-
+              // Check invalid plugin
               var all_plugins_are_invalid = false;
               var failed_download_plugins_count = files_download_states.failed_plugin_downloads.length;
-
               if (new_plugin_count && failed_download_plugins_count === new_plugin_count) {
                 all_plugins_are_invalid = true;
               }
-
               var all_products_are_invalid = false;
-
               if (all_thmes_are_invalid && all_plugins_are_invalid) {
                 all_products_are_invalid = true;
               }
-
               $(form_response_page).find('.account-connect__form-btn .account-connect__btn').remove();
               var finish_btn_label = all_products_are_invalid ? 'Close' : 'Finish';
               var finish_btn = "<button type=\"button\" class=\"account-connect__btn reload\">".concat(finish_btn_label, "</button>");
               $(form_response_page).find('.account-connect__form-btn').append(finish_btn);
             };
-
             if (downloading_files.length) {
               download_files(downloading_files, 0, after_download_callback);
             }
@@ -1378,14 +1335,16 @@ window.addEventListener('DOMContentLoaded', function () {
         submit_button.find('.atbdp-loading').remove();
       }
     });
-  }); // Reload Button
+  });
 
+  // Reload Button
   $('body').on('click', '.reload', function (e) {
-    e.preventDefault(); // console.log('reloading...');
-
+    e.preventDefault();
+    // console.log('reloading...');
     location.reload();
-  }); // Extension Update Button
+  });
 
+  // Extension Update Button
   $('.ext-update-btn').on('click', function (e) {
     e.preventDefault();
     $(this).prop('disabled', true);
@@ -1395,11 +1354,11 @@ window.addEventListener('DOMContentLoaded', function () {
       action: 'atbdp_update_plugins',
       nonce: directorist_admin.nonce
     };
-
     if (plugin_key) {
       form_data.plugin_key = plugin_key;
-    } // console.log( { plugin_key } );
+    }
 
+    // console.log( { plugin_key } );
 
     var self = this;
     jQuery.ajax({
@@ -1412,6 +1371,7 @@ window.addEventListener('DOMContentLoaded', function () {
       },
       success: function success(response) {
         // console.log( { response } );
+
         if (response.status.success) {
           $(self).html('Updated');
           location.reload();
@@ -1426,16 +1386,15 @@ window.addEventListener('DOMContentLoaded', function () {
         $(this).prop('disabled', false);
       }
     });
-  }); // Install Button
+  });
 
+  // Install Button
   $('.file-install-btn').on('click', function (e) {
     e.preventDefault();
-
     if ($(this).hasClass('in-progress')) {
       // console.log('Wait...');
       return;
     }
-
     var data_key = $(this).data('key');
     var data_type = $(this).data('type');
     var form_data = {
@@ -1460,10 +1419,10 @@ window.addEventListener('DOMContentLoaded', function () {
       },
       success: function success(response) {
         // console.log(response);
+
         if (response.status && !response.status.success && response.status.message) {
           alert(response.status.message);
         }
-
         if (response.status && response.status.success) {
           $(self).html('Installed');
           location.reload();
@@ -1478,16 +1437,15 @@ window.addEventListener('DOMContentLoaded', function () {
         $(self).html(btn_default_html);
       }
     });
-  }); // Plugin Active Button
+  });
 
+  // Plugin Active Button
   $('.plugin-active-btn').on('click', function (e) {
     e.preventDefault();
-
     if ($(this).hasClass('in-progress')) {
       // console.log('Wait...');
       return;
     }
-
     var data_key = $(this).data('key');
     var form_data = {
       action: 'atbdp_activate_plugin',
@@ -1509,17 +1467,17 @@ window.addEventListener('DOMContentLoaded', function () {
       },
       success: function success(response) {
         // console.log(response);
+
         // return;
+
         if (response.status && !response.status.success && response.status.message) {
           alert(response.status.message);
         }
-
         if (response.status && response.status.success) {
           $(self).html('Activated');
         } else {
           $(self).html('Failed');
         }
-
         location.reload();
       },
       error: function error(_error5) {
@@ -1529,8 +1487,9 @@ window.addEventListener('DOMContentLoaded', function () {
         $(self).html(btn_default_html);
       }
     });
-  }); // Purchase refresh btn
+  });
 
+  // Purchase refresh btn
   $('.purchase-refresh-btn').on('click', function (e) {
     e.preventDefault();
     var purchase_refresh_btn_wrapper = $(this).parent();
@@ -1541,8 +1500,9 @@ window.addEventListener('DOMContentLoaded', function () {
     $(auth_section).animate({
       width: 330
     }, 500);
-  }); // et-close-auth-btn
+  });
 
+  // et-close-auth-btn
   $('.et-close-auth-btn').on('click', function (e) {
     e.preventDefault();
     var auth_section = $('.et-auth-section');
@@ -1553,10 +1513,12 @@ window.addEventListener('DOMContentLoaded', function () {
     $(auth_section).animate({
       width: 0
     }, 500);
-  }); // purchase-refresh-form
+  });
 
+  // purchase-refresh-form
   $('#purchase-refresh-form').on('submit', function (e) {
-    e.preventDefault(); // console.log( 'purchase-refresh-form' );
+    e.preventDefault();
+    // console.log( 'purchase-refresh-form' );
 
     var submit_btn = $(this).find('button[type="submit"]');
     var btn_default_html = submit_btn.html();
@@ -1580,17 +1542,16 @@ window.addEventListener('DOMContentLoaded', function () {
       },
       success: function success(response) {
         // console.log(response);
+
         if (response.status.message) {
           var feedback_type = response.status.success ? 'success' : 'danger';
           var message = "<span class=\"atbdp-text-".concat(feedback_type, "\">").concat(response.status.message, "</span>");
           form_feedback.html(message);
         }
-
         if (!response.status.success) {
           $(submit_btn).html(btn_default_html);
           $(submit_btn).prop('disabled', false);
           $(close_btn).removeClass('atbdp-d-none');
-
           if (response.status.reload) {
             location.reload();
           }
@@ -1605,8 +1566,9 @@ window.addEventListener('DOMContentLoaded', function () {
         $(close_btn).removeClass('atbdp-d-none');
       }
     });
-  }); // Logout
+  });
 
+  // Logout
   $('.subscriptions-logout-btn').on('click', function (e) {
     e.preventDefault();
     var hard_logout = $(this).data('hard-logout');
@@ -1633,13 +1595,16 @@ window.addEventListener('DOMContentLoaded', function () {
         $(this).removeClass('in-progress');
         $(self).html(btn_default_html);
       }
-    }); // atbdp_close_subscriptions_sassion
-  }); // Form Actions
+    });
+
+    // atbdp_close_subscriptions_sassion
+  });
+
+  // Form Actions
   // Apply button active status - My extension form
-
   var extFormCheckboxes = document.querySelectorAll('#atbdp-extensions-tab input[type="checkbox"]');
-  var extFormActionSelect = document.querySelectorAll('#atbdp-extensions-tab select[name="bulk-actions"]'); //console.log(extFormActionSelect);
-
+  var extFormActionSelect = document.querySelectorAll('#atbdp-extensions-tab select[name="bulk-actions"]');
+  //console.log(extFormActionSelect);
   extFormCheckboxes.forEach(function (elm) {
     var thisClosest = elm.closest('form');
     var bulkAction = thisClosest.querySelector('.ei-action-dropdown select');
@@ -1658,36 +1623,31 @@ window.addEventListener('DOMContentLoaded', function () {
           actionBtn.classList.add('ei-action-active');
         }
       });
-
       if (this.value === '') {
         actionBtn.classList.remove('ei-action-active');
       }
     });
-  }); // Bulk Actions - My extensions form
+  });
 
+  // Bulk Actions - My extensions form
   var is_bulk_processing = false;
   $('#atbdp-my-extensions-form').on('submit', function (e) {
     e.preventDefault();
-
     if (is_bulk_processing) {
       return;
     }
-
     var task = $(this).find('select[name="bulk-actions"]').val();
     var plugins_items = [];
     $(this).find('.extension-name-checkbox').each(function (i, e) {
       var is_checked = $(e).is(':checked');
       var id = $(e).attr('id');
-
       if (is_checked) {
         plugins_items.push(id);
       }
     });
-
     if (!task.length || !plugins_items.length) {
       return;
     }
-
     var self = this;
     is_bulk_processing = true;
     form_data = {
@@ -1710,17 +1670,18 @@ window.addEventListener('DOMContentLoaded', function () {
       error: function error(_error8) {
         uninstalling = false;
       }
-    }); // console.log( task, plugins_items );
-  }); // Bulk Actions - My extensions form
+    });
 
+    // console.log( task, plugins_items );
+  });
+
+  // Bulk Actions - My extensions form
   var is_bulk_processing = false;
   $('#atbdp-my-subscribed-extensions-form').on('submit', function (e) {
     e.preventDefault();
-
     if (is_bulk_processing) {
       return;
     }
-
     var self = this;
     var task = $(this).find('select[name="bulk-actions"]').val();
     var plugins_items = [];
@@ -1728,40 +1689,35 @@ window.addEventListener('DOMContentLoaded', function () {
     $(self).find(tergeted_items_elm).each(function (i, e) {
       var is_checked = $(e).is(':checked');
       var key = $(e).attr('name');
-
       if (is_checked) {
         plugins_items.push(key);
       }
     });
-
     if (!task.length || !plugins_items.length) {
       return;
-    } // Before Install
+    }
 
-
+    // Before Install
     $(this).find('.file-install-btn').prop('disabled', true).addClass('in-progress');
     var loading_icon = '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ';
     $(this).find('button[type="submit"]').prop('disabled', true).prepend(loading_icon);
     is_bulk_processing = true;
-
     var after_bulk_process = function after_bulk_process() {
       is_bulk_processing = false;
       $(self).find('button[type="submit"]').find('.atbdp-icon').remove();
       $(self).find('button[type="submit"]').prop('disabled', false);
       location.reload();
     };
-
     plugins_bulk_actions('install', plugins_items, after_bulk_process);
-  }); // Bulk Actions - Required extensions form
+  });
 
+  // Bulk Actions - Required extensions form
   var is_bulk_processing = false;
   $('#atbdp-required-extensions-form').on('submit', function (e) {
     e.preventDefault();
-
     if (is_bulk_processing) {
       return;
     }
-
     var self = this;
     var task = $(this).find('select[name="bulk-actions"]').val();
     var plugins_items = [];
@@ -1769,37 +1725,33 @@ window.addEventListener('DOMContentLoaded', function () {
     $(self).find(tergeted_items_elm).each(function (i, e) {
       var is_checked = $(e).is(':checked');
       var key = $(e).attr('value');
-
       if (is_checked) {
         plugins_items.push(key);
       }
     });
-
     if (!task.length || !plugins_items.length) {
       return;
-    } // Before Install
+    }
 
-
+    // Before Install
     $(this).find('.file-install-btn').prop('disabled', true).addClass('in-progress');
     $(this).find('.plugin-active-btn').prop('disabled', true).addClass('in-progress');
     var loading_icon = '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ';
     $(this).find('button[type="submit"]').prop('disabled', true).prepend(loading_icon);
     is_bulk_processing = true;
-
     var after_bulk_process = function after_bulk_process() {
       is_bulk_processing = false;
       $(self).find('button[type="submit"]').find('.atbdp-icon').remove();
       $(self).find('button[type="submit"]').prop('disabled', false);
       location.reload();
     };
-
     var available_task_list = ['install', 'activate'];
-
     if (available_task_list.includes(task)) {
       plugins_bulk_actions(task, plugins_items, after_bulk_process);
     }
-  }); // plugins_bulk__actions
+  });
 
+  // plugins_bulk__actions
   function plugins_bulk_actions(task, plugins_items, after_plugins_install) {
     var action = {
       install: 'atbdp_install_file_from_subscriptions',
@@ -1817,16 +1769,13 @@ window.addEventListener('DOMContentLoaded', function () {
       install: '.file-install-btn',
       activate: '.plugin-active-btn'
     };
-
     var bulk_task = function bulk_task(plugins, counter, callback) {
       if (counter > plugins.length - 1) {
         if (callback) {
           callback();
         }
-
         return;
       }
-
       var current_item = plugins[counter];
       var action_wrapper_key = 'install' === task ? plugins[counter] : plugins[counter].replace(/\/.+$/g, '');
       var action_wrapper = $(".ext-action-".concat(action_wrapper_key));
@@ -1853,26 +1802,23 @@ window.addEventListener('DOMContentLoaded', function () {
           } else {
             action_btn.html('Failed');
           }
-
           bulk_task(plugins, next_index, callback);
         },
-        error: function error(_error9) {// console.log(error);
+        error: function error(_error9) {
+          // console.log(error);
         }
       });
     };
-
     bulk_task(plugins_items, 0, after_plugins_install);
-  } // Ext Actions | Uninstall
+  }
 
-
+  // Ext Actions | Uninstall
   var uninstalling = false;
   $('.ext-action-uninstall').on('click', function (e) {
     e.preventDefault();
-
     if (uninstalling) {
       return;
     }
-
     var data_target = $(this).data('target');
     var form_data = {
       action: 'atbdp_plugins_bulk_action',
@@ -1899,11 +1845,11 @@ window.addEventListener('DOMContentLoaded', function () {
         uninstalling = false;
       }
     });
-  }); // Bulk checkbox toggle
+  });
 
+  // Bulk checkbox toggle
   $('#select-all-installed').on('change', function (e) {
     var is_checked = $(this).is(':checked');
-
     if (is_checked) {
       $('#atbdp-my-extensions-form').find('.extension-name-checkbox').prop('checked', true);
     } else {
@@ -1912,7 +1858,6 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   $('#select-all-subscription').on('change', function (e) {
     var is_checked = $(this).is(':checked');
-
     if (is_checked) {
       $('#atbdp-my-subscribed-extensions-form').find('.extension-name-checkbox').prop('checked', true);
     } else {
@@ -1921,18 +1866,17 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   $('#select-all-required-extensions').on('change', function (e) {
     var is_checked = $(this).is(':checked');
-
     if (is_checked) {
       $('#atbdp-required-extensions-form').find('.extension-name-checkbox').prop('checked', true);
     } else {
       $('#atbdp-required-extensions-form').find('.extension-name-checkbox').prop('checked', false);
     }
-  }); //
+  });
 
+  //
   $('.ext-action-drop').each(function (i, e) {
     $(e).on('click', function (elm) {
       elm.preventDefault();
-
       if ($(this).hasClass('active')) {
         $(this).removeClass('active');
       } else {
@@ -1940,26 +1884,22 @@ window.addEventListener('DOMContentLoaded', function () {
         $(this).addClass('active');
       }
     });
-  }); // Theme Activation
+  });
 
+  // Theme Activation
   var theme_is_activating = false;
   $('.theme-activate-btn').on('click', function (e) {
     e.preventDefault();
-
     if (theme_is_activating) {
       return;
     }
-
     var data_target = $(this).data('target');
-
     if (!data_target) {
       return;
     }
-
     if (!data_target.length) {
       return;
     }
-
     var form_data = {
       action: 'atbdp_activate_theme',
       theme_stylesheet: data_target,
@@ -1977,7 +1917,6 @@ window.addEventListener('DOMContentLoaded', function () {
       success: function success(response) {
         // console.log({ response });
         $(self).find('.atbdp-icon').remove();
-
         if (response.status && response.status.success) {
           location.reload();
         }
@@ -1988,27 +1927,24 @@ window.addEventListener('DOMContentLoaded', function () {
         $(self).find('.atbdp-icon').remove();
       }
     });
-  }); // Theme Update
+  });
 
+  // Theme Update
   $('.theme-update-btn').on('click', function (e) {
     e.preventDefault();
     $(this).prop('disabled', true);
-
     if ($(this).hasClass('in-progress')) {
       return;
     }
-
     var theme_stylesheet = $(this).data('target');
     var button_default_html = $(this).html();
     var form_data = {
       action: 'atbdp_update_theme',
       nonce: directorist_admin.nonce
     };
-
     if (theme_stylesheet) {
       form_data.theme_stylesheet = theme_stylesheet;
     }
-
     var self = this;
     $(this).addClass('in-progress');
     $.ajax({
@@ -2020,6 +1956,7 @@ window.addEventListener('DOMContentLoaded', function () {
       },
       success: function success(response) {
         // console.log({ response });
+
         if (response.status && response.status.success) {
           $(self).html('Updated');
           location.reload();
@@ -2050,7 +1987,6 @@ window.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     // Recovery Password Modal
@@ -2058,14 +1994,16 @@ window.addEventListener('DOMContentLoaded', function () {
     $(".atbdp_recovery_pass").on("click", function (e) {
       e.preventDefault();
       $("#recover-pass-modal").slideToggle().show();
-    }); // Contact form [on modal closed]
+    });
 
+    // Contact form [on modal closed]
     $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
       $('#atbdp-contact-message').val('');
       $('#atbdp-contact-message-display').html('');
-    }); // Template Restructured
-    // Modal
+    });
 
+    // Template Restructured
+    // Modal
     var directoristModal = document.querySelector('.directorist-modal-js');
     $('body').on('click', '.directorist-btn-modal-js', function (e) {
       e.preventDefault();
@@ -2094,52 +2032,44 @@ window.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports) {
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 var $ = jQuery;
 window.addEventListener('load', waitAndInit);
 window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
 window.addEventListener('directorist-type-change', waitAndInit);
 window.addEventListener('directorist-instant-search-reloaded', waitAndInit);
-
 function waitAndInit() {
   setTimeout(init, 0);
-} // Initialize
+}
 
-
+// Initialize
 function init() {
   // Add custom dropdown toggle button
-  selec2_add_custom_dropdown_toggle_button(); // Add custom close button where needed
+  selec2_add_custom_dropdown_toggle_button();
 
-  selec2_add_custom_close_button_if_needed(); // Add custom close button if field contains value on change
+  // Add custom close button where needed
+  selec2_add_custom_close_button_if_needed();
 
+  // Add custom close button if field contains value on change
   $('.select2-hidden-accessible').on('change', function (e) {
     var value = $(this).children("option:selected").val();
-
     if (!value) {
       return;
     }
-
     selec2_add_custom_close_button($(this));
   });
 }
-
 function selec2_add_custom_dropdown_toggle_button() {
   // Remove Default
   $('.select2-selection__arrow').css({
     'display': 'none'
   });
   var addon_container = selec2_get_addon_container('.select2-hidden-accessible');
-
   if (!addon_container) {
     return;
   }
-
   var dropdown = addon_container.find('.directorist-select2-dropdown-toggle');
-
   if (!dropdown.length) {
     // Add Dropdown Toggle Button
     var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/chevron-down.svg';
@@ -2147,9 +2077,9 @@ function selec2_add_custom_dropdown_toggle_button() {
     var dropdownHTML = "<span class=\"directorist-select2-addon directorist-select2-dropdown-toggle\">".concat(iconHTML, "</span>");
     addon_container.append(dropdownHTML);
   }
+  var selec2_custom_dropdown = addon_container.find('.directorist-select2-dropdown-toggle');
 
-  var selec2_custom_dropdown = addon_container.find('.directorist-select2-dropdown-toggle'); // Toggle --is-open class
-
+  // Toggle --is-open class
   $('.select2-hidden-accessible').on('select2:open', function (e) {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.addClass('--is-open');
@@ -2157,41 +2087,36 @@ function selec2_add_custom_dropdown_toggle_button() {
   $('.select2-hidden-accessible').on('select2:close', function (e) {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.removeClass('--is-open');
-  }); // Toggle Dropdown
+  });
 
+  // Toggle Dropdown
   selec2_custom_dropdown.on('click', function (e) {
     var isOpen = $(this).hasClass('--is-open');
     var field = $(this).closest(".select2-container").siblings('select:enabled');
-
     if (isOpen) {
       field.select2('close');
     } else {
       field.select2('open');
     }
-  }); // Adjust space for addons
+  });
 
+  // Adjust space for addons
   selec2_adjust_space_for_addons();
 }
-
 function selec2_add_custom_close_button_if_needed() {
   var select2_fields = $('.select2-hidden-accessible');
-
   if (!select2_fields && !select2_fields.length) {
     return;
   }
-
   var _iterator = _createForOfIteratorHelper(select2_fields),
-      _step;
-
+    _step;
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var field = _step.value;
       var value = $(field).children('option:selected').val();
-
       if (!value) {
         continue;
       }
-
       selec2_add_custom_close_button(field);
     }
   } catch (err) {
@@ -2200,21 +2125,20 @@ function selec2_add_custom_close_button_if_needed() {
     _iterator.f();
   }
 }
-
 function selec2_add_custom_close_button(field) {
   // Remove Default
   $('.select2-selection__clear').css({
     'display': 'none'
   });
   var addon_container = selec2_get_addon_container(field);
-
   if (!(addon_container && addon_container.length)) {
     return;
-  } // Remove if already exists
+  }
 
+  // Remove if already exists
+  addon_container.find('.directorist-select2-dropdown-close').remove();
 
-  addon_container.find('.directorist-select2-dropdown-close').remove(); // Add
-
+  // Add
   var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/times.svg';
   var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
   addon_container.prepend("<span class=\"directorist-select2-addon directorist-select2-dropdown-close\">".concat(iconHTML, "</span>"));
@@ -2224,56 +2148,46 @@ function selec2_add_custom_close_button(field) {
     field.val(null).trigger('change');
     addon_container.find('.directorist-select2-dropdown-close').remove();
     selec2_adjust_space_for_addons();
-  }); // Adjust space for addons
+  });
 
+  // Adjust space for addons
   selec2_adjust_space_for_addons();
 }
-
 function selec2_remove_custom_close_button(field) {
   var addon_container = selec2_get_addon_container(field);
-
   if (!(addon_container && addon_container.length)) {
     return;
-  } // Remove
+  }
 
+  // Remove
+  addon_container.find('.directorist-select2-dropdown-close').remove();
 
-  addon_container.find('.directorist-select2-dropdown-close').remove(); // Adjust space for addons
-
+  // Adjust space for addons
   selec2_adjust_space_for_addons();
 }
-
 function selec2_get_addon_container(field) {
   var container = field ? $(field).next('.select2-container') : $('.select2-container');
   container = $(container).find('.directorist-select2-addons-area');
-
   if (!container.length) {
     $('.select2-container').append('<span class="directorist-select2-addons-area"></span>');
     container = $('.select2-container').find('.directorist-select2-addons-area');
   }
-
   var container = field ? $(field).next('.select2-container') : null;
-
   if (!container) {
     return null;
   }
-
   var addonsArea = $(container).find('.directorist-select2-addons-area');
-
   if (!addonsArea.length) {
     container.append('<span class="directorist-select2-addons-area"></span>');
     return container.find('.directorist-select2-addons-area');
   }
-
   return addonsArea;
 }
-
 function selec2_adjust_space_for_addons() {
   var container = $('.select2-container').find('.directorist-select2-addons-area');
-
   if (!container.length) {
     return;
   }
-
   var width = container.outerWidth();
   $('.select2-container').find('.select2-selection__rendered').css({
     'padding-right': width + 'px'
@@ -2300,18 +2214,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
 
 
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
 
 
 var $ = jQuery;
 window.addEventListener('load', initSelect2);
 document.body.addEventListener('directorist-search-form-nav-tab-reloaded', initSelect2);
-document.body.addEventListener('directorist-reload-select2-fields', initSelect2); // Init Static Select 2 Fields
+document.body.addEventListener('directorist-reload-select2-fields', initSelect2);
 
+// Init Static Select 2 Fields
 function initSelect2() {
   var select_fields = [{
     elm: $('.directorist-select').find('select')
@@ -2337,7 +2249,8 @@ function initSelect2() {
     elm: $('#directorist-select-fr-s-js')
   }, {
     elm: $('#directorist-select-fr-e-js')
-  }, // { elm: $('#directorist-location-select') },
+  },
+  // { elm: $('#directorist-location-select') },
   // { elm: $('#directorist-category-select') },
   {
     elm: $('.select-basic')
@@ -2345,42 +2258,46 @@ function initSelect2() {
     elm: $('#loc-type')
   }, {
     elm: $('.bdas-location-search')
-  }, // { elm: $('.directorist-location-select') },
+  },
+  // { elm: $('.directorist-location-select') },
   {
     elm: $('#at_biz_dir-category')
   }, {
     elm: $('#cat-type')
   }, {
     elm: $('.bdas-category-search')
-  } // { elm: $('.directorist-category-select') },
+  }
+  // { elm: $('.directorist-category-select') },
   ];
+
   select_fields.forEach(function (field) {
     Object(_lib_helper__WEBPACK_IMPORTED_MODULE_2__["convertToSelect2"])(field);
   });
   var lazy_load_taxonomy_fields = directorist.lazy_load_taxonomy_fields;
-
   if (lazy_load_taxonomy_fields) {
     // Init Select2 Ajax Fields
     initSelect2AjaxFields();
   }
-} // Init Select2 Ajax Fields
+}
 
-
+// Init Select2 Ajax Fields
 function initSelect2AjaxFields() {
-  var rest_base_url = "".concat(directorist.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
+  var rest_base_url = "".concat(directorist.rest_url, "directorist/v1");
 
+  // Init Select2 Ajax Category Field
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
-  }); // Init Select2 Ajax Category Field
+  });
 
+  // Init Select2 Ajax Category Field
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-location').find('select'),
     url: "".concat(rest_base_url, "/listings/locations")
   });
-} // initSelect2AjaxTaxonomy
+}
 
-
+// initSelect2AjaxTaxonomy
 function initSelect2AjaxTaxonomy(args) {
   var defaultArgs = {
     selector: '',
@@ -2388,31 +2305,29 @@ function initSelect2AjaxTaxonomy(args) {
     perPage: 10
   };
   args = _objectSpread(_objectSpread({}, defaultArgs), args);
-
   if (!args.selector.length) {
     return;
   }
-
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
     var directory_type_id = 0;
     var search_form_parent = $(item).closest('.directorist-search-form');
     var archive_page_parent = $(item).closest('.directorist-archive-contents');
-    var nav_list_item = []; // If search page
+    var nav_list_item = [];
 
+    // If search page
     if (search_form_parent.length) {
       nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
-    } // If archive page
+    }
 
-
+    // If archive page
     if (archive_page_parent.length) {
       nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
-    } // If has nav item
+    }
 
-
+    // If has nav item
     if (nav_list_item.length) {
       directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
     }
-
     var currentPage = 1;
     $(item).select2({
       allowClear: true,
@@ -2432,11 +2347,9 @@ function initSelect2AjaxTaxonomy(args) {
             page: currentPage,
             per_page: args.perPage
           };
-
           if (directory_type_id) {
             query.directory = directory_type_id;
           }
-
           return query;
         },
         processResults: function processResults(data) {
@@ -2467,11 +2380,11 @@ function initSelect2AjaxTaxonomy(args) {
           return $request;
         }
       }
-    }); // Setup Preselected Option
+    });
 
+    // Setup Preselected Option
     var selected_item_id = $(item).data('selected-id');
     var selected_item_label = $(item).data('selected-label');
-
     if (selected_item_id) {
       var option = new Option(selected_item_label, selected_item_id, true, true);
       $(item).append(option);
@@ -2503,7 +2416,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
 
 document.addEventListener('DOMContentLoaded', init, false);
-
 function Tasks() {
   return {
     init: function init() {
@@ -2511,13 +2423,10 @@ function Tasks() {
     },
     initToggleTabLinks: function initToggleTabLinks() {
       var links = document.querySelectorAll('.directorist-toggle-tab');
-
       if (!links) {
         return;
       }
-
       var self = this;
-
       _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(links).forEach(function (item) {
         item.addEventListener('click', function (event) {
           self.handleToggleTabLinksEvent(item, event);
@@ -2529,53 +2438,44 @@ function Tasks() {
       var navContainerClass = item.getAttribute('data-nav-container');
       var tabContainerClass = item.getAttribute('data-tab-container');
       var tabClass = item.getAttribute('data-tab');
-
       if (!navContainerClass || !tabContainerClass || !tabClass) {
         return;
       }
-
       var navContainer = item.closest('.' + navContainerClass);
       var tabContainer = document.querySelector('.' + tabContainerClass);
-
       if (!navContainer || !tabContainer) {
         return;
       }
-
       var tab = tabContainer.querySelector('.' + tabClass);
-
       if (!tab) {
         return;
-      } // Remove Active Class
+      }
 
-
+      // Remove Active Class
       var removeActiveClass = function removeActiveClass(item) {
         item.classList.remove('--is-active');
-      }; // Toggle Nav
+      };
 
-
+      // Toggle Nav
       var activeNavItems = navContainer.querySelectorAll('.--is-active');
-
       if (activeNavItems) {
         _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(activeNavItems).forEach(removeActiveClass);
       }
+      item.classList.add('--is-active');
 
-      item.classList.add('--is-active'); // Toggle Tab
-
+      // Toggle Tab
       var activeTabItems = tabContainer.querySelectorAll('.--is-active');
-
       if (activeTabItems) {
         _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(activeTabItems).forEach(removeActiveClass);
       }
+      tab.classList.add('--is-active');
 
-      tab.classList.add('--is-active'); // Update Query Var
-
+      // Update Query Var
       var queryVarKey = item.getAttribute('data-query-var-key');
       var queryVarValue = item.getAttribute('data-query-var-value');
-
       if (!queryVarKey || !queryVarValue) {
         return;
       }
-
       this.addQueryParam(queryVarKey, queryVarValue);
     },
     addQueryParam: function addQueryParam(key, value) {
@@ -2585,7 +2485,6 @@ function Tasks() {
     }
   };
 }
-
 function init() {
   var tasks = new Tasks();
   tasks.init();
@@ -2604,18 +2503,21 @@ window.addEventListener('DOMContentLoaded', function () {
   var $ = jQuery;
   document.querySelectorAll('.la-icon i').forEach(function (item) {
     className.push(item.getAttribute('class'));
-  }); // Handle Disabled Link Action
+  });
 
+  // Handle Disabled Link Action
   $('.atbdp-disabled').on('click', function (e) {
     e.preventDefault();
-  }); // Toggle Modal
+  });
 
+  // Toggle Modal
   $('.cptm-modal-toggle').on('click', function (e) {
     e.preventDefault();
     var target_class = $(this).data('target');
     $('.' + target_class).toggleClass('active');
-  }); // Change label on file select/change
+  });
 
+  // Change label on file select/change
   $('.cptm-file-field').on('change', function (e) {
     var target_id = $(this).attr('id');
     $('label[for=' + target_id + ']').text('Change');
@@ -2667,18 +2569,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var $ = jQuery;
-
 function get_dom_data(key, parent) {
   // var elmKey = 'directorist-dom-data-' + key;
   var elmKey = 'directorist-dom-data-' + key;
   var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
-
   if (!dataElm) {
     return '';
   }
-
   var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
-
   try {
     var dataValue = atob(dataElm[0].dataset.value);
     dataValue = JSON.parse(dataValue);
@@ -2691,24 +2589,19 @@ function get_dom_data(key, parent) {
         error: error
       });
     }
-
     return '';
   }
 }
-
 function convertToSelect2(field) {
   if (!field) {
     return;
   }
-
   if (!field.elm) {
     return;
   }
-
   if (!field.elm.length) {
     return;
   }
-
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(field.elm).forEach(function (item) {
     var default_args = {
       allowClear: true,
@@ -2718,7 +2611,6 @@ function convertToSelect2(field) {
         if (!data.field) {
           return data.text;
         }
-
         var $field = $(data.field);
         var $wrapper = $('<span></span>');
         $wrapper.addClass($field[0].className);
@@ -2729,15 +2621,12 @@ function convertToSelect2(field) {
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
     var options = $(item).find('option');
     var placeholder = options.length ? options[0].innerHTML : '';
-
     if (placeholder.length) {
       args.placeholder = placeholder;
     }
-
     $(item).select2(args);
   });
 }
-
 
 
 /***/ }),
@@ -2762,14 +2651,9 @@ function convertToSelect2(field) {
 
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
 }
-
 module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -2782,11 +2666,9 @@ module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exp
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
 }
-
 module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -2796,9 +2678,11 @@ module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.ex
   !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
   \***************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
 function _defineProperty(obj, key, value) {
+  key = toPropertyKey(key);
   if (key in obj) {
     Object.defineProperty(obj, key, {
       value: value,
@@ -2809,10 +2693,8 @@ function _defineProperty(obj, key, value) {
   } else {
     obj[key] = value;
   }
-
   return obj;
 }
-
 module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -2827,7 +2709,6 @@ module.exports = _defineProperty, module.exports.__esModule = true, module.expor
 function _iterableToArray(iter) {
   if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
-
 module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -2842,7 +2723,6 @@ module.exports = _iterableToArray, module.exports.__esModule = true, module.expo
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-
 module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -2855,18 +2735,52 @@ module.exports = _nonIterableSpread, module.exports.__esModule = true, module.ex
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
-
 var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
-
 var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
-
 var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
-
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
 }
-
 module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toPrimitive.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toPrimitive.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
+function _toPrimitive(input, hint) {
+  if (_typeof(input) !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (_typeof(res) !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toPropertyKey.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toPropertyKey.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
+var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/toPrimitive.js");
+function _toPropertyKey(arg) {
+  var key = toPrimitive(arg, "string");
+  return _typeof(key) === "symbol" ? key : String(key);
+}
+module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -2886,7 +2800,6 @@ function _typeof(obj) {
     return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
   }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
 }
-
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -2899,7 +2812,6 @@ module.exports = _typeof, module.exports.__esModule = true, module.exports["defa
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === "string") return arrayLikeToArray(o, minLen);
@@ -2908,7 +2820,6 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 }
-
 module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ })

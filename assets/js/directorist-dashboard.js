@@ -99,7 +99,6 @@
         Author: Sovware
         Author URI: https://sovware.com/
 */
-
 /* disable-eslint */
 var aazztechModal1 = function aazztechModal1(selector) {
   var element = document.querySelectorAll(selector);
@@ -109,7 +108,6 @@ var aazztechModal1 = function aazztechModal1(selector) {
       var current_elm = event.target;
       var target_id = current_elm.getAttribute('data-target');
       var el_id = el.getAttribute('id');
-
       if (target_id === el_id) {
         event.preventDefault();
         el.style.display = 'block';
@@ -140,11 +138,9 @@ var aazztechModal1 = function aazztechModal1(selector) {
     });
   });
 };
-
 function initModal() {
   aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
 }
-
 window.addEventListener('load', function () {
   setTimeout(function () {
     initModal();
@@ -166,7 +162,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _atmodal__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_atmodal__WEBPACK_IMPORTED_MODULE_0__);
 
 ;
-
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     // User Dashboard Table More Button
@@ -196,7 +191,6 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     // Dashboard become an author
@@ -216,8 +210,9 @@ __webpack_require__.r(__webpack_exports__);
         userId: userId,
         nonce: nonce,
         action: "atbdp_become_author"
-      }; // Send the data
+      };
 
+      // Send the data
       $.post(directorist.ajaxurl, data, function (response) {
         $('.directorist-become-author__loader').addClass('active');
         $('#directorist-become-author-success').html(response);
@@ -238,7 +233,6 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     // Dashboard Listing Ajax
@@ -275,29 +269,27 @@ __webpack_require__.r(__webpack_exports__);
           $('#directorist-dashboard-preloader').hide();
         }
       });
-    } // Dashboard Listing Tabs
+    }
 
-
+    // Dashboard Listing Tabs
     $('.directorist-dashboard-listing-nav-js a').on('click', function (event) {
       var $item = $(this);
-
       if ($item.hasClass('directorist-tab__nav__active')) {
         return false;
       }
-
       directorist_dashboard_listing_ajax($item);
       $('#directorist-dashboard-listing-searchform input[name=searchtext').val('');
       $('#directorist-dashboard-mylistings-js').data('search', '');
       return false;
-    }); // Dashboard Tasks eg. delete
+    });
 
+    // Dashboard Tasks eg. delete
     $('.directorist-dashboard-listings-tbody').on('click', '.directorist-dashboard-listing-actions a[data-task]', function (event) {
       var task = $(this).data('task');
       var postid = $(this).closest('tr').data('id');
       var $activeTab = $('.directorist-dashboard-listing-nav-js a.directorist-tab__nav__active');
       var paged = $('#directorist-dashboard-mylistings-js').data('paged');
       var search = $('#directorist-dashboard-mylistings-js').data('search');
-
       if (task == 'delete') {
         swal({
           title: directorist.listing_remove_title,
@@ -321,10 +313,10 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       }
-
       return false;
-    }); // Remove Listing
+    });
 
+    // Remove Listing
     $(document).on('click', '#remove_listing', function (e) {
       e.preventDefault();
       var $this = $(this);
@@ -345,7 +337,6 @@ __webpack_require__.r(__webpack_exports__);
           // user has confirmed, now remove the listing
           atbdp_do_ajax($this, 'remove_listing', data, function (response) {
             $('body').append(response);
-
             if ('success' === response) {
               // show success message
               swal({
@@ -368,9 +359,12 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
         }
-      }); // send an ajax request to the ajax-handler.php and then delete the review of the given id
-    }); // Dashboard pagination
+      });
 
+      // send an ajax request to the ajax-handler.php and then delete the review of the given id
+    });
+
+    // Dashboard pagination
     $('.directorist-dashboard-pagination').on('click', 'a', function (event) {
       var $link = $(this);
       var paged = $link.attr('href');
@@ -380,8 +374,9 @@ __webpack_require__.r(__webpack_exports__);
       $activeTab = $('.directorist-dashboard-listing-nav-js a.directorist-tab__nav__active');
       directorist_dashboard_listing_ajax($activeTab, paged, search);
       return false;
-    }); // Dashboard Search
+    });
 
+    // Dashboard Search
     $('#directorist-dashboard-listing-searchform input[name=searchtext').val(''); //onready
 
     $('#directorist-dashboard-listing-searchform').on('submit', function (event) {
@@ -404,16 +399,13 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     //dashboard content responsive fix
     var tabContentWidth = $(".directorist-user-dashboard .directorist-user-dashboard__contents").innerWidth();
-
     if (tabContentWidth < 1399) {
       $(".directorist-user-dashboard .directorist-user-dashboard__contents").addClass("directorist-tab-content-grid-fix");
     }
-
     $(window).bind("resize", function () {
       if ($(this).width() <= 1199) {
         $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
@@ -423,8 +415,9 @@ __webpack_require__.r(__webpack_exports__);
     $('.directorist-dashboard__nav--close, .directorist-shade').on('click', function () {
       $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
       $(".directorist-shade").removeClass("directorist-active");
-    }); // Profile Responsive
+    });
 
+    // Profile Responsive
     $('.directorist-tab__nav__link').on('click', function () {
       if ($('#user_profile_form').width() < 800 && $('#user_profile_form').width() !== 0) {
         $('#user_profile_form').addClass('directorist-profile-responsive');
@@ -443,26 +436,25 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     //dashboard sidebar nav toggler
     $(".directorist-user-dashboard__toggle__link").on("click", function (e) {
       e.preventDefault();
-      $(".directorist-user-dashboard__nav").toggleClass("directorist-dashboard-nav-collapsed"); // $(".directorist-shade").toggleClass("directorist-active");
+      $(".directorist-user-dashboard__nav").toggleClass("directorist-dashboard-nav-collapsed");
+      // $(".directorist-shade").toggleClass("directorist-active");
     });
 
     if ($(window).innerWidth() < 767) {
       $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
       $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed--fixed");
-    } //dashboard nav dropdown
+    }
 
-
+    //dashboard nav dropdown
     $(".atbdp_tab_nav--has-child .atbd-dash-nav-dropdown").on("click", function (e) {
       e.preventDefault();
       $(this).siblings("ul").slideToggle();
     });
-
     if ($(window).innerWidth() < 1199) {
       $(".directorist-tab__nav__link").on("click", function () {
         $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
@@ -486,7 +478,6 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     // User Dashboard Tab
@@ -496,13 +487,13 @@ __webpack_require__.r(__webpack_exports__);
       var selectedTab = document.querySelectorAll('.directorist-tab__nav__link');
       selectedTab.forEach(function (elm) {
         var elmAttr = elm.getAttribute('target');
-
         if (elmAttr == newHash) {
           elm.click();
         }
       });
-    }); // store the currently selected tab in the hash value
+    });
 
+    // store the currently selected tab in the hash value
     $("ul.directorist-tab__nav__items > li > a.directorist-tab__nav__link").on("click", function (e) {
       var id = $(e.target).attr("target").substr();
       window.location.hash = "#active_" + id;
@@ -521,7 +512,6 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_alert_executed === 'undefined') {
@@ -529,12 +519,10 @@ __webpack_require__.r(__webpack_exports__);
   } else {
     return;
   }
-
   window.addEventListener('DOMContentLoaded', function () {
     /* Directorist alert dismiss */
     var getUrl = window.location.href;
     var newUrl = getUrl.replace('notice=1', '');
-
     if ($('.directorist-alert__close') !== null) {
       $('.directorist-alert__close').each(function (i, e) {
         $(e).on('click', function (e) {
@@ -557,7 +545,6 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_dropdown_executed === 'undefined') {
@@ -565,19 +552,17 @@ __webpack_require__.r(__webpack_exports__);
   } else {
     return;
   }
-
   window.addEventListener('DOMContentLoaded', function () {
     /* custom dropdown */
-    var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
+    var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select');
 
+    // toggle dropdown
     var clickCount = 0;
-
     if (atbdDropdown !== null) {
       atbdDropdown.forEach(function (el) {
         el.querySelector('.directorist-dropdown-select-toggle').addEventListener('click', function (e) {
           e.preventDefault();
           clickCount++;
-
           if (clickCount % 2 === 1) {
             document.querySelectorAll('.directorist-dropdown-select-items').forEach(function (elem) {
               elem.classList.remove('directorist-dropdown-select-show');
@@ -590,9 +575,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       });
-    } // remvoe toggle when click outside
+    }
 
-
+    // remvoe toggle when click outside
     document.body.addEventListener('click', function (e) {
       if (e.target.getAttribute('data-drop-toggle') !== 'directorist-dropdown-select-toggle') {
         clickCount = 0;
@@ -600,10 +585,10 @@ __webpack_require__.r(__webpack_exports__);
           el.classList.remove('directorist-dropdown-select-show');
         });
       }
-    }); //custom select
+    });
 
+    //custom select
     var atbdSelect = document.querySelectorAll('.atbd-drop-select');
-
     if (atbdSelect !== null) {
       atbdSelect.forEach(function (el) {
         el.querySelectorAll('.directorist-dropdown-select-items').forEach(function (item) {
@@ -617,27 +602,30 @@ __webpack_require__.r(__webpack_exports__);
           });
         });
       });
-    } // Dropdown
+    }
 
-
+    // Dropdown
     $('body').on('click', '.directorist-dropdown .directorist-dropdown-toggle', function (e) {
       e.preventDefault();
       $(this).siblings('.directorist-dropdown-option').toggle();
-    }); // Select Option after click
+    });
 
+    // Select Option after click
     $('body').on('click', '.directorist-dropdown .directorist-dropdown-option ul li a', function (e) {
       e.preventDefault();
       var optionText = $(this).html();
       $(this).children('.directorist-dropdown-toggle__text').html(optionText);
       $(this).closest('.directorist-dropdown-option').siblings('.directorist-dropdown-toggle').children('.directorist-dropdown-toggle__text').html(optionText);
       $('.directorist-dropdown-option').hide();
-    }); // Hide Clicked Anywhere
+    });
 
+    // Hide Clicked Anywhere
     $(document).bind('click', function (e) {
       var clickedDom = $(e.target);
       if (!clickedDom.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
-    }); //atbd_dropdown
+    });
 
+    //atbd_dropdown
     $(document).on("click", '.atbd_dropdown', function (e) {
       if ($(this).attr("class") === "atbd_dropdown") {
         e.preventDefault();
@@ -653,15 +641,14 @@ __webpack_require__.r(__webpack_exports__);
     });
     $('body').on('click', '.atbd_dropdown-toggle', function (e) {
       e.preventDefault();
-    }); // Directorist Dropdown
+    });
 
+    // Directorist Dropdown
     $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function (e) {
       e.preventDefault();
-
       if (!$(this).siblings('.directorist-dropdown__links-js').is(':visible')) {
         $('.directorist-dropdown__links').hide();
       }
-
       $(this).siblings('.directorist-dropdown__links-js').toggle();
     });
     $('body').on('click', function (e) {
@@ -682,7 +669,6 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_favorite_executed === 'undefined') {
@@ -690,7 +676,6 @@ __webpack_require__.r(__webpack_exports__);
   } else {
     return;
   }
-
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
     $('#atbdp-favourites').on('click', function (e) {
@@ -704,7 +689,6 @@ __webpack_require__.r(__webpack_exports__);
         console.log('added');
         console.log(response);
         console.log(directorist.ajaxurl);
-
         if (response) {
           $('#atbdp-favourites').html(response);
         }
@@ -722,7 +706,6 @@ __webpack_require__.r(__webpack_exports__);
         $.post(directorist.ajaxurl, data, function (response) {
           var post_id = data['post_id'].toString();
           var staElement = $('.directorist_favourite_' + post_id);
-
           if ('false' === response) {
             staElement.remove();
           }
@@ -743,7 +726,6 @@ __webpack_require__.r(__webpack_exports__);
         var post_id = data['post_id'].toString();
         var staElement = $('.directorist-fav_' + post_id);
         var data_id = staElement.attr('data-listing_id');
-
         if (response === "login_required") {
           staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_warning);
           staElement.children(".directorist-favorite-tooltip").fadeIn();
@@ -783,11 +765,9 @@ window.addEventListener('DOMContentLoaded', function () {
     window.directorist_select_executed = true;
   } else {
     return;
-  } //custom select
-
-
+  }
+  //custom select
   var atbdSelect = document.querySelectorAll('.atbd-drop-select');
-
   if (atbdSelect !== null) {
     atbdSelect.forEach(function (el) {
       el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
@@ -801,9 +781,9 @@ window.addEventListener('DOMContentLoaded', function () {
         });
       });
     });
-  } // select data-status
+  }
 
-
+  // select data-status
   var atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
   atbdSelectData.forEach(function (el) {
     el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
@@ -827,16 +807,15 @@ window.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('DOMContentLoaded', function () {
   /* custom dropdown */
-  var atbdDropdown = document.querySelectorAll('.atbd-dropdown'); // toggle dropdown
+  var atbdDropdown = document.querySelectorAll('.atbd-dropdown');
 
+  // toggle dropdown
   var clickCount = 0;
-
   if (atbdDropdown !== null) {
     atbdDropdown.forEach(function (el) {
       el.querySelector('.atbd-dropdown-toggle').addEventListener('click', function (e) {
         e.preventDefault();
         clickCount++;
-
         if (clickCount % 2 === 1) {
           document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
             elem.classList.remove('atbd-show');
@@ -849,9 +828,9 @@ window.addEventListener('DOMContentLoaded', function () {
         }
       });
     });
-  } // remvoe toggle when click outside
+  }
 
-
+  // remvoe toggle when click outside
   document.body.addEventListener('click', function (e) {
     if (e.target.getAttribute('data-drop-toggle') !== 'atbd-toggle') {
       clickCount = 0;
@@ -872,18 +851,15 @@ window.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     var profileMediaUploader = null;
-
     if ($(".directorist-profile-uploader").length) {
       profileMediaUploader = new EzMediaUploader({
         containerClass: "directorist-profile-uploader"
       });
       profileMediaUploader.init();
     }
-
     var is_processing = false;
     $('#user_profile_form').on('submit', function (e) {
       // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
@@ -891,37 +867,31 @@ window.addEventListener('DOMContentLoaded', function () {
       var submit_button = $('#update_user_profile');
       submit_button.attr('disabled', true);
       submit_button.addClass("directorist-loader");
-
       if (is_processing) {
         submit_button.removeAttr('disabled');
         return;
       }
-
       var form_data = new FormData();
       var err_log = {};
-      var error_count; // ajax action
+      var error_count;
 
+      // ajax action
       form_data.append('action', 'update_user_profile');
       form_data.append('directorist_nonce', directorist.directorist_nonce);
-
       if (profileMediaUploader) {
         var hasValidFiles = profileMediaUploader.hasValidFiles();
-
         if (hasValidFiles) {
           //files
           var files = profileMediaUploader.getTheFiles();
           var filesMeta = profileMediaUploader.getFilesMeta();
-
           if (files.length) {
             for (var i = 0; i < files.length; i++) {
               form_data.append('profile_picture', files[i]);
             }
           }
-
           if (filesMeta.length) {
             for (var i = 0; i < filesMeta.length; i++) {
               var elm = filesMeta[i];
-
               for (var key in elm) {
                 form_data.append('profile_picture_meta[' + i + '][' + key + ']', elm[key]);
               }
@@ -935,7 +905,6 @@ window.addEventListener('DOMContentLoaded', function () {
           error_count++;
         }
       }
-
       var $form = $(this);
       var arrData = $form.serializeArray();
       $.each(arrData, function (index, elem) {
@@ -951,13 +920,15 @@ window.addEventListener('DOMContentLoaded', function () {
         data: form_data,
         success: function success(response) {
           submit_button.removeAttr('disabled');
-          submit_button.removeClass("directorist-loader"); // console.log(response);
+          submit_button.removeClass("directorist-loader");
+
+          // console.log(response);
 
           if (response.success) {
-            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>'); // Reload if password updated
+            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
 
+            // Reload if password updated
             var newPass = form_data.get('user[new_pass]');
-
             if (typeof newPass == 'string' && newPass.length > 0) {
               location.reload();
               return false;
@@ -970,12 +941,13 @@ window.addEventListener('DOMContentLoaded', function () {
           submit_button.removeAttr('disabled');
           console.log(response);
         }
-      }); // remove notice after five second
-
+      });
+      // remove notice after five second
       setTimeout(function () {
         $("#directorist-prifile-notice .directorist-alert").remove();
-      }, 5000); // prevent the from submitting
+      }, 5000);
 
+      // prevent the from submitting
       return false;
     });
   });
@@ -995,8 +967,8 @@ window.addEventListener('DOMContentLoaded', function () {
     Version: 1.0.0
     License: MIT
 */
-var $ = jQuery;
 
+var $ = jQuery;
 pureScriptTab = function pureScriptTab(selector1) {
   var selector = document.querySelectorAll(selector1);
   selector.forEach(function (el, index) {
@@ -1007,9 +979,9 @@ pureScriptTab = function pureScriptTab(selector1) {
         event.preventDefault();
         event.stopPropagation();
         var ul = event.target.closest('.directorist-tab__nav'),
-            main = ul.nextElementSibling,
-            item_a = ul.querySelectorAll('.directorist-tab__nav__link'),
-            section = main.querySelectorAll('.directorist-tab__pane');
+          main = ul.nextElementSibling,
+          item_a = ul.querySelectorAll('.directorist-tab__nav__link'),
+          section = main.querySelectorAll('.directorist-tab__pane');
         item_a.forEach(function (ela, ind) {
           ela.classList.remove('directorist-tab__nav__active');
         });
@@ -1024,6 +996,7 @@ pureScriptTab = function pureScriptTab(selector1) {
     });
   });
 };
+
 /* pureScriptTabChild = (selector1) => {
     var selector = document.querySelectorAll(selector1);
     selector.forEach((el, index) => {
@@ -1094,10 +1067,10 @@ pureScriptTabChild2 = (selector1) => {
     });
 }; */
 
-
 if ($('.directorist-tab')) {
   pureScriptTab('.directorist-tab');
 }
+
 /* pureScriptTab('.directorist-user-dashboard-tab');
 pureScriptTabChild('.atbdp-bookings-tab');
 pureScriptTabChild2('.atbdp-bookings-tab-inner'); */
@@ -1114,10 +1087,8 @@ pureScriptTabChild2('.atbdp-bookings-tab-inner'); */
 window.addEventListener('DOMContentLoaded', function () {
   // on load of the page: switch to the currently selected tab
   var tab_url = window.location.href.split("/").pop();
-
   if (tab_url.startsWith("#active_")) {
     var urlId = tab_url.split("#").pop().split("active_").pop();
-
     if (urlId !== 'my_listings') {
       document.querySelector("a[target=".concat(urlId, "]")).click();
     }
@@ -1168,8 +1139,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // General Components
 
+
+// General Components
 
 
 

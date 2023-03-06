@@ -152,12 +152,14 @@
                     // start importing listings
                     $post_status = ( isset( $post[ $listing_status ] ) ) ? $post[ $listing_status ] : '';
                     $post_status = ( in_array( $post_status, $supported_post_status ) ) ? $post_status : $new_listing_status;
+                    $listing_id  = ( isset( $post[ 'id' ] ) ) ? absint( $post[ 'id' ] ) : '';
 
                     $args = array(
                         "post_title"   => isset( $post[ $title ] ) ? html_entity_decode( $post[ $title ] ): '',
                         "post_content" => isset( $post[ $description ] ) ? html_entity_decode( $post[ $description ] ) : '',
                         "post_type"    => ATBDP_POST_TYPE,
                         "post_status"  => $post_status,
+                        "ID"           => $listing_id,
                     );
 
                     // Post Date
@@ -168,7 +170,7 @@
                         $args[ 'post_date' ] = $post_date;
                     }
 
-                    $post_id = wp_insert_post( $args );
+                    $post_id = ! empty( $args['ID'] ) && get_post( $args['ID'] ) ? wp_update_post( $args ) :  wp_insert_post( $args );
 
                     if (  is_wp_error( $post_id ) ) {
                         $failed++;
@@ -178,37 +180,51 @@
                     $imported++;
 
                     if ( $tax_inputs ) {
-                        foreach ( $tax_inputs as $taxonomy => $term ) {
+                        foreach ( $tax_inputs as $taxonomy => $value ) {
+                            
+                            if( ! $value ) {
+                                continue;
+                            }
+
+                            $terms = isset( $post[ $value ] ) && ! empty( $post[ $value ] ) ? explode( ',', $post[ $value ] ) : array();
+                            if( ! $terms ) {
+                                continue;
+                            }
+
                             if ('category' == $taxonomy) {
                                 $taxonomy = ATBDP_CATEGORY;
-                            } elseif ('location' == $taxonomy) {
+                            }elseif ('location' == $taxonomy) {
                                 $taxonomy = ATBDP_LOCATION;
-                            } else {
+                            }else{
                                 $taxonomy = ATBDP_TAGS;
                             }
 
-                            $final_term  = isset( $post[ $term ] ) ? $post[ $term ] : '';
-                            $final_terms = ( ! empty( $final_term ) ) ? explode( ',', $final_term ) : [];
-
-                            if ( ! empty( $final_terms ) ) {
-                                foreach( $final_terms as $term_item ) {
-                                    $term_exists = get_term_by( 'name', $term_item, $taxonomy );
-                                
-                                    if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
-                                        $result = wp_insert_term( $term_item, $taxonomy );
-                                        
-                                        if ( ! is_wp_error( $result ) ) {
-                                            $term_id = $result['term_id'];
-                                            wp_set_object_terms( $post_id, $term_id, $taxonomy);
-                                            update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
-                                        }
-                                    } else {
-                                        wp_set_object_terms( $post_id, $term_exists->term_id, $taxonomy, true );
-                                        update_term_meta( $term_exists->term_id, '_directory_type', [ $directory_type ] );
-                                    }
-                                }
-                            }
+                            $term_ids = array();
+                            $multiple = $terms > 0;
                             
+                            foreach( $terms as $term ) {
+
+                                $_term = wp_insert_term( $term, $taxonomy );
+
+                                if ( is_wp_error( $_term ) ) {
+                                    if ( $_term->get_error_code() === 'term_exists' ) {
+                                        // When term exists, error data should contain existing term id.
+                                        $term_id = $_term->get_error_data();
+
+                                    } else {
+                                        break; // We cannot continue on any other error.
+                                    }
+                                } else {
+                                    // New term.
+                                    $term_id = $_term['term_id'];
+                                }
+
+                                update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
+
+                                $term_ids[] = $term_id;
+
+                            }
+                            wp_set_object_terms( $post_id, $term_ids, $taxonomy, $multiple );
                         }
                     }
 

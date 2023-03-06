@@ -194,7 +194,10 @@ class Directorist_Single_Listing {
 
 			if( 'map' === $field['widget_name'] ) {
 				$address = get_post_meta( $this->id, '_address', true );
-				if( $address ) {
+				$manual_lat = get_post_meta( $this->id, '_manual_lat', true );
+				$manual_lng = get_post_meta( $this->id, '_manual_lng', true );
+
+				if( $address || ( $manual_lat && $manual_lng ) ) {
 					$has_contents = true;
 					break;
 				}
@@ -302,11 +305,13 @@ class Directorist_Single_Listing {
 		switch ( $type ) {
 			case 'radio':
 			case 'select':
-			foreach( $data['options'] as $option ) {
-				$key = $option['option_value'];
-				if( $key === $value ) {
-					$result = $option['option_label'];
-					break;
+			if(!empty($data['options'])) {
+				foreach( $data['options'] as $option ) {
+					$key = $option['option_value'];
+					if( $key === $value ) {
+						$result = $option['option_label'];
+						break;
+					}
 				}
 			}
 			break;
@@ -508,17 +513,19 @@ class Directorist_Single_Listing {
 		}
 
 		// Get the options
-		$background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
+		$background_type = get_directorist_option( 'single_slider_background_type', 'custom-color' );
+		$height          = (int) get_directorist_option( 'gallery_crop_height', 670 );
+		$width           = (int) get_directorist_option( 'gallery_crop_width', 750 );
 
 		// Set the options
 		$data = array(
 			'images'             => [],
 			'alt'                => $listing_title,
-			'background-size'    => get_directorist_option('single_slider_image_size', 'cover'),
+			'background-size'    => get_directorist_option( 'single_slider_image_size', 'cover' ),
 			'blur-background'    => ( 'blur' === $background_type ) ? '1' : '0',
-			'width'              => get_directorist_option('gallery_crop_width', 670),
-			'height'             => get_directorist_option('gallery_crop_height', 750),
-			'background-color'   => get_directorist_option('single_slider_background_color', 'gainsboro'),
+			'width'              => empty( $width ) ? 740 : $width,
+			'height'             => empty( $height ) ? 580 : $height,
+			'background-color'   => get_directorist_option( 'single_slider_background_color', 'gainsboro' ),
 			'thumbnail-bg-color' => '#fff',
 			'show-thumbnails'    => !empty( $this->header_data['listings_header']['thumbnail'][0]['footer_thumbail'] ) ? '1' : '0',
 			'gallery'            => true,
@@ -545,8 +552,8 @@ class Directorist_Single_Listing {
 			];
 		}
 
-		$padding_top         = $data['height'] / $data['width'] * 100;
-		$data['padding-top'] = $padding_top;
+		$data['padding-top'] = ( $data['height'] / $data['width'] ) * 100;
+
 		return $data;
 	}
 
@@ -857,14 +864,16 @@ class Directorist_Single_Listing {
 	}
 
 	public function header_template() {
-		$section_title = !empty($this->header_data['options']['general']['section_title']['label']) ? $this->header_data['options']['general']['section_title']['label'] : '';
-		$section_icon = !empty($this->header_data['options']['general']['section_title']['icon']) ? $this->header_data['options']['general']['section_title']['icon'] : '';
-		$display_title = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_title'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_title'] : '';
-		$display_tagline = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] : '';
-		$display_content = !empty( $this->header_data['options']['content_settings']['listing_description']['enable'] ) ? $this->header_data['options']['content_settings']['listing_description']['enable'] : '';
+		$use_listing_title = !empty($this->header_data['options']['general']['section_title']['use_listing_title']) ? $this->header_data['options']['general']['section_title']['use_listing_title'] : '';
+		$section_title     = !empty($this->header_data['options']['general']['section_title']['label']) ? $this->header_data['options']['general']['section_title']['label'] : '';
+		$section_icon      = !empty($this->header_data['options']['general']['section_title']['icon']) ? $this->header_data['options']['general']['section_title']['icon'] : '';
+		$display_title     = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_title'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_title'] : '';
+		$display_tagline   = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] : '';
+		$display_content   = !empty( $this->header_data['options']['content_settings']['listing_description']['enable'] ) ? $this->header_data['options']['content_settings']['listing_description']['enable'] : '';
 
 		$args = array(
 			'listing'           => $this,
+			'use_listing_title' => $use_listing_title,
 			'section_title'     => $section_title,
 			'section_icon'      => $section_icon,
 			'display_title'     => $display_title,

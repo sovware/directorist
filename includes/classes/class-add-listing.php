@@ -128,6 +128,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$only_for_admin   = ! empty( $form_field['only_for_admin'] ) ? true : false;
 				$label            = ! empty( $form_field['label'] ) ? $form_field['label'] : '';
 
+				// No need to process admin only fields on the frontend.
+				if ( $only_for_admin ) {
+					continue;
+				}
+
 				$additional_logic = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $form_field, $posted_data );
 
 				$field_category = ! empty( $form_field['category'] ) ? $form_field['category'] : '';
@@ -136,37 +141,41 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				if ( $additional_logic ) {
+					$regular_field = true;
 					// error handling
-					if ( ( 'category' === $field_internal_key ) && $required && ! $only_for_admin && ! $admin_category_select ) {
+					if ( ( 'category' === $field_internal_key ) && $required && ! $admin_category_select ) {
 						// translators: %s field label.
 						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
+						$regular_field = false;
 					}
 
-					if ( ( 'location' === $field_internal_key ) && $required && ! $only_for_admin && ! $location ) {
+					if ( ( 'location' === $field_internal_key ) && $required && ! $location ) {
 						// translators: %s field label.
 						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
+						$regular_field = false;
 					}
 
-					if ( ( 'tag' === $field_internal_key ) && $required && ! $only_for_admin && ! $tag ) {
+					if ( ( 'tag' === $field_internal_key ) && $required && ! $tag ) {
 						// translators: %s field label.
 						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
+						$regular_field = false;
 					}
 
-					if ( ( 'image_upload' === $field_internal_key ) && $required && ! $only_for_admin && ! $images ) {
+					if ( ( 'image_upload' === $field_internal_key ) && $required && ! $images ) {
 						// translators: %s field label.
 						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
+						$regular_field = false;
 					}
 
-					if ( ( 'map' === $field_internal_key ) && $required && ! $only_for_admin && ! $map ) {
+					if ( ( 'map' === $field_internal_key ) && $required && ! $map ) {
 						// translators: %s field label.
 						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
+						$regular_field = false;
 					}
 
-					if ( ( 'category' !== $field_internal_key ) && ( 'tag' !== $field_internal_key ) && ( 'location' !== $field_internal_key ) && ( 'image_upload' !== $field_internal_key ) && ( 'map' !== $field_internal_key ) ) {
-						if ( $required && ! $submitted_data && ! $only_for_admin ) {
-							// translators: %s field label.
-							$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-						}
+					if ( $regular_field && $required && ! $submitted_data ) {
+						// translators: %s field label.
+						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
 					}
 				}
 
@@ -255,7 +264,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				foreach ( $deletable_meta_data as $deletable_meta_key => $v ) {
 					delete_post_meta( $listing_id, $deletable_meta_key );
 				}
-				
+
 				$_args       = array(
 					'id'            => $listing_id,
 					'edited'        => true,

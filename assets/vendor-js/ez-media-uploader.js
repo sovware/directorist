@@ -618,7 +618,7 @@
         }
 
         if (self.draggingCounter > 0) {
-          addClass(self.container, "highlight");
+          addClass(self.container[0], "highlight");
         }
       };
 
@@ -658,7 +658,7 @@
         document.addEventListener(
           event_name,
           function () {
-            removeClass(self.container, "drag-enter");
+            removeClass(self.container[0], "drag-enter");
           },
           false
         );
@@ -806,7 +806,9 @@
 
         var has_no_duplicate = validateDuplicateFile(this.filesMeta, file_item);
 
-        if (file_is_valid && has_no_duplicate) {
+        var not_maximum_files = validateMaximumFile(this.filesMeta, file_item);
+
+        if (file_is_valid && has_no_duplicate && not_maximum_files) {
           temp_files.push(file_item);
         }
       }
@@ -1480,6 +1482,23 @@
     return has_no_duplicate;
   }
 
+  function validateMaximumFile(all_files) {
+    var not_maximum_files = true;
+
+    for (var i = 0; i < all_files.length; i++) {
+
+      var dirImageUpload = document.querySelector(".directorist-image-upload")
+
+      if(dirImageUpload.classList.contains('max-file-reached')) {
+        not_maximum_files = false;
+
+        break;
+      }
+    }
+
+    return not_maximum_files;
+  }
+
   // formatedFileSize
   function formatedFileSize(file_size) {
     file_size = parseFloat(file_size);
@@ -1568,8 +1587,6 @@
     return defaults;
   }
 
-
-
   // addClass
   function addClass(element, class_name) {
     if (!(typeof element === 'object' && 'className' in element)) { return; }
@@ -1608,4 +1625,5 @@
       cb(array[i], i);
     }
   }
+
 })();

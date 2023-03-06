@@ -151,7 +151,7 @@
 
                     // start importing listings
                     $post_status = ( isset( $post[ $listing_status ] ) ) ? $post[ $listing_status ] : '';
-                    $listing_id  = ( isset( $post[ 'id' ] ) ) ? $post[ 'id' ] : '';
+                    $listing_id  = ( isset( $post[ 'id' ] ) ) ? absint( $post[ 'id' ] ) : '';
                     $post_status = ( in_array( $post_status, $supported_post_status ) ) ? $post_status : $new_listing_status;
 
                     $args = array(

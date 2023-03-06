@@ -7652,7 +7652,7 @@ body.stop-scrolling {
 }
 .directorist-add-listing-wrapper .directorist-image-upload.max-file-reached.highlight:after {
   content: "Maximum Files Uploaded";
-  font-size: 35px;
+  font-size: 18px;
   font-weight: 700;
   color: #EF0000;
   position: absolute;

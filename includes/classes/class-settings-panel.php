@@ -250,7 +250,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 {$c}==TODAY=={$e} : It outputs the current date<br/>
                 {$c}==NOW=={$e} : It outputs the current time<br/>
                 {$c}==DASHBOARD_LINK=={$e} : It outputs the user dashboard page link<br/>
-                {$c}==USER_PASSWORD=={$e} : It outputs new user's temporary passoword<br/><br/>
+                {$c}==USER_PASSWORD=={$e} : It outputs new user's temporary passoword<br/>
+                {$c}==SET_PASSWORD_AND_CONFIRM_MAIL_URL=={$e} : It outputs set new password and confirm email link<br/><br/>
                 Additionally, you can also use HTML tags in your template.
 SWBD;
 
@@ -4513,6 +4514,17 @@ Please remember that your order may be canceled if you do not make your payment 
 
                     We look forward to seeing you soon', 'directorist'),
                 ],
+                'email_tmpl_registration_set_password'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Set Password Email Body', 'directorist'),
+                    'description'    => __('Use ==SET_PASSWORD_AND_CONFIRM_MAIL_URL== to show set password and confirm mail link.', 'directorist'),
+                    'value'          => __('
+                    Hi ==USERNAME==,
+
+                    Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. Please set your password to complete registration. ==SET_PASSWORD_AND_CONFIRM_MAIL_URL==
+
+                    We look forward to seeing you soon', 'directorist'),
+                ],
                 // single template settings
                 'single_temp_max_width'    => [
                     'type'           => 'text',
@@ -5048,7 +5060,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Registration Confirmation', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'email_sub_registration_confirmation', 'email_tmpl_registration_confirmation'
+                                        'email_sub_registration_confirmation', 'email_tmpl_registration_confirmation', 'email_tmpl_registration_set_password'
                                      ],
                                 ],
                             ] ),

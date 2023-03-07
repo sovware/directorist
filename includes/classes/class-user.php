@@ -402,13 +402,15 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			// sanitize user form input
 			global $username, $password, $email, $website, $first_name, $last_name, $bio;
 			$username   =   directorist_clean( wp_unslash( $_POST['username'] ) );
-			if (empty($display_password)){
+
+			if (empty($display_password) || empty($_POST['password'])){
 				$password   =   wp_generate_password( 12, false );
-			}elseif (empty($_POST['password'])){
-				$password   =   wp_generate_password( 12, false );
-			}else{
+				$random_password = true;
+			} else {
+				$random_password = false;
 				$password   =  $_POST['password']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			}
+
 			$email            =   !empty($_POST['email']) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
 			$website          =   !empty($_POST['website']) ? directorist_clean( $_POST['website'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			$first_name       =   !empty($_POST['fname']) ? directorist_clean( wp_unslash( $_POST['fname'] ) ) : '';
@@ -433,14 +435,14 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				update_user_meta($user_id, '_atbdp_terms_and_conditions', $t_c_check);
 				// user has been created successfully, now work on activation process
 				wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
-				ATBDP()->email->custom_wp_new_user_notification_email($user_id);
+				ATBDP()->email->custom_wp_new_user_notification_email($user_id, $random_password);
 				if( ! empty( $auto_login ) ) {
 					wp_set_current_user( $user_id, $email );
 					wp_set_auth_cookie( $user_id );
 				}
-			// wp_get_referer();
+
 				if( ! empty( $redirection_after_reg ) ) {
-					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page ) ) );
+					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page, array( 'registration_status' => true ) ) ) );
 				} else {
 					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link( array( 'registration_status' => true ) ) ) );
 				}

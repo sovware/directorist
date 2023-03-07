@@ -18,15 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="add_listing_title atbd_success_mesage">
 					<?php
 					if ( ! empty( $_GET['registration_status'] ) && true == $_GET['registration_status'] ) {
-						if ( empty( $display_password_reg ) ) {
 							?>
-							<p style="padding: 20px" class="alert-success"><?php directorist_icon( 'las la-check' ); ?><?php esc_html_e(' Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
-								<?php
-								$output = sprintf( __( 'Click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' );
-								echo wp_kses_post( $output );
-								?>
-							</p>
-						<?php } else { ?>
 							<!--registration succeeded, so show notification -->
 							<p style="padding: 20px" class="alert-success"><?php directorist_icon( 'las la-check' ); ?><?php esc_html_e(' Registration completed. Please check your email for confirmation.', 'directorist'); ?>
 								<?php
@@ -35,7 +27,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 								?>
 							</p>
 						<?php
-						}
 					}
 					?>
 					<!--Registration failed, so show notification.-->
@@ -134,11 +125,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						 */
 						do_action( 'atbdp_before_user_registration_submit' );
 						?>
-						<?php if(!$display_password_reg) {?>
-						<div class="directory_regi_btn">
-							<p><?php esc_html_e('Password will be e-mailed to you.','directorist');?></p>
-						</div>
-						<?php } ?>
 						<div class="directory_regi_btn directorist-mb-15">
 							<?php if ( get_directorist_option( 'redirection_after_reg' ) === 'previous_page' ) { ?>
 							<input type="hidden" name='previous_page' value='<?php echo esc_url( wp_get_referer() ); ?>'>
@@ -157,4 +143,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div> <!--ends .row-->
 	</div>
 </div>
-

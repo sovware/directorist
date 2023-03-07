@@ -51,5 +51,13 @@
             alert(directorist.login_alert_message);
             return false;
         });
+
+
+        // Remove URL params to avoid show message again and again
+        var current_url = location.href;
+        var url = new URL(current_url);
+        url.searchParams.delete('registration_status');
+        url.searchParams.delete('errors');
+        window.history.pushState(null, null, url.toString());
     });
 })(jQuery);

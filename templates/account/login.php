@@ -42,10 +42,20 @@ use \Directorist\Helper;
 								<p class="atbd_reset_error"><?php echo esc_html__( 'Password not matched!', 'directorist' ); ?></p>
 							<?php endif;
 						endif;
+						/**
+						 * Filters the expiration time of password reset keys.
+						 *
+						 * @param int $expiration The expiration time in seconds.
+						 * @return int The expiration time in seconds.
+						 */
+						add_filter('password_reset_expiration', function( int $expiration ) : int {
+							return HOUR_IN_SECONDS;
+						} );
 
-						$db_key = get_user_meta( $user->ID, '_atbdp_recovery_key', true );
+						$check_password_reset_key = check_password_reset_key($key, $user->user_login);
 
-						if ( $key === $db_key ) :
+						if(!is_wp_error($check_password_reset_key)) :
+
 							do_action( 'directorist_before_reset_password_form' ); ?>
 
 							<form method="post" class="directorist-ResetPassword lost_reset_password">
@@ -158,40 +168,34 @@ use \Directorist\Helper;
 							} else if ( ! email_exists( $email ) ) {
 								$error = __( 'There is no user registered with that email address.', 'directorist' );
 							} else {
-								$random_password = wp_generate_password( 22, false );
-								$user            = get_user_by( 'email', $email );
-								$update_user     = update_user_meta( $user->ID, '_atbdp_recovery_key', $random_password );
-								// if  update user return true then lets send user an email containing the new password
-								if ( $update_user ) {
-									$subject = esc_html__( '	Password Reset Request', 'directorist' );
-									//$message = esc_html__('Your new password is: ', 'directorist') . $random_password;
+								$user    = get_user_by( 'email', $email );
+								$subject = esc_html__( 'Password Reset Request', 'directorist' );
+								//$message = esc_html__('Your new password is: ', 'directorist') . $random_password;
 
-									$site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-									$message   = __( 'Someone has requested a password reset for the following account:', 'directorist' ) . '<br>';
-									/* translators: %s: site name */
-									$message .= sprintf( __( 'Site Name: %s', 'directorist' ), $site_name ) . '<br>';
-									/* translators: %s: user login */
-									$message .= sprintf( __( 'User: %s', 'directorist' ), $user->user_login ) . '<br>';
-									$message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'directorist' ) . '<br>';
-									$message .= __( 'To reset your password, visit the following address:', 'directorist' ) . '<br>';
-									$link = [
-										'key'  => $random_password,
-										'user' => $email,
-									];
-									$message .= '<a href="' . esc_url( add_query_arg( $link, ATBDP_Permalink::get_login_page_url() ) ) . '">' . esc_url( add_query_arg( $link, ATBDP_Permalink::get_login_page_url() ) ) . '</a>';
+								$site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+								$message   = __( 'Someone has requested a password reset for the following account:', 'directorist' ) . '<br>';
+								/* translators: %s: site name */
+								$message .= sprintf( __( 'Site Name: %s', 'directorist' ), $site_name ) . '<br>';
+								/* translators: %s: user login */
+								$message .= sprintf( __( 'User: %s', 'directorist' ), $user->user_login ) . '<br>';
+								$message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'directorist' ) . '<br>';
+								$message .= __( 'To reset your password, visit the following address:', 'directorist' ) . '<br>';
+								$link = [
+									'key'  => get_password_reset_key($user),
+									'user' => $email,
+								];
+								$message .= '<a href="' . esc_url( add_query_arg( $link, ATBDP_Permalink::get_login_page_url() ) ) . '">' . esc_url( add_query_arg( $link, ATBDP_Permalink::get_login_page_url() ) ) . '</a>';
 
-									$message = atbdp_email_html( $subject, $message );
+								$message = atbdp_email_html( $subject, $message );
 
-									$headers[] = 'Content-Type: text/html; charset=UTF-8';
-									$mail      = wp_mail( $email, $subject, $message, $headers );
-									if ( $mail ) {
-										$success = __( 'A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox.', 'directorist' );
-									} else {
-										$error = __( 'Something went wrong, unable to send the password reset email. If the issue persists please contact with the site administrator.', 'directorist' );
-									}
+								$headers[] = 'Content-Type: text/html; charset=UTF-8';
+								$mail      = wp_mail( $email, $subject, $message, $headers );
+								if ( $mail ) {
+									$success = __( 'A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox.', 'directorist' );
 								} else {
-									$error = __( 'Oops something went wrong updating your account.', 'directorist' );
+									$error = __( 'Something went wrong, unable to send the password reset email. If the issue persists please contact with the site administrator.', 'directorist' );
 								}
+								
 							}
 
 							if ( ! empty( $error ) ) {

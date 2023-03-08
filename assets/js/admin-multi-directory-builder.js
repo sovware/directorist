@@ -26006,13 +26006,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.active_insert_widget_key = '';
     },
     getWidgetLabel: function getWidgetLabel(widget) {
+      var _widget$options, _widget$options$field, _widget$options$field2, _widget$options$field3, _widget$options2, _widget$options2$fiel;
+
       var label = '';
 
       if (typeof widget.label === 'string') {
         label = widget.label;
       }
 
-      if (this.isObject(widget.options) && widget.options.fields && widget.options.fields.label && widget.options.fields.type === 'text' && widget.options.fields.label.value && widget.options.fields.label.value.length) {
+      if (widget !== null && widget !== void 0 && (_widget$options = widget.options) !== null && _widget$options !== void 0 && (_widget$options$field = _widget$options.fields) !== null && _widget$options$field !== void 0 && (_widget$options$field2 = _widget$options$field.label) !== null && _widget$options$field2 !== void 0 && (_widget$options$field3 = _widget$options$field2.value) !== null && _widget$options$field3 !== void 0 && _widget$options$field3.length && (widget === null || widget === void 0 ? void 0 : (_widget$options2 = widget.options) === null || _widget$options2 === void 0 ? void 0 : (_widget$options2$fiel = _widget$options2.fields) === null || _widget$options2$fiel === void 0 ? void 0 : _widget$options2$fiel.type) === 'text') {
         label = widget.options.fields.label.value;
       }
 

@@ -544,21 +544,26 @@ $(document).ready(function () {
   // -----------------------------
 
   $('body').on('submit', '#directorist-add-listing-form', function (e) {
-    if (localized_data.is_admin) return;
     e.preventDefault();
+
+    if (localized_data.is_admin) {
+      return;
+    }
+
     var $form = $(e.target);
-    var error_count = 0;
+    var $submitButton = $form.find('.directorist-form-submit__btn');
     var err_log = {};
+    var error_count = 0;
 
     if (on_processing) {
-      $('.directorist-form-submit__btn').attr('disabled', true);
+      $submitButton.attr('disabled', true);
       return;
     }
 
     var form_data = new FormData();
     form_data.append('action', 'add_listing_action');
     form_data.append('directorist_nonce', directorist.directorist_nonce);
-    $('.directorist-form-submit__btn').addClass('atbd_loading');
+    $submitButton.addClass('atbd_loading');
     var fieldValuePairs = $form.serializeArray(); // Append Form Fields Values
 
     var _iterator2 = _createForOfIteratorHelper(fieldValuePairs),
@@ -567,11 +572,6 @@ $(document).ready(function () {
     try {
       for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
         var field = _step2.value;
-
-        if ('' === field.value) {
-          continue;
-        }
-
         form_data.append(field.name, field.value);
       } // images
 
@@ -589,10 +589,8 @@ $(document).ready(function () {
         for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
           var uploader = _step3.value;
 
-          if (uploader.media_uploader && has_media) {
-            var hasValidFiles = uploader.media_uploader.hasValidFiles();
-
-            if (hasValidFiles) {
+          if (has_media && uploader.media_uploader) {
+            if (uploader.media_uploader.hasValidFiles()) {
               // files
               var files = uploader.media_uploader.getTheFiles();
 
@@ -614,7 +612,7 @@ $(document).ready(function () {
                 }
               }
             } else {
-              $('.directorist-form-submit__btn').removeClass('atbd_loading');
+              $submitButton.removeClass('atbd_loading');
               err_log.listing_gallery = {
                 msg: uploader.uploaders_data['error_msg']
               };
@@ -638,7 +636,7 @@ $(document).ready(function () {
     } // categories
 
 
-    var categories = $('#at_biz_dir-categories').val();
+    var categories = $form.find('#at_biz_dir-categories').val();
 
     if (Array.isArray(categories) && categories.length) {
       for (var key in categories) {
@@ -670,7 +668,7 @@ $(document).ready(function () {
 
     if (error_count) {
       on_processing = false;
-      $('.directorist-form-submit__btn').attr('disabled', false);
+      $submitButton.attr('disabled', false);
       console.log('Form has invalid data');
       console.log(error_count, err_log);
       return;
@@ -687,13 +685,13 @@ $(document).ready(function () {
         //console.log(response);
         // return;
         // show the error notice
-        $('.directorist-form-submit__btn').attr('disabled', false);
+        $submitButton.attr('disabled', false);
         var redirect_url = response && response.redirect_url ? response.redirect_url : '';
         redirect_url = redirect_url && typeof redirect_url === 'string' ? response.redirect_url.replace(/:\/\//g, '%3A%2F%2F') : '';
 
         if (response.error === true) {
           $('#listing_notifier').show().html("<span>".concat(response.error_msg, "</span>"));
-          $('.directorist-form-submit__btn').removeClass('atbd_loading');
+          $submitButton.removeClass('atbd_loading');
           on_processing = false;
 
           if (response.quick_login_required) {
@@ -749,9 +747,10 @@ $(document).ready(function () {
       },
       error: function error(_error) {
         on_processing = false;
-        $('.directorist-form-submit__btn').attr('disabled', false);
-        $('.directorist-form-submit__btn').removeClass('atbd_loading');
+        $submitButton.attr('disabled', false);
+        $submitButton.removeClass('atbd_loading');
         console.log(_error);
+        "";
       }
     });
   }); // Custom Field Checkbox Button More

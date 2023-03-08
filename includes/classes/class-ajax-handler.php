@@ -112,6 +112,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			add_action( 'wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
 
 			// user verification
+			add_action('wp_ajax_send_confirmation_email', [$this, 'send_confirm_email'] );
 			add_action('wp_ajax_nopriv_send_confirmation_email', [$this, 'send_confirm_email'] );
 		}
 

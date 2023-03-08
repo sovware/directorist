@@ -85,12 +85,12 @@ class ATBDP_Metabox {
 
 	public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id, $parent_id = 0 ) {
 		$args = array(
-			'hide_empty' => 0,
+			'hide_empty'   => 0,
 			'hierarchical' => true,
-			'parent' => $parent_id
+			'parent'       => $parent_id
 		);
-		$saving_terms   = get_the_terms( $listing_id, $taxonomy_id );
-		$saving_values    = array();
+		$saving_terms  = get_the_terms( $listing_id, $taxonomy_id );
+		$saving_values = array();
 		if( $saving_terms ) {
 			foreach( $saving_terms as $saving_term ) {
 				$saving_values[] = $saving_term->term_id;
@@ -102,7 +102,7 @@ class ATBDP_Metabox {
 			foreach( $terms as $term ) {
 				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
 				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
-				$checked = in_array( $term->term_id, $saving_values ) ? 'checked' : '';
+				$checked        = in_array( $term->term_id, $saving_values ) ? 'checked' : '';
 				if( in_array( $term_id, $directory_type) ) { ?>
 					<li id="<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>">
 						<label class="selectit">

@@ -593,6 +593,7 @@ window.addEventListener('DOMContentLoaded', function () {
     url.searchParams.delete('key');
     url.searchParams.delete('password_reset');
     url.searchParams.delete('confirm_mail');
+    url.searchParams.delete('user');
     window.history.pushState(null, null, url.toString());
   });
 })(jQuery);

@@ -47,13 +47,18 @@ use \Directorist\Helper;
 							$check_password_reset_key = check_password_reset_key($key, $user->user_login);
 
 							if (!is_wp_error($check_password_reset_key)) {
+								if(!empty($_GET['confirm_mail'])) {
+									update_user_meta($user->ID, 'directorist_email_verified', true);
+									?>
+									<div class="directorist-alert directorist-alert-success">
+										<?php esc_html_e('Email Verified Successfully!', 'directorist')?>
+									</div>
+									<?php
+								}
 								if(!empty($_GET['password_reset'])) {
 									include __DIR__ . './password-reset-form.php';
 								}
-								if(!empty($_GET['confirm_mail'])) {
-									update_post_meta($user->ID, 'directorist_email_verified', true);
-								}
-							} else {?>
+							} elseif(!empty($key)) {?>
 								<p>
 									<?php esc_html_e('Sorry! The link is invalid.', 'directorist'); ?>
 								</p>
@@ -154,11 +159,7 @@ use \Directorist\Helper;
 								$message .= sprintf( __( 'User: %s', 'directorist' ), $user->user_login ) . '<br>';
 								$message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'directorist' ) . '<br>';
 								$message .= __( 'To reset your password, visit the following address:', 'directorist' ) . '<br>';
-								$link = [
-									'key'  => get_password_reset_key($user),
-									'user' => $email,
-								];
-								$message .= '<a href="' . esc_url( add_query_arg( $link, ATBDP_Permalink::get_login_page_url() ) ) . '">' . esc_url( add_query_arg( $link, ATBDP_Permalink::get_login_page_url() ) ) . '</a>';
+								$message .= '<a href="' . esc_url( directorist_password_reset_url($user, true) ) . '">' . __("Reset Password", 'directorist') . '</a>';
 
 								$message = atbdp_email_html( $subject, $message );
 

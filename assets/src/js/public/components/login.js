@@ -58,6 +58,10 @@
         var url = new URL(current_url);
         url.searchParams.delete('registration_status');
         url.searchParams.delete('errors');
+        url.searchParams.delete('key');
+        url.searchParams.delete('password_reset');
+        url.searchParams.delete('confirm_mail');
+        url.searchParams.delete('user');
         window.history.pushState(null, null, url.toString());
     });
 })(jQuery);

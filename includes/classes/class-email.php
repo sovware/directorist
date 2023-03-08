@@ -131,7 +131,8 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 				'==USER_PASSWORD==' => $user_password,
 				'==USER_DASHBOARD==' => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
 				'==PIN==' => $pin,
-				'==SET_PASSWORD_AND_CONFIRM_MAIL_URL==' => sprintf( '<a href="%s">%s</a>',  esc_url_raw(directorist_password_reset_url($user, true, true)), __( 'Set Password And Confirm Mail', 'directorist' ) )
+				'==VERIFY_MAIL_URL==' => sprintf( '<a href="%s">%s</a>',  esc_url_raw(directorist_password_reset_url($user, false, true)), __( 'Confirm Mail', 'directorist' ) ),
+				'==SET_PASSWORD_AND_VERIFY_MAIL_URL==' => sprintf( '<a href="%s">%s</a>',  esc_url_raw(directorist_password_reset_url($user, true, true)), __( 'Set Password And Confirm Mail', 'directorist' ) )
 			);
 			$c = nl2br( strtr( $content, $find_replace ) );
 			// we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.

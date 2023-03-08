@@ -33,7 +33,7 @@ class ATBDP_Metabox {
 			) );
 		}
 
-		$term_id 		= ! empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
+		$term_id 		= ! empty( $_POST['directory_type'] ) ? (int) directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
 		$listing_id    	= ! empty( $_POST['listing_id'] ) ? directorist_clean( wp_unslash( $_POST['listing_id'] ) ) : '';
 
 		// listing meta fields
@@ -102,8 +102,8 @@ class ATBDP_Metabox {
 			foreach( $terms as $term ) {
 				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
 				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
-				$checked        = in_array( $term->term_id, $saving_values ) ? 'checked' : '';
-				if( in_array( $term_id, $directory_type) ) { ?>
+				$checked        = in_array( $term->term_id, $saving_values, true ) ? 'checked' : '';
+				if( in_array( $term_id, $directory_type, true ) ) { ?>
 					<li id="<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>">
 						<label class="selectit">
 							<input value="<?php echo esc_attr( $term->term_id ); ?>" type="checkbox" name="tax_input[<?php echo esc_attr( $taxonomy_id ); ?>][]" id="in-<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>" <?php echo ! empty( $checked ) ? esc_attr( $checked ) : ''; ?>>
@@ -113,7 +113,7 @@ class ATBDP_Metabox {
 						$child_terms = get_term_children( $term->term_id, $taxonomy_id );
 						if ( $child_terms ) {
 							echo '<ul>';
-								$this->render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id, $term->term_id );
+								$this->render_listing_taxonomies( $listing_id, (int) $term_id, $taxonomy_id, $term->term_id );
 							echo '</ul>';
 						}
 						?>

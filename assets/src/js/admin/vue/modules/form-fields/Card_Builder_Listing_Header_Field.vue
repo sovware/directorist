@@ -772,7 +772,14 @@ export default {
         label = widget.label;
       }
 
-      if ( widget?.options?.fields?.label?.value?.length && widget?.options?.fields?.type === 'text' ) {
+      if (
+        this.isObject( widget.options ) &&
+        widget.options.fields &&
+        widget.options.fields.label &&
+        widget.options.fields.type === 'text' &&
+        widget.options.fields.label.value &&
+        widget.options.fields.label.value.length
+      ) {
         label = widget.options.fields.label.value;
       }
 

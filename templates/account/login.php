@@ -15,82 +15,56 @@ use \Directorist\Helper;
                     <?php
 					// start recovery stuff
 					$recovery = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
-					$key      = isset( $_GET['key'] ) ? $_GET['key'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- ignore password sanitization
 
-					if ( ! empty( $recovery ) ) :
+					if ( ! empty( $recovery ) ) {
 						$user = get_user_by( 'email', $recovery );
-
-						if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) ) :
-							// Ignore password sanitization
-							$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-							$password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-
-							if ( ( $password_1 === $password_2 ) && ! empty( $password_1 && $password_2 ) ) :
-								$update_user = wp_update_user( [
-									'ID'        => $user->ID,
-									'user_pass' => $password_2,
-								] );
-
-								if ( $update_user ) : ?>
-									<p class="atbd_reset_success"><?php echo esc_html__( 'Password changed successfully!', 'directorist' ); ?>
-										<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url() ) ?>"><?php echo esc_html__( ' Login', 'directorist' ); ?></a>
-									</p>
+						if( $user instanceof \WP_User ) {
+							$key = isset( $_GET['key'] ) ? $_GET['key'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- ignore password sanitization
+							
+							if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) ) :
+								// Ignore password sanitization
+								$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+								$password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	
+								if ( ( $password_1 === $password_2 ) && ! empty( $password_1 && $password_2 ) ) :
+									$update_user = wp_update_user( [
+										'ID'        => $user->ID,
+										'user_pass' => $password_2,
+									] );
+	
+									if ( $update_user ) : ?>
+										<p class="atbd_reset_success"><?php echo esc_html__( 'Password changed successfully!', 'directorist' ); ?>
+											<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url() ) ?>"><?php echo esc_html__( ' Login', 'directorist' ); ?></a>
+										</p>
+									<?php endif;
+								elseif ( empty( $password_1 || $password_2 ) ) : ?>
+									<p class="atbd_reset_warning"><?php echo esc_html__( 'Fields are required!', 'directorist' ); ?></p>
+								<?php else : ?>
+									<p class="atbd_reset_error"><?php echo esc_html__( 'Password not matched!', 'directorist' ); ?></p>
 								<?php endif;
-							elseif ( empty( $password_1 || $password_2 ) ) : ?>
-								<p class="atbd_reset_warning"><?php echo esc_html__( 'Fields are required!', 'directorist' ); ?></p>
-							<?php else : ?>
-								<p class="atbd_reset_error"><?php echo esc_html__( 'Password not matched!', 'directorist' ); ?></p>
-							<?php endif;
-						endif;
-						/**
-						 * Filters the expiration time of password reset keys.
-						 *
-						 * @param int $expiration The expiration time in seconds.
-						 * @return int The expiration time in seconds.
-						 */
-						add_filter('password_reset_expiration', function( int $expiration ) : int {
-							return HOUR_IN_SECONDS;
-						} );
+							endif;
 
-						$check_password_reset_key = check_password_reset_key($key, $user->user_login);
+							$check_password_reset_key = check_password_reset_key($key, $user->user_login);
 
-						if(!is_wp_error($check_password_reset_key)) :
-
-							do_action( 'directorist_before_reset_password_form' ); ?>
-
-							<form method="post" class="directorist-ResetPassword lost_reset_password">
-								<p><?php esc_html_e( 'Enter a new password below.', 'directorist' ); ?></p>
+							if (!is_wp_error($check_password_reset_key)) {
+								if(!empty($_GET['password_reset'])) {
+									include __DIR__ . './password-reset-form.php';
+								}
+								if(!empty($_GET['confirm_mail'])) {
+									update_post_meta($user->ID, 'directorist_email_verified', true);
+								}
+							} else {?>
 								<p>
-									<label for="password_1"><?php esc_html_e( 'New password', 'directorist' );?> &nbsp;<span class="required">*</span></label>
-									<input type="password" class="directorist-Input directorist-Input--text input-text" name="password_1" id="password_1" autocomplete="new-password" />
+									<?php esc_html_e('Sorry! The link is invalid.', 'directorist'); ?>
 								</p>
-								<p>
-									<label for="password_2">
-										<?php esc_html_e( 'Re-enter new password', 'directorist' );?>&nbsp;
-										<span class="required">*</span>
-									</label>
-									<input type="password" class="directorist-Input directorist-Input--text input-text" name="password_2" id="password_2" autocomplete="new-password" />
-								</p>
+							<?php }
 
-								<div class="clear"></div>
-
-								<?php do_action( 'directorist_resetpassword_form' );?>
-
-								<p class="directorist-form-row form-row">
-									<input type="hidden" name="directorist_reset_password" value="true" />
-									<button type="submit" class="btn btn-primary" value="<?php esc_attr_e( 'Save', 'directorist' );?>"><?php esc_html_e( 'Save', 'directorist' );?></button>
-								</p>
-
-								<?php wp_nonce_field( 'reset_password', 'directorist-reset-password-nonce' );?>
-							</form>
-
-						<?php else : ?>
-
-							<p><?php esc_html_e( 'Sorry! The link is invalid.', 'directorist' ); ?></p>
-
-						<?php endif;
-
-					else :
+						} else { ?>
+							<p>
+								<?php esc_html_e('Sorry! user not found', 'directorist'); ?>
+							</p>
+						<?php }
+					} else {
 						$log_username        = get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) );
 						$log_password        = get_directorist_option( 'log_password', __( 'Password', 'directorist' ) );
 						$display_rememberMe  = get_directorist_option( 'display_rememberme', 1 );
@@ -223,7 +197,7 @@ use \Directorist\Helper;
 								</fieldset>
 							</form>
 						</div>
-					<?php endif; ?>
+					<?php }; ?>
 				</div><!-- /.atbdp_login_form_shortcode -->
 			</div>
 		</div>

@@ -3960,3 +3960,27 @@ function directorist_get_page_id( string $page_name = '' ) : int {
 
     return (int) apply_filters( 'directorist_page_id', $page_id, $page_name );
 }
+
+function directorist_password_reset_url(\Wp_User $user, $password_reset = true, $confirm_mail = false) {
+
+    $login_page_id = directorist_get_page_id( 'login' );
+    $login_page    = !empty( $login_page_id )  ? get_page_link( $login_page_id ) : '';
+    $reset_password_url = !empty( $login_page ) ? $login_page : home_url();
+
+    $args = array( 
+        'user' => $user->user_email,
+        'key'  => get_password_reset_key( $user )
+    );
+
+    if($password_reset) {
+        $args['password_reset'] = true;
+    }
+
+    if($confirm_mail) {
+        $args['confirm_mail'] = true;
+    }
+
+    $reset_password_url = add_query_arg( $args, $reset_password_url );
+
+    return apply_filters( 'directorist_password_reset_url', $reset_password_url );
+}

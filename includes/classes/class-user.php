@@ -31,7 +31,71 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			add_filter( 'manage_users_custom_column', array( $this,'manage_users_custom_column' ), 10, 3 );
 
 			add_action( 'template_redirect', [ $this, 'registration_redirection' ] );
+			add_filter( 'authenticate', [$this, 'filter_authenticate'], 999999, 2 );
+			add_filter( 'wp_login_errors', [$this, 'filter_wp_login_errors'], 10);
+		}
 
+		/**
+		 * Filters the login page errors.
+		 *
+		 * @param \WP_Error $errors      WP Error object.
+		 * @return \WP_Error WP Error object.
+		 */
+		public function filter_wp_login_errors( \WP_Error $errors ) : \WP_Error {
+
+			if(isset($_GET['checkemail']) && $_GET['checkemail'] === 'verify_email') {
+
+				$login_page_id = directorist_get_page_id( 'login' );
+				$login_url    = !empty( $login_page_id )  ? get_page_link( $login_page_id ) : '';
+				$login_url    = !empty( $login_url ) ? $login_url : wp_login_url();
+				$errors->add(
+					'confirm',
+					sprintf(
+						/* translators: %s: Link to the login page. */
+						__( 'Check your email for the confirmation link, then visit the <a href="%s">login page</a>.' ),
+						$login_url
+					),
+					'message'
+				);
+			}
+			return $errors;
+		}
+			
+		/**
+		 * Filters whether a set of user login credentials are valid.
+		 *
+		 * @param null|\WP_User|\WP_Error $user     WP_User if the user is authenticated. WP_Error or null otherwise.
+		 * @param string                  $username Username or email address.
+		 * @return null|\WP_User|\WP_Error WP_User if the user is authenticated. WP_Error or null otherwise.
+		 */
+		function filter_authenticate( $user, string $username ) {
+
+			if(!empty($username) ) {
+				$is_need_verify_email = get_directorist_option('check_user_email_verify_status', false);
+				if($is_need_verify_email) {
+					if(is_email($username)) {
+						$db_user = get_user_by('email', $username);
+					} else {
+						$db_user = get_user_by('slug', $username);
+					}
+		
+					if($db_user instanceof \WP_User) {
+
+						$is_email_verified = get_user_meta($db_user->ID, 'directorist_email_verified', true);
+
+						if(empty($is_email_verified)) {
+							$mail_send_url = admin_url('admin-ajax.php') . '?action=send_confirmation_email&user='. $user->user_email. '&directorist_nonce=' . wp_create_nonce('directorist_nonce');
+							return new WP_Error(
+								'email_unverified',
+								'<strong>Error:</strong> Please verify your email address. <a href="' . $mail_send_url . '">'.
+								__( 'Resend Confirmation Mail' ) .
+								'</a>'
+							);
+						}
+					}
+				}
+			}
+			return $user;
 		}
 
 		public function registration_redirection() {
@@ -405,9 +469,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			if (empty($display_password) || empty($_POST['password'])){
 				$password   =   wp_generate_password( 12, false );
-				$random_password = true;
 			} else {
-				$random_password = false;
 				$password   =  $_POST['password']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			}
 
@@ -435,7 +497,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				update_user_meta($user_id, '_atbdp_terms_and_conditions', $t_c_check);
 				// user has been created successfully, now work on activation process
 				wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
-				ATBDP()->email->custom_wp_new_user_notification_email($user_id, $random_password);
+				ATBDP()->email->custom_wp_new_user_notification_email($user_id);
 				if( ! empty( $auto_login ) ) {
 					wp_set_current_user( $user_id, $email );
 					wp_set_auth_cookie( $user_id );

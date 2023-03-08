@@ -110,6 +110,30 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			// instant search
 			add_action( 'wp_ajax_directorist_instant_search', array( $this, 'instant_search' ) );
 			add_action( 'wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
+
+			// user verification
+			add_action('wp_ajax_nopriv_send_confirmation_email', [$this, 'send_confirm_email'] );
+		}
+
+		public function send_confirm_email() {
+			if ( ! check_ajax_referer( 'directorist_nonce', 'directorist_nonce', false ) ) {
+				wp_send_json_error([
+					'code' => 'invalid_nonce',
+					'message'  => __( 'Invalid Nonce', 'directorist' )
+				]);
+				exit;
+			}
+
+			if(isset($_REQUEST['user'])) {
+				$email = sanitize_email(wp_unslash($_REQUEST['user']));
+				$user  = get_user_by('email', $email);
+				if($user instanceof \WP_User) {
+					ATBDP()->email->custom_wp_new_user_notification_email($user->ID);
+				}
+			}
+
+			wp_safe_redirect(add_query_arg(['checkemail' => 'verify_email'], wp_login_url()));
+			exit;
 		}
 
 		public function instant_search() {
@@ -638,7 +662,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				echo json_encode(
 					array(
 						'loggedin' => false,
-						'message'  => __( 'Wrong username or password.', 'directorist' ),
+						'message'  => $user_signon->get_error_message()
 					)
 				);
 			} else {

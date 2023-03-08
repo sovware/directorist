@@ -107,24 +107,7 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 			$order_receipt_link = ATBDP_Permalink::get_payment_receipt_page_link( $order_id );
 			$cats = wp_get_object_terms( $listing_id, ATBDP_CATEGORY, array( 'fields' => 'names' ) );/*@todo, maybe we can use get_the_terms() for utilizing some default caching???*/
 			$cat_name = ! empty( $cats ) ? $cats[0] : '';/*@todo; if a listing is attached to multiple cats, we can print more than one cat later.*/
-			
-			/**
-			 * Prepare rest password link
-			 */
-			$login_page_id = get_directorist_option( 'user_login' );
-			$login_page    = !empty( $login_page_id )  ? get_page_link( $login_page_id ) : '';
-			$reset_password_url = !empty( $login_page ) ? $login_page : home_url();
-			$password_reset_key = get_password_reset_key($user);
 
-			$query = parse_url($reset_password_url, PHP_URL_QUERY);
-			if ($query) {
-				$reset_password_url .= '&key='.$password_reset_key;
-			} else {
-				$reset_password_url .= '?key='.$password_reset_key;
-			}
-
-			$reset_password_url = $reset_password_url . '&user='. $user->user_email;
-			
 			$find_replace = array(
 				'==NAME==' => ! empty( $user->display_name ) ? $user->display_name : '',
 				'==USERNAME==' => ! empty( $user->user_login ) ? $user->user_login : '',
@@ -148,7 +131,7 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 				'==USER_PASSWORD==' => $user_password,
 				'==USER_DASHBOARD==' => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
 				'==PIN==' => $pin,
-				'==SET_PASSWORD_AND_CONFIRM_MAIL_URL==' => sprintf( '<a href="%s">%s</a>',  $reset_password_url . '&confirm_mail=1', __( 'Set Password And Confirm Mail', 'directorist' ) )
+				'==SET_PASSWORD_AND_CONFIRM_MAIL_URL==' => sprintf( '<a href="%s">%s</a>',  esc_url_raw(directorist_password_reset_url($user, true, true)), __( 'Set Password And Confirm Mail', 'directorist' ) )
 			);
 			$c = nl2br( strtr( $content, $find_replace ) );
 			// we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
@@ -1128,7 +1111,7 @@ This email is sent automatically for information purpose only. Please do not res
 		/**
 		 * @since 5.8
 		 */
-		function custom_wp_new_user_notification_email( $user_id, $random_password = false ) {			
+		function custom_wp_new_user_notification_email( $user_id ) {			
 
 			$user = get_user_by( 'ID', $user_id );
 
@@ -1138,25 +1121,15 @@ This email is sent automatically for information purpose only. Please do not res
 
 			$sub = get_directorist_option( 'email_sub_registration_confirmation', __( 'Registration Confirmation!', 'directorist' ) );
 
-			if( $random_password ) {
-				$body = get_directorist_option(
-					'email_tmpl_registration_set_password',
-					'Hi ==USERNAME==,
+			$body = get_directorist_option(
+				'email_tmpl_registration_confirmation',
+				'Hi ==USERNAME==,
 
-                    Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. Please set your password to complete registration. Set Password ==SET_PASSWORD_AND_CONFIRM_MAIL_URL==
+Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. You can access your account area to view listings, change your password, and more at: ==DASHBOARD_LINK==
 
-                    We look forward to seeing you soon'
-				);
-			} else {
-				$body = get_directorist_option(
-					'email_tmpl_registration_confirmation',
-					'Hi ==USERNAME==,
-
-	Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. You can access your account area to view listings, change your password, and more at: ==DASHBOARD_LINK==
-
-	We look forward to seeing you soon'
-				);
-			}
+We look forward to seeing you soon'
+			);
+			
 
 			$body = $this->replace_in_content( $body, null, null, $user );
 			$body = atbdp_email_html( $sub, $body );

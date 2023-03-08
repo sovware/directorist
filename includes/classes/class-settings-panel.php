@@ -251,7 +251,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 {$c}==NOW=={$e} : It outputs the current time<br/>
                 {$c}==DASHBOARD_LINK=={$e} : It outputs the user dashboard page link<br/>
                 {$c}==USER_PASSWORD=={$e} : It outputs new user's temporary passoword<br/>
-                {$c}==SET_PASSWORD_AND_CONFIRM_MAIL_URL=={$e} : It outputs set new password and confirm email link<br/><br/>
+                {$c}==VERIFY_MAIL_URL=={$e} : It outputs verify email link<br/>
+                {$c}==SET_PASSWORD_AND_VERIFY_MAIL_URL=={$e} : It outputs set new password and verify email link<br/><br/>
                 Additionally, you can also use HTML tags in your template.
 SWBD;
 
@@ -3778,6 +3779,11 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'          => 'toggle',
                     'value'         => true,
                 ],
+                'check_user_email_verify_status' => [
+                    'label'         => __('Verify user email status during login', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                ],
                 'reg_username'    => [
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
@@ -4514,17 +4520,6 @@ Please remember that your order may be canceled if you do not make your payment 
 
                     We look forward to seeing you soon', 'directorist'),
                 ],
-                'email_tmpl_registration_set_password'    => [
-                    'type'           => 'textarea',
-                    'label'          => __('Set Password Email Body', 'directorist'),
-                    'description'    => __('Use ==SET_PASSWORD_AND_CONFIRM_MAIL_URL== to show set password and confirm mail link.', 'directorist'),
-                    'value'          => __('
-                    Hi ==USERNAME==,
-
-                    Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. Please set your password to complete registration. ==SET_PASSWORD_AND_CONFIRM_MAIL_URL==
-
-                    We look forward to seeing you soon', 'directorist'),
-                ],
                 // single template settings
                 'single_temp_max_width'    => [
                     'type'           => 'text',
@@ -4752,7 +4747,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => '',
                                     'description' => '',
                                     'fields'      => [
-                                        'new_user_registration'
+                                        'new_user_registration', 'check_user_email_verify_status'
                                      ],
                                 ],
                                 'username' => [
@@ -5060,7 +5055,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Registration Confirmation', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'email_sub_registration_confirmation', 'email_tmpl_registration_confirmation', 'email_tmpl_registration_set_password'
+                                        'email_sub_registration_confirmation', 'email_tmpl_registration_confirmation'
                                      ],
                                 ],
                             ] ),

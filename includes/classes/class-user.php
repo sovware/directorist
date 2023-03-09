@@ -84,10 +84,16 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 						$is_email_verified = get_user_meta($db_user->ID, 'directorist_email_verified', true);
 
 						if(empty($is_email_verified)) {
-							$mail_send_url = admin_url('admin-ajax.php') . '?action=send_confirmation_email&user='. $user->user_email. '&directorist_nonce=' . wp_create_nonce('directorist_nonce');
+
+							$mail_send_url = add_query_arg([
+								'action' => 'send_confirmation_email',
+								'user'   => $user->user_email,
+								'directorist_nonce' => wp_create_nonce('directorist_nonce'),
+							], admin_url('admin-ajax.php'));
+
 							return new WP_Error(
 								'email_unverified',
-								'<strong>Error:</strong> Please verify your email address. <a href="' . $mail_send_url . '">'.
+								'<strong>Error:</strong> Please verify your email address. <a href="' . esc_url_raw($mail_send_url) . '">'.
 								__( 'Resend Confirmation Mail' ) .
 								'</a>'
 							);

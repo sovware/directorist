@@ -6,7 +6,7 @@
         v-bind="widgetCardOptionsWindow"
         @close="closeCardWidgetOptionsWindow()"
       />
-      
+
       <options-window
         :active="widgetOptionsWindowActiveStatus"
         v-bind="widgetOptionsWindow"
@@ -200,7 +200,7 @@ export default {
     output_data() {
       let output = {};
       let layout = this.local_layout;
-      
+
       // Parse Layout
       for ( let section in layout ) {
         output[section] = {};
@@ -225,7 +225,7 @@ export default {
             if ( ! this.active_widgets[widget_name] && typeof this.active_widgets[widget_name] !== "object") {
               continue;
             }
-            
+
             let widget_data = {};
             for ( let root_option in this.active_widgets[widget_name] ) {
               if ( 'options' === root_option ) { continue; }
@@ -297,7 +297,7 @@ export default {
         if ( this.isObject( available_widgets[ widget ].show_if ) ) {
           show_if_cond_state = this.checkShowIfCondition( { condition: available_widgets[ widget ].show_if } );
           let main_widget = available_widgets[ widget ];
-          
+
           delete available_widgets[ widget ];
 
           if ( show_if_cond_state.status ) {
@@ -315,13 +315,13 @@ export default {
               if ( typeof matched_field.label === 'string' && matched_field.label.length ) {
                 _main_widget.label = matched_field.label;
               }
- 
+
               available_widgets[ current_key ] = _main_widget;
               widget_keys.push( current_key );
             }
           }
         }
-      
+
       }
 
       return available_widgets;
@@ -432,7 +432,7 @@ export default {
       // Import Layout
       // -------------------------
       let selectedWidgets = [];
-      
+
       // Get Active Widgets Data
       let active_widgets_data = {};
       for ( let section in value ) {
@@ -464,7 +464,7 @@ export default {
 
         let widgets_template = { ...this.theAvailableWidgets[widget_key] };
         let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
-       
+
         let has_widget_options = false;
         if ( widgets_template.options && widgets_template.options.fields ) {
           has_widget_options = true;
@@ -495,10 +495,10 @@ export default {
         this.local_layout[ item.section ][ item.area ].selectedWidgets.splice( length, 0, item.widget );
       }
 
-      
+
       // Import Options
       // -------------------------
-      
+
       if ( ! this.isTruthyObject( value.options ) ) { return; }
 
       for ( let section in value.options ) {
@@ -541,7 +541,7 @@ export default {
       }
 
       for ( let section in this.local_layout ) {
-        
+
         if ( ! this.isTruthyObject( this.layout[ section ] ) ) {
           continue;
         }
@@ -604,7 +604,7 @@ export default {
       if ( ! this.widgetIsAccepted( path, this._currentDraggingWidget.key ) ) {
         return false;
       }
-      
+
       return true;
     },
 
@@ -623,8 +623,8 @@ export default {
 
       this.onDragEndWidget();
     },
-    
-    
+
+
     handleDropOnPlaceholder( dest ) {
       // return;
       const key  = this.currentDraggingWidget.key;
@@ -651,7 +651,7 @@ export default {
     handleDragOverOnPlaceholder( where ) {
       // console.log( 'handleDragOverOnPlaceholder', where );
     },
-    
+
     handleDragleaveOnPlaceholder( where ) {
       // console.log( 'handleDragleaveOnPlaceholder', where );
     },
@@ -692,7 +692,7 @@ export default {
       if ( typeof this.card_option_widgets[ options_window.widget ] === 'undefined' ) {
         return;
       }
-      
+
       if ( typeof this.card_option_widgets[ options_window.widget ].options === 'undefined' ) {
         return;
       }
@@ -724,7 +724,7 @@ export default {
 
     trashWidget( key, where ) {
       if ( ! where.selectedWidgets.includes( key ) ) { return; }
-      
+
       let index = where.selectedWidgets.indexOf( key );
       Vue.delete( where.selectedWidgets, index);
 
@@ -772,10 +772,11 @@ export default {
         label = widget.label;
       }
 
-      if ( 
-        this.isObject( widget.options ) && 
-        widget.options.fields && 
-        widget.options.fields.label && 
+      if (
+        this.isObject( widget.options ) &&
+        widget.options.fields &&
+        widget.options.fields.label &&
+        widget.options.fields.type === 'text' &&
         widget.options.fields.label.value &&
         widget.options.fields.label.value.length
       ) {

@@ -6,8 +6,10 @@ if (!defined('ABSPATH')) {
 
 do_action('directorist_before_reset_password_form');
 ?>
-
-<form method="post" class="directorist-ResetPassword lost_reset_password">
+	<form method="post" class="directorist-ResetPassword lost_reset_password">
+	<p class="directorist-alert directorist-alert-danger password-not-match" style="display:none">
+		<?php esc_html_e('Password did not match', 'directorist')?>
+	</p>
 	<p>
 		<?php esc_html_e('Enter a new password below.', 'directorist'); ?>
 	</p>
@@ -16,7 +18,7 @@ do_action('directorist_before_reset_password_form');
 			<?php esc_html_e('New password', 'directorist'); ?> &nbsp;<span class="required">*</span>
 		</label>
 		<input type="password" class="directorist-Input directorist-Input--text input-text" name="password_1"
-			id="password_1" autocomplete="new-password" />
+			id="password_1" autocomplete="new-password" required/>
 	</p>
 	<p>
 		<label for="password_2">
@@ -24,7 +26,7 @@ do_action('directorist_before_reset_password_form');
 			<span class="required">*</span>
 		</label>
 		<input type="password" class="directorist-Input directorist-Input--text input-text" name="password_2"
-			id="password_2" autocomplete="new-password" />
+			id="password_2" autocomplete="new-password" required/>
 	</p>
 
 	<div class="clear"></div>

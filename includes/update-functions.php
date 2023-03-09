@@ -136,3 +136,28 @@ function _directorist_get_comment_status_by_review_status( $status = 'approved' 
 function directorist_710_update_db_version() {
 	\ATBDP_Installation::update_db_version( '7.1.0' );
 }
+
+function directorist_752_verify_users_email()
+{
+	if (get_option('directorist_migrate_email_verified_status')) {
+		return;
+	}
+
+	$users = get_users([
+		'meta_query' => [
+			[
+				'key' => 'directorist_email_verified',
+				'compare' => 'NOT EXISTS',
+			]
+		],
+		'number' => 100
+	]);
+
+	if (!empty($users)) {
+		foreach ($users as $user) {
+			update_user_meta($user->ID, 'directorist_email_verified', true);
+		}
+	} else {
+		update_option('directorist_migrate_email_verified_status', true);
+	}
+}

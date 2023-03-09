@@ -155,10 +155,10 @@ function directorist_752_verify_users_email()
 
 	if (!empty($users)) {
 		foreach ($users as $user) {
-			update_user_meta($user->ID, 'directorist_email_verified', true);
+			add_user_meta($user->ID, 'directorist_email_verified', true);
 		}
 	} else {
-		update_option('directorist_migrate_email_verified_status', true);
+		add_option('directorist_migrate_email_verified_status', true);
 		return false;
 	}
 	

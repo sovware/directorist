@@ -140,7 +140,7 @@ function directorist_710_update_db_version() {
 function directorist_752_verify_users_email()
 {
 	if (get_option('directorist_migrate_email_verified_status')) {
-		return;
+		return false;
 	}
 
 	$users = get_users([
@@ -159,5 +159,8 @@ function directorist_752_verify_users_email()
 		}
 	} else {
 		update_option('directorist_migrate_email_verified_status', true);
+		return false;
 	}
+	
+	return true;
 }

@@ -8840,7 +8840,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: none;
 }
 .directorist-search-slide .directorist-advanced-filter--show {
-  display: block !important;
+  display: block;
 }
 
 /* Advanced search filter float style  */
@@ -9200,6 +9200,22 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-form-group.directorist-advanced-filter__advanced--radio .directorist-search-field .directorist-radio, .directorist-form-group.direcorist-search-field-radio .directorist-search-field .directorist-checkbox,
 .directorist-form-group.direcorist-search-field-radio .directorist-search-field .directorist-radio {
   margin: 7.5px;
+}
+
+.directorist-search-form-cat-fields {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.directorist-search-form-cat-fields .directorist-form-group {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
 }
 
 /* google map location suggestion container */

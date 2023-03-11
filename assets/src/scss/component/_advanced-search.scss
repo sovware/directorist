@@ -10,7 +10,7 @@
         display: none;
 
         @include m(show) {
-            display: block !important;
+            display: block;
         }
     }
 }
@@ -334,6 +334,15 @@
                 margin: 7.5px;
             }
         }
+    }
+}
+
+// Custom Category Fields
+.directorist-search-form-cat-fields {
+    display: flex;
+    flex-wrap: wrap;
+    .directorist-form-group {
+        flex: 0 0 100%;
     }
 }
 

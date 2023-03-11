@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -31,7 +31,7 @@ if ( !$tag_terms ) {
 			?>
 
 			<div class="directorist-checkbox directorist-checkbox-primary">
-				<input type="checkbox" name="in_tag[]" value="<?php echo esc_attr( $term->term_id ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php checked( !empty($_REQUEST['in_tag']) && in_array($term->term_id, $in_tag) ); ?>>
+				<input type="checkbox" class="directorist-review-checkbox" name="in_tag[]" value="<?php echo esc_attr( $term->term_id ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php checked( !empty($_REQUEST['in_tag']) && in_array($term->term_id, $in_tag) ); ?>>
 				<label for="<?php echo esc_attr( $id ); ?>" class="directorist-checkbox__label"><?php echo esc_html( $term->name ); ?></label>
 			</div>
 

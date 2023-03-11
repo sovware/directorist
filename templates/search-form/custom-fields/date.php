@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php endif; ?>
 
 	<div class="directorist-form-group">
-		<input class="directorist-form-element" type="date" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $value ); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
+		<input name='custom-date' class="directorist-form-element" type="date" value="<?php echo esc_attr( $value ); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 	</div>
 
 </div>

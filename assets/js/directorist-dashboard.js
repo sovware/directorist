@@ -583,7 +583,21 @@ __webpack_require__.r(__webpack_exports__);
     // User Dashboard Tab
     $(function () {
       var hash = window.location.hash;
-      var newHash = hash.replace('#active_', '');
+
+      // Split the URL into its components
+      var urlParts = hash.split("?");
+      if (urlParts.length > 1) {
+        // Get Hash Link
+        var hashLink = urlParts[0];
+
+        // Get the search parameters
+        var searchParams = urlParts[1];
+        window.location.hash = hashLink;
+        var updatedHash = window.location.hash;
+        var newHash = updatedHash.replace('#active_', '');
+      } else {
+        var newHash = hash.replace('#active_', '');
+      }
       var selectedTab = document.querySelectorAll('.directorist-tab__nav__link');
       selectedTab.forEach(function (elm) {
         var elmAttr = elm.getAttribute('target');
@@ -591,6 +605,11 @@ __webpack_require__.r(__webpack_exports__);
           elm.click();
         }
       });
+      if (searchParams) {
+        // Reconstruct the URL with the updated search parameters
+        var newUrl = window.location.pathname + window.location.hash + "?" + searchParams;
+        window.history.replaceState(null, null, newUrl);
+      }
       var activeSubTab = document.querySelector('.directorist-tab__nav__items .atbdp_tab_nav--has-child .atbd-dashboard-nav .directorist-tab__nav__link.directorist-tab__nav__active');
       activeSubTab.parentElement.parentElement.style.display = "block";
     });

@@ -585,7 +585,7 @@ __webpack_require__.r(__webpack_exports__);
       var hash = window.location.hash;
 
       // Split the URL into its components
-      var urlParts = hash.split("?");
+      var urlParts = hash.split(/[?|&]/);
       if (urlParts.length > 1) {
         // Get Hash Link
         var hashLink = urlParts[0];
@@ -619,6 +619,17 @@ __webpack_require__.r(__webpack_exports__);
       var id = $(e.target).attr("target").substr();
       window.location.hash = "#active_" + id;
       e.stopPropagation();
+    });
+    window.addEventListener("load", function () {
+      // Restore URL Parameter on Click
+      $("ul.directorist-tab__nav__items > li a.directorist-tab__nav__link").on("click", function (e) {
+        var id = $(e.target).attr("target").substr();
+        window.location.hash = "#active_" + id;
+        var newHash = window.location.hash;
+        var newUrl = window.location.pathname + newHash;
+        window.history.replaceState(null, null, newUrl);
+        e.stopPropagation();
+      });
     });
   });
 })(jQuery);

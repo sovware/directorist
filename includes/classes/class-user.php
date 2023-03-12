@@ -27,13 +27,175 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			// allow contributor upload images for now. @todo; later it will be better to add custom rules and capability
 			add_action( 'plugins_loaded', array( $this, 'user_functions_ready_hook' ) );// before we add custom image uploading, lets use WordPress default image uploading by letting subscriber and contributor upload imaging capability
 
-			add_filter( 'manage_users_columns', array( $this,'manage_users_columns' ), 10, 1 );
-			add_filter( 'manage_users_custom_column', array( $this,'manage_users_custom_column' ), 10, 3 );
-
 			add_action( 'template_redirect', [ $this, 'registration_redirection' ] );
 			add_filter( 'authenticate', [$this, 'filter_authenticate'], 999999, 2 );
-			add_filter( 'wp_login_errors', [$this, 'filter_wp_login_errors'], 10);
-			add_action( 'user_register', [$this, 'action_user_register'] );
+			add_filter( 'wp_login_errors', [$this, 'filter_wp_login_errors'], 10 );
+
+			if(is_admin()) {
+				add_filter( 'manage_users_columns', [$this,'manage_users_columns'], 10, 1 );
+				add_filter( 'manage_users_custom_column', [$this,'manage_users_custom_column'], 10, 3 );
+				add_filter( 'user_row_actions', [$this, 'filter_user_row_actions'], 10, 2 );
+				add_action( 'manage_users_extra_tablenav', [$this, 'action_manage_users_extra_tablenav'] );
+				add_action( 'current_screen', [$this, 'action_current_screen'] );
+				add_action( 'edit_user_profile', [$this, 'user_email_verification_input'] );
+				add_action( 'user_new_form', [$this, 'user_email_verification_input'] );
+				add_action( 'user_register', [$this, 'action_admin_edit_user_info'] );
+				add_action( 'profile_update', [$this, 'action_admin_edit_user_info'] );
+			} else {
+				add_action( 'user_register', [$this, 'action_user_register'] );
+			}
+		}
+
+		public function user_email_verification_input($profile_user) {
+			
+			$email_verify_status = 0;
+
+			if($profile_user instanceof \WP_User) {
+				
+				$is_email_unverified = get_user_meta($profile_user->ID, 'directorist_user_email_unverified', true);
+				
+				if(!$is_email_unverified) {
+					$email_verify_status = 1;
+				}
+			}
+
+			wp_nonce_field('update_user_info', 'directorist_nonce');
+			?>
+			<table class="form-table" role="presentation">
+				<tbody>
+				<tr>
+					<th scope="row"><?php esc_html_e('Email Verified Status', 'directorist')?></th>
+					<td>
+						<input type="radio" name="directorist_email_verified_status" id="email_verified_status1" value="1" <?php checked($email_verify_status, 1, true)?> required style="vertical-align:middle;">
+						<label for="email_verified_status1">
+							<svg style="vertical-align:middle;margin-top:-5px;" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="22px" height="22px" viewBox="0 0 96 96" enable-background="new 0 0 96 96" xml:space="preserve">
+								<g>
+									<path fill-rule="evenodd" clip-rule="evenodd" fill="#6BBE66" d="M48,0c26.51,0,48,21.49,48,48S74.51,96,48,96S0,74.51,0,48 S21.49,0,48,0L48,0z M26.764,49.277c0.644-3.734,4.906-5.813,8.269-3.79c0.305,0.182,0.596,0.398,0.867,0.646l0.026,0.025 c1.509,1.446,3.2,2.951,4.876,4.443l1.438,1.291l17.063-17.898c1.019-1.067,1.764-1.757,3.293-2.101 c5.235-1.155,8.916,5.244,5.206,9.155L46.536,63.366c-2.003,2.137-5.583,2.332-7.736,0.291c-1.234-1.146-2.576-2.312-3.933-3.489 c-2.35-2.042-4.747-4.125-6.701-6.187C26.993,52.809,26.487,50.89,26.764,49.277L26.764,49.277z"/>
+								</g>
+							</svg>
+						</label>
+						<input type="radio" name="directorist_email_verified_status" id="email_verified_status2" value="0" <?php checked($email_verify_status, 0, true)?> required style="vertical-align:middle;margin-left:30px;">
+						<label for="email_verified_status2">
+							<svg style="vertical-align:middle;margin-top:-5px;" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="22px" height="22px" viewBox="0 0 122.879 122.879" enable-background="new 0 0 122.879 122.879" xml:space="preserve">
+								<g>
+									<path fill-rule="evenodd" clip-rule="evenodd" fill="#FF4141" d="M61.44,0c33.933,0,61.439,27.507,61.439,61.439 s-27.506,61.439-61.439,61.439C27.507,122.879,0,95.372,0,61.439S27.507,0,61.44,0L61.44,0z M73.451,39.151 c2.75-2.793,7.221-2.805,9.986-0.027c2.764,2.776,2.775,7.292,0.027,10.083L71.4,61.445l12.076,12.249 c2.729,2.77,2.689,7.257-0.08,10.022c-2.773,2.765-7.23,2.758-9.955-0.013L61.446,71.54L49.428,83.728 c-2.75,2.793-7.22,2.805-9.986,0.027c-2.763-2.776-2.776-7.293-0.027-10.084L51.48,61.434L39.403,49.185 c-2.728-2.769-2.689-7.256,0.082-10.022c2.772-2.765,7.229-2.758,9.953,0.013l11.997,12.165L73.451,39.151L73.451,39.151z"/>
+								</g>
+							</svg>
+						</label>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<?php
+		}
+
+		public function action_admin_edit_user_info(int $user_id) {
+
+			if(!isset($_REQUEST['directorist_email_verified_status']) || empty( $_REQUEST['directorist_nonce'] ) || !wp_verify_nonce( $_REQUEST['directorist_nonce'], 'update_user_info' )) {
+				return;
+			}
+
+			$status = intval($_REQUEST['directorist_email_verified_status']);
+
+			if(0 === $status) {
+				update_user_meta($user_id, 'directorist_user_email_unverified', true);
+			} elseif(1 === $status) {
+				delete_user_meta($user_id, 'directorist_user_email_unverified');
+			}
+		}
+		
+		/**
+		 * Fires after the current screen has been set.
+		 *
+		 * @param \WP_Screen $current_screen Current WP_Screen object.
+		 */
+		public function action_current_screen(\WP_Screen $current_screen) : void {
+
+			if('users' !== $current_screen->base) {
+				return;
+			}
+
+			session_start();
+
+			if(!empty($_SESSION['sent_email_verification_request'])) {
+				add_action( 'admin_notices', [$this, 'action_request_verification_success_notice'] );
+			}
+
+			if(empty( $_REQUEST['users'] ) || empty( $_REQUEST['_wpnonce'] ) || !wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-users' )) {
+				return;
+			}
+
+			$user_ids = map_deep($_REQUEST['users'], 'intval');
+			
+			$users = get_users(['include' => $user_ids]);;
+
+			foreach ($users as $user) {
+
+				$is_email_unverified = get_user_meta($user->ID, 'directorist_user_email_unverified', true);
+
+				if($is_email_unverified) {
+					ATBDP()->email->custom_wp_new_user_notification_email($user->ID);
+				}
+			}
+
+			$_SESSION['sent_email_verification_request'] = true;
+
+			add_action( 'admin_notices', [$this, 'action_request_verification_success_notice'] );
+		}
+
+		public function action_request_verification_success_notice() {
+
+			unset($_SESSION['sent_email_verification_request']);
+
+			?>
+			<div class="notice notice-success is-dismissible">
+				<p><?php esc_html_e( 'Email verification request sent successfully!', 'directorist' ); ?></p>
+			</div>
+			<script>
+				var current_url = location.href;
+    			var url = new URL(current_url);
+				url.searchParams.delete('_wpnonce');
+				url.searchParams.delete('users');
+    			window.history.pushState(null, null, url.toString());
+			</script>
+			<?php
+		}
+
+		/**
+		 * Fires immediately following the closing "actions" div in the tablenav for the users list table.
+		 *
+		 * @param string $which The location of the extra table nav markup: 'top' or 'bottom'.
+		 */
+		public function action_manage_users_extra_tablenav(string $which) : void {
+			?>
+			<div class="alignleft actions">
+			<input type="submit" name="request_verification" class="button" value="<?php esc_attr_e('Request Verification', 'directorist')?>">
+			</div>
+			<?php
+		}
+
+		/**
+		 * Filters the action links displayed under each user in the Users list table.
+		 *
+		 * @param string[] $actions     An array of action links to be displayed. Default 'Edit', 'Delete' for single site, and 'Edit', 'Remove' for Multisite.
+		 * @param \WP_User $user_object WP_User object for the currently listed user.
+		 * @return string[] An array of action links to be displayed. Default 'Edit', 'Delete' for single site, and 'Edit', 'Remove' for Multisite.
+		 */
+		public function filter_user_row_actions( array $actions, \WP_User $user_object ) : array {
+
+			$is_email_unverified = get_user_meta($user_object->ID, 'directorist_user_email_unverified', true);
+
+			if($is_email_unverified) {
+				
+				$url = add_query_arg([
+					'_wpnonce' => wp_create_nonce('bulk-users'),
+					'users'    => '['.$user_object->ID.']'
+				], admin_url('users.php'));
+	
+				$actions['request_verification'] = "<a style='cursor:pointer;' href=" . esc_url_raw($url) . ">" . esc_html__('Request Verification', 'directorist') . "</a>";
+			}
+
+			return $actions;
 		}
 
 		/**
@@ -70,7 +232,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			}
 			return $errors;
 		}
-			
+
 		/**
 		 * Filters whether a set of user login credentials are valid.
 		 *
@@ -148,21 +310,28 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		 * @return string
 		 */
 		public function manage_users_custom_column( $column_value, $column_name, $user_id ) {
-			if ( $column_name !== 'user_type' ) {
-				return $column_value;
-			}
 
-			$user_type = (string) get_user_meta( $user_id, '_user_type', true );
-
-			if ( 'author' === $user_type ) {
-				$column_value = esc_html__( 'Author', 'directorist' );
-			} elseif ( 'general' === $user_type ) {
-				$column_value = esc_html__( 'User', 'directorist' );
-			} elseif ( 'become_author' === $user_type ) {
-				$author_pending = wp_kses_post( "<p>Author <span style='color:red;'>( Pending )</span></p>" );
-				$approve        = wp_kses_post( "<a href='' id='atbdp-user-type-approve' style='color: #388E3C' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_approve' ) ."><span>Approve </span></a> | " );
-				$deny           = wp_kses_post( "<a href='' id='atbdp-user-type-deny' style='color: red' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_deny' ) ."><span>Deny</span></a>" );
-				$column_value   = wp_kses_post( "<div class='atbdp-user-type' id='user-type-". $user_id ."'>" .$author_pending . $approve . $deny . "</div>" );
+			switch ($column_name) {
+				case 'verify_status':
+					$is_user_unverified = get_user_meta($user_id, 'directorist_user_email_unverified', true);
+					if($is_user_unverified) {
+						return "<p><span style='color:white;background:#e32636;padding:4px 10px;border-radius:5px;'>" . esc_html__('UnVerified', 'directorist') . "</span></p>";
+					} else {
+						return "<p><span style='color:white;background:#228B22;padding:4px 10px;border-radius:5px;'>" . esc_html__('Verified', 'directorist') . "</span></p>";
+					}
+				case 'user_type':
+					$user_type = (string) get_user_meta( $user_id, '_user_type', true );
+					
+					if ( 'author' === $user_type ) {
+						return esc_html__( 'Author', 'directorist' );
+					} elseif ( 'general' === $user_type ) {
+						return esc_html__( 'User', 'directorist' );
+					} elseif ( 'become_author' === $user_type ) {
+						$author_pending =  "<p>Author <span style='color:red;'>( " . esc_html__('Pending', 'directorist') . " )</span></p>";
+						$approve        =  "<a href='' id='atbdp-user-type-approve' style='color: #388E3C' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_approve' ) ."><span>" . esc_html__('Approve', 'directorist') . " </span></a> | ";
+						$deny           =  "<a href='' id='atbdp-user-type-deny' style='color: red' data-userId={$user_id} data-nonce=". wp_create_nonce( 'atbdp_user_type_deny' ) ."><span>" . esc_html__('Deny', 'directorist') . "</span></a>";
+						return "<div class='atbdp-user-type' id='user-type-". $user_id ."'>" .$author_pending . $approve . $deny . "</div>";
+					}
 			}
 
 			return $column_value;
@@ -176,6 +345,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		 * @return array
 		 */
 		function manage_users_columns( $columns ) {
+			$columns['verify_status'] = esc_html__( 'Verify Status', 'directorist' );
 			$columns['user_type'] = esc_html__( 'User Type', 'directorist' );
 			return $columns;
 		}

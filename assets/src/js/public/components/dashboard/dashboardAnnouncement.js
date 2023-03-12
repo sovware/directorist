@@ -4,6 +4,7 @@
         // Clear seen Announcements
         var cleared_seen_announcements = false;
         $('.directorist-tab__nav__link').on('click', function () {
+            console.log('Announcement ')
             if (cleared_seen_announcements) {
                 return;
             }

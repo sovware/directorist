@@ -70,38 +70,53 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		 */
 		function filter_authenticate( $user, string $username ) {
 
-			if(!empty($username) ) {
-				$is_need_verify_email = get_directorist_option('check_user_email_verify_status', false);
-				if($is_need_verify_email) {
-					if(is_email($username)) {
-						$db_user = get_user_by('email', $username);
-					} else {
-						$db_user = get_user_by('slug', $username);
-					}
-		
-					if($db_user instanceof \WP_User) {
-
-						$is_email_verified = get_user_meta($db_user->ID, 'directorist_email_verified', true);
-
-						if(empty($is_email_verified)) {
-
-							$mail_send_url = add_query_arg([
-								'action' => 'send_confirmation_email',
-								'user'   => $user->user_email,
-								'directorist_nonce' => wp_create_nonce('directorist_nonce'),
-							], admin_url('admin-ajax.php'));
-
-							return new WP_Error(
-								'email_unverified',
-								'<strong>Error:</strong> Please verify your email address. <a href="' . esc_url_raw($mail_send_url) . '">'.
-								__( 'Resend Confirmation Mail' ) .
-								'</a>'
-							);
-						}
-					}
-				}
+			if(empty($username)) {
+				return $user;
 			}
-			return $user;
+
+			$email_verify_status = get_directorist_option('check_user_email_verify_status', false);
+
+			/**
+			 * Check whether email verification feature is enabled or not
+			 */
+			if(!$email_verify_status) {
+				return $user;
+			}
+
+			if(is_email($username)) {
+				$db_user = get_user_by('email', $username);
+			} else {
+				$db_user = get_user_by('slug', $username);
+			}
+
+			/**
+			 * Return if Logged user not found
+			 */
+			if(!$db_user instanceof \WP_User) {
+				return $user;
+			}
+
+			$is_email_verified = get_user_meta($db_user->ID, 'directorist_email_verified', true);
+
+			/**
+			 * Return if email is already verified
+			 */
+			if($is_email_verified) {
+				return $user;
+			}
+
+			$mail_send_url = add_query_arg([
+				'action' => 'send_confirmation_email',
+				'user'   => $user->user_email,
+				'directorist_nonce' => wp_create_nonce('directorist_nonce'),
+			], admin_url('admin-ajax.php'));
+
+			return new WP_Error(
+				'email_unverified',
+				'<strong>Error:</strong> Please verify your email address. <a href="' . esc_url_raw($mail_send_url) . '">'.
+				__( 'Resend Confirmation Mail' ) .
+				'</a>'
+			);
 		}
 
 		public function registration_redirection() {

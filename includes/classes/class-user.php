@@ -42,7 +42,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		 * @param int $user_id  User ID.
 		 */
 		public function action_user_register(int $user_id) : void {
-			add_user_meta($user_id, '__directorist_user_email_unverified', true);
+			add_user_meta($user_id, 'directorist_user_email_unverified', true);
 		}
 
 		/**
@@ -106,7 +106,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				return $user;
 			}
 
-			$is_email_unverified = get_user_meta($db_user->ID, '__directorist_user_email_unverified', true);
+			$is_email_unverified = get_user_meta($db_user->ID, 'directorist_user_email_unverified', true);
 
 			/**
 			 * Return if email is already verified

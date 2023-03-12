@@ -196,7 +196,6 @@ __webpack_require__.r(__webpack_exports__);
     // Clear seen Announcements
     var cleared_seen_announcements = false;
     $('.directorist-tab__nav__link').on('click', function () {
-      console.log('Announcement ');
       if (cleared_seen_announcements) {
         return;
       }
@@ -592,6 +591,8 @@ __webpack_require__.r(__webpack_exports__);
           elm.click();
         }
       });
+      var activeSubTab = document.querySelector('.directorist-tab__nav__items .atbdp_tab_nav--has-child .atbd-dashboard-nav .directorist-tab__nav__link.directorist-tab__nav__active');
+      activeSubTab.parentElement.parentElement.style.display = "block";
     });
 
     // store the currently selected tab in the hash value

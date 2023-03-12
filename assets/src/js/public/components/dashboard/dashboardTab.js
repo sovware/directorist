@@ -12,6 +12,11 @@
                     elm.click();
                 }
             })
+
+            var activeSubTab = document.querySelector('.directorist-tab__nav__items .atbdp_tab_nav--has-child .atbd-dashboard-nav .directorist-tab__nav__link.directorist-tab__nav__active');
+            
+            activeSubTab.parentElement.parentElement.style.display="block";
+
         });
 
         // store the currently selected tab in the hash value

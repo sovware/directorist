@@ -33,6 +33,16 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			add_action( 'template_redirect', [ $this, 'registration_redirection' ] );
 			add_filter( 'authenticate', [$this, 'filter_authenticate'], 999999, 2 );
 			add_filter( 'wp_login_errors', [$this, 'filter_wp_login_errors'], 10);
+			add_action( 'user_register', [$this, 'action_user_register'] );
+		}
+
+		/**
+		 * Fires immediately after a new user is registered.
+		 *
+		 * @param int $user_id  User ID.
+		 */
+		public function action_user_register(int $user_id) : void {
+			add_user_meta($user_id, '__directorist_user_email_unverified', true);
 		}
 
 		/**
@@ -96,12 +106,12 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				return $user;
 			}
 
-			$is_email_verified = get_user_meta($db_user->ID, 'directorist_email_verified', true);
+			$is_email_unverified = get_user_meta($db_user->ID, '__directorist_user_email_unverified', true);
 
 			/**
 			 * Return if email is already verified
 			 */
-			if($is_email_verified) {
+			if(!$is_email_unverified) {
 				return $user;
 			}
 

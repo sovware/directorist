@@ -48,7 +48,7 @@ use \Directorist\Helper;
 
 							if (!is_wp_error($check_password_reset_key)) {
 								if(!empty($_GET['confirm_mail'])) {
-									update_user_meta($user->ID, 'directorist_email_verified', true);
+									delete_user_meta($user->ID, '__directorist_user_email_unverified');
 									?>
 									<div class="directorist-alert directorist-alert-success">
 										<?php esc_html_e('Email Verified Successfully!', 'directorist')?>

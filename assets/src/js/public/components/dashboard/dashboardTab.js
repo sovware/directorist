@@ -38,29 +38,24 @@
                 window.history.replaceState(null, null, newUrl);
             }
 
-            var activeSubTab = document.querySelector('.directorist-tab__nav__items .atbdp_tab_nav--has-child .atbd-dashboard-nav .directorist-tab__nav__link.directorist-tab__nav__active');
-
-            activeSubTab.parentElement.parentElement.style.display="block";
-
         });
+    });
 
-        // store the currently selected tab in the hash value
+    window.addEventListener("load", () => {
+        // Restore URL Parameter on Click
         $("ul.directorist-tab__nav__items > li a.directorist-tab__nav__link").on("click", function (e) {
             var id = $(e.target).attr("target").substr();
             window.location.hash = "#active_" + id;
+            var newHash = window.location.hash;
+            var newUrl = window.location.pathname + newHash;
+            window.history.replaceState(null, null, newUrl);
             e.stopPropagation();
         });
 
-        window.addEventListener("load", () => {
-            // Restore URL Parameter on Click
-            $("ul.directorist-tab__nav__items > li a.directorist-tab__nav__link").on("click", function (e) {
-                var id = $(e.target).attr("target").substr();
-                window.location.hash = "#active_" + id;
-                var newHash = window.location.hash;
-                var newUrl = window.location.pathname + newHash;
-                window.history.replaceState(null, null, newUrl);
-                e.stopPropagation();
-            });
-        });
+        var activeSubTab = document.querySelector('.directorist-tab__nav__items .atbdp_tab_nav--has-child .atbd-dashboard-nav .directorist-tab__nav__link.directorist-tab__nav__active');
+
+        if(activeSubTab) {
+            activeSubTab.parentElement.parentElement.style.display="block";
+        }
     });
 })(jQuery);

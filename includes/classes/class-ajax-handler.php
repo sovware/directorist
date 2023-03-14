@@ -1368,13 +1368,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 * @access   public
 		 */
 		public function ajax_callback_send_contact_email() {
-			$data = array( 'error' => 0 );
-
 			if ( ! directorist_verify_nonce() ) {
-				$data['error']   = 1;
-				$data['message'] = __( 'Something is wrong! Please refresh and retry.', 'directorist' );
-
-				wp_send_json( $data, 200 );
+				wp_send_json( [
+					'error' => 1,
+					'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' )
+				], 200 );
 			}
 
 			/**
@@ -1384,53 +1382,56 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			 */
 			do_action( 'atbdp_before_processing_contact_to_owner' );
 
-			$sendOwner                 = in_array( 'listing_contact_form', get_directorist_option( 'notify_user', array( 'listing_contact_form' ) ) );
-			$sendAdmin                 = in_array( 'listing_contact_form', get_directorist_option( 'notify_admin', array( 'listing_contact_form' ) ) );
-			$disable_all_email         = get_directorist_option( 'disable_email_notification' );
-			$data['sendOwner']         = $sendOwner;
-			$data['sendAdmin']         = $sendAdmin;
-			$data['disable_all_email'] = $disable_all_email;
+			$disable_all_email = get_directorist_option( 'disable_email_notification' );
+
+			$error_response = [
+				'error' => 1,
+				'message' => __( 'Sorry! Please try again.', 'directorist' )
+			];
+
 			// is admin disabled all the notification
 			if ( $disable_all_email ) {
-				$data['error']   = 1;
-				$data['message'] = __( 'Sorry! Something wrong.', 'directorist' );
-				echo wp_json_encode( $data );
+				echo wp_json_encode($error_response);
 				die();
 			}
+
+			$sendOwner = in_array( 'listing_contact_form', get_directorist_option( 'notify_user', array( 'listing_contact_form' ), true ) );
+			$sendAdmin = in_array( 'listing_contact_form', get_directorist_option( 'notify_admin', array( 'listing_contact_form' ), true ) );
+
 			// is admin disabled both notification
 			if ( ! $sendOwner && ! $sendAdmin ) {
-				$data['error']   = 1;
-				$data['message'] = __( 'Sorry! Something wrong.', 'directorist' );
-				echo wp_json_encode( $data );
+				echo wp_json_encode($error_response);
 				die();
 			}
+
 			// let's check is admin decides to send email to it's owner
 			if ( $sendOwner ) {
 				$send_to_owner = $this->atbdp_email_listing_owner_listing_contact();
 				if ( ! $send_to_owner ) {
-					$data['error']   = 1;
-					$data['message'] = __( 'Sorry! Please try again.', 'directorist' );
+					echo wp_json_encode($error_response);
+					die();
 				}
 			}
 			// let's check is admin decides to send email to him/her
 			if ( $sendAdmin ) {
 				$send_to_admin = $this->atbdp_email_admin_listing_contact();
 				if ( ! $send_to_admin ) {
-					$data['error']   = 1;
-					$data['message'] = __( 'Sorry! Please try again.', 'directorist' );
+					echo wp_json_encode($error_response);
+					die();
 				}
 			}
-			// no error found so let's show submitter the success message
-			if ( $data['error'] === 0 ) {
-				$data['message'] = __( 'Your message sent successfully.', 'directorist' );
-			}
+
 			/**
 			 * @package Directorist
 			 * @since 6.3.3
 			 * It fires when a contact is made by visitor with listing owner
 			 */
 			do_action( 'atbdp_listing_contact_owner_submitted' );
-			echo wp_json_encode( $data );
+
+			echo wp_json_encode( [
+				'error' => 1,
+				'message' => __( 'Your message sent successfully.', 'directorist' )
+			] );
 			die();
 		}
 

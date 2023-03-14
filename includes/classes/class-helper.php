@@ -275,7 +275,8 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 			// if we do not pass any nonce and action then use default nonce and action name on this class,
 			// else check provided nonce and action
 			if ( empty( $nonce ) || empty( $action ) ) {
-				$nonce        = ( ! empty( $$method[ $this->nonce_name() ] ) ) ? $$method[ $this->nonce_name() ] : null;
+				$nonce_name   = $this->nonce_name();
+				$nonce        =  ! empty( ${$method[ $nonce_name ]} ) ? ${$method[ $nonce_name ]} : null;
 				$nonce_action = $this->nonce_action();
 			} else {
 				$nonce        = ( ! empty( $_REQUEST[ $nonce ] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce ] ) ) : null;

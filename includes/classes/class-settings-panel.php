@@ -3783,7 +3783,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'         => __('Enable Email Verification', 'directorist'),
                     'type'          => 'toggle',
                     'value'         => false,
-                    'description'   => __('Enable verification to verify user email address during registration. Verification status can seen on users list table', 'directorist')
+                    'description'   => __('Enable verification to verify user email address during registration. Verification status can seen on users list table.', 'directorist')
                 ],
                 'reg_username'    => [
                     'type'          => 'text',

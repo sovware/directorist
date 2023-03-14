@@ -28,12 +28,12 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			add_action( 'plugins_loaded', array( $this, 'user_functions_ready_hook' ) );// before we add custom image uploading, lets use WordPress default image uploading by letting subscriber and contributor upload imaging capability
 
 			add_action( 'template_redirect', [ $this, 'registration_redirection' ] );
-			add_filter( 'wp_login_errors', [$this, 'filter_wp_login_errors'], 10 );
-
+			
 			$is_enable_email_verification = get_directorist_option('enable_email_verification');
-
+			
 			if($is_enable_email_verification) {
 				add_filter( 'authenticate', [$this, 'filter_authenticate'], 999999, 2 );
+				add_filter( 'wp_login_errors', [$this, 'filter_wp_login_errors'], 10 );
 			}
 
 			if(is_admin()) {
@@ -183,10 +183,10 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			</div>
 			<script>
 				var current_url = location.href;
-    			var url = new URL(current_url);
+				var url = new URL(current_url);
 				url.searchParams.delete('_wpnonce');
 				url.searchParams.delete('users');
-    			window.history.pushState(null, null, url.toString());
+				window.history.pushState(null, null, url.toString());
 			</script>
 			<?php
 		}
@@ -258,7 +258,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		 * @param string                  $username Username or email address.
 		 * @return null|\WP_User|\WP_Error WP_User if the user is authenticated. WP_Error or null otherwise.
 		 */
-		function filter_authenticate( $user, string $username ) {
+		public function filter_authenticate( $user, string $username ) {
 
 			if(empty($username)) {
 				return $user;

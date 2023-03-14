@@ -1154,6 +1154,8 @@ We look forward to seeing you soon'
 
 			==CONFIRM_EMAIL_ADDRESS_URL==
 
+			Please note that the confirmation link will expire in 24 hours. If you do not confirm your email address within this time, you will need to request a new confirmation link.
+
 			Once you have confirmed your email address, you will be able to access all the features of our website. If you have any questions or concerns, please don't hesitate to contact us.
 
 			Thank you for choosing ==SITE_NAME==", 'directorist' ), $user->user_nicename);

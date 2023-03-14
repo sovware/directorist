@@ -20,6 +20,6 @@
     "scripts": {
 		"report": "@php ./vendor/bin/phpcs --report=summary,source",
 		"format": "@php ./vendor/bin/phpcbf",
-		"sniffer:php8.0": "./vendor/bin/phpcs -p . --standard=PHPCompatibilityWP --severity=1 --runtime-set testVersion 8.0- --extensions=php"
+		"sniffer:php8.1": "./vendor/bin/phpcs -p . --standard=PHPCompatibilityWP --severity=1 --runtime-set testVersion 8.1- --extensions=php"
 	}
 }

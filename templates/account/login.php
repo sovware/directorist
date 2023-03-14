@@ -49,14 +49,18 @@ use \Directorist\Helper;
 							if (!is_wp_error($check_password_reset_key)) {
 								if(!empty($_GET['confirm_mail'])) {
 									delete_user_meta($user->ID, 'directorist_user_email_unverified');
+									$login_page_id  = directorist_get_page_id( 'login' );
+									$login_page_url = !empty( $login_page_id ) ? get_page_link( $login_page_id ) : '';
 									?>
 									<div class="directorist-alert directorist-alert-success">
 										<?php esc_html_e('Email Verified Successfully!', 'directorist')?>
+										<a href="<?php echo esc_url($login_page_url)?>"><?php esc_html_e('Go to login Page', 'directorist'); ?></a>										
 									</div>
 									<?php
 								}
+
 								if(!empty($_GET['password_reset'])) {
-									include __DIR__ . './password-reset-form.php';
+									include ATBDP_DIR . 'templates/account/password-reset-form.php';
 								}
 							} elseif(!empty($key)) {?>
 								<p>

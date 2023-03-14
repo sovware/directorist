@@ -131,8 +131,8 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 				'==USER_PASSWORD==' => $user_password,
 				'==USER_DASHBOARD==' => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
 				'==PIN==' => $pin,
-				'==VERIFY_MAIL_URL==' => sprintf( '<a href="%s">%s</a>',  esc_url_raw(directorist_password_reset_url($user, false, true)), __( 'Confirm Mail', 'directorist' ) ),
-				'==SET_PASSWORD_AND_VERIFY_MAIL_URL==' => sprintf( '<a href="%s">%s</a>',  esc_url_raw(directorist_password_reset_url($user, true, true)), __( 'Set Password And Confirm Mail', 'directorist' ) )
+				'==CONFIRM_EMAIL_ADDRESS_URL==' => sprintf( '<a href="%s">%s</a>',  esc_url_raw(directorist_password_reset_url($user, false, true)), __( 'Confirm Email Address', 'directorist' ) ),
+				'==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => sprintf( '<a href="%s">%s</a>',  esc_url_raw(directorist_password_reset_url($user, true, true)), __( 'Set Password And Confirm Email Address', 'directorist' ) )
 			);
 			$c = nl2br( strtr( $content, $find_replace ) );
 			// we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
@@ -1112,7 +1112,7 @@ This email is sent automatically for information purpose only. Please do not res
 		/**
 		 * @since 5.8
 		 */
-		function custom_wp_new_user_notification_email( $user_id ) {			
+		public function custom_wp_new_user_notification_email( $user_id ) {			
 
 			$user = get_user_by( 'ID', $user_id );
 
@@ -1138,6 +1138,32 @@ We look forward to seeing you soon'
 			if ( $mail ) {
 				delete_user_meta( $user_id, '_atbdp_generated_password' );
 			}
+		}
+
+		public function send_user_confirmation_email(Wp_User $user) {
+
+			if ( get_directorist_option( 'disable_email_notification' ) ) {
+				return;
+			}
+
+			$subject = __( 'Email Address Confirmation For ==SITE_NAME==', 'directorist' );
+
+			$body = sprintf(__( "Hi %s,
+
+			We would like to confirm your email address for the ==SITE_LINK==. Please click on the verification link below to confirm your email address:
+
+			==CONFIRM_EMAIL_ADDRESS_URL==
+
+			Once you have confirmed your email address, you will be able to access all the features of our website. If you have any questions or concerns, please don't hesitate to contact us.
+
+			Thank you for choosing ==SITE_NAME==", 'directorist' ), $user->user_nicename);
+
+			$subject = $this->replace_in_content( $subject, null, null, $user );
+			$body    = $this->replace_in_content( $body, null, null, $user );
+
+			$body = atbdp_email_html( $subject, $body );
+
+			return $this->send_mail( $user->user_email, $subject, $body, $this->get_email_headers() );
 		}
 
 	} // ends class

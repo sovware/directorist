@@ -125,11 +125,19 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				exit;
 			}
 
+			if( ! get_directorist_option('enable_email_verification') ) {
+				wp_send_json_error([
+					'code' => 'invalid_request',
+					'message'  => __( 'Invalid Request', 'directorist' )
+				]);
+				exit;
+			}
+
 			if(isset($_REQUEST['user'])) {
 				$email = sanitize_email(wp_unslash($_REQUEST['user']));
 				$user  = get_user_by('email', $email);
 				if($user instanceof \WP_User) {
-					ATBDP()->email->custom_wp_new_user_notification_email($user->ID);
+					ATBDP()->email->send_user_confirmation_email($user);
 				}
 			}
 

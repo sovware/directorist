@@ -251,8 +251,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 {$c}==NOW=={$e} : It outputs the current time<br/>
                 {$c}==DASHBOARD_LINK=={$e} : It outputs the user dashboard page link<br/>
                 {$c}==USER_PASSWORD=={$e} : It outputs new user's temporary passoword<br/>
-                {$c}==VERIFY_MAIL_URL=={$e} : It outputs verify email link<br/>
-                {$c}==SET_PASSWORD_AND_VERIFY_MAIL_URL=={$e} : It outputs set new password and verify email link<br/><br/>
+                {$c}==CONFIRM_EMAIL_ADDRESS_URL=={$e} : It outputs verify email link<br/>
+                {$c}==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL=={$e} : It outputs set new password and verify email link<br/><br/>
                 Additionally, you can also use HTML tags in your template.
 SWBD;
 
@@ -3779,10 +3779,11 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'          => 'toggle',
                     'value'         => true,
                 ],
-                'check_user_email_verify_status' => [
-                    'label'         => __('Verify user email status during login', 'directorist'),
+                'enable_email_verification' => [
+                    'label'         => __('Enable Email Verification', 'directorist'),
                     'type'          => 'toggle',
                     'value'         => false,
+                    'description'   => __('Enable verification to verify user email address during registration. Verification status can seen on users list table', 'directorist')
                 ],
                 'reg_username'    => [
                     'type'          => 'text',
@@ -4747,7 +4748,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => '',
                                     'description' => '',
                                     'fields'      => [
-                                        'new_user_registration', 'check_user_email_verify_status'
+                                        'new_user_registration', 'enable_email_verification'
                                      ],
                                 ],
                                 'username' => [

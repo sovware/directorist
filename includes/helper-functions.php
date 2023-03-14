@@ -3968,9 +3968,19 @@ function directorist_password_reset_url(\Wp_User $user, $password_reset = true, 
     $reset_password_url = !empty( $login_page ) ? $login_page : home_url();
 
     $args = array( 
-        'user' => $user->user_email,
-        'key'  => get_password_reset_key( $user )
+        'user' => $user->user_email
     );
+
+    global $directories_user_rest_keys;
+
+    if( is_array( $directories_user_rest_keys ) && !empty( $directories_user_rest_keys[$user->user_email] ) ) {
+        $args['key'] = $directories_user_rest_keys[$user->user_email];
+    } else {
+        $key = get_password_reset_key( $user );
+        $directories_user_rest_keys[$user->user_email] = $key;
+        $args['key'] = $key;
+    }
+    
 
     if($password_reset) {
         $args['password_reset'] = true;

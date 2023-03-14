@@ -20,10 +20,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 					if ( ! empty( $_GET['registration_status'] ) && true == $_GET['registration_status'] ) {
 							?>
 							<!--registration succeeded, so show notification -->
-							<p style="padding: 20px" class="alert-success"><?php directorist_icon( 'las la-check' ); ?><?php esc_html_e(' Registration completed. Please check your email for confirmation.', 'directorist'); ?>
+							<p style="padding: 20px" class="alert-success"><?php directorist_icon( 'las la-check' ); ?><?php esc_html_e(' Registration completed.', 'directorist'); ?>
 								<?php
-								$output = sprintf( __('Or click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' );
-								echo wp_kses_post( $output );
+								if(get_directorist_option('enable_email_verification')) {
+									echo __('Please check your email for confirmation.', 'directorist');
+								} else {
+									$output = sprintf( __('Click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' );
+									echo wp_kses_post( $output );
+								}
 								?>
 							</p>
 						<?php

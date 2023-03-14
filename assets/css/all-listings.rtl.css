@@ -12309,6 +12309,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 400px;
   border: 0 none;
 }
+@media (max-width: 768px) {
+  .directorist-single-wrapper .directorist-embaded-video {
+    height: 56.25vw;
+  }
+}
 
 .directorist-related-listing-header h1,
 .directorist-related-listing-header h2,

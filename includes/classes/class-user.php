@@ -324,9 +324,9 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				case 'directorist_email_verified':
 					$is_user_unverified = get_user_meta($user_id, 'directorist_user_email_unverified', true);
 					if($is_user_unverified) {
-						return "<p style='margin-left:35px;'><span class='dashicons dashicons-dismiss' style='color:#999;'></span></p>";
+						return "<p style='margin-left:32px;'><span class='dashicons dashicons-dismiss' style='color:#999;'></span></p>";
 					} else {
-						return "<p style='margin-left:35px;'><span class='dashicons dashicons-yes-alt' style='color:#08bf9c;'></span></p>";
+						return "<p style='margin-left:32px;'><span class='dashicons dashicons-yes-alt' style='color:#08bf9c;'></span></p>";
 					}
 				case 'user_type':
 					$user_type = (string) get_user_meta( $user_id, '_user_type', true );

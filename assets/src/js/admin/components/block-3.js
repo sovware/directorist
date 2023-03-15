@@ -374,12 +374,6 @@ window.addEventListener('DOMContentLoaded', () => {
         $('#atbdp-categories-image-id').attr('value', '');
     });
 
-        // Reset Form
-        /* for ( var field in fields_elm  ) {
-$( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
-} */
-    });
-
     // ----------------------------------------------------------------------------------
 
     // Custom Tab Support Status

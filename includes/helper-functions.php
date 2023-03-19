@@ -3963,10 +3963,6 @@ function directorist_get_page_id( string $page_name = '' ) : int {
 
 function directorist_password_reset_url(\Wp_User $user, $password_reset = true, $confirm_mail = false) {
 
-    $login_page_id = directorist_get_page_id( 'login' );
-    $login_page    = !empty( $login_page_id )  ? get_page_link( $login_page_id ) : '';
-    $reset_password_url = !empty( $login_page ) ? $login_page : home_url();
-
     $args = array( 
         'user' => $user->user_email
     );
@@ -3980,7 +3976,6 @@ function directorist_password_reset_url(\Wp_User $user, $password_reset = true, 
         $directories_user_rest_keys[$user->user_email] = $key;
         $args['key'] = $key;
     }
-    
 
     if($password_reset) {
         $args['password_reset'] = true;
@@ -3990,7 +3985,7 @@ function directorist_password_reset_url(\Wp_User $user, $password_reset = true, 
         $args['confirm_mail'] = true;
     }
 
-    $reset_password_url = add_query_arg( $args, $reset_password_url );
+    $reset_password_url = ATBDP_Permalink::get_login_page_url($args);
 
     return apply_filters( 'directorist_password_reset_url', $reset_password_url );
 }

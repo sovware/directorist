@@ -33,7 +33,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			
 			if($is_enable_email_verification) {
 				add_filter( 'authenticate', [$this, 'filter_authenticate'], 999999, 2 );
-				add_filter( 'wp_login_errors', [$this, 'filter_wp_login_errors'], 10 );
 			}
 
 			if(is_admin()) {
@@ -226,32 +225,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		}
 
 		/**
-		 * Filters the login page errors.
-		 *
-		 * @param \WP_Error $errors      WP Error object.
-		 * @return \WP_Error WP Error object.
-		 */
-		public function filter_wp_login_errors( \WP_Error $errors ) : \WP_Error {
-
-			if(isset($_GET['checkemail']) && $_GET['checkemail'] === 'verify_email') {
-
-				$login_page_id = directorist_get_page_id( 'login' );
-				$login_url    = !empty( $login_page_id )  ? get_page_link( $login_page_id ) : '';
-				$login_url    = !empty( $login_url ) ? $login_url : wp_login_url();
-				$errors->add(
-					'confirm',
-					sprintf(
-						/* translators: %s: Link to the login page. */
-						__( 'Check your email for the confirmation link, then visit the <a href="%s">login page</a>.' ),
-						$login_url
-					),
-					'message'
-				);
-			}
-			return $errors;
-		}
-
-		/**
 		 * Filters whether a set of user login credentials are valid.
 		 *
 		 * @param null|\WP_User|\WP_Error $user     WP_User if the user is authenticated. WP_Error or null otherwise.
@@ -288,16 +261,13 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			$mail_send_url = add_query_arg([
 				'action' => 'send_confirmation_email',
-				'user'   => $user->user_email,
+				'user'   => $db_user->user_email,
 				'directorist_nonce' => wp_create_nonce('directorist_nonce'),
 			], admin_url('admin-ajax.php'));
 
 			return new WP_Error(
-				'email_unverified',
-				'<strong>Error:</strong> Please verify your email address. <a href="' . esc_url_raw($mail_send_url) . '">'.
-				__( 'Resend Confirmation Mail' ) .
-				'</a>'
-			);
+				'email_unverified', 
+				__("Your account is not yet verified. Please check your email to verify your account. If you didn't receive the verification email, please click on the", "directorist") . " <a href='" . esc_url_raw($mail_send_url) . "'>" . __("Resend confirmation email", "directorist") . "</a>");
 		}
 
 		public function registration_redirection() {
@@ -715,10 +685,15 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					wp_set_auth_cookie( $user_id );
 				}
 
+				$query_vars = [
+					'registration_status' =>  true,
+					'email' => $email
+				];
+
 				if( ! empty( $redirection_after_reg ) ) {
-					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page, array( 'registration_status' => true ) ) ) );
+					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page, $query_vars ) ) );
 				} else {
-					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link( array( 'registration_status' => true ) ) ) );
+					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link( $query_vars ) ) );
 				}
 				exit();
 			} else {

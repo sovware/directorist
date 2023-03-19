@@ -1146,22 +1146,19 @@ We look forward to seeing you soon'
 				return;
 			}
 
-			$subject = __( 'Email Address Confirmation For ==SITE_NAME==', 'directorist' );
+			$subject = __( 'Verify your email address', 'directorist' );
 
 			$body = sprintf(__( "Hi %s,
 
-			We would like to confirm your email address for the ==SITE_LINK==. Please click on the verification link below to confirm your email address:
+			Thank you for signing up at ==SITE_NAME==, to complete the registration, we need to verify your email address.
 
 			==CONFIRM_EMAIL_ADDRESS_URL==
 
-			Please note that the confirmation link will expire in 24 hours. If you do not confirm your email address within this time, you will need to request a new confirmation link.
+			To activate your account simply click the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
 
-			Once you have confirmed your email address, you will be able to access all the features of our website. If you have any questions or concerns, please don't hesitate to contact us.
+			If you did not sign up for this account you can ignore this email.", 'directorist' ), $user->user_nicename);
 
-			Thank you for choosing ==SITE_NAME==", 'directorist' ), $user->user_nicename);
-
-			$subject = $this->replace_in_content( $subject, null, null, $user );
-			$body    = $this->replace_in_content( $body, null, null, $user );
+			$body = $this->replace_in_content( $body, null, null, $user );
 
 			$body = atbdp_email_html( $subject, $body );
 

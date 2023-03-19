@@ -13,9 +13,18 @@ use \Directorist\Helper;
             <div class="directorist-col-md-6 directorist-offset-md-3">
                 <div class="atbdp_login_form_shortcode">
                     <?php
-					// start recovery stuff
+
 					$recovery = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
 
+					if(isset($_REQUEST['send_email_confirm_mail']) && empty($recovery)){
+						?>
+						<p class="directorist-alert directorist-alert-success">
+							<?php echo __("Thank you for requesting a new confirmation email. We've sent a new email to your inbox. Please check your email and verify to complete the registration. If you still don't receive the email, please contact our support team for assistance.", 'directorist')?>
+						</p>
+						<?php
+					}
+
+					// start recovery stuff
 					if ( ! empty( $recovery ) ) {
 						$user = get_user_by( 'email', $recovery );
 						if( $user instanceof \WP_User ) {
@@ -63,13 +72,13 @@ use \Directorist\Helper;
 									include ATBDP_DIR . 'templates/account/password-reset-form.php';
 								}
 							} elseif(!empty($key)) {?>
-								<p>
+								<p class="directorist-alert directorist-alert-danger">
 									<?php esc_html_e('Sorry! The link is invalid.', 'directorist'); ?>
 								</p>
 							<?php }
 
 						} else { ?>
-							<p>
+							<p class="directorist-alert directorist-alert-danger">
 								<?php esc_html_e('Sorry! user not found', 'directorist'); ?>
 							</p>
 						<?php }

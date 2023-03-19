@@ -26,20 +26,20 @@
                 },
                 success: function (data) {
                     if ('nonce_faild' in data && data.nonce_faild) {
-                        $('p.status').html('<span class="status-success">' + data.message + '</span>');
+                        $('p.status').html('<span class="directorist-alert directorist-alert-success">' + data.message + '</span>');
                     }
                     if (data.loggedin == true) {
-                        $('p.status').html('<span class="status-success">' + data.message + '</span>');
+                        $('p.status').html('<span class="directorist-alert directorist-alert-success">' + data.message + '</span>');
                         document.location.href = directorist.redirect_url;
                     } else {
-                        $('p.status').html('<span class="status-failed">' + data.message + '</span>');
+                        $('p.status').html('<span class="directorist-alert directorist-alert-danger">' + data.message + '</span>');
                     }
                 },
                 error: function (data) {
                     if ('nonce_faild' in data && data.nonce_faild) {
-                        $('p.status').html('<span class="status-success">' + data.message + '</span>');
+                        $('p.status').html('<span class="directorist-alert directorist-alert-success">' + data.message + '</span>');
                     }
-                    $('p.status').show().html('<span class="status-failed">' + directorist.login_error_message + '</span>');
+                    $('p.status').show().html('<span class="directorist-alert directorist-alert-danger">' + directorist.login_error_message + '</span>');
                 }
             });
             e.preventDefault();
@@ -62,6 +62,7 @@
         url.searchParams.delete('password_reset');
         url.searchParams.delete('confirm_mail');
         url.searchParams.delete('user');
+        url.searchParams.delete('send_email_confirm_mail');
         window.history.pushState(null, null, url.toString());
     });
 })(jQuery);

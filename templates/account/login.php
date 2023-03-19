@@ -35,7 +35,7 @@ use \Directorist\Helper;
 								$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 								$password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 	
-								if ( ( $password_1 === $password_2 ) && ! empty( $password_1 && $password_2 ) ) :
+								if ( !empty( $password_1 ) && ( $password_1 === $password_2 ) ) :
 									$update_user = wp_update_user( [
 										'ID'        => $user->ID,
 										'user_pass' => $password_2,

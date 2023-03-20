@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 7.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -16,10 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<?php foreach ( $data['options'] as $option ): ?>
 
-				<?php $uniqid = $option['option_value'] . '-' .wp_rand();  ?>
+				<?php 
+					$uniqid 	= $option['option_value'] . '-' . wp_rand();  
+					$data_value = $data['value'] ? $data['value'] : array();
+				?>
 
 				<div class="directorist-checkbox directorist-mb-10">
-					<input type="checkbox" id="<?php echo esc_attr( $uniqid ); ?>" name="<?php echo esc_attr( $data['field_key'] ); ?>[]" value="<?php echo esc_attr( $option['option_value'] ); ?>" <?php echo in_array( $option['option_value'], $data['value'] ) ? 'checked="checked"' : '' ; ?>>
+					<input type="checkbox" id="<?php echo esc_attr( $uniqid ); ?>" name="<?php echo esc_attr( $data['field_key'] ); ?>[]" value="<?php echo esc_attr( $option['option_value'] ); ?>" <?php echo in_array( $option['option_value'], $data_value, true ) ? 'checked="checked"' : '' ; ?>>
 					<label for="<?php echo esc_attr( $uniqid ); ?>" class="directorist-checkbox__label"><?php echo esc_html( $option['option_label'] ); ?></label>
 				</div>
 

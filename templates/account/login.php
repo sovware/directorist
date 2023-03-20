@@ -99,6 +99,7 @@ use \Directorist\Helper;
 
 						?>
 						<form action="#" id="login" method="POST">
+							<p class="status"></p>
 							<div class="directorist-form-group directorist-mb-15">
 								<label for="username"><?php echo esc_html( $log_username ); ?></label>
 								<input type="text" class="directorist-form-element" id="username" name="username">
@@ -113,7 +114,6 @@ use \Directorist\Helper;
 								<button class="directorist-btn directorist-btn-block directorist-btn-primary" type="submit" value="<?php echo esc_attr( $log_button ); ?>" name="submit"><?php echo esc_html( $log_button ); ?></button>
 								<?php wp_nonce_field( 'ajax-login-nonce', 'security' );?>
 							</div>
-							<p class="status"></p>
 
 							<div class="keep_signed directorist-checkbox directorist-mb-15">
 								<?php if ( $display_rememberMe ) : ?>

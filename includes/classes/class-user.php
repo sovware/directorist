@@ -42,11 +42,12 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				if($is_enable_email_verification) {
 					add_filter( 'user_row_actions', [$this, 'filter_user_row_actions'], 10, 2 );
 					add_filter( 'bulk_actions-users', [$this, 'filter_users_table_bulk_actions'] );
-					add_action( 'current_screen', [$this, 'action_current_screen'] );
+					add_filter( 'handle_bulk_actions-users', [$this, 'filter_handle_bulk_actions_users'], 10, 3 );
 					add_action( 'edit_user_profile', [$this, 'user_email_verification_input'] );
 					add_action( 'user_new_form', [$this, 'user_email_verification_input'] );
 					add_action( 'user_register', [$this, 'action_admin_edit_user_info'] );
 					add_action( 'profile_update', [$this, 'action_admin_edit_user_info'] );
+					add_action( 'admin_notices', [$this, 'action_email_verification_notice'] );
 				}
 			} else {
 				add_action( 'user_register', [$this, 'action_user_register'] );
@@ -106,31 +107,18 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				delete_user_meta($user_id, 'directorist_user_email_unverified');
 			}
 		}
-		
-		/**
-		 * Fires after the current screen has been set.
-		 *
-		 * @param \WP_Screen $current_screen Current WP_Screen object.
-		 */
-		public function action_current_screen(\WP_Screen $current_screen) : void {
 
-			if('users' !== $current_screen->base) {
-				return;
+		public function filter_handle_bulk_actions_users( string $sendback, string $action, array $items ) {
+
+			if( empty( $items ) ) {
+				return $sendback;
 			}
 
-			session_start();
+			$user_ids = map_deep($items, 'intval');
 
-			if(!empty($_SESSION['directorist_user_email_verify_message'])) {
-				add_action( 'admin_notices', [$this, 'action_email_verification_notice'] );
-			}
+			$email_verification_type = '';
 
-			if(empty( $_REQUEST['action'] ) || empty( $_REQUEST['users'] ) || !is_array($_REQUEST['users']) || empty( $_REQUEST['_wpnonce'] ) || !wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-users' )) {
-				return;
-			}
-
-			$user_ids = map_deep($_REQUEST['users'], 'intval');
-
-			switch ($_REQUEST['action']) {
+			switch ($action) {
 				case 'directorist_request_email_verification':
 					$users = get_users(['include' => $user_ids]);
 
@@ -143,48 +131,75 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 						}
 					}
 
-					$_SESSION['directorist_user_email_verify_message'] = esc_html__( 'Email verification request sent successfully!', 'directorist' );
+					$email_verification_type = 'sent-request';
 					break;
 
 				case 'directorist_mark_as_email_verified':
 					foreach($user_ids as $user_id) {
 						delete_user_meta($user_id, 'directorist_user_email_unverified');
 					}
-	
-					$_SESSION['directorist_user_email_verify_message'] = esc_html__( 'Marked as email verified successfully!', 'directorist' );
+
+					$email_verification_type = 'verified';
 					break;
 
 				case 'directorist_mark_as_email_unverified':
 					foreach($user_ids as $user_id) {
 						update_user_meta($user_id, 'directorist_user_email_unverified', true);
 					}
-	
-					$_SESSION['directorist_user_email_verify_message'] = esc_html__( 'Marked as email unverified successfully!', 'directorist' );
+
+					$email_verification_type = 'unverified';
 					break;
 			}
-
-			add_action( 'admin_notices', [$this, 'action_email_verification_notice'] );
+			
+			return add_query_arg([
+				'users' => $user_ids,
+				'email-verification-type' => $email_verification_type,
+				'_wpnonce' => wp_create_nonce('verify_user_email')
+			], $sendback);
 		}
 
 		public function action_email_verification_notice() {
 
-			if( empty( $_SESSION['directorist_user_email_verify_message'] ) ) {
+			if( empty( $_REQUEST['users'] ) || empty( $_REQUEST['email-verification-type'] ) || empty($_REQUEST['_wpnonce']) || ! wp_verify_nonce($_REQUEST['_wpnonce'], 'verify_user_email')) {
 				return;
 			}
 
-			$message = $_SESSION['directorist_user_email_verify_message'];
+			$user_ids = map_deep($_REQUEST['users'], 'intval');
 
-			unset($_SESSION['directorist_user_email_verify_message']);
+			$users = get_users(['include' => $user_ids]);
+
+			$links = [];
+
+			foreach($users as $user) {
+				array_push($links, "<a href='" . get_edit_user_link($user->ID) . "'>" . $user->ID . "</a>");
+			}
+
+			$links = implode(', ', $links);
+
+			switch($_REQUEST['email-verification-type']) {
+				case 'sent-request':
+					$message = sprintf(__( 'Email verification request sent to %s users.', 'directorist' ), $links);
+					break;
+				case 'verified':
+					$message = sprintf(__( '%s Users marked as email verified.', 'directorist' ), $links);
+					break;
+				case 'unverified':
+					$message = sprintf(__( '%s Users marked as email verified.', 'directorist' ), $links);
+			}
+
+			if( empty( $message ) ) {
+				return;
+			}
 
 			?>
-			<div class="notice notice-success is-dismissible">
+			<div class="updated notice notice-success is-dismissible">
 				<p><?php echo $message; ?></p>
 			</div>
 			<script>
 				var current_url = location.href;
 				var url = new URL(current_url);
 				url.searchParams.delete('_wpnonce');
-				url.searchParams.delete('users');
+				url.searchParams.delete('email-verification-type');
 				window.history.pushState(null, null, url.toString());
 			</script>
 			<?php
@@ -267,7 +282,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			return new WP_Error(
 				'email_unverified', 
-				__("Your account is not yet verified. Please check your email to verify your account. If you didn't receive the verification email, please click on the", "directorist") . " <a href='" . esc_url_raw($mail_send_url) . "'>" . __("Resend confirmation email", "directorist") . "</a>");
+				sprintf(__("Your account is not yet verified. Please check your email to verify your account. If you didn't receive the verification email, please click on the %s", "directorist"), " <a href='" . esc_url_raw($mail_send_url) . "'>" . __("Resend confirmation email", "directorist") . "</a>"));
 		}
 
 		public function registration_redirection() {

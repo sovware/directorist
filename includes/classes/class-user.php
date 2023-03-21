@@ -694,7 +694,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			// only when no WP_error is found
 			$user_id = $this->complete_registration($username, $password, $email, $website, $first_name, $last_name, $bio);
 			if ($user_id && !is_wp_error( $user_id )) {
-				$redirection_after_reg = get_directorist_option( 'redirection_after_reg');
 				/*
 				* @since 6.3.0
 				* If fires after completed user registration
@@ -707,22 +706,27 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				// user has been created successfully, now work on activation process
 				wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
 
-				if(get_directorist_option('enable_email_verification')) {
-					ATBDP()->email->send_user_confirmation_email(get_user_by('ID', $user_id));
-				} else {
-					ATBDP()->email->custom_wp_new_user_notification_email($user_id);
-					$auto_login = get_directorist_option( 'auto_login' );
-
-					if( ! empty( $auto_login ) ) {
-						wp_set_current_user( $user_id, $email );
-						wp_set_auth_cookie( $user_id );
-					}
-				}
-
 				$query_vars = [
 					'registration_status' =>  true,
 					'email' => $email
 				];
+
+				if( get_directorist_option('enable_email_verification') ) {
+					ATBDP()->email->send_user_confirmation_email(get_user_by('ID', $user_id));
+
+					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link( $query_vars ) ) );
+					exit();
+				}
+
+				ATBDP()->email->custom_wp_new_user_notification_email($user_id);
+
+				$redirection_after_reg = get_directorist_option( 'redirection_after_reg');
+				$auto_login            = get_directorist_option( 'auto_login' );
+
+				if( ! empty( $auto_login ) ) {
+					wp_set_current_user( $user_id, $email );
+					wp_set_auth_cookie( $user_id );
+				}
 
 				if( ! empty( $redirection_after_reg ) ) {
 					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page, $query_vars ) ) );

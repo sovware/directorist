@@ -3783,7 +3783,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'         => __('Enable Email Verification', 'directorist'),
                     'type'          => 'toggle',
                     'value'         => false,
-                    'description'   => __('Enable verification to verify user email address during registration. Verification status can seen on users list table.', 'directorist')
+                    'description'   => sprintf(__('Enable email verification to verify user email during registration. To view the verification status navigate to Users → %s.', 'directorist'), "<a href='" . admin_url('users.php') . "'>" . __('All Users', 'directorist') . "</a>")
                 ],
                 'reg_username'    => [
                     'type'          => 'text',

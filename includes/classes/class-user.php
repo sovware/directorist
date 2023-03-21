@@ -174,17 +174,30 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				array_push($links, "<a href='" . get_edit_user_link($user->ID) . "'>" . $user->ID . "</a>");
 			}
 
-			$links = implode(', ', $links);
+			$total_links = count($links);
+			$raw_links   = implode(', ', $links);
 
 			switch($_REQUEST['email-verification-type']) {
 				case 'sent-request':
-					$message = sprintf(__( 'Email verification request sent to %s users.', 'directorist' ), $links);
+					if(1 < $total_links) {
+						$message = sprintf(__( 'Email verification request sent to %s users.', 'directorist' ), $raw_links);
+					} else {
+						$message = sprintf(__( 'Email verification request sent to %s user.', 'directorist' ), $raw_links);
+					}
 					break;
 				case 'verified':
-					$message = sprintf(__( '%s Users marked as email verified.', 'directorist' ), $links);
+					if(1 < $total_links) {
+						$message = sprintf(__( '%s users marked as email verified.', 'directorist' ), $raw_links);
+					} else {
+						$message = sprintf(__( '%s user marked as email verified.', 'directorist' ), $raw_links);
+					}
 					break;
 				case 'unverified':
-					$message = sprintf(__( '%s Users marked as email verified.', 'directorist' ), $links);
+					if(1 < $total_links) {
+						$message = sprintf(__( '%s users marked as email unverified.', 'directorist' ), $raw_links);
+					} else {
+						$message = sprintf(__( '%s user marked as email unverified.', 'directorist' ), $raw_links);
+					}
 			}
 
 			if( empty( $message ) ) {
@@ -682,7 +695,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$user_id = $this->complete_registration($username, $password, $email, $website, $first_name, $last_name, $bio);
 			if ($user_id && !is_wp_error( $user_id )) {
 				$redirection_after_reg = get_directorist_option( 'redirection_after_reg');
-				$auto_login = get_directorist_option( 'auto_login' );
 				/*
 				* @since 6.3.0
 				* If fires after completed user registration
@@ -694,10 +706,17 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				update_user_meta($user_id, '_atbdp_terms_and_conditions', $t_c_check);
 				// user has been created successfully, now work on activation process
 				wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
-				ATBDP()->email->custom_wp_new_user_notification_email($user_id);
-				if( ! empty( $auto_login ) ) {
-					wp_set_current_user( $user_id, $email );
-					wp_set_auth_cookie( $user_id );
+
+				if(get_directorist_option('enable_email_verification')) {
+					ATBDP()->email->send_user_confirmation_email(get_user_by('ID', $user_id));
+				} else {
+					ATBDP()->email->custom_wp_new_user_notification_email($user_id);
+					$auto_login = get_directorist_option( 'auto_login' );
+
+					if( ! empty( $auto_login ) ) {
+						wp_set_current_user( $user_id, $email );
+						wp_set_auth_cookie( $user_id );
+					}
 				}
 
 				$query_vars = [

@@ -57,7 +57,11 @@ use \Directorist\Helper;
 
 							if (!is_wp_error($check_password_reset_key)) {
 								if(!empty($_GET['confirm_mail'])) {
+									/**
+									 * Verify user and send registration confirmation mail
+									 */
 									delete_user_meta($user->ID, 'directorist_user_email_unverified');
+									ATBDP()->email->custom_wp_new_user_notification_email($user->ID);
 									?>
 									<div class="directorist-alert directorist-alert-success">
 										<?php esc_html_e('Email Verified Successfully!', 'directorist')?>

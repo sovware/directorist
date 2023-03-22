@@ -442,7 +442,6 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'template-functions',
 			ATBDP_INC_DIR . 'custom-actions',
 			ATBDP_INC_DIR . 'custom-filters',
-			ATBDP_INC_DIR . 'elementor/init',
 			ATBDP_INC_DIR . 'system-status/class-system-status',
 			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',

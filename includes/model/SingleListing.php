@@ -514,8 +514,8 @@ class Directorist_Single_Listing {
 
 		// Get the options
 		$background_type = get_directorist_option( 'single_slider_background_type', 'custom-color' );
-		$height          = (int) get_directorist_option( 'gallery_crop_width', 670 );
-		$width           = (int) get_directorist_option( 'gallery_crop_height', 750 );
+		$height          = (int) get_directorist_option( 'gallery_crop_height', 670 );
+		$width           = (int) get_directorist_option( 'gallery_crop_width', 750 );
 
 		// Set the options
 		$data = array(

@@ -198,7 +198,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				if ( ! in_array( $field_key, array( 'listing_title', 'listing_content', 'tax_input' ), true ) && isset( $posted_data[ $field_key ] ) ) {
 					$meta_field_key = '_' . $field_key;
-					$meta_data[ $meta_field_key ] = sanitize_text_field( $posted_data[ $field_key ] );
+					$meta_data[ $meta_field_key ] = directorist_clean( $posted_data[ $field_key ] );
 				}
 			}
 
@@ -236,6 +236,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			$meta_data = apply_filters( 'atbdp_listing_meta_user_submission', $meta_data );
 			$meta_data = apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $meta_data, $posted_data );
+
 			$meta_input = array_filter( $meta_data, static function( $value ) {
 				if ( is_array( $value ) ) {
 					return ! empty( $value );

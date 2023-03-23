@@ -129,7 +129,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$label            = ! empty( $form_field['label'] ) ? $form_field['label'] : '';
 
 				// No need to process admin only fields on the frontend.
-				if ( $only_for_admin ) {
+				if ( $only_for_admin && ! $this->current_user_can_update_others_listings() ) {
 					continue;
 				}
 
@@ -871,6 +871,17 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			exit;
 		}
 
+		/**
+		 * Check user has capability edit or delete others listings.
+		 *
+		 * @since 7.5.2
+		 *
+		 * @return bool
+		 */
+		public function current_user_can_update_others_listings() {
+			$caps = get_post_type_object( ATBDP_POST_TYPE )->cap;
+			return ( current_user_can( $caps->edit_others_posts ) || current_user_can( $caps->delete_others_posts ) );
+		}
 
 	} // ends ATBDP_Add_Listing
 

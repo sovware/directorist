@@ -237,11 +237,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$content = ! empty( $posted_data['listing_content'] ) ? wp_kses_post( $posted_data['listing_content'] ) : '';
 
 			if ( ! empty( $posted_data['privacy_policy'] ) ) {
-				$meta_data['_privacy_policy'] = $posted_data['privacy_policy'];
+				$meta_data['_privacy_policy'] = (bool) $posted_data['privacy_policy'];
 			}
 
 			if ( ! empty( $posted_data['t_c_check'] ) ) {
-				$meta_data['_t_c_check'] = $posted_data['t_c_check'];
+				$meta_data['_t_c_check'] = (bool) $posted_data['t_c_check'];
 			}
 
 			$meta_data['_directory_type'] = $directory_type;

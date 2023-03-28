@@ -116,14 +116,14 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$map                       = ! empty( $manual_lat ) && ! empty( $manual_lng ) ? true : false;
 			$attachment_only_for_admin = false;
 
-			$posted_tags            = directorist_get_var( $posted_data['tax_input'][ ATBDP_TAGS ], null );
-			$posted_locations       = directorist_get_var( $posted_data['tax_input'][ ATBDP_LOCATION ], null );
-			$posted_categories      = directorist_get_var( $posted_data['tax_input'][ ATBDP_CATEGORY ], null );
-			$is_tag_admin_only      = false;
-			$is_category_admin_only = false;
-			$is_location_admin_only = false;
-			$should_insert_tag      = false;
-			$should_insert_category = false;
+			$posted_tags                = directorist_get_var( $posted_data['tax_input'][ ATBDP_TAGS ], null );
+			$posted_locations           = directorist_get_var( $posted_data['tax_input'][ ATBDP_LOCATION ], null );
+			$posted_categories          = directorist_get_var( $posted_data['tax_input'][ ATBDP_CATEGORY ], null );
+			$is_tag_admin_only          = false;
+			$is_category_admin_only     = false;
+			$is_location_admin_only     = false;
+			$is_tag_insert_allowed      = false;
+			$is_category_insert_allowed = false;
 			$is_location_insert_allowed = false;
 
 			// meta input
@@ -160,11 +160,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				if ( 'category' === $field_internal_key ) {
-					$should_insert_category = (bool) $form_field['create_new_cat'];
+					$is_category_insert_allowed = (bool) $form_field['create_new_cat'];
 				}
 
 				if ( 'tag' === $field_internal_key ) {
-					$should_insert_tag = (bool) $form_field['allow_new'];
+					$is_tag_insert_allowed = (bool) $form_field['allow_new'];
 				}
 
 				$additional_logic = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $form_field, $posted_data );
@@ -318,7 +318,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				// Check if the current user is the owner of the post
 				$post = get_post( $args['ID'] );
-				$data['error'] = true;
 
 				// update the post if the current user own the listing he is trying to edit. or we and give access to the editor or the admin of the post.
 				if ( get_current_user_id() == $post->post_author || current_user_can( 'edit_others_at_biz_dirs' ) ) {
@@ -410,17 +409,41 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						}
 					}
 
-					if ( ! empty( $posted_tags ) ) {
-						if ( count( $posted_tags ) > 1 ) {
-							foreach ( $posted_tags as $single_tag ) {
-								$posted_tags = get_term_by( 'slug', $single_tag, ATBDP_TAGS );
-								wp_set_object_terms( $post_id, $posted_tags->name, ATBDP_TAGS, true );
-							}
+					// Process tags.
+					if ( ! $is_tag_admin_only && is_array( $posted_tags ) ) {
+						$posted_tags = array_map( static function( $tag ) {
+							return trim( $tag );
+						}, $posted_tags );
+
+						if ( empty( $posted_tags ) ) {
+							wp_set_object_terms( $post_id, '', ATBDP_TAGS );
 						} else {
-							wp_set_object_terms( $post_id, $posted_tags[0], ATBDP_TAGS );// update the term relationship when a listing updated by author
+							$tag_ids = array();
+
+							foreach ( $posted_tags as $tag ) {
+
+								if ( ( $_tag = term_exists( $tag, ATBDP_TAGS ) ) ) {
+									$tag_ids[] = (int) $_tag['term_id'];
+									continue;
+								}
+
+								if ( $is_tag_insert_allowed ) {
+									$tag_added = wp_insert_term( $tag, ATBDP_TAGS );
+
+									if ( is_wp_error( $tag_added ) ) {
+										if ( $tag_added->get_error_code() === 'term_exists' ) {
+											$tag_ids[] = $tag_added->get_error_data();
+										} else {
+											continue;
+										}
+									} else {
+										$tag_ids[] = $tag_added['term_id'];
+									}
+								}
+							}
+
+							wp_set_object_terms( $post_id, $tag_ids, ATBDP_TAGS );
 						}
-					} else {
-						wp_set_object_terms( $post_id, '', ATBDP_TAGS );
 					}
 
 					if ( ! empty( $posted_categories ) ) {

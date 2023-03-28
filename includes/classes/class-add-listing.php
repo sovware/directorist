@@ -116,9 +116,9 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$map                       = ! empty( $manual_lat ) && ! empty( $manual_lng ) ? true : false;
 			$attachment_only_for_admin = false;
 
-			$posted_tags                = directorist_get_var( $posted_data['tax_input'][ ATBDP_TAGS ], null );
-			$posted_locations           = directorist_get_var( $posted_data['tax_input'][ ATBDP_LOCATION ], null );
-			$posted_categories          = directorist_get_var( $posted_data['tax_input'][ ATBDP_CATEGORY ], null );
+			$posted_tags                = directorist_get_var( $posted_data['tax_input'][ ATBDP_TAGS ], array() );
+			$posted_locations           = directorist_get_var( $posted_data['tax_input'][ ATBDP_LOCATION ], array() );
+			$posted_categories          = directorist_get_var( $posted_data['tax_input'][ ATBDP_CATEGORY ], array() );
 			$is_tag_admin_only          = false;
 			$is_category_admin_only     = false;
 			$is_location_admin_only     = false;
@@ -170,7 +170,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$additional_logic = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $form_field, $posted_data );
 
 				$field_category_id = ! empty( $form_field['category'] ) ? absint( $form_field['category'] ) : 0;
-				if ( $field_category_id && ! in_array( $field_category_id, $posted_categories, true ) ) {
+				if ( $field_category_id && is_array( $posted_categories ) && ! in_array( $field_category_id, $posted_categories, true ) ) {
 					$additional_logic = false;
 				}
 
@@ -321,50 +321,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				// update the post if the current user own the listing he is trying to edit. or we and give access to the editor or the admin of the post.
 				if ( get_current_user_id() == $post->post_author || current_user_can( 'edit_others_at_biz_dirs' ) ) {
-					// Convert taxonomy input to term IDs, to avoid ambiguity.
-					// if ( isset( $args['tax_input'] ) ) {
-					// 	foreach ( (array) $args['tax_input'] as $taxonomy => $terms ) {
-					// 		// Hierarchical taxonomy data is already sent as term IDs, so no conversion is necessary.
-					// 		if ( ! taxonomy_exists( $taxonomy ) || is_taxonomy_hierarchical( $taxonomy ) ) {
-					// 			continue;
-					// 		}
-
-					// 		if ( ! is_array( $terms ) ) {
-					// 			$comma = _x( ',', 'tag delimiter', 'directorist' );
-					// 			if ( ',' !== $comma ) {
-					// 				$terms = str_replace( $comma, ',', $terms );
-					// 			}
-					// 			$terms = explode( ',', trim( $terms, " \n\t\r\0\x0B," ) );
-					// 		}
-
-					// 		$clean_terms = array();
-					// 		foreach ( $terms as $term ) {
-					// 			// Empty terms are invalid input.
-					// 			if ( empty( $term ) ) {
-					// 				continue;
-					// 			}
-
-					// 			$_term = get_terms(
-					// 				$taxonomy,
-					// 				array(
-					// 					'name'       => $term,
-					// 					'fields'     => 'ids',
-					// 					'hide_empty' => false,
-					// 				)
-					// 			);
-
-					// 			if ( ! empty( $_term ) ) {
-					// 				$clean_terms[] = intval( $_term[0] );
-					// 			} else {
-					// 				// No existing term was found, so pass the string. A new term will be created.
-					// 				$clean_terms[] = $term;
-					// 			}
-					// 		}
-
-					// 		$args['tax_input'][ $taxonomy ] = $clean_terms;
-					// 	}
-					// }
-
 					$post_id = wp_update_post( $args );
 
 					// TODO: figure out why directory type is being updated again.
@@ -446,27 +402,42 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						}
 					}
 
-					if ( ! empty( $posted_categories ) ) {
-						update_post_meta( $post_id, '_admin_category_select', $posted_categories );
-						$append = false;
-						if ( count( $posted_categories ) > 1 ) {
-							$append = true;
-						}
-						foreach ( $posted_categories as $single_category ) {
-							$cat = get_term_by( 'term_id', $single_category, ATBDP_CATEGORY );
-							if ( ! $cat ) {
-								$result = wp_insert_term( $single_category, ATBDP_CATEGORY );
-								if ( ! is_wp_error( $result ) ) {
-									$term_id = $result['term_id'];
-									wp_set_object_terms( $post_id, $term_id, ATBDP_CATEGORY, $append );
-									update_term_meta( $term_id, '_directory_type', array( $directory_type ) );
+					// Process categories.
+					if ( ! $is_category_admin_only && is_array( $posted_categories ) ) {
+						if ( empty( $posted_categories ) ) {
+							wp_set_object_terms( $post_id, '', ATBDP_CATEGORY );
+						} else {
+							$category_ids = array();
+
+							foreach ( $posted_categories as $category ) {
+
+								$category_id = (int) $category;
+								if ( $category_id && term_exists( $category_id, ATBDP_CATEGORY ) ) {
+									$category_ids[] = $category_id;
+									continue;
 								}
-							} else {
-								wp_set_object_terms( $post_id, $cat->name, ATBDP_CATEGORY, $append );
+
+								if ( $is_category_insert_allowed ) {
+									$category_added = wp_insert_term( $category, ATBDP_CATEGORY );
+
+									if ( is_wp_error( $category_added ) ) {
+										if ( $category_added->get_error_code() === 'term_exists' ) {
+											$category_ids[] = $category_added->get_error_data();
+										} else {
+											continue;
+										}
+									} else {
+										$category_ids[] = $category_added['term_id'];
+										update_term_meta( $category_added['term_id'], '_directory_type', array( $directory_type ) );
+									}
+								}
 							}
+
+							wp_set_object_terms( $post_id, $category_ids, ATBDP_CATEGORY );
+
+							//TODO: need to know the purpose of this.
+							update_post_meta( $post_id, '_admin_category_select', $category_ids );
 						}
-					} else {
-						wp_set_object_terms( $post_id, '', ATBDP_CATEGORY );
 					}
 
 					// for dev

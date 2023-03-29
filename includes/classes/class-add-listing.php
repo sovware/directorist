@@ -237,13 +237,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 			}
 
-			$title   = ! empty( $posted_data['listing_title'] ) ? sanitize_text_field( $posted_data['listing_title'] ) : '';
-			$content = '';
-
-			if ( ! $is_description_admin_only && isset( $posted_data['listing_content'] ) ) {
-				$content = wp_kses_post( $posted_data['listing_content'] );
-			}
-
 			if ( ! empty( $posted_data['privacy_policy'] ) ) {
 				$meta_data['_privacy_policy'] = (bool) $posted_data['privacy_policy'];
 			}
@@ -283,13 +276,13 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			} );
 
 			$args = array(
-				'post_title'   => $title,
+				'post_title'   => sanitize_text_field( directorist_get_var( $posted_data['listing_title'], '' ) ),
 				'post_type'    => ATBDP_POST_TYPE,
 				'meta_input'   => $meta_input,
 			);
 
-			if ( ! $is_description_admin_only ) {
-				$args['post_content'] = $content;
+			if ( ! $is_description_admin_only && isset( $posted_data['listing_content'] ) ) {
+				$args['post_content'] = wp_kses_post( $posted_data['listing_content'] );
 			}
 
 			// is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags

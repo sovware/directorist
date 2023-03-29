@@ -115,6 +115,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$manual_lng                = ! empty( $posted_data['manual_lng'] ) ? $posted_data['manual_lng'] : array();
 			$map                       = ! empty( $manual_lat ) && ! empty( $manual_lng ) ? true : false;
 			$attachment_only_for_admin = false;
+			$is_description_admin_only = false;
 
 			$posted_tags                = directorist_get_var( $posted_data['tax_input'][ ATBDP_TAGS ], array() );
 			$posted_locations           = directorist_get_var( $posted_data['tax_input'][ ATBDP_LOCATION ], array() );
@@ -150,6 +151,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 					if ( 'location' === $field_internal_key ) {
 						$is_location_admin_only = true;
+					}
+
+					if ( 'description'  === $field_internal_key ) {
+						$is_description_admin_only = true;
 					}
 
 					continue;
@@ -232,9 +237,12 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 			}
 
-			// wp_send_json( $error );
 			$title   = ! empty( $posted_data['listing_title'] ) ? sanitize_text_field( $posted_data['listing_title'] ) : '';
-			$content = ! empty( $posted_data['listing_content'] ) ? wp_kses_post( $posted_data['listing_content'] ) : '';
+			$content = '';
+
+			if ( ! $is_description_admin_only && isset( $posted_data['listing_content'] ) ) {
+				$content = wp_kses_post( $posted_data['listing_content'] );
+			}
 
 			if ( ! empty( $posted_data['privacy_policy'] ) ) {
 				$meta_data['_privacy_policy'] = (bool) $posted_data['privacy_policy'];
@@ -275,11 +283,14 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			} );
 
 			$args = array(
-				'post_content' => $content,
 				'post_title'   => $title,
 				'post_type'    => ATBDP_POST_TYPE,
 				'meta_input'   => $meta_input,
 			);
+
+			if ( ! $is_description_admin_only ) {
+				$args['post_content'] = $content;
+			}
 
 			// is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
 			if ( ! empty( $posted_data['listing_id'] ) ) {

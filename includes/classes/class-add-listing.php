@@ -127,13 +127,19 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$is_category_insert_allowed = false;
 			$is_location_insert_allowed = false;
 
+			$public_fields_with_empty_post_data = array();
+
 			// meta input
 			foreach ( $submission_form_fields as $field_internal_key => $form_field ) {
 				$field_key        = ! empty( $form_field['field_key'] ) ? $form_field['field_key'] : '';
-				$submitted_data  = ! empty( $posted_data[ $field_key ] ) ? $posted_data[ $field_key ] : '';
-				$required        = ! empty( $form_field['required'] ) ? true : false;
+				$submitted_data   = ! empty( $posted_data[ $field_key ] ) ? $posted_data[ $field_key ] : '';
+				$required         = ! empty( $form_field['required'] ) ? true : false;
 				$admin_only_field = ! empty( $form_field['only_for_admin'] ) ? true : false;
-				$label           = ! empty( $form_field['label'] ) ? $form_field['label'] : '';
+				$label            = ! empty( $form_field['label'] ) ? $form_field['label'] : '';
+
+				if ( ! $admin_only_field && $field_key && empty( $submitted_data ) ) {
+					$public_fields_with_empty_post_data[] = '_' . $field_key;
+				}
 
 				// No need to process admin only fields on the frontend.
 				if ( $admin_only_field ) {
@@ -294,9 +300,13 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				 */
 				do_action( 'atbdp_before_processing_to_update_listing' );
 
-				$deletable_meta_data = array_diff_key( $meta_data, $meta_input );
-				foreach ( $deletable_meta_data as $deletable_meta_key => $v ) {
-					delete_post_meta( $listing_id, $deletable_meta_key );
+				$deletable_meta_fields = array_merge(
+					$public_fields_with_empty_post_data,
+					array_keys( array_diff_key( $meta_data, $meta_input ) )
+				);
+
+				foreach ( $deletable_meta_fields as $deletable_meta_field ) {
+					delete_post_meta( $listing_id, $deletable_meta_field );
 				}
 
 				$_args       = array(

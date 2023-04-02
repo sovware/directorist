@@ -315,8 +315,6 @@ abstract class Terms_Controller extends Abstract_Controller {
 			}
 		}
 
-		do_action( 'directorist_rest_after_query', 'get_term_items', $request, $prepared_args, $taxonomy );
-
 		$response = array();
 		foreach ( $query_result as $term ) {
 			$data       = $this->prepare_item_for_response( $term, $request );
@@ -347,6 +345,8 @@ abstract class Terms_Controller extends Abstract_Controller {
 			$next_link = add_query_arg( 'page', $next_page, $base );
 			$response->link_header( 'next', $next_link );
 		}
+
+		do_action( 'directorist_rest_after_query', 'get_term_items', $request, $prepared_args, $taxonomy );
 
 		$response = apply_filters( 'directorist_rest_response', $response, 'get_term_items', $request, $prepared_args, $taxonomy );
 
@@ -491,13 +491,13 @@ abstract class Terms_Controller extends Abstract_Controller {
 
 		$term = get_term( (int) $request['id'], $taxonomy );
 
-		do_action( 'directorist_rest_after_query', 'get_term_item', $request, $id, $taxonomy );
-
 		if ( is_wp_error( $term ) ) {
 			return $term;
 		}
 
 		$response = $this->prepare_item_for_response( $term, $request );
+
+		do_action( 'directorist_rest_after_query', 'get_term_item', $request, $id, $taxonomy );
 
 		$response = apply_filters( 'directorist_rest_response', $response, 'get_term_item', $request, $id, $taxonomy );
 
@@ -552,9 +552,8 @@ abstract class Terms_Controller extends Abstract_Controller {
 		// Update term data.
 		$meta_fields = $this->update_term_meta_fields( $term, $request );
 
-		do_action( 'directorist_rest_after_query', 'update_term_item', $request, $id, $taxonomy );
-
 		if ( is_wp_error( $meta_fields ) ) {
+			do_action( 'directorist_rest_after_query', 'update_term_item', $request, $id, $taxonomy );
 			return $meta_fields;
 		}
 
@@ -569,6 +568,8 @@ abstract class Terms_Controller extends Abstract_Controller {
 
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $term, $request );
+
+		do_action( 'directorist_rest_after_query', 'update_term_item', $request, $id, $taxonomy );
 
 		$response = apply_filters( 'directorist_rest_response', $response, 'update_term_item', $request, $id, $taxonomy );
 

@@ -536,8 +536,6 @@ class Users_Controller extends Abstract_Controller {
 
 		$result = wp_delete_user( $id, $reassign );
 
-		do_action( 'directorist_rest_after_query', 'delete_user_item', $request, $id );
-
 		if ( ! $result ) {
 			return new WP_Error(
 				'directorist_rest_cannot_delete',
@@ -554,6 +552,8 @@ class Users_Controller extends Abstract_Controller {
 		 * @param WP_REST_Request  $request   The request sent to the API.
 		 */
 		do_action( 'directorist_rest_delete_user', $user_data, $response, $request );
+
+		do_action( 'directorist_rest_after_query', 'delete_user_item', $request, $id );
 
 		$response = apply_filters( 'directorist_rest_response', $response, 'delete_user_item', $request );
 

@@ -98,8 +98,6 @@ class Listings_Controller extends Posts_Controller {
 
 		$query_results = $this->get_listings( $query_args );
 
-		do_action( 'directorist_rest_after_query', 'get_listing_items', $request, $query_args );
-
 		$objects = array();
 		foreach ( $query_results['objects'] as $object ) {
 			if ( ! $this->check_post_permissions( $this->post_type, 'read', $object->ID ) ) {
@@ -132,6 +130,8 @@ class Listings_Controller extends Posts_Controller {
 			$next_link = add_query_arg( 'page', $next_page, $base );
 			$response->link_header( 'next', $next_link );
 		}
+
+		do_action( 'directorist_rest_after_query', 'get_listing_items', $request, $query_args );
 
 		$response = apply_filters( 'directorist_rest_response', $response, 'get_listing_items', $request, $query_args );
 
@@ -500,8 +500,6 @@ class Listings_Controller extends Posts_Controller {
 
 		$post = get_post( $id );
 
-		do_action( 'directorist_rest_after_query', 'get_listing_item', $request, $id );
-
 		if ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
 			return new WP_Error( "directorist_rest_invalid_{$this->post_type}_id", __( 'Invalid ID.', 'directorist' ), array( 'status' => 404 ) );
 		}
@@ -512,6 +510,8 @@ class Listings_Controller extends Posts_Controller {
 		if ( $this->public ) {
 			$response->link_header( 'alternate', get_permalink( $id ), array( 'type' => 'text/html' ) );
 		}
+
+		do_action( 'directorist_rest_after_query', 'get_listing_item', $request, $id );
 
 		$response = apply_filters( 'directorist_rest_response', $response, 'get_listing_item', $request, $id );
 

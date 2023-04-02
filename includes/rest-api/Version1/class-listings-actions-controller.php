@@ -130,8 +130,6 @@ class Listings_Actions_Controller extends Abstract_Controller {
 			$this->contact_listing_owner( $listing_id, $request['name'], $request['email'], $request['message'] );
 		}
 
-		do_action( 'directorist_rest_after_query', 'create_listing_action_item', $request, $listing_id );
-
 		/**
 		 * Fires after an action is executed via the REST API.
 		 *
@@ -145,6 +143,10 @@ class Listings_Actions_Controller extends Abstract_Controller {
 		$response = $this->prepare_item_for_response( $action, $request );
 		$response = rest_ensure_response( $response );
 		$response->set_status( 201 );
+
+		do_action( 'directorist_rest_after_query', 'create_listing_action_item', $request, $listing_id );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'create_listing_action_item', $request, $request['id'] );
 
 		return $response;
 	}

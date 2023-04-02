@@ -92,8 +92,13 @@ class Listings_Controller extends Posts_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_items( $request ) {
-		$query_args    = $this->prepare_objects_query( $request );
+		$query_args = $this->prepare_objects_query( $request );
+
+		do_action( 'directorist_rest_before_query', 'get_listing_items', $request, $query_args );
+
 		$query_results = $this->get_listings( $query_args );
+
+		do_action( 'directorist_rest_after_query', 'get_listing_items', $request, $query_args );
 
 		$objects = array();
 		foreach ( $query_results['objects'] as $object ) {
@@ -127,6 +132,8 @@ class Listings_Controller extends Posts_Controller {
 			$next_link = add_query_arg( 'page', $next_page, $base );
 			$response->link_header( 'next', $next_link );
 		}
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_listing_items', $request, $query_args );
 
 		return $response;
 	}
@@ -487,8 +494,13 @@ class Listings_Controller extends Posts_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
-		$id   = (int) $request['id'];
+		$id = (int) $request['id'];
+
+		do_action( 'directorist_rest_before_query', 'get_listing_item', $request, $id );
+
 		$post = get_post( $id );
+
+		do_action( 'directorist_rest_after_query', 'get_listing_item', $request, $id );
 
 		if ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
 			return new WP_Error( "directorist_rest_invalid_{$this->post_type}_id", __( 'Invalid ID.', 'directorist' ), array( 'status' => 404 ) );
@@ -500,6 +512,8 @@ class Listings_Controller extends Posts_Controller {
 		if ( $this->public ) {
 			$response->link_header( 'alternate', get_permalink( $id ), array( 'type' => 'text/html' ) );
 		}
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_listing_item', $request, $id );
 
 		return $response;
 	}
@@ -642,7 +656,7 @@ class Listings_Controller extends Posts_Controller {
 	 * @param WP_Post   $listing WP_Post instance.
 	 * @param WP_REST_Request $request Request object.
 	 * @param string    $context Request context. Options: 'view' and 'edit'.
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function get_listing_data( $listing, $request, $context = 'view' ) {

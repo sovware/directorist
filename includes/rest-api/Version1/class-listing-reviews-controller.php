@@ -186,10 +186,14 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 		$prepared_args['type']      = 'review';
 		$prepared_args['post_type'] = ATBDP_POST_TYPE;
 
+		do_action( 'directorist_rest_before_query', 'get_review_items', $request, $prepared_args );
+
 		// Query reviews.
 		$query        = new WP_Comment_Query();
 		$query_result = $query->query( $prepared_args );
 		$reviews      = array();
+
+		do_action( 'directorist_rest_after_query', 'get_review_items', $request, $prepared_args );
 
 		foreach ( $query_result as $review ) {
 			if ( ! directorist_rest_check_listing_reviews_permissions( 'read', $review->comment_ID ) ) {
@@ -238,6 +242,8 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 			$response->link_header( 'next', $next_link );
 		}
 
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_review_items', $request, $prepared_args );
+
 		return $response;
 	}
 
@@ -248,13 +254,20 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
+		do_action( 'directorist_rest_before_query', 'get_review_item', $request, $request['id'] );
+
 		$review = $this->get_review( $request['id'] );
+
+		do_action( 'directorist_rest_after_query', 'get_review_item', $request, $request['id'] );
+
 		if ( is_wp_error( $review ) ) {
 			return $review;
 		}
 
 		$data     = $this->prepare_item_for_response( $review, $request );
 		$response = rest_ensure_response( $data );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_review_item', $request, $request['id'] );
 
 		return $response;
 	}

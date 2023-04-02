@@ -97,7 +97,12 @@ class Listings_Actions_Controller extends Abstract_Controller {
 	public function create_item( $request ) {
 		$listing_id = (int) $request['listing_id'];
 
+		do_action( 'directorist_rest_before_query', 'create_listing_action_item', $request, $listing_id );
+
 		if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+
+			do_action( 'directorist_rest_after_query', 'create_listing_action_item', $request, $listing_id );
+
 			return new WP_Error( 'directorist_rest_invalid_listing_id', __( 'Invalid listing id.', 'directorist' ), 400 );
 		}
 
@@ -105,6 +110,9 @@ class Listings_Actions_Controller extends Abstract_Controller {
 
 		if ( $action === 'report' ) {
 			if ( empty( $request['message'] ) ) {
+
+				do_action( 'directorist_rest_after_query', 'create_listing_action_item', $request, $listing_id );
+
 				return new WP_Error( 'directorist_rest_missing_message', __( 'Message is required to report.', 'directorist' ), 400 );
 			}
 
@@ -113,11 +121,16 @@ class Listings_Actions_Controller extends Abstract_Controller {
 
 		if ( $action === 'contact' ) {
 			if ( empty( $request['name'] ) || empty( $request['email'] ) || empty( $request['message'] ) ) {
+
+				do_action( 'directorist_rest_after_query', 'create_listing_action_item', $request, $listing_id );
+
 				return new WP_Error( 'directorist_rest_missing_params', __( 'name, email and message are required.', 'directorist' ), 400 );
 			}
 
 			$this->contact_listing_owner( $listing_id, $request['name'], $request['email'], $request['message'] );
 		}
+
+		do_action( 'directorist_rest_after_query', 'create_listing_action_item', $request, $listing_id );
 
 		/**
 		 * Fires after an action is executed via the REST API.

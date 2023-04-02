@@ -268,6 +268,8 @@ class Users_Controller extends Abstract_Controller {
 		 */
 		$prepared_args = apply_filters( 'directorist_rest_user_query', $prepared_args, $request );
 
+		do_action( 'directorist_rest_before_query', 'get_user_items', $request, $prepared_args );
+
 		$query = new WP_User_Query( $prepared_args );
 
 		$users = array();
@@ -309,6 +311,10 @@ class Users_Controller extends Abstract_Controller {
 			$next_link = add_query_arg( 'page', $next_page, $base );
 			$response->link_header( 'next', $next_link );
 		}
+
+		do_action( 'directorist_rest_after_query', 'get_user_items', $request, $prepared_args );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_user_items', $request, $prepared_args );
 
 		return $response;
 	}
@@ -352,8 +358,11 @@ class Users_Controller extends Abstract_Controller {
 			$user_data['user_login'] = $username;
 		}
 
+		do_action( 'directorist_rest_before_query', 'create_user_item', $request, $user_data );
+
 		$user_id = wp_insert_user( $user_data );
 		if ( is_wp_error( $user_id ) ) {
+			do_action( 'directorist_rest_after_query', 'create_user_item', $request );
 			return $user_id;
 		}
 
@@ -376,6 +385,10 @@ class Users_Controller extends Abstract_Controller {
 		$response->set_status( 201 );
 		$response->header( 'Location', rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $user_data ) ) );
 
+		do_action( 'directorist_rest_after_query', 'create_user_item', $request );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'create_user_item', $request );
+
 		return $response;
 	}
 
@@ -386,15 +399,23 @@ class Users_Controller extends Abstract_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
-		$id        = (int) $request['id'];
+		$id = (int) $request['id'];
+
+		do_action( 'directorist_rest_before_query', 'get_user_item', $request, $id );
+
 		$user_data = get_userdata( $id );
 
 		if ( empty( $id ) || empty( $user_data->ID ) ) {
+			do_action( 'directorist_rest_after_query', 'get_user_item', $request, $id );
 			return new WP_Error( 'directorist_rest_invalid_id', __( 'Invalid resource ID.', 'directorist' ), array( 'status' => 404 ) );
 		}
 
 		$user_data = $this->prepare_item_for_response( $user_data, $request );
 		$response  = rest_ensure_response( $user_data );
+
+		do_action( 'directorist_rest_after_query', 'get_user_item', $request, $id );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_user_item', $request, $id );
 
 		return $response;
 	}
@@ -406,18 +427,24 @@ class Users_Controller extends Abstract_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function update_item( $request ) {
-		$id        = (int) $request['id'];
+		$id = (int) $request['id'];
+
+		do_action( 'directorist_rest_before_query', 'update_user_item', $request, $id );
+
 		$user_data = get_userdata( $id );
 
 		if ( empty( $user_data ) ) {
+			do_action( 'directorist_rest_after_query', 'update_user_item', $request, $id );
 			return new WP_Error( 'directorist_rest_invalid_id', __( 'Invalid resource ID.', 'directorist' ), 400 );
 		}
 
 		if ( ! empty( $request['email'] ) && email_exists( $request['email'] ) && $request['email'] !== $user_data->user_email ) {
+			do_action( 'directorist_rest_after_query', 'update_user_item', $request, $id );
 			return new WP_Error( 'directorist_rest_user_invalid_email', __( 'Email address is invalid.', 'directorist' ), 400 );
 		}
 
 		if ( ! empty( $request['username'] ) && $request['username'] !== $user_data->user_login ) {
+			do_action( 'directorist_rest_after_query', 'update_user_item', $request, $id );
 			return new WP_Error( 'directorist_rest_user_invalid_argument', __( "Username isn't editable.", 'directorist' ), 400 );
 		}
 
@@ -457,6 +484,11 @@ class Users_Controller extends Abstract_Controller {
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $user_data, $request );
 		$response = rest_ensure_response( $response );
+
+		do_action( 'directorist_rest_after_query', 'update_user_item', $request, $id );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'update_user_item', $request );
+
 		return $response;
 	}
 
@@ -481,13 +513,17 @@ class Users_Controller extends Abstract_Controller {
 			);
 		}
 
+		do_action( 'directorist_rest_before_query', 'delete_user_item', $request, $id );
+
 		$user_data = get_userdata( $id );
 		if ( ! $user_data ) {
+			do_action( 'directorist_rest_after_query', 'delete_user_item', $request, $id );
 			return new WP_Error( 'directorist_rest_invalid_id', __( 'Invalid resource id.', 'directorist' ), array( 'status' => 400 ) );
 		}
 
 		if ( ! empty( $reassign ) ) {
 			if ( $reassign === $id || ! get_userdata( $reassign ) ) {
+				do_action( 'directorist_rest_after_query', 'delete_user_item', $request, $id );
 				return new WP_Error( 'directorist_rest_user_invalid_reassign', __( 'Invalid resource id for reassignment.', 'directorist' ), array( 'status' => 400 ) );
 			}
 		}
@@ -499,6 +535,8 @@ class Users_Controller extends Abstract_Controller {
 		require_once ABSPATH . 'wp-admin/includes/user.php';
 
 		$result = wp_delete_user( $id, $reassign );
+
+		do_action( 'directorist_rest_after_query', 'delete_user_item', $request, $id );
 
 		if ( ! $result ) {
 			return new WP_Error(
@@ -516,6 +554,8 @@ class Users_Controller extends Abstract_Controller {
 		 * @param WP_REST_Request  $request   The request sent to the API.
 		 */
 		do_action( 'directorist_rest_delete_user', $user_data, $response, $request );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'delete_user_item', $request );
 
 		return $response;
 	}

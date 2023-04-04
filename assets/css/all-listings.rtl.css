@@ -491,8 +491,12 @@ p.status:empty {
 }
 
 .select2-container--open .select2-dropdown--above {
-  top: 32px;
+  top: 0;
   border-color: #ececec;
+}
+
+body.logged-in .select2-container--open .select2-dropdown--above {
+  top: 32px;
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field:focus {
@@ -12175,6 +12179,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 100%;
   height: 400px;
   border: 0 none;
+}
+@media (max-width: 768px) {
+  .directorist-single-wrapper .directorist-embaded-video {
+    height: 56.25vw;
+  }
 }
 
 .directorist-related-listing-header h1,

@@ -65,6 +65,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			return $id;
 		}
 
+
 		/**
 		 * Process listing submission.
 		 *
@@ -159,7 +160,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						$is_location_admin_only = true;
 					}
 
-					if ( 'description'  === $field_internal_key ) {
+					if ( 'description' === $field_internal_key ) {
 						$is_description_admin_only = true;
 					}
 
@@ -185,42 +186,28 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$additional_logic = false;
 				}
 
-				if ( $additional_logic ) {
-					$regular_field = true;
-					// error handling
-					if ( ( 'category' === $field_internal_key ) && $required && ! $posted_categories ) {
-						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-						$regular_field = false;
+				if ( $additional_logic && $required ) {
+					$is_empty = false;
+
+					if ( 'category' === $field_internal_key && empty( $posted_categories ) ) {
+						$is_empty = true;
+					} elseif ( 'location' === $field_internal_key && empty( $posted_locations ) ) {
+						$is_empty = true;
+					} elseif ( 'tag' === $field_internal_key && empty( $posted_tags ) ) {
+						$is_empty = true;
+					} elseif ( 'image_upload' === $field_internal_key && empty( $images ) ) {
+						$is_empty = true;
+					} elseif ( 'map' === $field_internal_key && ! $map ) {
+						$is_empty = true;
 					}
 
-					if ( ( 'location' === $field_internal_key ) && $required && ! $posted_locations ) {
-						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-						$regular_field = false;
+					if ( ! in_array( $field_internal_key, array( 'category', 'location', 'tag', 'image_upload', 'map' ), true ) && ! $submitted_data ) {
+						$is_empty = true;
 					}
 
-					if ( ( 'tag' === $field_internal_key ) && $required && ! $posted_tags ) {
+					if ( $is_empty ) {
 						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-						$regular_field = false;
-					}
-
-					if ( ( 'image_upload' === $field_internal_key ) && $required && ! $images ) {
-						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-						$regular_field = false;
-					}
-
-					if ( ( 'map' === $field_internal_key ) && $required && ! $map ) {
-						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-						$regular_field = false;
-					}
-
-					if ( $regular_field && $required && ! $submitted_data ) {
-						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
+						$error[] = sprintf( __( '<strong>%s</strong> field is required!', 'directorist' ), $label );
 					}
 				}
 
@@ -262,7 +249,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			}
 
 			if ( $error ) {
-				$data['error_msg'] = $error;
+				$data['error_msg'] = implode( '<br>', $error );
 				$data['error']     = true;
 			}
 			/**

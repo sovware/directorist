@@ -408,7 +408,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.5.2 - Apr 03, 2023
+7.5.2 - Apr 04, 2023
 
 * Add - WordPress 6.2 compatibility
 * Add - Icon reset button to icon picker

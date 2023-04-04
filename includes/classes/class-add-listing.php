@@ -127,6 +127,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$is_tag_insert_allowed      = false;
 			$is_category_insert_allowed = false;
 			$is_location_insert_allowed = false;
+			$max_allowed_location = 0;
 
 			$public_fields_with_empty_post_data = array();
 
@@ -169,6 +170,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				if ( 'location' === $field_internal_key ) {
 					$is_location_insert_allowed = (bool) $form_field['create_new_loc'];
+					$max_allowed_location       = (int) directorist_get_var( $form_field['max_location_creation'], 0 );
 				}
 
 				if ( 'category' === $field_internal_key ) {
@@ -179,14 +181,14 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$is_tag_insert_allowed = (bool) $form_field['allow_new'];
 				}
 
-				$additional_logic = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $form_field, $posted_data );
+				$should_validate = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $form_field, $posted_data );
 
-				$field_category_id = ! empty( $form_field['category'] ) ? absint( $form_field['category'] ) : 0;
+				$field_category_id = (int) directorist_get_var( $form_field['category'], 0 );
 				if ( $field_category_id && is_array( $posted_categories ) && ! in_array( $field_category_id, $posted_categories, true ) ) {
-					$additional_logic = false;
+					$should_validate = false;
 				}
 
-				if ( $additional_logic && $required ) {
+				if ( $should_validate && $required ) {
 					$is_empty = false;
 
 					if ( 'category' === $field_internal_key && empty( $posted_categories ) ) {
@@ -362,6 +364,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 								}
 							}
 
+							if ( $max_allowed_location > 0 ) {
+								$location_ids = array_slice( $location_ids, 0, $max_allowed_location );
+							}
+
 							wp_set_object_terms( $post_id, $location_ids, ATBDP_LOCATION );
 						}
 					}
@@ -521,6 +527,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 											update_term_meta( $location_added['term_id'], '_directory_type', array( $directory_type ) );
 										}
 									}
+								}
+
+								if ( $max_allowed_location > 0 ) {
+									$location_ids = array_slice( $location_ids, 0, $max_allowed_location );
 								}
 
 								wp_set_object_terms( $post_id, $location_ids, ATBDP_LOCATION );

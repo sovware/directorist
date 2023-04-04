@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.0
-Stable tag: 7.5.1
+Stable tag: 7.5.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -407,6 +407,20 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.5.2 - Apr 03, 2023
+
+* Add - WordPress 6.2 compatibility
+* Add - Icon reset button to icon picker
+* Fix - Directory builder widget label issue
+* Fix - Warning in single listing review section when no review found
+* Fix - Dashboard Tab Sub Menu Hash Link add on Click Issue
+* FIx - Sub location & category segmentation on admin add listing
+* Fix - Video thumbnail issue on mobile view
+* Fix - Apply & reset filter disappears issue on all listing search form.
+* Fix - Data overriding issue from frontend edit listing
+* Fix - Markup issue of Similar listing
+* Improve -  Update existing listings on listing importer, by specifying ID
 
 7.5.1 - Mar 02, 2023
 

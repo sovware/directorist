@@ -28,11 +28,11 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 18px;
-                height: 18px;
-                border-radius: 3px;
+                width: 16px;
+                height: 16px;
+                border-radius: 5px;
                 content: "";
-                border: 1px solid #C6D0DC;
+                border: 2px solid var(--directorist-color-gray);
                 background-color: #fff;
             }
         }

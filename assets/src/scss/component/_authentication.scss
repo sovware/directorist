@@ -13,10 +13,16 @@
     @include e(actions) {
         display: flex;
         justify-content: space-between;
-        p {
+        padding: 28px 0 33px;
+        a {
             font-size: 14px;
             font-weight: 400;
-            color: var(--directorist-color-body);
+            color: var(--directorist-color-deep-gray);
+            border-bottom: 1px dashed var(--directorist-color-deep-gray);
+            &:hover {
+                color: var(--directorist-color-primary);
+                border-color: var(--directorist-color-primary);
+            }
         }
         @include m(label) {
             font-size: 14px;

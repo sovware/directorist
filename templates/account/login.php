@@ -10,7 +10,7 @@ use \Directorist\Helper;
 <div class="directorist-login-wrapper directorist-w-100 directorist-author directorist-author__login">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
-            <div class="directorist-col-md-6 directorist-offset-md-3">
+            <div class="directorist-col-md-4 directorist-offset-md-4">
                 <div class="atbdp_login_form_shortcode directorist-author__wrapper">
                     <?php
 					// start recovery stuff
@@ -99,28 +99,28 @@ use \Directorist\Helper;
 
 						?>
 						<form action="#" id="login" method="POST">
-							<div class="directorist-form-group directorist-mb-15 directorist-author__form-group">
+							<div class="directorist-form-group directorist-author__form-group directorist-mb-35">
 								<label for="username" class="directorist-author__form-group--label"><?php echo esc_html( $log_username ); ?></label>
 								<input type="text" placeholder="<?php echo esc_html( $log_username ); ?>" class="directorist-form-element directorist-author__form-group--input" id="username" name="username">
 							</div>
 
-							<div class="directorist-form-group directorist-mb-15 directorist-author__form-group">
+							<div class="directorist-form-group directorist-author__form-group">
 								<label for="password"><?php echo esc_html( $log_password ); ?></label>
 								<input type="password" placeholder="<?php echo esc_html( $log_password ); ?>" id="password" autocomplete="off" name="password" class="directorist-form-element directorist-author__form-group--input">
 							</div>
 
-							<div className="directorist-author__actions">
-								<div class="keep_signed directorist-checkbox directorist-mb-15">
+							<div class="directorist-author__actions">
+								<div class="keep_signed directorist-checkbox">
 									<?php if ( $display_rememberMe ) : ?>
 										<input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" class="directorist-author__actions--input" checked>
-										<label for="keep_signed_in" class="diectorist-checkbox__label not_empty directorist-author__actions--label">
+										<label for="keep_signed_in" class="directorist-checkbox__label not_empty directorist-author__actions--label">
 											<?php echo esc_html( $log_rememberMe ); ?>
 										</label>
 									<?php endif; ?>
 								</div>
 
 								<?php if ( $display_recpass ) :
-									$output = sprintf( __( '<p>%s</p>', 'directorist' ), "<a href='' class='atbdp_recovery_pass directorist-author__recovery-pass'> " . $recpass_text . '</a>' );
+									$output = sprintf( "<a href='' class='atbdp_recovery_pass directorist-author__recovery-pass'> " . $recpass_text . '</a>' );
 									echo wp_kses_post( $output );
 								endif; ?>
 							</div>

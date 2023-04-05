@@ -6154,6 +6154,18 @@ body.logged-in .select2-container--open .select2-dropdown--above {
   margin-bottom: 0 !important;
 }
 
+.directorist-mb-35 {
+  margin-bottom: 35px !important;
+}
+
+.directorist-mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.directorist-mb-25 {
+  margin-bottom: 25px !important;
+}
+
 .directorist-mb-20 {
   margin-bottom: 20px !important;
 }
@@ -8961,7 +8973,6 @@ for shortable field*/
 .directorist-form-group .directorist-form-element {
   position: relative;
   padding: 10px 0 15px;
-  margin: 0 0 17px;
   width: 100%;
   font-size: 14px;
   font-weight: 400;
@@ -9806,11 +9817,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   position: absolute;
   left: 0;
   top: 0;
-  width: 18px;
-  height: 18px;
-  border-radius: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
   content: "";
-  border: 1px solid #C6D0DC;
+  border: 2px solid var(--directorist-color-gray);
   background-color: #fff;
 }
 .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox]:checked + .directorist-radio__label:after,
@@ -10257,6 +10268,18 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-mb-0 {
   margin-bottom: 0 !important;
+}
+
+.directorist-mb-35 {
+  margin-bottom: 35px !important;
+}
+
+.directorist-mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.directorist-mb-25 {
+  margin-bottom: 25px !important;
 }
 
 .directorist-mb-20 {
@@ -13454,6 +13477,18 @@ input[type=radio] {
 
 .directorist-mb-0 {
   margin-bottom: 0 !important;
+}
+
+.directorist-mb-35 {
+  margin-bottom: 35px !important;
+}
+
+.directorist-mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.directorist-mb-25 {
+  margin-bottom: 25px !important;
 }
 
 .directorist-mb-20 {
@@ -16920,6 +16955,18 @@ input[type=radio] {
 
 .directorist-mb-0 {
   margin-bottom: 0 !important;
+}
+
+.directorist-mb-35 {
+  margin-bottom: 35px !important;
+}
+
+.directorist-mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.directorist-mb-25 {
+  margin-bottom: 25px !important;
 }
 
 .directorist-mb-20 {

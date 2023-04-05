@@ -173,6 +173,18 @@
   margin-bottom: 0 !important;
 }
 
+.directorist-mb-35 {
+  margin-bottom: 35px !important;
+}
+
+.directorist-mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.directorist-mb-25 {
+  margin-bottom: 25px !important;
+}
+
 .directorist-mb-20 {
   margin-bottom: 20px !important;
 }
@@ -7880,7 +7892,6 @@ p.atbd-min {
 .directorist-form-group .directorist-form-element {
   position: relative;
   padding: 10px 0 15px;
-  margin: 0 0 17px;
   width: 100%;
   font-size: 14px;
   font-weight: 400;
@@ -8166,11 +8177,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   position: absolute;
   right: 0;
   top: 0;
-  width: 18px;
-  height: 18px;
-  border-radius: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
   content: "";
-  border: 1px solid #C6D0DC;
+  border: 2px solid var(--directorist-color-gray);
   background-color: #fff;
 }
 .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox]:checked + .directorist-radio__label:after,
@@ -10128,11 +10139,17 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  padding: 28px 0 33px;
 }
-.directorist-author__actions p {
+.directorist-author__actions a {
   font-size: 14px;
   font-weight: 400;
-  color: var(--directorist-color-body);
+  color: var(--directorist-color-deep-gray);
+  border-bottom: 1px dashed var(--directorist-color-deep-gray);
+}
+.directorist-author__actions a:hover {
+  color: var(--directorist-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 .directorist-author__actions--label {
   font-size: 14px;

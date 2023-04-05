@@ -15,6 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<span class="directorist-single-info__label--text"><?php echo esc_html( $data['label'] ); ?></span>
 	</div>
 
-	<div class="directorist-single-info__value"><?php echo esc_textarea( $value ); ?></div>
+	<div class="directorist-single-info__value"><?php echo nl2br( esc_textarea( $value ) ); ?></div>
 
 </div>

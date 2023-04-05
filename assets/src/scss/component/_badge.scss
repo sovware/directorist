@@ -39,30 +39,30 @@
 .directorist-badge{
     &.directorist-badge-primary-transparent{
         color: var(--directorist-color-primary);
-        background-color: rgba(var(--directorist-color-primary),.15);
+        background-color: rgba(var(--directorist-color-primary-rgb),.15);
     }
     &.directorist-badge-warning-transparent{
         color: var(--directorist-color-warning);
-        background-color: rgba(var(--directorist-color-warning),.15);
+        background-color: rgba(var(--directorist-color-warning-rgb),.15);
     }
     &.directorist-badge-info-transparent{
         color: var(--directorist-color-info);
-        background-color: rgba(var(--directorist-color-info),.15);
+        background-color: rgba(var(--directorist-color-info-rgb),.15);
     }
     &.directorist-badge-success-transparent{
         color: var(--directorist-color-success);
-        background-color: rgba(var(--directorist-color-success),.15);
+        background-color: rgba(var(--directorist-color-success-rgb),.15);
     }
     &.directorist-badge-danger-transparent{
         color: var(--directorist-color-danger);
-        background-color: rgba(var(--directorist-color-danger),.15);
+        background-color: rgba(var(--directorist-color-danger-rgb),.15);
     }
     &.directorist-badge-light-transparent{
         color: var(--directorist-color-white);
-        background-color: rgba(var(--directorist-color-white),.15);
+        background-color: rgba(var(--directorist-color-white-rgb),.15);
     }
     &.directorist-badge-gray-transparent{
-        color: $gray;
-        background-color: rgba($gray,.15);
+        color: var(--directorist-color-gray);
+        background-color: rgba(var(--directorist-color-gray-rgb),.15);
     }
 }

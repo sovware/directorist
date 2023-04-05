@@ -48,18 +48,18 @@ use \Directorist\Helper;
 						if ( $key === $db_key ) :
 							do_action( 'directorist_before_reset_password_form' ); ?>
 
-							<form method="post" class="directorist-ResetPassword lost_reset_password">
+							<form method="post" class="directorist-ResetPassword lost_reset_password directorist-author__reset-password">
 								<p><?php esc_html_e( 'Enter a new password below.', 'directorist' ); ?></p>
 								<p>
 									<label for="password_1"><?php esc_html_e( 'New password', 'directorist' );?> &nbsp;<span class="required">*</span></label>
-									<input type="password" class="directorist-Input directorist-Input--text input-text directorist-author__input" name="password_1" id="password_1" autocomplete="new-password" />
+									<input type="password" class="directorist-Input directorist-Input--text input-text directorist-author__reset-password--input" name="password_1" id="password_1" autocomplete="new-password" />
 								</p>
 								<p>
 									<label for="password_2">
 										<?php esc_html_e( 'Re-enter new password', 'directorist' );?>&nbsp;
 										<span class="required">*</span>
 									</label>
-									<input type="password" class="directorist-Input directorist-Input--text input-text directorist-author__input" name="password_2" id="password_2" autocomplete="new-password" />
+									<input type="password" class="directorist-Input directorist-Input--text input-text directorist-author__reset-password--input" name="password_2" id="password_2" autocomplete="new-password" />
 								</p>
 
 								<div class="clear"></div>
@@ -67,7 +67,7 @@ use \Directorist\Helper;
 								<?php do_action( 'directorist_resetpassword_form' );?>
 
 								<p class="directorist-form-row form-row">
-									<input type="hidden" name="directorist_reset_password directorist-author__reset-password" value="true" />
+									<input type="hidden" name="directorist_reset_password directorist-author__reset-password--input" value="true" />
 									<button type="submit" class="btn btn-primary directorist-author__" value="<?php esc_attr_e( 'Save', 'directorist' );?>"><?php esc_html_e( 'Save', 'directorist' );?></button>
 								</p>
 
@@ -100,7 +100,7 @@ use \Directorist\Helper;
 						?>
 						<form action="#" id="login" method="POST">
 							<div class="directorist-form-group directorist-mb-15 directorist-author__form-group">
-								<label for="username"><?php echo esc_html( $log_username ); ?></label>
+								<label for="username" class="directorist-author__form-group--label"><?php echo esc_html( $log_username ); ?></label>
 								<input type="text" placeholder="<?php echo esc_html( $log_username ); ?>" class="directorist-form-element directorist-author__form-group--input" id="username" name="username">
 							</div>
 
@@ -112,8 +112,8 @@ use \Directorist\Helper;
 							<div className="directorist-author__actions">
 								<div class="keep_signed directorist-checkbox directorist-mb-15">
 									<?php if ( $display_rememberMe ) : ?>
-										<input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in directorist-author__keep_signed_in" checked>
-										<label for="keep_signed_in" class="diectorist-checkbox__label not_empty">
+										<input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" class="directorist-author__actions--input" checked>
+										<label for="keep_signed_in" class="diectorist-checkbox__label not_empty directorist-author__actions--label">
 											<?php echo esc_html( $log_rememberMe ); ?>
 										</label>
 									<?php endif; ?>
@@ -139,10 +139,12 @@ use \Directorist\Helper;
 						</div>
 
 						<?php if ( ! empty( $display_signup ) && $new_user_registration ) : ?>
-							<p>
-								<?php echo esc_html( $reg_text ); ?>
-								<a href="<?php echo esc_url( $reg_url ); ?>"><?php echo esc_html( $reg_linktxt ); ?></a>
-							</p>
+							<div class="directorist-author__toggle-area">
+								<p>
+									<?php echo esc_html( $reg_text ); ?>
+									<a href="<?php echo esc_url( $reg_url ); ?>"><?php echo esc_html( $reg_linktxt ); ?></a>
+								</p>
+							</div>
 						<?php endif; ?>
 
 						<?php

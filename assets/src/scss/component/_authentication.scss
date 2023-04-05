@@ -1,0 +1,42 @@
+/* Authentication style */
+.directorist-author {
+    @include e(wrapper) {
+        padding: 50px 40px;
+        border-radius: 16px;
+        box-shadow: var(--directorist-box-shadow);
+    }
+    @include e(btn) {
+        width: 100%;
+        height: 50px;
+        border-radius: 12px;
+    }
+    @include e(actions) {
+        display: flex;
+        justify-content: space-between;
+        p {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--directorist-color-body);
+        }
+        @include m(label) {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--directorist-color-body);
+        }
+    }
+    @include e('toggle-area') {
+        text-align: center;
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--directorist-color-body);
+        a {
+            color: var(--directorist-color-info);
+            &:hover {
+                color: var(--directorist-color-primary);
+            }
+        }
+        p {
+            margin: 0;
+        }
+    }
+}

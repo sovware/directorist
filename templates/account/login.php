@@ -7,11 +7,11 @@
 
 use \Directorist\Helper;
 ?>
-<div class="directorist-login-wrapper directorist-w-100">
+<div class="directorist-login-wrapper directorist-w-100 directorist-author directorist-author__login">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
             <div class="directorist-col-md-6 directorist-offset-md-3">
-                <div class="atbdp_login_form_shortcode">
+                <div class="atbdp_login_form_shortcode directorist-author__wrapper">
                     <?php
 					// start recovery stuff
 					$recovery = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
@@ -32,14 +32,14 @@ use \Directorist\Helper;
 								] );
 
 								if ( $update_user ) : ?>
-									<p class="atbd_reset_success"><?php echo esc_html__( 'Password changed successfully!', 'directorist' ); ?>
+									<p class="atbd_reset_success directorist-author__success"><?php echo esc_html__( 'Password changed successfully!', 'directorist' ); ?>
 										<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url() ) ?>"><?php echo esc_html__( ' Login', 'directorist' ); ?></a>
 									</p>
 								<?php endif;
 							elseif ( empty( $password_1 || $password_2 ) ) : ?>
-								<p class="atbd_reset_warning"><?php echo esc_html__( 'Fields are required!', 'directorist' ); ?></p>
+								<p class="atbd_reset_warning directorist-author__warning"><?php echo esc_html__( 'Fields are required!', 'directorist' ); ?></p>
 							<?php else : ?>
-								<p class="atbd_reset_error"><?php echo esc_html__( 'Password not matched!', 'directorist' ); ?></p>
+								<p class="atbd_reset_error directorist-author__error"><?php echo esc_html__( 'Password not matched!', 'directorist' ); ?></p>
 							<?php endif;
 						endif;
 
@@ -52,14 +52,14 @@ use \Directorist\Helper;
 								<p><?php esc_html_e( 'Enter a new password below.', 'directorist' ); ?></p>
 								<p>
 									<label for="password_1"><?php esc_html_e( 'New password', 'directorist' );?> &nbsp;<span class="required">*</span></label>
-									<input type="password" class="directorist-Input directorist-Input--text input-text" name="password_1" id="password_1" autocomplete="new-password" />
+									<input type="password" class="directorist-Input directorist-Input--text input-text directorist-author__input" name="password_1" id="password_1" autocomplete="new-password" />
 								</p>
 								<p>
 									<label for="password_2">
 										<?php esc_html_e( 'Re-enter new password', 'directorist' );?>&nbsp;
 										<span class="required">*</span>
 									</label>
-									<input type="password" class="directorist-Input directorist-Input--text input-text" name="password_2" id="password_2" autocomplete="new-password" />
+									<input type="password" class="directorist-Input directorist-Input--text input-text directorist-author__input" name="password_2" id="password_2" autocomplete="new-password" />
 								</p>
 
 								<div class="clear"></div>
@@ -67,8 +67,8 @@ use \Directorist\Helper;
 								<?php do_action( 'directorist_resetpassword_form' );?>
 
 								<p class="directorist-form-row form-row">
-									<input type="hidden" name="directorist_reset_password" value="true" />
-									<button type="submit" class="btn btn-primary" value="<?php esc_attr_e( 'Save', 'directorist' );?>"><?php esc_html_e( 'Save', 'directorist' );?></button>
+									<input type="hidden" name="directorist_reset_password directorist-author__reset-password" value="true" />
+									<button type="submit" class="btn btn-primary directorist-author__" value="<?php esc_attr_e( 'Save', 'directorist' );?>"><?php esc_html_e( 'Save', 'directorist' );?></button>
 								</p>
 
 								<?php wp_nonce_field( 'reset_password', 'directorist-reset-password-nonce' );?>
@@ -87,7 +87,7 @@ use \Directorist\Helper;
 						$log_rememberMe      = get_directorist_option( 'log_rememberme', __( 'Remember Me', 'directorist' ) );
 						$log_button          = get_directorist_option( 'log_button', __( 'Log In', 'directorist' ) );
 						$display_recpass     = get_directorist_option( 'display_recpass', 1 );
-						$recpass_text        = get_directorist_option( 'recpass_text', __( 'Recover Password', 'directorist' ) );
+						$recpass_text        = get_directorist_option( 'recpass_text', __( 'Forgot Password?', 'directorist' ) );
 						$recpass_desc        = get_directorist_option( 'recpass_desc', __( 'Lost your password? Please enter your email address. You will receive a link to create a new password via email.', 'directorist' ) );
 						$recpass_username    = get_directorist_option( 'recpass_username', __( 'E-mail:', 'directorist' ) );
 						$recpass_placeholder = get_directorist_option( 'recpass_placeholder', __( 'eg. mail@example.com', 'directorist' ) );
@@ -99,39 +99,42 @@ use \Directorist\Helper;
 
 						?>
 						<form action="#" id="login" method="POST">
-							<div class="directorist-form-group directorist-mb-15">
+							<div class="directorist-form-group directorist-mb-15 directorist-author__form-group">
 								<label for="username"><?php echo esc_html( $log_username ); ?></label>
-								<input type="text" class="directorist-form-element" id="username" name="username">
+								<input type="text" placeholder="<?php echo esc_html( $log_username ); ?>" class="directorist-form-element directorist-author__form-group--input" id="username" name="username">
 							</div>
 
-							<div class="directorist-form-group directorist-mb-15">
+							<div class="directorist-form-group directorist-mb-15 directorist-author__form-group">
 								<label for="password"><?php echo esc_html( $log_password ); ?></label>
-								<input type="password" id="password" autocomplete="off" name="password" class="directorist-form-element">
+								<input type="password" placeholder="<?php echo esc_html( $log_password ); ?>" id="password" autocomplete="off" name="password" class="directorist-form-element directorist-author__form-group--input">
 							</div>
 
-							<div class="directorist-form-group atbd_login_btn_wrapper directorist-mb-15">
-								<button class="directorist-btn directorist-btn-block directorist-btn-primary" type="submit" value="<?php echo esc_attr( $log_button ); ?>" name="submit"><?php echo esc_html( $log_button ); ?></button>
+							<div className="directorist-author__actions">
+								<div class="keep_signed directorist-checkbox directorist-mb-15">
+									<?php if ( $display_rememberMe ) : ?>
+										<input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in directorist-author__keep_signed_in" checked>
+										<label for="keep_signed_in" class="diectorist-checkbox__label not_empty">
+											<?php echo esc_html( $log_rememberMe ); ?>
+										</label>
+									<?php endif; ?>
+								</div>
+
+								<?php if ( $display_recpass ) :
+									$output = sprintf( __( '<p>%s</p>', 'directorist' ), "<a href='' class='atbdp_recovery_pass directorist-author__recovery-pass'> " . $recpass_text . '</a>' );
+									echo wp_kses_post( $output );
+								endif; ?>
+							</div>
+
+							<div class="directorist-form-group atbd_login_btn_wrapper directorist-mb-15 directorist-author__btn-wrapper">
+								<button class="directorist-btn directorist-btn-block directorist-btn-primary directorist-author__btn" type="submit" value="<?php echo esc_attr( $log_button ); ?>" name="submit"><?php echo esc_html( $log_button ); ?></button>
 								<?php wp_nonce_field( 'ajax-login-nonce', 'security' );?>
 							</div>
+
 							<p class="status"></p>
-
-							<div class="keep_signed directorist-checkbox directorist-mb-15">
-								<?php if ( $display_rememberMe ) : ?>
-									<input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked>
-									<label for="keep_signed_in" class="directorist-checkbox__label not_empty">
-										<?php echo esc_html( $log_rememberMe ); ?>
-									</label>
-								<?php endif; ?>
-							</div>
-
-							<?php if ( $display_recpass ) :
-								$output = sprintf( __( '<p>%s</p>', 'directorist' ), "<a href='' class='atbdp_recovery_pass'> " . $recpass_text . '</a>' );
-								echo wp_kses_post( $output );
-							endif; ?>
 
 						</form>
 
-						<div class="atbd_social_login">
+						<div class="atbd_social_login directorist-author__social-login">
 							<?php do_action( 'atbdp_before_login_form_end' );?>
 						</div>
 
@@ -195,22 +198,22 @@ use \Directorist\Helper;
 							}
 
 							if ( ! empty( $error ) ) {
-								$output =  '<div class="message"><p class="error"><strong>' . __( 'ERROR:', 'directorist' ) . '</strong> ' . $error . '</p></div>';
+								$output =  '<div class="message"><p class="error directorist-author__recover-pass-error"><strong>' . __( 'ERROR:', 'directorist' ) . '</strong> ' . $error . '</p></div>';
 								echo wp_kses_post( $output );
 							}
 
 							if ( ! empty( $success ) ) {
-								echo '<div class="error_login"><p class="success">' . esc_html( $success ) . '</p></div>';
+								echo '<div class="error_login"><p class="success directorist-author__recover-pass-success">' . esc_html( $success ) . '</p></div>';
 							}
 
 						endif; ?>
 
-						<div id="recover-pass-modal" class="directorist-mt-15">
+						<div id="recover-pass-modal" class="directorist-mt-15 directorist-author__recover-pass-modal">
 							<form method="post">
 								<fieldset class="directorist-form-group">
 									<p><?php echo esc_html( $recpass_desc ); ?></p>
 									<label for="reset_user_login"><?php echo esc_html( $recpass_username ); ?></label>
-									<input type="text" class="directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $recpass_placeholder ); ?>" required="required" />
+									<input type="text" class="directorist-form-element directorist-author__input" name="user_login" id="reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $recpass_placeholder ); ?>" required="required" />
 									<p>
 										<input type="hidden" name="action" value="reset" />
 										<button type="submit" class="directorist-btn directorist-btn-primary" id="submit"><?php echo esc_html( $recpass_button ); ?></button>

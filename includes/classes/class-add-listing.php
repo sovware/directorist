@@ -133,6 +133,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			// meta input
 			foreach ( $submission_form_fields as $field_internal_key => $form_field ) {
+				$field_type       = directorist_get_var( $form_field['type'] );
 				$field_key        = ! empty( $form_field['field_key'] ) ? $form_field['field_key'] : '';
 				$submitted_data   = ! empty( $posted_data[ $field_key ] ) ? $posted_data[ $field_key ] : '';
 				$required         = ! empty( $form_field['required'] ) ? true : false;
@@ -228,7 +229,13 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				if ( ! in_array( $field_key, array( 'listing_title', 'listing_content', 'tax_input' ), true ) && isset( $posted_data[ $field_key ] ) ) {
 					$meta_field_key = '_' . $field_key;
-					$meta_data[ $meta_field_key ] = directorist_clean( $posted_data[ $field_key ] );
+					if ( $field_type === 'textarea' ) {
+						$meta_data[ $meta_field_key ] = sanitize_textarea_field( $posted_data[ $field_key ] );
+					} elseif ( $field_type === 'email' ) {
+						$meta_data[ $meta_field_key ] = sanitize_email( $posted_data[ $field_key ] );
+					} else {
+						$meta_data[ $meta_field_key ] = directorist_clean( $posted_data[ $field_key ] );
+					}
 				}
 			}
 

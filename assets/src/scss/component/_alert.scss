@@ -65,7 +65,7 @@
 // Alert Type
 .directorist-alert {
     &.directorist-alert-primary {
-        background: rgba(var(--directorist-color-primary), .10);
+        background: rgba(var(--directorist-color-primary-rgb), .10);
         color: var(--directorist-color-primary);
 
         .directorist-alert__close {

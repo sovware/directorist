@@ -55,7 +55,7 @@
         }
 
         #directorist-report-abuse-message-display{
-            color: $body-color;
+            color: var(--directorist-color-body);
             margin-top: 15px;
         }
     }

@@ -66,20 +66,20 @@
                     font-weight: 500;
                     margin: 0 0 6px;
                     a{
-                        color: $dark;
+                        color: var(--directorist-color-primary);
                         text-decoration: none;
                     }
                 }
 
                 .directorist-listing-category{
-                    color: $primary;
+                    color: var(--directorist-color-primary);
                     text-decoration: none;
                     span.la,
                     span.fa,
                     span.fas,
                     i{
                         margin-right: 6px;
-                        color: $light-gray;
+                        color: var(--directorist-color-white)-gray;
                     }
                 }
             }

@@ -41,13 +41,13 @@
                         transition: 0.3s ease;
 
                         &:hover {
-                            border-bottom-color: $primary;
+                            border-bottom-color: var(--directorist-color-primary);
                         }
                     }
 
                     &.active {
                         a {
-                            border-bottom-color: $primary;
+                            border-bottom-color: var(--directorist-color-primary);
                         }
                     }
                 }

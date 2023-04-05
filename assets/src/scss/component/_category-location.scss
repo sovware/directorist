@@ -104,7 +104,7 @@
 
                         h3,
                         p {
-                            color: $dark;
+                            color: var(--directorist-color-primary);
                         }
                     }
                 }
@@ -293,7 +293,7 @@
                         width: 70px;
                         padding: 0;
                         border-radius: 50%;
-                        background-color: $primary;
+                        background-color: var(--directorist-color-primary);
                         margin: auto auto 20px auto;
                         .directorist-icon-mask{
                             &:after{

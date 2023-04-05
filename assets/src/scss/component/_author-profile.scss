@@ -58,18 +58,18 @@
 
             .directorist-listing-rating-meta {
                 i {
-                    color: $warning;
+                    color: var(--directorist-color-warning);
                     margin-left: 5px;
                 }
             }
 
             .directorist-review-count,
             .directorist-listing-count {
-                color: $body-color;
+                color: var(--directorist-color-body);
 
                 span {
                     display: block;
-                    color: $primary;
+                    color: var(--directorist-color-primary);
                 }
             }
         }
@@ -192,7 +192,7 @@
                 line-height: 35px;
                 width: 35px;
                 text-align: center;
-                background-color: $primary;
+                background-color: var(--directorist-color-primary);
                 border-radius: 4px;
                 color: #ffffff;
                 overflow: hidden;

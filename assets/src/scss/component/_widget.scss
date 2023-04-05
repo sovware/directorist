@@ -29,7 +29,7 @@
     li {
       &:hover {
         .directorist-widget-list__icon {
-          background-color: $primary;
+          background-color: var(--directorist-color-primary);
           color: #fff;
         }
       }
@@ -93,7 +93,7 @@
 .widget.atbd_widget {
   a {
     text-decoration: none;
-    color: $dark;
+    color: var(--directorist-color-primary);
   }
 
   padding: 0;
@@ -205,8 +205,8 @@
 
     .btn {
       color: #fff;
-      background-color: $primary;
-      border-color: $primary;
+      background-color: var(--directorist-color-primary);
+      border-color: var(--directorist-color-primary);
       text-decoration: none;
       padding: 8px 15px;
       display: inline-block;
@@ -242,7 +242,7 @@
 
           &:hover {
             @extend .atbd_bg-primary;
-            color: $light;
+            color: var(--directorist-color-white);
           }
         }
       }
@@ -430,7 +430,7 @@
           .directorist-icon-mask {
             @extend .atbd_bg-primary;
             &:after{
-              background-color: $light;
+              background-color: var(--directorist-color-white);
             }
           }
         }
@@ -634,7 +634,7 @@
         }
 
         a {
-          color: $body-color;
+          color: var(--directorist-color-body);
         }
       }
     }
@@ -741,7 +741,7 @@
   }
 
   .atbd_badge {
-    color: $light;
+    color: var(--directorist-color-white);
     font-size: 11px;
     padding: 0 7px;
     border-radius: 2px;
@@ -1116,8 +1116,8 @@
               background: transparent !important;
               &:checked{
                   &+span{
-                      background-color: $primary;
-                      border-color: $primary;
+                      background-color: var(--directorist-color-primary);
+                      border-color: var(--directorist-color-primary);
                       color: #fff;
                       i{
                           color: #fff;

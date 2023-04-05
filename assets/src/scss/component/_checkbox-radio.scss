@@ -21,7 +21,7 @@
             margin-bottom: 0;
             line-height: 1.3;
             font-weight: 400;
-            color: $body-color;
+            color: var(--directorist-color-body);
             box-sizing: content-box;
 
             &:after{
@@ -41,8 +41,8 @@
             & +.directorist-checkbox__label,
             & +.directorist-radio__label{
                 &:after{
-                    background-color: $dark;
-                    border-color: $dark;
+                    background-color: var(--directorist-color-primary);
+                    border-color: var(--directorist-color-primary);
                 }
 
                 &:before{
@@ -88,7 +88,7 @@
                 width: 6px;
                 height: 6px;
                 border-radius: 50%;
-                background-color: $dark !important;
+                background-color: var(--directorist-color-primary) !important;
                 border: 0 none;
                 opacity: 0;
                 visibility: hidden;
@@ -130,8 +130,8 @@
                 & +.directorist-checkbox__label,
                 & +.directorist-radio__label{
                     &:after{
-                        background-color: $primary;
-                        border-color: $primary;
+                        background-color: var(--directorist-color-primary);
+                        border-color: var(--directorist-color-primary);
                     }
                 }
             }
@@ -144,8 +144,8 @@
                 & +.directorist-checkbox__label,
                 & +.directorist-radio__label{
                     &:after{
-                        background-color: $secondary;
-                        border-color: $secondary;
+                        background-color: var(--directorist-color-secondary);
+                        border-color: var(--directorist-color-secondary);
                     }
                 }
             }
@@ -158,8 +158,8 @@
                 & +.directorist-checkbox__label,
                 & +.directorist-radio__label{
                     &:after{
-                        background-color: $success;
-                        border-color: $success;
+                        background-color: var(--directorist-color-success);
+                        border-color: var(--directorist-color-success);
                     }
                 }
             }
@@ -188,10 +188,10 @@
                 & +.directorist-radio__label{
                     &:after{
                         background-color: #fff;
-                        border-color: $primary !important;
+                        border-color: var(--directorist-color-primary) !important;
                     }
                     &:before{
-                        background-color: $primary !important;
+                        background-color: var(--directorist-color-primary) !important;
                     }
                 }
             }
@@ -203,10 +203,10 @@
                 & +.directorist-radio__label{
                     &:after{
                         background-color: #fff;
-                        border-color: $secondary !important;
+                        border-color: var(--directorist-color-secondary) !important;
                     }
                     &:before{
-                        background-color: $secondary !important;
+                        background-color: var(--directorist-color-secondary) !important;
                     }
                 }
             }

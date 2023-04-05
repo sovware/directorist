@@ -152,7 +152,7 @@
                     display: none;
                     &:checked{
                         &+.directorist-pf-range{
-                            background-color: $dark;
+                            background-color: var(--directorist-color-primary);
                             color: #fff;
                         }
                     }
@@ -265,8 +265,8 @@
             background: transparent !important;
             &:checked{
                 &+span{
-                    background-color: $primary;
-                    border-color: $primary;
+                    background-color: var(--directorist-color-primary);
+                    border-color: var(--directorist-color-primary);
                     color: #fff;
                     i{
                         color: #fff;

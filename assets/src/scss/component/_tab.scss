@@ -1,8 +1,9 @@
-
-$text-color: #585A6A;
-$primary-color: #4353FF;
-$primary-color-accent: #ffffff;
-$light-bg-color: #ECEEF2;
+:root {
+    --directorist-text-color: #585A6A;
+    --directorist-primary-color: #4353FF;
+    --directorist-primary-color-accent: var(--directorist-color-white);
+    --directorist-light-bg-color: #ECEEF2;
+}
 
 // Navigation
 .directorist-tab-navigation {
@@ -22,11 +23,11 @@ $light-bg-color: #ECEEF2;
     padding: 15px 20px;
     border-radius: 4px;
     flex-basis: 50%;
-    background-color: $light-bg-color;
+    background-color: var(--directorist-light-bg-color);
 
     &.--is-active {
-        color: $primary-color-accent;
-        background-color: $primary-color;
+        color: var(--directorist-primary-color-accent);
+        background-color: var(--directorist-primary-color);
     }
 
     &.--is-active::after {
@@ -38,7 +39,7 @@ $light-bg-color: #ECEEF2;
         height: 0; 
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
-        border-top: 10px solid $primary-color;
+        border-top: 10px solid var(--directorist-primary-color);
         transform: translate(-50%, 0);
         
     }
@@ -54,19 +55,19 @@ $light-bg-color: #ECEEF2;
     text-decoration: none;
     padding: 15px 20px;
     border-radius: 4px;
-    color: $text-color;
-    background-color: $light-bg-color;
+    color: var(--directorist-text-color);
+    background-color: var(--directorist-light-bg-color);
 
     &:active, &:visited, &:focus {
         outline: none;
         box-shadow: none;
-        color: $text-color;
+        color: var(--directorist-text-color);
     }
 
     &.--is-active {
         cursor: default;
-        color: $primary-color-accent;
-        background-color: $primary-color;
+        color: var(--directorist-primary-color-accent);
+        background-color: var(--directorist-primary-color);
     }
 
     &.--is-active::after {
@@ -78,7 +79,7 @@ $light-bg-color: #ECEEF2;
         height: 0; 
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
-        border-top: 10px solid $primary-color;
+        border-top: 10px solid var(--directorist-primary-color);
         transform: translate(-50%, 0);
     }
 }

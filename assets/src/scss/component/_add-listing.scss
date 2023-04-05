@@ -112,7 +112,7 @@
 
     small {
       font-weight: normal;
-      color: $success;
+      color: var(--directorist-color-success);
     }
   }
 }
@@ -324,7 +324,7 @@
 
   .ezmu__btn {
     margin-bottom: 25px;
-    background-color: $dark;
+    background-color: var(--directorist-color-primary);
     color: #fff;
   }
 
@@ -531,8 +531,8 @@
     margin-bottom: 20px;
 
     #delete_marker {
-      background-color: $danger;
-      border: 1px solid $danger;
+      background-color: var(--directorist-color-danger);
+      border: 1px solid var(--directorist-color-danger);
       color: #fff;
     }
   }

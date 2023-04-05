@@ -55,7 +55,7 @@
     }
     .directorist-tooltip__label{
       font-size: 16px;
-      color: $dark;
+      color: var(--directorist-color-primary);
     }
 }
 
@@ -63,81 +63,81 @@
 .directorist-tooltip {
   &.directorist-tooltip-primary{
     &[data-label]:after {
-      background-color: $primary;
+      background-color: var(--directorist-color-primary);
     }
     &[data-label]:before {
-      border-top-color: $primary;
+      border-top-color: var(--directorist-color-primary);
     }
   }
   &.directorist-tooltip-secondary{
     &[data-label]:after {
-      background-color: $secondary;
+      background-color: var(--directorist-color-secondary);
     }
     &[data-label]:before {
-      border-bottom-color: $secondary;
+      border-bottom-color: var(--directorist-color-secondary);
     }
   }
   &.directorist-tooltip-info{
     &[data-label]:after {
-      background-color: $info;
+      background-color: var(--directorist-color-info);
     }
     &[data-label]:before {
-      border-top-color: $info;
+      border-top-color: var(--directorist-color-info);
     }
   }
   &.directorist-tooltip-warning{
     &[data-label]:after {
-      background-color: $warning;
+      background-color: var(--directorist-color-warning);
     }
     &[data-label]:before {
-      border-top-color: $warning;
+      border-top-color: var(--directorist-color-warning);
     }
   }
   &.directorist-tooltip-success{
     &[data-label]:after {
-      background-color: $success;
+      background-color: var(--directorist-color-success);
     }
     &[data-label]:before {
-      border-top-color: $success;
+      border-top-color: var(--directorist-color-success);
     }
   }
   &.directorist-tooltip-danger{
     &[data-label]:after {
-      background-color: $danger;
+      background-color: var(--directorist-color-danger);
     }
     &[data-label]:before {
-      border-top-color: $danger;
+      border-top-color: var(--directorist-color-danger);
     }
   }
   &.directorist-tooltip-bottom{
     &.directorist-tooltip-primary{
       &[data-label]:before {
-        border-bottom-color: $primary;
+        border-bottom-color: var(--directorist-color-primary);
       }
     }
     &.directorist-tooltip-secondary{
       &[data-label]:before {
-        border-bottom-color: $secondary;
+        border-bottom-color: var(--directorist-color-secondary);
       }
     }
     &.directorist-tooltip-info{
       &[data-label]:before {
-        border-bottom-color: $info;
+        border-bottom-color: var(--directorist-color-info);
       }
     }
     &.directorist-tooltip-warning{
       &[data-label]:before {
-        border-bottom-color: $warning;
+        border-bottom-color: var(--directorist-color-warning);
       }
     }
     &.directorist-tooltip-success{
       &[data-label]:before {
-        border-bottom-color: $success;
+        border-bottom-color: var(--directorist-color-success);
       }
     }
     &.directorist-tooltip-danger{
       &[data-label]:before {
-        border-bottom-color: $danger;
+        border-bottom-color: var(--directorist-color-danger);
       }
     }
   }

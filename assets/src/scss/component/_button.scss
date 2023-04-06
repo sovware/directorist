@@ -11,7 +11,7 @@
   justify-content: center;
   font-size: 15px;
   font-weight: 500;
-  color: $dark;
+  color: var(--directorist-color-primary);
   vertical-align: middle;
   text-align: center;
   user-select: none;
@@ -34,43 +34,43 @@
 // Button Type
 .directorist-btn {
   &.directorist-btn-primary {
-    background: $primary;
+    background: var(--directorist-color-primary);
     color: #fff;
-    @include btnFocusBg($primary);
+    @include btnFocusBg(var(--directorist-color-primary));
   }
 
   &.directorist-btn-secondary {
-    background: $secondary;
+    background: var(--directorist-color-secondary);
     color: #fff;
   }
 
   &.directorist-btn-dark {
-    background: $dark;
+    background: var(--directorist-color-primary);
     color: #fff;
   }
 
   &.directorist-btn-success {
-    background: $success;
+    background: var(--directorist-color-success);
     color: #fff;
   }
 
   &.directorist-btn-info {
-    background: $info;
+    background: var(--directorist-color-info);
     color: #fff;
   }
 
   &.directorist-btn-lighter{
     background-color: #F6F7F9;
-    color: $dark;
+    color: var(--directorist-color-primary);
   }
 
   &.directorist-btn-warning {
-    background: $warning;
+    background: var(--directorist-color-warning);
     color: #fff;
   }
 
   &.directorist-btn-danger {
-    background: $danger;
+    background: var(--directorist-color-danger);
     color: #fff;
   }
 
@@ -102,37 +102,37 @@
 
   &.directorist-btn-outline-primary {
     background: transparent;
-    border: 1px solid $primary !important;
+    border: 1px solid var(--directorist-color-primary) !important;
   }
 
   &.directorist-btn-outline-secondary {
     background: transparent;
-    border: 1px solid $secondary !important;
+    border: 1px solid var(--directorist-color-secondary) !important;
   }
 
   &.directorist-btn-outline-success {
     background: transparent;
-    border: 1px solid $success !important;
+    border: 1px solid var(--directorist-color-success) !important;
   }
 
   &.directorist-btn-outline-info {
     background: transparent;
-    border: 1px solid $info !important;
+    border: 1px solid var(--directorist-color-info) !important;
   }
 
   &.directorist-btn-outline-warning {
     background: transparent;
-    border: 1px solid $warning !important;
+    border: 1px solid var(--directorist-color-warning) !important;
   }
 
   &.directorist-btn-outline-danger {
     background: transparent;
-    border: 1px solid $danger !important;
+    border: 1px solid var(--directorist-color-danger) !important;
   }
 
   &.directorist-btn-outline-dark {
     background: transparent;
-    border: 1px solid $dark !important;
+    border: 1px solid var(--directorist-color-primary) !important;
   }
 }
 

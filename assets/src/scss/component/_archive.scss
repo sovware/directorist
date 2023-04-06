@@ -36,7 +36,7 @@
 
 		.current {
 			.directorist-type-nav__link {
-				border-bottom-color: $primary;
+				border-bottom-color: var(--directorist-color-primary);
 			}
 		}
 
@@ -50,7 +50,7 @@
 		justify-content: center;
 		padding: 0 0 10px;
 		font-weight: 500;
-		color: #202428;
+		color: var(--directorist-color-primary);
 		border-bottom: 2px solid transparent;
 		outline: 0;
 		.directorist-icon-mask{
@@ -81,10 +81,10 @@
 	}
 
 	.directorist-listings-header {
-		background: #ffffff;
+		background: var(--directorist-color-white);
 		padding: 20px 30px;
 		border-radius: 5px;
-		border: 1px solid #e3e6ef;
+		border: 1px solid var(--directorist-color-border);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -116,7 +116,7 @@
 				margin: 0;
 				padding: 0;
 				font-size: 15px;
-				color: $text-color;
+				color: var(--directorist-color-body);
 				font-weight: 500;
 			}
 		}
@@ -133,7 +133,7 @@
 					cursor: pointer;
 
 					&:hover {
-						background: #eee;
+						background: var(--directorist-color-light-gray);
 					}
 				}
 			}

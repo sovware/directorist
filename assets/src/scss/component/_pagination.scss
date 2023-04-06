@@ -27,9 +27,9 @@
     }
     &.current {
       border-width: 2px;
-      border-color: $primary;
+      border-color: var(--directorist-color-primary);
       color: $white;
-      background-color: $primary;
+      background-color: var(--directorist-color-primary);
     }
   }
   a.page-numbers {

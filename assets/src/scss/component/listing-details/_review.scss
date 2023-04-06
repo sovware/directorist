@@ -136,7 +136,7 @@
             .directorist-signle-review-avatar__info {
                 p {
                     font-size: 16px;
-                    color: $dark;
+                    color: var(--directorist-color-primary);
                     text-transform: capitalize;
                     font-weight: 500;
                     margin-bottom: 2px;
@@ -193,14 +193,14 @@
                 cursor: pointer;
 
                 &:hover {
-                    border-color: $dark;
-                    color: $dark;
+                    border-color: var(--directorist-color-primary);
+                    color: var(--directorist-color-primary);
                 }
             }
 
             &.atbd-selected {
-                border-color: $dark;
-                color: $dark;
+                border-color: var(--directorist-color-primary);
+                color: var(--directorist-color-primary);
             }
 
             &.atbd-inactive {
@@ -234,7 +234,7 @@
                 }
 
                 &:hover {
-                    color: $dark;
+                    color: var(--directorist-color-primary);
 
                     .la_h {
                         visibility: visible;
@@ -355,7 +355,7 @@ Review: New Style
                 margin-bottom: 0;
                 padding: 19px 20px 15px;
                 a{
-                    color: $info;
+                    color: var(--directorist-color-info);
                 }
             }
         }
@@ -971,7 +971,7 @@ Review: New Style
                         width: 30px;
                         border-radius: 50%;
                         color: #fff;
-                        background-color: $danger;
+                        background-color: var(--directorist-color-danger);
                         opacity: 0;
                         visibility: hidden;
                     }

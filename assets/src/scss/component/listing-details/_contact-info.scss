@@ -63,7 +63,7 @@
         .directorist-social-links {
             a {
                 text-decoration: none;
-                color: $body-color;
+                color: var(--directorist-color-body);
             }
         }
 
@@ -92,7 +92,7 @@
         margin-bottom: 5px;
         height: 35px;
         width: 35px;
-        background: $primary !important;
+        background: var(--directorist-color-primary) !important;
         border-radius: 4px;
         overflow: hidden;
         transition: all ease-in-out 300ms !important;

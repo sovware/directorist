@@ -10,11 +10,11 @@
         }
 
         &.directorist-badge-open {
-            background-color: $success;
+            background-color: var(--directorist-color-success);
         }
 
         &.directorist-badge-close {
-            background-color: $danger;
+            background-color: var(--directorist-color-danger);
         }
 
         &.directorist-badge-new {
@@ -27,12 +27,12 @@
 
         &.directorist-badge-negotiation {
 
-            background-color: $info;
+            background-color: var(--directorist-color-info);
         }
 
         &.directorist-badge-sold {
 
-            background-color: $danger;
+            background-color: var(--directorist-color-danger);
         }
     }
 
@@ -246,17 +246,17 @@
             flex-wrap: wrap;
             .directorist-badge.directorist-badge-close {
                 background-color: transparent;
-                color: $danger;
+                color: var(--directorist-color-danger);
             }
 
             .directorist-badge.directorist-badge-open {
                 background-color: transparent;
-                color: $success;
+                color: var(--directorist-color-success);
             }
 
             .atbd_badge.atbd_badge_open {
                 background-color: transparent;
-                color: $success;
+                color: var(--directorist-color-success);
             }
             span,
             a{
@@ -369,7 +369,7 @@
 
             a {
                 text-decoration: none;
-                color: $dark;
+                color: var(--directorist-color-primary);
             }
         }
 
@@ -392,7 +392,7 @@
                 margin: 0;
 
                 li {
-                    color: $body-color;
+                    color: var(--directorist-color-body);
                     margin: 0;
                     list-style: none;
 
@@ -677,7 +677,7 @@
     transition: $transition-base;
 
     &.directorist-added-to-favorite {
-        background: $primary !important;
+        background: var(--directorist-color-primary) !important;
     }
 }
 
@@ -735,7 +735,7 @@
             margin: 0;
 
             li {
-                color: $body-color;
+                color: var(--directorist-color-body);
                 margin: 0;
 
                 &:not(:last-child) {

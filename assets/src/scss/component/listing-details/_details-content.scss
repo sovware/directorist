@@ -35,7 +35,7 @@
         .directorist-card__header--title {
             font-size: 18px;
             font-weight: 500;
-            color: $dark;
+            color: var(--directorist-color-primary);
             margin: 0;
 
             #directorist-review-counter {

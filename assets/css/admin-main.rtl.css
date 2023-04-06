@@ -8995,14 +8995,17 @@ for shortable field*/
 }
 
 .directorist-form-group.directorist-icon-left .directorist-form-element {
-  padding-right: 35px;
+  padding-right: 33px;
 }
 .directorist-form-group.directorist-icon-left .directorist-input-icon {
-  right: 15px;
-  margin-top: 0;
+  right: 0;
 }
 .directorist-form-group.directorist-icon-right .directorist-form-element {
-  padding-left: 35px;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding-left: 50px;
 }
 .directorist-form-group.directorist-icon-right .directorist-input-icon {
   left: 15px;
@@ -9020,6 +9023,11 @@ for shortable field*/
 .directorist-form-group .directorist-input-icon span,
 .directorist-form-group .directorist-input-icon svg {
   font-size: 14px;
+}
+.directorist-form-group .directorist-input-icon .directorist-icon-mask:after {
+  width: 16px;
+  height: 16px;
+  background-color: var(--directorist-color-body);
 }
 
 .directorist-label {
@@ -9390,6 +9398,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   --directorist-color-border-normal: #d9d9d9;
   --directorist-box-shadow: 0 3px 7.5px rgba(0,0,0, 0.08);
   --directorist-box-shadow-regular: 0 5px 10px rgba(0,0,0, 0.1);
+  --directorist-drop-shadow: 0 3px 7.5px rgba(0,0,0, 0.08);
+  --directorist-drop-shadow-regular: 0 5px 10px rgba(0,0,0, 0.1);
 }
 
 /* Modal Core Styles */

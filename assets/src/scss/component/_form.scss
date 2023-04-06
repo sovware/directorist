@@ -48,18 +48,18 @@
 .directorist-form-group {
     &.directorist-icon-left {
         .directorist-form-element {
-            padding-left: 35px;
+            padding-left: 33px;
         }
 
         .directorist-input-icon {
-            left: 15px;
-            margin-top: 0;
+            left: 0;
         }
     }
 
     &.directorist-icon-right {
         .directorist-form-element {
-            padding-right: 35px;
+            display: inline-flex;
+            padding-right: 50px;
         }
 
         .directorist-input-icon {
@@ -78,6 +78,11 @@
         span,
         svg {
             font-size: 14px;
+        }
+        .directorist-icon-mask:after {
+            width: 16px;
+            height: 16px;
+            background-color: var(--directorist-color-body);
         }
     }
 }

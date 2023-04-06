@@ -33,7 +33,7 @@ elseif ( $location_source == 'map' ) {
 	$value   = isset( $_GET['address'] ) ? sanitize_text_field( wp_unslash( $_GET['address'] ) ) : '';
 	?>
 
-	<div class="directorist-search-field directorist-form-group directorist-icon-left">
+	<div class="directorist-search-field directorist-form-group directorist-icon-right">
 		<span class="directorist-input-icon directorist-filter-location-icon"><?php directorist_icon( 'las la-crosshairs' ); ?></span>
 		<input type="text" name="address" id="addressId" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr($data['placeholder']); ?>" autocomplete="off" class="directorist-form-element directorist-location-js location-name" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 

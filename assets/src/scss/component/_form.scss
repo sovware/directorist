@@ -47,21 +47,12 @@
 // Directorist Input With Icon
 .directorist-form-group {
     &.directorist-icon-left {
-        .directorist-form-element {
-            padding-left: 33px;
-        }
-
         .directorist-input-icon {
             left: 0;
         }
     }
 
     &.directorist-icon-right {
-        .directorist-form-element {
-            display: inline-flex;
-            padding-right: 50px;
-        }
-
         .directorist-input-icon {
             right: 15px;
         }

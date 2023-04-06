@@ -8994,18 +8994,8 @@ for shortable field*/
   height: 30px;
 }
 
-.directorist-form-group.directorist-icon-left .directorist-form-element {
-  padding-left: 33px;
-}
 .directorist-form-group.directorist-icon-left .directorist-input-icon {
   left: 0;
-}
-.directorist-form-group.directorist-icon-right .directorist-form-element {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  padding-right: 50px;
 }
 .directorist-form-group.directorist-icon-right .directorist-input-icon {
   right: 15px;

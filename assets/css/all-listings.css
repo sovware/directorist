@@ -7924,18 +7924,8 @@ p.atbd-min {
   height: 30px;
 }
 
-.directorist-form-group.directorist-icon-left .directorist-form-element {
-  padding-left: 33px;
-}
 .directorist-form-group.directorist-icon-left .directorist-input-icon {
   left: 0;
-}
-.directorist-form-group.directorist-icon-right .directorist-form-element {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  padding-right: 50px;
 }
 .directorist-form-group.directorist-icon-right .directorist-input-icon {
   right: 15px;
@@ -15450,6 +15440,7 @@ Review: New Style
   padding: 22px 22px 22px 25px;
   border: none;
   border-radius: 12px;
+  background-color: var(--directorist-color-white);
   -webkit-filter: drop-shadow(var(--directorist-drop-shadow));
           filter: drop-shadow(var(--directorist-drop-shadow));
 }

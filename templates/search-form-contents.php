@@ -34,13 +34,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form" data-atts="<?php echo esc_attr( $searchform->get_atts_data() ); ?>">
 
-			<div class="directorist-search-form-wrap <?php echo esc_attr( $searchform->border_class() ); ?>">
+			<div class="directorist-search-form-wrap directorist-search-form__wrap <?php echo esc_attr( $searchform->border_class() ); ?>">
 
 				<?php $searchform->directory_type_nav_template(); ?>
 
 				<input type="hidden" name="directory_type" class="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
 
-				<div class="directorist-search-form-box-wrap">
+				<div class="directorist-search-form-box-wrap directorist-search-form__box-wrap">
 
 					<?php Helper::get_template( 'search-form/form-box', ['searchform' =>  $searchform] ); ?>
 

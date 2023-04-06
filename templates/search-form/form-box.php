@@ -10,9 +10,9 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-form-box">
+<div class="directorist-search-form-box directorist-search-form__box">
 
-	<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline">
+	<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline directorist-search-form__top">
 
 		<?php
 		foreach ( $searchform->form_data[0]['fields'] as $field ){

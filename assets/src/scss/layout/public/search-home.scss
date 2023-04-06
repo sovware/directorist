@@ -26,6 +26,7 @@
 // Search Form
 .directorist-search-form {
   @include e(top) {
+    flex-wrap: wrap;
     gap: 18px;
     padding: 22px 22px 22px 25px;
     border: none;
@@ -34,10 +35,9 @@
     filter: drop-shadow(var(--directorist-drop-shadow));
 
     .directorist-search-field {
-      flex: auto;
+      flex: 30.8%;
       flex-direction: column;
       align-items: flex-start;
-      min-width: 200px;
       margin: 0;
       padding-bottom: 0;
 

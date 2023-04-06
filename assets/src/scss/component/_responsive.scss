@@ -45,6 +45,10 @@ $mobile-width-3: 375px;
 
 // XX. Medium Devices (less than 768px)
 @media only screen and (max-width: #{$tablet-width-2}) {
+    .directorist-search-form__top .directorist-search-field {
+        flex: 46.8%;
+    }
+
     .directorist-all-listing-col {
         width: 50% !important;
     }
@@ -58,8 +62,8 @@ $mobile-width-3: 375px;
 
 // XX. Medium Devices (less than 576px)
 @media only screen and (max-width: #{$mobile-width-1}) {
-    .directorist-search-contents .directorist-search-form-top .directorist-search-field {
-        flex: 0 0 100%;
+    .directorist-search-form__top .directorist-search-field {
+        flex: 100%;
     }
 
     .directorist-all-listing-col {

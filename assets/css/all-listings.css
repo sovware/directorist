@@ -10164,6 +10164,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-weight: 400;
   color: var(--directorist-color-body);
 }
+.directorist-author__message--text {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--directorist-color-body);
+}
 .directorist-author__toggle-area {
   text-align: center;
   font-size: 14px;
@@ -10178,6 +10183,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-author__toggle-area p {
   margin: 0;
+}
+.directorist-author__recover-pass-modal .directorist-form-group {
+  padding: 25px;
+}
+.directorist-author__recover-pass-modal p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--directorist-color-body);
+  margin: 0 0 20px;
 }
 
 /* Directorist all authors card */

@@ -30,6 +30,13 @@
             color: var(--directorist-color-body);
         }
     }
+    @include e(message) {
+        @include m(text) {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--directorist-color-body);
+        }
+    }
     @include e('toggle-area') {
         text-align: center;
         font-size: 14px;
@@ -43,6 +50,17 @@
         }
         p {
             margin: 0;
+        }
+    }
+    @include e('recover-pass-modal') {
+        .directorist-form-group {
+            padding: 25px;
+        }
+        p {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--directorist-color-body);
+            margin: 0 0 20px;
         }
     }
 }

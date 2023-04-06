@@ -215,12 +215,12 @@ use \Directorist\Helper;
 								<fieldset class="directorist-form-group">
 									<p><?php echo esc_html( $recpass_desc ); ?></p>
 									<label for="reset_user_login"><?php echo esc_html( $recpass_username ); ?></label>
-									<input type="text" class="directorist-form-element directorist-author__input" name="user_login" id="reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $recpass_placeholder ); ?>" required="required" />
-									<p>
+									<input type="text" class="directorist-form-element directorist-author__input directorist-mb-15" name="user_login" id="reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $recpass_placeholder ); ?>" required="required" />
+									<div class="directorist-author__btn-wrapper">
 										<input type="hidden" name="action" value="reset" />
-										<button type="submit" class="directorist-btn directorist-btn-primary" id="submit"><?php echo esc_html( $recpass_button ); ?></button>
+										<button type="submit" class="directorist-btn directorist-btn-primary directorist-author__btn" id="submit"><?php echo esc_html( $recpass_button ); ?></button>
 										<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( directorist_get_nonce_key() ) ); ?>" name="directorist_nonce">
-									</p>
+									</div>
 								</fieldset>
 							</form>
 						</div>

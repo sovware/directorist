@@ -6,7 +6,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2023-03-14 08:47+0000\n"
+=======
+"POT-Creation-Date: 2023-04-04 06:10+0000\n"
+>>>>>>> 977b3ebcf817d35d3bc0d20de294d10ab3b7871a
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -667,11 +671,16 @@ msgstr ""
 msgid "Every %d minutes"
 msgstr ""
 
+<<<<<<< HEAD
 #: ../includes/classes/class-add-listing.php:77, ../includes/classes/class-ajax-handler.php:222, ../includes/classes/class-ajax-handler.php:1168, ../includes/classes/class-ajax-handler.php:1381, ../includes/classes/class-settings-panel.php:378, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:235, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:315, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:437
+=======
+#: ../includes/classes/class-add-listing.php:77, ../includes/classes/class-ajax-handler.php:222, ../includes/classes/class-ajax-handler.php:1162, ../includes/classes/class-ajax-handler.php:1375, ../includes/classes/class-settings-panel.php:378, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:235, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:315, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:437
+>>>>>>> 977b3ebcf817d35d3bc0d20de294d10ab3b7871a
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
 #. translators: %s field label.
+<<<<<<< HEAD
 #: ../includes/classes/class-add-listing.php:148, ../includes/classes/class-add-listing.php:154, ../includes/classes/class-add-listing.php:160, ../includes/classes/class-add-listing.php:166, ../includes/classes/class-add-listing.php:172, ../includes/classes/class-add-listing.php:178
 msgid "%s field is required!"
 msgstr ""
@@ -690,6 +699,21 @@ msgid "Sorry! Something Wrong with Your Submission"
 msgstr ""
 
 #: ../includes/classes/class-add-listing.php:725
+=======
+#: ../includes/classes/class-add-listing.php:193, ../includes/classes/class-add-listing.php:199, ../includes/classes/class-add-listing.php:205, ../includes/classes/class-add-listing.php:211, ../includes/classes/class-add-listing.php:217, ../includes/classes/class-add-listing.php:223
+msgid "%s field is required!"
+msgstr ""
+
+#: ../includes/classes/class-add-listing.php:750
+msgid "Your Submission is Completed! redirecting.."
+msgstr ""
+
+#: ../includes/classes/class-add-listing.php:754
+msgid "Sorry! Something Wrong with Your Submission"
+msgstr ""
+
+#: ../includes/classes/class-add-listing.php:760
+>>>>>>> 977b3ebcf817d35d3bc0d20de294d10ab3b7871a
 msgid "Payment Required! redirecting to checkout.."
 msgstr ""
 
@@ -8321,7 +8345,7 @@ msgid_plural "listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../templates/widgets/featured-listing.php:113, ../templates/widgets/popular-listings.php:103, ../templates/widgets/similar-listing.php:106, ../templates/archive/fields/category.php:48
+#: ../templates/widgets/featured-listing.php:113, ../templates/widgets/popular-listings.php:103, ../templates/widgets/similar-listing.php:110, ../templates/archive/fields/category.php:48
 msgid "Uncategorized"
 msgstr ""
 

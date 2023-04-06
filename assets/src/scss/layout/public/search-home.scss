@@ -4,14 +4,14 @@
   margin-bottom: 34px;
 
   @include e(title) {
-    color: #51526e;
+    color: var(--directorist-color-primary);
     font-size: 36px;
     font-weight: 500;
     margin-bottom: 18px;
   }
 
   @include e(subtitle) {
-    color: #51526e;
+    color: var(--directorist-color-body);
     font-size: 18px;
     opacity: 0.8;
     text-align: center;
@@ -23,145 +23,12 @@
   padding: 100px 0 120px;
   z-index: 2;
 }
-
-// Search Border Boder
-.directorist-search-form-wrap {
-  &.directorist-with-search-border {
-    .directorist-search-form-top {
-      border: 1px solid #ececec;
-    }
-  }
-
-  .directorist-search-form-box {
-    position: relative;
-
-    .directorist-search-query {
-      padding-right: 2px;
-    }
-
-    .directorist-form-group {
-      .directorist-form-element {
-        background-image: none !important;
-      }
-    }
-  }
-}
-
-/* loading effect */
-.atbdp-form-fade {
-  position: relative;
-  overflow: hidden;
-  padding-right: 17px;
-
-  &:before {
-    position: absolute;
-    content: "";
-    width: 40px;
-    height: 40px;
-    border: 2px solid #0a0b1e;
-    border-top-color: transparent;
-    border-radius: 50%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    animation: atbd_spin2 2s linear infinite;
-    z-index: 9999;
-  }
-
-  &:after {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 9998;
-  }
-}
-
-// Directorist Listing Type Selection
-.directorist-listing-type-selection {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 0;
-  list-style-type: none;
-
-  @media only screen and (max-width: 767px) {
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-  }
-
-  .directorist-listing-type-selection__item {
-    margin-bottom: 25px;
-    list-style: none;
-
-    &:not(:last-child) {
-      margin-right: 25px;
-    }
-
-    a {
-      position: relative;
-      display: flex;
-      align-items: center;
-      font-size: 15px;
-      font-weight: 500;
-      text-decoration: none;
-      white-space: nowrap;
-      padding: 6px 0;
-      color: #8f8e9f;
-      &:focus {
-        background-color: transparent;
-      }
-      &::after {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 2px;
-        border-radius: 6px;
-        content: "";
-        opacity: 0;
-        visibility: hidden;
-        background-color: $dark;
-      }
-      .directorist-icon-mask{
-        display: inline-block;
-        margin-right: 4px;
-        &::after{
-          width: 15px;
-          height: 15px;
-          background-color: #8f8e9f;
-        }
-      }
-    }
-
-    .directorist-listing-type-selection__link--current {
-      color: $dark;
-      .directorist-icon-mask{
-        &::after{
-          background-color: $dark;
-        }
-      }
-      &::after {
-        opacity: 1;
-        visibility: visible;
-      }
-    }
-  }
-}
-
-// Directorist Search form top
-.directorist-search-contents {
-  .directorist-search-form-top {
-    background-color: #fff;
-    border-radius: 6px;
-    padding: 10px 20px 10px 0;
-    flex-wrap: wrap;
-    margin: -5px 0;
+// Search Form
+.directorist-search-form {
+  @include e(top) {
+    padding: 22px 22px 22px 25px;
+    border: none;
+    box-shadow: var(--directorist-box-shadow-regular);
 
     .directorist-search-field {
       flex: auto;
@@ -172,7 +39,7 @@
       padding-bottom: 0;
 
       &:not(:last-child) {
-        border-right: 1px solid $border-color;
+        border-right: 1px solid var(--directorist-color-border);
       }
 
       .directorist-form-element {
@@ -216,60 +83,162 @@
         text-decoration: none;
       }
     }
+  }
+}
+.directorist-search-form-action {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 10px;
+  @media only screen and (max-width: 375px) {
+    flex-direction: column;
+  }
 
-    .directorist-search-form-action {
-      display: flex;
-      align-items: center;
-      margin-left: auto;
+  button {
+    text-decoration: none;
+    text-transform: capitalize;
 
-      @media only screen and (max-width: 375px) {
-        flex-direction: column;
-      }
-
-      .directorist-btn.directorist-btn-lg {
-        border-radius: 6px;
-        font-weight: 400;
-        line-height: 1.75;
-        padding: 11px 15px;
-
-        &:not(.directorist-filter-btn) {
-          .directorist-icon-mask {
-            &:after {
-              background-color: #fff;
-              margin-right: 4px;
-            }
+    i,
+    span.la,
+    span.las,
+    span.lar,
+    span.fas,
+    span.fab,
+    span.far {
+      margin-right: 4px;
+    }
+  }
+  @include e(filter) {
+    .directorist-filter-btn {
+      height: 50px;
+      padding: 0 18px;
+      background-color: #fff;
+    }
+  }
+  @include e(submit) {
+    .directorist-btn-search {
+      height: 50px;
+      padding: 0 25px;
+      border-radius: 10px;
+      &:not(.directorist-filter-btn) {
+        .directorist-icon-mask {
+          &:after {
+            background-color: #fff;
+            margin-right: 4px;
           }
         }
       }
+    }
+  }
+}
 
-      button {
-        text-decoration: none;
-        text-transform: capitalize;
+/* loading effect */
+.atbdp-form-fade {
+  position: relative;
+  overflow: hidden;
+  padding-right: 17px;
 
-        i,
-        span.la,
-        span.las,
-        span.lar,
-        span.fas,
-        span.fab,
-        span.far {
-          margin-right: 4px;
-        }
+  &:before {
+    position: absolute;
+    content: "";
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--directorist-color-primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: atbd_spin2 2s linear infinite;
+    z-index: 9999;
+  }
+
+  &:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 9998;
+  }
+}
+
+// Directorist Listing Type Selection
+.directorist-listing-type-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  list-style-type: none;
+
+  @media only screen and (max-width: 767px) {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  @include e(item) {
+    margin-bottom: 25px;
+    list-style: none;
+
+    &:not(:last-child) {
+      margin-right: 25px;
+    }
+
+    a {
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 0 0 8px;
+      color: var(--directorist-color-body);
+      &:hover {
+        color: var(--directorist-color-primary);
       }
-
-      @include e(filter) {
-        .directorist-filter-btn {
-          background-color: #fff;
+      &:focus {
+        background-color: transparent;
+      }
+      &::after {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        border-radius: 6px;
+        content: "";
+        opacity: 0;
+        visibility: hidden;
+        background-color: var(--directorist-color-primary);
+      }
+      .directorist-icon-mask{
+        display: inline-block;
+        margin: 0 0 7px;
+        &::after{
+          width: 20px;
+          height: 20px;
+          background-color: var(--directorist-color-body);
         }
       }
     }
 
-    .atbdp-form-fade {
-      &:before {
-        width: 15px;
-        height: 15px;
-        left: unset;
-        right: 0;        
+    .directorist-listing-type-selection__link--current {
+      font-weight: 400;
+      color: var(--directorist-color-primary);
+      .directorist-icon-mask{
+        &::after{
+          background-color: var(--directorist-color-primary);
+        }
+      }
+      &::after {
+        opacity: 1;
+        visibility: visible;
       }
     }
   }
@@ -389,7 +358,7 @@
         list-style-type: none;
 
         li {
-          border-bottom: 1px solid $border-color;
+          border-bottom: 1px solid var(--directorist-color-border);
           padding: 10px 15px 10px !important;
           margin: 0;
 

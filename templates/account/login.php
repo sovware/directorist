@@ -7,7 +7,7 @@
 
 use \Directorist\Helper;
 ?>
-<div class="directorist-login-wrapper directorist-w-100 directorist-author directorist-author__login">
+<div class="directorist-login-wrapper directorist-w-100 directorist-author">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
             <div class="directorist-col-md-4 directorist-offset-md-4">

@@ -407,6 +407,7 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
 7.5.3 - Apr 06, 2023
 
 * Fix - Category, location & tag validation issue in add listing

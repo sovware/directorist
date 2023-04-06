@@ -349,7 +349,6 @@ class Directorist_Listing_Dashboard {
 		$my_listing_tab     = get_directorist_option( 'my_listing_tab', 1 );
 		$my_profile_tab     = get_directorist_option( 'my_profile_tab', 1 );
 		$fav_listings_tab   = get_directorist_option( 'fav_listings_tab', 1 );
-		$announcement_tab 	= get_directorist_option( 'announcement_tab', 1 );
 
 		if ( $my_listing_tab && ( 'general' != $this->user_type && 'become_author' != $this->user_type ) ) {
 			$my_listing_tab_text = get_directorist_option( 'my_listing_tab_text', __( 'My Listing', 'directorist' ) );
@@ -380,48 +379,7 @@ class Directorist_Listing_Dashboard {
 			);
 		}
 
-		if ( $announcement_tab ) {
-			$dashboard_tabs['dashboard_announcement'] = array(
-				'title'    => $this->get_announcement_label(),
-				'content'  => Helper::get_template_contents( 'dashboard/tab-announcement', [ 'dashboard' => $this ] ),
-				'icon'	   => 'las la-bullhorn',
-			);
-		}
-
 		return apply_filters( 'directorist_dashboard_tabs', $dashboard_tabs );
-	}
-
-	public function get_announcement_label() {
-		$announcement_label = get_directorist_option( 'announcement_tab_text', __( 'Announcements', 'directorist' ) );
-		$new_announcements  = ATBDP()->announcement->get_new_announcement_count();
-		if ( $new_announcements > 0 ) {
-			$announcement_label = $announcement_label . "<span class='directorist-announcement-count show'>{$new_announcements}</span>";
-		}
-		return apply_filters( 'directorist_announcement_label', $announcement_label );
-	}
-
-	public function get_announcements() {
-		$announcements       = [];
-		$announcements_query = \ATBDP()->announcement::get_announcement_query_data();
-		$current_user_email  = get_the_author_meta( 'user_email', get_current_user_id() );
-
-		foreach ( $announcements_query->posts as $announcement ) {
-			$id = $announcement->ID;
-			$recepents = get_post_meta( $id, '_recepents', true );
-
-			if ( ! empty( $recepents ) && is_array( $recepents )  ) {
-				if ( ! in_array( $current_user_email, $recepents ) ) {
-					continue;
-				}
-			}
-
-			$announcements[$id] = [
-				'title'   => get_the_title( $id ),
-				'content' => $announcement->post_content,
-			];
-		}
-
-		return $announcements;
 	}
 
 	public function restrict_access_template() {

@@ -307,6 +307,8 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 🔥 **[Connections to Directorist Migrator](https://wordpress.org/plugins/connections-to-directorist-migrator/)** - Directorist offers a user-friendly tool to simplify the migration process by letting you import thousands of Connections listings data to Directorist without the need to import/export CSV.
 
+🔥 **[Helpgent Integration](https://directorist.com/product/directorist-helpgent-integration/)** - Connect your audience through video & audio messaging, screen recording, and text messaging asynchronously.
+
 == Themes ==
 
 Directorist Business Directory offers free and cost-effective premium [Directorist Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.

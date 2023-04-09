@@ -117,7 +117,7 @@ class Directorist_Listing_Taxonomy {
 
 		if ( $this->type == 'category' ) {
 			if ($this->show_count) {
-				$html = "<span>(" . $total . ")</span>";
+				$html = "<span>" . $total . "</span>";
 			}
             /**
              * @since 5.0.0

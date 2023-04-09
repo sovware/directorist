@@ -6,7 +6,7 @@
         margin: 3px;
 
         &.directorist-badge-popular {
-            background-color: #f51957;
+            background-color: var(--directorist-color-danger);
         }
 
         &.directorist-badge-open {
@@ -18,11 +18,11 @@
         }
 
         &.directorist-badge-new {
-            background-color: #122069;
+            background-color: var(--directorist-color-secondary);
         }
 
         &.directorist-badge-featured {
-            background-color: #fa8b0c;
+            background-color: var(--directorist-color-warning);
         }
 
         &.directorist-badge-negotiation {
@@ -38,6 +38,7 @@
 
     .directorist-listing-single__thumb {
         position: relative;
+        padding: 10px 10px 0 10px;
         margin: 0;
 
         .directorist-thumnail-card {
@@ -148,10 +149,11 @@
 
 // Single Listing Card
 .directorist-listing-single {
-    background: #fff;
     margin-bottom: 15px;
-    border-radius: 4px;
-    border: 1px solid #EFF1F6;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--directorist-color-white);
+    filter: drop-shadow(var(--directorist-drop-shadow));
 
     &.directorist-listing-card {
         .directorist-listing-single__thumb {
@@ -165,7 +167,7 @@
             .directorist-thumnail-card {
                 .directorist-thumnail-card-front-img {
 
-                    border-radius: 3px 3px 0 0;
+                    border-radius: 12px;
                 }
             }
 
@@ -173,16 +175,17 @@
                 position: absolute;
                 bottom: 0;
                 transform: translateY(50%);
-                width: 46px;
-                height: 46px;
+                width: 42px;
+                height: 42px;
                 z-index: 1;
-
+                border-radius: 100%;
+                border: 3px solid var(--directorist-color-white);
                 &.directorist-alignment-right {
-                    right: 20px;
+                    right: 28px;
                 }
 
                 &.directorist-alignment-left {
-                    left: 20px;
+                    left: 28px;
                 }
 
                 &.directorist-alignment-center {
@@ -210,7 +213,7 @@
 
             .directorist-thumnail-card {
                 .directorist-thumnail-card-front-img {
-                    border-radius: 3px 0 0 3px;
+                    border-radius: 12px;
                 }
             }
         }
@@ -418,7 +421,7 @@
 
                     a {
                         text-decoration: none;
-                        color: #7a82a6;
+                        color: var(--directorist-color-body);
                         word-break: break-word;
                     }
                 }
@@ -439,7 +442,7 @@
 
             p {
                 font-size: 15px;
-                color: #7a82a6;
+                color: var(--directorist-color-body);
                 line-height: 24px;
                 text-align: left;
             }
@@ -460,7 +463,7 @@
     }
 
     .directorist-listing-single__meta {
-        border-top: 1px solid #EFF1F6;
+        border-top: 1px solid var(--directorist-color-border);
         padding: 12px 20px;
         display: flex;
         flex-wrap: wrap;
@@ -507,11 +510,14 @@
                 a {
                     text-decoration: none;
                     font-size: 15px;
-                    color: #7a82a6;
+                    color: var(--directorist-color-body);
                     border-bottom: 0 none;
                     box-shadow: none;
                     display: inline-flex;
                     align-items: center;
+                    &:hover {
+                        color: var(--directorist-color-primary);
+                    }
                 }
             }
         }
@@ -524,7 +530,7 @@
             .directorist-view-count {
                 font-size: 15px;
                 margin: 0 5px;
-                color: #767792;
+                color: var(--directorist-color-body);
                 display: flex;
                 align-items: center;
 
@@ -533,7 +539,7 @@
                     &:after{
                         width: 15px;
                         height: 15px;
-                        background-color: #767792;
+                        background-color: var(--directorist-color-body);
                     }
                 }
 
@@ -757,7 +763,7 @@
 
                 a {
                     text-decoration: none;
-                    color: #7a82a6;
+                    color: var(--directorist-color-body);
                     border-bottom: 0 none;
                     box-shadow: none;
                     line-height: 1.7;
@@ -784,7 +790,7 @@
 
         p {
             font-size: 15px;
-            color: #7a82a6;
+            color: var(--directorist-color-body);
             line-height: 24px;
             text-align: left;
         }

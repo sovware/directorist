@@ -43,7 +43,6 @@
         flex-wrap: wrap;
         padding-bottom: 15px;
         margin-bottom: 20px;
-        border-bottom: 1px solid var(--directorist-color-border);
         @include m(element){
             flex: 0 0 33.33%;
             width: 33.33%;

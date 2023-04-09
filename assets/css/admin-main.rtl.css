@@ -9403,6 +9403,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 :root {
   --directorist-color-primary: #000000;
   --directorist-color-primary-rgb: 0,0,0;
+  --directorist-color-secondary: #122069;
   --directorist-color-dark: #151826;
   --directorist-color-success: #28a800;
   --directorist-color-success-rgb: 40, 168, 0;

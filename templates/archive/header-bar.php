@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-listings-header__left">
 
 					<?php if ( $listings->has_filters_button ): ?>
-						<a href="#" class="directorist-btn directorist-btn-sm directorist-btn-px-15 directorist-btn-outline-primary directorist-filter-btn"><?php echo wp_kses_post( $listings->filter_btn_html() ); ?></a>
+						<a href="#" class="directorist-btn directorist-btn-sm directorist-filter-btn"><?php echo wp_kses_post( $listings->filter_btn_html() ); ?></a>
 					<?php endif; ?>
 
 					<?php if ( $listings->header_title ): ?>

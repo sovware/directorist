@@ -1,11 +1,11 @@
 // Directorist Card Style
 .directorist-card{
-    border: 1px solid $border-color-normal;
+    border: 1px solid var(--directorist-color-border-normal);
     border-radius: 4px;
     background-color: #fff;
     .directorist-card__header{
         padding: 16px 20px;
-        border-bottom: 1px solid $border-color-normal;
+        border-bottom: 1px solid var(--directorist-color-border-normal);
         border-radius: 4px 4px 0 0;
         .directorist-card__header--title{
             font-size: 18px;

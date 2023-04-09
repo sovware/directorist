@@ -47,6 +47,9 @@ $mobile-width-3: 375px;
 @media only screen and (max-width: #{$tablet-width-2}) {
     .directorist-search-form__top .directorist-search-field {
         flex: 46.8%;
+        &:nth-child(even) {
+            border: none;
+        }
     }
 
     .directorist-all-listing-col {
@@ -64,6 +67,7 @@ $mobile-width-3: 375px;
 @media only screen and (max-width: #{$mobile-width-1}) {
     .directorist-search-form__top .directorist-search-field {
         flex: 100%;
+        border: none !important;
     }
 
     .directorist-all-listing-col {

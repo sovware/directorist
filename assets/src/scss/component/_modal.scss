@@ -39,7 +39,7 @@
     .directorist-modal__header{
         position: relative;
         padding: 15px;
-        border-bottom: 1px solid $border-color-normal;
+        border-bottom: 1px solid var(--directorist-color-border-normal);
         .directorist-modal__header--title{
             font-size: 16px;
             margin: 0;
@@ -56,7 +56,7 @@
         padding: 20px 25px;
     }
     .directorist-modal__footer{
-        border-top: 1px solid $border-color-normal;
+        border-top: 1px solid var(--directorist-color-border-normal);
         padding: 18px;
         .directorist-modal__action{
             display: flex;

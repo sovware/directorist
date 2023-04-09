@@ -6,6 +6,7 @@
 }
 
 .directorist-search-slide {
+    width: calc(100% - 60px);
     .directorist-advanced-filter {
         display: none;
 
@@ -18,9 +19,9 @@
 /* Advanced search filter float style  */
 .directorist-search-float {
     position: relative;
-
+    width: calc(100% - 15px);
+    left: -25px;
     .directorist-advanced-filter {
-        border-radius: 3px;
         z-index: 10000;
         overflow-y: auto;
         overflow-x: hidden;
@@ -31,6 +32,7 @@
         box-shadow: none;
         visibility: hidden;
         height: 0;
+        max-height: 500px;
     }
 }
 
@@ -41,7 +43,7 @@
         flex-wrap: wrap;
         padding-bottom: 15px;
         margin-bottom: 20px;
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--directorist-color-border);
         @include m(element){
             flex: 0 0 33.33%;
             width: 33.33%;
@@ -80,7 +82,6 @@
 .directorist-advanced-filter{
     @include e(advanced){
         @include m(element){
-            border-bottom: 1px solid $border-color;
             padding-bottom: 15px;
             margin-bottom: 15px;
             .directorist-search-field{
@@ -122,31 +123,35 @@
 .directorist-price-ranges{
     display: flex;
     flex-wrap: wrap;
-    margin: -5px;
+    gap: 5px;
     @include e(item){
-        margin: 5px;
         .directorist-form-element{
-            max-width: 150px;
+            max-width: 70px;
+        }
+        .directorist-form-element {
+            padding: 0 15px;
+            border-radius: 8px;
+            border: 1px solid var(--directorist-color-border) !important;
         }
         &.directorist-price-ranges__price-frequency{
             display: flex;
-            border: 1px solid $border-color;
-            border-radius: 3px;
+            border: 1px solid var(--directorist-color-border);
+            border-radius: 8px;
             .directorist-price-ranges__price-frequency--btn{
                 margin-bottom: 0;
                 min-width: auto;
                 &:first-child{
                     span{
-                        border-radius: 3px 0 0 3px;
+                        border-radius: 8px 0 0 8px;
                     }
                 }
                 &:last-child{
                     span{
-                        border-radius: 0px 3px 3px 0px;
+                        border-radius: 0px 8px 8px 0px;
                     }
                 }
                 &:not(:last-child){
-                    border-right: 1px solid $border-color;
+                    border-right: 1px solid var(--directorist-color-border);
                 }
                 input[type="radio"]{
                     display: none;
@@ -218,7 +223,7 @@
         margin: -5px;
         .directorist-btn {
             font-size: 14px;
-            border-radius: 0.2rem;
+            border-radius: 10px;
             padding: 0 20.5px;
             margin: 5px;
             text-transform: capitalize;

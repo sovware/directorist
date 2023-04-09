@@ -25,14 +25,20 @@
 }
 // Search Form
 .directorist-search-form {
-  @include e(top) {
+  @include e(box) {
+    display: flex;
+    align-items: flex-start;
     flex-wrap: wrap;
-    gap: 18px;
     padding: 22px 22px 22px 25px;
     border: none;
     border-radius: 12px;
     background-color: var(--directorist-color-white);
     filter: drop-shadow(var(--directorist-drop-shadow));
+  }
+  @include e(top) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
 
     .directorist-search-field {
       flex: 30.8%;
@@ -139,13 +145,21 @@
 .atbdp-form-fade {
   position: relative;
   overflow: hidden;
-  padding-right: 17px;
+  padding: 0 15px;
+  border-radius: 8px;
+  &.directorist-search-form-box  {
+    padding: 15px;
+    border-radius: 12px;
+    &:after {
+      border-radius: 12px;
+    }
+  }
 
   &:before {
     position: absolute;
     content: "";
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
     border: 2px solid var(--directorist-color-primary);
     border-top-color: transparent;
     border-radius: 50%;
@@ -163,6 +177,7 @@
     height: 100%;
     left: 0;
     top: 0;
+    border-radius: 8px;
     background: rgba(0, 0, 0, 0.3);
     z-index: 9998;
   }
@@ -251,9 +266,12 @@
 // Search Home Advance Filter
 .directorist-search-contents {
   .directorist-advanced-filter {
-    border: 1px solid #e3e6ef;
-    margin-top: 25px;
-    background: #fff;
+    width: 100%;
+    margin-top: 30px;
+    border: none;
+    border-radius: 12px;
+    background: var(--directorist-color-white);
+    filter: drop-shadow(var(--directorist-drop-shadow));
 
     .directorist-search-tags {
       flex-wrap: wrap;
@@ -332,6 +350,8 @@
           height: 15px;
           width: 15px;
           background-color: var(--directorist-color-body);
+          position: relative;
+          z-index: -1;
         }
 
         p {

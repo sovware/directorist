@@ -38,6 +38,7 @@
   @include e(top) {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
     gap: 18px;
 
     .directorist-search-field {
@@ -72,13 +73,11 @@
         }
       }
 
+      .directorist-checkbox-wrapper,
       .directorist-search-tags {
         flex-direction: column;
-        padding: 10px 15px;
-
-        .directorist-checkbox {
-          margin-bottom: 10px;
-        }
+        padding: 0;
+        gap: 12px;
       }
 
       .directorist-range-slider-wrap {
@@ -91,6 +90,20 @@
         color: #7a82a6;
         text-decoration: none;
       }
+    }
+
+    .select2-container {
+        width: 100% !important;
+
+        &.select2-container--default .select2-selection--single {
+          border: 0 none;
+        }
+    }
+
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button{
+        -webkit-appearance: none;
+        margin: 0;
     }
   }
 }

@@ -15440,20 +15440,6 @@ Review: New Style
   display: inline-block;
 }
 
-.directorist-search-form-box .directorist-search-location .select2-container,
-.directorist-search-form-box .directorist-search-category .select2-container {
-  width: 100% !important;
-}
-.directorist-search-form-box .directorist-search-location .select2-container.select2-container--default .select2-selection--single,
-.directorist-search-form-box .directorist-search-category .select2-container.select2-container--default .select2-selection--single {
-  border: 0 none;
-}
-.directorist-search-form-box input[type=number]::-webkit-outer-spin-button,
-.directorist-search-form-box input[type=number]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .directorist-content-active .directorist-listing-category-top ul {
   list-style-type: none;
 }
@@ -15508,6 +15494,7 @@ Review: New Style
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+  width: 100%;
   gap: 18px;
 }
 .directorist-search-form__top .directorist-search-field {
@@ -15543,16 +15530,15 @@ Review: New Style
 .directorist-search-form__top .directorist-search-field .wp-picker-container .wp-picker-input-wrap label {
   display: none;
 }
+.directorist-search-form__top .directorist-search-field .directorist-checkbox-wrapper,
 .directorist-search-form__top .directorist-search-field .directorist-search-tags {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 10px 15px;
-}
-.directorist-search-form__top .directorist-search-field .directorist-search-tags .directorist-checkbox {
-  margin-bottom: 10px;
+  padding: 0;
+  gap: 12px;
 }
 .directorist-search-form__top .directorist-search-field .directorist-range-slider-wrap {
   padding: 10px 15px;
@@ -15562,6 +15548,17 @@ Review: New Style
   font-size: 14px;
   color: #7a82a6;
   text-decoration: none;
+}
+.directorist-search-form__top .select2-container {
+  width: 100% !important;
+}
+.directorist-search-form__top .select2-container.select2-container--default .select2-selection--single {
+  border: 0 none;
+}
+.directorist-search-form__top input[type=number]::-webkit-outer-spin-button,
+.directorist-search-form__top input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .directorist-search-form-action {

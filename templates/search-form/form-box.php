@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-form-box directorist-search-form__box">
+<div class="directorist-search-form-box directorist-search-form__box <?php echo($searchform->more_filters_display) ?>">
 
 	<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline directorist-search-form__top">
 

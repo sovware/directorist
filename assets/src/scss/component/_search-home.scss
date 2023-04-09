@@ -34,6 +34,9 @@
       border-radius: 12px;
       background-color: var(--directorist-color-white);
       filter: drop-shadow(var(--directorist-drop-shadow));
+      &.always_open .directorist-advanced-filter{
+        width: 100%;
+      }
     }
     @include e(top) {
       display: flex;
@@ -87,7 +90,7 @@
   
         .directorist-btn-ml {
           font-size: 14px;
-          color: #7a82a6;
+          color: var(--directorist-color-gray);
           text-decoration: none;
         }
       }
@@ -279,7 +282,6 @@
   // Search Home Advance Filter
   .directorist-search-contents {
     .directorist-advanced-filter {
-      width: 100%;
       margin-top: 30px;
       border: none;
       border-radius: 12px;

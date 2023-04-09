@@ -339,9 +339,10 @@ SWBD;
             ];
 
 			$fields['lazy_load_taxonomy_fields'] = [
-                'type'  => 'toggle',
-                'label' => __( 'Lazy load category and location fields', 'directorist' ),
-				'value' => false
+                'type'        => 'toggle',
+                'label'       => __( 'Lazy Load Term Fields', 'directorist' ),
+                'description' => __( 'Enables lazy loading in category, location and tag fields', 'directorist' ),
+                'value'       => false
             ];
 
             return $fields;

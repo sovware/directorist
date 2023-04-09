@@ -146,7 +146,7 @@
           &:after {
             height: 16px;
             width: 16px;
-            background-color: #fff;
+            background-color: var(--directorist-color-white);
             transform: rotate(270deg);
           }
         }
@@ -305,15 +305,15 @@
         content: "";
         display: inline-block;
         margin-left: 5px;
-        mask-image: url(../../../../icons/line-awesome/svgs/angle-down-solid.svg);
+        mask-image: url(../../../icons/line-awesome/svgs/angle-down-solid.svg);
         width: 12px;
         height: 12px;
-        background-color: #7a82a6;
+        background-color: var(--directorist-color-gray);
       }
   
       &.active {
         &:after {
-          mask-image: url(../../../../icons/line-awesome/svgs/angle-up-solid.svg);
+          mask-image: url(../../../icons/line-awesome/svgs/angle-up-solid.svg);
         }
       }
     }
@@ -387,7 +387,7 @@
         width: 100%;
         left: 0;
         top: 45px;
-        background: #fff;
+        background: var(--directorist-color-white);
         box-shadow: 0 5px 10px rgba($light-gray, 0.2);
         border-radius: 3px;
         z-index: 1;
@@ -406,7 +406,7 @@
   
             a {
               font-size: 14px;
-              color: #7a82a6;
+              color: var(--directorist-color-gray);
               line-height: 22px;
               display: block;
               text-decoration: none;
@@ -428,7 +428,7 @@
       width: 100%;
       left: 0;
       top: 45px;
-      background: #fff;
+      background: var(--directorist-color-white);
       box-shadow: 0 5px 10px rgb(145 146 163 / 20%);
       border-radius: 3px;
       z-index: 1;
@@ -440,13 +440,13 @@
         padding: 0;
   
         li {
-          border-bottom: 1px solid #eff1f6;
+          border-bottom: 1px solid var(--directorist-color-border);
           padding: 10px 15px 10px !important;
           margin: 0;
   
           a {
             font-size: 14px;
-            color: #7a82a6;
+            color: var(--directorist-color-gray);
             line-height: 22px;
             display: block;
           }

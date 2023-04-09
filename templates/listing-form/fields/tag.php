@@ -10,9 +10,9 @@ $data_max    = $data['max'] ?? '';
 $data_new    = $data['allow_new'] ?? '';
 $multiple    = $data['type'] === 'multiple' ? 'multiple' : '';
 
-$all_tags        = get_terms( ATBDP_TAGS, array( 'hide_empty' => 0 ) );
-$current_tag_ids = $listing_form->add_listing_tag_ids();
 $lazy_load       = $data['lazy_load'];
+$all_tags        = ( ! $lazy_load ) ? get_terms( ATBDP_TAGS, array( 'hide_empty' => 0 ) ) : [];
+$current_tag_ids = $listing_form->add_listing_tag_ids();
 ?>
 
 <div class="directorist-form-group directorist-form-tag-field">

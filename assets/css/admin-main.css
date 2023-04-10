@@ -9412,6 +9412,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: flex;
 }
 
+<<<<<<< HEAD
 :root {
   --directorist-color-primary: #000000;
   --directorist-color-primary-rgb: 0,0,0;
@@ -9445,6 +9446,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   --directorist-drop-shadow-regular: 0 5px 10px rgba(0,0,0, 0.1);
 }
 
+=======
+>>>>>>> f3ece8d1a7317fe2f35bda2335e6125bab4aa7f9
 /* Modal Core Styles */
 .directorist-modal {
   position: fixed;

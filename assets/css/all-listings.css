@@ -12896,12 +12896,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-signle-listing-top {
   margin-bottom: 15px;
 }
-.directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light {
-  background-color: #fff;
-}
-.directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light .directorist-icon-mask:after {
-  margin-right: 4px;
-}
 .directorist-signle-listing-top .directorist-return-back {
   text-decoration: none;
   display: -webkit-box;
@@ -12912,10 +12906,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-.directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light:hover .directorist-icon-mask:after {
-  background-color: #fff;
 }
 
 .directorist-single-wrapper .directorist-card {
@@ -12957,85 +12947,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           box-shadow: none;
 }
 
-.directorist-single-listing-action {
+.directorist-single-listing-quick-action {
   margin: -3px;
 }
-.directorist-single-listing-action .directorist-single-listing-action {
-  border: 0 none;
-  height: 36px;
-  width: 36px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  color: #000;
-  cursor: pointer;
-  border-radius: 5px;
-  margin: 3px;
-  background: #F3F3F3;
-}
-.directorist-single-listing-action .directorist-single-listing-action span.la,
-.directorist-single-listing-action .directorist-single-listing-action span.fa,
-.directorist-single-listing-action .directorist-single-listing-action i {
-  font-size: 17px;
-}
-.directorist-single-listing-action .directorist-single-listing-action .directorist-icon-mask.directorist-added-to-favorite:after {
-  background-color: red;
-}
-.directorist-single-listing-action .directorist-single-listing-action.directorist-tooltip[data-label]:after {
-  line-height: 1.75;
-}
-.directorist-single-listing-action .directorist-single-listing-action a {
-  -webkit-box-shadow: none;
-          box-shadow: none;
-}
-.directorist-single-listing-action .directorist-single-listing-action .atbdp-require-login,
-.directorist-single-listing-action .directorist-single-listing-action .directorist-action-report-not-loggedin {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-.directorist-single-listing-action .directorist-single-listing-action .atbdp-require-login i,
-.directorist-single-listing-action .directorist-single-listing-action .atbdp-require-login span.la,
-.directorist-single-listing-action .directorist-single-listing-action .atbdp-require-login span.las,
-.directorist-single-listing-action .directorist-single-listing-action .atbdp-require-login span.lab,
-.directorist-single-listing-action .directorist-single-listing-action .atbdp-require-login span.fa,
-.directorist-single-listing-action .directorist-single-listing-action .atbdp-require-login span.fas,
-.directorist-single-listing-action .directorist-single-listing-action .atbdp-require-login span.fab,
-.directorist-single-listing-action .directorist-single-listing-action .directorist-action-report-not-loggedin i,
-.directorist-single-listing-action .directorist-single-listing-action .directorist-action-report-not-loggedin span.la,
-.directorist-single-listing-action .directorist-single-listing-action .directorist-action-report-not-loggedin span.las,
-.directorist-single-listing-action .directorist-single-listing-action .directorist-action-report-not-loggedin span.lab,
-.directorist-single-listing-action .directorist-single-listing-action .directorist-action-report-not-loggedin span.fa,
-.directorist-single-listing-action .directorist-single-listing-action .directorist-action-report-not-loggedin span.fas,
-.directorist-single-listing-action .directorist-single-listing-action .directorist-action-report-not-loggedin span.fab {
-  pointer-events: none;
-}
-.directorist-single-listing-action .directorist-social-share:hover .directorist-social-share-links {
+.directorist-single-listing-quick-action .directorist-social-share:hover .directorist-social-share-links {
   opacity: 1;
   visibility: visible;
   top: calc(100% + 10px);
 }
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links {
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links {
   position: absolute;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
@@ -13053,11 +12973,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 10px;
   margin: 0;
 }
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item {
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item {
   padding-left: 0;
   margin: 0;
 }
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a {
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a {
   padding: 8px 15px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -13074,28 +12994,105 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.la,
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.lab,
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.fa,
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a i {
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.la,
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.lab,
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.fa,
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a i {
   color: #51526E;
   margin-right: 10px;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.fa {
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.fa {
   font-family: "Font Awesome 5 Brands";
   font-weight: 900;
   font-size: 15px;
 }
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover {
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover {
   background: #DFDFDF;
   color: #000;
 }
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover span.la,
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover span.fa,
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover i {
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover span.la,
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover span.fa,
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover i {
   color: #000;
+}
+
+.directorist-single-listing-action {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 13px;
+  border: 0 none;
+  border-radius: 8px;
+  padding: 0 16px;
+  min-height: 36px;
+  border-radius: 5px;
+  margin: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-transition: 0.2s background-color ease-in-out;
+  transition: 0.2s background-color ease-in-out;
+  color: var(--directorist-color-body);
+  background: var(--directorist-color-light-gray);
+}
+.directorist-single-listing-action:hover {
+  color: var(--directorist-color-primary);
+  background-color: var(--directorist-color-gray);
+}
+.directorist-single-listing-action .directorist-icon-mask.directorist-added-to-favorite:after {
+  background-color: red;
+}
+.directorist-single-listing-action .directorist-icon-mask:after {
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+}
+.directorist-single-listing-action a {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.directorist-single-listing-action .atbdp-require-login,
+.directorist-single-listing-action .directorist-action-report-not-loggedin {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.directorist-single-listing-action .atbdp-require-login i,
+.directorist-single-listing-action .atbdp-require-login span.la,
+.directorist-single-listing-action .atbdp-require-login span.las,
+.directorist-single-listing-action .atbdp-require-login span.lab,
+.directorist-single-listing-action .atbdp-require-login span.fa,
+.directorist-single-listing-action .atbdp-require-login span.fas,
+.directorist-single-listing-action .atbdp-require-login span.fab,
+.directorist-single-listing-action .directorist-action-report-not-loggedin i,
+.directorist-single-listing-action .directorist-action-report-not-loggedin span.la,
+.directorist-single-listing-action .directorist-action-report-not-loggedin span.las,
+.directorist-single-listing-action .directorist-action-report-not-loggedin span.lab,
+.directorist-single-listing-action .directorist-action-report-not-loggedin span.fa,
+.directorist-single-listing-action .directorist-action-report-not-loggedin span.fas,
+.directorist-single-listing-action .directorist-action-report-not-loggedin span.fab {
+  pointer-events: none;
 }
 
 .directorist-listing-details .directorist-listing-single {

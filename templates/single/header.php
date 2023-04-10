@@ -24,8 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			</h4>
 		<?php endif; ?>
 
-		<?php $listing->quick_actions_template(); ?>
-
 	</div>
 
 	<div class="directorist-card__body">

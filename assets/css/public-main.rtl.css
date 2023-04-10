@@ -9588,8 +9588,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   gap: 6px;
 }
 .directorist-search-form-action__filter .directorist-filter-btn .directorist-icon-mask:after {
-  height: 16px;
-  width: 16px;
+  height: 12px;
+  width: 14px;
   background-color: var(--directorist-color-body);
 }
 .directorist-search-form-action__submit .directorist-btn-search {

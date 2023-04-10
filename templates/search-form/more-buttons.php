@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<a href="#" class="directorist-btn directorist-btn-lg directorist-filter-btn">
 
 				<?php if ( $searchform->has_more_filters_icon() ): ?>
-					<?php directorist_icon( 'las la-filter' ); ?>
+					<?php directorist_icon( 'fas fa-filter' ); ?>
 				<?php endif;?>
 
 				<?php echo esc_html( $searchform->more_filters_text );?>

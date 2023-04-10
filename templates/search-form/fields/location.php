@@ -34,7 +34,7 @@ elseif ( $location_source == 'map' ) {
 	?>
 
 	<div class="directorist-search-field directorist-form-group directorist-icon-right">
-		<span class="directorist-input-icon directorist-filter-location-icon"><?php directorist_icon( 'las la-crosshairs' ); ?></span>
+		<span class="directorist-input-icon directorist-filter-location-icon"><?php directorist_icon( 'fas fa-crosshairs' ); ?></span>
 		<input type="text" name="address" id="addressId" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr($data['placeholder']); ?>" autocomplete="off" class="directorist-form-element directorist-location-js location-name" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 
 		<div class="address_result location-names" style="display: none"></div>

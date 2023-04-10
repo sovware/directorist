@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<?php do_action( 'directorist_before_author_profile_section' ); ?>
 
-	<div class="directorist-card directorist-author-profile-wrap directorist-author-profile__wrap directorist-mb-40">
-		<div class="directorist-flex directorist-justify-content-between directorist-align-center">
+	<div class="directorist-card directorist-author-profile-wrap">
+		<div class="directorist-author-profile__wrap">
 
 			<div class="directorist-author-avatar directorist-author-profile__avatar">
 

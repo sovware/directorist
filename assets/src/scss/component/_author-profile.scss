@@ -1,9 +1,17 @@
 // Author Profile Style
 .directorist-author-profile {
     @include e(wrap) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
         padding: 25px 50px 25px 30px;
+        margin: 0 0 40px;
         @include e(body) {
             padding: 0;
+        }
+        @media only screen and (max-width: 991px){
+            flex-direction: column;
         }
     }
     @include e(avatar) {
@@ -32,6 +40,7 @@
         margin: 0;
         padding: 0;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 15px;
         list-style-type: none;
@@ -79,8 +88,8 @@
 
 // Directorist Author Widget
 .directorist-author-info-list {
+    max-width: 300px;
     padding: 0;
-    padding-right: 50px;
     margin: 0;
     li{
         margin-left: 0;
@@ -190,12 +199,6 @@
     flex-direction: column;
     margin-bottom: 30px;
     border-bottom: 1px solid var(--directorist-color-border);
-    @media only screen and (max-width: 767px) {
-        flex-direction: column;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-    }
 
     @include e(title) {
         font-size: 30px;
@@ -207,7 +210,10 @@
         display: flex;
         align-items: baseline;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 30px;
         .directorist-type-nav {
+            display: flex;
             margin: 0 -15px;
             @include e(list) {
                 display: inline-flex;

@@ -8412,10 +8412,33 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 .directorist-author-profile__wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 15px;
   padding: 25px 50px 25px 30px;
+  margin: 0 0 40px;
 }
 .directorist-author-profile__wrap__body {
   padding: 0;
+}
+@media only screen and (max-width: 991px) {
+  .directorist-author-profile__wrap {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
 }
 .directorist-author-profile__avatar {
   display: -webkit-box;
@@ -8450,6 +8473,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
@@ -8521,8 +8547,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 .directorist-author-info-list {
+  max-width: 300px;
   padding: 0;
-  padding-right: 50px;
   margin: 0;
 }
 .directorist-author-info-list li {
@@ -8656,24 +8682,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-bottom: 30px;
   border-bottom: 1px solid var(--directorist-color-border);
 }
-@media only screen and (max-width: 767px) {
-  .directorist-author-listing-top {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    text-align: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
-}
 .directorist-author-listing-top__title {
   font-size: 30px;
   font-weight: 400;
@@ -8693,8 +8701,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  gap: 30px;
 }
 .directorist-author-listing-top__filter .directorist-type-nav {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   margin: 0 -15px;
 }
 .directorist-author-listing-top__filter .directorist-type-nav__list {

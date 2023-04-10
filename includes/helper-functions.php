@@ -3701,7 +3701,7 @@ function directorist_translate_to_listing_field_key( $header_key = '' ) {
  *
  * @since  7.3.0
  * @param  mixed  $var     Variable.
- * @param  string $default Default value.
+ * @param  mixed|null $default Default value.
  * @return mixed
  */
 function directorist_get_var( &$var, $default = null ) {
@@ -3926,7 +3926,7 @@ function directorist_default_preview_size() {
  * @return int Page ID
  */
 function directorist_get_page_id( string $page_name = '' ) : int {
-    
+
     $page_to_option_map = apply_filters( 'directorist_pages', array(
         'location'      => 'single_location_page',
         'category'      => 'single_category_page',

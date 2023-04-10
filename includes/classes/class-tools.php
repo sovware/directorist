@@ -152,12 +152,14 @@
                     // start importing listings
                     $post_status = ( isset( $post[ $listing_status ] ) ) ? $post[ $listing_status ] : '';
                     $post_status = ( in_array( $post_status, $supported_post_status ) ) ? $post_status : $new_listing_status;
+                    $listing_id  = ( isset( $post[ 'id' ] ) ) ? absint( $post[ 'id' ] ) : '';
 
                     $args = array(
                         "post_title"   => isset( $post[ $title ] ) ? html_entity_decode( $post[ $title ] ): '',
                         "post_content" => isset( $post[ $description ] ) ? html_entity_decode( $post[ $description ] ) : '',
                         "post_type"    => ATBDP_POST_TYPE,
                         "post_status"  => $post_status,
+                        "ID"           => $listing_id,
                     );
 
                     // Post Date
@@ -168,7 +170,7 @@
                         $args[ 'post_date' ] = $post_date;
                     }
 
-                    $post_id = wp_insert_post( $args );
+                    $post_id = ! empty( $args['ID'] ) && get_post( $args['ID'] ) ? wp_update_post( $args ) :  wp_insert_post( $args );
 
                     if (  is_wp_error( $post_id ) ) {
                         $failed++;

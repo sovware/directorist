@@ -16730,6 +16730,15 @@ input[type=radio]:checked::before {
 .icon-picker-selector__icon .cptm-form-control {
   pointer-events: none;
 }
+.icon-picker-selector__icon__reset {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  cursor: pointer;
+  padding: 5px 15px;
+}
 .icon-picker-selector__btn {
   margin: 0 10px;
   height: 40px;

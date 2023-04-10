@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <?php do_action( 'directorist_before_author_about_section' ); ?>
 
-<div class="<?php Helper::directorist_row(); ?> directorist-mb-40">
+<div class="<?php Helper::directorist_row(); ?> directorist-mb-80">
 
 	<div class="<?php Helper::directorist_column( 'md-4' ); ?>">
 		<div class="directorist-card directorist-widget directorist-author-contact">

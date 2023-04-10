@@ -186,6 +186,8 @@
 
 // Directorist Author Listings
 .directorist-author-listing-top {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 30px;
     border-bottom: 1px solid var(--directorist-color-border);
     @media only screen and (max-width: 767px) {
@@ -195,43 +197,59 @@
         align-items: center;
     }
 
-    .directorist-dropdown__toggle {
-        background-color: #fff;
-        padding: 0 15px;
+    @include e(title) {
+        font-size: 30px;
+        font-weight: 400;
+        margin: 0 0 52px;
+        text-align: center;
     }
+    @include e(filter) {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        .directorist-type-nav {
+            margin: 0 -15px;
+            @include e(list) {
+                display: inline-flex;
+                li {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+            @include e(link) {
+                flex-direction: row;
+                gap: 7px;
+                font-size: 14px;
+                font-weight: 400;
+                color: var(--directorist-color-deep-gray);
+                i {
+                    margin: 0;
+                    &:after {
+                        background-color: var(--directorist-color-deep-gray);
+                    }
+                }
+            }
+        }
+    } 
 
-    .directorist-dropdown__links {
-        top: 50px;
-    }
-
-    .directorist-author-listing-top__title {
-        flex: 1;
-        font-weight: 500;
-        font-size: 24px;
-        margin: 0;
-    }
-
-    .directorist-dropdown__toggle {
-        background: transparent !important;
-        border: none;
-        padding: 0;
-        color: var(--directorist-color-body);
+    .directorist-dropdown {
+        @include e(toggle) {
+            position: relative;
+            top: -10px;
+            gap: 10px;
+            background: transparent !important;
+            border: none;
+            padding: 0;
+            min-height: auto;
+            color: var(--directorist-color-body);
+        }
+        @include e(link) {
+            top: 50px;
+        }
     }
 }
 
-.directorist-author-listing-type {
-    margin-top: 15px;
-    margin-left: -15px;
-    margin-right: -15px;
-}
-
-.directorist-type-nav__list{
-    li{
-        margin: 0;
-    }
-}
-
-// Auhtor Content Fix
+// Author Content Fix
 .directorist-author-listing-content {
     &.directorist-author-listing-grid--fix{
         .directorist-col-lg-3{

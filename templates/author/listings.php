@@ -10,16 +10,14 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-author-listing-top directorist-flex directorist-justify-content-between">
-
-	<div>
-		<h2 class="directorist-author-listing-top__title"><?php esc_html_e( 'Author Listings' , 'directorist'); ?></h2>
+<div class="directorist-author-listing-top">
+	<h2 class="directorist-author-listing-top__title"><?php esc_html_e( 'Author Listings' , 'directorist'); ?></h2>
+	<div class="directorist-author-listing-top__filter">
 		<div class="directorist-author-listing-type">
-		<?php $author->archive_type( $author ); ?>
+			<?php $author->archive_type( $author ); ?>
 		</div>
-	</div>
 
-	<?php if ( $author->cat_filter_enabled() ): ?>
+		<?php if ( $author->cat_filter_enabled() ): ?>
 
 		<div class="directorist-dropdown directorist-dropdown-js directorist-author-listing-top__dropdown directorist-dropdown-update-js">
 
@@ -39,7 +37,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		</div>
 
-	<?php endif; ?>
+		<?php endif; ?>
+	</div>
 
 </div>
 

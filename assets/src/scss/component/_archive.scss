@@ -12,7 +12,7 @@
 }
 
 /* Directory type nav */
-.directorist-content-active .directorist-type-nav {
+.directorist-type-nav {
 	@include e(list) {
 		display: flex;
 		justify-content: center;

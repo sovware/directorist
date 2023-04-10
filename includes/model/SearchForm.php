@@ -73,7 +73,7 @@ class Directorist_Listing_Search_Form {
 		}
 
 		// Search result page
-		if ( $type == 'search_result' ) {
+		if ( $type == 'search_result' || $type === 'instant_search' ) {
 			$this->update_options_for_search_result_page();
 			$this->prepare_search_data($atts);
 		}

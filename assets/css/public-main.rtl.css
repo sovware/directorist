@@ -527,8 +527,8 @@ body.logged-in .select2-container--open .select2-dropdown--above {
   border: none;
   border-radius: 10px !important;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-drop-shadow));
-          filter: drop-shadow(var(--directorist-drop-shadow));
+  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
+          filter: drop-shadow(var(--directorist-box-shadow));
 }
 .select2-container--default .select2-search--dropdown {
   padding: 20px 20px 10px 20px;
@@ -7166,8 +7166,8 @@ p.atbd-min {
   border: none;
   border-radius: 12px;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-drop-shadow));
-          filter: drop-shadow(var(--directorist-drop-shadow));
+  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
+          filter: drop-shadow(var(--directorist-box-shadow));
   z-index: 99999;
 }
 .directorist-dropdown .directorist-dropdown__links--right {
@@ -7810,8 +7810,8 @@ p.atbd-min {
   border: none;
   border-radius: 16px !important;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-drop-shadow));
-          filter: drop-shadow(var(--directorist-drop-shadow));
+  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
+          filter: drop-shadow(var(--directorist-box-shadow));
 }
 .directorist-card .directorist-card__header {
   padding: 20px 25px;
@@ -9428,8 +9428,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border: none;
   border-radius: 12px;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-drop-shadow));
-          filter: drop-shadow(var(--directorist-drop-shadow));
+  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
+          filter: drop-shadow(var(--directorist-box-shadow));
 }
 .directorist-search-form__box.always_open .directorist-advanced-filter {
   width: 100%;
@@ -9715,8 +9715,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border: none;
   border-radius: 12px;
   background: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-drop-shadow));
-          filter: drop-shadow(var(--directorist-drop-shadow));
+  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
+          filter: drop-shadow(var(--directorist-box-shadow));
 }
 .directorist-search-contents .directorist-advanced-filter .directorist-search-tags {
   -webkit-flex-wrap: wrap;
@@ -10728,8 +10728,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 50px 40px;
   border-radius: 16px;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-drop-shadow));
-          filter: drop-shadow(var(--directorist-drop-shadow));
+  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
+          filter: drop-shadow(var(--directorist-box-shadow));
 }
 .directorist-author__form__btn {
   width: 100%;
@@ -11271,8 +11271,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border: none;
   border-radius: 12px;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-drop-shadow));
-          filter: drop-shadow(var(--directorist-drop-shadow));
+  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
+          filter: drop-shadow(var(--directorist-box-shadow));
 }
 .directorist-listing-single.directorist-listing-card .directorist-listing-single__thumb {
   position: relative;
@@ -12037,8 +12037,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border: none;
   border-radius: 12px;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-drop-shadow));
-          filter: drop-shadow(var(--directorist-drop-shadow));
+  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
+          filter: drop-shadow(var(--directorist-box-shadow));
   line-break: auto;
   word-break: break-all;
   -webkit-transition: 0.3s ease;

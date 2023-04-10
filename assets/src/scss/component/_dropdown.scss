@@ -52,7 +52,7 @@
         border: none;
         border-radius: 12px;
         background-color: var(--directorist-color-white);
-        filter: drop-shadow(var(--directorist-drop-shadow));
+        filter: drop-shadow(var(--directorist-box-shadow));
         z-index: 99999;
 
         a {

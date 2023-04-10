@@ -1,36 +1,36 @@
 <?php
 do_action('include_style_settings');
-$primary_color                    = get_directorist_option('primary_color', '#ffffff');
+$primary_text_color               = get_directorist_option('primary_color', '#ffffff');
 $primary_hover_color              = get_directorist_option('primary_hover_color', '#ffffff');
 $back_primary_color               = get_directorist_option('back_primary_color', '#444752');
 $back_primary_hover_color         = get_directorist_option('back_primary_hover_color', '#222222');
 $border_primary_color             = get_directorist_option('border_primary_color', '#444752');
 $border_primary_hover_color       = get_directorist_option('border_primary_hover_color', '#222222');
-$secondary_color                  = get_directorist_option('secondary_color', '#fff');
+$secondary_text_color             = get_directorist_option('secondary_color', '#fff');
 $secondary_hover_color            = get_directorist_option('secondary_hover_color', '#fff');
 $back_secondary_color             = get_directorist_option('back_secondary_color', '#122069');
 $back_secondary_hover_color       = get_directorist_option('back_secondary_hover_color', '#131469');
 $secondary_border_color           = get_directorist_option('secondary_border_color', '#131469');
 $secondary_border_hover_color     = get_directorist_option('secondary_border_hover_color', '#131469');
-$danger_color                     = get_directorist_option('danger_color', '#fff');
+$danger_text_color                = get_directorist_option('danger_color', '#fff');
 $danger_hover_color               = get_directorist_option('danger_hover_color', '#fff');
 $back_danger_color                = get_directorist_option('back_danger_color', '#e23636');
 $back_danger_hover_color          = get_directorist_option('back_danger_hover_color', '#c5001e');
 $danger_border_color              = get_directorist_option('danger_border_color', '#e23636');
 $danger_border_hover_color        = get_directorist_option('danger_border_hover_color', '#c5001e');
-$success_color                    = get_directorist_option('success_color', '#fff');
+$success_text_color               = get_directorist_option('success_color', '#fff');
 $success_hover_color              = get_directorist_option('success_hover_color', '#fff');
 $back_success_color               = get_directorist_option('back_success_color', '#32cc6f');
 $back_success_hover_color         = get_directorist_option('back_success_hover_color', '#2ba251');
 $border_success_color             = get_directorist_option('border_success_color', '#32cc6f');
 $border_success_hover_color       = get_directorist_option('border_success_hover_color', '#2ba251');
-$lighter_color                    = get_directorist_option('lighter_color', '#1A1B29');
+$lighter_text_color               = get_directorist_option('lighter_color', '#1A1B29');
 $lighter_hover_color              = get_directorist_option('lighter_hover_color', '#1A1B29');
 $back_lighter_color               = get_directorist_option('back_lighter_color', '#F6F7F9');
 $back_lighter_hover_color         = get_directorist_option('lighter_color', '#F6F7F9');
 $border_lighter_color             = get_directorist_option('border_lighter_color', '#F6F7F9');
 $border_lighter_hover_color       = get_directorist_option('border_lighter_hover_color', '#F6F7F9');
-$priout_color                     = get_directorist_option('priout_color', '#444752');
+$priout_text_color                = get_directorist_option('priout_color', '#444752');
 $priout_hover_color               = get_directorist_option('priout_hover_color', '#444752');
 $back_priout_color                = get_directorist_option('back_priout_color', '#fff');
 $back_priout_hover_color          = get_directorist_option('back_priout_hover_color', '#fff');
@@ -42,23 +42,83 @@ $back_prioutlight_color           = get_directorist_option('back_prioutlight_col
 $back_prioutlight_hover_color     = get_directorist_option('back_prioutlight_hover_color', '#444752');
 $border_prioutlight_color         = get_directorist_option('border_prioutlight_color', '#e3e6ef');
 $border_prioutlight_hover_color   = get_directorist_option('border_prioutlight_hover_color', '#444752');
-$danout_color                     = get_directorist_option('danout_color', '#e23636');
+$danout_text_color                = get_directorist_option('danout_color', '#e23636');
 $danout_hover_color               = get_directorist_option('danout_hover_color', '#fff');
 $back_danout_color                = get_directorist_option('back_danout_color', '#fff');
 $back_danout_hover_color          = get_directorist_option('back_danout_hover_color', '#e23636');
 $border_danout_color              = get_directorist_option('border_danout_color', '#e23636');
 $border_danout_hover_color        = get_directorist_option('border_danout_hover_color', '#e23636');
-$open_back_color                  = get_directorist_option('open_back_color', '#32cc6f');
-$closed_back_color                = get_directorist_option('closed_back_color', '#e23636');
-$featured_back_color              = get_directorist_option('featured_back_color', '#fa8b0c');
-$popular_back_color               = get_directorist_option('popular_back_color', '#f51957');
-$new_back_color                   = get_directorist_option('new_back_color', '#122069');
-$primary_dark_back_color          = get_directorist_option('primary_dark_back_color', '#444752');
+
+$open_badge_color                 = get_directorist_option('open_back_color', '#32cc6f');
+$closed_badge_color               = get_directorist_option('closed_back_color', '#e23636');
+$featured_badge_color             = get_directorist_option('featured_back_color', '#fa8b0c');
+$popular_badge_color              = get_directorist_option('popular_back_color', '#f51957');
+$new_badge_color                  = get_directorist_option('new_back_color', '#122069');
+
 $primary_dark_border_color        = get_directorist_option('primary_dark_border_color', '#444752');
+
 $marker_shape_color               = get_directorist_option('marker_shape_color', '#444752');
 $marker_icon_color                = get_directorist_option('marker_icon_color', '#444752');
+
+$primary_color                    = get_directorist_option('primary_dark_back_color', '#000000');
+$secondary_color                  = get_directorist_option('secondary_color', '#122069');
+$dark_color                       = get_directorist_option('dark_color', '#000000');
+$white_color                      = get_directorist_option('white_color', '#ffffff');
+$success_color                    = get_directorist_option('success_color', '#28a800');
+$info_color                       = get_directorist_option('info_color', '#2c99ff');
+$warning_color                    = get_directorist_option('warning_color', '#f28100');
+$danger_color                     = get_directorist_option('danger_color', '#f80718');
+$gray_color                       = get_directorist_option('gray_color', '#bcbcbc');
 ?>
 <style>
+    /* Css Variable */
+    :root {
+        /* theme color */
+        --directorist-color-primary: <?php echo $primary_color; ?>;
+        --directorist-color-primary-rgb: 0,0,0;
+        --directorist-color-secondary: <?php echo $secondary_color; ?>;
+        --directorist-color-dark: <?php echo $dark_color; ?>;
+        --directorist-color-success: <?php echo $success_color; ?>;
+        --directorist-color-success-rgb: 40, 168, 0;
+        --directorist-color-info: <?php echo $info_color; ?>;
+        --directorist-color-info-rgb: 44, 153, 255;
+        --directorist-color-warning: <?php echo $warning_color; ?>;
+        --directorist-color-warning-rgb: 242, 129, 0;
+        --directorist-color-danger: <?php echo $danger_color; ?>;
+        --directorist-color-danger-rgb: 248, 7, 24;
+        --directorist-color-white: <?php echo $white_color; ?>;
+        --directorist-color-white-rgb: 255,255,255;
+        --directorist-color-body: #404040;
+        --directorist-color-gray: <?php echo $gray_color; ?>;
+        --directorist-color-light-gray: #ededed;
+        --directorist-color-light-gray-hover: #BCBCBC;
+        --directorist-color-light-gray-rgb: 237, 237, 237;
+        --directorist-color-deep-gray: #808080;
+        --directorist-color-bg-gray: #f4f4f4;
+        --directorist-color-bg-light-gray: #F4F5F6;
+        --directorist-color-bg-light: #ECEEF2;
+
+        /* other color */
+        --directorist-color-overlay: rgba(0,0,0,0.5);
+        --directorist-color-overlay-normal: rgba(0,0,0,0.2);
+        --directorist-color-border: #e9e9e9;
+        --directorist-color-border-normal: #d9d9d9;
+
+        --directorist-box-shadow: 0 3px 7.5px rgba(0,0,0, 0.08);
+        --directorist-box-shadow-sm: 0 5px 0.8px rgba(167,178,199, 0.1);
+
+        /* Badge Color */
+        --directorist-color-open-badge: <?php echo $open_badge_color; ?>;
+        --directorist-color-closed-badge: <?php echo $closed_badge_color; ?>;
+        --directorist-color-featured-badge: <?php echo $featured_badge_color; ?>;
+        --directorist-color-popular-badge: <?php echo $popular_badge_color; ?>;
+        --directorist-color-new-badge: <?php echo $new_badge_color; ?>;
+
+        /* Map marker Color */
+        --directorist-color-marker-shape: <?php echo $marker_shape_color; ?>;
+        --directorist-color-marker-icon: <?php echo $marker_icon_color; ?>;
+    }
+    
     /* Settings Panel Structure
 
     Button: Color Name
@@ -155,7 +215,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_manage_fees_wrapper .table tr .action p .btn-block,
     #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn,
     #directorist.atbd_wrapper .ezmu__btn, .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .directorist-btn.directorist-btn-dark, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew, .bdb-select-hours .bdb-remove, .directorist-form-image-upload-field .ezmu__btn.ezmu__input-label, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
-        color: <?php echo !empty($primary_color) ? $primary_color : '#fff'; ?> !important;
+        color: var(--directorist-color-white) !important;
     }
 
     /* Color Hover */
@@ -168,7 +228,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_manage_fees_wrapper .table tr .action p .btn-block:hover,
     #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn:hover,
     #directorist.atbd_wrapper .ezmu__btn:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .directorist-btn.directorist-btn-dark:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover, .bdb-select-hours .bdb-remove:hover, .directorist-form-image-upload-field .ezmu__btn.ezmu__input-label:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
-        color: <?php echo !empty($primary_hover_color) ? $primary_hover_color : '#fff'; ?> !important;
+        color: var(--directorist-color-white) !important;
     }
 
     /* Background */
@@ -181,7 +241,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_manage_fees_wrapper .table tr .action p .btn-block,
     #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn,
     #directorist.atbd_wrapper .ezmu__btn, .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .directorist-btn.directorist-btn-dark, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew, .bdb-select-hours .bdb-remove, .directorist-form-image-upload-field .ezmu__btn.ezmu__input-label, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
-        background: <?php echo !empty($back_primary_color) ? $back_primary_color : '#444752'; ?> !important;
+        background: var(--directorist-color-primary) !important;
     }
 
     /* Hover Background */
@@ -192,21 +252,21 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic:hover,
     .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover,
     #directorist.atbd_wrapper .ezmu__btn:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .directorist-btn.directorist-btn-dark:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover, .bdb-select-hours .bdb-remove:hover, .directorist-form-image-upload-field .ezmu__btn.ezmu__input-label:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
-        background: <?php echo !empty($back_primary_hover_color) ? $back_primary_hover_color : '#222222'; ?> !important;
+        background: rgba(var(--directorist-color-primary-rgb),.80) !important;
     }
 
     /* Border Color */
     #directorist.atbd_wrapper .btn-primary,
     .default-ad-search .submit_btn .btn-default,
     .atbdp_login_form_shortcode #loginform p input[type="submit"], .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .atbd-add-payment-method form .atbd-save-card, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
-        border-color: <?php echo !empty($border_primary_color) ? $border_primary_color : '#444752'; ?> !important;
+        border-color: var(--directorist-color-primary) !important;
     }
 
     /* Hover Border Color */
     #directorist.atbd_wrapper .btn-primary:hover,
     .default-ad-search .submit_btn .btn-default:hover,
     .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .atbd-add-payment-method form .atbd-save-card:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
-        border-color: <?php echo !empty($border_primary_hover_color) ? $border_primary_hover_color : '#222222'; ?> !important;
+        border-color: var(--directorist-color-primary) !important;
     }
 
     /* =======================================
@@ -214,31 +274,31 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     ======================================== */
     /* Color */
     #directorist.atbd_wrapper .btn-secondary, .directorist-btn.directorist-btn-secondary {
-        color: <?php echo !empty($secondary_color) ? $secondary_color : '#fff'; ?> !important;
+        color: var(--directorist-color-white) !important;
     }
 
     #directorist.atbd_wrapper .btn-secondary:hover, .directorist-btn.directorist-btn-secondary:hover {
-        color: <?php echo !empty($secondary_hover_color) ? $secondary_hover_color : '#fff'; ?> !important;
+        color: var(--directorist-color-white) !important;
     }
 
     /* Background */
     #directorist.atbd_wrapper .btn-secondary, .directorist-btn.directorist-btn-secondary {
-        background: <?php echo !empty($back_secondary_color) ? $back_secondary_color : '#122069'; ?> !important;
+        background: var(--directorist-color-secondary) !important;
     }
 
     /* Hover Background */
     #directorist.atbd_wrapper .btn-secondary:hover, .directorist-btn.directorist-btn-secondary:hover {
-        background: <?php echo !empty($back_secondary_hover_color) ? $back_secondary_hover_color : '#131469'; ?> !important;
+        background: rgba(var(--directorist-color-secondary-rgb),.80) !important;
     }
 
     /* Border Color */
     #directorist.atbd_wrapper .btn-secondary, .directorist-btn.directorist-btn-secondary {
-        border-color: <?php echo !empty($secondary_border_color) ? $secondary_border_color : '#131469'; ?> !important;
+        border-color: var(--directorist-color-secondary) !important;
     }
 
     /* Hover Border Color */
     #directorist.atbd_wrapper .btn-secondary:hover, .directorist-btn.directorist-btn-secondary:hover {
-        border-color: <?php echo !empty($secondary_border_hover_color) ? $secondary_border_hover_color : '#131469'; ?> !important;
+        border-color: var(--directorist-color-secondary) !important;
     }
 
 
@@ -249,38 +309,38 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     #directorist.atbd_wrapper .btn-danger,
     .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic,
     .sweet-alert button.confirm, .directorist-form-social-fields__remove, .directorist-btn.directorist-btn-danger {
-        color: <?php echo !empty($danger_color) ? $danger_color : '#fff'; ?> !important;
+        color: var(--directorist-color-white) !important;
     }
 
     /* color hover */
     #directorist.atbd_wrapper .btn-danger:hover,
     .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic,
     .sweet-alert button.confirm:hover, .directorist-form-social-fields__remove:hover, .directorist-btn.directorist-btn-danger:hover {
-        color: <?php echo !empty($danger_hover_color) ? $danger_hover_color : '#fff'; ?> !important;
+        color: var(--directorist-color-white) !important;
     }
 
     /* Background */
     #directorist.atbd_wrapper .btn-danger,
     .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic,
     .sweet-alert button.confirm, .directorist-form-social-fields__remove, .directorist-btn.directorist-btn-danger {
-        background: <?php echo !empty($back_danger_color) ? $back_danger_color : '#e23636'; ?> !important;
+        background: var(--directorist-color-danger) !important;
     }
 
     /* Hover Background */
     #directorist.atbd_wrapper .btn-danger:hover,
     .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic:hover,
     .sweet-alert button.confirm:hover, .directorist-form-social-fields__remove:hover, .directorist-btn.directorist-btn-danger:hover {
-        background: <?php echo !empty($back_danger_hover_color) ? $back_danger_hover_color : '#c5001e'; ?> !important;
+        background: rgba(var(--directorist-color-danger-rgb),.80) !important;
     }
 
     /* Border Color */
     #directorist.atbd_wrapper .btn-danger, .directorist-btn.directorist-btn-danger {
-        border-color: <?php echo !empty($danger_border_color) ? $danger_border_color : '#e23636'; ?> !important;
+        border-color: var(--directorist-color-danger) !important;
     }
 
     /* Hover Border Color */
     #directorist.atbd_wrapper .btn-danger:hover, .directorist-btn.directorist-btn-danger:hover {
-        border-color: <?php echo !empty($danger_border_hover_color) ? $danger_border_hover_color : '#c5001e'; ?> !important;
+        border-color: var(--directorist-color-danger) !important;
     }
 
 
@@ -289,32 +349,32 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     ======================================== */
     /* Color */
     #directorist.atbd_wrapper .btn-success {
-        color: <?php echo !empty($success_color) ? $success_color : '#fff'; ?> !important;
+        color: var(--directorist-color-white) !important;
     }
 
     /* color hover */
     #directorist.atbd_wrapper .btn-success:hover {
-        color: <?php echo !empty($success_hover_color) ? $success_hover_color : '#fff'; ?> !important;
+        color: var(--directorist-color-white) !important;
     }
 
     /* Background */
     #directorist.atbd_wrapper .btn-success {
-        background: <?php echo !empty($back_success_color) ? $back_success_color : '#32cc6f'; ?> !important;
+        background: var(--directorist-color-success) !important;
     }
 
     /* Hover Background */
     #directorist.atbd_wrapper .btn-success:hover {
-        background: <?php echo !empty($back_success_hover_color) ? $back_success_hover_color : '#2ba251'; ?> !important;
+        background: rgba(var(--directorist-color-success-rgb),.80) !important;
     }
 
     /* Border Color */
     #directorist.atbd_wrapper .btn-success {
-        border-color: <?php echo !empty($border_success_color) ? $border_success_color : '#32cc6f'; ?> !important;
+        border-color: var(--directorist-color-success) !important;
     }
 
     /* Hover Border Color */
     #directorist.atbd_wrapper .btn-success:hover {
-        border-color: <?php echo !empty($border_success_hover_color) ? $border_success_hover_color : '#2ba251'; ?> !important;
+        border-color: var(--directorist-color-success) !important;
     }
 
     /* =======================================
@@ -325,52 +385,52 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter,
     #directorist.atbd_wrapper .btn-outline-primary,
     .atbd_dropdown .atbd_dropdown-toggle, .directorist-btn.directorist-btn-outline-dark, .directorist-btn.directorist-btn-outline-primary {
-        color: <?php echo !empty($priout_color) ? $priout_color : '#444752'; ?> !important;
+        color: var(--directorist-color-primary) !important;
     }
 
     /* color hover */
     .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover,
     #directorist.atbd_wrapper .btn-outline-primary:hover,
     .atbd_dropdown .atbd_dropdown-toggle:hover, .directorist-btn.directorist-btn-outline-dark:hover, .directorist-btn.directorist-btn-outline-primary:hover {
-        color: <?php echo !empty($priout_hover_color) ? $priout_hover_color : '#444752'; ?> !important;
+        color: var(--directorist-color-primary) !important;
     }
 
     /* border color */
     .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter,
     #directorist.atbd_wrapper .btn-outline-primary,
     .atbd_dropdown .atbd_dropdown-toggle, .directorist-btn.directorist-btn-outline-dark, .directorist-btn.directorist-btn-outline-primary {
-        border: 1px solid <?php echo !empty($border_priout_color) ? $border_priout_color : '#444752'; ?> !important;
+        border: 1px solid var(--directorist-color-primary) !important;
     }
 
     .atbd_dropdown .atbd_dropdown-toggle .atbd_drop-caret:before {
-        border-left: 1px solid <?php echo !empty($border_priout_color) ? $border_priout_color : '#444752'; ?> !important;
-        border-bottom: 1px solid <?php echo !empty($border_priout_color) ? $border_priout_color : '#444752'; ?> !important;
+        border-left: 1px solid var(--directorist-color-primary) !important;
+        border-bottom: 1px solid var(--directorist-color-primary) !important;
     }
 
     /* border color hover */
     .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover,
     #directorist.atbd_wrapper .btn-outline-primary:hover,
     .atbd_dropdown .atbd_dropdown-toggle:hover, .directorist-btn.directorist-btn-outline-dark:hover, .directorist-btn.directorist-btn-outline-primary:hover {
-        border-color: <?php echo !empty($border_priout_hover_color) ? $border_priout_hover_color : '#9299b8'; ?> !important;
+        border-color: rgba(var(--directorist-color-primary-rgb),.80) !important;
     }
 
     .atbd_dropdown .atbd_dropdown-toggle:hover .atbd_drop-caret:before {
-        border-left-color: <?php echo !empty($border_priout_hover_color) ? $border_priout_hover_color : '#9299b8'; ?> !important;
-        border-bottom-color: <?php echo !empty($border_priout_hover_color) ? $border_priout_hover_color : '#9299b8'; ?> !important;
+        border-left-color: rgba(var(--directorist-color-primary-rgb),.80) !important;
+        border-bottom-color: rgba(var(--directorist-color-primary-rgb),.80) !important;
     }
 
     /* background */
     .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter,
     #directorist.atbd_wrapper .btn-outline-primary,
     .atbd_dropdown .atbd_dropdown-toggle, .directorist-btn.directorist-btn-outline-dark, .directorist-btn.directorist-btn-outline-primary {
-        background: <?php echo !empty($back_priout_color) ? $back_priout_color : '#fff'; ?> !important;
+        background: transparent !important;
     }
 
     /* background hover */
     .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover,
     #directorist.atbd_wrapper .btn-outline-primary:hover,
     .atbd_dropdown .atbd_dropdown-toggle:hover, .directorist-btn.directorist-btn-outline-dark:hover, .directorist-btn.directorist-btn-outline-primary:hover {
-        background: <?php echo !empty($back_priout_hover_color) ? $back_priout_hover_color : '#fff'; ?> !important;
+        background: transparent !important;
     }
 
     /* =======================================
@@ -381,40 +441,39 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbdp_float_none .btn.btn-outline-light,
     .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action,
     .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light {
-        color: <?php echo !empty($prioutlight_color) ? $prioutlight_color : '#444752'; ?> !important;
+        color: var(--directorist-color-dark) !important;
     }
 
     /* color hover */
     .atbdp_float_none .btn.btn-outline-light:hover,
     .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover,
     .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a:hover, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light:hover {
-        color: <?php echo !empty($prioutlight_hover_color) ? $prioutlight_hover_color : '#ffffff'; ?> !important;
+        color: var(--directorist-color-dark) !important;
     }
 
     /* border color */
     .atbdp_float_none .btn.btn-outline-light,
     .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light {
-        border: 1px solid <?php echo !empty($border_prioutlight_color) ? $border_prioutlight_color : '#e3e6ef'; ?> !important;
+        border: 1px solid var(--directorist-color-light-gray) !important;
     }
 
     /* border color hover */
     .atbdp_float_none .btn.btn-outline-light:hover,
     .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light:hover {
-        border-color: <?php echo !empty($border_prioutlight_hover_color) ? $border_prioutlight_hover_color : '#444752'; ?> !important;
+        border-color: var(--directorist-color-light-gray) !important;
     }
 
     /* background */
     .atbdp_float_none .btn.btn-outline-light,
     .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light {
-        background: <?php echo !empty($back_prioutlight_color) ? $back_prioutlight_color : '#fff'; ?> !important;
+        background: var(--directorist-color-light-gray) !important;
     }
 
     /* background hover */
     .atbdp_float_none .btn.btn-outline-light:hover,
     .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light:hover {
-        background: <?php echo !empty($back_prioutlight_hover_color) ? $back_prioutlight_hover_color : '#444752'; ?> !important;
+        background: var(--directorist-color-light-gray-hover) !important;
     }
-
 
     /* =======================================
      Button: Danger outline
@@ -422,32 +481,32 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
 
     /* color */
     #directorist.atbd_wrapper .btn-outline-danger {
-        color: <?php echo !empty($danout_color) ? $danout_color : '#e23636'; ?> !important;
+        color: <?php echo $danout_text_color; ?> !important;
     }
 
     /* color hover */
     #directorist.atbd_wrapper .btn-outline-danger:hover {
-        color: <?php echo !empty($danout_hover_color) ? $danout_hover_color : '#fff'; ?> !important;
+        color: <?php echo $danout_hover_color; ?> !important;
     }
 
     /* border color */
     #directorist.atbd_wrapper .btn-outline-danger {
-        border: 1px solid <?php echo !empty($border_danout_color) ? $border_danout_color : '#e23636'; ?> !important;
+        border: 1px solid <?php echo $border_danout_color; ?> !important;
     }
 
     /* border color hover */
     #directorist.atbd_wrapper .btn-outline-danger:hover {
-        border-color: <?php echo !empty($border_danout_hover_color) ? $border_danout_hover_color : '#e23636'; ?> !important;
+        border-color: <?php echo $border_danout_hover_color; ?> !important;
     }
 
     /* background */
     #directorist.atbd_wrapper .btn-outline-danger {
-        background: <?php echo !empty($back_danout_color) ? $back_danout_color : '#fff'; ?> !important;
+        background: <?php echo $back_danout_color; ?> !important;
     }
 
     /* background hover */
     #directorist.atbd_wrapper .btn-outline-danger:hover {
-        background: <?php echo !empty($back_danout_hover_color) ? $back_danout_hover_color : '#e23636'; ?> !important;
+        background: <?php echo $back_danout_hover_color; ?> !important;
     }
 
     /* =======================================
@@ -456,34 +515,33 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
 
     /* color */
     .directorist-btn.directorist-btn-lighter {
-        color: <?php echo !empty($lighter_color) ? $lighter_color : '#1A1B29'; ?> !important;
+        color: <?php echo $lighter_text_color; ?> !important;
     }
 
     /* color hover */
     .directorist-btn.directorist-btn-lighter:hover {
-        color: <?php echo !empty($lighter_hover_color) ? $lighter_hover_color : '#1A1B29'; ?> !important;
+        color: <?php echo $lighter_hover_color; ?> !important;
     }
 
     /* border color */
     .directorist-btn.directorist-btn-lighter {
-        border: 1px solid <?php echo !empty($border_lighter_color) ? $border_lighter_color : '#F6F7F9'; ?> !important;
+        border: 1px solid <?php echo $border_lighter_color; ?> !important;
     }
 
     /* border color hover */
     .directorist-btn.directorist-btn-lighter:hover {
-        border-color: <?php echo !empty($border_lighter_hover_color) ? $border_lighter_hover_color : '#F6F7F9'; ?> !important;
+        border-color: <?php echo $border_lighter_hover_color; ?> !important;
     }
 
     /* background */
     .directorist-btn.directorist-btn-lighter {
-        background: <?php echo !empty($back_lighter_color) ? $back_lighter_color : '#F6F7F9'; ?> !important;
+        background: <?php echo $back_lighter_color; ?> !important;
     }
 
     /* background hover */
     .directorist-btn.directorist-btn-lighter:hover {
-        background: <?php echo !empty($back_lighter_hover_color) ? $back_lighter_hover_color : '#F6F7F9'; ?> !important;
+        background: <?php echo $back_lighter_hover_color; ?> !important;
     }
-
 
     /*
         Badge Colors
@@ -499,7 +557,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open, .directorist-badge-open, .directorist-badge.directorist-badge-success {
-        background: <?php echo !empty($open_back_color) ? $open_back_color : '#32cc6f'; ?> !important;
+        background: var(--directorist-color-badge-open) !important;
     }
 
     /* Badge Closed */
@@ -509,7 +567,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close, .directorist-badge.directorist-badge-danger, .directorist-listing-single .directorist-badge.directorist-badge-closejhg   {
-        background: <?php echo !empty($closed_back_color) ? $closed_back_color : '#e23636'; ?> !important;
+        background: var(--directorist-color-badge-closed) !important;
     }
 
     /* Badge Featured */
@@ -518,7 +576,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured, .directorist-listing-single .directorist-badge.directorist-badge-featured {
-        background: <?php echo !empty($featured_back_color) ? $featured_back_color : '#fa8b0c'; ?> !important;
+        background: var(--directorist-color-badge-featured) !important;
     }
 
     /* Badge Popular */
@@ -527,12 +585,12 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular, .directorist-listing-single .directorist-badge.directorist-badge-popular {
-        background: <?php echo !empty($popular_back_color) ? $popular_back_color : '#f51957'; ?> !important;
+        background: var(--directorist-color-badge-popular) !important;
     }
 
     /* Badge New */
     .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new {
-        background: <?php echo !empty($new_back_color) ? $new_back_color : '#122069'; ?> !important;
+        background: var(--directorist-color-badge-new) !important;
     }
 
     /*
@@ -549,7 +607,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .directorist-mark-as-favorite__btn.directorist-added-to-favorite,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories>ul.atbdp_parent_category>li:hover>a span,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover {
-        background: <?php echo !empty($primary_dark_back_color) ? $primary_dark_back_color : '#444752'; ?> !important;
+        background: var(--directorist-color-primary) !important;
     }
 
     /*
@@ -563,25 +621,24 @@ $marker_icon_color                = get_directorist_option('marker_icon_color', 
     .custom-control .custom-control-input:checked~.radio--select,
     #atpp-plan-change-modal .atm-contents-inner .dcl_pricing_plan input:checked+label:before,
     #dwpp-plan-renew-modal .atm-contents-inner .dcl_pricing_plan input:checked+label:before {
-        border-color: <?php echo !empty($primary_dark_border_color) ? $primary_dark_border_color : '#444752'; ?> !important;
+        border-color: var(--directorist-color-primary) !important;
     }
-
 
     /*
         Map Marker Icon Colors
     */
     /* Marker Shape color */
     .atbd_map_shape {
-        background: <?php echo !empty($marker_shape_color) ? $marker_shape_color : '#444752'; ?> !important;
+        background: var(--directorist-color-marker-shape) !important;
     }
 
     .atbd_map_shape:before {
-        border-top-color: <?php echo !empty($marker_shape_color) ? $marker_shape_color : '#444752'; ?> !important;
+        border-top-color: var(--directorist-color-marker-shape) !important;
     }
 
     /* Marker icon color */
     .map-icon-label i,
     .atbd_map_shape>span {
-        color: <?php echo !empty($marker_icon_color) ? $marker_icon_color : '#444752'; ?> !important;
+        color: var(--directorist-color-marker-icon) !important;
     }
 </style>

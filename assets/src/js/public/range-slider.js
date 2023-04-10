@@ -128,5 +128,7 @@ export function directorist_callingSlider() {
 }
 
 window.addEventListener("load", function () {
-    directorist_callingSlider();
+    if (document.querySelector('.elementor-editor-active') === 'null'){
+        directorist_callingSlider();
+    }
 });

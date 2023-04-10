@@ -160,14 +160,20 @@
   /* loading effect */
   .atbdp-form-fade {
     position: relative;
-    overflow: hidden;
-    padding: 0 15px;
     border-radius: 8px;
+    overflow: visible;
     &.directorist-search-form-box  {
       padding: 15px;
       border-radius: 12px;
       &:after {
         border-radius: 12px;
+      }
+    }
+    &.directorist-search-field {
+      overflow: visible;
+      &:after {
+        width: calc(100% + 15px);
+        left: -15px;
       }
     }
   

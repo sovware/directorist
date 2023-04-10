@@ -28,6 +28,7 @@
     @include e(box) {
       display: flex;
       align-items: flex-start;
+      justify-content: space-between;
       flex-wrap: wrap;
       padding: 22px 22px 22px 25px;
       border: none;
@@ -41,7 +42,7 @@
     @include e(top) {
       display: flex;
       flex-wrap: wrap;
-      width: 100%;
+      flex: 1;
       gap: 18px;
   
       .directorist-search-field {

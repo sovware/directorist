@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.2.2
- * @version 7.2.2
+ * @version 7.7.0
  */
 
 use \Directorist\Helper;
@@ -18,12 +18,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		foreach ( $searchform->form_data[0]['fields'] as $field ){
 			$searchform->field_template( $field );
 		}
-		if ( $searchform->more_filters_display !== 'always_open' ){
-			$searchform->more_buttons_template();
-		}
 		?>
 
 	</div>
+	<?php 
+		if ( $searchform->more_filters_display !== 'always_open' ){
+			$searchform->more_buttons_template();
+		}
+	?>
 
 	<?php
 	if ( $searchform->more_filters_display == 'always_open' ){

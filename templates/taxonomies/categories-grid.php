@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 7.7.0
  */
 use \Directorist\Helper;
 
@@ -25,9 +25,8 @@ $columns = floor( 12 / $taxonomy->columns );
 						$img_src = esc_url( $category['img'] );
 						?>
 						<div class="<?php Helper::directorist_column( $columns ); ?>">
-							<div class="directorist-categories__single<?php echo esc_attr( $cat_class ); ?> directorist-categories__single--style-three" style="background-image: url('<?php echo $category['img'] ? esc_attr($img_src) : 'none'; ?>')"
+							<div class="directorist-categories__single<?php echo esc_attr( $cat_class ); ?> directorist-categories__single--style-one" style="background-image: url('<?php echo $category['img'] ? esc_attr($img_src) : 'none'; ?>')"
 >
-
 								<div class="directorist-categories__single__content">
 									<?php
 									if ($category['has_icon']) { ?>
@@ -42,7 +41,7 @@ $columns = floor( 12 / $taxonomy->columns );
 										<?php
 										$listing_count_text = sprintf( _nx( 'listing', 'listings', $category['term']->count, 'number of listings', 'directorist' ), number_format_i18n( $category['term']->count ) );
 
-										$output = sprintf( '%s <span>%s</span>', $category['grid_count_html'], $listing_count_text );
+										$output = sprintf( '%s <span class="directorist-category-term">%s</span>', $category['grid_count_html'], $listing_count_text );
 										echo wp_kses_post( $output );
 										?>
 									</div>

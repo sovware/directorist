@@ -27,4 +27,13 @@ window.addEventListener('DOMContentLoaded', () => {
             $(this).parent('li').siblings('li').children('.atbdp_child_location').slideUp();
         });
     })(jQuery);
+
+    /* Category Card */
+    const categoryCard = document.querySelectorAll('.directorist-categories__single--style-three');
+    if(categoryCard){
+        categoryCard.forEach(elm =>{
+            const categoryCardWidth = elm.offsetWidth;
+            elm.style.setProperty('--directorist-category-box-width', `${categoryCardWidth}px`);
+        })
+    }
 });

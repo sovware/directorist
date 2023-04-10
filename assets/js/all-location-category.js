@@ -124,6 +124,17 @@ window.addEventListener('DOMContentLoaded', function () {
       $(this).parent('li').siblings('li').children('.atbdp_child_location').slideUp();
     });
   })(jQuery);
+  /* Category Card */
+
+
+  var categoryCard = document.querySelectorAll('.directorist-categories__single--style-three');
+
+  if (categoryCard) {
+    categoryCard.forEach(function (elm) {
+      var categoryCardWidth = elm.offsetWidth;
+      elm.style.setProperty('--directorist-category-box-width', "".concat(categoryCardWidth, "px"));
+    });
+  }
 });
 
 /***/ }),

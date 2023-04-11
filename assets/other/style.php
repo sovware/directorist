@@ -69,7 +69,6 @@ $info_color                       = get_directorist_option('color_info', '#2c99f
 $warning_color                    = get_directorist_option('color_warning', '#f28100');
 $danger_color                     = get_directorist_option('color_danger', '#f80718');
 $gray_color                       = get_directorist_option('color_gray', '#bcbcbc');
-var_dump([$primary_color,$secondary_color,$danger_color])
 ?>
 <style>
     /* Css Variable */

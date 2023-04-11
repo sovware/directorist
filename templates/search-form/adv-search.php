@@ -8,7 +8,17 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-adv-filter directorist-advanced-filter directorist-search-modal__contents">
+<div class="directorist-search-adv-filter directorist-advanced-filter <?php if ( ($searchform->more_filters_display) == 'sliding' ): echo 'directorist-search-modal__contents' ?> <?php endif;?>">
+	<?php if ( ($searchform->more_filters_display) == 'sliding' ): ?> 
+		 
+		<div class="directorist-search-modal__contents__header">
+			<h3 class="directorist-search-modal__contents__title">More Filters</h3>
+			<button class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close">
+				<?php directorist_icon( 'fas fa-times' ); ?>
+			</button>
+		</div>
+		
+	<?php endif;?>
 
 	<?php foreach ( $searchform->form_data[1]['fields'] as $field ): ?>
 

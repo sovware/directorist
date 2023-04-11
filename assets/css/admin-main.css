@@ -9333,6 +9333,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background: var(--directorist-color-info);
   color: #fff;
 }
+.directorist-btn.directorist-btn-light {
+  background: var(--directorist-color-light);
+}
+.directorist-btn.directorist-btn-light:hover {
+  background: var(--directorist-color-light-hover);
+}
 .directorist-btn.directorist-btn-lighter {
   background-color: #F6F7F9;
   color: var(--directorist-color-primary);
@@ -9347,9 +9353,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-btn.directorist-btn-bg-normal {
   background: #F9F9F9;
-}
-.directorist-btn.directorist-btn-bg-light {
-  background: #F4F5F6;
 }
 
 .directorist-btn.directorist-btn-outline {
@@ -9397,7 +9400,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   min-height: 50px;
 }
 .directorist-btn.directorist-btn-sm {
-  min-height: 40px;
+  min-height: 36px;
 }
 .directorist-btn.directorist-btn-xs {
   min-height: 35px;

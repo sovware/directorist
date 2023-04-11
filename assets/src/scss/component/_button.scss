@@ -59,6 +59,13 @@
     color: #fff;
   }
 
+  &.directorist-btn-light {
+    background: var(--directorist-color-light);
+    &:hover{
+      background: var(--directorist-color-light-hover);
+    }
+  }
+
   &.directorist-btn-lighter{
     background-color: #F6F7F9;
     color: var(--directorist-color-primary);
@@ -76,10 +83,6 @@
 
   &.directorist-btn-bg-normal {
     background: $bg-normal;
-  }
-
-  &.directorist-btn-bg-light {
-    background: $bg-light;
   }
 }
 
@@ -143,7 +146,7 @@
   }
 
   &.directorist-btn-sm {
-    min-height: 40px;
+    min-height: 36px;
   }
 
   &.directorist-btn-xs {

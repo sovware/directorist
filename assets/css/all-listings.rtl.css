@@ -8932,7 +8932,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-type-nav__list .current .directorist-type-nav__link {
   font-weight: 400;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-primary) !important;
 }
 .directorist-type-nav__list .current .directorist-type-nav__link .directorist-icon-mask::after {
   background-color: var(--directorist-color-primary);
@@ -11439,7 +11439,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-radius: 4px;
 }
 .directorist-listing-single .directorist-listing-single__info {
-  padding: 25px 20px 15px;
+  padding: 30px 20px 15px;
   position: relative;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top {
@@ -11587,10 +11587,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-primary);
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-pricing-meta .directorist-listing-price {
-  font-size: 15px;
-  background-color: #fff;
-  color: #202428;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--directorist-color-body);
+  background-color: var(--directorist-color-white);
   padding: 0;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list {
@@ -11828,8 +11828,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-rating-meta .directorist-rating-avg {
   font-size: 14px;
-  font-weight: 700;
-  color: var(--directorist-color-body);
+  font-weight: 400;
+  color: var(--directorist-color-light-gray);
   margin: 0 6px 0 3px;
 }
 .directorist-rating-meta.directorist-info-item-rating i,

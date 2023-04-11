@@ -44,10 +44,10 @@
 		.current {
 			.directorist-type-nav__link {
 				font-weight: 400;
-				color: var(--directorist-color-primary);
+				color: var(--directorist-color-primary) !important;
 				.directorist-icon-mask{
 					&::after{
-					background-color: var(--directorist-color-primary);
+						background-color: var(--directorist-color-primary);
 					}
 				}
 				&::after {

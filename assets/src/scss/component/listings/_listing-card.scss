@@ -205,7 +205,7 @@
     }
 
     .directorist-listing-single__info {
-        padding: 25px 20px 15px;
+        padding: 30px 20px 15px;
         position: relative;
 
         .directorist-listing-single__info--top {
@@ -344,10 +344,10 @@
 
         .directorist-pricing-meta {
             .directorist-listing-price {
-                font-size: 15px;
-                background-color: #fff;
-                color: #202428;
-                font-weight: 700;
+                font-size: 14px;
+                font-weight: 400;
+                color: var(--directorist-color-body);
+                background-color: var(--directorist-color-white);
                 padding: 0;
             }
         }
@@ -560,8 +560,8 @@
 
     .directorist-rating-avg {
         font-size: 14px;
-        font-weight: 700;
-        color: var(--directorist-color-body);
+        font-weight: 400;
+        color: var(--directorist-color-light-gray);
         margin: 0 3px 0 6px;
     }
 

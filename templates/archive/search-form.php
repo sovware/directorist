@@ -13,7 +13,7 @@ if (is_numeric($searchform->listing_type)) {
 }
 ?>
 
-<div class="directorist-archive-adv-filter directorist-advanced-filter">
+<div class="directorist-search-modal__contents directorist-archive-adv-filter directorist-advanced-filter">
 	<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
 		<input type="hidden" name='directory_type' value='<?php echo !empty($listing_type) ? esc_attr( $listing_type ) : esc_attr( $searchform->listing_type ); ?>'>
 		<div class="directorist-advanced-filter__basic">

@@ -1631,6 +1631,13 @@ __webpack_require__.r(__webpack_exports__);
         $(this).find(".directorist-search-country").css("max-height", "175px");
         $(this).find(".directorist-search-field .address_result").css("max-height", "175px");
       }
+    }); // Search Form Modal
+
+    $(".directorist-search-modal").hide();
+    $('body').on('click', '.directorist-modal-btn', function (e) {
+      e.preventDefault();
+      $('body').toggleClass('directorist-search-modal-open');
+      $(".directorist-search-modal").slideToggle().show();
     });
     /* When location field is empty we need to hide Radius Search */
 

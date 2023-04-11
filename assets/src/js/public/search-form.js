@@ -841,6 +841,15 @@ import { directorist_range_slider } from './range-slider';
             }
         });
 
+        // Search Form Modal
+        $(".directorist-search-modal").hide();
+
+        $('body').on('click', '.directorist-modal-btn', function (e) {
+            e.preventDefault();
+            $('body').toggleClass('directorist-search-modal-open');
+            $(".directorist-search-modal").slideToggle().show();
+        });
+
         /* When location field is empty we need to hide Radius Search */
         function handleRadiusVisibility(){
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');

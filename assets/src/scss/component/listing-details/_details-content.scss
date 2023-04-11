@@ -55,11 +55,12 @@
     margin: -4px;
 
     .directorist-social-share {
+        position: relative;
         &:hover {
             .directorist-social-share-links {
                 opacity: 1;
                 visibility: visible;
-                top: calc(100% + 10px);
+                top: calc(100% + 5px);
             }
         }
 
@@ -72,46 +73,46 @@
             right: 0;
             top: calc(100% + 30px);
             background: #ffffff;
-            border-radius: 6px;
-            width: 180px;
+            border-radius: 10px;
+            width: 150px;
             box-shadow: 0 5px 15px rgba(#000, 0.15);
             list-style-type: none;
             padding: 10px;
             margin: 0;
-
-            .directorist-social-links__item {
-                padding-left: 0;
-                margin: 0;
-                a {
-                    padding: 8px 15px;
-                    display: flex;
-                    align-items: center;
-                    text-decoration: none;
-                    font-size: 14px;
-                    border: 0 none;
-                    border-radius: 6px;
-                    transition: 0.3s ease;
+        }
+        .directorist-social-links__item {
+            padding-left: 0;
+            margin: 0;
+            a {
+                padding: 8px 12px;
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 500;
+                border: 0 none;
+                border-radius: 8px;
+                color: var(--directorist-color-body);
+                transition: 0.3s ease;
+                span.la,
+                span.lab,
+                span.fa,
+                i {
+                    color: var(--directorist-color-body);
+                }
+                span.fa{
+                    font-family: "Font Awesome 5 Brands";
+                    font-weight: 900;
+                    font-size: 15px;
+                }
+                &:hover{
+                    font-weight: 500;
+                    background: var(--directorist-color-light);
+                    color: var(--directorist-color-dark);
                     span.la,
-                    span.lab,
                     span.fa,
-                    i {
-                        color: #51526E;
-                        margin-right: 10px;
-                        transition: 0.3s ease;
-                    }
-                    span.fa{
-                        font-family: "Font Awesome 5 Brands";
-                        font-weight: 900;
-                        font-size: 15px;
-                    }
-                    &:hover{
-                        background: #DFDFDF;
-                        color: #000;
-                        span.la,
-                        span.fa,
-                        i{
-                            color: #000;
-                        }
+                    i{
+                        color: var(--directorist-color-dark);
                     }
                 }
             }

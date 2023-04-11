@@ -11,19 +11,18 @@
   justify-content: center;
   font-size: 15px;
   font-weight: 500;
-  color: var(--directorist-color-primary);
   vertical-align: middle;
   text-align: center;
   user-select: none;
   cursor: pointer;
-  padding: 11px 26px;
+  padding: 0 26px;
   min-height: 45px;
   line-height: 1.5;
-  border-radius: 5px;
-  background: $bg-light-gray;
-  border-color: transparent;
+  border-radius: 10px;
+  border: 1px solid transparent;
   text-decoration: none;
   box-sizing: border-box;
+  color: var(--directorist-color-primary);
 
   &:focus {
     outline: 0 !important;
@@ -143,6 +142,10 @@
 .directorist-btn {
   &.directorist-btn-lg {
     min-height: 50px;
+  }
+
+  &.directorist-btn-md {
+    min-height: 46px;
   }
 
   &.directorist-btn-sm {

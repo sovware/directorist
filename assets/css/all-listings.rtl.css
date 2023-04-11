@@ -6706,7 +6706,6 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
           justify-content: center;
   font-size: 15px;
   font-weight: 500;
-  color: var(--directorist-color-primary);
   vertical-align: middle;
   text-align: center;
   -webkit-user-select: none;
@@ -6714,15 +6713,15 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
       -ms-user-select: none;
           user-select: none;
   cursor: pointer;
-  padding: 11px 26px;
+  padding: 0 26px;
   min-height: 45px;
   line-height: 1.5;
-  border-radius: 5px;
-  background: #EEF1F3;
-  border-color: transparent;
+  border-radius: 10px;
+  border: 1px solid transparent;
   text-decoration: none;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  color: var(--directorist-color-primary);
 }
 .directorist-btn:focus {
   outline: 0 !important;
@@ -6817,6 +6816,9 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 
 .directorist-btn.directorist-btn-lg {
   min-height: 50px;
+}
+.directorist-btn.directorist-btn-md {
+  min-height: 46px;
 }
 .directorist-btn.directorist-btn-sm {
   min-height: 36px;
@@ -7641,31 +7643,56 @@ p.atbd-min {
   width: 100%;
   background: #fff;
   pointer-events: auto;
-  border-radius: 3px;
+  border-radius: 16px;
   position: relative;
 }
 .directorist-modal__content .directorist-modal__header {
   position: relative;
-  padding: 15px;
-  border-bottom: 1px solid #ececec;
+  padding: 22px 38px;
+  border-bottom: 1px solid var(--directorist-color-border);
 }
 .directorist-modal__content .directorist-modal__header .directorist-modal__header--title {
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 500;
   margin: 0;
+  color: var(--directorist-color-dark);
 }
 .directorist-modal__content .directorist-modal__header .directorist-modal-close {
   position: absolute;
-  left: 15px;
+  width: 28px;
+  height: 28px;
+  left: 25px;
   top: 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 50%;
   line-height: 1.45;
   padding: 6px;
+  text-decoration: none;
+  -webkit-transition: 0.2s background-color ease-in-out;
+  transition: 0.2s background-color ease-in-out;
+  background-color: var(--directorist-color-bg-light);
+}
+.directorist-modal__content .directorist-modal__header .directorist-modal-close:hover {
+  background-color: var(--directorist-color-light-hover);
 }
 .directorist-modal__content .directorist-modal__body {
-  padding: 20px 25px;
+  padding: 25px 40px;
 }
 .directorist-modal__content .directorist-modal__footer {
-  border-top: 1px solid #ececec;
-  padding: 18px;
+  padding: 18px 40px;
+  border-radius: 0 0 16px 16px;
+  background-color: var(--directorist-color-bg-light);
 }
 .directorist-modal__content .directorist-modal__footer .directorist-modal__action {
   display: -webkit-box;
@@ -7680,6 +7707,12 @@ p.atbd-min {
 }
 .directorist-modal__content .directorist-modal__footer .directorist-modal__action button {
   margin: 7.5px;
+}
+.directorist-modal__content .directorist-form-group label {
+  font-size: 16px;
+}
+.directorist-modal__content .directorist-form-group .directorist-form-element {
+  resize: none;
 }
 
 .directorist-modal__dialog.directorist-modal--lg {
@@ -11923,101 +11956,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background: #444752;
 }
 
-.directorist-report-abuse-modal .directorist-modal__header {
-  padding: 20px 0 !important;
-}
-.directorist-report-abuse-modal .directorist-modal__header .directorist-modal-title {
-  font-size: 1.75rem;
-  margin: 0;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  line-height: 1.2;
-  color: #272b41;
-  letter-spacing: normal;
-}
-.directorist-report-abuse-modal .directorist-modal__header .directorist-modal-close {
-  width: 32px;
-  height: 32px;
-  left: -40px !important;
-  top: -30px !important;
-  right: auto;
-  position: absolute;
-  -webkit-transform: none;
-  transform: none;
-  background: #444752;
-  color: #fff;
-  border-radius: 300px;
-  opacity: 1;
-  font-weight: 300;
-  z-index: 2;
-  font-size: 16px;
-  padding: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  text-decoration: none;
-}
-.directorist-report-abuse-modal .directorist-modal__body {
-  padding: 20px 0 !important;
-}
-.directorist-report-abuse-modal .directorist-modal__body label {
-  font-size: 18px;
-  margin-bottom: 12px;
-  text-align: right;
-  display: block;
-}
-.directorist-report-abuse-modal .directorist-modal__body textarea {
-  min-height: 90px;
-}
-.directorist-report-abuse-modal .directorist-modal__body #directorist-report-abuse-message-display {
-  color: var(--directorist-color-body);
-  margin-top: 15px;
-}
-.directorist-report-abuse-modal .directorist-modal__footer {
-  padding: 20px 0 !important;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-.directorist-report-abuse-modal .directorist-modal__footer .directorist-btn {
-  text-transform: capitalize;
-  padding: 0 15px;
-}
-.directorist-report-abuse-modal .directorist-modal__footer .directorist-btn.directorist-btn-loading:after {
-  content: "";
-  border: 2px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 2px solid #656a7a;
-  width: 20px;
-  height: 20px;
-  -webkit-animation: rotate360 2s linear infinite;
-  animation: rotate360 2s linear infinite;
-  display: inline-block;
-  margin: 0 10px 0 0;
-  position: relative;
-  top: 4px;
-}
-.directorist-report-abuse-modal .directorist-modal__content {
-  padding: 20px 30px 20px;
-}
-.directorist-report-abuse-modal .directorist-modal__content #directorist-report-abuse-form {
-  text-align: right;
-}
-
 .directorist-rated-stars ul,
 .atbd_rated_stars ul {
   margin: 0;
@@ -12195,10 +12133,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-listing-quick-action {
   margin: -4px;
 }
+.directorist-single-listing-quick-action .directorist-social-share {
+  position: relative;
+}
 .directorist-single-listing-quick-action .directorist-social-share:hover .directorist-social-share-links {
   opacity: 1;
   visibility: visible;
-  top: calc(100% + 10px);
+  top: calc(100% + 5px);
 }
 .directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links {
   position: absolute;
@@ -12210,20 +12151,20 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   left: 0;
   top: calc(100% + 30px);
   background: #ffffff;
-  border-radius: 6px;
-  width: 180px;
+  border-radius: 10px;
+  width: 150px;
   -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
   list-style-type: none;
   padding: 10px;
   margin: 0;
 }
-.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item {
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-links__item {
   padding-right: 0;
   margin: 0;
 }
-.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a {
-  padding: 8px 15px;
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-links__item a {
+  padding: 8px 12px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -12234,33 +12175,33 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           align-items: center;
   text-decoration: none;
   font-size: 14px;
+  font-weight: 500;
   border: 0 none;
-  border-radius: 6px;
+  border-radius: 8px;
+  color: var(--directorist-color-body);
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.la,
-.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.lab,
-.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.fa,
-.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a i {
-  color: #51526E;
-  margin-left: 10px;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-links__item a span.la,
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-links__item a span.lab,
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-links__item a span.fa,
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-links__item a i {
+  color: var(--directorist-color-body);
 }
-.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a span.fa {
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-links__item a span.fa {
   font-family: "Font Awesome 5 Brands";
   font-weight: 900;
   font-size: 15px;
 }
-.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover {
-  background: #DFDFDF;
-  color: #000;
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-links__item a:hover {
+  font-weight: 500;
+  background: var(--directorist-color-light);
+  color: var(--directorist-color-dark);
 }
-.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover span.la,
-.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover span.fa,
-.directorist-single-listing-quick-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover i {
-  color: #000;
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-links__item a:hover span.la,
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-links__item a:hover span.fa,
+.directorist-single-listing-quick-action .directorist-social-share .directorist-social-links__item a:hover i {
+  color: var(--directorist-color-dark);
 }
 
 .directorist-single-listing-action {

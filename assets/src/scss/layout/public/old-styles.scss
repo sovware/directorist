@@ -143,3 +143,14 @@
       }
     }
 }
+
+.directorist-search-slide {
+  width: 100%;
+  .directorist-advanced-filter {
+      display: none;
+
+      @include m(show) {
+          display: block !important;
+      }
+  }
+}

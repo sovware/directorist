@@ -5,17 +5,6 @@
     padding: 20px 30px;
 }
 
-.directorist-search-slide {
-    width: 100%;
-    .directorist-advanced-filter {
-        display: none;
-
-        @include m(show) {
-            display: block !important;
-        }
-    }
-}
-
 /* Advanced search filter float style  */
 .directorist-search-float {
     position: relative;

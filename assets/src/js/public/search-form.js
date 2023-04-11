@@ -842,12 +842,27 @@ import { directorist_range_slider } from './range-slider';
         });
 
         // Search Form Modal
-        $(".directorist-search-modal").hide();
 
         $('body').on('click', '.directorist-modal-btn', function (e) {
             e.preventDefault();
-            $('body').toggleClass('directorist-search-modal-open');
-            $(".directorist-search-modal").slideToggle().show();
+            $('body').addClass('directorist-search-modal-open');
+            $(".directorist-search-modal").css({
+                visibility: 'visible',
+                opacity: '1',
+                height: '100%',
+                transition: '.3s ease'
+            });
+        });
+
+        $('body').on('click', '.directorist-search-modal, .directorist-search-modal__close', function (e) {
+            e.preventDefault();
+            $('body').removeClass('directorist-search-modal-open');
+            $(".directorist-search-modal").css({
+                visibility: 'hidden',
+                opacity: '0',
+                height: '0',
+                transition: '.3s ease'
+            });
         });
 
         /* When location field is empty we need to hide Radius Search */

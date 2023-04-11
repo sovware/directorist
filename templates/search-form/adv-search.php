@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-adv-filter directorist-advanced-filter">
+<div class="directorist-search-adv-filter directorist-advanced-filter directorist-search-modal__contents">
 
 	<?php foreach ( $searchform->form_data[1]['fields'] as $field ): ?>
 

@@ -29,12 +29,10 @@
 .directorist-advanced-filter{
     @include e(basic){
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         padding-bottom: 15px;
         margin-bottom: 20px;
         @include m(element){
-            flex: 0 0 33.33%;
-            width: 33.33%;
             .directorist-search-field {
                 flex-direction: column;
                 align-items: flex-start;
@@ -83,7 +81,7 @@
                     display: inline-flex;
                     align-items: center;
                     font-size: 14px;
-                    color: #7a82a6;
+                    color: var(--directorist-color-body);
                     text-decoration: none;
                     margin-top: 4px;
                 }

@@ -250,7 +250,7 @@
 .plupload-upload-uic {
     width: 420px;
     margin: 0 auto !important;
-    border: 1px dashed var(--directorist-color-border-normal);
+    border: 1px dashed var(--directorist-color-border-gray);
     padding: 30px;
 
     .atbdp-dropbox-title {
@@ -345,7 +345,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
             padding: 10px 18px;
             border-radius: 8px;
             color: var(--directorist-color-deep-gray);
-            border: 1px solid var(--directorist-color-border-normal) !important;
+            border: 1px solid var(--directorist-color-border-gray) !important;
             &:focus {
                 outline: 0;
             }
@@ -447,7 +447,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
             height: 18px;
             content: "";
             background-color: var(--directorist-color-white);
-            border: 2px solid var(--directorist-color-border-normal);
+            border: 2px solid var(--directorist-color-border-gray);
         }
     }
 

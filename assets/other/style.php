@@ -104,7 +104,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         --directorist-color-overlay: rgba(0,0,0,0.5);
         --directorist-color-overlay-normal: rgba(0,0,0,0.2);
         --directorist-color-border: #e9e9e9;
-        --directorist-color-border-normal: #d9d9d9;
+        --directorist-color-border-gray: #d9d9d9;
 
         --directorist-box-shadow: 0 3px 7.5px rgba(0,0,0, 0.08);
         --directorist-box-shadow-sm: 0 5px 0.8px rgba(167,178,199, 0.1);

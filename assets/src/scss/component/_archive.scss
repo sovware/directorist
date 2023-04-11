@@ -69,9 +69,9 @@
 		text-decoration: none;
 		white-space: nowrap;
 		padding: 0 0 8px;
-		color: var(--directorist-color-body);
+		color: var(--directorist-color-body) !important;
 		&:hover {
-			color: var(--directorist-color-primary);
+			color: var(--directorist-color-primary) !important;
 		}
 		&:focus {
 			background-color: transparent;
@@ -86,7 +86,7 @@
 			content: "";
 			opacity: 0;
 			visibility: hidden;
-			background-color: var(--directorist-color-primary);
+			background-color: var(--directorist-color-primary) !important;
 		}
 		.directorist-icon-mask{
 			display: inline-block;
@@ -94,7 +94,7 @@
 			&::after{
 				width: 20px;
 				height: 20px;
-				background-color: var(--directorist-color-body);
+				background-color: var(--directorist-color-body) !important;
 			}
 		}
 	}

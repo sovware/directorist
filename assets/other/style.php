@@ -552,44 +552,44 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
           - Badge New
     */
     /* Badge Open */
-    .atbd_bg-success,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_open,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open, .directorist-badge-open, .directorist-badge.directorist-badge-success {
-        background: var(--directorist-color-badge-open) !important;
+    .atbd_bg-success i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_open i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open i::after, .directorist-badge-open, .directorist-badge.directorist-badge-success i::after {
+        background: var(--directorist-color-open-badge) !important;
     }
 
     /* Badge Closed */
-    .atbd_bg-danger,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf:hover,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close, .directorist-badge.directorist-badge-danger, .directorist-listing-single .directorist-badge.directorist-badge-closejhg   {
-        background: var(--directorist-color-badge-closed) !important;
+    .atbd_bg-danger i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf:hover i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close i::after, .directorist-badge.directorist-badge-danger, .directorist-listing-single .directorist-badge.directorist-badge-close i::after   {
+        background: var(--directorist-color-closed-badge) !important;
     }
 
     /* Badge Featured */
-    .atbd_bg-badge-feature,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured, .directorist-listing-single .directorist-badge.directorist-badge-featured {
-        background: var(--directorist-color-badge-featured) !important;
+    .atbd_bg-badge-feature i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured i::after, .directorist-listing-single .directorist-badge.directorist-badge-featured i::after {
+        background: var(directorist-color-featured-badge) !important;
     }
 
     /* Badge Popular */
-    .atbd_bg-badge-popular,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_popular,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular, .directorist-listing-single .directorist-badge.directorist-badge-popular {
-        background: var(--directorist-color-badge-popular) !important;
+    .atbd_bg-badge-popular i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_popular i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular i::after, .directorist-listing-single .directorist-badge.directorist-badge-popular i::after {
+        background: var(--directorist-color-popular-badge) !important;
     }
 
     /* Badge New */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new {
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new i::after {
         background: var(--directorist-color-badge-new) !important;
     }
 
@@ -604,7 +604,6 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
     .atbd_director_social_wrap a,
     .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p a,
     .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p a,
-    .directorist-mark-as-favorite__btn.directorist-added-to-favorite,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories>ul.atbdp_parent_category>li:hover>a span,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover {
         background: var(--directorist-color-primary) !important;

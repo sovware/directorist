@@ -8,17 +8,23 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-dropdown directorist-dropdown-js directorist-viewas-dropdown">
+<div class="directorist-viewas">
 
-	<a class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-btn directorist-btn-sm directorist-toggle-has-icon" href="#"><?php echo esc_html( $listings->view_as_text ); ?><span class="directorist-icon-caret"></span></a>
+	<div class="directorist-viewas__wrap">
 
-	<div class="directorist-dropdown__links directorist-dropdown__links-js">
+		<?php foreach ( array_unique($listings->get_view_as_link_list(), SORT_REGULAR) as $key => $value ): ?>
 
-		<?php foreach ( $listings->get_view_as_link_list() as $key => $value ): ?>
-
-			<a class="directorist-dropdown__links--single <?php echo esc_attr($value['active_class']);?>" href="<?php echo esc_attr($value['link']);?>"><?php echo esc_html($value['label']);?></a>
-
+			<a class="directorist-viewas__item <?php echo esc_attr( $value['active_class'] ); ?>" href="<?php echo esc_attr( $value['link'] ); ?>">
+				<?php if ( strpos( $value['link'], 'grid' ) ): ?>
+					<?php directorist_icon( 'fas fa-grip-horizontal' ); ?>
+				<?php elseif ( strpos( $value['link'], 'map' ) ): ?>
+					<?php directorist_icon( 'far fa-map' ); ?>
+				<?php elseif ( strpos( $value['link'], 'list' ) ): ?>
+					<?php directorist_icon( 'fas fa-list' ); ?>
+				<?php endif;?>
+			</a>
 		<?php endforeach; ?>
+
 
 	</div>
 

@@ -170,3 +170,32 @@
 		}
 	}
 }
+
+.directorist-viewas {
+	@include e(wrap) {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	@include e(item) {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 8px;
+		background-color: var(--directorist-color-light-gray);
+		i::after {
+			width: 16px;
+			height: 16px;
+			background-color: var(--directorist-color-body);
+		}
+		&.active {
+			background-color: var(--directorist-color-primary);
+			i::after {
+				background-color: var(--directorist-color-white);
+			}
+		}
+	}
+}

@@ -79,9 +79,9 @@
   
         .directorist-checkbox-wrapper,
         .directorist-search-tags {
-          flex-direction: column;
           padding: 0;
           gap: 12px;
+          flex-wrap: wrap;
         }
   
         .directorist-range-slider-wrap {

@@ -1,38 +1,3 @@
-:root {
-    // theme color
-    --directorist-color-primary: #000000;
-    --directorist-color-primary-rgb: 0,0,0;
-    --directorist-color-dark: #151826;
-    --directorist-color-success: #28a800;
-    --directorist-color-success-rgb: 40, 168, 0;
-    --directorist-color-info: #2c99ff;
-    --directorist-color-info-rgb: 44, 153, 255;
-    --directorist-color-warning: #f28100;
-    --directorist-color-warning-rgb: 242, 129, 0;
-    --directorist-color-danger: #f80718;
-    --directorist-color-danger-rgb: 248, 7, 24;
-    --directorist-color-white: #ffffff;
-    --directorist-color-white-rgb: 255,255,255;
-    --directorist-color-body: #404040;
-    --directorist-color-gray: #bcbcbc;
-    --directorist-color-light-gray: #ededed;
-    --directorist-color-light-gray-rgb: 237, 237, 237;
-    --directorist-color-deep-gray: #808080;
-    --directorist-color-bg-gray: #868eae;
-    --directorist-color-bg-light: #ECEEF2;
-    --directorist-color-bg-light-gray: #F4F5F6;
-
-    // other colors
-    --directorist-color-overlay: rgba(0,0,0,0.5);
-    --directorist-color-overlay-normal: rgba(0,0,0,0.2);
-    --directorist-color-border: #e9e9e9;
-    --directorist-color-border-normal: #d9d9d9;
-
-    --directorist-box-shadow: 0 3px 7.5px rgba(0,0,0, 0.08);
-    --directorist-box-shadow-sm: 0 5px 0.8px rgba(167,178,199, 0.1);
-
-}
-
 $font-size-base: 15px;
 // theme color
 $light-gray: #9192a3;

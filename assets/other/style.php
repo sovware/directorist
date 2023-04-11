@@ -1,24 +1,24 @@
 <?php
 do_action('include_style_settings');
-$primary_text_color               = get_directorist_option('primary_color', '#ffffff');
+// $primary_text_color               = get_directorist_option('primary_color', '#ffffff');
 $primary_hover_color              = get_directorist_option('primary_hover_color', '#ffffff');
 $back_primary_color               = get_directorist_option('back_primary_color', '#444752');
 $back_primary_hover_color         = get_directorist_option('back_primary_hover_color', '#222222');
 $border_primary_color             = get_directorist_option('border_primary_color', '#444752');
 $border_primary_hover_color       = get_directorist_option('border_primary_hover_color', '#222222');
-$secondary_text_color             = get_directorist_option('secondary_color', '#fff');
+// $secondary_text_color             = get_directorist_option('secondary_color', '#fff');
 $secondary_hover_color            = get_directorist_option('secondary_hover_color', '#fff');
 $back_secondary_color             = get_directorist_option('back_secondary_color', '#122069');
 $back_secondary_hover_color       = get_directorist_option('back_secondary_hover_color', '#131469');
 $secondary_border_color           = get_directorist_option('secondary_border_color', '#131469');
 $secondary_border_hover_color     = get_directorist_option('secondary_border_hover_color', '#131469');
-$danger_text_color                = get_directorist_option('danger_color', '#fff');
+// $danger_text_color                = get_directorist_option('danger_color', '#fff');
 $danger_hover_color               = get_directorist_option('danger_hover_color', '#fff');
 $back_danger_color                = get_directorist_option('back_danger_color', '#e23636');
 $back_danger_hover_color          = get_directorist_option('back_danger_hover_color', '#c5001e');
 $danger_border_color              = get_directorist_option('danger_border_color', '#e23636');
 $danger_border_hover_color        = get_directorist_option('danger_border_hover_color', '#c5001e');
-$success_text_color               = get_directorist_option('success_color', '#fff');
+// $success_text_color               = get_directorist_option('success_color', '#fff');
 $success_hover_color              = get_directorist_option('success_hover_color', '#fff');
 $back_success_color               = get_directorist_option('back_success_color', '#32cc6f');
 $back_success_hover_color         = get_directorist_option('back_success_hover_color', '#2ba251');
@@ -60,15 +60,16 @@ $primary_dark_border_color        = get_directorist_option('primary_dark_border_
 $marker_shape_color               = get_directorist_option('marker_shape_color', '#444752');
 $marker_icon_color                = get_directorist_option('marker_icon_color', '#444752');
 
-$primary_color                    = get_directorist_option('primary_dark_back_color', '#000000');
-$secondary_color                  = get_directorist_option('secondary_color', '#122069');
-$dark_color                       = get_directorist_option('dark_color', '#000000');
-$white_color                      = get_directorist_option('white_color', '#ffffff');
-$success_color                    = get_directorist_option('success_color', '#28a800');
-$info_color                       = get_directorist_option('info_color', '#2c99ff');
-$warning_color                    = get_directorist_option('warning_color', '#f28100');
-$danger_color                     = get_directorist_option('danger_color', '#f80718');
-$gray_color                       = get_directorist_option('gray_color', '#bcbcbc');
+$primary_color                    = get_directorist_option('color_primary', '#000000');
+$secondary_color                  = get_directorist_option('color_secondary', '#122069');
+$dark_color                       = get_directorist_option('color_dark', '#000000');
+$white_color                      = get_directorist_option('color_white', '#ffffff');
+$success_color                    = get_directorist_option('color_success', '#28a800');
+$info_color                       = get_directorist_option('color_info', '#2c99ff');
+$warning_color                    = get_directorist_option('color_warning', '#f28100');
+$danger_color                     = get_directorist_option('color_danger', '#f80718');
+$gray_color                       = get_directorist_option('color_gray', '#bcbcbc');
+var_dump([$primary_color,$secondary_color,$danger_color])
 ?>
 <style>
     /* Css Variable */
@@ -90,8 +91,10 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
         --directorist-color-white-rgb: 255,255,255;
         --directorist-color-body: #404040;
         --directorist-color-gray: <?php echo $gray_color; ?>;
+        --directorist-color-gray-hover: #BCBCBC;
+        --directorist-color-light: #ededed;
+        --directorist-color-light-hover: #BCBCBC;
         --directorist-color-light-gray: #ededed;
-        --directorist-color-light-gray-hover: #BCBCBC;
         --directorist-color-light-gray-rgb: 237, 237, 237;
         --directorist-color-deep-gray: #808080;
         --directorist-color-bg-gray: #f4f4f4;
@@ -434,45 +437,39 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
     }
 
     /* =======================================
-     Button: primary outline LIGHT
+     Button: LIGHT Outline
     ======================================== */
 
     /* color */
     .atbdp_float_none .btn.btn-outline-light,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light {
+    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action {
         color: var(--directorist-color-dark) !important;
     }
 
     /* color hover */
     .atbdp_float_none .btn.btn-outline-light:hover,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a:hover, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light:hover {
+    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover {
         color: var(--directorist-color-dark) !important;
     }
 
     /* border color */
-    .atbdp_float_none .btn.btn-outline-light,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light {
-        border: 1px solid var(--directorist-color-light-gray) !important;
+    .atbdp_float_none .btn.btn-outline-light {
+        border: 1px solid var(--directorist-color-light) !important;
     }
 
     /* border color hover */
-    .atbdp_float_none .btn.btn-outline-light:hover,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light:hover {
-        border-color: var(--directorist-color-light-gray) !important;
+    .atbdp_float_none .btn.btn-outline-light:hover{
+        border-color: var(--directorist-color-light) !important;
     }
 
     /* background */
-    .atbdp_float_none .btn.btn-outline-light,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light {
-        background: var(--directorist-color-light-gray) !important;
+    .atbdp_float_none .btn.btn-outline-light{
+        background: var(--directorist-color-light) !important;
     }
 
     /* background hover */
-    .atbdp_float_none .btn.btn-outline-light:hover,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light:hover {
-        background: var(--directorist-color-light-gray-hover) !important;
+    .atbdp_float_none .btn.btn-outline-light:hover{
+        background: var(--directorist-color-light-hover) !important;
     }
 
     /* =======================================

@@ -2,13 +2,13 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.4.0
+ * @version 7.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-single-listing-action directorist-social-share">
+<div class="directorist-single-listing-action directorist-social-share directorist-btn directorist-btn-sm directorist-btn-light">
 
 	<?php directorist_icon( 'las la-share-square' );?>
 

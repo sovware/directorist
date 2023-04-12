@@ -328,7 +328,7 @@ p.status:empty {
     border-color: var(--directorist-color-border);
 }
 body.logged-in .select2-container--open .select2-dropdown--above {
-    top: 32px;
+    top: 0;
 }
 
 .select2-container--default {

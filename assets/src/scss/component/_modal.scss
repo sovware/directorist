@@ -32,7 +32,7 @@
 
 .directorist-modal__content{
     width: 100%;
-    background: #fff;
+    background: var(--directorist-color-white);
     pointer-events: auto;
     border-radius: 3px;
     position: relative;
@@ -97,31 +97,6 @@
     visibility: visible;
     transition: 0.3s ease;
 }
-// .directorist-modal .directorist-modal__dialog .at-modal-close{
-//     width: 32px;
-//     height: 32px;
-//     top: 20px;
-//     right: 20px;
-//     position: absolute;
-//     transform: none;
-//     background: #444752;
-//     color: #fff;
-//     border-radius: 300px;
-//     opacity: 1;
-//     font-weight: 300;
-//     z-index: 2;
-//     font-size: 16px;
-//     padding: 0;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     text-decoration: none;
-// }
-
-// .directorist-modal .directorist-modal__content .close span{
-//     display: block;
-//     line-height: 0;
-// }
 
 // Search Modal CSS
 body.directorist-search-modal-open {
@@ -153,7 +128,6 @@ body.directorist-search-modal-open {
         top: 100px;
         max-width: 600px;
         margin: 0 auto;
-        padding: 25px 40px;
         height: auto;
         max-height: calc(100% - 200px);
         border-radius: 16px;
@@ -161,7 +135,10 @@ body.directorist-search-modal-open {
         background-color: var(--directorist-color-white);
         @include e(header) {
             display: flex;
+            align-items: center;
             justify-content: space-between;
+            padding: 15px 25px 15px 40px;
+            border-bottom: 1px solid var(--directorist-color-border);
         }
         @include e(title) {
             font-size: 20px;
@@ -187,6 +164,12 @@ body.directorist-search-modal-open {
                 i::after {
                     background-color: var(--directorist-color-danger);
                 }
+            }
+        }
+
+        .directorist-advanced-filter {
+            @include e(form) {
+                padding: 30px 40px;
             }
         }
     }

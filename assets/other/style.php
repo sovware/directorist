@@ -593,7 +593,6 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         Change default primary dark background
     */
     .ads-advanced .price-frequency .pf-btn input:checked+span,
-    .btn-checkbox label input:checked+span,
     .atbdpr-range .ui-slider-horizontal .ui-slider-range,
     .custom-control .custom-control-input:checked~.check--select,
     #directorist.atbd_wrapper .pagination .nav-links .current,
@@ -609,7 +608,6 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         Change default primary dark border
     */
     .ads-advanced .price-frequency .pf-btn input:checked+span,
-    .btn-checkbox label input:checked+span,
     .directorist-content-active .directorist-type-nav__list .current .directorist-type-nav__link,
     .atbdpr-range .ui-slider-horizontal .ui-slider-handle,
     .custom-control .custom-control-input:checked~.check--select,

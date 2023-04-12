@@ -9827,6 +9827,20 @@ body.directorist-search-modal-open:before {
   height: 12px;
   background-color: var(--directorist-color-primary);
 }
+.directorist-badge.directorist-badge-open, .directorist-badge.directorist-badge-close {
+  width: auto;
+  height: 21px;
+  padding: 0 8px 0 15px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--directorist-color-white);
+}
+.directorist-badge.directorist-badge-open i::after, .directorist-badge.directorist-badge-close i::after {
+  width: 12px;
+  height: 12px;
+  background-color: var(--directorist-color-white);
+}
 
 .directorist-badge.directorist-badge-primary-transparent {
   color: var(--directorist-color-primary);

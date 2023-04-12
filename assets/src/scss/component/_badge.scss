@@ -13,6 +13,21 @@
         height: 12px;
         background-color: var(--directorist-color-primary);
     }
+    &.directorist-badge-open,
+    &.directorist-badge-close {
+        width: auto;
+        height: 21px;
+        padding: 0 15px 0 8px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--directorist-color-white);
+        i::after {
+            width: 12px;
+            height: 12px;
+            background-color: var(--directorist-color-white);
+        }
+    }
 }
 
 // Badge Transparent

@@ -400,7 +400,7 @@ class Directorist_Listings {
 		$reviews_count     = directorist_get_listing_review_count( get_the_ID() );
 
 		// Icons
-		$icon_empty_star = directorist_icon( 'far fa-star', false, 'star-empty' );
+		$icon_empty_star = directorist_icon( 'fas fa-star', false, 'star-empty' );
 		$icon_half_star  = directorist_icon( 'fas fa-star-half-alt', false, 'star-half' );
 		$icon_full_star  = directorist_icon( 'fas fa-star', false, 'star-full' );
 

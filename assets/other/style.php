@@ -552,7 +552,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_open i::after,
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open i::after,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open i::after,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open i::after, .directorist-badge-open, .directorist-badge.directorist-badge-success i::after {
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open i::after, .directorist-badge-open {
         background: var(--directorist-color-open-badge) !important;
     }
 
@@ -562,7 +562,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close i::after,
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close i::after,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close i::after,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close i::after, .directorist-badge.directorist-badge-danger, .directorist-listing-single .directorist-badge.directorist-badge-close i::after   {
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close i::after, .directorist-badge-close, .directorist-badge.directorist-badge-danger   {
         background: var(--directorist-color-closed-badge) !important;
     }
 

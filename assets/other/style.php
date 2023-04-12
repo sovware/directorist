@@ -105,6 +105,7 @@ $gray_color                       = get_directorist_option('color_gray', '#40404
         --directorist-color-overlay-normal: rgba(0,0,0,0.2);
         --directorist-color-border: #E9E9E9;
         --directorist-color-border-gray: #D9D9D9;
+        --directorist-color-pointer: #BCBCBC;
 
         --directorist-box-shadow: 0 3px 7.5px rgba(0,0,0, 0.08);
         --directorist-box-shadow-sm: 0 5px 0.8px rgba(167,178,199, 0.1);
@@ -553,7 +554,7 @@ $gray_color                       = get_directorist_option('color_gray', '#40404
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open, .directorist-badge-open, .directorist-badge.directorist-badge-success {
-        background: var(--directorist-color-badge-open) !important;
+        background: var(--directorist-color-open-badge) !important;
     }
 
     /* Badge Closed */
@@ -563,7 +564,7 @@ $gray_color                       = get_directorist_option('color_gray', '#40404
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close, .directorist-badge.directorist-badge-danger, .directorist-listing-single .directorist-badge.directorist-badge-closejhg   {
-        background: var(--directorist-color-badge-closed) !important;
+        background: var(--directorist-color-closed-badge) !important;
     }
 
     /* Badge Featured */
@@ -572,7 +573,7 @@ $gray_color                       = get_directorist_option('color_gray', '#40404
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured, .directorist-listing-single .directorist-badge.directorist-badge-featured {
-        background: var(--directorist-color-badge-featured) !important;
+        background: var(--directorist-color-featured-badge) !important;
     }
 
     /* Badge Popular */
@@ -581,12 +582,12 @@ $gray_color                       = get_directorist_option('color_gray', '#40404
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular, .directorist-listing-single .directorist-badge.directorist-badge-popular {
-        background: var(--directorist-color-badge-popular) !important;
+        background: var(--directorist-color-popular-badge) !important;
     }
 
     /* Badge New */
     .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new {
-        background: var(--directorist-color-badge-new) !important;
+        background: var(--directorist-color-new-badge) !important;
     }
 
     /*

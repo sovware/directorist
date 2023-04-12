@@ -9707,11 +9707,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: inline-block;
   font-size: 10px;
   font-weight: 700;
-  line-height: 1.7;
-  padding: 0 3px;
+  line-height: 1.9;
+  padding: 0 5px;
   color: #fff;
   text-transform: uppercase;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 .directorist-badge.directorist-badge-primary {

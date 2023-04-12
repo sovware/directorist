@@ -4403,10 +4403,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
  * Initial Release: 1 February, 2020
  * */
 .plasmaSlider {
+  display: inline-block;
   position: relative;
-  display: contents;
-  margin: 0 auto;
+  right: 50%;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
+  max-width: 100%;
   background-color: gainsboro;
+}
+@media (max-width: 1366px) {
+  .plasmaSlider {
+    height: auto !important;
+  }
 }
 
 .plasmaSlider__body {

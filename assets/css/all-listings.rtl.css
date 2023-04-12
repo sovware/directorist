@@ -9666,6 +9666,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex: 1;
           flex: 1;
   gap: 18px;
+  margin-top: 5px;
 }
 .directorist-search-form__top .directorist-search-field {
   -webkit-box-flex: 30.8%;

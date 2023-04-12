@@ -3200,6 +3200,37 @@ body.stop-scrolling {
   background-color: #202428;
   color: #fff;
 }
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached .ezmu__upload-button-wrap .ezmu__btn {
+  pointer-events: none;
+  opacity: 0.7;
+}
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached.highlight {
+  position: relative;
+}
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached.highlight:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #ddd;
+  cursor: no-drop;
+  z-index: 9999;
+}
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached.highlight:after {
+  content: "Maximum Files Uploaded";
+  font-size: 18px;
+  font-weight: 700;
+  color: #EF0000;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  cursor: no-drop;
+  z-index: 9999;
+}
 .directorist-add-listing-wrapper .ezmu__info-list .ezmu__info-list-item:not(:last-child) {
   margin-right: 30px;
 }

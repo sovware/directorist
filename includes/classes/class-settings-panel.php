@@ -1609,21 +1609,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __('Filters Button Text', 'directorist'),
                     'value' => __('Filters', 'directorist'),
                 ],
-                'listing_tags_field' => [
-                    'label' => __('Tags Filter Source', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'all_tags',
-                    'options' => [
-                        [
-                            'value' => 'category_based_tags',
-                            'label' => __('Category Based Tags', 'directorist'),
-                        ],
-                        [
-                            'value' => 'all_tags',
-                            'label' => __('All Tags', 'directorist'),
-                        ],
-                    ],
-                ],
                 'listing_default_radius_distance' => [
                     'label' => __('Default Radius Distance', 'directorist'),
                     'type'  => 'number',

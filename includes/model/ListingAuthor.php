@@ -53,19 +53,20 @@ class Directorist_Listing_Author {
 	// extract_user_id
 	public function extract_user_id( $user_id = '' ) {
 		$user_id = urldecode($user_id); //decode the URL to remove encoded spaces, special characters
-		$extracted_user_id = ( is_numeric( $user_id ) ) ? $user_id : get_current_user_id();
-
+		
+		if(is_numeric( $user_id )) {
+            return intval( $user_id );
+        }
 		if ( is_string( $user_id ) && ! empty( $user_id ) ) {
-			$user = get_user_by( 'login', $user_id );
-
-			if ( $user ) {
-				$extracted_user_id = $user->ID;
-			}
+            if($user = \WP_User::get_data_by( 'login', $user_id )) {
+                return $user->ID;
+            }
+            if($user = \WP_User::get_data_by( 'slug', $user_id )) {
+                return $user->ID;
+            }
 		}
-
-		$extracted_user_id = intval( $extracted_user_id );
-
-		return $extracted_user_id;
+        
+		return get_current_user_id();
 	}
 
 	public function prepare_data() {

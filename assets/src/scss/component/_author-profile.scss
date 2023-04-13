@@ -141,14 +141,14 @@
             height: 36px;
             width: 36px;
             text-align: center;
-            background-color: var(--directorist-color-light-gray);
+            background-color: var(--directorist-color-light);
             border-radius: 8px;
             font-size: 15px;
             overflow: hidden;
             transition: 0.3s ease;
             text-decoration: none;
             .directorist-icon-mask::after{
-                background-color: var(--directorist-color-deep-gray);
+                background-color: #808080;
             }
             span{
                 transition: 0.3s ease;

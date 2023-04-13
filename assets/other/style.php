@@ -608,7 +608,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         Change default primary dark border
     */
     .ads-advanced .price-frequency .pf-btn input:checked+span,
-    .directorist-content-active .directorist-type-nav__list .current .directorist-type-nav__link,
+    .directorist-content-active .directorist-type-nav__list .directorist-type-nav__list__current .directorist-type-nav__link,
     .atbdpr-range .ui-slider-horizontal .ui-slider-handle,
     .custom-control .custom-control-input:checked~.check--select,
     .custom-control .custom-control-input:checked~.radio--select,

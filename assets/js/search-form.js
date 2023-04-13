@@ -1631,23 +1631,35 @@ __webpack_require__.r(__webpack_exports__);
 
     $('body').on('click', '.directorist-modal-btn', function (e) {
       e.preventDefault();
-      $('body').addClass('directorist-search-modal-open');
-      $(".directorist-search-modal").css({
-        visibility: 'visible',
-        opacity: '1',
-        height: '100%',
-        transition: '.3s ease'
-      });
+      var searchModalParent = document.querySelector('.directorist-contents-wrap');
+      var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
+      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
+
+      modalOverlay.style.opacity = "1";
+      modalOverlay.style.visibility = "visible";
+      modalOverlay.style.transition = ".3s ease"; // Modal Content Style
+
+      modalContent.style.opacity = "1";
+      modalContent.style.visibility = "visible";
+      modalContent.style.bottom = "100px";
+      modalContent.style.height = "100%";
+      modalContent.style.transition = ".3s ease";
     });
-    $('body').on('click', '.directorist-search-modal__contents__btn--close', function (e) {
+    $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
       e.preventDefault();
-      $('body').removeClass('directorist-search-modal-open');
-      $(".directorist-search-modal").css({
-        visibility: 'hidden',
-        opacity: '0',
-        height: '0',
-        transition: '.3s ease'
-      });
+      var searchModalParent = document.querySelector('.directorist-contents-wrap');
+      var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
+      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
+
+      modalOverlay.style.opacity = "0";
+      modalOverlay.style.visibility = "hidden";
+      modalOverlay.style.transition = ".3s ease"; // Modal Content Style
+
+      modalContent.style.opacity = "0";
+      modalContent.style.visibility = "hidden";
+      modalContent.style.bottom = "-100%";
+      modalContent.style.height = "0";
+      modalContent.style.transition = ".3s ease";
     });
     /* When location field is empty we need to hide Radius Search */
 

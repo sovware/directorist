@@ -8,6 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
+<div class="directorist-search-modal__overlay"></div>
 <div class="directorist-search-adv-filter directorist-advanced-filter <?php if ( ($searchform->more_filters_display) == 'sliding' ): echo 'directorist-search-modal__contents' ?> <?php endif;?>">
 	<?php if ( ($searchform->more_filters_display) == 'sliding' ): ?> 
 		 

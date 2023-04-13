@@ -12,7 +12,7 @@ if (is_numeric($searchform->listing_type)) {
 	$listing_type = $term->slug;
 }
 ?>
-
+<div class="directorist-search-modal__overlay"></div>
 <div class="directorist-search-modal__contents directorist-archive-adv-filter directorist-advanced-filter">
 	<div class="directorist-search-modal__contents__header">
 		<h3 class="directorist-search-modal__contents__title">More Filters</h3>

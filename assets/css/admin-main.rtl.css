@@ -9534,10 +9534,17 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   transition: 0.3s ease;
 }
 
-body.directorist-search-modal-open {
-  position: relative;
+.directorist-search-modal__overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 9999;
 }
-body.directorist-search-modal-open:before {
+.directorist-search-modal__overlay:before {
   content: "";
   position: absolute;
   top: 0;
@@ -9545,28 +9552,23 @@ body.directorist-search-modal-open:before {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+  opacity: 1;
   -webkit-transition: all ease 0.4s;
   transition: all ease 0.4s;
 }
-
-.directorist-search-modal {
+.directorist-search-modal__contents {
   position: fixed;
-  right: 0;
-  top: 0;
+  right: 50%;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
+  bottom: -100%;
   width: 100%;
   height: 0;
-  opacity: 0;
-  visibility: 0;
-  z-index: 9999;
-}
-.directorist-search-modal__contents {
-  position: relative;
-  top: 100px;
   max-width: 600px;
-  margin: 0 auto;
-  height: auto;
   max-height: calc(100% - 200px);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 9999;
   border-radius: 16px;
   overflow: auto;
   background-color: var(--directorist-color-white);

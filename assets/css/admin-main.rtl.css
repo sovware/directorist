@@ -9637,7 +9637,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           justify-content: center;
   width: 40px;
   height: 40px;
-  background-color: var(--directorist-color-light-gray);
+  background-color: var(--directorist-color-light);
   border-radius: 100%;
   border: none;
   cursor: pointer;
@@ -9652,6 +9652,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: var(--directorist-color-danger);
 }
 .directorist-search-modal__contents .directorist-advanced-filter__form {
+  padding: 30px 40px;
+}
+.directorist-search-modal__contents .directorist-advanced-filter__wrapper {
   padding: 30px 40px;
 }
 

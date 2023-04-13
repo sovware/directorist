@@ -136,7 +136,7 @@
 				font-size: 14px;
 				font-weight: 400;
 				color: var(--directorist-color-body);
-				background-color: var(--directorist-color-light-gray);
+				background-color: var(--directorist-color-light);
 				padding: 0 20px;
 				border-radius: 8px;
 				cursor: pointer;
@@ -163,7 +163,7 @@
 					cursor: pointer;
 
 					&:hover {
-						background: var(--directorist-color-light-gray);
+						background: var(--directorist-color-light);
 					}
 				}
 			}
@@ -185,7 +185,7 @@
 		width: 40px;
 		height: 40px;
 		border-radius: 8px;
-		background-color: var(--directorist-color-light-gray);
+		background-color: var(--directorist-color-light);
 		i::after {
 			width: 16px;
 			height: 16px;

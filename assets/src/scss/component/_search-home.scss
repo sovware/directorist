@@ -25,6 +25,10 @@
   }
   // Search Form
   .directorist-search-form {
+    @include e('box-wrap') {
+      display: flex;
+      align-items: flex-start;
+    }
     @include e(box) {
       display: flex;
       align-items: flex-start;
@@ -37,6 +41,9 @@
       filter: drop-shadow(var(--directorist-box-shadow));
       &.always_open .directorist-advanced-filter{
         width: 100%;
+      }
+      &.sliding {
+        display: contents;
       }
     }
     @include e(top) {

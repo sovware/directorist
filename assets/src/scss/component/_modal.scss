@@ -177,7 +177,7 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            background-color: var(--directorist-color-light-gray);
+            background-color: var(--directorist-color-light);
             border-radius: 100%;
             border: none;
             cursor: pointer;
@@ -195,6 +195,9 @@
 
         .directorist-advanced-filter {
             @include e(form) {
+                padding: 30px 40px;
+            }
+            @include e(wrapper) {
                 padding: 30px 40px;
             }
         }

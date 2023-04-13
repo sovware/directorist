@@ -1637,13 +1637,13 @@ __webpack_require__.r(__webpack_exports__);
 
       modalOverlay.style.opacity = "1";
       modalOverlay.style.visibility = "visible";
-      modalOverlay.style.transition = ".3s ease"; // Modal Content Style
+      modalOverlay.style.transition = "0.3s ease"; // Modal Content Style
 
       modalContent.style.opacity = "1";
       modalContent.style.visibility = "visible";
       modalContent.style.bottom = "100px";
       modalContent.style.height = "100%";
-      modalContent.style.transition = ".3s ease";
+      modalContent.style.transition = "0.5s ease";
     });
     $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
       e.preventDefault();
@@ -1653,13 +1653,13 @@ __webpack_require__.r(__webpack_exports__);
 
       modalOverlay.style.opacity = "0";
       modalOverlay.style.visibility = "hidden";
-      modalOverlay.style.transition = ".3s ease"; // Modal Content Style
+      modalOverlay.style.transition = "0.5s ease"; // Modal Content Style
 
       modalContent.style.opacity = "0";
       modalContent.style.visibility = "hidden";
-      modalContent.style.bottom = "-100%";
+      modalContent.style.bottom = "-200px";
       modalContent.style.height = "0";
-      modalContent.style.transition = ".3s ease";
+      modalContent.style.transition = "0.5s ease";
     });
     /* When location field is empty we need to hide Radius Search */
 

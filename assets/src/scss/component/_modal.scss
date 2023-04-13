@@ -34,26 +34,40 @@
     width: 100%;
     background: var(--directorist-color-white);
     pointer-events: auto;
-    border-radius: 3px;
+    border-radius: 16px;
     position: relative;
     .directorist-modal__header{
         position: relative;
         padding: 15px;
         border-bottom: 1px solid var(--directorist-color-border-gray);
         .directorist-modal__header--title{
-            font-size: 16px;
+            font-size: 20px;
+            font-weight: 500;
             margin: 0;
+            color: var(--directorist-color-dark);
         }
         .directorist-modal-close{
             position: absolute;
-            right: 15px;
+            width: 28px;
+            height: 28px;
+            right: 25px;
             top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
             line-height: 1.45;
             padding: 6px;
+            text-decoration: none;
+            transition: .2s background-color ease-in-out;
+            background-color: var(--directorist-color-bg-light);
+            &:hover{
+                background-color: var(--directorist-color-light-hover);
+            }
         }
     }
     .directorist-modal__body{
-        padding: 20px 25px;
+        padding: 25px 40px;
     }
     .directorist-modal__footer{
         border-top: 1px solid var(--directorist-color-border-gray);
@@ -65,6 +79,15 @@
             button{
                 margin: 7.5px;
             }
+        }
+    }
+
+    .directorist-form-group{
+        label{
+            font-size: 16px;
+        }
+        .directorist-form-element{
+            resize: none;
         }
     }
 }

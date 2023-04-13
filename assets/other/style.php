@@ -61,10 +61,10 @@ $marker_shape_color               = get_directorist_option('marker_shape_color',
 $marker_icon_color                = get_directorist_option('marker_icon_color', '#444752');
 
 $primary_color                    = get_directorist_option('color_primary', '#000000');
-$secondary_color                  = get_directorist_option('color_secondary', '#122069');
+$secondary_color                  = get_directorist_option('color_secondary', '#F2F3F5');
 $dark_color                       = get_directorist_option('color_dark', '#000000');
 $white_color                      = get_directorist_option('color_white', '#ffffff');
-$success_color                    = get_directorist_option('color_success', '#28a800');
+$success_color                    = get_directorist_option('color_success', '#28A800');
 $info_color                       = get_directorist_option('color_info', '#2c99ff');
 $warning_color                    = get_directorist_option('color_warning', '#f28100');
 $danger_color                     = get_directorist_option('color_danger', '#f80718');
@@ -93,12 +93,12 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         --directorist-color-gray-hover: #BCBCBC;
         --directorist-color-light: #ededed;
         --directorist-color-light-hover: #BCBCBC;
-        --directorist-color-light-gray: #ededed;
+        --directorist-color-light-gray: #808080;
         --directorist-color-light-gray-rgb: 237, 237, 237;
         --directorist-color-deep-gray: #808080;
         --directorist-color-bg-gray: #f4f4f4;
         --directorist-color-bg-light-gray: #F4F5F6;
-        --directorist-color-bg-light: #ECEEF2;
+        --directorist-color-bg-light: #EDEDED;
 
         /* other color */
         --directorist-color-overlay: rgba(0,0,0,0.5);

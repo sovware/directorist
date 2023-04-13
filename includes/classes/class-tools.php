@@ -151,29 +151,32 @@
 
                     // start importing listings
                     $post_status = ( isset( $post[ $listing_status ] ) ) ? $post[ $listing_status ] : '';
-                    $post_status = ( in_array( $post_status, $supported_post_status ) ) ? $post_status : $new_listing_status;
-                    $listing_id  = ( isset( $post[ 'id' ] ) ) ? absint( $post[ 'id' ] ) : '';
+                    $post_status = ( in_array( $post_status, $supported_post_status, true ) ) ? $post_status : $new_listing_status;
 
                     $args = array(
-                        "post_title"   => isset( $post[ $title ] ) ? html_entity_decode( $post[ $title ] ): '',
-                        "post_content" => isset( $post[ $description ] ) ? html_entity_decode( $post[ $description ] ) : '',
-                        "post_type"    => ATBDP_POST_TYPE,
-                        "post_status"  => $post_status,
-                        "ID"           => $listing_id,
+                        'post_title'   => isset( $post[ $title ] ) ? html_entity_decode( $post[ $title ] ): '',
+                        'post_content' => isset( $post[ $description ] ) ? html_entity_decode( $post[ $description ] ) : '',
+                        'post_type'    => ATBDP_POST_TYPE,
+                        'post_status'  => $post_status,
                     );
 
                     // Post Date
                     $post_date = ! empty( $post[ $publish_date ] ) ? directorist_clean( $post[ $publish_date ] ) : '';
                     $post_date = apply_filters( 'directorist_importing_listings_post_date', $post_date, $post, $args, $index );
-
 					$post_date = strtotime( $post_date );
 					if ( $post_date ) {
-						$args[ 'post_date' ] = date( 'Y-m-d H:i:s', $post_date );
+						$args['post_date'] = date( 'Y-m-d H:i:s', $post_date );
 					}
 
-                    $post_id = ! empty( $args['ID'] ) && get_post( $args['ID'] ) ? wp_update_post( $args ) :  wp_insert_post( $args );
+					$listing_id  = ! empty( $post['id'] ) ? absint( $post['id'] ) : 0;
+					if ( get_post( $listing_id ) && get_post_type( $listing_id ) === ATBDP_POST_TYPE ) {
+						$args['ID'] = $listing_id;
+						$post_id = wp_update_post( $args );
+					} else {
+						$post_id = wp_insert_post( $args );
+					}
 
-                    if (  is_wp_error( $post_id ) ) {
+                    if ( is_wp_error( $post_id ) ) {
                         $failed++;
                         continue;
                     }

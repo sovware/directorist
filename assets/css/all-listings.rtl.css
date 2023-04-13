@@ -8575,6 +8575,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-content-active .directorist-author-profile-content {
   max-width: 100% !important;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .directorist-author-info-list {
@@ -16821,7 +16825,18 @@ Review: New Style
   }
 
   .directorist-author-profile-wrap .directorist-author-meta-list {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
     margin-top: 30px;
+    width: 100%;
+  }
+
+  .directorist-author-profile__meta-list__item {
+    width: 100%;
+    padding-left: 10px;
   }
 
   .directorist-modal__dialog {

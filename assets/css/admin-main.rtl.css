@@ -5929,15 +5929,25 @@ img.atbdp-file-info {
 }
 .directorist-address-field .address_result ul,
 .directorist-form-address-field .address_result ul {
-  list-style-type: none;
+  list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 7px;
+  max-width: 270px;
+  border-radius: 10px;
 }
 .directorist-address-field .address_result ul li,
 .directorist-form-address-field .address_result ul li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 15px;
   margin-bottom: 0;
-  border-bottom: 1px solid var(--directorist-color-light-gray);
-  list-style: none;
+  border: none;
 }
 .directorist-address-field .address_result ul li a,
 .directorist-form-address-field .address_result ul li a {
@@ -5964,7 +5974,7 @@ p.status:empty {
 }
 
 body.logged-in .select2-container--open .select2-dropdown--above {
-  top: 0;
+  top: 32px;
 }
 
 .select2-container--default .select2-dropdown {

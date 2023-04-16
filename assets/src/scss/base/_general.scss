@@ -287,14 +287,17 @@
 .directorist-form-address-field {
     .address_result {
         ul {
-            list-style-type: none;
+            list-style: none;
             margin: 0;
-            padding: 0;
-
+            padding: 7px;
+            max-width: 270px;
+            border-radius: 10px;
             li {
+                display: flex;
+                align-items: center;
+                gap: 15px;
                 margin-bottom: 0;
-                border-bottom: 1px solid var(--directorist-color-light-gray);
-                list-style: none;
+                border: none;
 
                 a {
                     color: var(--directorist-color-body);
@@ -328,7 +331,7 @@ p.status:empty {
     border-color: var(--directorist-color-border);
 }
 body.logged-in .select2-container--open .select2-dropdown--above {
-    top: 0;
+    top: 32px;
 }
 
 .select2-container--default {

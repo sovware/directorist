@@ -485,15 +485,25 @@
 }
 .directorist-address-field .address_result ul,
 .directorist-form-address-field .address_result ul {
-  list-style-type: none;
+  list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 7px;
+  max-width: 270px;
+  border-radius: 10px;
 }
 .directorist-address-field .address_result ul li,
 .directorist-form-address-field .address_result ul li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 15px;
   margin-bottom: 0;
-  border-bottom: 1px solid var(--directorist-color-light-gray);
-  list-style: none;
+  border: none;
 }
 .directorist-address-field .address_result ul li a,
 .directorist-form-address-field .address_result ul li a {
@@ -520,7 +530,7 @@ p.status:empty {
 }
 
 body.logged-in .select2-container--open .select2-dropdown--above {
-  top: 0;
+  top: 32px;
 }
 
 .select2-container--default .select2-dropdown {
@@ -5226,7 +5236,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 }
 
 .logged-in .select2-container--open .select2-dropdown.select2-dropdown--below {
-  top: 0;
+  top: 32px;
 }
 
 /* Container within container spacing issue fix */
@@ -10091,33 +10101,83 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 100%;
   right: 0;
   top: 45px;
-  background: var(--directorist-color-white);
-  -webkit-box-shadow: 0 5px 10px rgba(145, 146, 163, 0.2);
-          box-shadow: 0 5px 10px rgba(145, 146, 163, 0.2);
-  border-radius: 3px;
   z-index: 1;
-  max-height: 300px;
+  max-height: 345px;
   overflow-y: scroll;
+  border-radius: 10px;
+  background-color: var(--directorist-color-white);
+  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
+          filter: drop-shadow(var(--directorist-box-shadow));
 }
 .directorist-search-field .directorist-location-js + .address_result ul {
-  padding: 0;
-  margin: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 6px;
+  padding: 7px;
+  margin: 0 0 15px;
   list-style-type: none;
 }
 .directorist-search-field .directorist-location-js + .address_result ul li {
-  border-bottom: 1px solid var(--directorist-color-border);
-  padding: 10px 15px 10px !important;
+  border: none;
+  padding: 0 !important;
   margin: 0;
 }
 .directorist-search-field .directorist-location-js + .address_result ul li a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 15px;
   font-size: 14px;
-  color: var(--directorist-color-gray);
-  line-height: 22px;
-  display: block;
+  margin: 0 13px;
+  color: var(--directorist-color-body);
+  background-color: var(--directorist-color-white);
+  border-radius: 10px;
   text-decoration: none;
 }
+.directorist-search-field .directorist-location-js + .address_result ul li a span {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-width: 36px;
+  max-width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: var(--directorist-color-bg-gray);
+}
+.directorist-search-field .directorist-location-js + .address_result ul li a span i:after {
+  width: 16px;
+  height: 16px;
+}
+.directorist-search-field .directorist-location-js + .address_result ul li a.current-location {
+  height: 50px;
+  margin: 0 0 13px;
+  padding: 0 8px;
+  color: var(--directorist-color-primary);
+  background-color: var(--directorist-color-bg-gray);
+}
 .directorist-search-field .directorist-location-js + .address_result ul li a:hover {
-  color: #444752;
+  color: var(--directorist-color-primary);
 }
 
 /* Zipcode Search */

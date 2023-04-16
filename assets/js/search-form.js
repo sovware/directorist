@@ -1559,12 +1559,20 @@ __webpack_require__.r(__webpack_exports__);
                 data: {},
                 success: function success(data) {
                   var res = '';
+                  var currentLatitude = '';
+                  var currentLongitude = '';
+                  var currentIconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/paper-plane.svg';
+                  var currentIconHTML = directorist.icon_markup.replace('##URL##', currentIconURL).replace('##CLASS##', '');
+                  var currentLocationIconHTML = "<span class=\"location-icon\">".concat(currentIconHTML, "</span>");
+                  var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/map-marker-alt.svg';
+                  var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+                  var locationIconHTML = "<span class=\"location-icon\">".concat(iconHTML, "</span>");
 
                   for (var i = 0, len = data.length; i < len; i++) {
-                    res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+                    res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(locationIconHTML).concat(data[i].display_name, "</a></li>");
                   }
 
-                  result_container.html("<ul>".concat(res, "</ul>"));
+                  result_container.html("<ul>" + "<li><a href='#' data-lat='" + currentLatitude + "' data-lon='" + currentLongitude + "' class='current-location'>" + currentLocationIconHTML + "Current Location" + "</a></li>" + res + "</ul>");
 
                   if (res.length) {
                     result_container.show();

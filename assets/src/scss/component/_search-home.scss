@@ -403,32 +403,58 @@
         width: 100%;
         left: 0;
         top: 45px;
-        background: var(--directorist-color-white);
-        box-shadow: 0 5px 10px rgba($light-gray, 0.2);
-        border-radius: 3px;
         z-index: 1;
-        max-height: 300px;
+        max-height: 345px;
         overflow-y: scroll;
-  
+        border-radius: 10px;
+        background-color: var(--directorist-color-white);
+        filter: drop-shadow(var(--directorist-box-shadow));
         ul {
-          padding: 0;
-          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          padding: 7px;
+          margin: 0 0 15px;
           list-style-type: none;
   
           li {
-            border-bottom: 1px solid var(--directorist-color-border);
-            padding: 10px 15px 10px !important;
+            border: none;
+            padding: 0 !important;
             margin: 0;
   
             a {
+              display: flex;
+              align-items: center;
+              gap: 15px;
               font-size: 14px;
-              color: var(--directorist-color-gray);
-              line-height: 22px;
-              display: block;
+              margin: 0 13px;
+              color: var(--directorist-color-body);
+              background-color: var(--directorist-color-white);
+              border-radius: 10px;
               text-decoration: none;
-  
+              span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 36px;
+                max-width: 36px;
+                height: 36px;
+                border-radius: 10px;
+                background-color: var(--directorist-color-bg-gray);
+                i:after {
+                  width: 16px;
+                  height: 16px;
+                }
+              }
+              &.current-location {
+                height: 50px;
+                margin: 0 0 13px;
+                padding: 0 8px;
+                color: var(--directorist-color-primary);
+                background-color: var(--directorist-color-bg-gray);
+              }
               &:hover {
-                color: $primary;
+                color: var(--directorist-color-primary);
               }
             }
           }

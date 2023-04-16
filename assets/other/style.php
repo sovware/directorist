@@ -68,7 +68,7 @@ $success_color                    = get_directorist_option('color_success', '#28
 $info_color                       = get_directorist_option('color_info', '#2c99ff');
 $warning_color                    = get_directorist_option('color_warning', '#f28100');
 $danger_color                     = get_directorist_option('color_danger', '#f80718');
-$gray_color                       = get_directorist_option('color_gray', '#404040');
+$gray_color                       = get_directorist_option('color_gray', '#bcbcbc');
 ?>
 <style>
     /* Css Variable */
@@ -103,9 +103,8 @@ $gray_color                       = get_directorist_option('color_gray', '#40404
         /* other color */
         --directorist-color-overlay: rgba(0,0,0,0.5);
         --directorist-color-overlay-normal: rgba(0,0,0,0.2);
-        --directorist-color-border: #E9E9E9;
-        --directorist-color-border-gray: #D9D9D9;
-        --directorist-color-pointer: #BCBCBC;
+        --directorist-color-border: #e9e9e9;
+        --directorist-color-border-gray: #d9d9d9;
 
         --directorist-box-shadow: 0 3px 7.5px rgba(0,0,0, 0.08);
         --directorist-box-shadow-sm: 0 5px 0.8px rgba(167,178,199, 0.1);
@@ -549,59 +548,57 @@ $gray_color                       = get_directorist_option('color_gray', '#40404
           - Badge New
     */
     /* Badge Open */
-    .atbd_bg-success,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_open,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open, .directorist-badge-open, .directorist-badge.directorist-badge-success {
+    .atbd_bg-success i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_open i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open i::after, .directorist-badge-open {
         background: var(--directorist-color-open-badge) !important;
     }
 
     /* Badge Closed */
-    .atbd_bg-danger,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf:hover,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close, .directorist-badge.directorist-badge-danger, .directorist-listing-single .directorist-badge.directorist-badge-closejhg   {
+    .atbd_bg-danger i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf:hover i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close i::after, .directorist-badge-close, .directorist-badge.directorist-badge-danger   {
         background: var(--directorist-color-closed-badge) !important;
     }
 
     /* Badge Featured */
-    .atbd_bg-badge-feature,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured, .directorist-listing-single .directorist-badge.directorist-badge-featured {
-        background: var(--directorist-color-featured-badge) !important;
+    .atbd_bg-badge-feature i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured i::after, .directorist-listing-single .directorist-badge.directorist-badge-featured i::after {
+        background: var(directorist-color-featured-badge) !important;
     }
 
     /* Badge Popular */
-    .atbd_bg-badge-popular,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_popular,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular, .directorist-listing-single .directorist-badge.directorist-badge-popular {
+    .atbd_bg-badge-popular i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_popular i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular i::after, .directorist-listing-single .directorist-badge.directorist-badge-popular i::after {
         background: var(--directorist-color-popular-badge) !important;
     }
 
     /* Badge New */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new {
-        background: var(--directorist-color-new-badge) !important;
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new i::after {
+        background: var(--directorist-color-badge-new) !important;
     }
 
     /*
         Change default primary dark background
     */
     .ads-advanced .price-frequency .pf-btn input:checked+span,
-    .btn-checkbox label input:checked+span,
     .atbdpr-range .ui-slider-horizontal .ui-slider-range,
     .custom-control .custom-control-input:checked~.check--select,
     #directorist.atbd_wrapper .pagination .nav-links .current,
     .atbd_director_social_wrap a,
     .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p a,
     .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p a,
-    .directorist-mark-as-favorite__btn.directorist-added-to-favorite,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories>ul.atbdp_parent_category>li:hover>a span,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover {
         background: var(--directorist-color-primary) !important;
@@ -611,8 +608,7 @@ $gray_color                       = get_directorist_option('color_gray', '#40404
         Change default primary dark border
     */
     .ads-advanced .price-frequency .pf-btn input:checked+span,
-    .btn-checkbox label input:checked+span,
-    .directorist-content-active .directorist-type-nav__list .current .directorist-type-nav__link,
+    .directorist-content-active .directorist-type-nav__list .directorist-type-nav__list__current .directorist-type-nav__link,
     .atbdpr-range .ui-slider-horizontal .ui-slider-handle,
     .custom-control .custom-control-input:checked~.check--select,
     .custom-control .custom-control-input:checked~.radio--select,

@@ -3,13 +3,21 @@
     position: relative;
 
     .directorist-dropdown__toggle {
-        text-decoration: none;
-        color: var(--directorist-color-body);
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        gap: 5px;
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--directorist-color-body);
+        background-color: var(--directorist-color-light);
+        padding: 0 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all ease 0.3s;
         position: relative;
-
+        &:hover {
+            background-color: var(--directorist-color-gray);
+        }
         &:focus {
             outline: 0 !important;
         }
@@ -21,8 +29,7 @@
                 mask-repeat: no-repeat;
                 width: 12px;
                 height: 12px;
-                background-color: #444752;
-                margin-left: 5px;
+                background-color: var(--directorist-color-body);
             }
         }
     }
@@ -36,29 +43,33 @@
         display: none;
         position: absolute;
         width: 100%;
-        min-width: 180px;
+        min-width: 190px;
         max-height: 250px;
         overflow-y: auto;
         left: 0;
         top: 30px;
-        padding: 10px 0;
-        background-color: #fff;
-        box-shadow: 0 10px 40px rgba(134, 142, 174, .18823529411764706);
-        border-radius: 5px;
+        padding: 10px;
+        border: none;
+        border-radius: 12px;
+        background-color: var(--directorist-color-white);
+        filter: drop-shadow(var(--directorist-box-shadow));
         z-index: 99999;
 
         a {
             display: block;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 400;
             text-decoration: none;
             display: block;
-            padding: 5px 20px;
-            border-radius: 4px;
-            color: #5a5f7d;
+            padding: 10px;
+            border-radius: 8px;
+            color: var(--directorist-color-body);
 
-            &.active {
-                background-color: #f2f2f2;
+            &.active,
+            &:hover {
+                border-radius: 8px;
+                color: var(--directorist-color-dark);
+                background-color: var(--directorist-color-light);
             }
         }
     }

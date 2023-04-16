@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.2.2
- * @version 7.2.2
+ * @version 7.7.0
  */
 
 use \Directorist\Helper;
@@ -10,20 +10,22 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-form-box">
+<div class="directorist-search-form-box directorist-search-form__box <?php echo($searchform->more_filters_display) ?>">
 
-	<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline">
+	<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline directorist-search-form__top">
 
 		<?php
 		foreach ( $searchform->form_data[0]['fields'] as $field ){
 			$searchform->field_template( $field );
 		}
-		if ( $searchform->more_filters_display !== 'always_open' ){
-			$searchform->more_buttons_template();
-		}
 		?>
 
 	</div>
+	<?php 
+		if ( $searchform->more_filters_display !== 'always_open' ){
+			$searchform->more_buttons_template();
+		}
+	?>
 
 	<?php
 	if ( $searchform->more_filters_display == 'always_open' ){

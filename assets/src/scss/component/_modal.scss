@@ -32,14 +32,14 @@
 
 .directorist-modal__content{
     width: 100%;
-    background: #fff;
+    background: var(--directorist-color-white);
     pointer-events: auto;
     border-radius: 16px;
     position: relative;
     .directorist-modal__header{
         position: relative;
-        padding: 22px 38px;
-        border-bottom: 1px solid var(--directorist-color-border);
+        padding: 15px;
+        border-bottom: 1px solid var(--directorist-color-border-gray);
         .directorist-modal__header--title{
             font-size: 20px;
             font-weight: 500;
@@ -70,9 +70,8 @@
         padding: 25px 40px;
     }
     .directorist-modal__footer{
-        padding: 18px 40px;
-        border-radius: 0 0 16px 16px;
-        background-color: var(--directorist-color-bg-light);
+        border-top: 1px solid var(--directorist-color-border-gray);
+        padding: 18px;
         .directorist-modal__action{
             display: flex;
             justify-content: flex-end;
@@ -120,6 +119,89 @@
     opacity: 1;
     visibility: visible;
     transition: 0.3s ease;
+}
+
+// Search Modal CSS
+.directorist-search-modal {
+    @include e(overlay) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9999;
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 1;
+            transition: all ease 0.4s;
+        }
+    }
+    @include e(contents) {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -100%;
+        width: 100%;
+        height: 0;
+        max-width: 600px;
+        max-height: calc(100% - 200px);
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9999;
+        border-radius: 16px;
+        overflow: auto;
+        background-color: var(--directorist-color-white);
+        @include e(header) {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 25px 15px 40px;
+            border-bottom: 1px solid var(--directorist-color-border);
+        }
+        @include e(title) {
+            font-size: 20px;
+            font-weight: 500;
+            margin: 0;
+        }
+        @include e(btn) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--directorist-color-light);
+            border-radius: 100%;
+            border: none;
+            cursor: pointer;
+            transition: all ease 0.3s;
+            i::after {
+                width: 10px;
+                height: 10px;
+            }
+            &:hover {
+                i::after {
+                    background-color: var(--directorist-color-danger);
+                }
+            }
+        }
+
+        .directorist-advanced-filter {
+            @include e(form) {
+                padding: 30px 40px;
+            }
+            @include e(wrapper) {
+                padding: 30px 40px;
+            }
+        }
+    }
 }
 
 /* Responsive CSS */

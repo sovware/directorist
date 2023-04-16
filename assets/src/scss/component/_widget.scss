@@ -98,7 +98,7 @@
 
   padding: 0;
   background: #fff;
-  border: 1px solid $border-color;
+  border: 1px solid var(--directorist-color-border);
   margin-bottom: 30px;
 
   //font-family: $atbd-font-family;
@@ -166,7 +166,7 @@
 
   .atbd_widget_title {
     padding: 15px 30px;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--directorist-color-border);
     margin-bottom: 0;
 
     .atbd_widget_title {
@@ -231,7 +231,7 @@
         }
 
         a {
-          border: 1px solid $border-color;
+          border: 1px solid var(--directorist-color-border);
           color: #5d658c;
           border-radius: 3px;
           padding: 3px 10px;
@@ -274,7 +274,7 @@
         }
 
         &+li {
-          border-top: 1px solid $border-color;
+          border-top: 1px solid var(--directorist-color-border);
         }
 
         .atbd_left_img {

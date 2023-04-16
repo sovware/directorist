@@ -76,7 +76,7 @@
             @include e(details) {
                 @include e(top) {
                     text-align: center;
-                    border-bottom: 1px solid $border-color;
+                    border-bottom: 1px solid var(--directorist-color-border);
                     margin: 5px 0 15px;
                 }
             }

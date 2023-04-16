@@ -89,17 +89,17 @@
 .directorist-btn {
   &.directorist-btn-outline {
     background: transparent;
-    border: 1px solid $border-color !important;
+    border: 1px solid var(--directorist-color-border) !important;
   }
 
   &.directorist-btn-outline-normal {
     background: transparent;
-    border: 1px solid $border-color-normal !important;
+    border: 1px solid var(--directorist-color-normal) !important;
   }
 
   &.directorist-btn-outline-light {
     background: transparent;
-    border: 1px solid $border-color-light !important;
+    border: 1px solid var(--directorist-color-bg-light) !important;
   }
 
   &.directorist-btn-outline-primary {
@@ -149,11 +149,11 @@
   }
 
   &.directorist-btn-sm {
-    min-height: 36px;
+    min-height: 40px;
   }
 
   &.directorist-btn-xs {
-    min-height: 35px;
+    min-height: 36px;
   }
 
   &.directorist-btn-px-15 {

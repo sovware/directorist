@@ -1,0 +1,156 @@
+
+
+// Search Border Boder
+.directorist-search-form-wrap {
+    &.directorist-with-search-border {
+      .directorist-search-form-top {
+        border: 1px solid var(--directorist-color-border);
+      }
+    }
+  
+    .directorist-search-form-box {
+      position: relative;
+  
+      .directorist-search-query {
+        padding-right: 2px;
+      }
+  
+      .directorist-form-group {
+        .directorist-form-element {
+          background-image: none !important;
+        }
+      }
+    }
+}
+
+// Directorist Search form top
+.directorist-search-contents {
+    .directorist-search-form-top {
+      background-color: #fff;
+      border-radius: 6px;
+      padding: 10px 20px 10px 0;
+      flex-wrap: wrap;
+      margin: -5px 0;
+  
+      .directorist-search-field {
+        flex: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 200px;
+        margin: 5px 0;
+        padding-bottom: 0;
+  
+        &:not(:last-child) {
+          border-right: 1px solid var(--directorist-color-border);
+        }
+  
+        .directorist-form-element {
+          border: 0 none;
+          background-color: transparent;
+        }
+  
+        .directorist-select .directorist-select__label {
+          border: 0 none;
+        }
+  
+        >label {
+          display: none;
+        }
+  
+        .wp-picker-container {
+          .wp-picker-input-wrap {
+            label {
+              display: none;
+            }
+          }
+        }
+  
+        .directorist-search-tags {
+          flex-direction: column;
+          padding: 10px 15px;
+  
+          .directorist-checkbox {
+            margin-bottom: 10px;
+          }
+        }
+  
+        .directorist-range-slider-wrap {
+          padding: 10px 15px;
+          min-width: 220px;
+        }
+  
+        .directorist-btn-ml {
+          font-size: 14px;
+          color: #7a82a6;
+          text-decoration: none;
+        }
+      }
+  
+      .directorist-search-form-action {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+  
+        @media only screen and (max-width: 375px) {
+          flex-direction: column;
+        }
+  
+        .directorist-btn.directorist-btn-lg {
+          border-radius: 6px;
+          font-weight: 400;
+          line-height: 1.75;
+          padding: 11px 15px;
+  
+          &:not(.directorist-filter-btn) {
+            .directorist-icon-mask {
+              &:after {
+                background-color: #fff;
+                margin-right: 4px;
+              }
+            }
+          }
+        }
+  
+        button {
+          text-decoration: none;
+          text-transform: capitalize;
+  
+          i,
+          span.la,
+          span.las,
+          span.lar,
+          span.fas,
+          span.fab,
+          span.far {
+            margin-right: 4px;
+          }
+        }
+  
+        @include e(filter) {
+          .directorist-filter-btn {
+            background-color: #fff;
+          }
+        }
+      }
+  
+      .atbdp-form-fade {
+        &:before {
+          width: 15px;
+          height: 15px;
+          left: unset;
+          right: 0;        
+        }
+      }
+    }
+}
+
+.directorist-search-slide {
+  width: 100%;
+  .directorist-advanced-filter {
+      display: none;
+
+      @include m(show) {
+          display: block !important;
+      }
+  }
+}

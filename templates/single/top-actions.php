@@ -22,7 +22,7 @@ $listing = Directorist_Single_Listing::instance();
 	<div class="directorist-single-listing-quick-action directorist-flex directorist-align-center directorist-justify-content-between">
 
 		<?php if ( $listing->submit_link() ): ?>
-			<a href="<?php echo esc_url( $listing->submit_link() ); ?>" class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-btn-success directorist-signle-listing-top__btn-continue"><span class="directorist-single-listing-action__text"><?php esc_html_e( 'Continue', 'directorist' ); ?></span> </a>
+			<a href="<?php echo esc_url( $listing->submit_link() ); ?>" class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-signle-listing-top__btn-continue"><span class="directorist-single-listing-action__text"><?php esc_html_e( 'Continue', 'directorist' ); ?></span> </a>
 		<?php endif; ?>
 
 		<a href="<?php echo esc_url( $listing->edit_link() ) ?>" class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-signle-listing-top__btn-edit">

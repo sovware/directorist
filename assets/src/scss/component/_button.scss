@@ -36,6 +36,9 @@
     background: var(--directorist-color-primary);
     color: #fff;
     @include btnFocusBg(var(--directorist-color-primary));
+    &:hover{
+      background: var(--directorist-color-primary-hover);
+    }
   }
 
   &.directorist-btn-secondary {

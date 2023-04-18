@@ -12,18 +12,41 @@
             }
         }
     }
+    .directorist-radio{
+        input[type="radio"] + .directorist-radio__label{
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.15;
+            color: var(--directorist-color-dark);
+        }
+    }
+    .directorist-card__body{
+        .directorist-payment-text{
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.86;
+            margin-top: 4px;
+            color: var(--directorist-color-body);
+        }
+    }
 }
 
 .directorist-payment-action {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
     flex-wrap: wrap;
-    margin: -7px;
+    margin: 42px -7px -7px -7px;
     .directorist-btn{
+        min-height: 54px;
+        padding: 0 80px;
+        border-radius: 12px;
         margin: 7px;
         max-width: none;
         width: auto;
+        @media (max-width: 1399px) {
+            padding: 0 40px;
+        }
+        @media (max-width: 1199px) {
+            padding: 0 30px;
+        }
     }
 }
 

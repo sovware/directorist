@@ -15,7 +15,8 @@
 }
 
 .directorist-range-slider-wrap .directorist-range-slider-current-value {
-  flex: 1;
+  min-width: 100px;
+  text-align: right;
   padding: 0 15px !important;
 }
 

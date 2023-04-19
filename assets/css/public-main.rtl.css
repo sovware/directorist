@@ -5222,6 +5222,20 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   display: none !important;
 }
 
+.directorist-d-none {
+  display: none !important;
+}
+
+.directorist-text-center {
+  text-align: center !important;
+}
+
+/* Container within container spacing issue fix */
+.directorist-container-fluid > .directorist-container-fluid {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
 .directorist-announcement-wrapper .directorist_not-found p {
   margin-bottom: 0;
 }
@@ -5237,12 +5251,6 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 
 .logged-in .select2-container--open .select2-dropdown.select2-dropdown--below {
   top: 32px;
-}
-
-/* Container within container spacing issue fix */
-.directorist-container-fluid > .directorist-container-fluid {
-  padding-right: 0 !important;
-  padding-left: 0 !important;
 }
 
 .directorist-select .select2.select2-container .select2-selection--single .select2-selection__rendered .select2-selection__clear {
@@ -5268,6 +5276,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   padding-left: 25px;
 }
 .select2.select2-container .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
+  font-size: 14px;
   line-height: 2.6;
 }
 .select2.select2-container .select2-selection--single .select2-selection__arrow {
@@ -5287,22 +5296,6 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   margin-top: 0;
 }
 
-.directorist-d-none {
-  display: none !important;
-}
-
-.directorist-text-center {
-  text-align: center !important;
-}
-
-/* Login/Signup Form */
-.directorist-login-wrapper #recover-pass-modal .directorist-btn {
-  margin-top: 15px;
-}
-.directorist-login-wrapper #recover-pass-modal .directorist-btn:hover {
-  text-decoration: none;
-}
-
 .select2-container.select2-container--open {
   z-index: 99999;
 }
@@ -5318,6 +5311,14 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 }
 .select2-container .directorist-select2-addons-area .directorist-icon-mask:after {
   background-color: #404040;
+}
+
+/* Login/Signup Form CSS */
+.directorist-login-wrapper #recover-pass-modal .directorist-btn {
+  margin-top: 15px;
+}
+.directorist-login-wrapper #recover-pass-modal .directorist-btn:hover {
+  text-decoration: none;
 }
 
 .directorist-widget {
@@ -6991,10 +6992,8 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
 }
 
 .directorist-range-slider-wrap .directorist-range-slider-current-value {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  min-width: 100px;
+  text-align: left;
   padding: 0 15px !important;
 }
 
@@ -10208,6 +10207,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-gray);
   line-height: 22px;
   display: block;
+}
+
+.directorist-search-contents .directorist-search-form-top .form-group.open_now {
+  -webkit-box-flex: 30.8%;
+  -webkit-flex: 30.8%;
+      -ms-flex: 30.8%;
+          flex: 30.8%;
+  border-left: 1px solid var(--directorist-color-border) !important;
 }
 
 .directorist-advanced-filter__advanced--checkbox .directorist-checkbox-wrapper {

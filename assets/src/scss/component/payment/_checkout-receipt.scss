@@ -1,35 +1,77 @@
-.directorist-payment-gateways {
-    background: #fff;
-    ul{
+.directorist-payment-instructions,
+.directorist-payment-thanks-text{
+    font-size: .93rem;
+    font-weight: 400;
+    color: var(--directorist-color-body);
+}
+
+.directorist-payment-instructions{
+    margin-bottom: 38px;
+}
+
+.directorist-payment-thanks-text{
+    font-size: 1rem;
+}
+
+.directorist-payment-table{
+    thead{
+        th{
+            font-size: .93rem;
+            font-weight: 500;
+            text-align: left;
+            padding: 9px 20px;
+            color: var(--directorist-color-dark);
+            background-color: var(--directorist-color-bg-gray);
+        }
+    }
+    tbody{
+        td{
+            font-size: .93rem;
+            font-weight: 500;
+            padding: 5px 0;
+            vertical-align: top;
+            color: var(--directorist-color-dark);
+        }
+    }
+
+    .directorist-payment-table__label{
+        font-weight: 400;
+        width: 140px;
+        color: var(--directorist-color-light-gray);
+    }
+
+    .directorist-payment-table__title{
+        font-size: 1rem;
+        font-weight: 500;
         margin: 0;
-        padding: 0;
-        li{
-            list-style-type: none;
-            padding: 0;
-            margin:0;
-            .gateway_list{
-                margin-bottom: 10px;
+        text-transform: capitalize;
+        color: var(--directorist-color-dark);
+        &.directorist-payment-table__title--large{
+            font-size: 1.07rem;
+        }
+    }
+    p{
+        font-size: .87rem;
+        margin: 0;
+        color: var(--directorist-color-light-gray);;
+    }
+}
+
+.directorist-payment-summery-table{
+    tbody{
+        td{
+            padding: 12px 0;
+        }
+        tr.directorsit-payment-table-total{
+            td,
+            .directorist-payment-table__title{
+                font-size: 1.07rem;
             }
         }
     }
 }
 
-.directorist-payment-action {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: -7px;
-    .directorist-btn{
-        margin: 7px;
-        max-width: none;
-        width: auto;
-    }
-}
-
-.atbd_payment_recipt .atbd_payment_summary {
-    text-align: center;
-    font-size: 18px;
-    color: #202428;
-    margin-bottom: 20px;
+.directorist-btn-view-listing{
+    min-height: 54px;
+    border-radius: 12px;
 }

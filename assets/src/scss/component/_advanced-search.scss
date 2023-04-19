@@ -322,38 +322,6 @@
     }
 }
 
-// Custom Field Checkbox & Radio
-.directorist-form-group {
-    &.direcorist-search-field-checkbox,
-    &.directorist-advanced-filter__advanced--checkbox,
-    &.directorist-advanced-filter__advanced--radio,
-    &.direcorist-search-field-radio{
-
-        .directorist-search-field{
-            display: flex;
-            flex-wrap: wrap;
-            margin: -7.5px;
-
-            >label{
-
-                margin: 7.5px;
-                flex: 0 0 100%;
-                width: 100%;
-            }
-
-            .directorist-checkbox__label{
-                margin-left: 0;
-            }
-
-            .directorist-checkbox,
-            .directorist-radio {
-
-                margin: 7.5px;
-            }
-        }
-    }
-}
-
 /* google map location suggestion container */
 .pac-container {
     z-index: 99999 !important;

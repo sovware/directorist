@@ -302,19 +302,6 @@
     border-radius: 12px;
     background: var(--directorist-color-white);
     filter: drop-shadow(var(--directorist-box-shadow));
-
-    .directorist-search-tags {
-      flex-wrap: wrap;
-      margin: -5px;
-
-      .directorist-checkbox {
-        margin: 5px;
-
-        .directorist-checkbox__label {
-          margin-left: 0;
-        }
-      }
-    }
   }
 
   .directorist-btn-ml {

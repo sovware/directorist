@@ -104,12 +104,11 @@
             }
         }
     }
-
 }
 
 // Single Listing Card
 .directorist-listing-single {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     border: none;
     border-radius: 12px;
     background-color: var(--directorist-color-white);
@@ -122,10 +121,6 @@
         .directorist-listing-single__thumb {
             position: relative;
             padding: 10px 10px 0 10px;
-            a {
-                display: block;
-                height: 100%;
-            }
 
             .directorist-thumnail-card {
                 .directorist-thumnail-card-front-img {
@@ -164,9 +159,9 @@
             }
         }
         .directorist-mark-as-favorite__btn {
-            background: var(--directorist-color-white) !important;
+            background: var(--directorist-color-white);
             width: 30px;
-            height: 30px !important;
+            height: 30px;
         }
     }
 }
@@ -298,7 +293,7 @@
                 width: auto;
                 height: 21px;
                 line-height: 21px;
-                padding: 0 8px !important;
+                padding: 0 8px;
                 margin: 0;
                 border-radius: 4px;
                 font-size: 10px;
@@ -590,7 +585,7 @@
 
 /* mark as favorite btn */
 .directorist-mark-as-favorite__btn {
-    display: flex !important;
+    display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
@@ -598,8 +593,8 @@
     text-decoration: none;
 
     &:focus {
-        outline: 0 !important;
-        text-decoration: none !important;
+        outline: 0;
+        text-decoration: none;
     }
 
     .directorist-favorite-icon {
@@ -807,9 +802,9 @@
 .directorist-archive-grid-view{
     &.directorist-archive-grid--fix{
         .directorist-all-listing-col{
-            width: 50% !important;
+            width: 50%;
             @media only screen and (max-width: 575px) {
-                width: 100% !important;
+                width: 100%;
             }
         }
     }

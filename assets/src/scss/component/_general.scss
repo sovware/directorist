@@ -76,25 +76,25 @@
 }
 
 .diectorist-show {
-  display: block !important;
+  display: block;
 }
 
 .diectorist-hide {
-  display: none !important;
+  display: none;
 }
 
 .directorist-d-none {
-  display: none !important;
+  display: none;
 }
 
 .directorist-text-center {
-  text-align: center !important;
+  text-align: center;
 }
 
 /* Container within container spacing issue fix */
 .directorist-container-fluid > .directorist-container-fluid {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .directorist-announcement-wrapper {

@@ -188,7 +188,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    color: var(--directorist-color-primary) !important;
+                    color: var(--directorist-color-primary);
                     background-color: var(--directorist-color-border);
                     border-radius: 8px;
                     width: 70px;
@@ -199,7 +199,7 @@
                     &:checked{
                         &+.directorist-pf-range{
                             background-color: var(--directorist-color-primary);
-                            color: var(--directorist-color-white) !important;
+                            color: var(--directorist-color-white);
                         }
                     }
                 }
@@ -324,5 +324,5 @@
 
 /* google map location suggestion container */
 .pac-container {
-    z-index: 99999 !important;
+    z-index: 99999;
 }

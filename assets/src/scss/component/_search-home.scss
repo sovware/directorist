@@ -69,6 +69,12 @@
         background-color: transparent;
       }
 
+      .directorist-price-ranges__item {
+        .directorist-form-element {
+          border-bottom: 1px solid var(--directorist-color-border);
+        }
+      }
+
       .directorist-select .directorist-select__label {
         border: 0 none;
       }
@@ -92,11 +98,6 @@
         flex-wrap: wrap;
       }
 
-      .directorist-range-slider-wrap {
-        padding: 10px 15px;
-        min-width: 220px;
-      }
-
       .directorist-btn-ml {
         font-size: 14px;
         color: var(--directorist-color-gray);
@@ -105,7 +106,7 @@
     }
 
     .select2-container {
-        width: 100% !important;
+        width: 100%;
 
         &.select2-container--default .select2-selection--single {
           border: 0 none;
@@ -407,7 +408,7 @@
 
         li {
           border: none;
-          padding: 0 !important;
+          padding: 0;
           margin: 0;
 
           a {
@@ -471,7 +472,7 @@
 
       li {
         border-bottom: 1px solid var(--directorist-color-border);
-        padding: 10px 15px 10px !important;
+        padding: 10px 15px 10px;
         margin: 0;
 
         a {
@@ -487,7 +488,7 @@
 
 .directorist-search-contents .directorist-search-form-top .form-group.open_now {
   flex: 30.8%;
-  border-right: 1px solid var(--directorist-color-border) !important;
+  border-right: 1px solid var(--directorist-color-border);
 }
 
 .directorist-advanced-filter__advanced--checkbox {

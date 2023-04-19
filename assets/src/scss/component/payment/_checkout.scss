@@ -17,10 +17,10 @@
     .directorist-card__header{
         padding: 24px 40px;
         .directorist-card__header--title{
-            font-size: 24px;
+            font-size: 1.6rem;
             font-weight: 600;
             @media (max-width: 575px) {
-                font-size: 18px;
+                font-size: 1.2rem;
             }
         }
     }
@@ -29,26 +29,78 @@
     }
 
     .directorist-summery-label{
-        font-size: 15px;
+        font-size: 1rem;
         font-weight: 500;
         color: var(--color-dark);
     }
     .directorist-summery-label-description{
-        font-size: 13px;
+        font-size: 0.87rem;
         margin-top: 4px;
         color: var(--directorist-color-light-gray);
     }
     .directorist-summery-amount{
-        font-size: 15px;
+        font-size: 1rem;
         font-weight: 500;
         color: var(--directorist-color-body);
+    }
+}
+
+.directorist-payment-gateways {
+    background: #fff;
+    ul{
+        margin: 0;
+        padding: 0;
+        li{
+            list-style-type: none;
+            padding: 0;
+            margin:0;
+            .gateway_list{
+                margin-bottom: 10px;
+            }
+        }
+    }
+    .directorist-radio{
+        input[type="radio"] + .directorist-radio__label{
+            font-size: 1.07rem;
+            font-weight: 500;
+            line-height: 1.15;
+            color: var(--directorist-color-dark);
+        }
+    }
+    .directorist-card__body{
+        .directorist-payment-text{
+            font-size: 0.93rem;
+            font-weight: 400;
+            line-height: 1.86;
+            margin-top: 4px;
+            color: var(--directorist-color-body);
+        }
+    }
+}
+
+.directorist-payment-action {
+    flex-wrap: wrap;
+    margin: 42px -7px -7px -7px;
+    .directorist-btn{
+        min-height: 54px;
+        padding: 0 80px;
+        border-radius: 12px;
+        margin: 7px;
+        max-width: none;
+        width: auto;
+        @media (max-width: 1399px) {
+            padding: 0 40px;
+        }
+        @media (max-width: 1199px) {
+            padding: 0 30px;
+        }
     }
 }
 
 .directorist-summery-total{
     .directorist-summery-label,
     .directorist-summery-amount{
-        font-size: 18px;
+        font-size: 1.2rem;
         font-weight: 500;
         color: var(--color-dark);
     }

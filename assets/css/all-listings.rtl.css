@@ -16260,6 +16260,114 @@ Review: New Style
   display: inline-block;
 }
 
+.directorist-payment-instructions,
+.directorist-payment-thanks-text {
+  font-size: 0.93rem;
+  font-weight: 400;
+  color: var(--directorist-color-body);
+}
+
+.directorist-payment-instructions {
+  margin-bottom: 38px;
+}
+
+.directorist-payment-thanks-text {
+  font-size: 1rem;
+}
+
+.directorist-payment-table thead th {
+  font-size: 0.93rem;
+  font-weight: 500;
+  text-align: right;
+  padding: 9px 20px;
+  color: var(--directorist-color-dark);
+  background-color: var(--directorist-color-bg-gray);
+}
+.directorist-payment-table tbody td {
+  font-size: 0.93rem;
+  font-weight: 500;
+  padding: 5px 0;
+  vertical-align: top;
+  color: var(--directorist-color-dark);
+}
+.directorist-payment-table .directorist-payment-table__label {
+  font-weight: 400;
+  width: 140px;
+  color: var(--directorist-color-light-gray);
+}
+.directorist-payment-table .directorist-payment-table__title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  text-transform: capitalize;
+  color: var(--directorist-color-dark);
+}
+.directorist-payment-table .directorist-payment-table__title.directorist-payment-table__title--large {
+  font-size: 1.07rem;
+}
+.directorist-payment-table p {
+  font-size: 0.87rem;
+  margin: 0;
+  color: var(--directorist-color-light-gray);
+}
+
+.directorist-payment-summery-table tbody td {
+  padding: 12px 0;
+}
+.directorist-payment-summery-table tbody tr.directorsit-payment-table-total td,
+.directorist-payment-summery-table tbody tr.directorsit-payment-table-total .directorist-payment-table__title {
+  font-size: 1.07rem;
+}
+
+.directorist-btn-view-listing {
+  min-height: 54px;
+  border-radius: 12px;
+}
+
+.directorist-checkout-card {
+  -webkit-box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  -webkit-filter: none;
+          filter: none;
+}
+.directorist-checkout-card tr:not(:last-child) td {
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--directorist-color-border);
+}
+.directorist-checkout-card tr:not(:first-child) td {
+  padding-top: 15px;
+}
+.directorist-checkout-card .directorist-card__header {
+  padding: 24px 40px;
+}
+.directorist-checkout-card .directorist-card__header .directorist-card__header--title {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+@media (max-width: 575px) {
+  .directorist-checkout-card .directorist-card__header .directorist-card__header--title {
+    font-size: 1.2rem;
+  }
+}
+.directorist-checkout-card .directorist-card__body {
+  padding: 20px 40px 40px;
+}
+.directorist-checkout-card .directorist-summery-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-dark);
+}
+.directorist-checkout-card .directorist-summery-label-description {
+  font-size: 0.87rem;
+  margin-top: 4px;
+  color: var(--directorist-color-light-gray);
+}
+.directorist-checkout-card .directorist-summery-amount {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--directorist-color-body);
+}
+
 .directorist-payment-gateways {
   background: #fff;
 }
@@ -16276,13 +16384,13 @@ Review: New Style
   margin-bottom: 10px;
 }
 .directorist-payment-gateways .directorist-radio input[type=radio] + .directorist-radio__label {
-  font-size: 16px;
+  font-size: 1.07rem;
   font-weight: 500;
   line-height: 1.15;
   color: var(--directorist-color-dark);
 }
 .directorist-payment-gateways .directorist-card__body .directorist-payment-text {
-  font-size: 14px;
+  font-size: 0.93rem;
   font-weight: 400;
   line-height: 1.86;
   margin-top: 4px;
@@ -16314,60 +16422,9 @@ Review: New Style
   }
 }
 
-.atbd_payment_recipt .atbd_payment_summary {
-  text-align: center;
-  font-size: 18px;
-  color: #202428;
-  margin-bottom: 20px;
-}
-
-.directorist-checkout-card {
-  -webkit-box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
-          box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
-  -webkit-filter: none;
-          filter: none;
-}
-.directorist-checkout-card tr:not(:last-child) td {
-  padding-bottom: 15px;
-  border-bottom: 1px solid var(--directorist-color-border);
-}
-.directorist-checkout-card tr:not(:first-child) td {
-  padding-top: 15px;
-}
-.directorist-checkout-card .directorist-card__header {
-  padding: 24px 40px;
-}
-.directorist-checkout-card .directorist-card__header .directorist-card__header--title {
-  font-size: 24px;
-  font-weight: 600;
-}
-@media (max-width: 575px) {
-  .directorist-checkout-card .directorist-card__header .directorist-card__header--title {
-    font-size: 18px;
-  }
-}
-.directorist-checkout-card .directorist-card__body {
-  padding: 20px 40px 40px;
-}
-.directorist-checkout-card .directorist-summery-label {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--color-dark);
-}
-.directorist-checkout-card .directorist-summery-label-description {
-  font-size: 13px;
-  margin-top: 4px;
-  color: var(--directorist-color-light-gray);
-}
-.directorist-checkout-card .directorist-summery-amount {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--directorist-color-body);
-}
-
 .directorist-summery-total .directorist-summery-label,
 .directorist-summery-total .directorist-summery-amount {
-  font-size: 18px;
+  font-size: 1.2rem;
   font-weight: 500;
   color: var(--color-dark);
 }

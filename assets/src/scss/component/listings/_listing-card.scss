@@ -4,7 +4,6 @@
 
     .directorist-listing-single__thumb {
         position: relative;
-        padding: 10px 10px 0 10px;
         margin: 0;
 
         .directorist-thumnail-card {
@@ -56,10 +55,6 @@
             }
         }
 
-        div[class^="directorist-thumb-"]{
-            flex-direction: column;
-        }
-
         .directorist-thumb-top-left {
             left: 20px;
             top: 20px;
@@ -97,7 +92,6 @@
             }
 
             .directorist-compare-btn {
-
                 i,
                 span.la,
                 span.las,
@@ -124,7 +118,7 @@
     &.directorist-listing-card {
         .directorist-listing-single__thumb {
             position: relative;
-
+            padding: 10px 10px 0 10px;
             a {
                 display: block;
                 height: 100%;
@@ -173,10 +167,10 @@
 .directorist-listing-single {
     &.directorist-listing-list {
         display: flex;
-
+        padding: 10px 0 10px 10px;
         .directorist-listing-single__thumb {
             flex: 1;
-
+            max-width: 320px;
             .directorist-thumnail-card {
                 .directorist-thumnail-card-front-img {
                     border-radius: 12px;
@@ -188,8 +182,6 @@
             flex: 2;
             display: flex;
             flex-direction: column;
-            align-content: space-between;
-            justify-content: space-between;
 
             .directorist-listing-single__info {
                 padding: 18px 20px 15px;
@@ -205,7 +197,7 @@
     }
 
     .directorist-listing-single__info {
-        padding: 30px 20px 15px;
+        padding: 35px 20px 20px;
         position: relative;
 
         .directorist-listing-single__info--top {
@@ -266,11 +258,6 @@
             line-height: 1.45;
             position: relative;
             display: inline-block;
-            .directorist-icon-mask{
-                &:after{
-                    background-color: var(--directorist-color-light-gray)
-                }
-            }
             &:not(:last-child) {
                 padding-right: 8px;
 
@@ -382,7 +369,7 @@
                     list-style: none;
 
                     &:not(:last-child) {
-                        margin: 0 0 5px;
+                        margin: 0 0 7px;
                     }
 
                     > div {
@@ -390,8 +377,15 @@
                         font-size: 14px;
                         display: flex;
                         align-items: center;
+                        gap: 10px;
                         .directorist-icon-mask{
                             width: 20px;
+                            &:after {
+                                background-color: var(--directorist-color-light-gray);
+                            }
+                        }
+                        .directorist-listing-single__info--list__label {
+                            display: none;
                         }
                     }
 
@@ -446,7 +440,7 @@
 
     .directorist-listing-single__meta {
         border-top: 1px solid var(--directorist-color-border);
-        padding: 12px 20px;
+        padding: 14px 20px;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;

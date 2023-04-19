@@ -3,6 +3,23 @@
   display: flex;
   width: 100%;
   align-items: center;
+  .directorist-range-slider {
+    position: relative;
+    &:before {
+      content: '';
+      width: 1.2em;
+      height: 1.2em;
+      background: var(--directorist-color-white);
+      border: 4px solid var(--directorist-color-body);
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 1;
+    }
+  }
 }
 
 .directorist-range-slider-wrap>span {
@@ -58,6 +75,7 @@
   transform: translateY(-50%);
   cursor: pointer;
   border-radius: 50%;
+  z-index: 2;
 }
 
 .atbd-slide2 {
@@ -90,7 +108,7 @@ p.atbd-min {
 .directorist-range-slider-child {
   height: 4px;
   border-radius: 2px;
-  background: #444752;
+  background: var(--directorist-color-body);
   position: absolute;
   top: 0;
   left: 0;

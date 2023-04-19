@@ -116,6 +116,9 @@
     filter: drop-shadow(var(--directorist-box-shadow));
 
     &.directorist-listing-card {
+        .directorist-listing-title {
+            margin-top: 4px;
+        }
         .directorist-listing-single__thumb {
             position: relative;
             padding: 10px 10px 0 10px;
@@ -160,6 +163,11 @@
                 }
             }
         }
+        .directorist-mark-as-favorite__btn {
+            background: var(--directorist-color-white) !important;
+            width: 30px;
+            height: 30px !important;
+        }
     }
 }
 
@@ -197,7 +205,7 @@
     }
 
     .directorist-listing-single__info {
-        padding: 35px 20px 20px;
+        padding: 40px 20px 20px;
         position: relative;
 
         .directorist-listing-single__info--top {
@@ -232,18 +240,6 @@
         .directorist-listing-single__info--excerpt{
             &:empty{
                 display: none;
-            }
-        }
-
-        .directorist-mark-as-favorite {
-            line-height: 1.45;
-            position: relative;
-            display: inline-block !important;
-            margin: 4px;
-
-            &:not(:last-child) {
-                margin-right: 8px;
-                padding-right: 3px;
             }
         }
 
@@ -296,6 +292,18 @@
                     }
                 }
             }
+            &.directorist-badge {
+                display: flex;
+                align-items: center;
+                width: auto;
+                height: 21px;
+                line-height: 21px;
+                padding: 0 8px !important;
+                margin: 0;
+                border-radius: 4px;
+                font-size: 10px;
+                font-weight: 700;
+            }
             .directorist-review{
                 display: block;
                 margin-left: 6px;
@@ -322,8 +330,7 @@
             margin-left: 3px;
         }
 
-        .directorist-info-item,
-        .directorist-listing-title{
+        .directorist-info-item {
             margin: 4px;
         }
         .directorist-listing-tagline {
@@ -336,7 +343,7 @@
             padding: 0;
             text-transform: none;
             line-height: 1.2;
-            margin-bottom: 8px;
+            margin: 0 0 8px;
             flex: 0 0 100%;
 
             a {
@@ -350,7 +357,6 @@
                 font-size: 14px;
                 font-weight: 400;
                 color: var(--directorist-color-body);
-                background-color: var(--directorist-color-white);
                 padding: 0;
             }
         }
@@ -426,10 +432,10 @@
 
         .directorist-listing-single__info--right {
             display: flex;
-            margin: -3px;
             align-items: center;
+            gap: 20px;
             position: absolute;
-            right: 17px;
+            right: 20px;
             top: 20px;
         }
     }
@@ -440,7 +446,7 @@
 
     .directorist-listing-single__meta {
         border-top: 1px solid var(--directorist-color-border);
-        padding: 14px 20px;
+        padding: 15px 22px 10px;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -501,17 +507,15 @@
         .directorist-listing-single__meta--right {
             display: flex;
             align-items: center;
-            margin: 0 -5px;
+            gap: 20px;
 
             .directorist-view-count {
                 font-size: 14px;
-                margin: 0 5px;
                 color: var(--directorist-color-body);
                 display: flex;
                 align-items: center;
-
+                gap: 5px;
                 .directorist-icon-mask{
-                    margin-right: 5px;
                     &:after{
                         width: 16px;
                         height: 16px;
@@ -527,11 +531,10 @@
             }
 
             .directorist-thumb-listing-author {
-                margin: 0 5px;
 
                 a {
-                    width: 28px;
-                    height: 28px;
+                    width: 38px;
+                    height: 38px;
                     display: inline-block;
                     vertical-align: middle;
                 }
@@ -587,9 +590,6 @@
 
 /* mark as favorite btn */
 .directorist-mark-as-favorite__btn {
-    background: var(--directorist-color-white) !important;
-    width: 30px;
-    height: 30px !important;
     display: flex !important;
     align-items: center;
     justify-content: center;
@@ -619,7 +619,6 @@
     }
 
     &.directorist-added-to-favorite {
-        background: var(--directorist-color-white) !important;
         .directorist-favorite-icon {
             &:before {
                 mask-image: url("../../../../icons/line-awesome/svgs/heart-solid.svg");

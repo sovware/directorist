@@ -11556,6 +11556,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-filter: drop-shadow(var(--directorist-box-shadow));
           filter: drop-shadow(var(--directorist-box-shadow));
 }
+.directorist-listing-single.directorist-listing-card .directorist-listing-title {
+  margin-top: 4px;
+}
 .directorist-listing-single.directorist-listing-card .directorist-listing-single__thumb {
   position: relative;
   padding: 10px 10px 0 10px;
@@ -11593,6 +11596,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 100%;
   border-radius: 50%;
   height: auto;
+}
+.directorist-listing-single.directorist-listing-card .directorist-mark-as-favorite__btn {
+  background: var(--directorist-color-white) !important;
+  width: 30px;
+  height: 30px !important;
 }
 
 .directorist-listing-single.directorist-listing-list {
@@ -11635,7 +11643,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-radius: 4px;
 }
 .directorist-listing-single .directorist-listing-single__info {
-  padding: 35px 20px 20px;
+  padding: 40px 20px 20px;
   position: relative;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--top {
@@ -11680,16 +11688,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--excerpt:empty {
   display: none;
-}
-.directorist-listing-single .directorist-listing-single__info .directorist-mark-as-favorite {
-  line-height: 1.45;
-  position: relative;
-  display: inline-block !important;
-  margin: 4px;
-}
-.directorist-listing-single .directorist-listing-single__info .directorist-mark-as-favorite:not(:last-child) {
-  margin-left: 8px;
-  padding-left: 3px;
 }
 .directorist-listing-single .directorist-listing-single__info a {
   text-decoration: none;
@@ -11745,6 +11743,24 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 12px;
   height: 12px;
 }
+.directorist-listing-single .directorist-listing-single__info .directorist-info-item.directorist-badge {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: auto;
+  height: 21px;
+  line-height: 21px;
+  padding: 0 8px !important;
+  margin: 0;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+}
 .directorist-listing-single .directorist-listing-single__info .directorist-info-item .directorist-review {
   display: block;
   margin-right: 6px;
@@ -11772,8 +11788,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-listing-single .directorist-listing-single__info .directorist-badge + .directorist-badge {
   margin-right: 3px;
 }
-.directorist-listing-single .directorist-listing-single__info .directorist-info-item,
-.directorist-listing-single .directorist-listing-single__info .directorist-listing-title {
+.directorist-listing-single .directorist-listing-single__info .directorist-info-item {
   margin: 4px;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-tagline {
@@ -11785,7 +11800,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 0;
   text-transform: none;
   line-height: 1.2;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 100%;
       -ms-flex: 0 0 100%;
@@ -11799,7 +11814,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 14px;
   font-weight: 400;
   color: var(--directorist-color-body);
-  background-color: var(--directorist-color-white);
   padding: 0;
 }
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-single__info--list {
@@ -11872,13 +11886,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin: -3px;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  gap: 20px;
   position: absolute;
-  left: 17px;
+  left: 20px;
   top: 20px;
 }
 .directorist-listing-single .directorist-listing-single__info--list__label {
@@ -11887,7 +11901,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-listing-single .directorist-listing-single__meta {
   border-top: 1px solid var(--directorist-color-border);
-  padding: 14px 20px;
+  padding: 15px 22px 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -11980,11 +11994,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 0 -5px;
+  gap: 20px;
 }
 .directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--right .directorist-view-count {
   font-size: 14px;
-  margin: 0 5px;
   color: var(--directorist-color-body);
   display: -webkit-box;
   display: -webkit-flex;
@@ -11994,10 +12007,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  gap: 5px;
   /* Legacy Icon */
-}
-.directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--right .directorist-view-count .directorist-icon-mask {
-  margin-left: 5px;
 }
 .directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--right .directorist-view-count .directorist-icon-mask:after {
   width: 16px;
@@ -12008,12 +12019,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: inline-block;
   margin-left: 5px;
 }
-.directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--right .directorist-thumb-listing-author {
-  margin: 0 5px;
-}
 .directorist-listing-single .directorist-listing-single__meta .directorist-listing-single__meta--right .directorist-thumb-listing-author a {
-  width: 28px;
-  height: 28px;
+  width: 38px;
+  height: 38px;
   display: inline-block;
   vertical-align: middle;
 }
@@ -12056,9 +12064,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 /* mark as favorite btn */
 .directorist-mark-as-favorite__btn {
-  background: var(--directorist-color-white) !important;
-  width: 30px;
-  height: 30px !important;
   display: -webkit-box !important;
   display: -webkit-flex !important;
   display: -ms-flexbox !important;
@@ -12104,9 +12109,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: var(--directorist-color-primary);
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
-}
-.directorist-mark-as-favorite__btn.directorist-added-to-favorite {
-  background: var(--directorist-color-white) !important;
 }
 .directorist-mark-as-favorite__btn.directorist-added-to-favorite .directorist-favorite-icon:before {
   -webkit-mask-image: url(../images/2e589ffc784b0c43089b0222cab8ed4f.svg);
@@ -12323,7 +12325,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   pointer-events: none;
   bottom: 25px;
   right: -30px;
-  padding: 20px;
+  padding: 10px;
   border: none;
   border-radius: 12px;
   background-color: var(--directorist-color-white);
@@ -12347,8 +12349,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-align: start;
           align-items: flex-start;
   line-height: normal;
-  margin-bottom: 20px;
-  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
 }
 .directorist-listing-category__popup__content a:last-child {
   margin-bottom: 0;
@@ -12365,6 +12367,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-listing-category__popup__content a:hover {
   color: var(--directorist-color-primary);
+  background-color: var(--directorist-color-light);
 }
 .directorist-listing-category__popup__content a:hover i:after {
   background-color: var(--directorist-color-primary);

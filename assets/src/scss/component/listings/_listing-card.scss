@@ -377,10 +377,11 @@
                         margin-bottom: 2px;
                         font-size: 14px;
                         display: flex;
-                        align-items: center;
                         gap: 10px;
                         .directorist-icon-mask{
                             width: 20px;
+                            position: relative;
+                            top: 4px;
                             &:after {
                                 background-color: var(--directorist-color-light-gray);
                             }
@@ -675,13 +676,17 @@
         }
 
         .directorist-listing-title {
-            margin: 0;
-            font-size: 15px;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 0;
+            text-transform: none;
+            line-height: 1.2;
+            margin: 0 0 8px;
+            flex: 0 0 100%;
 
             a {
-                font-size: 15px;
-                border-bottom: 0 none;
-                box-shadow: none;
+                text-decoration: none;
+                color: var(--directorist-color-primary);
             }
         }
 
@@ -691,6 +696,8 @@
     }
 
     .directorist-listing-single__info {
+        display: flex;
+        align-items: center;
         padding-top: 10px;
     }
 
@@ -714,7 +721,14 @@
                     margin-bottom: 2px;
                     font-size: 14px;
                     display: flex;
-                    align-items: center;
+                    gap: 10px;
+                    .directorist-icon-mask {
+                        position: relative;
+                        top: 4px;
+                    }
+                    .directorist-listing-single__info--list__label {
+                        display: none;
+                    }
                 }
 
                 .directorist-icon {

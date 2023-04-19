@@ -19,7 +19,7 @@
         align-items: center;
         gap: 20px;
         img {
-            max-width: 100px !important;
+            max-width: 100px;
             border-radius: 50%;
         }
         @include e(info) {
@@ -82,9 +82,12 @@
         }
     }
 }
-.directorist-content-active .directorist-author-profile-content {
-    max-width: 100% !important;
+.directorist-author-profile-content {
+    max-width: 100%;
     display: flex;
+    .directorist-author-about .directorist-card__header--title i {
+        display: none;
+    }
 }
 
 // Directorist Author Widget
@@ -244,7 +247,7 @@
             position: relative;
             top: -10px;
             gap: 10px;
-            background: transparent !important;
+            background: transparent;
             border: none;
             padding: 0;
             min-height: auto;

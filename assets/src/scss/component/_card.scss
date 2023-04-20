@@ -1,7 +1,7 @@
 // Directorist Card Style
 .directorist-card{
     border: none;
-    border-radius: 16px !important;
+    border-radius: 16px;
     background-color: var(--directorist-color-white);
     filter: drop-shadow(var(--directorist-box-shadow));
     .directorist-card__header{
@@ -9,7 +9,7 @@
         border-bottom: 1px solid var(--directorist-color-border);
         border-radius: 16px 16px 0 0;
         .directorist-card__header--title{
-            font-size: 18px;
+            font-size: 1.2rem;
             font-weight: 500;
             line-height: 1.2;
             color: var(--directorist-color-primary);
@@ -18,9 +18,6 @@
             align-items: center;
             padding: 0;
             margin: 0;
-            i{
-                display: none;
-            }
         }
     }
     .directorist-card__body{

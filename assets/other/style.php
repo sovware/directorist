@@ -55,10 +55,10 @@ $featured_badge_color             = get_directorist_option('featured_back_color'
 $popular_badge_color              = get_directorist_option('popular_back_color', '#f51957');
 $new_badge_color                  = get_directorist_option('new_back_color', '#122069');
 
-$primary_dark_border_color        = get_directorist_option('primary_dark_border_color', '#444752');
+$primary_dark_border_color        = get_directorist_option('primary_dark_border_color', '#000000');
 
-$marker_shape_color               = get_directorist_option('marker_shape_color', '#444752');
-$marker_icon_color                = get_directorist_option('marker_icon_color', '#444752');
+$marker_shape_color               = get_directorist_option('marker_shape_color', '#000000');
+$marker_icon_color                = get_directorist_option('marker_icon_color', '#000000');
 
 $primary_color                    = get_directorist_option('color_primary', '#000000');
 $secondary_color                  = get_directorist_option('color_secondary', '#F2F3F5');

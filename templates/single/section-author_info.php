@@ -68,7 +68,7 @@ $avatar_img = get_avatar($author_id, 32);
 
 					<?php if ( $listing->author_display_email() ): ?>
 						<li>
-							<?php directorist_icon( 'las la-envelope' ); ?>
+							<?php directorist_icon( 'las la-envelope-open' ); ?>
 							<span class="directorist-single-author-contact-info-text"><?php echo esc_html( $listing->author_info( 'email' ) ); ?></span>
 						</li>
 					<?php endif; ?>
@@ -88,26 +88,26 @@ $avatar_img = get_avatar($author_id, 32);
 				<ul class="directorist-author-social">
 
 					<?php if ( $facebook = $listing->author_info( 'facebook' ) ): ?>
-						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $facebook ); ?>"><?php directorist_icon( 'lab la-facebook' ); ?></a></li>
+						<li class="directorist-author-social-item directorist-author-social__item"><a target="_blank" href="<?php echo esc_url( $facebook ); ?>"><?php directorist_icon( 'lab la-facebook' ); ?></a></li>
 					<?php endif; ?>
 
 					<?php if ( $twitter = $listing->author_info( 'twitter' ) ): ?>
-						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a></li>
+						<li class="directorist-author-social-item directorist-author-social__item"><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a></li>
 					<?php endif; ?>
 
 					<?php if ( $linkedin = $listing->author_info( 'linkedin' ) ): ?>
-						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $linkedin ); ?>"><?php directorist_icon( 'lab la-linkedin' ); ?></a></li>
+						<li class="directorist-author-social-item directorist-author-social__item"><a target="_blank" href="<?php echo esc_url( $linkedin ); ?>"><?php directorist_icon( 'lab la-linkedin' ); ?></a></li>
 					<?php endif; ?>
 
 					<?php if ( $youtube = $listing->author_info( 'youtube' ) ): ?>
-						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $youtube ); ?>"><?php directorist_icon( 'lab la-youtube' ); ?></a></li>
+						<li class="directorist-author-social-item directorist-author-social__item"><a target="_blank" href="<?php echo esc_url( $youtube ); ?>"><?php directorist_icon( 'lab la-youtube' ); ?></a></li>
 					<?php endif; ?>
 
 				</ul>
 
 			<?php endif; ?>
 
-			<a class="directorist-btn directorist-btn-primary directorist-btn-sm diretorist-view-profile-btn" href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link( $author_id ) ); ?>"><?php esc_html_e( 'View Profile', 'directorist' ); ?></a>
+			<a class="directorist-btn directorist-btn-light directorist-btn-md diretorist-view-profile-btn" href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link( $author_id ) ); ?>"><?php esc_html_e( 'View Profile', 'directorist' ); ?></a>
 
 		</div>
 	</div>

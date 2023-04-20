@@ -8,26 +8,44 @@
 // add listing types
 .directorist-add-listing-types {
   @include e(single) {
+    margin-bottom: 15px;
     @include e(link) {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      background: #202428 !important;
-      padding: 30px 0;
-      border-radius: 4px;
-      color: #fff !important;
-      font-size: 17px !important;
-      min-height: 118px;
-      text-decoration: none !important;
+      background: var(--directorist-color-white);
+      color: var(--directorist-color-primary);
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
       text-align: center;
-
+      padding: 40px 0;
+      border-radius: 16px;
+      filter: drop-shadow(var(--directorist-box-shadow));
       .directorist-icon-mask {
-        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70px;
+        width: 70px;
+        background-color: var(--directorist-color-primary);
+        border-radius: 100%;
+        margin-bottom: 20px;
         &:after{
-          width: 17px;
-          height: 17px;
+          width: 23px;
+          height: 23px;
           background-color: #fff;
+        }
+      }
+      &:hover {
+        background: var(--directorist-color-primary);
+        color: var(--directorist-color-white);
+        .directorist-icon-mask {
+          background-color: var(--directorist-color-white);
+          &::after {
+            background-color: #000;
+          }
         }
       }
       /* Legacy Icon */

@@ -23,10 +23,6 @@
 
 // Advance Search Filter Basic
 .directorist-advanced-filter{
-    @include e(form) {
-        
-    }
-
     @include e(basic){
         display: flex;
         flex-direction: column;
@@ -64,6 +60,12 @@
                 .directorist-filter-location-icon{
                     margin-top: 1px;
                     z-index: 99;
+                }
+                &.directorist-icon-right .directorist-input-icon {
+                    right: 0;
+                }
+                &.directorist-icon-left .directorist-input-icon {
+                    left: 0;
                 }
             }
             .form-group {

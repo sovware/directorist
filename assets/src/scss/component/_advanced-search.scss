@@ -61,12 +61,6 @@
                     margin-top: 1px;
                     z-index: 99;
                 }
-                &.directorist-icon-right .directorist-input-icon {
-                    right: 0;
-                }
-                &.directorist-icon-left .directorist-input-icon {
-                    left: 0;
-                }
             }
             .form-group {
                 display: flex;
@@ -170,6 +164,15 @@
             }
         }
     }
+
+    .directorist-form-group {
+        &.directorist-icon-right .directorist-input-icon {
+            right: 0;
+        }
+        &.directorist-icon-left .directorist-input-icon {
+            left: 0;
+        }
+    }
 }
 
 .directorist-price-ranges{
@@ -178,11 +181,16 @@
     gap: 20px;
     @include e(item){
         flex: 0 0 48%;
+        @media (max-width: 767px) {
+            flex: auto;
+        }
         .directorist-form-element {
             border-bottom: 1px solid var(--directorist-color-border);
         }
         &.directorist-price-ranges__price-frequency{
             display: flex;
+            flex-wrap: wrap;
+            flex: 0 0 100%;
             gap: 6px;
             .directorist-price-ranges__price-frequency--btn{
                 .directorist-pf-range{

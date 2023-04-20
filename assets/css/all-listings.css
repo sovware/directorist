@@ -7909,7 +7909,7 @@ p.atbd-min {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   bottom: -100%;
-  width: 100%;
+  width: 90%;
   height: 0;
   max-width: 600px;
   max-height: calc(100% - 200px);
@@ -9145,6 +9145,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+  gap: 15px;
 }
 .directorist-content-active .directorist-listings-header .directorist-dropdown .directorist-dropdown__links {
   top: 42px;
@@ -9341,12 +9342,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-top: 1px;
   z-index: 99;
 }
-.directorist-advanced-filter__basic--element .directorist-form-group.directorist-icon-right .directorist-input-icon {
-  right: 0;
-}
-.directorist-advanced-filter__basic--element .directorist-form-group.directorist-icon-left .directorist-input-icon {
-  left: 0;
-}
 .directorist-advanced-filter__basic--element .form-group {
   display: -webkit-box;
   display: -webkit-flex;
@@ -9486,6 +9481,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     padding: 0 14.5px;
   }
 }
+.directorist-advanced-filter .directorist-form-group.directorist-icon-right .directorist-input-icon {
+  right: 0;
+}
+.directorist-advanced-filter .directorist-form-group.directorist-icon-left .directorist-input-icon {
+  left: 0;
+}
 
 .directorist-price-ranges {
   display: -webkit-box;
@@ -9503,6 +9504,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex: 0 0 48%;
           flex: 0 0 48%;
 }
+@media (max-width: 767px) {
+  .directorist-price-ranges__item {
+    -webkit-box-flex: 1;
+    -webkit-flex: auto;
+        -ms-flex: auto;
+            flex: auto;
+  }
+}
 .directorist-price-ranges__item .directorist-form-element {
   border-bottom: 1px solid var(--directorist-color-border);
 }
@@ -9511,6 +9520,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
   gap: 6px;
 }
 .directorist-price-ranges__item.directorist-price-ranges__price-frequency .directorist-price-ranges__price-frequency--btn .directorist-pf-range {

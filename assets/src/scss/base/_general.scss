@@ -321,8 +321,13 @@ p.status:empty {
 }
 
 //checkout
-.directorist-checkout-form ul {
-    list-style-type: none;
+.directorist-checkout-form {
+    .directorist-container-fluid{
+        box-sizing: border-box;
+    }
+    ul{
+        list-style-type: none;
+    }
 }
 
 //select 2
@@ -483,5 +488,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
     }
 }
 
-
-
+.directorist-table{
+    display: table;
+    width: 100%;
+}

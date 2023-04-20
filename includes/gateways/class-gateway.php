@@ -360,7 +360,7 @@ class ATBDP_Gateway{
             foreach ($active_gateways as $gw_name){
                 $title = get_directorist_option($gw_name.'_title', 'Bank Transfer');
                 $desc = get_directorist_option($gw_name.'_description', 'You can make your payment directly to our bank account using this gateway. Please use your ORDER ID as a reference when making the payment. We will complete your order as soon as your deposit is cleared in our bank.');
-                $desc = ! empty( $desc ) ? "<p class='text-muted'>{$desc}</p>" : '';
+                $desc = ! empty( $desc ) ? "<p class='directorist-payment-text'>{$desc}</p>" : '';
                 $checked = ( $gw_name == $default_gw ) ? ' checked': '';
                 $search = array("##GATEWAY##", "##LABEL##", "##DESC##", "##CHECKED##");
                 $replace = array($gw_name, $title, $desc, $checked);

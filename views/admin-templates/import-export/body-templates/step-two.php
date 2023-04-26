@@ -8,22 +8,29 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$file            = isset( $_GET['file'] ) ? sanitize_text_field( wp_unslash( $_GET['file'] ) ) : '';
-$delimiter       = isset( $_GET['delimiter'] ) ? sanitize_text_field( wp_unslash( $_GET['delimiter'] ) ) : ',';
-$posts           = csv_get_data( $file, true, $delimiter );
-$total           = count( $posts );
-$update_existing = isset( $_GET['update_existing'] ) ? sanitize_key( $_GET['update_existing'] ) : false;
+$file            = '';
+$delimiter       = ',';
+$update_existing = false;
+
+$cookie_name = 'directorist_listings_import_file_' . get_current_user_id();
+
+if ( isset( $_COOKIE[ $cookie_name ] ) ) {
+	$cookie_data = json_decode( base64_decode( $_COOKIE[ $cookie_name ] ) , 1 );
+
+	if ( is_array( $cookie_data ) ) {
+		$file            = isset( $cookie_data['file_path'] ) ? $cookie_data['file_path'] : '';
+		$delimiter       = isset( $cookie_data['delimiter'] ) ? $cookie_data['delimiter'] : ',';
+		$update_existing = isset( $cookie_data['update_existing'] ) ? $cookie_data['update_existing'] : false;
+	}
+}
+
+$posts = csv_get_data( $file, true, $delimiter );
+$total = count( $posts );
 
 $builder_posts    = csv_get_data( $file, true, ',' );
 $csv_from_builder = csv_from_builder( $builder_posts );
 $delimiter        = ( $csv_from_builder ) ? ',' : $delimiter;
 $total            = ( $csv_from_builder ) ? count( $builder_posts ) : $total;
-
-// var_dump( [
-// 	// 'builder_posts' => $builder_posts,
-// 	'file' => $file, 
-// 	'csv_from_builder' => $csv_from_builder
-// ] );
 
 // csv_from_builder
 function csv_from_builder( $data = [] ) {
@@ -71,7 +78,7 @@ function csv_from_builder( $data = [] ) {
 									<?php } ?>
 								</select>
 							<?php }
-							$this->tools->get_data_table();
+							$this->tools->get_data_table( $file, $delimiter );
 						endif; ?>
 					</div>
 				</section>

@@ -2848,6 +2848,8 @@ function atbdp_style_example_image ($src) {
 if(!function_exists('csv_get_data')){
     function csv_get_data($default_file = null, $multiple = null, $delimiter = ',')
     {
+		$delimiter = ( ! empty( $delimiter ) ) ? $delimiter : ',';
+
         $data = $multiple ? array() : '';
         $errors = array();
         // Get array of CSV files

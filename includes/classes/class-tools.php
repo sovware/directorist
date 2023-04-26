@@ -10,27 +10,6 @@
     class ATBDP_Tools
     {
         /**
-         * The path to the current file.
-         *
-         * @var string
-         */
-        protected $file = '';
-
-        /**
-         * Whether to skip existing products.
-         *
-         * @var bool
-         */
-        protected $update_existing = false;
-
-        /**
-         * The current delimiter for the file being read.
-         *
-         * @var string
-         */
-        protected $delimiter = ',';
-
-        /**
          * The current delimiter for the file being read.
          *
          * @var string
@@ -49,16 +28,7 @@
 
             add_action('admin_menu', array($this, 'add_tools_submenu'), 10);
             add_action('admin_init', array($this, 'atbdp_csv_import_controller'));
-
             add_action( 'init', [$this, 'prepare_data'] );
-            $this->file = isset($_GET['csv_file']) ? directorist_clean( wp_unslash( $_GET['csv_file'] ) ) : '';
-
-            if ( empty( $this->file ) && isset($_GET['file'] ) ) {
-                $this->file = directorist_clean( wp_unslash( $_GET['file'] ) );
-            }
-
-            $this->update_existing = isset($_REQUEST['update_existing']) ? directorist_clean( wp_unslash( $_REQUEST['update_existing'] ) ) : false;
-            $this->delimiter       = !empty($_REQUEST['delimiter']) ? directorist_clean( wp_unslash( $_REQUEST['delimiter'] ) ) : ',';
             add_action('wp_ajax_atbdp_import_listing', array($this, 'atbdp_import_listing'));
             add_action('wp_ajax_directorist_listing_type_form_fields', array($this, 'directorist_listing_type_form_fields'));
         }
@@ -387,13 +357,22 @@
 
             $base_url = admin_url() . 'edit.php';
 
+			$cookie_name  = 'directorist_listings_import_file_' . get_current_user_id();
+			$cookie_value = [
+				'file_path'       => str_replace( DIRECTORY_SEPARATOR, '/', $file ),
+				'delimiter'       => isset( $_REQUEST['delimiter'] ) ? $_REQUEST['delimiter'] : ',',
+				'update_existing' => isset( $_REQUEST['update_existing'] ) ? $_REQUEST['update_existing'] : false,
+			];
+
+			$cookie_value = json_encode( $cookie_value );
+			$cookie_value = base64_encode( $cookie_value );
+
+			setcookie( $cookie_name, $cookie_value, time() + ( DAY_IN_SECONDS ), "/" );
+
             $params = apply_filters( 'directorist_listings_import_form_submit_redirect_params', [
-                'post_type'       => 'at_biz_dir',
-                'page'            => 'tools',
-                'step'            => 2,
-                'file'            => str_replace( DIRECTORY_SEPARATOR, '/', $file ),
-                'delimiter'       => $this->delimiter,
-                'update_existing' => $this->update_existing,
+                'post_type' => 'at_biz_dir',
+                'page'      => 'tools',
+                'step'      => 2,
             ]);
 
             $url = add_query_arg( $params, $base_url );
@@ -401,7 +380,6 @@
 
             // redirect to step two || data mapping
             wp_safe_redirect( $url );
-
         }
 
 
@@ -460,11 +438,11 @@
             array($this, 'render_tools_submenu_page'));
         }
 
-        public function get_data_table(){
-            $csv_data = csv_get_data( $this->file, false, $this->delimiter );
+        public function get_data_table( $file_path, $delimiter = ',' ){
+            $csv_data = csv_get_data( $file_path, false, $delimiter );
             $data = [
                 'data'     => $csv_data,
-                'csv_file' => $this->file,
+                'csv_file' => $file_path,
                 'fields'   => $this->importable_fields
             ];
 

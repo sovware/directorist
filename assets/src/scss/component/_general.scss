@@ -133,15 +133,14 @@
 
   .select2-selection--single {
     height: 42px;
-    border-color: #ececec;
-
+    border: none;
+    border-bottom: 1px solid var(--directorist-color-border-gray);
     &:focus {
       outline: none;
     }
 
     .select2-selection__rendered {
       height: 40px;
-      padding-left: 15px;
       font-size: 14px;
 
       .select2-selection__clear {
@@ -155,9 +154,6 @@
     }
 
     .select2-selection__arrow {
-      top: 8px;
-      right: 14px;
-
       &:before {
         font-family: "Font Awesome 5 Free";
         content: "\f078";
@@ -175,7 +171,7 @@
   .select2-selection--single
   .select2-selection__arrow
   b {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 .select2-container.select2-container--open{
@@ -187,6 +183,8 @@
     .directorist-select2-dropdown-toggle {
       position: absolute;
       right: 0;
+      padding: 0;
+      width: auto;
       pointer-events: none;
     }
     .directorist-select2-dropdown-close {

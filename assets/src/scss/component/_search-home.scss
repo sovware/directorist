@@ -58,6 +58,7 @@
       padding-bottom: 0;
 
       &:not(:last-child) {
+        padding-right: 15px;
         border-right: 1px solid var(--directorist-color-border);
       }
 

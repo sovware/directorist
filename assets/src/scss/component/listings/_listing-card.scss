@@ -48,6 +48,7 @@
     .directorist-listing-single__info {
         display: flex;
         flex-wrap: wrap;
+        flex-direction: column;
         gap: 8px;
         position: relative;
         padding: 40px 20px 20px;
@@ -302,10 +303,7 @@
         .directorist-listing-category {
             & > a {
                 .directorist-icon-mask{
-                    width: 36px;
-                    height: 36px;
                     border-radius: 50%;
-                    background: var(--directorist-color-white);
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
@@ -580,23 +578,37 @@
     &.directorist-listing-list {
         display: flex;
         padding: 10px 0 10px 10px;
-        .directorist-listing-single__thumb {
-            flex: 1;
-            max-width: 320px;
-            .directorist-thumnail-card {
-                .directorist-thumnail-card-front-img {
-                    border-radius: 3px 0 0 3px;
+        @media only screen and (max-width: 991px) {
+            flex-direction: column;
+        }
+        .directorist-listing-single {
+            @include e('thumb') {
+                flex: 1;
+                max-width: 320px;
+                @media only screen and (max-width: 991px) {
+                    max-width: unset;
+                }
+                .directorist-thumnail-card .directorist-thumnail-card-front-img {
+                    border-radius: 12px;
                 }
             }
-        }
-
-        .directorist-listing-single__content {
-            flex: 2;
-
-            .directorist-listing-single__info {
+            @include e('content') {
+                flex: 2;
+            }
+            @include e('info') {
                 display: flex;
                 flex-direction: column;
                 padding: 18px 20px 15px;
+                @include m('top') {
+                    @media only screen and (min-width: 991px) {
+                        padding-right: 100px;
+                    }
+                }
+                @include m('right') {
+                    @media only screen and (max-width: 991px) {
+                        top: -40px;
+                    }
+                }
             }
         }
 

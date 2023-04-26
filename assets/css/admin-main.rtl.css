@@ -5985,8 +5985,8 @@ body.logged-in .select2-container--open .select2-dropdown--above {
   border: none;
   border-radius: 10px !important;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
-          filter: drop-shadow(var(--directorist-box-shadow));
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
 }
 .select2-container--default .select2-search--dropdown {
   padding: 20px 20px 10px 20px;
@@ -7411,8 +7411,8 @@ body.stop-scrolling {
   text-align: center;
   padding: 40px 0;
   border-radius: 16px;
-  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
-          filter: drop-shadow(var(--directorist-box-shadow));
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
   /* Legacy Icon */
 }
 .directorist-add-listing-types__single__link .directorist-icon-mask {

@@ -2,9 +2,9 @@
 .directorist-listing-single {
     font-size: 15px;
     margin-bottom: 15px;
-    border-radius: 4px;
+    border-radius: 12px;
     background: var(--directorist-color-white);
-    border: 1px solid var(--directorist-color-border);
+    box-shadow: var(--directorist-box-shadow);
 
     .directorist-badge {
         margin: 3px;

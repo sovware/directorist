@@ -541,8 +541,8 @@ body.logged-in .select2-container--open .select2-dropdown--above {
   border: none;
   border-radius: 10px !important;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
-          filter: drop-shadow(var(--directorist-box-shadow));
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
 }
 .select2-container--default .select2-search--dropdown {
   padding: 20px 20px 10px 20px;
@@ -2973,8 +2973,8 @@ body.stop-scrolling {
   text-align: center;
   padding: 40px 0;
   border-radius: 16px;
-  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
-          filter: drop-shadow(var(--directorist-box-shadow));
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
   /* Legacy Icon */
 }
 .directorist-add-listing-types__single__link .directorist-icon-mask {
@@ -7247,8 +7247,8 @@ p.atbd-min {
   border: none;
   border-radius: 12px;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
-          filter: drop-shadow(var(--directorist-box-shadow));
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
   z-index: 99999;
 }
 .directorist-dropdown .directorist-dropdown__links--right {
@@ -8018,8 +8018,8 @@ p.atbd-min {
   border: none;
   border-radius: 16px;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
-          filter: drop-shadow(var(--directorist-box-shadow));
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
 }
 .directorist-card .directorist-card__header {
   padding: 20px 25px;
@@ -9757,14 +9757,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border: none;
   border-radius: 12px;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
-          filter: drop-shadow(var(--directorist-box-shadow));
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
 }
 .directorist-search-form__box.always_open .directorist-advanced-filter {
   width: 100%;
-}
-.directorist-search-form__box.sliding {
-  display: contents;
 }
 .directorist-search-form__top {
   display: -webkit-box;
@@ -10045,8 +10042,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border: none;
   border-radius: 12px;
   background: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
-          filter: drop-shadow(var(--directorist-box-shadow));
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
 }
 .directorist-search-contents .directorist-btn-ml::after {
   content: "";
@@ -10145,8 +10142,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   overflow-y: scroll;
   border-radius: 10px;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
-          filter: drop-shadow(var(--directorist-box-shadow));
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
 }
 .directorist-search-field .directorist-location-js + .address_result ul {
   display: -webkit-box;
@@ -11104,8 +11101,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 50px 40px;
   border-radius: 16px;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
-          filter: drop-shadow(var(--directorist-box-shadow));
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
 }
 .directorist-author__form__btn {
   width: 100%;
@@ -11486,9 +11483,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-listing-single {
   font-size: 15px;
   margin-bottom: 15px;
-  border-radius: 4px;
+  border-radius: 12px;
   background: var(--directorist-color-white);
-  border: 1px solid var(--directorist-color-border);
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
 }
 .directorist-listing-single .directorist-badge {
   margin: 3px;
@@ -12488,8 +12486,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border: none;
   border-radius: 12px;
   background-color: var(--directorist-color-white);
-  -webkit-filter: drop-shadow(var(--directorist-box-shadow));
-          filter: drop-shadow(var(--directorist-box-shadow));
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
   line-break: auto;
   word-break: break-all;
   -webkit-transition: 0.3s ease;

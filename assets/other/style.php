@@ -106,8 +106,8 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         --directorist-color-border: #e9e9e9;
         --directorist-color-border-gray: #d9d9d9;
 
-        --directorist-box-shadow: 0 3px 7.5px rgba(0,0,0, 0.08);
-        --directorist-box-shadow-sm: 0 5px 0.8px rgba(167,178,199, 0.1);
+        --directorist-box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        --directorist-box-shadow-sm: 0 2px 10px rgba(0,0,0,0.1);
 
         /* Badge Color */
         --directorist-color-open-badge: <?php echo $open_badge_color; ?>;

@@ -22,7 +22,7 @@
       text-align: center;
       padding: 40px 0;
       border-radius: 16px;
-      filter: drop-shadow(var(--directorist-box-shadow));
+      box-shadow: var(--directorist-box-shadow);
       .directorist-icon-mask {
         display: flex;
         align-items: center;

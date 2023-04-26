@@ -4,7 +4,7 @@
         padding: 50px 40px;
         border-radius: 16px;
         background-color: var(--directorist-color-white);
-        filter: drop-shadow(var(--directorist-box-shadow));
+        box-shadow: var(--directorist-box-shadow);
 
         @include e(btn) {
             width: 100%;

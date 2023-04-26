@@ -39,12 +39,9 @@
     border: none;
     border-radius: 12px;
     background-color: var(--directorist-color-white);
-    filter: drop-shadow(var(--directorist-box-shadow));
+    box-shadow: var(--directorist-box-shadow);
     &.always_open .directorist-advanced-filter{
       width: 100%;
-    }
-    &.sliding {
-      display: contents;
     }
   }
   @include e(top) {
@@ -302,7 +299,7 @@
     border: none;
     border-radius: 12px;
     background: var(--directorist-color-white);
-    filter: drop-shadow(var(--directorist-box-shadow));
+    box-shadow: var(--directorist-box-shadow);
   }
 
   .directorist-btn-ml {
@@ -397,7 +394,7 @@
       overflow-y: scroll;
       border-radius: 10px;
       background-color: var(--directorist-color-white);
-      filter: drop-shadow(var(--directorist-box-shadow));
+      box-shadow: var(--directorist-box-shadow);
       ul {
         display: flex;
         flex-direction: column;

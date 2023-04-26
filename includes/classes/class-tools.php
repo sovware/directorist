@@ -561,9 +561,9 @@
             $step = ( ! empty( $step ) && is_numeric( $step ) ) ? ( int ) $step : 1;
             $template_base_path = 'admin-templates/import-export/body-templates';
             $template_paths = [
-                1 => "${template_base_path}/step-one",
-                2 => "${template_base_path}/step-two",
-                3 => "${template_base_path}/step-done",
+                1 => "{$template_base_path}/step-one",
+                2 => "{$template_base_path}/step-two",
+                3 => "{$template_base_path}/step-done",
             ];
 
             $template_path = ( isset( $template_paths[ $step ] ) ) ? $template_paths[ $step ] : $template_paths[ 1 ];

@@ -887,8 +887,7 @@ import { directorist_range_slider } from './range-slider';
             modalContent.style.opacity="1";
             modalContent.style.visibility = "visible";
             modalContent.style.bottom = "100px";
-            modalContent.style.height = "100%";
-            modalContent.style.transition = "0.5s ease";
+            modalContent.style.transition = "0.3s ease";
         });
 
         $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
@@ -907,7 +906,6 @@ import { directorist_range_slider } from './range-slider';
             modalContent.style.opacity="0";
             modalContent.style.visibility = "hidden";
             modalContent.style.bottom = "-200px";
-            modalContent.style.height = "0";
             modalContent.style.transition = "0.5s ease";
         });
 

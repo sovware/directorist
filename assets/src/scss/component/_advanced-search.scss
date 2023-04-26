@@ -30,6 +30,7 @@
             .directorist-search-field {
                 flex-direction: column;
                 align-items: flex-start;
+                flex-wrap: wrap;
                 padding: 0;
                 margin: 0 0 40px;
                 > label {
@@ -144,6 +145,9 @@
         padding: 17px 40px;
         margin: 0 -40px -30px;
         background-color: var(--directorist-color-light);
+        @media only screen and (max-width: 480px) {
+            margin: 0 -30px -30px;
+        }
         .directorist-btn-reset-js {
             font-size: 14px;
             font-weight: 500;
@@ -180,7 +184,7 @@
     flex-wrap: wrap;
     gap: 20px;
     @include e(item){
-        flex: 0 0 48%;
+        flex: 0 0 45%;
         @media (max-width: 767px) {
             flex: auto;
         }

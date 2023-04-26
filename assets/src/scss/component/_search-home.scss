@@ -97,9 +97,9 @@
       }
 
       .directorist-btn-ml {
-        font-size: 14px;
-        color: var(--directorist-color-gray);
-        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--directorist-color-body);
       }
     }
 
@@ -311,7 +311,7 @@
       mask-image: url(../../../icons/line-awesome/svgs/angle-down-solid.svg);
       width: 12px;
       height: 12px;
-      background-color: var(--directorist-color-gray);
+      background-color: var(--directorist-color-body);
     }
 
     &.active {

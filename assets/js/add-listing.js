@@ -858,7 +858,107 @@ $(document).ready(function () {
         submit_button.html(submit_button_default_html);
       }
     });
-  });
+  }); // MultiStep Wizard
+
+  function multiStepWizard() {
+    var totalStep = document.querySelectorAll('.multistep-wizard__nav__btn');
+    var totalWizard = document.querySelectorAll('.multistep-wizard__single');
+    var totalWizardCount = document.querySelector('.multistep-wizard__count__total');
+    var currentWizardCount = document.querySelector('.multistep-wizard__count__current');
+    var progressWidth = document.querySelector('.multistep-wizard__progressbar__width');
+    var saveBtnText = document.querySelector('.multistep-wizard__btn--next').innerHTML;
+    var stepCount = 1;
+    var progressPerStep = 100 / totalWizard.length; // Initialize Wizard Count & Progressbar
+
+    currentWizardCount.innerHTML = stepCount;
+    totalWizardCount.innerHTML = totalWizard.length;
+    progressWidth.style.width = progressPerStep + '%'; // Set data-id on Wizards
+
+    totalWizard.forEach(function (item, index) {
+      item.setAttribute('data-id', index);
+
+      if (index === 0) {
+        item.classList.add('active');
+      }
+    }); // Set data-step on Nav Items
+
+    totalStep.forEach(function (item, index) {
+      item.setAttribute('data-step', index);
+
+      if (index === 0) {
+        item.classList.add('active');
+      }
+    }); // Previous Step
+
+    $('.multistep-wizard__btn--prev').on('click', function (e) {
+      if (stepCount > 1) {
+        stepCount--;
+        activeWizard(stepCount);
+
+        if (stepCount <= 1) {
+          this.setAttribute('disabled', true);
+        }
+      }
+    }); // Next Step
+
+    $('.multistep-wizard__btn--next').on('click', function (e) {
+      if (stepCount < totalWizard.length) {
+        stepCount++;
+        activeWizard(stepCount);
+      }
+    }); // Random Step
+
+    $('.multistep-wizard__nav__btn').on('click', function (e) {
+      if (this.classList.contains('completed')) {
+        var currentStep = Number(this.attributes[1].value) + 1;
+        stepCount = currentStep;
+        activeWizard(stepCount);
+      }
+    }); // Active Wizard
+
+    function activeWizard(value) {
+      // Add Active Class
+      totalWizard.forEach(function (item, index) {
+        if (item.classList.contains('active')) {
+          item.classList.remove('active');
+        } else if (value - 1 === index) {
+          item.classList.add('active');
+        }
+      }); // Add Completed Class
+
+      totalStep.forEach(function (item, index) {
+        if (index + 1 < value) {
+          item.classList.add('completed');
+        } else {
+          item.classList.remove('completed');
+        }
+
+        if (item.classList.contains('active')) {
+          item.classList.remove('active');
+        } else if (value - 1 === index) {
+          item.classList.add('active');
+        }
+      }); // Enable Button
+
+      if (value >= 1) {
+        $('.multistep-wizard__btn--prev').removeAttr('disabled');
+      } // Change Button Text on Last Step
+
+
+      if (value === totalWizard.length) {
+        document.querySelector('.multistep-wizard__btn--next').innerHTML = "Save & Preview";
+      } else {
+        document.querySelector('.multistep-wizard__btn--next').innerHTML = saveBtnText;
+      } // Update Wizard Count & Progressbar
+
+
+      currentWizardCount.innerHTML = value;
+      progressWidth.style.width = progressPerStep * value + '%';
+      progressWidth.style.transition = "0.5s ease";
+    }
+  }
+
+  multiStepWizard();
 });
 
 /***/ }),

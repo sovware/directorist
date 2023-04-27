@@ -8,21 +8,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$file            = '';
-$delimiter       = ',';
-$update_existing = false;
+$file_id         = isset( $_GET['file_id'] ) ? $_GET['file_id'] : '';
+$delimiter       = isset( $_GET['delimiter'] ) ? $_GET['delimiter'] : ',';
+$update_existing = isset( $_GET['update_existing'] ) ? $_GET['update_existing'] : false;
 
-$cookie_name = 'directorist_listings_import_file_' . get_current_user_id();
-
-if ( isset( $_COOKIE[ $cookie_name ] ) ) {
-	$cookie_data = json_decode( base64_decode( $_COOKIE[ $cookie_name ] ) , 1 );
-
-	if ( is_array( $cookie_data ) ) {
-		$file            = isset( $cookie_data['file_path'] ) ? $cookie_data['file_path'] : '';
-		$delimiter       = isset( $cookie_data['delimiter'] ) ? $cookie_data['delimiter'] : ',';
-		$update_existing = isset( $cookie_data['update_existing'] ) ? $cookie_data['update_existing'] : false;
-	}
-}
+$file = ( ! empty( $file_id ) ) ? get_attached_file( $file_id ) : '';
 
 $posts = csv_get_data( $file, true, $delimiter );
 $total = count( $posts );

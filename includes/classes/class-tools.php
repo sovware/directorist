@@ -352,27 +352,17 @@
 
             check_admin_referer('directorist-csv-importer');
 
-            $file   = wp_import_handle_upload();
-            $file   = $file['file'];
-
+            $file     = wp_import_handle_upload();
+            $file_id  = $file['id'];
             $base_url = admin_url() . 'edit.php';
 
-			$cookie_name  = 'directorist_listings_import_file_' . get_current_user_id();
-			$cookie_value = [
-				'file_path'       => str_replace( DIRECTORY_SEPARATOR, '/', $file ),
-				'delimiter'       => isset( $_REQUEST['delimiter'] ) ? $_REQUEST['delimiter'] : ',',
-				'update_existing' => isset( $_REQUEST['update_existing'] ) ? $_REQUEST['update_existing'] : false,
-			];
-
-			$cookie_value = json_encode( $cookie_value );
-			$cookie_value = base64_encode( $cookie_value );
-
-			setcookie( $cookie_name, $cookie_value, time() + ( DAY_IN_SECONDS ), "/" );
-
             $params = apply_filters( 'directorist_listings_import_form_submit_redirect_params', [
-                'post_type' => 'at_biz_dir',
-                'page'      => 'tools',
-                'step'      => 2,
+                'post_type'       => 'at_biz_dir',
+                'page'            => 'tools',
+                'file_id'         => $file_id,
+                'delimiter'       => isset( $_REQUEST['delimiter'] ) ? $_REQUEST['delimiter'] : ',',
+                'update_existing' => isset( $_REQUEST['update_existing'] ) ? $_REQUEST['update_existing'] : false,
+                'step'            => 2,
             ]);
 
             $url = add_query_arg( $params, $base_url );

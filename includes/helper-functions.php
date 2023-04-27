@@ -2856,6 +2856,15 @@ if(!function_exists('csv_get_data')){
         $file = $default_file ? $default_file : '';
         if (!$file) return;
 
+		$check_filetype = wp_check_filetype( $file, [
+			'csv' => 'text/csv',
+			'txt' => 'text/plain',
+		]);
+
+		if ( ! $check_filetype['ext'] ) {
+			return;
+		}
+
         // Attempt to change permissions if not readable
         if (!is_readable($file)) {
             chmod($file, 0744);

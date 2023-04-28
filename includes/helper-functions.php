@@ -2848,11 +2848,22 @@ function atbdp_style_example_image ($src) {
 if(!function_exists('csv_get_data')){
     function csv_get_data($default_file = null, $multiple = null, $delimiter = ',')
     {
+		$delimiter = ( ! empty( $delimiter ) ) ? $delimiter : ',';
+
         $data = $multiple ? array() : '';
         $errors = array();
         // Get array of CSV files
         $file = $default_file ? $default_file : '';
         if (!$file) return;
+
+		$check_filetype = wp_check_filetype( $file, [
+			'csv' => 'text/csv',
+			'txt' => 'text/plain',
+		]);
+
+		if ( ! $check_filetype['ext'] ) {
+			return;
+		}
 
         // Attempt to change permissions if not readable
         if (!is_readable($file)) {

@@ -2846,60 +2846,58 @@ function atbdp_style_example_image ($src) {
 }
 
 if(!function_exists('csv_get_data')){
-    function csv_get_data($default_file = null, $multiple = null, $delimiter = ',')
-    {
-		$delimiter = ( ! empty( $delimiter ) ) ? $delimiter : ',';
+    function csv_get_data( $csv_file = null, $multiple = null, $delimiter = ',' ) {
+		if ( empty( $delimiter ) ) {
+			$delimiter = ',';
+		}
 
-        $data = $multiple ? array() : '';
+        $data   = $multiple ? array() : '';
         $errors = array();
-        // Get array of CSV files
-        $file = $default_file ? $default_file : '';
-        if (!$file) return;
 
-		$check_filetype = wp_check_filetype( $file, [
-			'csv' => 'text/csv',
-			'txt' => 'text/plain',
-		]);
-
-		if ( ! $check_filetype['ext'] ) {
-			return;
+        if ( ! $csv_file ) {
+			return $data;
 		}
 
         // Attempt to change permissions if not readable
-        if (!is_readable($file)) {
-            chmod($file, 0744);
+        if ( ! is_readable( $csv_file ) ) {
+            chmod( $csv_file, 0744 );
         }
 
         // Check if file is writable, then open it in 'read only' mode
-        if (is_readable($file) && $_file = fopen($file, "r")) {
+        if ( is_readable( $csv_file ) && $_file = fopen( $csv_file, 'r' ) ) {
 
             // To sum this part up, all it really does is go row by
             //  row, column by column, saving all the data
             $post = array();
 
             // Get first row in CSV, which is of course the headers
-            $header = fgetcsv($_file, 0, $delimiter);
+            $header = fgetcsv( $_file, 0, $delimiter );
 
-            while ($row = fgetcsv($_file, 0, $delimiter)) {
+            while ( $row = fgetcsv( $_file, 0, $delimiter ) ) {
 
-                foreach ($header as $i => $key) {
-                    $post[$key] = $row[$i];
+                foreach ( $header as $i => $key ) {
+                    $post[ $key ] = $row[ $i ];
                 }
 
-                if ($multiple) {
+                if ( $multiple ) {
                     $data[] = $post;
                 } else {
                     $data = $post;
                 }
             }
 
-            fclose($_file);
+            fclose( $_file );
         } else {
-            $errors[] = "File '$file' could not be opened. Check the file's permissions to make sure it's readable by your server.";
+            $errors[] = sprintf(
+				esc_html__( "File '%s' could not be opened. Check the file's permissions to make sure it's readable by your server.", 'directorist' ),
+				$csv_file
+			);
         }
-        if (!empty($errors)) {
+
+        if ( ! empty( $errors ) ) {
             // ... do stuff with the errors
         }
+
         return $data;
     }
 }

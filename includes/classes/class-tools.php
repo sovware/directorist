@@ -340,33 +340,58 @@
 
         }
 
-        public function atbdp_csv_import_controller()
-        {
+		public static function on_wp_handle_upload_prefilter( $file ) {
+			$allowed_mimes = array(
+				'csv' => 'text/csv',
+				'txt' => 'text/plain',
+			);
+
+			if ( empty( $file['size'] ) || empty( $file['type'] ) ) {
+				$file['error'] = __( 'Please select a valid CSV or TXT file.', 'directorist' );
+			} else if ( ! in_array( $file['type'], $allowed_mimes, true ) ) {
+				$file['error'] = __( 'Sorry, only CSV and TXT files are allowed.', 'directorist' );
+			}
+
+			return $file;
+		}
+
+        public function atbdp_csv_import_controller() {
             if ( ! isset( $_POST[ 'atbdp_save_csv_step' ] ) ) {
                 return;
             }
 
-            check_admin_referer('directorist-csv-importer');
+            check_admin_referer( 'directorist-csv-importer' );
 
-            $file     = wp_import_handle_upload();
-            $file_id  = $file['id'];
-            $base_url = admin_url() . 'edit.php';
+			add_filter( 'wp_handle_upload_prefilter', array( __CLASS__, 'on_wp_handle_upload_prefilter' ) );
 
-            $params = apply_filters( 'directorist_listings_import_form_submit_redirect_params', [
-                'post_type'       => 'at_biz_dir',
+            $file = wp_import_handle_upload();
+
+			remove_filter( 'wp_handle_upload_prefilter', array( __CLASS__, 'on_wp_handle_upload_prefilter' ) );
+
+			if ( isset( $file['error'] ) ) {
+				wp_die(
+					$file['error'],
+					'Directorist CSV Import Error!',
+					array(
+						'back_link' => true,
+					) );
+			}
+
+            $base_url = admin_url( 'edit.php' );
+            $params   = apply_filters( 'directorist_listings_import_form_submit_redirect_params', [
+                'post_type'       => ATBDP_POST_TYPE,
                 'page'            => 'tools',
-                'file_id'         => $file_id,
+                'file_id'          => $file['id'],
                 'delimiter'       => isset( $_REQUEST['delimiter'] ) ? $_REQUEST['delimiter'] : ',',
                 'update_existing' => isset( $_REQUEST['update_existing'] ) ? $_REQUEST['update_existing'] : false,
                 'step'            => 2,
-            ]);
+            ] );
 
             $url = add_query_arg( $params, $base_url );
             $url = apply_filters( 'directorist_listings_import_form_submit_redirect_url', $url, $base_url, $params );
 
             // redirect to step two || data mapping
             wp_safe_redirect( $url );
-
         }
 
 

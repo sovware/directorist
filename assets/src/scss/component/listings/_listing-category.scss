@@ -16,11 +16,11 @@
             pointer-events: none;
             bottom: 25px;
             left: -30px;
-            padding: 20px;
+            padding: 10px;
             border: none;
             border-radius: 12px;
             background-color: var(--directorist-color-white);
-            filter: drop-shadow(var(--directorist-box-shadow));
+            box-shadow: var(--directorist-box-shadow);
             line-break: auto;
             word-break: break-all;
             transition: 0.3s ease;
@@ -28,12 +28,12 @@
 
             a {
                 color: var(--directorist-color-body);
-                display: flex !important;
+                display: flex;
                 gap: 12px;
                 align-items: flex-start;
                 line-height: normal;
-                margin-bottom: 20px;
-                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
                 &:last-child {
                   margin-bottom: 0;
                 }
@@ -50,6 +50,7 @@
 
                 &:hover {
                     color: var(--directorist-color-primary);
+                    background-color: var(--directorist-color-light);
                     i {
                         &:after {
                             background-color: var(--directorist-color-primary);

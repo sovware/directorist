@@ -759,15 +759,47 @@ import { directorist_range_slider } from './range-slider';
                                 success: function success(data) {
                                     let res = '';
 
+                                    var currentIconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/paper-plane.svg';
+                                    var currentIconHTML = directorist.icon_markup.replace('##URL##', currentIconURL).replace('##CLASS##', '');
+                                    var currentLocationIconHTML = "<span class=\"location-icon\">".concat(currentIconHTML, "</span>");
+                                    
+                                    var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/map-marker-alt.svg';
+                                    var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+                                    var locationIconHTML = "<span class=\"location-icon\">".concat(iconHTML, "</span>");
+
                                     for (let i = 0, len = data.length; i < len; i++) {
-                                        res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+                                        res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(locationIconHTML).concat(data[i].display_name, "</a></li>");
                                     }
 
-                                    result_container.html("<ul>".concat(res, "</ul>"));
-                                    if (res.length) {
-                                        result_container.show();
-                                    } else {
-                                        result_container.hide();
+                                    if (navigator.geolocation) {
+                                        navigator.geolocation.getCurrentPosition(
+                                            function(position) {
+                                                var currentLatitude = position.coords.latitude;
+                                                var currentLongitude = position.coords.longitude;
+
+                                                result_container.html("<ul>" +
+                                                    "<li><a href='#' data-lat='" + currentLatitude + "' data-lon='" + currentLongitude + "' class='current-location'>" +
+                                                    currentLocationIconHTML +
+                                                    "Current Location" +
+                                                    "</a></li>" +
+                                                    res +
+                                                    "</ul>");
+                                                if (res.length) {
+                                                    result_container.show();
+                                                } else {
+                                                    result_container.hide();
+                                                }
+                                            },
+                                            function(error) {
+                                              console.log("Error getting location:", error);
+                                            }
+                                        );
+                                    } 
+                                    result_container.html("<ul>" + res + "</ul>");
+                                        if (res.length) {
+                                            result_container.show();
+                                        } else {
+                                            result_container.hide();
                                     }
 
                                     locationAddressField.removeClass('atbdp-form-fade');
@@ -855,8 +887,7 @@ import { directorist_range_slider } from './range-slider';
             modalContent.style.opacity="1";
             modalContent.style.visibility = "visible";
             modalContent.style.bottom = "100px";
-            modalContent.style.height = "100%";
-            modalContent.style.transition = "0.5s ease";
+            modalContent.style.transition = "0.3s ease";
         });
 
         $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
@@ -875,7 +906,6 @@ import { directorist_range_slider } from './range-slider';
             modalContent.style.opacity="0";
             modalContent.style.visibility = "hidden";
             modalContent.style.bottom = "-200px";
-            modalContent.style.height = "0";
             modalContent.style.transition = "0.5s ease";
         });
 

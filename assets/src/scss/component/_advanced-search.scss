@@ -23,10 +23,6 @@
 
 // Advance Search Filter Basic
 .directorist-advanced-filter{
-    @include e(form) {
-        
-    }
-
     @include e(basic){
         display: flex;
         flex-direction: column;
@@ -34,6 +30,7 @@
             .directorist-search-field {
                 flex-direction: column;
                 align-items: flex-start;
+                flex-wrap: wrap;
                 padding: 0;
                 margin: 0 0 40px;
                 > label {
@@ -148,6 +145,9 @@
         padding: 17px 40px;
         margin: 0 -40px -30px;
         background-color: var(--directorist-color-light);
+        @media only screen and (max-width: 480px) {
+            margin: 0 -30px -30px;
+        }
         .directorist-btn-reset-js {
             font-size: 14px;
             font-weight: 500;
@@ -168,6 +168,15 @@
             }
         }
     }
+
+    .directorist-form-group {
+        &.directorist-icon-right .directorist-input-icon {
+            right: 0;
+        }
+        &.directorist-icon-left .directorist-input-icon {
+            left: 0;
+        }
+    }
 }
 
 .directorist-price-ranges{
@@ -175,12 +184,17 @@
     flex-wrap: wrap;
     gap: 20px;
     @include e(item){
-        flex: 0 0 48%;
+        flex: 0 0 45%;
+        @media (max-width: 767px) {
+            flex: auto;
+        }
         .directorist-form-element {
             border-bottom: 1px solid var(--directorist-color-border);
         }
         &.directorist-price-ranges__price-frequency{
             display: flex;
+            flex-wrap: wrap;
+            flex: 0 0 100%;
             gap: 6px;
             .directorist-price-ranges__price-frequency--btn{
                 .directorist-pf-range{
@@ -188,7 +202,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    color: var(--directorist-color-primary) !important;
+                    color: var(--directorist-color-primary);
                     background-color: var(--directorist-color-border);
                     border-radius: 8px;
                     width: 70px;
@@ -199,7 +213,7 @@
                     &:checked{
                         &+.directorist-pf-range{
                             background-color: var(--directorist-color-primary);
-                            color: var(--directorist-color-white) !important;
+                            color: var(--directorist-color-white);
                         }
                     }
                 }
@@ -322,39 +336,7 @@
     }
 }
 
-// Custom Field Checkbox & Radio
-.directorist-form-group {
-    &.direcorist-search-field-checkbox,
-    &.directorist-advanced-filter__advanced--checkbox,
-    &.directorist-advanced-filter__advanced--radio,
-    &.direcorist-search-field-radio{
-
-        .directorist-search-field{
-            display: flex;
-            flex-wrap: wrap;
-            margin: -7.5px;
-
-            >label{
-
-                margin: 7.5px;
-                flex: 0 0 100%;
-                width: 100%;
-            }
-
-            .directorist-checkbox__label{
-                margin-left: 0;
-            }
-
-            .directorist-checkbox,
-            .directorist-radio {
-
-                margin: 7.5px;
-            }
-        }
-    }
-}
-
 /* google map location suggestion container */
 .pac-container {
-    z-index: 99999 !important;
+    z-index: 99999;
 }

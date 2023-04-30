@@ -189,10 +189,15 @@
         border-color: var(--directorist-color-border-gray);
     }
 
+    textarea{
+        resize: none;
+    }
+
     .directorist-btn-submit {
-        padding: 0 15px;
+        padding: 0 18px;
         text-decoration: none;
         text-transform: capitalize;
+
     }
 }
 

@@ -13522,6 +13522,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
           box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
 }
+.directorist-single-wrapper .directorist-card .directorist-card__body {
+  padding: 30px;
+}
 .directorist-single-wrapper .directorist-card__header--title {
   font-size: 1.2rem;
   font-weight: 500;
@@ -14193,8 +14196,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-contact-owner-form-inner .directorist-form-element {
   border-color: var(--directorist-color-border-gray);
 }
+.directorist-contact-owner-form-inner textarea {
+  resize: none;
+}
 .directorist-contact-owner-form-inner .directorist-btn-submit {
-  padding: 0 15px;
+  padding: 0 18px;
   text-decoration: none;
   text-transform: capitalize;
 }

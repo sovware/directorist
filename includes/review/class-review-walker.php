@@ -3,7 +3,7 @@
  * Reviews walker class.
  *
  * @package Directorist\Review
- * @since 7.1.0
+ * @since 7.7.0
  */
 namespace Directorist\Review;
 

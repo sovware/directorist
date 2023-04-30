@@ -1056,8 +1056,6 @@ window.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             var $target = $(event.target);
             var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
-            console.log($wrap.find('.directorist-js-edit-comment'));
-            $wrap.find('.directorist-js-edit-comment').prop('disabled', false);
             $wrap.removeClass(['directorist-comment-edit-request', 'directorist-comment-editing']).find('form').remove();
           });
         }

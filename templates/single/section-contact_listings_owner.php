@@ -46,7 +46,7 @@ if( $listing->contact_owner_form_disabled() ) {
 
 				<p class="directorist-contact-message-display"></p>
 
-				<button type="submit" class="directorist-btn directorist-btn-primary directorist-btn-sm directorist-btn-submit"><?php esc_html_e( 'Submit', 'directorist' ); ?></button>
+				<button type="submit" class="directorist-btn directorist-btn-light directorist-btn-md directorist-btn-submit"><?php esc_html_e( 'Submit now', 'directorist' ); ?></button>
 
 			</div>
 

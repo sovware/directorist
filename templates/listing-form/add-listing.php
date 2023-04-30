@@ -67,6 +67,8 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                             </div>
 
                             <button class="directorist-btn directorist-btn-light multistep-wizard__btn multistep-wizard__btn--next">Save & Next</button>
+
+                            <button class="directorist-btn directorist-btn-primary multistep-wizard__btn multistep-wizard__btn--skip-preview">Skip preview and submit listing</button>
                         </div>
                     </div>
                 </div>

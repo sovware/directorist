@@ -947,8 +947,10 @@ $(document).ready(function () {
 
       if (value === totalWizard.length) {
         document.querySelector('.multistep-wizard__btn--next').innerHTML = "Save & Preview";
+        document.querySelector('.multistep-wizard__btn--skip-preview').style.display = "block";
       } else {
         document.querySelector('.multistep-wizard__btn--next').innerHTML = saveBtnText;
+        document.querySelector('.multistep-wizard__btn--skip-preview').style.display = "none";
       } // Update Wizard Count & Progressbar
 
 

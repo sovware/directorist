@@ -750,6 +750,7 @@
   }
   @include e(bottom) {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     margin: 20px 0;
@@ -760,6 +761,13 @@
     &[disabled="true"] {
       color: #ccc;
       pointer-events: none;
+    }
+    @include m('skip-preview') {
+      flex: 0 0 100%;
+      margin: 25px 0 0;
+      &.directorist-btn {
+        display: none;
+      }
     }
   }
   @include e(count) {

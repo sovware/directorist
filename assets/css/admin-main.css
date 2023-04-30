@@ -8294,6 +8294,9 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
@@ -8311,6 +8314,16 @@ body.stop-scrolling {
 .multistep-wizard__btn[disabled=true] {
   color: #ccc;
   pointer-events: none;
+}
+.multistep-wizard__btn--skip-preview {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  margin: 25px 0 0;
+}
+.multistep-wizard__btn--skip-preview.directorist-btn {
+  display: none;
 }
 .multistep-wizard__count {
   font-size: 15px;

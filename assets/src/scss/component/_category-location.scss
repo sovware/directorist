@@ -855,3 +855,260 @@
         }
     }
 }
+
+/* List Style One */
+.directorist-category-list-one{
+    .directorist-category-list{
+        @include e('card'){
+            display: flex;
+            background: var(--directorist-color-light-gray);
+            border-radius: var(--directorist-border-radius-lg);
+            padding: 8px 20px;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            position: relative;
+            min-height: 40px;
+            transition: 0.6s ease;
+            span{
+                font-weight: var(--directorist-fw-medium);
+            }
+            @include m('icon'){
+                padding-inline-start: 12px;
+            }
+        }
+        @include e('toggle'){
+            @include m('open'){
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+                padding-bottom: 5px;
+                .directorist-category-list__toggler{
+                    .directorist-icon-mask{
+                        &::after{
+                            transform: rotate(180deg);
+                        }
+                    }
+                }
+            }
+        }
+        @include e('icon'){
+            .directorist-icon-mask{
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        @include e('name'){
+            color: var(--directorist-color-dark);
+        }
+        @include e('count'){
+            color: var(--directorist-color-dark);
+        }
+        @include e('toggler'){
+            margin-inline-start: auto;
+            .directorist-icon-mask{
+                &::after{
+                    width: 10px;
+                    height: 10px;
+                    transition: 0.3s ease;
+                }
+            }
+        }
+
+        /* Subcategory */
+        @include e('subcategory'){
+            margin: 0;
+            list-style: none;
+            overflow-y: auto;
+            a{
+                text-decoration: none;
+                color: var(--directorist-color-dark);
+            }
+            ul{
+                padding-inline-start: 10px;
+            }
+        }
+        @include e('card'){
+            + .directorist-category-list__subcategory{
+                background: var(--directorist-color-light-gray);
+                border-radius: 16px;
+                padding-inline-start: 20px;
+                padding-inline-end: 20px;
+                height: 0;
+                overflow: hidden;
+                visibility: hidden;
+                opacity: 0;
+                padding-bottom: 20px;
+                margin-top: -20px;
+                transition: 0.3s ease;
+            }
+            @include m('icon'){
+                + .directorist-category-list__subcategory{
+                    padding-inline-start: 64px;
+                }
+            }
+        }
+        @include e('toggle'){
+            @include m('open'){
+                + .directorist-category-list__subcategory{
+                    border-radius: 0 0 16px 16px;
+                    height: auto;
+                    visibility: visible;
+                    opacity: 1;
+                    margin-top: 0;
+                }
+            }
+        }
+
+        /* Subcategory Toggle */
+        @include e('sc-toggle'){
+            display: flex;
+            align-items: center;
+            + .directorist-category-list__subcategory{
+                height: 0;
+                overflow: hidden;
+                transition: 0.3s ease;
+            }
+            &.directorist-category-list__toggle--open{
+                + .directorist-category-list__subcategory{
+                    height: auto;
+                }
+            }
+            &.directorist-category-list__toggle--open{
+                .directorist-category-list__sc-toggler{
+                    &::after{
+                        content: none;
+                    }
+                }
+            }
+        }
+        @include e('sc-toggler'){
+            margin-inline-start: auto;
+            position: relative;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            &::before{
+                position: absolute;
+                content: '';
+                left: 0;
+                top: 50%;
+                width: 10px;
+                height: 1px;
+                background: var(--directorist-color-deep-gray);
+                transform: translateY(-50%);
+            }
+            &::after{
+                position: absolute;
+                content: '';
+                width: 1px;
+                height: 10px;
+                left: 50%;
+                top: 0;
+                background: var(--directorist-color-deep-gray);
+                transform: translateX(-50%);
+            }
+
+        }
+    }
+}
+
+/* List Style Two */
+.directorist-category-list-two{
+    .directorist-category-list{
+        box-shadow: var(--directorist-box-shadow);
+        border-radius: var(--directorist-border-radius-lg);
+        @include e('card'){
+            display: flex;
+            padding: 10px 20px;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            min-height: 40px;
+            transition: 0.6s ease;
+        }
+        @include e('name'){
+            font-weight: var(--directorist-fw-medium);
+            color: var(--directorist-color-dark);
+        }
+        @include e('count'){
+            color: var(--directorist-color-dark);
+        }
+        @include e('icon'){
+            .directorist-icon-mask{
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: #000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                &::after{
+                    background-color: #fff;
+                }
+            }
+        }
+        @include e('toggle'){
+            border-bottom: 1px solid var(--directorist-color-border);
+        }
+        @include e('toggler'){
+            display: none;
+        }
+        @include e('subcategory'){
+            margin: 0;
+            padding: 15px 20px 25px;
+            list-style: none;
+            li{
+                margin-bottom: 7px;
+            }
+            a{
+                text-decoration: none;
+                color: var(--directorist-color-dark);
+            }
+            ul{
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                li{
+                    padding-inline-start: 10px;
+                }
+            }
+        }
+    }
+}
+
+/* Location: Grid One */
+.directorist-location{
+    @include m('grid-one'){
+        .directorist-location__single{
+            position: relative;
+            border-radius: var(--directorist-border-radius-lg);
+            @include m('img'){
+                min-height: 300px;
+                &::before{
+                    position: absolute;
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                    background: rgba(#000, 0.5);
+                }
+            }
+            img{
+                width: 100%;
+                border-radius: inherit;
+            }
+        }
+        .directorist-location__content{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+    }
+}

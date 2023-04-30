@@ -104,7 +104,7 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
         --directorist-color-border: #e9e9e9;
         --directorist-color-border-normal: #d9d9d9;
 
-        --directorist-box-shadow: 0 3px 7.5px rgba(0,0,0, 0.08);
+        --directorist-box-shadow: 0 3px 15px rgba(0,0,0, 0.08);
         --directorist-box-shadow-sm: 0 5px 0.8px rgba(167,178,199, 0.1);
 
         /* Badge Color */
@@ -117,8 +117,21 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
         /* Map marker Color */
         --directorist-color-marker-shape: <?php echo $marker_shape_color; ?>;
         --directorist-color-marker-icon: <?php echo $marker_icon_color; ?>;
+
+        /* Font config */
+        --directorist-fw-regular: 400;
+        --directorist-fw-medium: 500;
+        --directorist-fw-semiBold: 600;
+        --directorist-fw-bold: 700;
+
+        /* Border Radius */
+        --directorist-border-radius-xs: 8px;
+        --directorist-border-radius-sm: 10px;
+        --directorist-border-radius-md: 12px;
+        --directorist-border-radius-lg: 16px;
+
     }
-    
+
     /* Settings Panel Structure
 
     Button: Color Name

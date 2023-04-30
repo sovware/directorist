@@ -88,7 +88,47 @@
     }
 
     @include e(contents) {
-        padding: 30px;
+        padding: 30px 40px;
+        .directorist-form-description-field {
+            .wp-editor-tabs {
+                position: relative;
+                bottom: -7px;
+                .wp-switch-editor {
+                    margin: 0;
+                    border: none;
+                    border-radius: 5px;
+                    padding: 5px 10px 12px;
+                    background: transparent;
+                }
+            }
+            .html-active .switch-html, 
+            .tmce-active .switch-tmce {
+                background: #f6f7f7;
+            }
+            .wp-editor-container {
+                border: none;
+                border-bottom: 1px solid var(--directorist-color-border);
+                .mce-top-part::before {
+                    display: none;
+                }
+                .mce-stack-layout {
+                    border: none;
+                    padding: 0;
+                }
+                .mce-toolbar-grp,
+                .quicktags-toolbar {
+                    border: none;
+                    padding: 8px 12px;
+                    border-radius: 10px;
+                }
+                .mce-toolbar .mce-btn-group .mce-btn.mce-listbox {
+                    background: transparent;
+                }
+            }
+            .mce-statusbar {
+                display: none;
+            }
+        }
     }
 }
 
@@ -370,7 +410,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
             line-height: 1.5;
             @include m(highlighted) {
                 font-weight: 500;
-                color: var(--color-primary) !important;
+                color: var(--directorist-color-primary) !important;
                 background-color: transparent !important;
             }
         }
@@ -397,13 +437,21 @@ body.logged-in .select2-container--open .select2-dropdown--above {
 
                 .select2-search__field {
                     margin: 0;
+                    width: 100% !important;
                 }
             }
         }
     }
 
-    .select2-results__option {
-        margin: 0;
+    &.select2-container--open {
+        .select2-results__option {
+            margin: 0;
+            &[aria-selected="true"] {
+                font-weight: 500;
+                color: var(--directorist-color-primary);
+                background-color: transparent;
+            }
+        }
     }
 }
 

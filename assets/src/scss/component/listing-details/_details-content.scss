@@ -2,8 +2,7 @@
     margin-bottom: 15px;
     .directorist-return-back{
         text-decoration: none;
-        display: flex;
-        align-items: center;
+        margin: 0;
     }
 }
 
@@ -13,107 +12,108 @@
         margin-bottom: 35px;
     }
 
-    .directorist-card__header {
-        .directorist-card__header--title {
-            font-size: 18px;
-            font-weight: 500;
-            color: var(--directorist-color-primary);
-            margin: 0;
+    .directorist-card__header--title {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--directorist-color-primary);
+        margin: 0;
 
-            #directorist-review-counter {
-                margin-right: 10px;
-            }
+        #directorist-review-counter {
+            margin-right: 10px;
         }
     }
 
-    .directorist-card__body {
-        .directorist-details-info-wrap {
-            a{
-                text-decoration: none;
+    .directorist-details-info-wrap {
+        a{
+            text-decoration: none;
+        }
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -0.5rem 0 0 0;
+            list-style-type: none;
+            padding: 0;
+
+            li {
+                flex: 0 0 33.333%;
+                margin: 0.5rem 0 0 0;
+                
             }
-            ul {
-                display: flex;
-                flex-wrap: wrap;
-                margin: -0.5rem 0 0 0;
-                list-style-type: none;
-                padding: 0;
 
-                li {
-                    flex: 0 0 33.333%;
-                    margin: 0.5rem 0 0 0;
-
-                    a {
-                        box-shadow: none;
-                    }
-                }
+            a {
+                box-shadow: none;
             }
         }
     }
 }
 
+.directorist-single-listing-header{
+    margin-bottom: 25px;
+}
+
 // Single Listing Actions
 .directorist-single-listing-quick-action {
-    margin: -3px;
+    margin: -4px;
 
     .directorist-social-share {
+        position: relative;
         &:hover {
             .directorist-social-share-links {
                 opacity: 1;
                 visibility: visible;
-                top: calc(100% + 10px);
+                top: calc(100% + 5px);
             }
-        }
-
-        .directorist-social-share-links {
-            position: absolute;
-            transition: all 0.2s ease-in-out;
-            z-index: 2;
-            visibility: hidden;
-            opacity: 0;
-            right: 0;
-            top: calc(100% + 30px);
-            background: #ffffff;
-            border-radius: 6px;
-            width: 180px;
-            box-shadow: 0 5px 15px rgba(#000, 0.15);
-            list-style-type: none;
-            padding: 10px;
-            margin: 0;
-
-            .directorist-social-links__item {
-                padding-left: 0;
-                margin: 0;
-                a {
-                    padding: 8px 15px;
-                    display: flex;
-                    align-items: center;
-                    text-decoration: none;
-                    font-size: 14px;
-                    border: 0 none;
-                    border-radius: 6px;
-                    transition: 0.3s ease;
-                    span.la,
-                    span.lab,
-                    span.fa,
-                    i {
-                        color: #51526E;
-                        margin-right: 10px;
-                        transition: 0.3s ease;
-                    }
-                    span.fa{
-                        font-family: "Font Awesome 5 Brands";
-                        font-weight: 900;
-                        font-size: 15px;
-                    }
-                    &:hover{
-                        background: #DFDFDF;
-                        color: #000;
-                        span.la,
-                        span.fa,
-                        i{
-                            color: #000;
-                        }
-                    }
+        } 
+    }
+    .directorist-social-share-links {
+        position: absolute;
+        transition: all 0.2s ease-in-out;
+        z-index: 2;
+        visibility: hidden;
+        opacity: 0;
+        right: 0;
+        top: calc(100% + 30px);
+        background: #ffffff;
+        border-radius: 10px;
+        width: 150px;
+        box-shadow: 0 5px 15px rgba(#000, 0.15);
+        list-style-type: none;
+        padding: 10px;
+        margin: 0;
+    }
+    .directorist-social-links__item {
+        padding-left: 0;
+        margin: 0;
+        a {
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border: 0 none;
+            border-radius: 8px;
+            color: var(--directorist-color-body);
+            transition: 0.3s ease;
+            span.la,
+            span.lab,
+            span.fa,
+            i {
+                color: var(--directorist-color-body);
+            }
+            span.fa{
+                font-family: "Font Awesome 5 Brands";
+                font-weight: 900;
+                font-size: 15px;
+            }
+            &:hover{
+                font-weight: 500;
+                background: var(--directorist-color-light);
+                color: var(--directorist-color-dark);
+                span.la,
+                span.fa,
+                i{
+                    color: var(--directorist-color-dark);
                 }
             }
         }
@@ -121,25 +121,16 @@
 }
 
 .directorist-single-listing-action {
-    display: flex;
-    align-items: center;
     justify-content: center;
     font-size: 13px;
     border: 0 none;
     border-radius: 8px;
     padding: 0 16px;
-    min-height: 36px;
-    border-radius: 5px;
-    margin: 3px;
+    margin: 4px;
     cursor: pointer;
     text-decoration: none;
-    transition: .2s background-color ease-in-out;
     color: var(--directorist-color-body);
-    background: var(--directorist-color-light-gray);
-    &:hover{
-        color: var(--directorist-color-primary);
-        background-color: var(--directorist-color-gray);
-    }
+    transition: .2s background-color ease-in-out;
 
     .directorist-icon-mask.directorist-added-to-favorite{
         &:after{
@@ -152,6 +143,7 @@
             width: 15px;
             height: 15px;
             margin-right: 8px;
+            color: var(--directorist-color-body);
         }
     }
 
@@ -181,27 +173,13 @@
 
 // Listing Details
 .directorist-listing-details {
-    .directorist-listing-single {
-        margin: 10px 0 10px 0;
+    margin: 12px 0 0;
 
-        .directorist-listing-single__info {
-            padding: 0;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-    }
-
-    .directorist-listing-details__listing-title {
-        font-size: 30px;
-        font-weight: 500;
-        display: inline-block;
-        margin: 0 15px 12px 0;
-    }
-
-    .directorist-listing-details-tagline {
-        margin-bottom: 15px;
-        color: #7a82a6;
+    .directorist-listing-single__info {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
     }
 
     .directorist-listing-details__text {
@@ -221,6 +199,17 @@
             }
         }
     }
+}
+.directorist-listing-details__listing-title {
+    font-size: 30px;
+    font-weight: 600;
+    display: inline-block;
+    margin: 30px 0 0;
+}
+
+.directorist-listing-details-tagline {
+    margin: 10px 0 0;
+    color: var(--directorist-color-body);
 }
 
 // Directorist Embaded Video

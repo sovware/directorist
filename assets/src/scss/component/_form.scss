@@ -18,13 +18,15 @@
     }
     .directorist-form-element {
         position: relative;
-        padding: 10px 0 15px;
+        padding: 0;
         width: 100%;
+        height: 40px;
         font-size: 14px;
         font-weight: 400;
         color: var(--directorist-color-deep-gray);
         border: none;
-        border-bottom: 1px solid var(--directorist-color-border-normal);
+        border-radius: 0;
+        border-bottom: 1px solid var(--directorist-color-border-gray);
         &:focus {
             outline: none;
             box-shadow: 0 0;
@@ -47,21 +49,12 @@
 // Directorist Input With Icon
 .directorist-form-group {
     &.directorist-icon-left {
-        .directorist-form-element {
-            padding-left: 35px;
-        }
-
         .directorist-input-icon {
-            left: 15px;
-            margin-top: 0;
+            left: 0;
         }
     }
 
     &.directorist-icon-right {
-        .directorist-form-element {
-            padding-right: 35px;
-        }
-
         .directorist-input-icon {
             right: 15px;
         }
@@ -78,6 +71,11 @@
         span,
         svg {
             font-size: 14px;
+        }
+        .directorist-icon-mask:after {
+            width: 16px;
+            height: 16px;
+            background-color: var(--directorist-color-body);
         }
     }
 }

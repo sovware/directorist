@@ -1,24 +1,24 @@
 <?php
 do_action('include_style_settings');
-$primary_text_color               = get_directorist_option('primary_color', '#ffffff');
+// $primary_text_color               = get_directorist_option('primary_color', '#ffffff');
 $primary_hover_color              = get_directorist_option('primary_hover_color', '#ffffff');
 $back_primary_color               = get_directorist_option('back_primary_color', '#444752');
 $back_primary_hover_color         = get_directorist_option('back_primary_hover_color', '#222222');
 $border_primary_color             = get_directorist_option('border_primary_color', '#444752');
 $border_primary_hover_color       = get_directorist_option('border_primary_hover_color', '#222222');
-$secondary_text_color             = get_directorist_option('secondary_color', '#fff');
+// $secondary_text_color             = get_directorist_option('secondary_color', '#fff');
 $secondary_hover_color            = get_directorist_option('secondary_hover_color', '#fff');
 $back_secondary_color             = get_directorist_option('back_secondary_color', '#122069');
 $back_secondary_hover_color       = get_directorist_option('back_secondary_hover_color', '#131469');
 $secondary_border_color           = get_directorist_option('secondary_border_color', '#131469');
 $secondary_border_hover_color     = get_directorist_option('secondary_border_hover_color', '#131469');
-$danger_text_color                = get_directorist_option('danger_color', '#fff');
+// $danger_text_color                = get_directorist_option('danger_color', '#fff');
 $danger_hover_color               = get_directorist_option('danger_hover_color', '#fff');
 $back_danger_color                = get_directorist_option('back_danger_color', '#e23636');
 $back_danger_hover_color          = get_directorist_option('back_danger_hover_color', '#c5001e');
 $danger_border_color              = get_directorist_option('danger_border_color', '#e23636');
 $danger_border_hover_color        = get_directorist_option('danger_border_hover_color', '#c5001e');
-$success_text_color               = get_directorist_option('success_color', '#fff');
+// $success_text_color               = get_directorist_option('success_color', '#fff');
 $success_hover_color              = get_directorist_option('success_hover_color', '#fff');
 $back_success_color               = get_directorist_option('back_success_color', '#32cc6f');
 $back_success_hover_color         = get_directorist_option('back_success_hover_color', '#2ba251');
@@ -60,15 +60,15 @@ $primary_dark_border_color        = get_directorist_option('primary_dark_border_
 $marker_shape_color               = get_directorist_option('marker_shape_color', '#444752');
 $marker_icon_color                = get_directorist_option('marker_icon_color', '#444752');
 
-$primary_color                    = get_directorist_option('primary_dark_back_color', '#000000');
-$secondary_color                  = get_directorist_option('secondary_color', '#122069');
-$dark_color                       = get_directorist_option('dark_color', '#000000');
-$white_color                      = get_directorist_option('white_color', '#ffffff');
-$success_color                    = get_directorist_option('success_color', '#28a800');
-$info_color                       = get_directorist_option('info_color', '#2c99ff');
-$warning_color                    = get_directorist_option('warning_color', '#f28100');
-$danger_color                     = get_directorist_option('danger_color', '#f80718');
-$gray_color                       = get_directorist_option('gray_color', '#bcbcbc');
+$primary_color                    = get_directorist_option('color_primary', '#000000');
+$secondary_color                  = get_directorist_option('color_secondary', '#F2F3F5');
+$dark_color                       = get_directorist_option('color_dark', '#000000');
+$white_color                      = get_directorist_option('color_white', '#ffffff');
+$success_color                    = get_directorist_option('color_success', '#28A800');
+$info_color                       = get_directorist_option('color_info', '#2c99ff');
+$warning_color                    = get_directorist_option('color_warning', '#f28100');
+$danger_color                     = get_directorist_option('color_danger', '#f80718');
+$gray_color                       = get_directorist_option('color_gray', '#bcbcbc');
 ?>
 <style>
     /* Css Variable */
@@ -90,22 +90,24 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
         --directorist-color-white-rgb: 255,255,255;
         --directorist-color-body: #404040;
         --directorist-color-gray: <?php echo $gray_color; ?>;
-        --directorist-color-light-gray: #ededed;
-        --directorist-color-light-gray-hover: #BCBCBC;
+        --directorist-color-gray-hover: #BCBCBC;
+        --directorist-color-light: #ededed;
+        --directorist-color-light-hover: #BCBCBC;
+        --directorist-color-light-gray: #808080;
         --directorist-color-light-gray-rgb: 237, 237, 237;
         --directorist-color-deep-gray: #808080;
         --directorist-color-bg-gray: #f4f4f4;
         --directorist-color-bg-light-gray: #F4F5F6;
-        --directorist-color-bg-light: #ECEEF2;
+        --directorist-color-bg-light: #EDEDED;
 
         /* other color */
         --directorist-color-overlay: rgba(0,0,0,0.5);
         --directorist-color-overlay-normal: rgba(0,0,0,0.2);
         --directorist-color-border: #e9e9e9;
-        --directorist-color-border-normal: #d9d9d9;
+        --directorist-color-border-gray: #d9d9d9;
 
-        --directorist-box-shadow: 0 3px 15px rgba(0,0,0, 0.08);
-        --directorist-box-shadow-sm: 0 5px 0.8px rgba(167,178,199, 0.1);
+        --directorist-box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        --directorist-box-shadow-sm: 0 2px 10px rgba(0,0,0,0.1);
 
         /* Badge Color */
         --directorist-color-open-badge: <?php echo $open_badge_color; ?>;
@@ -252,7 +254,6 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
     #directorist.atbd_wrapper .at-modal .at-modal-close,
     .atbdp_login_form_shortcode #loginform p input[type="submit"],
     .atbd_manage_fees_wrapper .table tr .action p .btn-block,
-    #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn,
     #directorist.atbd_wrapper .ezmu__btn, .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .directorist-btn.directorist-btn-dark, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew, .bdb-select-hours .bdb-remove, .directorist-form-image-upload-field .ezmu__btn.ezmu__input-label, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
         background: var(--directorist-color-primary) !important;
     }
@@ -447,45 +448,39 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
     }
 
     /* =======================================
-     Button: primary outline LIGHT
+     Button: LIGHT Outline
     ======================================== */
 
     /* color */
     .atbdp_float_none .btn.btn-outline-light,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light {
+    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action {
         color: var(--directorist-color-dark) !important;
     }
 
     /* color hover */
     .atbdp_float_none .btn.btn-outline-light:hover,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a:hover, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light:hover {
+    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover {
         color: var(--directorist-color-dark) !important;
     }
 
     /* border color */
-    .atbdp_float_none .btn.btn-outline-light,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light {
-        border: 1px solid var(--directorist-color-light-gray) !important;
+    .atbdp_float_none .btn.btn-outline-light {
+        border: 1px solid var(--directorist-color-light) !important;
     }
 
     /* border color hover */
-    .atbdp_float_none .btn.btn-outline-light:hover,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light:hover {
-        border-color: var(--directorist-color-light-gray) !important;
+    .atbdp_float_none .btn.btn-outline-light:hover{
+        border-color: var(--directorist-color-light) !important;
     }
 
     /* background */
-    .atbdp_float_none .btn.btn-outline-light,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light {
-        background: var(--directorist-color-light-gray) !important;
+    .atbdp_float_none .btn.btn-outline-light{
+        background: var(--directorist-color-light) !important;
     }
 
     /* background hover */
-    .atbdp_float_none .btn.btn-outline-light:hover,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .directorist-signle-listing-top__btn-edit.directorist-btn.directorist-btn-outline-light:hover {
-        background: var(--directorist-color-light-gray-hover) !important;
+    .atbdp_float_none .btn.btn-outline-light:hover{
+        background: var(--directorist-color-light-hover) !important;
     }
 
     /* =======================================
@@ -565,44 +560,44 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
           - Badge New
     */
     /* Badge Open */
-    .atbd_bg-success,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_open,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open, .directorist-badge-open, .directorist-badge.directorist-badge-success {
-        background: var(--directorist-color-badge-open) !important;
+    .atbd_bg-success i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_open i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open i::after, .directorist-badge-open {
+        background: var(--directorist-color-open-badge) !important;
     }
 
     /* Badge Closed */
-    .atbd_bg-danger,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf:hover,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close, .directorist-badge.directorist-badge-danger, .directorist-listing-single .directorist-badge.directorist-badge-closejhg   {
-        background: var(--directorist-color-badge-closed) !important;
+    .atbd_bg-danger i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf:hover i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close i::after, .directorist-badge-close, .directorist-badge.directorist-badge-danger   {
+        background: var(--directorist-color-closed-badge) !important;
     }
 
     /* Badge Featured */
-    .atbd_bg-badge-feature,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured, .directorist-listing-single .directorist-badge.directorist-badge-featured {
-        background: var(--directorist-color-badge-featured) !important;
+    .atbd_bg-badge-feature i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured i::after, .directorist-listing-single .directorist-badge.directorist-badge-featured i::after {
+        background: var(directorist-color-featured-badge) !important;
     }
 
     /* Badge Popular */
-    .atbd_bg-badge-popular,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_popular,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular, .directorist-listing-single .directorist-badge.directorist-badge-popular {
-        background: var(--directorist-color-badge-popular) !important;
+    .atbd_bg-badge-popular i::after,
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_popular i::after,
+    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular i::after,
+    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular i::after,
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular i::after, .directorist-listing-single .directorist-badge.directorist-badge-popular i::after {
+        background: var(--directorist-color-popular-badge) !important;
     }
 
     /* Badge New */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new {
+    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new i::after {
         background: var(--directorist-color-badge-new) !important;
     }
 
@@ -610,14 +605,12 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
         Change default primary dark background
     */
     .ads-advanced .price-frequency .pf-btn input:checked+span,
-    .btn-checkbox label input:checked+span,
     .atbdpr-range .ui-slider-horizontal .ui-slider-range,
     .custom-control .custom-control-input:checked~.check--select,
     #directorist.atbd_wrapper .pagination .nav-links .current,
     .atbd_director_social_wrap a,
     .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p a,
     .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p a,
-    .directorist-mark-as-favorite__btn.directorist-added-to-favorite,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories>ul.atbdp_parent_category>li:hover>a span,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover {
         background: var(--directorist-color-primary) !important;
@@ -627,8 +620,7 @@ $gray_color                       = get_directorist_option('gray_color', '#bcbcb
         Change default primary dark border
     */
     .ads-advanced .price-frequency .pf-btn input:checked+span,
-    .btn-checkbox label input:checked+span,
-    .directorist-content-active .directorist-type-nav__list .current .directorist-type-nav__link,
+    .directorist-content-active .directorist-type-nav__list .directorist-type-nav__list__current .directorist-type-nav__link,
     .atbdpr-range .ui-slider-horizontal .ui-slider-handle,
     .custom-control .custom-control-input:checked~.check--select,
     .custom-control .custom-control-input:checked~.radio--select,

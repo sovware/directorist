@@ -127,7 +127,7 @@ class Directorist_Listing_Taxonomy {
 
         else {
         	if ($this->show_count) {
-        		$html = "<p>(" . $total . ")</p>";
+        		$html = $total;
         	}
             /**
              * @since 5.0.0

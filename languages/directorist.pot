@@ -3224,7 +3224,7 @@ msgid "Text"
 msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3997, ../includes/model/Account.php:107
-msgid "Already have an account? Please login"
+msgid "Already have an account?"
 msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:4017

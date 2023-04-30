@@ -2018,7 +2018,7 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:333
 #: templates/front-end/user-registration-form.php:22
-msgid "Already have an account? Please login"
+msgid "Already have an account?"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:338

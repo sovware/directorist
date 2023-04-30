@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.7.0
  */
 
 use \Directorist\Helper;
@@ -28,7 +28,7 @@ $columns = floor( 12 / $taxonomy->columns );
 
 							<div class="directorist-location__single<?php echo esc_attr( $loc_class ); ?>">
 								<?php if ($location['img']) { ?>
-									<img src="<?php echo esc_url( $location['img'] ); ?>" title="<?php echo esc_attr($location['name']); ?>" alt="<?php echo esc_attr($location['name']); ?>">
+									<div class="directorist-location__single__img"><img src="<?php echo esc_url( $location['img'] ); ?>" title="<?php echo esc_attr($location['name']); ?>" alt="<?php echo esc_attr($location['name']); ?>"></div>
 									<?php
 								}
 								?>

@@ -83,12 +83,12 @@
         & +.directorist-radio__label{
             &:before{
                 position: absolute;
-                left: 7px;
-                top: 7px;
-                width: 6px;
-                height: 6px;
+                left: 6px;
+                top: 6px;
+                width: 8px;
+                height: 8px;
                 border-radius: 50%;
-                background-color: var(--directorist-color-primary) !important;
+                background-color: var(--directorist-color-white);
                 border: 0 none;
                 opacity: 0;
                 visibility: hidden;
@@ -99,7 +99,7 @@
         &:checked{
             & +.directorist-radio__label{
                 &:after{
-                    background-color: #fff;
+                    background-color: var(--directorist-color-primary);
                 }
             }
         }

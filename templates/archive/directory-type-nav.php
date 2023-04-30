@@ -22,7 +22,7 @@ do_action( 'directorist_before_listing_types', $listings );
 
 			<?php if ( ! empty( $all_types ) ) : ?>
 
-				<li class="list-inline-item <?php echo ( $listings->current_listing_type === 'all' || 'all' === $current_directory_type ) ? 'current' : ''; ?>">
+				<li class="list-inline-item <?php echo ( $listings->current_listing_type === 'all' || 'all' === $current_directory_type ) ? 'directorist-type-nav__list__current' : ''; ?>">
 					<a class="directorist-type-nav__link" href="<?php echo esc_url( directorist_get_directory_type_nav_url( 'all' ) ); ?>"><?php esc_html_e( 'All', 'directorist' ); ?></a>
 				</li>
 
@@ -30,7 +30,7 @@ do_action( 'directorist_before_listing_types', $listings );
 
 			<?php foreach ( $listings->listing_types as $id => $value ) : ?>
 
-				<li class="<?php echo ( ( $listings->current_listing_type === $value['term']->term_id && 'all' !== $current_directory_type ) ? 'current': '' ); ?>">
+				<li class="<?php echo ( ( $listings->current_listing_type === $value['term']->term_id && 'all' !== $current_directory_type ) ? 'directorist-type-nav__list__current': '' ); ?>">
 					<a class="directorist-type-nav__link" href="<?php echo esc_url( directorist_get_directory_type_nav_url( $value['term']->slug ) ); ?>" data-listing_type="<?php echo esc_attr( $value['term']->slug ); ?>" data-listing_type_id="<?php echo esc_attr( $value['term']->term_id ); ?>"><?php directorist_icon( $value['data']['icon'] );?> <?php echo esc_html( $value['name'] );?></a>
 				</li>
 

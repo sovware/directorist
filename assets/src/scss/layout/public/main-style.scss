@@ -54,8 +54,12 @@
 // Layouts
 @import "./search-home";
 
+// OLD Styles
+// @import "./old-style";
+
 // Payments
 @import "./../../component/payment/checkout-receipt";
+@import "./../../component/payment/checkout";
 
 
 .directorist-iframe {

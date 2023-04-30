@@ -365,7 +365,7 @@
     "regi_terms_label_link": "terms & conditions",
     "reg_signup": "Sign Up",
     "display_login": 1,
-    "login_text": "Already have an account? Please login",
+    "login_text": "Already have an account?",
     "log_linkingmsg": "Here",
     "auto_login": 0,
     "redirection_after_reg": false,

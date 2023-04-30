@@ -3994,7 +3994,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'login_text'    => [
                     'type'          => 'text',
                     'label'         => __('Text', 'directorist'),
-                    'value'         => __('Already have an account? Please login', 'directorist'),
+                    'value'         => __('Already have an account?', 'directorist'),
                     'show-if' => [
                         'where' => "display_login",
                         'conditions' => [
@@ -4005,7 +4005,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'log_linkingmsg'    => [
                     'type'          => 'text',
                     'label'         => __('Linking Text', 'directorist'),
-                    'value'         => __('Here', 'directorist'),
+                    'value'         => __('Login', 'directorist'),
                     'show-if' => [
                         'where' => "display_login",
                         'conditions' => [

@@ -25,7 +25,7 @@ $columns = floor( 12 / $taxonomy->columns );
 					$toggle_icon = $category['has_child'] ? 'las la-angle-down' : '';
 					$has_icon = $category['icon_class'] ? 'directorist-category-list__card--icon' : '';
 					?>
-					<div class="<?php Helper::directorist_column( $columns ); ?> directorist-category-list-two">
+					<div class="<?php Helper::directorist_column( $columns ); ?> directorist-category-list-one">
 						<div class="directorist-category-list">
 							<a href="<?php echo esc_url($category['permalink']);?>" class="directorist-category-list__card <?php echo wp_kses_post( $toggle_class ); ?> <?php echo wp_kses_post( $has_icon ); ?> ">
 								<?php if($category['icon_class']){ ?>
@@ -34,7 +34,8 @@ $columns = floor( 12 / $taxonomy->columns );
 									</span>
 								<?php } ?>
 								<span class="directorist-category-list__name">
-									<?php echo esc_html($category['name']);?></span>
+									<?php echo esc_html($category['name']);?>
+								</span>
 								<span class="directorist-category-list__count">
 									<?php echo wp_kses_post( $category['list_count_html'] );?>
 								</span>

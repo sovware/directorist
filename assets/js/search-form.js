@@ -800,10 +800,10 @@ function directorist_callingSlider() {
     maxValue: 1000,
     minValue: parseInt(minValueWrapper && minValueWrapper.value),
     maxWidth: '100%',
-    barColor: '#d4d5d9',
+    barColor: '#d9d9d9',
     barBorder: 'none',
     pointerColor: '#fff',
-    pointerBorder: '4px solid #444752'
+    pointerBorder: '4px solid #404040'
   };
   var config = directorist.slider_config && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(directorist.slider_config) === 'object' ? Object.assign(default_args, directorist.slider_config) : default_args;
   directorist_range_slider('.directorist-range-slider', config);
@@ -962,8 +962,6 @@ __webpack_require__.r(__webpack_exports__);
       return $('.directorist-search-float .directorist-advanced-filter');
     };
 
-    var ad_slide = $(".directorist-search-slide .directorist-advanced-filter");
-    ad_slide.hide().slideUp();
     $(document).on('click', function (e) {
       if (!e.target.closest('.directorist-search-form-top, .directorist-listings-header, .directorist-search-form, .select2-container') && !e.target.closest('.directorist-search-float .directorist-advanced-filter')) {
         count = 0;
@@ -998,8 +996,6 @@ __webpack_require__.r(__webpack_exports__);
         pointerBorder: '4px solid #444752'
       };
       var config = default_args;
-      $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').slideToggle().show();
-      $(this).closest('.directorist-search-form, .directorist-archive-contents').find('.directorist-search-slide').find('.directorist-advanced-filter').toggleClass("directorist-advanced-filter--show");
 
       if ($(this).closest('.directorist-search-form, .directorist-archive-contents').find('.direcorist-search-field-radius_search').length) {
         Object(_range_slider__WEBPACK_IMPORTED_MODULE_4__["directorist_callingSlider"])();
@@ -1563,12 +1559,34 @@ __webpack_require__.r(__webpack_exports__);
                 data: {},
                 success: function success(data) {
                   var res = '';
+                  var currentIconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/paper-plane.svg';
+                  var currentIconHTML = directorist.icon_markup.replace('##URL##', currentIconURL).replace('##CLASS##', '');
+                  var currentLocationIconHTML = "<span class=\"location-icon\">".concat(currentIconHTML, "</span>");
+                  var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/map-marker-alt.svg';
+                  var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+                  var locationIconHTML = "<span class=\"location-icon\">".concat(iconHTML, "</span>");
 
                   for (var i = 0, len = data.length; i < len; i++) {
-                    res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+                    res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(locationIconHTML).concat(data[i].display_name, "</a></li>");
                   }
 
-                  result_container.html("<ul>".concat(res, "</ul>"));
+                  if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                      var currentLatitude = position.coords.latitude;
+                      var currentLongitude = position.coords.longitude;
+                      result_container.html("<ul>" + "<li><a href='#' data-lat='" + currentLatitude + "' data-lon='" + currentLongitude + "' class='current-location'>" + currentLocationIconHTML + "Current Location" + "</a></li>" + res + "</ul>");
+
+                      if (res.length) {
+                        result_container.show();
+                      } else {
+                        result_container.hide();
+                      }
+                    }, function (error) {
+                      console.log("Error getting location:", error);
+                    });
+                  }
+
+                  result_container.html("<ul>" + res + "</ul>");
 
                   if (res.length) {
                     result_container.show();
@@ -1631,6 +1649,37 @@ __webpack_require__.r(__webpack_exports__);
         $(this).find(".directorist-search-country").css("max-height", "175px");
         $(this).find(".directorist-search-field .address_result").css("max-height", "175px");
       }
+    }); // Search Form Modal
+
+    $('body').on('click', '.directorist-modal-btn', function (e) {
+      e.preventDefault();
+      var searchModalParent = document.querySelector('.directorist-contents-wrap');
+      var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
+      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
+
+      modalOverlay.style.opacity = "1";
+      modalOverlay.style.visibility = "visible";
+      modalOverlay.style.transition = "0.3s ease"; // Modal Content Style
+
+      modalContent.style.opacity = "1";
+      modalContent.style.visibility = "visible";
+      modalContent.style.bottom = "100px";
+      modalContent.style.transition = "0.3s ease";
+    });
+    $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
+      e.preventDefault();
+      var searchModalParent = document.querySelector('.directorist-contents-wrap');
+      var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
+      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
+
+      modalOverlay.style.opacity = "0";
+      modalOverlay.style.visibility = "hidden";
+      modalOverlay.style.transition = "0.5s ease"; // Modal Content Style
+
+      modalContent.style.opacity = "0";
+      modalContent.style.visibility = "hidden";
+      modalContent.style.bottom = "-200px";
+      modalContent.style.transition = "0.5s ease";
     });
     /* When location field is empty we need to hide Radius Search */
 

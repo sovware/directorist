@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.4.0
+ * @version 7.7.0
  */
 
 use \Directorist\Helper;
@@ -21,7 +21,10 @@ $avatar_img = get_avatar($author_id, 32);
 
 	<div class="directorist-card__header">
 
-		<h4 class="directorist-card__header--title"><?php directorist_icon( $icon );?><?php echo esc_html( $label );?></h4>
+		<h4 class="directorist-card__header--title">
+			<span class="directorist-card__header-icon"><?php directorist_icon( $icon );?></span>
+			<span class="directorist-card__header-text"><?php echo esc_html( $label );?></span>
+		</h4>
 
 	</div>
 

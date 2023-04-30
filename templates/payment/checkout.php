@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.4.0
+ * @version 7.7.0
  */
 
 extract( $checkout );

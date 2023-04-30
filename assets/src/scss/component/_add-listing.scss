@@ -87,6 +87,39 @@
         }
       }
     }
+
+
+    /* social info */
+    .directorist-form-social-fields {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 25px;
+      &:last-child {
+        margin: 0 0 40px;
+      }
+
+      .directorist-form-group {
+        flex: 1;
+        margin: 0;
+        input {
+          min-width: 150px;
+        }
+      }
+
+      .directorist-form-social-fields__remove {
+        color: #fff;
+        height: 42px;
+        background: #e23636;
+        border-radius: 3px;
+        padding: 0 20px 0 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
   }
   .directorist-alert-required{
     display: block;
@@ -225,40 +258,6 @@
   + .directorist-checkbox__label {
   font-size: 15px;
   font-weight: 700;
-}
-
-/* social info */
-.directorist-form-social-fields {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 0 -10px;
-
-  .directorist-form-group {
-    flex: 1;
-    padding: 0 10px;
-
-    &.directorist-form-social-fields__action {
-      flex: auto;
-      margin-bottom: 15px;
-    }
-
-    select.directorist-form-element {
-      padding: 0 20px;
-    }
-  }
-
-  .directorist-form-social-fields__remove {
-    color: #fff;
-    height: 42px;
-    background: #e23636;
-    border-radius: 3px;
-    padding: 0 20px 0 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
 }
 
 /* Map style */

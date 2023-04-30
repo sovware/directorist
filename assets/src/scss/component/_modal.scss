@@ -149,8 +149,8 @@
         left: 50%;
         transform: translateX(-50%);
         bottom: -100%;
-        width: 100%;
-        height: 0;
+        width: 90%;
+        height: auto;
         max-width: 600px;
         max-height: calc(100% - 200px);
         opacity: 0;
@@ -165,6 +165,11 @@
             justify-content: space-between;
             padding: 15px 25px 15px 40px;
             border-bottom: 1px solid var(--directorist-color-border);
+
+            @media only screen and (max-width: 480px) {
+                padding-left: 30px;
+                padding-right: 20px;
+            }
         }
         @include e(title) {
             font-size: 20px;
@@ -196,9 +201,15 @@
         .directorist-advanced-filter {
             @include e(form) {
                 padding: 30px 40px;
+                @media only screen and (max-width: 480px) {
+                    padding: 30px;
+                }
             }
             @include e(wrapper) {
                 padding: 30px 40px;
+                @media only screen and (max-width: 480px) {
+                    padding: 30px;
+                }
             }
         }
     }

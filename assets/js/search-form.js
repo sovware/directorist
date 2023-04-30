@@ -800,10 +800,10 @@ function directorist_callingSlider() {
     maxValue: 1000,
     minValue: parseInt(minValueWrapper && minValueWrapper.value),
     maxWidth: '100%',
-    barColor: '#d4d5d9',
+    barColor: '#d9d9d9',
     barBorder: 'none',
     pointerColor: '#fff',
-    pointerBorder: '4px solid #444752'
+    pointerBorder: '4px solid #404040'
   };
   var config = directorist.slider_config && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(directorist.slider_config) === 'object' ? Object.assign(default_args, directorist.slider_config) : default_args;
   directorist_range_slider('.directorist-range-slider', config);
@@ -1559,12 +1559,34 @@ __webpack_require__.r(__webpack_exports__);
                 data: {},
                 success: function success(data) {
                   var res = '';
+                  var currentIconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/paper-plane.svg';
+                  var currentIconHTML = directorist.icon_markup.replace('##URL##', currentIconURL).replace('##CLASS##', '');
+                  var currentLocationIconHTML = "<span class=\"location-icon\">".concat(currentIconHTML, "</span>");
+                  var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/map-marker-alt.svg';
+                  var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+                  var locationIconHTML = "<span class=\"location-icon\">".concat(iconHTML, "</span>");
 
                   for (var i = 0, len = data.length; i < len; i++) {
-                    res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+                    res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(locationIconHTML).concat(data[i].display_name, "</a></li>");
                   }
 
-                  result_container.html("<ul>".concat(res, "</ul>"));
+                  if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                      var currentLatitude = position.coords.latitude;
+                      var currentLongitude = position.coords.longitude;
+                      result_container.html("<ul>" + "<li><a href='#' data-lat='" + currentLatitude + "' data-lon='" + currentLongitude + "' class='current-location'>" + currentLocationIconHTML + "Current Location" + "</a></li>" + res + "</ul>");
+
+                      if (res.length) {
+                        result_container.show();
+                      } else {
+                        result_container.hide();
+                      }
+                    }, function (error) {
+                      console.log("Error getting location:", error);
+                    });
+                  }
+
+                  result_container.html("<ul>" + res + "</ul>");
 
                   if (res.length) {
                     result_container.show();
@@ -1642,8 +1664,7 @@ __webpack_require__.r(__webpack_exports__);
       modalContent.style.opacity = "1";
       modalContent.style.visibility = "visible";
       modalContent.style.bottom = "100px";
-      modalContent.style.height = "100%";
-      modalContent.style.transition = "0.5s ease";
+      modalContent.style.transition = "0.3s ease";
     });
     $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
       e.preventDefault();
@@ -1658,7 +1679,6 @@ __webpack_require__.r(__webpack_exports__);
       modalContent.style.opacity = "0";
       modalContent.style.visibility = "hidden";
       modalContent.style.bottom = "-200px";
-      modalContent.style.height = "0";
       modalContent.style.transition = "0.5s ease";
     });
     /* When location field is empty we need to hide Radius Search */

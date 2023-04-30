@@ -17,10 +17,15 @@
     @include e(avatar) {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 20px;
         img {
-            max-width: 100px !important;
+            max-width: 100px;
             border-radius: 50%;
+            @media only screen and (max-width: 575px) {
+                max-width: 75px;
+                max-height: 75px;
+            }
         }
         @include e(info) {
             @include e(name) {
@@ -82,9 +87,12 @@
         }
     }
 }
-.directorist-content-active .directorist-author-profile-content {
-    max-width: 100% !important;
+.directorist-author-profile-content {
+    max-width: 100%;
     display: flex;
+    .directorist-author-about .directorist-card__header--title i {
+        display: none;
+    }
 }
 
 // Directorist Author Widget
@@ -244,7 +252,7 @@
             position: relative;
             top: -10px;
             gap: 10px;
-            background: transparent !important;
+            background: transparent;
             border: none;
             padding: 0;
             min-height: auto;

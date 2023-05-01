@@ -84,7 +84,6 @@
             $title                 = isset( $_POST['listing_title'] ) ? directorist_clean( wp_unslash( $_POST['listing_title'] ) ) : '';
             $new_listing_status    = get_term_meta( $directory_type, 'new_listing_status', 'pending');
             $supported_post_status = array_keys( get_post_statuses() );
-            $publish_date          = isset( $_POST['publish_date'] ) ? directorist_clean( wp_unslash( $_POST['publish_date'] ) ) : '';
             $listing_status        = isset( $_POST['listing_status'] ) ? directorist_clean( wp_unslash( $_POST['listing_status'] ) ) : '';
             $delimiter             = isset( $_POST['delimiter'] ) ? directorist_clean( wp_unslash( $_POST['delimiter'] ) ) : '';
             $description           = isset( $_POST['listing_content'] ) ? directorist_clean( wp_unslash( $_POST['listing_content'] ) ) : '';
@@ -98,6 +97,7 @@
             $limit                 = apply_filters('atbdp_listing_import_limit_per_cycle', ( $total_length > 100 ) ? 20 : ( ( $total_length < 35 ) ? 2 : 5 ) );
             $posts                 = ( ! empty( $all_posts ) ) ? array_slice( $all_posts, $position ) : [];
             $posts                 = apply_filters( 'directorist_listings_importing_posts', $posts, $position, $limit, $_POST );
+			$publish_date          = isset( $metas['publish_date'] ) ? directorist_clean( $metas['publish_date'] ) : '';
 
             if ( empty( $total_length ) ) {
                 $data['error']     = __('No data found', 'directorist');
@@ -121,28 +121,32 @@
 
                     // start importing listings
                     $post_status = ( isset( $post[ $listing_status ] ) ) ? $post[ $listing_status ] : '';
-                    $post_status = ( in_array( $post_status, $supported_post_status ) ) ? $post_status : $new_listing_status;
-                    $listing_id  = ( isset( $post[ 'id' ] ) ) ? absint( $post[ 'id' ] ) : '';
+                    $post_status = ( in_array( $post_status, $supported_post_status, true ) ) ? $post_status : $new_listing_status;
 
                     $args = array(
-                        "post_title"   => isset( $post[ $title ] ) ? html_entity_decode( $post[ $title ] ): '',
-                        "post_content" => isset( $post[ $description ] ) ? html_entity_decode( $post[ $description ] ) : '',
-                        "post_type"    => ATBDP_POST_TYPE,
-                        "post_status"  => $post_status,
-                        "ID"           => $listing_id,
+                        'post_title'   => isset( $post[ $title ] ) ? html_entity_decode( $post[ $title ] ): '',
+                        'post_content' => isset( $post[ $description ] ) ? html_entity_decode( $post[ $description ] ) : '',
+                        'post_type'    => ATBDP_POST_TYPE,
+                        'post_status'  => $post_status,
                     );
 
                     // Post Date
                     $post_date = ! empty( $post[ $publish_date ] ) ? directorist_clean( $post[ $publish_date ] ) : '';
                     $post_date = apply_filters( 'directorist_importing_listings_post_date', $post_date, $post, $args, $index );
+					$post_date = strtotime( $post_date );
+					if ( $post_date ) {
+						$args['post_date'] = date( 'Y-m-d H:i:s', $post_date );
+					}
 
-                    if ( Directorist\Helper::validate_date_format( $post_date ) ) {
-                        $args[ 'post_date' ] = $post_date;
-                    }
+					$listing_id  = ! empty( $post['id'] ) ? absint( $post['id'] ) : 0;
+					if ( get_post( $listing_id ) && get_post_type( $listing_id ) === ATBDP_POST_TYPE ) {
+						$args['ID'] = $listing_id;
+						$post_id = wp_update_post( $args );
+					} else {
+						$post_id = wp_insert_post( $args );
+					}
 
-                    $post_id = ! empty( $args['ID'] ) && get_post( $args['ID'] ) ? wp_update_post( $args ) :  wp_insert_post( $args );
-
-                    if (  is_wp_error( $post_id ) ) {
+                    if ( is_wp_error( $post_id ) ) {
                         $failed++;
                         continue;
                     }

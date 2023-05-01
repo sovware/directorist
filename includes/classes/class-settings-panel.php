@@ -5407,7 +5407,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
 
             $data = [
-                'settings_builder_data' => base64_encode( json_encode( $settings_builder_data ) )
+                'settings_builder_data' => base64_encode( json_encode( $settings_builder_data, JSON_INVALID_UTF8_IGNORE ) )
             ];
 
             atbdp_load_admin_template( 'settings-manager/settings', $data );

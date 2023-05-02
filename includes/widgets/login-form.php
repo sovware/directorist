@@ -15,7 +15,7 @@ class Login_Form extends \WP_Widget {
 		$id_base        = 'bdlf_widget';
         $name           = esc_html__( 'Directorist - Login Form', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show login form for logged out users by this widget', 'directorist' ),
         ];
 

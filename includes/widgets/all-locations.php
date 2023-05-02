@@ -15,7 +15,7 @@ class All_Locations extends \WP_Widget {
 		$id_base        = 'bdlw_widget';
         $name           = esc_html__( 'Directorist - Locations', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show Locations by this widget', 'directorist' ),
         ];
 

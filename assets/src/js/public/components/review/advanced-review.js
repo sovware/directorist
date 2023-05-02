@@ -382,6 +382,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         .removeClass(['directorist-comment-edit-request', 'directorist-comment-editing'])
                         .find('form')
                         .remove();
+                    $wrap.find('.directorist-js-edit-comment').prop('disabled', false);
                 });
             }
 

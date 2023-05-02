@@ -15,7 +15,7 @@ class Popular_Listings extends \WP_Widget {
 		$id_base        = 'bdpl_widget';
         $name           = esc_html__( 'Directorist - Popular Listings', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show popular listing by this widget', 'directorist' ),
         ];
 

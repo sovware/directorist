@@ -15,7 +15,7 @@ class Featured_Listing extends \WP_Widget {
 		$id_base        = 'bdfl_widget';
         $name           = esc_html__( 'Directorist - Featured Listings', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show featured listings by this widget', 'directorist' ),
         ];
 

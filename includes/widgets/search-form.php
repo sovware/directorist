@@ -15,7 +15,7 @@ class Search_Form extends \WP_Widget {
 		$id_base        = 'bdsw_widget';
         $name           = esc_html__( 'Directorist - Search Listings', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show search listing form by this widget', 'directorist' ),
         ];
 

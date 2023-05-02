@@ -15,7 +15,7 @@ class Single_Map extends \WP_Widget {
 		$id_base        = 'bdmw_widget';
         $name           = esc_html__( 'Directorist - Map (Single Listing)', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show single listing map by this widget', 'directorist' ),
         ];
 

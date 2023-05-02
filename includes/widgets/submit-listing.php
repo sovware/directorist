@@ -15,7 +15,7 @@ class Submit_Listing extends \WP_Widget {
 		$id_base        = 'bdsb_widget';
         $name           = esc_html__( 'Directorist - Submit Listing', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show submit listing button by this widget', 'directorist' ),
         ];
 

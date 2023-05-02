@@ -15,7 +15,7 @@ class Contact_Form extends \WP_Widget {
 		$id_base        = 'bdco_widget';
         $name           = esc_html__( 'Directorist - Contact Listing Owner', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show a form to contact the listing owners by this widget', 'directorist' ),
         ];
 

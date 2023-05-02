@@ -2570,6 +2570,7 @@ window.addEventListener('DOMContentLoaded', function () {
             var $target = $(event.target);
             var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
             $wrap.removeClass(['directorist-comment-edit-request', 'directorist-comment-editing']).find('form').remove();
+            $wrap.find('.directorist-js-edit-comment').prop('disabled', false);
           });
         }
       }, {

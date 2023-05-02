@@ -15,7 +15,7 @@ class Author_Info extends \WP_Widget {
 		$id_base        = 'bdsi_widget';
         $name           = esc_html__( 'Directorist - Author Info', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show author info by this widget', 'directorist' ),
         ];
 

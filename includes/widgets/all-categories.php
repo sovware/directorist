@@ -15,7 +15,7 @@ class All_Categories extends \WP_Widget {
 		$id_base        = 'bdcw_widget';
         $name           = esc_html__( 'Directorist - Categories', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show Categories by this widget', 'directorist' ),
         ];
 

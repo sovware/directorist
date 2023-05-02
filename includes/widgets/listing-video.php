@@ -15,7 +15,7 @@ class Listing_Video extends \WP_Widget {
 		$id_base        = 'bdvd_widget';
         $name           = esc_html__( 'Directorist - Video', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show listing video by this widget', 'directorist' ),
         ];
 

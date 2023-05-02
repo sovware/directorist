@@ -3,7 +3,7 @@
  * Comment and review template for single view.
  *
  * @since   7.1.0
- * @version 7.5.2
+ * @version 7.7.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,28 +30,32 @@ $section_id    = isset( $section_data['id'] ) ? $section_data['id'] : '';
 $section_class = isset( $section_data['class'] ) ? $section_data['class'] : '';
 ?>
 <div id="<?php echo esc_attr( $section_id ); ?>" class="directorist-review-container <?php echo esc_attr( $section_class ); ?>">
-	<div class="directorist-review-content">
-		<div class="directorist-review-content__header <?php if ( ! have_comments() ) : ?>directorist-review-content__header--noreviews<?php endif;?>">
-			<?php if ( ! have_comments() ) : ?><div><?php endif;?>
-			<h3><?php printf( '%s <span>%s</span>', esc_html( get_the_title() ), esc_html( $review_text ) ); ?></h3>
+	<div class="directorist-card directorist-review-content">
+		<div class="directorist-card__header directorist-review-content__header <?php if ( ! have_comments() ) : ?>directorist-review-content__header--noreviews<?php endif;?>">
+			<?php if ( ! have_comments() ) : ?><?php endif;?>
+			<h4 class="directorist-card__header--title">
+				<span class="directorist-card__header-icon"><?php //directorist_icon( $icon );?> </span>
+				<span class="directorist-card__header-text"><?php //echo esc_html( $label ); echo esc_html( $review_text )?> Need Backend Support</span>
+			</h4>
 
 			<?php if ( directorist_can_current_user_review() || directorist_can_guest_review() ) : ?>
-				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Write Your Review', 'directorist' ); ?></a>
+				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Write a Review', 'directorist' ); ?></a>
 			<?php elseif ( ! is_user_logged_in() ) : ?>
 				<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url( array( 'redirect' => get_the_permalink(), 'scope' => 'review' ) ) ); ?>" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Login to Write Your Review', 'directorist' ); ?></a>
 			<?php endif; ?>
-
-			<?php if ( ! have_comments() ) : ?>
-				</div>
-				<p class="directorist-review-single directorist-noreviews"><?php esc_html_e( 'There are no reviews yet.', 'directorist' ); ?></p>
-			<?php endif;?>
 		</div><!-- ends: .directorist-review-content__header -->
 
+		<?php if ( ! have_comments() ) : ?>
+			<div class="directorist-card__body">
+				<p class="directorist-review-single directorist-noreviews"><?php esc_html_e( 'There are no reviews yet.', 'directorist' ); ?></p>
+			</div>
+		<?php endif;?>
+
 		<?php if ( have_comments() ): ?>
-			<div class="directorist-review-content__overview">
+			<div class="directorist-card__body directorist-review-content__overview">
 				<div class="directorist-review-content__overview__rating">
-					<span class="directorist-rating-point"><?php echo esc_html( $review_rating ); ?></span>
-					<div>
+					<div class="directorist-rating-point"><?php echo esc_html( $review_rating ); ?></div>
+					<div class="directorist-rating-content">
 						<span class="directorist-rating-stars"><?php Markup::show_rating_stars( $review_rating );?></span>
 						<span class="directorist-rating-overall"><?php echo esc_html( $review_text );?></span>
 					</div>
@@ -65,23 +69,23 @@ $section_class = isset( $section_data['class'] ) ? $section_data['class'] : '';
 					'walker'      => new Review_Walker(),
 				) );?>
 			</ul>
-
-			<?php if ( get_comment_pages_count() > 1 ) : ?>
-			<nav class="directorist-review-content__pagination directorist-pagination">
-				<?php
-				$prev_text = directorist_icon( 'las la-arrow-left', false );
-				$next_text = directorist_icon( 'las la-arrow-right', false );
-				paginate_comments_links( array(
-					'prev_text'    => $prev_text,
-					'next_text'    => $next_text,
-					'type'         => 'list',
-					'add_fragment' => '#' . $section_id,
-				) );
-				?>
-			</nav>
-			<?php endif;?>
 		<?php endif;?>
 	</div><!-- ends: .directorist-review-content -->
+
+	<?php if ( get_comment_pages_count() > 1 ) : ?>
+		<nav class="directorist-review-content__pagination directorist-pagination">
+			<?php
+			$prev_text = directorist_icon( 'las la-arrow-left', false );
+			$next_text = directorist_icon( 'las la-arrow-right', false );
+			paginate_comments_links( array(
+				'prev_text'    => $prev_text,
+				'next_text'    => $next_text,
+				'type'         => 'list',
+				'add_fragment' => '#' . $section_id,
+			) );
+			?>
+		</nav>
+	<?php endif;?>
 
 	<?php
 	if ( is_user_logged_in() || directorist_is_guest_review_enabled() || directorist_is_review_reply_enabled() ) {
@@ -140,8 +144,7 @@ $section_class = isset( $section_data['class'] ) ? $section_data['class'] : '';
 		$comment_fields['rating'] = '<div class="directorist-review-criteria">' . Markup::get_rating( 0 ) . '</div>';
 
 		$comment_fields['content'] = sprintf(
-			'<div class="directorist-form-group form-group-comment"><label for="comment">%s <span class="required">*</span></label> %s</div>',
-			$builder->get_comment_label( _x( 'Comment', 'noun', 'directorist' ) ),
+			'<div class="directorist-form-group form-group-comment">%s</div>',
 			sprintf( '<textarea id="comment" class="directorist-form-element" placeholder="%s" name="comment" cols="30" rows="10" maxlength="65525" required="required"></textarea>',
 				$builder->get_comment_placeholder( __( 'Share your experience and help others make better choices', 'directorist' ) )
 			)
@@ -154,7 +157,7 @@ $section_class = isset( $section_data['class'] ) ? $section_data['class'] : '';
 			get_the_permalink()
 		);
 
-		$container_class = 'directorist-review-submit';
+		$container_class = 'directorist-card directorist-review-submit';
 		if ( ! directorist_can_current_user_review() && ! directorist_can_guest_review() ) {
 			$container_class .= ' directorist-review-submit--hidden';
 		}
@@ -165,12 +168,12 @@ $section_class = isset( $section_data['class'] ) ? $section_data['class'] : '';
 			'logged_in_as'       => '',
 			'cancel_reply_link'  => __( 'Cancel Reply', 'directorist' ),
 			'class_container'    => $container_class,
-			'title_reply'        => __( 'Write Your Review', 'directorist' ),
-			'title_reply_before' => '<div class="directorist-review-submit__header"><h3 id="reply-title">',
+			'title_reply'        => __( 'Leave a Review', 'directorist' ),
+			'title_reply_before' => '<div class="directorist-card__header directorist-review-submit__header"><h3 id="reply-title" class="directorist-card__header--title">',
 			'title_reply_after'  => '</h3></div>',
-			'class_form'         => 'directorist-review-submit__form',
-			'class_submit'       => 'directorist-btn directorist-btn-primary',
-			'label_submit'       => __( 'Submit Review', 'directorist' ),
+			'class_form'         => 'directorist-card__body directorist-review-submit__form',
+			'class_submit'       => 'directorist-btn directorist-btn-primary directorist-btn-lg',
+			'label_submit'       => __( 'Submit Your Review', 'directorist' ),
 			'format'             => 'html5',
 			'submit_field'       => '<div class="directorist-form-group directorist-mb-0">%1$s %2$s</div>',
 			'submit_button'      => '<button name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s">%4$s</button>',

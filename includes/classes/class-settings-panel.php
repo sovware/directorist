@@ -5428,7 +5428,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
 					$type = isset( $field_args['type'] ) ? $field_args['type'] : 'text';
 
-					if ( 'value' === $field_args_key && $type === 'textarea' ) {
+					if ( 'value' === $field_args_key && 'textarea' === $type ) {
 						$fields[ $key ][ $field_args_key ] = sanitize_textarea_field( $field_args_value );
 						continue;
 					}

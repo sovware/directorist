@@ -32,7 +32,7 @@
           dragNDrop: 'Drag & Drop',
           or: 'or',
           dropHere: 'Drop Here',
-          selectFiles: 'Select Files',
+          selectFiles: 'Browse',
           addMore: 'Add More',
           change: 'Change',
         },
@@ -45,6 +45,10 @@
         },
         // Info Texts
         info: {
+          unlimitedFileSize: {
+            text: 'Unlimited images with this plan',
+            show: true, featured: false, pin: false
+          },
           maxFileSize: {
             text: 'The maximum allowed size per file is __DT__',
             show: true, featured: false, pin: false
@@ -185,18 +189,21 @@
         { key: 'featured', class: 'ezmu-dictionary-label-featured' },
         { key: 'dragNDrop', class: 'ezmu-dictionary-label-drag-n-drop' },
         { key: 'or', class: 'ezmu-dictionary-label-or' },
+        { key: 'to', class: 'ezmu-dictionary-label-to' },
         { key: 'dropHere', class: 'ezmu-dictionary-label-drop-here' },
         { key: 'selectFiles', class: 'ezmu-dictionary-label-select-files' },
         { key: 'addMore', class: 'ezmu-dictionary-label-add-more' },
         { key: 'change', class: 'ezmu-dictionary-label-change' },
       ];
       var alert_classes = [
+        { key: 'unlimitedFileSize', class: 'ezmu-dictionary-alert-unlimited-file-size' },
         { key: 'maxFileSize', class: 'ezmu-dictionary-alert-max-file-size' },
         { key: 'maxTotalFileSize', class: 'ezmu-dictionary-alert-max-total-file-size' },
         { key: 'minFileItems', class: 'ezmu-dictionary-alert-min-file-items' },
         { key: 'maxFileItems', class: 'ezmu-dictionary-alert-max-file-items' },
       ];
       var info_classes = [
+        { key: 'unlimitedFileSize', class: 'ezmu-dictionary-info-unlimited-file-size' },
         { key: 'maxFileSize', class: 'ezmu-dictionary-info-max-file-size' },
         { key: 'maxTotalFileSize', class: 'ezmu-dictionary-info-max-total-file-size' },
         { key: 'minFileItems', class: 'ezmu-dictionary-info-min-file-items' },
@@ -958,11 +965,10 @@
 
     var titles_area = createElementWithClass('ezmu__titles-area');
     var title_1 = createElementWithClass("ezmu__title-1", "p", data.options.dictionary.label.dragNDrop);
-    var title_2 = createElementWithClass("ezmu__title-3", "p", data.options.dictionary.label.or);
     titles_area.appendChild(title_1);
-    titles_area.appendChild(title_2);
 
     var upload_button_wrap = createElementWithClass("ezmu__upload-button-wrap");
+
     updateFileInputElement(upload_button_wrap, data);
 
     media_picker_buttons.appendChild(titles_area);
@@ -1037,8 +1043,15 @@
     file_input_label.setAttribute("class", "ezmu__btn ezmu__input-label");
     file_input_label.innerHTML = data.options.dictionary.label.selectFiles;
 
+    var label_title_1 = createElementWithClass("ezmu__label-title-1", "p", data.options.dictionary.label.or);
+    var label_title_2 = createElementWithClass("ezmu__label-title-2", "p", data.options.dictionary.label.to);
+
+    container.appendChild(label_title_1);
+
     container.appendChild(file_input);
     container.appendChild(file_input_label);
+
+    container.appendChild(label_title_2);
   }
 
   function createFileInputID() {
@@ -1087,7 +1100,7 @@
     var label = createElementWithClass(
       "ezmu__btn ezmu__input-label ezmu__update-file-btn", "label", label_txt
     );
-
+    
     label.setAttribute("for", data.fileInputID);
     upload_button_wrap.appendChild(label);
     media_picker_buttons.appendChild(upload_button_wrap);

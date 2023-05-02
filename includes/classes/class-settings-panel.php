@@ -5433,6 +5433,11 @@ Please remember that your order may be canceled if you do not make your payment 
 						continue;
 					}
 
+					if ( 'value' === $field_args_key && 'number' === $type ) {
+						$fields[ $key ][ $field_args_key ] = floatval( sanitize_text_field( $field_args_value ) );
+						continue;
+					}
+
 					$fields[ $key ][ $field_args_key ] = directorist_clean( $field_args_value );
 				}
 

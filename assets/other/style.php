@@ -119,8 +119,21 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         /* Map marker Color */
         --directorist-color-marker-shape: <?php echo $marker_shape_color; ?>;
         --directorist-color-marker-icon: <?php echo $marker_icon_color; ?>;
+
+        /* Font config */
+        --directorist-fw-regular: 400;
+        --directorist-fw-medium: 500;
+        --directorist-fw-semiBold: 600;
+        --directorist-fw-bold: 700;
+
+        /* Border Radius */
+        --directorist-border-radius-xs: 8px;
+        --directorist-border-radius-sm: 10px;
+        --directorist-border-radius-md: 12px;
+        --directorist-border-radius-lg: 16px;
+
     }
-    
+
     /* Settings Panel Structure
 
     Button: Color Name

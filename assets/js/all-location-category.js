@@ -94,36 +94,42 @@
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  // Make sure the codes in this file runs only once, even if enqueued twice
+  /* Make sure the codes in this file runs only once, even if enqueued twice */
   if (typeof window.directorist_catloc_executed === 'undefined') {
     window.directorist_catloc_executed = true;
   } else {
     return;
   }
+  /* Category card grid three width/height adjustment */
 
-  (function ($) {
-    /* Multi level hierarchy content */
 
-    /* Category */
-    $('.atbdp_child_category').hide();
-    $('.atbd_category_wrapper > .expander').on('click', function () {
-      $(this).siblings('.atbdp_child_category').slideToggle();
-    });
-    $('.atbdp_child_category li .expander').on('click', function () {
-      $(this).siblings('.atbdp_child_category').slideToggle();
-      $(this).parent('li').siblings('li').children('.atbdp_child_category').slideUp();
-    });
-    /* Location */
+  var categoryCard = document.querySelectorAll('.directorist-categories__single--style-three');
 
-    $('.atbdp_child_location').hide();
-    $('.atbd_location_wrapper > .expander').on('click', function () {
-      $(this).siblings('.atbdp_child_location').slideToggle();
+  if (categoryCard) {
+    categoryCard.forEach(function (elm) {
+      var categoryCardWidth = elm.offsetWidth;
+      elm.style.setProperty('--directorist-category-box-width', "".concat(categoryCardWidth, "px"));
     });
-    $('.atbdp_child_location li .expander').on('click', function () {
-      $(this).siblings('.atbdp_child_location').slideToggle();
-      $(this).parent('li').siblings('li').children('.atbdp_child_location').slideUp();
+  }
+  /* Category list dropdown */
+
+
+  function categoryDropdown(selector, parent) {
+    var categoryListToggle = document.querySelectorAll(selector);
+    categoryListToggle.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        var categoryName = item.querySelector('.directorist-category-list__name');
+
+        if (e.target !== categoryName) {
+          e.preventDefault();
+          this.classList.toggle('directorist-category-list__toggle--open');
+        }
+      });
     });
-  })(jQuery);
+  }
+
+  categoryDropdown('.directorist-category-list-one .directorist-category-list__toggle', '.directorist-category-list-one .directorist-category-list');
+  categoryDropdown('.directorist-category-list-one .directorist-category-list__sc-toggle', '.directorist-category-list-one .directorist-category-list');
 });
 
 /***/ }),

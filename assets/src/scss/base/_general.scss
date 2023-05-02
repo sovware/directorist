@@ -131,23 +131,24 @@
         }
         .directorist-form-social-info-field {
             .directorist-btn {
+                width: 100%;
+                gap: 10px;
                 padding-left: 40px;
-                .plus-sign {
-                    position: relative;
-                    font-size: 0;
-                    &:before {
-                        content: '';
-                        mask-image: url("../../../icons/line-awesome/svgs/plus-solid.svg");
-                        mask-repeat: no-repeat;
-                        width: 16px;
-                        height: 16px;
-                        background-color: var(--directorist-color-white);
-                        position: absolute;
-                        right: 5px;
-                        top: 50%;
-                        transform: translateY(-50%);
+                i::after {
+                    width: 16px;
+                    height: 16px;
+                    background-color: var(--directorist-color-primary);
+                }
+                &:hover {
+                    color: var(--directorist-color-white);
+                    background: var(--directorist-color-primary);
+                    i::after {
+                        background-color: #fff;
                     }
                 }
+            }
+            select {
+                color: var(--directorist-color-primary);
             }
         }
     }

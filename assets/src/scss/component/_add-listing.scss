@@ -94,7 +94,7 @@
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 20px;
       margin: 0 0 25px;
       &:last-child {
         margin: 0 0 40px;
@@ -103,21 +103,33 @@
       .directorist-form-group {
         flex: 1;
         margin: 0;
-        input {
-          min-width: 150px;
-        }
+        &.directorist-form-social-fields__action {
+          flex: unset;
+        } 
       }
 
       .directorist-form-social-fields__remove {
-        color: #fff;
-        height: 42px;
-        background: #e23636;
-        border-radius: 3px;
-        padding: 0 20px 0 22px;
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
         cursor: pointer;
+        border-radius: 100%;
+        transition: all ease 0.3s;
+        background: var(--directorist-color-light) !important;
+        i::after {
+          width: 12px;
+          height: 12px;
+          background-color: var(--directorist-color-light-gray);
+        }
+        &:hover {
+          background: var(--directorist-color-primary) !important;
+          i::after {
+            background-color: var(--directorist-color-white);
+          }
+        }
       }
     }
   }
@@ -176,14 +188,9 @@
   @include e(options) {
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
     align-items: center;
-    margin: 0 -5px 10px;
-
-    .directorist-checkbox,
-    .directorist-form-pricing-field__options__divider,
-    .directorist-form-pricing-field__options__info {
-      padding: 0 5px;
-    }
+    margin: 0 0 20px;
 
     .directorist-checkbox
       input[type="checkbox"]
@@ -191,13 +198,39 @@
       font-size: 15px;
       font-weight: 700;
       min-height: 18px;
+      padding-left: 27px;
+    }
+
+    .directorist_pricing_options {
+      input[type=checkbox] {
+        + .directorist-checkbox__label {
+          &:after {
+            width: 14px;
+            height: 14px;
+            border-radius: 100%;
+            border: 2px solid #C6D0DC;
+          }
+          &:before {
+            left: 0;
+            top: 0;
+            width: 8px;
+            height: 8px;
+            mask-image: none;
+            background: #fff;
+            border-radius: 100%;
+            border: 5px solid #000;
+          }
+          &:checked {
+            &:after {
+              opacity: 0;
+            }
+          }
+        }
+      }
     }
   }
   .directorist-form-element{
     min-width: 100%;
-  }
-  select.directorist-form-element {
-    padding: 0 20px;
   }
 }
 .price-type-price_range,
@@ -358,55 +391,104 @@
   }
 }
 
-/* form action */
-.directorist-add-listing-form__action {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  .directorist-form-submit {
-    margin-top: 15px;
-
-    @include e(btn) {
-      &.atbd_loading {
-        position: relative;
-
-        &:after {
-          content: "";
-          border: 2px solid #f3f3f3;
-          border-radius: 50%;
-          border-top: 2px solid #656a7a;
-          width: 20px;
-          height: 20px;
-          -webkit-animation: rotate360 2s linear infinite;
-          animation: rotate360 2s linear infinite;
-          display: inline-block;
-          margin: 0 0 0 10px;
+.directorist-add-listing-form {
+  /* form action */
+  @include e(action) {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    box-shadow: var(--directorist-box-shadow);
+    .directorist-form-submit {
+      margin-top: 15px;
+  
+      @include e(btn) {
+        &.atbd_loading {
           position: relative;
-          top: 4px;
+  
+          &:after {
+            content: "";
+            border: 2px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 2px solid #656a7a;
+            width: 20px;
+            height: 20px;
+            -webkit-animation: rotate360 2s linear infinite;
+            animation: rotate360 2s linear infinite;
+            display: inline-block;
+            margin: 0 0 0 10px;
+            position: relative;
+            top: 4px;
+          }
         }
       }
     }
+  
+    label{
+      line-height: 1.25;
+      margin-bottom: 0;
+    }
+  
+    #listing_notifier {
+      margin-top: 10px;
+    }
+  
+    .directorist-form-group,
+    .directorist-checkbox {
+      padding: 0 40px 35px;
+      margin: 0;
+      label {
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0 0 10px;
+        a {
+          color: var(--directorist-color-info);
+          &:hover {
+            color: var(--directorist-color-primary);
+          }
+        }
+      }
+    }
+  
+    .directorist-form-required {
+      padding-left: 5px;
+    }
   }
 
-  label{
-    line-height: 1.25;
-    margin-bottom: 0;
-  }
-
-  #listing_notifier {
-    margin-top: 10px;
-  }
-
-  .directorist-form-group {
+  // Publish Text
+  @include e(publish) {
+    padding: 100px 0;
+    margin-bottom: 30px;
     text-align: center;
+    border-bottom: 1px solid var(--directorist-color-border);
+    @include e(icon) {
+      i {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        margin: 0 auto 25px;
+        background: var(--directorist-color-light);
+        &:after {
+          width: 20px;
+          height: 20px;
+          background: var(--directorist-color-primary);
+        }
+      }
+    }
+    @include e(title) {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0 0 10px;
+    }
+    @include e(subtitle) {
+      font-size: 15px;
+      color: var(--directorist-color-body);
+      margin: 0;
+    }
   }
-
-  .directorist-form-required {
-    padding-left: 5px;
-  }
+  
 }
 
 /* Custom Fields */
@@ -628,12 +710,6 @@
 .multistep-wizard {
   display: flex;
   gap: 30px;
-  @include e(btn) {
-    background-color: unset;
-    border: none;
-    outline: none;
-    cursor: pointer;
-  }
   @include e(nav) {
     display: flex;
     flex-direction: column;
@@ -758,9 +834,34 @@
   @include e(btn) {
     width: 200px;
     height: 54px;
+    gap: 12px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: var(--directorist-color-light);
+    &:hover {
+      color: var(--directorist-color-white);
+      background-color: var(--directorist-color-primary);
+      i:after {
+        background-color: var(--directorist-color-white);
+      }
+    }
     &[disabled="true"] {
-      color: #ccc;
+      color: var(--directorist-color-light-gray);
       pointer-events: none;
+      i {
+        &:after {
+          background-color: var(--directorist-color-light-gray);
+        }
+      }
+    }
+    i {
+      &:after {
+        width: 14px;
+        height: 14px;
+        margin-bottom: 2px;
+        background-color: var(--directorist-color-primary);
+      }
     }
     @include m('skip-preview') {
       flex: 0 0 100%;
@@ -772,7 +873,7 @@
   }
   @include e(count) {
     font-size: 15px;
-    font-weight: medium;
+    font-weight: 500;
   }
 }
 

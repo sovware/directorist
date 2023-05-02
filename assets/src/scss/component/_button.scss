@@ -23,7 +23,7 @@
   text-decoration: none;
   box-sizing: border-box;
   color: var(--directorist-color-primary);
-
+  transition: all ease 0.3s;
   &:focus {
     outline: 0 !important;
     text-decoration: none !important;

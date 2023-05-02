@@ -4720,13 +4720,13 @@ class Multi_Directory_Manager
             self::$fields['guest_email_label'] = [
                 'label' => __('Guest Email Label', 'directorist'),
                 'type'  => 'text',
-                'value' => 'Your Email',
+                'value' => 'Email Address',
             ];
 
             self::$fields['guest_email_placeholder'] = [
                 'label' => __('Guest Email Placeholder', 'directorist'),
                 'type'  => 'text',
-                'value' => 'example@email.com',
+                'value' => 'Enter email address',
             ];
 
             self::$layouts['submission_form']['submenu']['settings']['sections']['guest_submission'] = [

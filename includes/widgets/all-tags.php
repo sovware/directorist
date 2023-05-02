@@ -15,7 +15,7 @@ class All_Tags extends \WP_Widget {
 		$id_base        = 'bdtw_widget';
         $name           = esc_html__( 'Directorist - Tags', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show listing tags by this widget', 'directorist' ),
         ];
 
@@ -114,9 +114,7 @@ class All_Tags extends \WP_Widget {
 
 		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Tags', 'directorist');
 		$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
-		echo '<div class="atbd_widget_title">';
 		echo wp_kses_post( $widget_title );
-		echo '</div>';
 
         $query_args = array(
             'template'               => !empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',

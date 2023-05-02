@@ -55,10 +55,10 @@ $featured_badge_color             = get_directorist_option('featured_back_color'
 $popular_badge_color              = get_directorist_option('popular_back_color', '#f51957');
 $new_badge_color                  = get_directorist_option('new_back_color', '#122069');
 
-$primary_dark_border_color        = get_directorist_option('primary_dark_border_color', '#444752');
+$primary_dark_border_color        = get_directorist_option('primary_dark_border_color', '#000000');
 
-$marker_shape_color               = get_directorist_option('marker_shape_color', '#444752');
-$marker_icon_color                = get_directorist_option('marker_icon_color', '#444752');
+$marker_shape_color               = get_directorist_option('marker_shape_color', '#000000');
+$marker_icon_color                = get_directorist_option('marker_icon_color', '#000000');
 
 $primary_color                    = get_directorist_option('color_primary', '#000000');
 $secondary_color                  = get_directorist_option('color_secondary', '#F2F3F5');
@@ -609,8 +609,8 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .custom-control .custom-control-input:checked~.check--select,
     #directorist.atbd_wrapper .pagination .nav-links .current,
     .atbd_director_social_wrap a,
-    .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p a,
-    .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p a,
+    .widget.atbd_widget[id^=bd] .atbd_author_info_widget .directorist-author-social li a,
+    .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .directorist-author-social li a,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories>ul.atbdp_parent_category>li:hover>a span,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover {
         background: var(--directorist-color-primary) !important;

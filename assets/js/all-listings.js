@@ -2554,7 +2554,8 @@ window.addEventListener('DOMContentLoaded', function () {
               method: 'GET',
               reload: 'strict',
               success: function success(response) {
-                $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__contents-wrap').append(response.data.html);
+                $target.prop('disabled', true);
+                $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__info').append(response.data.html);
                 $wrap.removeClass('directorist-comment-edit-request').addClass('directorist-comment-editing');
                 self.cancelOthersEditMode($target.data('commentid'));
                 self.cancelReplyMode();
@@ -2569,6 +2570,7 @@ window.addEventListener('DOMContentLoaded', function () {
             var $target = $(event.target);
             var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
             $wrap.removeClass(['directorist-comment-edit-request', 'directorist-comment-editing']).find('form').remove();
+            $wrap.find('.directorist-js-edit-comment').prop('disabled', false);
           });
         }
       }, {

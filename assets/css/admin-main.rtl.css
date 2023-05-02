@@ -5890,67 +5890,6 @@ img.atbdp-file-info {
   margin-bottom: 15px;
 }
 
-.plupload-thumbs .thumb {
-  position: relative;
-}
-.plupload-thumbs .thumb img {
-  width: 100%;
-}
-.plupload-thumbs .thumb:hover .atbdp-thumb-actions {
-  display: -webkit-box !important;
-  display: -webkit-flex !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
-}
-.plupload-thumbs .thumb .atbdp-thumb-actions {
-  font-size: 15px !important;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  right: 0;
-  top: 0;
-  margin-top: 0;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink {
-  background: var(--directorist-color-dark);
-  height: 30px;
-  width: 30px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  border-radius: 50%;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-}
-.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink .directorist-icon-mask:after {
-  width: 14px;
-  height: 14px;
-  background-color: var(--directorist-color-white);
-}
-.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink:hover {
-  background: var(--directorist-color-danger);
-}
-.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink i {
-  font-size: 14px;
-}
-
 .plupload-upload-uic {
   width: 420px;
   margin: 0 auto !important;
@@ -8502,28 +8441,103 @@ body.stop-scrolling {
   height: 5px;
 }
 
-.plupload-upload-uic .directorist-btn {
-  padding: 0 1.44em;
-  line-height: 2.65;
-  font-size: 14px;
+#custom-filedropbox {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  gap: 20px;
+}
+
+.plupload-upload-uic {
+  width: 200px;
+  height: 150px;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 15px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-radius: 16px;
+  margin: 0 !important;
+  background: var(--directorist-color-bg-gray);
+  border: 2px dashed var(--directorist-color-border-gray);
+}
+.plupload-upload-uic > input {
+  display: none;
+}
+.plupload-upload-uic .plupload-browse-button-label {
+  cursor: pointer;
+}
+.plupload-upload-uic .plupload-browse-button-label i::after {
+  width: 50px;
+  height: 45px;
+  background-color: var(--directorist-color-border-gray);
+}
+.plupload-upload-uic .plupload-browse-img-size {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--directorist-color-body);
 }
 
 .plupload-thumbs {
   clear: both;
-  margin: 20px 0px;
   overflow: hidden;
 }
 
 .plupload-thumbs .thumb {
-  border: 1px solid #ebebeb;
-  float: right;
-  height: 100px !important;
-  width: 100px !important;
   position: relative;
-  padding: 3px;
-  margin: 2px;
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  height: 150px;
+  width: 200px;
+  border-radius: 16px;
+}
+.plupload-thumbs .thumb img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 16px;
+}
+.plupload-thumbs .thumb .atbdp-thumb-actions {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  top: 0;
+  display: none;
+  border-radius: 16px;
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--directorist-color-danger);
+  height: 32px;
+  width: 32px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -8536,21 +8550,23 @@ body.stop-scrolling {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
+  border-radius: 50%;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
-
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink .directorist-icon-mask:after {
+  width: 14px;
+  height: 14px;
+  background-color: var(--directorist-color-white);
+}
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink:hover {
+  opacity: 0.8;
+}
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink i {
+  font-size: 14px;
+}
 .plupload-thumbs .thumb:hover .atbdp-thumb-actions {
   display: block;
-}
-
-.plupload-thumbs .atbdp-thumb-actions {
-  background-color: rgba(0, 0, 0, 0.5);
-  margin-top: -25px;
-  position: relative;
-  color: #fff;
-  font-size: 20px;
-  display: none;
-  z-index: 3;
-  line-height: 0;
 }
 
 .plupload-thumbs .atbdp-thumb-actions .thumbeditlink, .plupload-thumbs .atbdp-thumb-actions .thumbremovelink {

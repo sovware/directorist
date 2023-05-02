@@ -260,55 +260,6 @@
 }
 
 //file upload
-.plupload-thumbs {
-    .thumb {
-        position: relative;
-        img{
-            width: 100%;
-        }
-        &:hover {
-            .atbdp-thumb-actions {
-                display: flex !important;
-            }
-        }
-
-        .atbdp-thumb-actions {
-            font-size: 15px !important;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
-            margin-top: 0;
-            align-items: center;
-            justify-content: center;
-
-            .thumbremovelink {
-                background: var(--directorist-color-dark);
-                height: 30px;
-                width: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 50%;
-                transition: .3s ease;
-                .directorist-icon-mask:after{
-                    width: 14px;
-                    height: 14px;
-                    background-color: var(--directorist-color-white);
-                }
-                &:hover {
-                    background: var(--directorist-color-danger);
-                }
-
-                i {
-                    font-size: 14px;
-                }
-            }
-        }
-    }
-}
-
 .plupload-upload-uic {
     width: 420px;
     margin: 0 auto !important;

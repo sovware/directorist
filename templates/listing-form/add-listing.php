@@ -20,7 +20,7 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                 <input type="hidden" name="add_listing_form" value="1">
                 <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
                 <!-- MultiStep Wizard Start -->
-                <div class="multistep-wizard">
+                <div class="multistep-wizard"> 
                     <div class="multistep-wizard__nav">
                         <div class="multistep-wizard__nav__item">
                             <button class="multistep-wizard__nav__btn"><?php directorist_icon( 'fas fa-check' ); ?>General</button>

@@ -14,8 +14,8 @@ if ( empty( $related_listings->posts ) ) {
 $default_icon = 'las la-tags';
 ?>
 
-<div class="atbd_categorized_listings">
-  <ul class="listings">
+<div class="directorist-card-body">
+  <div class="directorist-widget-listing">
     <?php
     foreach ($related_listings->posts as $related_listing) {
 
@@ -115,6 +115,6 @@ $default_icon = 'las la-tags';
         </div>
       </li>
     <?php } ?>
-  </ul>
+  </div>
 </div>
 <!--ends .categorized_listings-->

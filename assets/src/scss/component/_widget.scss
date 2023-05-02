@@ -52,6 +52,14 @@
   }
 }
 
+//Widget map
+.directorist-single-map{
+  &.directorist-widget__map.leaflet-container{
+    margin-bottom: 0;
+    border-radius: 16px;
+  }
+}
+
 // Widget List
 .directorist-widget {
   .directorist-widget-list {
@@ -237,140 +245,6 @@
             @extend .atbd_bg-primary;
             color: var(--directorist-color-white);
           }
-        }
-      }
-    }
-  }
-
-  .atbd_categorized_listings {
-    padding: 0px 30px;
-
-    .listings {
-      padding: 0;
-      float: none;
-
-      >li {
-        align-items: flex-start;
-        padding: 15px 0;
-        list-style-type: none !important;
-
-        &:first-child {
-          padding-top: 25px;
-        }
-
-        &:last-child {
-          padding-bottom: 25px;
-        }
-
-        &:before {
-          display: none;
-        }
-
-        &+li {
-          border-top: 1px solid var(--directorist-color-border);
-        }
-
-        .atbd_left_img {
-          max-height: 70px;
-          max-width: 70px;
-          display: inline-block;
-          vertical-align: top;
-
-          img {
-            -webkit-border-radius: 3px;
-            -moz-border-radius: 3px;
-
-            border-radius: 3px;
-            max-width: 100%;
-          }
-        }
-
-        .atbd_right_content {
-          width: calc(100% - 80px);
-          display: inline-block;
-          vertical-align: top;
-
-          .cate_title h4 {
-            font-weight: 400;
-            font-size: 16px;
-            margin: 0;
-          }
-
-          .directory_tag {
-            margin: 4px 0 0 0;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            .directorist-icon-mask{
-              margin-right: 4px;
-              &:after{
-                width: 20px;
-                height: 20px;
-                color: #202428;
-              }
-            }
-          }
-
-          .atbd_rated_stars {
-            ul li {
-              list-style: none !important;
-            }
-          }
-
-          .directorist-listing-category {
-            display: flex;
-            align-items: center;
-            font-size: 15px;
-            a{
-              display: inline-flex;
-              align-items: flex-start;
-              line-height: 25px;
-              word-break: break-word;
-              .directorist-icon-mask {
-                width: unset;
-                height: unset;
-                background: transparent;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                margin-right: 10px;
-                position: relative;
-                top: 5px;
-                &:after {
-                  background-color: #51526E;
-                  width: 15px;
-                  height: 15px;
-                }
-              }
-            }
-            .directorist-listing-category__popup {
-              position: relative;
-              width: 150px;
-              margin-left: 5px;
-              cursor: pointer;
-              .directorist-listing-category__popup__content {
-                a {
-                  line-height: 1;
-                  margin-bottom: 10px;
-                  &:last-child {
-                    margin-bottom: 0;
-                  }
-                  i {
-                    width: unset;
-                    min-width: unset;
-                    height: unset;
-                    top: 0;
-                    margin: 0 10px 0 0;
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        .atbd_left_img+.atbd_right_content {
-          padding-left: 10px;
-          margin-top: -5px;
         }
       }
     }

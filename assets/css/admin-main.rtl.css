@@ -9578,6 +9578,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-btn.directorist-btn-light:hover {
   background: var(--directorist-color-light-hover);
+  border-color: transparent;
 }
 .directorist-btn.directorist-btn-lighter {
   background-color: #F6F7F9;

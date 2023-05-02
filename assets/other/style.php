@@ -596,8 +596,8 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .custom-control .custom-control-input:checked~.check--select,
     #directorist.atbd_wrapper .pagination .nav-links .current,
     .atbd_director_social_wrap a,
-    .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p a,
-    .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p a,
+    .widget.atbd_widget[id^=bd] .atbd_author_info_widget .directorist-author-social li a,
+    .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .directorist-author-social li a,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories>ul.atbdp_parent_category>li:hover>a span,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover {
         background: var(--directorist-color-primary) !important;

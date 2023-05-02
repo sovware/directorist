@@ -513,7 +513,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }, 5000);
       }, 'json');
     });
-    $('#atbdp-contact-form,#atbdp-contact-form-widget').removeAttr('novalidate');
+    $('#atbdp-contact-form,#directorist-contact-owner-form').removeAttr('novalidate');
   });
 })(jQuery);
 

@@ -54,7 +54,7 @@ $avatar_img = get_avatar($author_id, 32);
 				<ul>
 					<?php if ( $address = $listing->author_info( 'address' ) ): ?>
 						<li>
-							<?php directorist_icon( 'las la-map-marker' ); ?>
+							<?php directorist_icon( 'fas fa-map-marker-alt' ); ?>
 							<span class="directorist-single-author-contact-info-text"><?php echo esc_html( $address ); ?></span>
 						</li>
 					<?php endif; ?>
@@ -62,7 +62,7 @@ $avatar_img = get_avatar($author_id, 32);
 
 					<?php if ( $phone = $listing->author_info( 'phone' ) ): ?>
 						<li>
-							<?php directorist_icon( 'las la-phone' ); ?>
+							<?php directorist_icon( 'fas fa-phone-alt' ); ?>
 							<span class="directorist-single-author-contact-info-text">
 								<a href="tel:<?php Helper::formatted_tel( $phone ); ?>"><?php echo esc_html( $phone ); ?></a>
 							</span>
@@ -71,14 +71,14 @@ $avatar_img = get_avatar($author_id, 32);
 
 					<?php if ( $listing->author_display_email() ): ?>
 						<li>
-							<?php directorist_icon( 'las la-envelope-open' ); ?>
+							<?php directorist_icon( 'fas fa-envelope-open' ); ?>
 							<span class="directorist-single-author-contact-info-text"><?php echo esc_html( $listing->author_info( 'email' ) ); ?></span>
 						</li>
 					<?php endif; ?>
 
 					<?php if ( $website = $listing->author_info( 'website' ) ): ?>
 						<li>
-							<?php directorist_icon( 'las la-globe' ); ?>
+							<?php directorist_icon( 'fas fa-globe-americas' ); ?>
 							<a href="<?php echo esc_url( $website ); ?>" class="directorist-single-author-contact-info-text"><?php echo esc_url( $website ); ?></a>
 						</li>
 					<?php endif; ?>

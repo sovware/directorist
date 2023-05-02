@@ -5421,14 +5421,19 @@ Please remember that your order may be canceled if you do not make your payment 
 		 * @return array Fields
 		 */
 		public function sanitize_fields_data( $fields ) {
+
 			foreach( $fields['fields'] as $key => $field_args ) {
 
 				foreach( $field_args as $field_args_key => $field_args_value ) {
-					if ( in_array( $field_args_key, [ 'type', 'value' ] ) ) {
+
+					$type = isset( $field_args['type'] ) ? $field_args['type'] : 'text';
+
+					if ( 'value' === $field_args_key && $type === 'textarea' ) {
+						$fields['fields'][ $key ][ $field_args_key ] = sanitize_textarea_field( $field_args_value );
 						continue;
 					}
 
-					$fields['fields'][ $key ][ $field_args_key ] = sanitize_text_field( $field_args_value );
+					$fields['fields'][ $key ][ $field_args_key ] = directorist_clean( $field_args_value );
 				}
 
 			}

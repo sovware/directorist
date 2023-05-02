@@ -5405,13 +5405,36 @@ Please remember that your order may be canceled if you do not make your payment 
 
             var_dump( [ '$check_new' => $check_new,  '$check_edit' => $check_edit] ); */
 
+			$settings_builder_data['fields'] = $this->sanitize_fields_data( $settings_builder_data['fields'] );
 
             $data = [
-                'settings_builder_data' => base64_encode( json_encode( $settings_builder_data, JSON_INVALID_UTF8_IGNORE ) )
+                'settings_builder_data' => base64_encode( json_encode( $settings_builder_data ) )
             ];
 
             atbdp_load_admin_template( 'settings-manager/settings', $data );
         }
+
+		/**
+		 * Sanitize Fields Data
+		 *
+		 * @param array $fields
+		 * @return array Fields
+		 */
+		public function sanitize_fields_data( $fields ) {
+			foreach( $fields['fields'] as $key => $field_args ) {
+
+				foreach( $field_args as $field_args_key => $field_args_value ) {
+					if ( in_array( $field_args_key, [ 'type', 'value' ] ) ) {
+						continue;
+					}
+
+					$fields['fields'][ $key ][ $field_args_key ] = sanitize_text_field( $field_args_value );
+				}
+
+			}
+
+			return $fields;
+		}
 
         /**
          * Get all the pages in an array where each page is an array of key:value:id and key:label:name

@@ -15,19 +15,19 @@ window.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    /* Category list dropdown */
+    /* Taxonomy list dropdown */
     function categoryDropdown(selector, parent){
         var categoryListToggle = document.querySelectorAll(selector);
         categoryListToggle.forEach(function(item) {
             item.addEventListener('click', function(e) {
-                const categoryName = item.querySelector('.directorist-category-list__name');
+                const categoryName = item.querySelector('.directorist-taxonomy-list__name');
                 if(e.target !== categoryName){
                     e.preventDefault();
-                    this.classList.toggle('directorist-category-list__toggle--open');
+                    this.classList.toggle('directorist-taxonomy-list__toggle--open');
                 }
             });
         });
     }
-    categoryDropdown('.directorist-category-list-one .directorist-category-list__toggle', '.directorist-category-list-one .directorist-category-list');
-    categoryDropdown('.directorist-category-list-one .directorist-category-list__sc-toggle', '.directorist-category-list-one .directorist-category-list');
+    categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
+    categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
 });

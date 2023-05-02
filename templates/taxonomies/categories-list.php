@@ -9,7 +9,7 @@ use \Directorist\Helper;
 
 $columns = floor( 12 / $taxonomy->columns );
 ?>
-<div id="directorist" class="atbd_wrapper atbdp atbdp-categories atbdp-text-list directorist-w-100">
+<div id="directorist" class="atbd_wrapper directorist-w-100">
 	<?php
     /**
      * @since 5.6.6
@@ -21,26 +21,26 @@ $columns = floor( 12 / $taxonomy->columns );
 			<?php
 			if( $categories ) {
 				foreach ($categories as $category) {
-					$toggle_class = $category['has_child'] ? 'directorist-category-list__toggle' : '';
+					$toggle_class = $category['has_child'] ? 'directorist-taxonomy-list__toggle' : '';
 					$toggle_icon = $category['has_child'] ? 'las la-angle-down' : '';
-					$has_icon = $category['icon_class'] ? 'directorist-category-list__card--icon' : '';
+					$has_icon = $category['icon_class'] ? 'directorist-taxonomy-list__card--icon' : '';
 					?>
-					<div class="<?php Helper::directorist_column( $columns ); ?> directorist-category-list-one">
-						<div class="directorist-category-list">
-							<a href="<?php echo esc_url($category['permalink']);?>" class="directorist-category-list__card <?php echo wp_kses_post( $toggle_class ); ?> <?php echo wp_kses_post( $has_icon ); ?> ">
+					<div class="<?php Helper::directorist_column( $columns ); ?> directorist-taxonomy-list-one">
+						<div class="directorist-taxonomy-list">
+							<a href="<?php echo esc_url($category['permalink']);?>" class="directorist-taxonomy-list__card <?php echo wp_kses_post( $toggle_class ); ?> <?php echo wp_kses_post( $has_icon ); ?> ">
 								<?php if($category['icon_class']){ ?>
-									<span class="directorist-category-list__icon">
+									<span class="directorist-taxonomy-list__icon">
 										<?php directorist_icon( $category['icon_class'] ); ?>
 									</span>
 								<?php } ?>
-								<span class="directorist-category-list__name">
+								<span class="directorist-taxonomy-list__name">
 									<?php echo esc_html($category['name']);?>
 								</span>
-								<span class="directorist-category-list__count">
+								<span class="directorist-taxonomy-list__count">
 									<?php echo wp_kses_post( $category['list_count_html'] );?>
 								</span>
 								<?php if($category['has_child']){ ?>
-									<span class="directorist-category-list__toggler">
+									<span class="directorist-taxonomy-list__toggler">
 										<?php directorist_icon( $toggle_icon ); ?>
 									</span>
 								<?php } ?>

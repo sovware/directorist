@@ -165,13 +165,13 @@ class Directorist_Listing_Taxonomy {
 
     		--$this->depth;
 
-    		$html .= '<ul class="directorist-category-list__subcategory">';
+    		$html .= '<ul class="directorist-taxonomy-list__sub-item">';
 
     		foreach ($terms as $term) {
 
     			$child_category = get_term_children($term->term_id, $this->tax);
-    			$toggle_class = !empty($child_category) ? 'directorist-category-list__sc-toggle' : '';
-				$plus_icon = !empty($child_category) ? '<span class="directorist-category-list__sc-toggler"></span>' : '';
+    			$toggle_class = !empty($child_category) ? 'directorist-taxonomy-list__sub-item-toggle' : '';
+				$plus_icon = !empty($child_category) ? '<span class="directorist-taxonomy-list__sub-item-toggler"></span>' : '';
     			$count = 0;
     			if ($this->hide_empty || $this->show_count) {
     				$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category($term->term_id) : atbdp_listings_count_by_location($term->term_id);
@@ -188,7 +188,7 @@ class Directorist_Listing_Taxonomy {
 
     			$html .= '<li>';
     			$html .= '<a href=" ' . $permalink . ' " class=" ' . $toggle_class . '">';
-    			$html .= '<span class="directorist-category-list__name">' . $term->name . '</span>';
+    			$html .= '<span class="directorist-taxonomy-list__name">' . $term->name . '</span>';
     			if ($this->show_count) {
     				$html .= ' (' . $count . ')' . $plus_icon;
     			}

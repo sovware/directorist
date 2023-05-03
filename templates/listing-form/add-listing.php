@@ -22,6 +22,16 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                 <!-- MultiStep Wizard Start -->
                 <div class="multistep-wizard"> 
                     <div class="multistep-wizard__nav">
+                        <?php 
+                            foreach ( $form_data as $key => $section ) {   
+                                $listing_type = isset( $section['fields']['listing_type'] ) ? $section['fields']['listing_type']['widget_name'] : '';
+
+                                if ( empty( $listing_type ) ) {
+
+                                    printf( '<div class="multistep-wizard__nav__item"><button class="multistep-wizard__nav__btn">%s %s</button></div>', "section_id_{$key}", ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : '' ), $section['label'] );
+                                }
+                            }
+                        ?>
                         <div class="multistep-wizard__nav__item">
                             <button class="multistep-wizard__nav__btn"><?php directorist_icon( 'fas fa-check' ); ?>General</button>
                         </div>

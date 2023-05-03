@@ -856,9 +856,9 @@
     }
 }
 
-/* List Style One */
-.directorist-category-list-one{
-    .directorist-category-list{
+/* Taxonomy List Style One */
+.directorist-taxonomy-list-one{
+    .directorist-taxonomy-list{
         @include e('card'){
             display: flex;
             background: var(--directorist-color-light);
@@ -876,13 +876,16 @@
             @include m('icon'){
                 padding-inline-start: 12px;
             }
+            &:focus{
+                background: none;
+            }
         }
         @include e('toggle'){
             @include m('open'){
                 border-bottom-right-radius: 0;
                 border-bottom-left-radius: 0;
                 padding-bottom: 5px;
-                .directorist-category-list__toggler{
+                .directorist-taxonomy-list__toggler{
                     .directorist-icon-mask{
                         &::after{
                             transform: rotate(180deg);
@@ -919,8 +922,8 @@
             }
         }
 
-        /* Subcategory */
-        @include e('subcategory'){
+        /* Sub Item */
+        @include e('sub-item'){
             margin: 0;
             list-style: none;
             overflow-y: auto;
@@ -933,7 +936,7 @@
             }
         }
         @include e('card'){
-            + .directorist-category-list__subcategory{
+            + .directorist-taxonomy-list__sub-item{
                 background: var(--directorist-color-light);
                 border-radius: 16px;
                 padding-inline-start: 20px;
@@ -947,14 +950,14 @@
                 transition: 0.3s ease;
             }
             @include m('icon'){
-                + .directorist-category-list__subcategory{
+                + .directorist-taxonomy-list__sub-item{
                     padding-inline-start: 64px;
                 }
             }
         }
         @include e('toggle'){
             @include m('open'){
-                + .directorist-category-list__subcategory{
+                + .directorist-taxonomy-list__sub-item{
                     border-radius: 0 0 16px 16px;
                     height: auto;
                     visibility: visible;
@@ -964,29 +967,29 @@
             }
         }
 
-        /* Subcategory Toggle */
-        @include e('sc-toggle'){
+        /* Sub Item Toggle */
+        @include e('sub-item-toggle'){
             display: flex;
             align-items: center;
-            + .directorist-category-list__subcategory{
+            + .directorist-taxonomy-list__sub-item{
                 height: 0;
                 overflow: hidden;
                 transition: 0.3s ease;
             }
-            &.directorist-category-list__toggle--open{
-                + .directorist-category-list__subcategory{
+            &.directorist-taxonomy-list__toggle--open{
+                + .directorist-taxonomy-list__sub-item{
                     height: auto;
                 }
             }
-            &.directorist-category-list__toggle--open{
-                .directorist-category-list__sc-toggler{
+            &.directorist-taxonomy-list__toggle--open{
+                .directorist-taxonomy-list__sub-item-toggler{
                     &::after{
                         content: none;
                     }
                 }
             }
         }
-        @include e('sc-toggler'){
+        @include e('sub-item-toggler'){
             margin-inline-start: auto;
             position: relative;
             width: 10px;
@@ -1017,11 +1020,12 @@
     }
 }
 
-/* List Style Two */
-.directorist-category-list-two{
-    .directorist-category-list{
+/* Taxonomy List Style Two */
+.directorist-taxonomy-list-two{
+    .directorist-taxonomy-list{
         box-shadow: var(--directorist-box-shadow);
         border-radius: var(--directorist-border-radius-lg);
+        background: var(--directorist-color-white);
         @include e('card'){
             display: flex;
             padding: 10px 20px;
@@ -1030,6 +1034,9 @@
             text-decoration: none;
             min-height: 40px;
             transition: 0.6s ease;
+            &:focus{
+                background: none;
+            }
         }
         @include e('name'){
             font-weight: var(--directorist-fw-medium);
@@ -1058,7 +1065,7 @@
         @include e('toggler'){
             display: none;
         }
-        @include e('subcategory'){
+        @include e('sub-item'){
             margin: 0;
             padding: 15px 20px 25px;
             list-style: none;

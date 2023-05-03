@@ -22,21 +22,20 @@ $columns = floor( 12 / $taxonomy->columns );
 			<?php
 			if( $locations ) {
 				foreach ($locations as $location) {
-					$toggle_class = $location['has_child'] ? 'directorist-category-list__toggle' : '';
+					$toggle_class = $location['has_child'] ? 'directorist-taxonomy-list__toggle' : '';
 					$toggle_icon = $location['has_child'] ? 'las la-angle-down' : '';
 					?>
-					<div class="<?php Helper::directorist_column( $columns ); ?> directorist-category-list-one">
-						<div class="directorist-category-list">
-							<a class="directorist-category-list__card <?php echo wp_kses_post( $toggle_class ); ?>" href="<?php echo esc_url($location['permalink']);?>">
-								
-								<span class="directorist-category-list__name">
+					<div class="<?php Helper::directorist_column( $columns ); ?> directorist-taxonomy-list-one">
+						<div class="directorist-taxonomy-list">
+							<a class="directorist-taxonomy-list__card <?php echo wp_kses_post( $toggle_class ); ?> " href="<?php echo esc_url($location['permalink']);?>">
+								<span class="directorist-taxonomy-list__name">
 									<?php echo esc_html($location['name']);?>
 								</span>
-								<span class="directorist-category-list__count">
+								<span class="directorist-taxonomy-list__count">
 									<?php echo wp_kses_post( $location['list_count_html'] );?>
 								</span>
 								<?php if($location['has_child']){ ?>
-									<span class="directorist-category-list__toggler">
+									<span class="directorist-taxonomy-list__toggler">
 										<?php directorist_icon( $toggle_icon ); ?>
 									</span>
 								<?php } ?>

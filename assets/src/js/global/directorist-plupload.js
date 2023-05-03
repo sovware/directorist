@@ -342,7 +342,7 @@ function plu_show_thumbs(imgId) {
                 file_display = '<i title="' + file_name + '" class="la ' + file_type_class + ' atbdp-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" aria-hidden="true"></i>';
             }
 
-            let iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/trash.svg';
+            let iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/trash-alt.svg';
             let iconHTML = directorist.icon_markup.replace( '##URL##', iconURL ).replace( '##CLASS##', '' );
 
             var thumb = $('<div class="thumb ' + file_display_class + '" id="thumb' + imgId + i + '">' +

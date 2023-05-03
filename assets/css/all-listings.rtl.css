@@ -3326,6 +3326,8 @@ body.stop-scrolling {
 }
 .directorist-form-image-upload-field .ez-media-uploader .ezmu__media-picker-section .ezmu-icon-upload {
   background: unset;
+  -webkit-filter: unset;
+          filter: unset;
 }
 .directorist-form-image-upload-field .ez-media-uploader .ezmu__media-picker-section .ezmu-icon-upload i::after {
   width: 90px;
@@ -4201,21 +4203,16 @@ body.stop-scrolling {
 }
 .plupload-thumbs .thumb .atbdp-thumb-actions {
   position: absolute;
-  width: 100%;
   height: 100%;
-  right: 0;
+  width: 100%;
   top: 0;
-  display: none;
-  border-radius: 16px;
-  -webkit-transition: all ease 0.3s;
-  transition: all ease 0.3s;
-  background-color: rgba(0, 0, 0, 0.5);
+  right: 0;
 }
 .plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink {
   position: absolute;
   top: 10px;
   left: 10px;
-  background: var(--directorist-color-danger);
+  background: #FF385C;
   height: 32px;
   width: 32px;
   display: -webkit-box;
@@ -4245,8 +4242,23 @@ body.stop-scrolling {
 .plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink i {
   font-size: 14px;
 }
-.plupload-thumbs .thumb:hover .atbdp-thumb-actions {
-  display: block;
+.plupload-thumbs .thumb .atbdp-thumb-actions:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 16px;
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.plupload-thumbs .thumb:hover .atbdp-thumb-actions::before {
+  opacity: 1;
+  visibility: visible;
 }
 
 .plupload-thumbs .atbdp-thumb-actions .thumbeditlink, .plupload-thumbs .atbdp-thumb-actions .thumbremovelink {

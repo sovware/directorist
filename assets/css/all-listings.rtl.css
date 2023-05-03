@@ -3308,12 +3308,58 @@ body.stop-scrolling {
 }
 
 /* image upload */
-.directorist-form-image-upload-field .ezmu__btn.ezmu__input-label {
-  background: #222222;
-  color: #fff;
+.directorist-form-image-upload-field .ez-media-uploader {
+  text-align: center;
+  border-radius: 16px;
+  padding: 35px 0;
+  margin: 0;
+  background: var(--directorist-color-bg-gray) !important;
+  border: 2px dashed var(--directorist-color-border-gray) !important;
 }
-.directorist-form-image-upload-field .ezmu__info-list-item {
-  margin-left: 15px !important;
+.directorist-form-image-upload-field .ez-media-uploader .ezmu__media-picker-section {
+  display: block;
+}
+.directorist-form-image-upload-field .ez-media-uploader .ezmu__media-picker-section .ezmu__media-picker-icon-wrap-upload {
+  width: auto;
+  height: auto;
+  margin-bottom: 0;
+}
+.directorist-form-image-upload-field .ez-media-uploader .ezmu__media-picker-section .ezmu-icon-upload {
+  background: unset;
+}
+.directorist-form-image-upload-field .ez-media-uploader .ezmu__media-picker-section .ezmu-icon-upload i::after {
+  width: 90px;
+  height: 80px;
+  background: var(--directorist-color-border-gray);
+}
+.directorist-form-image-upload-field .ez-media-uploader .ezmu__upload-button-wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.directorist-form-image-upload-field .ez-media-uploader .ezmu__upload-button-wrap .ezmu__input-label {
+  margin: 0;
+  padding: 0 5px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  line-height: 25px;
+  background: transparent;
+  color: #FF385C;
+}
+.directorist-form-image-upload-field .ez-media-uploader .ezmu__upload-button-wrap .ezmu__input-label:hover {
+  opacity: 0.85;
+}
+.directorist-form-image-upload-field .ez-media-uploader .ezmu__upload-button-wrap p {
+  margin: 0;
 }
 .directorist-form-image-upload-field .ezmu__info-list-item:empty {
   display: none;
@@ -3326,33 +3372,109 @@ body.stop-scrolling {
   max-width: 750px !important;
   margin: 0 auto;
 }
-.directorist-add-listing-wrapper .ezmu__thumbnail-list-item {
-  max-width: 300px;
-  -webkit-flex-basis: 300px;
-      -ms-flex-preferred-size: 300px;
-          flex-basis: 300px;
+.directorist-add-listing-wrapper .ezmu__thumbnail-list {
+  gap: 8px;
+  margin: 15px 0 10px;
 }
-.directorist-add-listing-wrapper .ezmu__thumbnail-list-item_back {
-  height: 200px;
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item {
+  width: 100px;
+  margin: 0;
+}
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__featured_tag {
+  display: none;
+}
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__thumbnail-front-item {
+  display: none;
+}
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__thumbnail-front-item.ezmu__front-item__close {
+  display: block;
+}
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__thumbnail-front-item.ezmu__front-item__close .ezmu__front-item__close-icon {
+  background: #FF385C;
+  height: 32px;
+  width: 32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 50%;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__thumbnail-front-item.ezmu__front-item__close .ezmu__front-item__close-icon .directorist-icon-mask:after {
+  width: 14px;
+  height: 14px;
+  background-color: var(--directorist-color-white);
+}
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__thumbnail-front-item.ezmu__front-item__close .ezmu__front-item__close-icon:hover {
+  opacity: 0.8;
+}
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_back {
+  position: relative;
+  height: 80px;
   width: 100%;
 }
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_back .ezmu__thumbnail-img {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_back:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: visible;
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
+}
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item:hover .ezmu__thumbnail-list-item_back:before {
+  opacity: 1;
+  visibility: visible;
+}
 .directorist-add-listing-wrapper .ezmu__media-picker-buttons {
-  margin-top: 10px;
+  margin-top: 0;
 }
 .directorist-add-listing-wrapper .ezmu__titles-area .ezmu__title-1 {
-  font-size: 30px;
-}
-.directorist-add-listing-wrapper .ezmu__titles-area .ezmu__title-3 {
   font-size: 20px;
-  margin-bottom: 1rem;
+  font-weight: 500;
+  margin: 0;
 }
 .directorist-add-listing-wrapper .ezmu__btn {
   margin-bottom: 25px;
   background-color: var(--directorist-color-primary);
   color: #fff;
 }
-.directorist-add-listing-wrapper .ezmu__info-list .ezmu__info-list-item:not(:last-child) {
-  margin-left: 30px;
+.directorist-add-listing-wrapper .ezmu__info-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 8px;
+  margin: 15px 0 0;
+}
+.directorist-add-listing-wrapper .ezmu__info-list .ezmu__info-list-item {
+  margin: 0;
 }
 
 .directorist-add-listing-form {
@@ -3604,10 +3726,6 @@ body.stop-scrolling {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
-
-.ez-media-uploader {
-  text-align: center;
 }
 
 #listing_form_info .directorist-bh-wrap .directorist-select select {

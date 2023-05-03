@@ -216,7 +216,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .atbdp_login_form_shortcode #loginform p input[type="submit"],
     .atbd_manage_fees_wrapper .table tr .action p .btn-block,
     #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn,
-    #directorist.atbd_wrapper .ezmu__btn, .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .directorist-btn.directorist-btn-dark, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew, .bdb-select-hours .bdb-remove, .directorist-form-image-upload-field .ezmu__btn.ezmu__input-label, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
+    #directorist.atbd_wrapper .ezmu__btn, .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .directorist-btn.directorist-btn-dark, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
         color: var(--directorist-color-white) !important;
     }
 
@@ -229,7 +229,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover,
     .atbd_manage_fees_wrapper .table tr .action p .btn-block:hover,
     #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn:hover,
-    #directorist.atbd_wrapper .ezmu__btn:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .directorist-btn.directorist-btn-dark:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover, .bdb-select-hours .bdb-remove:hover, .directorist-form-image-upload-field .ezmu__btn.ezmu__input-label:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
+    #directorist.atbd_wrapper .ezmu__btn:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .directorist-btn.directorist-btn-dark:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover, .bdb-select-hours .bdb-remove:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
         color: var(--directorist-color-white) !important;
     }
 
@@ -241,7 +241,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     #directorist.atbd_wrapper .at-modal .at-modal-close,
     .atbdp_login_form_shortcode #loginform p input[type="submit"],
     .atbd_manage_fees_wrapper .table tr .action p .btn-block,
-    #directorist.atbd_wrapper .ezmu__btn, .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .directorist-btn.directorist-btn-dark, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew, .bdb-select-hours .bdb-remove, .directorist-form-image-upload-field .ezmu__btn.ezmu__input-label, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
+    #directorist.atbd_wrapper .ezmu__btn, .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .directorist-btn.directorist-btn-dark, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew, .bdb-select-hours .bdb-remove, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
         background: var(--directorist-color-primary) !important;
     }
 
@@ -252,7 +252,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .default-ad-search .submit_btn .btn-default:hover,
     .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic:hover,
     .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover,
-    #directorist.atbd_wrapper .ezmu__btn:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .directorist-btn.directorist-btn-dark:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover, .bdb-select-hours .bdb-remove:hover, .directorist-form-image-upload-field .ezmu__btn.ezmu__input-label:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
+    #directorist.atbd_wrapper .ezmu__btn:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .directorist-btn.directorist-btn-dark:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover, .bdb-select-hours .bdb-remove:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
         background: rgba(var(--directorist-color-primary-rgb),.80) !important;
     }
 

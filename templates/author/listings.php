@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.7.0
  */
 
 use \Directorist\Helper;
@@ -10,20 +10,18 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-author-listing-top directorist-flex directorist-justify-content-between">
-
-	<div>
-		<h2 class="directorist-author-listing-top__title"><?php esc_html_e( 'Author Listings' , 'directorist'); ?></h2>
+<div class="directorist-author-listing-top">
+	<h2 class="directorist-author-listing-top__title"><?php esc_html_e( 'Author Listings' , 'directorist'); ?></h2>
+	<div class="directorist-author-listing-top__filter">
 		<div class="directorist-author-listing-type">
-		<?php $author->archive_type( $author ); ?>
+			<?php $author->archive_type( $author ); ?>
 		</div>
-	</div>
 
-	<?php if ( $author->cat_filter_enabled() ): ?>
+		<?php if ( $author->cat_filter_enabled() ): ?>
 
 		<div class="directorist-dropdown directorist-dropdown-js directorist-author-listing-top__dropdown directorist-dropdown-update-js">
 
-			<a class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-toggle-has-icon directorist-btn directorist-btn-outline-primary" href="#" id="directorist-dropdown-menu-link"><?php esc_html_e( 'Filter by category', 'directorist'); ?> <span class="atbd_drop-caret"></span></a>
+			<a class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-toggle-has-icon directorist-btn" href="#" id="directorist-dropdown-menu-link"><?php esc_html_e( 'Filter by category', 'directorist'); ?> <span class="atbd_drop-caret"></span></a>
 
 			<div class="directorist-dropdown__links directorist-dropdown__links-js">
 
@@ -39,7 +37,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		</div>
 
-	<?php endif; ?>
+		<?php endif; ?>
+	</div>
 
 </div>
 

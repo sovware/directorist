@@ -1740,21 +1740,19 @@ function directorist_clean($var)
  *
  */
 function the_atbdp_favourites_link( $post_id = 0 ) {
-    if ( is_user_logged_in() ) {
-        if ( $post_id == 0 ) {
-            global $post;
-            $post_id = $post->ID;
-        }
-
-        $favourites = directorist_get_user_favorites( get_current_user_id() );
-        if ( in_array( $post_id, $favourites ) ) {
-            return directorist_icon( 'las la-heart', false, 'directorist-added-to-favorite') . '<a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
-        } else {
-            return directorist_icon( 'las la-heart', false ) . '<a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
-        }
-    } else {
-        return '<a href="javascript:void(0)" class="atbdp-require-login">'.directorist_icon( 'las la-heart', false ).'</a>';
+    
+    if ( $post_id == 0 ) {
+        global $post;
+        $post_id = $post->ID;
     }
+
+    $favourites = directorist_get_user_favorites( get_current_user_id() );
+    if ( in_array( $post_id, $favourites ) ) {
+        return '' . directorist_icon('las la-heart', false, 'directorist-added-to-favorite') . '<span class="directorist-single-listing-action__text" data-post_id="' . $post_id . '">Bookmark</span>';
+    } else {
+        return '' . directorist_icon('las la-heart', false) . '<span class="directorist-single-listing-action__text" data-post_id="' . $post_id . '">Bookmark</span>';
+    }
+    
 }
 
 

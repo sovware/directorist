@@ -41,6 +41,7 @@
 @import "./../../component/pagination";
 @import "./../../component/category-location";
 @import "./../../component/atmodal";
+@import "./../../component/authentication";
 @import "./../../component/all-authors";
 @import "./../../component/select2-custom-control";
 
@@ -53,8 +54,12 @@
 // Layouts
 @import "./search-home";
 
+// OLD Styles
+// @import "./old-style";
+
 // Payments
 @import "./../../component/payment/checkout-receipt";
+@import "./../../component/payment/checkout";
 
 
 .directorist-iframe {
@@ -170,10 +175,6 @@
     .atbd_author_meta {
       margin-top: 30px;
     }
-  }
-
-  .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-6 .atbd_category_single {
-    height: 200px;
   }
 
   .ads-advanced .bottom-inputs>div {
@@ -391,15 +392,9 @@
     }
   }
 
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
-    width: 100%;
-  }
+  
 
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
-    padding-left: 45px;
-    word-break: break-all;
-  }
+  
 
   .atbd_content_active #directorist.atbd_wrapper .atbd_embeded_video {
     margin-bottom: 0;
@@ -503,15 +498,6 @@
 }
 
 @media (max-width: 400px) {
-
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
-    width: 100%;
-  }
-
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
-    padding-left: 45px;
-  }
 
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title .more-filter,
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 {

@@ -21,18 +21,18 @@
             margin-bottom: 0;
             line-height: 1.3;
             font-weight: 400;
-            color: $body-color;
+            color: var(--directorist-color-body);
             box-sizing: content-box;
 
             &:after{
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 18px;
-                height: 18px;
-                border-radius: 3px;
+                width: 16px;
+                height: 16px;
+                border-radius: 5px;
                 content: "";
-                border: 1px solid #C6D0DC;
+                border: 2px solid var(--directorist-color-gray);
                 background-color: #fff;
             }
         }
@@ -41,8 +41,8 @@
             & +.directorist-checkbox__label,
             & +.directorist-radio__label{
                 &:after{
-                    background-color: $dark;
-                    border-color: $dark;
+                    background-color: var(--directorist-color-primary);
+                    border-color: var(--directorist-color-primary);
                 }
 
                 &:before{
@@ -83,12 +83,12 @@
         & +.directorist-radio__label{
             &:before{
                 position: absolute;
-                left: 7px;
-                top: 7px;
-                width: 6px;
-                height: 6px;
+                left: 6px;
+                top: 6px;
+                width: 8px;
+                height: 8px;
                 border-radius: 50%;
-                background-color: $dark !important;
+                background-color: var(--directorist-color-white);
                 border: 0 none;
                 opacity: 0;
                 visibility: hidden;
@@ -99,7 +99,7 @@
         &:checked{
             & +.directorist-radio__label{
                 &:after{
-                    background-color: #fff;
+                    background-color: var(--directorist-color-primary);
                 }
             }
         }
@@ -130,8 +130,8 @@
                 & +.directorist-checkbox__label,
                 & +.directorist-radio__label{
                     &:after{
-                        background-color: $primary;
-                        border-color: $primary;
+                        background-color: var(--directorist-color-primary);
+                        border-color: var(--directorist-color-primary);
                     }
                 }
             }
@@ -144,8 +144,8 @@
                 & +.directorist-checkbox__label,
                 & +.directorist-radio__label{
                     &:after{
-                        background-color: $secondary;
-                        border-color: $secondary;
+                        background-color: var(--directorist-color-secondary);
+                        border-color: var(--directorist-color-secondary);
                     }
                 }
             }
@@ -158,8 +158,8 @@
                 & +.directorist-checkbox__label,
                 & +.directorist-radio__label{
                     &:after{
-                        background-color: $success;
-                        border-color: $success;
+                        background-color: var(--directorist-color-success);
+                        border-color: var(--directorist-color-success);
                     }
                 }
             }
@@ -188,10 +188,10 @@
                 & +.directorist-radio__label{
                     &:after{
                         background-color: #fff;
-                        border-color: $primary !important;
+                        border-color: var(--directorist-color-primary) !important;
                     }
                     &:before{
-                        background-color: $primary !important;
+                        background-color: var(--directorist-color-primary) !important;
                     }
                 }
             }
@@ -203,10 +203,10 @@
                 & +.directorist-radio__label{
                     &:after{
                         background-color: #fff;
-                        border-color: $secondary !important;
+                        border-color: var(--directorist-color-secondary) !important;
                     }
                     &:before{
-                        background-color: $secondary !important;
+                        background-color: var(--directorist-color-secondary) !important;
                     }
                 }
             }

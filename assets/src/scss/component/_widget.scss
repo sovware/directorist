@@ -1,25 +1,54 @@
 // Widget Style
 .directorist-widget {
-  padding: 0;
-  background-color: #ffffff;
-  border: 1px solid #e3e6ef;
-  margin-bottom: 30px;
-
-  .directorist-widget__header {
-    padding: 15px 30px;
-    border-bottom: 1px solid #e3e6ef;
+  margin-bottom: 25px;
+  .directorist-card__header.directorist-widget__header {
+    padding: 15px 25px;
 
     .directorist-widget__header--title {
-      display: flex;
       flex-wrap: wrap;
-      align-items: center;
-      margin: 0;
-      font-size: 18px;
     }
   }
 
-  .directorist-weidget__body {
+  .directorist-card__body.directorist-weidget__body {
     padding: 20px 30px;
+  }
+}
+
+// Owner Contact Widget
+.directorist-widget__listing-contact{
+  .directorist-form-group {
+    margin-bottom: 20px;
+    .directorist-form-element{
+      height: 46px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--directorist-color-border);
+      &:focus{
+        border: 1px solid var(--directorist-color-dark);
+      }
+    }
+  }
+  textarea{
+    min-height: 130px;
+    resize: none;
+  }
+  .directorist-btn{
+    width: 100%;
+  }
+}
+
+//Submit Listing Widget
+.directorist-widget__submit-listing{
+  .directorist-btn{
+    width: 100%;
+  }
+}
+
+// Directorist author info
+.directorist-widget__author-info{
+  .diretorist-view-profile-btn{
+    width: 100%;
+    margin-top: 25px;
   }
 }
 
@@ -29,7 +58,7 @@
     li {
       &:hover {
         .directorist-widget-list__icon {
-          background-color: $primary;
+          background-color: var(--directorist-color-primary);
           color: #fff;
         }
       }
@@ -93,12 +122,12 @@
 .widget.atbd_widget {
   a {
     text-decoration: none;
-    color: $dark;
+    color: var(--directorist-color-primary);
   }
 
   padding: 0;
   background: #fff;
-  border: 1px solid $border-color;
+  border: 1px solid var(--directorist-color-border);
   margin-bottom: 30px;
 
   //font-family: $atbd-font-family;
@@ -164,49 +193,13 @@
     }
   }
 
-  .atbd_widget_title {
-    padding: 15px 30px;
-    border-bottom: 1px solid $border-color;
-    margin-bottom: 0;
-
-    .atbd_widget_title {
-      padding: 0;
-      border: 0;
-    }
-
-    h4 {
-      margin: 0 !important;
-      font-size: 18px;
-      font-weight: 400;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-
-      .atbd_badge {
-        margin-left: auto;
-        margin-right: 0;
-      }
-    }
-
-    .widget-title {
-      margin: 0;
-      display: flex;
-      flex-wrap: wrap;
-
-      .atbd_badge {
-        margin-left: auto;
-      }
-    }
-  }
-
   .directorist {
     text-align: center;
 
     .btn {
       color: #fff;
-      background-color: $primary;
-      border-color: $primary;
+      background-color: var(--directorist-color-primary);
+      border-color: var(--directorist-color-primary);
       text-decoration: none;
       padding: 8px 15px;
       display: inline-block;
@@ -231,7 +224,7 @@
         }
 
         a {
-          border: 1px solid $border-color;
+          border: 1px solid var(--directorist-color-border);
           color: #5d658c;
           border-radius: 3px;
           padding: 3px 10px;
@@ -242,7 +235,7 @@
 
           &:hover {
             @extend .atbd_bg-primary;
-            color: $light;
+            color: var(--directorist-color-white);
           }
         }
       }
@@ -274,7 +267,7 @@
         }
 
         &+li {
-          border-top: 1px solid $border-color;
+          border-top: 1px solid var(--directorist-color-border);
         }
 
         .atbd_left_img {
@@ -430,7 +423,7 @@
           .directorist-icon-mask {
             @extend .atbd_bg-primary;
             &:after{
-              background-color: $light;
+              background-color: var(--directorist-color-white);
             }
           }
         }
@@ -569,151 +562,6 @@
     }
   }
 
-  .atbd_author_info_widget {
-    .atbd_avatar_wrapper {
-      display: block;
-
-      .atbd_review_avatar {
-        height: 50px;
-        width: 50px;
-        overflow: hidden;
-        display: inline-block;
-        vertical-align: top;
-
-        img {
-          border-radius: 50%;
-          width: 100%;
-          height: 50px;
-        }
-      }
-
-      .atbd_name_time {
-        display: inline-block;
-        vertical-align: top;
-        margin-left: 7px;
-        width: calc(100% - 61px);
-
-        h4 {
-          margin: 0 0 10px;
-        }
-
-        .review_time {
-          margin-left: 0;
-        }
-      }
-    }
-
-    .atbd_name_time {
-      display: inline-block;
-    }
-
-    .atbd_widget_contact_info {
-      padding-top: 15px;
-      padding-bottom: 0;
-
-      ul li {
-        margin-bottom: 6px;
-        list-style-type: none !important;
-
-        .atbd_info {
-          padding-left: 10px;
-          width: calc(100% - 43px);
-          display: inline-block;
-        }
-
-        .directorist-icon-mask {
-          display: inline-block;
-          text-align: center;
-          position: relative;
-          top: 11px;
-          vertical-align: top;
-          &:after{
-            width: 18px;
-            height: 18px;
-          }
-        }
-
-        a {
-          color: $body-color;
-        }
-      }
-    }
-
-    .btn {
-      color: #fff;
-      margin-top: 20px;
-      background: #444752;
-      display: inline-block;
-      font-weight: 400;
-      text-align: center;
-      white-space: nowrap;
-      vertical-align: middle;
-      user-select: none;
-      border: 1px solid transparent;
-      padding: 5px 15px;
-      font-size: 15px;
-      line-height: 27px;
-      border-radius: 0.25rem;
-      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-    }
-
-    .atbd_social_wrap {
-      margin: 15px -5px -5px -5px;
-
-      p {
-        display: inline-block;
-        margin-bottom: 0;
-
-        a {
-          margin: 5px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 35px;
-          width: 35px;
-          background-color: #f3f3f3 !important;
-          border-radius: 4px;
-          overflow: hidden;
-          transition: 0.3s ease !important;
-
-          .directorist-icon-mask:after {
-            width: 15px;
-            height: 15px;
-            background-color: #000;
-            transition: 0.3s ease;
-          }
-          &:hover{
-              background: #000 !important;
-              .directorist-icon-mask:after{
-                background-color: #fff;
-              }
-          }
-        }
-      }
-    }
-  }
-
-  .atbdp-widget-listing-contact {
-    form {
-      .form-control {
-        padding: 8px 15px;
-        box-shadow: none;
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      textarea.form-control {
-        padding-top: 10px;
-      }
-
-      p.text-success {
-        margin-bottom: 15px;
-      }
-    }
-  }
-
   .accordion-single {
     border-bottom: 1px solid #e3e6ef;
     padding-bottom: 10px;
@@ -741,7 +589,7 @@
   }
 
   .atbd_badge {
-    color: $light;
+    color: var(--directorist-color-white);
     font-size: 11px;
     padding: 0 7px;
     border-radius: 2px;
@@ -1116,8 +964,8 @@
               background: transparent !important;
               &:checked{
                   &+span{
-                      background-color: $primary;
-                      border-color: $primary;
+                      background-color: var(--directorist-color-primary);
+                      border-color: var(--directorist-color-primary);
                       color: #fff;
                       i{
                           color: #fff;
@@ -1157,20 +1005,6 @@
 
   .widget>* {
     margin-top: 0;
-  }
-
-  .atbd_author_info_widget {
-    .atbd_avatar_wrapper {
-      display: flex !important;
-      flex-wrap: wrap;
-      align-items: center;
-
-      .atbd_name_time {
-        h4 {
-          margin-bottom: 0 !important;
-        }
-      }
-    }
   }
 }
 

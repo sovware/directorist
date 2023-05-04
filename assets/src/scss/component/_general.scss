@@ -76,11 +76,25 @@
 }
 
 .diectorist-show {
-  display: block !important;
+  display: block;
 }
 
 .diectorist-hide {
-  display: none !important;
+  display: none;
+}
+
+.directorist-d-none {
+  display: none;
+}
+
+.directorist-text-center {
+  text-align: center;
+}
+
+/* Container within container spacing issue fix */
+.directorist-container-fluid > .directorist-container-fluid {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .directorist-announcement-wrapper {
@@ -97,21 +111,16 @@
   }
 }
 
+// Select2 CSS
 .select2-container--open .select2-dropdown.select2-dropdown--below {
-  top: 0px;
-  border-color: #eff1f6;
+  top: 0;
+  border-color: var(--directorist-color-border);
 }
 
 .logged-in {
   .select2-container--open .select2-dropdown.select2-dropdown--below {
-    top: 30px;
+    top: 32px;
   }
-}
-
-/* Container within container spacing issue fix */
-.directorist-container-fluid > .directorist-container-fluid {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
 }
 
 .directorist-select .select2.select2-container .select2-selection--single .select2-selection__rendered .select2-selection__clear{
@@ -124,29 +133,27 @@
 
   .select2-selection--single {
     height: 42px;
-    border-color: #ececec;
-
+    border: none;
+    border-bottom: 1px solid var(--directorist-color-border-gray);
     &:focus {
       outline: none;
     }
 
     .select2-selection__rendered {
       height: 40px;
-      padding: 0 15px;
+      font-size: 14px;
 
       .select2-selection__clear {
         padding-right: 25px;
       }
 
       .select2-selection__placeholder {
+        font-size: 14px;
         line-height: 2.6;
       }
     }
 
     .select2-selection__arrow {
-      top: 8px;
-      right: 14px;
-
       &:before {
         font-family: "Font Awesome 5 Free";
         content: "\f078";
@@ -164,18 +171,34 @@
   .select2-selection--single
   .select2-selection__arrow
   b {
-  margin-top: 0;
+    margin-top: 0;
 }
 
-.directorist-d-none {
-  display: none !important;
+.select2-container.select2-container--open{
+  z-index: 99999;
 }
 
-.directorist-text-center {
-  text-align: center !important;
+.select2-container {
+  .directorist-select2-addons-area {
+    .directorist-select2-dropdown-toggle {
+      position: absolute;
+      right: 0;
+      padding: 0;
+      width: auto;
+      pointer-events: none;
+    }
+    .directorist-select2-dropdown-close {
+      position: absolute;
+      right: 25px;
+    }
+    .directorist-icon-mask:after {
+      background-color: #404040;
+    }
+  }
+
 }
 
-/* Login/Signup Form */
+/* Login/Signup Form CSS */
 .directorist-login-wrapper{
   #recover-pass-modal{
       .directorist-btn{
@@ -185,24 +208,4 @@
           }
       }
   }
-}
-
-.select2-container.select2-container--open{
-  z-index: 99999;
-}
-
-
-.select2-container {
-  .directorist-select2-addons-area {
-    .directorist-select2-dropdown-toggle {
-      position: absolute;
-      right: 0;
-      pointer-events: none;
-    }
-    .directorist-select2-dropdown-close {
-      position: absolute;
-      right: 25px;
-    }
-  }
-
 }

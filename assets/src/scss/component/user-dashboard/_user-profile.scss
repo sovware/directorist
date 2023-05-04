@@ -27,7 +27,7 @@
             box-shadow: 0 0;
             font-size: 14px;
             font-weight: 500;
-            color: $dark;
+            color: var(--directorist-color-primary);
         }
     }
 }
@@ -51,7 +51,7 @@
             margin-bottom: 5px;
         }
         .directorist-input-extra-info {
-            color: $light-gray;
+            color: var(--directorist-color-light-gray);
             display: inline-block;
             font-size: 14px;
             font-weight: 400;

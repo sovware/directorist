@@ -4,13 +4,13 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-
+        font-size: 1rem;
         @media only screen and (max-width: 375px){
             flex-direction: column;
             align-items: flex-start;
         }
         &:not(:last-child) {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             @media only screen and (max-width: 375px){
                 margin-bottom: 15px;
             }
@@ -19,62 +19,56 @@
         a {
             box-shadow: none;
         }
+    }
+    .directorist-single-info__label {
+        display: flex;
+        align-items: center;
+        min-width: 180px;
+        margin-right: 15px;
+        color: var(--directorist-color-dark);
 
-        .directorist-single-info__label {
-            display: flex;
-            align-items: center;
-            min-width: 350px;
-            color: #7a82a6;
-            margin-right: 15px;
-
-            @media only screen and (max-width: 991px){
-                min-width: 220px;
-            }
-            @media only screen and (max-width: 375px){
-                min-width: 100%;
-                margin-bottom: 6px;
-                margin-right: 0;
-            }
-
-            .directorist-single-info__label-icon {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 35px;
-                height: 35px;
-                border-radius: 50%;
-                color: #444752;
-                background: #f1f3f8;
-                margin-right: 10px;
-                font-size: 14px;
-                text-align: center;
-                flex: none;
-            }
+        @media only screen and (max-width: 375px){
+            min-width: 100%;
+            margin-bottom: 6px;
+            margin-right: 0;
         }
+    }
 
-        .directorist-single-info__value {
-            flex: 1;
-            color: #7a82a6;
-            a{
-                color: #7a82a6;
-            }
+    .directorist-single-info__label-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        margin-right: 10px;
+        font-size: 14px;
+        text-align: center;
+        flex: none;
+        color: var(--directorist-color-light-gray);
+        background: var(--directorist-color-bg-light);
+    }
+
+    .directorist-single-info__value {
+        flex: 1;
+        color: var(--directorist-color-body);
+        a{
+            color: var(--directorist-color-body);
         }
+    }
 
-        .directorist-social-links {
-            a {
-                text-decoration: none;
-                color: $body-color;
-            }
+    .directorist-social-links {
+        a {
+            text-decoration: none;
+            color: var(--directorist-color-body);
         }
+    }
 
-        &.directorist-single-info-picker{
-            .directorist-single-info__value{
-                .directorist-field-type-color{
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 5px;
-                }
-            }
+    &.directorist-single-info-picker{
+        .directorist-field-type-color{
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
         }
     }
 }
@@ -92,7 +86,7 @@
         margin-bottom: 5px;
         height: 35px;
         width: 35px;
-        background: $primary !important;
+        background: var(--directorist-color-primary) !important;
         border-radius: 4px;
         overflow: hidden;
         transition: all ease-in-out 300ms !important;
@@ -192,13 +186,18 @@
     }
 
     .directorist-form-element {
-        border-color: #dbdaf7;
+        border-color: var(--directorist-color-border-gray);
+    }
+
+    textarea{
+        resize: none;
     }
 
     .directorist-btn-submit {
-        padding: 0 15px;
+        padding: 0 18px;
         text-decoration: none;
         text-transform: capitalize;
+
     }
 }
 

@@ -17,7 +17,7 @@ $address = ( is_string( $address_data ) ) ? $address_data : '';
 		<span class="directorist-single-info__label-icon"><?php directorist_icon( $icon );?></span>
 		<span class="directorist-single-info__label--text"><?php echo ( isset( $data['label'] ) ) ? esc_html( $data['label'] ) : ''; ?></span>
 	</div>
-
+	
 	<div class="directorist-single-info__value"><?php echo wp_kses_post( $address ); ?></div>
 
 </div>

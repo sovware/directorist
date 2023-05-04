@@ -18,7 +18,7 @@
       outline: 0;
       background: #fff;
       line-height: 1;
-      color: $dark;
+      color: var(--directorist-color-primary);
     }
   }
 
@@ -367,8 +367,8 @@
       padding: 3px 7px;
 
       &.primary {
-        color: $primary;
-        background-color: rgba($primary, 0.15);
+        color: var(--directorist-color-primary);
+        background-color: rgba(var(--directorist-color-primary), 0.15);
       }
 
       &.directorist_status_published {
@@ -382,13 +382,13 @@
       }
 
       &.danger {
-        color: $danger;
-        background-color: rgba($danger, 0.15);
+        color: var(--directorist-color-danger);
+        background-color: rgba(var(--directorist-color-danger), 0.15);
       }
 
       &.warning {
-        color: $warning;
-        background-color: rgba($warning, 0.15);
+        color: var(--directorist-color-warning);
+        background-color: rgba(var(--directorist-color-warning), 0.15);
       }
     }
 
@@ -681,8 +681,8 @@
   padding: 0 10px;
   border-radius: 12px;
   margin-top: 9px;
-  color: $primary;
-  background: rgba($primary, 0.1);
+  color: var(--directorist-color-primary);
+  background: rgba(var(--directorist-color-primary), 0.1);
 }
 
 /* become author modal */

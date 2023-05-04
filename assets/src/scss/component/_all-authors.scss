@@ -41,13 +41,13 @@
                         transition: 0.3s ease;
 
                         &:hover {
-                            border-bottom-color: $primary;
+                            border-bottom-color: var(--directorist-color-primary);
                         }
                     }
 
                     &.active {
                         a {
-                            border-bottom-color: $primary;
+                            border-bottom-color: var(--directorist-color-primary);
                         }
                     }
                 }
@@ -76,7 +76,7 @@
             @include e(details) {
                 @include e(top) {
                     text-align: center;
-                    border-bottom: 1px solid $border-color;
+                    border-bottom: 1px solid var(--directorist-color-border);
                     margin: 5px 0 15px;
                 }
             }

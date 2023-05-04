@@ -81,7 +81,7 @@
             .directorist-announcement__title {
                 font-size: 18px;
                 font-weight: 500;
-                color: $dark;
+                color: var(--directorist-color-primary);
                 margin-bottom: 6px;
                 margin-top: 0;
 
@@ -124,7 +124,7 @@
                 }
 
                 &:hover {
-                    background-color: $danger;
+                    background-color: var(--directorist-color-danger);
 
                     .directorist-icon-mask {
                         &:after{

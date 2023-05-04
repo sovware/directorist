@@ -43,7 +43,7 @@
                     color: #444752;
 
                     span {
-                        color: $text-color;
+                        color: var(--directorist-color-body);
                     }
                 }
             }

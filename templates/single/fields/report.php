@@ -2,23 +2,21 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.5.0
+ * @version 7.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-single-listing-action directorist-action-report directorist-tooltip directorist-btn-modal directorist-btn-modal-js" data-directorist_target="directorist-report-abuse-modal" data-label="<?php esc_html_e( 'Report', 'directorist' ); ?>">
+<?php if ( is_user_logged_in() ): ?>
+	<a class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-action-report directorist-action-report-loggedin directorist-btn-modal directorist-btn-modal-js" href="#" data-directorist_target="directorist-report-abuse-modal">
+		<?php directorist_icon( $icon );?><span class="directorist-single-listing-action__text"><?php esc_html_e( 'Report', 'directorist'); ?></span> 
+	</a>
+<?php else: ?>
+	<a class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-action-report directorist-action-report-not-loggedin directorist-btn-modal directorist-btn-modal-js" href="javascript:void(0)"><?php directorist_icon( $icon );?> <span class="directorist-single-listing-action__text"> <?php esc_html_e( 'Report', 'directorist'); ?></span></a>
+<?php endif; ?>
 
-	<?php if ( is_user_logged_in() ): ?>
-		<a class="directorist-action-report-loggedin" href="#"><?php directorist_icon( $icon );?></a>
-	<?php else: ?>
-		<a class="directorist-action-report-not-loggedin" href="javascript:void(0)"><?php directorist_icon( $icon );?></a>
-	<?php endif; ?>
-
-	<input type="hidden" id="atbdp-post-id" value="<?php echo esc_attr( $listing->id ); ?>"/>
-
-</div>
+<input type="hidden" id="atbdp-post-id" value="<?php echo esc_attr( $listing->id ); ?>"/>
 
 <div class="directorist-modal directorist-modal-js directorist-fade directorist-report-abuse-modal">
 
@@ -30,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<div class="directorist-modal__header">
 
-					<h3 class="directorist-modal-title" id="directorist-report-abuse-modal__label"><?php esc_html_e('Report Abuse', 'directorist'); ?></h3>
+					<h3 class="directorist-modal__header--title" id="directorist-report-abuse-modal__label"><?php esc_html_e('Report Abuse', 'directorist'); ?></h3>
 
 					<a href="" class="directorist-modal-close directorist-modal-close-js"><span aria-hidden="true">&times;</span></a>
 
@@ -54,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<div class="directorist-modal__footer">
 
-					<button type="submit" class="directorist-btn directorist-btn-primary directorist-btn-sm"><?php esc_html_e( 'Submit', 'directorist' ); ?></button>
+					<button type="submit" class="directorist-btn directorist-btn-primary directorist-btn-md"><?php esc_html_e( 'Submit', 'directorist' ); ?></button>
 
 				</div>
 

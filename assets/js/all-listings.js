@@ -591,36 +591,42 @@ function convertToSelect2(field) {
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  // Make sure the codes in this file runs only once, even if enqueued twice
+  /* Make sure the codes in this file runs only once, even if enqueued twice */
   if (typeof window.directorist_catloc_executed === 'undefined') {
     window.directorist_catloc_executed = true;
   } else {
     return;
   }
+  /* Category card grid three width/height adjustment */
 
-  (function ($) {
-    /* Multi level hierarchy content */
 
-    /* Category */
-    $('.atbdp_child_category').hide();
-    $('.atbd_category_wrapper > .expander').on('click', function () {
-      $(this).siblings('.atbdp_child_category').slideToggle();
-    });
-    $('.atbdp_child_category li .expander').on('click', function () {
-      $(this).siblings('.atbdp_child_category').slideToggle();
-      $(this).parent('li').siblings('li').children('.atbdp_child_category').slideUp();
-    });
-    /* Location */
+  var categoryCard = document.querySelectorAll('.directorist-categories__single--style-three');
 
-    $('.atbdp_child_location').hide();
-    $('.atbd_location_wrapper > .expander').on('click', function () {
-      $(this).siblings('.atbdp_child_location').slideToggle();
+  if (categoryCard) {
+    categoryCard.forEach(function (elm) {
+      var categoryCardWidth = elm.offsetWidth;
+      elm.style.setProperty('--directorist-category-box-width', "".concat(categoryCardWidth, "px"));
     });
-    $('.atbdp_child_location li .expander').on('click', function () {
-      $(this).siblings('.atbdp_child_location').slideToggle();
-      $(this).parent('li').siblings('li').children('.atbdp_child_location').slideUp();
+  }
+  /* Taxonomy list dropdown */
+
+
+  function categoryDropdown(selector, parent) {
+    var categoryListToggle = document.querySelectorAll(selector);
+    categoryListToggle.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        var categoryName = item.querySelector('.directorist-taxonomy-list__name');
+
+        if (e.target !== categoryName) {
+          e.preventDefault();
+          this.classList.toggle('directorist-taxonomy-list__toggle--open');
+        }
+      });
     });
-  })(jQuery);
+  }
+
+  categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
+  categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
 });
 
 /***/ }),
@@ -842,20 +848,16 @@ window.addEventListener('DOMContentLoaded', function () {
 
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
-    $('#atbdp-favourites').on('click', function (e) {
+    $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
         'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $("a.atbdp-favourites").data('post_id')
+        'post_id': $(this).find('.directorist-single-listing-action__text').data('post_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
-        console.log('added');
-        console.log(response);
-        console.log(directorist.ajaxurl);
-
         if (response) {
-          $('#atbdp-favourites').html(response);
+          $('.directorist-action-bookmark').html(response);
         }
       });
     });
@@ -2552,7 +2554,8 @@ window.addEventListener('DOMContentLoaded', function () {
               method: 'GET',
               reload: 'strict',
               success: function success(response) {
-                $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__contents-wrap').append(response.data.html);
+                $target.prop('disabled', true);
+                $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__info').append(response.data.html);
                 $wrap.removeClass('directorist-comment-edit-request').addClass('directorist-comment-editing');
                 self.cancelOthersEditMode($target.data('commentid'));
                 self.cancelReplyMode();
@@ -2567,6 +2570,7 @@ window.addEventListener('DOMContentLoaded', function () {
             var $target = $(event.target);
             var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
             $wrap.removeClass(['directorist-comment-edit-request', 'directorist-comment-editing']).find('form').remove();
+            $wrap.find('.directorist-js-edit-comment').prop('disabled', false);
           });
         }
       }, {

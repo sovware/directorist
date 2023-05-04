@@ -19,7 +19,7 @@
                 color: #1A1B29;
                 font-weight: 500;
                 &:before{
-                    background-color: $dark;
+                    background-color: var(--directorist-color-primary);
                 }
                 &:after{
                     transform: translateX(20px);
@@ -75,7 +75,7 @@
             &:checked{
                 &+.directorist-switch-label{
                     &:before{
-                        background-color: $primary
+                        background-color: var(--directorist-color-primary)
                     }
                 }
             }
@@ -86,7 +86,7 @@
             &:checked{
                 &+.directorist-switch-label{
                     &:before{
-                        background-color: $success
+                        background-color: var(--directorist-color-success)
                     }
                 }
             }
@@ -97,7 +97,7 @@
             &:checked{
                 &+.directorist-switch-label{
                     &:before{
-                        background-color: $secondary
+                        background-color: var(--directorist-color-secondary)
                     }
                 }
             }
@@ -108,7 +108,7 @@
             &:checked{
                 &+.directorist-switch-label{
                     &:before{
-                        background-color: $danger
+                        background-color: var(--directorist-color-danger)
                     }
                 }
             }
@@ -119,7 +119,7 @@
             &:checked{
                 &+.directorist-switch-label{
                     &:before{
-                        background-color: $warning
+                        background-color: var(--directorist-color-warning)
                     }
                 }
             }
@@ -130,7 +130,7 @@
             &:checked{
                 &+.directorist-switch-label{
                     &:before{
-                        background-color: $info;
+                        background-color: var(--directorist-color-info);
                     }
                 }
             }

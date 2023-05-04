@@ -13,10 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php if ( $searchform->has_more_filters_button ): ?>
 
 		<div class="directorist-search-form-action__filter">
-			<a href="#" class="directorist-btn directorist-btn-lg directorist-filter-btn">
-
+			<a href="#" class="directorist-btn directorist-btn-lg directorist-filter-btn <?php if ( ($searchform->more_filters_display) == 'sliding' ): echo 'directorist-modal-btn' ?> <?php endif;?>">
 				<?php if ( $searchform->has_more_filters_icon() ): ?>
-					<?php directorist_icon( 'las la-filter' ); ?>
+					<?php directorist_icon( 'fas fa-filter' ); ?>
 				<?php endif;?>
 
 				<?php echo esc_html( $searchform->more_filters_text );?>

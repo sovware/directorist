@@ -8,26 +8,44 @@
 // add listing types
 .directorist-add-listing-types {
   @include e(single) {
+    margin-bottom: 15px;
     @include e(link) {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      background: #202428 !important;
-      padding: 30px 0;
-      border-radius: 4px;
-      color: #fff !important;
-      font-size: 17px !important;
-      min-height: 118px;
-      text-decoration: none !important;
+      background: var(--directorist-color-white);
+      color: var(--directorist-color-primary);
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
       text-align: center;
-
+      padding: 40px 0;
+      border-radius: 16px;
+      box-shadow: var(--directorist-box-shadow);
       .directorist-icon-mask {
-        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70px;
+        width: 70px;
+        background-color: var(--directorist-color-primary);
+        border-radius: 100%;
+        margin-bottom: 20px;
         &:after{
-          width: 17px;
-          height: 17px;
+          width: 23px;
+          height: 23px;
           background-color: #fff;
+        }
+      }
+      &:hover {
+        background: var(--directorist-color-primary);
+        color: var(--directorist-color-white);
+        .directorist-icon-mask {
+          background-color: var(--directorist-color-white);
+          &::after {
+            background-color: #000;
+          }
         }
       }
       /* Legacy Icon */
@@ -112,7 +130,7 @@
 
     small {
       font-weight: normal;
-      color: $success;
+      color: var(--directorist-color-success);
     }
   }
 }
@@ -178,7 +196,7 @@
 
 .directorist-form-group .select2-container--default .select2-selection {
   min-height: 40px;
-  padding: 0 15px;
+  padding-right: 15px;
 
   .select2-selection__rendered {
     line-height: 26px;
@@ -324,7 +342,7 @@
 
   .ezmu__btn {
     margin-bottom: 25px;
-    background-color: $dark;
+    background-color: var(--directorist-color-primary);
     color: #fff;
   }
 
@@ -531,8 +549,8 @@
     margin-bottom: 20px;
 
     #delete_marker {
-      background-color: $danger;
-      border: 1px solid $danger;
+      background-color: var(--directorist-color-danger);
+      border: 1px solid var(--directorist-color-danger);
       color: #fff;
     }
   }
@@ -610,3 +628,149 @@
     }
   }
 }
+
+// Multistep Wizard
+.multistep-wizard {
+  display: flex;
+  gap: 30px;
+  @include e(btn) {
+    background-color: unset;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  @include e(nav) {
+    display: flex;
+    flex-direction: column;
+    @include e(btn) {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 270px;
+      padding: 7px 16px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 12px;
+      color: var(--directorist-color-light-gray);
+      background-color: transparent;
+      i {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        background-color: #ededed;
+        &:after {
+          width: 16px;
+          height: 16px;
+        }
+      }
+      &:before{
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        content: "";
+        mask-image: url("../../../icons/font-awesome/svgs/solid/arrow-right.svg");
+        mask-repeat: no-repeat;
+        width: 12px;
+        height: 12px;
+        background-color: #000;
+        display: block;
+        opacity: 0;
+        transition: all 0.3s ease 0s;
+        z-index: 2;
+      }
+      &.active,
+      &:hover {
+        color: var(--directorist-color-dark);
+        background: var(--directorist-color-white);
+        box-shadow: var(--directorist-box-shadow);
+        &:before{
+          opacity: 1;
+        }
+      }
+      &.completed {
+        color: var(--directorist-color-dark);
+        &:before{
+          mask-image: url("../../../icons/font-awesome/svgs/solid/check.svg");
+          opacity: 1;
+        }
+      }
+    }
+  }
+  @include e(content) {
+    flex: 1;
+  }
+  @include e(single) {
+    display: none;
+    padding: 20px 15px;
+    box-shadow: var(--directorist-box-shadow);
+    &.active {
+      display: block;
+    }
+    label {
+      display: block;
+    }
+    span.required{
+      color: var(--directorist-color-danger);
+    }
+  }
+  @include e(progressbar) {
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin-top: 50px;
+    border-radius: 10px;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--directorist-color-border);
+      border-radius: 10px;
+      transition: width 0.3s ease-in-out;
+    }
+    @include e(width) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--directorist-color-primary);
+        border-radius: 10px;
+        transition: width 0.3s ease-in-out;
+      }
+    }
+  }
+  @include e(bottom) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+  @include e(btn) {
+    width: 200px;
+    height: 54px;
+    &[disabled="true"] {
+      pointer-events: none;
+    }
+  }
+  @include e(count) {
+    font-size: 15px;
+    font-weight: medium;
+  }
+}
+

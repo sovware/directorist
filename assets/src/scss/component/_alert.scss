@@ -49,7 +49,7 @@
         span {
             font-size: 16px;
             margin-left: 10px;
-            color: $danger;
+            color: var(--directorist-color-danger);
         }
 
         &:focus {
@@ -65,11 +65,11 @@
 // Alert Type
 .directorist-alert {
     &.directorist-alert-primary {
-        background: rgba($primary, .10);
-        color: $primary;
+        background: rgba(var(--directorist-color-primary-rgb), .10);
+        color: var(--directorist-color-primary);
 
         .directorist-alert__close {
-            color: $primary;
+            color: var(--directorist-color-primary);
         }
     }
 

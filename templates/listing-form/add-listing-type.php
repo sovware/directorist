@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-add-listing-types directorist-w-100">
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
-		<div class="<?php Helper::directorist_row(); ?> directorist-justify-content-center ">
+		<div class="<?php Helper::directorist_row(); ?>">
 
 			<?php foreach ( $listing_form->get_listing_types() as $id => $value ): ?>
 

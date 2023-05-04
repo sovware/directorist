@@ -7416,6 +7416,8 @@ body.stop-scrolling {
   border-radius: 16px;
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   /* Legacy Icon */
 }
 .directorist-add-listing-types__single__link .directorist-icon-mask {
@@ -7436,6 +7438,8 @@ body.stop-scrolling {
   background-color: var(--directorist-color-primary);
   border-radius: 100%;
   margin-bottom: 20px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .directorist-add-listing-types__single__link .directorist-icon-mask:after {
   width: 23px;
@@ -8302,9 +8306,12 @@ body.stop-scrolling {
   border: none;
   outline: none;
   cursor: pointer;
+  font-size: 14px;
   border-radius: 12px;
   color: var(--directorist-color-light-gray);
   background-color: transparent;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .multistep-wizard__nav__btn i {
   width: 36px;
@@ -8349,6 +8356,7 @@ body.stop-scrolling {
   z-index: 2;
 }
 .multistep-wizard__nav__btn.active, .multistep-wizard__nav__btn:hover {
+  font-weight: 600;
   color: var(--directorist-color-dark);
   background: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);

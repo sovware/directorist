@@ -28,19 +28,10 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
 
                                 if ( empty( $listing_type ) ) {
 
-                                    printf( '<div class="multistep-wizard__nav__item"><button class="multistep-wizard__nav__btn">%s %s</button></div>', "section_id_{$key}", ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : '' ), $section['label'] );
+                                    printf( '<div class="multistep-wizard__nav__item"><button class="multistep-wizard__nav__btn"><i>%s</i> %s</button></div>', ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : ''), $section['label'] ) ;
                                 }
                             }
                         ?>
-                        <div class="multistep-wizard__nav__item">
-                            <button class="multistep-wizard__nav__btn"><?php directorist_icon( 'fas fa-check' ); ?>General</button>
-                        </div>
-                        <div class="multistep-wizard__nav__item">
-                            <button class="multistep-wizard__nav__btn"><?php directorist_icon( 'fas fa-users' ); ?>Contact Info</button>
-                        </div>
-                        <div class="multistep-wizard__nav__item">
-                            <button class="multistep-wizard__nav__btn"><?php directorist_icon( 'fas fa-map-marker' ); ?>Location</button>
-                        </div>
                         <div class="multistep-wizard__nav__item">
                             <button class="multistep-wizard__nav__btn"><?php directorist_icon( 'fas fa-check' ); ?>Finish</button>
                         </div>

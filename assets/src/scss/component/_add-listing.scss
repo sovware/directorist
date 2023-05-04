@@ -527,7 +527,10 @@
     }
   
     #listing_notifier {
-      margin-top: 10px;
+      padding: 0 40px;
+      margin: 0 0 20px;
+      font-weight: 600;
+      color: var(--directorist-color-danger);
     }
   
     .directorist-form-group,
@@ -540,9 +543,6 @@
         margin: 0 0 10px;
         a {
           color: var(--directorist-color-info);
-          &:hover {
-            color: var(--directorist-color-primary);
-          }
         }
       }
     }
@@ -956,7 +956,6 @@
       &:after {
         width: 14px;
         height: 14px;
-        margin-bottom: 2px;
         background-color: var(--directorist-color-primary);
       }
     }
@@ -964,7 +963,8 @@
       flex: 0 0 100%;
       margin: 25px 0 0;
       &.directorist-btn {
-        display: none;
+        height: 0;
+        opacity: 0;
       }
     }
   }

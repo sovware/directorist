@@ -7963,7 +7963,10 @@ body.stop-scrolling {
   margin-bottom: 0;
 }
 .directorist-add-listing-form__action #listing_notifier {
-  margin-top: 10px;
+  padding: 0 40px;
+  margin: 0 0 20px;
+  font-weight: 600;
+  color: var(--directorist-color-danger);
 }
 .directorist-add-listing-form__action .directorist-form-group,
 .directorist-add-listing-form__action .directorist-checkbox {
@@ -7979,10 +7982,6 @@ body.stop-scrolling {
 .directorist-add-listing-form__action .directorist-form-group label a,
 .directorist-add-listing-form__action .directorist-checkbox label a {
   color: var(--directorist-color-info);
-}
-.directorist-add-listing-form__action .directorist-form-group label a:hover,
-.directorist-add-listing-form__action .directorist-checkbox label a:hover {
-  color: var(--directorist-color-primary);
 }
 .directorist-add-listing-form__action .directorist-form-required {
   padding-right: 5px;
@@ -8475,7 +8474,6 @@ body.stop-scrolling {
 .multistep-wizard__btn i:after {
   width: 14px;
   height: 14px;
-  margin-bottom: 2px;
   background-color: var(--directorist-color-primary);
 }
 .multistep-wizard__btn--skip-preview {
@@ -8486,7 +8484,8 @@ body.stop-scrolling {
   margin: 25px 0 0;
 }
 .multistep-wizard__btn--skip-preview.directorist-btn {
-  display: none;
+  height: 0;
+  opacity: 0;
 }
 .multistep-wizard__count {
   font-size: 15px;

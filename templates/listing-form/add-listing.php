@@ -61,15 +61,15 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                         </div>
 
                         <div class="multistep-wizard__bottom">
-                            <button class="directorist-btn multistep-wizard__btn multistep-wizard__btn--prev" disabled="true"><?php directorist_icon( 'fas fa-arrow-left' ); ?>Back</button>
+                            <a class="directorist-btn multistep-wizard__btn multistep-wizard__btn--prev" disabled="true"><?php directorist_icon( 'fas fa-arrow-left' ); ?>Back</a>
 
                             <div class="multistep-wizard__count">
                                 <span class="multistep-wizard__count__current"></span> / <span class="multistep-wizard__count__total"></span>
                             </div>
 
-                            <button class="directorist-btn multistep-wizard__btn multistep-wizard__btn--next">Save & Next<?php directorist_icon( 'fas fa-arrow-right' ); ?></button>
+                            <a class="directorist-btn multistep-wizard__btn multistep-wizard__btn--next">Save & Next<?php directorist_icon( 'fas fa-arrow-right' ); ?></a>
 
-                            <button class="directorist-btn directorist-btn-primary multistep-wizard__btn multistep-wizard__btn--skip-preview">Skip preview and submit listing</button>
+                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--skip-preview">Skip preview and submit listing</button>
                         </div>
                     </div>
                 </div>

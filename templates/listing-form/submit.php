@@ -37,11 +37,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	do_action( 'atbdp_before_terms_and_conditions_font' )
 	?>
 
-	<?php if ( $display_privacy && $display_privacy ): ?>
+	<?php if ( $display_privacy && $display_terms ): ?>
 
 	<div class="directorist-form-privacy directorist-form-terms directorist-checkbox">
 
-		<input id="privacy_policy_terms" type="checkbox" name="privacy_policy_terms" <?php checked( $privacy_checked ); ?> <?php echo $privacy_is_required ? 'required="required"' : ''; ?>>
+		<input id="privacy_policy_terms" type="checkbox" name="privacy_policy_terms" <?php checked( $privacy_checked ); ?> >
 
 		<label for="privacy_policy_terms" class="directorist-checkbox__label">I agree to the <a href="#">Privacy & Policy</a> and <a href="#">Terms & Condition</a></label>
 

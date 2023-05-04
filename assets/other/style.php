@@ -57,8 +57,8 @@ $new_badge_color                  = get_directorist_option('new_back_color', '#1
 
 $primary_dark_border_color        = get_directorist_option('primary_dark_border_color', '#444752');
 
-$marker_shape_color               = get_directorist_option('marker_shape_color', '#444752');
-$marker_icon_color                = get_directorist_option('marker_icon_color', '#444752');
+$marker_shape_color               = get_directorist_option('marker_shape_color', '#000000');
+$marker_icon_color                = get_directorist_option('marker_icon_color', '#ffffff');
 
 $primary_color                    = get_directorist_option('color_primary', '#000000');
 $secondary_color                  = get_directorist_option('color_secondary', '#F2F3F5');
@@ -622,10 +622,6 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     /* Marker Shape color */
     .atbd_map_shape {
         background: var(--directorist-color-marker-shape) !important;
-    }
-
-    .atbd_map_shape:before {
-        border-top-color: var(--directorist-color-marker-shape) !important;
     }
 
     /* Marker icon color */

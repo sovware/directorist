@@ -138,57 +138,46 @@
     position: relative;
 }
 
-.myDivIcon div.atbd_map_shape {
-    position: absolute;
-    top: -38px;
-    left: -15px;
-}
-
-.leaflet-pane .myDivIcon div.atbd_map_shape {
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    margin-left: -26px;
-}
-
-.map-icon-label i,
-.atbd_map_shape>span {
-    font-size: 17px !important;
-    color: #444752;
-    text-align: center;
-    white-space: nowrap;
-    position: relative;
-    z-index: 1;
-    width: 40px !important;
-    height: 40px !important;
-    background: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-.atbd_map_shape {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #444752;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    top: -10px;
-
-    &:before {
-        position: absolute;
-        content: '';
-        border-top: 15px solid #444752;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        left: 50%;
-        bottom: -11px;
-        transform: translateX(-50%);
+.leaflet-pane {
+    .leaflet-marker-icon {
+        .atbd_map_shape {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            background-color: var(--directorist-color-primary);
+            &:before {
+                content: "";
+                position: absolute;
+                left: -20px;
+                top: -20px;
+                width: 40px;
+                height: 40px;
+                opacity: 0;
+                visibility: hidden;
+                border-radius: 50%;
+                transition: all 0.3s ease-in-out;
+                border: none;
+                border: 20px solid rgba(0, 0, 0, 0.20);
+                animation: atbd_scale 3s linear alternate infinite;
+            }
+            span {
+                i::after {
+                    width: 16px;
+                    height: 16px;
+                    background: var(--directorist-color-white);
+                }
+            }
+            &:hover {
+                &:before {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
     }
 }
 

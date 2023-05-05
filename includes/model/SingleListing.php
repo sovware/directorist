@@ -192,6 +192,13 @@ class Directorist_Single_Listing {
 				}
 			}
 
+			if( 'description' === $field['widget_name'] ) {
+				if( $this->get_contents() ) {
+					$has_contents = true;
+					break;
+				}
+			}
+
 			if( 'map' === $field['widget_name'] ) {
 				$address = get_post_meta( $this->id, '_address', true );
 				$manual_lat = get_post_meta( $this->id, '_manual_lat', true );
@@ -261,6 +268,10 @@ class Directorist_Single_Listing {
 			if( $listing_img || $preview_img ) {
 				$value = true;
 			}
+		} elseif( 'description' === $data['widget_name'] ) {
+			if( $this->get_contents() ) {
+				$value = true;
+			}
 		}
 		else {
 			$value = $this->get_field_value( $data );
@@ -283,7 +294,7 @@ class Directorist_Single_Listing {
 			'value'   => $value,
 			'icon'    => !empty( $data['icon'] ) ? $data['icon'] : '',
 		);
-
+		
 		if ( $this->is_custom_field( $data ) ) {
 			$template = 'single/custom-fields/' . $data['widget_name'];
 		}
@@ -293,9 +304,7 @@ class Directorist_Single_Listing {
 
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 
-		if( $load_template ) {
-			Helper::get_template( $template, $args );
-		}
+		Helper::get_template( $template, $args );
 	}
 
 	public function is_custom_field( $data ) {

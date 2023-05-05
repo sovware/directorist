@@ -2174,6 +2174,16 @@ class Multi_Directory_Manager
                             ],
                         ]
                     ],
+                    'description' => [
+                        'options' => [
+                            'icon' => [
+                                'type'  => 'icon',
+                                'label' => __( 'Icon', 'directorist' ),
+                                'value' => 'las la-tag',
+                            ],
+                        ]
+                    ],
+
                     'tag' => [
                         'options' => [
                             'icon' => [
@@ -4321,20 +4331,6 @@ class Multi_Directory_Manager
                                         'label' => __( "Show Tagline", "directorist" ),
                                         'value' => true,
                                     ],
-                                ],
-                            ],
-                        ],
-                        'listing_description' => [
-                            'type' => "title",
-                            'label' => __( "Description", "directorist" ),
-                            'options' => [
-                                'title' => __( "Description Settings", "directorist" ),
-                                'fields' => [
-                                'enable' => [
-                                    'type' => "toggle",
-                                    'label' => __( "Show Description", "directorist" ),
-                                    'value' => true,
-                                ],
                                 ],
                             ],
                         ],

@@ -255,6 +255,12 @@ class Directorist_Single_Listing {
 			if( ( $manual_lat && $manual_lng ) && ! $hide_map ) {
 				$value = true;
 			}
+		} elseif( 'image_upload' === $data['widget_name'] ) {
+			$listing_img 	=  get_post_meta( $this->id, '_listing_img', true );
+			$preview_img   	= get_post_meta( $this->id, '_listing_prv_img', true);
+			if( $listing_img || $preview_img ) {
+				$value = true;
+			}
 		}
 		else {
 			$value = $this->get_field_value( $data );
@@ -484,7 +490,7 @@ class Directorist_Single_Listing {
 		}
 	}
 
-	public function get_slider_data() {
+	public function get_slider_data( $data ) {
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 
@@ -527,7 +533,7 @@ class Directorist_Single_Listing {
 			'height'             => empty( $height ) ? 580 : $height,
 			'background-color'   => get_directorist_option( 'single_slider_background_color', 'gainsboro' ),
 			'thumbnail-bg-color' => '#fff',
-			'show-thumbnails'    => !empty( $this->header_data['listings_header']['thumbnail'][0]['footer_thumbail'] ) ? '1' : '0',
+			'show-thumbnails'    => ! empty( $data['footer_thumbnail'] ) ? '1' : '0',
 			'gallery'            => true,
 			'rtl'                => is_rtl() ? '1' : '0',
 		);
@@ -557,11 +563,10 @@ class Directorist_Single_Listing {
 		return $data;
 	}
 
-	public function slider_template() {
+	public function slider_template( $data ) {
 		$args = array(
 			'listing'    => $this,
-			'has_slider' => !empty( $this->header_data['listings_header']['thumbnail'] ) ? true : false,
-			'data'       => $this->get_slider_data(),
+			'data'       => $this->get_slider_data( $data ),
 		);
 
 		Helper::get_template('single/slider', $args );

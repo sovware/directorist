@@ -2,14 +2,11 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.3.1
+ * @version 7.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !$has_slider ) {
-   return;
-}
 $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlider__cover';
 ?>
 <div id="directorist-single-listing-slider" class="plasmaSlider"

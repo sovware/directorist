@@ -2160,6 +2160,20 @@ class Multi_Directory_Manager
                 'allowMultiple' => false,
                 'template' => 'submission_form_fields',
                 'widgets' => apply_filters( 'atbdp_single_listing_content_widgets', [
+                    'image_upload' => [
+                        'options' => [
+                            'icon' => [
+                                'type'  => 'icon',
+                                'label' => __( 'Icon', 'directorist' ),
+                                'value' => 'las la-tag',
+                            ],
+                            'footer_thumbnail' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Footer Thumbnail', 'directorist' ),
+                                'value' => true,
+                            ],
+                        ]
+                    ],
                     'tag' => [
                         'options' => [
                             'icon' => [
@@ -4367,22 +4381,6 @@ class Multi_Directory_Manager
                         ],
                     ],
 
-                    'listing_slider' => [
-                        'type' => "thumbnail",
-                        'label' => __( "Listings Slider", "directorist" ),
-                        'icon' => 'uil uil-text-fields',
-                        'can_move' => false,
-                        'options' => [
-                            'title' => __( "Listings Slider Settings", "directorist" ),
-                            'fields' => [
-                                'footer_thumbail' => [
-                                    'type' => "toggle",
-                                    'label' => __( "Enable Footer Thumbnail", "directorist" ),
-                                    'value' => true,
-                                ],
-                            ],
-                        ],
-                    ],
                     'price' => [
                         'type' => "badge",
                         'label' => __( "Listings Price", "directorist" ),

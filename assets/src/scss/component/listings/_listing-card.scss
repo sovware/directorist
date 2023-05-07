@@ -75,10 +75,6 @@
                     background-color: transparent;
                     color: var(--directorist-color-success);
                 }
-                span,
-                a{
-                    word-break: break-all;
-                }
                 .directorist-info-item.directorist-rating-meta{
                     display: inline-flex;
                     align-items: center;
@@ -306,15 +302,18 @@
             .directorist-listing-category {
                 & > a {
                     .directorist-icon-mask{
+                        height: 34px;
+                        width: 34px;
                         border-radius: 50%;
+                        background: var(--directorist-color-light);
                         display: inline-flex;
                         align-items: center;
                         justify-content: center;
                         margin-right: 10px;
                         &:after{
                             background-color: #404040;
-                            width: 15px;
-                            height: 15px;
+                            width: 14px;
+                            height: 14px;
                         }
                     }
     
@@ -333,6 +332,10 @@
                         }
                     }
                 }
+                @include e('extran-count') {
+                    font-size: 14px;
+                    font-weight: 500;
+                }
             }
     
             .directorist-listing-single__meta--left {
@@ -340,7 +343,7 @@
                 .directorist-listing-category {
                     a {
                         text-decoration: none;
-                        font-size: 15px;
+                        font-size: 14px;
                         color: var(--directorist-color-body);
                         border-bottom: 0 none;
                         box-shadow: none;
@@ -390,6 +393,11 @@
                         height: 100%;
                         border-radius: 50%;
                     }
+                }
+
+                .directorist-mark-as-favorite__btn {
+                    width: auto;
+                    height: auto;
                 }
             }
     

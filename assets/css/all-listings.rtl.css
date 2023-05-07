@@ -3608,6 +3608,23 @@ body.stop-scrolling {
   color: var(--directorist-color-body);
   margin: 0;
 }
+.directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+.directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape:before {
+  right: -25px;
+  top: -25px;
+  width: 50px;
+  height: 50px;
+  border: 25px solid rgba(0, 0, 0, 0.2);
+}
+.directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape img {
+  width: 20px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 
 /* Custom Fields */
 /* select */

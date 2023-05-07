@@ -27,10 +27,12 @@ import {
                 return;
             }
 
-            const fontAwesomeIcon = L.icon({
-                iconUrl: loc_map_icon,
-                iconSize: [20, 25],
+            const fontAwesomeIcon = L.divIcon({
+                html: `<div class="atbd_map_shape"><img class="" src="${loc_map_icon}"/></div>`,
+                iconSize: [20, 20],
+                className: 'myDivIcon',
             });
+
             var mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
 
             L.marker([lat, lon], {

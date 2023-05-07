@@ -586,7 +586,27 @@
       margin: 0;
     }
   }
-  
+
+  .leaflet-pane {
+    .leaflet-marker-icon {
+      .atbd_map_shape {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        &:before {
+          left: -25px;
+          top: -25px;
+          width: 50px;
+          height: 50px;
+          border: 25px solid rgba(0, 0, 0, 0.20);
+        }
+        img {
+          width: 20px;
+          object-fit: cover;
+        }
+      }
+    }
+  }
 }
 
 /* Custom Fields */

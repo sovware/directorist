@@ -119,9 +119,10 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      var fontAwesomeIcon = L.icon({
-        iconUrl: loc_map_icon,
-        iconSize: [20, 25]
+      var fontAwesomeIcon = L.divIcon({
+        html: "<div class=\"atbd_map_shape\"><img class=\"\" src=\"".concat(loc_map_icon, "\"/></div>"),
+        iconSize: [20, 20],
+        className: 'myDivIcon'
       });
       var mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
       L.marker([lat, lon], {

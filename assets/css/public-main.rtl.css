@@ -7792,8 +7792,9 @@ p.atbd-min {
   top: -4px;
 }
 
-.directorist-search-contents .directorist-search-form-top .directorist-search-field.direcorist-search-field-radius_search {
+.directorist-search-field.direcorist-search-field-radius_search {
   margin: 0;
+  display: none;
 }
 
 .directorist-dropdown {

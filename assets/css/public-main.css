@@ -8742,8 +8742,14 @@ p.atbd-min {
   height: 30px;
 }
 
+.directorist-form-group.directorist-icon-left input[type=text] {
+  padding-left: 35px;
+}
 .directorist-form-group.directorist-icon-left .directorist-input-icon {
   left: 0;
+}
+.directorist-form-group.directorist-icon-right input[type=text] {
+  padding-right: 35px;
 }
 .directorist-form-group.directorist-icon-right .directorist-input-icon {
   right: 15px;
@@ -9699,7 +9705,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   list-style: none;
 }
 .directorist-type-nav__list__current .directorist-type-nav__link {
-  font-weight: 400;
+  font-weight: 600;
   color: var(--directorist-color-primary);
 }
 .directorist-type-nav__list__current .directorist-type-nav__link .directorist-icon-mask::after {
@@ -10444,6 +10450,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-form__top .directorist-search-field .directorist-form-element {
   border: 0 none;
   background-color: transparent;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border-bottom: 2px solid transparent;
+}
+.directorist-search-form__top .directorist-search-field .directorist-form-element:focus {
+  border-color: var(--directorist-color-primary);
 }
 .directorist-search-form__top .directorist-search-field .directorist-price-ranges__item .directorist-form-element {
   border-bottom: 1px solid var(--directorist-color-border);
@@ -10545,12 +10557,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .atbdp-form-fade.directorist-search-form-box:after {
   border-radius: 12px;
 }
-.atbdp-form-fade.directorist-search-field {
-  overflow: visible;
-}
-.atbdp-form-fade.directorist-search-field:after {
-  width: calc(100% + 15px);
-  left: -15px;
+.atbdp-form-fade.directorist-search-field input[type=text] {
+  padding-left: 15px;
 }
 .atbdp-form-fade:before {
   position: absolute;

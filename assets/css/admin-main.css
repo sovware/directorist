@@ -9611,8 +9611,14 @@ for shortable field*/
   height: 30px;
 }
 
+.directorist-form-group.directorist-icon-left input[type=text] {
+  padding-left: 35px;
+}
 .directorist-form-group.directorist-icon-left .directorist-input-icon {
   left: 0;
+}
+.directorist-form-group.directorist-icon-right input[type=text] {
+  padding-right: 35px;
 }
 .directorist-form-group.directorist-icon-right .directorist-input-icon {
   right: 15px;

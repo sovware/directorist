@@ -65,6 +65,11 @@
       .directorist-form-element {
         border: 0 none;
         background-color: transparent;
+        transition: all 0.3s ease-in-out;
+        border-bottom: 2px solid transparent;
+        &:focus {
+          border-color: var(--directorist-color-primary);
+        }
       }
 
       .directorist-price-ranges__item {
@@ -178,10 +183,8 @@
     }
   }
   &.directorist-search-field {
-    overflow: visible;
-    &:after {
-      width: calc(100% + 15px);
-      left: -15px;
+    input[type="text"] {
+      padding-left: 15px;
     }
   }
 

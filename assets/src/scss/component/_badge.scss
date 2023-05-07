@@ -66,3 +66,35 @@
         background-color: rgba(var(--directorist-color-gray-rgb),.15);
     }
 }
+
+// Badge Tooltip
+.directorist-badge {
+    .directorist-badge-tooltip {
+        position: absolute;
+        top: -35px;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 20px;
+        font-size: 12px;
+        border-radius: 15px;
+        color: var(--directorist-color-white);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease-in-out;
+        @include e(feature) {
+            background: var(--directorist-color-featured-badge);
+        }
+        @include e(new) {
+            background: var(--directorist-color-new-badge);
+        }
+        @include e(popular) {
+            background: var(--directorist-color-popular-badge);
+        }
+    }
+    &:hover {
+        .directorist-badge-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}

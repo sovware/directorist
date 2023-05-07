@@ -7585,6 +7585,34 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   background-color: rgba(var(--directorist-color-gray-rgb), 0.15);
 }
 
+.directorist-badge .directorist-badge-tooltip {
+  position: absolute;
+  top: -35px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 20px;
+  font-size: 12px;
+  border-radius: 15px;
+  color: var(--directorist-color-white);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.directorist-badge .directorist-badge-tooltip__feature {
+  background: var(--directorist-color-featured-badge);
+}
+.directorist-badge .directorist-badge-tooltip__new {
+  background: var(--directorist-color-new-badge);
+}
+.directorist-badge .directorist-badge-tooltip__popular {
+  background: var(--directorist-color-popular-badge);
+}
+.directorist-badge:hover .directorist-badge-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
 /* Range Slider */
 .directorist-range-slider-wrap {
   display: -webkit-box;

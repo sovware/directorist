@@ -17,10 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<a class="directorist-viewas__item <?php echo esc_attr( $value['active_class'] ); ?>" href="<?php echo esc_attr( $value['link'] ); ?>">
 				<?php if ( strpos( $value['link'], 'grid' ) ): ?>
 					<?php directorist_icon( 'fas fa-grip-horizontal' ); ?>
-				<?php elseif ( strpos( $value['link'], 'list' ) ): ?>
-					<?php directorist_icon( 'fas fa-list' ); ?>
 				<?php elseif ( strpos( $value['link'], 'map' ) ): ?>
 					<?php directorist_icon( 'far fa-map' ); ?>
+				<?php elseif ( strpos( $value['link'], 'list' ) ): ?>
+					<?php directorist_icon( 'fas fa-list' ); ?>
 				<?php endif;?>
 			</a>
 		<?php endforeach; ?>

@@ -600,9 +600,10 @@
           height: 50px;
           border: 25px solid rgba(0, 0, 0, 0.20);
         }
-        img {
-          width: 20px;
-          object-fit: cover;
+        .directorist-icon-mask::after {
+          width: 12px;
+          height: 20px;
+          background: var(--directorist-color-white);
         }
       }
     }

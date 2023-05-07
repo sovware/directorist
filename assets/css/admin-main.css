@@ -8038,10 +8038,10 @@ body.stop-scrolling {
   height: 50px;
   border: 25px solid rgba(0, 0, 0, 0.2);
 }
-.directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape img {
-  width: 20px;
-  -o-object-fit: cover;
-     object-fit: cover;
+.directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape .directorist-icon-mask::after {
+  width: 12px;
+  height: 20px;
+  background: var(--directorist-color-white);
 }
 
 /* Custom Fields */

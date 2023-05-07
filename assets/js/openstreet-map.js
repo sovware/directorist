@@ -120,7 +120,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var fontAwesomeIcon = L.divIcon({
-        html: "<div class=\"atbd_map_shape\"><img class=\"\" src=\"".concat(loc_map_icon, "\"/></div>"),
+        html: "<div class=\"atbd_map_shape\">".concat(loc_map_icon, "</div>"),
         iconSize: [20, 20],
         className: 'myDivIcon'
       });

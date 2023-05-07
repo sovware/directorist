@@ -35,9 +35,10 @@
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 22px 22px 22px 25px;
+    width: 100%;
     border: none;
     border-radius: 12px;
+    padding: 22px 22px 22px 25px;
     background-color: var(--directorist-color-white);
     box-shadow: var(--directorist-box-shadow);
     &.always_open .directorist-advanced-filter{

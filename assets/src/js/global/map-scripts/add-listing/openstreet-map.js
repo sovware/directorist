@@ -28,7 +28,7 @@ import {
             }
 
             const fontAwesomeIcon = L.divIcon({
-                html: `<div class="atbd_map_shape"><img class="" src="${loc_map_icon}"/></div>`,
+                html: `<div class="atbd_map_shape">${loc_map_icon}</div>`,
                 iconSize: [20, 20],
                 className: 'myDivIcon',
             });

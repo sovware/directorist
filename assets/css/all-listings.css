@@ -3620,10 +3620,10 @@ body.stop-scrolling {
   height: 50px;
   border: 25px solid rgba(0, 0, 0, 0.2);
 }
-.directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape img {
-  width: 20px;
-  -o-object-fit: cover;
-     object-fit: cover;
+.directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape .directorist-icon-mask::after {
+  width: 12px;
+  height: 20px;
+  background: var(--directorist-color-white);
 }
 
 /* Custom Fields */
@@ -10402,9 +10402,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  padding: 22px 22px 22px 25px;
+  width: 100%;
   border: none;
   border-radius: 12px;
+  padding: 22px 22px 22px 25px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);

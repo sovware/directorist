@@ -774,7 +774,7 @@ class Directorist_Listing_Form {
 			'map_zoom_level'     => get_directorist_option( 'map_zoom_level', 4 ),
 			'marker_title'       => __( 'You can drag the marker to your desired place to place a marker', 'directorist' ),
 			'geocode_error_msg'  => __( 'Geocode was not successful for the following reason: ', 'directorist' ),
-			'map_icon'           => DIRECTORIST_ASSETS . 'images/map-icon.png',
+			'map_icon'           => directorist_icon( 'fas fa-map-pin', false ),
 		);
 
 		return $data;

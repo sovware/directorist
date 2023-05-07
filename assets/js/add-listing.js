@@ -545,7 +545,6 @@ $(document).ready(function () {
 
   $('body').on('submit', '#directorist-add-listing-form', function (e) {
     e.preventDefault();
-    console.log('Form Submited');
 
     if (localized_data.is_admin) {
       return;

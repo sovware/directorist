@@ -1338,6 +1338,7 @@ class Directorist_Listings {
 
 		$map_data = [];
 
+		$this->set_loop_data();
 		$listings = $this->query_results;
 
 		if ( ! empty( $listings->ids ) ) :
@@ -1360,6 +1361,7 @@ class Directorist_Listings {
 				$ls_data['listing_prv_img'] = get_post_meta($listings_id, '_listing_prv_img', true);
 				$ls_data['address']         = get_post_meta($listings_id, '_address', true);
 				$ls_data['font_type']       = $this->options['font_type'];
+				$ls_data['listings']        = $this;
 
 				$lat_lon = [
 					'lat' => $ls_data['manual_lat'],
@@ -1425,7 +1427,7 @@ class Directorist_Listings {
 		?>
 		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo esc_attr( $map_height );?>px;">
 			<?php
-
+			$this->set_loop_data();
 			$listings = $this->query_results;
 
 			if ( ! empty( $listings->ids ) ) :
@@ -1452,6 +1454,7 @@ class Directorist_Listings {
 					$ls_data['font_type']       = $this->options['font_type'];
 					$ls_data['fa_or_la']        = ('line' === $ls_data['font_type']) ? "la " : "fa ";
 					$ls_data['cats']            = get_the_terms($listings_id, ATBDP_CATEGORY);
+					$ls_data['listings']        = $this;
 
 					$cat_icon = directorist_icon( $this->loop_map_cat_icon(), false );
 					$ls_data['cat_icon'] = json_encode( $cat_icon );
@@ -1478,6 +1481,10 @@ class Directorist_Listings {
 				wp_reset_postdata();
 			endif;
 			echo "</div>";
+		}
+
+		public function get_favorite_badge() {
+			Helper::get_template( 'archive/fields/favorite_badge', array( 'listings' => $this ) );
 		}
 
 		public function loop_get_the_thumbnail( $class='' ) {

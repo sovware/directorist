@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 7.7.0
  */
 ?>
 
@@ -11,6 +11,8 @@
 	<?php if ( ! $map_is_disabled ) { ?>
 
 		<div class="map-info-wrapper" style="display:none;">
+
+			<?php $ls_data['listings']->get_favorite_badge(); ?>
 
 			<?php if ( ! empty( $display_image_map ) ) { ?>
 				<div class="map-info-img">

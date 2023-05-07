@@ -6,6 +6,9 @@
  */
 ?>
 <div class='atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom'>
+
+	<?php $ls_data['listings']->get_favorite_badge(); ?>
+	
 	<?php if ( ! empty( $display_image_map ) ) { ?>
 		<div class='media-left'>
 			<?php if ( ! $disable_single_listing ) { ?>

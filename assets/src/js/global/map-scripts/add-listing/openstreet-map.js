@@ -57,13 +57,6 @@ import {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(mymap);
 
-            function onMapClick(e) {
-                console.log("You clicked the map at " + e.latlng);
-                // Execute your custom JavaScript function here
-            }
-
-            mymap.on('click', onMapClick);
-
             function toggleFullscreen() {
                 var mapContainer = document.getElementById('gmap');
                 var fullScreenEnable = document.querySelector('#gmap_full_screen_button .fullscreen-enable');

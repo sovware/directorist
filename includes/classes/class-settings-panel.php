@@ -2478,9 +2478,53 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
+                'display_favorite_badge_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Favorite Badge', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_user_avatar_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display User Avatar', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
                 'display_title_map' => [
                     'type' => 'toggle',
                     'label' => __('Display Title', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_review_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Review', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_price_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Price', 'directorist'),
                     'value' => true,
                     'show-if' => [
                         'where' => "display_map_info",
@@ -2503,6 +2547,17 @@ Please remember that your order may be canceled if you do not make your payment 
                 'display_direction_map' => [
                     'type' => 'toggle',
                     'label' => __('Display Get Direction', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_phone_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Phone', 'directorist'),
                     'value' => true,
                     'show-if' => [
                         'where' => "display_map_info",
@@ -4667,7 +4722,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Map Info Window Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'display_map_info', 'display_image_map', 'display_title_map', 'display_address_map', 'display_direction_map'
+                                        'display_map_info', 'display_image_map', 'display_favorite_badge_map', 'display_user_avatar_map', 'display_title_map', 'display_review_map', 'display_price_map', 'display_address_map', 'display_direction_map', 'display_phone_map'
                                     ],
                                 ],
                             ] ),

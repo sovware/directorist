@@ -2,12 +2,16 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 7.7.0
  */
 ?>
 <div class='atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom'>
 
-	<?php $ls_data['listings']->get_favorite_badge(); ?>
+	<?php 
+		if( ! empty( $display_favorite_badge_map ) ) {
+			$ls_data['listings']->get_favorite_badge(); 
+		}
+	?>
 	
 	<?php if ( ! empty( $display_image_map ) ) { ?>
 		<div class='media-left'>
@@ -37,11 +41,26 @@
 			}
 			?>
 		</div>
-		<?php
+
+		<?php 
+			if( ! empty( $display_user_avatar_map ) ) {
+				$ls_data['listings']->get_user_avatar();
+			}
 	}
 	?>
 
 	<div class='media-body'>
+
+		<?php 
+			if( ! empty( $display_review_map ) ) {
+				$ls_data['listings']->get_listing_review();
+			}
+
+			if( ! empty( $display_price_map ) ) {
+				$ls_data['listings']->get_price();
+			}
+		?>
+
 		<?php if ( ! empty( $display_title_map ) ) { ?>
 			<div class='atbdp-listings-title-block'>
 				<?php if ( ! $disable_single_listing ) { ?>
@@ -75,6 +94,16 @@
 				</div>
 				<?php
 			}
+
+
+		}
+
+		if ( ! empty( $ls_data['phone'] ) && ! empty( $display_phone_map ) ) { ?>
+				<div class='osm-iw-phone'>
+					<?php directorist_icon( 'las la-map-marker' ); ?>
+					<a href='./' class='map-info-link'><?php echo esc_html( $ls_data['phone'] ); ?></a>
+				</div>
+				<?php
 		}
 		?>
 	</div>

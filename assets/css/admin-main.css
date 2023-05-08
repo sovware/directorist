@@ -7749,8 +7749,61 @@ body.stop-scrolling {
   position: relative;
   height: 400px;
 }
-.directorist-form-map-field__maps #gmap #gmap_full_screen_button {
+.directorist-form-map-field__maps #gmap #gmap_full_screen_button,
+.directorist-form-map-field__maps #gmap .gm-fullscreen-control {
   display: none;
+}
+.directorist-form-map-field__maps #gmap div[role=img] {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 50px !important;
+  height: 50px !important;
+  cursor: pointer;
+  border-radius: 100%;
+  overflow: visible !important;
+  background-color: var(--directorist-color-primary);
+}
+.directorist-form-map-field__maps #gmap div[role=img] > img {
+  display: none;
+}
+.directorist-form-map-field__maps #gmap div[role=img]:before {
+  content: "";
+  position: absolute;
+  left: -25px;
+  top: -25px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border: none;
+  border: 25px solid rgba(0, 0, 0, 0.2);
+  -webkit-animation: atbd_scale 3s linear alternate infinite;
+          animation: atbd_scale 3s linear alternate infinite;
+}
+.directorist-form-map-field__maps #gmap #gmimap0:after {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 20px;
+  background-color: var(--directorist-color-white);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+          mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
 }
 
 /* image upload */
@@ -9554,14 +9607,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
 #gmap_full_screen_button .fullscreen-disable {
   display: none;
 }
-#gmap_full_screen_button:hover i::after {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
-}
-#gmap_full_screen_button:hover .fullscreen-disable i::after {
-  -webkit-transform: scale(0.9);
-          transform: scale(0.9);
-}
 
 #progress {
   display: none;
@@ -9584,6 +9629,20 @@ svg.leaflet-image-layer.leaflet-interactive path {
   height: 100%;
   background-color: #76A6FC;
   border-radius: 4px;
+}
+
+.gm-fullscreen-control {
+  width: 50px !important;
+  height: 50px !important;
+  margin: 20px !important;
+  border-radius: 10px !important;
+  -webkit-box-shadow: unset !important;
+          box-shadow: unset !important;
+}
+
+.gmnoprint,
+.gm-style-cc {
+  display: none;
 }
 
 .italic {

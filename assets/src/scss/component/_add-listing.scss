@@ -328,8 +328,49 @@
   #gmap {
     position: relative;
     height: 400px;
-    #gmap_full_screen_button {
+    #gmap_full_screen_button,
+    .gm-fullscreen-control {
       display: none;
+    }
+    div[role="img"] {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px !important;
+      height: 50px !important;
+      cursor: pointer;
+      border-radius: 100%;
+      overflow: visible !important;
+      background-color: var(--directorist-color-primary);
+      >img {
+        display: none;
+      }
+      &:before {
+        content: "";
+        position: absolute;
+        left: -25px;
+        top: -25px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        transition: all 0.3s ease-in-out;
+        border: none;
+        border: 25px solid rgba(0, 0, 0, 0.2);
+        animation: atbd_scale 3s linear alternate infinite;
+      }
+    }
+    #gmimap0 {
+      &:after {
+        content: "";
+        display: block;
+        width: 12px;
+        height: 20px;
+        background-color: var(--directorist-color-white);
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-image: url("../../../icons/font-awesome/svgs/solid/map-pin.svg");
+      }
     }
   }
 }

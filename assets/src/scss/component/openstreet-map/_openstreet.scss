@@ -27,16 +27,6 @@
     .fullscreen-disable {
       display: none;
     }
-    &:hover {
-        i::after {
-            transform: scale(1.1);
-        }
-        .fullscreen-disable {
-          i::after {
-            transform: scale(0.9);
-          }
-        }
-    }
 }
 
 #progress {
@@ -60,6 +50,19 @@
     height: 100%;
     background-color: #76A6FC;
     border-radius: 4px;
+}
+
+
+.gm-fullscreen-control {
+    width: 50px !important;
+    height: 50px !important;
+    margin: 20px !important;
+    border-radius: 10px !important;
+    box-shadow: unset !important;
+}
+.gmnoprint,
+.gm-style-cc {
+    display: none;
 }
 
 .italic {

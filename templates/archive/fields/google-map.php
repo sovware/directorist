@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 7.7.0
  */
 ?>
 
@@ -11,6 +11,12 @@
 	<?php if ( ! $map_is_disabled ) { ?>
 
 		<div class="map-info-wrapper" style="display:none;">
+			
+			<?php 
+				if( ! empty( $display_favorite_badge_map ) ) {
+					$ls_data['listings']->get_favorite_badge(); 
+				}
+			?>
 
 			<?php if ( ! empty( $display_image_map ) ) { ?>
 				<div class="map-info-img">
@@ -36,12 +42,26 @@
 					}
 					?>
 				</div>
-				<?php
+
+				<?php 
+				if( ! empty( $display_user_avatar_map ) ) {
+					$ls_data['listings']->get_user_avatar();
+				}
+
+				if( ! empty( $display_review_map ) ) {
+					$ls_data['listings']->get_listing_review();
+				}
+
+				if( ! empty( $display_price_map ) ) {
+					$ls_data['listings']->get_price();
+				}
+
 			}
 
 			if ( ! empty( $display_title_map ) || ! empty( $display_address_map ) || ! empty( $display_direction_map ) ) { ?>
 
 				<div class="map-info-details">
+
 					<?php if ( ! empty( $display_title_map ) ) { ?>
 						<div class="atbdp-listings-title-block">
 							<h3 class="atbdp-no-margin">
@@ -73,6 +93,11 @@
 						}
 					}
 
+					if ( ! empty( $ls_data['phone'] ) && ! empty( $display_phone_map ) ) { ?>
+						<div class="map_phone"><?php directorist_icon( 'las la-map-marker' ); ?> <a href="" class="map-info-link"><?php echo esc_html( $ls_data['phone'] ); ?></a></div>
+						<?php
+					}
+					
 					do_action( 'atbdp_after_listing_content', $ls_data['post_id'], 'map' );?>
 				</div>
 				<?php

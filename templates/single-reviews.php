@@ -28,14 +28,16 @@ $listing       = Directorist_Single_Listing::instance();
 $section_data  = $listing->get_review_section_data();
 $section_id    = isset( $section_data['id'] ) ? $section_data['id'] : '';
 $section_class = isset( $section_data['class'] ) ? $section_data['class'] : '';
+$section_icon  = isset( $section_data['icon'] ) ? $section_data['icon'] : '';
+$section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
 ?>
 <div id="<?php echo esc_attr( $section_id ); ?>" class="directorist-review-container <?php echo esc_attr( $section_class ); ?>">
 	<div class="directorist-card directorist-review-content">
 		<div class="directorist-card__header directorist-review-content__header <?php if ( ! have_comments() ) : ?>directorist-review-content__header--noreviews<?php endif;?>">
 			<?php if ( ! have_comments() ) : ?><?php endif;?>
 			<h4 class="directorist-card__header--title">
-				<span class="directorist-card__header-icon"><?php //directorist_icon( $icon );?> </span>
-				<span class="directorist-card__header-text"><?php //echo esc_html( $label ); echo esc_html( $review_text )?> Need Backend Support</span>
+				<span class="directorist-card__header-icon"><?php directorist_icon( $section_icon );?> </span>
+				<span class="directorist-card__header-text"><?php echo esc_html( $section_label ); ?></span>
 			</h4>
 
 			<?php if ( directorist_can_current_user_review() || directorist_can_guest_review() ) : ?>

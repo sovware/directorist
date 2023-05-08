@@ -958,11 +958,11 @@ class Directorist_Single_Listing {
 	}
 
 	public function guest_email_label() {
-		return get_directorist_option( 'guest_email', __( 'Your Email', 'directorist' ) );
+		return get_directorist_option( 'guest_email', __( 'Email Address', 'directorist' ) );
 	}
 
 	public function guest_email_placeholder() {
-		return get_directorist_option( 'guest_email_placeholder', __( 'example@gmail.com', 'directorist' ) );
+		return get_directorist_option( 'guest_email_placeholder', __( 'Enter email address', 'directorist' ) );
 	}
 
 	// TODO: When it's compatible with `the_content()` template tag then we won't have to use do_shortcode and wpautop functions.

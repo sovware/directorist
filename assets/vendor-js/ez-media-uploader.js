@@ -32,7 +32,7 @@
           dragNDrop: 'Drag & Drop',
           or: 'or',
           dropHere: 'Drop Here',
-          selectFiles: 'Select Files',
+          selectFiles: 'Browse',
           addMore: 'Add More',
           change: 'Change',
         },
@@ -45,6 +45,10 @@
         },
         // Info Texts
         info: {
+          unlimitedFileSize: {
+            text: 'Unlimited images with this plan',
+            show: true, featured: false, pin: false
+          },
           maxFileSize: {
             text: 'The maximum allowed size per file is __DT__',
             show: true, featured: false, pin: false
@@ -185,18 +189,21 @@
         { key: 'featured', class: 'ezmu-dictionary-label-featured' },
         { key: 'dragNDrop', class: 'ezmu-dictionary-label-drag-n-drop' },
         { key: 'or', class: 'ezmu-dictionary-label-or' },
+        { key: 'to', class: 'ezmu-dictionary-label-to' },
         { key: 'dropHere', class: 'ezmu-dictionary-label-drop-here' },
         { key: 'selectFiles', class: 'ezmu-dictionary-label-select-files' },
         { key: 'addMore', class: 'ezmu-dictionary-label-add-more' },
         { key: 'change', class: 'ezmu-dictionary-label-change' },
       ];
       var alert_classes = [
+        { key: 'unlimitedFileSize', class: 'ezmu-dictionary-alert-unlimited-file-size' },
         { key: 'maxFileSize', class: 'ezmu-dictionary-alert-max-file-size' },
         { key: 'maxTotalFileSize', class: 'ezmu-dictionary-alert-max-total-file-size' },
         { key: 'minFileItems', class: 'ezmu-dictionary-alert-min-file-items' },
         { key: 'maxFileItems', class: 'ezmu-dictionary-alert-max-file-items' },
       ];
       var info_classes = [
+        { key: 'unlimitedFileSize', class: 'ezmu-dictionary-info-unlimited-file-size' },
         { key: 'maxFileSize', class: 'ezmu-dictionary-info-max-file-size' },
         { key: 'maxTotalFileSize', class: 'ezmu-dictionary-info-max-total-file-size' },
         { key: 'minFileItems', class: 'ezmu-dictionary-info-min-file-items' },
@@ -503,7 +510,6 @@
       container.appendChild(drop_zone_section_elm);
       container.appendChild(loading_section_elm);
       container.appendChild(media_picker_elm);
-      container.appendChild(preview_section_elm);
 
       var upload_button_container = container.querySelectorAll(
         ".ezmu__upload-button-wrap"
@@ -511,18 +517,9 @@
       var media_picker_section = container.querySelectorAll(
         ".ezmu__media-picker-section"
       );
-      var preview_section = container.querySelectorAll(
-        ".ezmu__preview-section"
-      );
-
-      var thumbnail_area = container.querySelectorAll(".ezmu__thumbnail-area");
-      var loading_section = container.querySelectorAll(".ezmu__loading-section");
 
       this.uploadButtonContainer = upload_button_container ? upload_button_container[0] : null;
       this.mediaPickerSection = media_picker_section ? media_picker_section[0] : null;
-      this.previewSection = preview_section ? preview_section[0] : null;
-      this.thumbnailArea = thumbnail_area ? thumbnail_area[0] : null;
-      this.loadingSection = loading_section ? loading_section[0] : null;
 
       if (this.options.showAlerts) {
         var status_section_elm = createStatusSection();
@@ -538,6 +535,17 @@
         var info_section = container.querySelectorAll(".ezmu__info-section");
         this.infoSection = info_section ? info_section[0] : null;
       }
+
+      container.appendChild(preview_section_elm);
+
+      var preview_section = container.querySelectorAll( ".ezmu__preview-section");
+      var thumbnail_area = container.querySelectorAll(".ezmu__thumbnail-area");
+      var loading_section = container.querySelectorAll(".ezmu__loading-section");
+
+
+      this.previewSection = preview_section ? preview_section[0] : null;
+      this.thumbnailArea = thumbnail_area ? thumbnail_area[0] : null;
+      this.loadingSection = loading_section ? loading_section[0] : null;
     };
 
     // attachEventListener
@@ -948,6 +956,11 @@
     var media_picker_icon = createElementWithClass(
       'ezmu__icon ezmu-icon-upload', 'span'
     );
+    let uploadIconURL = directorist.assets_url + 'icons/font-awesome/svgs/regular/image.svg';
+    let uploadIconHTML = directorist.icon_markup.replace( '##URL##', uploadIconURL ).replace( '##CLASS##', '' );
+    
+    media_picker_icon.innerHTML = uploadIconHTML;
+
     media_picker_icon_wrap.appendChild(media_picker_icon);
 
     media_picker_controls.appendChild(media_picker_icon_wrap);
@@ -958,11 +971,10 @@
 
     var titles_area = createElementWithClass('ezmu__titles-area');
     var title_1 = createElementWithClass("ezmu__title-1", "p", data.options.dictionary.label.dragNDrop);
-    var title_2 = createElementWithClass("ezmu__title-3", "p", data.options.dictionary.label.or);
     titles_area.appendChild(title_1);
-    titles_area.appendChild(title_2);
 
     var upload_button_wrap = createElementWithClass("ezmu__upload-button-wrap");
+
     updateFileInputElement(upload_button_wrap, data);
 
     media_picker_buttons.appendChild(titles_area);
@@ -1037,8 +1049,15 @@
     file_input_label.setAttribute("class", "ezmu__btn ezmu__input-label");
     file_input_label.innerHTML = data.options.dictionary.label.selectFiles;
 
+    var label_title_1 = createElementWithClass("ezmu__label-title-1", "p", data.options.dictionary.label.or);
+    var label_title_2 = createElementWithClass("ezmu__label-title-2", "p", data.options.dictionary.label.to);
+
+    container.appendChild(label_title_1);
+
     container.appendChild(file_input);
     container.appendChild(file_input_label);
+
+    container.appendChild(label_title_2);
   }
 
   function createFileInputID() {
@@ -1070,34 +1089,6 @@
     return default_formats;
   }
 
-  function createPreviewSection(data) {
-    var preview_section = createElementWithClass("ezmu__preview-section");
-    var thumbnail_area = createElementWithClass("ezmu__thumbnail-area");
-    var media_picker_buttons = createElementWithClass(
-      "ezmu__media-picker-buttons"
-    );
-
-    var label_txt = data.options.dictionary.label.addMore;
-
-    if ( !data.options.allowMultiple && data.filesMeta.length ) {
-      label_txt = data.options.dictionary.label.change;
-    }
-
-    var upload_button_wrap = createElementWithClass("ezmu__upload-button-wrap");
-    var label = createElementWithClass(
-      "ezmu__btn ezmu__input-label ezmu__update-file-btn", "label", label_txt
-    );
-
-    label.setAttribute("for", data.fileInputID);
-    upload_button_wrap.appendChild(label);
-    media_picker_buttons.appendChild(upload_button_wrap);
-
-    preview_section.appendChild(thumbnail_area);
-    preview_section.appendChild(media_picker_buttons);
-
-    return preview_section;
-  }
-
   function createStatusSection() {
     var status_section = createElementWithClass("ezmu__status-section");
     return status_section;
@@ -1127,6 +1118,34 @@
     }
 
     return info_section;
+  }
+
+  function createPreviewSection(data) {
+    var preview_section = createElementWithClass("ezmu__preview-section");
+    var thumbnail_area = createElementWithClass("ezmu__thumbnail-area");
+    var media_picker_buttons = createElementWithClass(
+      "ezmu__media-picker-buttons"
+    );
+
+    var label_txt = data.options.dictionary.label.addMore;
+
+    if ( !data.options.allowMultiple && data.filesMeta.length ) {
+      label_txt = data.options.dictionary.label.change;
+    }
+
+    var upload_button_wrap = createElementWithClass("ezmu__upload-button-wrap");
+    var label = createElementWithClass(
+      "ezmu__btn ezmu__input-label ezmu__update-file-btn", "label", label_txt
+    );
+    
+    label.setAttribute("for", data.fileInputID);
+    upload_button_wrap.appendChild(label);
+    media_picker_buttons.appendChild(upload_button_wrap);
+
+    preview_section.appendChild(thumbnail_area);
+    preview_section.appendChild(media_picker_buttons);
+
+    return preview_section;
   }
 
   function getDictionaryData(item, options) {
@@ -1233,8 +1252,14 @@
     var thumbnail_list_item_close_btn = document.createElement("span");
     addClass(thumbnail_list_item_close_btn, "ezmu__front-item__close-btn");
 
+    let closeIconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/trash-alt.svg';
+    let closeIconHTML = directorist.icon_markup.replace( '##URL##', closeIconURL ).replace( '##CLASS##', '' );
+    
+    thumbnail_list_item_close_icon.innerHTML = closeIconHTML;
+
     thumbnail_list_item_close_icon.appendChild(thumbnail_list_item_close_btn);
     thumbnail_list_item_close.appendChild(thumbnail_list_item_close_icon);
+
     return thumbnail_list_item_close;
   }
 

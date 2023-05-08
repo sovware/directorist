@@ -425,7 +425,6 @@ $(document).ready(function () {
     // -----------------------------
     $('body').on('submit', '#directorist-add-listing-form', function (e) {
         e.preventDefault();
-
         if (localized_data.is_admin) {
             return;
         }
@@ -834,10 +833,17 @@ $(document).ready(function () {
             }
 
             // Change Button Text on Last Step
+            var submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
             if(value === totalWizard.length) {
                 document.querySelector('.multistep-wizard__btn--next').innerHTML="Save & Preview";
+                submitBtn.style.height = "auto";
+                submitBtn.style.opacity = "1";
+                submitBtn.style.visibility = "visible";
             } else {
                 document.querySelector('.multistep-wizard__btn--next').innerHTML=saveBtnText;
+                submitBtn.style.height = "0";
+                submitBtn.style.opacity = "0";
+                submitBtn.style.visibility = "hidden";
             }
 
             // Update Wizard Count & Progressbar

@@ -35,9 +35,10 @@
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 22px 22px 22px 25px;
+    width: 100%;
     border: none;
     border-radius: 12px;
+    padding: 22px 22px 22px 25px;
     background-color: var(--directorist-color-white);
     box-shadow: var(--directorist-box-shadow);
     &.always_open .directorist-advanced-filter{
@@ -65,6 +66,11 @@
       .directorist-form-element {
         border: 0 none;
         background-color: transparent;
+        transition: all 0.3s ease-in-out;
+        border-bottom: 2px solid transparent;
+        &:focus {
+          border-color: var(--directorist-color-primary);
+        }
       }
 
       .directorist-price-ranges__item {
@@ -178,10 +184,8 @@
     }
   }
   &.directorist-search-field {
-    overflow: visible;
-    &:after {
-      width: calc(100% + 15px);
-      left: -15px;
+    input[type="text"] {
+      padding-left: 15px;
     }
   }
 

@@ -457,7 +457,7 @@ class Directorist_Listing_Form {
 		$args = array(
 			'listing_form'            => $this,
 			'display_guest_listings'  => get_directorist_option( 'guest_listings', 0 ),
-			'guest_email_label'       => get_directorist_type_option( $type, 'guest_email_label', __( 'Your Email', 'directorist' ) ),
+			'guest_email_label'       => get_directorist_type_option( $type, 'guest_email_label', __( 'Email Address', 'directorist' ) ),
 			'guest_email_placeholder' => get_directorist_type_option( $type, 'guest_email_placeholder' ),
 			'display_privacy'         => (bool) get_directorist_type_option( $type, 'listing_privacy', 1 ),
 			'privacy_is_required'     => get_directorist_type_option( $type, 'require_privacy', 1 ),
@@ -774,7 +774,7 @@ class Directorist_Listing_Form {
 			'map_zoom_level'     => get_directorist_option( 'map_zoom_level', 4 ),
 			'marker_title'       => __( 'You can drag the marker to your desired place to place a marker', 'directorist' ),
 			'geocode_error_msg'  => __( 'Geocode was not successful for the following reason: ', 'directorist' ),
-			'map_icon'           => DIRECTORIST_ASSETS . 'images/map-icon.png',
+			'map_icon'           => directorist_icon( 'fas fa-map-pin', false ),
 		);
 
 		return $data;

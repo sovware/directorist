@@ -6,12 +6,13 @@
     margin-bottom: 30px;
 
     .leaflet-popup-content-wrapper {
-        border-radius: 3px;
+        border-radius: 10px;
         padding: 0;
 
         .leaflet-popup-content {
             margin: 0;
-            width: 220px !important;
+            line-height: 1;
+            width:350px !important;
 
             .atbdp-map.atbdp-body {
                 img {
@@ -107,10 +108,14 @@
         transition: 0.3s ease;
         line-height: inherit;
         padding: 0;
-
+        display: none;
         &:hover {
             background: #444752;
         }
+    }
+
+    .leaflet-popup-tip-container {
+        display: none;
     }
 
     .leaflet-control-zoom {

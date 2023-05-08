@@ -5125,10 +5125,20 @@ svg.leaflet-image-layer.leaflet-interactive path {
 #gmap_full_screen_button i::after {
   width: 22px;
   height: 22px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   background-color: var(--directorist-color-dark);
 }
 #gmap_full_screen_button .fullscreen-disable {
   display: none;
+}
+#gmap_full_screen_button:hover i::after {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+#gmap_full_screen_button:hover .fullscreen-disable i::after {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
 }
 
 #progress {

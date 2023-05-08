@@ -21,10 +21,21 @@
     i::after {
       width: 22px;
       height: 22px;
+      transition: all 0.3s ease-in-out;
       background-color: var(--directorist-color-dark);
     }
     .fullscreen-disable {
       display: none;
+    }
+    &:hover {
+        i::after {
+            transform: scale(1.1);
+        }
+        .fullscreen-disable {
+          i::after {
+            transform: scale(0.9);
+          }
+        }
     }
 }
 

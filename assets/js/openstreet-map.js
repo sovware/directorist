@@ -392,6 +392,35 @@ __webpack_require__.r(__webpack_exports__);
         delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
 
       });
+
+      function toggleFullscreen() {
+        var mapContainer = document.getElementById('map');
+        var fullScreenEnable = document.querySelector('#gmap_full_screen_button .fullscreen-enable');
+        var fullScreenDisable = document.querySelector('#gmap_full_screen_button .fullscreen-disable');
+
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+          if (mapContainer.requestFullscreen) {
+            mapContainer.requestFullscreen();
+            fullScreenEnable.style.display = "none";
+            fullScreenDisable.style.display = "block";
+          } else if (mapContainer.webkitRequestFullscreen) {
+            mapContainer.webkitRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+            fullScreenDisable.style.display = "none";
+            fullScreenEnable.style.display = "block";
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+        }
+      }
+
+      $('body').on('click', '#gmap_full_screen_button', function (event) {
+        event.preventDefault();
+        toggleFullscreen();
+      });
     }
 
     setup_map();

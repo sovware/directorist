@@ -55,7 +55,7 @@ $featured_badge_color             = get_directorist_option('featured_back_color'
 $popular_badge_color              = get_directorist_option('popular_back_color', '#f51957');
 $new_badge_color                  = get_directorist_option('new_back_color', '#122069');
 
-$primary_dark_border_color        = get_directorist_option('primary_dark_border_color', '#444752');
+$primary_dark_border_color        = get_directorist_option('primary_dark_border_color', '#000000');
 
 $marker_shape_color               = get_directorist_option('marker_shape_color', '#000000');
 $marker_icon_color                = get_directorist_option('marker_icon_color', '#ffffff');
@@ -119,8 +119,21 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         /* Map marker Color */
         --directorist-color-marker-shape: <?php echo $marker_shape_color; ?>;
         --directorist-color-marker-icon: <?php echo $marker_icon_color; ?>;
+
+        /* Font config */
+        --directorist-fw-regular: 400;
+        --directorist-fw-medium: 500;
+        --directorist-fw-semiBold: 600;
+        --directorist-fw-bold: 700;
+
+        /* Border Radius */
+        --directorist-border-radius-xs: 8px;
+        --directorist-border-radius-sm: 10px;
+        --directorist-border-radius-md: 12px;
+        --directorist-border-radius-lg: 16px;
+
     }
-    
+
     /* Settings Panel Structure
 
     Button: Color Name
@@ -596,8 +609,8 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .custom-control .custom-control-input:checked~.check--select,
     #directorist.atbd_wrapper .pagination .nav-links .current,
     .atbd_director_social_wrap a,
-    .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_social_wrap p a,
-    .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_social_wrap p a,
+    .widget.atbd_widget[id^=bd] .atbd_author_info_widget .directorist-author-social li a,
+    .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .directorist-author-social li a,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories>ul.atbdp_parent_category>li:hover>a span,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover {
         background: var(--directorist-color-primary) !important;

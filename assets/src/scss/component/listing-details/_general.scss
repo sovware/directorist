@@ -107,31 +107,42 @@
             display: inline-block;
             padding: 0;
             margin: 0;
-            span {
-                color: #d4d3f3;
-                display: block;
-                width: 14px;
-                height: 14px;
-                position: relative;
-                &:before {
-                    content: '';
-                    mask-image: url("../../../../icons/font-awesome/svgs/solid/star.svg");
-                    mask-repeat: no-repeat;
-                    width: 15px;
-                    height: 15px;
-                    background-color: #d4d3f3;
-                    position: absolute;
-                    left: 0;
-                    top:0;
-                }
+        }
+        span {
+            color: #d4d3f3;
+            display: block;
+            width: 14px;
+            height: 14px;
+            position: relative;
+            &:before {
+                content: '';
+                mask-image: url("../../../../icons/font-awesome/svgs/solid/star.svg");
+                mask-repeat: no-repeat;
+                width: 15px;
+                height: 15px;
+                background-color: #d4d3f3;
+                position: absolute;
+                left: 0;
+                top:0;
+            }
 
-                &.directorist-rate-active {
-                   &:before{
-                    background-color: #fa8b0c;
-                   }
-                }
+            &.directorist-rate-active {
+               &:before{
+                background-color: #fa8b0c;
+               }
             }
         }
+    }
+}
+
+.directorist-single{
+    button:not(:hover):not(:active):not(.has-background){
+        &.directorist-btn.directorist-btn-light{
+            background-color: var(--directorist-color-light);
+        }
+    }
+    button:not(:hover):not(:active):not(.has-text-color){
+        color: initial;
     }
 }
 
@@ -159,7 +170,7 @@
             width: 35px;
             height: 35px;
             border-radius: 50%;
-            background: #f1f3f8;
+            background: var(--directorist-color-bg-light);
             margin-right: 10px;
             transition: 0.3s ease;
             &:after{
@@ -175,7 +186,7 @@
             width: 35px;
             height: 35px;
             border-radius: 50%;
-            background: #f1f3f8;
+            background: var(--directorist-color-bg-light);
             margin-right: 10px;
             transition: 0.3s ease;
             font-size: 15px;

@@ -19,9 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			$searchform->field_template( $field );
 		}
 		?>
-
 	</div>
-	<?php 
+	<?php
 		if ( $searchform->more_filters_display !== 'always_open' ){
 			$searchform->more_buttons_template();
 		}

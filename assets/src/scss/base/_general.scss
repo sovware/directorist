@@ -88,7 +88,69 @@
     }
 
     @include e(contents) {
-        padding: 30px;
+        padding: 30px 40px;
+        .directorist-form-description-field {
+            .wp-editor-tabs {
+                position: relative;
+                bottom: -7px;
+                .wp-switch-editor {
+                    margin: 0;
+                    border: none;
+                    border-radius: 5px;
+                    padding: 5px 10px 12px;
+                    background: transparent;
+                }
+            }
+            .html-active .switch-html, 
+            .tmce-active .switch-tmce {
+                background: #f6f7f7;
+            }
+            .wp-editor-container {
+                border: none;
+                border-bottom: 1px solid var(--directorist-color-border);
+                .mce-top-part::before {
+                    display: none;
+                }
+                .mce-stack-layout {
+                    border: none;
+                    padding: 0;
+                }
+                .mce-toolbar-grp,
+                .quicktags-toolbar {
+                    border: none;
+                    padding: 8px 12px;
+                    border-radius: 10px;
+                }
+                .mce-toolbar .mce-btn-group .mce-btn.mce-listbox {
+                    background: transparent;
+                }
+            }
+            .mce-statusbar {
+                display: none;
+            }
+        }
+        .directorist-form-social-info-field {
+            .directorist-btn {
+                width: 100%;
+                gap: 10px;
+                padding-left: 40px;
+                i::after {
+                    width: 16px;
+                    height: 16px;
+                    background-color: var(--directorist-color-primary);
+                }
+                &:hover {
+                    color: var(--directorist-color-white);
+                    background: var(--directorist-color-primary);
+                    i::after {
+                        background-color: #fff;
+                    }
+                }
+            }
+            select {
+                color: var(--directorist-color-primary);
+            }
+        }
     }
 }
 
@@ -198,55 +260,6 @@
 }
 
 //file upload
-.plupload-thumbs {
-    .thumb {
-        position: relative;
-        img{
-            width: 100%;
-        }
-        &:hover {
-            .atbdp-thumb-actions {
-                display: flex !important;
-            }
-        }
-
-        .atbdp-thumb-actions {
-            font-size: 15px !important;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
-            margin-top: 0;
-            align-items: center;
-            justify-content: center;
-
-            .thumbremovelink {
-                background: var(--directorist-color-dark);
-                height: 30px;
-                width: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 50%;
-                transition: .3s ease;
-                .directorist-icon-mask:after{
-                    width: 14px;
-                    height: 14px;
-                    background-color: var(--directorist-color-white);
-                }
-                &:hover {
-                    background: var(--directorist-color-danger);
-                }
-
-                i {
-                    font-size: 14px;
-                }
-            }
-        }
-    }
-}
-
 .plupload-upload-uic {
     width: 420px;
     margin: 0 auto !important;
@@ -370,7 +383,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
             line-height: 1.5;
             @include m(highlighted) {
                 font-weight: 500;
-                color: var(--color-primary) !important;
+                color: var(--directorist-color-primary) !important;
                 background-color: transparent !important;
             }
         }
@@ -397,13 +410,21 @@ body.logged-in .select2-container--open .select2-dropdown--above {
 
                 .select2-search__field {
                     margin: 0;
+                    width: 100% !important;
                 }
             }
         }
     }
 
-    .select2-results__option {
-        margin: 0;
+    &.select2-container--open {
+        .select2-results__option {
+            margin: 0;
+            &[aria-selected="true"] {
+                font-weight: 500;
+                color: var(--directorist-color-primary);
+                background-color: transparent;
+            }
+        }
     }
 }
 

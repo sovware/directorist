@@ -49,12 +49,18 @@
 // Directorist Input With Icon
 .directorist-form-group {
     &.directorist-icon-left {
+        input[type="text"] {
+            padding-left: 35px;
+          }
         .directorist-input-icon {
             left: 0;
         }
     }
 
     &.directorist-icon-right {
+        input[type="text"] {
+            padding-right: 35px;
+        }
         .directorist-input-icon {
             right: 15px;
         }

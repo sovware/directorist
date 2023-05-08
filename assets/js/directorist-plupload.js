@@ -428,7 +428,7 @@ function plu_show_thumbs(imgId) {
         file_display = '<i title="' + file_name + '" class="la ' + file_type_class + ' atbdp-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" aria-hidden="true"></i>';
       }
 
-      var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/trash.svg';
+      var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/trash-alt.svg';
       var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
       var thumb = $('<div class="thumb ' + file_display_class + '" id="thumb' + imgId + i + '">' + image_title_html + file_display + image_caption_html + '<div class="atbdp-thumb-actions">' + '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '">' + iconHTML + '</span>' + '</div>' + '</div>');
       thumbsC.append(thumb);

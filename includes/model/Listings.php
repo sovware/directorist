@@ -1301,7 +1301,12 @@ class Directorist_Listings {
 		$options = json_encode( $this->map_options() );
 		$style = 'height:' . $this->listings_map_height . 'px';
 		?>
-		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo directorist_esc_json( $card ); ?>" data-options="<?php echo directorist_esc_json( $options ); ?>"></div>
+		<div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo directorist_esc_json( $card ); ?>" data-options="<?php echo directorist_esc_json( $options ); ?>">
+			<div id="gmap_full_screen_button">
+				<span class="fullscreen-enable"><?php directorist_icon( 'fas fa-expand' ); ?></span>
+				<span class="fullscreen-disable"><?php directorist_icon( 'fas fa-compress' ); ?></span>
+			</div>
+		</div>
 		<?php
 	}
 

@@ -123,26 +123,61 @@
   }
 }
 
-.directorist-select .select2.select2-container .select2-selection--single .select2-selection__rendered .select2-selection__clear{
+.directorist-select .select2.select2-container .select2-selection .select2-selection__rendered .select2-selection__clear{
   display: none;
 }
 .select2.select2-container {
   &.select2-container--default {
-    width: 100%;
+    width: 100% !important;
   }
 
-  .select2-selection--single {
+  .select2-selection {
     height: 42px;
     border: none;
+    border-radius: 0;
     border-bottom: 1px solid var(--directorist-color-border-gray);
     &:focus {
+      border-color: var(--directorist-color-primary);
       outline: none;
     }
 
+    .select2-selection__choice {
+      height: 28px;
+      line-height: 28px;
+      font-size: 12px;
+      border: none;
+      display: flex;
+      gap: 5px;
+      padding: 0 10px;
+      border-radius: 8px;
+      color: var(--directorist-color-white);
+      background-color: var(--directorist-color-primary);
+      .select2-selection__choice__remove {
+        position: relative;
+        width: 12px;
+        margin: 0;
+        font-size: 0;
+        color: var(--directorist-color-white);
+        &:before {
+          content: '';
+          mask-image: url("../../../icons/line-awesome/svgs/times-solid.svg");
+          mask-repeat: no-repeat;
+          width: 13px;
+          height: 13px;
+          background-color: var(--directorist-color-white);
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
     .select2-selection__rendered {
+      display: flex;
+      gap: 5px;
       height: 40px;
       font-size: 14px;
-
+      overflow-y: auto;
       .select2-selection__clear {
         padding-right: 25px;
       }
@@ -154,23 +189,21 @@
     }
 
     .select2-selection__arrow {
-      &:before {
-        font-family: "Font Awesome 5 Free";
-        content: "\f078";
-        font-weight: 600;
-      }
-
       b {
         display: none;
       }
     }
   }
+
+  &.select2-container--focus {
+    .select2-selection {
+      border: none;
+      border-bottom: 1px solid var(--directorist-color-primary);
+    }
+  }
 }
 
-.select2-container--default
-  .select2-selection--single
-  .select2-selection__arrow
-  b {
+.select2-container--default .select2-selection .select2-selection__arrow b {
     margin-top: 0;
 }
 
@@ -189,7 +222,8 @@
     }
     .directorist-select2-dropdown-close {
       position: absolute;
-      right: 25px;
+      right: 15px;
+      padding: 0;
     }
     .directorist-icon-mask:after {
       background-color: #404040;

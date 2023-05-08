@@ -328,6 +328,9 @@
   #gmap {
     position: relative;
     height: 400px;
+    #gmap_full_screen_button {
+      display: none;
+    }
   }
 }
 

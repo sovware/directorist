@@ -5095,14 +5095,14 @@ svg.leaflet-image-layer.leaflet-interactive path {
 #map {
   position: relative;
   width: 100%;
-  height: 600px;
-  border: 1px solid #ccc;
+  height: 660px;
+  border: none;
 }
 
 #gmap_full_screen_button {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 20px;
+  right: 20px;
   z-index: 999;
   width: 50px;
   height: 50px;
@@ -13676,12 +13676,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   direction: ltr;
   margin-bottom: 30px;
 }
-#map.leaflet-container .leaflet-popup,
-.directorist-single-map.leaflet-container .leaflet-popup,
-#gmap.leaflet-container .leaflet-popup {
-  /*rtl:begin:ignore*/
-  /*rtl:end:ignore*/
-}
 #map.leaflet-container .leaflet-popup-content-wrapper,
 .directorist-single-map.leaflet-container .leaflet-popup-content-wrapper,
 #gmap.leaflet-container .leaflet-popup-content-wrapper {
@@ -13824,6 +13818,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-map.leaflet-container .leaflet-popup-close-button:hover,
 #gmap.leaflet-container .leaflet-popup-close-button:hover {
   background: #444752;
+}
+#map.leaflet-container .leaflet-control-zoom,
+.directorist-single-map.leaflet-container .leaflet-control-zoom,
+#gmap.leaflet-container .leaflet-control-zoom {
+  display: none;
 }
 
 .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details .iw-close-btn {

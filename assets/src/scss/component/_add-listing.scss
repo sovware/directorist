@@ -573,8 +573,8 @@
         margin: 0 auto 25px;
         background: var(--directorist-color-light);
         &:after {
-          width: 20px;
-          height: 20px;
+          width: 30px;
+          height: 30px;
           background: var(--directorist-color-primary);
         }
       }
@@ -990,6 +990,7 @@
       &.directorist-btn {
         height: 0;
         opacity: 0;
+        visibility: hidden;
       }
     }
   }

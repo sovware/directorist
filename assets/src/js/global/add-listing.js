@@ -838,10 +838,12 @@ $(document).ready(function () {
                 document.querySelector('.multistep-wizard__btn--next').innerHTML="Save & Preview";
                 submitBtn.style.height = "auto";
                 submitBtn.style.opacity = "1";
+                submitBtn.style.visibility = "visible";
             } else {
                 document.querySelector('.multistep-wizard__btn--next').innerHTML=saveBtnText;
                 submitBtn.style.height = "0";
                 submitBtn.style.opacity = "0";
+                submitBtn.style.visibility = "hidden";
             }
 
             // Update Wizard Count & Progressbar

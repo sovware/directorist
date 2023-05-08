@@ -7749,6 +7749,9 @@ body.stop-scrolling {
   position: relative;
   height: 400px;
 }
+.directorist-form-map-field__maps #gmap #gmap_full_screen_button {
+  display: none;
+}
 
 /* image upload */
 .directorist-form-image-upload-field .ez-media-uploader {
@@ -8013,8 +8016,8 @@ body.stop-scrolling {
   background: var(--directorist-color-light);
 }
 .directorist-add-listing-form__publish__icon i:after {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   background: var(--directorist-color-primary);
 }
 .directorist-add-listing-form__publish__title {
@@ -8504,6 +8507,7 @@ body.stop-scrolling {
 .multistep-wizard__btn--skip-preview.directorist-btn {
   height: 0;
   opacity: 0;
+  visibility: hidden;
 }
 .multistep-wizard__count {
   font-size: 15px;

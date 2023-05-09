@@ -1002,6 +1002,7 @@ function init() {
   selec2_add_custom_close_button_if_needed(); // Add custom close button if field contains value on change
 
   $('.select2-hidden-accessible').on('change', function (e) {
+    console.log('object');
     var value = $(this).children("option:selected").val();
 
     if (!value) {
@@ -1257,7 +1258,7 @@ function initSelect2AjaxFields() {
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
-  }); // Init Select2 Ajax Category Field
+  }); // Init Select2 Ajax Location Field
 
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-location').find('select'),
@@ -1440,16 +1441,16 @@ function convertToSelect2(field) {
       allowClear: true,
       width: '100%',
       templateResult: function templateResult(data) {
-        // We only really care if there is an field to pull classes from
-        if (!data.field) {
+        if (!data.id) {
           return data.text;
         }
 
-        var $field = $(data.field);
-        var $wrapper = $('<span></span>');
-        $wrapper.addClass($field[0].className);
-        $wrapper.text(data.text);
-        return $wrapper;
+        var iconURI = $(data.element).data('icon');
+        var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+        var originalText = data.text;
+        var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+        var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+        return $state;
       }
     };
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;

@@ -620,6 +620,19 @@ body.logged-in .select2-container--open .select2-dropdown--above {
   color: var(--directorist-color-primary);
   background-color: transparent;
 }
+.select2-container--default.select2-container--open .select2-results__option .directorist-select2-contents {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.select2-container--default.select2-container--open .select2-results__option .directorist-select2-contents .directorist-icon-mask {
+  margin-right: 5px;
+}
 
 .custom-checkbox input {
   display: none;

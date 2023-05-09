@@ -109,6 +109,9 @@ import {
                 const marker = new google.maps.Marker({
                     map,
                     position: place.geometry.location,
+                    draggable: true,
+                    title: localized_data.marker_title,
+                    icon: searchIcon, 
                 });
 
                 // marker.addListener('click', function () {

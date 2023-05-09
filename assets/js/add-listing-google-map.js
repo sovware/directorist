@@ -193,7 +193,10 @@ __webpack_require__.r(__webpack_exports__);
         map.setCenter(place.geometry.location);
         var marker = new google.maps.Marker({
           map: map,
-          position: place.geometry.location
+          position: place.geometry.location,
+          draggable: true,
+          title: localized_data.marker_title,
+          icon: searchIcon
         }); // marker.addListener('click', function () {
         //     info_window.open(map, marker);
         // });

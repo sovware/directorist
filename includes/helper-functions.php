@@ -2308,6 +2308,7 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 
         foreach ($terms as $term) {
             $directory_type = get_term_meta( $term->term_id, '_directory_type', true );
+            $icon           = get_term_meta( $term->term_id, 'category_icon', true );
             $directory_type = ! empty( $directory_type ) ? $directory_type : array();
             if( in_array( $settings['listing_type'], $directory_type ) ) {
                 $settings['term_id'] = $term->term_id;
@@ -2320,7 +2321,7 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                 }
                 $selected = ($term_id == $term->term_id) ? "selected" : '';
                 $custom_field    = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
-                $html .= '<option data-icon="" data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
+                $html .= '<option data-icon = "' . esc_attr( $icon ). '" data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
                 $html .= $prefix . $term->name;
                 if (!empty($settings['show_count'])) {
                     $html .= ' (' . $count . ')';
@@ -3759,6 +3760,7 @@ function directorist_get_allowed_attributes() {
         'd'       => array(),
 
 		'data-custom-field' => array(),
+		'data-icon' => array(),
     );
 
     return apply_filters( 'directorist_get_allowed_attributes', $allowed_attributes );

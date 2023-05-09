@@ -3470,10 +3470,6 @@ body.stop-scrolling {
   width: auto;
 }
 
-.directorist-add-listing-wrapper {
-  max-width: 750px !important;
-  margin: 0 auto;
-}
 .directorist-add-listing-wrapper .ezmu__thumbnail-list {
   gap: 8px;
   margin: 15px 0 10px;

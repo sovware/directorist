@@ -156,14 +156,14 @@
         position: absolute;
         left: -20px;
         top: -20px;
-        width: 40px;
-        height: 40px;
+        width: 0;
+        height: 0;
         opacity: 0;
         visibility: hidden;
         border-radius: 50%;
         transition: all 0.3s ease-in-out;
         border: none;
-        border: 20px solid rgba(0, 0, 0, 0.20);
+        border: 40px solid rgba(0, 0, 0, 0.20);
         animation: atbd_scale 3s linear alternate infinite;
     }
     .directorist-icon-mask {

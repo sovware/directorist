@@ -355,12 +355,12 @@
           position: absolute;
           left: -25px;
           top: -25px;
-          width: 50px;
-          height: 50px;
+          width: 0;
+          height: 0;
           border-radius: 50%;
           transition: all 0.3s ease-in-out;
           border: none;
-          border: 25px solid rgba(0, 0, 0, 0.2);
+          border: 50px solid rgba(0, 0, 0, 0.2);
           animation: atbd_scale 3s linear alternate infinite;
         }
         &:after {
@@ -654,13 +654,10 @@
       .atbd_map_shape {
         width: 50px;
         height: 50px;
-        border-radius: 100%;
         &:before {
           left: -25px;
           top: -25px;
-          width: 50px;
-          height: 50px;
-          border: 25px solid rgba(0, 0, 0, 0.20);
+          border: 50px solid rgba(0, 0, 0, 0.20);
         }
         .directorist-icon-mask::after {
           width: 12px;

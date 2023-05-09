@@ -3389,13 +3389,13 @@ body.stop-scrolling {
   position: absolute;
   right: -25px;
   top: -25px;
-  width: 50px;
-  height: 50px;
+  width: 0;
+  height: 0;
   border-radius: 50%;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   border: none;
-  border: 25px solid rgba(0, 0, 0, 0.2);
+  border: 50px solid rgba(0, 0, 0, 0.2);
   -webkit-animation: atbd_scale 3s linear alternate infinite;
           animation: atbd_scale 3s linear alternate infinite;
 }
@@ -3704,14 +3704,11 @@ body.stop-scrolling {
 .directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape {
   width: 50px;
   height: 50px;
-  border-radius: 100%;
 }
 .directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape:before {
   right: -25px;
   top: -25px;
-  width: 50px;
-  height: 50px;
-  border: 25px solid rgba(0, 0, 0, 0.2);
+  border: 50px solid rgba(0, 0, 0, 0.2);
 }
 .directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape .directorist-icon-mask::after {
   width: 12px;
@@ -14574,15 +14571,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   position: absolute;
   right: -20px;
   top: -20px;
-  width: 40px;
-  height: 40px;
+  width: 0;
+  height: 0;
   opacity: 0;
   visibility: hidden;
   border-radius: 50%;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   border: none;
-  border: 20px solid rgba(0, 0, 0, 0.2);
+  border: 40px solid rgba(0, 0, 0, 0.2);
   -webkit-animation: atbd_scale 3s linear alternate infinite;
           animation: atbd_scale 3s linear alternate infinite;
 }
@@ -15173,6 +15170,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-single-wrapper .directorist-single-map {
   border-radius: 16px;
+}
+.directorist-single-wrapper .directorist-single-map .atbd_map_shape .directorist-icon-mask:after {
+  background-color: var(--directorist-color-white);
 }
 
 .directorist-related-listing-header h1,

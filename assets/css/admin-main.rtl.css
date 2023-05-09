@@ -10329,17 +10329,18 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           transform: translateX(50%);
   bottom: -100%;
   width: 90%;
-  height: auto;
   max-width: 600px;
-  max-height: calc(100% - 200px);
   opacity: 0;
   visibility: hidden;
   z-index: 9999;
   border-radius: 16px;
-  overflow: auto;
   background-color: var(--directorist-color-white);
 }
 .directorist-search-modal__contents__header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -10353,13 +10354,37 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 15px 40px 15px 25px;
+  border-radius: 16px 16px 0 0;
+  background-color: var(--directorist-color-white);
   border-bottom: 1px solid var(--directorist-color-border);
+  z-index: 1;
 }
 @media only screen and (max-width: 480px) {
   .directorist-search-modal__contents__header {
     padding-right: 30px;
     padding-left: 20px;
   }
+}
+.directorist-search-modal__contents__body {
+  height: 600px;
+  padding: 30px 40px 0;
+  overflow: auto;
+  margin-top: 70px;
+  margin-bottom: 80px;
+}
+@media only screen and (max-width: 480px) {
+  .directorist-search-modal__contents__body {
+    padding: 30px 30px 0;
+  }
+}
+.directorist-search-modal__contents__footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border-radius: 0 0 16px 16px;
+  background-color: var(--directorist-color-light);
+  z-index: 1;
 }
 .directorist-search-modal__contents__title {
   font-size: 20px;
@@ -10394,22 +10419,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-modal__contents__btn:hover i::after {
   background-color: var(--directorist-color-danger);
-}
-.directorist-search-modal__contents .directorist-advanced-filter__form {
-  padding: 30px 40px;
-}
-@media only screen and (max-width: 480px) {
-  .directorist-search-modal__contents .directorist-advanced-filter__form {
-    padding: 30px;
-  }
-}
-.directorist-search-modal__contents .directorist-advanced-filter__wrapper {
-  padding: 30px 40px;
-}
-@media only screen and (max-width: 480px) {
-  .directorist-search-modal__contents .directorist-advanced-filter__wrapper {
-    padding: 30px;
-  }
 }
 
 /* Responsive CSS */

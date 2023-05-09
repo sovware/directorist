@@ -120,6 +120,12 @@ __webpack_require__.r(__webpack_exports__);
       var loc_manual_lat = parseFloat(localized_data.manual_lat);
       var loc_manual_lng = parseFloat(localized_data.manual_lng);
       var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
+      var searchIcon = {
+        url: '../../../../../icons/font-awesome/svgs/solid/map-pin.svg',
+        // replace with your search icon URL
+        scaledSize: new google.maps.Size(40, 40) // set the size of the icon
+
+      };
       loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
       loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
       $manual_lat = $('#manual_lat');
@@ -208,12 +214,9 @@ __webpack_require__.r(__webpack_exports__);
           map: map,
           position: saved_lat_lng,
           draggable: true,
-          title: localized_data.marker_title
-        }); // marker.addListener('click', function () {
-        //     info_window.open(map, marker);
-        // });
-        // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-
+          title: localized_data.marker_title,
+          icon: searchIcon
+        });
         markers.push(marker); // create a Geocode instance
 
         var geocoder = new google.maps.Geocoder();
@@ -281,15 +284,16 @@ __webpack_require__.r(__webpack_exports__);
       // Adds a marker to the map.
 
       function addMarker(location, map) {
-        // Add the marker at the clicked location, and add the next-available label
+        // Add the marker at the clicked location, and add the next-available label;
         // from the array of alphabetical characters.
         var marker = new google.maps.Marker({
+          map: map,
           position: location,
 
           /* label: labels[labelIndex++ % labels.length], */
           draggable: true,
           title: localized_data.marker_title,
-          map: map
+          icon: searchIcon
         }); // marker.addListener('click', function () {
         //     info_window.open(map, marker);
         // });

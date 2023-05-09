@@ -463,6 +463,7 @@
 }
 
 #directorist-map-floating-panel {
+  margin-top: -30px;
   margin-bottom: 15px;
 }
 
@@ -3326,7 +3327,6 @@ body.stop-scrolling {
 .directorist-form-map-field__wrapper {
   margin-bottom: 10px;
 }
-
 .directorist-form-map-field__maps #gmap {
   position: relative;
   height: 400px;
@@ -3354,10 +3354,14 @@ body.stop-scrolling {
   cursor: pointer;
   border-radius: 100%;
   overflow: visible !important;
-  background-color: var(--directorist-color-primary);
 }
 .directorist-form-map-field__maps #gmap div[role=img] > img {
-  display: none;
+  position: relative;
+  z-index: 1;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 100%;
+  background-color: var(--directorist-color-primary);
 }
 .directorist-form-map-field__maps #gmap div[role=img]:before {
   content: "";
@@ -3374,11 +3378,13 @@ body.stop-scrolling {
   -webkit-animation: atbd_scale 3s linear alternate infinite;
           animation: atbd_scale 3s linear alternate infinite;
 }
-.directorist-form-map-field__maps #gmap #gmimap0:after {
+.directorist-form-map-field__maps #gmap div[role=img]:after {
   content: "";
   display: block;
   width: 12px;
   height: 20px;
+  position: absolute;
+  z-index: 2;
   background-color: var(--directorist-color-white);
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
@@ -3386,6 +3392,19 @@ body.stop-scrolling {
           mask-position: center;
   -webkit-mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
           mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+}
+.directorist-form-map-field__maps #gmap div[role=img].transit-wheelchair-icon {
+  margin: 0;
+  display: inline-block;
+  width: 13px !important;
+  height: 13px !important;
+  background-color: unset;
+}
+.directorist-form-map-field__maps #gmap div[role=img].transit-wheelchair-icon:before, .directorist-form-map-field__maps #gmap div[role=img].transit-wheelchair-icon:after {
+  display: none;
+}
+.directorist-form-map-field .map_drag_info {
+  display: none;
 }
 
 /* image upload */

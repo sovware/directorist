@@ -640,7 +640,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
 .select2-container--default.select2-container--open .select2-results__option .directorist-select2-contents .directorist-icon-mask:after {
   width: 16px;
   height: 16px;
-  background-color: var();
+  background-color: var(--directorist-color-light-gray);
 }
 
 .custom-checkbox input {

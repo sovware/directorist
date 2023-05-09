@@ -41,31 +41,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-    (function ($) {
-    "use strict";
-    var content = "";
-    // Category icon selection
-    function selecWithIcon(selected) {
-    if (!selected.id) {
-    return selected.text;
-    }
-    var $elem = $(
-    "<span><span class='la " +
-    selected.element.value +
-    "'></span> " +
-    selected.text +
-    "</span>"
-    );
-    return $elem;
-    }
-
-    $("#category_icon").select2({
-    placeholder: directorist_admin.i18n_text.icon_choose_text,
-    allowClear: true,
-    templateResult: selecWithIcon,
-    });
-
     /* Show and hide manual coordinate input field */
     if (!$('input#manual_coordinate').is(':checked')) {
         $('.directorist-map-coordinates').hide();
@@ -101,26 +76,6 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-
-    // SOCIAL SECTION
-    // Rearrange the IDS and Add new social field
-    /* $('body').on('click', '#addNewSocial', function () {
-        const currentItems = $('.directorist-form-social-fields').length;
-        const ID = `id=${currentItems}`; // eg. 'id=3'
-        const iconBindingElement = jQuery('#addNewSocial');
-        // arrange names ID in order before adding new elements
-        $('.directorist-form-social-fields').each(function (index, element) {
-            const e = $(element);
-            e.attr('id', `socialID-${index}`);
-            e.find('select').attr('name', `social[${index}][id]`);
-            e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
-            e.find('.directorist-form-social-fields__remove').attr('data-id', index);
-        });
-        // now add the new elements. we could do it here without using ajax but it would require more markup here.
-        atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
-            //$s_wrap.append(data);
-        });
-    }); */
 
     // remove the social field and then reset the ids while maintaining position
     $(document).on('click', '.directorist-form-social-fields__remove', function (e) {

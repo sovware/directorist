@@ -3718,7 +3718,7 @@ class Multi_Directory_Manager
                 'top' => [
                     'maxWidget' => 0,
                     'acceptedWidgets' => [
-                        "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing",
+                        "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing", "posted_date",
                     ],
                 ],
                 'bottom' => [

@@ -10329,7 +10329,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           transform: translateX(-50%);
   bottom: -100%;
   width: 90%;
-  max-width: 600px;
+  height: calc(100% - 200px);
+  overflow: hidden;
   opacity: 0;
   visibility: hidden;
   z-index: 9999;
@@ -10366,7 +10367,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
 }
 .directorist-search-modal__contents__body {
-  height: 600px;
+  height: calc(100vh - 370px);
   padding: 30px 40px 0;
   overflow: auto;
   margin-top: 70px;

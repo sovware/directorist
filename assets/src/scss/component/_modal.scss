@@ -150,7 +150,8 @@
         transform: translateX(-50%);
         bottom: -100%;
         width: 90%;
-        max-width: 600px;
+        height: calc(100% - 200px);
+        overflow: hidden;
         opacity: 0;
         visibility: hidden;
         z-index: 9999;
@@ -175,7 +176,7 @@
             }
         }
         @include e(body) {
-            height: 600px;
+            height: calc(100vh - 370px);
             padding: 30px 40px 0;
             overflow: auto;
             margin-top: 70px;

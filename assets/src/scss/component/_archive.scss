@@ -13,6 +13,7 @@
 				position: relative;
 				padding: 10px;
 				border-radius: 10px;
+				box-shadow: 0px 5px 20px rgba(0,0,0,0.33);
 				background: var(--directorist-color-white);
 				.directorist-mark-as-favorite__btn {
 					position: absolute;
@@ -159,6 +160,12 @@
 						}
 					}
 				}
+			}
+			.gm-style-iw-t {
+				bottom: 48px !important;
+			}
+			.gm-style-iw-tc {
+				display: none;
 			}
 		}
 	}

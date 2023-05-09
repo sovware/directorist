@@ -5237,8 +5237,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
   height: 50px !important;
   margin: 20px !important;
   border-radius: 10px !important;
-  -webkit-box-shadow: unset !important;
-          box-shadow: unset !important;
+  -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.26) !important;
+          box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.26) !important;
 }
 
 .gmnoprint,
@@ -9557,6 +9557,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   position: relative;
   padding: 10px;
   border-radius: 10px;
+  -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.33);
+          box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.33);
   background: var(--directorist-color-white);
 }
 .directorist-content-active .directorist-archive-contents .directorist-archive-map-view .map-listing-card-single .directorist-mark-as-favorite__btn {
@@ -9733,6 +9735,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-content-active .directorist-archive-contents .directorist-archive-map-view .map-listing-card-single__content__location a:not(:first-child) {
   margin-right: 5px;
+}
+.directorist-content-active .directorist-archive-contents .directorist-archive-map-view .gm-style-iw-t {
+  bottom: 48px !important;
+}
+.directorist-content-active .directorist-archive-contents .directorist-archive-map-view .gm-style-iw-tc {
+  display: none;
 }
 
 /* Directory type nav */
@@ -14626,6 +14634,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .atbd_google_map .gm-style .gm-style-iw .map-info-wrapper--show,
 .directorist-details-info-wrap .gm-style .gm-style-iw .map-info-wrapper--show {
   display: block !important;
+}
+
+.gm-style div[aria-label=Map] div[role=button] {
+  display: none;
 }
 
 .directorist-report-abuse-modal .directorist-modal__header {

@@ -29,7 +29,7 @@ import {
             const loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
 
             const searchIcon = {
-                url: '../../../../../icons/font-awesome/svgs/solid/map-pin.svg', // replace with your search icon URL
+                url: '', // replace with your marker icon URL
                 scaledSize: new google.maps.Size(40, 40), // set the size of the icon
             };
 

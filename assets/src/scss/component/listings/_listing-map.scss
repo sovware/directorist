@@ -232,3 +232,11 @@
         }
     }
 }
+
+.gm-style {
+    div[aria-label="Map"] {
+        div[role="button"] {
+            display: none;
+        }
+    }
+}

@@ -288,11 +288,11 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     ======================================== */
     /* Color */
     #directorist.atbd_wrapper .btn-secondary, .directorist-btn.directorist-btn-secondary {
-        color: var(--directorist-color-white) !important;
+        color: var(--directorist-color-body) !important;
     }
 
     #directorist.atbd_wrapper .btn-secondary:hover, .directorist-btn.directorist-btn-secondary:hover {
-        color: var(--directorist-color-white) !important;
+        color: var(--directorist-color-body) !important;
     }
 
     /* Background */

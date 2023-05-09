@@ -3998,6 +3998,11 @@ class Multi_Directory_Manager
                         'label' => 'Group Name',
                         'value' => 'Section',
                     ],
+                    'icon' => [
+                        'type'  => 'icon',
+                        'label'  => __( 'Block/Section Icon', 'directorist' ),
+                        'value' => '',
+                    ],
                 ],
                 'value' => [
                     'fields' => [

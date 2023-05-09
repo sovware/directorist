@@ -405,30 +405,7 @@ window.addEventListener('DOMContentLoaded', function () {
       logged_count.show();
     }
   });
-  /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-  (function ($) {
-  "use strict";
-  var content = "";
-  // Category icon selection
-  function selecWithIcon(selected) {
-  if (!selected.id) {
-  return selected.text;
-  }
-  var $elem = $(
-  "<span><span class='la " +
-  selected.element.value +
-  "'></span> " +
-  selected.text +
-  "</span>"
-  );
-  return $elem;
-  }
-   $("#category_icon").select2({
-  placeholder: directorist_admin.i18n_text.icon_choose_text,
-  allowClear: true,
-  templateResult: selecWithIcon,
-  });
-   /* Show and hide manual coordinate input field */
+  /* Show and hide manual coordinate input field */
 
   if (!$('input#manual_coordinate').is(':checked')) {
     $('.directorist-map-coordinates').hide();
@@ -466,27 +443,7 @@ window.addEventListener('DOMContentLoaded', function () {
         opacity: '0.7'
       });
     }
-  } // SOCIAL SECTION
-  // Rearrange the IDS and Add new social field
-
-  /* $('body').on('click', '#addNewSocial', function () {
-      const currentItems = $('.directorist-form-social-fields').length;
-      const ID = `id=${currentItems}`; // eg. 'id=3'
-      const iconBindingElement = jQuery('#addNewSocial');
-      // arrange names ID in order before adding new elements
-      $('.directorist-form-social-fields').each(function (index, element) {
-          const e = $(element);
-          e.attr('id', `socialID-${index}`);
-          e.find('select').attr('name', `social[${index}][id]`);
-          e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
-          e.find('.directorist-form-social-fields__remove').attr('data-id', index);
-      });
-      // now add the new elements. we could do it here without using ajax but it would require more markup here.
-      atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
-          //$s_wrap.append(data);
-      });
-  }); */
-  // remove the social field and then reset the ids while maintaining position
+  } // remove the social field and then reset the ids while maintaining position
 
 
   $(document).on('click', '.directorist-form-social-fields__remove', function (e) {
@@ -925,11 +882,11 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-   if (frame) {
+    if (frame) {
    frame.open();
    return;
   }
-   // Create a new media frame
+    // Create a new media frame
   frame = wp.media({
    title: directorist_admin.i18n_text.upload_cat_image,
    button: {
@@ -2811,6 +2768,7 @@ function init() {
   selec2_add_custom_close_button_if_needed(); // Add custom close button if field contains value on change
 
   $('.select2-hidden-accessible').on('change', function (e) {
+    console.log('object');
     var value = $(this).children("option:selected").val();
 
     if (!value) {
@@ -3066,7 +3024,7 @@ function initSelect2AjaxFields() {
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
-  }); // Init Select2 Ajax Category Field
+  }); // Init Select2 Ajax Location Field
 
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-location').find('select'),
@@ -3409,15 +3367,22 @@ function convertToSelect2(field) {
       width: '100%',
       templateResult: function templateResult(data) {
         // We only really care if there is an field to pull classes from
-        if (!data.field) {
-          return data.text;
-        }
 
+        /* if ( !data.field ) {
+            return data.text;
+        }
         var $field = $(data.field);
         var $wrapper = $('<span></span>');
         $wrapper.addClass($field[0].className);
         $wrapper.text(data.text);
-        return $wrapper;
+        return $wrapper; */
+        if (!data.id) {
+          return data.text;
+        }
+
+        console.log(data);
+        var $state = $('<span data-cid=' + data.id + '><img src="https://picsum.photos/30/30" class="img-flag" /> ' + data.text + '</span>');
+        return $state;
       }
     };
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;

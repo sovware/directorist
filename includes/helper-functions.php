@@ -1740,7 +1740,7 @@ function directorist_clean($var)
  *
  */
 function the_atbdp_favourites_link( $post_id = 0 ) {
-    
+
     if ( $post_id == 0 ) {
         global $post;
         $post_id = $post->ID;
@@ -1752,7 +1752,7 @@ function the_atbdp_favourites_link( $post_id = 0 ) {
     } else {
         return '' . directorist_icon('las la-heart', false) . '<span class="directorist-single-listing-action__text" data-post_id="' . $post_id . '">Bookmark</span>';
     }
-    
+
 }
 
 
@@ -2320,7 +2320,7 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                 }
                 $selected = ($term_id == $term->term_id) ? "selected" : '';
                 $custom_field    = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
-                $html .= '<option data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
+                $html .= '<option data-icon="" data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
                 $html .= $prefix . $term->name;
                 if (!empty($settings['show_count'])) {
                     $html .= ' (' . $count . ')';

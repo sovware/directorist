@@ -38,16 +38,20 @@ function convertToSelect2( field ) {
             width: '100%',
             templateResult: function (data) {
                 // We only really care if there is an field to pull classes from
-                if ( ! data.field ) {
+                /* if ( !data.field ) {
                     return data.text;
                 }
                 var $field = $(data.field);
                 var $wrapper = $('<span></span>');
-
                 $wrapper.addClass($field[0].className);
                 $wrapper.text(data.text);
-
-                return $wrapper;
+                return $wrapper; */
+                if (!data.id) {
+                    return data.text;
+                }
+                console.log(data);
+                var $state = $('<span data-cid=' + data.id + '><img src="https://picsum.photos/30/30" class="img-flag" /> ' + data.text + '</span>');
+                return $state;
             }
         };
 

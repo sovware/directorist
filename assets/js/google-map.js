@@ -1051,22 +1051,15 @@ function convertToSelect2(field) {
       allowClear: true,
       width: '100%',
       templateResult: function templateResult(data) {
-        // We only really care if there is an field to pull classes from
-
-        /* if ( !data.field ) {
-            return data.text;
-        }
-        var $field = $(data.field);
-        var $wrapper = $('<span></span>');
-        $wrapper.addClass($field[0].className);
-        $wrapper.text(data.text);
-        return $wrapper; */
         if (!data.id) {
           return data.text;
         }
 
-        console.log(data);
-        var $state = $('<span data-cid=' + data.id + '><img src="https://picsum.photos/30/30" class="img-flag" /> ' + data.text + '</span>');
+        var iconURI = $(data.element).data('icon');
+        var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+        var originalText = data.text;
+        var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+        var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
         return $state;
       }
     };

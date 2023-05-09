@@ -101,7 +101,7 @@
                     background: transparent;
                 }
             }
-            .html-active .switch-html, 
+            .html-active .switch-html,
             .tmce-active .switch-tmce {
                 background: #f6f7f7;
             }
@@ -423,6 +423,13 @@ body.logged-in .select2-container--open .select2-dropdown--above {
                 font-weight: 500;
                 color: var(--directorist-color-primary);
                 background-color: transparent;
+            }
+            .directorist-select2-contents{
+                display: flex;
+                align-items: center;
+                .directorist-icon-mask{
+                    margin-right: 5px;
+                }
             }
         }
     }

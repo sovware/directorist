@@ -150,6 +150,7 @@
         transform: translateX(-50%);
         bottom: -100%;
         width: 90%;
+        max-width: 600px;
         height: calc(100% - 200px);
         overflow: hidden;
         opacity: 0;
@@ -169,7 +170,7 @@
             border-radius: 16px 16px 0 0;
             background-color: var(--directorist-color-white);
             border-bottom: 1px solid var(--directorist-color-border);
-            z-index: 1;
+            z-index: 9;
             @media only screen and (max-width: 480px) {
                 padding-left: 30px;
                 padding-right: 20px;
@@ -180,7 +181,7 @@
             padding: 30px 40px 0;
             overflow: auto;
             margin-top: 70px;
-            margin-bottom: 80px;
+            margin-bottom: 50px;
             @media only screen and (max-width: 480px) {
                 padding: 30px 30px 0;
             }
@@ -192,7 +193,7 @@
             right: 0;
             border-radius: 0 0 16px 16px;
             background-color: var(--directorist-color-light);
-            z-index: 1;
+            z-index: 9;
         }
         @include e(title) {
             font-size: 20px;

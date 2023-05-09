@@ -8417,6 +8417,7 @@ p.atbd-min {
           transform: translateX(50%);
   bottom: -100%;
   width: 90%;
+  max-width: 600px;
   height: calc(100% - 200px);
   overflow: hidden;
   opacity: 0;
@@ -8446,7 +8447,7 @@ p.atbd-min {
   border-radius: 16px 16px 0 0;
   background-color: var(--directorist-color-white);
   border-bottom: 1px solid var(--directorist-color-border);
-  z-index: 1;
+  z-index: 9;
 }
 @media only screen and (max-width: 480px) {
   .directorist-search-modal__contents__header {
@@ -8459,7 +8460,7 @@ p.atbd-min {
   padding: 30px 40px 0;
   overflow: auto;
   margin-top: 70px;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
 }
 @media only screen and (max-width: 480px) {
   .directorist-search-modal__contents__body {
@@ -8473,7 +8474,7 @@ p.atbd-min {
   left: 0;
   border-radius: 0 0 16px 16px;
   background-color: var(--directorist-color-light);
-  z-index: 1;
+  z-index: 9;
 }
 .directorist-search-modal__contents__title {
   font-size: 20px;

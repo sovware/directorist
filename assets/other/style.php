@@ -20,9 +20,9 @@ $danger_border_color              = get_directorist_option('danger_border_color'
 $danger_border_hover_color        = get_directorist_option('danger_border_hover_color', '#c5001e');
 // $success_text_color               = get_directorist_option('success_color', '#fff');
 $success_hover_color              = get_directorist_option('success_hover_color', '#fff');
-$back_success_color               = get_directorist_option('back_success_color', '#32cc6f');
+$back_success_color               = get_directorist_option('back_success_color', '#28A800');
 $back_success_hover_color         = get_directorist_option('back_success_hover_color', '#2ba251');
-$border_success_color             = get_directorist_option('border_success_color', '#32cc6f');
+$border_success_color             = get_directorist_option('border_success_color', '#28A800');
 $border_success_hover_color       = get_directorist_option('border_success_hover_color', '#2ba251');
 $lighter_text_color               = get_directorist_option('lighter_color', '#1A1B29');
 $lighter_hover_color              = get_directorist_option('lighter_hover_color', '#1A1B29');
@@ -584,7 +584,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured i::after,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured i::after,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured i::after, .directorist-listing-single .directorist-badge.directorist-badge-featured i::after {
-        background: var(directorist-color-featured-badge) !important;
+        background: var(--directorist-color-featured-badge) !important;
     }
 
     /* Badge Popular */

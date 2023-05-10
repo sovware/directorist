@@ -886,7 +886,7 @@ import { directorist_range_slider } from './range-slider';
             // Modal Content Style
             modalContent.style.opacity="1";
             modalContent.style.visibility = "visible";
-            modalContent.style.bottom = "100px";
+            modalContent.style.bottom = "0";
             modalContent.style.transition = "0.3s ease";
         });
 

@@ -258,6 +258,11 @@
 .directorist-single-wrapper {
     .directorist-single-map{
         border-radius: 16px;
+        .atbd_map_shape {
+            .directorist-icon-mask:after {
+                background-color: var(--directorist-color-white);
+            }
+        }
     }
 }
 

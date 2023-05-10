@@ -135,6 +135,7 @@
     height: 42px;
     border: none;
     border-radius: 0;
+    background: transparent;
     border-bottom: 1px solid var(--directorist-color-border-gray);
     &:focus {
       border-color: var(--directorist-color-primary);

@@ -37,17 +37,17 @@ function convertToSelect2( field ) {
             allowClear: true,
             width: '100%',
             templateResult: function (data) {
-                // We only really care if there is an field to pull classes from
-                if ( ! data.field ) {
+                if (!data.id) {
                     return data.text;
                 }
-                var $field = $(data.field);
-                var $wrapper = $('<span></span>');
+                var iconURI = $(data.element).data('icon');
+                var iconElm = `<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url(${iconURI})"></i>`;
 
-                $wrapper.addClass($field[0].className);
-                $wrapper.text(data.text);
+                let originalText = data.text;
+                let modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
 
-                return $wrapper;
+                var $state = $(`<div class="directorist-select2-contents">${typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText}</div>`);
+                return $state;
             }
         };
 

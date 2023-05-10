@@ -337,7 +337,7 @@
                         margin-right: 5px;
                     }
                 }
-                
+
                 .directorist_open_status_badge {
                     display: flex;
                 }
@@ -898,6 +898,14 @@
                     padding: 10px 22px 15px;
                     .directorist-listing-single__info--list {
                         margin-top: 0;
+                    }
+                }
+            }
+
+            @include e('meta') {
+                @include m(right) {
+                    .directorist-mark-as-favorite__btn {
+                        width: auto;
                     }
                 }
             }

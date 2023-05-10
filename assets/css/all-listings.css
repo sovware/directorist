@@ -14346,6 +14346,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-author-listing-content .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__content__body .directorist-listing-single__info--list {
   margin-top: 0;
 }
+.directorist-related .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__meta--right .directorist-mark-as-favorite__btn,
+.directorist-archive-contents .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__meta--right .directorist-mark-as-favorite__btn,
+.directorist-author-listing-content .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__meta--right .directorist-mark-as-favorite__btn {
+  width: auto;
+}
 .directorist-related .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single .directorist-mark-as-favorite__btn,
 .directorist-archive-contents .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single .directorist-mark-as-favorite__btn,
 .directorist-author-listing-content .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single .directorist-mark-as-favorite__btn {

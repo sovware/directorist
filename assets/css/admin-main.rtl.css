@@ -8059,6 +8059,11 @@ body.stop-scrolling {
   padding: 0 40px;
   margin: 0 0 20px;
   font-weight: 600;
+}
+.directorist-add-listing-form__action #listing_notifier .atbdp_success {
+  color: var(--directorist-color-success);
+}
+.directorist-add-listing-form__action #listing_notifier .atbdp_error {
   color: var(--directorist-color-danger);
 }
 .directorist-add-listing-form__action .directorist-form-group,
@@ -8385,6 +8390,15 @@ body.stop-scrolling {
   display: flex;
   gap: 30px;
 }
+@media only screen and (max-width: 991px) {
+  .multistep-wizard {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
 .multistep-wizard__nav {
   display: -webkit-box;
   display: -webkit-flex;
@@ -8395,6 +8409,19 @@ body.stop-scrolling {
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+@media only screen and (max-width: 991px) {
+  .multistep-wizard__nav {
+    gap: 10px;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
 }
 .multistep-wizard__nav__btn {
   position: relative;
@@ -8545,6 +8572,7 @@ body.stop-scrolling {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+  gap: 20px;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;

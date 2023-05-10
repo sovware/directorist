@@ -337,6 +337,10 @@
                         margin-right: 5px;
                     }
                 }
+                
+                .directorist_open_status_badge {
+                    display: flex;
+                }
     
                 .directorist-thumb-listing-author {
     
@@ -663,6 +667,11 @@
                     background-color: var(--directorist-color-white);
                 }
             }
+        }
+
+        // Feeatured Listing
+        &.directorist-featured {
+            border: 1px solid var(--directorist-color-warning)
         }
     }
 

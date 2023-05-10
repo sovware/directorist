@@ -690,7 +690,7 @@ $(document).ready(function () {
         redirect_url = redirect_url && typeof redirect_url === 'string' ? response.redirect_url.replace(/:\/\//g, '%3A%2F%2F') : '';
 
         if (response.error === true) {
-          $('#listing_notifier').show().html("<span>".concat(response.error_msg, "</span>"));
+          $('#listing_notifier').show().html("<span class=\"atbdp_error\">".concat(response.error_msg, "</span>"));
           $submitButton.removeClass('atbd_loading');
           on_processing = false;
 

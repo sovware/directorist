@@ -592,7 +592,12 @@
       padding: 0 40px;
       margin: 0 0 20px;
       font-weight: 600;
-      color: var(--directorist-color-danger);
+      .atbdp_success {
+        color: var(--directorist-color-success);
+      }
+      .atbdp_error {
+        color: var(--directorist-color-danger);
+      }
     }
   
     .directorist-form-group,
@@ -884,9 +889,17 @@
 .multistep-wizard {
   display: flex;
   gap: 30px;
+  @media only screen and (max-width: 991px) {
+    flex-direction: column;
+  }
   @include e(nav) {
     display: flex;
     flex-direction: column;
+    @media only screen and (max-width: 991px) {
+      gap: 10px;
+      flex-wrap: wrap;
+      flex-direction: row;
+    }
     @include e(btn) {
       position: relative;
       display: flex;
@@ -1004,6 +1017,7 @@
   @include e(bottom) {
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
     align-items: center;
     justify-content: space-between;
     margin: 20px 0;

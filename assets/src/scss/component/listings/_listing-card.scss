@@ -83,6 +83,7 @@
                     display: inline-flex;
                     align-items: center;
                     flex: 0 0 100%;
+                    order: 1;
                     font-size: 13px;
                     color: var(--directorist-color-light-gray);
                     i {
@@ -188,7 +189,7 @@
                 line-height: 1.45;
                 position: relative;
                 display: inline-block;
-                &:not(:last-child) {
+                &:not(:last-of-type) {
                     padding-right: 8px;
     
                     &:after {
@@ -294,11 +295,11 @@
         @include e(meta) {
             display: flex;
             flex-wrap: wrap;
+            gap: 10px;
             padding: 15px 22px 10px;
             justify-content: space-between;
             border-top: 1px solid var(--directorist-color-border);
             @include m(left) {
-                margin-right: 5px;
                 .directorist-listing-category {
                     a {
                         text-decoration: none;
@@ -560,6 +561,7 @@
             padding: 10px 0 10px 10px;
             @media only screen and (max-width: 991px) {
                 flex-direction: column;
+                padding: 10px;
             }
             .directorist-listing-single {
                 @include e('thumb') {
@@ -574,6 +576,9 @@
                 }
                 @include e('content') {
                     flex: 2;
+                    @media only screen and (max-width: 991px) {
+                        margin: 0 -10px;
+                    }
                 }
                 @include e('info') {
                     display: flex;
@@ -588,6 +593,15 @@
                         @media only screen and (max-width: 991px) {
                             top: -40px;
                         }
+                    }
+                }
+            }
+            
+            .directorist-listing-single__info--right {
+                .directorist-badge {
+                    margin: 0;
+                    &:after {
+                        display: none;
                     }
                 }
             }
@@ -628,6 +642,14 @@
                     width: 12px;
                     height: 12px;
                 }
+                &.directorist-badge-open,
+                &.directorist-badge-close {
+                    display: inline-block;
+                    height: 21px;
+                    width: auto;
+                    padding: 0 5px;
+                    border-radius: 4px;
+                }
         
                 &.directorist-badge-popular {
                     background-color: var(--directorist-color-white);
@@ -639,15 +661,6 @@
         
                 &.directorist-badge-featured {
                     background-color: var(--directorist-color-white);
-                }
-            }
-
-            .directorist_open_status_badge {
-                .directorist-badge {
-                    height: 21px;
-                    width: auto;
-                    padding: 0 5px;
-                    border-radius: 4px;
                 }
             }
         }
@@ -750,152 +763,155 @@
 
     /* listing card without thumbnail */
     .directorist-listing-single.directorist-listing-no-thumb {
-        .directorist-listing-single__header {
-            display: flex;
-            align-items: center;
-            padding: 20px 22px 0 22px;
-
-            @include e(left) {
+        .directorist-listing-single {
+            @include e('header') {
                 display: flex;
-                flex: 1;
-                padding-right: 15px;
-                align-items: center;
-            }
+                gap: 15px;
+                align-items: flex-start;
+                padding: 20px 22px 0 22px;
 
-            .directorist-thumb-listing-author {
-                margin-right: 12px;
-                a {
+                @include e(left) {
                     display: flex;
+                    flex: 1;
+                    gap: 12px;
+                    align-items: center;
                 }
 
-                img {
-                    width: 45px;
-                    max-width: none;
-                    height: 45px;
-                    border-radius: 50%;
-                }
-            }
-
-            .directorist-listing-title {
-                font-size: 18px;
-                font-weight: 500;
-                padding: 0;
-                text-transform: none;
-                line-height: 1.2;
-                margin: 0;
-                flex: 0 0 100%;
-
-                a {
-                    text-decoration: none;
-                    color: var(--directorist-color-primary);
-                }
-            }
-
-            .directorist-listing-tagline {
-                margin-bottom: 0;
-            }
-        }
-
-        .directorist-listing-single__info {
-            padding: 10px 22px 0;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .directorist-listing-single__info--list {
-            margin-top: 16px;
-
-            ul {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-
-                li {
-                    color: var(--directorist-color-body);
-                    margin: 0;
-
-                    &:not(:last-child) {
-                        margin: 0 0 10px;
-                    }
-
-                    > div {
-                        margin-bottom: 2px;
-                        font-size: 14px;
+                .directorist-thumb-listing-author {
+                    a {
                         display: flex;
-                        gap: 10px;
-                        .directorist-icon-mask {
-                            position: relative;
-                            top: 4px;
-                        }
-                        .directorist-listing-single__info--list__label {
-                            display: none;
-                        }
                     }
-
-                    .directorist-icon {
-                        font-size: 17px;
-                        color: #444752;
-                        margin-right: 8px;
+    
+                    img {
+                        width: 45px;
+                        max-width: none;
+                        height: 45px;
+                        border-radius: 50%;
                     }
-
+                }
+    
+                .directorist-listing-title {
+                    font-size: 18px;
+                    font-weight: 500;
+                    padding: 0;
+                    text-transform: none;
+                    line-height: 1.2;
+                    margin: 0;
+                    flex: 0 0 100%;
+    
                     a {
                         text-decoration: none;
-                        color: var(--directorist-color-body);
-                        border-bottom: 0 none;
-                        box-shadow: none;
-                        line-height: 1.7;
-                    }
-                }
-            }
-        }
-
-        .directorist-listing-single__content {
-            border: 0 none;
-
-            .directorist-listing-single__content__body {
-                padding: 10px 22px 15px;
-
-                .directorist-listing-single__info--list {
-                    margin-top: 0;
-                }
-            }
-        }
-
-        .directorist-listing-single__info--excerpt {
-            &:not(:empty) {
-                margin-top: 15px;
-                p {
-                    font-size: 15px;
-                    color: var(--directorist-color-body);
-                    line-height: 24px;
-                    text-align: left;
-                    margin: 0;
-                    a {
                         color: var(--directorist-color-primary);
-                        text-decoration: underline;
+                    }
+                }
+    
+                .directorist-listing-tagline {
+                    margin-bottom: 0;
+                }
+            }
+
+            @include e('info') {
+                padding: 10px 22px 0;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                flex-direction: row;
+                .directorist-badge {
+                    width: auto;
+                }
+                @include m(list) {
+                    margin-top: 16px;
+
+                    ul {
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+        
+                        li {
+                            color: var(--directorist-color-body);
+                            margin: 0;
+        
+                            &:not(:last-child) {
+                                margin: 0 0 10px;
+                            }
+        
+                            > div {
+                                margin-bottom: 2px;
+                                font-size: 14px;
+                                display: flex;
+                                gap: 10px;
+                                .directorist-icon-mask {
+                                    position: relative;
+                                    top: 4px;
+                                }
+                                .directorist-listing-single__info--list__label {
+                                    display: none;
+                                }
+                            }
+        
+                            .directorist-icon {
+                                font-size: 17px;
+                                color: #444752;
+                                margin-right: 8px;
+                            }
+        
+                            a {
+                                text-decoration: none;
+                                color: var(--directorist-color-body);
+                                border-bottom: 0 none;
+                                box-shadow: none;
+                                line-height: 1.7;
+                            }
+                        }
+                    }
+                }
+                @include m(excerpt) {
+                    &:not(:empty) {
+                        margin-top: 15px;
+                        p {
+                            font-size: 15px;
+                            color: var(--directorist-color-body);
+                            line-height: 24px;
+                            text-align: left;
+                            margin: 0;
+                            a {
+                                color: var(--directorist-color-primary);
+                                text-decoration: underline;
+                            }
+                        }
                     }
                 }
             }
-        }
 
-        .directorist-mark-as-favorite__btn {
-            background: transparent;
-            width: auto;
-            height: auto;
-        }
-
-        &.directorist-listing-no-thumb--fix {
-            .directorist-listing-single__header {
-                flex-wrap: wrap;
-
-                .directorist-listing-single__header__left {
-                    flex: 0 0 100%;
-                    flex-wrap: wrap;
-                    padding-right: 0;
+            @include e(content) {
+                border: 0 none;
+                @include e(body) {
+                    padding: 10px 22px 15px;
+                    .directorist-listing-single__info--list {
+                        margin-top: 0;
+                    }
                 }
+            }
 
-                .directorist-listing-single__header__right {
-                    margin-top: 15px;
+            .directorist-mark-as-favorite__btn {
+                background: transparent;
+                width: auto;
+                height: auto;
+            }
+    
+            &.directorist-listing-no-thumb--fix {
+                .directorist-listing-single__header {
+                    flex-wrap: wrap;
+    
+                    .directorist-listing-single__header__left {
+                        flex: 0 0 100%;
+                        flex-wrap: wrap;
+                        padding-right: 0;
+                    }
+    
+                    .directorist-listing-single__header__right {
+                        margin-top: 15px;
+                    }
                 }
             }
         }

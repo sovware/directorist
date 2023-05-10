@@ -73,6 +73,7 @@
 
 					@include e(meta) {
 						display: flex;
+						flex-wrap: wrap;
 						align-items: center;
 						margin: 0 0 20px;
 						.directorist-rating-meta {

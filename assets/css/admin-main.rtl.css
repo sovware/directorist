@@ -10436,6 +10436,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal__contents__btn:hover i::after {
   background-color: var(--directorist-color-danger);
 }
+.directorist-search-modal .directorist-advanced-filter__form .directorist-search-modal__contents__body {
+  height: calc(100vh - 380px);
+}
+@media only screen and (max-width: 480px) {
+  .directorist-search-modal .directorist-advanced-filter__form .directorist-search-modal__contents__body {
+    height: calc(100vh - 230px);
+  }
+}
 
 /* Responsive CSS */
 /* Large devices (desktops, 992px and up) */

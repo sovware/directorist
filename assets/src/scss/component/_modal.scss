@@ -232,6 +232,16 @@
             }
         }
     }
+    .directorist-advanced-filter {
+        @include e(form) {
+            .directorist-search-modal__contents__body {
+                height: calc(100vh - 380px);
+                @media only screen and (max-width: 480px) {
+                    height: calc(100vh - 230px);
+                }
+            }
+        }
+    }
 }
 
 /* Responsive CSS */

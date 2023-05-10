@@ -8427,12 +8427,20 @@ p.atbd-min {
   width: 90%;
   max-width: 600px;
   height: calc(100% - 200px);
+  margin-bottom: 100px;
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
   z-index: 9999;
   border-radius: 16px;
   background-color: var(--directorist-color-white);
+}
+@media only screen and (max-width: 480px) {
+  .directorist-search-modal__contents {
+    width: 100%;
+    margin-bottom: 0;
+    height: calc(100% - 50px);
+  }
 }
 .directorist-search-modal__contents__header {
   position: fixed;
@@ -8470,9 +8478,15 @@ p.atbd-min {
   margin-top: 70px;
   margin-bottom: 50px;
 }
+@media only screen and (max-width: 575px) {
+  .directorist-search-modal__contents__body {
+    height: calc(100vh - 350px);
+  }
+}
 @media only screen and (max-width: 480px) {
   .directorist-search-modal__contents__body {
     padding: 30px 30px 0;
+    height: calc(100vh - 200px);
   }
 }
 .directorist-search-modal__contents__footer {

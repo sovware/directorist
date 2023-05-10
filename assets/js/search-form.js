@@ -1664,7 +1664,7 @@ __webpack_require__.r(__webpack_exports__);
 
       modalContent.style.opacity = "1";
       modalContent.style.visibility = "visible";
-      modalContent.style.bottom = "100px";
+      modalContent.style.bottom = "0";
       modalContent.style.transition = "0.3s ease";
     });
     $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {

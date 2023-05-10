@@ -152,12 +152,18 @@
         width: 90%;
         max-width: 600px;
         height: calc(100% - 200px);
+        margin-bottom: 100px;
         overflow: hidden;
         opacity: 0;
         visibility: hidden;
         z-index: 9999;
         border-radius: 16px;
         background-color: var(--directorist-color-white);
+        @media only screen and (max-width: 480px) {
+            width: 100%;
+            margin-bottom: 0;
+            height: calc(100% - 50px);
+        }
         @include e(header) {
             position: fixed;
             top: 0;
@@ -182,8 +188,12 @@
             overflow: auto;
             margin-top: 70px;
             margin-bottom: 50px;
+            @media only screen and (max-width: 575px) {
+                height: calc(100vh - 350px);
+            }
             @media only screen and (max-width: 480px) {
                 padding: 30px 30px 0;
+                height: calc(100vh - 200px);
             }
         }
         @include e(footer) {
@@ -221,21 +231,6 @@
                 }
             }
         }
-
-        // .directorist-advanced-filter {
-        //     @include e(form) {
-        //         padding: 30px 40px;
-        //         @media only screen and (max-width: 480px) {
-        //             padding: 30px;
-        //         }
-        //     }
-        //     @include e(wrapper) {
-        //         padding: 30px 40px;
-        //         @media only screen and (max-width: 480px) {
-        //             padding: 30px;
-        //         }
-        //     }
-        // }
     }
 }
 

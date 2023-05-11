@@ -1114,71 +1114,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/single-listing-page/slider.js":
-/*!***********************************************************************!*\
-  !*** ./assets/src/js/public/components/single-listing-page/slider.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-document.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery; // Plasma Slider Initialization
-
-  if ($('.plasmaSlider').length !== 0) {
-    var single_listing_slider = new PlasmaSlider({
-      containerID: "directorist-single-listing-slider"
-    });
-    single_listing_slider.init();
-  }
-  /* Related listings slider */
-
-
-  var rtl = directorist.rtl === 'true';
-  var relLis = $('.directorist-related-carousel');
-
-  if (relLis.length !== 0) {
-    var relLisData = relLis.data('attr');
-    var prevArrow = typeof relLisData !== 'undefined' ? relLisData.prevArrow : '';
-    var nextArrow = typeof relLisData !== 'undefined' ? relLisData.nextArrow : '';
-    var relLisCol = typeof relLisData !== 'undefined' ? relLisData.columns : 3;
-    $('.directorist-related-carousel').slick({
-      dots: false,
-      arrows: true,
-      prevArrow: prevArrow,
-      nextArrow: nextArrow,
-      infinite: true,
-      speed: 300,
-      slidesToShow: relLisCol,
-      slidesToScroll: 1,
-      autoplay: false,
-      rtl: rtl,
-      responsive: [{
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: relLisCol,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: false
-        }
-      }, {
-        breakpoint: 991,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1
-        }
-      }, {
-        breakpoint: 575,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }]
-    });
-  }
-});
-
-/***/ }),
-
 /***/ "./assets/src/js/public/modules/single-listing.js":
 /*!********************************************************!*\
   !*** ./assets/src/js/public/modules/single-listing.js ***!
@@ -1203,8 +1138,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
 /* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/single-listing-page/slider */ "./assets/src/js/public/components/single-listing-page/slider.js");
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_8__);
 // General Components
 
 
@@ -1212,8 +1145,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
- // Single Listing Page
 
 
 

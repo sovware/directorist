@@ -53,10 +53,6 @@ class Scripts {
 				'path' => DIRECTORIST_VENDOR_CSS . 'ez-media-uploader',
 				'rtl' => true,
 			],
-			'directorist-slick-style' => [
-				'type' => 'css',
-				'path' => DIRECTORIST_VENDOR_CSS . 'slick',
-			],
 			'directorist-swiper-style' => [
 				'type' => 'css',
 				'path' => DIRECTORIST_VENDOR_CSS . 'swiper',
@@ -88,10 +84,6 @@ class Scripts {
 			'directorist-no-script' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'no-script',
-			],
-			'directorist-slick' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_VENDOR_JS . 'slick',
 			],
 			'directorist-swiper' => [
 				'type' => 'js',

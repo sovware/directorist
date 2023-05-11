@@ -54,7 +54,6 @@ class Asset_Loader {
 		wp_enqueue_style( 'directorist-select2-style' );
 		wp_enqueue_style( 'directorist-ez-media-uploader-style' );
 		wp_enqueue_style( 'directorist-plasma-slider' );
-		wp_enqueue_style( 'directorist-slick-style' );
 		wp_enqueue_style( 'directorist-swiper-style' );
 		wp_enqueue_style( 'directorist-sweetalert-style' );
 

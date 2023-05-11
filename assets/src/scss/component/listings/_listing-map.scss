@@ -216,6 +216,10 @@
         padding: 0;
         border-radius: 10px;
         box-shadow: unset;
+        @media only screen and (max-width: 375px) {
+            width: 275px;
+            max-width: unset !important;
+          }
 
         .gm-style-iw-d {
             overflow: hidden !important;

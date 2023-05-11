@@ -620,7 +620,7 @@ class Directorist_Single_Listing {
 		$id = $this->id;
 		$currency = get_directorist_option('g_currency', 'USD');
 		$c_symbol = atbdp_currency_symbol($currency);
-		$active   = '<span class="atbd_active">' . $c_symbol . '</span>';
+		$active   = '<span class="directorist-price-active">' . $c_symbol . '</span>';
 		$inactive = '<span>' . $c_symbol . '</span>';
 		$output = '';
 
@@ -639,7 +639,7 @@ class Directorist_Single_Listing {
 			break;
 		}
 
-		$result = sprintf('<div class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="%s">%s</div>', ucfirst( $this->price_range ), $output);
+		$result = sprintf('<div class="directorist-listing-price-range directorist-tooltip" data-label="%s">%s</div>', ucfirst( $this->price_range ), $output);
 
 		return $result;
 	}

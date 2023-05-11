@@ -13,8 +13,8 @@ if ( !$query->have_posts() ) {
 $default_icon = 'las la-tags';
 ?>
 
-<div class="atbd_categorized_listings">
-    <ul class="listings">
+<div class="directorist-card-body">
+    <div class="directorist-widget-listing">
         <?php while ( $query->have_posts() ): ?>
 
             <?php
@@ -116,5 +116,5 @@ $default_icon = 'las la-tags';
         <?php endwhile; ?>
 
 		<?php wp_reset_postdata(); ?>
-    </ul>
+    </div>
 </div>

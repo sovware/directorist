@@ -209,7 +209,8 @@ class All_Categories extends \WP_Widget {
                     if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
                 }
 
-                $html .= '<li>';
+                $html .= '<div class="directorist-taxonomy-list-one">';
+                $html .= '<div class="directorist-taxonomy-list">';
                 $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_category_page( $term ) . '">'. $child_icon .'';
                 $html .= $term->name;
                 if( ! empty( $settings['show_count'] ) ) {
@@ -221,7 +222,8 @@ class All_Categories extends \WP_Widget {
                 }
                 $html .= '</a>'. $plus_icon . '';
                 $html .= $this->directorist_categories_list( $settings );
-                $html .= '</li>';
+                $html .= '</div>';
+                $html .= '</div>';
                 if(!empty($args['number'])) {
                     if( $i++ == $args['number'] ) break;
                 }

@@ -668,6 +668,7 @@
         return;
       }
 
+      var container = this.container[0];
       var media_picker_section = this.mediaPickerSection;
       var preview_section = this.previewSection;
       var loading_section = this.loadingSection;
@@ -677,6 +678,7 @@
           removeClass(loading_section, "ezmu--show");
           removeClass(media_picker_section, "ezmu--show");
           addClass(preview_section, "ezmu--show");
+          addClass(container, "ezmu--show");
           break;
         case "loading":
           removeClass(media_picker_section, "ezmu--show");
@@ -686,6 +688,7 @@
         default:
           removeClass(loading_section, "ezmu--show");
           removeClass(preview_section, "ezmu--show");
+          removeClass(container, "ezmu--show");
           addClass(media_picker_section, "ezmu--show");
       }
     };

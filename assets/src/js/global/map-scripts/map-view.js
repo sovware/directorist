@@ -129,7 +129,7 @@ import {
                     center: new google.maps.LatLng(0, 0),
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
                     zoomControl: true,
-                    scrollwheel: true,
+                    scrollwheel: false,
                     gestureHandling: 'cooperative',
                     averageCenter: true,
                     scrollWheelZoom: 'center',

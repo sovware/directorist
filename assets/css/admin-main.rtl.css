@@ -7933,6 +7933,7 @@ body.stop-scrolling {
 .directorist-form-image-upload-field .ez-media-uploader .ezmu__preview-section.ezmu--show .ezmu__upload-button-wrap .ezmu__update-file-btn {
   padding: 0;
   width: 30px;
+  height: 30px;
   font-size: 0;
   position: relative;
 }

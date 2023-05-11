@@ -394,7 +394,7 @@
   }
 }
 
-/* image upload */
+/* EZ Media Upload */
 .directorist-form-image-upload-field {
   .ez-media-uploader {
     text-align: center;
@@ -403,6 +403,9 @@
     margin: 0;
     background: var(--directorist-color-bg-gray) !important;
     border: 2px dashed var(--directorist-color-border-gray) !important;
+    &.ezmu--show {
+      margin-bottom: 145px;
+    }
     .ezmu__media-picker-section {
       display: block;
       .ezmu__media-picker-icon-wrap-upload {
@@ -439,6 +442,43 @@
         margin: 0;
       }
     }
+    .ezmu__preview-section {
+      &.ezmu--show {
+        position: absolute;
+        bottom: -102px;
+        left: 0;
+        width: auto;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        .ezmu__upload-button-wrap {
+          height: 76px;
+          width: 100px;
+          border-radius: 8px;
+          background: var(--directorist-color-bg-gray) !important;
+          border: 2px dashed var(--directorist-color-border-gray) !important;
+          .ezmu__update-file-btn {
+            padding: 0;
+            width: 30px;
+            font-size: 0;
+            position: relative;
+            &:before {
+              content: '';
+              position: absolute;
+              width: 30px;
+              height: 30px;
+              left: 0;
+              z-index: 2;
+              background-color: var(--directorist-color-border-gray);
+              mask-repeat: no-repeat;
+              mask-position: center;
+              mask-image: url("../../../icons/font-awesome/svgs/regular/image.svg");
+            }
+          }
+        }
+      }
+    }
   } 
 
   .ezmu__info-list-item {
@@ -450,13 +490,9 @@
   .ezmu__thumbnail-list-item {
     width: auto;
   }
-}
 
-//add listing image upload
-.directorist-add-listing-wrapper {
   .ezmu__thumbnail-list {
     gap: 8px;
-    margin: 15px 0 10px;
   }
   .ezmu__thumbnail-list-item {
     width: 100px;

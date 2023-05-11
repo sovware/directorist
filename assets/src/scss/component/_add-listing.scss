@@ -66,7 +66,24 @@
     margin-bottom: 35px;
     border-radius: 16px;
     box-shadow: var(--directorist-box-shadow);
-
+    @include e(title) {
+      gap: 15px;
+      justify-content: flex-start;
+      i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 100%;
+        background-color: var(--directorist-color-primary);
+        &:after {
+          width: 16px;
+          height: 16px;
+          background-color: var(--directorist-color-white);
+        }
+      }
+    }
     .directorist-form-group {
       &:not(:last-child) {
         margin-bottom: 40px;
@@ -89,7 +106,6 @@
         }
       }
     }
-
 
     /* social info */
     .directorist-form-social-fields {

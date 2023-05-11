@@ -1152,20 +1152,20 @@ function atbdp_display_price_range($price_range)
     $output = '';
     if ('skimming' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Skimming"><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span>
+            '<span class="directorist-listing-price-range directorist-tooltip" data-label="Skimming"><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span>
         </span>';
     } elseif ('moderate' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Moderate"><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span>' . $c_symbol . '</span>
+            '<span class="directorist-listing-price-range directorist-tooltip" data-label="Moderate"><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span><span>' . $c_symbol . '</span>
             </span>';
     } elseif ('economy' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Economy"><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span>
+            '<span class="directorist-listing-price-range directorist-tooltip" data-label="Economy"><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span>
         </span>';
     } elseif ('bellow_economy' == $price_range) {
 
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Cheap"><span class="atbd_active">' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span>
+            '<span class="directorist-listing-price-range directorist-tooltip" data-label="Cheap"><span class="directorist-price-active">' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span>
         </span>';
 
     }

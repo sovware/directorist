@@ -44,19 +44,18 @@
         }
     
         // Single Listing Content
-        .directorist-listing-single__content {
+        @include e(content) {
             border-radius: 4px;
         }
-    
-        .directorist-listing-single__info {
+
+        @include e(info) {
             display: flex;
             flex-wrap: wrap;
             flex-direction: column;
             gap: 8px;
             position: relative;
             padding: 40px 20px 20px;
-    
-            .directorist-listing-single__info--top {
+            @include m(top) {
                 display: flex;
                 align-items: center;
                 flex-wrap: wrap;
@@ -79,14 +78,106 @@
                     display: inline-flex;
                     align-items: center;
                 }
+
+                .directorist-listing-card-posted-on {
+                    display: inline-flex;
+                    align-items: center;
+                    flex: 0 0 100%;
+                    order: 1;
+                    font-size: 13px;
+                    color: var(--directorist-color-light-gray);
+                    i {
+                        display: none;
+                    }
+                }
             }
+            @include m(list) {
+                margin-top: 16px;
     
-            .directorist-listing-single__info--excerpt{
+                ul {
+                    list-style-type: none;
+                    padding: 0;
+                    margin: 0;
+    
+                    li {
+                        color: var(--directorist-color-body);
+                        margin: 0;
+                        list-style: none;
+    
+                        &:not(:last-child) {
+                            margin: 0 0 7px;
+                        }
+    
+                        > div {
+                            margin-bottom: 2px;
+                            font-size: 14px;
+                            display: flex;
+                            gap: 10px;
+                            .directorist-icon-mask{
+                                width: 20px;
+                                position: relative;
+                                top: 2px;
+                                &:after {
+                                    background-color: var(--directorist-color-light-gray);
+                                }
+                            }
+                            .directorist-listing-single__info--list__label {
+                                display: none;
+                            }
+                        }
+    
+                        .directorist-icon {
+                            font-size: 17px;
+                            color: var(--directorist-color-body);
+                            margin-right: 8px;
+                        }
+    
+                        a {
+                            text-decoration: none;
+                            color: var(--directorist-color-body);
+                            word-break: break-word;
+                        }
+                    }
+                }
+    
+                .directorist-listing-card-location-list {
+                    display: block;
+                    margin: 0;
+                }
+                @include e(label){
+                    display: inline-block;
+                    margin-right: 5px;
+                }
+            }
+            @include m(right) {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                position: absolute;
+                right: 20px;
+                top: 20px;
+            }
+            @include m(excerpt) {
                 &:empty{
                     display: none;
                 }
-            }
+                &:not(:empty) {
+                    margin-top: 15px;
     
+                    p {
+                        font-size: 15px;
+                        color: var(--directorist-color-body);
+                        line-height: 24px;
+                        text-align: left;
+                        margin: 0;
+                        a {
+                            color: var(--directorist-color-primary);
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+
             a{
                 text-decoration: none;
                 box-shadow: none;
@@ -98,7 +189,7 @@
                 line-height: 1.45;
                 position: relative;
                 display: inline-block;
-                &:not(:last-child) {
+                &:not(:last-of-type) {
                     padding-right: 8px;
     
                     &:after {
@@ -199,106 +290,79 @@
                     padding: 0;
                 }
             }
-    
-            .directorist-listing-single__info--list {
-                margin-top: 16px;
-    
-                ul {
-                    list-style-type: none;
-                    padding: 0;
-                    margin: 0;
-    
-                    li {
+        }
+
+        @include e(meta) {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px 22px 10px;
+            justify-content: space-between;
+            border-top: 1px solid var(--directorist-color-border);
+            @include m(left) {
+                .directorist-listing-category {
+                    a {
+                        text-decoration: none;
+                        font-size: 14px;
                         color: var(--directorist-color-body);
-                        margin: 0;
-                        list-style: none;
-    
-                        &:not(:last-child) {
-                            margin: 0 0 7px;
-                        }
-    
-                        > div {
-                            margin-bottom: 2px;
-                            font-size: 14px;
-                            display: flex;
-                            gap: 10px;
-                            .directorist-icon-mask{
-                                width: 20px;
-                                position: relative;
-                                top: 4px;
-                                &:after {
-                                    background-color: var(--directorist-color-light-gray);
-                                }
-                            }
-                            .directorist-listing-single__info--list__label {
-                                display: none;
-                            }
-                        }
-    
-                        .directorist-icon {
-                            font-size: 17px;
-                            color: var(--directorist-color-body);
-                            margin-right: 8px;
-                        }
-    
-                        a {
-                            text-decoration: none;
-                            color: var(--directorist-color-body);
-                            word-break: break-word;
-                        }
-                    }
-                }
-    
-                .directorist-listing-card-location-list {
-                    display: block;
-                    margin: 0;
-                }
-                @include e(label){
-                    display: inline-block;
-                    margin-right: 5px;
-                }
-            }
-    
-            .directorist-listing-single__info--excerpt {
-                &:not(:empty) {
-                    margin-top: 15px;
-    
-                    p {
-                        font-size: 15px;
-                        color: var(--directorist-color-body);
-                        line-height: 24px;
-                        text-align: left;
-                        margin: 0;
-                        a {
-                            color: var(--directorist-color-primary);
-                            text-decoration: underline;
-                        }
+                        border-bottom: 0 none;
+                        box-shadow: none;
+                        display: flex;
+                        align-items: center;
                     }
                 }
             }
-    
-            .directorist-listing-single__info--right {
+            @include m(right) {
                 display: flex;
                 align-items: center;
                 gap: 20px;
-                position: absolute;
-                right: 20px;
-                top: 20px;
+    
+                .directorist-view-count {
+                    font-size: 14px;
+                    color: var(--directorist-color-body);
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    .directorist-icon-mask{
+                        &:after{
+                            width: 15px;
+                            height: 15px;
+                            background-color: var(--directorist-color-light-gray);
+                        }
+                    }
+    
+                    /* Legacy Icon */
+                    > span{
+                        display: inline-block;
+                        margin-right: 5px;
+                    }
+                }
+
+                .directorist_open_status_badge {
+                    display: flex;
+                }
+    
+                .directorist-thumb-listing-author {
+    
+                    a {
+                        width: 38px;
+                        height: 38px;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+    
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                    }
+                }
+
+                .directorist-mark-as-favorite__btn {
+                    width: auto;
+                    height: auto;
+                }
             }
-        }
-    
-        .directorist-listing-single__info--list__label{
-            display: inline-block;
-            margin-right: 5px;
-        }
-    
-        .directorist-listing-single__meta {
-            border-top: 1px solid var(--directorist-color-border);
-            padding: 15px 22px 10px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-    
             .directorist-listing-category {
                 & > a {
                     .directorist-icon-mask{
@@ -337,70 +401,6 @@
                     font-weight: 500;
                 }
             }
-    
-            .directorist-listing-single__meta--left {
-                margin-right: 5px;
-                .directorist-listing-category {
-                    a {
-                        text-decoration: none;
-                        font-size: 14px;
-                        color: var(--directorist-color-body);
-                        border-bottom: 0 none;
-                        box-shadow: none;
-                        display: flex;
-                        align-items: center;
-                    }
-                }
-            }
-    
-            .directorist-listing-single__meta--right {
-                display: flex;
-                align-items: center;
-                gap: 20px;
-    
-                .directorist-view-count {
-                    font-size: 14px;
-                    color: var(--directorist-color-body);
-                    display: flex;
-                    align-items: center;
-                    gap: 5px;
-                    .directorist-icon-mask{
-                        &:after{
-                            width: 15px;
-                            height: 15px;
-                            background-color: var(--directorist-color-light-gray);
-                        }
-                    }
-    
-                    /* Legacy Icon */
-                    > span{
-                        display: inline-block;
-                        margin-right: 5px;
-                    }
-                }
-    
-                .directorist-thumb-listing-author {
-    
-                    a {
-                        width: 38px;
-                        height: 38px;
-                        display: inline-block;
-                        vertical-align: middle;
-                    }
-    
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 50%;
-                    }
-                }
-
-                .directorist-mark-as-favorite__btn {
-                    width: auto;
-                    height: auto;
-                }
-            }
-    
             .directorist-mark-as-favorite__btn .directorist-favorite-tooltip span{
                 top: auto;
                 bottom: 35px;
@@ -412,7 +412,7 @@
             }
         }
     
-        .directorist-listing-single__thumb {
+        @include e(thumb) {
             position: relative;
             margin: 0;
     
@@ -557,32 +557,6 @@
                 height: 30px;
                 background: var(--directorist-color-white);
             }
-            .directorist-badge {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 26px;
-                height: 26px;
-                margin: 0;
-                padding: 0;
-                border-radius: 100%;
-                .directorist-icon-mask:after {
-                    width: 12px;
-                    height: 12px;
-                }
-        
-                &.directorist-badge-popular {
-                    background-color: var(--directorist-color-white);
-                }
-        
-                &.directorist-badge-new {
-                    background-color: var(--directorist-color-white);
-                }
-        
-                &.directorist-badge-featured {
-                    background-color: var(--directorist-color-white);
-                }
-            }
         }
     
         // Single Listing List
@@ -591,6 +565,7 @@
             padding: 10px 0 10px 10px;
             @media only screen and (max-width: 991px) {
                 flex-direction: column;
+                padding: 10px;
             }
             .directorist-listing-single {
                 @include e('thumb') {
@@ -605,6 +580,9 @@
                 }
                 @include e('content') {
                     flex: 2;
+                    @media only screen and (max-width: 991px) {
+                        margin: 0 -10px;
+                    }
                 }
                 @include e('info') {
                     display: flex;
@@ -622,7 +600,39 @@
                     }
                 }
             }
+            
+            .directorist-listing-single__info--right {
+                .directorist-badge {
+                    margin: 0;
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
     
+            .directorist-thumb-top-left {
+                left: 10px;
+                top: 10px;
+            }
+    
+            .directorist-thumb-top-right {
+                top: 10px;
+                right: 10px;
+            }
+    
+            .directorist-thumb-bottom-left {
+                left: 10px;
+                bottom: 10px;
+            }
+    
+            .directorist-thumb-bottom-right {
+                right: 10px;
+                bottom: 10px;
+            }
+        }
+
+        &.directorist-listing-card,
+        &.directorist-listing-list {
             .directorist-badge {
                 display: flex;
                 align-items: center;
@@ -635,6 +645,14 @@
                 .directorist-icon-mask:after {
                     width: 12px;
                     height: 12px;
+                }
+                &.directorist-badge-open,
+                &.directorist-badge-close {
+                    display: inline-block;
+                    height: 21px;
+                    width: auto;
+                    padding: 0 5px;
+                    border-radius: 4px;
                 }
         
                 &.directorist-badge-popular {
@@ -649,6 +667,11 @@
                     background-color: var(--directorist-color-white);
                 }
             }
+        }
+
+        // Feeatured Listing
+        &.directorist-featured {
+            border: 1px solid var(--directorist-color-warning)
         }
     }
 
@@ -749,152 +772,163 @@
 
     /* listing card without thumbnail */
     .directorist-listing-single.directorist-listing-no-thumb {
-        .directorist-listing-single__header {
-            display: flex;
-            align-items: center;
-            padding: 20px 22px 0 22px;
-
-            @include e(left) {
+        .directorist-listing-single {
+            @include e('header') {
                 display: flex;
-                flex: 1;
-                padding-right: 15px;
-                align-items: center;
-            }
+                gap: 15px;
+                align-items: flex-start;
+                padding: 20px 22px 0 22px;
 
-            .directorist-thumb-listing-author {
-                margin-right: 12px;
-                a {
+                @include e(left) {
                     display: flex;
+                    flex: 1;
+                    gap: 12px;
+                    align-items: center;
                 }
 
-                img {
-                    width: 45px;
-                    max-width: none;
-                    height: 45px;
-                    border-radius: 50%;
-                }
-            }
-
-            .directorist-listing-title {
-                font-size: 18px;
-                font-weight: 500;
-                padding: 0;
-                text-transform: none;
-                line-height: 1.2;
-                margin: 0;
-                flex: 0 0 100%;
-
-                a {
-                    text-decoration: none;
-                    color: var(--directorist-color-primary);
-                }
-            }
-
-            .directorist-listing-tagline {
-                margin-bottom: 0;
-            }
-        }
-
-        .directorist-listing-single__info {
-            padding: 10px 22px 0;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .directorist-listing-single__info--list {
-            margin-top: 16px;
-
-            ul {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-
-                li {
-                    color: var(--directorist-color-body);
-                    margin: 0;
-
-                    &:not(:last-child) {
-                        margin: 0 0 10px;
-                    }
-
-                    > div {
-                        margin-bottom: 2px;
-                        font-size: 14px;
+                .directorist-thumb-listing-author {
+                    a {
                         display: flex;
-                        gap: 10px;
-                        .directorist-icon-mask {
-                            position: relative;
-                            top: 4px;
-                        }
-                        .directorist-listing-single__info--list__label {
-                            display: none;
-                        }
                     }
-
-                    .directorist-icon {
-                        font-size: 17px;
-                        color: #444752;
-                        margin-right: 8px;
+    
+                    img {
+                        width: 45px;
+                        max-width: none;
+                        height: 45px;
+                        border-radius: 50%;
                     }
-
+                }
+    
+                .directorist-listing-title {
+                    font-size: 18px;
+                    font-weight: 500;
+                    padding: 0;
+                    text-transform: none;
+                    line-height: 1.2;
+                    margin: 0;
+                    flex: 0 0 100%;
+    
                     a {
                         text-decoration: none;
-                        color: var(--directorist-color-body);
-                        border-bottom: 0 none;
-                        box-shadow: none;
-                        line-height: 1.7;
-                    }
-                }
-            }
-        }
-
-        .directorist-listing-single__content {
-            border: 0 none;
-
-            .directorist-listing-single__content__body {
-                padding: 10px 22px 15px;
-
-                .directorist-listing-single__info--list {
-                    margin-top: 0;
-                }
-            }
-        }
-
-        .directorist-listing-single__info--excerpt {
-            &:not(:empty) {
-                margin-top: 15px;
-                p {
-                    font-size: 15px;
-                    color: var(--directorist-color-body);
-                    line-height: 24px;
-                    text-align: left;
-                    margin: 0;
-                    a {
                         color: var(--directorist-color-primary);
-                        text-decoration: underline;
+                    }
+                }
+    
+                .directorist-listing-tagline {
+                    margin-bottom: 0;
+                }
+            }
+
+            @include e('info') {
+                padding: 10px 22px 0;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                flex-direction: row;
+                .directorist-badge {
+                    width: auto;
+                }
+                @include m(list) {
+                    margin-top: 16px;
+
+                    ul {
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+        
+                        li {
+                            color: var(--directorist-color-body);
+                            margin: 0;
+        
+                            &:not(:last-child) {
+                                margin: 0 0 10px;
+                            }
+        
+                            > div {
+                                margin-bottom: 2px;
+                                font-size: 14px;
+                                display: flex;
+                                gap: 10px;
+                                .directorist-icon-mask {
+                                    position: relative;
+                                    top: 4px;
+                                }
+                                .directorist-listing-single__info--list__label {
+                                    display: none;
+                                }
+                            }
+        
+                            .directorist-icon {
+                                font-size: 17px;
+                                color: #444752;
+                                margin-right: 8px;
+                            }
+        
+                            a {
+                                text-decoration: none;
+                                color: var(--directorist-color-body);
+                                border-bottom: 0 none;
+                                box-shadow: none;
+                                line-height: 1.7;
+                            }
+                        }
+                    }
+                }
+                @include m(excerpt) {
+                    &:not(:empty) {
+                        margin-top: 15px;
+                        p {
+                            font-size: 15px;
+                            color: var(--directorist-color-body);
+                            line-height: 24px;
+                            text-align: left;
+                            margin: 0;
+                            a {
+                                color: var(--directorist-color-primary);
+                                text-decoration: underline;
+                            }
+                        }
                     }
                 }
             }
-        }
 
-        .directorist-mark-as-favorite__btn {
-            background: transparent;
-            width: auto;
-            height: auto;
-        }
-
-        &.directorist-listing-no-thumb--fix {
-            .directorist-listing-single__header {
-                flex-wrap: wrap;
-
-                .directorist-listing-single__header__left {
-                    flex: 0 0 100%;
-                    flex-wrap: wrap;
-                    padding-right: 0;
+            @include e(content) {
+                border: 0 none;
+                @include e(body) {
+                    padding: 10px 22px 15px;
+                    .directorist-listing-single__info--list {
+                        margin-top: 0;
+                    }
                 }
+            }
 
-                .directorist-listing-single__header__right {
-                    margin-top: 15px;
+            @include e('meta') {
+                @include m(right) {
+                    .directorist-mark-as-favorite__btn {
+                        width: auto;
+                    }
+                }
+            }
+
+            .directorist-mark-as-favorite__btn {
+                background: transparent;
+                width: auto;
+                height: auto;
+            }
+    
+            &.directorist-listing-no-thumb--fix {
+                .directorist-listing-single__header {
+                    flex-wrap: wrap;
+    
+                    .directorist-listing-single__header__left {
+                        flex: 0 0 100%;
+                        flex-wrap: wrap;
+                        padding-right: 0;
+                    }
+    
+                    .directorist-listing-single__header__right {
+                        margin-top: 15px;
+                    }
                 }
             }
         }

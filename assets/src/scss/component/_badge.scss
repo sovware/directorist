@@ -81,7 +81,7 @@
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s ease-in-out;
-        @include e(feature) {
+        @include e(featured) {
             background: var(--directorist-color-featured-badge);
         }
         @include e(new) {

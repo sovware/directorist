@@ -101,6 +101,7 @@ class Asset_Loader {
 			// All Listings
 			case 'archive-contents':
 				wp_enqueue_script( 'directorist-all-listings' );
+				wp_enqueue_script( 'directorist-swiper-slider' );
 				wp_enqueue_script( 'directorist-select2-script' );
 
 				if ( Helper::instant_search_enabled() ) {

@@ -1,0 +1,61 @@
+// Swiper Slider
+.directorist-swiper {
+  @include e(nav) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s ease;
+    i {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      background-color: rgba(255,255,255,0.9);
+    }
+    .directorist-icon-mask:after {
+      width: 10px;
+      height: 10px;
+      background-color: var(--directorist-color-body);
+    }
+    &:hover {
+      i {
+        background-color: var(--directorist-color-white);
+      }
+    }
+    @include m(prev) {
+      left: 10px;
+    }
+    @include m(next) {
+      right: 10px;
+    }
+  }
+  @include e(pagination) {
+    position: absolute;
+    text-align: center;
+    z-index: 1;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    .swiper-pagination-bullet {
+      margin: 0 !important;
+      width: 5px;
+      height: 5px;
+      opacity: 0.6;
+      background-color: var(--directorist-color-white);
+      &.swiper-pagination-bullet-active {
+        opacity: 1;
+        transform: scale(1.4);
+      }
+    }
+  }
+  &:hover {
+    .directorist-swiper__nav {
+      opacity: 1;
+    }
+  }
+}

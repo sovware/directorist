@@ -1716,53 +1716,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     initObserver();
-    handleRadiusVisibility(); // All Listing Slider
-
-    /* Check Slider Data */
-
-    var checkData = function checkData(data, value) {
-      return typeof data === 'undefined' ? value : data;
-    };
-    /* Swiper Slider */
-
-
-    var swiperCarousel = document.querySelectorAll('.directorist-swiper');
-    swiperCarousel.forEach(function (el, i) {
-      var navBtnPrev = document.querySelectorAll('.directorist-swiper__nav--prev');
-      var navBtnNext = document.querySelectorAll('.directorist-swiper__nav--next');
-      var swiperPagination = document.querySelectorAll('.directorist-swiper__pagination');
-      navBtnPrev.forEach(function (el, i) {
-        el.classList.add("directorist-swiper__nav--prev-".concat(i));
-      });
-      navBtnNext.forEach(function (el, i) {
-        el.classList.add("directorist-swiper__nav--next-".concat(i));
-      });
-      swiperPagination.forEach(function (el, i) {
-        el.classList.add("directorist-swiper__pagination-".concat(i));
-      });
-      el.classList.add("directorist-swiper-".concat(i));
-      console.log(el.dataset.swItems);
-      var swiper = new Swiper(".directorist-swiper-".concat(i), {
-        slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
-        spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
-        loop: checkData(el.dataset.swLoop, true),
-        slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
-        speed: checkData(parseInt(el.dataset.swSpeed), 3000),
-        autoplay: checkData(el.dataset.swAutoplay, {}),
-        observer: true,
-        observeParents: true,
-        navigation: {
-          nextEl: ".directorist-swiper__nav--next-".concat(i),
-          prevEl: ".directorist-swiper__nav--prev-".concat(i)
-        },
-        pagination: {
-          el: ".directorist-swiper__pagination-".concat(i),
-          type: 'bullets',
-          clickable: true
-        },
-        breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-      });
-    });
+    handleRadiusVisibility();
   });
 })(jQuery);
 

@@ -1557,7 +1557,7 @@ class Directorist_Listings {
 
 			} else {
 				ob_start();
-				echo "<div class='directorist-swiper' data-sw-items='1' data-sw-margin='0' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='1500' data-sw-autoplay='false' data-sw-responsive='{}' >
+				echo "<div class='directorist-swiper' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='1500' data-sw-autoplay='false' data-sw-responsive='{}' >
 				<div class='swiper-wrapper'>";
 				foreach ( $thumbnail_img_id as $img_id  ) {
 					$image_src = atbdp_get_image_source( $img_id, $image_quality );
@@ -1569,8 +1569,8 @@ class Directorist_Listings {
 				}
 				echo "</div>
 						<div class='directorist-swiper__navigation'>
-							<div class='directorist-swiper__nav directorist-swiper__nav--prev'>Prev</div>
-							<div class='directorist-swiper__nav directorist-swiper__nav--next'>Next</div>
+							<div class='directorist-swiper__nav directorist-swiper__nav--prev'>".directorist_icon('las la-angle-left', false)."</div>
+							<div class='directorist-swiper__nav directorist-swiper__nav--next'>".directorist_icon('las la-angle-right', false)."</div>
 						</div>
 
 						<div class='directorist-swiper__pagination'></div>

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -99,7 +99,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ 13:
+/***/ 14:
 /*!*******************************************************!*\
   !*** multi ./assets/src/js/public/modules/widgets.js ***!
   \*******************************************************/

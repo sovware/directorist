@@ -81,85 +81,80 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/public/components/categoryLocation.js":
-/*!*************************************************************!*\
-  !*** ./assets/src/js/public/components/categoryLocation.js ***!
-  \*************************************************************/
+/***/ "./assets/src/js/public/listing-swiper-slider.js":
+/*!*******************************************************!*\
+  !*** ./assets/src/js/public/listing-swiper-slider.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
-  /* Make sure the codes in this file runs only once, even if enqueued twice */
-  if (typeof window.directorist_catloc_executed === 'undefined') {
-    window.directorist_catloc_executed = true;
-  } else {
-    return;
-  }
-  /* Category card grid three width/height adjustment */
+// All Listing Slider
+(function ($) {
+  window.addEventListener('DOMContentLoaded', function () {
+    /* Check Slider Data */
+    var checkData = function checkData(data, value) {
+      return typeof data === 'undefined' ? value : data;
+    };
+    /* Swiper Slider */
 
 
-  var categoryCard = document.querySelectorAll('.directorist-categories__single--style-three');
-
-  if (categoryCard) {
-    categoryCard.forEach(function (elm) {
-      var categoryCardWidth = elm.offsetWidth;
-      elm.style.setProperty('--directorist-category-box-width', "".concat(categoryCardWidth, "px"));
-    });
-  }
-  /* Taxonomy list dropdown */
-
-
-  function categoryDropdown(selector, parent) {
-    var categoryListToggle = document.querySelectorAll(selector);
-    categoryListToggle.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        var categoryName = item.querySelector('.directorist-taxonomy-list__name');
-
-        if (e.target !== categoryName) {
-          e.preventDefault();
-          this.classList.toggle('directorist-taxonomy-list__toggle--open');
-        }
+    var swiperCarousel = document.querySelectorAll('.directorist-swiper');
+    swiperCarousel.forEach(function (el, i) {
+      var navBtnPrev = document.querySelectorAll('.directorist-swiper__nav--prev');
+      var navBtnNext = document.querySelectorAll('.directorist-swiper__nav--next');
+      var swiperPagination = document.querySelectorAll('.directorist-swiper__pagination');
+      navBtnPrev.forEach(function (el, i) {
+        el.classList.add("directorist-swiper__nav--prev-".concat(i));
+      });
+      navBtnNext.forEach(function (el, i) {
+        el.classList.add("directorist-swiper__nav--next-".concat(i));
+      });
+      swiperPagination.forEach(function (el, i) {
+        el.classList.add("directorist-swiper__pagination-".concat(i));
+      });
+      el.classList.add("directorist-swiper-".concat(i));
+      var swiper = new Swiper(".directorist-swiper-".concat(i), {
+        slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
+        spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
+        loop: checkData(el.dataset.swLoop, true),
+        slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
+        speed: checkData(parseInt(el.dataset.swSpeed), 3000),
+        autoplay: checkData(el.dataset.swAutoplay, {}),
+        observer: true,
+        observeParents: true,
+        navigation: {
+          nextEl: ".directorist-swiper__nav--next-".concat(i),
+          prevEl: ".directorist-swiper__nav--prev-".concat(i)
+        },
+        pagination: {
+          el: ".directorist-swiper__pagination-".concat(i),
+          type: 'bullets',
+          clickable: true
+        },
+        breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
       });
     });
-  }
-
-  categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
-  categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
-});
+  });
+})(jQuery);
 
 /***/ }),
 
-/***/ "./assets/src/js/public/modules/all-location-category.js":
-/*!***************************************************************!*\
-  !*** ./assets/src/js/public/modules/all-location-category.js ***!
-  \***************************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_categoryLocation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/categoryLocation */ "./assets/src/js/public/components/categoryLocation.js");
-/* harmony import */ var _components_categoryLocation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_categoryLocation__WEBPACK_IMPORTED_MODULE_0__);
-
-
-/***/ }),
-
-/***/ 7:
-/*!*********************************************************************!*\
-  !*** multi ./assets/src/js/public/modules/all-location-category.js ***!
-  \*********************************************************************/
+/***/ 4:
+/*!*************************************************************!*\
+  !*** multi ./assets/src/js/public/listing-swiper-slider.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/public/modules/all-location-category.js */"./assets/src/js/public/modules/all-location-category.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/public/listing-swiper-slider.js */"./assets/src/js/public/listing-swiper-slider.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=all-location-category.js.map
+//# sourceMappingURL=listing-swiper-slider.js.map

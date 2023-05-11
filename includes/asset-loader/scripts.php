@@ -243,6 +243,10 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'search-form',
 			],
+			'directorist-swiper-slider' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_JS . 'listing-swiper-slider',
+			],
 			'directorist-dashboard' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'directorist-dashboard',

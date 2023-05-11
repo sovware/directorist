@@ -256,6 +256,7 @@
 }
 
 #directorist-map-floating-panel {
+    margin-top: -30px;
     margin-bottom: 15px;
 }
 
@@ -373,6 +374,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
         }
     }
     .select2-results {
+        padding-bottom: 10px;
         @include e(option) {
             display: flex;
             justify-content: space-between;
@@ -428,7 +430,12 @@ body.logged-in .select2-container--open .select2-dropdown--above {
                 display: flex;
                 align-items: center;
                 .directorist-icon-mask{
-                    margin-right: 5px;
+                    margin-right: 12px;
+                    &:after {
+                        width: 16px;
+                        height: 16px;
+                        background-color: var(--directorist-color-light-gray);
+                    }
                 }
             }
         }

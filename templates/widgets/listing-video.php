@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $videourl   = ! empty( $videourl ) ? esc_attr( ATBDP()->atbdp_parse_videos( $videourl ) ) : '';
 ?>
 
-<div class="atbdp">
-    <iframe class="embed-responsive-item" src="<?php echo esc_url( $videourl ); ?>" allowfullscreen></iframe>
+<div class="directorist-card__body directorist-widget__video">
+    <iframe class="directorist-embaded-item" src="<?php echo esc_url( $videourl ); ?>" allowfullscreen></iframe>
 </div>
 

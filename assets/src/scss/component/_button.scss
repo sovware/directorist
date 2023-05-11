@@ -24,6 +24,10 @@
   box-sizing: border-box;
   color: var(--directorist-color-primary);
   transition: all ease 0.3s;
+  &.directorist-btn--add-listing,
+  &.directorist-btn--logout {
+      line-height: 43px;
+  }
   &:focus {
     outline: 0 !important;
     text-decoration: none !important;
@@ -34,7 +38,7 @@
 .directorist-btn {
   &.directorist-btn-primary {
     background: var(--directorist-color-primary);
-    color: #fff;
+    color: var(--directorist-color-white);
     @include btnFocusBg(var(--directorist-color-primary));
     &:hover{
       background: var(--directorist-color-primary-hover);
@@ -43,22 +47,22 @@
 
   &.directorist-btn-secondary {
     background: var(--directorist-color-secondary);
-    color: #fff;
+    color: var(--directorist-color-body);
   }
 
   &.directorist-btn-dark {
     background: var(--directorist-color-primary);
-    color: #fff;
+    color: var(--directorist-color-white);
   }
 
   &.directorist-btn-success {
     background: var(--directorist-color-success);
-    color: #fff;
+    color: var(--directorist-color-white);
   }
 
   &.directorist-btn-info {
     background: var(--directorist-color-info);
-    color: #fff;
+    color: var(--directorist-color-white);
   }
 
   &.directorist-btn-light {
@@ -76,12 +80,12 @@
 
   &.directorist-btn-warning {
     background: var(--directorist-color-warning);
-    color: #fff;
+    color: var(--directorist-color-white);
   }
 
   &.directorist-btn-danger {
     background: var(--directorist-color-danger);
-    color: #fff;
+    color: var(--directorist-color-white);
   }
 
   &.directorist-btn-bg-normal {

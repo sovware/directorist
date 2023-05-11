@@ -143,11 +143,6 @@
     @include e(action){
         gap: 10px;
         padding: 17px 40px;
-        margin: 0 -40px -30px;
-        background-color: var(--directorist-color-light);
-        @media only screen and (max-width: 480px) {
-            margin: 0 -30px -30px;
-        }
         .directorist-btn-reset-js {
             font-size: 14px;
             font-weight: 500;
@@ -189,6 +184,7 @@
             flex: auto;
         }
         .directorist-form-element {
+            background: transparent;
             border-bottom: 1px solid var(--directorist-color-border);
         }
         &.directorist-price-ranges__price-frequency{

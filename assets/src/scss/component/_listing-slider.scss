@@ -1,5 +1,7 @@
 // Swiper Slider
 .directorist-swiper {
+  height: 100%;
+  overflow: hidden;
   @include e(nav) {
     position: absolute;
     top: 50%;

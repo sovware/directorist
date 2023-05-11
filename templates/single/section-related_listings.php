@@ -22,6 +22,19 @@ if ( !$related->have_posts() ) {
 
 	</div>
 
+	<div class='directorist-swiper' data-sw-items='3' data-sw-margin='30' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='1500' data-sw-autoplay='false' data-sw-responsive='{
+		"0": {"slidesPerView": "1"},
+		"768": {"slidesPerView": "2"},
+		"1200": {"slidesPerView": "3"}
+	}'>
+		<div class='swiper-wrapper'>
+			<?php foreach ( $related->post_ids() as $listing_id ): ?>
+				<div class='swiper-slide'>
+					<?php $related->loop_template( 'grid', $listing_id ); ?>
+				</div>
+			<?php endforeach; ?>
+		</div>
+	</div>
 
 	<div class="directorist-related-carousel" data-attr="<?php echo esc_attr( $listing->related_slider_attr() ); ?>">
 

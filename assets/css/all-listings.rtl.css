@@ -6784,6 +6784,10 @@ p.atbd-min {
   display: none;
 }
 
+.directorist-swiper {
+  height: 100%;
+  overflow: hidden;
+}
 .directorist-swiper__nav {
   position: absolute;
   top: 50%;

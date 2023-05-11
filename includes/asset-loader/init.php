@@ -208,7 +208,8 @@ class Asset_Loader {
 				break;
 
 			case 'single/section-related_listings':
-				wp_enqueue_script( 'directorist-slick' );
+				wp_enqueue_script( 'directorist-swiper' );
+				wp_enqueue_script( 'directorist-swiper-slider' );
 				break;
 
 			case 'account/login':

@@ -244,3 +244,32 @@
       }
   }
 }
+
+// Swiper Slider
+.directorist-swiper {
+  @include e(nav) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    @include m(prev) {
+      left: 10px;
+    }
+    @include m(next) {
+      right: 10px;
+    }
+  }
+  @include e(pagination) {
+    position: absolute;
+    text-align: center;
+    z-index: 1;
+  }
+
+}
+.directorist-swiper-pagination {
+
+}
+
+.directorist-swiper-pagination {
+
+}

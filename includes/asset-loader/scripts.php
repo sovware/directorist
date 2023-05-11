@@ -57,6 +57,10 @@ class Scripts {
 				'type' => 'css',
 				'path' => DIRECTORIST_VENDOR_CSS . 'slick',
 			],
+			'directorist-swiper-style' => [
+				'type' => 'css',
+				'path' => DIRECTORIST_VENDOR_CSS . 'swiper',
+			],
 			'directorist-sweetalert-style' => [
 				'type' => 'css',
 				'path' => DIRECTORIST_VENDOR_CSS . 'sweetalert',
@@ -88,6 +92,10 @@ class Scripts {
 			'directorist-slick' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'slick',
+			],
+			'directorist-swiper' => [
+				'type' => 'js',
+				'path' => DIRECTORIST_VENDOR_JS . 'swiper',
 			],
 			'directorist-openstreet-layers' => [
 				'type' => 'js',

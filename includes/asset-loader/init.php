@@ -55,6 +55,7 @@ class Asset_Loader {
 		wp_enqueue_style( 'directorist-ez-media-uploader-style' );
 		wp_enqueue_style( 'directorist-plasma-slider' );
 		wp_enqueue_style( 'directorist-slick-style' );
+		wp_enqueue_style( 'directorist-swiper-style' );
 		wp_enqueue_style( 'directorist-sweetalert-style' );
 
 		// Inline styles
@@ -151,6 +152,7 @@ class Asset_Loader {
 				/**
 				 * @todo load based on Listings::has_masonry() condition.
 				 */
+				wp_enqueue_script( 'directorist-swiper' );
 				wp_enqueue_script( 'jquery-masonry' );
 				break;
 

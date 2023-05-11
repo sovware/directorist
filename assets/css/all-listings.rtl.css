@@ -6165,6 +6165,25 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   text-decoration: none;
 }
 
+.directorist-swiper__nav {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 1;
+}
+.directorist-swiper__nav--prev {
+  right: 10px;
+}
+.directorist-swiper__nav--next {
+  left: 10px;
+}
+.directorist-swiper__pagination {
+  position: absolute;
+  text-align: center;
+  z-index: 1;
+}
+
 .directorist-widget {
   margin-bottom: 25px;
 }

@@ -3669,11 +3669,30 @@ Please remember that your order may be canceled if you do not make your payment 
                 'categories_column_number' => [
                     'label' => __('Number of  Columns', 'directorist'),
                     'description' => __('Set how many columns to display on categories page.', 'directorist'),
-                    'type'  => 'number',
-                    'value' => '4',
-                    'min' => '1',
-                    'max' => '5',
-                    'step' => '1',
+                    'type'        => 'select',
+                    'value'       => '4',
+                    'options' => [
+                        [
+                            'value' => 1,
+                            'label' => 1,
+                        ],
+                        [
+                            'value' => 2,
+                            'label' => 2,
+                        ],
+                        [
+                            'value' => 3,
+                            'label' => 3,
+                        ],
+                        [
+                            'value' => 4,
+                            'label' => 4,
+                        ],
+                        [
+                            'value' => 6,
+                            'label' => 6,
+                        ],
+                    ],
                 ],
                 'categories_depth_number' => [
                     'label' => __('Sub-category Depth', 'directorist'),
@@ -3755,13 +3774,32 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'locations_column_number' => [
-                    'label'       => __('Number of  Columns', 'directorist'),
+                    'label' => __('Number of  Columns', 'directorist'),
                     'description' => __('Set how many columns to display on locations page.', 'directorist'),
-                    'type'        => 'number',
+                    'type'        => 'select',
                     'value'       => '4',
-                    'min'         => '1',
-                    'max'         => '5',
-                    'step'        => '1',
+                    'options' => [
+                        [
+                            'value' => 1,
+                            'label' => 1,
+                        ],
+                        [
+                            'value' => 2,
+                            'label' => 2,
+                        ],
+                        [
+                            'value' => 3,
+                            'label' => 3,
+                        ],
+                        [
+                            'value' => 4,
+                            'label' => 4,
+                        ],
+                        [
+                            'value' => 6,
+                            'label' => 6,
+                        ],
+                    ],
                 ],
                 'locations_depth_number' => [
                     'label' => __('Sub-location Depth', 'directorist'),

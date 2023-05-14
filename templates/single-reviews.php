@@ -82,7 +82,7 @@ $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
 			paginate_comments_links( array(
 				'prev_text'    => $prev_text,
 				'next_text'    => $next_text,
-				'type'         => 'list',
+				'type'         => 'plain',
 				'add_fragment' => '#' . $section_id,
 			) );
 			?>

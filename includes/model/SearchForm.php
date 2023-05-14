@@ -596,32 +596,27 @@ class Directorist_Listing_Search_Form {
 	public function rating_field_data() {
 		$rating_options = array(
 			array(
-				'selected' => '',
-				'value'    => '',
-				'label'    => __( 'Select Ratings', 'directorist' ),
-			),
-			array(
-				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '5' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
+				'checked' => ( ! empty( $_REQUEST['search_by_rating'] ) && in_array( '5', $_REQUEST['search_by_rating'], true ) ) ? ' checked' : '',
 				'value'    => '5',
 				'label'    => __( '5 Star', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '4' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
+				'checked' => ( ! empty( $_REQUEST['search_by_rating'] ) && in_array( '4', $_REQUEST['search_by_rating'], true ) ) ? ' checked' : '',
 				'value'    => '4',
 				'label'    => __( '4 Star & Up', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '3' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
+				'checked' => ( ! empty( $_REQUEST['search_by_rating'] ) && in_array( '3', $_REQUEST['search_by_rating'], true )  ) ? ' checked' : '',
 				'value'    => '3',
 				'label'    => __( '3 Star & Up', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '2' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
+				'checked' => ( ! empty( $_REQUEST['search_by_rating'] ) && in_array( '2', $_REQUEST['search_by_rating'], true )  ) ? ' checked' : '',
 				'value'    => '2',
 				'label'    => __( '2 Star & Up', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '1' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
+				'checked' => ( ! empty( $_REQUEST['search_by_rating'] ) && in_array( '1', $_REQUEST['search_by_rating'], true )  ) ? ' checked' : '',
 				'value'    => '1',
 				'label'    => __( '1 Star & Up', 'directorist' ),
 			),

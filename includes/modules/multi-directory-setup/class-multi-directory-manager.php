@@ -3757,9 +3757,9 @@ class Multi_Directory_Manager
             'body' => [
                 'avatar' => [
                     'label' => __( 'Avatar', 'directorist' ),
-                    'maxWidget' => 1,
+                    'maxWidget' => 0,
                     'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                    'acceptedWidgets' => ["user_avatar"],
+                    'acceptedWidgets' => [ "popular_badge", "featured_badge", "new_badge" ],
                 ],
                 'title' => [
                     'maxWidget' => 1,
@@ -3770,7 +3770,7 @@ class Multi_Directory_Manager
                     'acceptedWidgets' => ["favorite_badge"],
                 ],
                 'quick_info' => [
-                    'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing"],
+                    'acceptedWidgets' => [ "rating", "pricing", "posted_date" ],
                 ],
                 'bottom' => [
                     'maxWidget' => 0,
@@ -3819,7 +3819,7 @@ class Multi_Directory_Manager
                     'label' => __( 'Body Top', 'directorist' ),
                     'maxWidget' => 0,
                     'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                    'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
+                    'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing", "posted_date"],
                 ],
                 'right' => [
                     'label' => __( 'Body Right', 'directorist' ),
@@ -4237,6 +4237,11 @@ class Multi_Directory_Manager
                 'max'   => 10,
                 'label' => __( 'Number of columns', 'directorist' ),
                 'value' => 3,
+            ],
+            'listings_sidebar' => [
+                'type'  => 'toggle',
+                'label' => __( 'Listings with Left Sidebar', 'directorist' ),
+                'value' => false,
             ],
 
             'search_form_fields' => [
@@ -4658,7 +4663,7 @@ class Multi_Directory_Manager
                 ]
             ],
             'listings_card_layout' => [
-                'label' => __( 'All Listing Layout', 'directorist' ),
+                'label' => __( 'All Listing', 'directorist' ),
                 'icon' => '<span class="uil uil-list-ul"></span>',
                 'submenu' => [
                     'grid_view' => [
@@ -4685,6 +4690,18 @@ class Multi_Directory_Manager
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> '. __( 'Need help?', 'directorist' ) .' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields' => [
                                     'listings_card_list_view'
+                                ],
+                            ],
+                        ],
+                    ],
+                    'settings' => [
+                        'label' => __( 'Settings', 'directorist' ),
+                        'sections' => [
+                            'listings_settings' => [
+                                'title' => __( 'Settings', 'directorist'),
+                                'title_align' => 'left',
+                                'fields' => [
+                                    'listings_sidebar'
                                 ],
                             ],
                         ],

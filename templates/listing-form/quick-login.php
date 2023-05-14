@@ -2,13 +2,13 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 7.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div id="directorist-quick-login" class="directorist-modal-container">
+<div id="directorist-quick-login" class="directorist-quick-login directorist-modal-container">
 	<div class="directorist-modal-wrap">
 		<div class="directorist-modals">
 			<form action="#" id="quick-login-from">

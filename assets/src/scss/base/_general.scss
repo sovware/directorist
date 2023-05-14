@@ -234,6 +234,14 @@
     }
 }
 
+.directorist-quick-login {
+    .directorist-form-actions {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+}
+
 // Loader
 
 .directorist-loader {

@@ -5868,6 +5868,18 @@ img.atbdp-file-info {
   padding-bottom: 0;
 }
 
+.directorist-quick-login .directorist-form-actions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 15px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .directorist-loader {
   position: relative;
 }
@@ -8140,12 +8152,10 @@ body.stop-scrolling {
   padding: 0 40px;
   margin: 0 0 20px;
   font-weight: 600;
+  color: var(--directorist-color-danger);
 }
 .directorist-add-listing-form__action #listing_notifier .atbdp_success {
   color: var(--directorist-color-success);
-}
-.directorist-add-listing-form__action #listing_notifier .atbdp_error {
-  color: var(--directorist-color-danger);
 }
 .directorist-add-listing-form__action .directorist-form-group,
 .directorist-add-listing-form__action .directorist-checkbox {

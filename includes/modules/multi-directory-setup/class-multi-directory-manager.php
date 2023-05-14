@@ -4238,6 +4238,11 @@ class Multi_Directory_Manager
                 'label' => __( 'Number of columns', 'directorist' ),
                 'value' => 3,
             ],
+            'listings_sidebar' => [
+                'type'  => 'toggle',
+                'label' => __( 'Listings with Left Sidebar', 'directorist' ),
+                'value' => false,
+            ],
 
             'search_form_fields' => [
                 'type'     => 'form-builder',
@@ -4658,7 +4663,7 @@ class Multi_Directory_Manager
                 ]
             ],
             'listings_card_layout' => [
-                'label' => __( 'All Listing Layout', 'directorist' ),
+                'label' => __( 'All Listing', 'directorist' ),
                 'icon' => '<span class="uil uil-list-ul"></span>',
                 'submenu' => [
                     'grid_view' => [
@@ -4685,6 +4690,18 @@ class Multi_Directory_Manager
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> '. __( 'Need help?', 'directorist' ) .' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields' => [
                                     'listings_card_list_view'
+                                ],
+                            ],
+                        ],
+                    ],
+                    'settings' => [
+                        'label' => __( 'Settings', 'directorist' ),
+                        'sections' => [
+                            'listings_settings' => [
+                                'title' => __( 'Settings', 'directorist'),
+                                'title_align' => 'left',
+                                'fields' => [
+                                    'listings_sidebar'
                                 ],
                             ],
                         ],

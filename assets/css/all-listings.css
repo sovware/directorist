@@ -6795,6 +6795,7 @@ p.atbd-min {
 .directorist-swiper {
   height: 100%;
   overflow: hidden;
+  position: relative;
 }
 .directorist-swiper__nav {
   position: absolute;
@@ -6803,6 +6804,7 @@ p.atbd-min {
           transform: translateY(-50%);
   z-index: 1;
   opacity: 0;
+  cursor: pointer;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
@@ -6837,6 +6839,24 @@ p.atbd-min {
 }
 .directorist-swiper__nav--next {
   right: 10px;
+}
+.directorist-swiper__nav--prev-related i {
+  left: 0;
+  background-color: #f4f4f4;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.directorist-swiper__nav--prev-related i:hover {
+  background-color: var(--directorist-color-gray);
+}
+.directorist-swiper__nav--next-related i {
+  right: 0;
+  background-color: #f4f4f4;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.directorist-swiper__nav--next-related i:hover {
+  background-color: var(--directorist-color-gray);
 }
 .directorist-swiper__pagination {
   position: absolute;

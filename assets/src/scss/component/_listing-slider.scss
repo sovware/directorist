@@ -2,12 +2,14 @@
 .directorist-swiper {
   height: 100%;
   overflow: hidden;
+  position: relative;
   @include e(nav) {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
     opacity: 0;
+    cursor: pointer;
     transition: all 0.3s ease;
     i {
       width: 30px;
@@ -33,6 +35,22 @@
     }
     @include m(next) {
       right: 10px;
+    }
+    @include m('prev-related i') {
+      left: 0;
+      background-color: #f4f4f4;
+      transition: all 0.3s ease;
+      &:hover {
+        background-color: var(--directorist-color-gray);
+      }
+    }
+    @include m('next-related i') {
+      right: 0;
+      background-color: #f4f4f4;
+      transition: all 0.3s ease;
+      &:hover {
+        background-color: var(--directorist-color-gray);
+      }
     }
   }
   @include e(pagination) {

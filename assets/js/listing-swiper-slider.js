@@ -100,25 +100,25 @@
     var checkData = function checkData(data, value) {
       return typeof data === 'undefined' ? value : data;
     };
-    /* Swiper Slider */
+    /* Swiper Slider Listing */
 
 
-    var swiperCarousel = document.querySelectorAll('.directorist-swiper');
-    swiperCarousel.forEach(function (el, i) {
-      var navBtnPrev = document.querySelectorAll('.directorist-swiper__nav--prev');
-      var navBtnNext = document.querySelectorAll('.directorist-swiper__nav--next');
-      var swiperPagination = document.querySelectorAll('.directorist-swiper__pagination');
+    var swiperCarouselListing = document.querySelectorAll('.directorist-swiper-listing');
+    swiperCarouselListing.forEach(function (el, i) {
+      var navBtnPrev = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__nav--prev-listing');
+      var navBtnNext = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__nav--next-listing');
+      var swiperPagination = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__pagination-listing');
       navBtnPrev.forEach(function (el, i) {
-        el.classList.add("directorist-swiper__nav--prev-".concat(i));
+        el.classList.add("directorist-swiper__nav--prev-listing-".concat(i));
       });
       navBtnNext.forEach(function (el, i) {
-        el.classList.add("directorist-swiper__nav--next-".concat(i));
+        el.classList.add("directorist-swiper__nav--next-listing-".concat(i));
       });
       swiperPagination.forEach(function (el, i) {
-        el.classList.add("directorist-swiper__pagination-".concat(i));
+        el.classList.add("directorist-swiper__pagination-listing-".concat(i));
       });
-      el.classList.add("directorist-swiper-".concat(i));
-      var swiper = new Swiper(".directorist-swiper-".concat(i), {
+      el.classList.add("directorist-swiper-listing-".concat(i));
+      var swiper = new Swiper(".directorist-swiper-listing-".concat(i), {
         slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
         loop: checkData(el.dataset.swLoop, true),
@@ -128,17 +128,92 @@
         observer: true,
         observeParents: true,
         navigation: {
-          nextEl: ".directorist-swiper__nav--next-".concat(i),
-          prevEl: ".directorist-swiper__nav--prev-".concat(i)
+          nextEl: ".directorist-swiper__nav--next-listing-".concat(i),
+          prevEl: ".directorist-swiper__nav--prev-listing-".concat(i)
         },
         pagination: {
-          el: ".directorist-swiper__pagination-".concat(i),
+          el: ".directorist-swiper__pagination-listing-".concat(i),
           type: 'bullets',
           clickable: true
         },
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
       });
     });
+    /* Swiper Slider Related Listing */
+
+    var swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related');
+    swiperCarouselRelated.forEach(function (el, i) {
+      var navBtnPrev = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--prev-related');
+      var navBtnNext = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--next-related');
+      var swiperPagination = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination-related');
+      navBtnPrev.forEach(function (el, i) {
+        el.classList.add("directorist-swiper__nav--prev-related-".concat(i));
+      });
+      navBtnNext.forEach(function (el, i) {
+        el.classList.add("directorist-swiper__nav--next-related-".concat(i));
+      });
+      swiperPagination.forEach(function (el, i) {
+        el.classList.add("directorist-swiper__pagination-related-".concat(i));
+      });
+      el.classList.add("directorist-swiper-related-".concat(i));
+      var swiper = new Swiper(".directorist-swiper-related-".concat(i), {
+        slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
+        spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
+        loop: checkData(el.dataset.swLoop, false),
+        slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
+        speed: checkData(parseInt(el.dataset.swSpeed), 3000),
+        autoplay: checkData(el.dataset.swAutoplay, {}),
+        observer: true,
+        observeParents: true,
+        navigation: {
+          nextEl: ".directorist-swiper__nav--next-related-".concat(i),
+          prevEl: ".directorist-swiper__nav--prev-related-".concat(i)
+        },
+        pagination: {
+          el: ".directorist-swiper__pagination-related-".concat(i),
+          type: 'bullets',
+          clickable: true
+        },
+        breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
+      });
+    });
+    /* Swiper Slider All in One */
+    // let swiperCarousel = document.querySelectorAll('.directorist-swiper');
+    // swiperCarousel.forEach(function (el, i) {
+    //     let navBtnPrev = document.querySelectorAll('.directorist-swiper__nav--prev');
+    //     let navBtnNext = document.querySelectorAll('.directorist-swiper__nav--next');
+    //     let swiperPagination = document.querySelectorAll('.directorist-swiper__pagination');
+    //     navBtnPrev.forEach((el, i) => {
+    //         el.classList.add(`directorist-swiper__nav--prev-${i}`);
+    //     });
+    //     navBtnNext.forEach((el, i) => {
+    //         el.classList.add(`directorist-swiper__nav--next-${i}`);
+    //     });
+    //     swiperPagination.forEach((el, i) => {
+    //         el.classList.add(`directorist-swiper__pagination-${i}`);
+    //     });
+    //     el.classList.add(`directorist-swiper-${i}`);
+    //     let swiper = new Swiper(`.directorist-swiper-${i}`, {
+    //         slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
+    //         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
+    //         loop: checkData(el.dataset.swLoop, true),
+    //         slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
+    //         speed: checkData(parseInt(el.dataset.swSpeed), 3000),
+    //         autoplay: checkData(el.dataset.swAutoplay, {}),
+    //         observer: true,
+    //         observeParents: true,
+    //         navigation: {
+    //             nextEl: `.directorist-swiper__nav--next-${i}`,
+    //             prevEl: `.directorist-swiper__nav--prev-${i}`,
+    //         },
+    //         pagination: {
+    //             el: `.directorist-swiper__pagination-${i}`,
+    //             type: 'bullets',
+    //             clickable: true,
+    //         },
+    //         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
+    //     });
+    // });
   });
 })(jQuery);
 

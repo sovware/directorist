@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.7.0
  */
 
 use \Directorist\Helper;
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<div class="directorist-listings-header__left">
 
-					<?php if ( $listings->has_filters_button ): ?>
+					<?php if ( $listings->has_filters_button && empty( $listings->options['listings_sidebar'] ) ): ?>
 						<a href="#" class="directorist-btn directorist-btn-sm directorist-filter-btn directorist-modal-btn"><?php echo wp_kses_post( $listings->filter_btn_html() ); ?></a>
 					<?php endif; ?>
 

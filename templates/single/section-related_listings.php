@@ -22,7 +22,7 @@ if ( !$related->have_posts() ) {
 
 	</div>
 
-	<div class='directorist-swiper' data-sw-items='3' data-sw-margin='30' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='1500' data-sw-autoplay='false' data-sw-responsive='{
+	<div class='directorist-swiper directorist-swiper-related' data-sw-items='3' data-sw-margin='30' data-sw-loop='false' data-sw-perslide='1' data-sw-speed='1500' data-sw-autoplay='false' data-sw-responsive='{
 		"0": {"slidesPerView": "1"},
 		"768": {"slidesPerView": "2"},
 		"1200": {"slidesPerView": "3"}
@@ -34,16 +34,12 @@ if ( !$related->have_posts() ) {
 				</div>
 			<?php endforeach; ?>
 		</div>
-	</div>
+		<div class='directorist-swiper__navigation'>
+			<div class='directorist-swiper__nav directorist-swiper__nav--prev directorist-swiper__nav--prev-related'><?php directorist_icon('las la-angle-left')?></div>
+			<div class='directorist-swiper__nav directorist-swiper__nav--next directorist-swiper__nav--next-related'><?php directorist_icon('las la-angle-right')?></div>
+		</div>
 
-	<div class="directorist-related-carousel" data-attr="<?php echo esc_attr( $listing->related_slider_attr() ); ?>">
-
-		<?php foreach ( $related->post_ids() as $listing_id ): ?>
-
-			<?php $related->loop_template( 'grid', $listing_id ); ?>
-
-		<?php endforeach; ?>
-
+		<div class='directorist-swiper__pagination'></div>
 	</div>
 
 </div>

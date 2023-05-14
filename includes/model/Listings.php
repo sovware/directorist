@@ -214,7 +214,8 @@ class Directorist_Listings {
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
-		$this->options['listing_instant_search']         = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
+		$this->options['listing_instant_search']          = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
+		$this->options['listings_sidebar']         		  = get_directorist_type_option( $this->get_current_listing_type(), 'listings_sidebar', false );
 	}
 
 	// update_search_options
@@ -1045,8 +1046,14 @@ class Directorist_Listings {
 			Helper::add_shortcode_comment( $atts['shortcode'] );
 		}
 
+		if( ! empty( $this->options['listings_sidebar'] ) ) {
+			$template = 'sidebar-archive-contents';
+		} else {
+			$template = 'archive-contents';
+		}
+
 		// Load the template
-		Helper::get_template( 'archive-contents', array( 'listings' => $this ), 'listings_archive' );
+		Helper::get_template( $template, array( 'listings' => $this ), 'listings_archive' );
 
 		return ob_get_clean();
 	}
@@ -1557,7 +1564,7 @@ class Directorist_Listings {
 
 			} else {
 				ob_start();
-				echo "<div class='directorist-swiper' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='1500' data-sw-autoplay='false' data-sw-responsive='{}' >
+				echo "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='1500' data-sw-autoplay='false' data-sw-responsive='{}' >
 				<div class='swiper-wrapper'>";
 				foreach ( $thumbnail_img_id as $img_id  ) {
 					$image_src = atbdp_get_image_source( $img_id, $image_quality );
@@ -1569,11 +1576,11 @@ class Directorist_Listings {
 				}
 				echo "</div>
 						<div class='directorist-swiper__navigation'>
-							<div class='directorist-swiper__nav directorist-swiper__nav--prev'>".directorist_icon('las la-angle-left', false)."</div>
-							<div class='directorist-swiper__nav directorist-swiper__nav--next'>".directorist_icon('las la-angle-right', false)."</div>
+							<div class='directorist-swiper__nav directorist-swiper__nav--prev directorist-swiper__nav--prev-listing'>".directorist_icon('las la-angle-left', false)."</div>
+							<div class='directorist-swiper__nav directorist-swiper__nav--next directorist-swiper__nav--next-listing'>".directorist_icon('las la-angle-right', false)."</div>
 						</div>
 
-						<div class='directorist-swiper__pagination'></div>
+						<div class='directorist-swiper__pagination directorist-swiper__pagination-listing'></div>
 					</div>";
 				return ob_get_clean();
 			}
@@ -2005,6 +2012,32 @@ class Directorist_Listings {
 				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
 			);
 			Helper::get_template( 'archive/search-form', $args );
+		}
+
+		public function basic_search_form_template() {
+			// only catch atts with the prefix 'filter_'
+			$search_field_atts = array_filter( $this->atts, function( $key ) {
+				return substr( $key, 0, 7 ) == 'filter_';
+			}, ARRAY_FILTER_USE_KEY );
+
+			$args = array(
+				'listings'   => $this,
+				'searchform' => new Directorist_Listing_Search_Form( 'search_result', $this->current_listing_type, $search_field_atts ),
+			);
+			Helper::get_template( 'archive/basic-search-form', $args );
+		}
+
+		public function advance_search_form_template() {
+			// only catch atts with the prefix 'filter_'
+			$search_field_atts = array_filter( $this->atts, function( $key ) {
+				return substr( $key, 0, 7 ) == 'filter_';
+			}, ARRAY_FILTER_USE_KEY );
+
+			$args = array(
+				'listings'   => $this,
+				'searchform' => new Directorist_Listing_Search_Form( 'search_result', $this->current_listing_type, $search_field_atts ),
+			);
+			Helper::get_template( 'archive/advance-search-form', $args );
 		}
 
 		public function filter_btn_html() {

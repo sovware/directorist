@@ -6888,6 +6888,9 @@ p.atbd-min {
   -webkit-transform: scale(1.4);
           transform: scale(1.4);
 }
+.directorist-swiper__pagination--related {
+  display: none;
+}
 .directorist-swiper:hover .directorist-swiper__nav {
   opacity: 1;
 }

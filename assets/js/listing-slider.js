@@ -145,7 +145,7 @@
     swiperCarouselRelated.forEach(function (el, i) {
       var navBtnPrev = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--prev-related');
       var navBtnNext = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--next-related');
-      var swiperPagination = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination-related');
+      var swiperPagination = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination--related');
       navBtnPrev.forEach(function (el, i) {
         el.classList.add("directorist-swiper__nav--prev-related-".concat(i));
       });
@@ -153,7 +153,7 @@
         el.classList.add("directorist-swiper__nav--next-related-".concat(i));
       });
       swiperPagination.forEach(function (el, i) {
-        el.classList.add("directorist-swiper__pagination-related-".concat(i));
+        el.classList.add("directorist-swiper__pagination--related-".concat(i));
       });
       el.classList.add("directorist-swiper-related-".concat(i));
       var swiper = new Swiper(".directorist-swiper-related-".concat(i), {
@@ -170,7 +170,7 @@
           prevEl: ".directorist-swiper__nav--prev-related-".concat(i)
         },
         pagination: {
-          el: ".directorist-swiper__pagination-related-".concat(i),
+          el: ".directorist-swiper__pagination--related-".concat(i),
           type: 'bullets',
           clickable: true
         },

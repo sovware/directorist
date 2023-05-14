@@ -72,6 +72,9 @@
         transform: scale(1.4);
       }
     }
+    @include m('related') {
+      display: none;
+    }
   }
   &:hover {
     .directorist-swiper__nav {

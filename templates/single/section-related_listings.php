@@ -39,7 +39,7 @@ if ( !$related->have_posts() ) {
 			<div class='directorist-swiper__nav directorist-swiper__nav--next directorist-swiper__nav--next-related'><?php directorist_icon('las la-angle-right')?></div>
 		</div>
 
-		<div class='directorist-swiper__pagination'></div>
+		<div class='directorist-swiper__pagination directorist-swiper__pagination--related'></div>
 	</div>
 
 </div>

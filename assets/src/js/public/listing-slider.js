@@ -57,7 +57,7 @@
 
             let navBtnPrev = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--prev-related');
             let navBtnNext = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--next-related');
-            let swiperPagination = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination-related');
+            let swiperPagination = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination--related');
 
             navBtnPrev.forEach((el, i) => {
                 el.classList.add(`directorist-swiper__nav--prev-related-${i}`);
@@ -66,7 +66,7 @@
                 el.classList.add(`directorist-swiper__nav--next-related-${i}`);
             });
             swiperPagination.forEach((el, i) => {
-                el.classList.add(`directorist-swiper__pagination-related-${i}`);
+                el.classList.add(`directorist-swiper__pagination--related-${i}`);
             });
 
             el.classList.add(`directorist-swiper-related-${i}`);
@@ -85,7 +85,7 @@
                     prevEl: `.directorist-swiper__nav--prev-related-${i}`,
                 },
                 pagination: {
-                    el: `.directorist-swiper__pagination-related-${i}`,
+                    el: `.directorist-swiper__pagination--related-${i}`,
                     type: 'bullets',
                     clickable: true,
                 },

@@ -182,10 +182,6 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'jquery.barrating',
 			],
-			'directorist-plasma-slider' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_VENDOR_JS . 'plasma-slider',
-			],
 			'directorist-uikit' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'uikit',
@@ -218,11 +214,6 @@ class Scripts {
 			],
 
 			// Public JS
-			'directorist-main' => [
-				'type' => 'js',
-				'path' => DIRECTORIST_JS . 'public-main',
-				'dep' => ['jquery', 'directorist-plasma-slider' ],
-			],
 			'directorist-widgets' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'widgets',

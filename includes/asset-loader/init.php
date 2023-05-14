@@ -53,7 +53,6 @@ class Asset_Loader {
 		wp_enqueue_style( 'directorist-main-style' );
 		wp_enqueue_style( 'directorist-select2-style' );
 		wp_enqueue_style( 'directorist-ez-media-uploader-style' );
-		wp_enqueue_style( 'directorist-plasma-slider' );
 		wp_enqueue_style( 'directorist-swiper-style' );
 		wp_enqueue_style( 'directorist-sweetalert-style' );
 
@@ -203,7 +202,8 @@ class Asset_Loader {
 				break;
 
 			case 'single/slider':
-				wp_enqueue_script( 'directorist-plasma-slider' );
+				wp_enqueue_script( 'directorist-swiper' );
+				wp_enqueue_script( 'directorist-listing-slider' );
 				break;
 
 			case 'single/section-related_listings':

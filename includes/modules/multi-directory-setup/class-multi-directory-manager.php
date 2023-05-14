@@ -3819,7 +3819,7 @@ class Multi_Directory_Manager
                     'label' => __( 'Body Top', 'directorist' ),
                     'maxWidget' => 0,
                     'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                    'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
+                    'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing", "posted_date"],
                 ],
                 'right' => [
                     'label' => __( 'Body Right', 'directorist' ),

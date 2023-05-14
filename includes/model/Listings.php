@@ -1580,7 +1580,7 @@ class Directorist_Listings {
 							<div class='directorist-swiper__nav directorist-swiper__nav--next directorist-swiper__nav--next-listing'>".directorist_icon('las la-angle-right', false)."</div>
 						</div>
 
-						<div class='directorist-swiper__pagination directorist-swiper__pagination-listing'></div>
+						<div class='directorist-swiper__pagination directorist-swiper__pagination--listing'></div>
 					</div>";
 				return ob_get_clean();
 			}

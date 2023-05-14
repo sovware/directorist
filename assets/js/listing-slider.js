@@ -214,6 +214,63 @@
     //         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
     //     });
     // });
+
+    /* Swiper Slider Listing */
+
+    var swiperSingleListingThumb = new Swiper('.directorist-single-listing-slider-thumb', {
+      slidesPerView: 4,
+      spaceBetween: 10,
+      loop: true,
+      slidesPerGroup: 1,
+      freeMode: true,
+      watchSlidesProgress: true,
+      observer: true,
+      observeParents: true,
+      navigation: {
+        nextEl: ".directorist-swiper__nav--next-single-listing-thumb",
+        prevEl: ".directorist-swiper__nav--prev-single-listing-thumb"
+      },
+      pagination: {
+        el: ".directorist-swiper__pagination--single-listing-thumb",
+        type: 'bullets',
+        clickable: true
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+          spaceBetween: 0
+        },
+        480: {
+          slidesPerView: 3
+        },
+        767: {
+          slidesPerView: 3
+        },
+        1200: {
+          slidesPerView: 4
+        }
+      }
+    });
+    var swiperSingleListing = new Swiper('.directorist-single-listing-slider', {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: true,
+      slidesPerGroup: 1,
+      observer: true,
+      observeParents: true,
+      navigation: {
+        nextEl: ".directorist-swiper__nav--next-single-listing",
+        prevEl: ".directorist-swiper__nav--prev-single-listing"
+      },
+      pagination: {
+        el: ".directorist-swiper__pagination--single-listing",
+        type: 'bullets',
+        clickable: true
+      },
+      thumbs: {
+        swiper: swiperSingleListingThumb
+      }
+    });
   });
 })(jQuery);
 

@@ -119,9 +119,9 @@ class All_Categories extends \WP_Widget {
 
 		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Categories', 'directorist');
 		$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
-		
+
 		echo wp_kses_post( $widget_title );
-		
+
 
         $query_args = array(
             'template'       => !empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
@@ -190,11 +190,11 @@ class All_Categories extends \WP_Widget {
 
         $terms = get_terms( $args );
         $parent = $args['parent'];
-        $child_class = !empty($parent) ? 'atbdp_child_category' : 'atbdp_parent_category';
+        $child_class = !empty($parent) ? 'directorist-widget-subcategory' : 'directorist-widget-category';
         $html = '';
         if( count( $terms ) > 0 ) {
             $i = 1;
-            $html .= '<ul class="' .$child_class. '">';
+            $html .= '<div class="' .$child_class. '">';
             foreach( $terms as $term ) {
 				$settings['term_id'] = $term->term_id;
                 $child_category = get_term_children($term->term_id,ATBDP_CATEGORY);
@@ -217,8 +217,8 @@ class All_Categories extends \WP_Widget {
                     $expired_listings = atbdp_get_expired_listings(ATBDP_CATEGORY, $term->term_id);
                     $number_of_expired = $expired_listings->post_count;
                     $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
-                    $totat = ($count)?($count-$number_of_expired):$count;
-                    $html .= ' (' . $totat . ')';
+                    $total = ($count)?($count-$number_of_expired):$count;
+                    $html .= ' (' . $total . ')';
                 }
                 $html .= '</a>'. $plus_icon . '';
                 $html .= $this->directorist_categories_list( $settings );
@@ -228,7 +228,7 @@ class All_Categories extends \WP_Widget {
                     if( $i++ == $args['number'] ) break;
                 }
             }
-            $html .= '</ul>';
+            $html .= '</div>';
 
         }
 

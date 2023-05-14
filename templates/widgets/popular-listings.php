@@ -87,14 +87,14 @@ $default_icon = 'las la-tags';
                                             $term_link  = esc_url( get_term_link( $cat->term_id, ATBDP_CATEGORY ) );
                                             $term_label = $cat->name;
                                             ?>
-                    
+
                                             <a href="<?php echo esc_url( $term_link );?>"><?php directorist_icon( $term_icon );?> <?php echo esc_html( $term_label ); ?></a>
-                    
+
                                             <?php
                                         }
                                         ?>
                                     </div>
-                    
+
                                 </div>
                                 <?php
                             }

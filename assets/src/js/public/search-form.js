@@ -934,5 +934,6 @@ import { directorist_range_slider } from './range-slider';
         }
         initObserver();
         handleRadiusVisibility();
+
     });
 })(jQuery);

@@ -107,7 +107,7 @@
     swiperCarouselListing.forEach(function (el, i) {
       var navBtnPrev = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__nav--prev-listing');
       var navBtnNext = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__nav--next-listing');
-      var swiperPagination = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__pagination-listing');
+      var swiperPagination = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__pagination--listing');
       navBtnPrev.forEach(function (el, i) {
         el.classList.add("directorist-swiper__nav--prev-listing-".concat(i));
       });
@@ -115,7 +115,7 @@
         el.classList.add("directorist-swiper__nav--next-listing-".concat(i));
       });
       swiperPagination.forEach(function (el, i) {
-        el.classList.add("directorist-swiper__pagination-listing-".concat(i));
+        el.classList.add("directorist-swiper__pagination--listing-".concat(i));
       });
       el.classList.add("directorist-swiper-listing-".concat(i));
       var swiper = new Swiper(".directorist-swiper-listing-".concat(i), {
@@ -132,7 +132,7 @@
           prevEl: ".directorist-swiper__nav--prev-listing-".concat(i)
         },
         pagination: {
-          el: ".directorist-swiper__pagination-listing-".concat(i),
+          el: ".directorist-swiper__pagination--listing-".concat(i),
           type: 'bullets',
           clickable: true
         },
@@ -218,7 +218,7 @@
     /* Swiper Slider Listing */
 
     var swiperSingleListingThumb = new Swiper('.directorist-single-listing-slider-thumb', {
-      slidesPerView: 4,
+      slidesPerView: 6,
       spaceBetween: 10,
       loop: true,
       slidesPerGroup: 1,
@@ -241,13 +241,19 @@
           spaceBetween: 0
         },
         480: {
-          slidesPerView: 3
+          slidesPerView: 2
         },
         767: {
           slidesPerView: 3
         },
         1200: {
           slidesPerView: 4
+        },
+        1440: {
+          slidesPerView: 5
+        },
+        1600: {
+          slidesPerView: 6
         }
       }
     });

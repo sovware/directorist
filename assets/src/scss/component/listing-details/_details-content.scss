@@ -74,6 +74,10 @@
             margin: 0.8rem 0 0 0;
         }
     }
+
+    .directorist-single-listing-slider .directorist-swiper__nav i:after {
+        background-color: var(--directorist-color-white);
+    }
 }
 
 .directorist-single-listing-header{

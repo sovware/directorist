@@ -3,6 +3,9 @@
   height: 100%;
   overflow: hidden;
   position: relative;
+  .swiper-slide {
+    display: flex;
+  }
   @include e(nav) {
     position: absolute;
     top: 50%;
@@ -18,6 +21,7 @@
       align-items: center;
       justify-content: center;
       border-radius: 100%;
+      transition: all 0.3s ease;
       background-color: rgba(255,255,255,0.9);
     }
     .directorist-icon-mask:after {
@@ -39,7 +43,6 @@
     @include m('prev-related i') {
       left: 0;
       background-color: #f4f4f4;
-      transition: all 0.3s ease;
       &:hover {
         background-color: var(--directorist-color-gray);
       }
@@ -47,7 +50,6 @@
     @include m('next-related i') {
       right: 0;
       background-color: #f4f4f4;
-      transition: all 0.3s ease;
       &:hover {
         background-color: var(--directorist-color-gray);
       }
@@ -79,6 +81,57 @@
   &:hover {
     .directorist-swiper__nav {
       opacity: 1;
+    }
+  }
+}
+
+.directorist-single-listing-slider {
+  .directorist-swiper {
+    @include e(nav) {
+      i {
+        height: 40px;
+        width: 40px;
+        background-color: rgba(0,0,0,0.5);
+        &:after {
+          width: 14px;
+          height: 14px;
+          background-color: var(--directorist-color-white);
+        }
+      }
+      @include m('prev-single-listing i') {
+        left: 20px;
+      }
+      @include m('next-single-listing i') {
+        right: 20px;
+      }
+      &:hover {
+        i {
+          background-color: var(--directorist-color-primary);
+        }
+      }
+    }
+  }
+  .swiper-slide {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+  }
+}
+
+.directorist-single-listing-slider-thumb {
+  margin-top: 10px;
+  .swiper-slide {
+    min-width: 100px;
+    height: 90px;
+    cursor: pointer;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
     }
   }
 }

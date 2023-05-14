@@ -3757,9 +3757,9 @@ class Multi_Directory_Manager
             'body' => [
                 'avatar' => [
                     'label' => __( 'Avatar', 'directorist' ),
-                    'maxWidget' => 1,
+                    'maxWidget' => 0,
                     'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                    'acceptedWidgets' => ["user_avatar"],
+                    'acceptedWidgets' => [ "popular_badge", "featured_badge", "new_badge" ],
                 ],
                 'title' => [
                     'maxWidget' => 1,
@@ -3770,7 +3770,7 @@ class Multi_Directory_Manager
                     'acceptedWidgets' => ["favorite_badge"],
                 ],
                 'quick_info' => [
-                    'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing"],
+                    'acceptedWidgets' => [ "rating", "pricing", "posted_date" ],
                 ],
                 'bottom' => [
                     'maxWidget' => 0,

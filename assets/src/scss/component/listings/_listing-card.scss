@@ -784,6 +784,7 @@
         @include e('header') {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
             align-items: flex-start;
             padding: 20px 22px 0 22px;
 
@@ -792,6 +793,20 @@
                 flex: 1;
                 gap: 12px;
                 align-items: center;
+                flex-wrap: wrap;
+                .directorist-listing-single__badge {
+                    display: flex;
+                    gap: 12px;
+                    flex-wrap: wrap;
+                    align-items: center;
+                }
+                .directorist-badge {
+                    background-color: #f4f4f4;
+                }
+            }
+            @include e(title) {
+                order: 1;
+                flex: 0 0 100%;
             }
 
             .directorist-thumb-listing-author {
@@ -833,9 +848,6 @@
             flex-wrap: wrap;
             align-items: center;
             flex-direction: row;
-            .directorist-badge {
-                width: auto;
-            }
             @include m(list) {
                 margin-top: 16px;
 
@@ -962,6 +974,9 @@
                 margin: 3px;
             }
         }
+    }
+    .directorist_open_status_badge {
+        display: flex;
     }
 }
 

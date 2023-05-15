@@ -331,6 +331,60 @@
     }
 }
 
+.pac-container  {
+    list-style: none;
+    margin: 0;
+    padding: 18px 5px 11px;
+    max-width: 270px;
+    border-radius: 10px;
+    .pac-item {
+        display: flex;
+        align-items: center;
+        margin: 0 13px 7px;
+        padding: 0;
+        border: none;
+        background: unset;
+        cursor: pointer;
+        .pac-icon-marker {
+            position: relative;
+            height: 36px;
+            width: 36px;
+            min-width: 36px;
+            border-radius: 10px;
+            margin: 0 15px 0 0;
+            background: var(--directorist-color-border-gray);
+            &:after {
+                content: "";
+                display: block;
+                width: 12px;
+                height: 20px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background-color: var(--directorist-color-body);
+                mask-repeat: no-repeat;
+                mask-position: center;
+                mask-image: url("../../../icons/font-awesome/svgs/solid/map-marker-alt.svg");
+            }
+        }
+        span {
+            color: var(--directorist-color-body);
+        }
+        .pac-matched {
+            font-weight: 400;
+        }
+        &:hover {
+           span {
+                color: var(--directorist-color-primary);
+            }
+        }
+    }
+    &:after {
+        display: none;
+    }
+}
+
 // Login
 p.status:empty {
     display: none;

@@ -203,34 +203,33 @@
             background: transparent;
             border-bottom: 1px solid var(--directorist-color-border);
         }
-        &.directorist-price-ranges__price-frequency{
-            display: flex;
-            flex-wrap: wrap;
-            flex: 0 0 100%;
-            gap: 6px;
-            .directorist-price-ranges__price-frequency--btn{
-                .directorist-pf-range{
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: var(--directorist-color-primary);
-                    background-color: var(--directorist-color-border);
-                    border-radius: 8px;
-                    width: 70px;
-                    height: 36px;
-                }
-                input[type="radio"]{
-                    display: none;
-                    &:checked{
-                        &+.directorist-pf-range{
-                            background-color: var(--directorist-color-primary);
-                            color: var(--directorist-color-white);
-                        }
-                    }
+    }
+    .directorist-price-ranges__price-frequency{
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 100%;
+        gap: 6px;
+        input[type="radio"]{
+            display: none;
+            &:checked{
+                &+.directorist-pf-range{
+                    background-color: var(--directorist-color-primary);
+                    color: var(--directorist-color-white);
                 }
             }
         }
+    }
+
+    .directorist-pf-range{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--directorist-color-primary);
+        background-color: var(--directorist-color-border);
+        border-radius: 8px;
+        width: 70px;
+        height: 36px;
     }
 }
 
@@ -305,13 +304,13 @@
             gap: 8px;
             transition: 0.3s ease;
             height: 42px;
-            padding-right: 30px;
+            padding-right: 18px;
             padding-left: 45px;
             font-weight: 400;
             font-size: 14px;
             border-radius: 8px;
             background-color: var(--directorist-color-light);
-            color: var(--directorist-color-primary);
+            color: var(--directorist-color-body);
             cursor: pointer;
             i{
                 display: none;

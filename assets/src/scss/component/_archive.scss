@@ -431,6 +431,9 @@
 		.directorist-btn {
 			width: 100%;
 		}
+		.directorist-price-ranges__price-frequency--btn .directorist-pf-range {
+			width: 68px;
+		}
 		
 	}
 	@include e(listing) {

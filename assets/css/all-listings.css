@@ -11833,6 +11833,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-related .directorist-listing-single,
 .directorist-archive-contents .directorist-listing-single,
 .directorist-author-listing-content .directorist-listing-single {
+  width: 100%;
   border-radius: 12px;
   background: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);

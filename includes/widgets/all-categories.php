@@ -229,7 +229,7 @@ class All_Categories extends \WP_Widget {
                     $html .= ' (' . $totat . ')';
                 }
                 $html .= '</a>'. $plus_icon . '';
-                $html .= $this->directorist_categories_list( $settings );
+                $html .= $this->sub_categories_list( $settings );
                 $html .= '</div>';
                 $html .= '</div>';
                 if(!empty($args['number'])) {
@@ -242,6 +242,81 @@ class All_Categories extends \WP_Widget {
 
         return $html;
 
+    }
+
+    public function sub_categories_list( $settings ) {
+        if( $settings['immediate_category'] ) {
+
+            if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+                return;
+            }
+
+        }
+
+        $args = array(
+            'taxonomy'     => ATBDP_CATEGORY,
+            'orderby'      => $settings['orderby'],
+            'order'        => $settings['order'],
+            'hide_empty'   => $settings['hide_empty'],
+            'parent'       => $settings['term_id'],
+            'hierarchical' => !empty( $settings['hide_empty'] ) ? true : false,
+            'child_of'     => 0,
+            'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
+        );
+
+        $terms = get_terms( $args );
+        $parent = $args['parent'];
+        $child_class = !empty($parent) ? 'atbdp_child_category' : 'atbdp_parent_category';
+        $html = '';
+        if( count( $terms ) > 0 ) {
+            $i = 1;
+            $html .= '<ul class="' .$child_class. '">';
+            foreach( $terms as $term ) {
+                $settings['term_id'] = $term->term_id;
+                $child_category      = get_term_children( $term->term_id, ATBDP_CATEGORY );
+                $plus_icon           = (!empty($child_category) && empty($parent) )? directorist_icon( 'las la-plus', false ) : '';
+                $icon                = get_term_meta($term->term_id,'category_icon',true);
+                $child_icon          = empty($parent)  ? directorist_icon( $icon, false ) : '';
+                $children            = get_term_children( $term->term_id, ATBDP_CATEGORY );
+
+                $has_child_class = '';
+                if ( empty( $children ) ) {
+                    $has_child_class = '';
+                } else {
+                    $has_child_class = 'directorist-has-child';
+                }
+
+                $count = 0;
+                if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
+                    $count = atbdp_listings_count_by_category( $term->term_id );
+
+                    if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
+                }
+
+                $html .= '<li class="directorist-taxonomy-list-one">';
+                $html .= '<div class="directorist-taxonomy-list">';
+                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_category_page( $term ) . '" class="' . $has_child_class . '">'. $child_icon .'';
+                $html .= $term->name;
+                if( ! empty( $settings['show_count'] ) ) {
+                    $expired_listings = atbdp_get_expired_listings(ATBDP_CATEGORY, $term->term_id);
+                    $number_of_expired = $expired_listings->post_count;
+                    $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
+                    $totat = ($count)?($count-$number_of_expired):$count;
+                    $html .= ' (' . $totat . ')';
+                }
+                $html .= '</a>'. $plus_icon . '';
+                $html .= $this->sub_categories_list( $settings );
+                $html .= '</div>';
+                $html .= '</li>';
+                if(!empty($args['number'])) {
+                    if( $i++ == $args['number'] ) break;
+                }
+            }
+            $html .= '</ul>';
+
+        }
+
+        return $html;
     }
 
     public function dropdown_categories( $settings, $prefix = '' ) {

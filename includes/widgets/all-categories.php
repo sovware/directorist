@@ -196,11 +196,19 @@ class All_Categories extends \WP_Widget {
             $i = 1;
             $html .= '<div class="' .$child_class. '">';
             foreach( $terms as $term ) {
-				$settings['term_id'] = $term->term_id;
-                $child_category = get_term_children($term->term_id,ATBDP_CATEGORY);
-                $plus_icon = (!empty($child_category) && empty($parent) )? directorist_icon( 'las la-plus', false ) : '';
-                $icon = get_term_meta($term->term_id,'category_icon',true);
-                $child_icon = empty($parent)  ? directorist_icon( $icon, false ) : '';
+                $settings['term_id'] = $term->term_id;
+                $child_category      = get_term_children( $term->term_id, ATBDP_CATEGORY );
+                $plus_icon           = (!empty($child_category) && empty($parent) )? directorist_icon( 'las la-plus', false ) : '';
+                $icon                = get_term_meta($term->term_id,'category_icon',true);
+                $child_icon          = empty($parent)  ? directorist_icon( $icon, false ) : '';
+                $children            = get_term_children( $term->term_id, ATBDP_CATEGORY );
+
+                $has_child_class = '';
+                if ( empty( $children ) ) {
+                    $has_child_class = '';
+                } else {
+                    $has_child_class = 'directorist-has-child';
+                }
 
                 $count = 0;
                 if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
@@ -211,7 +219,7 @@ class All_Categories extends \WP_Widget {
 
                 $html .= '<div class="directorist-taxonomy-list-one">';
                 $html .= '<div class="directorist-taxonomy-list">';
-                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_category_page( $term ) . '">'. $child_icon .'';
+                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_category_page( $term ) . '" class="' . $has_child_class . '">'. $child_icon .'';
                 $html .= $term->name;
                 if( ! empty( $settings['show_count'] ) ) {
                     $expired_listings = atbdp_get_expired_listings(ATBDP_CATEGORY, $term->term_id);

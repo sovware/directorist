@@ -1564,12 +1564,24 @@ class Directorist_Listings {
 
 			} else {
 				ob_start();
+				echo "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='1500' data-sw-autoplay='false' data-sw-responsive='{}' >
+				<div class='swiper-wrapper'>";
 				foreach ( $thumbnail_img_id as $img_id  ) {
 					$image_src = atbdp_get_image_source( $img_id, $image_quality );
 					$image_alt = get_post_meta($img_id, '_wp_attachment_image_alt', true);
 					$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $img_id ) );
-					echo "<img src='$image_src' alt='$image_alt' class='$class' />";
+					echo "<div class='swiper-slide'>
+							<img src='$image_src' alt='$image_alt' class='$class' />
+						</div>";
 				}
+				echo "</div>
+						<div class='directorist-swiper__navigation'>
+							<div class='directorist-swiper__nav directorist-swiper__nav--prev directorist-swiper__nav--prev-listing'>".directorist_icon('las la-angle-left', false)."</div>
+							<div class='directorist-swiper__nav directorist-swiper__nav--next directorist-swiper__nav--next-listing'>".directorist_icon('las la-angle-right', false)."</div>
+						</div>
+
+						<div class='directorist-swiper__pagination directorist-swiper__pagination--listing'></div>
+					</div>";
 				return ob_get_clean();
 			}
 		}

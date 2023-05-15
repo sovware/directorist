@@ -9,10 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div <?php $listings->wrapper_class(); $listings->data_atts(); ?>>
-	<?php
-		$listings->directory_type_nav_template();
-	?>
 	<div class="listing-with-sidebar">
+		<div class="listing-with-sidebar__type-nav">
+			<?php
+				$listings->directory_type_nav_template();
+			?>
+		</div>
 		<div class="listing-with-sidebar__searchform">
 			<?php
 				$listings->basic_search_form_template();

@@ -978,6 +978,19 @@
     .directorist_open_status_badge {
         display: flex;
     }
+    &.directorist-listing-no-thumb {
+        .directorist-info-item.directorist-badge {
+            padding: 0;
+            margin: 0;
+            &:after {
+                display: none;
+            }
+            &.directorist-badge-open,
+            &.directorist-badge-close {
+                padding: 0 5px;
+            }
+        }
+    }
 }
 
 // Directorist Archive Grid Fix

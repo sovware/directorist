@@ -364,7 +364,7 @@
 // Listing with Sidebar
 .listing-with-sidebar {
 	display: flex;
-	gap: 30px 15px;
+	gap: 30px;
 	flex-wrap: wrap;
 	@media only screen and (max-width: 991px) {
 		flex-direction: column;
@@ -396,6 +396,7 @@
 	@include e(sidebar) {
 		display: inline-flex;
 		flex: 1;
+		height: 100%;
 		max-width: 350px;
 		@media only screen and (max-width: 991px) {
 			max-width: unset;
@@ -445,6 +446,12 @@
 		.directorist-archive-items {
 			width: 100%;
 			display: flex;
+			.directorist-container-fluid {
+				padding: 0;
+			}
+		}
+		.directorist-archive-items {
+			flex-direction: column;
 		}
 		.directorist-search-modal {
 			display: none;

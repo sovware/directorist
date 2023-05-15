@@ -361,3 +361,48 @@
 		}
 	}
 }
+
+// Listing with Sidebar
+.listing-with-sidebar {
+	display: flex;
+	gap: 30px;
+	flex-wrap: wrap;
+	@include e(searchform) {
+		flex: 0 0 100%;
+	}
+	@include e(sidebar) {
+		display: inline-flex;
+		flex: 1;
+		max-width: 350px;
+		.directorist-search-modal__contents__footer {
+			position: relative;
+			background-color: transparent;
+		}
+		.directorist-advanced-filter__action {
+			padding: 0;
+			flex-direction: column;
+    		align-items: flex-start;
+		}
+		.directorist-btn-reset-js {
+			border-radius: 10px;
+			width: 100%;
+			height: 46px;
+			line-height: 46px;
+			text-align: center;
+			text-decoration: none;
+			background-color: var(--directorist-color-light);
+		}
+		.directorist-btn {
+			width: 100%;
+		}
+		
+	}
+	@include e(listing) {
+		display: inline-flex;
+		flex: 1;
+		flex-wrap: wrap;
+		.directorist-header-bar {
+			width: 100%;
+		}
+	}
+}

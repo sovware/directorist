@@ -8719,6 +8719,78 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: var(--directorist-color-white);
 }
 
+.listing-with-sidebar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 30px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.listing-with-sidebar__searchform {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
+.listing-with-sidebar__sidebar {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  max-width: 350px;
+}
+.listing-with-sidebar__sidebar .directorist-search-modal__contents__footer {
+  position: relative;
+  background-color: transparent;
+}
+.listing-with-sidebar__sidebar .directorist-advanced-filter__action {
+  padding: 0;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+.listing-with-sidebar__sidebar .directorist-btn-reset-js {
+  border-radius: 10px;
+  width: 100%;
+  height: 46px;
+  line-height: 46px;
+  text-align: center;
+  text-decoration: none;
+  background-color: var(--directorist-color-light);
+}
+.listing-with-sidebar__sidebar .directorist-btn {
+  width: 100%;
+}
+.listing-with-sidebar__listing {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.listing-with-sidebar__listing .directorist-header-bar {
+  width: 100%;
+}
+
 /* Advanced search filter float style  */
 .directorist-search-float {
   position: relative;
@@ -8946,6 +9018,20 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-advanced-filter .directorist-form-group.directorist-icon-left .directorist-input-icon {
   left: 0;
+}
+
+.direcorist-search-field-review .directorist-checkbox {
+  display: block;
+}
+.direcorist-search-field-review .directorist-checkbox [type=checkbox] + label {
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  padding-left: 35px;
+  color: var(--directorist-color-body);
+}
+.direcorist-search-field-review .directorist-checkbox [type=checkbox] + label:not(:last-child) {
+  margin-bottom: 20px;
 }
 
 .directorist-price-ranges {

@@ -57,9 +57,9 @@
       align-items: flex-start;
       margin: 0;
       padding-bottom: 0;
+      padding-right: 15px;
 
       &:not(:last-child) {
-        padding-right: 15px;
         border-right: 1px solid var(--directorist-color-border);
       }
 
@@ -403,7 +403,7 @@
       ul {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 10px;
         padding: 7px;
         margin: 0 0 15px;
         list-style-type: none;
@@ -415,7 +415,7 @@
 
           a {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 15px;
             font-size: 14px;
             margin: 0 13px;
@@ -423,7 +423,7 @@
             background-color: var(--directorist-color-white);
             border-radius: 10px;
             text-decoration: none;
-            span {
+            .location-icon {
               display: flex;
               align-items: center;
               justify-content: center;
@@ -441,8 +441,15 @@
               height: 50px;
               margin: 0 0 13px;
               padding: 0 8px;
+              align-items: center;
               color: var(--directorist-color-primary);
               background-color: var(--directorist-color-bg-gray);
+              .location-address {
+                position: relative;
+                &:before {
+                  content: 'Current Location';
+                }
+              }
             }
             &:hover {
               color: var(--directorist-color-primary);

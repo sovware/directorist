@@ -15,9 +15,13 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_withou
 	<div class="directorist-listing-single__header">
 
 		<div class="directorist-listing-single__header__left">
-			<?php $listings->render_loop_fields($loop_fields['body']['avatar']); ?>
+			<div class="directorist-listing-single__badge">
+				<?php $listings->render_loop_fields($loop_fields['body']['avatar']); ?>
+			</div>
+		</div>
 
-			<div class="directorist-listing-single__title"><?php $listings->render_loop_fields($loop_fields['body']['title']); ?></div>
+		<div class="directorist-listing-single__header__title">
+			<?php $listings->render_loop_fields($loop_fields['body']['title']); ?>
 		</div>
 
 		<div class="directorist-listing-single__header__right">

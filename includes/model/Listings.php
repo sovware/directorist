@@ -1354,7 +1354,7 @@ class Directorist_Listings {
 			$cat_icon = get_term_meta( $cats[0]->term_id, 'category_icon', true );
 		}
 
-		$cat_icon = !empty( $cat_icon ) ? $cat_icon : 'las la-map-marker';
+		$cat_icon = !empty( $cat_icon ) ? $cat_icon : 'fas fa-map-pin';
 		/**
 		 * Get category icon for map marker.
 		 *

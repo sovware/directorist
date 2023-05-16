@@ -125,8 +125,6 @@
         slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
         speed: checkData(parseInt(el.dataset.swSpeed), 3000),
         autoplay: checkData(el.dataset.swAutoplay, {}),
-        observer: true,
-        observeParents: true,
         navigation: {
           nextEl: ".directorist-swiper__nav--next-listing-".concat(i),
           prevEl: ".directorist-swiper__nav--prev-listing-".concat(i)
@@ -163,8 +161,6 @@
         slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
         speed: checkData(parseInt(el.dataset.swSpeed), 3000),
         autoplay: checkData(el.dataset.swAutoplay, {}),
-        observer: true,
-        observeParents: true,
         navigation: {
           nextEl: ".directorist-swiper__nav--next-related-".concat(i),
           prevEl: ".directorist-swiper__nav--prev-related-".concat(i)
@@ -220,12 +216,8 @@
     var swiperSingleListingThumb = new Swiper('.directorist-single-listing-slider-thumb', {
       slidesPerView: 6,
       spaceBetween: 10,
-      loop: true,
-      slidesPerGroup: 1,
+      loop: false,
       freeMode: true,
-      watchSlidesProgress: true,
-      observer: true,
-      observeParents: true,
       navigation: {
         nextEl: ".directorist-swiper__nav--next-single-listing-thumb",
         prevEl: ".directorist-swiper__nav--prev-single-listing-thumb"

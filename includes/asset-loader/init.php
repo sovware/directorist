@@ -100,6 +100,7 @@ class Asset_Loader {
 			case 'archive-contents':
 				wp_enqueue_script( 'directorist-all-listings' );
 				wp_enqueue_script( 'directorist-listing-slider' );
+				wp_enqueue_script( 'directorist-swiper' );
 				wp_enqueue_script( 'directorist-select2-script' );
 
 				if ( Helper::instant_search_enabled() ) {
@@ -115,6 +116,8 @@ class Asset_Loader {
 			case 'widgets/search-form':
 				wp_enqueue_script( 'directorist-search-form' );
 				wp_enqueue_script( 'directorist-select2-script' );
+				wp_enqueue_script( 'directorist-listing-slider' );
+				wp_enqueue_script( 'directorist-swiper' );
 				break;
 
 			// Add Listing Form

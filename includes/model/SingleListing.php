@@ -1102,10 +1102,11 @@ class Directorist_Single_Listing {
 		}
 
 		$cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-		if (!empty($cats)) {
-			$cat_icon = get_cat_icon($cats[0]->term_id);
-		}
-		$cat_icon = !empty($cat_icon) ? $cat_icon : 'las la-map-marker';
+		$cat_icon = '';
+		// if (!empty($cats)) {
+		// 	$cat_icon = get_cat_icon($cats[0]->term_id);
+		// }
+		$cat_icon = !empty($cat_icon) ? $cat_icon : 'fas fa-map-pin';
 		$cat_icon = directorist_icon( $cat_icon, false );
 
 		$args = array(

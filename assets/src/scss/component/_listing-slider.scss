@@ -112,6 +112,9 @@
         }
       }
     }
+    @include e(pagination) {
+      display: none;
+    }
   }
   .swiper-slide {
     img {
@@ -125,6 +128,14 @@
 
 .directorist-single-listing-slider-thumb {
   margin-top: 10px;
+  .directorist-swiper {
+    @include e(navigation) {
+      display: none;
+    }
+    @include e(pagination) {
+      display: none;
+    }
+  }
   .swiper-slide {
     min-width: 100px;
     height: 90px;

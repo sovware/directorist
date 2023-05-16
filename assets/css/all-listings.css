@@ -6408,6 +6408,9 @@ p.atbd-min {
 .directorist-single-listing-slider .directorist-swiper__nav:hover i {
   background-color: var(--directorist-color-primary);
 }
+.directorist-single-listing-slider .directorist-swiper__pagination {
+  display: none;
+}
 .directorist-single-listing-slider .swiper-slide img {
   width: 100%;
   height: 100%;
@@ -6418,6 +6421,12 @@ p.atbd-min {
 
 .directorist-single-listing-slider-thumb {
   margin-top: 10px;
+}
+.directorist-single-listing-slider-thumb .directorist-swiper__navigation {
+  display: none;
+}
+.directorist-single-listing-slider-thumb .directorist-swiper__pagination {
+  display: none;
 }
 .directorist-single-listing-slider-thumb .swiper-slide {
   min-width: 100px;

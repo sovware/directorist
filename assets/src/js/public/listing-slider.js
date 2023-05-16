@@ -137,7 +137,7 @@
         var swiperSingleListingThumb = new Swiper('.directorist-single-listing-slider-thumb', {
             slidesPerView: 6,
             spaceBetween: 10,
-            loop: true,
+            loop: false,
             freeMode: true,
             navigation: {
                 nextEl: `.directorist-swiper__nav--next-single-listing-thumb`,

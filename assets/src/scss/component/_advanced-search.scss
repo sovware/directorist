@@ -188,6 +188,12 @@
             &:not(:last-child) {
                 margin-bottom: 20px;
             }
+            &:before {
+                top: 3px;
+            }
+            &:after {
+                top: -2px;
+            }
         }
     }
 
@@ -222,11 +228,9 @@
         gap: 6px;
         input[type="radio"]{
             display: none;
-            &:checked{
-                &+.directorist-pf-range{
-                    background-color: var(--directorist-color-primary);
-                    color: var(--directorist-color-white);
-                }
+            &:checked+.directorist-pf-range{
+                background-color: var(--directorist-color-primary);
+                color: var(--directorist-color-white);
             }
         }
     }

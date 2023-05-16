@@ -9190,6 +9190,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .direcorist-search-field-review .directorist-checkbox input[type=checkbox] + label:not(:last-child) {
   margin-bottom: 20px;
 }
+.direcorist-search-field-review .directorist-checkbox input[type=checkbox] + label:before {
+  top: 3px;
+}
+.direcorist-search-field-review .directorist-checkbox input[type=checkbox] + label:after {
+  top: -2px;
+}
 .direcorist-search-field-review .directorist-icon-mask:after {
   width: 14px;
   height: 14px;

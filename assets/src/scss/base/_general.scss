@@ -78,6 +78,9 @@
         padding: 20px 30px;
         align-items: center;
         flex-wrap: wrap;
+        @media (max-width: 480px) {
+            padding: 20px;
+        }
 
         h4 {
             margin: 0 !important;
@@ -89,6 +92,9 @@
 
     @include e(contents) {
         padding: 30px 40px;
+        @media (max-width: 480px) {
+            padding: 20px;
+        }
         .directorist-form-description-field {
             .wp-editor-tabs {
                 position: relative;

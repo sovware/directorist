@@ -173,30 +173,50 @@
 
 /* listing type */
 .directorist-form-listing-type {
-  @include e(title) {
-    margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+  .directorist-form-label {
     font-size: 18px;
     font-weight: 500;
-    line-height: 1.2;
-    color: #272b41;
-    letter-spacing: normal;
+    flex: 0 0 100%;
+    margin: 0;
   }
-
   @include e(single) {
-    &:not(:last-child) {
-      margin-bottom: 20px;
+    flex: 0 0 45%;
+    &.directorist-radio {
+      align-items: flex-start;
     }
   }
 
   .directorist-radio input[type="radio"] + .directorist-radio__label {
+    width: 100%;
+    padding: 25px;
     font-size: 15px;
-    color: #202428;
-    padding-left: 23px;
-    font-weight: 700;
-
+    font-weight: 500;
+    padding-left: 55px;
+    border-radius: 16px;
+    cursor: pointer;
+    color: var(--directorist-color-primary);
+    border: 3px solid var(--directorist-color-primary);
     small {
+      display: block;
+      margin-top: 5px;
       font-weight: normal;
       color: var(--directorist-color-success);
+    }
+    &:before {
+      left: 31px;
+      top: 31px;
+    }
+    &:after {
+      left: 25px;
+      top: 25px;
+      width: 18px;
+      height: 18px;
     }
   }
 }

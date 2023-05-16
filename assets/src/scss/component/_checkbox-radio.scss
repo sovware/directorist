@@ -92,6 +92,7 @@
                 opacity: 0;
                 visibility: hidden;
                 z-index: 2;
+                transition: all 0.3s ease 0s;
                 content: '';
             }
         }
@@ -100,6 +101,17 @@
                 &:after{
                     background-color: var(--directorist-color-primary);
                 }
+            }
+        }
+    }
+    &.directorist-radio-circle {
+        input[type="radio"] + .directorist-radio__label {
+            &:before {
+                mask-image: url("../../../icons/font-awesome/svgs/solid/check.svg");
+                mask-repeat: no-repeat;
+                width: 10px;
+                height: 10px;
+                background-color: var(--directorist-color-white);
             }
         }
     }

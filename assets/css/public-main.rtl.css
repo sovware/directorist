@@ -9168,15 +9168,35 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .direcorist-search-field-review .directorist-checkbox {
   display: block;
 }
-.direcorist-search-field-review .directorist-checkbox [type=checkbox] + label {
-  display: block;
+.direcorist-search-field-review .directorist-checkbox input[type=checkbox] + label {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
   font-size: 13px;
   font-weight: 400;
   padding-right: 35px;
   color: var(--directorist-color-body);
 }
-.direcorist-search-field-review .directorist-checkbox [type=checkbox] + label:not(:last-child) {
+.direcorist-search-field-review .directorist-checkbox input[type=checkbox] + label:not(:last-child) {
   margin-bottom: 20px;
+}
+.direcorist-search-field-review .directorist-icon-mask:after {
+  width: 14px;
+  height: 14px;
+  background-color: var(--directorist-color-body);
+}
+.direcorist-search-field-review .directorist-icon-mask.star-empty:after {
+  background-color: var(--directorist-color-border-gray);
 }
 
 .directorist-price-ranges {

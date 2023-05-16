@@ -177,8 +177,10 @@
 .direcorist-search-field-review {
     .directorist-checkbox {
         display: block;
-        [type=checkbox] + label {
-            display: block;
+        input[type=checkbox] + label {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
             font-size: 13px;
             font-weight: 400;
             padding-left: 35px;
@@ -187,6 +189,15 @@
                 margin-bottom: 20px;
             }
         }
+    }
+
+    .directorist-icon-mask:after {
+        width: 14px;
+        height: 14px;
+        background-color: var(--directorist-color-body);
+    }
+    .directorist-icon-mask.star-empty:after {
+        background-color: var(--directorist-color-border-gray);
     }
 }
 

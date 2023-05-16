@@ -7772,7 +7772,7 @@ body.stop-scrolling {
   border-radius: 16px;
   cursor: pointer;
   color: var(--directorist-color-primary);
-  border: 3px solid var(--directorist-color-primary);
+  border: 3px solid var(--directorist-color-border-gray);
 }
 .directorist-form-listing-type .directorist-radio input[type=radio] + .directorist-radio__label small {
   display: block;
@@ -7789,6 +7789,9 @@ body.stop-scrolling {
   top: 25px;
   width: 18px;
   height: 18px;
+}
+.directorist-form-listing-type .directorist-radio input[type=radio]:checked + .directorist-radio__label {
+  border-color: var(--directorist-color-primary);
 }
 
 /* Pricing */

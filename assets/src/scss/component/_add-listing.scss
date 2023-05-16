@@ -192,33 +192,38 @@
     }
   }
 
-  .directorist-radio input[type="radio"] + .directorist-radio__label {
-    width: 100%;
-    padding: 25px;
-    font-size: 15px;
-    font-weight: 500;
-    padding-left: 55px;
-    border-radius: 16px;
-    cursor: pointer;
-    color: var(--directorist-color-primary);
-    border: 3px solid var(--directorist-color-primary);
-    small {
-      display: block;
-      margin-top: 5px;
-      font-weight: normal;
-      color: var(--directorist-color-success);
+  .directorist-radio input[type="radio"] {
+    + .directorist-radio__label {
+      width: 100%;
+      padding: 25px;
+      font-size: 15px;
+      font-weight: 500;
+      padding-left: 55px;
+      border-radius: 16px;
+      cursor: pointer;
+      color: var(--directorist-color-primary);
+      border: 3px solid var(--directorist-color-border-gray);
+      small {
+        display: block;
+        margin-top: 5px;
+        font-weight: normal;
+        color: var(--directorist-color-success);
+      }
+      &:before {
+        left: 31px;
+        top: 31px;
+      }
+      &:after {
+        left: 25px;
+        top: 25px;
+        width: 18px;
+        height: 18px;
+      }
     }
-    &:before {
-      left: 31px;
-      top: 31px;
+    &:checked + .directorist-radio__label{
+      border-color: var(--directorist-color-primary);
     }
-    &:after {
-      left: 25px;
-      top: 25px;
-      width: 18px;
-      height: 18px;
-    }
-  }
+  } 
 }
 
 /* Pricing */

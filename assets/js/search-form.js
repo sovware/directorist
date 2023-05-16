@@ -1606,43 +1606,34 @@ __webpack_require__.r(__webpack_exports__);
                   var res = '';
                   var currentIconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/paper-plane.svg';
                   var currentIconHTML = directorist.icon_markup.replace('##URL##', currentIconURL).replace('##CLASS##', '');
-                  var currentLocationIconHTML = "<span class=\"location-icon\">".concat(currentIconHTML, "</span>");
+                  var currentLocationIconHTML = "<span class='location-icon'>" + currentIconHTML + "</span>";
+                  var currentLocationAddressHTML = "<span class='location-address'></span>";
                   var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/map-marker-alt.svg';
                   var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
-                  var locationIconHTML = "<span class=\"location-icon\">".concat(iconHTML, "</span>");
+                  var locationIconHTML = "<span class='location-icon'>" + iconHTML + "</span>";
 
                   for (var i = 0, len = data.length; i < len; i++) {
                     res += "<li><a href=\"#\" data-lat=" + data[i].lat + "data-lon=" + data[i].lon + ">" + locationIconHTML + "<span class='location-address'>" + data[i].display_name, +"</span></a></li>";
                   }
 
-                  if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function (position) {
-                      var currentLatitude = position.coords.latitude;
-                      var currentLongitude = position.coords.longitude;
-                      var currentLocationURL = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=".concat(currentLatitude, "&lon=").concat(currentLongitude); // Call the Nominatim API
-
-                      fetch(currentLocationURL).then(function (response) {
-                        return response.json();
-                      }).then(function (data) {
-                        // Extract the address from the response
-                        var address = data.address;
-                        var currentLocation = "<span class='location-address'>" + address.amenity + ', ' + address.quarter + ', ' + address.road + ', ' + address.city + "</span>";
-                        result_container.html("<ul>" + "<li><a href='#' data-lat='" + currentLatitude + "' data-lon='" + currentLongitude + "' class='current-location'>" + currentLocationIconHTML + currentLocation + "</a></li>" + res + "</ul>");
-                      }).catch(function (error) {
-                        console.log(error);
-                      });
-
-                      if (res.length) {
-                        result_container.show();
-                      } else {
-                        result_container.hide();
+                  function displayLocation(position, event) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+                    var locIcon = event.target;
+                    $.ajax({
+                      url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
+                      type: 'POST',
+                      data: {},
+                      success: function success(data) {
+                        $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
+                        $('.directorist-location-js, .atbdp-search-address').attr("data-value", data.display_name);
+                        $('#cityLat').val(lat);
+                        $('#cityLng').val(lng);
                       }
-                    }, function (error) {
-                      console.log("Error getting location:", error);
                     });
                   }
 
-                  result_container.html("<ul>" + res + "</ul>");
+                  result_container.html("<ul>" + "<li><a href='#' class='current-location'>" + currentLocationIconHTML + currentLocationAddressHTML + "</a></li>" + res + "</ul>");
 
                   if (res.length) {
                     result_container.show();
@@ -1651,6 +1642,11 @@ __webpack_require__.r(__webpack_exports__);
                   }
 
                   locationAddressField.removeClass('atbdp-form-fade');
+                  $('body').on("click", '.address_result .current-location', function (e) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                      return displayLocation(position, e);
+                    });
+                  });
                 },
                 error: function error(_error3) {
                   console.log({

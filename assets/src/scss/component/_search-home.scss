@@ -437,17 +437,19 @@
                 height: 16px;
               }
             }
-            .location-address {
-              height: 40px;
-              overflow-y: auto;
-              margin-top: 3px;
-            }
             &.current-location {
               height: 50px;
               margin: 0 0 13px;
-              padding: 5px 8px;
+              padding: 0 8px;
+              align-items: center;
               color: var(--directorist-color-primary);
               background-color: var(--directorist-color-bg-gray);
+              .location-address {
+                position: relative;
+                &:before {
+                  content: 'Current Location';
+                }
+              }
             }
             &:hover {
               color: var(--directorist-color-primary);

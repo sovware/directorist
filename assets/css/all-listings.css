@@ -9904,17 +9904,22 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 16px;
   height: 16px;
 }
-.directorist-search-field .directorist-location-js + .address_result ul li a .location-address {
-  height: 40px;
-  overflow-y: auto;
-  margin-top: 3px;
-}
 .directorist-search-field .directorist-location-js + .address_result ul li a.current-location {
   height: 50px;
   margin: 0 0 13px;
-  padding: 5px 8px;
+  padding: 0 8px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: var(--directorist-color-primary);
   background-color: var(--directorist-color-bg-gray);
+}
+.directorist-search-field .directorist-location-js + .address_result ul li a.current-location .location-address {
+  position: relative;
+}
+.directorist-search-field .directorist-location-js + .address_result ul li a.current-location .location-address:before {
+  content: "Current Location";
 }
 .directorist-search-field .directorist-location-js + .address_result ul li a:hover {
   color: var(--directorist-color-primary);

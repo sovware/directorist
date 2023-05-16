@@ -201,3 +201,114 @@
     }
   }
 }
+
+//Widget Category/Location
+.directorist-widget-taxonomy{
+  .directorist-taxonomy-list-one{
+    margin-block-end: 10px;
+    .directorist-taxonomy-list{
+      @include e('card'){
+        background: none;
+        padding: 0;
+        min-height: auto;
+        span{
+          font-weight: var(--directorist-fw-normal);
+        }
+      }
+      @include e('icon'){
+        .directorist-icon-mask{
+          background: var(--directorist-color-light);
+        }
+      }
+    }
+    .directorist-taxonomy-list__icon-default{
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--directorist-color-light);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      &::after{
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--directorist-color-primary);
+        display: block;
+      }
+    }
+    .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item{
+      background: none;
+      padding-bottom: 0;
+      padding-inline-start: 52px;
+    }
+    .directorist-taxonomy-list__toggle--open:not(.directorist-taxonomy-list__card--icon) + .directorist-taxonomy-list__sub-item{
+      padding-inline-start: 25px;
+    }
+  }
+}
+.directorist-widget-location .directorist-taxonomy-list-one{
+  &:last-child{
+    margin-bottom: 0;
+  }
+  .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item {
+    padding-inline-start: 25px;
+  }
+}
+
+// Widget Tags
+.directorist-widget-tags{
+  ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  li{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  a{
+    text-decoration: none;
+    border: 1px solid var(--directorist-color-border);
+    padding: 5px 15px;
+    border-radius: var(--directorist-border-radius-xs);
+    display: block;
+    font-size: 15px;
+    font-weight: var(--directorist-fw-normal);
+  }
+}
+
+// Widget Advanced Search
+.directorist-widget-advanced-search{
+  .directorist-search-field-review{
+    .directorist-checkbox, .directorist-radio {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 15px;
+      flex-direction: column;
+    }
+  }
+  .directorist-btn-reset-js{
+    background: var(--directorist-color-light);
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 0 32px;
+    height: 46px;
+    text-transform: capitalize;
+    text-decoration: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .directorist-advanced-filter__action{
+    justify-content: center;
+    padding: 0 0;
+  }
+}

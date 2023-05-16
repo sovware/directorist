@@ -185,7 +185,7 @@ class All_Locations extends \WP_Widget {
 
         $terms = get_terms( $args );
         $parent = $args['parent'];
-        $child_class = !empty($parent) ? 'directorist-taxonomy-list__sub-item' : 'directorist-widget-location';
+        $child_class = !empty($parent) ? 'directorist-taxonomy-list__sub-item' : 'directorist-widget-taxonomy directorist-widget-location';
         $html = '';
 
         if( count( $terms ) > 0 ) {
@@ -193,7 +193,7 @@ class All_Locations extends \WP_Widget {
             $html .= '<div class="' .$child_class. '">';
             foreach( $terms as $term ) {
                 $child_category = get_term_children($term->term_id,ATBDP_LOCATION);
-                $plus_icon = (!empty($child_category) && empty($parent) ) ? directorist_icon( 'las la-plus', false ) : '';
+                $plus_icon = (!empty($child_category) && empty($parent) ) ? directorist_icon( 'las la-angle-down', false ) : '';
                 $settings['term_id'] = $term->term_id;
 
                 $count = 0;
@@ -214,7 +214,7 @@ class All_Locations extends \WP_Widget {
                     $total = ($count)?($count-$number_of_expired):$count;
                     $html .= '<span class="directorist-taxonomy-list__count">(' . $total . ')</span>';
                 }
-                $html .= '<span class="directorist-taxonomy-list__toggler">'. $plus_icon . '</span>';
+                $html .= $plus_icon ? '<span class="directorist-taxonomy-list__toggler">'. $plus_icon . '</span>' : '';
                 $html .= '</a>';
                 $html .= $this->list_locations( $settings );
                 $html .= '</div>';

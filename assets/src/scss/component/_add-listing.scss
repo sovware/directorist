@@ -852,6 +852,12 @@
 
 .directorist-form-privacy {
   margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--directorist-color-primary);
+  &.directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after {
+    border-color: var(--directorist-color-body);
+  }
 }
 
 .directorist-form-privacy,

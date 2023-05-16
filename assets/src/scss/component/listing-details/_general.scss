@@ -1,7 +1,7 @@
 // Report Modal
 .directorist-report-abuse-modal {
     .directorist-modal__header {
-        padding: 20px 0 !important;
+        padding: 20px 0 15px;
 
         .directorist-modal-title {
             font-size: 1.75rem;
@@ -41,7 +41,8 @@
     }
 
     .directorist-modal__body {
-        padding: 20px 0 !important;
+        padding: 20px 0;
+        border: none;
 
         label {
             font-size: 18px;
@@ -60,11 +61,15 @@
         }
     }
 
+    #directorist-report-abuse-message-display:empty {
+        margin: 0;
+    }
+
     .directorist-modal__footer {
-        padding: 20px 0 !important;
+        padding: 0;
         display: flex;
         justify-content: flex-end;
-
+        border: none;
         .directorist-btn {
             text-transform: capitalize;
             padding: 0 15px;

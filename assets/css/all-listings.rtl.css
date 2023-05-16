@@ -12645,6 +12645,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-body);
   margin: 0 6px 0 3px;
 }
+.directorist-rating-meta .directorist-total-review {
+  font-weight: 400;
+  color: var(--directorist-color-light-gray);
+}
 .directorist-rating-meta.directorist-info-item-rating i,
 .directorist-rating-meta.directorist-info-item-rating span.la,
 .directorist-rating-meta.directorist-info-item-rating span.fa {
@@ -13358,7 +13362,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 .directorist-report-abuse-modal .directorist-modal__header {
-  padding: 20px 0 !important;
+  padding: 20px 0 15px;
 }
 .directorist-report-abuse-modal .directorist-modal__header .directorist-modal-title {
   font-size: 1.75rem;
@@ -13401,7 +13405,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-decoration: none;
 }
 .directorist-report-abuse-modal .directorist-modal__body {
-  padding: 20px 0 !important;
+  padding: 20px 0;
+  border: none;
 }
 .directorist-report-abuse-modal .directorist-modal__body label {
   font-size: 18px;
@@ -13416,8 +13421,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-body);
   margin-top: 15px;
 }
+.directorist-report-abuse-modal #directorist-report-abuse-message-display:empty {
+  margin: 0;
+}
 .directorist-report-abuse-modal .directorist-modal__footer {
-  padding: 20px 0 !important;
+  padding: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -13426,6 +13434,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-justify-content: flex-end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+  border: none;
 }
 .directorist-report-abuse-modal .directorist-modal__footer .directorist-btn {
   text-transform: capitalize;

@@ -691,7 +691,7 @@ import { directorist_range_slider } from './range-slider';
                                     var locationIconHTML = "<span class=\"location-icon\">".concat(iconHTML, "</span>");
 
                                     for (let i = 0, len = data.length; i < len; i++) {
-                                        res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(locationIconHTML).concat(data[i].display_name, "</a></li>");
+                                        res += "<li><a href=\"#\" data-lat=" + data[i].lat + "data-lon=" + data[i].lon + ">" + locationIconHTML + "<span class='location-address'>" + data[i].display_name, + "</span></a></li>";
                                     }
 
                                     if (navigator.geolocation) {
@@ -700,13 +700,28 @@ import { directorist_range_slider } from './range-slider';
                                                 var currentLatitude = position.coords.latitude;
                                                 var currentLongitude = position.coords.longitude;
 
-                                                result_container.html("<ul>" +
+                                                const currentLocationURL = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${currentLatitude}&lon=${currentLongitude}`;
+
+                                                // Call the Nominatim API
+                                                fetch(currentLocationURL)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    // Extract the address from the response
+                                                    const address = data.address;
+                                                    var currentLocation = "<span class='location-address'>" + address.amenity +', ' + address.quarter +', ' + address.road +', ' + address.city + "</span>";
+
+                                                    result_container.html("<ul>" +
                                                     "<li><a href='#' data-lat='" + currentLatitude + "' data-lon='" + currentLongitude + "' class='current-location'>" +
-                                                    currentLocationIconHTML +
-                                                    "Current Location" +
+                                                    currentLocationIconHTML + currentLocation +
                                                     "</a></li>" +
                                                     res +
                                                     "</ul>");
+                                                })
+                                                .catch(error => {
+                                                    console.log(error);
+                                                });
+
+                                                
                                                 if (res.length) {
                                                     result_container.show();
                                                 } else {

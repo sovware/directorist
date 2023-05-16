@@ -11875,25 +11875,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-overflow: ellipsis;
 }
 
-.directorist-related .directorist-listing-single,
-.directorist-archive-contents .directorist-listing-single,
-.directorist-author-listing-content .directorist-listing-single {
-  width: 100%;
-  border-radius: 12px;
-  background: var(--directorist-color-white);
-  -webkit-box-shadow: var(--directorist-box-shadow);
-          box-shadow: var(--directorist-box-shadow);
-}
-.directorist-related .directorist-listing-single__info,
-.directorist-archive-contents .directorist-listing-single__info,
-.directorist-author-listing-content .directorist-listing-single__info {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
 .directorist-listing-single {
   font-size: 15px;
   margin-bottom: 15px;
@@ -11921,6 +11902,20 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-listing-single .directorist-badge.directorist-badge-sold {
   background-color: var(--directorist-color-danger);
+}
+.directorist-listing-single--bg {
+  width: 100%;
+  border-radius: 12px;
+  background: var(--directorist-color-white);
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
+}
+.directorist-listing-single--bg .directorist-listing-single__info {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 .directorist-listing-single__content {
   border-radius: 4px;

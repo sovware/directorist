@@ -17,7 +17,7 @@ import { directorist_range_slider } from './range-slider';
 
         function defaultTags() {
             $('.directorist-btn-ml').each((index, element) => {
-                let item = $(element).siblings('.atbdp_cf_checkbox, .direcorist-search-field-tag, .directorist-search-tags');
+                let item = $(element).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
                 var abc2 = $(item).find('.directorist-checkbox');
                 $(abc2).slice(4, abc2.length).fadeOut();
                 if(abc2.length <= 4){
@@ -30,7 +30,7 @@ import { directorist_range_slider } from './range-slider';
 
         $('body').on('click', '.directorist-btn-ml', function (event) {
             event.preventDefault();
-            var item = $(this).siblings('.atbdp_cf_checkbox, .direcorist-search-field-tag, .directorist-search-tags');
+            var item = $(this).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
             var abc2 = $(item).find('.directorist-checkbox ');
             $(abc2).slice(4, abc2.length).fadeOut();
 
@@ -188,7 +188,7 @@ import { directorist_range_slider } from './range-slider';
                         adsFormReset(searchForm);
                     }
                 }
-                if($(this).closest('.directorist-search-contents').find('.direcorist-search-field-radius_search').length){
+                if($(this).closest('.directorist-search-contents').find('.directorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
                 }
 
@@ -205,7 +205,7 @@ import { directorist_range_slider } from './range-slider';
                         adsFormReset(searchForm);
                     }
                 }
-                if($(this).closest('.directorist-advanced-filter').find('.direcorist-search-field-radius_search').length){
+                if($(this).closest('.directorist-advanced-filter').find('.directorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
                 }
             });
@@ -226,7 +226,7 @@ import { directorist_range_slider } from './range-slider';
                         adsFormReset(searchForm);
                     }
                 }
-                if($(this).closest('.directorist-search-contents').find('.direcorist-search-field-radius_search').length){
+                if($(this).closest('.directorist-search-contents').find('.directorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
                 }
             });
@@ -242,7 +242,7 @@ import { directorist_range_slider } from './range-slider';
                         adsFormReset(searchForm);
                     }
                 }
-                if($(this).closest('#directorist-search-area').find('.direcorist-search-field-radius_search').length){
+                if($(this).closest('#directorist-search-area').find('.directorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
                 }
             });
@@ -258,7 +258,7 @@ import { directorist_range_slider } from './range-slider';
                         adsFormReset(searchForm);
                     }
                 }
-                if($(this).closest('.search-area').find('.direcorist-search-field-radius_search').length){
+                if($(this).closest('.search-area').find('.directorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
                 }
             });
@@ -338,7 +338,7 @@ import { directorist_range_slider } from './range-slider';
                     const parentAfterAjax = $(this).closest('.directorist-search-contents');
 
                     parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
-                    if(parentAfterAjax.find('.directorist-search-form-box').find('.direcorist-search-field-radius_search').length){
+                    if(parentAfterAjax.find('.directorist-search-form-box').find('.directorist-search-field-radius_search').length){
                         handleRadiusVisibility()
                         directorist_callingSlider();
                     }
@@ -686,7 +686,7 @@ import { directorist_range_slider } from './range-slider';
                                     var currentIconHTML = directorist.icon_markup.replace('##URL##', currentIconURL).replace('##CLASS##', '');
                                     var currentLocationIconHTML = "<span class='location-icon'>" + currentIconHTML + "</span>";
                                     var currentLocationAddressHTML = "<span class='location-address'></span>";
-                                    
+
                                     var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/map-marker-alt.svg';
                                     var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
                                     var locationIconHTML = "<span class='location-icon'>"+ iconHTML +"</span>";
@@ -725,7 +725,7 @@ import { directorist_range_slider } from './range-slider';
                                     }
 
                                     locationAddressField.removeClass('atbdp-form-fade');
-                            
+
                                     $('body').on("click", '.address_result .current-location', function (e) {
                                         navigator.geolocation.getCurrentPosition(function (position) {
                                             return displayLocation(position, e);
@@ -805,7 +805,7 @@ import { directorist_range_slider } from './range-slider';
             var searchModalParent = document.querySelector('.directorist-contents-wrap');
             var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
             var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
-            
+
             // Overlay Style
             modalOverlay.style.opacity="1";
             modalOverlay.style.visibility = "visible";
@@ -824,7 +824,7 @@ import { directorist_range_slider } from './range-slider';
             var searchModalParent = document.querySelector('.directorist-contents-wrap');
             var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
             var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
-            
+
             // Overlay Style
             modalOverlay.style.opacity="0";
             modalOverlay.style.visibility = "hidden";
@@ -839,12 +839,12 @@ import { directorist_range_slider } from './range-slider';
 
         /* When location field is empty we need to hide Radius Search */
         function handleRadiusVisibility(){
-            $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
+            $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
             $('.directorist-location-js').each((index,locationDom)=>{
                 if($(locationDom).val() === ''){
-                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "none"});
+                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.directorist-search-field-radius_search').css({display: "none"});
                 }else{
-                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "block"});
+                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.directorist-search-field-radius_search').css({display: "block"});
                     directorist_callingSlider();
                 }
             });

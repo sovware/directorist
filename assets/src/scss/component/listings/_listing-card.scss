@@ -603,7 +603,7 @@
                 }
             }
         }
-        
+
         .directorist-listing-single__info--right {
             .directorist-badge {
                 margin: 0;
@@ -658,15 +658,15 @@
                 padding: 0 5px;
                 border-radius: 4px;
             }
-    
+
             &.directorist-badge-popular {
                 background-color: var(--directorist-color-white);
             }
-    
+
             &.directorist-badge-new {
                 background-color: var(--directorist-color-white);
             }
-    
+
             &.directorist-badge-featured {
                 background-color: var(--directorist-color-white);
             }
@@ -851,15 +851,14 @@
                     list-style: none;
                     padding: 0;
                     margin: 0;
-    
+
                     li {
                         color: var(--directorist-color-body);
                         margin: 0;
-    
                         &:not(:last-child) {
                             margin: 0 0 10px;
                         }
-    
+
                         > div {
                             margin-bottom: 2px;
                             font-size: 14px;
@@ -873,13 +872,13 @@
                                 display: none;
                             }
                         }
-    
+
                         .directorist-icon {
                             font-size: 17px;
                             color: #444752;
                             margin-right: 8px;
                         }
-    
+
                         a {
                             text-decoration: none;
                             color: var(--directorist-color-body);

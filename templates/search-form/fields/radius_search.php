@@ -11,7 +11,7 @@ $default_distance = $data['default_radius_distance'];
 $value = !empty($_REQUEST['miles']) ? sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ) : $default_distance;
 ?>
 
-<div class="directorist-search-field direcorist-search-field-radius_search">
+<div class="directorist-search-field directorist-search-field-radius_search">
 
 	<?php if (!empty($data['label'])) : ?>
 		<label><?php echo esc_html($data['label']); ?></label>

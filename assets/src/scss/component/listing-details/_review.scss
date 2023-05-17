@@ -503,7 +503,7 @@ Review: New Style
 .directorist-review-content {
     @include e(pagination) {
         padding: 0;
-        margin: 25px 0 0;
+        margin: 25px 0 35px;
         ul {
             border: 0 none;
             display: flex;
@@ -559,7 +559,7 @@ Review: New Style
         }
     }
 
-    
+
     .directorist-review-single__header {
         display: flex;
         align-items: center;
@@ -633,7 +633,7 @@ Review: New Style
             color: var(--directorist-color-body);
         }
     }
-    
+
 
     @include e(feedback) {
         display: flex;
@@ -667,7 +667,7 @@ Review: New Style
                     background-color: var(--directorist-color-deep-gray);;
                 }
             }
-            
+
         }
     }
 

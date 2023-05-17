@@ -5773,6 +5773,7 @@ img.atbdp-file-info {
   border-radius: 5px;
   padding: 5px 10px 12px;
   background: transparent;
+  color: var(--directorist-color-body);
 }
 .directorist-content-module__contents .directorist-form-description-field .html-active .switch-html,
 .directorist-content-module__contents .directorist-form-description-field .tmce-active .switch-tmce {
@@ -10030,6 +10031,7 @@ for shortable field*/
   color: var(--directorist-color-deep-gray);
   border: none;
   border-radius: 0;
+  background: transparent;
   border-bottom: 1px solid var(--directorist-color-border-gray);
 }
 .directorist-form-group .directorist-form-element:focus {
@@ -10717,6 +10719,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           justify-content: center;
   width: 40px;
   height: 40px;
+  padding: 0;
   background-color: var(--directorist-color-light);
   border-radius: 100%;
   border: none;
@@ -11071,15 +11074,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-radio input[type=checkbox] + .directorist-radio__label:after,
 .directorist-radio input[type=radio] + .directorist-checkbox__label:after,
 .directorist-radio input[type=radio] + .directorist-radio__label:after {
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
   width: 16px;
   height: 16px;
   border-radius: 5px;
-  content: "";
+  background: transparent;
   border: 2px solid var(--directorist-color-gray);
-  background-color: #fff;
+  background-color: transparent;
 }
 .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox input[type=radio]:checked + .directorist-checkbox__label:after,

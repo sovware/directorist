@@ -349,6 +349,7 @@
   border-radius: 5px;
   padding: 5px 10px 12px;
   background: transparent;
+  color: var(--directorist-color-body);
 }
 .directorist-content-module__contents .directorist-form-description-field .html-active .switch-html,
 .directorist-content-module__contents .directorist-form-description-field .tmce-active .switch-tmce {
@@ -7525,6 +7526,7 @@ p.atbd-min {
           justify-content: center;
   width: 40px;
   height: 40px;
+  padding: 0;
   background-color: var(--directorist-color-light);
   border-radius: 100%;
   border: none;
@@ -7671,6 +7673,7 @@ p.atbd-min {
   color: var(--directorist-color-deep-gray);
   border: none;
   border-radius: 0;
+  background: transparent;
   border-bottom: 1px solid var(--directorist-color-border-gray);
 }
 .directorist-form-group .directorist-form-element:focus {
@@ -7966,15 +7969,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-radio input[type=checkbox] + .directorist-radio__label:after,
 .directorist-radio input[type=radio] + .directorist-checkbox__label:after,
 .directorist-radio input[type=radio] + .directorist-radio__label:after {
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
   width: 16px;
   height: 16px;
   border-radius: 5px;
-  content: "";
+  background: transparent;
   border: 2px solid var(--directorist-color-gray);
-  background-color: #fff;
+  background-color: transparent;
 }
 .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox input[type=radio]:checked + .directorist-checkbox__label:after,
@@ -9425,10 +9429,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   left: 0;
 }
 
-.direcorist-search-field-review .directorist-checkbox {
+.directorist-search-field-review .directorist-checkbox {
   display: block;
 }
-.direcorist-search-field-review .directorist-checkbox input[type=checkbox] + label {
+.directorist-search-field-review .directorist-checkbox input[type=checkbox] + label {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -9447,21 +9451,21 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding-left: 35px;
   color: var(--directorist-color-body);
 }
-.direcorist-search-field-review .directorist-checkbox input[type=checkbox] + label:not(:last-child) {
+.directorist-search-field-review .directorist-checkbox input[type=checkbox] + label:not(:last-child) {
   margin-bottom: 20px;
 }
-.direcorist-search-field-review .directorist-checkbox input[type=checkbox] + label:before {
+.directorist-search-field-review .directorist-checkbox input[type=checkbox] + label:before {
   top: 3px;
 }
-.direcorist-search-field-review .directorist-checkbox input[type=checkbox] + label:after {
+.directorist-search-field-review .directorist-checkbox input[type=checkbox] + label:after {
   top: -2px;
 }
-.direcorist-search-field-review .directorist-checkbox .directorist-icon-mask:after {
+.directorist-search-field-review .directorist-checkbox .directorist-icon-mask:after {
   width: 14px;
   height: 14px;
   background-color: var(--directorist-color-body);
 }
-.direcorist-search-field-review .directorist-checkbox .directorist-icon-mask.star-empty:after {
+.directorist-search-field-review .directorist-checkbox .directorist-icon-mask.star-empty:after {
   background-color: var(--directorist-color-border-gray);
 }
 

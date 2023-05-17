@@ -24,15 +24,16 @@
             box-sizing: content-box;
 
             &:after{
+                content: "";
                 position: absolute;
                 left: 0;
                 top: 0;
                 width: 16px;
                 height: 16px;
                 border-radius: 5px;
-                content: "";
+                background: transparent;
                 border: 2px solid var(--directorist-color-gray);
-                background-color: #fff;
+                background-color: transparent;
             }
         }
 

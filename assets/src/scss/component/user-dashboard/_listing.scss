@@ -30,17 +30,13 @@
                 background-color: #F8F9FA;
                 border-radius: 5px;
 
-                .directorist-dashboard-items-list__single--action{
-
-                    .directorist-favourite-remove-btn{
-                        opacity: 1;
-                        visibility: visible;
-                    }
+                .directorist-dashboard-items-list__single--action .directorist-favourite-remove-btn{
+                    opacity: 1;
+                    visibility: visible;
                 }
             }
 
             .directorist-listing-img{
-
                 margin-right: 20px;
 
                 @media only screen and (max-width: 479px) {
@@ -55,13 +51,11 @@
             }
 
             .directorist-listing-content{
-
                 @media only screen and (max-width: 479px) {
                     margin-top: 10px;
                 }
 
                 .directorist-listing-title{
-
                     font-size: 15px;
                     font-weight: 500;
                     margin: 0 0 6px;
@@ -98,6 +92,15 @@
 
             @include m(action){
                 .directorist-favourite-remove-btn{
+                    font-weight: 500;
+                    display: inline-flex;
+                    align-items: center;
+                    border-radius: 6px;
+                    padding: 0px 14px;
+                    color: #fff !important;
+                    line-height: 2.65;
+                    opacity: 0;
+                    visibility: hidden;
                     .directorist-icon-mask{
                         margin-right: 5px;
                         &:after{
@@ -109,16 +112,6 @@
                     > i:not(.directorist-icon-mask){
                         margin-right: 5px;
                     }
-
-                    font-weight: 500;
-                    display: inline-flex;
-                    align-items: center;
-                    border-radius: 6px;
-                    padding: 0px 14px;
-                    color: #fff !important;
-                    line-height: 2.65;
-                    opacity: 0;
-                    visibility: hidden;
 
                     @media only screen and (max-width: 991px) {
                         opacity: 1;

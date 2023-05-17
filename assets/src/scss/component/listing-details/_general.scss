@@ -131,10 +131,8 @@
                 top:0;
             }
 
-            &.directorist-rate-active {
-               &:before{
-                background-color: #fa8b0c;
-               }
+            &.directorist-rate-active::before{
+            background-color: #fa8b0c;
             }
         }
     }
@@ -151,10 +149,8 @@
     }
 }
 
-.directorist-listing-details {
-    .directorist-listing-single {
-        border: 0 none;
-    }
+.directorist-listing-details .directorist-listing-single {
+    border: 0 none;
 }
 
 .directorist-single-listing-notice {
@@ -217,4 +213,4 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 1.2;
-  }
+}

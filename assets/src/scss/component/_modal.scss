@@ -36,60 +36,62 @@
     pointer-events: auto;
     border-radius: 16px;
     position: relative;
-    .directorist-modal__header{
-        position: relative;
-        padding: 15px;
-        border-bottom: 1px solid var(--directorist-color-border-gray);
-        .directorist-modal__header--title{
-            font-size: 20px;
-            font-weight: 500;
-            margin: 0;
-            color: var(--directorist-color-dark);
+    .directorist-modal {
+        @include e(header) {
+            position: relative;
+            padding: 15px;
+            border-bottom: 1px solid var(--directorist-color-border-gray);
+            @include e(title) {
+                font-size: 20px;
+                font-weight: 500;
+                margin: 0;
+                color: var(--directorist-color-dark);
+            }
+            .directorist-modal-close{
+                position: absolute;
+                width: 28px;
+                height: 28px;
+                right: 25px;
+                top: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                line-height: 1.45;
+                padding: 6px;
+                text-decoration: none;
+                transition: .2s background-color ease-in-out;
+                background-color: var(--directorist-color-bg-light);
+                &:hover{
+                    background-color: var(--directorist-color-light-hover);
+                }
+            }
         }
-        .directorist-modal-close{
-            position: absolute;
-            width: 28px;
-            height: 28px;
-            right: 25px;
-            top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            line-height: 1.45;
-            padding: 6px;
-            text-decoration: none;
-            transition: .2s background-color ease-in-out;
-            background-color: var(--directorist-color-bg-light);
-            &:hover{
-                background-color: var(--directorist-color-light-hover);
+        @include e(body) {
+            padding: 25px 40px;
+        }
+        @include e(footer) {
+            border-top: 1px solid var(--directorist-color-border-gray);
+            padding: 18px;
+            .directorist-modal__action{
+                display: flex;
+                justify-content: flex-end;
+                margin: -7.5px;
+                button{
+                    margin: 7.5px;
+                }
+            }
+        }
+        .directorist-form-group{
+            label{
+                font-size: 16px;
+            }
+            .directorist-form-element{
+                resize: none;
             }
         }
     }
-    .directorist-modal__body{
-        padding: 25px 40px;
-    }
-    .directorist-modal__footer{
-        border-top: 1px solid var(--directorist-color-border-gray);
-        padding: 18px;
-        .directorist-modal__action{
-            display: flex;
-            justify-content: flex-end;
-            margin: -7.5px;
-            button{
-                margin: 7.5px;
-            }
-        }
-    }
-
-    .directorist-form-group{
-        label{
-            font-size: 16px;
-        }
-        .directorist-form-element{
-            resize: none;
-        }
-    }
+    
 }
 .directorist-modal__dialog.directorist-modal--lg {
     width: 800px;

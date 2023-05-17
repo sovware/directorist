@@ -76,25 +76,21 @@
         vertical-align: middle;
     }
 
-    .directorist-review-current-rating__stars {
-        ul {
-            li {
-                display: inline-block;
+    .directorist-review-current-rating__stars ul li {
+        display: inline-block;
 
-                span {
-                    color: #d4d3f3;
+        span {
+            color: #d4d3f3;
 
-                    &:before {
-                        content: "\f005";
-                        font-size: 14px;
-                        font-family: 'Font Awesome 5 Free';
-                        font-weight: 900;
-                    }
+            &:before {
+                content: "\f005";
+                font-size: 14px;
+                font-family: 'Font Awesome 5 Free';
+                font-weight: 900;
+            }
 
-                    &.directorist-rate-active {
-                        color: #fa8b0c;
-                    }
-                }
+            &.directorist-rate-active {
+                color: #fa8b0c;
             }
         }
     }
@@ -149,15 +145,9 @@
             }
         }
 
-        .directorist-rated-stars {
-            ul {
-                li {
-                    span {
-                        &.directorist-rate-active {
-                            color: #fa8b0c;
-                        }
-                    }
-                }
+        .directorist-rated-stars ul li span {
+            &.directorist-rate-active {
+                color: #fa8b0c;
             }
         }
     }
@@ -171,82 +161,81 @@
         align-items: center;
         margin: -5px;
         padding: 0;
+    }
+    li {
+        flex: none;
+        margin: 5px;
+        padding: 0 10px;
+        border: 1px solid var(--directorist-color-border);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 28px;
+        border-radius: 3px;
+        transition: 0.3s ease;
+        background: #fff;
 
-        li {
-            flex: none;
-            margin: 5px;
-            padding: 0 10px;
-            border: 1px solid var(--directorist-color-border);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        i {
             line-height: 28px;
-            border-radius: 3px;
-            transition: 0.3s ease;
-            background: #fff;
+        }
 
-            i {
-                line-height: 28px;
-            }
+        &.atbd-active {
+            cursor: pointer;
 
-            &.atbd-active {
-                cursor: pointer;
-
-                &:hover {
-                    border-color: var(--directorist-color-primary);
-                    color: var(--directorist-color-primary);
-                }
-            }
-
-            &.atbd-selected {
+            &:hover {
                 border-color: var(--directorist-color-primary);
                 color: var(--directorist-color-primary);
             }
+        }
 
-            &.atbd-inactive {
-                opacity: 0.5;
+        &.atbd-selected {
+            border-color: var(--directorist-color-primary);
+            color: var(--directorist-color-primary);
+        }
+
+        &.atbd-inactive {
+            opacity: 0.5;
+        }
+
+        &[class^="atbd-page-jump-"] {
+            min-width: 30px;
+            min-height: 30px;
+            position: relative;
+            cursor: pointer;
+
+            .la {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
             }
 
-            &[class^="atbd-page-jump-"] {
-                min-width: 30px;
-                min-height: 30px;
-                position: relative;
-                cursor: pointer;
+            .la_h {
+                visibility: hidden;
+                opacity: 0;
+                left: 70%;
+                transition: 0.3s ease;
+            }
 
-                .la {
-                    position: absolute;
-                    left: 50%;
-                    top: 50%;
-                    transform: translate(-50%, -50%);
-                }
+            .la_d {
+                visibility: visible;
+                opacity: 1;
+                transition: 0.3s ease;
+            }
+
+            &:hover {
+                color: var(--directorist-color-primary);
 
                 .la_h {
-                    visibility: hidden;
-                    opacity: 0;
-                    left: 70%;
-                    transition: 0.3s ease;
+                    visibility: visible;
+                    opacity: 1;
+                    left: 50%;
                 }
 
                 .la_d {
-                    visibility: visible;
-                    opacity: 1;
-                    transition: 0.3s ease;
-                }
-
-                &:hover {
-                    color: var(--directorist-color-primary);
-
-                    .la_h {
-                        visibility: visible;
-                        opacity: 1;
-                        left: 50%;
-                    }
-
-                    .la_d {
-                        visibility: hidden;
-                        opacity: 0;
-                        left: 30%;
-                    }
+                    visibility: hidden;
+                    opacity: 0;
+                    left: 30%;
                 }
             }
         }
@@ -361,12 +350,10 @@ Review: New Style
                     margin-bottom: 5px;
                     color: var(--directorist-color-warning);
                 }
-                .directorist-icon-mask{
-                    &::after{
-                        width: 16px;
-                        height: 16px;
-                        background-color: var(--directorist-color-warning);
-                    }
+                .directorist-icon-mask::after{
+                    width: 16px;
+                    height: 16px;
+                    background-color: var(--directorist-color-warning);
                 }
 
                 .directorist-rating-overall {
@@ -458,7 +445,7 @@ Review: New Style
 
             .directorist-comment-edit-request {
                 position: relative;
-                &::after {
+                &:after {
                     content: "";
                     display: block;
                     position: absolute;
@@ -471,7 +458,7 @@ Review: New Style
                     border-radius: 4px;
                 }
 
-                &::before {
+                &:before {
                     position: absolute;
                     z-index: 100;
                     left: 50%;
@@ -514,27 +501,27 @@ Review: New Style
             list-style-type: none;
             height: auto;
             background: none;
-            li {
-                padding: 4px;
-                list-style-type: none;
+        }
+        li {
+            padding: 4px;
+            list-style-type: none;
 
-                .page-numbers {
-                    width: 40px;
-                    height: 40px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 6px;
-                    border: 1px solid #E1E4EC;
-                    color: #090E30;
-                    font-weight: 500;
-                    font-size: 14px;
-                    background: #fff;
-                }
+            .page-numbers {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                border: 1px solid #E1E4EC;
+                color: #090E30;
+                font-weight: 500;
+                font-size: 14px;
+                background: #fff;
+            }
 
-                .page-numbers.current {
-                    border-color: #090E30;
-                }
+            .page-numbers.current {
+                border-color: #090E30;
             }
         }
     }
@@ -558,9 +545,7 @@ Review: New Style
             font-style: normal;
         }
     }
-
-    
-    .directorist-review-single__header {
+    @include e(header) {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -568,7 +553,7 @@ Review: New Style
         margin-bottom: 20px;
     }
 
-    .directorist-review-single__author {
+    @include e(author) {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -619,7 +604,7 @@ Review: New Style
         }
     }
 
-    .directorist-review-single__report {
+    @include e(report) {
         a {
             font-size: 13px;
             color: #8C90A4;
@@ -627,7 +612,7 @@ Review: New Style
         }
     }
 
-    .directorist-review-single__content {
+    @include e(content) {
         p{
             font-size: 1rem;
             color: var(--directorist-color-body);
@@ -759,39 +744,38 @@ Review: New Style
 
                 .br-widget {
                     margin: -1px;
+                }
+                a {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 4px;
+                    background: #E1E4EC;
+                    margin: 1px;
+                    text-decoration: none;
+                    outline: 0;
 
-                    a {
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 24px;
-                        height: 24px;
-                        border-radius: 4px;
-                        background: #E1E4EC;
-                        margin: 1px;
+                    &:before {
+                        content: "";
+                        mask-image: url("../../../../icons/line-awesome/svgs/star-solid.svg");
+                        mask-repeat: no-repeat;
+                        width: 14px;
+                        height: 14px;
+                        background-color: #fff;
+                    }
+                    &:focus{
+                        background: #E1E4EC !important;
+                        text-decoration: none !important;
+                        outline: 0;
+                    }
+
+                    &.br-selected,
+                    &.br-active {
+                        background: #fa8b0c !important;
                         text-decoration: none;
                         outline: 0;
-
-                        &:before {
-                            content: "";
-                            mask-image: url("../../../../icons/line-awesome/svgs/star-solid.svg");
-                            mask-repeat: no-repeat;
-                            width: 14px;
-                            height: 14px;
-                            background-color: #fff;
-                        }
-                        &:focus{
-                            background: #E1E4EC !important;
-                            text-decoration: none !important;
-                            outline: 0;
-                        }
-
-                        &.br-selected,
-                        &.br-active {
-                            background: #fa8b0c !important;
-                            text-decoration: none;
-                            outline: 0;
-                        }
                     }
                 }
 
@@ -877,42 +861,41 @@ Review: New Style
             .directorist-review-img-gallery {
                 display: flex;
                 flex-wrap: wrap;
-                margin: -5px -5px -5px 5px;
+                gap: 5px;
+            }
 
-                .directorist-review-gallery-preview {
-                    position: relative;
-                    margin: 5px;
+            .directorist-review-gallery-preview {
+                position: relative;
 
-                    &:hover{
-                        .directorist-btn-delete{
-                            opacity: 1;
-                            visibility: visible;
-                        }
-                    }
-
-                    img {
-                        width: 115px;
-                        height: 100px;
-                        max-width: 115px;
-                        object-fit: cover;
-                        border-radius: 8px;
-                    }
-
+                &:hover{
                     .directorist-btn-delete{
-                        position: absolute;
-                        top: 6px;
-                        right: 6px;
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        height: 30px;
-                        width: 30px;
-                        border-radius: 50%;
-                        color: #fff;
-                        background-color: var(--directorist-color-danger);
-                        opacity: 0;
-                        visibility: hidden;
+                        opacity: 1;
+                        visibility: visible;
                     }
+                }
+
+                img {
+                    width: 115px;
+                    height: 100px;
+                    max-width: 115px;
+                    object-fit: cover;
+                    border-radius: 8px;
+                }
+
+                .directorist-btn-delete{
+                    position: absolute;
+                    top: 6px;
+                    right: 6px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 30px;
+                    width: 30px;
+                    border-radius: 50%;
+                    color: #fff;
+                    background-color: var(--directorist-color-danger);
+                    opacity: 0;
+                    visibility: hidden;
                 }
             }
         }

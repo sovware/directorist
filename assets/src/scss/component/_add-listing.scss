@@ -650,7 +650,6 @@
             border-top: 2px solid #656a7a;
             width: 20px;
             height: 20px;
-            -webkit-animation: rotate360 2s linear infinite;
             animation: rotate360 2s linear infinite;
             display: inline-block;
             margin: 0 0 0 10px;
@@ -730,22 +729,18 @@
     }
   }
 
-  .leaflet-pane {
-    .leaflet-marker-icon {
-      .atbd_map_shape {
-        width: 50px;
-        height: 50px;
-        &:before {
-          left: -25px;
-          top: -25px;
-          border: 50px solid rgba(0, 0, 0, 0.20);
-        }
-        .directorist-icon-mask::after {
-          width: 12px;
-          height: 20px;
-          background: var(--directorist-color-white);
-        }
-      }
+  .leaflet-pane .leaflet-marker-icon .atbd_map_shape {
+    width: 50px;
+    height: 50px;
+    &:before {
+      left: -25px;
+      top: -25px;
+      border: 50px solid rgba(0, 0, 0, 0.20);
+    }
+    .directorist-icon-mask::after {
+      width: 12px;
+      height: 20px;
+      background: var(--directorist-color-white);
     }
   }
 }
@@ -876,40 +871,26 @@
   justify-content: center;
 }
 
-#listing_form_info {
-  .directorist-bh-wrap {
-    .directorist-select {
-      select {
-        width: calc(100% - 1px);
-        min-height: 42px;
-        display: block !important;
-        border-color: #ececec !important;
-        padding: 0 10px;
-      }
-    }
+#listing_form_info .directorist-bh-wrap .directorist-select select {
+  width: calc(100% - 1px);
+  min-height: 42px;
+  display: block !important;
+  border-color: #ececec !important;
+  padding: 0 10px;
+}
+
+.directorist-map-field #floating-panel {
+  margin-bottom: 20px;
+
+  #delete_marker {
+    background-color: var(--directorist-color-danger);
+    border: 1px solid var(--directorist-color-danger);
+    color: #fff;
   }
 }
 
-.directorist-map-field {
-  #floating-panel {
-    margin-bottom: 20px;
-
-    #delete_marker {
-      background-color: var(--directorist-color-danger);
-      border: 1px solid var(--directorist-color-danger);
-      color: #fff;
-    }
-  }
-}
-
-#listing_form_info {
-  .atbd_content_module {
-    &.atbd-booking-information {
-      .atbdb_content_module_contents {
-        padding-top: 20px;
-      }
-    }
-  }
+#listing_form_info .atbd_content_module.atbd-booking-information .atbdb_content_module_contents {
+  padding-top: 20px;
 }
 
 // Custome Field Checkbox & Radio

@@ -3828,7 +3828,7 @@ body.stop-scrolling {
 }
 .directorist-add-listing-form__action #listing_notifier {
   padding: 0 40px;
-  margin: 0 0 20px;
+  margin: 30px 0 20px;
   font-weight: 600;
   color: var(--directorist-color-danger);
 }
@@ -3837,7 +3837,7 @@ body.stop-scrolling {
 }
 .directorist-add-listing-form__action .directorist-form-group,
 .directorist-add-listing-form__action .directorist-checkbox {
-  padding: 0 40px 35px;
+  padding: 30px 40px 0;
   margin: 0;
 }
 .directorist-add-listing-form__action .directorist-form-group label,
@@ -3855,7 +3855,7 @@ body.stop-scrolling {
 }
 .directorist-add-listing-form__publish {
   padding: 100px 0;
-  margin-bottom: 30px;
+  margin-bottom: 0;
   text-align: center;
   border-bottom: 1px solid var(--directorist-color-border);
 }
@@ -4216,6 +4216,7 @@ body.stop-scrolling {
   cursor: pointer;
   font-size: 14px;
   border-radius: 12px;
+  text-decoration: unset;
   color: var(--directorist-color-light-gray);
   background-color: transparent;
   -webkit-transition: all 0.3s ease-in-out;
@@ -4272,6 +4273,9 @@ body.stop-scrolling {
 }
 .multistep-wizard__nav__btn.active:before, .multistep-wizard__nav__btn:hover:before {
   opacity: 1;
+}
+.multistep-wizard__nav__btn:focus {
+  text-decoration: unset;
 }
 .multistep-wizard__nav__btn.completed {
   color: var(--directorist-color-dark);
@@ -4361,6 +4365,7 @@ body.stop-scrolling {
 .multistep-wizard__btn {
   width: 200px;
   height: 54px;
+  min-height: unset;
   gap: 12px;
   border: none;
   outline: none;
@@ -4385,6 +4390,17 @@ body.stop-scrolling {
   width: 14px;
   height: 14px;
   background-color: var(--directorist-color-primary);
+}
+.multistep-wizard__btn--save-preview {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
+.multistep-wizard__btn--save-preview.directorist-btn {
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
 }
 .multistep-wizard__btn--skip-preview {
   -webkit-box-flex: 0;

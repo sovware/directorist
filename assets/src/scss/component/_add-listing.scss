@@ -668,7 +668,7 @@
   
     #listing_notifier {
       padding: 0 40px;
-      margin: 0 0 20px;
+      margin: 30px 0 20px;
       font-weight: 600;
       color: var(--directorist-color-danger);
       .atbdp_success {
@@ -678,7 +678,7 @@
   
     .directorist-form-group,
     .directorist-checkbox {
-      padding: 0 40px 35px;
+      padding: 30px 40px 0;
       margin: 0;
       label {
         font-size: 14px;
@@ -698,7 +698,7 @@
   // Publish Text
   @include e(publish) {
     padding: 100px 0;
-    margin-bottom: 30px;
+    margin-bottom: 0;
     text-align: center;
     border-bottom: 1px solid var(--directorist-color-border);
     @include e(icon) {
@@ -976,6 +976,7 @@
       cursor: pointer;
       font-size: 14px;
       border-radius: 12px;
+      text-decoration: unset;
       color: var(--directorist-color-light-gray);
       background-color: transparent;
       transition: all 0.3s ease-in-out;
@@ -1017,6 +1018,9 @@
         &:before{
           opacity: 1;
         }
+      }
+      &:focus {
+        text-decoration: unset;
       }
       &.completed {
         color: var(--directorist-color-dark);
@@ -1089,6 +1093,7 @@
   @include e(btn) {
     width: 200px;
     height: 54px;
+    min-height: unset;
     gap: 12px;
     border: none;
     outline: none;
@@ -1115,6 +1120,14 @@
         width: 14px;
         height: 14px;
         background-color: var(--directorist-color-primary);
+      }
+    }
+    @include m('save-preview') {
+      flex: 0 0 100%;
+      &.directorist-btn {
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
       }
     }
     @include m('skip-preview') {

@@ -28,12 +28,12 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
 
                                 if ( empty( $listing_type ) ) {
 
-                                    printf( '<div class="multistep-wizard__nav__item"><button class="multistep-wizard__nav__btn"><i>%s</i> %s</button></div>', ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : ''), $section['label'] ) ;
+                                    printf( '<div class="multistep-wizard__nav__item"><a href="#" class="multistep-wizard__nav__btn">%s %s</a></div>', ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : ''), $section['label'] ) ;
                                 }
                             }
                         ?>
                         <div class="multistep-wizard__nav__item">
-                            <button class="multistep-wizard__nav__btn"><?php directorist_icon( 'fas fa-check' ); ?>Finish</button>
+                            <a href="#" class="multistep-wizard__nav__btn"><?php directorist_icon( 'fas fa-check' ); ?>Finish</a>
                         </div>
                     </div>
                     <div class="multistep-wizard__content">
@@ -67,7 +67,9 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                 <span class="multistep-wizard__count__current"></span> / <span class="multistep-wizard__count__total"></span>
                             </div>
 
-                            <a class="directorist-btn multistep-wizard__btn multistep-wizard__btn--next">Save & Next<?php directorist_icon( 'fas fa-arrow-right' ); ?></a>
+                            <a type="submit" class="directorist-btn multistep-wizard__btn multistep-wizard__btn--next">Save & Next<?php directorist_icon( 'fas fa-arrow-right' ); ?></a>
+
+                            <button type="submit" class="directorist-btn multistep-wizard__btn multistep-wizard__btn--save-preview">Save & Preview</button>
 
                             <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--skip-preview">Skip preview and submit listing</button>
                         </div>

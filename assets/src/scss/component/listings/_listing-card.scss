@@ -1,13 +1,4 @@
-
-.directorist-listing-single {
-    width: 100%;
-    border-radius: 12px;
-    background: var(--directorist-color-white);
-    box-shadow: var(--directorist-box-shadow);
-    @include e(info) {
-        flex-direction: column;
-    }
-}
+// Single Listing Style
 
 .directorist-listing-single {
     font-size: 15px;
@@ -46,7 +37,15 @@
             background-color: var(--directorist-color-danger);
         }
     }
-
+    @include m(bg) {
+        width: 100%;
+        border-radius: 12px;
+        background: var(--directorist-color-white);
+        box-shadow: var(--directorist-box-shadow);
+        .directorist-listing-single__info {
+            flex-direction: column;
+        }
+    }
     // Single Listing Content
     @include e(content) {
         border-radius: 4px;
@@ -224,10 +223,10 @@
                 color: var(--directorist-color-body);
                 .directorist-icon-mask{
                     margin-right: 4px;
-                    &:after{
-                        width: 15px;
-                        height: 15px;
-                    }
+                }
+                .directorist-icon-mask:after{
+                    width: 15px;
+                    height: 15px;
                 }
             }
             &.directorist-badge {

@@ -697,7 +697,7 @@
 
   // Publish Text
   @include e(publish) {
-    padding: 100px 0;
+    padding: 100px 15px;
     margin-bottom: 0;
     text-align: center;
     border-bottom: 1px solid var(--directorist-color-border);
@@ -1085,15 +1085,18 @@
   @include e(bottom) {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
     align-items: center;
     justify-content: space-between;
     margin: 20px 0;
+    @media only screen and (max-width: 575px) {
+      gap: 15px;
+      justify-content: center;
+    }
   }
   @include e(btn) {
     width: 200px;
     height: 54px;
-    min-height: unset;
     gap: 12px;
     border: none;
     outline: none;
@@ -1129,20 +1132,32 @@
         opacity: 0;
         visibility: hidden;
       }
+      @media only screen and (max-width: 575px) {
+        width: 100%;
+      }
     }
     @include m('skip-preview') {
       flex: 0 0 100%;
-      margin: 25px 0 0;
       &.directorist-btn {
         height: 0;
         opacity: 0;
         visibility: hidden;
       }
     }
+    &.directorist-btn {
+      min-height: unset;
+      @media only screen and (max-width: 575px) {
+        flex: 0 0 100%;
+      }
+    }
   }
   @include e(count) {
     font-size: 15px;
     font-weight: 500;
+    @media only screen and (max-width: 575px) {
+      flex: 0 0 100%;
+      text-align: center;
+    }
   }
 }
 

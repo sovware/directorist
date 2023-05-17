@@ -3854,7 +3854,7 @@ body.stop-scrolling {
   padding-left: 5px;
 }
 .directorist-add-listing-form__publish {
-  padding: 100px 0;
+  padding: 100px 15px;
   margin-bottom: 0;
   text-align: center;
   border-bottom: 1px solid var(--directorist-color-border);
@@ -4351,7 +4351,7 @@ body.stop-scrolling {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  gap: 20px;
+  gap: 25px;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
@@ -4362,10 +4362,18 @@ body.stop-scrolling {
           justify-content: space-between;
   margin: 20px 0;
 }
+@media only screen and (max-width: 575px) {
+  .multistep-wizard__bottom {
+    gap: 15px;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
 .multistep-wizard__btn {
   width: 200px;
   height: 54px;
-  min-height: unset;
   gap: 12px;
   border: none;
   outline: none;
@@ -4402,21 +4410,45 @@ body.stop-scrolling {
   opacity: 0;
   visibility: hidden;
 }
+@media only screen and (max-width: 575px) {
+  .multistep-wizard__btn--save-preview {
+    width: 100%;
+  }
+}
 .multistep-wizard__btn--skip-preview {
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 100%;
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
-  margin: 25px 0 0;
 }
 .multistep-wizard__btn--skip-preview.directorist-btn {
   height: 0;
   opacity: 0;
   visibility: hidden;
 }
+.multistep-wizard__btn.directorist-btn {
+  min-height: unset;
+}
+@media only screen and (max-width: 575px) {
+  .multistep-wizard__btn.directorist-btn {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+  }
+}
 .multistep-wizard__count {
   font-size: 15px;
   font-weight: 500;
+}
+@media only screen and (max-width: 575px) {
+  .multistep-wizard__count {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+    text-align: center;
+  }
 }
 
 .upload-error {

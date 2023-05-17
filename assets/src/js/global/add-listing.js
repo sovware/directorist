@@ -837,12 +837,12 @@ $(document).ready(function () {
             var previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
             var submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
             if(value === totalWizard.length) {
-                nextBtn.style.cssText = "width: 0; height: 0; opacity: 0; visibility: hidden;";
-                previewBtn.style.cssText = "width: auto; height: 54px; flex: unset; opacity: 1; visibility: visible;";
+                nextBtn.style.cssText = "display:none; width: 0; height: 0; opacity: 0; visibility: hidden;";
+                previewBtn.style.cssText = "height: 54px; flex: unset; opacity: 1; visibility: visible;";
                 submitBtn.style.cssText = "height: 54px; opacity: 1; visibility: visible;";
             } else {
-                nextBtn.style.cssText = "width: auto; height: 54px; opacity: 1; visibility: visible;";
-                previewBtn.style.cssText = "width: 0; height: 0; flex: 0 0 100%; opacity: 0; visibility: hidden;";
+                nextBtn.style.cssText = "display:inline-flex; width: auto; height: 54px; opacity: 1; visibility: visible;";
+                previewBtn.style.cssText = "height: 0; flex: 0 0 100%; opacity: 0; visibility: hidden;";
                 submitBtn.style.cssText = "height: 0; opacity: 0; visibility: hidden;";
             }
 

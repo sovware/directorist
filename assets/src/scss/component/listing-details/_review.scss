@@ -317,7 +317,7 @@ Review: New Style
                 .directorist-icon-mask{
                     display: inline-block;
                     margin-right: 4px;
-                    &::after{
+                    &:after{
                         width: 12px;
                         height: 12px;
                         background-color: var(--directorist-color-white);
@@ -490,7 +490,7 @@ Review: New Style
 .directorist-review-content {
     @include e(pagination) {
         padding: 0;
-        margin: 25px 0 0;
+        margin: 25px 0 35px;
         ul {
             border: 0 none;
             display: flex;
@@ -545,7 +545,9 @@ Review: New Style
             font-style: normal;
         }
     }
-    @include e(header) {
+
+
+    .directorist-review-single__header {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -588,7 +590,7 @@ Review: New Style
                 color: var(--directorist-color-warning);
                 .directorist-icon-mask{
                     margin: 1px;
-                    &::after{
+                    &:after{
                         width: 11px;
                         height: 11px;
                         background-color: var(--directorist-color-warning);
@@ -618,7 +620,7 @@ Review: New Style
             color: var(--directorist-color-body);
         }
     }
-    
+
 
     @include e(feedback) {
         display: flex;
@@ -646,13 +648,13 @@ Review: New Style
             color: var(--directorist-color-deep-gray);
             .directorist-icon-mask{
                 margin-right: 6px;
-                &::after{
+                &:after{
                     width: 0.9em;
                     height: 0.9em;
                     background-color: var(--directorist-color-deep-gray);;
                 }
             }
-            
+
         }
     }
 

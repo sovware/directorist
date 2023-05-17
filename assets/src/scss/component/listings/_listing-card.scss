@@ -603,7 +603,7 @@
                 }
             }
         }
-        
+
         .directorist-listing-single__info--right {
             .directorist-badge {
                 margin: 0;
@@ -658,15 +658,15 @@
                 padding: 0 5px;
                 border-radius: 4px;
             }
-    
+
             &.directorist-badge-popular {
                 background-color: var(--directorist-color-white);
             }
-    
+
             &.directorist-badge-new {
                 background-color: var(--directorist-color-white);
             }
-    
+
             &.directorist-badge-featured {
                 background-color: var(--directorist-color-white);
             }
@@ -902,6 +902,43 @@
                     line-height: 24px;
                     text-align: left;
                     margin: 0;
+                }
+
+
+                li {
+                    color: var(--directorist-color-body);
+                    margin: 0;
+                    &:not(:last-child) {
+                        margin: 0 0 10px;
+                    }
+
+                    > div {
+                        margin-bottom: 2px;
+                        font-size: 14px;
+                        display: flex;
+                        gap: 10px;
+                        .directorist-icon-mask {
+                            position: relative;
+                            top: 4px;
+                        }
+                        .directorist-listing-single__info--list__label {
+                            display: none;
+                        }
+                    }
+
+                    .directorist-icon {
+                        font-size: 17px;
+                        color: #444752;
+                        margin-right: 8px;
+                    }
+
+                    a {
+                        text-decoration: none;
+                        color: var(--directorist-color-body);
+                        border-bottom: 0 none;
+                        box-shadow: none;
+                        line-height: 1.7;
+                    }
                 }
                 a {
                     color: var(--directorist-color-primary);

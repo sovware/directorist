@@ -185,15 +185,15 @@ class All_Locations extends \WP_Widget {
 
         $terms = get_terms( $args );
         $parent = $args['parent'];
-        $child_class = !empty($parent) ? 'atbdp_child_location' : 'atbdp_parent_location';
+        $child_class = !empty($parent) ? 'directorist-taxonomy-list__sub-item' : 'directorist-widget-taxonomy directorist-widget-location';
         $html = '';
 
         if( count( $terms ) > 0 ) {
             $i = 1;
-            $html .= '<ul class="' .$child_class. '">';
+            $html .= '<div class="' .$child_class. '">';
             foreach( $terms as $term ) {
                 $child_category = get_term_children($term->term_id,ATBDP_LOCATION);
-                $plus_icon = (!empty($child_category) && empty($parent) ) ? directorist_icon( 'las la-plus', false ) : '';
+                $plus_icon = (!empty($child_category) && empty($parent) ) ? directorist_icon( 'las la-angle-down', false ) : '';
                 $settings['term_id'] = $term->term_id;
 
                 $count = 0;
@@ -203,24 +203,27 @@ class All_Locations extends \WP_Widget {
                     if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
                 }
 
-                $html .= '<li>';
-                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_location_page( $term ) . '">';
-                $html .= $term->name;
+                $html .= '<div class="directorist-taxonomy-list-one">';
+                $html .= '<div class="directorist-taxonomy-list">';
+                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_location_page( $term ) . '" class="directorist-taxonomy-list__card directorist-taxonomy-list__toggle">';
+                $html .= '<span class="directorist-taxonomy-list__name">'. $term->name .'</span>';
                 if( ! empty( $settings['show_count'] ) ) {
                     $expired_listings = atbdp_get_expired_listings(ATBDP_LOCATION, $term->term_id);
                     $number_of_expired = $expired_listings->post_count;
                     $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
-                    $totat = ($count)?($count-$number_of_expired):$count;
-                    $html .= ' (' . $totat . ')';
+                    $total = ($count)?($count-$number_of_expired):$count;
+                    $html .= '<span class="directorist-taxonomy-list__count">(' . $total . ')</span>';
                 }
-                $html .= '</a>'. $plus_icon . '';
+                $html .= $plus_icon ? '<span class="directorist-taxonomy-list__toggler">'. $plus_icon . '</span>' : '';
+                $html .= '</a>';
                 $html .= $this->list_locations( $settings );
-                $html .= '</li>';
+                $html .= '</div>';
+                $html .= '</div>';
                 if(!empty($args['number'])) {
                     if( $i++ == $args['number'] ) break;
                 }
             }
-            $html .= '</ul>';
+            $html .= '</div>';
 
         }
 

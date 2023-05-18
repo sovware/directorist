@@ -841,7 +841,7 @@ $(document).ready(function () {
                 previewBtn.style.cssText = "height: 54px; flex: unset; opacity: 1; visibility: visible;";
                 submitBtn.style.cssText = "height: 54px; opacity: 1; visibility: visible;";
             } else {
-                nextBtn.style.cssText = "display:inline-flex; width: auto; height: 54px; opacity: 1; visibility: visible;";
+                nextBtn.style.cssText = "display:inline-flex; width: 200px; height: 54px; opacity: 1; visibility: visible;";
                 previewBtn.style.cssText = "height: 0; flex: 0 0 100%; opacity: 0; visibility: hidden;";
                 submitBtn.style.cssText = "height: 0; opacity: 0; visibility: hidden;";
             }

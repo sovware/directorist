@@ -807,15 +807,10 @@ import { directorist_range_slider } from './range-slider';
             var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
 
             // Overlay Style
-            modalOverlay.style.opacity="1";
-            modalOverlay.style.visibility = "visible";
-            modalOverlay.style.transition = "0.3s ease";
+            modalOverlay.style.cssText = "opacity: 1; visibility: visible; transition: 0.3s ease;";
 
             // Modal Content Style
-            modalContent.style.opacity="1";
-            modalContent.style.visibility = "visible";
-            modalContent.style.bottom = "0";
-            modalContent.style.transition = "0.3s ease";
+            modalContent.style.cssText = "opacity: 1; visibility: visible; bottom:0; transition: 0.3s ease;";
         });
 
         $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {

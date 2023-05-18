@@ -255,6 +255,7 @@
 // Directorist Map
 .directorist-single-wrapper .directorist-single-map{
     border-radius: 16px;
+    z-index: 1;
     .atbd_map_shape {
         .directorist-icon-mask:after {
             background-color: var(--directorist-color-white);

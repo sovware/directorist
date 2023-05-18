@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	}
 	else {
 		if ($searchform->has_more_filters_button) { ?>
-			<div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
+			<div class="directorist-search-modal">
 				<?php $searchform->advanced_search_form_fields_template();?>
 			</div>
 			<?php

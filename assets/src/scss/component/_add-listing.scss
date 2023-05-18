@@ -369,6 +369,7 @@
     #gmap {
       position: relative;
       height: 400px;
+      z-index: 1;
       #gmap_full_screen_button,
       .gm-fullscreen-control {
         display: none;

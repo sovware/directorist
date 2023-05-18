@@ -3492,6 +3492,7 @@ body.stop-scrolling {
 .directorist-form-map-field__maps #gmap {
   position: relative;
   height: 400px;
+  z-index: 1;
 }
 .directorist-form-map-field__maps #gmap #gmap_full_screen_button,
 .directorist-form-map-field__maps #gmap .gm-fullscreen-control {

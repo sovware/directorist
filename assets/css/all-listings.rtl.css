@@ -6719,6 +6719,9 @@ p.atbd-min {
   width: 14px;
   height: 14px;
 }
+.directorist-swiper-related.slider-has-less-items .directorist-swiper__navigation, .directorist-swiper-related.slider-has-less-items .directorist-swiper__navigation {
+  display: none;
+}
 
 .directorist-dropdown {
   position: relative;

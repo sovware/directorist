@@ -5867,6 +5867,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .directorist-widget-listing__content .directorist-widget-listing__title {
   font-size: 1rem;
   font-weight: 500;
+  margin: 0;
   color: var(--directorist-color-dark);
 }
 .directorist-widget-listing__content a {
@@ -13195,6 +13196,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__meta--right .directorist-mark-as-favorite__btn {
   width: auto;
+  height: auto;
 }
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single .directorist-mark-as-favorite__btn {
   background: transparent;
@@ -13236,12 +13238,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: -3px;
-}
-.directorist-listing-single.directorist-listing-card--list .directorist-listing-single__header .directorist-listing-single__action .directorist-compare-btn,
-.directorist-listing-single.directorist-listing-card--list .directorist-listing-single__header .directorist-listing-single__action .directorist-mark-as-favorite,
-.directorist-listing-single.directorist-listing-card--list .directorist-listing-single__header .directorist-listing-single__action .directorist-badge {
-  margin: 3px;
+  gap: 6px;
 }
 .directorist-listing-single.directorist-listing-card--list .directorist_open_status_badge {
   display: -webkit-box;
@@ -13258,6 +13255,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-listing-single.directorist-listing-card--list.directorist-listing-no-thumb .directorist-info-item.directorist-badge.directorist-badge-open, .directorist-listing-single.directorist-listing-card--list.directorist-listing-no-thumb .directorist-info-item.directorist-badge.directorist-badge-close {
   padding: 0 5px;
+}
+.directorist-listing-single.directorist-listing-card--list.directorist-listing-no-thumb .directorist-mark-as-favorite__btn {
+  width: auto;
+  height: auto;
 }
 
 .directorist-archive-grid-view.directorist-archive-grid--fix .directorist-all-listing-col {

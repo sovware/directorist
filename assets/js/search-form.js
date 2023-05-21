@@ -1719,14 +1719,9 @@ __webpack_require__.r(__webpack_exports__);
       var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
       var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
 
-      modalOverlay.style.opacity = "0";
-      modalOverlay.style.visibility = "hidden";
-      modalOverlay.style.transition = "0.5s ease"; // Modal Content Style
+      modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease"; // Modal Content Style
 
-      modalContent.style.opacity = "0";
-      modalContent.style.visibility = "hidden";
-      modalContent.style.bottom = "-200px";
-      modalContent.style.transition = "0.5s ease";
+      modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px; transition: 0.5s ease";
     });
     /* When location field is empty we need to hide Radius Search */
 

@@ -962,6 +962,7 @@
         @include m(right) {
             .directorist-mark-as-favorite__btn {
                 width: auto;
+                height: auto;
             }
         }
     }
@@ -1001,13 +1002,7 @@
         .directorist-listing-single__action {
             display: flex;
             align-items: center;
-            margin: -3px;
-
-            .directorist-compare-btn,
-            .directorist-mark-as-favorite,
-            .directorist-badge {
-                margin: 3px;
-            }
+            gap: 6px;
         }
     }
     .directorist_open_status_badge {
@@ -1024,6 +1019,10 @@
             &.directorist-badge-close {
                 padding: 0 5px;
             }
+        }
+        .directorist-mark-as-favorite__btn {
+            width: auto;
+            height: auto;
         }
     }
 }

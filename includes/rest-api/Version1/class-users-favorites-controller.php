@@ -146,7 +146,6 @@ class User_Favorites_Controller extends Abstract_Controller {
 		$user_data = get_userdata( $user_id );
 
 		if ( empty( $user_data ) ) {
-			do_action( 'directorist_rest_after_query', 'create_user_favorites_item', $request, $user_id );
 			return new WP_Error( 'directorist_rest_invalid_user_id', __( 'Invalid user ID.', 'directorist' ), 400 );
 		}
 
@@ -154,7 +153,6 @@ class User_Favorites_Controller extends Abstract_Controller {
 		$listing_data = get_post( $listing_id );
 
 		if ( empty( $listing_data ) || get_post_type( $listing_data ) != ATBDP_POST_TYPE ) {
-			do_action( 'directorist_rest_after_query', 'create_user_favorites_item', $request, $user_id );
 			return new WP_Error( 'directorist_rest_invalid_listing_id', __( 'Invalid listing ID.', 'directorist' ), 400 );
 		}
 
@@ -203,14 +201,12 @@ class User_Favorites_Controller extends Abstract_Controller {
 		$user_data = get_userdata( $user_id );
 
 		if ( empty( $user_data ) ) {
-			do_action( 'directorist_rest_after_query', 'delete_user_favorites_item', $request, $user_id, $listing_id );
 			return new WP_Error( 'directorist_rest_invalid_user_id', __( 'Invalid user ID.', 'directorist' ), 400 );
 		}
 
 		$listing_data = get_post( $listing_id );
 
 		if ( empty( $listing_data ) || get_post_type( $listing_data ) != ATBDP_POST_TYPE ) {
-			do_action( 'directorist_rest_after_query', 'delete_user_favorites_item', $request, $user_id, $listing_id );
 			return new WP_Error( 'directorist_rest_invalid_listing_id', __( 'Invalid listing ID.', 'directorist' ), 400 );
 		}
 

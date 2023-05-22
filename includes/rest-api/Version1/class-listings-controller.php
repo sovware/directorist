@@ -1505,6 +1505,10 @@ class Listings_Controller extends Posts_Controller {
 	 * @param WP_Post $post Post object.
 	 */
 	protected function delete_post( $post ) {
+		do_action( 'directorist_rest_before_query', 'delete_listing_item', $post );
+
 		wp_delete_post( $post->ID, true );
+
+		do_action( 'directorist_rest_after_query', 'delete_listing_item', $post );
 	}
 }

@@ -362,7 +362,6 @@ class Users_Controller extends Abstract_Controller {
 
 		$user_id = wp_insert_user( $user_data );
 		if ( is_wp_error( $user_id ) ) {
-			do_action( 'directorist_rest_after_query', 'create_user_item', $request );
 			return $user_id;
 		}
 
@@ -406,7 +405,6 @@ class Users_Controller extends Abstract_Controller {
 		$user_data = get_userdata( $id );
 
 		if ( empty( $id ) || empty( $user_data->ID ) ) {
-			do_action( 'directorist_rest_after_query', 'get_user_item', $request, $id );
 			return new WP_Error( 'directorist_rest_invalid_id', __( 'Invalid resource ID.', 'directorist' ), array( 'status' => 404 ) );
 		}
 
@@ -434,17 +432,14 @@ class Users_Controller extends Abstract_Controller {
 		$user_data = get_userdata( $id );
 
 		if ( empty( $user_data ) ) {
-			do_action( 'directorist_rest_after_query', 'update_user_item', $request, $id );
 			return new WP_Error( 'directorist_rest_invalid_id', __( 'Invalid resource ID.', 'directorist' ), 400 );
 		}
 
 		if ( ! empty( $request['email'] ) && email_exists( $request['email'] ) && $request['email'] !== $user_data->user_email ) {
-			do_action( 'directorist_rest_after_query', 'update_user_item', $request, $id );
 			return new WP_Error( 'directorist_rest_user_invalid_email', __( 'Email address is invalid.', 'directorist' ), 400 );
 		}
 
 		if ( ! empty( $request['username'] ) && $request['username'] !== $user_data->user_login ) {
-			do_action( 'directorist_rest_after_query', 'update_user_item', $request, $id );
 			return new WP_Error( 'directorist_rest_user_invalid_argument', __( "Username isn't editable.", 'directorist' ), 400 );
 		}
 
@@ -517,13 +512,11 @@ class Users_Controller extends Abstract_Controller {
 
 		$user_data = get_userdata( $id );
 		if ( ! $user_data ) {
-			do_action( 'directorist_rest_after_query', 'delete_user_item', $request, $id );
 			return new WP_Error( 'directorist_rest_invalid_id', __( 'Invalid resource id.', 'directorist' ), array( 'status' => 400 ) );
 		}
 
 		if ( ! empty( $reassign ) ) {
 			if ( $reassign === $id || ! get_userdata( $reassign ) ) {
-				do_action( 'directorist_rest_after_query', 'delete_user_item', $request, $id );
 				return new WP_Error( 'directorist_rest_user_invalid_reassign', __( 'Invalid resource id for reassignment.', 'directorist' ), array( 'status' => 400 ) );
 			}
 		}

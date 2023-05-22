@@ -1091,9 +1091,13 @@ class Directorist_Single_Listing {
 		}
 
 		$info_content = "";
+		$info_content .= $this->favorite_badge_template_map();
 		if (!empty($display_image_map) || !empty($display_title_map)) {
 			$info_content .= "<div class='map-info-wrapper'><div class='map-info-img'>$image</div><div class='map-info-details'><div class='atbdp-listings-title-block'><h3>$t</h3></div>";
 		}
+		$info_content .= $this->user_avatar();
+		$info_content .= $this->get_review_template();
+		$info_content .= $this->price_html();
 		if (!empty($display_address_map) && !empty($ad)) {
 			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 		}
@@ -1125,6 +1129,44 @@ class Directorist_Single_Listing {
 		return json_encode( $args );
 	}
 
+	public function get_review_template() {
+		// Review
+		$average           = directorist_get_listing_rating( get_the_ID() );
+		$reviews_count     = directorist_get_listing_review_count( get_the_ID() );
+
+		// Icons
+		$icon_empty_star = directorist_icon( 'fas fa-star', false, 'star-empty' );
+		$icon_half_star  = directorist_icon( 'fas fa-star-half-alt', false, 'star-half' );
+		$icon_full_star  = directorist_icon( 'fas fa-star', false, 'star-full' );
+
+		// Stars
+		$star_1 = ( $average >= 0.5 && $average < 1) ? $icon_half_star : $icon_empty_star;
+		$star_1 = ( $average >= 1) ? $icon_full_star : $star_1;
+
+		$star_2 = ( $average >= 1.5 && $average < 2) ? $icon_half_star : $icon_empty_star;
+		$star_2 = ( $average >= 2) ? $icon_full_star : $star_2;
+
+		$star_3 = ( $average >= 2.5 && $average < 3) ? $icon_half_star : $icon_empty_star;
+		$star_3 = ( $average >= 3) ? $icon_full_star : $star_3;
+
+		$star_4 = ( $average >= 3.5 && $average < 4) ? $icon_half_star : $icon_empty_star;
+		$star_4 = ( $average >= 4) ? $icon_full_star : $star_4;
+
+		$star_5 = ( $average >= 4.5 && $average < 5 ) ? $icon_half_star : $icon_empty_star;
+		$star_5 = ( $average >= 5 ) ? $icon_full_star : $star_5;
+
+		$review_stars = "{$star_1}{$star_2}{$star_3}{$star_4}{$star_5}";
+
+		$args = array(
+			'review_stars'    => $review_stars,
+			'average_reviews' => number_format( $average, 1 ),
+		);
+
+		ob_start();
+			Helper::get_template( 'single/fields/map-rating', $args );
+		return ob_get_clean();
+	}
+
 	/**
 	 * Unused method
 	 *
@@ -1142,6 +1184,43 @@ class Directorist_Single_Listing {
 	 */
 	public function review_template() {
 		_deprecated_function( __METHOD__, '7.4.3' );
+	}
+
+	public function loop_is_favourite() {
+		$favourites = directorist_get_user_favorites( get_current_user_id() );
+		return in_array( get_the_id() , $favourites );
+	}
+	
+	/**
+	 * This function loads the template file 'single/map-favorite-badge'
+	 *
+	 * The template file is used to display the favorite badge template for a single listing map.
+	 */
+	public function favorite_badge_template_map() {
+		ob_start();
+			Helper::get_template( 'single/fields/map-favorite-badge', array( 'listings' => $this ) );
+		return ob_get_clean();
+	}
+
+	public function user_avatar() {
+
+		$user_pro_pic   = get_user_meta( $this->author_id, 'pro_pic', true );
+		$u_pro_pic   	= ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
+		$author_data 	= get_userdata( $this->author_id );
+
+		$author_first_name = ! empty( $author_data ) ?  $author_data->first_name : '';
+		$author_last_name  = ! empty( $author_data ) ?  $author_data->last_name : '';
+
+		$args = array(
+			'author_link'      => ATBDP_Permalink::get_user_profile_page_link( $this->author_id ),
+			'u_pro_pic'        => $u_pro_pic,
+			'avatar_img'       => get_avatar( $this->author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
+			'author_full_name' => $author_first_name . ' ' . $author_last_name,
+		);
+
+		ob_start();
+			Helper::get_template( 'single/fields/user_avatar', $args );
+		return ob_get_clean();
 	}
 
 	public function get_related_listings() {

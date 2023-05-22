@@ -21,7 +21,7 @@ if (is_numeric($searchform->listing_type)) {
 				<?php directorist_icon( 'fas fa-times' ); ?>
 			</button>
 		</div>
-		
+
 		<div class="directorist-search-modal__contents__body">
 			<input type="hidden" name='directory_type' value='<?php echo !empty($listing_type) ? esc_attr( $listing_type ) : esc_attr( $searchform->listing_type ); ?>'>
 			<div class="directorist-advanced-filter__basic">
@@ -32,7 +32,7 @@ if (is_numeric($searchform->listing_type)) {
 
 			<div class="directorist-advanced-filter__advanced">
 				<?php foreach ($searchform->form_data[1]['fields'] as $field) : ?>
-					<div class="directorist-form-group directorist-advanced-filter__advanced--element direcorist-search-field-<?php echo esc_attr($field['widget_name']) ?>"><?php $searchform->field_template($field); ?></div>
+					<div class="directorist-form-group directorist-advanced-filter__advanced--element directorist-search-field-<?php echo esc_attr($field['widget_name']) ?>"><?php $searchform->field_template($field); ?></div>
 				<?php endforeach; ?>
 			</div>
 		</div>

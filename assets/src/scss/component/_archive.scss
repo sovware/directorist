@@ -197,7 +197,6 @@
 
 		li {
 			flex: none;
-			padding: 5px 10px;
 			margin: 0;
 			list-style: none;
 		}
@@ -358,6 +357,104 @@
 			i::after {
 				background-color: var(--directorist-color-white);
 			}
+		}
+	}
+}
+
+// Listing with Sidebar
+.listing-with-sidebar {
+	display: flex;
+	gap: 30px;
+	flex-wrap: wrap;
+	@media only screen and (max-width: 991px) {
+		flex-direction: column;
+		.directorist-advanced-filter__form {
+			width: 100%;
+		}
+	}
+	@include e('type-nav') {
+		flex: 0 0 100%;
+		.directorist-type-nav__list {
+			gap: 40px;
+		}
+	}
+	@include e(searchform) {
+		flex: 0 0 100%;
+		.directorist-search-form__box {
+			width: auto;
+		}
+		.directorist-advanced-filter__form {
+			display: flex;
+			width: 100%;
+    		gap: 20px;
+			@media only screen and (max-width: 767px) {
+				flex-direction: column;
+			}
+		}
+		
+	}
+	@include e(sidebar) {
+		display: inline-flex;
+		flex: 1;
+		height: 100%;
+		max-width: 350px;
+		@media only screen and (max-width: 991px) {
+			max-width: unset;
+		}
+		.directorist-search-form__box {
+			padding: 0;
+		}
+		.directorist-advanced-filter__advanced {
+			padding: 25px 30px;
+		}
+		.directorist-form-group:last-child .directorist-search-field {
+			margin-bottom: 0;
+		}
+		.directorist-advanced-filter__action {
+			flex-direction: column;
+    		align-items: flex-start;
+			padding: 25px 30px 30px;
+			border-top: 1px solid var(--directorist-color-light);
+		}
+		.directorist-search-modal__contents__footer {
+			position: relative;
+			background-color: transparent;
+		}
+		.directorist-btn-reset-js {
+			border-radius: 10px;
+			width: 100%;
+			height: 46px;
+			line-height: 46px;
+			text-align: center;
+			text-decoration: none;
+			background-color: var(--directorist-color-light);
+		}
+		.directorist-btn {
+			width: 100%;
+		}
+		.directorist-price-ranges__price-frequency--btn .directorist-pf-range {
+			width: 68px;
+		}
+		
+	}
+	@include e(listing) {
+		display: inline-flex;
+		flex: 1;
+		flex-wrap: wrap;
+		flex-direction: column;
+		.directorist-header-bar,
+		.directorist-archive-items {
+			width: 100%;
+			display: flex;
+			.directorist-container-fluid {
+				padding: 0;
+			}
+		}
+		.directorist-archive-items {
+			flex-direction: column;
+		}
+		.directorist-search-modal {
+			display: none;
 		}
 	}
 }

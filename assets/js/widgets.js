@@ -86,16 +86,73 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/public/modules/widgets.js":
-/*!*************************************************!*\
-  !*** ./assets/src/js/public/modules/widgets.js ***!
-  \*************************************************/
+/***/ "./assets/src/js/public/components/categoryLocation.js":
+/*!*************************************************************!*\
+  !*** ./assets/src/js/public/components/categoryLocation.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  (function ($) {})(jQuery);
+  /* Make sure the codes in this file runs only once, even if enqueued twice */
+  if (typeof window.directorist_catloc_executed === 'undefined') {
+    window.directorist_catloc_executed = true;
+  } else {
+    return;
+  }
+  /* Category card grid three width/height adjustment */
+
+
+  var categoryCard = document.querySelectorAll('.directorist-categories__single--style-three');
+
+  if (categoryCard) {
+    categoryCard.forEach(function (elm) {
+      var categoryCardWidth = elm.offsetWidth;
+      elm.style.setProperty('--directorist-category-box-width', "".concat(categoryCardWidth, "px"));
+    });
+  }
+  /* Taxonomy list dropdown */
+
+
+  function categoryDropdown(selector, parent) {
+    var categoryListToggle = document.querySelectorAll(selector);
+    categoryListToggle.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        var categoryName = item.querySelector('.directorist-taxonomy-list__name');
+
+        if (e.target !== categoryName) {
+          e.preventDefault();
+          this.classList.toggle('directorist-taxonomy-list__toggle--open');
+        }
+      });
+    });
+  }
+
+  categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
+  categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
 });
+
+/***/ }),
+
+/***/ "./assets/src/js/public/modules/widgets.js":
+/*!*************************************************!*\
+  !*** ./assets/src/js/public/modules/widgets.js ***!
+  \*************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_categoryLocation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/categoryLocation */ "./assets/src/js/public/components/categoryLocation.js");
+/* harmony import */ var _components_categoryLocation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_categoryLocation__WEBPACK_IMPORTED_MODULE_0__);
+/* window.addEventListener('DOMContentLoaded', () => {
+    (function ($) {
+
+
+    })(jQuery);
+}); */
+
+console.log('test code');
 
 /***/ }),
 

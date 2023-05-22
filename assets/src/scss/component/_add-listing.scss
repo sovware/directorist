@@ -645,11 +645,9 @@
       padding: 0 40px;
       margin: 0 0 20px;
       font-weight: 600;
+      color: var(--directorist-color-danger);
       .atbdp_success {
         color: var(--directorist-color-success);
-      }
-      .atbdp_error {
-        color: var(--directorist-color-danger);
       }
     }
   

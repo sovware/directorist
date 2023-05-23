@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 7.5
  */
 
 use \Directorist\Helper;
@@ -20,7 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<div class="directorist-add-listing-types__single">
 
 						<a href="<?php echo esc_url( add_query_arg('directory_type', $value['term']->slug ) ); ?>" class="directorist-add-listing-types__single__link">
-							<?php directorist_icon( $value['data']['icon'] ); ?>
+							<?php 
+							if( ! empty( $value['data']['icon'] ) ) {
+								directorist_icon( $value['data']['icon'] ); 
+							}
+							?>
 							<span><?php echo esc_html( $value['name'] );?></span>
 						</a>
 

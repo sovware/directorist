@@ -602,14 +602,15 @@ import { directorist_range_slider } from './range-slider';
             }
             
             let res = '';
+            let google_data = {
+                'nonce' : directorist.directorist_nonce,
+                'action' : 'directorist_zipcode_search',
+                'zipcode' : zipcode
+            };
             $.ajax({
                 url: url,
                 method: 'POST',
-                data: {
-                    'nonce' : directorist.directorist_nonce,
-                    'action' : 'directorist_zipcode_search',
-                    'zipcode' : zipcode
-                },
+                data : directorist.i18n_text.select_listing_map === 'google' ? google_data : "",
                 success: function( data ) {
                     if( data.data && data.data.error_message ) {
                         zipcode_search.find('.error_message').remove();

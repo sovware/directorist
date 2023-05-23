@@ -166,7 +166,7 @@
     transition: .2s background-color ease-in-out;
 
     .directorist-icon-mask.directorist-added-to-favorite::after{
-        background-color: red;
+        background-color: var(--directorist-color-danger);
     }
 
     .directorist-icon-mask::after{

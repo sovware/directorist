@@ -13427,6 +13427,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-map .gm-style-iw-d {
   max-height: unset !important;
 }
+.directorist-single-map .gm-style-iw-t {
+  bottom: 48px !important;
+}
 .directorist-single-map .gm-style-iw-tc {
   display: none;
 }
@@ -14170,7 +14173,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   transition: 0.2s background-color ease-in-out;
 }
 .directorist-single-listing-action .directorist-icon-mask.directorist-added-to-favorite::after {
-  background-color: red;
+  background-color: var(--directorist-color-danger);
 }
 .directorist-single-listing-action .directorist-icon-mask::after {
   width: 15px;

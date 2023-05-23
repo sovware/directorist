@@ -35,6 +35,15 @@
                 border: 2px solid var(--directorist-color-gray);
                 background-color: transparent;
             }
+
+            @media only screen and (max-width: 480px) {
+                width: 100%;
+                padding: 0 30px 0 0;
+                &:after {
+                    left: unset;
+                    right: 0;
+                }
+            }
         }
 
         &:checked {
@@ -72,6 +81,10 @@
                 opacity: 0;
                 transition: all 0.3s ease 0s;
                 z-index: 2;
+                @media only screen and (max-width: 480px) {
+                    left: unset;
+                    right: 5px
+                }
             }
         }
     }

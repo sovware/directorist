@@ -531,8 +531,9 @@
                 position: absolute;
                 bottom: 0;
                 transform: translateY(50%);
-                width: 46px;
-                height: 46px;
+                display: flex;
+                width: 48px;
+                height: 48px;
                 z-index: 1;
 
                 &.directorist-alignment-right {
@@ -552,6 +553,12 @@
                     width: 100%;
                     border-radius: 50%;
                     height: auto;
+                }
+                a {
+                    display: inline-flex;
+                    width: 100%;
+                    border-radius: 50%;
+                    border: 3px solid var(--directorist-color-border);
                 }
             }
         }

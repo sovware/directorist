@@ -163,6 +163,7 @@
         @media only screen and (max-width: 480px) {
             width: 100%;
             margin-bottom: 0;
+            border-radius: 16px 16px 0 0;
         }
         @include e(header) {
             position: fixed;
@@ -180,6 +181,17 @@
             @media only screen and (max-width: 480px) {
                 padding-left: 30px;
                 padding-right: 20px;
+            }
+            .modal-minimizer {
+                content: '';
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 50px;
+                height: 5px;
+                border-radius: 10px;
+                background-color: var(--directorist-color-border);
             }
         }
         @include e(body) {
@@ -201,6 +213,9 @@
             border-radius: 0 0 16px 16px;
             background-color: var(--directorist-color-light);
             z-index: 9;
+            @media only screen and (max-width: 480px) {
+                border-radius: 0;
+            }
         }
         @include e(title) {
             font-size: 20px;
@@ -226,6 +241,15 @@
             &:hover {
                 i::after {
                     background-color: var(--directorist-color-danger);
+                }
+            }
+            @media only screen and (max-width: 480px) {
+                width: auto;
+                height: auto;
+                background: transparent;
+                i::after {
+                    width: 20px;
+                    height: 20px;
                 }
             }
         }

@@ -32,7 +32,10 @@
                 margin: 0;
                 .directorist-checkbox {
                     margin: 0;
-                    flex: 0 0 48%;
+                    flex: 0 0 47%;
+                    @media only screen and (max-width: 480px) {
+                        flex: 0 0 100%;
+                    }
                 }
             }
             .directorist-form-group{
@@ -90,7 +93,11 @@
                 margin: 0;
                 .directorist-checkbox {
                     margin: 0;
-                    flex: 0 0 48%;
+                    flex: 0 0 47%;
+
+                    @media only screen and (max-width: 480px) {
+                        flex: 0 0 100%;
+                    }
                 }
             }
             .directorist-form-group{
@@ -170,6 +177,9 @@
         }
         &:after {
             top: -2px;
+        }
+        @media only screen and (max-width: 480px) {
+            padding: 0;
         }
     }
 

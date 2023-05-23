@@ -20,6 +20,7 @@ if (is_numeric($searchform->listing_type)) {
 			<button class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close">
 				<?php directorist_icon( 'fas fa-times' ); ?>
 			</button>
+			<!-- <span class="modal-minimizer"></span> -->
 		</div>
 
 		<div class="directorist-search-modal__contents__body">

@@ -9256,7 +9256,7 @@ body.stop-scrolling {
 }
 
 .leaflet-container a {
-  -webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+  -webkit-tap-highlight-color: rgba(145, 175, 186, 0.4);
 }
 
 .leaflet-tile {

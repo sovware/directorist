@@ -1091,7 +1091,7 @@ class Directorist_Single_Listing {
 		}
 
 		$info_content = "";
-		$info_content .= "<div class='map-info-wrapper map-listing-card-single'>";
+		$info_content .= "<div class='map-listing-card-single'>";
 		$info_content .= $this->favorite_badge_template_map();
 		if (!empty($display_image_map)) {
 			$info_content .= "<div class='map-listing-card-single__img'>$image</div>";
@@ -1104,14 +1104,15 @@ class Directorist_Single_Listing {
 		$info_content .= "<div class='map-listing-card-single__content__meta'>";
 		$info_content .= $this->get_review_template();
 		$info_content .= $this->price_html();
-		$info_content .= "</div></div>";
+		$info_content .= "</div><div class='map-listing-card-single__content__info'>";
 		if (!empty($display_address_map) && !empty($ad)) {
-			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
+			$info_content .= "<div class='directorist-info-item map-listing-card-single__content__address'>" .directorist_icon('fas fa-map-marker-alt', false). "<div class='directorist-info-item map-listing-card-single__content__location'>";
+			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'>{$ad}</a>");
 		}
 		if (!empty($display_direction_map)) {
 			$info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Directions', 'directorist') . "</a></div><span class='iw-close-btn'>" . directorist_icon( 'las la-times', false ) . "</span></div></div>";
 		}
-		$info_content .= "</div";
+		$info_content .= "</div></div";
 		$cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
 		$cat_icon = '';
 		// if (!empty($cats)) {

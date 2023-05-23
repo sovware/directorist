@@ -129,6 +129,9 @@
     .gm-style-iw-d {
         max-height: unset !important;
     }
+    .gm-style-iw-tc {
+        display: none;
+    }
 }
 
 // Listing Card in Map
@@ -154,6 +157,7 @@
     }
     @include e(img) {
         a {
+            width: 100%;
             display: inline-flex;
         }
         img {
@@ -257,7 +261,7 @@
             flex-direction: column;
             .directorist-info-item {
                 display: flex;
-                gap: 12px;
+                gap: 10px;
             }
             a {
                 font-size: 14px;
@@ -272,7 +276,7 @@
             .directorist-icon-mask:after {
                 width: 15px;
                 height: 15px;
-                margin-top: 3px;
+                margin-top: 2px;
                 background-color: var(--directorist-color-gray-hover);
             }
         }

@@ -18,7 +18,7 @@ $max_file_size_kb       = (float) $max_file_size * 1024;//
 $max_total_file_size_kb = (float) $max_total_file_size * 1024;//
 $required               = $data['required'] ? '1' : 0;
 
-$accepted_mime_types       = Directorist\Helper::get_mime_types( 'image', 'extension' );
+$accepted_mime_types       = directorist_get_mime_types( 'image', 'extension' );
 $accepted_mime_types_upper = array_map( function( $ext ) { return strtoupper( $ext ); }, $accepted_mime_types ) ;
 $accepted_mime_types       = array_merge( $accepted_mime_types, $accepted_mime_types_upper );
 

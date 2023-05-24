@@ -117,7 +117,6 @@ function init() {
   selec2_add_custom_close_button_if_needed(); // Add custom close button if field contains value on change
 
   $('.select2-hidden-accessible').on('change', function (e) {
-    console.log('object');
     var value = $(this).children("option:selected").val();
 
     if (!value) {
@@ -1703,27 +1702,90 @@ __webpack_require__.r(__webpack_exports__);
       }
     }); // Search Form Modal
 
-    $('body').on('click', '.directorist-modal-btn', function (e) {
-      e.preventDefault();
-      var searchModalParent = document.querySelector('.directorist-contents-wrap');
+    function dirScreenWidth() {
+      var searchModalElement;
+      var screenWidth = window.innerWidth;
+
+      if (screenWidth <= 575) {
+        searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--basic');
+        $('body').on('click', '.directorist-modal-btn', function (e) {
+          e.preventDefault();
+          searchModalOpen(searchModalElement);
+        });
+        $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
+          e.preventDefault();
+          searchModalClose(searchModalElement);
+        });
+        $('body').on('click', '.directorist-search-modal__input__btn--clear', function (e) {
+          e.preventDefault();
+          var inputField = $(this).siblings('.directorist-search-field').find('.directorist-form-element');
+          var selectboxField = $(this).siblings('.directorist-search-field').find('.directorist-select select');
+          selectboxField.val(null).trigger('change');
+          inputField.val('');
+        });
+        $('body').on('click', function (e) {
+          inputFieldValueCheck(searchModalElement);
+        });
+
+        function inputFieldValueCheck(searchModalParent) {
+          var inputFields = searchModalParent.querySelectorAll('.directorist-search-field input[type="text"]');
+          var selectboxFields = searchModalParent.querySelectorAll('.directorist-search-field .directorist-select select');
+          inputFields.forEach(function (element, index) {
+            var clearBtn = element.parentElement.parentElement;
+            checkElement(element, clearBtn);
+          });
+          selectboxFields.forEach(function (element, index) {
+            var clearBtn = element.parentElement.parentElement.parentElement;
+            checkElement(element, clearBtn);
+          });
+
+          function checkElement(element, clearBtn) {
+            if (element.value != '') {
+              clearBtn.classList.add('input-has-value');
+            } else {
+              if (clearBtn.classList.contains('input-has-value')) {
+                clearBtn.classList.remove('input-has-value');
+              }
+            }
+          }
+        }
+      } else {
+        searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
+        $('body').on('click', '.directorist-modal-btn', function (e) {
+          e.preventDefault();
+          searchModalOpen(searchModalElement);
+        });
+        $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
+          e.preventDefault();
+          searchModalClose(searchModalElement);
+        });
+      }
+    } // Call the function initially to get the screen width on page load
+
+
+    dirScreenWidth(); // Add an event listener to capture screen width changes
+
+    window.addEventListener('resize', dirScreenWidth);
+
+    function searchModalOpen(searchModalParent) {
       var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
       var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
 
       modalOverlay.style.cssText = "opacity: 1; visibility: visible; transition: 0.3s ease;"; // Modal Content Style
 
       modalContent.style.cssText = "opacity: 1; visibility: visible; bottom:0; transition: 0.3s ease;";
-    });
-    $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
-      e.preventDefault();
-      var searchModalParent = document.querySelector('.directorist-contents-wrap');
+    }
+
+    function searchModalClose(searchModalParent) {
       var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
       var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
 
       modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease"; // Modal Content Style
 
       modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px; transition: 0.5s ease";
-    });
+    }
     /* When location field is empty we need to hide Radius Search */
+
 
     function handleRadiusVisibility() {
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');

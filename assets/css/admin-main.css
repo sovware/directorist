@@ -10766,6 +10766,113 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     height: calc(100vh - 200px);
   }
 }
+.directorist-search-modal--basic .directorist-search-query {
+  position: relative;
+}
+.directorist-search-modal--basic .directorist-search-query:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
+  width: 14px;
+  height: 14px;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  background: var(--directorist-color-body);
+  -webkit-mask-image: url(../images/9ddfe727fdcddbb985d69ce2e9a06358.svg);
+          mask-image: url(../images/9ddfe727fdcddbb985d69ce2e9a06358.svg);
+}
+.directorist-search-modal__input {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid var(--directorist-color-border);
+  border-radius: 10px;
+  height: 40px;
+  margin: 0 0 15px;
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
+}
+.directorist-search-modal__input .directorist-search-field,
+.directorist-search-modal__input .directorist-select {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.directorist-search-modal__input .directorist-search-field label,
+.directorist-search-modal__input .directorist-select label {
+  display: none;
+}
+.directorist-search-modal__input .directorist-select2-dropdown-close {
+  display: none;
+}
+.directorist-search-modal__input .select2.select2-container .select2-selection,
+.directorist-search-modal__input .directorist-form-group .directorist-form-element,
+.directorist-search-modal__input .directorist-form-group .directorist-form-element:focus {
+  border: 0 none;
+}
+.directorist-search-modal__input .select2.select2-container .select2-selection .select2-selection__rendered .select2-selection__placeholder {
+  line-height: 40px;
+}
+.directorist-search-modal__input__btn {
+  width: 0;
+  padding: 0 10px;
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
+}
+.directorist-search-modal__input__btn .directorist-icon-mask::after {
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
+  background-color: var(--directorist-color-body);
+}
+.directorist-search-modal__input:focus .directorist-search-modal__input__btn, .directorist-search-modal__input:focus-within .directorist-search-modal__input__btn {
+  width: auto;
+  padding: 0 20px;
+}
+.directorist-search-modal__input:focus .directorist-search-modal__input__btn .directorist-icon-mask::after, .directorist-search-modal__input:focus-within .directorist-search-modal__input__btn .directorist-icon-mask::after {
+  opacity: 1;
+  visibility: visible;
+}
+.directorist-search-modal__input:focus .directorist-search-query::after,
+.directorist-search-modal__input:focus .directorist-select2-dropdown-toggle,
+.directorist-search-modal__input:focus .directorist-search-field .directorist-input-icon, .directorist-search-modal__input:focus-within .directorist-search-query::after,
+.directorist-search-modal__input:focus-within .directorist-select2-dropdown-toggle,
+.directorist-search-modal__input:focus-within .directorist-search-field .directorist-input-icon {
+  display: none;
+}
+.directorist-search-modal__input.input-has-value .directorist-search-modal__input__btn--clear {
+  width: auto;
+  padding: 0 20px;
+}
+.directorist-search-modal__input.input-has-value .directorist-search-modal__input__btn--clear .directorist-icon-mask::after {
+  opacity: 1;
+  visibility: visible;
+}
+.directorist-search-modal__input.input-has-value .directorist-search-query::after,
+.directorist-search-modal__input.input-has-value .directorist-select2-dropdown-toggle,
+.directorist-search-modal__input.input-has-value .directorist-search-field .directorist-input-icon {
+  display: none;
+}
 
 /* Responsive CSS */
 /* Large devices (desktops, 992px and up) */

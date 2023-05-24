@@ -157,6 +157,19 @@
       }
     }
   }
+  @include e(modal) {
+    @include e('btn-search') {
+      height: 50px;
+      padding: 0 25px;
+      border-radius: 10px;
+      gap: 8px;
+      i::after {
+        width: 16px;
+        height: 16px;
+        transform: rotate(270deg);
+      }
+    }
+  }
 }
 
 /* loading effect */

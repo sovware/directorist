@@ -20,7 +20,6 @@ function init() {
 
     // Add custom close button if field contains value on change
     $('.select2-hidden-accessible').on('change', function (e) {
-        console.log('object');
         var value = $(this).children("option:selected").val();
         if (!value) {
             return;

@@ -21,23 +21,45 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		?>
 	</div>
 	<?php
-		if ( $searchform->more_filters_display !== 'always_open' ){
-			$searchform->more_buttons_template();
-		}
-	?>
-
-	<?php
-	if ( $searchform->more_filters_display == 'always_open' ){
-		$searchform->advanced_search_form_fields_template();
-	}
-	else {
+		$searchform->more_buttons_template();
+		
 		if ($searchform->has_more_filters_button) { ?>
-			<div class="directorist-search-modal">
-				<?php $searchform->advanced_search_form_fields_template();?>
+			<div class="directorist-search-modal directorist-search-modal--advanced">
+				<?php $searchform->advanced_search_form_advanced_fields_template();?>
 			</div>
-			<?php
-		}
-	}
+			<div class="directorist-search-modal directorist-search-modal--basic">
+				<div class="directorist-search-modal__overlay"></div>
+				<div class="directorist-search-adv-filter directorist-advanced-filter directorist-search-modal__contents">
+					<div class="directorist-advanced-filter__wrapper">
+						<div class="directorist-search-modal__contents__header">
+							<h3 class="directorist-search-modal__contents__title">More Filters</h3>
+							<button class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close">
+								<?php directorist_icon( 'fas fa-times' ); ?>
+							</button>
+						</div>
+						<div class="directorist-search-modal__contents__body">
+							<?php
+								foreach ( $searchform->form_data[0]['fields'] as $field ){ ?>
+									<div class="directorist-search-modal__input">
+										<div class="directorist-search-modal__input__btn directorist-search-modal__input__btn--back">
+											<?php directorist_icon( 'fas long-arrow-alt-left' ); ?>
+										</div>
+										<?php $searchform->field_template( $field ); ?>
+										<div class="directorist-search-modal__input__btn directorist-search-modal__input__btn--clear">
+											<?php directorist_icon( 'fas fa-times-circle' ); ?>
+										</div>
+									</div>
+								<?php }
+							?>
+						</div>
+						<div class="directorist-search-modal__contents__footer">
+							<?php $searchform->buttons_template(); ?>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		<?php }
 	?>
 
 </div>

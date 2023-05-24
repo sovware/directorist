@@ -175,15 +175,11 @@
       display: flex;
       gap: 5px;
       height: 40px;
+      line-height: 40px;
       font-size: 14px;
       overflow-y: auto;
       .select2-selection__clear {
         padding-right: 25px;
-      }
-
-      .select2-selection__placeholder {
-        font-size: 14px;
-        line-height: 2.6;
       }
     }
 

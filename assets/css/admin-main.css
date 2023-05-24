@@ -5984,6 +5984,13 @@ img.atbdp-file-info {
   max-width: 270px;
   border-radius: 10px;
 }
+@media (max-width: 575px) {
+  .pac-container {
+    max-width: unset;
+    width: calc(100% - 30px) !important;
+    left: 30px !important;
+  }
+}
 .pac-container .pac-item {
   display: -webkit-box;
   display: -webkit-flex;
@@ -6150,6 +6157,26 @@ body.logged-in .select2-container--open .select2-dropdown--above {
   width: 16px;
   height: 16px;
   background-color: var(--directorist-color-light-gray);
+}
+@media (max-width: 575px) {
+  .select2-container--default.select2-container--open .select2-results__option .directorist-select2-contents .directorist-icon-mask {
+    width: 40px;
+    height: 40px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    border-radius: 10px;
+    background: var(--directorist-color-bg-light);
+  }
 }
 
 .custom-checkbox input {
@@ -10826,9 +10853,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal__input .directorist-form-group .directorist-form-element,
 .directorist-search-modal__input .directorist-form-group .directorist-form-element:focus {
   border: 0 none;
-}
-.directorist-search-modal__input .select2.select2-container .select2-selection .select2-selection__rendered .select2-selection__placeholder {
-  line-height: 40px;
 }
 .directorist-search-modal__input__btn {
   width: 0;

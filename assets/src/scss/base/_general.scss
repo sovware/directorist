@@ -344,6 +344,11 @@
     padding: 18px 5px 11px;
     max-width: 270px;
     border-radius: 10px;
+    @media (max-width: 575px) {
+        max-width: unset;
+        width: calc(100% - 30px) !important;
+        left: 30px !important;
+    }
     .pac-item {
         display: flex;
         align-items: center;
@@ -504,6 +509,15 @@ body.logged-in .select2-container--open .select2-dropdown--above {
                         width: 16px;
                         height: 16px;
                         background-color: var(--directorist-color-light-gray);
+                    }
+                    @media (max-width: 575px) {
+                        width: 40px;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 10px;
+                        background: var(--directorist-color-bg-light);
                     }
                 }
             }

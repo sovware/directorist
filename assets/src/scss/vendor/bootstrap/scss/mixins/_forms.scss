@@ -41,13 +41,13 @@
     z-index: 5;
     display: none;
     max-width: 100%; // Contain to parent when possible
-    padding: .5rem;
-    margin-top: .1rem;
-    font-size: .875rem;
+    padding: 8px;
+    margin-top: 1.5px;
+    font-size: 13px;
     line-height: 1;
     color: $white;
     background-color: rgba($color, .8);
-    border-radius: .2rem;
+    border-radius: 3px;
   }
 
   .form-control,

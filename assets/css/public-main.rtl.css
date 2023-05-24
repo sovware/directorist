@@ -5425,7 +5425,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 
 .buttonsTable td, .buttonsTable th {
-  padding: 0.5em;
+  padding: 8px;
   border: 1px solid grey;
 }
 
@@ -5748,9 +5748,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
           flex-direction: column;
 }
 .directorist-widget-listing__content .directorist-widget-listing__title {
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 500;
   color: var(--directorist-color-dark);
+  margin: 0;
 }
 .directorist-widget-listing__content a {
   text-decoration: none;
@@ -5782,7 +5783,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   display: flex;
 }
 .directorist-widget-listing__content .directorist-widget-listing__rating-point {
-  font-size: 0.93rem;
+  font-size: 14px;
   font-weight: 600;
   display: inline-block;
   margin: 0 8px;
@@ -5802,7 +5803,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   color: var(--directorist-color-body);
 }
 .directorist-widget-listing__content .directorist-widget-listing__price {
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 600;
   color: var(--directorist-color-dark);
 }
@@ -6279,8 +6280,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 .directorist-range-slider-wrap .directorist-range-slider:before {
   content: "";
-  width: 1.2em;
-  height: 1.2em;
+  width: 18px;
+  height: 18px;
   background: var(--directorist-color-white);
   border: 4px solid var(--directorist-color-body);
   position: absolute;
@@ -6344,8 +6345,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 
 .directorist-range-slider1 {
-  width: 1.2em;
-  height: 1.2em;
+  width: 18px;
+  height: 18px;
   position: absolute;
   top: 50%;
   right: 0;
@@ -6752,8 +6753,8 @@ p.atbd-min {
   position: absolute;
   right: 0;
   z-index: -1;
-  width: 1.6rem;
-  height: 1.65rem;
+  width: 24px;
+  height: 25px;
   opacity: 0;
 }
 .directorist-switch .directorist-switch-input:checked + .directorist-switch-label {
@@ -6789,7 +6790,7 @@ p.atbd-min {
 }
 .directorist-switch .directorist-switch-label:before {
   position: absolute;
-  top: 0.05rem;
+  top: 0.75px;
   right: 4px;
   display: block;
   width: 44px;
@@ -6804,7 +6805,7 @@ p.atbd-min {
   display: block;
   content: "";
   background: no-repeat 50%/50% 50%;
-  top: calc(0.05rem + 4px);
+  top: 4.75px;
   right: 8px;
   background-color: #fff !important;
   width: 16px;
@@ -6925,7 +6926,7 @@ p.atbd-min {
           transform: translate(50%, -6px);
   background: rgb(0, 0, 0);
   padding: 4px 12px;
-  border-radius: 0.2em;
+  border-radius: 3px;
   color: #fff;
   z-index: 9999;
   text-align: center;
@@ -7190,7 +7191,7 @@ p.atbd-min {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  min-height: calc(100% - 5rem);
+  min-height: calc(100% - 80px);
   pointer-events: none;
 }
 
@@ -7500,7 +7501,7 @@ p.atbd-min {
   border-radius: 16px 16px 0 0;
 }
 .directorist-card .directorist-card__header .directorist-card__header--title {
-  font-size: 1.2rem;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.2;
   color: var(--directorist-color-primary);
@@ -12339,7 +12340,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-right: 3px;
 }
 .directorist-listing-single__info .directorist-listing-tagline {
-  margin: 0 4px 1rem 4px;
+  margin: 0 4px 15px 4px;
 }
 .directorist-listing-single__info .directorist-listing-title {
   font-size: 18px;
@@ -13525,9 +13526,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 20px 0 !important;
 }
 .directorist-report-abuse-modal .directorist-modal__header .directorist-modal-title {
-  font-size: 1.75rem;
+  font-size: 26px;
   margin: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
   font-weight: 500;
   line-height: 1.2;
   color: var(--directorist-color-title);
@@ -13769,7 +13770,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 30px;
 }
 .directorist-single-wrapper .directorist-card__header--title {
-  font-size: 1.2rem;
+  font-size: 18px;
   font-weight: 500;
   color: var(--directorist-color-primary);
   margin: 0 -6px;
@@ -13807,7 +13808,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 0 6px;
 }
 .directorist-single-wrapper .directorist-details-info-wrap a {
-  font-size: 1rem;
+  font-size: 15px;
   text-decoration: none;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -13824,7 +13825,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  margin: -0.8rem 0 0 0;
+  margin: -12px 0 0 0;
   list-style-type: none;
   padding: 0;
 }
@@ -13833,7 +13834,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-flex: 0 0 50%;
       -ms-flex: 0 0 50%;
           flex: 0 0 50%;
-  margin: 0.8rem 0 0 0;
+  margin: -12px 0 0 0;
 }
 .directorist-single-wrapper .directorist-single-listing-slider .directorist-swiper__nav i:after {
   background-color: var(--directorist-color-white);
@@ -13887,7 +13888,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-align: center;
           align-items: center;
   text-decoration: none;
-  font-size: 0.93rem;
+  font-size: 14px;
   font-weight: 500;
   border: 0 none;
   border-radius: 8px;
@@ -13904,7 +13905,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-listing-quick-action .directorist-social-links__item a span.fa {
   font-family: "Font Awesome 5 Brands";
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 15px;
 }
 .directorist-single-listing-quick-action .directorist-social-links__item a:hover {
   font-weight: 500;
@@ -13922,7 +13923,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  font-size: 0.87rem;
+  font-size: 13px;
   border: 0 none;
   border-radius: 8px;
   padding: 0 16px;
@@ -14012,7 +14013,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 .directorist-listing-details__listing-title {
-  font-size: 2rem;
+  font-size: 30px;
   font-weight: 600;
   display: inline-block;
   margin: 30px 0 0;
@@ -14048,12 +14049,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-related-listing-header h4,
 .directorist-related-listing-header h5,
 .directorist-related-listing-header h6 {
-  font-size: 1.2rem;
+  font-size: 18px;
   margin: 0 0 15px;
 }
 
 .directorist-single-author-info .diretorist-view-profile-btn {
-  font-size: 0.93rem;
+  font-size: 14px;
   margin-top: 22px;
   padding: 0 28px;
 }
@@ -14082,7 +14083,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-author-avatar .directorist-single-author-name h4,
 .directorist-single-author-avatar .directorist-single-author-name h5,
 .directorist-single-author-avatar .directorist-single-author-name h6 {
-  font-size: 1.07rem;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: normal;
@@ -14090,7 +14091,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--color-dark);
 }
 .directorist-single-author-avatar .directorist-single-author-name .directorist-single-author-membership {
-  font-size: 0.93rem;
+  font-size: 14px;
   color: var(--directorist-color-light-gray);
 }
 
@@ -14136,7 +14137,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: var(--directorist-color-light-gray);
 }
 .directorist-single-author-contact-info ul .directorist-single-author-contact-info-text {
-  font-size: 1rem;
+  font-size: 15px;
   margin-right: 12px;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -14176,7 +14177,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 1rem;
+  font-size: 15px;
 }
 @media only screen and (max-width: 375px) {
   .directorist-details-info-wrap .directorist-single-info {
@@ -14366,7 +14367,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 .directorist-contact-owner-form-inner .directorist-form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 15px;
 }
 .directorist-contact-owner-form-inner .directorist-form-element {
   border-color: var(--directorist-color-border-gray);
@@ -14639,7 +14640,7 @@ Review: New Style
 }
 
 .directorist-review-content a > i {
-  font-size: 0.9em;
+  font-size: 13.5px;
 }
 .directorist-review-content .directorist-btn > i {
   margin-left: 5px;
@@ -14688,7 +14689,7 @@ Review: New Style
   padding-left: 5px;
 }
 .directorist-review-content .directorist-review-content__header .directorist-btn {
-  font-size: 0.867rem;
+  font-size: 13px;
   font-weight: 600;
   -webkit-box-align: center;
   -webkit-align-items: center;
@@ -14729,13 +14730,13 @@ Review: New Style
   text-align: center;
 }
 .directorist-review-content .directorist-review-content__overview__rating .directorist-rating-point {
-  font-size: 2.67rem;
+  font-size: 40px;
   font-weight: 600;
   display: block;
   color: var(--directorist-color-dark);
 }
 .directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars {
-  font-size: 1rem;
+  font-size: 15px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -14946,7 +14947,7 @@ Review: New Style
   padding: 0;
 }
 .directorist-review-single .comment-body p {
-  font-size: 1rem;
+  font-size: 15px;
   margin: 0;
   color: var(--directorist-color-body);
 }
@@ -15004,7 +15005,7 @@ Review: New Style
   margin-right: 15px;
 }
 .directorist-review-single .directorist-review-single__author__details h2 {
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 500;
   margin: 0 0 5px;
   color: var(--directorist-color-dark);
@@ -15031,7 +15032,7 @@ Review: New Style
 }
 .directorist-review-single .directorist-review-single__author__details .directorist-review-date {
   display: inline-block;
-  font-size: 0.87rem;
+  font-size: 13px;
   margin-right: 14px;
   color: var(--directorist-color-deep-gray);
 }
@@ -15041,7 +15042,7 @@ Review: New Style
   display: block;
 }
 .directorist-review-single .directorist-review-single__content p {
-  font-size: 1rem;
+  font-size: 15px;
   color: var(--directorist-color-body);
 }
 .directorist-review-single__feedback {
@@ -15074,7 +15075,7 @@ Review: New Style
           align-items: center;
 }
 .directorist-review-single__actions a {
-  font-size: 0.87rem;
+  font-size: 13px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -15091,8 +15092,8 @@ Review: New Style
   margin-left: 6px;
 }
 .directorist-review-single__actions a .directorist-icon-mask::after {
-  width: 0.9em;
-  height: 0.9em;
+  width: 13.5px;
+  height: 13.5px;
   background-color: var(--directorist-color-deep-gray);
 }
 .directorist-review-single .directorist-review-submit {
@@ -15119,7 +15120,7 @@ Review: New Style
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  font-size: 0.87rem;
+  font-size: 13px;
   max-width: 100%;
   width: 100%;
   margin: 0;
@@ -15197,7 +15198,7 @@ Review: New Style
   width: 100px;
   word-wrap: break-word;
   word-break: break-all;
-  font-size: 0.93rem;
+  font-size: 14px;
   font-weight: 400;
   color: var(--directorist-color-body);
   margin: 0;
@@ -15267,7 +15268,7 @@ Review: New Style
 }
 .directorist-review-submit__form .directorist-form-group label {
   display: block;
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 500;
   color: var(--directorist-color-dark);
   margin-bottom: 5px;
@@ -16848,7 +16849,7 @@ Review: New Style
 
 .directorist-payment-instructions,
 .directorist-payment-thanks-text {
-  font-size: 0.93rem;
+  font-size: 14px;
   font-weight: 400;
   color: var(--directorist-color-body);
 }
@@ -16858,11 +16859,11 @@ Review: New Style
 }
 
 .directorist-payment-thanks-text {
-  font-size: 1rem;
+  font-size: 15px;
 }
 
 .directorist-payment-table thead th {
-  font-size: 0.93rem;
+  font-size: 14px;
   font-weight: 500;
   text-align: right;
   padding: 9px 20px;
@@ -16870,7 +16871,7 @@ Review: New Style
   background-color: var(--directorist-color-bg-gray);
 }
 .directorist-payment-table tbody td {
-  font-size: 0.93rem;
+  font-size: 14px;
   font-weight: 500;
   padding: 5px 0;
   vertical-align: top;
@@ -16882,17 +16883,17 @@ Review: New Style
   color: var(--directorist-color-light-gray);
 }
 .directorist-payment-table .directorist-payment-table__title {
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 500;
   margin: 0;
   text-transform: capitalize;
   color: var(--directorist-color-dark);
 }
 .directorist-payment-table .directorist-payment-table__title.directorist-payment-table__title--large {
-  font-size: 1.07rem;
+  font-size: 16px;
 }
 .directorist-payment-table p {
-  font-size: 0.87rem;
+  font-size: 13px;
   margin: 0;
   color: var(--directorist-color-light-gray);
 }
@@ -16902,7 +16903,7 @@ Review: New Style
 }
 .directorist-payment-summery-table tbody tr.directorsit-payment-table-total td,
 .directorist-payment-summery-table tbody tr.directorsit-payment-table-total .directorist-payment-table__title {
-  font-size: 1.07rem;
+  font-size: 16px;
 }
 
 .directorist-btn-view-listing {
@@ -16927,29 +16928,29 @@ Review: New Style
   padding: 24px 40px;
 }
 .directorist-checkout-card .directorist-card__header .directorist-card__header--title {
-  font-size: 1.6rem;
+  font-size: 24px;
   font-weight: 600;
 }
 @media (max-width: 575px) {
   .directorist-checkout-card .directorist-card__header .directorist-card__header--title {
-    font-size: 1.2rem;
+    font-size: 18px;
   }
 }
 .directorist-checkout-card .directorist-card__body {
   padding: 20px 40px 40px;
 }
 .directorist-checkout-card .directorist-summery-label {
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 500;
   color: var(--color-dark);
 }
 .directorist-checkout-card .directorist-summery-label-description {
-  font-size: 0.87rem;
+  font-size: 13px;
   margin-top: 4px;
   color: var(--directorist-color-light-gray);
 }
 .directorist-checkout-card .directorist-summery-amount {
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 500;
   color: var(--directorist-color-body);
 }
@@ -16970,13 +16971,13 @@ Review: New Style
   margin-bottom: 10px;
 }
 .directorist-payment-gateways .directorist-radio input[type=radio] + .directorist-radio__label {
-  font-size: 1.07rem;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.15;
   color: var(--directorist-color-dark);
 }
 .directorist-payment-gateways .directorist-card__body .directorist-payment-text {
-  font-size: 0.93rem;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.86;
   margin-top: 4px;
@@ -17010,7 +17011,7 @@ Review: New Style
 
 .directorist-summery-total .directorist-summery-label,
 .directorist-summery-total .directorist-summery-amount {
-  font-size: 1.2rem;
+  font-size: 18px;
   font-weight: 500;
   color: var(--color-dark);
 }
@@ -17469,7 +17470,7 @@ Review: New Style
 .atbdp-icon-large {
   display: block;
   margin-bottom: 20px;
-  font-size: 3rem;
+  font-size: 45px;
   text-align: center;
 }
 

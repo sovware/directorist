@@ -4,7 +4,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        font-size: 1rem;
+        font-size: 15px;
         @media only screen and (max-width: 375px){
             flex-direction: column;
             align-items: flex-start;
@@ -182,7 +182,7 @@
 // Directorist Owner Contact form
 .directorist-contact-owner-form-inner {
     .directorist-form-group {
-        margin-bottom: 1rem;
+        margin-bottom: 15px;
     }
 
     .directorist-form-element {

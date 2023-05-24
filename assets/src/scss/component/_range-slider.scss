@@ -7,8 +7,8 @@
     position: relative;
     &:before {
       content: '';
-      width: 1.2em;
-      height: 1.2em;
+      width: 18px;
+      height: 18px;
       background: var(--directorist-color-white);
       border: 4px solid var(--directorist-color-body);
       position: absolute;
@@ -67,8 +67,8 @@
 }
 
 .directorist-range-slider1 {
-  width: 1.2em;
-  height: 1.2em;
+  width: 18px;
+  height: 18px;
   position: absolute;
   top: 50%;
   left: 0;

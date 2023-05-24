@@ -1,6 +1,6 @@
 .directorist-payment-instructions,
 .directorist-payment-thanks-text{
-    font-size: .93rem;
+    font-size: 14px;
     font-weight: 400;
     color: var(--directorist-color-body);
 }
@@ -10,13 +10,13 @@
 }
 
 .directorist-payment-thanks-text{
-    font-size: 1rem;
+    font-size: 15px;
 }
 
 .directorist-payment-table{
     thead{
         th{
-            font-size: .93rem;
+            font-size: 14px;
             font-weight: 500;
             text-align: left;
             padding: 9px 20px;
@@ -26,7 +26,7 @@
     }
     tbody{
         td{
-            font-size: .93rem;
+            font-size: 14px;
             font-weight: 500;
             padding: 5px 0;
             vertical-align: top;
@@ -41,17 +41,17 @@
     }
 
     .directorist-payment-table__title{
-        font-size: 1rem;
+        font-size: 15px;
         font-weight: 500;
         margin: 0;
         text-transform: capitalize;
         color: var(--directorist-color-dark);
         &.directorist-payment-table__title--large{
-            font-size: 1.07rem;
+            font-size: 16px;
         }
     }
     p{
-        font-size: .87rem;
+        font-size: 13px;
         margin: 0;
         color: var(--directorist-color-light-gray);;
     }
@@ -65,7 +65,7 @@
         tr.directorsit-payment-table-total{
             td,
             .directorist-payment-table__title{
-                font-size: 1.07rem;
+                font-size: 16px;
             }
         }
     }

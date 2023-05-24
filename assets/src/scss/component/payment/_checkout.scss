@@ -17,10 +17,10 @@
     .directorist-card__header{
         padding: 24px 40px;
         .directorist-card__header--title{
-            font-size: 1.6rem;
+            font-size: 24px;
             font-weight: 600;
             @media (max-width: 575px) {
-                font-size: 1.2rem;
+                font-size: 18px;
             }
         }
     }
@@ -29,17 +29,17 @@
     }
 
     .directorist-summery-label{
-        font-size: 1rem;
+        font-size: 15px;
         font-weight: 500;
         color: var(--color-dark);
     }
     .directorist-summery-label-description{
-        font-size: 0.87rem;
+        font-size: 13px;
         margin-top: 4px;
         color: var(--directorist-color-light-gray);
     }
     .directorist-summery-amount{
-        font-size: 1rem;
+        font-size: 15px;
         font-weight: 500;
         color: var(--directorist-color-body);
     }
@@ -61,7 +61,7 @@
     }
     .directorist-radio{
         input[type="radio"] + .directorist-radio__label{
-            font-size: 1.07rem;
+            font-size: 16px;
             font-weight: 500;
             line-height: 1.15;
             color: var(--directorist-color-dark);
@@ -69,7 +69,7 @@
     }
     .directorist-card__body{
         .directorist-payment-text{
-            font-size: 0.93rem;
+            font-size: 14px;
             font-weight: 400;
             line-height: 1.86;
             margin-top: 4px;
@@ -100,7 +100,7 @@
 .directorist-summery-total{
     .directorist-summery-label,
     .directorist-summery-amount{
-        font-size: 1.2rem;
+        font-size: 18px;
         font-weight: 500;
         color: var(--color-dark);
     }

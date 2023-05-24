@@ -11,8 +11,8 @@
         position: absolute;
         left: 0;
         z-index: -1;
-        width: 1.6rem;
-        height: 1.65rem;
+        width: 24px;
+        height: 25px;
         opacity: 0;
         &:checked{
             &+.directorist-switch-label{
@@ -39,7 +39,7 @@
         color: #51526E;
         &:before{
             position: absolute;
-            top: 0.05rem;
+            top: 0.75px;
             left: 4px;
             display: block;
             width: 44px;
@@ -54,7 +54,7 @@
             display: block;
             content: "";
             background: no-repeat 50% / 50% 50%;
-            top: calc(0.05rem + 4px);
+            top: calc(0.75px + 4px);
             left: calc(0px + 8px);
             background-color: #fff !important;
             width: calc(24px - 8px);
@@ -168,7 +168,7 @@
                 }
             }
         }
-        
+
         .directorist-switch-yes{
             background-color: transparent;
             color: #9b9eaf;

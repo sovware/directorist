@@ -873,7 +873,7 @@ import { directorist_range_slider } from './range-slider';
         /* When location field is empty we need to hide Radius Search */
         function handleRadiusVisibility(){
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
-            $('.directorist-location-js').each((index,locationDom)=>{
+            $('.directorist-location-js, .zip-radius-search').each((index,locationDom)=>{
                 if($(locationDom).val() === ''){
                     $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "none"});
                 }else{
@@ -882,7 +882,7 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
         }
-        $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
+        $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
             handleRadiusVisibility();
         });
         // DOM Mutation observer

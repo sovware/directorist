@@ -1665,7 +1665,7 @@ __webpack_require__.r(__webpack_exports__);
 
     function handleRadiusVisibility() {
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
-      $('.directorist-location-js').each(function (index, locationDom) {
+      $('.directorist-location-js, .zip-radius-search').each(function (index, locationDom) {
         if ($(locationDom).val() === '') {
           $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({
             display: "none"
@@ -1679,7 +1679,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
 
-    $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
+    $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
       handleRadiusVisibility();
     }); // DOM Mutation observer
 

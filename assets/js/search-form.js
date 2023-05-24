@@ -1700,76 +1700,9 @@ __webpack_require__.r(__webpack_exports__);
         $(this).find(".directorist-search-country").css("max-height", "175px");
         $(this).find(".directorist-search-field .address_result").css("max-height", "175px");
       }
-    }); // Search Form Modal
-
-    function dirScreenWidth() {
-      var searchModalElement;
-      var screenWidth = window.innerWidth;
-
-      if (screenWidth <= 575) {
-        searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--basic');
-        $('body').on('click', '.directorist-modal-btn', function (e) {
-          e.preventDefault();
-          searchModalOpen(searchModalElement);
-        });
-        $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
-          e.preventDefault();
-          searchModalClose(searchModalElement);
-        });
-        $('body').on('click', '.directorist-search-modal__minimizer', function (e) {
-          e.preventDefault();
-          searchModalMinimize(searchModalElement);
-        });
-        $('body').on('click', '.directorist-search-modal__input__btn--clear', function (e) {
-          e.preventDefault();
-          var inputField = $(this).siblings('.directorist-search-field').find('.directorist-form-element');
-          var selectboxField = $(this).siblings('.directorist-search-field').find('.directorist-select select');
-          selectboxField.val(null).trigger('change');
-          inputField.val('');
-        });
-        $('body').on('click', function (e) {
-          inputFieldValueCheck(searchModalElement);
-        });
-
-        function inputFieldValueCheck(searchModalParent) {
-          var inputFields = searchModalParent.querySelectorAll('.directorist-search-field input[type="text"]');
-          var selectboxFields = searchModalParent.querySelectorAll('.directorist-search-field .directorist-select select');
-          inputFields.forEach(function (element, index) {
-            var clearBtn = element.parentElement.parentElement;
-            checkElement(element, clearBtn);
-          });
-          selectboxFields.forEach(function (element, index) {
-            var clearBtn = element.parentElement.parentElement.parentElement;
-            checkElement(element, clearBtn);
-          });
-
-          function checkElement(element, clearBtn) {
-            if (element.value != '') {
-              clearBtn.classList.add('input-has-value');
-            } else {
-              if (clearBtn.classList.contains('input-has-value')) {
-                clearBtn.classList.remove('input-has-value');
-              }
-            }
-          }
-        }
-      } else {
-        searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
-        $('body').on('click', '.directorist-modal-btn', function (e) {
-          e.preventDefault();
-          searchModalOpen(searchModalElement);
-        });
-        $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
-          e.preventDefault();
-          searchModalClose(searchModalElement);
-        });
-      }
-    } // Call the function initially to get the screen width on page load
-
-
-    dirScreenWidth(); // Add an event listener to capture screen width changes
-
-    window.addEventListener('resize', dirScreenWidth);
+    });
+    /* Search Form Modal */
+    // Search Modal Open
 
     function searchModalOpen(searchModalParent) {
       var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
@@ -1777,8 +1710,9 @@ __webpack_require__.r(__webpack_exports__);
 
       modalOverlay.style.cssText = "opacity: 1; visibility: visible; transition: 0.3s ease;"; // Modal Content Style
 
-      modalContent.style.cssText = "opacity: 1; visibility: visible; bottom:0; height: auto;";
-    }
+      modalContent.style.cssText = "opacity: 1; visibility: visible; bottom:0;";
+    } // Search Modal Close
+
 
     function searchModalClose(searchModalParent) {
       var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
@@ -1786,7 +1720,7 @@ __webpack_require__.r(__webpack_exports__);
 
       modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease"; // Modal Content Style
 
-      modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px; height: 0";
+      modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
     } // Modal Minimize
 
 
@@ -1794,9 +1728,77 @@ __webpack_require__.r(__webpack_exports__);
       var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
       var contentsCurrentHeight = modalContent.offsetHeight;
       modalContent.style.height = contentsCurrentHeight === 400 ? 'auto' : '400px';
-    }
-    /* When location field is empty we need to hide Radius Search */
+    } // Input Field Value Check
 
+
+    function inputFieldValueCheck(searchModalParent) {
+      var inputFields = searchModalParent.querySelectorAll('.directorist-search-field input[type="text"]');
+      var selectboxFields = searchModalParent.querySelectorAll('.directorist-search-field .directorist-select select');
+      inputFields.forEach(function (element, index) {
+        var clearBtn = element.parentElement.parentElement;
+        checkElement(element, clearBtn);
+      });
+      selectboxFields.forEach(function (element, index) {
+        var clearBtn = element.parentElement.parentElement.parentElement;
+        checkElement(element, clearBtn);
+      });
+
+      function checkElement(element, clearBtn) {
+        if (element.value != '') {
+          clearBtn.classList.add('input-has-value');
+        } else {
+          if (clearBtn.classList.contains('input-has-value')) {
+            clearBtn.classList.remove('input-has-value');
+          }
+        }
+      }
+    } // Basic Modal Open
+
+
+    $('body').on('click', '.directorist-modal-btn__basic', function (e) {
+      e.preventDefault();
+      var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--basic');
+      searchModalOpen(searchModalElement);
+    }); // Advanced Modal Open
+
+    $('body').on('click', '.directorist-modal-btn__advanced', function (e) {
+      e.preventDefault();
+      var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
+      searchModalOpen(searchModalElement);
+    }); // Search Modal Close
+
+    $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
+      e.preventDefault();
+      var searchModalElement = this.closest('.directorist-search-modal');
+      searchModalClose(searchModalElement);
+    }); // Search Modal Minimizer
+
+    $('body').on('click', '.directorist-search-modal__minimizer', function (e) {
+      e.preventDefault();
+      var searchModalElement = this.closest('.directorist-search-modal');
+      searchModalMinimize(searchModalElement);
+    }); // Basic Modal Input Field Check
+
+    $('body').on('click', '.directorist-search-modal--basic .directorist-search-modal__body', function (e) {
+      e.preventDefault();
+      var searchModalElement = this.closest('.directorist-search-modal--basic');
+      inputFieldValueCheck(searchModalElement);
+    }); // Search Modal Input Clear Button
+
+    $('body').on('click', '.directorist-search-modal__input__btn--clear', function (e) {
+      e.preventDefault();
+      var inputField = $(this).siblings('.directorist-search-field').find('.directorist-form-element');
+      var selectboxField = $(this).siblings('.directorist-search-field').find('.directorist-select select');
+
+      if (selectboxField) {
+        selectboxField.val(null).trigger('change');
+      }
+
+      if (inputField) {
+        inputField.val('');
+      }
+    });
+    /* When location field is empty we need to hide Radius Search */
 
     function handleRadiusVisibility() {
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');

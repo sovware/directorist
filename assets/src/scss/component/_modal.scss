@@ -159,8 +159,9 @@
         visibility: hidden;
         z-index: 9999;
         border-radius: 16px;
+        transition: all ease 0.3s;
         background-color: var(--directorist-color-white);
-        @media only screen and (max-width: 480px) {
+        @media only screen and (max-width: 575px) {
             width: 100%;
             margin-bottom: 0;
             border-radius: 16px 16px 0 0;
@@ -178,20 +179,9 @@
             background-color: var(--directorist-color-white);
             border-bottom: 1px solid var(--directorist-color-border);
             z-index: 999;
-            @media only screen and (max-width: 480px) {
+            @media only screen and (max-width: 575px) {
                 padding-left: 30px;
                 padding-right: 20px;
-            }
-            .modal-minimizer {
-                content: '';
-                position: absolute;
-                top: 10px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 50px;
-                height: 5px;
-                border-radius: 10px;
-                background-color: var(--directorist-color-border);
             }
         }
         @include e(body) {
@@ -200,7 +190,7 @@
             overflow: auto;
             margin-top: 70px;
             margin-bottom: 80px;
-            @media only screen and (max-width: 480px) {
+            @media only screen and (max-width: 575px) {
                 padding: 30px 30px 0;
                 height: calc(100vh - 175px);
             }
@@ -213,7 +203,7 @@
             border-radius: 0 0 16px 16px;
             background-color: var(--directorist-color-light);
             z-index: 9;
-            @media only screen and (max-width: 480px) {
+            @media only screen and (max-width: 575px) {
                 border-radius: 0;
             }
         }
@@ -243,7 +233,7 @@
                     background-color: var(--directorist-color-danger);
                 }
             }
-            @media only screen and (max-width: 480px) {
+            @media only screen and (max-width: 575px) {
                 width: auto;
                 height: auto;
                 background: transparent;
@@ -258,10 +248,27 @@
         @include e(form) {
             .directorist-search-modal__contents__body {
                 height: calc(100vh - 350px);
-                @media only screen and (max-width: 480px) {
+                @media only screen and (max-width: 575px) {
                     height: calc(100vh - 200px);
                 }
             }
+        }
+    }
+    @include e(minimizer) {
+        content: '';
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 5px;
+        border-radius: 10px;
+        background-color: var(--directorist-color-border);
+        opacity: 0;
+        visibility: hidden;
+        @media only screen and (max-width: 575px) {
+            opacity: 1;
+            visibility: visible;
         }
     }
 

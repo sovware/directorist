@@ -1716,6 +1716,10 @@ __webpack_require__.r(__webpack_exports__);
           e.preventDefault();
           searchModalClose(searchModalElement);
         });
+        $('body').on('click', '.directorist-search-modal__minimizer', function (e) {
+          e.preventDefault();
+          searchModalMinimize(searchModalElement);
+        });
         $('body').on('click', '.directorist-search-modal__input__btn--clear', function (e) {
           e.preventDefault();
           var inputField = $(this).siblings('.directorist-search-field').find('.directorist-form-element');
@@ -1773,7 +1777,7 @@ __webpack_require__.r(__webpack_exports__);
 
       modalOverlay.style.cssText = "opacity: 1; visibility: visible; transition: 0.3s ease;"; // Modal Content Style
 
-      modalContent.style.cssText = "opacity: 1; visibility: visible; bottom:0; transition: 0.3s ease;";
+      modalContent.style.cssText = "opacity: 1; visibility: visible; bottom:0; height: auto;";
     }
 
     function searchModalClose(searchModalParent) {
@@ -1782,7 +1786,14 @@ __webpack_require__.r(__webpack_exports__);
 
       modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease"; // Modal Content Style
 
-      modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px; transition: 0.5s ease";
+      modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px; height: 0";
+    } // Modal Minimize
+
+
+    function searchModalMinimize(searchModalParent) {
+      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
+      var contentsCurrentHeight = modalContent.offsetHeight;
+      modalContent.style.height = contentsCurrentHeight === 400 ? 'auto' : '400px';
     }
     /* When location field is empty we need to hide Radius Search */
 

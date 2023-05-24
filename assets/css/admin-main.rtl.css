@@ -10662,9 +10662,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   visibility: hidden;
   z-index: 9999;
   border-radius: 16px;
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
   background-color: var(--directorist-color-white);
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 575px) {
   .directorist-search-modal__contents {
     width: 100%;
     margin-bottom: 0;
@@ -10694,23 +10696,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-bottom: 1px solid var(--directorist-color-border);
   z-index: 999;
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 575px) {
   .directorist-search-modal__contents__header {
     padding-right: 30px;
     padding-left: 20px;
   }
-}
-.directorist-search-modal__contents__header .modal-minimizer {
-  content: "";
-  position: absolute;
-  top: 10px;
-  right: 50%;
-  -webkit-transform: translateX(50%);
-          transform: translateX(50%);
-  width: 50px;
-  height: 5px;
-  border-radius: 10px;
-  background-color: var(--directorist-color-border);
 }
 .directorist-search-modal__contents__body {
   height: calc(100vh - 325px);
@@ -10719,7 +10709,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-top: 70px;
   margin-bottom: 80px;
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 575px) {
   .directorist-search-modal__contents__body {
     padding: 30px 30px 0;
     height: calc(100vh - 175px);
@@ -10734,7 +10724,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: var(--directorist-color-light);
   z-index: 9;
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 575px) {
   .directorist-search-modal__contents__footer {
     border-radius: 0;
   }
@@ -10774,7 +10764,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal__contents__btn:hover i::after {
   background-color: var(--directorist-color-danger);
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 575px) {
   .directorist-search-modal__contents__btn {
     width: auto;
     height: auto;
@@ -10788,9 +10778,29 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal .directorist-advanced-filter__form .directorist-search-modal__contents__body {
   height: calc(100vh - 350px);
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 575px) {
   .directorist-search-modal .directorist-advanced-filter__form .directorist-search-modal__contents__body {
     height: calc(100vh - 200px);
+  }
+}
+.directorist-search-modal__minimizer {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 50%;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
+  width: 50px;
+  height: 5px;
+  border-radius: 10px;
+  background-color: var(--directorist-color-border);
+  opacity: 0;
+  visibility: hidden;
+}
+@media only screen and (max-width: 575px) {
+  .directorist-search-modal__minimizer {
+    opacity: 1;
+    visibility: visible;
   }
 }
 .directorist-search-modal--basic .directorist-search-query {

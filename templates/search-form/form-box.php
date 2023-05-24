@@ -36,6 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 							<button class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close">
 								<?php directorist_icon( 'fas fa-times' ); ?>
 							</button>
+							<span class="directorist-search-modal__minimizer"></span>
 						</div>
 						<div class="directorist-search-modal__contents__body">
 							<?php

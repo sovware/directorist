@@ -832,7 +832,7 @@ class Helper {
 			$supported_mime_types = $filtered_supported_mime_types;
 		}
 
-		// Convert as extension
+		// Convert to extension
 		if ( $return_type === 'extension' || $return_type === '.extension' ) {
 			$extensions = array_keys( $supported_mime_types );
 

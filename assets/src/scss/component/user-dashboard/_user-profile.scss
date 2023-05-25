@@ -1,13 +1,11 @@
 // Profile Responsive
-#dashboard_profile{
-    #user_profile_form{
-        &.directorist-profile-responsive{
-            .directorist-col-lg-3{
-                width: 100%;
-            }
-            .directorist-col-lg-9{
-                width: 100%;
-            }
+#dashboard_profile #user_profile_form{
+    &.directorist-profile-responsive{
+        .directorist-col-lg-3{
+            width: 100%;
+        }
+        .directorist-col-lg-9{
+            width: 100%;
         }
     }
 }
@@ -19,16 +17,14 @@
     border-radius: 4px;
     border: 1px solid #ececec;
 
-    .ezmu__upload-button-wrap {
-        .ezmu__btn {
-            border-radius: 4px;
-            padding: 10.5px 30px;
-            background-color: #F6F7F9;
-            box-shadow: 0 0;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--directorist-color-primary);
-        }
+    .ezmu__upload-button-wrap .ezmu__btn {
+        border-radius: 4px;
+        padding: 10.5px 30px;
+        background-color: #F6F7F9;
+        box-shadow: 0 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--directorist-color-primary);
     }
 }
 
@@ -82,12 +78,10 @@
         align-items: center;
         .directorist-social-icon {
             margin-right: 6px;
-            .directorist-icon-mask{
-                &:after{
-                    width: 16px;
-                    height: 16px;
-                    background-color: #0A0B1E;
-                }
+            .directorist-icon-mask::after{
+                width: 16px;
+                height: 16px;
+                background-color: #0A0B1E;
             }
         }
     }

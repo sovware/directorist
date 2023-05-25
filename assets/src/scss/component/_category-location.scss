@@ -758,20 +758,12 @@
 
         /* Styles */
         @include m('style-one'){
-            .directorist-categories__single__content{
-                .directorist-icon-mask{
-                    &::after{
-                        width: 50px;
-                        height: 50px;
-                    }
-                }
+            .directorist-categories__single__content .directorist-icon-mask::after{
+                width: 50px;
+                height: 50px;
             }
-            &.directorist-categories__single--image{
-                .directorist-icon-mask{
-                    &::after{
-                        background-color: var(--directorist-color-white);
-                    }
-                }
+            &.directorist-categories__single--image .directorist-icon-mask::after{
+                background-color: var(--directorist-color-white);
             }
         }
         @include m('style-two'){
@@ -784,23 +776,19 @@
                     height: 40px;
                 }
             }
-            &.directorist-categories__single--image{
-                .directorist-icon-mask{
-                    border-color: var(--directorist-color-white);
-                    &::after{
-                        background-color: var(--directorist-color-white);
-                    }
+            &.directorist-categories__single--image .directorist-icon-mask{
+                border-color: var(--directorist-color-white);
+                &::after{
+                    background-color: var(--directorist-color-white);
                 }
             }
         }
         @include m('style-three'){
             height: var(--directorist-category-box-width);
             border-radius: 50%;
-            .directorist-icon-mask{
-                &::after{
-                    width: 40px;
-                    height: 40px;
-                }
+            .directorist-icon-mask ::after{
+                width: 40px;
+                height: 40px;
             }
             .directorist-category-term{
                 display: none;
@@ -817,15 +805,11 @@
                 border: 3px solid var(--directorist-color-primary);
                 margin-top: 15px;
             }
-            &.directorist-categories__single--image{
-                .directorist-icon-mask{
-                    &::after{
-                        background-color: var(--directorist-color-white);
-                    }
-                }
-                .directorist-category-count{
-                    border-color: var(--directorist-color-white);
-                }
+            &.directorist-categories__single--image .directorist-icon-mask::after{
+                background-color: var(--directorist-color-white);
+            }
+            .directorist-category-count{
+                border-color: var(--directorist-color-white);
             }
         }
         @include m('style-four'){
@@ -839,250 +823,242 @@
                     background-color: var(--directorist-color-white);
                 }
             }
-            &.directorist-categories__single--image{
-                .directorist-icon-mask{
-                    border-color: var(--directorist-color-white);
-                    &::after{
-                        background-color: var(--directorist-color-white);
-                    }
+            &.directorist-categories__single--image .directorist-icon-mask{
+                border-color: var(--directorist-color-white);
+                &:after{
+                    background-color: var(--directorist-color-white);
                 }
             }
-            &:not(.directorist-categories__single--image){
-                .directorist-categories__single__total{
-                    color: var(--directorist-color-deep-gray);
-                }
+            &:not(.directorist-categories__single--image) .directorist-categories__single__total{
+                color: var(--directorist-color-deep-gray);
             }
         }
     }
 }
 
 /* Taxonomy List Style One */
-.directorist-taxonomy-list-one{
-    .directorist-taxonomy-list{
-        @include e('card'){
-            display: flex;
-            background: var(--directorist-color-light);
-            border-radius: var(--directorist-border-radius-lg);
-            padding: 8px 20px;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            position: relative;
-            min-height: 40px;
-            transition: 0.6s ease;
-            span{
-                font-weight: var(--directorist-fw-medium);
-            }
-            @include m('icon'){
-                padding-inline-start: 12px;
-            }
-            &:focus{
-                background: none;
-            }
+.directorist-taxonomy-list-one .directorist-taxonomy-list{
+    @include e('card'){
+        display: flex;
+        background: var(--directorist-color-light);
+        border-radius: var(--directorist-border-radius-lg);
+        padding: 8px 20px;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        position: relative;
+        min-height: 40px;
+        transition: 0.6s ease;
+        span{
+            font-weight: var(--directorist-fw-medium);
         }
-        @include e('toggle'){
-            @include m('open'){
-                border-bottom-right-radius: 0;
-                border-bottom-left-radius: 0;
-                padding-bottom: 5px;
-                .directorist-taxonomy-list__toggler{
-                    .directorist-icon-mask{
-                        &::after{
-                            transform: rotate(180deg);
-                        }
-                    }
-                }
-            }
+        @include m('icon'){
+            padding-inline-start: 12px;
         }
-        @include e('icon'){
-            .directorist-icon-mask{
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background: #fff;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+        &:focus{
+            background: none;
         }
-        @include e('name'){
-            color: var(--directorist-color-dark);
-        }
-        @include e('count'){
-            color: var(--directorist-color-dark);
-        }
-        @include e('toggler'){
-            margin-inline-start: auto;
-            .directorist-icon-mask{
-                &::after{
-                    width: 10px;
-                    height: 10px;
-                    transition: 0.3s ease;
-                }
-            }
-        }
-
-        /* Sub Item */
-        @include e('sub-item'){
-            margin: 0;
-            list-style: none;
-            overflow-y: auto;
-            a{
-                text-decoration: none;
-                color: var(--directorist-color-dark);
-            }
-            ul{
-                padding-inline-start: 10px;
-            }
-        }
-        @include e('card'){
-            + .directorist-taxonomy-list__sub-item{
-                background: var(--directorist-color-light);
-                border-radius: 16px;
-                padding-inline-start: 20px;
-                padding-inline-end: 20px;
-                height: 0;
-                overflow: hidden;
-                visibility: hidden;
-                opacity: 0;
-                padding-bottom: 20px;
-                margin-top: -20px;
-                transition: 0.3s ease;
-            }
-            @include m('icon'){
-                + .directorist-taxonomy-list__sub-item{
-                    padding-inline-start: 64px;
-                }
-            }
-        }
-        @include e('toggle'){
-            @include m('open'){
-                + .directorist-taxonomy-list__sub-item{
-                    border-radius: 0 0 16px 16px;
-                    height: auto;
-                    visibility: visible;
-                    opacity: 1;
-                    margin-top: 0;
-                }
-            }
-        }
-
-        /* Sub Item Toggle */
-        @include e('sub-item-toggle'){
-            display: flex;
-            align-items: center;
-            + .directorist-taxonomy-list__sub-item{
-                height: 0;
-                overflow: hidden;
-                transition: 0.3s ease;
-            }
-            &.directorist-taxonomy-list__toggle--open{
-                + .directorist-taxonomy-list__sub-item{
-                    height: auto;
-                }
-            }
-            &.directorist-taxonomy-list__toggle--open{
-                .directorist-taxonomy-list__sub-item-toggler{
+    }
+    @include e('toggle'){
+        @include m('open'){
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            padding-bottom: 5px;
+            .directorist-taxonomy-list__toggler{
+                .directorist-icon-mask{
                     &::after{
-                        content: none;
+                        transform: rotate(180deg);
                     }
                 }
             }
         }
-        @include e('sub-item-toggler'){
-            margin-inline-start: auto;
-            position: relative;
-            width: 10px;
-            height: 10px;
-            display: inline-block;
-            &::before{
-                position: absolute;
-                content: '';
-                left: 0;
-                top: 50%;
-                width: 10px;
-                height: 1px;
-                background: var(--directorist-color-deep-gray);
-                transform: translateY(-50%);
-            }
-            &::after{
-                position: absolute;
-                content: '';
-                width: 1px;
-                height: 10px;
-                left: 50%;
-                top: 0;
-                background: var(--directorist-color-deep-gray);
-                transform: translateX(-50%);
-            }
-
+    }
+    @include e('icon'){
+        .directorist-icon-mask{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+    }
+    @include e('name'){
+        color: var(--directorist-color-dark);
+    }
+    @include e('count'){
+        color: var(--directorist-color-dark);
+    }
+    @include e('toggler'){
+        margin-inline-start: auto;
+        .directorist-icon-mask{
+            &::after{
+                width: 10px;
+                height: 10px;
+                transition: 0.3s ease;
+            }
+        }
+    }
+
+    /* Sub Item */
+    @include e('sub-item'){
+        margin: 0;
+        list-style: none;
+        overflow-y: auto;
+        a{
+            text-decoration: none;
+            color: var(--directorist-color-dark);
+        }
+        ul{
+            padding-inline-start: 10px;
+        }
+    }
+    @include e('card'){
+        + .directorist-taxonomy-list__sub-item{
+            background: var(--directorist-color-light);
+            border-radius: 16px;
+            padding-inline-start: 20px;
+            padding-inline-end: 20px;
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+            opacity: 0;
+            padding-bottom: 20px;
+            margin-top: -20px;
+            transition: 0.3s ease;
+        }
+        @include m('icon'){
+            + .directorist-taxonomy-list__sub-item{
+                padding-inline-start: 64px;
+            }
+        }
+    }
+    @include e('toggle'){
+        @include m('open'){
+            + .directorist-taxonomy-list__sub-item{
+                border-radius: 0 0 16px 16px;
+                height: auto;
+                visibility: visible;
+                opacity: 1;
+                margin-top: 0;
+            }
+        }
+    }
+
+    /* Sub Item Toggle */
+    @include e('sub-item-toggle'){
+        display: flex;
+        align-items: center;
+        + .directorist-taxonomy-list__sub-item{
+            height: 0;
+            overflow: hidden;
+            transition: 0.3s ease;
+        }
+        &.directorist-taxonomy-list__toggle--open{
+            + .directorist-taxonomy-list__sub-item{
+                height: auto;
+            }
+        }
+        &.directorist-taxonomy-list__toggle--open{
+            .directorist-taxonomy-list__sub-item-toggler{
+                &::after{
+                    content: none;
+                }
+            }
+        }
+    }
+    @include e('sub-item-toggler'){
+        margin-inline-start: auto;
+        position: relative;
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        &::before{
+            position: absolute;
+            content: '';
+            left: 0;
+            top: 50%;
+            width: 10px;
+            height: 1px;
+            background: var(--directorist-color-deep-gray);
+            transform: translateY(-50%);
+        }
+        &::after{
+            position: absolute;
+            content: '';
+            width: 1px;
+            height: 10px;
+            left: 50%;
+            top: 0;
+            background: var(--directorist-color-deep-gray);
+            transform: translateX(-50%);
+        }
+
     }
 }
 
 /* Taxonomy List Style Two */
-.directorist-taxonomy-list-two{
-    .directorist-taxonomy-list{
-        box-shadow: var(--directorist-box-shadow);
-        border-radius: var(--directorist-border-radius-lg);
-        background: var(--directorist-color-white);
-        @include e('card'){
+.directorist-taxonomy-list-two .directorist-taxonomy-list{
+    box-shadow: var(--directorist-box-shadow);
+    border-radius: var(--directorist-border-radius-lg);
+    background: var(--directorist-color-white);
+    @include e('card'){
+        display: flex;
+        padding: 10px 20px;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        min-height: 40px;
+        transition: 0.6s ease;
+        &:focus{
+            background: none;
+        }
+    }
+    @include e('name'){
+        font-weight: var(--directorist-fw-medium);
+        color: var(--directorist-color-dark);
+    }
+    @include e('count'){
+        color: var(--directorist-color-dark);
+    }
+    @include e('icon'){
+        .directorist-icon-mask{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #000;
             display: flex;
-            padding: 10px 20px;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            &::after{
+                background-color: #fff;
+            }
+        }
+    }
+    @include e('toggle'){
+        border-bottom: 1px solid var(--directorist-color-border);
+    }
+    @include e('toggler'){
+        display: none;
+    }
+    @include e('sub-item'){
+        margin: 0;
+        padding: 15px 20px 25px;
+        list-style: none;
+        li{
+            margin-bottom: 7px;
+        }
+        a{
             text-decoration: none;
-            min-height: 40px;
-            transition: 0.6s ease;
-            &:focus{
-                background: none;
-            }
-        }
-        @include e('name'){
-            font-weight: var(--directorist-fw-medium);
             color: var(--directorist-color-dark);
         }
-        @include e('count'){
-            color: var(--directorist-color-dark);
-        }
-        @include e('icon'){
-            .directorist-icon-mask{
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background: #000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                &::after{
-                    background-color: #fff;
-                }
-            }
-        }
-        @include e('toggle'){
-            border-bottom: 1px solid var(--directorist-color-border);
-        }
-        @include e('toggler'){
-            display: none;
-        }
-        @include e('sub-item'){
+        ul{
             margin: 0;
-            padding: 15px 20px 25px;
+            padding: 0;
             list-style: none;
             li{
-                margin-bottom: 7px;
-            }
-            a{
-                text-decoration: none;
-                color: var(--directorist-color-dark);
-            }
-            ul{
-                margin: 0;
-                padding: 0;
-                list-style: none;
-                li{
-                    padding-inline-start: 10px;
-                }
+                padding-inline-start: 10px;
             }
         }
     }

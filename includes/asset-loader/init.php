@@ -139,6 +139,8 @@ class Asset_Loader {
 
 			// Author Profile
 			case 'author-contents':
+				wp_enqueue_script( 'directorist-swiper' );
+				wp_enqueue_script( 'directorist-listing-slider' );
 				wp_enqueue_script( 'directorist-author-profile' );
 				break;
 
@@ -154,6 +156,7 @@ class Asset_Loader {
 				/**
 				 * @todo load based on Listings::has_masonry() condition.
 				 */
+				wp_enqueue_script( 'directorist-listing-slider' );
 				wp_enqueue_script( 'directorist-swiper' );
 				wp_enqueue_script( 'jquery-masonry' );
 				break;

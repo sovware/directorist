@@ -24,15 +24,25 @@
             box-sizing: content-box;
 
             &:after{
+                content: "";
                 position: absolute;
                 left: 0;
                 top: 0;
                 width: 16px;
                 height: 16px;
                 border-radius: 5px;
-                content: "";
+                background: transparent;
                 border: 2px solid var(--directorist-color-gray);
-                background-color: #fff;
+                background-color: transparent;
+            }
+
+            @media only screen and (max-width: 480px) {
+                width: 100%;
+                padding: 0 30px 0 0;
+                &:after {
+                    left: unset;
+                    right: 0;
+                }
             }
         }
 
@@ -71,6 +81,10 @@
                 opacity: 0;
                 transition: all 0.3s ease 0s;
                 z-index: 2;
+                @media only screen and (max-width: 480px) {
+                    left: unset;
+                    right: 5px
+                }
             }
         }
     }
@@ -92,6 +106,7 @@
                 opacity: 0;
                 visibility: hidden;
                 z-index: 2;
+                transition: all 0.3s ease 0s;
                 content: '';
             }
         }
@@ -100,6 +115,17 @@
                 &:after{
                     background-color: var(--directorist-color-primary);
                 }
+            }
+        }
+    }
+    &.directorist-radio-circle {
+        input[type="radio"] + .directorist-radio__label {
+            &:before {
+                mask-image: url("../../../icons/font-awesome/svgs/solid/check.svg");
+                mask-repeat: no-repeat;
+                width: 10px;
+                height: 10px;
+                background-color: var(--directorist-color-white);
             }
         }
     }

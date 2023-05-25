@@ -1101,36 +1101,33 @@ class Directorist_Single_Listing {
 		}
 
 		$info_content = "";
+		$info_content .= "<div class='map-info-wrapper map-listing-card-single'>";
 
 		// favorite badge 
 		if( ! empty( $display_favorite_badge_map ) ) {
 			$info_content .= $this->favorite_badge_template_map();
 		}
-
-		if ( ! empty( $display_image_map ) || ! empty( $display_title_map ) ) {
-			$info_content .= "<div class='map-info-wrapper'><div class='map-info-img'>$image</div><div class='map-info-details'><div class='atbdp-listings-title-block'><h3>$t</h3></div>";
+		if (!empty($display_image_map)) {
+			$info_content .= "<div class='map-listing-card-single__img'>$image</div>";
 		}
-
-		// user avatar
-		if( ! empty( $display_user_avatar_map ) ) {
-			$info_content .= $this->user_avatar();
+		$info_content .= $this->user_avatar();
+		$info_content .= "<div class='map-listing-card-single__content'>";
+		if (!empty($display_title_map)) {
+			$info_content .= "<h3 class='map-listing-card-single__content__title'>$t</h3>";
 		}
-
-		// display_review_map
-		if( ! empty( $display_review_map ) ) {
-			$info_content .= $this->get_review_template();
-		}
-
-		// price
-		if( ! empty( $display_price_map ) ) {
-			$info_content .= $this->price_html();
-		}
-
-		$info_content .= "<div><span>" . directorist_icon( 'fas fa-phone-alt', false ) . "</span>{$phone}</div>";
+		$info_content .= "<div class='map-listing-card-single__content__meta'>";
+		$info_content .= $this->get_review_template();
+		$info_content .= $this->price_html();
+		$info_content .= "</div><div class='map-listing-card-single__content__info'>";
+		$info_content .= "<div class='directorist-info-item map-listing-card-single__content__phone'>" . directorist_icon( 'fas fa-phone-alt', false ) . "<div class='directorist-info-item'><a href='tel:${phone}'>{$phone}</a></div></div>";
 
 		if (!empty($display_address_map) && !empty($ad)) {
-			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
+			$info_content .= "<div class='directorist-info-item map-listing-card-single__content__address'>" .directorist_icon('fas fa-map-marker-alt', false). "<div class='directorist-info-item'>";
+			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'>{$ad}</a>");
 		}
+
+		$info_content .= "</div></div></div>";
+
 
 		$cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
 		$cat_icon = '';
@@ -1187,6 +1184,7 @@ class Directorist_Single_Listing {
 
 		$args = array(
 			'review_stars'    => $review_stars,
+			'total_reviews'   => $reviews_count,
 			'average_reviews' => number_format( $average, 1 ),
 		);
 

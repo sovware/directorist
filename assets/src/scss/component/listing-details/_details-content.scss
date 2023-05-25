@@ -80,6 +80,40 @@
     }
 }
 
+.directorist-single-map {
+    @include e(location) {
+        gap: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 30px 0 0;
+        justify-content: space-between;
+        
+    }
+    @include e(address) {
+        gap: 10px;
+        display: flex;
+        font-size: 14px;
+        align-items: center;
+        i::after {
+            width: 14px;
+            height: 14px;
+        }
+    }
+    @include e(direction a) {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+}
+.directorist-single-wrapper .directorist-single-map__direction a {
+    font-size: 14px;
+    color: var(--directorist-color-info);
+}
+.directorist-single-wrapper .directorist-single-map__direction .directorist-icon-mask:after {
+    width: 14px;
+    height: 14px;
+    background-color: var(--directorist-color-info);
+}
 .directorist-single-listing-header{
     margin-bottom: 25px;
 }
@@ -165,19 +199,15 @@
     color: var(--directorist-color-body);
     transition: .2s background-color ease-in-out;
 
-    .directorist-icon-mask.directorist-added-to-favorite{
-        &:after{
-            background-color: red;
-        }
+    .directorist-icon-mask.directorist-added-to-favorite::after{
+        background-color: var(--directorist-color-danger);
     }
 
-    .directorist-icon-mask{
-        &:after{
-            width: 15px;
-            height: 15px;
-            margin-right: 8px;
-            color: var(--directorist-color-body);
-        }
+    .directorist-icon-mask::after{
+        width: 15px;
+        height: 15px;
+        margin-right: 8px;
+        color: var(--directorist-color-body);
     }
 
     a {
@@ -246,27 +276,27 @@
 }
 
 // Directorist Embaded Video
-.directorist-single-wrapper {
-    .directorist-embaded-video {
-        width: 100%;
-        height: 400px;
-        border: 0 none;
-        border-radius: 16px;
-        @media (max-width: 768px) {
-            height: 56.25vw;
-        }
+.directorist-single-wrapper .directorist-embaded-video {
+    width: 100%;
+    height: 400px;
+    border: 0 none;
+    border-radius: 16px;
+    @media (max-width: 768px) {
+        height: 56.25vw;
     }
 }
 
 // Directorist Map
-.directorist-single-wrapper {
-    .directorist-single-map{
-        border-radius: 16px;
-        .atbd_map_shape {
-            .directorist-icon-mask:after {
-                background-color: var(--directorist-color-white);
-            }
+.directorist-single-wrapper .directorist-single-map{
+    border-radius: 16px;
+    z-index: 1;
+    .atbd_map_shape {
+        .directorist-icon-mask:after {
+            background-color: var(--directorist-color-white);
         }
+    }
+    .directorist-info-item a {
+        font-size: 14px;
     }
 }
 

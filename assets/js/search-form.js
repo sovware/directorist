@@ -117,7 +117,6 @@ function init() {
   selec2_add_custom_close_button_if_needed(); // Add custom close button if field contains value on change
 
   $('.select2-hidden-accessible').on('change', function (e) {
-    console.log('object');
     var value = $(this).children("option:selected").val();
 
     if (!value) {
@@ -1701,37 +1700,103 @@ __webpack_require__.r(__webpack_exports__);
         $(this).find(".directorist-search-country").css("max-height", "175px");
         $(this).find(".directorist-search-field .address_result").css("max-height", "175px");
       }
-    }); // Search Form Modal
+    });
+    /* Search Form Modal */
+    // Search Modal Open
 
-    $('body').on('click', '.directorist-modal-btn', function (e) {
-      e.preventDefault();
-      var searchModalParent = document.querySelector('.directorist-contents-wrap');
+    function searchModalOpen(searchModalParent) {
       var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
       var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
 
-      modalOverlay.style.opacity = "1";
-      modalOverlay.style.visibility = "visible";
-      modalOverlay.style.transition = "0.3s ease"; // Modal Content Style
+      modalOverlay.style.cssText = "opacity: 1; visibility: visible; transition: 0.3s ease;"; // Modal Content Style
 
-      modalContent.style.opacity = "1";
-      modalContent.style.visibility = "visible";
-      modalContent.style.bottom = "0";
-      modalContent.style.transition = "0.3s ease";
-    });
+      modalContent.style.cssText = "opacity: 1; visibility: visible; bottom:0;";
+    } // Search Modal Close
+
+
+    function searchModalClose(searchModalParent) {
+      var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
+      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
+
+      modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease"; // Modal Content Style
+
+      modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
+    } // Modal Minimize
+
+
+    function searchModalMinimize(searchModalParent) {
+      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
+      var contentsCurrentHeight = modalContent.offsetHeight;
+      modalContent.style.height = contentsCurrentHeight === 400 ? 'auto' : '400px';
+    } // Input Field Value Check
+
+
+    function inputFieldValueCheck(searchModalParent) {
+      var inputFields = searchModalParent.querySelectorAll('.directorist-search-field input[type="text"]');
+      var selectboxFields = searchModalParent.querySelectorAll('.directorist-search-field .directorist-select select');
+      inputFields.forEach(function (element, index) {
+        var clearBtn = element.parentElement.parentElement;
+        checkElement(element, clearBtn);
+      });
+      selectboxFields.forEach(function (element, index) {
+        var clearBtn = element.parentElement.parentElement.parentElement;
+        checkElement(element, clearBtn);
+      });
+
+      function checkElement(element, clearBtn) {
+        if (element.value != '') {
+          clearBtn.classList.add('input-has-value');
+        } else {
+          if (clearBtn.classList.contains('input-has-value')) {
+            clearBtn.classList.remove('input-has-value');
+          }
+        }
+      }
+    } // Basic Modal Open
+
+
+    $('body').on('click', '.directorist-modal-btn__basic', function (e) {
+      e.preventDefault();
+      var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--basic');
+      searchModalOpen(searchModalElement);
+    }); // Advanced Modal Open
+
+    $('body').on('click', '.directorist-modal-btn__advanced', function (e) {
+      e.preventDefault();
+      var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
+      searchModalOpen(searchModalElement);
+    }); // Search Modal Close
+
     $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
       e.preventDefault();
-      var searchModalParent = document.querySelector('.directorist-contents-wrap');
-      var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
-      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
+      var searchModalElement = this.closest('.directorist-search-modal');
+      searchModalClose(searchModalElement);
+    }); // Search Modal Minimizer
 
-      modalOverlay.style.opacity = "0";
-      modalOverlay.style.visibility = "hidden";
-      modalOverlay.style.transition = "0.5s ease"; // Modal Content Style
+    $('body').on('click', '.directorist-search-modal__minimizer', function (e) {
+      e.preventDefault();
+      var searchModalElement = this.closest('.directorist-search-modal');
+      searchModalMinimize(searchModalElement);
+    }); // Basic Modal Input Field Check
 
-      modalContent.style.opacity = "0";
-      modalContent.style.visibility = "hidden";
-      modalContent.style.bottom = "-200px";
-      modalContent.style.transition = "0.5s ease";
+    $('body').on('input keyup click', '.directorist-search-modal--basic .directorist-search-modal__input', function (e) {
+      e.preventDefault();
+      var searchModalElement = this.closest('.directorist-search-modal--basic');
+      inputFieldValueCheck(searchModalElement);
+    }); // Search Modal Input Clear Button
+
+    $('body').on('click', '.directorist-search-modal__input__btn--clear', function (e) {
+      e.preventDefault();
+      var inputField = $(this).siblings('.directorist-search-field').find('.directorist-form-element');
+      var selectboxField = $(this).siblings('.directorist-search-field').find('.directorist-select select');
+
+      if (selectboxField) {
+        selectboxField.val(null).trigger('change');
+      }
+
+      if (inputField) {
+        inputField.val('');
+      }
     });
     /* When location field is empty we need to hide Radius Search */
 

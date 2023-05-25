@@ -87,6 +87,52 @@
                 },
                 breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
             });
+
+
+            // Destroy Swiper Slider When Slider Image Are Less Than Minimum Required Image
+            function destroySwiperSlider() {
+                var windowScreen = screen.width;                  
+
+                var breakpoints = JSON.parse(el.dataset.swResponsive);
+
+                var breakpointKeys = Object.keys(breakpoints);
+                
+                var legalBreakpointKeys = breakpointKeys.filter(breakpointKey => breakpointKey <= windowScreen);
+                
+                var currentBreakpointKey = legalBreakpointKeys.reduce((prev, acc) => {
+                    return Math.abs(acc - windowScreen) < Math.abs(prev - windowScreen) ? acc : prev;
+                });
+                
+                var breakpointValues = Object.entries(breakpoints); 
+                var currentBreakpoint = breakpointValues.filter(([key]) => key == currentBreakpointKey); 
+
+                var sliderItemsCount = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination .swiper-pagination-bullet');
+
+                if(sliderItemsCount.length == '1') {
+                    swiper.loopDestroy();
+                    var relatedListingSlider = document.querySelector('.directorist-swiper-related');
+                    relatedListingSlider.classList.add('slider-has-one-item');
+                }
+
+                currentBreakpoint[0].forEach((elm, ind) => {  
+                    var relatedListingSlider = document.querySelector('.directorist-swiper-related');               
+                    if (swiper.loopedSlides < elm.slidesPerView) {
+                        swiper.loopDestroy();
+                        relatedListingSlider.classList.add('slider-has-less-items');
+                    } else {
+                        if(relatedListingSlider && relatedListingSlider.classList.contains('slider-has-less-items')) {
+                            relatedListingSlider.classList.remove('slider-has-less-items');
+                        }
+                    } 
+                });
+
+            }
+
+            window.addEventListener('resize', function () {
+                destroySwiperSlider();
+            });
+            
+            destroySwiperSlider();
         });
         
         /* Swiper Slider All in One */

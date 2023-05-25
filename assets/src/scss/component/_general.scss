@@ -1,50 +1,48 @@
 /* wp color picker */
-.directorist-form-group {
-  .wp-picker-container {
-    .button {
-      position: relative;
-      height: 40px;
-      border: 0 none;
-      width: 140px;
-      transition: 0.3s ease;
-      border-radius: 3px;
+.directorist-form-group .wp-picker-container {
+  .button {
+    position: relative;
+    height: 40px;
+    border: 0 none;
+    width: 140px;
+    transition: 0.3s ease;
+    border-radius: 3px;
 
-      &:hover {
-        background: rgba(0, 0, 0, 0.7);
-      }
-
-      .wp-color-result-text {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        height: 100%;
-        width: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        line-height: 1;
-        font-size: 14px;
-        background: #f7f7f7;
-        color: #222;
-      }
+    &:hover {
+      background: rgba(0, 0, 0, 0.7);
     }
 
-    .wp-picker-input-wrap {
-      label {
-        width: 90px;
+    .wp-color-result-text {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 100%;
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      font-size: 14px;
+      background: #f7f7f7;
+      color: #222;
+    }
+  }
 
-        input {
-          height: 40px;
-          padding: 0;
-          text-align: center;
-        }
+  .wp-picker-input-wrap {
+    label {
+      width: 90px;
+
+      input {
+        height: 40px;
+        padding: 0;
+        text-align: center;
       }
     }
+  }
 
-    .hidden {
-      display: none;
-    }
+  .hidden {
+    display: none;
   }
   .wp-picker-open + .wp-picker-input-wrap {
     display: block;
@@ -177,15 +175,11 @@
       display: flex;
       gap: 5px;
       height: 40px;
+      line-height: 40px;
       font-size: 14px;
       overflow-y: auto;
       .select2-selection__clear {
         padding-right: 25px;
-      }
-
-      .select2-selection__placeholder {
-        font-size: 14px;
-        line-height: 2.6;
       }
     }
 
@@ -205,42 +199,45 @@
 }
 
 .select2-container--default .select2-selection .select2-selection__arrow b {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .select2-container.select2-container--open{
   z-index: 99999;
+  @media only screen and (max-width: 575px) {
+    width: calc(100% - 40px);
+  }
+}
+.select2-dropdown {
+  @media only screen and (max-width: 575px) {
+    width: 100% !important;
+    left: -20px !important;
+  }
 }
 
-.select2-container {
-  .directorist-select2-addons-area {
-    .directorist-select2-dropdown-toggle {
-      position: absolute;
-      right: 0;
-      padding: 0;
-      width: auto;
-      pointer-events: none;
-    }
-    .directorist-select2-dropdown-close {
-      position: absolute;
-      right: 15px;
-      padding: 0;
-    }
-    .directorist-icon-mask:after {
-      background-color: #404040;
-    }
+.select2-container .directorist-select2-addons-area {
+  right: 0;
+  .directorist-select2-dropdown-toggle {
+    position: absolute;
+    right: 0;
+    padding: 0;
+    width: auto;
+    pointer-events: none;
   }
-
+  .directorist-select2-dropdown-close {
+    position: absolute;
+    right: 15px;
+    padding: 0;
+  }
+  .directorist-icon-mask:after {
+    background-color: #404040;
+  }
 }
 
 /* Login/Signup Form CSS */
-.directorist-login-wrapper{
-  #recover-pass-modal{
-      .directorist-btn{
-          margin-top: 15px;
-          &:hover{
-            text-decoration: none;
-          }
-      }
+.directorist-login-wrapper #recover-pass-modal .directorist-btn{
+  margin-top: 15px;
+  &:hover{
+    text-decoration: none;
   }
 }

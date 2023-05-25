@@ -78,6 +78,9 @@
         padding: 20px 30px;
         align-items: center;
         flex-wrap: wrap;
+        @media (max-width: 480px) {
+            padding: 20px;
+        }
 
         h4 {
             margin: 0 !important;
@@ -89,6 +92,9 @@
 
     @include e(contents) {
         padding: 30px 40px;
+        @media (max-width: 480px) {
+            padding: 20px;
+        }
         .directorist-form-description-field {
             .wp-editor-tabs {
                 position: relative;
@@ -99,6 +105,7 @@
                     border-radius: 5px;
                     padding: 5px 10px 12px;
                     background: transparent;
+                    color: var(--directorist-color-body);
                 }
             }
             .html-active .switch-html,
@@ -320,7 +327,6 @@
                 gap: 15px;
                 margin-bottom: 0;
                 border: none;
-
                 a {
                     color: var(--directorist-color-body);
                     display: block;
@@ -337,6 +343,11 @@
     padding: 18px 5px 11px;
     max-width: 270px;
     border-radius: 10px;
+    @media (max-width: 575px) {
+        max-width: unset;
+        width: calc(100% - 30px) !important;
+        left: 30px !important;
+    }
     .pac-item {
         display: flex;
         align-items: center;
@@ -497,6 +508,15 @@ body.logged-in .select2-container--open .select2-dropdown--above {
                         width: 16px;
                         height: 16px;
                         background-color: var(--directorist-color-light-gray);
+                    }
+                    @media (max-width: 575px) {
+                        width: 40px;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 10px;
+                        background: var(--directorist-color-bg-light);
                     }
                 }
             }

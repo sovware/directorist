@@ -173,32 +173,57 @@
 
 /* listing type */
 .directorist-form-listing-type {
-  @include e(title) {
-    margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+  .directorist-form-label {
     font-size: 18px;
     font-weight: 500;
-    line-height: 1.2;
-    color: #272b41;
-    letter-spacing: normal;
+    flex: 0 0 100%;
+    margin: 0;
   }
-
   @include e(single) {
-    &:not(:last-child) {
-      margin-bottom: 20px;
+    flex: 0 0 45%;
+    &.directorist-radio {
+      align-items: flex-start;
     }
   }
 
-  .directorist-radio input[type="radio"] + .directorist-radio__label {
-    font-size: 15px;
-    color: #202428;
-    padding-left: 23px;
-    font-weight: 700;
-
-    small {
-      font-weight: normal;
-      color: var(--directorist-color-success);
+  .directorist-radio input[type="radio"] {
+    + .directorist-radio__label {
+      width: 100%;
+      padding: 25px;
+      font-size: 15px;
+      font-weight: 500;
+      padding-left: 55px;
+      border-radius: 16px;
+      cursor: pointer;
+      color: var(--directorist-color-primary);
+      border: 3px solid var(--directorist-color-border-gray);
+      small {
+        display: block;
+        margin-top: 5px;
+        font-weight: normal;
+        color: var(--directorist-color-success);
+      }
+      &:before {
+        left: 31px;
+        top: 31px;
+      }
+      &:after {
+        left: 25px;
+        top: 25px;
+        width: 18px;
+        height: 18px;
+      }
     }
-  }
+    &:checked + .directorist-radio__label{
+      border-color: var(--directorist-color-primary);
+    }
+  } 
 }
 
 /* Pricing */
@@ -344,6 +369,7 @@
     #gmap {
       position: relative;
       height: 400px;
+      z-index: 1;
       #gmap_full_screen_button,
       .gm-fullscreen-control {
         display: none;
@@ -469,6 +495,7 @@
         flex-wrap: wrap;
         gap: 8px;
         .ezmu__upload-button-wrap {
+          display: none;
           height: 76px;
           width: 100px;
           border-radius: 8px;
@@ -625,7 +652,6 @@
             border-top: 2px solid #656a7a;
             width: 20px;
             height: 20px;
-            -webkit-animation: rotate360 2s linear infinite;
             animation: rotate360 2s linear infinite;
             display: inline-block;
             margin: 0 0 0 10px;
@@ -643,7 +669,7 @@
   
     #listing_notifier {
       padding: 0 40px;
-      margin: 0 0 20px;
+      margin: 30px 0 20px;
       font-weight: 600;
       color: var(--directorist-color-danger);
       .atbdp_success {
@@ -653,7 +679,7 @@
   
     .directorist-form-group,
     .directorist-checkbox {
-      padding: 0 40px 35px;
+      padding: 30px 40px 0;
       margin: 0;
       label {
         font-size: 14px;
@@ -672,8 +698,8 @@
 
   // Publish Text
   @include e(publish) {
-    padding: 100px 0;
-    margin-bottom: 30px;
+    padding: 100px 15px;
+    margin-bottom: 0;
     text-align: center;
     border-bottom: 1px solid var(--directorist-color-border);
     @include e(icon) {
@@ -705,22 +731,18 @@
     }
   }
 
-  .leaflet-pane {
-    .leaflet-marker-icon {
-      .atbd_map_shape {
-        width: 50px;
-        height: 50px;
-        &:before {
-          left: -25px;
-          top: -25px;
-          border: 50px solid rgba(0, 0, 0, 0.20);
-        }
-        .directorist-icon-mask::after {
-          width: 12px;
-          height: 20px;
-          background: var(--directorist-color-white);
-        }
-      }
+  .leaflet-pane .leaflet-marker-icon .atbd_map_shape {
+    width: 50px;
+    height: 50px;
+    &:before {
+      left: -25px;
+      top: -25px;
+      border: 50px solid rgba(0, 0, 0, 0.20);
+    }
+    .directorist-icon-mask::after {
+      width: 12px;
+      height: 20px;
+      background: var(--directorist-color-white);
     }
   }
 }
@@ -827,6 +849,12 @@
 
 .directorist-form-privacy {
   margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--directorist-color-primary);
+  &.directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after {
+    border-color: var(--directorist-color-body);
+  }
 }
 
 .directorist-form-privacy,
@@ -845,40 +873,26 @@
   justify-content: center;
 }
 
-#listing_form_info {
-  .directorist-bh-wrap {
-    .directorist-select {
-      select {
-        width: calc(100% - 1px);
-        min-height: 42px;
-        display: block !important;
-        border-color: #ececec !important;
-        padding: 0 10px;
-      }
-    }
+#listing_form_info .directorist-bh-wrap .directorist-select select {
+  width: calc(100% - 1px);
+  min-height: 42px;
+  display: block !important;
+  border-color: #ececec !important;
+  padding: 0 10px;
+}
+
+.directorist-map-field #floating-panel {
+  margin-bottom: 20px;
+
+  #delete_marker {
+    background-color: var(--directorist-color-danger);
+    border: 1px solid var(--directorist-color-danger);
+    color: #fff;
   }
 }
 
-.directorist-map-field {
-  #floating-panel {
-    margin-bottom: 20px;
-
-    #delete_marker {
-      background-color: var(--directorist-color-danger);
-      border: 1px solid var(--directorist-color-danger);
-      color: #fff;
-    }
-  }
-}
-
-#listing_form_info {
-  .atbd_content_module {
-    &.atbd-booking-information {
-      .atbdb_content_module_contents {
-        padding-top: 20px;
-      }
-    }
-  }
+#listing_form_info .atbd_content_module.atbd-booking-information .atbdb_content_module_contents {
+  padding-top: 20px;
 }
 
 // Custome Field Checkbox & Radio
@@ -963,6 +977,7 @@
       cursor: pointer;
       font-size: 14px;
       border-radius: 12px;
+      text-decoration: unset;
       color: var(--directorist-color-light-gray);
       background-color: transparent;
       transition: all 0.3s ease-in-out;
@@ -1004,6 +1019,9 @@
         &:before{
           opacity: 1;
         }
+      }
+      &:focus {
+        text-decoration: unset;
       }
       &.completed {
         color: var(--directorist-color-dark);
@@ -1068,10 +1086,14 @@
   @include e(bottom) {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
     align-items: center;
     justify-content: space-between;
     margin: 20px 0;
+    @media only screen and (max-width: 575px) {
+      gap: 15px;
+      justify-content: center;
+    }
   }
   @include e(btn) {
     width: 200px;
@@ -1104,19 +1126,39 @@
         background-color: var(--directorist-color-primary);
       }
     }
+    @include m('save-preview') {
+      flex: 0 0 100%;
+      &.directorist-btn {
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+      }
+      @media only screen and (max-width: 575px) {
+        width: 100%;
+      }
+    }
     @include m('skip-preview') {
       flex: 0 0 100%;
-      margin: 25px 0 0;
       &.directorist-btn {
         height: 0;
         opacity: 0;
         visibility: hidden;
       }
     }
+    &.directorist-btn {
+      min-height: unset;
+      @media only screen and (max-width: 575px) {
+        flex: 0 0 100%;
+      }
+    }
   }
   @include e(count) {
     font-size: 15px;
     font-weight: 500;
+    @media only screen and (max-width: 575px) {
+      flex: 0 0 100%;
+      text-align: center;
+    }
   }
 }
 

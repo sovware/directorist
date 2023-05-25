@@ -882,11 +882,11 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-    if (frame) {
+   if (frame) {
    frame.open();
    return;
   }
-    // Create a new media frame
+   // Create a new media frame
   frame = wp.media({
    title: directorist_admin.i18n_text.upload_cat_image,
    button: {
@@ -2768,7 +2768,6 @@ function init() {
   selec2_add_custom_close_button_if_needed(); // Add custom close button if field contains value on change
 
   $('.select2-hidden-accessible').on('change', function (e) {
-    console.log('object');
     var value = $(this).children("option:selected").val();
 
     if (!value) {

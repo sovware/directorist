@@ -124,8 +124,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					)
 				);
 			}
+			$google_api = get_directorist_option( 'map_api_key' );
 			$zipcode = ! empty( $_POST['zipcode'] ) ? sanitize_text_field( $_POST['zipcode'] ) : '';
-			$url      = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=postcode+' . $zipcode . '&key=AIzaSyDH9NTUfJHiAX0plZ9pNVTS_0OgCHxqYhs';
+			$url      = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=postcode+' . $zipcode . '&key=' . $google_api;
 			$data     = wp_remote_get( $url );
 			$response = wp_remote_retrieve_body( $data );
 			$json     = $response ? json_decode( $response, true ) : array();

@@ -31,33 +31,30 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-search-modal__overlay"></div>
 				<div class="directorist-search-adv-filter directorist-advanced-filter directorist-search-modal__contents">
 					<div class="directorist-advanced-filter__wrapper">
-						<div class="directorist-search-modal__contents__header">
-							<h3 class="directorist-search-modal__contents__title">More Filters</h3>
-							<button class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close">
-								<?php directorist_icon( 'fas fa-times' ); ?>
-							</button>
-							<span class="directorist-search-modal__minimizer"></span>
-						</div>
+						<span class="directorist-search-modal__minimizer"></span>
 						<div class="directorist-search-modal__contents__body">
-							<?php
-								foreach ( $searchform->form_data[0]['fields'] as $field ){ ?>
-									<div class="directorist-search-modal__input">
-										<div class="directorist-search-modal__input__btn directorist-search-modal__input__btn--back">
-											<?php directorist_icon( 'fas long-arrow-alt-left' ); ?>
-										</div>
-										<?php $searchform->field_template( $field ); ?>
-										<div class="directorist-search-modal__input__btn directorist-search-modal__input__btn--clear">
-											<?php directorist_icon( 'fas fa-times-circle' ); ?>
-										</div>
+							<?php foreach ( $searchform->form_data[0]['fields'] as $field ){ ?>
+								<div class="directorist-search-modal__input">
+									<div class="directorist-search-modal__input__btn directorist-search-modal__input__btn--back">
+										<?php directorist_icon( 'fas long-arrow-alt-left' ); ?>
 									</div>
-								<?php }
-							?>
-						</div>
-						<div class="directorist-search-modal__contents__footer">
-							<?php $searchform->buttons_template(); ?>
+									<?php $searchform->field_template( $field ); ?>
+									<div class="directorist-search-modal__input__btn directorist-search-modal__input__btn--clear">
+										<?php directorist_icon( 'fas fa-times-circle' ); ?>
+									</div>
+								</div>
+							<?php } ?>
+							<div class="directorist-search-form-action__modal">
+								<button type="submit" class="directorist-btn directorist-btn-white directorist-search-form-action__modal__btn-search">
+
+									<?php directorist_icon( 'las la-search' ); ?>
+
+									<?php echo esc_html( $searchform->search_button_text );?>
+
+								</button>
+							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		<?php }

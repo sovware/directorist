@@ -185,14 +185,14 @@
             }
         }
         @include e(body) {
-            height: calc(100vh - 325px);
+            height: calc(100vh - 380px);
             padding: 30px 40px 0;
             overflow: auto;
             margin-top: 70px;
             margin-bottom: 80px;
             @media only screen and (max-width: 575px) {
                 padding: 30px 30px 0;
-                height: calc(100vh - 175px);
+                height: calc(100vh - 200px);
             }
         }
         @include e(footer) {
@@ -205,6 +205,9 @@
             z-index: 9;
             @media only screen and (max-width: 575px) {
                 border-radius: 0;
+                .directorist-advanced-filter__action {
+                    padding: 15px 30px;
+                }
             }
         }
         @include e(title) {
@@ -273,6 +276,20 @@
     }
 
     @include m(basic) {
+        .directorist-search-modal__contents__body {
+            margin: 0;
+            padding: 30px;
+            height: calc(100vh - 260px);
+            @media only screen and (max-width: 575px) {
+                height: calc(100vh - 90px);
+            }
+        }
+        .directorist-search-modal__contents {
+            @media only screen and (max-width: 575px) {
+                margin: 0;
+                border-radius: 16px 16px 0 0;
+            }
+        }
         .directorist-search-query {
             position: relative;
             &:after {
@@ -290,6 +307,15 @@
                 mask-image: url("../../../icons/font-awesome/svgs/solid/search.svg");
             }
         }
+        .directorist-search-form-action__modal__btn-search {
+            border-radius: 10px;
+            color: var(--directorist-color-white);
+            background-color: var(--directorist-color-primary);
+            i::after {
+                background-color: var(--directorist-color-white);
+            }
+        }
+
     }
 
     @include e(input) {
@@ -361,6 +387,13 @@
                 display: none;
             }
         }
+    }
+
+    .directorist-checkbox-wrapper,
+    .directorist-search-tags {
+        padding: 0;
+        gap: 12px;
+        flex-wrap: wrap;
     }
 }
 

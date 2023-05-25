@@ -1779,7 +1779,7 @@ __webpack_require__.r(__webpack_exports__);
       searchModalMinimize(searchModalElement);
     }); // Basic Modal Input Field Check
 
-    $('body').on('click', '.directorist-search-modal--basic .directorist-search-modal__body', function (e) {
+    $('body').on('input keyup click', '.directorist-search-modal--basic .directorist-search-modal__input', function (e) {
       e.preventDefault();
       var searchModalElement = this.closest('.directorist-search-modal--basic');
       inputFieldValueCheck(searchModalElement);

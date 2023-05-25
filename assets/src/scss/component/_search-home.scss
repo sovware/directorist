@@ -174,9 +174,11 @@
     }
   }
   @include e(modal) {
-    flex: 0 0 100%;
+    @media only screen and (max-width: 575px) {
+      flex: 0 0 100%;
+    }
     @media only screen and (min-width: 576px) {
-      display: none;
+      //display: none;
     }
     @include e('btn-search') {
       gap: 8px;
@@ -185,8 +187,8 @@
       padding: 0 25px;
       border-radius: 30px;
       i::after {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
         transform: rotate(270deg);
       }
     }
@@ -320,13 +322,6 @@
 
 // Search Home Advance Filter
 .directorist-search-contents {
-  .directorist-advanced-filter {
-    border: none;
-    border-radius: 12px;
-    background: var(--directorist-color-white);
-    box-shadow: var(--directorist-box-shadow);
-  }
-
   .directorist-btn-ml {
     &:after {
       content: "";
@@ -367,13 +362,20 @@
     gap: 20px 35px;
     margin: 0;
     list-style: none;
+    @media only screen and (max-width: 575px) {
+      gap: 20px;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+    }
     li a {
       color: var(--directorist-color-body);
       font-size: 14px;
       font-weight: 500;
       text-decoration: none;
-      display: flex;
+      display: inline-flex;
       align-items: center;
+      width: max-content;
       gap: 10px;
       i,
       span,

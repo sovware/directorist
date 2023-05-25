@@ -199,14 +199,24 @@
 }
 
 .select2-container--default .select2-selection .select2-selection__arrow b {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .select2-container.select2-container--open{
   z-index: 99999;
+  @media only screen and (max-width: 575px) {
+    width: calc(100% - 40px);
+  }
+}
+.select2-dropdown {
+  @media only screen and (max-width: 575px) {
+    width: 100% !important;
+    left: -20px !important;
+  }
 }
 
 .select2-container .directorist-select2-addons-area {
+  right: 0;
   .directorist-select2-dropdown-toggle {
     position: absolute;
     right: 0;

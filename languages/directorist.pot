@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-28 08:22+0000\n"
+"POT-Creation-Date: 2023-04-04 06:10+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -586,7 +586,7 @@ msgstr ""
 msgid "Filter By Icon Pack"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:198, ../includes/classes/class-tools.php:539
+#: ../includes/asset-loader/localized_data.php:198, ../includes/classes/class-tools.php:541
 msgid "Done"
 msgstr ""
 
@@ -667,28 +667,24 @@ msgstr ""
 msgid "Every %d minutes"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:78, ../includes/classes/class-ajax-handler.php:222, ../includes/classes/class-ajax-handler.php:1162, ../includes/classes/class-ajax-handler.php:1375, ../includes/classes/class-settings-panel.php:378, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:235, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:315, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:437
+#: ../includes/classes/class-add-listing.php:77, ../includes/classes/class-ajax-handler.php:222, ../includes/classes/class-ajax-handler.php:1162, ../includes/classes/class-ajax-handler.php:1375, ../includes/classes/class-settings-panel.php:378, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:235, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:315, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:437
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:141, ../includes/classes/class-add-listing.php:146, ../includes/classes/class-add-listing.php:151, ../includes/classes/class-add-listing.php:156, ../includes/classes/class-add-listing.php:161, ../includes/classes/class-add-listing.php:167
-msgid " field is required!"
+#. translators: %s field label.
+#: ../includes/classes/class-add-listing.php:193, ../includes/classes/class-add-listing.php:199, ../includes/classes/class-add-listing.php:205, ../includes/classes/class-add-listing.php:211, ../includes/classes/class-add-listing.php:217, ../includes/classes/class-add-listing.php:223
+msgid "%s field is required!"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:442, ../includes/classes/class-add-listing.php:289
-msgctxt "tag delimiter"
-msgid ","
-msgstr ""
-
-#: ../includes/classes/class-add-listing.php:696
+#: ../includes/classes/class-add-listing.php:750
 msgid "Your Submission is Completed! redirecting.."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:700
+#: ../includes/classes/class-add-listing.php:754
 msgid "Sorry! Something Wrong with Your Submission"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:706
+#: ../includes/classes/class-add-listing.php:760
 msgid "Payment Required! redirecting to checkout.."
 msgstr ""
 
@@ -1541,23 +1537,23 @@ msgstr ""
 msgid "Invalid nonce!"
 msgstr ""
 
-#: ../includes/classes/class-metabox.php:142
+#: ../includes/classes/class-metabox.php:156
 msgid "Listing Information"
 msgstr ""
 
-#: ../includes/classes/class-metabox.php:175, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4532, ../views/admin-templates/listing-form/expiration-featured-fields.php:10
+#: ../includes/classes/class-metabox.php:189, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4532, ../views/admin-templates/listing-form/expiration-featured-fields.php:10
 msgid "Expiration"
 msgstr ""
 
-#: ../includes/classes/class-metabox.php:176, ../views/admin-templates/listing-form/expiration-featured-fields.php:11
+#: ../includes/classes/class-metabox.php:190, ../views/admin-templates/listing-form/expiration-featured-fields.php:11
 msgid "Date & Time"
 msgstr ""
 
-#: ../includes/classes/class-metabox.php:223, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4985
+#: ../includes/classes/class-metabox.php:237, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4985
 msgid "Listing Type"
 msgstr ""
 
-#: ../includes/classes/class-metabox.php:225
+#: ../includes/classes/class-metabox.php:239
 msgid "Select Listing Type"
 msgstr ""
 
@@ -2251,7 +2247,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1827, ../includes/classes/class-settings-panel.php:3184, ../includes/classes/class-setup-wizard.php:596, ../includes/classes/class-tools.php:428, ../includes/elementor/all-listing.php:193, ../includes/elementor/category.php:94, ../includes/elementor/location.php:93, ../includes/elementor/search-result.php:107, ../includes/elementor/tag.php:93
+#: ../includes/classes/class-settings-panel.php:1827, ../includes/classes/class-settings-panel.php:3184, ../includes/classes/class-setup-wizard.php:596, ../includes/classes/class-tools.php:430, ../includes/elementor/all-listing.php:193, ../includes/elementor/category.php:94, ../includes/elementor/location.php:93, ../includes/elementor/search-result.php:107, ../includes/elementor/tag.php:93
 msgid "Price"
 msgstr ""
 
@@ -3935,7 +3931,7 @@ msgstr ""
 msgid "Extensions General"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:5251, ../includes/classes/class-tools.php:450, ../includes/classes/class-tools.php:451
+#: ../includes/classes/class-settings-panel.php:5251, ../includes/classes/class-tools.php:452, ../includes/classes/class-tools.php:453
 msgid "Tools"
 msgstr ""
 
@@ -4179,39 +4175,39 @@ msgstr ""
 msgid "Directorist &rsaquo; Setup Wizard"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:412
+#: ../includes/classes/class-tools.php:414
 msgid "Publish Date"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:413
+#: ../includes/classes/class-tools.php:415
 msgid "Listing Status"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:429, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:789
+#: ../includes/classes/class-tools.php:431, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:789
 msgid "Price Range"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:433
+#: ../includes/classes/class-tools.php:435
 msgid "Map Latitude"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:434
+#: ../includes/classes/class-tools.php:436
 msgid "Map Longitude"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:435
+#: ../includes/classes/class-tools.php:437
 msgid "Hide Map"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:517
+#: ../includes/classes/class-tools.php:519
 msgid "Upload CSV File"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:525
+#: ../includes/classes/class-tools.php:527
 msgid "Column Mapping"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:533, ../views/admin-templates/post-types-manager/all-listing-types.php:61, ../views/admin-templates/post-types-manager/all-listing-types.php:203, ../views/admin-templates/post-types-manager/all-listing-types.php:221
+#: ../includes/classes/class-tools.php:535, ../views/admin-templates/post-types-manager/all-listing-types.php:61, ../views/admin-templates/post-types-manager/all-listing-types.php:203, ../views/admin-templates/post-types-manager/all-listing-types.php:221
 msgid "Import"
 msgstr ""
 
@@ -8320,7 +8316,7 @@ msgid_plural "listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../templates/widgets/featured-listing.php:113, ../templates/widgets/popular-listings.php:103, ../templates/widgets/similar-listing.php:106, ../templates/archive/fields/category.php:48
+#: ../templates/widgets/featured-listing.php:113, ../templates/widgets/popular-listings.php:103, ../templates/widgets/similar-listing.php:110, ../templates/archive/fields/category.php:48
 msgid "Uncategorized"
 msgstr ""
 

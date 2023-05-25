@@ -48,10 +48,6 @@
 @import "../../module/listings";
 @import "../../module/listing-details";
 @import "../../module/user-dashboard";
-@import "../../module/home";
-
-// Layouts
-@import "./search-home";
 
 // OLD Styles
 // @import "./old-style";
@@ -380,10 +376,6 @@
     }
   }
 
-  
-
-  
-
   .atbd_content_active #directorist.atbd_wrapper .atbd_embeded_video {
     margin-bottom: 0;
   }
@@ -481,7 +473,7 @@
 .atbdp-icon-large {
   display: block;
   margin-bottom: 20px;
-  font-size: 3rem;
+  font-size: 45px;
   text-align: center;
 }
 

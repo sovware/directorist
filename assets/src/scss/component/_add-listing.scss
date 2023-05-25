@@ -97,8 +97,8 @@
           width: 15px;
           height: 15px;
           left: unset;
-          right: 0; 
-          top: 54px;       
+          right: 0;
+          top: 54px;
         }
         &:after {
           height: 42px;
@@ -123,10 +123,10 @@
         margin: 0;
         &.directorist-form-social-fields__action {
           flex: unset;
-        } 
+        }
       }
 
-      .directorist-form-social-fields__remove {
+      @include e('remove') {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -223,7 +223,7 @@
     &:checked + .directorist-radio__label{
       border-color: var(--directorist-color-primary);
     }
-  } 
+  }
 }
 
 /* Pricing */
@@ -523,7 +523,7 @@
         }
       }
     }
-  } 
+  }
 
   .ezmu__info-list-item {
     &:empty{
@@ -640,11 +640,11 @@
     box-shadow: var(--directorist-box-shadow);
     .directorist-form-submit {
       margin-top: 15px;
-  
+
       @include e(btn) {
         &.atbd_loading {
           position: relative;
-  
+
           &:after {
             content: "";
             border: 2px solid #f3f3f3;
@@ -661,12 +661,12 @@
         }
       }
     }
-  
+
     label{
       line-height: 1.25;
       margin-bottom: 0;
     }
-  
+
     #listing_notifier {
       padding: 0 40px;
       margin: 30px 0 20px;
@@ -676,7 +676,7 @@
         color: var(--directorist-color-success);
       }
     }
-  
+
     .directorist-form-group,
     .directorist-checkbox {
       padding: 30px 40px 0;
@@ -690,7 +690,7 @@
         }
       }
     }
-  
+
     .directorist-form-required {
       padding-left: 5px;
     }

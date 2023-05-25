@@ -18,7 +18,7 @@
     }
 
     .directorist-card__header--title {
-        font-size: 1.2rem;
+        font-size: 18px;
         font-weight: 500;
         color: var(--directorist-color-primary);
         margin: 0 -6px;
@@ -42,7 +42,7 @@
                 width: 14px;
                 height: 14px;
             }
-            
+
         }
     }
     .directorist-card__header-icon,
@@ -52,7 +52,7 @@
 
     .directorist-details-info-wrap {
         a{
-            font-size: 1rem;
+            font-size: 15px;
             text-decoration: none;
             box-shadow: none;
             color: var(--directorist-color-body);
@@ -65,13 +65,12 @@
         ul {
             display: flex;
             flex-wrap: wrap;
-            margin: -0.8rem 0 0 0;
+            margin: 0;
             list-style-type: none;
             padding: 0;
         }
         li {
             flex: 0 0 50%;
-            margin: 0.8rem 0 0 0;
         }
     }
 
@@ -87,7 +86,7 @@
         flex-wrap: wrap;
         padding: 30px 0 0;
         justify-content: space-between;
-        
+
     }
     @include e(address) {
         gap: 10px;
@@ -130,7 +129,7 @@
                 visibility: visible;
                 top: calc(100% + 5px);
             }
-        } 
+        }
     }
     .directorist-social-share-links {
         position: absolute;
@@ -156,7 +155,7 @@
             display: flex;
             align-items: center;
             text-decoration: none;
-            font-size: 0.93rem;
+            font-size: 14px;
             font-weight: 500;
             border: 0 none;
             border-radius: 8px;
@@ -171,7 +170,7 @@
             span.fa{
                 font-family: "Font Awesome 5 Brands";
                 font-weight: 900;
-                font-size: 1rem;
+                font-size: 15px;
             }
             &:hover{
                 font-weight: 500;
@@ -189,7 +188,7 @@
 
 .directorist-single-listing-action {
     justify-content: center;
-    font-size: 0.87rem;
+    font-size: 13px;
     border: 0 none;
     border-radius: 8px;
     padding: 0 16px;
@@ -251,20 +250,18 @@
             color: #7a82a6;
             line-height: 24px;
         }
-
         ul {
             list-style: disc;
             padding-left: 20px;
             margin-left: 0;
-
-            li {
-                list-style: disc;
-            }
+        }
+        li {
+            list-style: disc;
         }
     }
 }
 .directorist-listing-details__listing-title {
-    font-size: 2rem;
+    font-size: 30px;
     font-weight: 600;
     display: inline-block;
     margin: 30px 0 0;
@@ -308,7 +305,7 @@
     h4,
     h5,
     h6 {
-        font-size: 1.2rem;
+        font-size: 18px;
         margin: 0 0 15px;
     }
 }

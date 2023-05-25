@@ -14340,11 +14340,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 .directorist-single-map__location {
+  gap: 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 20px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   padding: 30px 0 0;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
@@ -14352,11 +14355,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           justify-content: space-between;
 }
 .directorist-single-map__address {
+  gap: 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 10px;
   font-size: 14px;
   -webkit-box-align: center;
   -webkit-align-items: center;

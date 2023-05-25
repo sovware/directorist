@@ -80,6 +80,39 @@
     }
 }
 
+.directorist-single-map {
+    @include e(location) {
+        display: flex;
+        gap: 20px;
+        padding: 30px 0 0;
+        justify-content: space-between;
+        
+    }
+    @include e(address) {
+        display: flex;
+        gap: 10px;
+        font-size: 14px;
+        align-items: center;
+        i::after {
+            width: 14px;
+            height: 14px;
+        }
+    }
+    @include e(direction a) {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+}
+.directorist-single-wrapper .directorist-single-map__direction a {
+    font-size: 14px;
+    color: var(--directorist-color-info);
+}
+.directorist-single-wrapper .directorist-single-map__direction .directorist-icon-mask:after {
+    width: 14px;
+    height: 14px;
+    background-color: var(--directorist-color-info);
+}
 .directorist-single-listing-header{
     margin-bottom: 25px;
 }

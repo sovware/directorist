@@ -1,45 +1,49 @@
 // Report Modal
 .directorist-report-abuse-modal {
     .directorist-modal__header {
-        padding: 20px 0 !important;
-    }
-    .directorist-modal-title {
-        font-size: 26px;
-        margin: 0;
-        margin-bottom: 8px;
-        font-weight: 500;
-        line-height: 1.2;
-        color: var(--directorist-color-title);
-        letter-spacing: normal;
-    }
-    .directorist-modal-close {
-        width: 32px;
-        height: 32px;
-        right: -40px !important;
-        top: -30px !important;
-        left: auto;
-        position: absolute;
-        -webkit-transform: none;
-        -ms-transform: none;
-        transform: none;
-        background: #444752;
-        color: #fff;
-        border-radius: 300px;
-        opacity: 1;
-        font-weight: 300;
-        z-index: 2;
-        font-size: 16px;
-        padding: 0;
-        display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
+        padding: 20px 0 15px;
+
+        .directorist-modal-title {
+            font-size: 1.75rem;
+            margin: 0;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            line-height: 1.2;
+            color: var(--directorist-color-title);
+            letter-spacing: normal;
+        }
+
+        .directorist-modal-close {
+            width: 32px;
+            height: 32px;
+            right: -40px !important;
+            top: -30px !important;
+            left: auto;
+            position: absolute;
+            -webkit-transform: none;
+            -ms-transform: none;
+            transform: none;
+            background: #444752;
+            color: #fff;
+            border-radius: 300px;
+            opacity: 1;
+            font-weight: 300;
+            z-index: 2;
+            font-size: 16px;
+            padding: 0;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
     }
 
     .directorist-modal__body {
-        padding: 20px 0 !important;
+        padding: 20px 0;
+        border: none;
+
         label {
             font-size: 18px;
             margin-bottom: 12px;
@@ -56,11 +60,15 @@
         margin-top: 15px;
     }
 
+    #directorist-report-abuse-message-display:empty {
+        margin: 0;
+    }
+
     .directorist-modal__footer {
-        padding: 20px 0 !important;
+        padding: 0;
         display: flex;
         justify-content: flex-end;
-
+        border: none;
         .directorist-btn {
             text-transform: capitalize;
             padding: 0 15px;
@@ -141,10 +149,8 @@
     }
 }
 
-.directorist-listing-details {
-    .directorist-listing-single {
-        border: 0 none;
-    }
+.directorist-listing-details .directorist-listing-single {
+    border: 0 none;
 }
 
 .directorist-single-listing-notice {

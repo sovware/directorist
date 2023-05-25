@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		</div>
 
 		<?php if ( $listings->advanced_filter ) { ?>
-			<div class="<?php Helper::search_filter_class( $listings->filters_display ); ?>">
+			<div class="directorist-search-modal-advanced">
 				<?php $listings->search_form_template();?>
 			</div>
 		<?php } ?>

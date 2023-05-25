@@ -113,11 +113,13 @@
         display: flex;
         justify-content: space-between;
     }
+
     .directorist-signle-review-avatar-wrap {
         display: flex;
         align-items: center;
         margin-bottom: 22px;
     }
+
     .directorist-signle-review-avatar {
         margin-right: 12px;
 
@@ -127,26 +129,9 @@
         }
     }
 
-    .directorist-signle-review-avatar__info {
-        p {
-            font-size: 16px;
-            color: var(--directorist-color-primary);
-            text-transform: capitalize;
-            font-weight: 500;
-            margin-bottom: 2px;
-        }
-    }
-
-    .directorist-signle-review-time {
-        font-size: 13px;
-        margin-left: 0;
-    }
-
-    .directorist-rated-stars {
-        span {
-            &.directorist-rate-active {
-                color: #fa8b0c;
-            }
+    .directorist-rated-stars ul li span {
+        &.directorist-rate-active {
+            color: #fa8b0c;
         }
     }
 }
@@ -379,59 +364,123 @@ Review: New Style
                     flex: .1;
                     min-width: 70px;
                     display: inline-block;
-                    word-wrap: break-word;
-                    word-break: break-all;
-                    margin-bottom: 0;
-                    font-size: 15px;
-                    color: #525768;
-                }
-
-                progress {
-                    flex: 1.5;
-                    border-radius: 2px;
-                    height: 5px;
-                    box-shadow: none;
-                }
-
-                progress::-webkit-progress-bar {
-                    background-color: #F2F3F5;
-                    border-radius: 2px;
-                }
-
-                progress::-webkit-progress-value {
-                    background-color: #EF8000;
-                    border-radius: 2px;
-                    box-shadow: none;
-                }
-
-                progress::-moz-progress-bar {
-                    background-color: #F2F3F5;
-                    border-radius: 2px;
-                }
-
-                progress::-moz-progress-value {
-                    background-color: #EF8000;
-                    border-radius: 2px;
-                    box-shadow: none;
-                }
-
-                strong {
-                    flex: .1;
-                    font-size: 15px;
-                    font-weight: 500;
-                    color: #090E30;
-                    text-align: right;
+                    margin-right: 4px;
+                    &:after{
+                        width: 12px;
+                        height: 12px;
+                        background-color: var(--directorist-color-white);
+                    }
                 }
             }
         }
     }
 
-    @include e(reviews) {
-        &, ul {
-            padding: 0;
-            margin: 10px 0 0 0;
-            list-style-type: none;
-            li{
+        @include e(overview) {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 30px 50px;
+            border-top: 0 none;
+
+            @include e(rating) {
+                text-align: center;
+                .directorist-rating-point {
+                    font-size: 40px;
+                    font-weight: 600;
+                    display: block;
+                    color: var(--directorist-color-dark);
+                }
+
+                .directorist-rating-stars {
+                    font-size: 15px;
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 5px;
+                    color: var(--directorist-color-warning);
+                }
+                .directorist-icon-mask::after{
+                    width: 16px;
+                    height: 16px;
+                    background-color: var(--directorist-color-warning);
+                }
+
+                .directorist-rating-overall {
+                    font-size: 14px;
+                    color: var(--directorist-color-body);
+                    display: block;
+                }
+            }
+
+            @include e(benchmarks) {
+                flex: 0 0 50%;
+                padding: 25px;
+
+                .directorist-benchmark-single {
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    margin: -6px;
+
+                    &>* {
+                        margin: 6px !important;
+                    }
+
+                    label {
+                        flex: .1;
+                        min-width: 70px;
+                        display: inline-block;
+                        word-wrap: break-word;
+                        word-break: break-all;
+                        margin-bottom: 0;
+                        font-size: 15px;
+                        color: #525768;
+                    }
+
+                    progress {
+                        flex: 1.5;
+                        border-radius: 2px;
+                        height: 5px;
+                        box-shadow: none;
+                    }
+
+                    progress::-webkit-progress-bar {
+                        background-color: #F2F3F5;
+                        border-radius: 2px;
+                    }
+
+                    progress::-webkit-progress-value {
+                        background-color: #EF8000;
+                        border-radius: 2px;
+                        box-shadow: none;
+                    }
+
+                    progress::-moz-progress-bar {
+                        background-color: #F2F3F5;
+                        border-radius: 2px;
+                    }
+
+                    progress::-moz-progress-value {
+                        background-color: #EF8000;
+                        border-radius: 2px;
+                        box-shadow: none;
+                    }
+
+                    strong {
+                        flex: .1;
+                        font-size: 15px;
+                        font-weight: 500;
+                        color: #090E30;
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+        @include e(reviews) {
+            &, ul {
+                padding: 0;
+                margin: 10px 0 0 0;
                 list-style-type: none;
                 margin-left: 0;
             }
@@ -456,22 +505,41 @@ Review: New Style
                 border-radius: 4px;
             }
 
-            &::before {
-                position: absolute;
-                z-index: 100;
-                left: 50%;
-                top: 50%;
-                display: block;
-                content: "";
-                width: 24px;
-                height: 24px;
-                border-radius: 50%;
-                border: 2px solid rgba(0, 0, 0, 0.2);
-                border-top-color: rgba(0, 0, 0, 0.8);
-                animation: directoristCommentEditLoading .6s linear infinite;
+            & > li{
+                border-top: 1px solid var(--directorist-color-border);
+            }
+
+            .directorist-comment-edit-request {
+                position: relative;
+                &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 100%;
+                    z-index: 99;
+                    background-color: rgba(255, 255, 255, .8);
+                    border-radius: 4px;
+                }
+
+                &:before {
+                    position: absolute;
+                    z-index: 100;
+                    left: 50%;
+                    top: 50%;
+                    display: block;
+                    content: "";
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    border: 2px solid rgba(0, 0, 0, 0.2);
+                    border-top-color: rgba(0, 0, 0, 0.8);
+                    animation: directoristCommentEditLoading .6s linear infinite;
+                }
             }
         }
-    }
 }
 
 .directorist-review-single{
@@ -552,7 +620,7 @@ Review: New Style
         margin-bottom: 20px;
     }
 
-    .directorist-review-single__author {
+    @include e(author) {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -587,7 +655,7 @@ Review: New Style
                 color: var(--directorist-color-warning);
                 .directorist-icon-mask{
                     margin: 1px;
-                    &::after{
+                    &:after{
                         width: 11px;
                         height: 11px;
                         background-color: var(--directorist-color-warning);
@@ -603,7 +671,7 @@ Review: New Style
         }
     }
 
-    .directorist-review-single__report {
+    @include e(report) {
         a {
             font-size: 13px;
             color: #8C90A4;
@@ -611,7 +679,7 @@ Review: New Style
         }
     }
 
-    .directorist-review-single__content {
+    @include e(content) {
         p{
             font-size: 15px;
             color: var(--directorist-color-body);
@@ -741,39 +809,38 @@ Review: New Style
 
                 .br-widget {
                     margin: -1px;
+                }
+                a {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 4px;
+                    background: #E1E4EC;
+                    margin: 1px;
+                    text-decoration: none;
+                    outline: 0;
 
-                    a {
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 24px;
-                        height: 24px;
-                        border-radius: 4px;
-                        background: #E1E4EC;
-                        margin: 1px;
+                    &:before {
+                        content: "";
+                        mask-image: url("../../../../icons/line-awesome/svgs/star-solid.svg");
+                        mask-repeat: no-repeat;
+                        width: 14px;
+                        height: 14px;
+                        background-color: #fff;
+                    }
+                    &:focus{
+                        background: #E1E4EC !important;
+                        text-decoration: none !important;
+                        outline: 0;
+                    }
+
+                    &.br-selected,
+                    &.br-active {
+                        background: #fa8b0c !important;
                         text-decoration: none;
                         outline: 0;
-
-                        &:before {
-                            content: "";
-                            mask-image: url("../../../../icons/line-awesome/svgs/star-solid.svg");
-                            mask-repeat: no-repeat;
-                            width: 14px;
-                            height: 14px;
-                            background-color: #fff;
-                        }
-                        &:focus{
-                            background: #E1E4EC !important;
-                            text-decoration: none !important;
-                            outline: 0;
-                        }
-
-                        &.br-selected,
-                        &.br-active {
-                            background: #fa8b0c !important;
-                            text-decoration: none;
-                            outline: 0;
-                        }
                     }
                 }
 
@@ -865,10 +932,44 @@ Review: New Style
             position: relative;
             margin: 5px;
 
-            &:hover{
+            .directorist-review-img-gallery {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .directorist-review-gallery-preview {
+                position: relative;
+
+                &:hover{
+                    .directorist-btn-delete{
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+
+                img {
+                    width: 115px;
+                    height: 100px;
+                    max-width: 115px;
+                    object-fit: cover;
+                    border-radius: 8px;
+                }
+
                 .directorist-btn-delete{
-                    opacity: 1;
-                    visibility: visible;
+                    position: absolute;
+                    top: 6px;
+                    right: 6px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 30px;
+                    width: 30px;
+                    border-radius: 50%;
+                    color: #fff;
+                    background-color: var(--directorist-color-danger);
+                    opacity: 0;
+                    visibility: hidden;
                 }
             }
 

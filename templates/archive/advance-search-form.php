@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			</div>
 
 
-            <div class="directorist-search-modal__contents__footer">
+            <div class="directorist-search-modal-advanced__contents__footer">
 			    <?php $searchform->buttons_template(); ?>
 		    </div>
     </form>

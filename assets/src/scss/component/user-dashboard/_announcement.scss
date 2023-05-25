@@ -44,20 +44,20 @@
                 justify-content: center;
             }
 
-            @include e(part-one) {
+            @include e('part-one') {
                 font-size: 18px;
                 line-height: 1.2;
                 font-weight: 500;
                 color: #171B2E;
             }
 
-            @include e(part-two) {
+            @include e('part-two') {
                 font-size: 14px;
                 font-weight: 400;
                 color: #5A5F7D;
             }
 
-            @include e(part-three) {
+            @include e('part-three') {
                 font-size: 14px;
                 font-weight: 500;
                 color: #171B2E;
@@ -116,20 +116,16 @@
                 align-items: center;
                 justify-content: center;
 
-                .directorist-icon-mask {
-                    &:after{
-                        transition: .35s;
-                        background-color: #474868;
-                    }
+                .directorist-icon-mask::after{
+                    transition: .35s;
+                    background-color: #474868;
                 }
 
                 &:hover {
                     background-color: var(--directorist-color-danger);
 
-                    .directorist-icon-mask {
-                        &:after{
-                            background-color: #fff;
-                        }
+                    .directorist-icon-mask::after{
+                        background-color: #fff;
                     }
                 }
             }

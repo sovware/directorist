@@ -25,6 +25,7 @@
                 margin: 0;
                 padding: 0;
             }
+
             li {
                 list-style: none;
 
@@ -101,7 +102,7 @@
                 letter-spacing: normal;
             }
 
-            @include e(info-list) {
+            @include e('info-list') {
                 list-style-type: none;
                 padding: 0;
                 margin: 0;

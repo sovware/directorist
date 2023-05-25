@@ -45,11 +45,9 @@
 }
 
 // Directorist author info
-.directorist-widget__author-info{
-  .diretorist-view-profile-btn{
-    width: 100%;
-    margin-top: 25px;
-  }
+.directorist-widget__author-info .diretorist-view-profile-btn{
+  width: 100%;
+  margin-top: 25px;
 }
 
 // Widget map
@@ -88,6 +86,7 @@
   .directorist-widget-listing__title{
     font-size: 15px;
     font-weight: 500;
+    margin: 0;
     color: var(--directorist-color-dark);
     margin: 0;
   }
@@ -148,55 +147,53 @@
 }
 
 // Widget List
-.directorist-widget {
-  .directorist-widget-list {
+.directorist-widget .directorist-widget-list {
+  li {
+    &:hover {
+      .directorist-widget-list__icon {
+        background-color: var(--directorist-color-primary);
+        color: #fff;
+      }
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    span.la,
+    span.fa {
+      cursor: pointer;
+      margin: 0 5px 0 0;
+    }
+  }
+
+  .directorist-widget-list__icon {
+    font-size: 12px;
+    display: inline-block;
+    margin-right: 10px;
+    line-height: 28px;
+    width: 28px;
+    text-align: center;
+    background: #f1f3f8;
+    color: #9299b8;
+    border-radius: 50%;
+  }
+
+  .directorist-child-category {
+    padding-left: 44px;
+    margin-top: 2px;
+
     li {
-      &:hover {
-        .directorist-widget-list__icon {
-          background-color: var(--directorist-color-primary);
-          color: #fff;
-        }
-      }
+      a {
+        position: relative;
 
-      &:not(:last-child) {
-        margin-bottom: 10px;
-      }
-
-      span.la,
-      span.fa {
-        cursor: pointer;
-        margin: 0 5px 0 0;
-      }
-    }
-
-    .directorist-widget-list__icon {
-      font-size: 12px;
-      display: inline-block;
-      margin-right: 10px;
-      line-height: 28px;
-      width: 28px;
-      text-align: center;
-      background: #f1f3f8;
-      color: #9299b8;
-      border-radius: 50%;
-    }
-
-    .directorist-child-category {
-      padding-left: 44px;
-      margin-top: 2px;
-
-      li {
-        a {
-          position: relative;
-
-          &:before {
-            position: absolute;
-            content: '-';
-            left: -12px;
-            top: 50%;
-            font-size: 20px;
-            transform: translateY(-50%);
-          }
+        &:before {
+          position: absolute;
+          content: '-';
+          left: -12px;
+          top: 50%;
+          font-size: 20px;
+          transform: translateY(-50%);
         }
       }
     }
@@ -222,7 +219,7 @@
         }
       }
     }
-    .directorist-taxonomy-list__icon-default{
+    @include e('icon-default'){
       width: 40px;
       height: 40px;
       border-radius: 50%;

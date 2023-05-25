@@ -866,7 +866,6 @@ $(document).ready(function () {
     var totalWizardCount = document.querySelector('.multistep-wizard__count__total');
     var currentWizardCount = document.querySelector('.multistep-wizard__count__current');
     var progressWidth = document.querySelector('.multistep-wizard__progressbar__width');
-    var saveBtnText = document.querySelector('.multistep-wizard__btn--next').innerHTML;
     var stepCount = 1;
     var progressPerStep = 100 / totalWizard.length; // Initialize Wizard Count & Progressbar
 
@@ -909,8 +908,10 @@ $(document).ready(function () {
     }); // Random Step
 
     $('.multistep-wizard__nav__btn').on('click', function (e) {
+      e.preventDefault();
+
       if (this.classList.contains('completed')) {
-        var currentStep = Number(this.attributes[1].value) + 1;
+        var currentStep = Number(this.attributes[2].value) + 1;
         stepCount = currentStep;
         activeWizard(stepCount);
       }
@@ -945,18 +946,18 @@ $(document).ready(function () {
       } // Change Button Text on Last Step
 
 
+      var nextBtn = document.querySelector('.multistep-wizard__btn--next');
+      var previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
       var submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
 
       if (value === totalWizard.length) {
-        document.querySelector('.multistep-wizard__btn--next').innerHTML = "Save & Preview";
-        submitBtn.style.height = "auto";
-        submitBtn.style.opacity = "1";
-        submitBtn.style.visibility = "visible";
+        nextBtn.style.cssText = "display:none; width: 0; height: 0; opacity: 0; visibility: hidden;";
+        previewBtn.style.cssText = "height: 54px; flex: unset; opacity: 1; visibility: visible;";
+        submitBtn.style.cssText = "height: 54px; opacity: 1; visibility: visible;";
       } else {
-        document.querySelector('.multistep-wizard__btn--next').innerHTML = saveBtnText;
-        submitBtn.style.height = "0";
-        submitBtn.style.opacity = "0";
-        submitBtn.style.visibility = "hidden";
+        nextBtn.style.cssText = "display:inline-flex; width: 200px; height: 54px; opacity: 1; visibility: visible;";
+        previewBtn.style.cssText = "height: 0; flex: 0 0 100%; opacity: 0; visibility: hidden;";
+        submitBtn.style.cssText = "height: 0; opacity: 0; visibility: hidden;";
       } // Update Wizard Count & Progressbar
 
 
@@ -1002,7 +1003,6 @@ function init() {
   selec2_add_custom_close_button_if_needed(); // Add custom close button if field contains value on change
 
   $('.select2-hidden-accessible').on('change', function (e) {
-    console.log('object');
     var value = $(this).children("option:selected").val();
 
     if (!value) {

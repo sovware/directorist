@@ -29,6 +29,7 @@ $img_upload_data = json_encode( $img_upload_data );
 ?>
 
 <div class="directorist-form-group directorist-form-image-upload-field">
+	<?php $listing_form->field_label_template( $data );?>
 
 	<div class="ez-media-uploader directorist-image-upload" data-uploader="<?php echo esc_attr( $img_upload_data ); ?>">
 

@@ -56,19 +56,15 @@
         }
     }
 
-    .directorist-social-links {
-        a {
-            text-decoration: none;
-            color: var(--directorist-color-body);
-        }
+    .directorist-social-links a {
+        text-decoration: none;
+        color: var(--directorist-color-body);
     }
 
-    &.directorist-single-info-picker{
-        .directorist-field-type-color{
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-        }
+    &.directorist-single-info-picker .directorist-field-type-color{
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
     }
 }
 
@@ -90,10 +86,8 @@
         overflow: hidden;
         transition: all ease-in-out 300ms !important;
 
-        .directorist-icon-mask{
-            &:after{
-                background-color: #fff;
-            }
+        .directorist-icon-mask::after{
+            background-color: #fff;
         }
 
         &.facebook:hover {
@@ -196,5 +190,12 @@
         padding: 0 18px;
         text-decoration: none;
         text-transform: capitalize;
+    }
+}
+
+
+.directorist-author-social {
+    a .fa {
+        font-family: "Font Awesome 5 Brands";
     }
 }

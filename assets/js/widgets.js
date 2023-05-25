@@ -152,7 +152,6 @@ __webpack_require__.r(__webpack_exports__);
     })(jQuery);
 }); */
 
-console.log('test code');
 
 /***/ }),
 

@@ -14,16 +14,14 @@
         width: 24px;
         height: 25px;
         opacity: 0;
-        &:checked{
-            &+.directorist-switch-label{
-                color: #1A1B29;
-                font-weight: 500;
-                &:before{
-                    background-color: var(--directorist-color-primary);
-                }
-                &:after{
-                    transform: translateX(20px);
-                }
+        &:checked+.directorist-switch-label{
+            color: #1A1B29;
+            font-weight: 500;
+            &:before{
+                background-color: var(--directorist-color-primary);
+            }
+            &:after{
+                transform: translateX(20px);
             }
         }
     }
@@ -38,6 +36,7 @@
         margin-left: 0;
         color: #51526E;
         &:before{
+            content: "";
             position: absolute;
             top: 0.75px;
             left: 4px;
@@ -46,7 +45,6 @@
             height: 24px;
             border-radius: 15px;
             pointer-events: all;
-            content: "";
             background-color: #ECECEC;
         }
         &:after{
@@ -70,71 +68,23 @@
 
 // Switch Type
 .directorist-switch{
-    &.directorist-switch-primary{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: var(--directorist-color-primary)
-                    }
-                }
-            }
-        }
+    &.directorist-switch-primary .directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-primary)
     }
-    &.directorist-switch-success{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: var(--directorist-color-success)
-                    }
-                }
-            }
-        }
+    &.directorist-switch-success.directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-success)
     }
-    &.directorist-switch-secondary{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: var(--directorist-color-secondary)
-                    }
-                }
-            }
-        }
+    &.directorist-switch-secondary.directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-secondary)
     }
-    &.directorist-switch-danger{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: var(--directorist-color-danger)
-                    }
-                }
-            }
-        }
+    &.directorist-switch-danger.directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-danger)
     }
-    &.directorist-switch-warning{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: var(--directorist-color-warning)
-                    }
-                }
-            }
-        }
+    &.directorist-switch-warning.directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-warning)
     }
-    &.directorist-switch-info{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: var(--directorist-color-info);
-                    }
-                }
-            }
-        }
+    &.directorist-switch-info.directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-info)
     }
 }
 

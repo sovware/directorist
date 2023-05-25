@@ -26,6 +26,7 @@
         color: var(--directorist-color-deep-gray);
         border: none;
         border-radius: 0;
+        background: transparent;
         border-bottom: 1px solid var(--directorist-color-border-gray);
         &:focus {
             outline: none;

@@ -41,20 +41,18 @@
                     height: unset;
                     width: unset;
                     min-width: unset;
-                    &:after {
-                        height: 14px;
-                        width: 14px;
-                        background-color: var(--directorist-color-body);
-                    }
+                }
+                i::after {
+                    height: 14px;
+                    width: 14px;
+                    background-color: var(--directorist-color-body);
                 }
 
                 &:hover {
                     color: var(--directorist-color-primary);
                     background-color: var(--directorist-color-light);
-                    i {
-                        &:after {
-                            background-color: var(--directorist-color-primary);
-                        }
+                    i::after {
+                        background-color: var(--directorist-color-primary);
                     }
                 }
             }

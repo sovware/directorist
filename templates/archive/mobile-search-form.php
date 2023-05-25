@@ -15,14 +15,14 @@
 
 <div class="directorist-all-listing-btn">
     <div class="directorist-all-listing-btn__basic">
-		<a href="#" class="directorist-btn directorist-btn-lg directorist-btn-white directorist-modal-btn__basic">
+		<a href="#" class="directorist-btn directorist-btn-light directorist-modal-btn__basic">
 			<?php directorist_icon( 'las la-search' ); ?> Search
 		</a>
 	</div>
 
     <div class="directorist-all-listing-btn__advanced">
         <a href="#" class="directorist-btn directorist-btn-lg directorist-modal-btn__advanced">
-            <?php directorist_icon( 'fas fa-filter' ); ?> Advanced
+            <?php directorist_icon( 'fas fa-filter' ); ?>
         </a>
     </div>
 </div>

@@ -16,4 +16,19 @@
 .directorist-all-listing-btn {
     display: flex;
     align-items: center;
+    @include e(basic) {
+        width: 100%;
+    }
+    .directorist-modal-btn__basic {
+        display: flex;
+        flex: 1;
+        gap: 10px;
+        border-radius: 30px;
+        align-items: center;
+        i::after {
+            width: 16px;
+            height: 16px;
+            transform: rotate(270deg);
+        }
+    }
 }

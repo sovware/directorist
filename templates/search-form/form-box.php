@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 								</div>
 							<?php } ?>
 							<div class="directorist-search-form-action__modal">
-								<button type="submit" class="directorist-btn directorist-btn-white directorist-search-form-action__modal__btn-search">
+								<button type="submit" class="directorist-btn directorist-btn-light directorist-search-form-action__modal__btn-search">
 
 									<?php directorist_icon( 'las la-search' ); ?>
 

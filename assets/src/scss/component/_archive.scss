@@ -11,6 +11,16 @@
 	.gm-style-iw-tc {
 		display: none;
 	}
+
+	@media screen and (max-width: 575px) {
+		.directorist-archive-items {
+			padding-top: 30px;
+			background: var(--directorist-color-light);
+		}
+		.directorist-type-nav__link .directorist-icon-mask {
+			display: none;
+		}
+	}
 }
 
 /* Directory type nav */
@@ -28,7 +38,11 @@
 		scrollbar-width: thin;
 
 		@media only screen and (max-width: 767px) {
+			overflow-x: auto;
 			flex-wrap: nowrap;
+		}
+		@media only screen and (max-width: 575px) {
+			justify-content: flex-start;
 		}
 
 		&::-webkit-scrollbar {
@@ -105,7 +119,10 @@
 /* Archive header bar contents */
 .directorist-content-active {
 	.directorist-header-bar {
-		margin-bottom: 30px;
+		margin: 30px 0;
+		@media screen and (max-width: 575px) {
+			display: none;
+		}
 	}
 
 	.directorist-listings-header {

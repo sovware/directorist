@@ -1797,6 +1797,11 @@ __webpack_require__.r(__webpack_exports__);
       if (inputField) {
         inputField.val('');
       }
+    }); // Back Button
+
+    $('body').on('click', '.directorist-btn__back', function (e) {
+      e.preventDefault();
+      window.history.back();
     });
     /* When location field is empty we need to hide Radius Search */
 

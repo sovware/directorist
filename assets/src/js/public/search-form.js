@@ -920,6 +920,13 @@ import { directorist_range_slider } from './range-slider';
             
           
         });
+
+        // Back Button
+        $('body').on('click', '.directorist-btn__back', function(e) {
+            e.preventDefault();
+            
+            window.history.back();
+        });
         
 
         /* When location field is empty we need to hide Radius Search */

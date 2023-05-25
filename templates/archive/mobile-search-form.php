@@ -14,6 +14,12 @@
 ?>
 
 <div class="directorist-all-listing-btn">
+    <div class="directorist-all-listing-btn__back">
+		<a href="#" class="directorist-btn__back">
+			<?php directorist_icon( 'las la-arrow-left' ); ?>
+		</a>
+	</div>
+
     <div class="directorist-all-listing-btn__basic">
 		<a href="#" class="directorist-btn directorist-btn-light directorist-modal-btn__basic">
 			<?php directorist_icon( 'las la-search' ); ?> Search
@@ -21,7 +27,7 @@
 	</div>
 
     <div class="directorist-all-listing-btn__advanced">
-        <a href="#" class="directorist-btn directorist-btn-lg directorist-modal-btn__advanced">
+        <a href="#" class="directorist-modal-btn__advanced">
             <?php directorist_icon( 'fas fa-filter' ); ?>
         </a>
     </div>

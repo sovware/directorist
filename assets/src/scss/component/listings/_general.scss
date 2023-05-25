@@ -12,12 +12,22 @@
     text-overflow: ellipsis;
 }
 
+.directorist-all-listing-btn,
+.directorist-all-listing-modal,
+.directorist-type-nav,
+.directorist-header-bar {
+    background: var(--directorist-color-white);
+}
+
 // All Listing Modal Btn
 .directorist-all-listing-btn {
     display: flex;
+    gap: 15px;
     align-items: center;
+    padding-bottom: 20px;
+    justify-content: space-between;
     @include e(basic) {
-        width: 100%;
+        flex: 1;
     }
     .directorist-modal-btn__basic {
         display: flex;
@@ -30,5 +40,12 @@
             height: 16px;
             transform: rotate(270deg);
         }
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .directorist-all-listing-btn,
+    .directorist-all-listing-modal {
+        display: none;
     }
 }

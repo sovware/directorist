@@ -13,17 +13,16 @@
     }
 ?>
 
-<div>mobile area</div>
 <div class="directorist-all-listing-btn">
     <div class="directorist-all-listing-btn__basic">
-		<a href="#" class="directorist-btn directorist-btn-white directorist-modal-btn__basic">
-			<?php directorist_icon( 'las la-search' ); ?>
+		<a href="#" class="directorist-btn directorist-btn-lg directorist-btn-white directorist-modal-btn__basic">
+			<?php directorist_icon( 'las la-search' ); ?> Search
 		</a>
 	</div>
 
     <div class="directorist-all-listing-btn__advanced">
         <a href="#" class="directorist-btn directorist-btn-lg directorist-modal-btn__advanced">
-            <?php directorist_icon( 'fas fa-filter' ); ?>
+            <?php directorist_icon( 'fas fa-filter' ); ?> Advanced
         </a>
     </div>
 </div>
@@ -75,9 +74,7 @@
                     <?php } ?>
                     <button type="submit" class="directorist-btn directorist-btn-white directorist-search-form-action__modal__btn-search">
 
-                        <?php directorist_icon( 'las la-search' ); ?>
-
-                        <?php echo esc_html( $searchform->search_button_text );?>
+                        <?php directorist_icon( 'las la-search' ); ?> Search
 
                     </button>
                 </div>

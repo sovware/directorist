@@ -65,13 +65,12 @@
         ul {
             display: flex;
             flex-wrap: wrap;
-            margin: -12px 0 0 0;
+            margin: 0;
             list-style-type: none;
             padding: 0;
         }
         li {
             flex: 0 0 50%;
-            margin: -12px 0 0 0;
         }
     }
 
@@ -221,15 +220,13 @@
             color: #7a82a6;
             line-height: 24px;
         }
-
         ul {
             list-style: disc;
             padding-left: 20px;
             margin-left: 0;
-
-            li {
-                list-style: disc;
-            }
+        }
+        li {
+            list-style: disc;
         }
     }
 }
@@ -262,10 +259,8 @@
 .directorist-single-wrapper {
     .directorist-single-map{
         border-radius: 16px;
-        .atbd_map_shape {
-            .directorist-icon-mask:after {
-                background-color: var(--directorist-color-white);
-            }
+        .directorist-icon-mask:after {
+            background-color: var(--directorist-color-white);
         }
     }
 }

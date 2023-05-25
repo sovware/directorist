@@ -14,15 +14,13 @@
 }
 
 .directorist-payment-table{
-    thead{
-        th{
-            font-size: 14px;
-            font-weight: 500;
-            text-align: left;
-            padding: 9px 20px;
-            color: var(--directorist-color-dark);
-            background-color: var(--directorist-color-bg-gray);
-        }
+    th{
+        font-size: 14px;
+        font-weight: 500;
+        text-align: left;
+        padding: 9px 20px;
+        color: var(--directorist-color-dark);
+        background-color: var(--directorist-color-bg-gray);
     }
     tbody{
         td{

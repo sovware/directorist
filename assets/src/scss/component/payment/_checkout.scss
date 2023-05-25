@@ -16,12 +16,12 @@
     }
     .directorist-card__header{
         padding: 24px 40px;
-        .directorist-card__header--title{
-            font-size: 24px;
-            font-weight: 600;
-            @media (max-width: 575px) {
-                font-size: 18px;
-            }
+    }
+    .directorist-card__header--title{
+        font-size: 24px;
+        font-weight: 600;
+        @media (max-width: 575px) {
+            font-size: 18px;
         }
     }
     .directorist-card__body{
@@ -50,15 +50,16 @@
     ul{
         margin: 0;
         padding: 0;
-        li{
-            list-style-type: none;
-            padding: 0;
-            margin:0;
-            .gateway_list{
-                margin-bottom: 10px;
-            }
+    }
+    li{
+        list-style-type: none;
+        padding: 0;
+        margin:0;
+        .gateway_list{
+            margin-bottom: 10px;
         }
     }
+
     .directorist-radio{
         input[type="radio"] + .directorist-radio__label{
             font-size: 16px;

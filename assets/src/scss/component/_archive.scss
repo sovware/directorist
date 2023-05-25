@@ -319,10 +319,8 @@
 			gap: 10px;
 
 			.directorist-dropdown {
-
 				.directorist-dropdown__links--single {
 					cursor: pointer;
-
 					&:hover {
 						background: var(--directorist-color-light);
 					}
@@ -391,7 +389,7 @@
 				flex-direction: column;
 			}
 		}
-		
+
 	}
 	@include e(sidebar) {
 		display: inline-flex;
@@ -435,7 +433,7 @@
 		.directorist-price-ranges__price-frequency--btn .directorist-pf-range {
 			width: 68px;
 		}
-		
+
 	}
 	@include e(listing) {
 		display: inline-flex;

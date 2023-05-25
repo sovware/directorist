@@ -11,7 +11,6 @@
         font-size: 15px;
 
         @include e(single){
-
             display: flex;
             padding: 15px !important;
             margin: 0;
@@ -26,12 +25,9 @@
             }
 
             &:hover{
-
                 background-color: #F8F9FA;
                 border-radius: 5px;
-
                 .directorist-dashboard-items-list__single--action{
-
                     .directorist-favourite-remove-btn{
                         opacity: 1;
                         visibility: visible;
@@ -40,13 +36,10 @@
             }
 
             .directorist-listing-img{
-
                 margin-right: 20px;
-
                 @media only screen and (max-width: 479px) {
                     margin-right: 0;
                 }
-
                 img{
 
                     max-width: 100px;

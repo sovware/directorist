@@ -2,47 +2,44 @@
 .directorist-report-abuse-modal {
     .directorist-modal__header {
         padding: 20px 0 !important;
-
-        .directorist-modal-title {
-            font-size: 26px;
-            margin: 0;
-            margin-bottom: 8px;
-            font-weight: 500;
-            line-height: 1.2;
-            color: var(--directorist-color-title);
-            letter-spacing: normal;
-        }
-
-        .directorist-modal-close {
-            width: 32px;
-            height: 32px;
-            right: -40px !important;
-            top: -30px !important;
-            left: auto;
-            position: absolute;
-            -webkit-transform: none;
-            -ms-transform: none;
-            transform: none;
-            background: #444752;
-            color: #fff;
-            border-radius: 300px;
-            opacity: 1;
-            font-weight: 300;
-            z-index: 2;
-            font-size: 16px;
-            padding: 0;
-            display: flex;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
+    }
+    .directorist-modal-title {
+        font-size: 26px;
+        margin: 0;
+        margin-bottom: 8px;
+        font-weight: 500;
+        line-height: 1.2;
+        color: var(--directorist-color-title);
+        letter-spacing: normal;
+    }
+    .directorist-modal-close {
+        width: 32px;
+        height: 32px;
+        right: -40px !important;
+        top: -30px !important;
+        left: auto;
+        position: absolute;
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none;
+        background: #444752;
+        color: #fff;
+        border-radius: 300px;
+        opacity: 1;
+        font-weight: 300;
+        z-index: 2;
+        font-size: 16px;
+        padding: 0;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
     }
 
     .directorist-modal__body {
         padding: 20px 0 !important;
-
         label {
             font-size: 18px;
             margin-bottom: 12px;
@@ -53,11 +50,10 @@
         textarea {
             min-height: 90px;
         }
-
-        #directorist-report-abuse-message-display{
-            color: var(--directorist-color-body);
-            margin-top: 15px;
-        }
+    }
+    #directorist-report-abuse-message-display{
+        color: var(--directorist-color-body);
+        margin-top: 15px;
     }
 
     .directorist-modal__footer {
@@ -90,10 +86,9 @@
 
     .directorist-modal__content {
         padding: 20px 30px 20px;
-
-        #directorist-report-abuse-form {
-            text-align: left;
-        }
+    }
+    #directorist-report-abuse-form {
+        text-align: left;
     }
 }
 
@@ -103,34 +98,34 @@
     ul {
         margin: 0;
         padding: 0;
-        li {
-            display: inline-block;
-            padding: 0;
-            margin: 0;
+    }
+    li {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+    span {
+        color: #d4d3f3;
+        display: block;
+        width: 14px;
+        height: 14px;
+        position: relative;
+        &:before {
+            content: '';
+            mask-image: url("../../../../icons/font-awesome/svgs/solid/star.svg");
+            mask-repeat: no-repeat;
+            width: 15px;
+            height: 15px;
+            background-color: #d4d3f3;
+            position: absolute;
+            left: 0;
+            top:0;
         }
-        span {
-            color: #d4d3f3;
-            display: block;
-            width: 14px;
-            height: 14px;
-            position: relative;
-            &:before {
-                content: '';
-                mask-image: url("../../../../icons/font-awesome/svgs/solid/star.svg");
-                mask-repeat: no-repeat;
-                width: 15px;
-                height: 15px;
-                background-color: #d4d3f3;
-                position: absolute;
-                left: 0;
-                top:0;
-            }
 
-            &.directorist-rate-active {
-               &:before{
-                background-color: #fa8b0c;
-               }
-            }
+        &.directorist-rate-active {
+           &:before{
+            background-color: #fa8b0c;
+           }
         }
     }
 }
@@ -157,6 +152,9 @@
 }
 
 .directorist-single-tag-list{
+    li{
+        margin: 0 0 10px;
+    }
     a{
         text-decoration: none;
         color: #51526E;
@@ -212,4 +210,4 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 1.2;
-  }
+}

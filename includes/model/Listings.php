@@ -2049,6 +2049,19 @@ class Directorist_Listings {
 			}
 		}
 
+		public function mobile_view_filter_template() {
+			// only catch atts with the prefix 'filter_'
+			$search_field_atts = array_filter( $this->atts, function( $key ) {
+				return substr( $key, 0, 7 ) == 'filter_';
+			}, ARRAY_FILTER_USE_KEY );
+
+			$args = array(
+				'listings'   => $this,
+				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
+			);
+			Helper::get_template( 'archive/mobile-search-form', $args );
+		}
+
 		public function directory_type_nav_template() {
 			$count = count( $this->listing_types );
 			$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );

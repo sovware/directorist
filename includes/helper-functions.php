@@ -2846,49 +2846,58 @@ function atbdp_style_example_image ($src) {
 }
 
 if(!function_exists('csv_get_data')){
-    function csv_get_data($default_file = null, $multiple = null, $delimiter = ',')
-    {
-        $data = $multiple ? array() : '';
+    function csv_get_data( $csv_file = null, $multiple = null, $delimiter = ',' ) {
+		if ( empty( $delimiter ) ) {
+			$delimiter = ',';
+		}
+
+        $data   = $multiple ? array() : '';
         $errors = array();
-        // Get array of CSV files
-        $file = $default_file ? $default_file : '';
-        if (!$file) return;
+
+        if ( ! $csv_file ) {
+			return $data;
+		}
 
         // Attempt to change permissions if not readable
-        if (!is_readable($file)) {
-            chmod($file, 0744);
+        if ( ! is_readable( $csv_file ) ) {
+            chmod( $csv_file, 0744 );
         }
 
         // Check if file is writable, then open it in 'read only' mode
-        if (is_readable($file) && $_file = fopen($file, "r")) {
+        if ( is_readable( $csv_file ) && $_file = fopen( $csv_file, 'r' ) ) {
 
             // To sum this part up, all it really does is go row by
             //  row, column by column, saving all the data
             $post = array();
 
             // Get first row in CSV, which is of course the headers
-            $header = fgetcsv($_file, 0, $delimiter);
+            $header = fgetcsv( $_file, 0, $delimiter );
 
-            while ($row = fgetcsv($_file, 0, $delimiter)) {
+            while ( $row = fgetcsv( $_file, 0, $delimiter ) ) {
 
-                foreach ($header as $i => $key) {
-                    $post[$key] = $row[$i];
+                foreach ( $header as $i => $key ) {
+                    $post[ $key ] = $row[ $i ];
                 }
 
-                if ($multiple) {
+                if ( $multiple ) {
                     $data[] = $post;
                 } else {
                     $data = $post;
                 }
             }
 
-            fclose($_file);
+            fclose( $_file );
         } else {
-            $errors[] = "File '$file' could not be opened. Check the file's permissions to make sure it's readable by your server.";
+            $errors[] = sprintf(
+				esc_html__( "File '%s' could not be opened. Check the file's permissions to make sure it's readable by your server.", 'directorist' ),
+				$csv_file
+			);
         }
-        if (!empty($errors)) {
+
+        if ( ! empty( $errors ) ) {
             // ... do stuff with the errors
         }
+
         return $data;
     }
 }
@@ -3658,39 +3667,66 @@ function directorist_set_listing_views_count( $listing_id = 0 ) {
  * @return string Listing field key
  */
 function directorist_translate_to_listing_field_key( $header_key = '' ) {
+	//
     $fields_map = array(
-        'date'                   => 'publish_date',
-        'publish_date'           => 'publish_date',
-        'status'                 => 'listing_status',
-        'listing_status'         => 'listing_status',
-        'name'                   => 'listing_title',
-        'title'                  => 'listing_title',
-        'details'                => 'listing_content',
-        'content'                => 'listing_content',
-        'price'                  => 'price',
-        'price_range'            => 'price_range',
-        'location'               => 'location',
-        'tag'                    => 'tag',
-        'ategory'                => 'category',
-        'zip'                    => 'zip',
-        'phone'                  => 'phone',
-        'phone2'                 => 'phone2',
-        'fax'                    => 'fax',
-        'email'                  => 'email',
-        'website'                => 'website',
-        'social'                 => 'social',
-        'atbdp_post_views_count' => 'atbdp_post_views_count',
-        'views_count'            => 'atbdp_post_views_count',
-        'manual_lat'             => 'manual_lat',
-        'manual_lng'             => 'manual_lng',
-        'hide_map'               => 'hide_map',
-        'hide_contact_info'      => 'hide_contact_owner',
-        'listing_prv_img'        => 'listing_img',
-        'preview'                => 'listing_img',
-        'listing_img'            => 'listing_img',
-        'videourl'               => 'videourl',
-        'tagline'                => 'tagline',
-        'address'                => 'address',
+		'date'                     => 'publish_date',
+		'publish_date'             => 'publish_date',
+		'Published'                => 'publish_date',
+		'status'                   => 'listing_status',
+		'listing_status'           => 'listing_status',
+		'Status'                   => 'listing_status',
+		'name'                     => 'listing_title',
+		'title'                    => 'listing_title',
+		'Title'                    => 'listing_title',
+		'details'                  => 'listing_content',
+		'content'                  => 'listing_content',
+		'Description'              => 'listing_content',
+		'Excerpt'                  => 'excerpt',
+		'price'                    => 'price',
+		'Price'                    => 'price',
+		'price_range'              => 'price_range',
+		'Price Range'              => 'price_range',
+		'location'                 => 'location',
+		'Locations'                => 'location',
+		'tag'                      => 'tag',
+		'Tags'                     => 'tag',
+		'category'                 => 'category',
+		'Categories'               => 'category',
+		'zip'                      => 'zip',
+		'Zip'                      => 'zip',
+		'phone'                    => 'phone',
+		'Phone'                    => 'phone',
+		'phone2'                   => 'phone2',
+		'Phone2'                   => 'phone2',
+		'fax'                      => 'fax',
+		'Fax'                      => 'fax',
+		'email'                    => 'email',
+		'Email'                    => 'email',
+		'website'                  => 'website',
+		'Website'                  => 'website',
+		'social'                   => 'social',
+		'Socials'                  => 'social',
+		'atbdp_post_views_count'   => 'atbdp_post_views_count',
+		'views_count'              => 'atbdp_post_views_count',
+		'Views Count'              => 'atbdp_post_views_count',
+		'manual_lat'               => 'manual_lat',
+		'Map Latitude'             => 'manual_lat',
+		'manual_lng'               => 'manual_lng',
+		'Map Logitude'             => 'manual_lng',
+		'hide_map'                 => 'hide_map',
+		'Hide Map?'                => 'hide_map',
+		'hide_contact_info'        => 'hide_contact_owner',
+		'Hide Owner Contact Form?' => 'hide_contact_owner',
+		'listing_prv_img'          => 'listing_img',
+		'preview'                  => 'listing_img',
+		'Image'                    => 'listing_img',
+		'listing_img'              => 'listing_img',
+		'videourl'                 => 'videourl',
+		'Video'                    => 'videourl',
+		'tagline'                  => 'tagline',
+		'Tagline'                  => 'tagline',
+		'address'                  => 'address',
+		'Address'                  => 'address',
     );
 
     return isset( $fields_map[ $header_key ] ) ? $fields_map[ $header_key ] : '';

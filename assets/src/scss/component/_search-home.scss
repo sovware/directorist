@@ -41,6 +41,10 @@
     padding: 22px 22px 22px 25px;
     background-color: var(--directorist-color-white);
     box-shadow: var(--directorist-box-shadow);
+    @media only screen and (max-width: 575px) {
+      padding: 0;
+      box-shadow: unset;
+    }
   }
   @include e(top) {
     display: flex;
@@ -48,6 +52,9 @@
     flex: 1;
     gap: 18px;
     margin-top: 5px;
+    @media only screen and (max-width: 575px) {
+      display: none;
+    }
     .directorist-search-field {
       flex: 30.8%;
       flex-direction: column;
@@ -120,6 +127,9 @@
   align-items: center;
   margin-left: auto;
   gap: 10px;
+  @media only screen and (max-width: 575px) {
+    width: 100%;
+  }
   @media only screen and (max-width: 375px) {
     flex-direction: column;
     align-items: flex-end;
@@ -142,6 +152,9 @@
         background-color: var(--directorist-color-body);
       }
     }
+    @media only screen and (max-width: 575px) {
+      display: none;
+    }
   }
   @include e(submit) {
     .directorist-btn-search {
@@ -156,13 +169,21 @@
         transform: rotate(270deg);
       }
     }
+    @media only screen and (max-width: 575px) {
+     display: none;
+    }
   }
   @include e(modal) {
+    flex: 0 0 100%;
+    @media only screen and (min-width: 576px) {
+      display: none;
+    }
     @include e('btn-search') {
+      gap: 8px;
+      width: 100%;
       height: 50px;
       padding: 0 25px;
-      border-radius: 10px;
-      gap: 8px;
+      border-radius: 30px;
       i::after {
         width: 16px;
         height: 16px;
@@ -229,6 +250,11 @@
   @media only screen and (max-width: 767px) {
     flex-wrap: nowrap;
     overflow-x: auto;
+  }
+  @media only screen and (max-width: 575px) {
+    max-width: 300px;
+    margin: 0 auto;
+    justify-content: flex-start;
   }
 
   @include e(item) {

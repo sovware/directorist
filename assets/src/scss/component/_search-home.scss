@@ -178,7 +178,7 @@
       flex: 0 0 100%;
     }
     @media only screen and (min-width: 576px) {
-      //display: none;
+      display: none;
     }
     @include e('btn-search') {
       gap: 8px;

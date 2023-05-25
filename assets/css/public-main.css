@@ -9996,6 +9996,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
             flex: 0 0 100%;
   }
 }
+@media only screen and (min-width: 576px) {
+  .directorist-search-form-action__modal {
+    display: none;
+  }
+}
 .directorist-search-form-action__modal__btn-search {
   gap: 8px;
   width: 100%;

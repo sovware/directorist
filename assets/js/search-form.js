@@ -1439,6 +1439,8 @@ __webpack_require__.r(__webpack_exports__);
         success: function success(data) {
           if (data.data && data.data.error_message) {
             zipcode_search.find('.error_message').remove();
+            zipcode_search.find('.zip-cityLat').val('');
+            zipcode_search.find('.zip-cityLng').val('');
             zipcode_search.append(data.data.error_message);
           }
 

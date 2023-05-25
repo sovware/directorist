@@ -614,6 +614,8 @@ import { directorist_range_slider } from './range-slider';
                 success: function( data ) {
                     if( data.data && data.data.error_message ) {
                         zipcode_search.find('.error_message').remove();
+                        zipcode_search.find('.zip-cityLat').val( '' );
+                        zipcode_search.find('.zip-cityLng').val( '' );
                         zipcode_search.append( data.data.error_message );
                     }
                     zipcode_search.removeClass('dir_loading');

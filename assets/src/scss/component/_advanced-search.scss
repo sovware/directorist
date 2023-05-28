@@ -207,7 +207,7 @@
             border-bottom: 1px solid var(--directorist-color-border);
         }
     }
-    .directorist-price-ranges__price-frequency{
+    @include e('price-frequency'){
         display: flex;
         flex-wrap: wrap;
         flex: 0 0 100%;
@@ -295,7 +295,7 @@
                 }
             }
         }
-        
+
         span{
             position: relative;
             text-align: center;

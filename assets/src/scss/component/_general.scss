@@ -140,7 +140,7 @@
       outline: none;
     }
 
-    .select2-selection__choice {
+    @include e('choice') {
       height: 28px;
       line-height: 28px;
       font-size: 12px;
@@ -151,7 +151,7 @@
       border-radius: 8px;
       color: var(--directorist-color-white);
       background-color: var(--directorist-color-primary);
-      .select2-selection__choice__remove {
+      @include e('remove') {
         position: relative;
         width: 12px;
         margin: 0;
@@ -171,7 +171,7 @@
       }
     }
 
-    .select2-selection__rendered {
+    @include e('rendered') {
       display: flex;
       gap: 5px;
       height: 40px;
@@ -183,7 +183,7 @@
       }
     }
 
-    .select2-selection__arrow {
+    @include e('arrow') {
       b {
         display: none;
       }

@@ -8,8 +8,61 @@
     .leaflet-popup-content-wrapper {
         border-radius: 10px;
         padding: 0;
+    }
+    .leaflet-popup-content {
+        margin: 0;
+        line-height: 1;
+        width:350px !important;
 
-        .leaflet-popup-content {
+        .atbdp-map.atbdp-body {
+            img {
+                width: 100%;
+            }
+        }
+
+        .media-body {
+            padding: 10px 15px;
+
+            a {
+                text-decoration: none;
+            }
+
+            h3 a {
+                font-weight: 500;
+                line-height: 1.2;
+                color: #272b41;
+                letter-spacing: normal;
+                font-size: 18px;
+                text-decoration: none;
+            }
+        }
+
+        .atbdp-listings-title-block {
+            h3.atbdp-no-margin {
+                font-size: 14px;
+                margin: 0 0 10px;
+            }
+        }
+
+        .osm-iw-location {
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            .directorist-icon-mask{
+                display: inline-block;
+                margin-right: 4px;
+            }
+        }
+        .osm-iw-get-location{
+            display: flex;
+            align-items: center;
+            .directorist-icon-mask{
+                display: inline-block;
+                margin-left: 5px;
+            }
+        }
+
+        .atbdp-map {
             margin: 0;
             line-height: 1;
             width:350px !important;

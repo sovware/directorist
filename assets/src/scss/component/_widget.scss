@@ -84,10 +84,11 @@
   display: flex;
   flex-direction: column;
   .directorist-widget-listing__title{
-    font-size: 1rem;
+    font-size: 15px;
     font-weight: 500;
     margin: 0;
     color: var(--directorist-color-dark);
+    margin: 0;
   }
   a{
     text-decoration: none;
@@ -110,7 +111,7 @@
     display: flex;
   }
   .directorist-widget-listing__rating-point{
-    font-size: .93rem;
+    font-size: 14px;
     font-weight: 600;
     display: inline-block;
     margin: 0 8px;
@@ -130,7 +131,7 @@
     color: var(--directorist-color-body);
   }
   .directorist-widget-listing__price{
-    font-size: 1rem;
+    font-size: 15px;
     font-weight: 600;
     color: var(--directorist-color-dark);
   }
@@ -218,7 +219,7 @@
         }
       }
     }
-    .directorist-taxonomy-list__icon-default{
+    @include e('icon-default'){
       width: 40px;
       height: 40px;
       border-radius: 50%;

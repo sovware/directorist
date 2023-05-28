@@ -1,8 +1,7 @@
 // Directorist Dropdown Style
 .directorist-dropdown {
     position: relative;
-
-    .directorist-dropdown__toggle {
+    @include e('toggle') {
         display: flex;
         align-items: center;
         gap: 5px;
@@ -34,7 +33,7 @@
         }
     }
 
-    .directorist-dropdown__links {
+    @include e('links') {
         @include m(right) {
             left: auto;
             right: 0;

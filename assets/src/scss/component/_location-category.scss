@@ -30,7 +30,7 @@
     @include e(body) {
         padding: 15px 20px;
 
-        ul li {
+        li {
             &:not(:last-child) {
                 margin-bottom: 5px;
             }

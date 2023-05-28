@@ -51,13 +51,11 @@
 }
 
 // Error Class
-
-.directorist-error {
-    .directorist-error__msg {
-        color: var(--directorist-color-danger);
-        font-size: 14px;
-    }
+.directorist-error__msg {
+    color: var(--directorist-color-danger);
+    font-size: 14px;
 }
+
 
 // General Classes
 .entry-content {
@@ -115,22 +113,22 @@
             .wp-editor-container {
                 border: none;
                 border-bottom: 1px solid var(--directorist-color-border);
-                .mce-top-part::before {
-                    display: none;
-                }
-                .mce-stack-layout {
-                    border: none;
-                    padding: 0;
-                }
-                .mce-toolbar-grp,
-                .quicktags-toolbar {
-                    border: none;
-                    padding: 8px 12px;
-                    border-radius: 10px;
-                }
-                .mce-toolbar .mce-btn-group .mce-btn.mce-listbox {
-                    background: transparent;
-                }
+            }
+            .mce-top-part::before {
+                display: none;
+            }
+            .mce-stack-layout {
+                border: none;
+                padding: 0;
+            }
+            .mce-toolbar-grp,
+            .quicktags-toolbar {
+                border: none;
+                padding: 8px 12px;
+                border-radius: 10px;
+            }
+            .mce-toolbar .mce-btn-group .mce-btn.mce-listbox {
+                background: transparent;
             }
             .mce-statusbar {
                 display: none;
@@ -172,23 +170,20 @@
 }
 
 // General Style
-
 #directorist-dashboard-preloader {
     display: none;
 }
 
-/* form required */
+// form required
 .directorist-form-required {
     color: red !important;
 }
 
 // Login Registration Style
-
 .directory_register_form_wrap {
     .dgr_show_recaptcha {
         margin-bottom: 20px;
-
-        >p {
+        > p {
             font-size: 16px;
             color: var(--directorist-color-primary);
             font-weight: 600;
@@ -196,7 +191,7 @@
         }
     }
 
-    a {
+    a{
         text-decoration: none;
     }
 }
@@ -250,10 +245,8 @@
 }
 
 // Loader
-
 .directorist-loader {
     position: relative;
-
     &:before {
         position: absolute;
         content: '';
@@ -321,17 +314,17 @@
             padding: 7px;
             max-width: 270px;
             border-radius: 10px;
-            li {
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                margin-bottom: 0;
-                border: none;
-                a {
-                    color: var(--directorist-color-body);
-                    display: block;
-                    padding: 8px 10px;
-                }
+        }
+        li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 0;
+            border: none;
+            a {
+                color: var(--directorist-color-body);
+                display: block;
+                padding: 8px 10px;
             }
         }
     }
@@ -356,29 +349,6 @@
         border: none;
         background: unset;
         cursor: pointer;
-        .pac-icon-marker {
-            position: relative;
-            height: 36px;
-            width: 36px;
-            min-width: 36px;
-            border-radius: 10px;
-            margin: 0 15px 0 0;
-            background: var(--directorist-color-border-gray);
-            &:after {
-                content: "";
-                display: block;
-                width: 12px;
-                height: 20px;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                background-color: var(--directorist-color-body);
-                mask-repeat: no-repeat;
-                mask-position: center;
-                mask-image: url("../../../icons/font-awesome/svgs/solid/map-marker-alt.svg");
-            }
-        }
         span {
             color: var(--directorist-color-body);
         }
@@ -389,6 +359,29 @@
            span {
                 color: var(--directorist-color-primary);
             }
+        }
+    }
+    .pac-icon-marker {
+        position: relative;
+        height: 36px;
+        width: 36px;
+        min-width: 36px;
+        border-radius: 10px;
+        margin: 0 15px 0 0;
+        background: var(--directorist-color-border-gray);
+        &:after {
+            content: "";
+            display: block;
+            width: 12px;
+            height: 20px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--directorist-color-body);
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-image: url("../../../icons/font-awesome/svgs/solid/map-marker-alt.svg");
         }
     }
     &:after {
@@ -435,15 +428,15 @@ body.logged-in .select2-container--open .select2-dropdown--above {
     }
     .select2-search--dropdown {
         padding: 20px 20px 10px 20px;
-        .select2-search__field{
-            height: 44px;
-            padding: 10px 18px;
-            border-radius: 8px;
-            color: var(--directorist-color-deep-gray);
-            border: 1px solid var(--directorist-color-border-gray) !important;
-            &:focus {
-                outline: 0;
-            }
+    }
+    .select2-search__field{
+        height: 44px;
+        padding: 10px 18px;
+        border-radius: 8px;
+        color: var(--directorist-color-deep-gray);
+        border: 1px solid var(--directorist-color-border-gray) !important;
+        &:focus {
+            outline: 0;
         }
     }
     .select2-results {

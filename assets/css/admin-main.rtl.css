@@ -11287,7 +11287,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border: 2px solid var(--directorist-color-gray);
   background-color: transparent;
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 575px) {
   .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label, .directorist-checkbox input[type=checkbox] + .directorist-radio__label,
 .directorist-checkbox input[type=radio] + .directorist-checkbox__label,
 .directorist-checkbox input[type=radio] + .directorist-radio__label,
@@ -11348,7 +11348,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   transition: all 0.3s ease 0s;
   z-index: 2;
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 575px) {
   .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
     right: unset;
     left: 5px;

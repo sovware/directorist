@@ -33,7 +33,7 @@
                 .directorist-checkbox {
                     margin: 0;
                     flex: 0 0 47%;
-                    @media only screen and (max-width: 480px) {
+                    @media only screen and (max-width: 575px) {
                         flex: 0 0 100%;
                     }
                 }
@@ -95,7 +95,7 @@
                     margin: 0;
                     flex: 0 0 47%;
 
-                    @media only screen and (max-width: 480px) {
+                    @media only screen and (max-width: 575px) {
                         flex: 0 0 100%;
                     }
                 }
@@ -178,7 +178,7 @@
         &:after {
             top: -2px;
         }
-        @media only screen and (max-width: 480px) {
+        @media only screen and (max-width: 575px) {
             padding: 0;
         }
     }
@@ -197,14 +197,37 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    @media (max-width: 575px) {
+        gap: 20px 40px;
+        justify-content: space-between;
+        position: relative;
+        &:after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 2px;
+            background: var(--directorist-color-border);
+        }
+    }
     @include e(item){
         flex: 0 0 45%;
-        @media (max-width: 767px) {
+        @media (max-width: 575px) {
             flex: auto;
+        }
+        @media (max-width: 375px) {
+            flex: 0 0 42%;
         }
         .directorist-form-element {
             background: transparent;
             border-bottom: 1px solid var(--directorist-color-border);
+            @media screen and (max-width: 575px) {
+                text-align: center;
+                border-radius: 10px;
+                border: 1px solid var(--directorist-color-border);
+            }
         }
     }
     @include e('price-frequency'){
@@ -212,6 +235,27 @@
         flex-wrap: wrap;
         flex: 0 0 100%;
         gap: 6px;
+        @media screen and (max-width: 575px) {
+            gap: 0;
+            border-radius: 10px;
+            border: 1px solid var(--directorist-color-border);
+            label {
+                flex: 1;
+                &:first-child{
+                    .directorist-pf-range {
+                        border-radius: 10px 0 0 10px;
+                    }
+                }
+                &:last-child{
+                    .directorist-pf-range {
+                        border-radius: 0 10px 10px 0;
+                    }
+                }
+                &:not(last-child){
+                    border-right: 1px solid var(--directorist-color-border);
+                }
+            }
+        }
         input[type="radio"]{
             display: none;
             &:checked+.directorist-pf-range{
@@ -219,6 +263,10 @@
                 color: var(--directorist-color-white);
             }
         }
+    }
+
+    .directorist-form-group:last-child {
+        margin-left: 15px;
     }
 
     .directorist-pf-range{
@@ -231,6 +279,11 @@
         border-radius: 8px;
         width: 70px;
         height: 36px;
+        @media screen and (max-width: 575px) {
+            width: 100%;
+            border-radius: 0;
+            background-color: var(--directorist-color-white);
+        }
     }
 }
 

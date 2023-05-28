@@ -518,53 +518,43 @@
         .directorist-thumnail-card-front-img {
             border-radius: 12px;
         }
-
         .directorist-thumb-listing-author {
             position: absolute;
             bottom: 0;
             transform: translateY(50%);
-            width: 46px;
-            height: 46px;
+            display: flex;
+            width: 48px;
+            height: 48px;
             z-index: 1;
+
+            &.directorist-alignment-center {
+                left: 50%;
+                transform: translate(-50%, 50%);
+            }
+
+            &.directorist-alignment-left {
+                left: 20px;
+            }
 
             &.directorist-alignment-right {
                 right: 20px;
             }
 
-            .directorist-thumb-listing-author {
-                position: absolute;
-                bottom: 0;
-                transform: translateY(50%);
-                display: flex;
-                width: 48px;
-                height: 48px;
-                z-index: 1;
+            &.directorist-alignment-center {
+                left: 50%;
+                transform: translate(-50%, 50%);
+            }
 
-                &.directorist-alignment-center {
-                    left: 50%;
-                    transform: translate(-50%, 50%);
-                }
-
-                &.directorist-alignment-left {
-                    left: 20px;
-                }
-
-                &.directorist-alignment-center {
-                    left: 50%;
-                    transform: translate(-50%, 50%);
-                }
-
-                img {
-                    width: 100%;
-                    border-radius: 50%;
-                    height: auto;
-                }
-                a {
-                    display: inline-flex;
-                    width: 100%;
-                    border-radius: 50%;
-                    border: 3px solid var(--directorist-color-border);
-                }
+            img {
+                width: 100%;
+                border-radius: 50%;
+                height: auto;
+            }
+            a {
+                display: inline-flex;
+                width: 100%;
+                border-radius: 50%;
+                border: 3px solid var(--directorist-color-border);
             }
         }
         .directorist-mark-as-favorite__btn {

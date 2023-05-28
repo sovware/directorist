@@ -42,6 +42,8 @@
                 &:after {
                     left: unset;
                     right: 0;
+                    width: 12px;
+                    height: 12px;
                 }
             }
         }
@@ -83,7 +85,8 @@
                 z-index: 2;
                 @media only screen and (max-width: 575px) {
                     left: unset;
-                    right: 5px
+                    top: 3px;
+                    right: 3px
                 }
             }
         }

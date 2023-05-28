@@ -32,5 +32,11 @@ $loop_fields = $listings->loop['list_fields']['template_data']['list_view_with_t
 		</div>
 
 	</div>
+	<div class="directorist-listing-single__mobile-view-meta">
+		<div class="directorist-listing-single__meta">
+			<div class="directorist-listing-single__meta--left"><?php $listings->render_loop_fields($loop_fields['footer']['left']); ?></div>
+			<div class="directorist-listing-single__meta--right"><?php $listings->render_loop_fields($loop_fields['footer']['right']); ?></div>
+		</div>
+	</div>
 
 </div>

@@ -246,6 +246,10 @@
                 }
             }
         }
+
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            line-height: 40px;
+        }
     }
     .directorist-advanced-filter {
         @include e(form) {

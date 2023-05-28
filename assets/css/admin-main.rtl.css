@@ -10774,6 +10774,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     height: 20px;
   }
 }
+.directorist-search-modal__contents .select2-container--default .select2-selection--single .select2-selection__placeholder {
+  line-height: 40px;
+}
 .directorist-search-modal .directorist-advanced-filter__form .directorist-search-modal__contents__body {
   height: calc(100vh - 350px);
 }
@@ -11301,6 +11304,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-radio input[type=radio] + .directorist-radio__label:after {
     right: unset;
     left: 0;
+    width: 12px;
+    height: 12px;
   }
 }
 .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox]:checked + .directorist-radio__label:after,
@@ -11345,7 +11350,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 @media only screen and (max-width: 575px) {
   .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
     right: unset;
-    left: 5px;
+    top: 3px;
+    left: 3px;
   }
 }
 

@@ -91,6 +91,9 @@
             .directorist-search-tags {
                 gap: 20px;
                 margin: 0;
+                @media only screen and (max-width: 575px) {
+                    gap: 10px;
+                }
                 .directorist-checkbox {
                     margin: 0;
                     flex: 0 0 47%;
@@ -171,9 +174,15 @@
         color: var(--directorist-color-body);
         &:not(:last-child) {
             margin-bottom: 20px;
+            @media screen and (max-width: 575px) {
+                margin-bottom: 10px;
+            }
         }
         &:before {
             top: 3px;
+            @media only screen and (max-width: 575px) {
+                top: 1px;
+            }
         }
         &:after {
             top: -2px;
@@ -198,7 +207,7 @@
     flex-wrap: wrap;
     gap: 20px;
     @media (max-width: 575px) {
-        gap: 20px 40px;
+        gap: 12px 35px;
         justify-content: space-between;
         position: relative;
         &:after {
@@ -217,7 +226,7 @@
         @media (max-width: 575px) {
             flex: auto;
         }
-        @media (max-width: 375px) {
+        @media (max-width: 480px) {
             flex: 0 0 42%;
         }
         .directorist-form-element {

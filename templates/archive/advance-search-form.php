@@ -17,10 +17,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-form-group directorist-advanced-filter__advanced--element directorist-search-field-<?php echo esc_attr($field['widget_name']) ?>"><?php $searchform->field_template($field); ?></div>
 			<?php endforeach; ?>
 		</div>
-
-
-		<div class="directorist-search-modal-advanced__contents__footer">
-			<?php $searchform->buttons_template(); ?>
-		</div>
     </form>
 </div>

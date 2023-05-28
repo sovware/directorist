@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	$listings->mobile_view_filter_template();
 	$listings->directory_type_nav_template();
 	$listings->header_bar_template();
+	$listings->full_search_form_template();
 	$listings->archive_view_template();
 	?>
 

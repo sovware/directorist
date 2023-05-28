@@ -1765,6 +1765,12 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
       var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
       searchModalOpen(searchModalElement);
+    }); // Advanced Modal Open
+
+    $('body').on('click', '.directorist-modal-btn__full', function (e) {
+      e.preventDefault();
+      var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--full');
+      searchModalOpen(searchModalElement);
     }); // Search Modal Close
 
     $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {

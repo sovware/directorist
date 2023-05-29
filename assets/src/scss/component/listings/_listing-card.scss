@@ -185,8 +185,8 @@
             line-height: 1.45;
             position: relative;
             display: inline-block;
-            &:not(:last-of-type) {
-                padding-right: 8px;
+            &:not(:last-child) {
+                padding-right: 10px;
 
                 &:after {
                     position: absolute;

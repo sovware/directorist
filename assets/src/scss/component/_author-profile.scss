@@ -141,37 +141,38 @@
         gap: 12px;
         font-size: 15px;
         color: var(--directorist-color-body);
-        @media screen and (max-width: 575px) {
-            i {
+
+        i {
+            margin-top: 5px;
+            @media screen and (max-width: 575px) {
+                margin-top: 0;
                 height: 34px;
                 width: 34px;
                 min-width: 34px;
-                margin: 0;
                 border-radius: 100%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 background-color: var(--directorist-color-light);
             }
-            .directorist-label {
-                display: block;
-                min-width: 80px;
-                margin-right: 8px;
-                margin-top: 5px;
-                display: flex;
-                justify-content: space-between;
-            }
-            .directorist-info {
-                margin-top: 5px;
-            }
-        }
-
-        i {
-            margin-top: 5px;
         }
 
         .directorist-label {
             display: none;
+            min-width: 70px;
+            padding-right: 10px;
+            margin-right: 8px;
+            margin-top: 5px;
+            position: relative;
+            &:before {
+                content: ':';
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+            @media screen and (max-width: 575px) {
+                display: block;
+            }
         }
         
         .directorist-icon-mask::after {
@@ -181,6 +182,9 @@
         }
         .directorist-info {
             word-break: break-all;
+            @media screen and (max-width: 575px) {
+                margin-top: 5px;
+            }
         }
         a {
             color: var(--directorist-color-body);

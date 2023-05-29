@@ -2,6 +2,7 @@
     margin-bottom: 15px;
     .directorist-return-back{
         text-decoration: none;
+        gap: 8px;
         margin: 0;
         .directorist-single-listing-action__text {
             display: block;
@@ -17,6 +18,15 @@
         box-shadow: 0 2px 15px rgba(0,0,0,.08);
         .directorist-card__body{
             padding: 30px;
+            @media screen and (max-width: 575px) {
+                padding: 20px;
+            }
+        }
+        .directorist-card__header{
+            padding: 20px 25px;
+            @media screen and (max-width: 575px) {
+                padding: 15px 20px;
+            }
         }
     }
 
@@ -206,6 +216,7 @@
     color: var(--directorist-color-body);
     transition: .2s background-color ease-in-out;
     @media screen and (max-width: 575px) {
+        gap: 0;
         padding: 0;
         &.directorist-btn.directorist-btn-light {
             background-color: transparent;
@@ -273,6 +284,12 @@
         li {
             list-style: disc;
         }
+    }
+
+    .directorist-pricing-meta  .directorist-listing-price {
+        padding: 5px 10px;
+        border-radius: 6px;
+        background: var(--directorist-color-light);
     }
 }
 .directorist-listing-details__listing-title {

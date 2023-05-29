@@ -585,6 +585,10 @@
                     font-size: 12px;
                 }
             }
+            .directorist-listing-price {
+                font-size: 12px;
+                font-weight: 600;
+            }
             .directorist-listing-single__info--excerpt:not(:empty) p {
                 font-size: 12px;
                 line-height: 1.6;
@@ -593,6 +597,19 @@
                 font-size: 12px;
                 line-height: 1.2;
                 gap: 8px;
+            }
+            .directorist-view-count,
+            .directorist-listing-category a,
+            .directorist-listing-category__extran-count {
+                font-size: 12px;
+            }
+            .directorist-listing-category__popup {
+                margin-left: 5px;
+            }
+            .directorist-thumb-listing-author a,
+            .directorist-listing-category > a .directorist-icon-mask {
+                width: 30px;
+                height: 30px;
             }
             .directorist-listing-single__info--list li > div .directorist-icon-mask {
                 top: 0;

@@ -12411,6 +12411,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .directorist-listing-single.directorist-listing-list .directorist-rating-meta .directorist-total-review {
     font-size: 12px;
   }
+  .directorist-listing-single.directorist-listing-list .directorist-listing-price {
+    font-size: 12px;
+    font-weight: 600;
+  }
   .directorist-listing-single.directorist-listing-list .directorist-listing-single__info--excerpt:not(:empty) p {
     font-size: 12px;
     line-height: 1.6;
@@ -12419,6 +12423,19 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     font-size: 12px;
     line-height: 1.2;
     gap: 8px;
+  }
+  .directorist-listing-single.directorist-listing-list .directorist-view-count,
+.directorist-listing-single.directorist-listing-list .directorist-listing-category a,
+.directorist-listing-single.directorist-listing-list .directorist-listing-category__extran-count {
+    font-size: 12px;
+  }
+  .directorist-listing-single.directorist-listing-list .directorist-listing-category__popup {
+    margin-right: 5px;
+  }
+  .directorist-listing-single.directorist-listing-list .directorist-thumb-listing-author a,
+.directorist-listing-single.directorist-listing-list .directorist-listing-category > a .directorist-icon-mask {
+    width: 30px;
+    height: 30px;
   }
   .directorist-listing-single.directorist-listing-list .directorist-listing-single__info--list li > div .directorist-icon-mask {
     top: 0;

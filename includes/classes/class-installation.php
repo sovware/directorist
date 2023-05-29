@@ -25,6 +25,11 @@ class ATBDP_Installation {
 	 * @var array
 	 */
 	private static $db_updates = array(
+		'7.5.4' => [
+			'directorist_754_migrate_listings_status_meta_to_post_status',
+			'directorist_754_clean_listing_status_meta',
+			'directorist_754_update_db_version',
+		],
 		'7.1.0' => [
 			'directorist_710_migrate_reviews_table_to_comments_table',
 			'directorist_710_migrate_posts_table_to_comments_table',

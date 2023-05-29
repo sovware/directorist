@@ -3,6 +3,9 @@
     .directorist-return-back{
         text-decoration: none;
         margin: 0;
+        .directorist-single-listing-action__text {
+            display: block;
+        }
     }
 }
 
@@ -119,8 +122,10 @@
 
 // Single Listing Actions
 .directorist-single-listing-quick-action {
-    margin: -4px;
-
+    gap: 8px;
+    @media screen and (max-width: 575px) {
+        gap: 12px;
+    }
     .directorist-social-share {
         position: relative;
         &:hover {
@@ -129,6 +134,9 @@
                 visibility: visible;
                 top: calc(100% + 5px);
             }
+        }
+        @media screen and (max-width: 575px) {
+            font-size: 0;
         }
     }
     .directorist-social-share-links {
@@ -187,17 +195,25 @@
 }
 
 .directorist-single-listing-action {
+    gap: 8px;
     justify-content: center;
     font-size: 13px;
     border: 0 none;
     border-radius: 8px;
     padding: 0 16px;
-    margin: 4px;
     cursor: pointer;
     text-decoration: none;
     color: var(--directorist-color-body);
     transition: .2s background-color ease-in-out;
-
+    @media screen and (max-width: 575px) {
+        padding: 0;
+        &.directorist-btn.directorist-btn-light {
+            background-color: transparent;
+        }
+        .directorist-single-listing-action__text {
+            display: none;
+        }
+    }
     .directorist-icon-mask.directorist-added-to-favorite::after{
         background-color: var(--directorist-color-danger);
     }
@@ -205,7 +221,6 @@
     .directorist-icon-mask::after{
         width: 15px;
         height: 15px;
-        margin-right: 8px;
         color: var(--directorist-color-body);
     }
 

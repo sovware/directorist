@@ -35,6 +35,24 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			}
 
 			add_action( 'admin_footer', array( $this, 'quick_edit_scripts' ) );
+
+			add_action( 'init', array( $this, 'register_post_status' ) );
+		}
+
+		public function register_post_status() {
+			register_post_status(
+				'expired',
+				array(
+					'label'       => _x( 'Expired', 'post status', 'directorist' ),
+					'protected'   => true,
+					/* translators: %s: Number of private posts. */
+					'label_count' => _n_noop(
+						'Expired <span class="count">(%s)</span>',
+						'Expired <span class="count">(%s)</span>',
+						'directorist'
+					),
+				)
+			);
 		}
 
 		public function quick_edit_scripts() {

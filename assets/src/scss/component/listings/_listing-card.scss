@@ -284,6 +284,9 @@
                 font-weight: 400;
                 color: var(--directorist-color-body);
                 padding: 0;
+                @media screen and (max-width: 575px) {
+                    font-weight: 700;
+                }
             }
         }
     }

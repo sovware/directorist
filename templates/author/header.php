@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<?php directorist_icon( 'fas fa-star' ); ?>
 					<span class="directorist-review-count">
 						<?php echo wp_kses_post( $author->rating_count() ); ?>
-						<?php echo wp_kses_post( $author->review_count_html() ); ?>
+						(<?php echo wp_kses_post( $author->review_count_html() ); ?>)
 					</span>
 				</li>
 

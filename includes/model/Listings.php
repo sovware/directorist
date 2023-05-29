@@ -443,11 +443,12 @@ class Directorist_Listings {
 			'compare' => '=',
 		);
 
-		$meta_queries['expired'] = array(
-			'key'     => '_listing_status',
-			'value'   => 'expired',
-			'compare' => '!=',
-		);
+		// TODO: Status has been migrated, remove related code.
+		// $meta_queries['expired'] = array(
+		// 	'key'     => '_listing_status',
+		// 	'value'   => 'expired',
+		// 	'compare' => '!=',
+		// );
 
 		if ( $this->has_featured ) {
 			if ( '_featured' == $this->filterby ) {

@@ -6856,6 +6856,17 @@ p.atbd-min {
   color: var(--directorist-color-dark);
   background-color: var(--directorist-color-light);
 }
+@media screen and (max-width: 575px) {
+  .directorist-dropdown__links a {
+    padding: 5px 10px;
+  }
+}
+@media (max-width: 767px) {
+  .directorist-dropdown__links {
+    left: unset;
+    right: 0;
+  }
+}
 
 /* custom dropdown with select */
 .directorist-dropdown-select {
@@ -8520,6 +8531,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
             justify-content: center;
   }
 }
+@media only screen and (max-width: 575px) {
+  .directorist-author-profile__meta-list {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -webkit-flex-direction: row-reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+  }
+}
 .directorist-author-profile__meta-list__item {
   display: -webkit-box;
   display: -webkit-flex;
@@ -8619,8 +8639,35 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -ms-flexbox;
   display: flex;
 }
-.directorist-author-profile-content .directorist-author-about .directorist-card__header--title i {
-  display: none;
+.directorist-author-profile-content .directorist-card__header--title {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 12px;
+}
+.directorist-author-profile-content .directorist-card__header--title i {
+  width: 34px;
+  height: 34px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 100%;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: var(--directorist-color-light);
+}
+.directorist-author-profile-content .directorist-card__header--title i:after {
+  width: 14px;
+  height: 14px;
+  background-color: var(--directorist-color-body);
 }
 
 .directorist-author-info-list {
@@ -8869,6 +8916,21 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 0;
   min-height: auto;
   color: var(--directorist-color-body);
+}
+@media screen and (max-width: 575px) {
+  .directorist-author-listing-top .directorist-dropdown__toggle {
+    font-size: 0;
+    top: -5px;
+  }
+  .directorist-author-listing-top .directorist-dropdown__toggle:after {
+    -webkit-mask-image: url(../images/87cd0434594c4fe6756c2af1404a5f32.svg);
+            mask-image: url(../images/87cd0434594c4fe6756c2af1404a5f32.svg);
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    width: 16px;
+    height: 12px;
+    background-color: var(--directorist-color-body);
+  }
 }
 .directorist-author-listing-top .directorist-dropdown__link {
   top: 50px;

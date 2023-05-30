@@ -63,6 +63,9 @@
             gap: 5px 20px;
             justify-content: center;
         }
+        @media only screen and (max-width: 575px){
+            flex-direction: row-reverse;
+        }
         @include e(item) {
             display: flex;
             align-items: center;
@@ -124,8 +127,23 @@
 .directorist-author-profile-content {
     max-width: 100%;
     display: flex;
-    .directorist-author-about .directorist-card__header--title i {
-        display: none;
+    .directorist-card__header--title {
+        display: flex;
+        gap: 12px;
+        i {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            border-radius: 100%;
+            align-items: center;
+            justify-content: center;
+            background: var(--directorist-color-light);
+            &:after {
+                width: 14px;
+                height: 14px;
+                background-color: var(--directorist-color-body);
+            }
+        }
     }
 }
 
@@ -324,10 +342,22 @@
             padding: 0;
             min-height: auto;
             color: var(--directorist-color-body);
+            @media screen and (max-width: 575px) {
+                font-size: 0;
+                top: -5px;
+                &:after {
+                    mask-image: url("../../../icons/font-awesome/svgs/solid/sliders-h.svg");
+                    mask-repeat: no-repeat;
+                    width: 16px;
+                    height: 12px;
+                    background-color: var(--directorist-color-body);
+                }
+            }
         }
         @include e(link) {
             top: 50px;
         }
+        
     }
 
     @media screen and (max-width: 575px) {

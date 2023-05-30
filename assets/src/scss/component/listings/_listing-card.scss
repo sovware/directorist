@@ -122,6 +122,9 @@
             position: absolute;
             right: 20px;
             top: 20px;
+            @media screen and (max-width: 575px) {
+                gap: 10px;
+            }
         }
         @include m(excerpt) {
             &:empty{
@@ -141,6 +144,24 @@
                         text-decoration: underline;
                     }
                 }
+            }
+        }
+
+        @include e('top-right') {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            @media screen and (max-width: 575px) {
+                flex-wrap: wrap;
+                gap: 5px;
+                .directorist-mark-as-favorite {
+                    position: absolute;
+                    top: 20px;
+                    left: -30px;
+                }
+            }
+            .directorist-listing-single__info--right {
+                position: unset;
             }
         }
 
@@ -676,12 +697,6 @@
                 display: flex;
                 flex-direction: column;
                 padding: 18px 20px 15px;
-                @include m('top') {
-                    padding-right: 30px;
-                    @media only screen and (max-width: 575px) {
-                        padding: 0;
-                    }
-                }
 
                 @media only screen and (max-width: 575px) {
                     .directorist-listing-title {
@@ -783,6 +798,11 @@
                 width: auto;
                 padding: 0 5px;
                 border-radius: 4px;
+                @media screen and (max-width: 575px) {
+                    height: 18px;
+                    line-height: 18px;
+                    font-size: 8px;
+                }
             }
 
             &.directorist-badge-popular {

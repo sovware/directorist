@@ -10410,7 +10410,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media only screen and (max-width: 575px) {
   .directorist-listing-type-selection {
-    max-width: 300px;
+    max-width: -webkit-fit-content;
+    max-width: -moz-fit-content;
+    max-width: fit-content;
     margin: 0 auto;
     -webkit-box-pack: start;
     -webkit-justify-content: flex-start;
@@ -12127,6 +12129,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   left: 20px;
   top: 20px;
 }
+@media screen and (max-width: 575px) {
+  .directorist-listing-single__info--right {
+    gap: 10px;
+  }
+}
 .directorist-listing-single__info--excerpt:empty {
   display: none;
 }
@@ -12143,6 +12150,33 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-listing-single__info--excerpt:not(:empty) p a {
   color: var(--directorist-color-primary);
   text-decoration: underline;
+}
+.directorist-listing-single__info__top-right {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 20px;
+}
+@media screen and (max-width: 575px) {
+  .directorist-listing-single__info__top-right {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    gap: 5px;
+  }
+  .directorist-listing-single__info__top-right .directorist-mark-as-favorite {
+    position: absolute;
+    top: 20px;
+    right: -30px;
+  }
+}
+.directorist-listing-single__info__top-right .directorist-listing-single__info--right {
+  position: unset;
 }
 .directorist-listing-single__info a {
   text-decoration: none;
@@ -12751,14 +12785,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           flex-direction: column;
   padding: 18px 20px 15px;
 }
-.directorist-listing-single.directorist-listing-list .directorist-listing-single__info--top {
-  padding-left: 30px;
-}
-@media only screen and (max-width: 575px) {
-  .directorist-listing-single.directorist-listing-list .directorist-listing-single__info--top {
-    padding: 0;
-  }
-}
 @media only screen and (max-width: 575px) {
   .directorist-listing-single.directorist-listing-list .directorist-listing-single__info .directorist-listing-title {
     margin: 0;
@@ -12869,6 +12895,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: auto;
   padding: 0 5px;
   border-radius: 4px;
+}
+@media screen and (max-width: 575px) {
+  .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-open, .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-close, .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-open, .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-close {
+    height: 18px;
+    line-height: 18px;
+    font-size: 8px;
+  }
 }
 .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-popular, .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-popular {
   background-color: var(--directorist-color-white);

@@ -250,7 +250,7 @@
     overflow-x: auto;
   }
   @media only screen and (max-width: 575px) {
-    max-width: 300px;
+    max-width: fit-content;
     margin: 0 auto;
     justify-content: flex-start;
   }

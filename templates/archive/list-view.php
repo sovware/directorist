@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="directorist-archive-items directorist-archive-list-view">
 
 	<?php do_action( 'directorist_before_list_listings_loop' ); ?>
+	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
 		<?php if ( $listings->have_posts() ): ?>
 
@@ -36,5 +37,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<div class="directorist-archive-notfound"><?php esc_html_e( 'No listings found.', 'directorist' ); ?></div>
 
-	<?php endif; ?>
+		<?php endif; ?>
+	</div>
 </div>

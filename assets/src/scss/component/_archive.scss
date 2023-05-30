@@ -2,6 +2,7 @@
 .directorist-archive-contents {
 	width: 100%;
 	max-width: 100%;
+
 	.directorist-archive-items .directorist-pagination {
 		margin-top: 35px;
 	}
@@ -13,9 +14,9 @@
 	}
 
 	@media screen and (max-width: 575px) {
-		.directorist-archive-items {
-			padding-top: 30px;
-			background: var(--directorist-color-light);
+		.directorist-archive-contents__top {
+			padding: 15px 20px 0;
+			box-shadow: 0px 6px 10px #AAAAAA1A;
 		}
 		.directorist-type-nav__link .directorist-icon-mask {
 			display: none;
@@ -119,6 +120,7 @@
 /* Archive header bar contents */
 .directorist-content-active {
 	.directorist-header-bar {
+		display: flex;
 		margin: 30px 0;
 		@media screen and (max-width: 575px) {
 			display: none;
@@ -131,6 +133,7 @@
 		justify-content: space-between;
 		flex-wrap: wrap;
 		gap: 15px;
+		width: 100%;
 
 		.directorist-dropdown .directorist-dropdown__links {
 			top: 42px;
@@ -185,6 +188,13 @@
 				}
 			}
 		}
+	}
+
+	.directorist-archive-items {
+		display: flex;
+		@media screen and (max-width: 575px) {
+            padding-top: 30px;
+        }
 	}
 }
 

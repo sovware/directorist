@@ -9,13 +9,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div <?php $listings->wrapper_class(); $listings->data_atts(); ?>>
-
-	<?php
-	$listings->mobile_view_filter_template();
-	$listings->directory_type_nav_template();
-	$listings->header_bar_template();
-	$listings->full_search_form_template();
-	$listings->archive_view_template();
-	?>
+	<div class="directorist-archive-contents__top">
+		<?php
+			$listings->mobile_view_filter_template();
+			$listings->directory_type_nav_template();
+			$listings->header_bar_template();
+			$listings->full_search_form_template();
+		?>
+	</div>
+	<div class="directorist-archive-contents__listings">
+		<?php
+			$listings->archive_view_template();
+		?>
+	</div>
 
 </div>

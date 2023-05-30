@@ -28,6 +28,9 @@
                 padding: 15px 20px;
             }
         }
+        .directorist-single-author-name h4 {
+            margin: 0;
+        }
     }
 
     .directorist-card__header--title {
@@ -297,6 +300,9 @@
     font-weight: 600;
     display: inline-block;
     margin: 30px 0 0;
+    @media screen and (max-width: 575px) {
+        font-size: 24px;
+    }
 }
 
 .directorist-listing-details-tagline {

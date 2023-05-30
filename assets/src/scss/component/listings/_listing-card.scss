@@ -244,14 +244,14 @@
             &.directorist-listing-category,
             &.directorist-listing-location{
                 display: inline-flex;
-                align-items: center;
+                align-items: flex-start;
+                gap: 5px;
                 .directorist-icon-mask{
-                    margin-right: 5px;
+                    margin-top: 2px;
                 }
-
-                /* Legacy Icon */
-                > span:not(.directorist-icon-mask){
-                    margin-right: 5px;
+                &:after {
+                    top: 10px;
+                    transform: unset;
                 }
             }
         }

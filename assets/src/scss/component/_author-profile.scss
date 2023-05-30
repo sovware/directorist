@@ -60,7 +60,8 @@
         gap: 15px;
         list-style-type: none;
         @media only screen and (max-width: 991px){
-            gap: 5px 10px;
+            gap: 5px 20px;
+            justify-content: center;
         }
         @include e(item) {
             display: flex;
@@ -181,9 +182,9 @@
             background-color: var(--directorist-color-deep-gray);
         }
         .directorist-info {
-            word-break: break-all;
             @media screen and (max-width: 575px) {
                 margin-top: 5px;
+                word-break: break-all;
             }
         }
         a {

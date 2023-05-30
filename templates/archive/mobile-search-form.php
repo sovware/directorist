@@ -28,7 +28,7 @@
 
     <div class="directorist-all-listing-btn__advanced">
         <a href="#" class="directorist-modal-btn__advanced">
-            <?php directorist_icon( 'fas fa-filter' ); ?>
+            <?php directorist_icon( 'fas fa-sliders-h' ); ?>
         </a>
     </div>
 </div>

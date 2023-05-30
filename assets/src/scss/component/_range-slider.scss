@@ -1,14 +1,11 @@
 /* Range Slider */
 .directorist-range-slider-wrap {
-  display: flex;
-  width: 100%;
-  align-items: center;
   .directorist-range-slider {
     position: relative;
     &:before {
       content: '';
-      width: 1.2em;
-      height: 1.2em;
+      width: 18px;
+      height: 18px;
       background: var(--directorist-color-white);
       border: 4px solid var(--directorist-color-body);
       position: absolute;
@@ -26,15 +23,13 @@
   color: var(--directorist-color-primary);
 }
 
-.directorist-range-slider-wrap>div {
-  flex: 1;
-  padding: 0 15px;
-}
-
 .directorist-range-slider-wrap .directorist-range-slider-current-value {
   min-width: 100px;
   text-align: right;
-  padding: 0 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
 }
 
 .directorist-range-slider-wrap.atbdprs-widget {
@@ -67,8 +62,8 @@
 }
 
 .directorist-range-slider1 {
-  width: 1.2em;
-  height: 1.2em;
+  width: 18px;
+  height: 18px;
   position: absolute;
   top: 50%;
   left: 0;

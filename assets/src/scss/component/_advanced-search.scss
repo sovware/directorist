@@ -1,28 +1,6 @@
-/* Advanced search filter float style  */
-.directorist-search-float {
-    position: relative;
-    width: calc(100% - 15px);
-    left: -25px;
-    .directorist-advanced-filter {
-        border: 1px solid var(--directorist-color-border);
-        background: var(--directorist-color-white);
-        padding: 20px 30px;
-        z-index: 10000;
-        overflow-y: auto;
-        overflow-x: hidden;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        box-shadow: none;
-        visibility: hidden;
-        height: 0;
-        max-height: 500px;
-    }
-}
-
-// Advance Search Filter Basic
+// Advance Search Filter
 .directorist-advanced-filter{
+    // Advance Search Filter Basic
     @include e(basic){
         display: flex;
         flex-direction: column;
@@ -54,7 +32,10 @@
                 margin: 0;
                 .directorist-checkbox {
                     margin: 0;
-                    flex: 0 0 48%;
+                    flex: 0 0 47%;
+                    @media only screen and (max-width: 480px) {
+                        flex: 0 0 100%;
+                    }
                 }
             }
             .directorist-form-group{
@@ -112,7 +93,11 @@
                 margin: 0;
                 .directorist-checkbox {
                     margin: 0;
-                    flex: 0 0 48%;
+                    flex: 0 0 47%;
+
+                    @media only screen and (max-width: 480px) {
+                        flex: 0 0 100%;
+                    }
                 }
             }
             .directorist-form-group{
@@ -174,26 +159,27 @@
     }
 }
 
-.direcorist-search-field-review {
-    .directorist-checkbox {
-        display: block;
-        input[type=checkbox] + label {
-            display: flex;
-            align-items: center;
-            flex-direction: row;
-            font-size: 13px;
-            font-weight: 400;
-            padding-left: 35px;
-            color: var(--directorist-color-body);
-            &:not(:last-child) {
-                margin-bottom: 20px;
-            }
-            &:before {
-                top: 3px;
-            }
-            &:after {
-                top: -2px;
-            }
+.directorist-search-field-review .directorist-checkbox {
+    display: block;
+    input[type=checkbox] + label {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        font-size: 13px;
+        font-weight: 400;
+        padding-left: 35px;
+        color: var(--directorist-color-body);
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+        &:before {
+            top: 3px;
+        }
+        &:after {
+            top: -2px;
+        }
+        @media only screen and (max-width: 480px) {
+            padding: 0;
         }
     }
 
@@ -221,7 +207,7 @@
             border-bottom: 1px solid var(--directorist-color-border);
         }
     }
-    .directorist-price-ranges__price-frequency{
+    @include e('price-frequency'){
         display: flex;
         flex-wrap: wrap;
         flex: 0 0 100%;
@@ -269,19 +255,19 @@
             width: 140px;
             transition: all 0.2s ease-in-out;
             border-radius: 3px;
-            .wp-color-result-text{
-                position: absolute;
-                right: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                height: 100%;
-                width: 102px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-transform: capitalize;
-                line-height: 1;
-            }
+        }
+        .wp-color-result-text{
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 100%;
+            width: 102px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: capitalize;
+            line-height: 1;
         }
     }
     .wp-picker-holder {
@@ -309,7 +295,7 @@
                 }
             }
         }
-        
+
         span{
             position: relative;
             text-align: center;

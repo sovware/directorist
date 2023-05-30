@@ -30,21 +30,19 @@
     @include e(body) {
         padding: 15px 20px;
 
-        ul {
-            li {
-                &:not(:last-child) {
-                    margin-bottom: 5px;
-                }
+        li {
+            &:not(:last-child) {
+                margin-bottom: 5px;
+            }
 
-                a {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    color: #444752;
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: #444752;
 
-                    span {
-                        color: var(--directorist-color-body);
-                    }
+                span {
+                    color: var(--directorist-color-body);
                 }
             }
         }

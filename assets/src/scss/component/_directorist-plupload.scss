@@ -96,7 +96,7 @@
     border: 2px dashed var(--directorist-color-border-gray);
     > input {
         display: none;
-    }      
+    }
     .plupload-browse-button-label {
         cursor: pointer;
         i::after {
@@ -183,7 +183,8 @@
     }
 }
 
-.plupload-thumbs .atbdp-thumb-actions .thumbeditlink, .plupload-thumbs .atbdp-thumb-actions .thumbremovelink {
+.plupload-thumbs .atbdp-thumb-actions .thumbeditlink,
+.plupload-thumbs .atbdp-thumb-actions .thumbremovelink {
     width: 50%;
     display: inline-block;
     cursor: pointer
@@ -217,12 +218,12 @@
 }
 
 .plupload-thumbs .thumb .thumbi a {
-    // background: url(../../../images/delete.png) no-repeat 0px 0px;
     text-indent: -8000px;
     display: block
 }
 
-.plupload-thumbs .atbdp-title-preview, .plupload-thumbs .atbdp-caption-preview {
+.plupload-thumbs .atbdp-title-preview,
+.plupload-thumbs .atbdp-caption-preview {
     position: absolute;
     top: 10px;
     left: 5px;

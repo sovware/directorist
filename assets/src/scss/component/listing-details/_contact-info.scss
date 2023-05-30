@@ -4,7 +4,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        font-size: 1rem;
+        font-size: 15px;
         @media only screen and (max-width: 375px){
             flex-direction: column;
             align-items: flex-start;
@@ -15,7 +15,6 @@
                 margin-bottom: 15px;
             }
         }
-
         a {
             box-shadow: none;
         }
@@ -57,19 +56,15 @@
         }
     }
 
-    .directorist-social-links {
-        a {
-            text-decoration: none;
-            color: var(--directorist-color-body);
-        }
+    .directorist-social-links a {
+        text-decoration: none;
+        color: var(--directorist-color-body);
     }
 
-    &.directorist-single-info-picker{
-        .directorist-field-type-color{
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-        }
+    &.directorist-single-info-picker .directorist-field-type-color{
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
     }
 }
 
@@ -91,10 +86,8 @@
         overflow: hidden;
         transition: all ease-in-out 300ms !important;
 
-        .directorist-icon-mask{
-            &:after{
-                background-color: #fff;
-            }
+        .directorist-icon-mask::after{
+            background-color: #fff;
         }
 
         &.facebook:hover {
@@ -182,7 +175,7 @@
 // Directorist Owner Contact form
 .directorist-contact-owner-form-inner {
     .directorist-form-group {
-        margin-bottom: 1rem;
+        margin-bottom: 15px;
     }
 
     .directorist-form-element {
@@ -197,7 +190,6 @@
         padding: 0 18px;
         text-decoration: none;
         text-transform: capitalize;
-
     }
 }
 

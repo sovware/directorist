@@ -3068,7 +3068,7 @@ function initSelect2AjaxFields() {
     url: "".concat(rest_base_url, "/listings/categories")
   });
   initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-location-field').find('select'),
+    selector: $('.directorist-form-categories-field').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
   }); // Init Select2 Ajax Location Field
 
@@ -3077,7 +3077,7 @@ function initSelect2AjaxFields() {
     url: "".concat(rest_base_url, "/listings/locations")
   });
   initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-categories-field').find('select'),
+    selector: $('.directorist-form-location-field').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
   }); // Init Select2 Ajax Tag Field
 

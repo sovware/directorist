@@ -95,7 +95,7 @@ function initSelect2AjaxFields() {
     });
 
     initSelect2AjaxTaxonomy({
-        selector: $('.directorist-form-location-field').find('select'),
+        selector: $('.directorist-form-categories-field').find('select'),
         url: `${rest_base_url}/listings/categories`,
     });
 
@@ -106,7 +106,7 @@ function initSelect2AjaxFields() {
     });
 
     initSelect2AjaxTaxonomy({
-        selector: $('.directorist-form-categories-field').find('select'),
+        selector: $('.directorist-form-location-field').find('select'),
         url: `${rest_base_url}/listings/categories`,
     });
 

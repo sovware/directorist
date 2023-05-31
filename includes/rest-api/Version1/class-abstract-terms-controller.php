@@ -272,7 +272,7 @@ abstract class Terms_Controller extends Abstract_Controller {
 				unset( $_prepared_args['offset'] );
 
 				$terms               = get_terms( $taxonomy, $_prepared_args );
-				$queried_directories = $request['directory'];
+				$queried_directories = ( is_array( $request['directory'] ) ) ? $request['directory'] : [ $request['directory'] ];
 
 				$terms = array_filter( $terms, function( $term ) use( $queried_directories ) {
 					$directories = get_term_meta( $term->term_id, '_directory_type', true );

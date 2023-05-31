@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.2
 Requires PHP: 7.0
-Stable tag: 7.5.2
+Stable tag: 7.5.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -307,6 +307,8 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 🔥 **[Connections to Directorist Migrator](https://wordpress.org/plugins/connections-to-directorist-migrator/)** - Directorist offers a user-friendly tool to simplify the migration process by letting you import thousands of Connections listings data to Directorist without the need to import/export CSV.
 
+🔥 **[Helpgent Integration](https://directorist.com/product/directorist-helpgent-integration/)** - Connect your audience through video & audio messaging, screen recording, and text messaging asynchronously. Which helps to connect listing owners to their visitors.
+
 == Themes ==
 
 Directorist Business Directory offers free and cost-effective premium [Directorist Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
@@ -407,6 +409,15 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.5.4 - Apr 29, 2023
+
+* Improve - Security of listing importer
+
+7.5.3 - Apr 06, 2023
+
+* Fix - Category, location & tag validation issue in add listing
+* Fix - Textarea new line issue
 
 7.5.2 - Apr 04, 2023
 

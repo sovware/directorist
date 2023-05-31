@@ -811,5 +811,4 @@ class Helper {
 
 		return $query_strings;
 	}
-
 }

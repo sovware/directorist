@@ -191,8 +191,10 @@
             margin-top: 70px;
             margin-bottom: 80px;
             @media only screen and (max-width: 575px) {
+                margin-top: 55px;
+                margin-bottom: 75px;
                 padding: 30px 30px 0;
-                height: calc(100vh - 200px);
+                height: calc(100vh - 220px);
             }
         }
         @include e(footer) {
@@ -214,6 +216,9 @@
             font-size: 20px;
             font-weight: 500;
             margin: 0;
+            @media only screen and (max-width: 575px) {
+                font-size: 18px;
+            }
         }
         @include e(btn) {
             display: flex;
@@ -241,8 +246,8 @@
                 height: auto;
                 background: transparent;
                 i::after {
-                    width: 20px;
-                    height: 20px;
+                    width: 12px;
+                    height: 12px;
                 }
             }
         }
@@ -285,7 +290,7 @@
             padding: 30px;
             height: calc(100vh - 260px);
             @media only screen and (max-width: 575px) {
-                height: calc(100vh - 90px);
+                height: calc(100vh - 110px);
             }
         }
         .directorist-search-modal__contents {
@@ -303,8 +308,8 @@
                 top: 50%;
                 transform: translateY(-50%);
                 transition: all ease 0.3s;
-                width: 14px;
-                height: 14px;
+                width: 16px;
+                height: 16px;
                 mask-position: center;
                 mask-repeat: no-repeat;
                 background: var(--directorist-color-body);
@@ -317,6 +322,12 @@
             background-color: var(--directorist-color-primary);
             i::after {
                 background-color: var(--directorist-color-white);
+            }
+        }
+        @media screen and (max-width: 575px) {
+            .directorist-search-modal__input {
+                height: 42px;
+                border-radius: 8px;
             }
         }
 

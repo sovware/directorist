@@ -10707,8 +10707,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media only screen and (max-width: 575px) {
   .directorist-search-modal__contents__body {
+    margin-top: 55px;
+    margin-bottom: 75px;
     padding: 30px 30px 0;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 220px);
   }
 }
 .directorist-search-modal__contents__footer {
@@ -10732,6 +10734,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 20px;
   font-weight: 500;
   margin: 0;
+}
+@media only screen and (max-width: 575px) {
+  .directorist-search-modal__contents__title {
+    font-size: 18px;
+  }
 }
 .directorist-search-modal__contents__btn {
   display: -webkit-box;
@@ -10770,8 +10777,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     background: transparent;
   }
   .directorist-search-modal__contents__btn i::after {
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
   }
 }
 .directorist-search-modal__contents .select2-container--default .select2-selection--single .select2-selection__placeholder {
@@ -10812,7 +10819,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media only screen and (max-width: 575px) {
   .directorist-search-modal--basic .directorist-search-modal__contents__body {
-    height: calc(100vh - 90px);
+    height: calc(100vh - 110px);
   }
 }
 @media only screen and (max-width: 575px) {
@@ -10833,8 +10840,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           transform: translateY(-50%);
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   -webkit-mask-position: center;
           mask-position: center;
   -webkit-mask-repeat: no-repeat;
@@ -10850,6 +10857,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-modal--basic .directorist-search-form-action__modal__btn-search i::after {
   background-color: var(--directorist-color-white);
+}
+@media screen and (max-width: 575px) {
+  .directorist-search-modal--basic .directorist-search-modal__input {
+    height: 42px;
+    border-radius: 8px;
+  }
 }
 .directorist-search-modal__input {
   display: -webkit-box;
@@ -11301,6 +11314,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-radio input[type=radio] + .directorist-checkbox__label,
 .directorist-radio input[type=radio] + .directorist-radio__label {
     width: 100%;
+    font-weight: 400;
     padding: 0 0 0 30px;
   }
   .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox] + .directorist-radio__label:after,

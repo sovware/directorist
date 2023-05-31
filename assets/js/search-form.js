@@ -1735,7 +1735,7 @@ __webpack_require__.r(__webpack_exports__);
       var inputFields = searchModalParent.querySelectorAll('.directorist-search-field input[type="text"]');
       var selectboxFields = searchModalParent.querySelectorAll('.directorist-search-field .directorist-select select');
       inputFields.forEach(function (element, index) {
-        var clearBtn = element.parentElement.parentElement;
+        var clearBtn = element.closest('.directorist-search-modal__input');
         checkElement(element, clearBtn);
       });
       selectboxFields.forEach(function (element, index) {

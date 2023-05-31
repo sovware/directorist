@@ -1,6 +1,7 @@
 
 /* New Styles */
 .directorist-categories{
+    margin-top: 30px;
     @include e('single'){
         border-radius: 16px;
         box-shadow: var(--directorist-box-shadow);

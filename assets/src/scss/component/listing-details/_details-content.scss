@@ -73,11 +73,6 @@
             box-shadow: none;
             color: var(--directorist-color-body);
         }
-        .directorist-icon-mask{
-            &:after{
-                background-color: #808080;
-            }
-        }
         ul {
             display: flex;
             flex-wrap: wrap;
@@ -88,6 +83,14 @@
         li {
             flex: 0 0 50%;
         }
+        .directorist-social-links a:hover {
+            background-color: var(--directorist-color-primary);
+        }
+    }
+
+
+    .directorist-single-info__label-icon .directorist-icon-mask:after{
+        background-color: #808080;
     }
 
     .directorist-single-listing-slider .directorist-swiper__nav i:after {

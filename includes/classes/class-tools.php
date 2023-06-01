@@ -370,7 +370,7 @@
 
 			if ( isset( $file['error'] ) ) {
 				wp_die(
-					$file['error'],
+					wp_kses_post( $file['error'] ),
 					'Directorist CSV Import Error!',
 					array(
 						'back_link' => true,
@@ -382,8 +382,8 @@
                 'post_type'       => ATBDP_POST_TYPE,
                 'page'            => 'tools',
                 'file_id'          => $file['id'],
-                'delimiter'       => isset( $_REQUEST['delimiter'] ) ? $_REQUEST['delimiter'] : ',',
-                'update_existing' => isset( $_REQUEST['update_existing'] ) ? $_REQUEST['update_existing'] : false,
+                'delimiter'       => isset( $_REQUEST['delimiter'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['delimiter'] ) ) : ',',
+                'update_existing' => isset( $_REQUEST['update_existing'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['update_existing'] ) ) : false,
                 'step'            => 2,
             ] );
 

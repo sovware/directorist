@@ -71,12 +71,12 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function listing_task( $task, $taskdata ){
+		
 		if ( $task == 'delete' ) {
 
-			$current_user = wp_get_current_user();
-			$post 		  = get_post( $taskdata );
+			$author_id = get_post_field ( 'post_author', $taskdata );
 
-			if( current_user_can( 'edit_others_posts', $post->ID ) && ( $post->post_author == $current_user->ID ) )  { 
+			if( current_user_can( 'edit_others_posts', $taskdata ) && ( $author_id == get_current_user_id() ) )  { 
 
 				do_action( 'directorist_listing_deleted', $taskdata );
 

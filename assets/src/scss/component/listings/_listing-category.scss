@@ -6,7 +6,7 @@
         position: relative;
         margin-left: 10px;
         cursor: pointer;
-
+        display: flex;
         @include e(content) {
             display: block;
             position: absolute;

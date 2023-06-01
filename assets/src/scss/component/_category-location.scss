@@ -61,6 +61,11 @@
             .directorist-categories__single__content .directorist-icon-mask::after{
                 width: 50px;
                 height: 50px;
+
+                @media screen and (max-width: 991px) {
+                    width: 40px;
+                    height: 40px;
+                }
             }
             &.directorist-categories__single--image .directorist-icon-mask::after{
                 background-color: var(--directorist-color-white);

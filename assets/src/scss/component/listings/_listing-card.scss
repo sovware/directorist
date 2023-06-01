@@ -122,6 +122,9 @@
             position: absolute;
             right: 20px;
             top: 20px;
+            @media screen and (max-width: 991px) {
+                gap: 15px;
+            }
             @media screen and (max-width: 575px) {
                 gap: 10px;
             }

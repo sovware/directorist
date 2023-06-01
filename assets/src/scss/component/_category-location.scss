@@ -515,4 +515,17 @@
             display: block;
         }
     }
+
+    .directorist-col-3 {
+        @media screen and (max-width: 991px) {
+            width: 33.33%;
+        }
+        @media screen and (max-width: 767px) {
+            width:50%;
+        }
+        @media screen and (max-width: 575px) {
+            width: 100%;
+        }
+    }
+
 }

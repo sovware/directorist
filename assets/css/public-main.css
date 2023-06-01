@@ -11432,6 +11432,21 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-location--grid-two .directorist-location__count {
   display: block;
 }
+@media screen and (max-width: 991px) {
+  .directorist-location .directorist-col-3 {
+    width: 33.33%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .directorist-location .directorist-col-3 {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 575px) {
+  .directorist-location .directorist-col-3 {
+    width: 100%;
+  }
+}
 
 /* Modal Core Styles */
 .atm-open {

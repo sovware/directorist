@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.4.4
+ * @version 7.5.5
  */
 
 use \Directorist\Helper;

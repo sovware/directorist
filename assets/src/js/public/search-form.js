@@ -877,6 +877,15 @@ import { directorist_range_slider } from './range-slider';
             searchModalOpen(searchModalElement)
         });
 
+        // Advanced Modal Open
+        $('body').on('click', '.directorist-modal-btn__full', function (e) {
+            e.preventDefault();
+
+            var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--full');
+
+            searchModalOpen(searchModalElement)
+        });
+
         // Search Modal Close
         $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
             e.preventDefault();
@@ -919,6 +928,13 @@ import { directorist_range_slider } from './range-slider';
             }
             
           
+        });
+
+        // Back Button
+        $('body').on('click', '.directorist-btn__back', function(e) {
+            e.preventDefault();
+            
+            window.history.back();
         });
         
 

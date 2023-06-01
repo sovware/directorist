@@ -111,6 +111,13 @@
           background-color: var(--directorist-color-primary);
         }
       }
+      @media screen and (max-width: 575px) {
+        opacity: 1;
+        i {
+          width: 30px;
+          height: 30px;
+        }
+      }
     }
     @include e(pagination) {
       display: none;
@@ -146,6 +153,9 @@
       object-fit: cover;
       border-radius: 14px;
     }
+  }
+  @media screen and (max-width: 575px) {
+    display: none;
   }
 }
 

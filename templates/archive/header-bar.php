@@ -11,9 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="directorist-header-bar">
-
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
-
 		<div class="directorist-listings-header">
 
 			<?php if ( $listings->has_listings_header() ): ?>
@@ -21,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-listings-header__left">
 
 					<?php if ( $listings->has_filters_button && empty( $listings->options['listings_sidebar'] ) ): ?>
-						<a href="#" class="directorist-btn directorist-btn-sm directorist-filter-btn directorist-modal-btn"><?php echo wp_kses_post( $listings->filter_btn_html() ); ?></a>
+						<a href="#" class="directorist-btn directorist-btn-sm directorist-filter-btn directorist-modal-btn__full"><?php echo wp_kses_post( $listings->filter_btn_html() ); ?></a>
 					<?php endif; ?>
 
 					<?php if ( $listings->header_title ): ?>
@@ -48,13 +46,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php endif; ?>
 
 		</div>
-
-		<?php if ( $listings->advanced_filter ) { ?>
-			<div class="directorist-search-modal-advanced">
-				<?php $listings->search_form_template();?>
-			</div>
-		<?php } ?>
-
 	</div>
-
 </div>

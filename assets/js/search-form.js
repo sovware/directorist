@@ -1765,6 +1765,12 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
       var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
       searchModalOpen(searchModalElement);
+    }); // Advanced Modal Open
+
+    $('body').on('click', '.directorist-modal-btn__full', function (e) {
+      e.preventDefault();
+      var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--full');
+      searchModalOpen(searchModalElement);
     }); // Search Modal Close
 
     $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
@@ -1797,6 +1803,11 @@ __webpack_require__.r(__webpack_exports__);
       if (inputField) {
         inputField.val('');
       }
+    }); // Back Button
+
+    $('body').on('click', '.directorist-btn__back', function (e) {
+      e.preventDefault();
+      window.history.back();
     });
     /* When location field is empty we need to hide Radius Search */
 

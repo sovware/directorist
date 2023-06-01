@@ -208,7 +208,6 @@
         .directorist-favorite-icon::before {
             width: 16px;
             height: 16px;
-            background-color: var(--directorist-color-primary);
         }
     }
     @include e(img) {
@@ -283,13 +282,11 @@
             }
             .directorist-rating-avg {
                 font-size: 14px;
-                font-weight: 700;
                 color: var(--directorist-color-body);
                 margin: 0 3px 0 6px;
             }
             .directorist-listing-price {
                 font-size: 14px;
-                font-weight: 600;
                 color: var(--directorist-color-body);
             }
             .directorist-info-item  {

@@ -11003,6 +11003,21 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-categories__single--style-four:not(.directorist-categories__single--image) .directorist-categories__single__total {
   color: var(--directorist-color-deep-gray);
 }
+@media screen and (max-width: 991px) {
+  .directorist-categories .directorist-col-3 {
+    width: 33.33%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .directorist-categories .directorist-col-3 {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 575px) {
+  .directorist-categories .directorist-col-3 {
+    width: 100%;
+  }
+}
 
 /* Taxonomy List Style One */
 .directorist-taxonomy-list-one .directorist-taxonomy-list {

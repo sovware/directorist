@@ -6432,6 +6432,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 
 /* Range Slider */
+.directorist-range-slider-wrap {
+  position: relative;
+}
 .directorist-range-slider-wrap .directorist-range-slider {
   position: relative;
 }
@@ -6459,9 +6462,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
   min-width: 100px;
   text-align: left;
   position: absolute;
-  top: 0;
+  top: 15px;
   left: 0;
   margin: 0;
+  font-weight: 600;
 }
 
 .directorist-range-slider-wrap.atbdprs-widget {
@@ -6592,11 +6596,6 @@ p.atbd-min {
   border: 4px solid #3E62F5;
   position: relative;
   top: -4px;
-}
-
-.directorist-search-field.directorist-search-field-radius_search {
-  margin: 0;
-  display: none;
 }
 
 .directorist-swiper {
@@ -9693,8 +9692,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  font-size: 16px;
-  font-weight: 500;
   margin: 0 0 15px;
   color: var(--directorist-color-primary);
 }
@@ -10001,6 +9998,30 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     background-color: var(--directorist-color-white);
   }
 }
+.directorist-price-ranges .pricing-slider-range {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 25px;
+  background-color: var(--directorist-color-border);
+}
+.directorist-price-ranges .pricing-slider-range .ui-slider-range {
+  position: absolute;
+  height: 4px;
+  background-color: var(--directorist-color-primary);
+}
+.directorist-price-ranges .pricing-slider-range .ui-slider-handle {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background-color: var(--directorist-color-white);
+  border: 4px solid var(--directorist-color-primary);
+  cursor: pointer;
+  outline: 0;
+  margin: 0;
+  top: -10px;
+  border-radius: 25px;
+}
 
 .directorist-search-field {
   font-size: 15px;
@@ -10264,8 +10285,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-form__top .directorist-search-field .directorist-form-element:focus {
   border-color: var(--directorist-color-primary);
 }
+.directorist-search-form__top .directorist-search-field .directorist-year-ranges__item .directorist-form-element,
 .directorist-search-form__top .directorist-search-field .directorist-price-ranges__item .directorist-form-element {
-  border-bottom: 1px solid var(--directorist-color-border);
+  border-bottom: 2px solid var(--directorist-color-border);
+}
+.directorist-search-form__top .directorist-search-field .directorist-year-ranges__item .directorist-form-element:focus,
+.directorist-search-form__top .directorist-search-field .directorist-price-ranges__item .directorist-form-element:focus {
+  border-color: var(--directorist-color-primary);
 }
 .directorist-search-form__top .directorist-search-field .directorist-select .directorist-select__label {
   border: 0 none;

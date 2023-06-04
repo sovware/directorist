@@ -1,5 +1,6 @@
 /* Range Slider */
 .directorist-range-slider-wrap {
+  position: relative;
   .directorist-range-slider {
     position: relative;
     &:before {
@@ -27,9 +28,10 @@
   min-width: 100px;
   text-align: right;
   position: absolute;
-  top: 0;
+  top: 15px;
   right: 0;
   margin: 0;
+  font-weight: 600;
 }
 
 .directorist-range-slider-wrap.atbdprs-widget {
@@ -159,7 +161,3 @@ p.atbd-min {
   }
 }
 
-.directorist-search-field.directorist-search-field-radius_search {
-  margin: 0;
-  display: none;
-}

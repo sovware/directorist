@@ -118,6 +118,7 @@ class Asset_Loader {
 				wp_enqueue_script( 'directorist-select2-script' );
 				wp_enqueue_script( 'directorist-listing-slider' );
 				wp_enqueue_script( 'directorist-swiper' );
+				wp_enqueue_script( 'jquery-ui-slider' );
 				break;
 
 			// Add Listing Form

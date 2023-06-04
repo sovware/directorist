@@ -77,8 +77,14 @@
         }
       }
 
-      .directorist-price-ranges__item .directorist-form-element {
-        border-bottom: 1px solid var(--directorist-color-border);
+      .directorist-year-ranges__item,
+      .directorist-price-ranges__item {
+        .directorist-form-element {
+          border-bottom: 2px solid var(--directorist-color-border);
+          &:focus {
+            border-color: var(--directorist-color-primary);
+          }
+        }
       }
 
       .directorist-select .directorist-select__label {

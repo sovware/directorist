@@ -943,9 +943,9 @@ import { directorist_range_slider } from './range-slider';
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
             $('.directorist-location-js').each((index,locationDom)=>{
                 if($(locationDom).val() === ''){
-                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.directorist-search-field-radius_search').css({display: "none"});
+                    $(locationDom).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').first().css({display: "none"});
                 }else{
-                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.directorist-search-field-radius_search').css({display: "block"});
+                    $(locationDom).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').css({display: "block"});
                     directorist_callingSlider();
                 }
             });

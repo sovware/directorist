@@ -7677,6 +7677,16 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields:last-child {
   margin: 0 0 40px;
 }
+@media screen and (max-width: 575px) {
+  .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
 .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields .directorist-form-group,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields .directorist-form-group {
   -webkit-box-flex: 1;
@@ -7684,6 +7694,12 @@ body.stop-scrolling {
       -ms-flex: 1;
           flex: 1;
   margin: 0;
+}
+@media screen and (max-width: 575px) {
+  .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields .directorist-form-group,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields .directorist-form-group {
+    width: 100%;
+  }
 }
 .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields .directorist-form-group.directorist-form-social-fields__action,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields .directorist-form-group.directorist-form-social-fields__action {
@@ -7843,6 +7859,11 @@ body.stop-scrolling {
   min-height: 18px;
   padding-left: 27px;
 }
+@media screen and (max-width: 575px) {
+  .directorist-form-pricing-field__options .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label {
+    padding: 0 27px 0 0;
+  }
+}
 .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:after {
   width: 14px;
   height: 14px;
@@ -7859,6 +7880,12 @@ body.stop-scrolling {
   background: #fff;
   border-radius: 100%;
   border: 5px solid #000;
+}
+@media screen and (max-width: 575px) {
+  .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:before {
+    left: unset;
+    right: 0;
+  }
 }
 .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:checked:after {
   opacity: 0;

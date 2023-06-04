@@ -3233,6 +3233,16 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields:last-child {
   margin: 0 0 40px;
 }
+@media screen and (max-width: 575px) {
+  .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
 .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields .directorist-form-group,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields .directorist-form-group {
   -webkit-box-flex: 1;
@@ -3240,6 +3250,12 @@ body.stop-scrolling {
       -ms-flex: 1;
           flex: 1;
   margin: 0;
+}
+@media screen and (max-width: 575px) {
+  .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields .directorist-form-group,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields .directorist-form-group {
+    width: 100%;
+  }
 }
 .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields .directorist-form-group.directorist-form-social-fields__action,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields .directorist-form-group.directorist-form-social-fields__action {
@@ -3399,6 +3415,11 @@ body.stop-scrolling {
   min-height: 18px;
   padding-right: 27px;
 }
+@media screen and (max-width: 575px) {
+  .directorist-form-pricing-field__options .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label {
+    padding: 0 0 0 27px;
+  }
+}
 .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:after {
   width: 14px;
   height: 14px;
@@ -3415,6 +3436,12 @@ body.stop-scrolling {
   background: #fff;
   border-radius: 100%;
   border: 5px solid #000;
+}
+@media screen and (max-width: 575px) {
+  .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:before {
+    right: unset;
+    left: 0;
+  }
 }
 .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:checked:after {
   opacity: 0;
@@ -9998,30 +10025,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     background-color: var(--directorist-color-white);
   }
 }
-.directorist-price-ranges .pricing-slider-range {
-  position: relative;
-  width: 100%;
-  height: 4px;
-  border-radius: 25px;
-  background-color: var(--directorist-color-border);
-}
-.directorist-price-ranges .pricing-slider-range .ui-slider-range {
-  position: absolute;
-  height: 4px;
-  background-color: var(--directorist-color-primary);
-}
-.directorist-price-ranges .pricing-slider-range .ui-slider-handle {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background-color: var(--directorist-color-white);
-  border: 4px solid var(--directorist-color-primary);
-  cursor: pointer;
-  outline: 0;
-  margin: 0;
-  top: -10px;
-  border-radius: 25px;
-}
 
 .directorist-search-field {
   font-size: 15px;
@@ -14567,6 +14570,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 5px;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
@@ -14585,6 +14589,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-listing-quick-action .directorist-social-links__item a span.fa,
 .directorist-single-listing-quick-action .directorist-social-links__item a i {
   color: var(--directorist-color-body);
+}
+.directorist-single-listing-quick-action .directorist-social-links__item a span.la:after,
+.directorist-single-listing-quick-action .directorist-social-links__item a span.lab:after,
+.directorist-single-listing-quick-action .directorist-social-links__item a span.fa:after,
+.directorist-single-listing-quick-action .directorist-social-links__item a i:after {
+  width: 18px;
+  height: 18px;
 }
 .directorist-single-listing-quick-action .directorist-social-links__item a span.fa {
   font-family: "Font Awesome 5 Brands";
@@ -15340,6 +15351,12 @@ Review: New Style
 .directorist-review-content .directorist-js-cancel-comment-edit:focus {
   color: var(--directorist-color-dark);
 }
+@media screen and (max-width: 575px) {
+  .directorist-review-content #cancel-comment-reply-link,
+.directorist-review-content .directorist-js-cancel-comment-edit {
+    margin-right: 15px;
+  }
+}
 .directorist-review-content__header {
   display: -webkit-box;
   display: -webkit-flex;
@@ -15614,6 +15631,11 @@ Review: New Style
 .directorist-review-single {
   padding: 40px 30px;
 }
+@media screen and (max-width: 575px) {
+  .directorist-review-single {
+    padding: 30px 20px;
+  }
+}
 .directorist-review-single a {
   text-decoration: none;
 }
@@ -15845,7 +15867,7 @@ Review: New Style
 .directorist-review-submit__form:not(.directorist-form-comment-edit) {
   padding: 25px;
 }
-.directorist-review-single .directorist-review-submit__form {
+.directorist-review-single .directorist-review-submit__form.directorist-card__body {
   padding-right: 0;
   padding-left: 0;
 }
@@ -16120,6 +16142,11 @@ Review: New Style
 }
 .directorist-review-submit .form-group-comment.directorist-form-group {
   margin-bottom: 42px;
+}
+@media screen and (max-width: 575px) {
+  .directorist-review-submit .form-group-comment.directorist-form-group {
+    margin-bottom: 30px;
+  }
 }
 .directorist-review-submit .form-group-comment textarea {
   border-radius: 16px;
@@ -18313,10 +18340,6 @@ Review: New Style
 
   .directorist-modal__dialog {
     width: calc(100% - 30px) !important;
-  }
-
-  .directorist-form-social-fields {
-    display: block !important;
   }
 
   .directorist-advanced-filter__basic--element {

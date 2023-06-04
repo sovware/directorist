@@ -117,10 +117,16 @@
       &:last-child {
         margin: 0 0 40px;
       }
+      @media screen and (max-width: 575px){
+        flex-direction: column;
+      }
 
       .directorist-form-group {
         flex: 1;
         margin: 0;
+        @media screen and (max-width: 575px){
+          width: 100%;
+        }
         &.directorist-form-social-fields__action {
           flex: unset;
         }
@@ -242,6 +248,9 @@
       font-weight: 700;
       min-height: 18px;
       padding-left: 27px;
+      @media screen and (max-width: 575px){
+        padding: 0 27px 0 0;
+      }
     }
 
     .directorist_pricing_options {
@@ -262,6 +271,10 @@
             background: #fff;
             border-radius: 100%;
             border: 5px solid #000;
+            @media screen and (max-width: 575px){
+              left: unset;
+              right: 0;
+            }
           }
           &:checked {
             &:after {

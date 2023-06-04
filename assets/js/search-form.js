@@ -1808,31 +1808,7 @@ __webpack_require__.r(__webpack_exports__);
     $('body').on('click', '.directorist-btn__back', function (e) {
       e.preventDefault();
       window.history.back();
-    }); // UI Slider
-
-    var slider_ranges = document.querySelector('.pricing-slider-range');
-
-    if (slider_ranges) {
-      var slider_range = $(".pricing-slider-range");
-      slider_range.each(function () {
-        var priceRangeMin = Number($(this).find('.pricing-slider-range__values').attr('data-min-price'));
-        var priceRangeMax = Number($(this).find('.pricing-slider-range__values').attr('data-max-price'));
-        $(this).slider({
-          range: true,
-          min: priceRangeMin === "" ? 0 : priceRangeMin,
-          max: priceRangeMax,
-          values: [priceRangeMin, priceRangeMax],
-          slide: function slide(event, ui) {
-            $(this).closest('.directorist-price-ranges').find('.pricing-slider-range__input-values__min').val(ui.values[0]);
-            $(this).closest('.directorist-price-ranges').find('.pricing-slider-range__input-values__max').val(ui.values[1]);
-          }
-        });
-        $(this).siblings('.pricing-slider-range__input-values').find('.pricing-slider-range__input-values__min').val($(this).slider("values", 0));
-        $(this).siblings('.pricing-slider-range__input-values').find('.pricing-slider-range__input-values__max').val($(this).slider("values", 1));
-      });
-    }
-
-    ;
+    });
     /* When location field is empty we need to hide Radius Search */
 
     function handleRadiusVisibility() {

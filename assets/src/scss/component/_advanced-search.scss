@@ -11,6 +11,9 @@
                 flex-wrap: wrap;
                 padding: 0;
                 margin: 0 0 40px;
+                @media screen and (max-width: 575px) {
+                    margin: 0 0 20px;
+                }
                 > label {
                     display: inline-flex;
                     font-size: 16px;
@@ -27,12 +30,14 @@
                 }
             }
             .directorist-checkbox-wrapper,
+            .directorist-radio-wrapper,
             .directorist-search-tags {
                 gap: 20px;
                 margin: 0;
-                .directorist-checkbox {
+                .directorist-checkbox,
+                .directorist-radio {
                     margin: 0;
-                    flex: 0 0 47%;
+                    flex: 0 0 46%;
                     @media only screen and (max-width: 575px) {
                         flex: 0 0 100%;
                     }
@@ -51,6 +56,9 @@
                 gap: 20px;
                 padding: 0;
                 margin: 0 0 40px;
+                @media screen and (max-width: 575px) {
+                    margin: 0 0 20px;
+                }
                 > label {
                     display: inline-flex;
                     font-size: 16px;
@@ -72,6 +80,9 @@
                 align-items: flex-start;
                 padding: 0;
                 margin: 0 0 40px;
+                @media screen and (max-width: 575px) {
+                    margin: 0 0 20px;
+                }
                 > label {
                     display: inline-flex;
                     margin: 0 0 15px;
@@ -86,15 +97,17 @@
                 }
             }
             .directorist-checkbox-wrapper,
+            .directorist-radio-wrapper,
             .directorist-search-tags {
                 gap: 20px;
                 margin: 0;
                 @media only screen and (max-width: 575px) {
                     gap: 10px;
                 }
-                .directorist-checkbox {
+                .directorist-checkbox,
+                .directorist-radio {
                     margin: 0;
-                    flex: 0 0 47%;
+                    flex: 0 0 46%;
 
                     @media only screen and (max-width: 575px) {
                         flex: 0 0 100%;
@@ -114,6 +127,9 @@
                 gap: 20px;
                 padding: 0;
                 margin: 0 0 40px;
+                @media screen and (max-width: 575px) {
+                    margin: 0 0 20px;
+                }
                 > label {
                     display: inline-flex;
                     font-size: 16px;

@@ -100,6 +100,7 @@
       }
 
       .directorist-checkbox-wrapper,
+      .directorist-radio-wrapper,
       .directorist-search-tags {
         padding: 0;
         gap: 12px;
@@ -525,9 +526,3 @@
   border-right: 1px solid var(--directorist-color-border);
 }
 
-.directorist-advanced-filter__advanced--checkbox .directorist-checkbox-wrapper {
-  margin: 0 -5px -5px -5px;
-  .directorist-checkbox {
-    padding: 5px;
-  }
-}

@@ -10974,6 +10974,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: none;
 }
 .directorist-search-modal .directorist-checkbox-wrapper,
+.directorist-search-modal .directorist-radio-wrapper,
 .directorist-search-modal .directorist-search-tags {
   padding: 0;
   gap: 12px;

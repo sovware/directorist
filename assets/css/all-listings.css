@@ -5733,18 +5733,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .select2.select2-container.select2-container--default {
   width: 100% !important;
 }
-.select2.select2-container .select2-selection {
+.select2.select2-container.select2-container--default .select2-selection {
   height: 42px;
   border: none;
   border-radius: 0;
   background: transparent;
   border-bottom: 1px solid var(--directorist-color-border-gray);
 }
-.select2.select2-container .select2-selection:focus {
+.select2.select2-container.select2-container--default .select2-selection:focus {
   border-color: var(--directorist-color-primary);
   outline: none;
 }
-.select2.select2-container .select2-selection__choice {
+.select2.select2-container.select2-container--default .select2-selection__choice {
   height: 28px;
   line-height: 28px;
   font-size: 12px;
@@ -5759,28 +5759,28 @@ svg.leaflet-image-layer.leaflet-interactive path {
   color: var(--directorist-color-white);
   background-color: var(--directorist-color-primary);
 }
-.select2.select2-container .select2-selection__choice__remove {
+.select2.select2-container.select2-container--default .select2-selection__choice__remove {
   position: relative;
   width: 12px;
   margin: 0;
   font-size: 0;
   color: var(--directorist-color-white);
 }
-.select2.select2-container .select2-selection__choice__remove:before {
+.select2.select2-container.select2-container--default .select2-selection__choice__remove:before {
   content: "";
   -webkit-mask-image: url(../images/4ff79f85f2a1666e0f80c7ca71039465.svg);
           mask-image: url(../images/4ff79f85f2a1666e0f80c7ca71039465.svg);
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   background-color: var(--directorist-color-white);
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
-.select2.select2-container .select2-selection__rendered {
+.select2.select2-container.select2-container--default .select2-selection__rendered {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -5791,10 +5791,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
   font-size: 14px;
   overflow-y: auto;
 }
-.select2.select2-container .select2-selection__rendered .select2-selection__clear {
+.select2.select2-container.select2-container--default .select2-selection__rendered .select2-selection__clear {
   padding-right: 25px;
 }
-.select2.select2-container .select2-selection__arrow b {
+.select2.select2-container.select2-container--default .select2-selection__arrow b {
   display: none;
 }
 .select2.select2-container.select2-container--focus .select2-selection {

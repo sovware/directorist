@@ -137,7 +137,6 @@ p.atbd-min {
   .directorist_slider-input {
     position: relative;
     z-index: 2;
-    -webkit-appearance: none;
     width: 100%;
     height: 4px;
     border-radius: 12px;
@@ -145,7 +144,6 @@ p.atbd-min {
     background-color: transparent;
 
     &::-webkit-slider-thumb {
-      -webkit-appearance: none;
       width: 20px;
       height: 20px;
       background-color: #ffffff;

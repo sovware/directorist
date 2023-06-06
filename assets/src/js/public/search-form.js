@@ -877,7 +877,7 @@ import { directorist_range_slider } from './range-slider';
             searchModalOpen(searchModalElement)
         });
 
-        // Advanced Modal Open
+        // Full Modal Open
         $('body').on('click', '.directorist-modal-btn__full', function (e) {
             e.preventDefault();
 
@@ -906,8 +906,8 @@ import { directorist_range_slider } from './range-slider';
 
         // Basic Modal Input Field Check
         $('body').on('input keyup click', '.directorist-search-modal--basic .directorist-search-modal__input', function(e) {
-            e.preventDefault();
-           
+            // e.preventDefault();
+            console.log('clicked');
             var searchModalElement = this.closest('.directorist-search-modal--basic');
 
             inputFieldValueCheck(searchModalElement);
@@ -926,8 +926,7 @@ import { directorist_range_slider } from './range-slider';
             if (inputField) {
                 inputField.val('');
             }
-            
-          
+
         });
 
         // Back Button

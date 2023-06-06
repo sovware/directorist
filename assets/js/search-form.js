@@ -1765,7 +1765,7 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
       var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
       searchModalOpen(searchModalElement);
-    }); // Advanced Modal Open
+    }); // Full Modal Open
 
     $('body').on('click', '.directorist-modal-btn__full', function (e) {
       e.preventDefault();
@@ -1786,7 +1786,8 @@ __webpack_require__.r(__webpack_exports__);
     }); // Basic Modal Input Field Check
 
     $('body').on('input keyup click', '.directorist-search-modal--basic .directorist-search-modal__input', function (e) {
-      e.preventDefault();
+      // e.preventDefault();
+      console.log('clicked');
       var searchModalElement = this.closest('.directorist-search-modal--basic');
       inputFieldValueCheck(searchModalElement);
     }); // Search Modal Input Clear Button

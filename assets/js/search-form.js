@@ -1786,8 +1786,6 @@ __webpack_require__.r(__webpack_exports__);
     }); // Basic Modal Input Field Check
 
     $('body').on('input keyup click', '.directorist-search-modal--basic .directorist-search-modal__input', function (e) {
-      // e.preventDefault();
-      console.log('clicked');
       var searchModalElement = this.closest('.directorist-search-modal--basic');
       inputFieldValueCheck(searchModalElement);
     }); // Search Modal Input Clear Button

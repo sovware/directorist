@@ -906,8 +906,6 @@ import { directorist_range_slider } from './range-slider';
 
         // Basic Modal Input Field Check
         $('body').on('input keyup click', '.directorist-search-modal--basic .directorist-search-modal__input', function(e) {
-            // e.preventDefault();
-            console.log('clicked');
             var searchModalElement = this.closest('.directorist-search-modal--basic');
 
             inputFieldValueCheck(searchModalElement);

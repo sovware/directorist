@@ -180,6 +180,7 @@
         a {
             padding: 8px 12px;
             display: flex;
+            gap: 5px;
             align-items: center;
             text-decoration: none;
             font-size: 14px;
@@ -193,6 +194,10 @@
             span.fa,
             i {
                 color: var(--directorist-color-body);
+                &:after {
+                    width: 18px;
+                    height: 18px;
+                }
             }
             span.fa{
                 font-family: "Font Awesome 5 Brands";

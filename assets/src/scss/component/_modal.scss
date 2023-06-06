@@ -326,11 +326,44 @@
         }
         @media screen and (max-width: 575px) {
             .directorist-search-modal__input {
-                height: 42px;
+                min-height: 42px;
                 border-radius: 8px;
             }
         }
+        .open_now > label {
+            display: none;
+        }
+        .open_now .check-btn ,
+        .directorist-search-modal__input .directorist-price-ranges {
+            padding: 10px 0;
+        }
+        .directorist-search-modal__input .directorist-price-ranges__price-frequency--btn {
+            display: block;
+        }
+        .directorist-advanced-filter__advanced--element .directorist-search-field {
+            margin: 0;
+            padding: 10px 0;
+        }
 
+        .directorist-checkbox-wrapper, 
+        .directorist-radio-wrapper, 
+        .directorist-search-tags {
+            width: 100%;
+            margin: 10px 0;
+            .directorist-checkbox, 
+            .directorist-radio {
+                flex: 0 0 100%;
+            }
+        }
+        .directorist-search-tags ~ .directorist-btn-ml {
+            margin-bottom: 10px;
+        }
+        .directorist-select .select2-container.select2-container--default .select2-selection--single {
+            height: auto;
+        }
+        .directorist-checkbox-rating {
+            flex-direction: row;
+        }
     }
 
     @include e(input) {
@@ -338,12 +371,13 @@
         align-items: center;
         border: 1px solid var(--directorist-color-border);
         border-radius: 10px;
-        height: 40px;
+        min-height: 40px;
         margin: 0 0 15px;
         transition: all ease 0.3s;
         .directorist-search-field,
         .directorist-select {
             display: inline-flex;
+            flex-wrap: wrap;
             flex: 1;
             label {
                 display: none;
@@ -405,6 +439,7 @@
     }
 
     .directorist-checkbox-wrapper,
+    .directorist-radio-wrapper,
     .directorist-search-tags {
         padding: 0;
         gap: 12px;

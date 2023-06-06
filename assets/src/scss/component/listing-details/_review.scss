@@ -266,6 +266,9 @@ Review: New Style
         &:focus {
             color: var(--directorist-color-dark);
         }
+        @media screen and (max-width: 575px){
+            margin-left: 15px;
+        }
     }
 
     @include e(header) {
@@ -498,6 +501,9 @@ Review: New Style
 
 .directorist-review-single {
     padding: 40px 30px;
+    @media screen and (max-width: 575px){
+        padding: 30px 20px;
+    }
     a{
         text-decoration: none;
     }
@@ -684,7 +690,7 @@ Review: New Style
             padding: 25px;
         }
 
-        .directorist-review-single & {
+        .directorist-review-single &.directorist-card__body {
             padding-left: 0;
             padding-right: 0;
         }
@@ -906,6 +912,9 @@ Review: New Style
     .form-group-comment{
         &.directorist-form-group{
             margin-bottom: 42px;
+            @media screen and (max-width: 575px){
+                margin-bottom: 30px;
+            }
         }
         textarea{
             border-radius: 16px;

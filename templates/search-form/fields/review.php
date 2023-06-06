@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php endif; ?>
 	
 
-	<div class="directorist-checkbox directorist-checkbox-primary">
+	<div class="directorist-checkbox directorist-checkbox-rating">
 		<?php foreach ( $searchform->rating_field_data() as $option ) { 
 			$uniqid = $option['value'] . '_' .wp_rand();
 		?>

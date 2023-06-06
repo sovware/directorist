@@ -1815,11 +1815,11 @@ __webpack_require__.r(__webpack_exports__);
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
       $('.directorist-location-js').each(function (index, locationDom) {
         if ($(locationDom).val() === '') {
-          $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.directorist-search-field-radius_search').css({
+          $(locationDom).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').first().css({
             display: "none"
           });
         } else {
-          $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.directorist-search-field-radius_search').css({
+          $(locationDom).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').css({
             display: "block"
           });
           Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])();

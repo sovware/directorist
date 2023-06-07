@@ -7,8 +7,15 @@
  * */
 
 .plasmaSlider {
+  display: inline-block;
   position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 100%;
   background-color: gainsboro;
+  @media (max-width: 1366px) {
+    height: auto !important;
+  }
 }
 
 .plasmaSlider__body {

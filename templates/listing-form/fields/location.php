@@ -9,6 +9,7 @@ $placeholder = $data['placeholder'] ?? '';
 $data_max    = $data['max_location_creation'] ?? '';
 $data_new    = $data['create_new_loc'] ?? '';
 $multiple    = $data['type'] === 'multiple' ? 'multiple' : '';
+$lazy_load   = $data['lazy_load'];
 ?>
 
 <div class="directorist-form-group directorist-form-location-field">
@@ -21,7 +22,9 @@ $multiple    = $data['type'] === 'multiple' ? 'multiple' : '';
 		if ($data['type'] !== 'multiple') {
 			echo '<option value="">' . esc_attr( $placeholder ) . '</option>';
 		}
-		echo directorist_kses( $listing_form->add_listing_location_fields(), 'form_input' );
+		if ( ! $lazy_load ) {
+			echo directorist_kses( $listing_form->add_listing_location_fields(), 'form_input' );
+		}
 		?>
 
 	</select>

@@ -25,9 +25,7 @@ $upload_dir = wp_upload_dir();
 			<div class="form-content">
 				<section>
 					<div class="form-table directorist-importer-options">
-						<h4 for="upload">
-							<?php esc_html_e( 'Choose a CSV file from your computer:', 'directorist' ); ?>
-						</h4>
+						<h4 for="upload"><?php esc_html_e( 'Choose a CSV file from your computer:', 'directorist' ); ?></h4>
 						<div>
 							<?php
 							if ( ! empty( $upload_dir['error'] ) ) {
@@ -40,7 +38,7 @@ $upload_dir = wp_upload_dir();
 							} else {
 								?>
 								<div class="csv-upload">
-									<input type="file" id="upload" name="import" required size="25" />
+									<input type="file" id="upload" name="import" required size="25" accept=".csv,.txt" />
 									<label for="upload"><span class="upload-btn"><i class="dashicons dashicons-upload"></i> <?php esc_html_e( 'Upload CSV', 'directorist' ); ?></span> <span class="file-name"><?php esc_html_e( 'No file chosen', 'directorist' ); ?></span></label>
 									<small>
 										<?php

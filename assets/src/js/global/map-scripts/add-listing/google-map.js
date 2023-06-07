@@ -76,10 +76,18 @@ import {
 
             function initAutocomplete() {
                 // Create the autocomplete object, restricting the search to geographical
-                // location types.
-                autocomplete = new google.maps.places.Autocomplete(address_input, {
+                let opt = {
+                    types: ['geocode'],
+                    componentRestrictions: {
+                        country: directorist.restricted_countries
+                    },
+                };
+                const options = directorist.countryRestriction ? opt : {
                     types: []
-                });
+                };
+
+                // location types.
+                autocomplete = new google.maps.places.Autocomplete( address_input, options );
 
                 // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
                 autocomplete.addListener('place_changed', fillInAddress);

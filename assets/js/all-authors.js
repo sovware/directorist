@@ -109,19 +109,24 @@
         });
       });
     }
+
     authorsMasonry();
-
     /* alphabet data value */
-    var alphabetValue;
 
+    var alphabetValue;
     /* authors nav default active item */
+
     if ($('.directorist-authors__nav').length) {
       $('.directorist-authors__nav ul li:first-child').addClass('active');
     }
     /* authors nav item */
+
+
     $('body').on('click', '.directorist-alphabet', function (e) {
       e.preventDefault();
+
       var _this = $(this);
+
       var alphabet = $(this).attr("data-alphabet");
       $('body').addClass('atbdp-form-fade');
       $.ajax({
@@ -144,8 +149,8 @@
         }
       });
     });
-
     /* authors pagination */
+
     $('body').on('click', '.directorist-authors-pagination a', function (e) {
       e.preventDefault();
       var paged = $(this).attr('href');
@@ -165,11 +170,13 @@
           $('body').removeClass('atbdp-form-fade');
           $('#directorist-all-authors').empty().append(response);
           authorsMasonry();
+
           if (document.querySelector('.' + getAlphabetValue) !== null) {
             document.querySelector('.' + getAlphabetValue).closest('li').classList.add('active');
           } else if ($('.directorist-authors__nav').length) {
             $('.directorist-authors__nav ul li:first-child').addClass('active');
           }
+
           ;
         },
         error: function error(_error2) {

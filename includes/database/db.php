@@ -36,7 +36,7 @@ class DB {
 			'current_page' => $paginated ? (int) max( 1, $query->get( 'paged', 1 ) ) : 1,
 		];
 
-		return $results;
+		return apply_filters( 'directorist_listings_query_results', $results );
 	}
 
 	/**

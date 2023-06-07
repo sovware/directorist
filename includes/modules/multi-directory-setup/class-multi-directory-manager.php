@@ -2506,12 +2506,6 @@ class Multi_Directory_Manager
                                 'label' => __( 'Required', 'directorist' ),
                                 'value' => false,
                             ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => '',
-                                'sync' => false,
-                            ],
                             'placeholder' => [
                                 'type'  => 'text',
                                 'label' => __( 'Placeholder', 'directorist' ),
@@ -2883,6 +2877,11 @@ class Multi_Directory_Manager
                                 'type'  => 'text',
                                 'label'  => __( 'Label', 'directorist' ),
                                 'value' => 'Tag',
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => __( 'Placeholder', 'directorist' ),
+                                'value' => 'Select',
                             ],
                             'required' => [
                                 'type'  => 'toggle',
@@ -4265,10 +4264,21 @@ class Multi_Directory_Manager
                             'options' => [
                                 'title' => __( "Section Title Options", "directorist" ),
                                 'fields' => [
+                                    'use_listing_title' => [
+                                        'type' => "toggle",
+                                        'label' => __( "Use Listing Title", "directorist" ),
+                                        'value' => false,
+                                    ],
                                     'label' => [
                                         'type' => "text",
                                         'label' => __( "Label", "directorist" ),
                                         'value' => "Section Title",
+                                        'show_if' => [
+                                            'where' => "single_listing_header.value.options.general.section_title",
+                                            'conditions' => [
+                                                ['key' => 'use_listing_title', 'compare' => '=', 'value' => false],
+                                            ],
+                                        ],
                                     ],
                                     'icon' => [
                                         'type' => "icon",

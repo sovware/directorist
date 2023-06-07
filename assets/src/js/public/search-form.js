@@ -578,39 +578,70 @@ import { directorist_range_slider } from './range-slider';
             var zipcode         = $(this).val();
             var zipcode_search  = $(this).closest('.directorist-zipcode-search');
             var country_suggest = zipcode_search.find('.directorist-country');
-
-            $('.directorist-country').css({
-                display: 'block'
-            });
-
-            if (zipcode === '') {
-                $('.directorist-country').css({
-                    display: 'none'
-                });
+            var zipcode_search  = $(this).closest('.directorist-zipcode-search');
+            
+            if(zipcode) {
+                zipcode_search.addClass('dir_loading');
             }
+
+            if( directorist.i18n_text.select_listing_map === 'google' ) {
+              var url = directorist.ajax_url;
+            } else {
+                url = `https://nominatim.openstreetmap.org/?postalcode=+${zipcode}+&format=json&addressdetails=1`;
+
+                $('.directorist-country').css({
+                    display: 'block'
+                });
+    
+                if (zipcode === '') {
+                    $('.directorist-country').css({
+                        display: 'none'
+                    });
+                }
+                
+            }
+            
             let res = '';
+            let google_data = {
+                'nonce' : directorist.directorist_nonce,
+                'action' : 'directorist_zipcode_search',
+                'zipcode' : zipcode
+            };
             $.ajax({
-                url: `https://nominatim.openstreetmap.org/?postalcode=+${zipcode}+&format=json&addressdetails=1`,
-                type: "POST",
-                data: {},
+                url: url,
+                method: 'POST',
+                data : directorist.i18n_text.select_listing_map === 'google' ? google_data : "",
                 success: function( data ) {
-                    if( data.length === 1 ) {
-                        var lat = data[0].lat;
-                        var lon = data[0].lon;
-                        zipcode_search.find('.zip-cityLat').val(lat);
-                        zipcode_search.find('.zip-cityLng').val(lon);
-                    } else {
-                        for (let i = 0; i < data.length; i++) {
-                            res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].address.country}</a></li>`;
-                        }
+                    if( data.data && data.data.error_message ) {
+                        zipcode_search.find('.error_message').remove();
+                        zipcode_search.find('.zip-cityLat').val( '' );
+                        zipcode_search.find('.zip-cityLng').val( '' );
+                        zipcode_search.append( data.data.error_message );
                     }
-
-                    $(country_suggest).html(`<ul>${res}</ul>`);
-
-                    if (res.length) {
-                        $('.directorist-country').show();
+                    zipcode_search.removeClass('dir_loading');
+                    if( directorist.i18n_text.select_listing_map === 'google' && typeof data.lat !== 'undefined' && typeof data.lng !== 'undefined' ) {
+                        zipcode_search.find('.error_message').remove();
+                        zipcode_search.find('.zip-cityLat').val( data.lat );
+                        zipcode_search.find('.zip-cityLng').val( data.lng );
                     } else {
-                        $('.directorist-country').hide();
+                        if( data.length === 1 ) {
+                            var lat = data[0].lat;
+                            var lon = data[0].lon;
+                            zipcode_search.find('.zip-cityLat').val(lat);
+                            zipcode_search.find('.zip-cityLng').val(lon);
+                        } else {
+                            for (let i = 0; i < data.length; i++) {
+                                res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].address.country}</a></li>`;
+                            }
+                        }
+
+                        $(country_suggest).html(`<ul>${res}</ul>`);
+
+                        if (res.length) {
+                            $('.directorist-country').show();
+                        } else {
+                            $('.directorist-country').hide();
+                        }
                     }
                 }
             });
@@ -844,7 +875,7 @@ import { directorist_range_slider } from './range-slider';
         /* When location field is empty we need to hide Radius Search */
         function handleRadiusVisibility(){
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
-            $('.directorist-location-js').each((index,locationDom)=>{
+            $('.directorist-location-js, .zip-radius-search').each((index,locationDom)=>{
                 if($(locationDom).val() === ''){
                     $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "none"});
                 }else{
@@ -853,7 +884,7 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
         }
-        $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
+        $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
             handleRadiusVisibility();
         });
         // DOM Mutation observer

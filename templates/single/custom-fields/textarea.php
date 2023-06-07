@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5.2
+ * @version 7.5.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -15,6 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<span class="directorist-single-info__label--text"><?php echo esc_html( $data['label'] ); ?></span>
 	</div>
 
-	<div class="directorist-single-info__value"><?php echo esc_html( $value ); ?></div>
+	<div class="directorist-single-info__value"><?php echo nl2br( esc_textarea( $value ) ); ?></div>
 
 </div>

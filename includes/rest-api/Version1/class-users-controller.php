@@ -374,7 +374,7 @@ class Users_Controller extends Abstract_Controller {
 		$response = $this->prepare_item_for_response( $user_data, $request );
 		$response = rest_ensure_response( $response );
 		$response->set_status( 201 );
-		$response->header( 'Location', rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $user_data ) ) );
+		$response->header( 'Location', rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $user_id ) ) );
 
 		return $response;
 	}

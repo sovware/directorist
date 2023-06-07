@@ -302,7 +302,7 @@ import {
         })(jQuery);
     }
 
-})();
+})(); 
 
 
 /* Add listing google map */

@@ -74,10 +74,10 @@ class Directorist_All_Locations extends Custom_Widget_Base {
 				'id'      => 'columns',
 				'label'   => __( 'Locations Per Row', 'directorist' ),
 				'options' => array(
+					'1' => __( '1 Item / Row', 'directorist'  ),
 					'2' => __( '2 Items / Row', 'directorist'  ),
 					'3' => __( '3 Items / Row', 'directorist'  ),
 					'4' => __( '4 Items / Row', 'directorist'  ),
-					'5' => __( '5 Items / Row', 'directorist'  ),
 					'6' => __( '6 Items / Row', 'directorist'  ),
 				),
 				'default' => '3',

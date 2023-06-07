@@ -3,7 +3,7 @@
  * Comment and review template for single view.
  *
  * @since   7.1.0
- * @version 7.4.2
+ * @version 7.5.2
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,8 +26,8 @@ Bootstrap::load_walker();
 
 $listing       = Directorist_Single_Listing::instance();
 $section_data  = $listing->get_review_section_data();
-$section_id    = $section_data['id'];
-$section_class = $section_data['class'];
+$section_id    = isset( $section_data['id'] ) ? $section_data['id'] : '';
+$section_class = isset( $section_data['class'] ) ? $section_data['class'] : '';
 ?>
 <div id="<?php echo esc_attr( $section_id ); ?>" class="directorist-review-container <?php echo esc_attr( $section_class ); ?>">
 	<div class="directorist-review-content">

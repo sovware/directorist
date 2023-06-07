@@ -3667,39 +3667,66 @@ function directorist_set_listing_views_count( $listing_id = 0 ) {
  * @return string Listing field key
  */
 function directorist_translate_to_listing_field_key( $header_key = '' ) {
+	//
     $fields_map = array(
-        'date'                   => 'publish_date',
-        'publish_date'           => 'publish_date',
-        'status'                 => 'listing_status',
-        'listing_status'         => 'listing_status',
-        'name'                   => 'listing_title',
-        'title'                  => 'listing_title',
-        'details'                => 'listing_content',
-        'content'                => 'listing_content',
-        'price'                  => 'price',
-        'price_range'            => 'price_range',
-        'location'               => 'location',
-        'tag'                    => 'tag',
-        'ategory'                => 'category',
-        'zip'                    => 'zip',
-        'phone'                  => 'phone',
-        'phone2'                 => 'phone2',
-        'fax'                    => 'fax',
-        'email'                  => 'email',
-        'website'                => 'website',
-        'social'                 => 'social',
-        'atbdp_post_views_count' => 'atbdp_post_views_count',
-        'views_count'            => 'atbdp_post_views_count',
-        'manual_lat'             => 'manual_lat',
-        'manual_lng'             => 'manual_lng',
-        'hide_map'               => 'hide_map',
-        'hide_contact_info'      => 'hide_contact_owner',
-        'listing_prv_img'        => 'listing_img',
-        'preview'                => 'listing_img',
-        'listing_img'            => 'listing_img',
-        'videourl'               => 'videourl',
-        'tagline'                => 'tagline',
-        'address'                => 'address',
+		'date'                     => 'publish_date',
+		'publish_date'             => 'publish_date',
+		'Published'                => 'publish_date',
+		'status'                   => 'listing_status',
+		'listing_status'           => 'listing_status',
+		'Status'                   => 'listing_status',
+		'name'                     => 'listing_title',
+		'title'                    => 'listing_title',
+		'Title'                    => 'listing_title',
+		'details'                  => 'listing_content',
+		'content'                  => 'listing_content',
+		'Description'              => 'listing_content',
+		'Excerpt'                  => 'excerpt',
+		'price'                    => 'price',
+		'Price'                    => 'price',
+		'price_range'              => 'price_range',
+		'Price Range'              => 'price_range',
+		'location'                 => 'location',
+		'Locations'                => 'location',
+		'tag'                      => 'tag',
+		'Tags'                     => 'tag',
+		'category'                 => 'category',
+		'Categories'               => 'category',
+		'zip'                      => 'zip',
+		'Zip'                      => 'zip',
+		'phone'                    => 'phone',
+		'Phone'                    => 'phone',
+		'phone2'                   => 'phone2',
+		'Phone2'                   => 'phone2',
+		'fax'                      => 'fax',
+		'Fax'                      => 'fax',
+		'email'                    => 'email',
+		'Email'                    => 'email',
+		'website'                  => 'website',
+		'Website'                  => 'website',
+		'social'                   => 'social',
+		'Socials'                  => 'social',
+		'atbdp_post_views_count'   => 'atbdp_post_views_count',
+		'views_count'              => 'atbdp_post_views_count',
+		'Views Count'              => 'atbdp_post_views_count',
+		'manual_lat'               => 'manual_lat',
+		'Map Latitude'             => 'manual_lat',
+		'manual_lng'               => 'manual_lng',
+		'Map Logitude'             => 'manual_lng',
+		'hide_map'                 => 'hide_map',
+		'Hide Map?'                => 'hide_map',
+		'hide_contact_info'        => 'hide_contact_owner',
+		'Hide Owner Contact Form?' => 'hide_contact_owner',
+		'listing_prv_img'          => 'listing_img',
+		'preview'                  => 'listing_img',
+		'Image'                    => 'listing_img',
+		'listing_img'              => 'listing_img',
+		'videourl'                 => 'videourl',
+		'Video'                    => 'videourl',
+		'tagline'                  => 'tagline',
+		'Tagline'                  => 'tagline',
+		'address'                  => 'address',
+		'Address'                  => 'address',
     );
 
     return isset( $fields_map[ $header_key ] ) ? $fields_map[ $header_key ] : '';
@@ -3968,4 +3995,44 @@ function directorist_get_page_id( string $page_name = '' ) : int {
     }
 
     return (int) apply_filters( 'directorist_page_id', $page_id, $page_name );
+}
+
+function directorist_get_mime_types( $filter_type = '', $return_type = '' ) {
+	$supported_mime_types = wp_get_mime_types();
+
+	// Filter
+	if ( ! empty( $filter_type ) ) {
+		$filtered_supported_mime_types = [];
+
+		foreach ($supported_mime_types as $key => $value) {
+			$_type = preg_replace( "/\/\w+$/", '', $value );
+
+			if ( $_type !== $filter_type ) {
+				continue;
+			}
+
+			$filtered_supported_mime_types[ $key ] = $value;
+		}
+
+		$supported_mime_types = $filtered_supported_mime_types;
+	}
+
+	// Convert to extension
+	if ( $return_type === 'extension' || $return_type === '.extension' ) {
+		$extensions = array_keys( $supported_mime_types );
+
+		$extended_extensions = [];
+
+		foreach ( $extensions as $extension ) {
+			$_sub_extensions = explode( '|',  $extension );
+
+			foreach ( $_sub_extensions as $sub_extension ) {
+				$extended_extensions[] = ( $return_type === '.extension' ) ? '.' . $sub_extension : $sub_extension;
+			}
+		}
+
+		$supported_mime_types = array_values( $extended_extensions );
+	}
+
+	return $supported_mime_types;
 }

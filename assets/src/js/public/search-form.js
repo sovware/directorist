@@ -827,9 +827,15 @@ import { directorist_range_slider } from './range-slider';
         // Modal Minimize
         function searchModalMinimize(searchModalParent) {
             var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
-            var contentsCurrentHeight = modalContent.offsetHeight;
-            
-            modalContent.style.height = (contentsCurrentHeight === 400) ? 'auto' : '400px';
+            var modalMinimizer = searchModalParent.querySelector('.directorist-search-modal__minimizer');
+
+            if(modalMinimizer.classList.contains('minimized')) {
+                modalMinimizer.classList.remove('minimized');
+                modalContent.style.bottom = '0';
+            } else {
+                modalMinimizer.classList.add('minimized');
+                modalContent.style.bottom = '-50%';
+            }
         }
 
         // Input Field Value Check

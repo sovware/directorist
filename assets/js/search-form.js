@@ -1726,8 +1726,15 @@ __webpack_require__.r(__webpack_exports__);
 
     function searchModalMinimize(searchModalParent) {
       var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
-      var contentsCurrentHeight = modalContent.offsetHeight;
-      modalContent.style.height = contentsCurrentHeight === 400 ? 'auto' : '400px';
+      var modalMinimizer = searchModalParent.querySelector('.directorist-search-modal__minimizer');
+
+      if (modalMinimizer.classList.contains('minimized')) {
+        modalMinimizer.classList.remove('minimized');
+        modalContent.style.bottom = '0';
+      } else {
+        modalMinimizer.classList.add('minimized');
+        modalContent.style.bottom = '-50%';
+      }
     } // Input Field Value Check
 
 
@@ -1765,7 +1772,7 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
       var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
       searchModalOpen(searchModalElement);
-    }); // Advanced Modal Open
+    }); // Full Modal Open
 
     $('body').on('click', '.directorist-modal-btn__full', function (e) {
       e.preventDefault();
@@ -1786,7 +1793,6 @@ __webpack_require__.r(__webpack_exports__);
     }); // Basic Modal Input Field Check
 
     $('body').on('input keyup click', '.directorist-search-modal--basic .directorist-search-modal__input', function (e) {
-      e.preventDefault();
       var searchModalElement = this.closest('.directorist-search-modal--basic');
       inputFieldValueCheck(searchModalElement);
     }); // Search Modal Input Clear Button

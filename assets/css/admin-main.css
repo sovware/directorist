@@ -11442,7 +11442,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 @media only screen and (max-width: 575px) {
   .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
     left: unset;
-    top: 3px;
+    top: 4px;
     right: 3px;
   }
 }

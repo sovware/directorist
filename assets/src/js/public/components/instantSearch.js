@@ -170,6 +170,12 @@ import {
             fields.miles = $(this).find('.directorist-range-slider-value').val();
         }
 
+        if (fields.zip && fields.zip.length) {
+            fields.zip_cityLat = $(this).find('.zip-cityLat').val();
+            fields.zip_cityLng = $(this).find('.zip-cityLng').val();
+            fields.miles = $(this).find('.directorist-range-slider-value').val();
+        }
+
         var form_data = {
             ...data,
             ...fields
@@ -296,6 +302,12 @@ import {
                 fields.cityLat = $(this).find('#cityLat').val();
                 fields.cityLng = $(this).find('#cityLng').val();
                 fields.miles = $(this).find('input[name="miles"]').val();
+            }
+
+            if (fields.zip && fields.zip.length) {
+                fields.zip_cityLat = $(this).find('.zip-cityLat').val();
+                fields.zip_cityLng = $(this).find('.zip-cityLng').val();
+                fields.miles       = $(this).find('.directorist-range-slider-value').val();
             }
 
             var form_data = {

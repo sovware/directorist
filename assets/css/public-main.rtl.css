@@ -10443,7 +10443,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-form__top .directorist-search-field .directorist-radio-wrapper,
 .directorist-search-form__top .directorist-search-field .directorist-search-tags {
   padding: 0;
-  gap: 12px;
+  gap: 20px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;

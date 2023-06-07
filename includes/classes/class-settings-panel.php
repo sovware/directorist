@@ -339,10 +339,9 @@ SWBD;
             ];
 
 			$fields['lazy_load_taxonomy_fields'] = [
-                'type'        => 'toggle',
-                'label'       => __( 'Lazy Load Term Fields', 'directorist' ),
-                'description' => __( 'Enables lazy loading in category, location and tag fields', 'directorist' ),
-                'value'       => false
+                'type'  => 'toggle',
+                'label' => __( 'Lazy load category and location fields', 'directorist' ),
+				'value' => false
             ];
 
             return $fields;
@@ -4580,7 +4579,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'general_settings' => [
                                     'fields'      => [
                                         'enable_multi_directory',
-                                        'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 'lazy_load_taxonomy_fields'
+                                        'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings',
                                     ],
                                 ],
 
@@ -4708,7 +4707,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'directorist_search_setting_sections', [
                                 'search_form' => [
                                     'fields'      => [
-                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg',
+                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg', 'lazy_load_taxonomy_fields'
                                      ],
                                 ],
                             ] ),

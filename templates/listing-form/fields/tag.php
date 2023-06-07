@@ -10,8 +10,7 @@ $data_max    = $data['max'] ?? '';
 $data_new    = $data['allow_new'] ?? '';
 $multiple    = $data['type'] === 'multiple' ? 'multiple' : '';
 
-$lazy_load       = $data['lazy_load'];
-$all_tags        = ( ! $lazy_load ) ? get_terms( ATBDP_TAGS, array( 'hide_empty' => 0 ) ) : [];
+$all_tags        = get_terms( ATBDP_TAGS, array( 'hide_empty' => 0 ) );
 $current_tag_ids = $listing_form->add_listing_tag_ids();
 ?>
 
@@ -26,13 +25,11 @@ $current_tag_ids = $listing_form->add_listing_tag_ids();
 			echo '<option value="">' . esc_attr( $placeholder ) . '</option>';
 		}
 
-		if ( ! $lazy_load ) {
-			foreach ($all_tags as $tag) {
-				$current = in_array($tag->term_id, $current_tag_ids) ? true : false;
-				?>
-				<option <?php selected( $current, true, true ); ?> value='<?php echo esc_attr($tag->name); ?>'><?php echo esc_html($tag->name) ?></option>
-				<?php
-			}
+		foreach ($all_tags as $tag) {
+			$current = in_array($tag->term_id, $current_tag_ids) ? true : false;
+			?>
+			<option <?php selected( $current, true, true ); ?> value='<?php echo esc_attr($tag->name); ?>'><?php echo esc_html($tag->name) ?></option>
+			<?php
 		}
 		?>
 

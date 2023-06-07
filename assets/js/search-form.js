@@ -372,41 +372,22 @@ function initSelect2AjaxFields() {
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
-  });
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-categories-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
-  }); // Init Select2 Ajax Location Field
+  }); // Init Select2 Ajax Category Field
 
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-location').find('select'),
     url: "".concat(rest_base_url, "/listings/locations")
   });
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-location-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
-  }); // Init Select2 Ajax Tag Field
-
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-tag-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/tags")
-  }, {
-    has_directory_type: false
-  });
 } // initSelect2AjaxTaxonomy
 
 
-function initSelect2AjaxTaxonomy(args, terms_options) {
+function initSelect2AjaxTaxonomy(args) {
   var defaultArgs = {
     selector: '',
     url: '',
     perPage: 10
   };
   args = _objectSpread(_objectSpread({}, defaultArgs), args);
-  var default_terms_options = {
-    has_directory_type: true
-  };
-  terms_options = terms_options ? _objectSpread(_objectSpread({}, default_terms_options), terms_options) : default_terms_options;
 
   if (!args.selector.length) {
     return;
@@ -414,35 +395,22 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
 
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
     var directory_type_id = 0;
+    var search_form_parent = $(item).closest('.directorist-search-form');
+    var archive_page_parent = $(item).closest('.directorist-archive-contents');
+    var nav_list_item = []; // If search page
 
-    if (terms_options.has_directory_type) {
-      var search_form_parent = $(item).closest('.directorist-search-form');
-      var archive_page_parent = $(item).closest('.directorist-archive-contents');
-      var add_listing_form_hidden_input = $(item).closest('.directorist-add-listing-form').find('input[name="directory_type"]');
-      var nav_list_item = []; // If search page
-
-      if (search_form_parent.length) {
-        nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
-      } // If archive page
+    if (search_form_parent.length) {
+      nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
+    } // If archive page
 
 
-      if (archive_page_parent.length) {
-        nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
-      } // If has nav item
+    if (archive_page_parent.length) {
+      nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+    } // If has nav item
 
 
-      if (nav_list_item.length) {
-        directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
-      } // If has nav item
-
-
-      if (add_listing_form_hidden_input.length) {
-        directory_type_id = add_listing_form_hidden_input.val();
-      }
-
-      if (directory_type_id) {
-        directory_type_id = parseInt(directory_type_id);
-      }
+    if (nav_list_item.length) {
+      directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
     }
 
     var currentPage = 1;
@@ -1437,70 +1405,39 @@ __webpack_require__.r(__webpack_exports__);
       var zipcode = $(this).val();
       var zipcode_search = $(this).closest('.directorist-zipcode-search');
       var country_suggest = zipcode_search.find('.directorist-country');
-      var zipcode_search = $(this).closest('.directorist-zipcode-search');
+      $('.directorist-country').css({
+        display: 'block'
+      });
 
-      if (zipcode) {
-        zipcode_search.addClass('dir_loading');
-      }
-
-      if (directorist.i18n_text.select_listing_map === 'google') {
-        var url = directorist.ajax_url;
-      } else {
-        url = "https://nominatim.openstreetmap.org/?postalcode=+".concat(zipcode, "+&format=json&addressdetails=1");
+      if (zipcode === '') {
         $('.directorist-country').css({
-          display: 'block'
+          display: 'none'
         });
-
-        if (zipcode === '') {
-          $('.directorist-country').css({
-            display: 'none'
-          });
-        }
       }
 
       var res = '';
-      var google_data = {
-        'nonce': directorist.directorist_nonce,
-        'action': 'directorist_zipcode_search',
-        'zipcode': zipcode
-      };
       $.ajax({
-        url: url,
-        method: 'POST',
-        data: directorist.i18n_text.select_listing_map === 'google' ? google_data : "",
+        url: "https://nominatim.openstreetmap.org/?postalcode=+".concat(zipcode, "+&format=json&addressdetails=1"),
+        type: "POST",
+        data: {},
         success: function success(data) {
-          if (data.data && data.data.error_message) {
-            zipcode_search.find('.error_message').remove();
-            zipcode_search.find('.zip-cityLat').val('');
-            zipcode_search.find('.zip-cityLng').val('');
-            zipcode_search.append(data.data.error_message);
+          if (data.length === 1) {
+            var lat = data[0].lat;
+            var lon = data[0].lon;
+            zipcode_search.find('.zip-cityLat').val(lat);
+            zipcode_search.find('.zip-cityLng').val(lon);
+          } else {
+            for (var i = 0; i < data.length; i++) {
+              res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].address.country, "</a></li>");
+            }
           }
 
-          zipcode_search.removeClass('dir_loading');
+          $(country_suggest).html("<ul>".concat(res, "</ul>"));
 
-          if (directorist.i18n_text.select_listing_map === 'google' && typeof data.lat !== 'undefined' && typeof data.lng !== 'undefined') {
-            zipcode_search.find('.error_message').remove();
-            zipcode_search.find('.zip-cityLat').val(data.lat);
-            zipcode_search.find('.zip-cityLng').val(data.lng);
+          if (res.length) {
+            $('.directorist-country').show();
           } else {
-            if (data.length === 1) {
-              var lat = data[0].lat;
-              var lon = data[0].lon;
-              zipcode_search.find('.zip-cityLat').val(lat);
-              zipcode_search.find('.zip-cityLng').val(lon);
-            } else {
-              for (var i = 0; i < data.length; i++) {
-                res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].address.country, "</a></li>");
-              }
-            }
-
-            $(country_suggest).html("<ul>".concat(res, "</ul>"));
-
-            if (res.length) {
-              $('.directorist-country').show();
-            } else {
-              $('.directorist-country').hide();
-            }
+            $('.directorist-country').hide();
           }
         }
       });
@@ -1699,7 +1636,7 @@ __webpack_require__.r(__webpack_exports__);
 
     function handleRadiusVisibility() {
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
-      $('.directorist-location-js, .zip-radius-search').each(function (index, locationDom) {
+      $('.directorist-location-js').each(function (index, locationDom) {
         if ($(locationDom).val() === '') {
           $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({
             display: "none"
@@ -1713,7 +1650,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
 
-    $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
+    $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
       handleRadiusVisibility();
     }); // DOM Mutation observer
 

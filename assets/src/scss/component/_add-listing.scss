@@ -649,24 +649,3 @@
     }
   }
 }
-
-// Error Message
-.directorist-zipcode-search {
-  position: relative;
-  .error_message {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    left: 0;
-    bottom: -22px;
-    margin: 0;
-    p {
-      margin: 0;
-      color: #f00;
-      font-family: $font-family-base;
-    }
-    i {
-      display: none;
-    }
-  }
-}

@@ -1596,6 +1596,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         fields.miles = $(this).find('input[name="miles"]').val();
       }
 
+      if (fields.zip && fields.zip.length) {
+        fields.zip_cityLat = $(this).find('.zip-cityLat').val();
+        fields.zip_cityLng = $(this).find('.zip-cityLng').val();
+        fields.miles = $(this).find('.directorist-range-slider-value').val();
+      }
+
       var form_data = _objectSpread(_objectSpread({}, data), fields);
 
       var allFieldsAreEmpty = Object.values(fields).every(function (item) {

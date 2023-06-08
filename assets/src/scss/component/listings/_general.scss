@@ -35,7 +35,7 @@
             height: 16px;
         }
     }
-    .directorist-modal-btn__basic {
+    .directorist-modal-btn--basic {
         display: flex;
         flex: 1;
         gap: 10px;
@@ -48,7 +48,7 @@
             transform: rotate(270deg);
         }
     }
-    .directorist-modal-btn__advanced {
+    .directorist-modal-btn--advanced {
         i::after {
             width: 16px;
             height: 16px;

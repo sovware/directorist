@@ -1701,7 +1701,9 @@ __webpack_require__.r(__webpack_exports__);
         $(this).find(".directorist-search-field .address_result").css("max-height", "175px");
       }
     });
-    /* Search Form Modal */
+    /*****
+        Search Form Modal 
+    *****/
     // Search Modal Open
 
     function searchModalOpen(searchModalParent) {
@@ -1721,7 +1723,7 @@ __webpack_require__.r(__webpack_exports__);
       modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease"; // Modal Content Style
 
       modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
-    } // Modal Minimize
+    } // Modal Minimizer
 
 
     function searchModalMinimize(searchModalParent) {
@@ -1735,49 +1737,26 @@ __webpack_require__.r(__webpack_exports__);
         modalMinimizer.classList.add('minimized');
         modalContent.style.bottom = '-50%';
       }
-    } // Input Field Value Check
+    } // Search Modal Open
 
 
-    function inputFieldValueCheck(searchModalParent) {
-      var inputFields = searchModalParent.querySelectorAll('.directorist-search-field input[type="text"]');
-      var selectboxFields = searchModalParent.querySelectorAll('.directorist-search-field .directorist-select select');
-      inputFields.forEach(function (element, index) {
-        var clearBtn = element.parentElement.parentElement;
-        checkElement(element, clearBtn);
-      });
-      selectboxFields.forEach(function (element, index) {
-        var clearBtn = element.parentElement.parentElement.parentElement;
-        checkElement(element, clearBtn);
-      });
+    $('body').on('click', '.directorist-modal-btn', function (e) {
+      e.preventDefault();
 
-      function checkElement(element, clearBtn) {
-        if (element.value != '') {
-          clearBtn.classList.add('input-has-value');
-        } else {
-          if (clearBtn.classList.contains('input-has-value')) {
-            clearBtn.classList.remove('input-has-value');
-          }
-        }
+      if (this.classList.contains('directorist-modal-btn--basic')) {
+        var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--basic');
+        searchModalOpen(searchModalElement);
       }
-    } // Basic Modal Open
 
+      if (this.classList.contains('directorist-modal-btn--advanced')) {
+        var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
+        searchModalOpen(searchModalElement);
+      }
 
-    $('body').on('click', '.directorist-modal-btn__basic', function (e) {
-      e.preventDefault();
-      var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--basic');
-      searchModalOpen(searchModalElement);
-    }); // Advanced Modal Open
-
-    $('body').on('click', '.directorist-modal-btn__advanced', function (e) {
-      e.preventDefault();
-      var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
-      searchModalOpen(searchModalElement);
-    }); // Full Modal Open
-
-    $('body').on('click', '.directorist-modal-btn__full', function (e) {
-      e.preventDefault();
-      var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--full');
-      searchModalOpen(searchModalElement);
+      if (this.classList.contains('directorist-modal-btn--full')) {
+        var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--full');
+        searchModalOpen(searchModalElement);
+      }
     }); // Search Modal Close
 
     $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
@@ -1792,22 +1771,49 @@ __webpack_require__.r(__webpack_exports__);
       searchModalMinimize(searchModalElement);
     }); // Basic Modal Input Field Check
 
-    $('body').on('input keyup click', '.directorist-search-modal--basic .directorist-search-modal__input', function (e) {
-      var searchModalElement = this.closest('.directorist-search-modal--basic');
-      inputFieldValueCheck(searchModalElement);
+    $('body').on('input keyup', '.directorist-search-modal--basic .directorist-search-modal__input', function (e) {
+      var inputBox = this.querySelector('input, select');
+
+      if (inputBox.value != '') {
+        this.classList.add('input-has-value');
+      } else {
+        if (this.classList.contains('input-has-value')) {
+          this.classList.remove('input-has-value');
+        }
+      }
     }); // Search Modal Input Clear Button
 
     $('body').on('click', '.directorist-search-modal__input__btn--clear', function (e) {
-      e.preventDefault();
-      var inputField = $(this).siblings('.directorist-search-field').find('.directorist-form-element');
-      var selectboxField = $(this).siblings('.directorist-search-field').find('.directorist-select select');
+      var inputFields = this.parentElement.querySelectorAll('.directorist-search-field .directorist-form-element');
+      var selectboxField = this.parentElement.querySelector('.directorist-search-field .directorist-select select');
+      var radioFields = this.parentElement.querySelectorAll('.directorist-search-field input[type="radio"]');
+      var checkboxFields = this.parentElement.querySelectorAll('.directorist-search-field input[type="checkbox"]');
 
       if (selectboxField) {
-        selectboxField.val(null).trigger('change');
+        selectboxField.selectedIndex = -1;
+        selectboxField.dispatchEvent(new Event('change'));
       }
 
-      if (inputField) {
-        inputField.val('');
+      if (inputFields) {
+        inputFields.forEach(function (inputField) {
+          inputField.value = '';
+        });
+      }
+
+      if (radioFields) {
+        radioFields.forEach(function (element) {
+          element.checked = false;
+        });
+      }
+
+      if (checkboxFields) {
+        checkboxFields.forEach(function (element) {
+          element.checked = false;
+        });
+      }
+
+      if (this.parentElement.classList.contains('input-has-value')) {
+        this.parentElement.classList.remove('input-has-value');
       }
     }); // Back Button
 

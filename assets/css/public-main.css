@@ -12201,7 +12201,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 16px;
   height: 16px;
 }
-.directorist-all-listing-btn .directorist-modal-btn__basic {
+.directorist-all-listing-btn .directorist-modal-btn--basic {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -12218,13 +12218,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-align: center;
           align-items: center;
 }
-.directorist-all-listing-btn .directorist-modal-btn__basic i::after {
+.directorist-all-listing-btn .directorist-modal-btn--basic i::after {
   width: 16px;
   height: 16px;
   -webkit-transform: rotate(270deg);
           transform: rotate(270deg);
 }
-.directorist-all-listing-btn .directorist-modal-btn__advanced i::after {
+.directorist-all-listing-btn .directorist-modal-btn--advanced i::after {
   width: 16px;
   height: 16px;
 }

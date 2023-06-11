@@ -972,8 +972,6 @@ __webpack_require__.r(__webpack_exports__);
     Search Listings
     ------------------ */
     //ad search js
-    $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");
-
     function defaultTags() {
       $('.directorist-btn-ml').each(function (index, element) {
         var item = $(element).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
@@ -990,8 +988,8 @@ __webpack_require__.r(__webpack_exports__);
     window.addEventListener('triggerSlice', defaultTags);
     $('body').on('click', '.directorist-btn-ml', function (event) {
       event.preventDefault();
-      var item = $(this).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
-      var abc2 = $(item).find('.directorist-checkbox ');
+      var item = $(this).siblings('.directorist-search-tags');
+      var abc2 = $(item).find('.directorist-checkbox');
       $(abc2).slice(4, abc2.length).fadeOut();
       $(this).toggleClass('active');
 
@@ -1002,59 +1000,11 @@ __webpack_require__.r(__webpack_exports__);
         $(this).text(directorist.i18n_text.show_more);
         $(abc2).slice(4, abc2.length).fadeOut();
       }
-    });
-    var count = 0;
-    $('body').on('click', '.directorist-listing-type-selection .search_listing_types, .directorist-type-nav .directorist-type-nav__link', function () {
-      count = 0;
     }); //remove preload after window load
 
     $(window).on('load', function () {
       $("body").removeClass("directorist-preload");
       $('.button.wp-color-result').attr('style', ' ');
-    }); //reset fields
-
-    function resetFields() {
-      var inputArray = document.querySelectorAll('.search-area input');
-      inputArray.forEach(function (input) {
-        if (input.getAttribute("type") !== "hidden" || input.getAttribute("id") === "atbd_rs_value") {
-          input.value = "";
-        }
-      });
-      var textAreaArray = document.querySelectorAll('.search-area textArea');
-      textAreaArray.forEach(function (textArea) {
-        textArea.innerHTML = "";
-      });
-      var range = document.querySelector(".atbdpr-range .ui-slider-horizontal .ui-slider-range");
-      var rangePos = document.querySelector(".atbdpr-range .ui-slider-horizontal .ui-slider-handle");
-      var rangeAmount = document.querySelector(".atbdpr_amount");
-
-      if (range) {
-        range.setAttribute("style", "width: 0;");
-      }
-
-      if (rangePos) {
-        rangePos.setAttribute("style", "left: 0;");
-      }
-
-      if (rangeAmount) {
-        rangeAmount.innerText = "0 Mile";
-      }
-
-      var checkBoxes = document.querySelectorAll('.directorist-advanced-filter input[type="checkbox"]');
-      checkBoxes.forEach(function (el, ind) {
-        el.checked = false;
-      });
-      var radios = document.querySelectorAll('.directorist-advanced-filter input[type="radio"]');
-      radios.forEach(function (el, ind) {
-        el.checked = false;
-      });
-      $('.search-area select').prop('selectedIndex', 0);
-      $(".bdas-location-search, .bdas-category-search").val('').trigger('change');
-    }
-
-    $("body").on("click", ".atbd_widget .directorist-advanced-filter #atbdp_reset", function (e) {
-      e.preventDefault();
-      resetFields();
     });
     /* advanced search form reset */
 
@@ -1283,33 +1233,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }); // Advance search
-    // Populate atbdp child terms dropdown
-
-    $('.bdas-terms').on('change', 'select', function (e) {
-      e.preventDefault();
-      var $this = $(this);
-      var taxonomy = $this.data('taxonomy');
-      var parent = $this.data('parent');
-      var value = $this.val();
-      var classes = $this.attr('class');
-      $this.closest('.bdas-terms').find('input.bdas-term-hidden').val(value);
-      $this.parent().find('div:first').remove();
-
-      if (parent != value) {
-        $this.parent().append('<div class="bdas-spinner"></div>');
-        var data = {
-          action: 'bdas_public_dropdown_terms',
-          taxonomy: taxonomy,
-          parent: value,
-          class: classes,
-          security: directorist.ajaxnonce
-        };
-        $.post(directorist.ajax_url, data, function (response) {
-          $this.parent().find('div:first').remove();
-          $this.parent().append(response);
-        });
-      }
-    });
 
     if ($('.directorist-search-contents').length) {
       $('body').on('change', '.directorist-category-select', function (event) {
@@ -1377,71 +1300,7 @@ __webpack_require__.r(__webpack_exports__);
           });
         });
       }
-    }); // Returns a function, that, as long as it continues to be invoked, will not
-    // be triggered. The function will be called after it stops being called for
-    // N milliseconds. If `immediate` is passed, trigger the function on the
-    // leading edge, instead of the trailing.
-
-    function directorist_debounce(func, wait, immediate) {
-      var timeout;
-      return function () {
-        var context = this,
-            args = arguments;
-
-        var later = function later() {
-          timeout = null;
-          if (!immediate) func.apply(context, args);
-        };
-
-        var callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-      };
-    }
-
-    ;
-    $('body').on("keyup", '.zip-radius-search', directorist_debounce(function () {
-      var zipcode = $(this).val();
-      var zipcode_search = $(this).closest('.directorist-zipcode-search');
-      var country_suggest = zipcode_search.find('.directorist-country');
-      $('.directorist-country').css({
-        display: 'block'
-      });
-
-      if (zipcode === '') {
-        $('.directorist-country').css({
-          display: 'none'
-        });
-      }
-
-      var res = '';
-      $.ajax({
-        url: "https://nominatim.openstreetmap.org/?postalcode=+".concat(zipcode, "+&format=json&addressdetails=1"),
-        type: "POST",
-        data: {},
-        success: function success(data) {
-          if (data.length === 1) {
-            var lat = data[0].lat;
-            var lon = data[0].lon;
-            zipcode_search.find('.zip-cityLat').val(lat);
-            zipcode_search.find('.zip-cityLng').val(lon);
-          } else {
-            for (var i = 0; i < data.length; i++) {
-              res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].address.country, "</a></li>");
-            }
-          }
-
-          $(country_suggest).html("<ul>".concat(res, "</ul>"));
-
-          if (res.length) {
-            $('.directorist-country').show();
-          } else {
-            $('.directorist-country').hide();
-          }
-        }
-      });
-    }, 250)); // hide country result when click outside the zipcode field
+    }); // hide country result when click outside the zipcode field
 
     $(document).on('click', function (e) {
       if (!$(e.target).closest('.directorist-zip-code').length) {
@@ -1815,7 +1674,71 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     initObserver();
-    handleRadiusVisibility();
+    handleRadiusVisibility(); // Returns a function, that, as long as it continues to be invoked, will not
+    // be triggered. The function will be called after it stops being called for
+    // N milliseconds. If `immediate` is passed, trigger the function on the
+    // leading edge, instead of the trailing.
+
+    function directorist_debounce(func, wait, immediate) {
+      var timeout;
+      return function () {
+        var context = this,
+            args = arguments;
+
+        var later = function later() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    }
+
+    ;
+    $('body').on("keyup", '.zip-radius-search', directorist_debounce(function () {
+      var zipcode = $(this).val();
+      var zipcode_search = $(this).closest('.directorist-zipcode-search');
+      var country_suggest = zipcode_search.find('.directorist-country');
+      $('.directorist-country').css({
+        display: 'block'
+      });
+
+      if (zipcode === '') {
+        $('.directorist-country').css({
+          display: 'none'
+        });
+      }
+
+      var res = '';
+      $.ajax({
+        url: "https://nominatim.openstreetmap.org/?postalcode=+".concat(zipcode, "+&format=json&addressdetails=1"),
+        type: "POST",
+        data: {},
+        success: function success(data) {
+          if (data.length === 1) {
+            var lat = data[0].lat;
+            var lon = data[0].lon;
+            zipcode_search.find('.zip-cityLat').val(lat);
+            zipcode_search.find('.zip-cityLng').val(lon);
+          } else {
+            for (var i = 0; i < data.length; i++) {
+              res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].address.country, "</a></li>");
+            }
+          }
+
+          $(country_suggest).html("<ul>".concat(res, "</ul>"));
+
+          if (res.length) {
+            $('.directorist-country').show();
+          } else {
+            $('.directorist-country').hide();
+          }
+        }
+      });
+    }, 250));
   });
 })(jQuery);
 

@@ -1003,46 +1003,6 @@ __webpack_require__.r(__webpack_exports__);
         $(abc2).slice(4, abc2.length).fadeOut();
       }
     });
-    /* Advanced search */
-
-    var ad = $(".directorist-search-float .directorist-advanced-filter");
-    ad.css({
-      visibility: 'hidden',
-      height: '0'
-    });
-
-    var adsFilterHeight = function adsFilterHeight() {
-      return $('.directorist-advanced-filter .directorist-advanced-filter__action').innerHeight();
-    };
-
-    var adsItemsHeight;
-
-    function getItemsHeight(selector) {
-      var advElmHeight;
-      var basicElmHeight;
-
-      var adsAdvItemHeight = function adsAdvItemHeight() {
-        return $(selector).closest('.directorist-search-form-box, .directorist-archive-contents, .directorist-search-form').find('.directorist-advanced-filter__advanced--element');
-      };
-
-      var adsBasicItemHeight = function adsBasicItemHeight() {
-        return $(selector).closest('.directorist-search-form-box, .directorist-archive-contents').find('.directorist-advanced-filter__basic');
-      };
-
-      for (var i = 0; i <= adsAdvItemHeight().length; i++) {
-        adsAdvItemHeight().length <= 1 ? advElmHeight = adsAdvItemHeight().innerHeight() : advElmHeight = adsAdvItemHeight().innerHeight() * i;
-      }
-
-      if (isNaN(advElmHeight)) {
-        advElmHeight = 0;
-      }
-
-      var basicElmHeights = adsBasicItemHeight().innerHeight();
-      basicElmHeights === undefined ? basicElmHeight = 0 : basicElmHeight = basicElmHeights;
-      return adsItemsHeight = advElmHeight + basicElmHeight;
-    }
-
-    getItemsHeight('.directorist-filter-btn');
     var count = 0;
     $('body').on('click', '.directorist-listing-type-selection .search_listing_types, .directorist-type-nav .directorist-type-nav__link', function () {
       count = 0;

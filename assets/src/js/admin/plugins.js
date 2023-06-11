@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
     const update = $('#directorist-update');
-    const main_div = $('[data-slug="directorist"]');
+    const main_div = $('[data-slug="directorist-business-directory-plugin"]');
     const extensions_area = update.length ? update : main_div;
     extensions_area.after('<tr class="directorist-extensions"></tr>');
     $('.directorist-extensions').append(
@@ -17,7 +17,7 @@ jQuery(document).ready(function ($) {
     const moreLink = $('.directorist-extensions').find('.ext-more-link');
     $(moreLink).hide();
 
-    $(tbody).append($('#the-list tr[data-slug^="directorist-"]'));
+    $(tbody).append($('#the-list tr[data-slug^="directorist-"]:not([data-slug="directorist-business-directory-plugin"])'));
 
     $("body").on('click', '.select_all', function (e) {
         var table = $(e.target).closest('table');

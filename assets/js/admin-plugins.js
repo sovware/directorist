@@ -95,7 +95,7 @@
 
 jQuery(document).ready(function ($) {
   var update = $('#directorist-update');
-  var main_div = $('[data-slug="directorist"]');
+  var main_div = $('[data-slug="directorist-business-directory-plugin"]');
   var extensions_area = update.length ? update : main_div;
   extensions_area.after('<tr class="directorist-extensions"></tr>');
   $('.directorist-extensions').append($('<td colspan="4"><div class="ext-all-wrapper"><input type="checkbox" class="select_all"> All Extensions<table class="atbdp_extensions"><tbody class="de-list"></tbody></table></div></td>'));
@@ -104,7 +104,7 @@ jQuery(document).ready(function ($) {
   $(extWrapper).append('<div class="ext-more"><a href="" class="ext-more-link">Click to view directorist all extensions</a></div>');
   var moreLink = $('.directorist-extensions').find('.ext-more-link');
   $(moreLink).hide();
-  $(tbody).append($('#the-list tr[data-slug^="directorist-"]'));
+  $(tbody).append($('#the-list tr[data-slug^="directorist-"]:not([data-slug="directorist-business-directory-plugin"])'));
   $("body").on('click', '.select_all', function (e) {
     var table = $(e.target).closest('table');
     $('td input:checkbox', table).prop('checked', this.checked);

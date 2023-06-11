@@ -255,6 +255,9 @@
 				flex-direction: column;
 			}
 		}
+		.directorist-search-contents {
+			padding: 0;
+		}
 
 	}
 	@include e(sidebar) {

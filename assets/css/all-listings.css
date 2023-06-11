@@ -9597,6 +9597,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
             flex-direction: column;
   }
 }
+.listing-with-sidebar__searchform .directorist-search-contents {
+  padding: 0;
+}
 .listing-with-sidebar__sidebar {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;

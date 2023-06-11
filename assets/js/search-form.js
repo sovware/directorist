@@ -1069,7 +1069,6 @@ __webpack_require__.r(__webpack_exports__);
 
         if (this.closest('.directorist-search-contents')) {
           var searchForm = this.closest('.directorist-search-contents').querySelector('.directorist-search-form');
-          console.log(searchForm);
 
           if (searchForm) {
             adsFormReset(searchForm);
@@ -1077,92 +1076,6 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         if ($(this).closest('.directorist-search-contents').find('.directorist-search-field-radius_search').length) {
-          Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])(0);
-        }
-      });
-    }
-    /* All Listing Advance Filter */
-
-
-    if ($(".directorist-advanced-filter__form .directorist-btn-reset-js") !== null) {
-      $("body").on("click", ".directorist-advanced-filter__form .directorist-btn-reset-js", function (e) {
-        e.preventDefault();
-
-        if (this.closest('.directorist-advanced-filter')) {
-          var searchForm = this.closest('.directorist-advanced-filter').querySelector('.directorist-advanced-filter__form');
-
-          if (searchForm) {
-            adsFormReset(searchForm);
-          }
-        }
-
-        if ($(this).closest('.directorist-advanced-filter').find('.directorist-search-field-radius_search').length) {
-          Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])(0);
-        }
-      });
-    }
-
-    if ($("#bdlm-search-area #atbdp_reset") !== null) {
-      $("body").on("click", "#bdlm-search-area #atbdp_reset", function (e) {
-        e.preventDefault();
-
-        if (this.closest('.directorist-search-contents')) {
-          var searchForm = this.closest('.directorist-search-contents').querySelector('.directorist-search-form');
-
-          if (searchForm) {
-            adsFormReset(searchForm);
-          }
-        }
-
-        if (this.closest('.directorist-advanced-filter')) {
-          var _searchForm = this.closest('.directorist-advanced-filter').querySelector('.directorist-advanced-filter__form');
-
-          if (_searchForm) {
-            adsFormReset(_searchForm);
-          }
-        }
-
-        if ($(this).closest('.directorist-search-contents').find('.directorist-search-field-radius_search').length) {
-          Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])(0);
-        }
-      });
-    }
-    /* Map Listing Search Form */
-
-
-    if ($("#directorist-search-area .directorist-btn-reset-js") !== null) {
-      $("body").on("click", "#directorist-search-area .directorist-btn-reset-js", function (e) {
-        e.preventDefault();
-
-        if (this.closest('#directorist-search-area')) {
-          var searchForm = this.closest('#directorist-search-area').querySelector('#directorist-search-area-form');
-
-          if (searchForm) {
-            adsFormReset(searchForm);
-          }
-        }
-
-        if ($(this).closest('#directorist-search-area').find('.directorist-search-field-radius_search').length) {
-          Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])(0);
-        }
-      });
-    }
-    /* Single Listing widget Form */
-
-
-    if ($(".atbd_widget .search-area .directorist-btn-reset-js") !== null) {
-      $("body").on("click", ".atbd_widget .search-area .directorist-btn-reset-js", function (e) {
-        e.preventDefault();
-
-        if (this.closest('.search-area')) {
-          var searchForm = this.closest('.search-area').querySelector('.directorist-advanced-filter__form');
-
-          if (searchForm) {
-            adsFormReset(searchForm);
-          }
-        }
-
-        if ($(this).closest('.search-area').find('.directorist-search-field-radius_search').length) {
           Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])(0);
         }
       });
@@ -1229,11 +1142,10 @@ __webpack_require__.r(__webpack_exports__);
             Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])();
           }
         },
-        error: function error(_error2) {
-          console.log(_error2);
+        error: function error(_error2) {// console.log(error);
         }
       });
-    }); // Advance search
+    }); // Search Category
 
     if ($('.directorist-search-contents').length) {
       $('body').on('change', '.directorist-category-select', function (event) {
@@ -1272,36 +1184,8 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       });
-    } // load custom fields of the selected category in the search form
+    } // hide country result when click outside the zipcode field
 
-
-    $('body').on('change', '.bdas-category-search, .directorist-category-select', function () {
-      var $search_elem = $(this).closest('form').find('.atbdp-custom-fields-search');
-
-      if ($search_elem.length) {
-        $search_elem.html('<div class="atbdp-spinner"></div>');
-        var data = {
-          action: 'atbdp_custom_fields_search',
-          term_id: $(this).val(),
-          security: directorist.ajaxnonce
-        };
-        $.post(directorist.ajax_url, data, function (response) {
-          $search_elem.html(response);
-          var item = $('.custom-control').closest('.bads-custom-checks');
-          item.each(function (index, el) {
-            var count = 0;
-            var abc = $(el)[0];
-            var abc2 = $(abc).children('.custom-control');
-
-            if (abc2.length <= 4) {
-              $(abc2).closest('.bads-custom-checks').next('a.more-or-less').hide();
-            }
-
-            $(abc2).slice(4, abc2.length).hide();
-          });
-        });
-      }
-    }); // hide country result when click outside the zipcode field
 
     $(document).on('click', function (e) {
       if (!$(e.target).closest('.directorist-zip-code').length) {
@@ -1467,10 +1351,9 @@ __webpack_require__.r(__webpack_exports__);
                     });
                   });
                 },
-                error: function error(_error3) {
-                  console.log({
-                    error: _error3
-                  });
+                error: function error(_error3) {// console.log({
+                  //     error: _error3
+                  // });
                 }
               });
             }

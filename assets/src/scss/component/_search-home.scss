@@ -27,6 +27,7 @@
 // Search Form
 .directorist-search-form {
   @include e('box-wrap') {
+    width: 100%;
     display: flex;
     align-items: flex-start;
   }
@@ -86,7 +87,7 @@
           }
         }
       }
-
+      .directorist-select select,
       .directorist-select .directorist-select__label {
         border: 0 none;
       }

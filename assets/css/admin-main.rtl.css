@@ -6061,6 +6061,17 @@ p.status:empty {
   list-style-type: none;
 }
 
+.directorist-select select {
+  width: 100%;
+  height: 40px;
+  border: none;
+  color: var(--directorist-color-body);
+  border-bottom: 1px solid var(--directorist-color-border-gray);
+}
+.directorist-select select:focus {
+  outline: 0;
+}
+
 .select2-container--open .select2-dropdown--above {
   top: 0;
   border-color: var(--directorist-color-border);

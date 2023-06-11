@@ -107,82 +107,11 @@ import { directorist_range_slider } from './range-slider';
                 e.preventDefault();
                 if (this.closest('.directorist-search-contents')) {
                     const searchForm = this.closest('.directorist-search-contents').querySelector('.directorist-search-form');
-                    console.log(searchForm);
                     if (searchForm) {
                         adsFormReset(searchForm);
                     }
                 }
                 if($(this).closest('.directorist-search-contents').find('.directorist-search-field-radius_search').length){
-                    directorist_callingSlider(0);
-                }
-
-            });
-        }
-
-        /* All Listing Advance Filter */
-        if ($(".directorist-advanced-filter__form .directorist-btn-reset-js") !== null) {
-            $("body").on("click", ".directorist-advanced-filter__form .directorist-btn-reset-js", function (e) {
-                e.preventDefault();
-                if (this.closest('.directorist-advanced-filter')) {
-                    const searchForm = this.closest('.directorist-advanced-filter').querySelector('.directorist-advanced-filter__form');
-                    if (searchForm) {
-                        adsFormReset(searchForm);
-                    }
-                }
-                if($(this).closest('.directorist-advanced-filter').find('.directorist-search-field-radius_search').length){
-                    directorist_callingSlider(0);
-                }
-            });
-        }
-
-        if ($("#bdlm-search-area #atbdp_reset") !== null) {
-            $("body").on("click", "#bdlm-search-area #atbdp_reset", function (e) {
-                e.preventDefault();
-                if (this.closest('.directorist-search-contents')) {
-                    const searchForm = this.closest('.directorist-search-contents').querySelector('.directorist-search-form');
-                    if (searchForm) {
-                        adsFormReset(searchForm);
-                    }
-                }
-                if (this.closest('.directorist-advanced-filter')) {
-                    const searchForm = this.closest('.directorist-advanced-filter').querySelector('.directorist-advanced-filter__form');
-                    if (searchForm) {
-                        adsFormReset(searchForm);
-                    }
-                }
-                if($(this).closest('.directorist-search-contents').find('.directorist-search-field-radius_search').length){
-                    directorist_callingSlider(0);
-                }
-            });
-        }
-
-        /* Map Listing Search Form */
-        if ($("#directorist-search-area .directorist-btn-reset-js") !== null) {
-            $("body").on("click", "#directorist-search-area .directorist-btn-reset-js", function (e) {
-                e.preventDefault();
-                if (this.closest('#directorist-search-area')) {
-                    const searchForm = this.closest('#directorist-search-area').querySelector('#directorist-search-area-form');
-                    if (searchForm) {
-                        adsFormReset(searchForm);
-                    }
-                }
-                if($(this).closest('#directorist-search-area').find('.directorist-search-field-radius_search').length){
-                    directorist_callingSlider(0);
-                }
-            });
-        }
-
-        /* Single Listing widget Form */
-        if ($(".atbd_widget .search-area .directorist-btn-reset-js") !== null) {
-            $("body").on("click", ".atbd_widget .search-area .directorist-btn-reset-js", function (e) {
-                e.preventDefault();
-                if (this.closest('.search-area')) {
-                    const searchForm = this.closest('.search-area').querySelector('.directorist-advanced-filter__form');
-                    if (searchForm) {
-                        adsFormReset(searchForm);
-                    }
-                }
-                if($(this).closest('.search-area').find('.directorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
                 }
             });
@@ -268,12 +197,12 @@ import { directorist_range_slider } from './range-slider';
                     }
                 },
                 error(error) {
-                    console.log(error);
+                    // console.log(error);
                 }
             });
         });
 
-        // Advance search
+        // Search Category
 
         if( $( '.directorist-search-contents' ).length ) {
             $('body').on('change', '.directorist-category-select', function (event) {
@@ -300,20 +229,20 @@ import { directorist_range_slider } from './range-slider';
                   data       : form_data,
                   success: function success(response) {
                     if (response) {
-                      $search_form_box.html(response['search_form']);
+                        $search_form_box.html(response['search_form']);
 
-                      $container.find('.directorist-category-select option').data('custom-field', 1);
-                      $container.find('.directorist-category-select').val(cat_id);
+                        $container.find('.directorist-category-select option').data('custom-field', 1);
+                        $container.find('.directorist-category-select').val(cat_id);
 
-                      [
-                        new CustomEvent('directorist-search-form-nav-tab-reloaded'),
-                        new CustomEvent('directorist-reload-select2-fields'),
-                        new CustomEvent('directorist-reload-map-api-field'),
-                        new CustomEvent('triggerSlice')
-                      ].forEach(function (event) {
-                        document.body.dispatchEvent(event);
-                        window.dispatchEvent(event);
-                      });
+                        [
+                            new CustomEvent('directorist-search-form-nav-tab-reloaded'),
+                            new CustomEvent('directorist-reload-select2-fields'),
+                            new CustomEvent('directorist-reload-map-api-field'),
+                            new CustomEvent('triggerSlice')
+                        ].forEach(function (event) {
+                            document.body.dispatchEvent(event);
+                            window.dispatchEvent(event);
+                        });
                     }
 
                     $search_form_box.removeClass('atbdp-form-fade');
@@ -322,44 +251,8 @@ import { directorist_range_slider } from './range-slider';
                     //console.log(_error);
                   }
                 });
-              });
+            });
         }
-
-        // load custom fields of the selected category in the search form
-        $('body').on('change', '.bdas-category-search, .directorist-category-select', function () {
-            const $search_elem = $(this)
-                .closest('form')
-                .find('.atbdp-custom-fields-search');
-
-            if ($search_elem.length) {
-                $search_elem.html('<div class="atbdp-spinner"></div>');
-
-                const data = {
-                    action: 'atbdp_custom_fields_search',
-                    term_id: $(this).val(),
-                    security: directorist.ajaxnonce,
-                };
-
-                $.post(directorist.ajax_url, data, function (response) {
-                    $search_elem.html(response);
-                    const item = $('.custom-control').closest('.bads-custom-checks');
-                    item.each(function (index, el) {
-                        const count = 0;
-                        const abc = $(el)[0];
-                        const abc2 = $(abc).children('.custom-control');
-                        if (abc2.length <= 4) {
-                            $(abc2)
-                                .closest('.bads-custom-checks')
-                                .next('a.more-or-less')
-                                .hide();
-                        }
-                        $(abc2)
-                            .slice(4, abc2.length)
-                            .hide();
-                    });
-                });
-            }
-        });
 
         // hide country result when click outside the zipcode field
         $(document).on('click', function (e) {
@@ -557,9 +450,9 @@ import { directorist_range_slider } from './range-slider';
                                     });
                                 },
                                 error: function error(_error3) {
-                                    console.log({
-                                        error: _error3
-                                    });
+                                    // console.log({
+                                    //     error: _error3
+                                    // });
                                 }
                             });
                         }

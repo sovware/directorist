@@ -410,6 +410,19 @@ p.status:empty {
     }
 }
 
+.directorist-select {
+    select {
+        width: 100%;
+        height: 40px;
+        border: none;
+        color: var(--directorist-color-body);
+        border-bottom: 1px solid var(--directorist-color-border-gray);
+        &:focus {
+            outline: 0;
+        }
+    }
+}
+
 //select 2
 .select2-container--open .select2-dropdown--above {
     top: 0;

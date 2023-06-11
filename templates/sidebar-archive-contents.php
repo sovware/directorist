@@ -16,15 +16,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			?>
 		</div>
 		<div class="listing-with-sidebar__searchform">
-			<?php
-				$listings->basic_search_form_template();
-			?>
+			<div class="directorist-search-contents">
+				<?php
+					$listings->basic_search_form_template();
+				?>
+			</div>
 		</div>
 	
 		<div class="listing-with-sidebar__sidebar">
-			<?php
-				$listings->advance_search_form_template();
-			?>
+			<div class="directorist-search-contents">
+				<?php
+					$listings->advance_search_form_template();
+				?>
+			</div>
 		</div>
 		<div class="listing-with-sidebar__listing">
 			<?php

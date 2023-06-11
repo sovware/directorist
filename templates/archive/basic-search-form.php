@@ -10,8 +10,9 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-form-box directorist-search-form__box">
-    <form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
+<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-search-form">
+
+    <div class="directorist-search-form-box directorist-search-form__box">
         <div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline directorist-search-form__top">
 
             <?php
@@ -22,17 +23,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
         </div>
 
+        <div class="directorist-search-form-action">
+            <div class="directorist-search-form-action__submit">
+                <button type="submit" class="directorist-btn directorist-btn-lg directorist-btn-dark directorist-btn-search">
 
-        <div class="directorist-search-form-action__submit">
-            <button type="submit" class="directorist-btn directorist-btn-lg directorist-btn-dark directorist-btn-search">
+                    <?php if ( $searchform->has_search_button_icon() ): ?>
+                        <?php directorist_icon( 'las la-search' ); ?>
+                    <?php endif;?>
 
-                <?php if ( $searchform->has_search_button_icon() ): ?>
-                    <?php directorist_icon( 'las la-search' ); ?>
-                <?php endif;?>
+                    <?php echo esc_html( $searchform->search_button_text );?>
 
-                <?php echo esc_html( $searchform->search_button_text );?>
-
-            </button>
+                </button>
+            </div>
         </div>
-    </form>
-</div>
+    </div>
+</form>

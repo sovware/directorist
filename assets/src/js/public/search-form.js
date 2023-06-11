@@ -107,6 +107,7 @@ import { directorist_range_slider } from './range-slider';
                 e.preventDefault();
                 if (this.closest('.directorist-search-contents')) {
                     const searchForm = this.closest('.directorist-search-contents').querySelector('.directorist-search-form');
+                    console.log(searchForm);
                     if (searchForm) {
                         adsFormReset(searchForm);
                     }

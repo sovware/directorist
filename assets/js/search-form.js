@@ -1069,6 +1069,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (this.closest('.directorist-search-contents')) {
           var searchForm = this.closest('.directorist-search-contents').querySelector('.directorist-search-form');
+          console.log(searchForm);
 
           if (searchForm) {
             adsFormReset(searchForm);

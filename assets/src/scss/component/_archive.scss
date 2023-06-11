@@ -271,6 +271,16 @@
 		.directorist-search-form__box {
 			padding: 0;
 		}
+		.directorist-advanced-filter__top {
+			padding: 25px 30px 20px;
+			border-bottom: 1px solid var(--directorist-color-light);
+		}
+		.directorist-advanced-filter__title {
+			margin: 0;
+			font-size: 18px;
+			font-weight: 500;
+			color: var(--directorist-color-body);
+		}
 		.directorist-advanced-filter__advanced {
 			padding: 25px 30px;
 		}
@@ -302,6 +312,11 @@
 		.directorist-price-ranges__price-frequency--btn .directorist-pf-range {
 			width: 68px;
 		}
+		.directorist-checkbox-wrapper,
+        .directorist-radio-wrapper,
+        .directorist-search-tags {
+            flex-direction: column;
+        }
 
 	}
 	@include e(listing) {

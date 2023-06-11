@@ -34,6 +34,7 @@
             .directorist-search-tags {
                 gap: 20px;
                 margin: 0;
+                flex-wrap: wrap;
                 .directorist-checkbox,
                 .directorist-radio {
                     margin: 0;
@@ -101,6 +102,7 @@
             .directorist-search-tags {
                 gap: 20px;
                 margin: 0;
+                flex-wrap: wrap;
                 @media only screen and (max-width: 575px) {
                     gap: 10px;
                 }

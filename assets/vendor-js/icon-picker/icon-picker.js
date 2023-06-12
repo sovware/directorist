@@ -248,9 +248,6 @@ window.IconPicker = function (args) {
                 }
             }
 
-            const resetBtn = document.querySelector('.icon-picker-selector__icon__reset');
-            resetBtn.style.display = 'none';
-
             document.querySelector('.icon-picker__done-btn').addEventListener('click', (e) => {
                 e.preventDefault();
 
@@ -274,26 +271,34 @@ window.IconPicker = function (args) {
                 closeModal();
 
                 if(selector.querySelector('input').value !== ''){
-                    resetBtn.style.display = 'block';
+                    selector.querySelector('.icon-picker-selector__icon__reset').style.display = 'block';
                 }
             });
 
+            // Icon Reset Button
+            const resetBtn = document.querySelectorAll('.icon-picker-selector__icon__reset');
 
-            resetBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                const selector = document.querySelector(`.icon-picker-selector`);
-
-                self.value = "";
-                if (typeof self.onSelect === 'function') {
-                    self.onSelect('');
+            resetBtn.forEach(elm => {
+                const selector = elm.closest('.icon-picker-selector');
+                if(selector.querySelector('input').value == ''){
+                    selector.querySelector('.icon-picker-selector__icon__reset').style.display = 'none';
                 }
 
-                selector.querySelector('input').value = "";
-                selector.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon`);
+                elm.addEventListener('click', (e) => {
+                    e.preventDefault();
 
-                resetBtn.style.display = 'none';
-            });
+                    self.value = "";
+                    if (typeof self.onSelect === 'function') {
+                        self.onSelect('');
+                    }
+
+                    selector.querySelector('input').value = "";
+                    selector.querySelector('input').style.paddingLeft = '20px';
+                    selector.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon`);
+
+                    elm.style.display = 'none';
+                })
+            })
 
             document.querySelector('.icon-picker__close').addEventListener('click', closeModal)
             document.body.addEventListener('click', (e) => {

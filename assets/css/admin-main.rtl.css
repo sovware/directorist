@@ -5835,7 +5835,7 @@ img.atbdp-file-info {
 }
 
 .directorist-form-required {
-  color: red !important;
+  color: var(--directorist-color-danger);
 }
 
 .directory_register_form_wrap .dgr_show_recaptcha {
@@ -5904,12 +5904,10 @@ img.atbdp-file-info {
   width: 20px;
   height: 20px;
   -webkit-animation: atbd_spin 2s linear infinite;
-  /* Safari */
-  animation: atbd_spin 2s linear infinite;
+          animation: atbd_spin 2s linear infinite;
 }
 
 #directorist-map-floating-panel {
-  margin-top: -30px;
   margin-bottom: 15px;
 }
 
@@ -5951,7 +5949,7 @@ img.atbdp-file-info {
 .directorist-form-address-field .address_result ul {
   list-style: none;
   margin: 0;
-  padding: 7px;
+  padding: 0;
   max-width: 270px;
   border-radius: 10px;
 }
@@ -6059,6 +6057,17 @@ p.status:empty {
 }
 .directorist-checkout-form ul {
   list-style-type: none;
+}
+
+.directorist-select select {
+  width: 100%;
+  height: 40px;
+  border: none;
+  color: var(--directorist-color-body);
+  border-bottom: 1px solid var(--directorist-color-border-gray);
+}
+.directorist-select select:focus {
+  outline: 0;
 }
 
 .select2-container--open .select2-dropdown--above {
@@ -6176,6 +6185,12 @@ body.logged-in .select2-container--open .select2-dropdown--above {
     border-radius: 10px;
     background: var(--directorist-color-bg-light);
   }
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
+  color: var(--directorist-color-deep-gray);
+}
+.select2-container--default .directorist-select2-addons-area .directorist-icon-mask:after {
+  background-color: var(--directorist-color-deep-gray);
 }
 
 .custom-checkbox input {

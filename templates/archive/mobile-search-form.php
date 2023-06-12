@@ -21,13 +21,13 @@
 	</div>
 
     <div class="directorist-all-listing-btn__basic">
-		<a href="#" class="directorist-btn directorist-btn-light directorist-modal-btn__basic">
+		<a href="#" class="directorist-btn directorist-btn-light directorist-modal-btn directorist-modal-btn--basic">
 			<?php directorist_icon( 'las la-search' ); ?> Search
 		</a>
 	</div>
 
     <div class="directorist-all-listing-btn__advanced">
-        <a href="#" class="directorist-modal-btn__advanced">
+        <a href="#" class="directorist-modal-btn directorist-modal-btn--advanced">
             <?php directorist_icon( 'fas fa-sliders-h' ); ?>
         </a>
     </div>

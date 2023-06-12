@@ -176,7 +176,7 @@
 
 // form required
 .directorist-form-required {
-    color: red !important;
+    color: var(--directorist-color-danger);
 }
 
 // Login Registration Style
@@ -257,14 +257,11 @@
         border-top: 2px solid var(--directorist-color-primary);
         width: 20px;
         height: 20px;
-        -webkit-animation: atbd_spin 2s linear infinite;
-        /* Safari */
         animation: atbd_spin 2s linear infinite;
     }
 }
 
 #directorist-map-floating-panel {
-    margin-top: -30px;
     margin-bottom: 15px;
 }
 
@@ -311,7 +308,7 @@
         ul {
             list-style: none;
             margin: 0;
-            padding: 7px;
+            padding: 0;
             max-width: 270px;
             border-radius: 10px;
         }
@@ -527,6 +524,12 @@ body.logged-in .select2-container--open .select2-dropdown--above {
                 }
             }
         }
+    }
+    .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
+        color: var(--directorist-color-deep-gray);
+    }
+    .directorist-select2-addons-area .directorist-icon-mask:after {
+        background-color: var(--directorist-color-deep-gray);
     }
 }
 

@@ -402,11 +402,10 @@
       color: var(--directorist-color-body);
     }
     .directorist-icon-mask::after {
+      position: relative;
       height: 15px;
       width: 15px;
       background-color: var(--directorist-color-body);
-      position: relative;
-      z-index: -1;
     }
 
     p {
@@ -418,7 +417,7 @@
     }
     @media screen and (max-width: 575px){
       i {
-          display: none;
+        display: none;
       }
     }
   }

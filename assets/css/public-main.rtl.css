@@ -411,7 +411,7 @@
 }
 
 .directorist-form-required {
-  color: red !important;
+  color: var(--directorist-color-danger);
 }
 
 .directory_register_form_wrap .dgr_show_recaptcha {
@@ -480,12 +480,10 @@
   width: 20px;
   height: 20px;
   -webkit-animation: atbd_spin 2s linear infinite;
-  /* Safari */
-  animation: atbd_spin 2s linear infinite;
+          animation: atbd_spin 2s linear infinite;
 }
 
 #directorist-map-floating-panel {
-  margin-top: -30px;
   margin-bottom: 15px;
 }
 
@@ -527,7 +525,7 @@
 .directorist-form-address-field .address_result ul {
   list-style: none;
   margin: 0;
-  padding: 7px;
+  padding: 0;
   max-width: 270px;
   border-radius: 10px;
 }
@@ -763,6 +761,12 @@ body.logged-in .select2-container--open .select2-dropdown--above {
     border-radius: 10px;
     background: var(--directorist-color-bg-light);
   }
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
+  color: var(--directorist-color-deep-gray);
+}
+.select2-container--default .directorist-select2-addons-area .directorist-icon-mask:after {
+  background-color: var(--directorist-color-deep-gray);
 }
 
 .custom-checkbox input {
@@ -5870,6 +5874,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 
 .directorist-widget__listing-contact .directorist-form-group {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   margin-bottom: 20px;
 }
 .directorist-widget__listing-contact .directorist-form-group .directorist-form-element {
@@ -10845,11 +10853,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-body);
 }
 .directorist-listing-category-top li a .directorist-icon-mask::after {
+  position: relative;
   height: 15px;
   width: 15px;
   background-color: var(--directorist-color-body);
-  position: relative;
-  z-index: -1;
 }
 .directorist-listing-category-top li a p {
   font-size: 14px;
@@ -14515,6 +14522,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   line-height: 1.2;
 }
 
+.directorist-sidebar .directorist-search-contents {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .directorist-signle-listing-top {
   margin-bottom: 15px;
 }
@@ -16162,6 +16176,33 @@ Review: New Style
 .directorist-review-submit__form .directorist-form-group input[type=url]::placeholder {
   color: var(--directorist-color-deep-gray);
 }
+.directorist-review-submit__form .form-group-comment {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.directorist-review-submit__form .form-group-comment.directorist-form-group {
+  margin-bottom: 42px;
+}
+@media screen and (max-width: 575px) {
+  .directorist-review-submit__form .form-group-comment.directorist-form-group {
+    margin-bottom: 30px;
+  }
+}
+.directorist-review-submit__form .form-group-comment textarea {
+  border-radius: 16px;
+  resize: none;
+  padding: 20px;
+  min-height: 140px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: var(--directorist-color-white);
+  border: 2px solid var(--directorist-color-border);
+}
+.directorist-review-submit__form .form-group-comment textarea:focus {
+  border-bottom-color: var(--directorist-color-border);
+}
 .directorist-review-submit__form .directorist-review-media-upload {
   display: -webkit-box;
   display: -webkit-flex;
@@ -16307,27 +16348,6 @@ Review: New Style
   background-color: var(--directorist-color-danger);
   opacity: 0;
   visibility: hidden;
-}
-.directorist-review-submit .form-group-comment.directorist-form-group {
-  margin-bottom: 42px;
-}
-@media screen and (max-width: 575px) {
-  .directorist-review-submit .form-group-comment.directorist-form-group {
-    margin-bottom: 30px;
-  }
-}
-.directorist-review-submit .form-group-comment textarea {
-  border-radius: 16px;
-  resize: none;
-  padding: 20px;
-  min-height: 140px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  background-color: var(--directorist-color-white);
-  border: 2px solid var(--directorist-color-border);
-}
-.directorist-review-submit .form-group-comment textarea:focus {
-  border-bottom-color: var(--directorist-color-border);
 }
 .directorist-review-submit .directorist-btn {
   padding: 0 22px;

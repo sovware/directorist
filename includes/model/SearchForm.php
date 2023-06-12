@@ -193,7 +193,7 @@ class Directorist_Listing_Search_Form {
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 
 		$this->category_id             = '';
-		$this->category_class          = 'search_fields directorist-category-select';
+		$this->category_class          = 'search_fields';
 		$this->location_id             = '';
 		$this->location_class          = 'search_fields directorist-location-select';
 		$this->connectors_title        = get_directorist_option('connectors_title', __('Or', 'directorist'));

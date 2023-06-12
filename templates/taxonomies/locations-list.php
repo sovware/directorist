@@ -17,7 +17,7 @@ $columns = floor( 12 / $taxonomy->columns );
 	do_action( 'atbdp_before_all_locations_loop', $taxonomy );
 	?>
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
-	<div class="atbdp atbdp-categories atbdp-text-list">
+	<div class="atbdp atbdp-categories atbdp-locations atbdp-text-list">
 		<div class="<?php Helper::directorist_row(); ?> atbdp-no-margin">
 			<?php
 			if( $locations ) {

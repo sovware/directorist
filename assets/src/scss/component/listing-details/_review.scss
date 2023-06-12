@@ -798,6 +798,28 @@ Review: New Style
                 }
             }
         }
+        
+        .form-group-comment{
+            display: flex;
+            &.directorist-form-group{
+                margin-bottom: 42px;
+                @media screen and (max-width: 575px){
+                    margin-bottom: 30px;
+                }
+            }
+            textarea{
+                border-radius: 16px;
+                resize: none;
+                padding: 20px;
+                min-height: 140px;
+                box-sizing: border-box;
+                background-color: var(--directorist-color-white);
+                border: 2px solid var(--directorist-color-border);
+                &:focus{
+                    border-bottom-color: var(--directorist-color-border);
+                }
+            }
+        }
 
         .directorist-review-media-upload {
             display: flex;
@@ -905,27 +927,6 @@ Review: New Style
                 background-color: var(--directorist-color-danger);
                 opacity: 0;
                 visibility: hidden;
-            }
-        }
-    }
-
-    .form-group-comment{
-        &.directorist-form-group{
-            margin-bottom: 42px;
-            @media screen and (max-width: 575px){
-                margin-bottom: 30px;
-            }
-        }
-        textarea{
-            border-radius: 16px;
-            resize: none;
-            padding: 20px;
-            min-height: 140px;
-            box-sizing: border-box;
-            background-color: var(--directorist-color-white);
-            border: 2px solid var(--directorist-color-border);
-            &:focus{
-                border-bottom-color: var(--directorist-color-border);
             }
         }
     }

@@ -27,6 +27,7 @@
 // Search Form
 .directorist-search-form {
   @include e('box-wrap') {
+    width: 100%;
     display: flex;
     align-items: flex-start;
   }
@@ -86,7 +87,7 @@
           }
         }
       }
-
+      .directorist-select select,
       .directorist-select .directorist-select__label {
         border: 0 none;
       }
@@ -103,7 +104,7 @@
       .directorist-radio-wrapper,
       .directorist-search-tags {
         padding: 0;
-        gap: 12px;
+        gap: 20px;
         flex-wrap: wrap;
       }
 
@@ -401,11 +402,10 @@
       color: var(--directorist-color-body);
     }
     .directorist-icon-mask::after {
+      position: relative;
       height: 15px;
       width: 15px;
       background-color: var(--directorist-color-body);
-      position: relative;
-      z-index: -1;
     }
 
     p {
@@ -417,7 +417,7 @@
     }
     @media screen and (max-width: 575px){
       i {
-          display: none;
+        display: none;
       }
     }
   }

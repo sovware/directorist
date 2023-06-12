@@ -111,6 +111,8 @@ class Asset_Loader {
 
 			// Search Form
 			case 'archive/search-form':
+			case 'archive/advanced-search-form':
+			case 'archive/basic-search-form':
 			case 'search-form-contents':
 			case 'search-form/adv-search':
 			case 'widgets/search-form':

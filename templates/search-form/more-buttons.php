@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php if ( $searchform->has_more_filters_button ): ?>
 
 		<div class="directorist-search-form-action__filter">
-			<a href="#" class="directorist-btn directorist-btn-lg directorist-filter-btn directorist-modal-btn__advanced">
+			<a href="#" class="directorist-btn directorist-btn-lg directorist-filter-btn directorist-modal-btn directorist-modal-btn--advanced">
 				<?php if ( $searchform->has_more_filters_icon() ): ?>
 					<?php directorist_icon( 'fas fa-filter' ); ?>
 				<?php endif;?>
@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php endif; ?>
 
 	<div class="directorist-search-form-action__modal">
-		<a href="#" class="directorist-btn directorist-btn-light directorist-search-form-action__modal__btn-search directorist-modal-btn__basic">
+		<a href="#" class="directorist-btn directorist-btn-light directorist-search-form-action__modal__btn-search directorist-modal-btn directorist-modal-btn--basic">
 
 			<?php directorist_icon( 'las la-search' ); ?>
 

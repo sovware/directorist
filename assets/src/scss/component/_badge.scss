@@ -90,6 +90,12 @@
         @include e(popular) {
             background: var(--directorist-color-popular-badge);
         }
+        @media screen and (max-width: 480px) {
+            height: 25px;
+            line-height: 25px;
+            font-size: 10px;
+            padding: 0 15px;
+        }
     }
     &:hover {
         .directorist-badge-tooltip {

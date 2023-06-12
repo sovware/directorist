@@ -827,9 +827,15 @@ import { directorist_range_slider } from './range-slider';
         // Modal Minimize
         function searchModalMinimize(searchModalParent) {
             var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
-            var contentsCurrentHeight = modalContent.offsetHeight;
-            
-            modalContent.style.height = (contentsCurrentHeight === 400) ? 'auto' : '400px';
+            var modalMinimizer = searchModalParent.querySelector('.directorist-search-modal__minimizer');
+
+            if(modalMinimizer.classList.contains('minimized')) {
+                modalMinimizer.classList.remove('minimized');
+                modalContent.style.bottom = '0';
+            } else {
+                modalMinimizer.classList.add('minimized');
+                modalContent.style.bottom = '-50%';
+            }
         }
 
         // Input Field Value Check
@@ -877,6 +883,15 @@ import { directorist_range_slider } from './range-slider';
             searchModalOpen(searchModalElement)
         });
 
+        // Full Modal Open
+        $('body').on('click', '.directorist-modal-btn__full', function (e) {
+            e.preventDefault();
+
+            var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--full');
+
+            searchModalOpen(searchModalElement)
+        });
+
         // Search Modal Close
         $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
             e.preventDefault();
@@ -897,8 +912,6 @@ import { directorist_range_slider } from './range-slider';
 
         // Basic Modal Input Field Check
         $('body').on('input keyup click', '.directorist-search-modal--basic .directorist-search-modal__input', function(e) {
-            e.preventDefault();
-           
             var searchModalElement = this.closest('.directorist-search-modal--basic');
 
             inputFieldValueCheck(searchModalElement);
@@ -917,8 +930,14 @@ import { directorist_range_slider } from './range-slider';
             if (inputField) {
                 inputField.val('');
             }
+
+        });
+
+        // Back Button
+        $('body').on('click', '.directorist-btn__back', function(e) {
+            e.preventDefault();
             
-          
+            window.history.back();
         });
         
 
@@ -927,9 +946,9 @@ import { directorist_range_slider } from './range-slider';
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
             $('.directorist-location-js').each((index,locationDom)=>{
                 if($(locationDom).val() === ''){
-                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.directorist-search-field-radius_search').css({display: "none"});
+                    $(locationDom).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').first().css({display: "none"});
                 }else{
-                    $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.directorist-search-field-radius_search').css({display: "block"});
+                    $(locationDom).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').css({display: "block"});
                     directorist_callingSlider();
                 }
             });

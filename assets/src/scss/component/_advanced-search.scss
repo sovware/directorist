@@ -11,6 +11,9 @@
                 flex-wrap: wrap;
                 padding: 0;
                 margin: 0 0 40px;
+                @media screen and (max-width: 575px) {
+                    margin: 0 0 20px;
+                }
                 > label {
                     display: inline-flex;
                     font-size: 16px;
@@ -27,13 +30,15 @@
                 }
             }
             .directorist-checkbox-wrapper,
+            .directorist-radio-wrapper,
             .directorist-search-tags {
                 gap: 20px;
                 margin: 0;
-                .directorist-checkbox {
+                .directorist-checkbox,
+                .directorist-radio {
                     margin: 0;
-                    flex: 0 0 47%;
-                    @media only screen and (max-width: 480px) {
+                    flex: 0 0 46%;
+                    @media only screen and (max-width: 575px) {
                         flex: 0 0 100%;
                     }
                 }
@@ -51,6 +56,9 @@
                 gap: 20px;
                 padding: 0;
                 margin: 0 0 40px;
+                @media screen and (max-width: 575px) {
+                    margin: 0 0 20px;
+                }
                 > label {
                     display: inline-flex;
                     font-size: 16px;
@@ -72,10 +80,11 @@
                 align-items: flex-start;
                 padding: 0;
                 margin: 0 0 40px;
+                @media screen and (max-width: 575px) {
+                    margin: 0 0 20px;
+                }
                 > label {
                     display: inline-flex;
-                    font-size: 16px;
-                    font-weight: 500;
                     margin: 0 0 15px;
                     color: var(--directorist-color-primary);
                 }
@@ -88,14 +97,19 @@
                 }
             }
             .directorist-checkbox-wrapper,
+            .directorist-radio-wrapper,
             .directorist-search-tags {
                 gap: 20px;
                 margin: 0;
-                .directorist-checkbox {
+                @media only screen and (max-width: 575px) {
+                    gap: 10px;
+                }
+                .directorist-checkbox,
+                .directorist-radio {
                     margin: 0;
-                    flex: 0 0 47%;
+                    flex: 0 0 46%;
 
-                    @media only screen and (max-width: 480px) {
+                    @media only screen and (max-width: 575px) {
                         flex: 0 0 100%;
                     }
                 }
@@ -113,6 +127,9 @@
                 gap: 20px;
                 padding: 0;
                 margin: 0 0 40px;
+                @media screen and (max-width: 575px) {
+                    margin: 0 0 20px;
+                }
                 > label {
                     display: inline-flex;
                     font-size: 16px;
@@ -171,25 +188,67 @@
         color: var(--directorist-color-body);
         &:not(:last-child) {
             margin-bottom: 20px;
+            @media screen and (max-width: 575px) {
+                margin-bottom: 10px;
+            }
         }
         &:before {
             top: 3px;
+            @media only screen and (max-width: 575px) {
+                top: 1px;
+            }
         }
         &:after {
             top: -2px;
         }
-        @media only screen and (max-width: 480px) {
+        @media only screen and (max-width: 575px) {
             padding: 0;
         }
+        .directorist-icon-mask{
+            &:after {
+                width: 14px;
+                height: 14px;
+                background-color: var(--directorist-color-light);
+            }
+        }
     }
-
-    .directorist-icon-mask:after {
-        width: 14px;
-        height: 14px;
-        background-color: var(--directorist-color-body);
+    input[name=search_by_rating_5] + label {
+        .directorist-icon-mask{
+            &:after {
+                background-color: var(--directorist-color-primary);
+            }
+        }
     }
-    .directorist-icon-mask.star-empty:after {
-        background-color: var(--directorist-color-border-gray);
+    input[name=search_by_rating_4] + label {
+        .directorist-icon-mask{
+            &:not(:nth-child(5)):after {
+                background-color: var(--directorist-color-primary);
+            }
+        }
+    }
+    input[name=search_by_rating_3] + label {
+        .directorist-icon-mask{
+            &:nth-child(1):after,
+            &:nth-child(2):after,
+            &:nth-child(3):after {
+                background-color: var(--directorist-color-primary);
+            }
+        }
+    }
+    input[name=search_by_rating_2] + label {
+        .directorist-icon-mask{
+            &:nth-child(1):after,
+            &:nth-child(2):after {
+                background-color: var(--directorist-color-primary);
+            }
+        }
+    }
+    input[name=search_by_rating_1] + label {
+        .directorist-icon-mask{
+            &:nth-child(1):after {
+                background-color: var(--directorist-color-primary);
+            }
+        }
     }
 }
 
@@ -197,14 +256,38 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    @media (max-width: 575px) {
+        gap: 12px 35px;
+        justify-content: space-between;
+        position: relative;
+        &:after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 2px;
+            background: var(--directorist-color-border);
+        }
+    }
     @include e(item){
         flex: 0 0 45%;
-        @media (max-width: 767px) {
+        @media (max-width: 575px) {
             flex: auto;
+        }
+        @media (max-width: 480px) {
+            flex: 0 0 42%;
         }
         .directorist-form-element {
             background: transparent;
             border-bottom: 1px solid var(--directorist-color-border);
+            @media screen and (max-width: 575px) {
+                height: 34px;
+                text-align: center;
+                border-radius: 8px;
+                border: 1px solid var(--directorist-color-border);
+            }
         }
     }
     @include e('price-frequency'){
@@ -212,6 +295,27 @@
         flex-wrap: wrap;
         flex: 0 0 100%;
         gap: 6px;
+        @media screen and (max-width: 575px) {
+            gap: 0;
+            border-radius: 10px;
+            border: 1px solid var(--directorist-color-border);
+            label {
+                flex: 1;
+                &:first-child{
+                    .directorist-pf-range {
+                        border-radius: 10px 0 0 10px;
+                    }
+                }
+                &:last-child{
+                    .directorist-pf-range {
+                        border-radius: 0 10px 10px 0;
+                    }
+                }
+                &:not(last-child){
+                    border-right: 1px solid var(--directorist-color-border);
+                }
+            }
+        }
         input[type="radio"]{
             display: none;
             &:checked+.directorist-pf-range{
@@ -219,6 +323,10 @@
                 color: var(--directorist-color-white);
             }
         }
+    }
+
+    .directorist-form-group:last-child {
+        margin-left: 15px;
     }
 
     .directorist-pf-range{
@@ -231,6 +339,11 @@
         border-radius: 8px;
         width: 70px;
         height: 36px;
+        @media screen and (max-width: 575px) {
+            width: 100%;
+            border-radius: 0;
+            background-color: var(--directorist-color-white);
+        }
     }
 }
 

@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<div class="directorist-card directorist-widget directorist-author-contact">
 
 			<div class="directorist-card__header">
-				<h4 class="directorist-card__header--title directorist-widget-title"><?php esc_html_e( 'Contact Info', 'directorist' ); ?></h4>
+				<h4 class="directorist-card__header--title directorist-widget-title"><?php directorist_icon( 'fas fa-align-left' ); ?><?php esc_html_e( 'Contact Info', 'directorist' ); ?></h4>
 			</div>
 
 			<div class="directorist-card__body">
@@ -29,6 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						<?php if ( $address ): ?>
 							<li class="directorist-author-info-list__item">
 								<?php directorist_icon( 'las la-map-marker' ); ?>
+								<span class="directorist-label"><?php esc_html_e( 'Address', 'directorist' ); ?></span>
 								<span class="directorist-info"><?php echo esc_html( $address ); ?></span>
 							</li>
 						<?php endif; ?>
@@ -36,6 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						<?php if ( $phone ): ?>
 							<li class="directorist-author-info-list__item">
 								<?php directorist_icon( 'las la-phone' ); ?>
+								<span class="directorist-label"><?php esc_html_e( 'Phone', 'directorist' ); ?></span>
 								<span class="directorist-info"><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $phone ); ?>"><?php echo esc_html( $phone ); ?></a></span>
 							</li>
 						<?php endif; ?>
@@ -43,6 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						<?php if ( $email_endabled && $email ): ?>
 							<li class="directorist-author-info-list__item">
 								<?php directorist_icon( 'las la-envelope' ); ?>
+								<span class="directorist-label"><?php esc_html_e( 'Email', 'directorist' ); ?></span>
 								<span class="directorist-info"><?php echo esc_html( $email ); ?></span>
 							</li>
 						<?php endif; ?>
@@ -50,6 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						<?php if ( $website ): ?>
 							<li class="directorist-author-info-list__item">
 								<?php directorist_icon( 'las la-globe' ); ?>
+								<span class="directorist-label"><?php esc_html_e( 'Website', 'directorist' ); ?></span>
 								<span class="directorist-info"><a target="_blank" href="<?php echo esc_url( $website ); ?>"><?php echo esc_html( $website) ; ?></a></span>
 							</li>
 						<?php endif; ?>
@@ -88,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<div class="directorist-card directorist-author-about">
 
 			<div class="directorist-card__header">
-				<h4 class="directorist-card__header--title"><?php directorist_icon( 'las la-user' ); ?><?php esc_html_e( 'About', 'directorist' ); ?></h4>
+				<h4 class="directorist-card__header--title"><?php directorist_icon( 'fas fa-address-book' ); ?><?php esc_html_e( 'About', 'directorist' ); ?></h4>
 			</div>
 
 			<div class="directorist-card__body">

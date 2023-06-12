@@ -14,10 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php endif; ?>
 	
 
-	<div class="directorist-checkbox directorist-checkbox-primary">
-		<?php foreach ( $searchform->rating_field_data() as $option ) { ?>
-			<input type="checkbox" name="search_by_rating[<?php echo esc_attr( $option['value'] ); ?>]" value="<?php echo esc_attr( $option['value'] ); ?>" id="search_by_rating[<?php echo esc_attr( $option['value'] ); ?>]" <?php echo esc_attr( $option['checked'] ); ?>>
-			<label for="search_by_rating[<?php echo esc_attr( $option['value'] ); ?>]" class="directorist-checkbox__label">
+	<div class="directorist-checkbox directorist-checkbox-rating">
+		<?php foreach ( $searchform->rating_field_data() as $option ) { 
+			$uniqid = $option['value'] . '_' .wp_rand();
+		?>
+			<input type="checkbox" name="search_by_rating_<?php echo esc_attr( $option['value'] ); ?>" value="<?php echo esc_attr( $option['value'] ); ?>" id="<?php echo esc_attr( $uniqid ); ?>" <?php echo esc_attr( $option['checked'] ); ?>>
+			<label for="<?php echo esc_attr( $uniqid ); ?>" class="directorist-checkbox__label">
 				<?php 
 					directorist_icon( 'fas fa-star', true, 'star-empty' );
 					directorist_icon( 'fas fa-star', true, 'star-empty' );

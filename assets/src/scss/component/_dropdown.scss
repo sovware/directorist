@@ -63,13 +63,21 @@
             padding: 10px;
             border-radius: 8px;
             color: var(--directorist-color-body);
-
+            transition: all ease 0.3s;
             &.active,
             &:hover {
                 border-radius: 8px;
                 color: var(--directorist-color-dark);
                 background-color: var(--directorist-color-light);
             }
+
+            @media screen and (max-width: 575px) {
+                padding: 5px 10px;
+            }
+        }
+        @media (max-width: 767px) {
+            left: unset;
+            right: 0;
         }
     }
 }

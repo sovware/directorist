@@ -129,7 +129,7 @@
     width: 100% !important;
   }
 
-  .select2-selection {
+  &.select2-container--default .select2-selection {
     height: 42px;
     border: none;
     border-radius: 0;
@@ -161,8 +161,8 @@
           content: '';
           mask-image: url("../../../icons/line-awesome/svgs/times-solid.svg");
           mask-repeat: no-repeat;
-          width: 13px;
-          height: 13px;
+          width: 12px;
+          height: 12px;
           background-color: var(--directorist-color-white);
           position: absolute;
           top: 50%;

@@ -2,7 +2,11 @@
     margin-bottom: 15px;
     .directorist-return-back{
         text-decoration: none;
+        gap: 8px;
         margin: 0;
+        .directorist-single-listing-action__text {
+            display: block;
+        }
     }
 }
 
@@ -14,6 +18,18 @@
         box-shadow: 0 2px 15px rgba(0,0,0,.08);
         .directorist-card__body{
             padding: 30px;
+            @media screen and (max-width: 575px) {
+                padding: 20px;
+            }
+        }
+        .directorist-card__header{
+            padding: 20px 25px;
+            @media screen and (max-width: 575px) {
+                padding: 15px 20px;
+            }
+        }
+        .directorist-single-author-name h4 {
+            margin: 0;
         }
     }
 
@@ -57,11 +73,6 @@
             box-shadow: none;
             color: var(--directorist-color-body);
         }
-        .directorist-icon-mask{
-            &:after{
-                background-color: #808080;
-            }
-        }
         ul {
             display: flex;
             flex-wrap: wrap;
@@ -72,6 +83,14 @@
         li {
             flex: 0 0 50%;
         }
+        .directorist-social-links a:hover {
+            background-color: var(--directorist-color-primary);
+        }
+    }
+
+
+    .directorist-single-info__label-icon .directorist-icon-mask:after{
+        background-color: #808080;
     }
 
     .directorist-single-listing-slider .directorist-swiper__nav i:after {
@@ -86,6 +105,9 @@
         flex-wrap: wrap;
         padding: 30px 0 0;
         justify-content: space-between;
+        @media screen and (max-width: 575px) {
+            padding: 20px 0 0;
+        }
 
     }
     @include e(address) {
@@ -119,8 +141,10 @@
 
 // Single Listing Actions
 .directorist-single-listing-quick-action {
-    margin: -4px;
-
+    gap: 8px;
+    @media screen and (max-width: 575px) {
+        gap: 12px;
+    }
     .directorist-social-share {
         position: relative;
         &:hover {
@@ -129,6 +153,9 @@
                 visibility: visible;
                 top: calc(100% + 5px);
             }
+        }
+        @media screen and (max-width: 575px) {
+            font-size: 0;
         }
     }
     .directorist-social-share-links {
@@ -153,6 +180,7 @@
         a {
             padding: 8px 12px;
             display: flex;
+            gap: 5px;
             align-items: center;
             text-decoration: none;
             font-size: 14px;
@@ -166,6 +194,10 @@
             span.fa,
             i {
                 color: var(--directorist-color-body);
+                &:after {
+                    width: 18px;
+                    height: 18px;
+                }
             }
             span.fa{
                 font-family: "Font Awesome 5 Brands";
@@ -187,17 +219,26 @@
 }
 
 .directorist-single-listing-action {
+    gap: 8px;
     justify-content: center;
     font-size: 13px;
     border: 0 none;
     border-radius: 8px;
     padding: 0 16px;
-    margin: 4px;
     cursor: pointer;
     text-decoration: none;
     color: var(--directorist-color-body);
     transition: .2s background-color ease-in-out;
-
+    @media screen and (max-width: 575px) {
+        gap: 0;
+        padding: 0;
+        &.directorist-btn.directorist-btn-light {
+            background-color: transparent;
+        }
+        .directorist-single-listing-action__text {
+            display: none;
+        }
+    }
     .directorist-icon-mask.directorist-added-to-favorite::after{
         background-color: var(--directorist-color-danger);
     }
@@ -205,7 +246,6 @@
     .directorist-icon-mask::after{
         width: 15px;
         height: 15px;
-        margin-right: 8px;
         color: var(--directorist-color-body);
     }
 
@@ -259,12 +299,21 @@
             list-style: disc;
         }
     }
+
+    .directorist-pricing-meta  .directorist-listing-price {
+        padding: 5px 10px;
+        border-radius: 6px;
+        background: var(--directorist-color-light);
+    }
 }
 .directorist-listing-details__listing-title {
     font-size: 30px;
     font-weight: 600;
     display: inline-block;
     margin: 30px 0 0;
+    @media screen and (max-width: 575px) {
+        font-size: 24px;
+    }
 }
 
 .directorist-listing-details-tagline {

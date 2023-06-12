@@ -34,7 +34,7 @@
         border-radius: 100%;
         margin-bottom: 20px;
         transition: all 0.3s ease-in-out;
-        &:after{
+        &:after {
           width: 23px;
           height: 23px;
           background-color: #fff;
@@ -45,13 +45,13 @@
         color: var(--directorist-color-white);
         .directorist-icon-mask {
           background-color: var(--directorist-color-white);
-          &::after {
-            background-color: #000;
-          }
+        }
+        .directorist-icon-mask:after {
+          background-color: #000;
         }
       }
       /* Legacy Icon */
-      & > i:not(.directorist-icon-mask){
+      & > i:not(.directorist-icon-mask) {
         display: inline-block;
         margin-bottom: 10px;
       }
@@ -84,26 +84,22 @@
         }
       }
     }
-    .directorist-form-group {
-      &:not(:last-child) {
-        margin-bottom: 40px;
-      }
+    .directorist-form-group:not(:last-child) {
+      margin-bottom: 40px;
     }
 
-    .directorist-form-address-field {
-      &.atbdp-form-fade {
-        padding: 0;
-        &:before {
-          width: 15px;
-          height: 15px;
-          left: unset;
-          right: 0;
-          top: 54px;
-        }
-        &:after {
-          height: 42px;
-          top: 34px;
-        }
+    .directorist-form-address-field.atbdp-form-fade {
+      padding: 0;
+      &:before {
+        width: 15px;
+        height: 15px;
+        left: unset;
+        right: 0;
+        top: 54px;
+      }
+      &:after {
+        height: 42px;
+        top: 34px;
       }
     }
 
@@ -117,16 +113,22 @@
       &:last-child {
         margin: 0 0 40px;
       }
+      @media screen and (max-width: 575px) {
+        flex-direction: column;
+      }
 
       .directorist-form-group {
         flex: 1;
         margin: 0;
+        @media screen and (max-width: 575px) {
+          width: 100%;
+        }
         &.directorist-form-social-fields__action {
           flex: unset;
         }
       }
 
-      @include e('remove') {
+      @include e("remove") {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -151,10 +153,10 @@
       }
     }
   }
-  .directorist-alert-required{
+  .directorist-alert-required {
     display: block;
     margin-top: 5px;
-    color: #E80000;
+    color: #e80000;
     font-size: 13px;
   }
 }
@@ -220,7 +222,7 @@
         height: 18px;
       }
     }
-    &:checked + .directorist-radio__label{
+    &:checked + .directorist-radio__label {
       border-color: var(--directorist-color-primary);
     }
   }
@@ -242,16 +244,19 @@
       font-weight: 700;
       min-height: 18px;
       padding-left: 27px;
+      @media screen and (max-width: 575px) {
+        padding: 0 27px 0 0;
+      }
     }
 
     .directorist_pricing_options {
-      input[type=checkbox] {
+      input[type="checkbox"] {
         + .directorist-checkbox__label {
           &:after {
             width: 14px;
             height: 14px;
             border-radius: 100%;
-            border: 2px solid #C6D0DC;
+            border: 2px solid #c6d0dc;
           }
           &:before {
             left: 0;
@@ -262,6 +267,10 @@
             background: #fff;
             border-radius: 100%;
             border: 5px solid #000;
+            @media screen and (max-width: 575px) {
+              left: unset;
+              right: 0;
+            }
           }
           &:checked {
             &:after {
@@ -272,13 +281,13 @@
       }
     }
   }
-  .directorist-form-element{
+  .directorist-form-element {
     min-width: 100%;
   }
 }
 .price-type-price_range,
-.price-type-price_unit{
-  .directorist-form-pricing-field__options{
+.price-type-price_unit {
+  .directorist-form-pricing-field__options {
     margin: 0;
   }
 }
@@ -384,7 +393,7 @@
         cursor: pointer;
         border-radius: 100%;
         overflow: visible !important;
-        >img {
+        > img {
           position: relative;
           z-index: 1;
           width: 100% !important;
@@ -475,7 +484,7 @@
         box-shadow: none;
         line-height: 25px;
         background: transparent;
-        color: #FF385C;
+        color: #ff385c;
         &:hover {
           opacity: 0.85;
         }
@@ -508,7 +517,7 @@
             font-size: 0;
             position: relative;
             &:before {
-              content: '';
+              content: "";
               position: absolute;
               width: 30px;
               height: 30px;
@@ -526,7 +535,7 @@
   }
 
   .ezmu__info-list-item {
-    &:empty{
+    &:empty {
       display: none;
     }
   }
@@ -550,15 +559,15 @@
         &.ezmu__front-item__close {
           display: block;
           .ezmu__front-item__close-icon {
-            background: #FF385C;
+            background: #ff385c;
             height: 32px;
             width: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            transition: .3s ease;
-            .directorist-icon-mask:after{
+            transition: 0.3s ease;
+            .directorist-icon-mask:after {
               width: 14px;
               height: 14px;
               background-color: var(--directorist-color-white);
@@ -579,13 +588,13 @@
         object-fit: cover;
       }
       &:before {
-        content: '';
+        content: "";
         width: 100%;
         height: 100%;
         position: absolute;
         top: 0;
         left: 0;
-        background-color: rgba(0,0,0,0.5);
+        background-color: rgba(0, 0, 0, 0.5);
         opacity: 0;
         visibility: visible;
         transition: all ease 0.3s;
@@ -662,7 +671,7 @@
       }
     }
 
-    label{
+    label {
       line-height: 1.25;
       margin-bottom: 0;
     }
@@ -737,7 +746,7 @@
     &:before {
       left: -25px;
       top: -25px;
-      border: 50px solid rgba(0, 0, 0, 0.20);
+      border: 50px solid rgba(0, 0, 0, 0.2);
     }
     .directorist-icon-mask::after {
       width: 12px;
@@ -852,7 +861,9 @@
   font-size: 14px;
   font-weight: 500;
   color: var(--directorist-color-primary);
-  &.directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after {
+  &.directorist-checkbox
+    input[type="checkbox"]
+    + .directorist-checkbox__label:after {
     border-color: var(--directorist-color-body);
   }
 }
@@ -860,7 +871,7 @@
 .directorist-form-privacy,
 .directorist-form-terms {
   display: flex;
-  a{
+  a {
     text-decoration: none;
   }
 }
@@ -891,7 +902,9 @@
   }
 }
 
-#listing_form_info .atbd_content_module.atbd-booking-information .atbdb_content_module_contents {
+#listing_form_info
+  .atbd_content_module.atbd-booking-information
+  .atbdb_content_module_contents {
   padding-top: 20px;
 }
 
@@ -936,7 +949,10 @@
   }
 }
 
-.directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__rendered {
+.directorist-add-listing-form
+  .select2-container--default
+  .select2-selection
+  .select2-selection__rendered {
   height: 40px;
   display: flex;
   align-items: center;
@@ -944,7 +960,7 @@
   gap: 5px;
   li {
     margin: 0;
-    input{
+    input {
       margin-top: 0;
     }
   }
@@ -994,7 +1010,7 @@
           height: 16px;
         }
       }
-      &:before{
+      &:before {
         position: absolute;
         right: 20px;
         top: 50%;
@@ -1016,7 +1032,7 @@
         color: var(--directorist-color-dark);
         background: var(--directorist-color-white);
         box-shadow: var(--directorist-box-shadow);
-        &:before{
+        &:before {
           opacity: 1;
         }
       }
@@ -1025,7 +1041,7 @@
       }
       &.completed {
         color: var(--directorist-color-dark);
-        &:before{
+        &:before {
           mask-image: url("../../../icons/font-awesome/svgs/solid/check.svg");
           opacity: 1;
         }
@@ -1043,7 +1059,7 @@
     label {
       display: block;
     }
-    span.required{
+    span.required {
       color: var(--directorist-color-danger);
     }
   }
@@ -1126,7 +1142,7 @@
         background-color: var(--directorist-color-primary);
       }
     }
-    @include m('save-preview') {
+    @include m("save-preview") {
       flex: 0 0 100%;
       &.directorist-btn {
         height: 0;
@@ -1137,7 +1153,7 @@
         width: 100%;
       }
     }
-    @include m('skip-preview') {
+    @include m("skip-preview") {
       flex: 0 0 100%;
       &.directorist-btn {
         height: 0;
@@ -1161,4 +1177,3 @@
     }
   }
 }
-

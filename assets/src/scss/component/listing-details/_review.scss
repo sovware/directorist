@@ -266,6 +266,9 @@ Review: New Style
         &:focus {
             color: var(--directorist-color-dark);
         }
+        @media screen and (max-width: 575px){
+            margin-left: 15px;
+        }
     }
 
     @include e(header) {
@@ -317,6 +320,12 @@ Review: New Style
 
         @include e(rating) {
             text-align: center;
+            @media (max-width: 480px){
+                flex: 0 0 100%;
+                .directorist-rating-stars {
+                    justify-content: center;
+                }
+            }
             .directorist-rating-point {
                 font-size: 40px;
                 font-weight: 600;
@@ -375,115 +384,32 @@ Review: New Style
         }
     }
 
-        @include e(overview) {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 30px 50px;
-            border-top: 0 none;
-
-            @include e(rating) {
-                text-align: center;
-                .directorist-rating-point {
-                    font-size: 40px;
-                    font-weight: 600;
-                    display: block;
-                    color: var(--directorist-color-dark);
-                }
-
-                .directorist-rating-stars {
-                    font-size: 15px;
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 5px;
-                    color: var(--directorist-color-warning);
-                }
-                .directorist-icon-mask::after{
-                    width: 16px;
-                    height: 16px;
-                    background-color: var(--directorist-color-warning);
-                }
-
-                .directorist-rating-overall {
-                    font-size: 14px;
-                    color: var(--directorist-color-body);
-                    display: block;
-                }
-            }
-
-            @include e(benchmarks) {
-                flex: 0 0 50%;
-                padding: 25px;
-
-                .directorist-benchmark-single {
-                    display: flex;
-                    align-items: center;
-                    flex-wrap: wrap;
-                    margin: -6px;
-
-                    &>* {
-                        margin: 6px !important;
-                    }
-
-                    label {
-                        flex: .1;
-                        min-width: 70px;
-                        display: inline-block;
-                        word-wrap: break-word;
-                        word-break: break-all;
-                        margin-bottom: 0;
-                        font-size: 15px;
-                        color: #525768;
-                    }
-
-                    progress {
-                        flex: 1.5;
-                        border-radius: 2px;
-                        height: 5px;
-                        box-shadow: none;
-                    }
-
-                    progress::-webkit-progress-bar {
-                        background-color: #F2F3F5;
-                        border-radius: 2px;
-                    }
-
-                    progress::-webkit-progress-value {
-                        background-color: #EF8000;
-                        border-radius: 2px;
-                        box-shadow: none;
-                    }
-
-                    progress::-moz-progress-bar {
-                        background-color: #F2F3F5;
-                        border-radius: 2px;
-                    }
-
-                    progress::-moz-progress-value {
-                        background-color: #EF8000;
-                        border-radius: 2px;
-                        box-shadow: none;
-                    }
-
-                    strong {
-                        flex: .1;
-                        font-size: 15px;
-                        font-weight: 500;
-                        color: #090E30;
-                        text-align: right;
-                    }
-                }
-            }
+    @include e(reviews) {
+        &, ul {
+            padding: 0;
+            margin: 10px 0 0 0;
+            list-style-type: none;
+            margin-left: 0;
         }
+    }
 
-        @include e(reviews) {
-            &, ul {
-                padding: 0;
-                margin: 10px 0 0 0;
-                list-style-type: none;
-                margin-left: 0;
-            }
+    & > li{
+        border-top: 1px solid var(--directorist-color-border);
+    }
+
+    .directorist-comment-edit-request {
+        position: relative;
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 99;
+            background-color: rgba(255, 255, 255, .8);
+            border-radius: 4px;
         }
 
         & > li{
@@ -492,7 +418,7 @@ Review: New Style
 
         .directorist-comment-edit-request {
             position: relative;
-            &::after {
+            &:after {
                 content: "";
                 display: block;
                 position: absolute;
@@ -505,41 +431,22 @@ Review: New Style
                 border-radius: 4px;
             }
 
-            & > li{
-                border-top: 1px solid var(--directorist-color-border);
-            }
-
-            .directorist-comment-edit-request {
-                position: relative;
-                &:after {
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    height: 100%;
-                    width: 100%;
-                    z-index: 99;
-                    background-color: rgba(255, 255, 255, .8);
-                    border-radius: 4px;
-                }
-
-                &:before {
-                    position: absolute;
-                    z-index: 100;
-                    left: 50%;
-                    top: 50%;
-                    display: block;
-                    content: "";
-                    width: 24px;
-                    height: 24px;
-                    border-radius: 50%;
-                    border: 2px solid rgba(0, 0, 0, 0.2);
-                    border-top-color: rgba(0, 0, 0, 0.8);
-                    animation: directoristCommentEditLoading .6s linear infinite;
-                }
+            &:before {
+                position: absolute;
+                z-index: 100;
+                left: 50%;
+                top: 50%;
+                display: block;
+                content: "";
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                border: 2px solid rgba(0, 0, 0, 0.2);
+                border-top-color: rgba(0, 0, 0, 0.8);
+                animation: directoristCommentEditLoading .6s linear infinite;
             }
         }
+    }
 }
 
 .directorist-review-single{
@@ -594,6 +501,9 @@ Review: New Style
 
 .directorist-review-single {
     padding: 40px 30px;
+    @media screen and (max-width: 575px){
+        padding: 30px 20px;
+    }
     a{
         text-decoration: none;
     }
@@ -780,7 +690,7 @@ Review: New Style
             padding: 25px;
         }
 
-        .directorist-review-single & {
+        .directorist-review-single &.directorist-card__body {
             padding-left: 0;
             padding-right: 0;
         }
@@ -1002,6 +912,9 @@ Review: New Style
     .form-group-comment{
         &.directorist-form-group{
             margin-bottom: 42px;
+            @media screen and (max-width: 575px){
+                margin-bottom: 30px;
+            }
         }
         textarea{
             border-radius: 16px;
@@ -1026,13 +939,6 @@ Review: New Style
 
 .directorist-review-content + .directorist-review-submit.directorist-review-submit--hidden {
     display: none !important;
-}
-
-/* Review responsiveness */
-@media (max-width: 480px){
-    .directorist-review-content .directorist-review-content__overview__rating{
-        flex: 0 0 100%;
-    }
 }
 
 @keyframes directoristCommentEditLoading {

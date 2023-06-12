@@ -7,6 +7,6 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
-<div class="directorist-listing-details__text">
+<div class="directorist-single-info directorist-listing-details__text">
     <?php echo wp_kses_post( $listing->get_contents() ); ?>
 </div>

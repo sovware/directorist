@@ -12,7 +12,12 @@
         margin: 0;
         line-height: 1;
         width: 350px !important;
-
+        @media only screen and (max-width: 480px) {
+            width: 300px !important;
+        }
+        @media only screen and (max-width: 375px) {
+            width: 250px !important;
+        }
         .atbdp-map.atbdp-body {
             img {
                 width: 100%;
@@ -260,6 +265,7 @@
             flex-wrap: wrap;
             align-items: center;
             margin: 0 0 20px;
+            gap: 10px 0;
             .directorist-rating-meta {
                 display: inline-flex;
                 align-items: center;

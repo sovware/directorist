@@ -13754,6 +13754,20 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   line-height: 1;
   width: 350px !important;
 }
+@media only screen and (max-width: 480px) {
+  #map.leaflet-container .leaflet-popup-content,
+#gmap.leaflet-container .leaflet-popup-content,
+.directorist-single-map.leaflet-container .leaflet-popup-content {
+    width: 300px !important;
+  }
+}
+@media only screen and (max-width: 375px) {
+  #map.leaflet-container .leaflet-popup-content,
+#gmap.leaflet-container .leaflet-popup-content,
+.directorist-single-map.leaflet-container .leaflet-popup-content {
+    width: 250px !important;
+  }
+}
 #map.leaflet-container .leaflet-popup-content .atbdp-map.atbdp-body img,
 #gmap.leaflet-container .leaflet-popup-content .atbdp-map.atbdp-body img,
 .directorist-single-map.leaflet-container .leaflet-popup-content .atbdp-map.atbdp-body img {
@@ -14066,6 +14080,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-align: center;
           align-items: center;
   margin: 0 0 20px;
+  gap: 10px 0;
 }
 .map-listing-card-single__content__meta .directorist-rating-meta {
   display: -webkit-inline-box;

@@ -395,6 +395,11 @@
                 font-weight: 500;
             }
         }
+
+        .directorist-rating-meta {
+            display: flex;
+            align-items: center;
+        }
     }
 
     @include e(thumb) {

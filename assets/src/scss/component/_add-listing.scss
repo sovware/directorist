@@ -497,7 +497,7 @@
     .ezmu__preview-section {
       &.ezmu--show {
         position: absolute;
-        bottom: -102px;
+        top: calc(100% + 22px);
         left: 0;
         width: auto;
         display: flex;
@@ -1009,6 +1009,7 @@
         &:after {
           width: 16px;
           height: 16px;
+          background-color: var(--directorist-color-light-gray);
         }
       }
       &:before {
@@ -1036,6 +1037,9 @@
         &:before {
           opacity: 1;
         }
+        i::after {
+          background-color: var(--directorist-color-primary);
+        }
       }
       &:focus {
         text-decoration: unset;
@@ -1045,6 +1049,9 @@
         &:before {
           mask-image: url("../../../icons/font-awesome/svgs/solid/check.svg");
           opacity: 1;
+        }
+        i::after {
+          background-color: var(--directorist-color-primary);
         }
       }
     }

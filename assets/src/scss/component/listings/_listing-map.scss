@@ -3,7 +3,6 @@
 .directorist-single-map.leaflet-container {
     /*rtl:ignore*/
     direction: ltr;
-    margin-bottom: 30px;
 
     .leaflet-popup-content-wrapper {
         border-radius: 10px;
@@ -12,7 +11,7 @@
     .leaflet-popup-content {
         margin: 0;
         line-height: 1;
-        width:350px !important;
+        width: 350px !important;
 
         .atbdp-map.atbdp-body {
             img {

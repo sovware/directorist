@@ -8140,7 +8140,7 @@ body.stop-scrolling {
 }
 .directorist-form-image-upload-field .ez-media-uploader .ezmu__preview-section.ezmu--show {
   position: absolute;
-  bottom: -102px;
+  top: calc(100% + 22px);
   left: 0;
   width: auto;
   display: -webkit-box;
@@ -8754,6 +8754,7 @@ body.stop-scrolling {
 .multistep-wizard__nav__btn i:after {
   width: 16px;
   height: 16px;
+  background-color: var(--directorist-color-light-gray);
 }
 .multistep-wizard__nav__btn:before {
   position: absolute;
@@ -8785,6 +8786,9 @@ body.stop-scrolling {
 .multistep-wizard__nav__btn.active:before, .multistep-wizard__nav__btn:hover:before {
   opacity: 1;
 }
+.multistep-wizard__nav__btn.active i::after, .multistep-wizard__nav__btn:hover i::after {
+  background-color: var(--directorist-color-primary);
+}
 .multistep-wizard__nav__btn:focus {
   text-decoration: unset;
 }
@@ -8795,6 +8799,9 @@ body.stop-scrolling {
   -webkit-mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);
           mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);
   opacity: 1;
+}
+.multistep-wizard__nav__btn.completed i::after {
+  background-color: var(--directorist-color-primary);
 }
 .multistep-wizard__content {
   -webkit-box-flex: 1;
@@ -9541,16 +9548,17 @@ svg.leaflet-image-layer.leaflet-interactive path {
   outline: 0;
 }
 
-.leaflet-container a {
-  color: #0078A8;
+.leaflet-container a,
+.leaflet-container .map-listing-card-single__content a {
+  color: #404040;
 }
 
 .leaflet-container a.leaflet-active {
-  outline: 2px solid orange;
+  outline: 2px solid #fa8b0c;
 }
 
 .leaflet-zoom-box {
-  border: 2px dotted #38f;
+  border: 2px dotted var(--directorist-color-info);
   background: rgba(255, 255, 255, 0.5);
 }
 

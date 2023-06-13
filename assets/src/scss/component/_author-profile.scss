@@ -13,8 +13,8 @@
         @media only screen and (max-width: 991px){
             flex-direction: column;
         }
-        @media only screen and (max-width: 991px){
-            gap: 5px;
+        @media only screen and (max-width: 575px){
+            gap: 8px;
         }
     }
     @include e(avatar) {
@@ -25,6 +25,7 @@
         @media only screen and (max-width: 575px) {
             flex-direction: column;
             text-align: center;
+            gap: 15px;
         }
         img {
             max-width: 100px;
@@ -87,7 +88,7 @@
                     height: 18px;
                     background-color: var(--directorist-color-white);
                 }
-                @media only screen and (max-width: 767px) {
+                @media only screen and (max-width: 575px) {
                     width: auto;
                     height: auto;
                     background-color: transparent;
@@ -121,7 +122,7 @@
                 }
             }
             @media only screen and (max-width: 767px) {
-                padding-right: 55px;
+                padding-right: 50px;
             }
             @media only screen and (max-width: 575px) {
                 padding: 0;

@@ -14042,7 +14042,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .map-listing-card-single__content__title {
   font-size: 16px;
   font-weight: 500;
-  margin: 0 0 5px;
+  margin: 0 0 10px;
   color: var(--directorist-color-primary);
 }
 .map-listing-card-single__content__title a {

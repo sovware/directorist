@@ -347,7 +347,7 @@
 
 /* Map style */
 .directorist-map-coordinate {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .directorist-map-coordinates {
@@ -379,6 +379,7 @@
       position: relative;
       height: 400px;
       z-index: 1;
+      border-radius: 16px;
       #gmap_full_screen_button,
       .gm-fullscreen-control {
         display: none;

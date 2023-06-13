@@ -5907,10 +5907,6 @@ img.atbdp-file-info {
           animation: atbd_spin 2s linear infinite;
 }
 
-#directorist-map-floating-panel {
-  margin-bottom: 15px;
-}
-
 .plupload-upload-uic {
   width: 420px;
   margin: 0 auto !important;
@@ -7963,7 +7959,7 @@ body.stop-scrolling {
 
 /* Map style */
 .directorist-map-coordinate {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .directorist-map-coordinates {
@@ -8005,6 +8001,7 @@ body.stop-scrolling {
   position: relative;
   height: 400px;
   z-index: 1;
+  border-radius: 16px;
 }
 .directorist-form-map-field__maps #gmap #gmap_full_screen_button,
 .directorist-form-map-field__maps #gmap .gm-fullscreen-control {

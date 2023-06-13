@@ -568,6 +568,9 @@
         // Close Button Event
         if (hasClass(e.target, "ezmu__front-item__close-btn")) {
           self.removeFile(e);
+          
+          // Preview Container Margin
+          previewContainerMargin();
         }
 
         // Sort Button Event
@@ -892,12 +895,16 @@
         var meta_data = { index: index, options: self.options };
         var thumbnail_list_item = createThumbnailListItemElm(file, meta_data);
         thumbnail_list.appendChild(thumbnail_list_item);
+        
       });
 
       thumbnail_area.appendChild(thumbnail_list);
 
       this.updateLayout("preview");
       this.validateFiles();
+
+      // Preview Container Margin
+      previewContainerMargin();
     };
 
     // layoutIsReady
@@ -1622,4 +1629,17 @@
       cb(array[i], i);
     }
   }
+
+  // Add Margin on Image Upload
+  function previewContainerMargin() {
+    var uploadContainer = document.querySelector('.ez-media-uploader');
+    var previewImg = document.querySelector('.ezmu__preview-section');
+    if(previewImg.clientHeight > 0) {
+      uploadContainer.style.marginBottom = previewImg.clientHeight + 65 + 'px';
+    } else {
+      uploadContainer.style.marginBottom = 0;
+    }
+    
+  }
+
 })();

@@ -209,7 +209,6 @@ __webpack_require__.r(__webpack_exports__);
       var target = $(this).attr('target');
 
       if ('dashboard_announcement' === target) {
-        // console.log( target, 'clear seen announcements' );
         $.ajax({
           type: "post",
           url: directorist.ajaxurl,
@@ -217,17 +216,15 @@ __webpack_require__.r(__webpack_exports__);
             action: 'atbdp_clear_seen_announcements'
           },
           success: function success(response) {
-            // console.log( response );
             if (response.success) {
               cleared_seen_announcements = true;
               $('.directorist-announcement-count').removeClass('show');
               $('.directorist-announcement-count').html('');
             }
           },
-          error: function error(_error) {
-            console.log({
-              error: _error
-            });
+          error: function error(_error) {// console.log({
+            //     error
+            // });
           }
         });
       }
@@ -238,7 +235,6 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
 
       if (closing_announcement) {
-        // console.log('Please wait...');
         return;
       }
 
@@ -768,8 +764,8 @@ __webpack_require__.r(__webpack_exports__);
     }); // Hide Clicked Anywhere
 
     $(document).bind('click', function (e) {
-      var clickedDom = $(e.target);
-      if (!clickedDom.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
+      var clickedDOM = $(e.target);
+      if (!clickedDOM.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
     }); //atbd_dropdown
 
     $(document).on("click", '.atbd_dropdown', function (e) {
@@ -937,10 +933,10 @@ window.addEventListener('DOMContentLoaded', function () {
   var atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
   atbdSelectData.forEach(function (el) {
     el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
-      var ds = el.querySelector('.atbd-dropdown-toggle');
-      var itemds = item.getAttribute('data-status');
+      var atbd_dropdown = el.querySelector('.atbd-dropdown-toggle');
+      var dropdown_item = item.getAttribute('data-status');
       item.addEventListener('click', function (e) {
-        ds.setAttribute('data-status', "".concat(itemds));
+        atbd_dropdown.setAttribute('data-status', "".concat(dropdown_item));
       });
     });
   });
@@ -968,13 +964,13 @@ window.addEventListener('DOMContentLoaded', function () {
         clickCount++;
 
         if (clickCount % 2 === 1) {
-          document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-            elem.classList.remove('atbd-show');
+          document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
+            el.classList.remove('atbd-show');
           });
           el.querySelector('.atbd-dropdown-items').classList.add('atbd-show');
         } else {
-          document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-            elem.classList.remove('atbd-show');
+          document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
+            el.classList.remove('atbd-show');
           });
         }
       });
@@ -1084,7 +1080,7 @@ window.addEventListener('DOMContentLoaded', function () {
           submit_button.removeClass("directorist-loader"); // console.log(response);
 
           if (response.success) {
-            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>'); // Reload if password updated
+            $('#directorist-profile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>'); // Reload if password updated
 
             var newPass = form_data.get('user[new_pass]');
 
@@ -1093,7 +1089,7 @@ window.addEventListener('DOMContentLoaded', function () {
               return false;
             }
           } else {
-            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
+            $('#directorist-profile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
           }
         },
         error: function error(response) {
@@ -1103,7 +1099,7 @@ window.addEventListener('DOMContentLoaded', function () {
       }); // remove notice after five second
 
       setTimeout(function () {
-        $("#directorist-prifile-notice .directorist-alert").remove();
+        $("#directorist-profile-notice .directorist-alert").remove();
       }, 5000); // prevent the from submitting
 
       return false;
@@ -1130,22 +1126,21 @@ var $ = jQuery;
 pureScriptTab = function pureScriptTab(selector1) {
   var selector = document.querySelectorAll(selector1);
   selector.forEach(function (el, index) {
-    a = el.querySelectorAll('.directorist-tab__nav__link');
-    a.forEach(function (element, index) {
+    tab_items = el.querySelectorAll('.directorist-tab__nav__link');
+    tab_items.forEach(function (element, index) {
       element.style.cursor = 'pointer';
       element.addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
         var ul = event.target.closest('.directorist-tab__nav'),
             main = ul.nextElementSibling,
-            item_a = ul.querySelectorAll('.directorist-tab__nav__link'),
+            item_link = ul.querySelectorAll('.directorist-tab__nav__link'),
             section = main.querySelectorAll('.directorist-tab__pane');
-        item_a.forEach(function (ela, ind) {
-          ela.classList.remove('directorist-tab__nav__active');
+        item_link.forEach(function (elm, ind) {
+          elm.classList.remove('directorist-tab__nav__active');
         });
         event.target.classList.add('directorist-tab__nav__active');
         section.forEach(function (element1, index) {
-          //console.log(element1);
           element1.classList.remove('directorist-tab__pane--active');
         });
         var target = event.target.target;

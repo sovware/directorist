@@ -191,7 +191,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 							<button type="submit" class="directorist-btn directorist-btn-lg directorist-btn-dark directorist-btn-profile-save" id="update_user_profile"><?php esc_html_e( 'Save Changes', 'directorist' ); ?></button>
 
-							<div id="directorist-prifile-notice"></div>
+							<div id="directorist-profile-notice"></div>
 
 						</div>
 

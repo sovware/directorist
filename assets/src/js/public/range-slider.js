@@ -104,7 +104,7 @@ export var directorist_range_slider = (selector, obj) => {
                 id.querySelector('.directorist-range-slider-minimum').value = slid1_val;
                 id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value = slid1_val;
                 id.querySelector('.directorist-rs-active').style[direction] = count +'px';
-                id.querySelector('.directorist-range-slider-child').style.width = count+'px';
+                id.querySelector('.directorist-range-slider-child').style.width = count +'px';
             }
         });
     });

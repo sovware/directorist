@@ -705,8 +705,8 @@ function convertToSelect2(field) {
     }); // Hide Clicked Anywhere
 
     $(document).bind('click', function (e) {
-      var clickedDom = $(e.target);
-      if (!clickedDom.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
+      var clickedDOM = $(e.target);
+      if (!clickedDOM.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
     }); //atbd_dropdown
 
     $(document).on("click", '.atbd_dropdown', function (e) {
@@ -782,10 +782,10 @@ window.addEventListener('DOMContentLoaded', function () {
   var atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
   atbdSelectData.forEach(function (el) {
     el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
-      var ds = el.querySelector('.atbd-dropdown-toggle');
-      var itemds = item.getAttribute('data-status');
+      var atbd_dropdown = el.querySelector('.atbd-dropdown-toggle');
+      var dropdown_item = item.getAttribute('data-status');
       item.addEventListener('click', function (e) {
-        ds.setAttribute('data-status', "".concat(itemds));
+        atbd_dropdown.setAttribute('data-status', "".concat(dropdown_item));
       });
     });
   });
@@ -975,10 +975,10 @@ __webpack_require__.r(__webpack_exports__);
     function defaultTags() {
       $('.directorist-btn-ml').each(function (index, element) {
         var item = $(element).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
-        var abc2 = $(item).find('.directorist-checkbox');
-        $(abc2).slice(4, abc2.length).fadeOut();
+        var item_checkbox = $(item).find('.directorist-checkbox');
+        $(item_checkbox).slice(4, item_checkbox.length).fadeOut();
 
-        if (abc2.length <= 4) {
+        if (item_checkbox.length <= 4) {
           $(element).css('display', 'none');
         }
       });
@@ -989,16 +989,16 @@ __webpack_require__.r(__webpack_exports__);
     $('body').on('click', '.directorist-btn-ml', function (event) {
       event.preventDefault();
       var item = $(this).siblings('.directorist-search-tags');
-      var abc2 = $(item).find('.directorist-checkbox');
-      $(abc2).slice(4, abc2.length).fadeOut();
+      var item_checkbox = $(item).find('.directorist-checkbox');
+      $(item_checkbox).slice(4, item_checkbox.length).fadeOut();
       $(this).toggleClass('active');
 
       if ($(this).hasClass('active')) {
         $(this).text(directorist.i18n_text.show_less);
-        $(abc2).slice(4, abc2.length).fadeIn();
+        $(item_checkbox).slice(4, item_checkbox.length).fadeIn();
       } else {
         $(this).text(directorist.i18n_text.show_more);
-        $(abc2).slice(4, abc2.length).fadeOut();
+        $(item_checkbox).slice(4, item_checkbox.length).fadeOut();
       }
     }); //remove preload after window load
 
@@ -1528,13 +1528,13 @@ __webpack_require__.r(__webpack_exports__);
 
     function handleRadiusVisibility() {
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
-      $('.directorist-location-js').each(function (index, locationDom) {
-        if ($(locationDom).val() === '') {
-          $(locationDom).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').first().css({
+      $('.directorist-location-js').each(function (index, locationDOM) {
+        if ($(locationDOM).val() === '') {
+          $(locationDOM).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').first().css({
             display: "none"
           });
         } else {
-          $(locationDom).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').css({
+          $(locationDOM).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').css({
             display: "block"
           });
           Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])();

@@ -789,8 +789,8 @@ window.addEventListener('DOMContentLoaded', function () {
     }); // Hide Clicked Anywhere
 
     $(document).bind('click', function (e) {
-      var clickedDom = $(e.target);
-      if (!clickedDom.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
+      var clickedDOM = $(e.target);
+      if (!clickedDOM.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
     }); //atbd_dropdown
 
     $(document).on("click", '.atbd_dropdown', function (e) {
@@ -958,10 +958,10 @@ window.addEventListener('DOMContentLoaded', function () {
   var atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
   atbdSelectData.forEach(function (el) {
     el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
-      var ds = el.querySelector('.atbd-dropdown-toggle');
-      var itemds = item.getAttribute('data-status');
+      var atbd_dropdown = el.querySelector('.atbd-dropdown-toggle');
+      var dropdown_item = item.getAttribute('data-status');
       item.addEventListener('click', function (e) {
-        ds.setAttribute('data-status', "".concat(itemds));
+        atbd_dropdown.setAttribute('data-status', "".concat(dropdown_item));
       });
     });
   });
@@ -1371,9 +1371,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       price.push($(el).val());
     });
     $(this).find('[name^="custom_field"]').each(function (index, el) {
-      var test = $(el).attr('name');
+      var name = $(el).attr('name');
       var type = $(el).attr('type');
-      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+      var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
 
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
@@ -1498,9 +1498,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         price.push($(el).val());
       });
       $(this).find('[name^="custom_field"]').each(function (index, el) {
-        var test = $(el).attr('name');
+        var name = $(el).attr('name');
         var type = $(el).attr('type');
-        var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+        var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
 
         if ('radio' === type) {
           $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
@@ -1671,9 +1671,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       price.push($(el).val());
     });
     $(_this).closest('.directorist-instant-search').find('[name^="custom_field"]').each(function (index, el) {
-      var test = $(el).attr('name');
+      var name = $(el).attr('name');
       var type = $(el).attr('type');
-      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+      var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
 
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
@@ -1790,9 +1790,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       price.push($(el).val());
     });
     $(_this).closest('.directorist-instant-search').find('[name^="custom_field"]').each(function (index, el) {
-      var test = $(el).attr('name');
+      var name = $(el).attr('name');
       var type = $(el).attr('type');
-      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+      var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
 
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
@@ -1903,9 +1903,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       price.push($(el).val());
     });
     $(_this).closest('.directorist-instant-search').find('[name^="custom_field"]').each(function (index, el) {
-      var test = $(el).attr('name');
+      var name = $(el).attr('name');
       var type = $(el).attr('type');
-      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+      var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
 
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
@@ -2029,13 +2029,13 @@ window.addEventListener('DOMContentLoaded', function () {
         clickCount++;
 
         if (clickCount % 2 === 1) {
-          document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-            elem.classList.remove('atbd-show');
+          document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
+            el.classList.remove('atbd-show');
           });
           el.querySelector('.atbd-dropdown-items').classList.add('atbd-show');
         } else {
-          document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-            elem.classList.remove('atbd-show');
+          document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
+            el.classList.remove('atbd-show');
           });
         }
       });

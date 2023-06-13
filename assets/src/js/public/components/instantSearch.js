@@ -98,9 +98,9 @@ import {
         });
 
         $(this).find('[name^="custom_field"]').each(function (index, el) {
-            var test = $(el).attr('name');
+            var name = $(el).attr('name');
             var type = $(el).attr('type');
-            var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+            var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
             if ('radio' === type) {
                 $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
                     value = $(this).val();
@@ -227,9 +227,9 @@ import {
             });
 
             $(this).find('[name^="custom_field"]').each(function (index, el) {
-                var test = $(el).attr('name');
+                var name = $(el).attr('name');
                 var type = $(el).attr('type');
-                var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+                var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
                 if ('radio' === type) {
                     $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
                         value = $(this).val();
@@ -408,9 +408,9 @@ import {
         });
 
         $(_this).closest('.directorist-instant-search').find('[name^="custom_field"]').each(function (index, el) {
-            var test = $(el).attr('name');
+            var name = $(el).attr('name');
             var type = $(el).attr('type');
-            var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+            var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
 
             if ('radio' === type) {
                 $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
@@ -535,9 +535,9 @@ import {
         });
 
         $(_this).closest('.directorist-instant-search').find('[name^="custom_field"]').each(function (index, el) {
-            var test = $(el).attr('name');
+            var name = $(el).attr('name');
             var type = $(el).attr('type');
-            var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+            var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
             if ('radio' === type) {
                 $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
                     value = $(this).val();
@@ -650,9 +650,9 @@ import {
         });
 
         $(_this).closest('.directorist-instant-search').find('[name^="custom_field"]').each(function (index, el) {
-            var test = $(el).attr('name');
+            var name = $(el).attr('name');
             var type = $(el).attr('type');
-            var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+            var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
             if ('radio' === type) {
                 $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
                     value = $(this).val();

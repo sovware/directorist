@@ -3,7 +3,6 @@
 .directorist-single-map.leaflet-container {
     /*rtl:ignore*/
     direction: ltr;
-    margin-bottom: 30px;
 
     .leaflet-popup-content-wrapper {
         border-radius: 10px;
@@ -12,8 +11,13 @@
     .leaflet-popup-content {
         margin: 0;
         line-height: 1;
-        width:350px !important;
-
+        width: 350px !important;
+        @media only screen and (max-width: 480px) {
+            width: 300px !important;
+        }
+        @media only screen and (max-width: 375px) {
+            width: 250px !important;
+        }
         .atbdp-map.atbdp-body {
             img {
                 width: 100%;
@@ -245,7 +249,7 @@
         @include e(title) {
             font-size: 16px;
             font-weight: 500;
-            margin: 0 0 5px;
+            margin: 0 0 10px;
             color: var(--directorist-color-primary);
             a {
                 text-decoration: unset;
@@ -261,6 +265,7 @@
             flex-wrap: wrap;
             align-items: center;
             margin: 0 0 20px;
+            gap: 10px 0;
             .directorist-rating-meta {
                 display: inline-flex;
                 align-items: center;

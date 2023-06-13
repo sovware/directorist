@@ -207,8 +207,8 @@
     }); // Hide Clicked Anywhere
 
     $(document).bind('click', function (e) {
-      var clickedDom = $(e.target);
-      if (!clickedDom.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
+      var clickedDOM = $(e.target);
+      if (!clickedDOM.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
     }); //atbd_dropdown
 
     $(document).on("click", '.atbd_dropdown', function (e) {

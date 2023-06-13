@@ -810,9 +810,9 @@ document.body.addEventListener('click', function (e) {
         console.log(response);
 
         if (response.success) {
-          $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
+          $('#directorist-profile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
         } else {
-          $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
+          $('#directorist-profile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
         }
       },
       error: function error(response) {
@@ -822,7 +822,7 @@ document.body.addEventListener('click', function (e) {
     }); // remove notice after five second
 
     setTimeout(function () {
-      $("#directorist-prifile-notice .directorist-alert").remove();
+      $("#directorist-prfile-notice .directorist-alert").remove();
     }, 5000); // prevent the from submitting
 
     return false;

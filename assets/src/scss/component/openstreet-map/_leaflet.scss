@@ -252,14 +252,17 @@ svg.leaflet-image-layer.leaflet-interactive path {
     background: #ddd;
     outline: 0;
 }
-.leaflet-container a {
-    color: #0078A8;
+.leaflet-container {
+    a,
+    .map-listing-card-single__content a {
+        color: #404040;
+    }
 }
 .leaflet-container a.leaflet-active {
-    outline: 2px solid orange;
+    outline: 2px solid #fa8b0c;
 }
 .leaflet-zoom-box {
-    border: 2px dotted #38f;
+    border: 2px dotted var(--directorist-color-info);
     background: rgba(255,255,255,0.5);
 }
 

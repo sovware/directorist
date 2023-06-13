@@ -598,7 +598,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
 
     /* Badge New */
     .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new i::after {
-        background: var(--directorist-color-badge-new) !important;
+        background: var(--directorist-color-new-badge) !important;
     }
 
     /*

@@ -347,7 +347,7 @@
 
 /* Map style */
 .directorist-map-coordinate {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .directorist-map-coordinates {
@@ -379,6 +379,7 @@
       position: relative;
       height: 400px;
       z-index: 1;
+      border-radius: 16px;
       #gmap_full_screen_button,
       .gm-fullscreen-control {
         display: none;
@@ -496,7 +497,7 @@
     .ezmu__preview-section {
       &.ezmu--show {
         position: absolute;
-        bottom: -102px;
+        top: calc(100% + 22px);
         left: 0;
         width: auto;
         display: flex;
@@ -1008,6 +1009,7 @@
         &:after {
           width: 16px;
           height: 16px;
+          background-color: var(--directorist-color-light-gray);
         }
       }
       &:before {
@@ -1035,6 +1037,9 @@
         &:before {
           opacity: 1;
         }
+        i::after {
+          background-color: var(--directorist-color-primary);
+        }
       }
       &:focus {
         text-decoration: unset;
@@ -1044,6 +1049,9 @@
         &:before {
           mask-image: url("../../../icons/font-awesome/svgs/solid/check.svg");
           opacity: 1;
+        }
+        i::after {
+          background-color: var(--directorist-color-primary);
         }
       }
     }

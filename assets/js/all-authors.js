@@ -144,8 +144,7 @@
           alphabetValue = $(_this).attr('data-alphabet');
           authorsMasonry();
         },
-        error: function error(_error) {
-          console.log(_error);
+        error: function error(_error) {//console.log(error);
         }
       });
     });
@@ -179,8 +178,7 @@
 
           ;
         },
-        error: function error(_error2) {
-          console.log(_error2);
+        error: function error(_error2) {//console.log(error);
         }
       });
     });

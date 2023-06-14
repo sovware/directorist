@@ -9093,7 +9093,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin: 0 -15px;
 }
 .directorist-author-listing-top .directorist-type-nav__link {
   -webkit-box-orient: horizontal;

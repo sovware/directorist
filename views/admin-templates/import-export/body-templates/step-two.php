@@ -8,9 +8,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$file_id         = isset( $_GET['file_id'] ) ? $_GET['file_id'] : '';
-$delimiter       = isset( $_GET['delimiter'] ) ? $_GET['delimiter'] : ',';
-$update_existing = isset( $_GET['update_existing'] ) ? $_GET['update_existing'] : false;
+$file_id         = isset( $_GET['file_id'] ) ? absint( wp_unslash( $_GET['file_id'] ) ) : '';
+$delimiter       = isset( $_GET['delimiter'] ) ? sanitize_text_field( wp_unslash( $_GET['delimiter'] ) ) : ',';
+$update_existing = isset( $_GET['update_existing'] ) ? sanitize_text_field( wp_unslash( $_GET['update_existing'] ) ) : false;
 
 $file = ( ! empty( $file_id ) ) ? get_attached_file( $file_id ) : '';
 

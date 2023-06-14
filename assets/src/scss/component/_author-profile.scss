@@ -327,7 +327,6 @@
 
     .directorist-type-nav {
         display: flex;
-        margin: 0 -15px;
 
         @include e(link) {
             flex-direction: row;

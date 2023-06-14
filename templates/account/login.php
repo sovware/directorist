@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.4.4
+ * @version 7.5.5
  */
 
 use \Directorist\Helper;
@@ -17,10 +17,13 @@ use \Directorist\Helper;
 					$recovery = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
 					$key      = isset( $_GET['key'] ) ? $_GET['key'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- ignore password sanitization
 
-					if ( ! empty( $recovery ) ) :
+					if ( ! empty( $recovery ) && ! empty( $key ) ) :
 						$user = get_user_by( 'email', $recovery );
 
-						if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) ) :
+						$db_key = get_user_meta( $user->ID, '_atbdp_recovery_key', true );
+
+
+						if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) && ( $db_key === $key ) ) :
 							// Ignore password sanitization
 							$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 							$password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -42,8 +45,6 @@ use \Directorist\Helper;
 								<p class="atbd_reset_error"><?php echo esc_html__( 'Password not matched!', 'directorist' ); ?></p>
 							<?php endif;
 						endif;
-
-						$db_key = get_user_meta( $user->ID, '_atbdp_recovery_key', true );
 
 						if ( $key === $db_key ) :
 							do_action( 'directorist_before_reset_password_form' ); ?>

@@ -378,6 +378,9 @@ class Directorist_Listing_Search_Form {
 
 	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
+
+		$field_data['lazy_load'] = get_directorist_option( 'lazy_load_taxonomy_fields', true );
+
 		if ( $this->is_custom_field( $field_data ) ) {
 			if ( !empty( $_REQUEST['custom_field'][$key] ) ) {
 				$value = is_array( $_REQUEST['custom_field'][$key] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['custom_field'][$key] ) ) : sanitize_text_field( wp_unslash( $_REQUEST['custom_field'][$key] ) );

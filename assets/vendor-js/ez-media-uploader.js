@@ -323,6 +323,12 @@
           message: alerts.minFileItems.replace(/(__DT__)/g, min_file_items)
         });
       }
+      
+      var dirImageUpload = document.querySelector(".directorist-image-upload")
+
+      if(dirImageUpload.classList.contains('max-file-reached')) {
+        dirImageUpload.classList.remove('max-file-reached');
+      }
 
       // Validate Max File Items
       var max_file_items = this.options.maxFileItems;
@@ -334,6 +340,10 @@
           errorKey: "maxFileItems",
           message: alerts.maxFileItems.replace(/(__DT__)/g, max_file_items)
         });
+      }
+
+      if (valid_max_file_items && (filesMeta.length >= max_file_items)) {
+        this.container[0].classList.add('max-file-reached');
       }
 
       // Validate Max File Size
@@ -371,6 +381,10 @@
             errorKey: "maxTotalFileSize",
             message: alerts.maxTotalFileSize.replace(/(__DT__)/g, max_total_file_size_in_text)
           });
+        }
+
+        if (total_file_size_in_byte > max_total_file_size_in_byte) {
+          this.container[0].classList.add('max-file-reached');
         }
       }
 
@@ -615,7 +629,7 @@
         }
 
         if (self.draggingCounter > 0) {
-          addClass(self.container, "highlight");
+          addClass(self.container[0], "highlight");
         }
       };
 
@@ -625,7 +639,7 @@
         }
 
         if (self.draggingCounter < 1) {
-          removeClass(self.container, "highlight");
+          removeClass(self.container[0], "highlight");
         }
       };
 
@@ -644,7 +658,7 @@
         document.addEventListener(
           event_name,
           function () {
-            addClass(self.container, "drag-enter");
+            addClass(self.container[0], "drag-enter");
           },
           false
         );
@@ -655,7 +669,7 @@
         document.addEventListener(
           event_name,
           function () {
-            removeClass(self.container, "drag-enter");
+            removeClass(self.container[0], "drag-enter");
           },
           false
         );
@@ -806,7 +820,9 @@
 
         var has_no_duplicate = validateDuplicateFile(this.filesMeta, file_item);
 
-        if (file_is_valid && has_no_duplicate) {
+        var not_maximum_files = validateMaximumFile(this.filesMeta, file_item);
+
+        if (file_is_valid && has_no_duplicate && not_maximum_files) {
           temp_files.push(file_item);
         }
       }
@@ -1501,6 +1517,23 @@
     return has_no_duplicate;
   }
 
+  function validateMaximumFile(all_files) {
+    var not_maximum_files = true;
+
+    for (var i = 0; i < all_files.length; i++) {
+
+      var dirImageUpload = document.querySelector(".directorist-image-upload")
+
+      if(dirImageUpload.classList.contains('max-file-reached')) {
+        not_maximum_files = false;
+
+        break;
+      }
+    }
+
+    return not_maximum_files;
+  }
+
   // formatedFileSize
   function formatedFileSize(file_size) {
     file_size = parseFloat(file_size);
@@ -1588,8 +1621,6 @@
     }
     return defaults;
   }
-
-
 
   // addClass
   function addClass(element, class_name) {

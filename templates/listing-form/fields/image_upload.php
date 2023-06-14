@@ -18,8 +18,12 @@ $max_file_size_kb       = (float) $max_file_size * 1024;//
 $max_total_file_size_kb = (float) $max_total_file_size * 1024;//
 $required               = $data['required'] ? '1' : 0;
 
+$accepted_mime_types       = directorist_get_mime_types( 'image', 'extension' );
+$accepted_mime_types_upper = array_map( function( $ext ) { return strtoupper( $ext ); }, $accepted_mime_types ) ;
+$accepted_mime_types       = array_merge( $accepted_mime_types, $accepted_mime_types_upper );
+
 $img_upload_data = [
-	'type'               => 'jpg, jpeg, png, gif',
+	'type'               => join( ', ', $accepted_mime_types ),
 	'max_num_of_img'     => $limit,
 	'max_total_img_size' => $max_total_file_size_kb,
 	'is_required'        => $required,

@@ -650,10 +650,10 @@ $(document).ready(function () {
         $(this).toggleClass('active');
 
         if ($(this).hasClass('active')) {
-            $(this).text("See Less");
+            $(this).text(localized_data.i18n_text.see_less_text);
             $(customField).slice(20, customField.length).slideDown();
         } else {
-            $(this).text("See More");
+            $(this).text(localized_data.i18n_text.see_more_text);
             $(customField).slice(20, customField.length).slideUp();
         }
 

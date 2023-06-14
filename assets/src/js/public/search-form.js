@@ -661,7 +661,7 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
         }
-        $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
+        $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
             handleRadiusVisibility();
         });
 

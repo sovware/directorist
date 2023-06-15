@@ -10619,6 +10619,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-left: auto;
   gap: 10px;
 }
+@media only screen and (max-width: 767px) {
+  .directorist-search-form-action {
+    margin-left: 0;
+  }
+}
 @media only screen and (max-width: 575px) {
   .directorist-search-form-action {
     width: 100%;
@@ -10638,6 +10643,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 12px;
   width: 14px;
   background-color: var(--directorist-color-body);
+}
+@media only screen and (max-width: 767px) {
+  .directorist-search-form-action__filter .directorist-filter-btn {
+    padding-left: 0;
+  }
 }
 @media only screen and (max-width: 575px) {
   .directorist-search-form-action__filter {

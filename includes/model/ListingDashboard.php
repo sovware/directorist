@@ -71,11 +71,12 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function listing_task( $task, $taskdata ){
-		if ( $task == 'delete' ) {
-
-			do_action( 'directorist_listing_deleted', $taskdata );
-
-			wp_delete_post( $taskdata );
+		if ( $task === 'delete' ) {
+			if ( current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->delete_post, $taskdata ) )  {
+				wp_delete_post( $taskdata );
+	
+				do_action( 'directorist_listing_deleted', $taskdata );
+			}
 		}
 	}
 

@@ -1752,7 +1752,7 @@ class Directorist_Listings {
 		 */
 		public function get_wrapper_class( $class = '' ) {
 			$classes = array(
-				'directorist-archive-contents directorist-contents-wrap',
+				'directorist-archive-contents directorist-contents-wrap directorist-w-100',
 			);
 
 			if ( 'yes' === $this->instant_search ) {

@@ -22,7 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				?>
 			</div>
 		</div>
-	
+		<div class="listing-with-sidebar__header">
+			<?php
+				$listings->header_bar_template();
+			?>
+		</div>
 		<div class="listing-with-sidebar__sidebar">
 			<div class="directorist-search-contents">
 				<?php
@@ -32,7 +36,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		</div>
 		<div class="listing-with-sidebar__listing">
 			<?php
-				$listings->header_bar_template();
 				$listings->archive_view_template();
 			?>
 		</div>

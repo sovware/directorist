@@ -53,11 +53,19 @@
         .directorist-input-icon {
             left: 0;
         }
+        .location-name {
+            padding-left: 25px;
+            box-sizing: border-box;
+        }
     }
 
     &.directorist-icon-right {
         .directorist-input-icon {
             right: 15px;
+        }
+        .location-name {
+            padding-right: 25px;
+            box-sizing: border-box;
         }
     }
 

@@ -8983,6 +8983,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     display: block;
   }
 }
+@media screen and (max-width: 375px) {
+  .directorist-author-info-list__item .directorist-label {
+    min-width: 60px;
+  }
+}
 .directorist-author-info-list__item .directorist-icon-mask::after {
   width: 15px;
   height: 15px;
@@ -16778,6 +16783,14 @@ Review: New Style
   border-radius: 4px;
   padding: 0 20px;
 }
+@media screen and (max-width: 480px) {
+  .directorist-user-dashboard-tab__nav {
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+}
 .directorist-user-dashboard-tab ul {
   margin: 0;
   list-style: none;
@@ -16790,6 +16803,14 @@ Review: New Style
       -ms-flex-align: center;
           align-items: center;
   padding-left: 0;
+}
+@media screen and (max-width: 480px) {
+  .directorist-user-dashboard-tab ul {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    padding-left: 0;
+  }
 }
 .directorist-user-dashboard-tab li {
   list-style: none;
@@ -16822,6 +16843,11 @@ Review: New Style
   opacity: 1;
   visibility: visible;
 }
+@media screen and (max-width: 480px) {
+  .directorist-user-dashboard-tab li a {
+    padding-bottom: 5px;
+  }
+}
 .directorist-user-dashboard-tab .directorist-user-dashboard-search {
   position: relative;
   border-radius: 18px;
@@ -16850,9 +16876,16 @@ Review: New Style
   height: 36px;
   background-color: #f6f7f9;
   margin-bottom: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-user-dashboard-tab .directorist-user-dashboard-search input:focus {
   outline: none;
+}
+@media screen and (max-width: 375px) {
+  .directorist-user-dashboard-tab .directorist-user-dashboard-search input {
+    min-width: unset;
+  }
 }
 
 .directorist-user-dashboard-tabcontent {
@@ -18709,16 +18742,6 @@ Review: New Style
 @media only screen and (max-width: 479px) {
   .directorist-content-active .directorist-type-nav__list li a {
     padding: 0 0 15px 0;
-  }
-
-  .directorist-user-dashboard-tab ul {
-    -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-    padding-left: 0;
-  }
-  .directorist-user-dashboard-tab ul li a {
-    padding-bottom: 5px;
   }
 
   .directorist-user-dashboard-tab .directorist-user-dashboard-search {

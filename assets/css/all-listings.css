@@ -11353,9 +11353,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-padding-start: 12px;
           padding-inline-start: 12px;
 }
-.directorist-taxonomy-list-one .directorist-taxonomy-list__card:focus {
-  background: none;
-}
 .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;

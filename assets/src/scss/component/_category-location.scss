@@ -187,9 +187,6 @@
         @include m('icon'){
             padding-inline-start: 12px;
         }
-        &:focus{
-            background: none;
-        }
     }
     @include e('toggle'){
         @include m('open'){

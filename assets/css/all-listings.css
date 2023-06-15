@@ -12819,7 +12819,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 14px;
   font-weight: 500;
 }
-.directorist-listing-single__meta .directorist-rating-meta {
+.directorist-listing-single__meta .directorist-rating-meta,
+.directorist-listing-single__meta .directorist-listing-card-phones {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

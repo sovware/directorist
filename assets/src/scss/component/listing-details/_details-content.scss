@@ -97,6 +97,14 @@
         background-color: var(--directorist-color-white);
     }
 }
+.directorist-single-contents-area .directorist-single-wrapper .directorist-details-info-wrap {
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    .directorist-single-info {
+        margin: 0;
+    }
+}
 
 .directorist-single-map {
     @include e(location) {

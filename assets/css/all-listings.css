@@ -860,6 +860,8 @@ body.logged-in .select2-container--open .select2-dropdown--above {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 @media (min-width: 576px) {
@@ -3085,6 +3087,12 @@ body.stop-scrolling {
     -webkit-transform: translateY(145%);
     transform: translateY(145%);
   }
+}
+.directorist-add-listing-types {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 .directorist-add-listing-types__single {
   margin-bottom: 15px;

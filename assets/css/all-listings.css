@@ -11221,6 +11221,19 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-categories__single--style-one.directorist-categories__single--image .directorist-icon-mask::after {
   background-color: var(--directorist-color-white);
 }
+.directorist-categories__single--style-one:not(.directorist-categories__single--image) .directorist-icon-mask {
+  background: var(--directorist-color-primary);
+  border-radius: 50%;
+  padding: 17px;
+}
+.directorist-categories__single--style-one:not(.directorist-categories__single--image) .directorist-icon-mask::after {
+  width: 36px;
+  height: 36px;
+  background-color: var(--directorist-color-white);
+}
+.directorist-categories__single--style-one:not(.directorist-categories__single--image) .directorist-categories__single__total {
+  color: var(--directorist-color-deep-gray);
+}
 .directorist-categories__single--style-two .directorist-icon-mask {
   border: 4px solid var(--directorist-color-primary);
   border-radius: 50%;

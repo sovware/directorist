@@ -262,6 +262,9 @@
 		.directorist-header-bar {
 			margin: 0;
 		}
+		.directorist-container-fluid {
+			padding: 0;
+		}
 	}
 	@include e(sidebar) {
 		display: inline-flex;

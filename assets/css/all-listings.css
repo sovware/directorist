@@ -6709,6 +6709,9 @@ p.atbd-min {
   display: -ms-flexbox;
   display: flex;
 }
+.directorist-swiper .swiper-slide > div {
+  width: 100%;
+}
 .directorist-swiper__nav {
   position: absolute;
   top: 50%;
@@ -9689,6 +9692,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .listing-with-sidebar__header .directorist-header-bar {
   margin: 0;
+}
+.listing-with-sidebar__header .directorist-container-fluid {
+  padding: 0;
 }
 .listing-with-sidebar__sidebar {
   display: -webkit-inline-box;
@@ -14690,12 +14696,18 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 .directorist-signle-listing-top {
+  gap: 20px;
   margin-bottom: 15px;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 .directorist-signle-listing-top .directorist-return-back {
   text-decoration: none;
   gap: 8px;
   margin: 0;
+  min-width: 120px;
 }
 .directorist-signle-listing-top .directorist-return-back .directorist-single-listing-action__text {
   display: block;
@@ -14881,6 +14893,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-single-listing-quick-action {
   gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 @media screen and (max-width: 575px) {
   .directorist-single-listing-quick-action {
@@ -17736,6 +17751,9 @@ Review: New Style
   text-align: center;
   text-transform: capitalize;
   text-decoration: none;
+}
+.directorist-user-info-wrap #directorist-profile-notice .directorist-alert {
+  margin-top: 15px;
 }
 
 .directorist-user-socials .directorist-user-social-label {

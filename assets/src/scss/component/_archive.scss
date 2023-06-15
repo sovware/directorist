@@ -298,6 +298,14 @@
 			> label {
 				margin: 0;
 			}
+			&.directorist-search-field-radius_search {
+				> label {
+					margin-bottom: 15px;
+				}
+				.directorist-range-slider-current-value {
+					top: 0;
+				}
+			}
 			.directorist-search-tags,
 			.directorist-radio-wrapper,
 			.directorist-checkbox-wrapper {

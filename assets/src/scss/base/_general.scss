@@ -73,9 +73,10 @@
         border-bottom: 1px solid var(--directorist-color-border);
         display: flex;
         justify-content: space-between;
-        padding: 20px 30px;
+        padding: 15px 40px;
         align-items: center;
         flex-wrap: wrap;
+        min-height: 36px;
         @media (max-width: 480px) {
             padding: 20px;
         }
@@ -436,7 +437,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
         padding: 20px 20px 10px 20px;
     }
     .select2-search__field{
-        height: 44px;
+        height: 40px;
         padding: 10px 18px;
         border-radius: 8px;
         color: var(--directorist-color-deep-gray);

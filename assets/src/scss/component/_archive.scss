@@ -1,7 +1,5 @@
 /* All listing archive page styles */
 .directorist-archive-contents {
-	width: 100%;
-	max-width: 100% !important;
 
 	.directorist-archive-items .directorist-pagination {
 		margin-top: 35px;
@@ -259,6 +257,11 @@
 			padding: 0;
 		}
 
+	}@include e(header) {
+		flex: 0 0 100%;
+		.directorist-header-bar {
+			margin: 0;
+		}
 	}
 	@include e(sidebar) {
 		display: inline-flex;
@@ -267,6 +270,9 @@
 		max-width: 350px;
 		@media only screen and (max-width: 991px) {
 			max-width: unset;
+		}
+		.directorist-search-contents {
+			padding: 0;
 		}
 		.directorist-search-form__box {
 			padding: 0;
@@ -284,6 +290,16 @@
 		}
 		.directorist-advanced-filter__advanced {
 			padding: 25px 30px;
+		}
+		.directorist-advanced-filter__advanced--element .directorist-search-field {
+			> label {
+				margin: 0;
+			}
+			.directorist-search-tags,
+			.directorist-radio-wrapper,
+			.directorist-checkbox-wrapper {
+				margin-top: 10px;
+			}
 		}
 		.directorist-form-group:last-child .directorist-search-field {
 			margin-bottom: 0;

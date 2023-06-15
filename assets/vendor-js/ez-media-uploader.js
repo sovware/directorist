@@ -326,7 +326,7 @@
       
       var dirImageUpload = document.querySelector(".directorist-image-upload")
 
-      if(dirImageUpload.classList.contains('max-file-reached')) {
+      if(dirImageUpload && dirImageUpload.classList.contains('max-file-reached')) {
         dirImageUpload.classList.remove('max-file-reached');
       }
 

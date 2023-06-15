@@ -27,6 +27,7 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap;
+            flex: 1;
             gap: 6px;
             .directorist-badge.directorist-badge-close {
                 background-color: transparent;
@@ -42,6 +43,7 @@
                 background-color: transparent;
                 color: var(--directorist-color-success);
             }
+            
             .directorist-info-item.directorist-rating-meta{
                 display: inline-flex;
                 align-items: center;

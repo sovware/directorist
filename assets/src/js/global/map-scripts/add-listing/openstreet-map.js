@@ -158,7 +158,7 @@ import {
 
         mapLeaflet(lat, lon);
 
-        $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
+        $('body').on('click', '.directorist-form-address-field .address_result ul li a, .directorist-btn multistep-wizard__btn', function (event) {
             if (document.getElementById('osm')) {
                 document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
             }

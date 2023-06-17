@@ -245,7 +245,7 @@ __webpack_require__.r(__webpack_exports__);
     var lat = loc_manual_lat,
         lon = loc_manual_lng;
     mapLeaflet(lat, lon);
-    $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
+    $('body').on('click', '.directorist-form-address-field .address_result ul li a, .directorist-btn multistep-wizard__btn', function (event) {
       if (document.getElementById('osm')) {
         document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
       }

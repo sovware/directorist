@@ -5805,7 +5805,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   width: 100% !important;
 }
 .select2.select2-container.select2-container--default .select2-selection {
-  height: 42px;
+  height: 40px;
   border: none;
   border-radius: 0;
   background: transparent;
@@ -5858,7 +5858,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   display: flex;
   gap: 5px;
   height: 40px;
-  line-height: 40px;
+  line-height: 1;
   font-size: 14px;
   overflow-y: auto;
 }

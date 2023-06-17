@@ -262,6 +262,9 @@
 		.directorist-header-bar {
 			margin: 0;
 		}
+		.directorist-container-fluid {
+			padding: 0;
+		}
 	}
 	@include e(sidebar) {
 		display: inline-flex;
@@ -294,6 +297,14 @@
 		.directorist-advanced-filter__advanced--element .directorist-search-field {
 			> label {
 				margin: 0;
+			}
+			&.directorist-search-field-radius_search {
+				> label {
+					margin-bottom: 15px;
+				}
+				.directorist-range-slider-current-value {
+					top: 0;
+				}
 			}
 			.directorist-search-tags,
 			.directorist-radio-wrapper,

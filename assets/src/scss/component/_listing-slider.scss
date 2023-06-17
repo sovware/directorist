@@ -5,6 +5,9 @@
   position: relative;
   .swiper-slide {
     display: flex;
+    >div {
+      width: 100%;
+    }
   }
   @include e(nav) {
     position: absolute;

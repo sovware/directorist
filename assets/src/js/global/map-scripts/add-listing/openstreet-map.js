@@ -158,6 +158,15 @@ import {
 
         mapLeaflet(lat, lon);
 
+        // Add Map on Add Listing Multistep
+        $('body').on('click', '.multistep-wizard__btn', function (event) {
+            if (document.getElementById('osm')) {
+                document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+
+                mapLeaflet(lat, lon);
+            }
+        });
+
         $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
             if (document.getElementById('osm')) {
                 document.getElementById('osm').innerHTML = "<div id='gmap'></div>";

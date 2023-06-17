@@ -207,6 +207,9 @@
             @media screen and (max-width: 575px) {
                 display: block;
             }
+            @media screen and (max-width: 375px) {
+                min-width: 60px;
+            }
         }
         
         .directorist-icon-mask::after {

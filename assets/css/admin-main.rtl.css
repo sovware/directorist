@@ -7530,6 +7530,12 @@ body.stop-scrolling {
     transform: translateY(145%);
   }
 }
+.directorist-add-listing-types {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
 .directorist-add-listing-types__single {
   margin-bottom: 15px;
 }

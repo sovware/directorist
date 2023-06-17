@@ -1,25 +1,4 @@
 /* Range Slider */
-.directorist-range-slider-wrap {
-  position: relative;
-  .directorist-range-slider {
-    position: relative;
-    &:before {
-      content: '';
-      width: 18px;
-      height: 18px;
-      background: var(--directorist-color-white);
-      border: 4px solid var(--directorist-color-body);
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      cursor: pointer;
-      border-radius: 50%;
-      z-index: 1;
-    }
-  }
-}
-
 .directorist-range-slider-wrap>span {
   color: var(--directorist-color-primary);
 }

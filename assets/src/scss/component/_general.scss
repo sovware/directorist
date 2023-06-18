@@ -130,7 +130,7 @@
   }
 
   &.select2-container--default .select2-selection {
-    height: 42px;
+    height: 40px;
     border: none;
     border-radius: 0;
     background: transparent;
@@ -175,7 +175,7 @@
       display: flex;
       gap: 5px;
       height: 40px;
-      line-height: 40px;
+      line-height: 1;
       font-size: 14px;
       overflow-y: auto;
       .select2-selection__clear {

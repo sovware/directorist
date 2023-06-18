@@ -70,6 +70,21 @@
             &.directorist-categories__single--image .directorist-icon-mask::after{
                 background-color: var(--directorist-color-white);
             }
+            &:not(.directorist-categories__single--image) {
+                .directorist-icon-mask{
+                    background: var(--directorist-color-primary);
+                    border-radius: 50%;
+                    padding: 17px;
+                    &::after{
+                        width: 36px;
+                        height: 36px;
+                        background-color: var(--directorist-color-white);
+                    }
+                }
+                .directorist-categories__single__total{
+                    color: var(--directorist-color-deep-gray);
+                }
+            }
         }
         @include m('style-two'){
             .directorist-icon-mask{
@@ -171,9 +186,6 @@
         }
         @include m('icon'){
             padding-inline-start: 12px;
-        }
-        &:focus{
-            background: none;
         }
     }
     @include e('toggle'){

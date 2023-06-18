@@ -98,6 +98,7 @@ class Asset_Loader {
 		switch ( $template ) {
 			// All Listings
 			case 'archive-contents':
+			case 'sidebar-archive-contents':
 				wp_enqueue_script( 'directorist-all-listings' );
 				wp_enqueue_script( 'directorist-listing-slider' );
 				wp_enqueue_script( 'directorist-swiper' );

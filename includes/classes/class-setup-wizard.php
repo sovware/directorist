@@ -133,6 +133,7 @@ class SetupWizard
         $all_posts          = $this->read_csv($file);
         $posts              = array_slice($all_posts, $position);
         $limit              = 1;
+        
         if ( ! $total_length ) {
             $data['error'] = __('No data found', 'directorist');
             die();
@@ -142,9 +143,10 @@ class SetupWizard
             'hide_empty' => false,
             'showposts' => 1,
         ]);
+
         $directory_id = !empty( $listing_types[0] ) ? $listing_types[0]->term_id : '';
-        $directory_slug = !empty( $listing_types[0] ) ? $listing_types[0]->slug : '';
         foreach ($posts as $index => $post) {
+                
                 if ($count === $limit ) break;
                 // start importing listings
                 $args = array(
@@ -674,7 +676,7 @@ class SetupWizard
 
     public function directorist_step_three()
     {
-        $dummy_csv = ATBDP_URL . 'views/admin-templates/import-export/data/dummy.csv';
+        $dummy_csv = ATBDP_DIR . 'views/admin-templates/import-export/data/dummy.csv';
     ?>
         <div class="atbdp-c-header">
             <h1><?php esc_html_e( 'Import Dummy Data', 'directorist' ); ?></h1>

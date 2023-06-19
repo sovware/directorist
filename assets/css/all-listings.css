@@ -5989,6 +5989,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  gap: 15px;
 }
 .directorist-widget-listing__single:not(:last-child) {
   margin-bottom: 25px;
@@ -5997,7 +6001,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .directorist-widget-listing__image {
   width: 70px;
   height: 70px;
-  margin-right: 15px;
 }
 .directorist-widget-listing__image a:focus {
   outline: none;
@@ -12978,7 +12981,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-weight: 500;
 }
 .directorist-listing-single__meta .directorist-rating-meta,
-.directorist-listing-single__meta .directorist-listing-card-phones {
+.directorist-listing-single__meta .directorist-listing-card-phone {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

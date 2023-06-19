@@ -230,7 +230,7 @@ class SetupWizard
                         }
                     }
 
-                    if ( in_array( $key, $allowed_meta_data_keys, true ) ) {
+                    if ( in_array( $key, $allowed_meta_data_keys, true ) && $value !== '' ) {
                         update_post_meta( $post_id, '_' . $key, $value );
                     }
                 }

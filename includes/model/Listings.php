@@ -1066,6 +1066,10 @@ class Directorist_Listings {
 		return $this->query_results->ids;
 	}
 
+	public function has_sidebar() {
+		return $this->query_results->ids;
+	}
+
 	public function loop_template( $loop = 'grid', $id = NULL ) {
 		if( ! $id ) return;
 		global $post;
@@ -1540,21 +1544,21 @@ class Directorist_Listings {
 
 		function loop_get_the_thumbnail( $class = '' ) {
 			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
-		
+
 			$id = get_the_ID();
 			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
 			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 			$listing_img       = get_post_meta($id, '_listing_img', true);
 			$thumbnail_img_id  = array_filter( array_merge( (array) $listing_prv_img, (array) $listing_img ) );
-		
+
 			if ( empty( $thumbnail_img_id ) ) {
 				$thumbnail_img_id = $default_image_src;
 				$image_alt = esc_html( get_the_title( $id ) );
 				return "<img src='$default_image_src' alt='$image_alt' class='$class' />";
 			}
-		
+
 			$image_count = count( $thumbnail_img_id );
-		
+
 			if ( 1 === (int) $image_count ) {
 				$image_src = atbdp_get_image_source( reset( $thumbnail_img_id ), $image_quality );
 				$image_alt = get_post_meta( reset( $thumbnail_img_id ), '_wp_attachment_image_alt', true );

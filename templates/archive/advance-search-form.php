@@ -14,6 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<div class="directorist-search-form-box directorist-search-form__box">
 			<div class="directorist-advanced-filter__top">
 				<h2 class="directorist-advanced-filter__title">Filters</h2>
+				<button class="directorist-search-modal__contents__btn directorist-advanced-filter__close">
+					<?php directorist_icon( 'fas fa-times' ); ?>
+				</button>
 			</div>
 			<div class="directorist-advanced-filter__advanced">
 				<?php foreach ($searchform->form_data[1]['fields'] as $field) : ?>

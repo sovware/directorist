@@ -121,7 +121,7 @@ class SetupWizard
                 'error' => esc_html__( 'Invalid nonce!', 'directorist' ),
             ) );
         }
-        
+
         $data               = array();
         $imported           = 0;
         $failed             = 0;
@@ -252,9 +252,16 @@ class SetupWizard
     /**
      * Add admin menus/screens.
      */
-    public function admin_menus()
-    {
-        add_submenu_page(null, '', '', 'manage_options', 'directorist-setup', '');
+    public function admin_menus() {
+		add_menu_page(
+			__( 'Directorist Setup Wizard', 'directorist' ),
+			__( 'Setup', 'directorist' ),
+			'manage_options',
+			'directorist-setup'
+		);
+
+		// Remove to remove the menu item only, page will just work fine.
+		remove_menu_page( 'directorist-setup' );
     }
 
     /**
@@ -545,7 +552,7 @@ class SetupWizard
         }
 
         update_option('atbdp_option', $atbdp_option);
-        
+
         /**
         * @since 7.3.0
         */

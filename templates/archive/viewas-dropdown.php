@@ -12,9 +12,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<div class="directorist-viewas__wrap">
 
-		<?php foreach ( array_unique($listings->get_view_as_link_list(), SORT_REGULAR) as $key => $value ): ?>
+		<!-- Archive sidebar offcanvas toggle -->
+		<?php if( $listings->options['listings_sidebar'] ) : ?>
+		<a class="directorist-viewas__item directorist-archive-sidebar-toggle">
+			<?php directorist_icon( 'fas fa-filter' ); ?>
+			Filter
+		</a>
 
-			<a class="directorist-viewas__item <?php echo esc_attr( $value['active_class'] ); ?>" href="<?php echo esc_attr( $value['link'] ); ?>">
+		<?php endif;
+		foreach ( array_unique($listings->get_view_as_link_list(), SORT_REGULAR) as $key => $value ): ?>
+
+			<a class="directorist-viewas__item directorist-viewas__item--<?php echo esc_attr( strtolower( $value['label'] ) ) ?> <?php echo esc_attr( $value['active_class'] ); ?>" href="<?php echo esc_attr( $value['link'] ); ?>">
 				<?php if ( strpos( $value['link'], 'grid' ) ): ?>
 					<?php directorist_icon( 'fas fa-grip-horizontal' ); ?>
 				<?php elseif ( strpos( $value['link'], 'map' ) ): ?>

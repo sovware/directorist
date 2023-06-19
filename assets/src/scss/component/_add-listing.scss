@@ -678,7 +678,7 @@
           z-index: 9999;
         }
       }
-    } 
+    }
 
   }
 
@@ -1008,11 +1008,11 @@
   .select2-container--default
   .select2-selection
   .select2-selection__rendered {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 5px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
   li {
     margin: 0;
     input {

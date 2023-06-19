@@ -91,7 +91,7 @@
             }
         }
     }
-    
+
 }
 .directorist-modal__dialog.directorist-modal--lg {
     width: 800px;
@@ -266,6 +266,9 @@
             }
         }
     }
+
+    
+
     @include e(minimizer) {
         content: '';
         position: absolute;
@@ -345,12 +348,12 @@
             padding: 10px 0;
         }
 
-        .directorist-checkbox-wrapper, 
-        .directorist-radio-wrapper, 
+        .directorist-checkbox-wrapper,
+        .directorist-radio-wrapper,
         .directorist-search-tags {
             width: 100%;
             margin: 10px 0;
-            .directorist-checkbox, 
+            .directorist-checkbox,
             .directorist-radio {
                 flex: 0 0 100%;
             }

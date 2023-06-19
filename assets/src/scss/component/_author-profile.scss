@@ -237,6 +237,11 @@
     }
 }
 
+.directorist-card__body .directorist-author-info-list {
+    padding: 0;
+    margin: 0;
+}
+
 .directorist-author-social {
     display: flex;
     flex-wrap: wrap;
@@ -284,23 +289,36 @@
 
 .directorist-author-info-widget,
 .directorist-single-author-info,
-.directorist-authors-section {    
+.directorist-authors-section,
+.directorist-author-social {    
     @include m(light){
         .directorist-author-social-item {
             display: inline-block;
             margin: 0;
             a {
                 font-size: 15px;
-                margin: 5px;
                 display: block;
                 line-height: 35px;
-                width: 35px;
+                width: 36px;
+                height: 36px;
                 text-align: center;
-                background-color: var(--directorist-color-primary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--directorist-color-light);
                 border-radius: 4px;
                 color: #ffffff;
                 overflow: hidden;
                 transition: all ease-in-out 300ms;
+                .directorist-icon-mask:after {
+                    background-color: var(--directorist-color-body);
+                }
+                &:hover {
+                    background-color: var(--directorist-color-primary);
+                    .directorist-icon-mask:after {
+                        background-color: var(--directorist-color-white);
+                    }
+                }
             }
         }
     }

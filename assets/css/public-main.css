@@ -8991,6 +8991,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-bottom: 8px;
 }
 
+.directorist-card__body .directorist-author-info-list {
+  padding: 0;
+  margin: 0;
+}
+
 .directorist-author-social {
   display: -webkit-box;
   display: -webkit-flex;
@@ -9052,25 +9057,57 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-author-info-widget--light .directorist-author-social-item,
 .directorist-single-author-info--light .directorist-author-social-item,
-.directorist-authors-section--light .directorist-author-social-item {
+.directorist-authors-section--light .directorist-author-social-item,
+.directorist-author-social--light .directorist-author-social-item {
   display: inline-block;
   margin: 0;
 }
 .directorist-author-info-widget--light .directorist-author-social-item a,
 .directorist-single-author-info--light .directorist-author-social-item a,
-.directorist-authors-section--light .directorist-author-social-item a {
+.directorist-authors-section--light .directorist-author-social-item a,
+.directorist-author-social--light .directorist-author-social-item a {
   font-size: 15px;
-  margin: 5px;
   display: block;
   line-height: 35px;
-  width: 35px;
+  width: 36px;
+  height: 36px;
   text-align: center;
-  background-color: var(--directorist-color-primary);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: var(--directorist-color-light);
   border-radius: 4px;
   color: #ffffff;
   overflow: hidden;
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
+}
+.directorist-author-info-widget--light .directorist-author-social-item a .directorist-icon-mask:after,
+.directorist-single-author-info--light .directorist-author-social-item a .directorist-icon-mask:after,
+.directorist-authors-section--light .directorist-author-social-item a .directorist-icon-mask:after,
+.directorist-author-social--light .directorist-author-social-item a .directorist-icon-mask:after {
+  background-color: var(--directorist-color-body);
+}
+.directorist-author-info-widget--light .directorist-author-social-item a:hover,
+.directorist-single-author-info--light .directorist-author-social-item a:hover,
+.directorist-authors-section--light .directorist-author-social-item a:hover,
+.directorist-author-social--light .directorist-author-social-item a:hover {
+  background-color: var(--directorist-color-primary);
+}
+.directorist-author-info-widget--light .directorist-author-social-item a:hover .directorist-icon-mask:after,
+.directorist-single-author-info--light .directorist-author-social-item a:hover .directorist-icon-mask:after,
+.directorist-authors-section--light .directorist-author-social-item a:hover .directorist-icon-mask:after,
+.directorist-author-social--light .directorist-author-social-item a:hover .directorist-icon-mask:after {
+  background-color: var(--directorist-color-white);
 }
 
 .directorist-author-listing-top {
@@ -10662,6 +10699,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     display: none;
   }
 }
+.directorist-search-form-action__modal {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  gap: 10px;
+}
 @media only screen and (max-width: 575px) {
   .directorist-search-form-action__modal {
     -webkit-box-flex: 0;
@@ -10682,6 +10729,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 0 25px;
   font-weight: 600;
   border-radius: 22px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 .directorist-search-form-action__modal__btn-search i::after {
   width: 16px;
@@ -12150,7 +12201,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 16px;
 }
 .directorist-content-active .directorist-authors__card .directorist-author-social {
-  margin: -5px -5px 15px;
+  margin: 0 0 15px;
 }
 .directorist-content-active .directorist-authors__card .directorist-author-social li {
   margin: 0;

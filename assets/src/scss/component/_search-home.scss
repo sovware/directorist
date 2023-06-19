@@ -184,6 +184,9 @@
     }
   }
   @include e(modal) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     @media only screen and (max-width: 575px) {
       flex: 0 0 100%;
     }
@@ -197,6 +200,7 @@
       padding: 0 25px;
       font-weight: 600;
       border-radius: 22px;
+      flex: 1;
       i::after {
         width: 16px;
         height: 16px;

@@ -555,6 +555,7 @@
             margin-top: 4px;
         }
         .directorist-listing-single__thumb {
+            margin: 0;
             position: relative;
             padding: 10px 10px 0 10px;
         }
@@ -583,7 +584,7 @@
 
             &.directorist-alignment-center {
                 left: 50%;
-                transform: translateX(-50%);
+                transform: translate(-50%, 50%);
             }
 
             img {
@@ -670,6 +671,7 @@
         .directorist-listing-single {
             @include e('thumb') {
                 flex: 1;
+                margin: 0;
                 max-width: 320px;
                 padding: 10px 0 10px 10px;
                 @media only screen and (max-width: 575px) {

@@ -273,6 +273,9 @@
             background: var(--directorist-color-border);
         }
     }
+    @media (max-width: 480px) {
+        gap: 20px;
+    }
     @include e(item){
         flex: 0 0 45%;
         @media (max-width: 575px) {

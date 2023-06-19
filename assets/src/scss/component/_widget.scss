@@ -14,6 +14,22 @@
   }
 }
 
+.directorist-sidebar .directorist-card {
+  margin-bottom: 25px;
+  ul{
+    padding: 25px;
+    margin: 0;
+    list-style: none;
+  }
+  .tagcloud {
+    margin: 0;
+    padding: 25px;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
 // Owner Contact Widget
 .directorist-widget__listing-contact{
   .directorist-form-group {
@@ -314,8 +330,9 @@
     justify-content: center;
   }
   .directorist-advanced-filter__action{
-    justify-content: center;
     padding: 0 0;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 

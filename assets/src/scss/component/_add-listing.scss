@@ -1018,6 +1018,9 @@
     input {
       margin-top: 0;
     }
+    &.select2-search--inline {
+      width: auto;
+    }
   }
 }
 

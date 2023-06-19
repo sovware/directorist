@@ -144,21 +144,50 @@ class SetupWizard
         ]);
         $directory_id = !empty( $listing_types[0] ) ? $listing_types[0]->term_id : '';
         $directory_slug = !empty( $listing_types[0] ) ? $listing_types[0]->slug : '';
-        foreach ($posts as $index => $post) {
-                if ($count === $limit ) break;
+
+		$allowed_meta_data_keys = array(
+			'tagline',
+			'price',
+			'price_range',
+			'atbdp_post_views_count',
+			'hide_contact_owner',
+			'address',
+			'manual_lat',
+			'manual_lng',
+			'hide_map',
+			'zip',
+			'phone',
+			'phone2',
+			'fax',
+			'email',
+			'website',
+			'videourl',
+			'excerpt'
+		);
+
+        foreach ( $posts as $index => $post ) {
+                if ( $count === $limit ) {
+					break;
+				}
+
                 // start importing listings
                 $args = array(
-                    "post_title"   => isset($post['Title']) ? $post['Title'] : '',
-                    "post_content" => isset($post['Description']) ? $post['Description'] : '',
-                    "post_type"    => 'at_biz_dir',
-                    "post_status"  => 'publish',
+                    'post_title'   => isset( $post['Title'] ) ? $post['Title'] : '',
+                    'post_content' => isset( $post['Description'] ) ? $post['Description'] : '',
+                    'post_type'    => 'at_biz_dir',
+                    'post_status'  => 'publish',
                 );
-                $post_id = wp_insert_post($args);
-                if (!is_wp_error($post_id)) {
-                    $imported++;
-                } else {
-                    $failed++;
+
+                $post_id = wp_insert_post( $args );
+
+				// No need to process further since it's a failed insertion.
+                if ( is_wp_error( $post_id ) ) {
+					$failed++;
+					continue;
                 }
+
+				$imported++;
+
                 foreach($post as $key => $value){
                     $key = directorist_translate_to_listing_field_key( $key );
                     if ('category' == $key) {
@@ -200,12 +229,12 @@ class SetupWizard
                             wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
                         }
                     }
-                    $skipped = array('name', 'Title', 'Description', 'details', 'category', 'location', 'tag', 'listing_prv_img');
 
-                    if(!in_array( $key, $skipped )){
-                        update_post_meta( $post_id, '_'.$key, $value );
+                    if ( in_array( $key, $allowed_meta_data_keys, true ) ) {
+                        update_post_meta( $post_id, '_' . $key, $value );
                     }
                 }
+
                 $exp_dt = calc_listing_expiry_date();
                 update_post_meta($post_id, '_expiry_date', $exp_dt);
                 update_post_meta($post_id, '_featured', 0);

@@ -29,32 +29,40 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						<?php if ( $address ): ?>
 							<li class="directorist-author-info-list__item">
 								<?php directorist_icon( 'las la-map-marker' ); ?>
-								<span class="directorist-label"><?php esc_html_e( 'Address', 'directorist' ); ?></span>
-								<span class="directorist-info"><?php echo esc_html( $address ); ?></span>
+								<div>
+									<span class="directorist-label"><?php esc_html_e( 'Address', 'directorist' ); ?></span>
+									<span class="directorist-info"><?php echo esc_html( $address ); ?></span>
+								</div>
 							</li>
 						<?php endif; ?>
 
 						<?php if ( $phone ): ?>
 							<li class="directorist-author-info-list__item">
 								<?php directorist_icon( 'las la-phone' ); ?>
-								<span class="directorist-label"><?php esc_html_e( 'Phone', 'directorist' ); ?></span>
-								<span class="directorist-info"><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $phone ); ?>"><?php echo esc_html( $phone ); ?></a></span>
+								<div>
+									<span class="directorist-label"><?php esc_html_e( 'Phone', 'directorist' ); ?></span>
+									<span class="directorist-info"><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $phone ); ?>"><?php echo esc_html( $phone ); ?></a></span>
+								</div>
 							</li>
 						<?php endif; ?>
 
 						<?php if ( $email_endabled && $email ): ?>
 							<li class="directorist-author-info-list__item">
 								<?php directorist_icon( 'las la-envelope' ); ?>
-								<span class="directorist-label"><?php esc_html_e( 'Email', 'directorist' ); ?></span>
-								<span class="directorist-info"><?php echo esc_html( $email ); ?></span>
+								<div>
+									<span class="directorist-label"><?php esc_html_e( 'Email', 'directorist' ); ?></span>
+									<span class="directorist-info"><?php echo esc_html( $email ); ?></span>
+								</div>
 							</li>
 						<?php endif; ?>
 
 						<?php if ( $website ): ?>
 							<li class="directorist-author-info-list__item">
 								<?php directorist_icon( 'las la-globe' ); ?>
-								<span class="directorist-label"><?php esc_html_e( 'Website', 'directorist' ); ?></span>
-								<span class="directorist-info"><a target="_blank" href="<?php echo esc_url( $website ); ?>"><?php echo esc_html( $website) ; ?></a></span>
+								<div>
+									<span class="directorist-label"><?php esc_html_e( 'Website', 'directorist' ); ?></span>
+									<span class="directorist-info"><a target="_blank" href="<?php echo esc_url( $website ); ?>"><?php echo esc_html( $website) ; ?></a></span>
+								</div>
 							</li>
 						<?php endif; ?>
 

@@ -204,20 +204,18 @@
                 right: 0;
                 top: 0;
             }
-            @media screen and (max-width: 575px) {
-                display: block;
-            }
             @media screen and (max-width: 375px) {
                 min-width: 60px;
             }
         }
-        
+
         .directorist-icon-mask::after {
             width: 15px;
             height: 15px;
             background-color: var(--directorist-color-deep-gray);
         }
         .directorist-info {
+            word-break: break-all;
             @media screen and (max-width: 575px) {
                 margin-top: 5px;
                 word-break: break-all;
@@ -275,7 +273,7 @@
                 .directorist-icon-mask::after{
                     background-color: var(--directorist-color-white);
                 }
-    
+
                 /* Legacy Icon */
                 span.la,
                 span.fa{
@@ -343,7 +341,7 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 30px;
-    } 
+    }
 
 
     .directorist-type-nav {
@@ -408,7 +406,7 @@
         @include e(link) {
             top: 50px;
         }
-        
+
     }
 
     @media screen and (max-width: 575px) {
@@ -464,5 +462,11 @@
                 width: 100%;
             }
         }
+    }
+}
+
+.directorist-author-listing-type {
+    .directorist-type-nav{
+        background: none;
     }
 }

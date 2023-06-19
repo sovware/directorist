@@ -611,6 +611,57 @@ function convertToSelect2(field) {
 
 /***/ }),
 
+/***/ "./assets/src/js/public/components/archive-sidebar.js":
+/*!************************************************************!*\
+  !*** ./assets/src/js/public/components/archive-sidebar.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.addEventListener('DOMContentLoaded', function () {
+  /* Archive sidebar toggle */
+  var archiveSidebar = document.querySelector('.listing-with-sidebar__sidebar');
+  var archiveSidebarToggle = document.querySelector('.directorist-archive-sidebar-toggle');
+  var archiveSidebarClose = document.querySelector('.directorist-advanced-filter__close');
+  var body = document.body; // Toggle sidebar and update toggle button's active state
+
+  function toggleSidebar() {
+    archiveSidebar.classList.toggle('listing-with-sidebar__sidebar--open');
+    archiveSidebarToggle.classList.toggle('directorist-archive-sidebar-toggle--active');
+  } // Close sidebar and reset toggle button's active state
+
+
+  function closeSidebar() {
+    archiveSidebar.classList.remove('listing-with-sidebar__sidebar--open');
+    archiveSidebarToggle.classList.remove('directorist-archive-sidebar-toggle--active');
+  } // Event delegation for sidebar toggle and close buttons
+
+
+  function handleSidebarToggleClick(e) {
+    e.preventDefault();
+    toggleSidebar();
+  }
+
+  function handleSidebarCloseClick(e) {
+    e.preventDefault();
+    closeSidebar();
+  } // Event delegation for outside click to close sidebar
+
+
+  function handleOutsideClick(e) {
+    if (!e.target.closest('.listing-with-sidebar__sidebar') && e.target !== archiveSidebarToggle) {
+      closeSidebar();
+    }
+  } // Attach event listeners
+
+
+  archiveSidebarToggle.addEventListener('click', handleSidebarToggleClick);
+  archiveSidebarClose.addEventListener('click', handleSidebarCloseClick);
+  body.addEventListener('click', handleOutsideClick);
+});
+
+/***/ }),
+
 /***/ "./assets/src/js/public/components/categoryLocation.js":
 /*!*************************************************************!*\
   !*** ./assets/src/js/public/components/categoryLocation.js ***!
@@ -2757,6 +2808,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _components_archive_sidebar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/archive-sidebar */ "./assets/src/js/public/components/archive-sidebar.js");
+/* harmony import */ var _components_archive_sidebar__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_archive_sidebar__WEBPACK_IMPORTED_MODULE_17__);
 /*
     File: all-listings.js
     Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
@@ -2764,6 +2817,7 @@ __webpack_require__.r(__webpack_exports__);
     Author URI: www.wpwax.com
 */
  // General Components
+
 
 
 

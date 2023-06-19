@@ -8,6 +8,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background: #fff;
         @include m('image'){
             background-position: center;
             background-repeat: no-repeat;
@@ -459,6 +460,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                background: #fff;
                 .directorist-location__content{
                     h3, a, span{
                         text-align: center;

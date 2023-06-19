@@ -158,6 +158,7 @@ class SetupWizard
                     $imported++;
                 } else {
                     $failed++;
+                    continue;
                 }
                 foreach($post as $key => $value){
                     $key = directorist_translate_to_listing_field_key( $key );
@@ -200,7 +201,7 @@ class SetupWizard
                             wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
                         }
                     }
-                    $skipped = array('name', 'Title', 'Description', 'details', 'category', 'location', 'tag', 'listing_prv_img');
+                    $skipped = array( 'name', 'Title', 'Description', 'details', 'category', 'location', 'tag', 'listing_prv_img', 'listing_img' );
 
                     if(!in_array( $key, $skipped )){
                         update_post_meta( $post_id, '_'.$key, $value );

@@ -148,8 +148,8 @@ class SetupWizard
                 if ($count === $limit ) break;
                 // start importing listings
                 $args = array(
-                    "post_title"   => isset($post['name']) ? $post['name'] : '',
-                    "post_content" => isset($post['details']) ? $post['details'] : '',
+                    "post_title"   => isset($post['Title']) ? $post['Title'] : '',
+                    "post_content" => isset($post['Description']) ? $post['Description'] : '',
                     "post_type"    => 'at_biz_dir',
                     "post_status"  => 'publish',
                 );
@@ -160,6 +160,7 @@ class SetupWizard
                     $failed++;
                 }
                 foreach($post as $key => $value){
+                    $key = directorist_translate_to_listing_field_key( $key );
                     if ('category' == $key) {
                         $taxonomy = ATBDP_CATEGORY;
                         $term_exists = get_term_by( 'name', $value, $taxonomy );
@@ -199,7 +200,7 @@ class SetupWizard
                             wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
                         }
                     }
-                    $skipped = array('name', 'details', 'category', 'location', 'tag', 'listing_prv_img');
+                    $skipped = array('name', 'Title', 'Description', 'details', 'category', 'location', 'tag', 'listing_prv_img');
 
                     if(!in_array( $key, $skipped )){
                         update_post_meta( $post_id, '_'.$key, $value );
@@ -209,7 +210,7 @@ class SetupWizard
                 update_post_meta($post_id, '_expiry_date', $exp_dt);
                 update_post_meta($post_id, '_featured', 0);
                 update_post_meta($post_id, '_listing_status', 'post_status');
-                $preview_url = isset($post['listing_prv_img']) ? $post['listing_prv_img'] : '';
+                $preview_url = isset($post['Image']) ? $post['Image'] : '';
 
                 if ( $preview_image && $preview_url ) {
                    $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($preview_url, $post_id);
@@ -681,7 +682,7 @@ class SetupWizard
 
     public function directorist_step_three()
     {
-        $dummy_csv = ATBDP_URL . 'views/admin-templates/import-export/data/dummy.csv';
+        $dummy_csv = ATBDP_DIR . 'views/admin-templates/import-export/data/dummy.csv';
     ?>
         <div class="atbdp-c-header">
             <h1><?php esc_html_e( 'Import Dummy Data', 'directorist' ); ?></h1>

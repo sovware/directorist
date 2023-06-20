@@ -8454,10 +8454,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   position: absolute;
   left: 0;
   top: 0;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border-radius: 5px;
   background: transparent;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   border: 2px solid var(--directorist-color-gray);
   background-color: transparent;
 }
@@ -8483,8 +8485,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     left: unset;
     right: 0;
     top: 1px;
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
   }
 }
 .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox]:checked + .directorist-radio__label:after,
@@ -8669,9 +8671,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: #fff !important;
 }
 .directorist-radio.directorist-radio-theme-admin input[type=radio] + .directorist-radio__label:after {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border-color: #C6D0DC;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-radio.directorist-radio-theme-admin input[type=radio]:checked + .directorist-radio__label:after {
   background-color: #3e62f5;
@@ -8691,9 +8695,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   content: "";
 }
 .directorist-checkbox.directorist-checkbox-theme-admin input[type=checkbox] + .directorist-checkbox__label:after {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border-color: #C6D0DC;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-checkbox.directorist-checkbox-theme-admin input[type=checkbox]:checked + .directorist-checkbox__label:after {
   background-color: #3e62f5;
@@ -10382,6 +10388,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     height: 2px;
     background: var(--directorist-color-border);
   }
+  .directorist-price-ranges .directorist-form-group:last-child {
+    margin-left: 15px;
+  }
 }
 @media (max-width: 480px) {
   .directorist-price-ranges {
@@ -10464,9 +10473,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-price-ranges__price-frequency input[type=radio]:checked + .directorist-pf-range {
   background-color: var(--directorist-color-primary);
   color: var(--directorist-color-white);
-}
-.directorist-price-ranges .directorist-form-group:last-child {
-  margin-left: 15px;
 }
 .directorist-price-ranges .directorist-pf-range {
   cursor: pointer;
@@ -14957,6 +14963,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+.directorist-sidebar .directorist-search-form .directorist-search-form-action {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.directorist-sidebar .directorist-search-form .directorist-search-form-action .directorist-modal-btn--advanced {
+  padding-left: 0;
 }
 
 .directorist-signle-listing-top {

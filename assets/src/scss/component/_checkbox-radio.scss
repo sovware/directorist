@@ -28,10 +28,11 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 16px;
-                height: 16px;
+                width: 20px;
+                height: 20px;
                 border-radius: 5px;
                 background: transparent;
+                box-sizing: border-box;
                 border: 2px solid var(--directorist-color-gray);
                 background-color: transparent;
             }
@@ -44,8 +45,8 @@
                     left: unset;
                     right: 0;
                     top: 1px;
-                    width: 12px;
-                    height: 12px;
+                    width: 16px;
+                    height: 16px;
                 }
             }
         }
@@ -295,9 +296,10 @@
                 background-color: #fff !important;
             }
             &:after{
-                width: 16px;
-                height: 16px;
+                width: 20px;
+                height: 20px;
                 border-color: #C6D0DC;
+                box-sizing: border-box;
             }
         }
         &:checked{
@@ -328,9 +330,10 @@
                 content: '';
             }
             &:after{
-                width: 16px;
-                height: 16px;
+                width: 20px;
+                height: 20px;
                 border-color: #C6D0DC;
+                box-sizing: border-box;
             }
         }
         &:checked{

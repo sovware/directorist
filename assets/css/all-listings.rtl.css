@@ -665,6 +665,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
 .select2-container--default .select2-search__field {
   padding: 10px 18px;
   border-radius: 8px;
+  background: transparent;
   color: var(--directorist-color-deep-gray);
   border: 1px solid var(--directorist-color-border-gray);
 }
@@ -5796,6 +5797,17 @@ svg.leaflet-image-layer.leaflet-interactive path {
   margin: 0;
 }
 
+button[type=submit] {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 /* Container within container spacing issue fix */
 .directorist-container-fluid > .directorist-container-fluid {
   padding-right: 0;
@@ -5887,7 +5899,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  padding-top: 12px;
 }
 .select2.select2-container.select2-container--default .select2-selection__rendered .select2-selection__clear {
   padding-left: 25px;
@@ -6262,15 +6273,21 @@ svg.leaflet-image-layer.leaflet-interactive path {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  gap: 15px;
+  gap: 20px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
 }
+.directorist-widget-advanced-search .directorist-search-field-review .directorist-checkbox__label {
+  margin: 0;
+}
 .directorist-widget-advanced-search .directorist-search-field-review .directorist-checkbox__label i {
   display: inline-block;
+}
+.directorist-widget-advanced-search .directorist-search-field-review .directorist-checkbox input[type=checkbox] + label:not(:last-child) {
+  margin-bottom: 0;
 }
 .directorist-widget-advanced-search .directorist-btn-reset-js {
   background: var(--directorist-color-light);
@@ -6294,6 +6311,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+.directorist-widget-advanced-search .directorist-btn-reset-js:focus {
+  outline: none;
 }
 .directorist-widget-advanced-search .directorist-advanced-filter__action {
   padding: 0 0;
@@ -8122,6 +8142,7 @@ p.atbd-min {
   position: relative;
   padding: 0;
   width: 100%;
+  max-width: unset;
   height: 40px;
   font-size: 14px;
   font-weight: 400;
@@ -8135,6 +8156,7 @@ p.atbd-min {
   outline: none;
   -webkit-box-shadow: 0 0;
           box-shadow: 0 0;
+  border: none;
   border-bottom: 2px solid var(--directorist-color-primary);
 }
 
@@ -8488,8 +8510,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
   position: absolute;
-  right: 6px;
-  top: 6px;
+  right: 5px;
+  top: 5px;
   content: "";
   -webkit-mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);
           mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);
@@ -9724,10 +9746,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .listing-with-sidebar .directorist-search-form__top {
     display: block;
     width: 100%;
-  }
-  .listing-with-sidebar .select2-container--default .select2-selection--single .select2-selection__rendered,
-.listing-with-sidebar .select2.select2-container.select2-container--default .select2-selection__rendered {
-    padding-top: 12px;
   }
   .listing-with-sidebar .listing-with-sidebar__header .directorist-header-bar {
     display: -webkit-box;

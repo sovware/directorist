@@ -306,13 +306,17 @@
       display: flex;
       align-items: flex-start;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 20px;
       flex-direction: column;
     }
     .directorist-checkbox__label{
+      margin: 0;
       i{
         display: inline-block;
       }
+    }
+    .directorist-checkbox input[type=checkbox] + label:not(:last-child) {
+      margin-bottom: 0;
     }
   }
   .directorist-btn-reset-js{
@@ -328,6 +332,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    &:focus {
+      outline: none;
+    }
   }
   .directorist-advanced-filter__action{
     padding: 0 0;

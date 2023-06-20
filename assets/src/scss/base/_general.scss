@@ -439,6 +439,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
     .select2-search__field{
         padding: 10px 18px;
         border-radius: 8px;
+        background: transparent;
         color: var(--directorist-color-deep-gray);
         border: 1px solid var(--directorist-color-border-gray);
         &:focus {

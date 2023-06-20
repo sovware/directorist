@@ -18,8 +18,8 @@ if (is_numeric($searchform->listing_type)) {
 }
 ?>
 <div class="directorist-card__body">
-	<div class="directorist-widget-advanced-search <?php echo is_singular(ATBDP_POST_TYPE) ? esc_html('directorist_single') : ''; ?>">
-		<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
+	<div class="directorist-widget-advanced-search directorist-contents-wrap <?php echo is_singular(ATBDP_POST_TYPE) ? esc_html('directorist_single') : ''; ?>">
+		<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-search-form directorist-advanced-filter__form">
 			<input type="hidden" name='directory_type' value='<?php echo !empty($listing_type) ? esc_attr( $listing_type ) : esc_attr(  $searchform->listing_type ); ?>'>
 			<div class="directorist-advanced-filter__basic">
 				<?php foreach ($searchform->form_data[0]['fields'] as $field) : ?>

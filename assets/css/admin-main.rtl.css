@@ -6089,6 +6089,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
 .select2-container--default .select2-search__field {
   padding: 10px 18px;
   border-radius: 8px;
+  background: transparent;
   color: var(--directorist-color-deep-gray);
   border: 1px solid var(--directorist-color-border-gray);
 }
@@ -10163,6 +10164,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   position: relative;
   padding: 0;
   width: 100%;
+  max-width: unset;
   height: 40px;
   font-size: 14px;
   font-weight: 400;
@@ -10176,6 +10178,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   outline: none;
   -webkit-box-shadow: 0 0;
           box-shadow: 0 0;
+  border: none;
   border-bottom: 2px solid var(--directorist-color-primary);
 }
 
@@ -11519,8 +11522,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
   position: absolute;
-  right: 6px;
-  top: 6px;
+  right: 5px;
+  top: 5px;
   content: "";
   -webkit-mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);
           mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);

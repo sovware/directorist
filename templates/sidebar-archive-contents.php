@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			?>
 		</div>
 		<div class="listing-with-sidebar__searchform">
-			<div class="directorist-search-contents">
+			<div class="directorist-search-contents directorist-contents-wrap">
 				<?php
 					$listings->basic_search_form_template();
 				?>
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			?>
 		</div>
 		<div class="listing-with-sidebar__sidebar">
-			<div class="directorist-search-contents">
+			<div class="directorist-search-contents directorist-contents-wrap">
 				<?php
 					$listings->advance_search_form_template();
 				?>

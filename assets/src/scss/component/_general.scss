@@ -102,6 +102,11 @@
   }
 }
 
+button[type="submit"] {
+  display: flex;
+  align-items: center;
+}
+
 /* Container within container spacing issue fix */
 .directorist-container-fluid > .directorist-container-fluid {
   padding-left: 0;
@@ -192,7 +197,6 @@
       font-size: 14px;
       overflow-y: auto;
       align-items: center;
-      padding-top: 12px;
       .select2-selection__clear {
         padding-right: 25px;
       }

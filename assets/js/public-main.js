@@ -428,7 +428,7 @@ function initSelect2AjaxFields() {
   });
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-form-location-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
+    url: "".concat(rest_base_url, "/listings/locations")
   }); // Init Select2 Ajax Tag Field
 
   initSelect2AjaxTaxonomy({

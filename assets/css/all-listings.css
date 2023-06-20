@@ -9834,6 +9834,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .listing-with-sidebar__header .directorist-archive-sidebar-toggle--active {
   background: var(--directorist-color-gray);
 }
+.listing-with-sidebar__header .directorist-listings-header {
+  padding: 30px 0;
+}
 .listing-with-sidebar__sidebar {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;

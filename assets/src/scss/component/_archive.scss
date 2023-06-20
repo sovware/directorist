@@ -300,6 +300,9 @@
 				background: var(--directorist-color-gray);
 			}
 		}
+		.directorist-listings-header {
+			padding: 30px 0;
+		}
 	}
 	@include e(sidebar) {
 		display: inline-flex;

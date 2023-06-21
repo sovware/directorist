@@ -10017,6 +10017,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .listing-with-sidebar__listing .directorist-search-modal-advanced {
   display: none;
 }
+.listing-with-sidebar__contents {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 30px;
+}
 
 .logged-in .listing-with-sidebar__sidebar {
   top: 30px;

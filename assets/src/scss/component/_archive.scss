@@ -438,6 +438,10 @@
 			display: none;
 		}
 	}
+	@include e(contents) {
+		display: flex;
+		gap: 30px;
+	}
 }
 .logged-in .listing-with-sidebar__sidebar{
 	top: 30px;

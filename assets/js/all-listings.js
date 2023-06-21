@@ -632,8 +632,13 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
   function closeSidebar() {
-    archiveSidebar.classList.remove('listing-with-sidebar__sidebar--open');
-    archiveSidebarToggle.classList.remove('directorist-archive-sidebar-toggle--active');
+    if (archiveSidebar) {
+      archiveSidebar.classList.remove('listing-with-sidebar__sidebar--open');
+    }
+
+    if (archiveSidebarToggle) {
+      archiveSidebarToggle.classList.remove('directorist-archive-sidebar-toggle--active');
+    }
   } // Event delegation for sidebar toggle and close buttons
 
 

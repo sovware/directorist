@@ -173,7 +173,7 @@ class Directorist_Listing_Taxonomy {
     			$plus_icon = !empty($child_category) ? '<span class="expander">+</span>' : '';
     			$count = 0;
     			if ($this->hide_empty || $this->show_count) {
-    				$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category($term->term_id) : atbdp_listings_count_by_location($term->term_id);
+    				$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category( $term->term_id, $this->current_listing_type ) : atbdp_listings_count_by_location( $term->term_id, $this->current_listing_type );
 
     				if ($this->hide_empty && 0 == $count) continue;
 				}

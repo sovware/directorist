@@ -28,6 +28,7 @@
         border: none;
         border-radius: 0;
         background: transparent;
+        box-sizing: border-box;
         border-bottom: 1px solid var(--directorist-color-border-gray);
         &:focus {
             outline: none;

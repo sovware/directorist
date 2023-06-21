@@ -10172,6 +10172,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
   border: none;
   border-radius: 0;
   background: transparent;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   border-bottom: 1px solid var(--directorist-color-border-gray);
 }
 .directorist-form-group .directorist-form-element:focus {

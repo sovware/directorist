@@ -227,12 +227,6 @@ button[type="submit"] {
     width: calc(100% - 40px);
   }
 }
-.select2-dropdown {
-  @media only screen and (max-width: 575px) {
-    width: 100% !important;
-    left: -20px !important;
-  }
-}
 
 .select2-container .directorist-select2-addons-area {
   right: 0;

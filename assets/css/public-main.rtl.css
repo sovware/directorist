@@ -5924,13 +5924,6 @@ button[type=submit] {
   }
 }
 
-@media only screen and (max-width: 575px) {
-  .select2-dropdown {
-    width: 100% !important;
-    right: -20px !important;
-  }
-}
-
 .select2-container .directorist-select2-addons-area {
   left: 0;
 }

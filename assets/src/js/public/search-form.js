@@ -105,13 +105,13 @@ import { directorist_range_slider } from './range-slider';
         if ($(".directorist-search-form .directorist-btn-reset-js") !== null) {
             $("body").on("click", ".directorist-search-form .directorist-btn-reset-js", function (e) {
                 e.preventDefault();
-                if (this.closest('.directorist-search-contents')) {
-                    const searchForm = this.closest('.directorist-search-contents').querySelector('.directorist-search-form');
+                if (this.closest('.directorist-contents-wrap')) {
+                    const searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
                     if (searchForm) {
                         adsFormReset(searchForm);
                     }
                 }
-                if($(this).closest('.directorist-search-contents').find('.directorist-search-field-radius_search').length){
+                if($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
                 }
             });

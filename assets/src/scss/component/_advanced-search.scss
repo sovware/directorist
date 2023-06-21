@@ -272,6 +272,13 @@
             height: 2px;
             background: var(--directorist-color-border);
         }
+
+        .directorist-form-group:last-child {
+            margin-left: 15px;
+        }
+    }
+    @media (max-width: 480px) {
+        gap: 20px;
     }
     @include e(item){
         flex: 0 0 45%;
@@ -325,10 +332,6 @@
                 color: var(--directorist-color-white);
             }
         }
-    }
-
-    .directorist-form-group:last-child {
-        margin-left: 15px;
     }
 
     .directorist-pf-range{

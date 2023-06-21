@@ -99,6 +99,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         --directorist-color-bg-gray: #f4f4f4;
         --directorist-color-bg-light-gray: #F4F5F6;
         --directorist-color-bg-light: #EDEDED;
+        --directorist-color-placeholder: #6c757d;
 
         /* other color */
         --directorist-color-overlay: rgba(0,0,0,0.5);

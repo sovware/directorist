@@ -882,11 +882,11 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
   $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-    if (frame) {
+   if (frame) {
    frame.open();
    return;
   }
-    // Create a new media frame
+   // Create a new media frame
   frame = wp.media({
    title: directorist_admin.i18n_text.upload_cat_image,
    button: {
@@ -3031,7 +3031,7 @@ function initSelect2AjaxFields() {
   });
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-form-location-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
+    url: "".concat(rest_base_url, "/listings/locations")
   }); // Init Select2 Ajax Tag Field
 
   initSelect2AjaxTaxonomy({

@@ -14,6 +14,22 @@
   }
 }
 
+.directorist-sidebar .directorist-card {
+  margin-bottom: 25px;
+  ul{
+    padding: 25px;
+    margin: 0;
+    list-style: none;
+  }
+  .tagcloud {
+    margin: 0;
+    padding: 25px;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
 // Owner Contact Widget
 .directorist-widget__listing-contact{
   .directorist-form-group {
@@ -62,6 +78,8 @@
 // Directorist widget Listing
 .directorist-widget-listing__single{
   display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
   &:not(:last-child){
     margin-bottom: 25px;
   }
@@ -69,7 +87,6 @@
 .directorist-widget-listing__image{
   width: 70px;
   height: 70px;
-  margin-right: 15px;
   a{
     &:focus{
       outline: none;
@@ -289,13 +306,17 @@
       display: flex;
       align-items: flex-start;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 20px;
       flex-direction: column;
     }
     .directorist-checkbox__label{
+      margin: 0;
       i{
         display: inline-block;
       }
+    }
+    .directorist-checkbox input[type=checkbox] + label:not(:last-child) {
+      margin-bottom: 0;
     }
   }
   .directorist-btn-reset-js{
@@ -311,10 +332,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    &:focus {
+      outline: none;
+    }
   }
   .directorist-advanced-filter__action{
-    justify-content: center;
     padding: 0 0;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 

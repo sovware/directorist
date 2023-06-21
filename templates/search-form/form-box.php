@@ -31,9 +31,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-search-modal__overlay"></div>
 				<div class="directorist-search-adv-filter directorist-advanced-filter directorist-search-modal__contents">
 					<div class="directorist-advanced-filter__wrapper">
-						<button class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close">
-							<?php directorist_icon( 'fas fa-times' ); ?>
-						</button>
 						<span class="directorist-search-modal__minimizer"></span>
 						<div class="directorist-search-modal__contents__body">
 							<?php foreach ( $searchform->form_data[0]['fields'] as $field ){ ?>

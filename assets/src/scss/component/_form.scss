@@ -20,6 +20,7 @@
         position: relative;
         padding: 0;
         width: 100%;
+        max-width: unset;
         height: 40px;
         font-size: 14px;
         font-weight: 400;
@@ -31,6 +32,7 @@
         &:focus {
             outline: none;
             box-shadow: 0 0;
+            border: none;
             border-bottom: 2px solid var(--directorist-color-primary);
         }
     }

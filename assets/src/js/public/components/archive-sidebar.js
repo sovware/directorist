@@ -36,8 +36,12 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     // Attach event listeners
-    archiveSidebarToggle.addEventListener('click', handleSidebarToggleClick);
-    archiveSidebarClose.addEventListener('click', handleSidebarCloseClick);
+    if(archiveSidebarToggle) {
+        archiveSidebarToggle.addEventListener('click', handleSidebarToggleClick);
+    }
+    if(archiveSidebarClose) {
+        archiveSidebarClose.addEventListener('click', handleSidebarCloseClick);
+    }
     body.addEventListener('click', handleOutsideClick);
 
 

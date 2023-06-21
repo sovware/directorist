@@ -217,4 +217,10 @@
     .directorist-search-contents {
         display: flex;
     }
+    .directorist-search-form .directorist-search-form-action {
+        flex-wrap: wrap;
+        .directorist-modal-btn--advanced {
+            padding-left: 0;
+        }
+    }
 }

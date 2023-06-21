@@ -380,7 +380,7 @@ function initSelect2AjaxFields() {
   });
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-form-location-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
+    url: "".concat(rest_base_url, "/listings/locations")
   }); // Init Select2 Ajax Tag Field
 
   initSelect2AjaxTaxonomy({
@@ -1095,15 +1095,15 @@ __webpack_require__.r(__webpack_exports__);
       $("body").on("click", ".directorist-search-form .directorist-btn-reset-js", function (e) {
         e.preventDefault();
 
-        if (this.closest('.directorist-search-contents')) {
-          var searchForm = this.closest('.directorist-search-contents').querySelector('.directorist-search-form');
+        if (this.closest('.directorist-contents-wrap')) {
+          var searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
 
           if (searchForm) {
             adsFormReset(searchForm);
           }
         }
 
-        if ($(this).closest('.directorist-search-contents').find('.directorist-search-field-radius_search').length) {
+        if ($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length) {
           Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])(0);
         }
       });

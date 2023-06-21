@@ -89,6 +89,24 @@
   text-align: center;
 }
 
+.entry-content {
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    text-decoration: none;
+  }
+  .directorist-search-modal__contents__title {
+    margin: 0;
+  }
+}
+
+button[type="submit"] {
+  display: flex;
+  align-items: center;
+}
+
 /* Container within container spacing issue fix */
 .directorist-container-fluid > .directorist-container-fluid {
   padding-left: 0;
@@ -178,7 +196,7 @@
       line-height: 1;
       font-size: 14px;
       overflow-y: auto;
-      padding-top: 12px;
+      align-items: center;
       .select2-selection__clear {
         padding-right: 25px;
       }

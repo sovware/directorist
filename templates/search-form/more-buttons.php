@@ -48,6 +48,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php echo esc_html( $searchform->search_button_text );?>
 
 		</a>
+		<a href="#" class="directorist-search-form-action__modal__btn-advanced directorist-modal-btn directorist-modal-btn--advanced">
+
+			<?php directorist_icon( 'fas fa-sliders-h' ); ?>
+
+		</a>
 	</div>
 
 </div>

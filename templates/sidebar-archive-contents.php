@@ -28,17 +28,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					$listings->header_bar_template();
 				?>
 			</div>
-			<div class="listing-with-sidebar__sidebar">
-				<div class="directorist-search-contents directorist-contents-wrap">
+			<div class="listing-with-sidebar__contents">
+				<div class="listing-with-sidebar__sidebar">
+					<div class="directorist-search-contents directorist-contents-wrap">
+						<?php
+							$listings->advance_search_form_template();
+						?>
+					</div>
+				</div>
+				<div class="listing-with-sidebar__listing">
 					<?php
-						$listings->advance_search_form_template();
+						$listings->archive_view_template();
 					?>
 				</div>
-			</div>
-			<div class="listing-with-sidebar__listing">
-				<?php
-					$listings->archive_view_template();
-				?>
 			</div>
 		</div>
 	</div>

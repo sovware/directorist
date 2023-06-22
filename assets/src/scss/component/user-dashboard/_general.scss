@@ -5,6 +5,7 @@
 
 	@include e(contents) {
 		display: flex;
+		padding-bottom: 10px;
 	}
 
 	@include e(toggle) {

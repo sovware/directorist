@@ -3,10 +3,12 @@
     margin-bottom: 15px;
     align-items: flex-start;
     .directorist-return-back{
-        text-decoration: none;
         gap: 8px;
         margin: 0;
+        flex: unset;
         min-width: 120px;
+        text-decoration: none;
+        justify-content: flex-start;
         .directorist-single-listing-action__text {
             display: block;
         }
@@ -235,6 +237,7 @@
 }
 
 .directorist-single-listing-action {
+    flex: 1;
     gap: 8px;
     justify-content: center;
     font-size: 13px;

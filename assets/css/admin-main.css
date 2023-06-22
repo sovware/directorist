@@ -7678,18 +7678,22 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade {
   padding: 0;
 }
+.directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade > input[name=address],
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade > input[name=address] {
+  padding-left: 10px;
+}
 .directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade:before,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade:before {
   width: 15px;
   height: 15px;
   left: unset;
   right: 0;
-  top: 54px;
+  top: 46px;
 }
 .directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade:after,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade:after {
-  height: 42px;
-  top: 34px;
+  height: 40px;
+  top: 26px;
 }
 .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields {
@@ -8115,7 +8119,7 @@ body.stop-scrolling {
 .directorist-form-image-upload-field .ez-media-uploader {
   text-align: center;
   border-radius: 16px;
-  padding: 35px 0;
+  padding: 35px 10px;
   margin: 0;
   background: var(--directorist-color-bg-gray) !important;
   border: 2px dashed var(--directorist-color-border-gray) !important;
@@ -8797,6 +8801,8 @@ body.stop-scrolling {
   text-decoration: unset;
   color: var(--directorist-color-light-gray);
   background-color: transparent;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }

@@ -1596,7 +1596,7 @@ function atbdp_get_listings_orderby_options($sort_by_items)
  * @since    4.0.0
  *
  */
-function atbdp_get_listings_current_view_name($view)
+function atbdp_get_listings_current_view_name($view, $directory_type)
 {
 
 
@@ -1609,9 +1609,12 @@ function atbdp_get_listings_current_view_name($view)
         array_push($allowed_views, 'listings_with_map');
     }
     if (!in_array($view, $allowed_views)) {
-        $listing_view = get_directorist_option('default_listing_view');
-        $listings_settings = !empty($listing_view) ? $listing_view : 'grid';
-        $view = $listings_settings;
+        $view = get_term_meta($directory_type, 'default_view_type', true);
+        if(empty($view)) {
+            $listing_view = get_directorist_option('default_listing_view');
+            $listings_settings = !empty($listing_view) ? $listing_view : 'grid';
+            $view = $listings_settings;
+        }
     }
 
 

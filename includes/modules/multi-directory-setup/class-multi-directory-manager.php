@@ -4506,6 +4506,25 @@ class Multi_Directory_Manager
                     ],
                 ],
             ] ),
+            'default_view_type' => [
+                'label' => __('Default View Type', 'directorist'),
+                'type'  => 'select',
+                'value' => 'grid',
+                'options' => [
+                    [
+                        'label' => __('Grid', 'directorist'),
+                        'value' => 'grid',
+                    ],
+                    [
+                        'label' => __('List', 'directorist'),
+                        'value' => 'list',
+                    ],
+                    [
+                        'label' => __('Map', 'directorist'),
+                        'value' => 'map',
+                    ],
+                ],
+            ],
 
         ]);
 
@@ -4685,6 +4704,17 @@ class Multi_Directory_Manager
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> '. __( 'Need help?', 'directorist' ) .' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields' => [
                                     'listings_card_list_view'
+                                ],
+                            ],
+                        ],
+                    ],
+                    'settings' => [
+                        'label' => __( 'Settings', 'directorist' ),
+                        'sections' => [
+                            'listings_default_view' => [
+                                'title' => __('Default View', 'directorist'),
+                                'fields' => [
+                                    'default_view_type'
                                 ],
                             ],
                         ],

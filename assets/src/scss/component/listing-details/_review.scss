@@ -817,7 +817,7 @@ Review: New Style
                 background-color: var(--directorist-color-white);
                 border: 2px solid var(--directorist-color-border);
                 &:focus{
-                    border-bottom-color: var(--directorist-color-border);
+                    border: 2px solid var(--directorist-color-border-gray)
                 }
             }
         }

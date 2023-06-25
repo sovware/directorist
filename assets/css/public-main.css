@@ -340,6 +340,10 @@
     padding: 20px;
   }
 }
+.directorist-content-module__contents .directorist-form-description-field .wp-editor-wrap {
+  position: relative;
+  top: -23px;
+}
 .directorist-content-module__contents .directorist-form-description-field .wp-editor-tabs {
   position: relative;
   bottom: -7px;
@@ -3362,8 +3366,12 @@ body.stop-scrolling {
 }
 
 .directorist-custom-field-radio > .directorist-form-label,
-.directorist-custom-field-checkbox > .directorist-form-label {
-  margin-bottom: 10px;
+.directorist-custom-field-checkbox > .directorist-form-label,
+.directorist-form-social-info-field > .directorist-form-label,
+.directorist-form-image-upload-field > .directorist-form-label,
+.directorist-custom-field-file-upload > .directorist-form-label,
+.directorist-form-pricing-field.price-type-both > .directorist-form-label {
+  margin-bottom: 18px;
 }
 
 /* listing type */
@@ -4029,6 +4037,9 @@ body.stop-scrolling {
   color: var(--directorist-color-body);
   margin: 0;
 }
+.directorist-add-listing-form .directorist-form-group textarea {
+  padding: 10px 0;
+}
 .directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape {
   width: 50px;
   height: 50px;
@@ -4681,6 +4692,9 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
@@ -5705,8 +5719,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
   border-radius: 3px;
+  cursor: pointer;
 }
 .directorist-form-group .wp-picker-container .button:hover {
+  color: #fff;
   background: rgba(0, 0, 0, 0.7);
 }
 .directorist-form-group .wp-picker-container .button .wp-color-result-text {
@@ -5741,6 +5757,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   height: 40px;
   padding: 0;
   text-align: center;
+  border: none;
 }
 .directorist-form-group .wp-picker-container .hidden {
   display: none;
@@ -8169,6 +8186,11 @@ p.atbd-min {
           box-shadow: 0 0;
   border: none;
   border-bottom: 2px solid var(--directorist-color-primary);
+}
+.directorist-form-group .directorist-form-description {
+  font-size: 14px;
+  margin-top: 10px;
+  color: var(--directorist-color-deep-gray);
 }
 
 .directorist-form-element.directorist-form-element-lg {
@@ -15144,6 +15166,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+  gap: 0 10px;
   margin: 0;
   list-style-type: none;
   padding: 0;
@@ -16750,7 +16773,7 @@ Review: New Style
   border: 2px solid var(--directorist-color-border);
 }
 .directorist-review-submit__form .form-group-comment textarea:focus {
-  border-bottom-color: var(--directorist-color-border);
+  border: 2px solid var(--directorist-color-border-gray);
 }
 .directorist-review-submit__form .directorist-review-media-upload {
   display: -webkit-box;

@@ -182,9 +182,13 @@
 
 }
 .directorist-custom-field-radio,
-.directorist-custom-field-checkbox {
+.directorist-custom-field-checkbox,
+.directorist-form-social-info-field,
+.directorist-form-image-upload-field,
+.directorist-custom-field-file-upload,
+.directorist-form-pricing-field.price-type-both {
   > .directorist-form-label {
-    margin-bottom: 10px;
+    margin-bottom: 18px;
   }
 }
 
@@ -796,6 +800,11 @@
       color: var(--directorist-color-body);
       margin: 0;
     }
+  }
+
+
+  .directorist-form-group textarea {
+    padding: 10px 0;
   }
 
   .leaflet-pane .leaflet-marker-icon .atbd_map_shape {

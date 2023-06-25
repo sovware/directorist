@@ -9782,7 +9782,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media only screen and (max-width: 575px) {
   .listing-with-sidebar .directorist-search-form__top {
-    display: block;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 10px;
     width: 100%;
     margin: 0;
   }
@@ -9801,6 +9805,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-flex: 0 0 100%;
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
+  margin: 0 0 30px;
 }
 .listing-with-sidebar__type-nav .directorist-type-nav__list {
   gap: 40px;

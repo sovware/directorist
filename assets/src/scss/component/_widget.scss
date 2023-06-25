@@ -85,6 +85,7 @@
 .directorist-widget-listing__single{
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 15px;
   &:not(:last-child){
     margin-bottom: 25px;
@@ -106,10 +107,12 @@
 }
 .directorist-widget-listing__content{
   display: flex;
+  gap: 5px;
   flex-direction: column;
   .directorist-widget-listing__title{
     font-size: 15px;
     font-weight: 500;
+    line-height: 1;
     margin: 0;
     color: var(--directorist-color-dark);
     margin: 0;
@@ -129,7 +132,6 @@
   .directorist-widget-listing__meta{
     display: flex;
     align-items: center;
-    margin-top: 2px;
   }
   .directorist-widget-listing__rating{
     display: flex;

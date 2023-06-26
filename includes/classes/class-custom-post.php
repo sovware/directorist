@@ -383,8 +383,10 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					break;
 
 				case 'atbdp_status':
-					$status = get_post_meta( $post_id, '_listing_status', true );
-					$status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
+					// TODO: Status has been migrated, remove related code.
+					// $status = get_post_meta( $post_id, '_listing_status', true );
+					// $status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
+					$status = get_post_status( $post_id );
 					echo esc_html( ucfirst( $status ) );
 					break;
 

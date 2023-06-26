@@ -121,7 +121,7 @@ class SetupWizard
                 'error' => esc_html__( 'Invalid nonce!', 'directorist' ),
             ) );
         }
-        
+
         $data               = array();
         $imported           = 0;
         $failed             = 0;
@@ -208,7 +208,9 @@ class SetupWizard
                 $exp_dt = calc_listing_expiry_date();
                 update_post_meta($post_id, '_expiry_date', $exp_dt);
                 update_post_meta($post_id, '_featured', 0);
-                update_post_meta($post_id, '_listing_status', 'post_status');
+
+				// TODO: Status has been migrated, remove related code.
+                // update_post_meta($post_id, '_listing_status', 'post_status');
                 $preview_url = isset($post['listing_prv_img']) ? $post['listing_prv_img'] : '';
 
                 if ( $preview_image && $preview_url ) {
@@ -545,7 +547,7 @@ class SetupWizard
         }
 
         update_option('atbdp_option', $atbdp_option);
-        
+
         /**
         * @since 7.3.0
         */

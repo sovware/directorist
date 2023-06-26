@@ -214,7 +214,9 @@
                     $exp_dt = calc_listing_expiry_date( '', '', $directory_type );
                     update_post_meta( $post_id, '_expiry_date', $exp_dt );
                     update_post_meta( $post_id, '_featured', 0 );
-                    update_post_meta( $post_id, '_listing_status', 'post_status' );
+
+					// TODO: Status has been migrated, remove related code.
+                    // update_post_meta( $post_id, '_listing_status', 'post_status' );
 
                     if ( ! empty( $post['directory_type'] ) ) {
                         $directory_type_slug = $post['directory_type'];

@@ -444,14 +444,18 @@
         /**
          * It adds a submenu for showing all the Tools and details support
          */
-        public function add_tools_submenu()
-        {
-            add_submenu_page(null,
-            __('Tools', 'directorist'),
-            __('Tools', 'directorist'),
-            'manage_options',
-            'tools',
-            array($this, 'render_tools_submenu_page'));
+        public function add_tools_submenu() {
+			add_submenu_page(
+				'edit.php?post_type=at_biz_dir',
+				__( 'Tools', 'directorist' ),
+				__( 'Tools', 'directorist' ),
+				'manage_options',
+				'tools',
+				array( $this, 'render_tools_submenu_page' )
+			);
+
+			// Remove to remove the menu item.
+			remove_submenu_page( 'edit.php?post_type=at_biz_dir', 'tools' );
         }
 
         public function get_data_table( $file_path, $delimiter = ',' ){

@@ -45,10 +45,24 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 				array(
 					'label'       => _x( 'Expired', 'post status', 'directorist' ),
 					'protected'   => true,
-					/* translators: %s: Number of private posts. */
+					/* translators: %s: Number of expired listings. */
 					'label_count' => _n_noop(
 						'Expired <span class="count">(%s)</span>',
 						'Expired <span class="count">(%s)</span>',
+						'directorist'
+					),
+				)
+			);
+
+			register_post_status(
+				'renewal',
+				array(
+					'label'       => _x( 'Renewal', 'post status', 'directorist' ),
+					'protected'   => true,
+					/* translators: %s: Number of renewal listings. */
+					'label_count' => _n_noop(
+						'Renewal <span class="count">(%s)</span>',
+						'Renewal <span class="count">(%s)</span>',
 						'directorist'
 					),
 				)

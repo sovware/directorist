@@ -32,9 +32,9 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 
 		// update_atbdp_schedule_tasks
 		function update_atbdp_schedule_tasks( $post_id, $post ) {
-			
+
 			if ( ! is_admin() || ATBDP_POST_TYPE !== get_post_type( $post_id ) ) {
-				return; 
+				return;
 			}
 
 			$this->atbdp_schedule_tasks();
@@ -209,9 +209,19 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 				$listings = new WP_Query( $args ); // get all the post that has post_status only and update their status and fire an email
 				if ( $listings->found_posts ) {
 					foreach ( $listings->posts as $listing ) {
-						update_post_meta( $listing->ID, '_listing_status', 'renewal' );
+						// TODO: Status has been migrated, remove related code.
+						// update_post_meta( $listing->ID, '_listing_status', 'renewal' );
+						$renewal_listing_id = wp_update_post( array(
+							'ID'          => $listing->ID,
+							'post_status' => 'renewal',
+						) );
+
+						if ( is_wp_error( $renewal_listing_id ) ) {
+							continue;
+						}
+
 						// hook for dev.
-						do_action( 'atbdp_status_updated_to_renewal', $listing->ID );
+						do_action( 'atbdp_status_updated_to_renewal', $renewal_listing_id );
 					}
 				}
 			}

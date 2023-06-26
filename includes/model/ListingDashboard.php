@@ -551,7 +551,7 @@ class Directorist_Listing_Dashboard {
 		// 	}
 		// }
 
-		if ( get_post_status( get_the_ID() ) === 'expired' || get_post_meta( get_the_ID(), '_listing_status', true ) === 'renewal' ) {
+		if ( in_array( get_post_status( get_the_ID() ), array( 'expired', 'renewal' ), true ) ) {
 			return (bool) get_directorist_option( 'can_renew_listing' );
 		}
 
@@ -573,7 +573,7 @@ class Directorist_Listing_Dashboard {
 		// 	return true;
 		// }
 
-		if ( get_post_status( get_the_ID() ) === 'expired' || get_post_meta( get_the_ID(), '_listing_status', true ) === 'renewal' ) {
+		if ( in_array( get_post_status( get_the_ID() ), array( 'expired', 'renewal' ), true ) ) {
 			return false;
 		}
 

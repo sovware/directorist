@@ -102,13 +102,10 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 				$args = array(
 					'post_type'      => ATBDP_POST_TYPE,
 					'posts_per_page' => -1,
-					'post_status'    => 'public',
+					'post_status'    => 'publish',
+					'cache_results'  => false,
+					'nopaging'       => true,
 					'meta_query'     => array(
-						'relation' => 'AND',
-						array(
-							'key'   => '_listing_status',
-							'value' => 'post_status',
-						),
 						array(
 							'key'   => '_featured',
 							'value' => 1,
@@ -138,7 +135,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 			$args = array(
 				'post_type'      => ATBDP_ORDER_POST_TYPE,
 				'posts_per_page' => 1,
-				'post_status'    => 'public',
+				'post_status'    => 'publish',
 				'meta_query'     => array(
 					'relation' => 'AND',
 					array(
@@ -178,12 +175,10 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					'post_type'      => ATBDP_POST_TYPE,
 					'posts_per_page' => -1,
 					'post_status'    => 'publish',
+					'cache_results'  => false,
+					'nopaging'       => true,
 					'meta_query'     => array(
 						'relation'   => 'AND',
-						array(
-							'key'   => '_listing_status',
-							'value' => 'post_status',
-						),
 						array(
 							'key'     => '_expiry_date',
 							'value'   => $renew_email_threshold_date,
@@ -246,6 +241,8 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 			$args = array(
 				'post_type'      => ATBDP_POST_TYPE,
 				'posts_per_page' => -1,
+				'cache_results'  => false,
+				'nopaging'       => true,
 				'post_status'    => 'publish', // get expired post with published status
 				'meta_query'     => array(
 					'relation'   => 'AND',
@@ -274,29 +271,34 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 			if ( $listings->found_posts ) {
 				foreach ( $listings->posts as $listing ) {
 					// prepare the post meta data
-					$metas = array(
-						'_listing_status'        => 'expired',
+					$meta_input = array(
+						// TODO: Status has been migrated, remove related code.
+						// '_listing_status'        => 'expired',
 						'_featured'              => 0,
 						'_renewal_reminder_sent' => 0,
 					);
+
 					// delete expired listings?
 					if ( $del_exp_l ) {
 						// if deletion threshold is set then add deletion date
 						if ( $delete_threshold > 0 ) {
-							$metas['_deletion_date'] = date( 'Y-m-d H:i:s', strtotime( '+' . $delete_threshold . ' days' ) );
+							$meta_input['_deletion_date'] = date( 'Y-m-d H:i:s', strtotime( '+' . $delete_threshold . ' days' ) );
 						} else {
-							$metas['_deletion_date'] = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
+							$meta_input['_deletion_date'] = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
 						}
 					}
-					wp_update_post(
-						array(
-							'ID'          => $listing->ID,
-							'post_status' => 'private',      // update the status to private so that we do not run this func a second time
-							'meta_input'  => $metas,         // insert all meta data once to reduce update meta query
-						)
-					);
-					// Hook for developers
-					do_action( 'atbdp_listing_expired', $listing->ID );
+
+					$expired_listing_id = wp_update_post( array(
+						'ID'          => $listing->ID,
+						'post_status' => 'expired',
+						'meta_input'  => $meta_input,
+					) );
+
+					if ( is_wp_error( $expired_listing_id ) ) {
+						continue;
+					}
+
+					do_action( 'atbdp_listing_expired', $expired_listing_id );
 				}
 			}
 		}
@@ -308,50 +310,89 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		 * @access   private
 		 */
 		private function update_expired_listing_status() {
-			// Define the query
-			$args                         = array(
+			// TODO: Status has been migrated, remove related code.
+			// // Define the query
+			// $args                         = array(
+			// 	'post_type'      => ATBDP_POST_TYPE,
+			// 	'posts_per_page' => -1,
+			// 	'post_status'    => 'publish', // get expired post with published status
+			// );
+			// 	$meta                     = array();
+			// 	$meta['renewed_by_admin'] = array(
+			// 		'relation' => 'OR',
+			// 		array(
+			// 			'key'     => '_expiry_date',
+			// 			'value'   => current_time( 'mysql' ),
+			// 			'compare' => '>',                     // eg. expire date 6 <= current date 7 will return the post
+			// 			'type'    => 'DATETIME',
+			// 		),
+			// 		array(
+			// 			'key'   => '_never_expire',
+			// 			'value' => 1,
+			// 		),
+			// 	);
+			// 		$meta['get_expired']  = array(
+			// 			'key'     => '_listing_status',
+			// 			'value'   => 'expired',
+			// 			'compare' => '=',
+			// 		);
+
+			// 		$args['meta_query'] = array_merge( array( 'relation' => 'AND' ), $meta );
+			// 		$listings           = new WP_Query( $args );
+			// 		if ( $listings->found_posts ) {
+			// 			foreach ( $listings->posts as $listing ) {
+			// 				// prepare the post meta data
+			// 				$metas = array(
+			// 					'_listing_status'        => 'post_status',
+			// 					'_renewal_reminder_sent' => 0,
+			// 				);
+			// 				wp_update_post(
+			// 					array(
+			// 						'ID'          => $listing->ID,
+			// 						'post_status' => 'publish',      // update the status to private so that we do not run this func a second time
+			// 						'meta_input'  => $metas,         // insert all meta data once to reduce update meta query
+			// 					)
+			// 				);
+			// 			}
+			// 		}
+
+			$args = array(
 				'post_type'      => ATBDP_POST_TYPE,
 				'posts_per_page' => -1,
-				'post_status'    => 'publish', // get expired post with published status
+				'post_status'    => 'expired',
+				'cache_results'  => false,
+				'nopaging'       => true,
+				'meta_query' => array(
+					'relation' => 'AND',
+					'renewed_by_admin' => array(
+						'relation' => 'OR',
+						array(
+							'key'     => '_expiry_date',
+							'value'   => current_time( 'mysql' ),
+							'compare' => '>',                     // eg. expire date 6 <= current date 7 will return the post
+							'type'    => 'DATETIME',
+						),
+						array(
+							'key'   => '_never_expire',
+							'value' => 1,
+						),
+					)
+				)
 			);
-				$meta                     = array();
-				$meta['renewed_by_admin'] = array(
-					'relation' => 'OR',
-					array(
-						'key'     => '_expiry_date',
-						'value'   => current_time( 'mysql' ),
-						'compare' => '>',                     // eg. expire date 6 <= current date 7 will return the post
-						'type'    => 'DATETIME',
-					),
-					array(
-						'key'   => '_never_expire',
-						'value' => 1,
-					),
-				);
-					$meta['get_expired']  = array(
-						'key'     => '_listing_status',
-						'value'   => 'expired',
-						'compare' => '=',
-					);
 
-					$args['meta_query'] = array_merge( array( 'relation' => 'AND' ), $meta );
-					$listings           = new WP_Query( $args );
-					if ( $listings->found_posts ) {
-						foreach ( $listings->posts as $listing ) {
-							// prepare the post meta data
-							$metas = array(
-								'_listing_status'        => 'post_status',
-								'_renewal_reminder_sent' => 0,
-							);
-							wp_update_post(
-								array(
-									'ID'          => $listing->ID,
-									'post_status' => 'publish',      // update the status to private so that we do not run this func a second time
-									'meta_input'  => $metas,         // insert all meta data once to reduce update meta query
-								)
-							);
-						}
-					}
+			$listings = new WP_Query( $args );
+
+			if ( $listings->found_posts ) {
+				foreach ( $listings->posts as $listing ) {
+					wp_update_post( array(
+						'ID'          => $listing->ID,
+						'post_status' => 'publish',
+						'meta_input'  => array(
+							'_renewal_reminder_sent' => 0,
+						),
+					) );
+				}
+			}
 		}
 
 		/**
@@ -369,13 +410,16 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 				$args = array(
 					'post_type'      => ATBDP_POST_TYPE,
 					'posts_per_page' => -1,
-					'post_status'    => 'private',
+					'cache_results'  => false,
+					'nopaging'       => true,
+					'post_status'    => 'expired',
 					'meta_query'     => array(
 						'relation'   => 'AND',
-						array(
-							'key'   => '_listing_status',
-							'value' => 'expired',
-						),
+						// TODO: Status has been migrated, remove related code.
+						// array(
+						// 	'key'   => '_listing_status',
+						// 	'value' => 'expired',
+						// ),
 						array(
 							'key'   => '_renewal_reminder_sent',
 							'value' => 0,
@@ -433,13 +477,16 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 			$args = array(
 				'post_type'      => ATBDP_POST_TYPE,
 				'posts_per_page' => -1,
-				'post_status'    => 'private',
+				'cache_results'  => false,
+				'nopaging'       => true,
+				'post_status'    => 'expired',
 				'meta_query'     => array(
 					'relation'   => 'AND',
-					array(
-						'key'   => '_listing_status',
-						'value' => 'expired',
-					),
+					// TODO: Status has been migrated, remove related code.
+					// array(
+					// 	'key'   => '_listing_status',
+					// 	'value' => 'expired',
+					// ),
 					array(
 						'key'     => '_deletion_date',
 						'value'   => current_time( 'mysql' ),

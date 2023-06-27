@@ -137,7 +137,7 @@ function directorist_710_update_db_version() {
 	\ATBDP_Installation::update_db_version( '7.1.0' );
 }
 
-function directorist_754_migrate_listings_status_meta_to_post_status( $updater ) {
+function directorist_770_migrate_expired_meta_to_expired_status( $updater ) {
 	$listings = new \WP_Query( array(
 		'post_status'    => 'private',
 		'post_type'      => ATBDP_POST_TYPE,
@@ -161,7 +161,31 @@ function directorist_754_migrate_listings_status_meta_to_post_status( $updater )
 	return $listings->have_posts();
 }
 
-function directorist_754_clean_listing_status_meta() {
+function directorist_770_migrate_renewal_meta_to_renewal_status( $updater ) {
+	$listings = new \WP_Query( array(
+		'post_status'    => array( 'private', 'publish', 'draft', 'auto-draft', 'pending' ),
+		'post_type'      => ATBDP_POST_TYPE,
+		'posts_per_page' => 10,
+		'cache_results'  => false,
+		'nopaging'       => true,
+		'meta_key'       => '_listing_status',
+		'meta_value'     => 'renewal',
+	) );
+
+	while ( $listings->have_posts() ) {
+		$listings->the_post();
+
+		wp_update_post( array(
+			'ID'          => get_the_ID(),
+			'post_status' => 'renewal',
+		) );
+	}
+	wp_reset_postdata();
+
+	return $listings->have_posts();
+}
+
+function directorist_770_clean_listing_status_expired_meta() {
 	global $wpdb;
 
 	$table_name = $wpdb->prefix . 'postmeta';
@@ -177,6 +201,22 @@ function directorist_754_clean_listing_status_meta() {
 	);
 }
 
-function directorist_754_update_db_version() {
-	\ATBDP_Installation::update_db_version( '7.5.4' );
+function directorist_770_clean_listing_status_renewal_meta() {
+	global $wpdb;
+
+	$table_name = $wpdb->prefix . 'postmeta';
+	$meta_key = '_listing_status';
+	$meta_value = 'renewal';
+
+	$wpdb->query(
+		$wpdb->prepare(
+			"DELETE FROM $table_name WHERE meta_key = %s AND meta_value = %s",
+			$meta_key,
+			$meta_value
+		)
+	);
+}
+
+function directorist_770_update_db_version() {
+	\ATBDP_Installation::update_db_version( '7.7.0' );
 }

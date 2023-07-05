@@ -127,7 +127,7 @@ class Multi_Directory_Manager
             'hide_empty' => false,
         ));
 
-        $directory_type = isset( $_GET['listing_type_id'] ) ? (int) sanitize_text_field( wp_unslash( $_GET['listing_type_id'] ) ) : '';
+        $directory_type = isset( $_GET['listing_type_id'] ) ? absint( $_GET['listing_type_id'] ) : '';
         $options = [];
 
         if ( is_wp_error( $terms ) ) { return $options; }

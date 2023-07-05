@@ -356,20 +356,13 @@ class Listings_Exporter {
 
     // get_term_names
     public static function get_term_names( $post_id = 0, $taxonomy = '' ) {
-        // $term_names = [];
-        $term_name = '';
         $terms = get_the_terms( $post_id, $taxonomy );
-
-        if ( ! empty( $terms ) ) {
-            $term_name = $terms[0]->name;
-            // foreach ( $terms as $term ) {
-            //     array_push( $term_names, $term->name );
-            // }
+    
+        if ( is_wp_error( $terms ) || empty( $terms ) ) {
+            return '';
         }
-
-        // $term_names = ( ! empty( $term_names ) ) ? join( ',', $term_names ) : '';
-
-        return $term_name;
+        
+        return join( ',', wp_list_pluck( $terms, 'name' ) );
     }
 
 }

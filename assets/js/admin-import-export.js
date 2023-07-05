@@ -116,7 +116,7 @@ jQuery(document).ready(function ($) {
   });
 
   function admin_listing_form(directory_type) {
-    var file = query_string.file;
+    var file_id = query_string.file_id;
     var delimiter = query_string.delimiter;
     $.ajax({
       type: 'post',
@@ -126,7 +126,7 @@ jQuery(document).ready(function ($) {
         directory_type: directory_type,
         delimiter: delimiter,
         directorist_nonce: directorist_admin.directorist_nonce,
-        file: file
+        file_id: file_id
       },
       beforeSend: function beforeSend() {
         $('#directorist-type-preloader').show();

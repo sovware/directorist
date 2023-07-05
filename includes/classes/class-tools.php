@@ -43,10 +43,12 @@
             }
 
             $term_id = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_type'] ) ) : '';
-            $file    = ! empty( $_POST['csv_file'] ) ? directorist_clean( wp_unslash( $_POST['csv_file'] ) ) : '';
+            $file    = ! empty( $_POST['file_id'] ) ? get_attached_file( directorist_clean( wp_unslash( $_POST['file_id'] ) ) ) : '';
 
-            if ( empty( $file ) && isset( $_POST['file'] ) ) {
-                $file = directorist_clean( wp_unslash( $_POST['file'] ) );
+            if( ! $file ) {
+                wp_send_json( array(
+					'error' => esc_html__( 'Invalid file!', 'directorist' ),
+				) );
             }
 
             $delimiter = ! empty( $_POST['delimiter'] ) ? directorist_clean( wp_unslash( $_POST['delimiter'] ) ) : '';

@@ -57,7 +57,7 @@
 
             ob_start();
 
-            ATBDP()->load_template( 'admin-templates/import-export/data-table', array( 'data' => csv_get_data( $file, false, $delimiter ), 'fields' => $this->importable_fields ) );
+            ATBDP()->load_template( 'admin-templates/import-export/data-table', array( 'data' => csv_get_data( $file, false, $delimiter ), 'fields' => $this->importable_fields, 'csv_file' => $file ) );
 
             $response = ob_get_clean();
 

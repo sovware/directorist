@@ -121,7 +121,7 @@ class SetupWizard
                 'error' => esc_html__( 'Invalid nonce!', 'directorist' ),
             ) );
         }
-        
+
         $data               = array();
         $imported           = 0;
         $failed             = 0;
@@ -144,22 +144,52 @@ class SetupWizard
         ]);
         $directory_id = !empty( $listing_types[0] ) ? $listing_types[0]->term_id : '';
         $directory_slug = !empty( $listing_types[0] ) ? $listing_types[0]->slug : '';
-        foreach ($posts as $index => $post) {
-                if ($count === $limit ) break;
+
+		$allowed_meta_data_keys = array(
+			'tagline',
+			'price',
+			'price_range',
+			'atbdp_post_views_count',
+			'hide_contact_owner',
+			'address',
+			'manual_lat',
+			'manual_lng',
+			'hide_map',
+			'zip',
+			'phone',
+			'phone2',
+			'fax',
+			'email',
+			'website',
+			'videourl',
+			'excerpt'
+		);
+
+        foreach ( $posts as $index => $post ) {
+                if ( $count === $limit ) {
+					break;
+				}
+
                 // start importing listings
                 $args = array(
-                    "post_title"   => isset($post['name']) ? $post['name'] : '',
-                    "post_content" => isset($post['details']) ? $post['details'] : '',
-                    "post_type"    => 'at_biz_dir',
-                    "post_status"  => 'publish',
+                    'post_title'   => isset( $post['Title'] ) ? $post['Title'] : '',
+                    'post_content' => isset( $post['Description'] ) ? $post['Description'] : '',
+                    'post_type'    => 'at_biz_dir',
+                    'post_status'  => 'publish',
                 );
-                $post_id = wp_insert_post($args);
-                if (!is_wp_error($post_id)) {
-                    $imported++;
-                } else {
-                    $failed++;
+
+                $post_id = wp_insert_post( $args );
+
+				// No need to process further since it's a failed insertion.
+                if ( is_wp_error( $post_id ) ) {
+					$failed++;
+					continue;
                 }
+
+				$imported++;
+
                 foreach($post as $key => $value){
+                    $key = directorist_translate_to_listing_field_key( $key );
                     if ('category' == $key) {
                         $taxonomy = ATBDP_CATEGORY;
                         $term_exists = get_term_by( 'name', $value, $taxonomy );
@@ -199,17 +229,17 @@ class SetupWizard
                             wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
                         }
                     }
-                    $skipped = array('name', 'details', 'category', 'location', 'tag', 'listing_prv_img');
 
-                    if(!in_array( $key, $skipped )){
-                        update_post_meta( $post_id, '_'.$key, $value );
+                    if ( in_array( $key, $allowed_meta_data_keys, true ) && $value !== '' ) {
+                        update_post_meta( $post_id, '_' . $key, $value );
                     }
                 }
+
                 $exp_dt = calc_listing_expiry_date();
                 update_post_meta($post_id, '_expiry_date', $exp_dt);
                 update_post_meta($post_id, '_featured', 0);
                 update_post_meta($post_id, '_listing_status', 'post_status');
-                $preview_url = isset($post['listing_prv_img']) ? $post['listing_prv_img'] : '';
+                $preview_url = isset($post['Image']) ? $post['Image'] : '';
 
                 if ( $preview_image && $preview_url ) {
                    $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($preview_url, $post_id);
@@ -252,9 +282,16 @@ class SetupWizard
     /**
      * Add admin menus/screens.
      */
-    public function admin_menus()
-    {
-        add_submenu_page(null, '', '', 'manage_options', 'directorist-setup', '');
+    public function admin_menus() {
+		add_menu_page(
+			__( 'Directorist Setup Wizard', 'directorist' ),
+			__( 'Setup', 'directorist' ),
+			'manage_options',
+			'directorist-setup'
+		);
+
+		// Remove to remove the menu item only, page will just work fine.
+		remove_menu_page( 'directorist-setup' );
     }
 
     /**
@@ -545,7 +582,7 @@ class SetupWizard
         }
 
         update_option('atbdp_option', $atbdp_option);
-        
+
         /**
         * @since 7.3.0
         */
@@ -674,7 +711,7 @@ class SetupWizard
 
     public function directorist_step_three()
     {
-        $dummy_csv = ATBDP_URL . 'views/admin-templates/import-export/data/dummy.csv';
+        $dummy_csv = ATBDP_DIR . 'views/admin-templates/import-export/data/dummy.csv';
     ?>
         <div class="atbdp-c-header">
             <h1><?php esc_html_e( 'Import Dummy Data', 'directorist' ); ?></h1>

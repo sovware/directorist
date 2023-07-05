@@ -127,17 +127,24 @@ class Multi_Directory_Manager
             'hide_empty' => false,
         ));
 
+        $directory_type = isset( $_GET['listing_type_id'] ) ? (int) sanitize_text_field( wp_unslash( $_GET['listing_type_id'] ) ) : '';
+
         $options = [];
 
         if ( is_wp_error( $terms ) ) { return $options; }
         if ( ! count( $terms ) ) { return $options; }
 
         foreach( $terms as $term ) {
-            $options[] = [
-                'id'    => $term->term_id,
-                'value' => $term->term_id,
-                'label' => $term->name,
-            ];
+            $term_directory_types  = get_term_meta( $term->term_id, '_directory_type', true );
+
+            if( in_array( $directory_type, $term_directory_types, true ) ) {
+                $options[] = [
+                    'id'    => $term->term_id,
+                    'value' => $term->term_id,
+                    'label' => $term->name,
+                ];
+            }
+
         }
 
         return $options;

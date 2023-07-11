@@ -299,6 +299,7 @@ class Listings_Exporter {
     public static function updateMetaKeyFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
         $value = get_post_meta( get_the_id(), '_' . $field_args['field_key'], true );
         // $row[ $field_args['field_key'] ] = ( is_string( $value ) ) ? str_replace( '"', '""', $value ) : $value;
+        $row[ 'publish_date' ] = get_the_date( 'Y-m-d H:i:s', get_the_ID() );
         $row[ $field_args['field_key'] ] = $value;
 
         return $row;

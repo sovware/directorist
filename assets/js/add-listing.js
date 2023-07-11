@@ -1191,6 +1191,8 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
 
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
     var directory_type_id = 0;
+    var createNew = item.getAttribute("data-allow_new");
+    var maxLength = item.getAttribute("data-max");
 
     if (terms_options.has_directory_type) {
       var search_form_parent = $(item).closest('.directorist-search-form');
@@ -1225,6 +1227,8 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
     var currentPage = 1;
     $(item).select2({
       allowClear: true,
+      tags: createNew,
+      maximumSelectionLength: maxLength,
       width: '100%',
       escapeMarkup: function escapeMarkup(text) {
         return text;

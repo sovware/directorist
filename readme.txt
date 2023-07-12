@@ -428,7 +428,6 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix - PHP 8 Deprecated Notices
 * Fix - inlineEditPost JS Console Error 
 
-
 7.5.5 - Jun 01, 2023
 
 * Fix - Security issues ( Password recovery and listing deletion )

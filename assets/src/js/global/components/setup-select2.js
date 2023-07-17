@@ -131,6 +131,9 @@ function initSelect2AjaxTaxonomy( args, terms_options ) {
     [ ...args.selector ].forEach( ( item, index ) => {
         let directory_type_id = 0;
 
+        let createNew = item.getAttribute("data-allow_new");
+        let maxLength = item.getAttribute("data-max");
+
         if ( terms_options.has_directory_type ) {
             const search_form_parent            = $( item ).closest( '.directorist-search-form' );
             const archive_page_parent           = $( item ).closest( '.directorist-archive-contents' );
@@ -167,6 +170,8 @@ function initSelect2AjaxTaxonomy( args, terms_options ) {
 
         $( item ).select2({
             allowClear: true,
+            tags: createNew,
+            maximumSelectionLength: maxLength,
             width: '100%',
             escapeMarkup: function (text) {
                 return text;

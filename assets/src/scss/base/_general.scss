@@ -95,6 +95,10 @@
             padding: 20px;
         }
         .directorist-form-description-field {
+            .wp-editor-wrap {
+                position: relative;
+                top: -23px;
+            }
             .wp-editor-tabs {
                 position: relative;
                 bottom: -7px;

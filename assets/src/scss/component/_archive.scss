@@ -191,9 +191,6 @@
 	.directorist-archive-items {
 		display: flex;
 		flex-direction: column;
-		@media screen and (max-width: 575px) {
-            padding-top: 30px;
-        }
 	}
 }
 
@@ -244,8 +241,13 @@
 	}
 	@media only screen and (max-width: 575px){
 		.directorist-search-form__top{
-			display: block;
+			display: flex;
+			gap: 10px;
 			width: 100%;
+			margin: 0;
+		}
+		.directorist-search-form-action__submit {
+			display: block;
 		}
 		.listing-with-sidebar__header .directorist-header-bar{
 			display: flex;
@@ -253,6 +255,7 @@
 	}
 	@include e('type-nav') {
 		flex: 0 0 100%;
+		margin: 0 0 30px;
 		.directorist-type-nav__list {
 			gap: 40px;
 		}
@@ -270,7 +273,6 @@
 		.directorist-search-contents {
 			padding: 0;
 		}
-
 	}
 	@include e(header) {
 		flex: 0 0 100%;
@@ -312,6 +314,11 @@
 		.directorist-advanced-filter__close{
 			display: none;
 		}
+
+		@media screen and (max-width: 1199px) {
+			max-width: 275px;
+		}
+		
 		@media only screen and (max-width: 991px) {
 			position: fixed;
 			left: -360px;

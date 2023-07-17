@@ -45,12 +45,6 @@ $mobile-width-3: 375px;
 
 // XX. Medium Devices (less than 768px)
 @media only screen and (max-width: #{$tablet-width-2}) {
-    .directorist-search-form__box {
-        flex-direction: column;
-    }
-    .directorist-search-form__top .directorist-search-field {
-        flex: 44%;
-    }
 
     .directorist-all-listing-col {
         width: 50% !important;
@@ -65,10 +59,6 @@ $mobile-width-3: 375px;
 
 // XX. Medium Devices (less than 576px)
 @media only screen and (max-width: #{$mobile-width-1}) {
-    .directorist-search-form__top .directorist-search-field {
-        flex: 100%;
-        border: none !important;
-    }
 
     .directorist-all-listing-col {
         width: 100% !important;
@@ -97,12 +87,6 @@ $mobile-width-3: 375px;
 
 // XX. Small Devices (less than 480px)
 @media only screen and (max-width: #{$mobile-width-2}) {
-    .directorist-content-active .directorist-type-nav__list li {
-        a {
-            padding: 0 0 15px 0;
-        }
-    }
-
     .directorist-user-dashboard-tab .directorist-user-dashboard-search {
         margin-left: 0;
         margin-top: 30px;

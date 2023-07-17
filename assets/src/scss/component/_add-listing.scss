@@ -64,13 +64,58 @@
   display: flex;
 }
 
+.directorist-add-listing-form {
+  .directorist-content-module {
+    box-shadow: var(--directorist-box-shadow);
+    @include e(title) {
+      i {
+        background-color: var(--directorist-color-primary);
+        &:after {
+          background-color: var(--directorist-color-white);
+        }
+      }
+    }
+
+    /* social info */
+    .directorist-form-social-fields {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 0 0 25px;
+      &:last-child {
+        margin: 0 0 40px;
+      }
+      @media screen and (max-width: 575px) {
+        flex-direction: column;
+      }
+
+      .directorist-form-group {
+        flex: 1;
+        margin: 0;
+        @media screen and (max-width: 575px) {
+          width: 100%;
+        }
+        &.directorist-form-social-fields__action {
+          flex: unset;
+        }
+      }
+    }
+  }
+  .directorist-alert-required {
+    display: block;
+    margin-top: 5px;
+    color: #e80000;
+    font-size: 13px;
+  }
+}
+
 .directorist-add-listing-form,
 #directiost-listing-fields_wrapper {
   .directorist-content-module {
     border: none;
     margin-bottom: 35px;
     border-radius: 16px;
-    box-shadow: var(--directorist-box-shadow);
     @include e(title) {
       gap: 15px;
       justify-content: flex-start;
@@ -81,11 +126,9 @@
         width: 36px;
         height: 36px;
         border-radius: 100%;
-        background-color: var(--directorist-color-primary);
         &:after {
           width: 16px;
           height: 16px;
-          background-color: var(--directorist-color-white);
         }
       }
     }
@@ -161,11 +204,165 @@
       }
     }
   }
-  .directorist-alert-required {
+}
+
+// Admin Add Listing
+#directiost-listing-fields_wrapper .directorist-content-module {
+  background: #fff;
+  border-radius: 0;
+  border: 1px solid #e3e6ef;
+  @include e(title) {
+    padding: 20px 30px;
+    border-bottom: 1px solid #e3e6ef;
+    i {
+      background-color: #000;
+      &:after {
+        background-color: #fff;
+      }
+    }
+  }
+
+  .directorist-form-social-fields {
+    margin: 0 0 15px;
+    @include e("remove") {
+      background: #ededed !important;
+      i::after {
+        background-color: #808080;
+      }
+      &:hover {
+        background: #000 !important;
+        i::after {
+          background-color: #fff;
+        }
+      }
+    }
+  }
+
+  .directorist-content-module__contents {
+    padding: 30px;
+  }
+
+  .directorist-form-group {
+    .directorist-form-label {
+      margin-bottom: 10px;
+    }
+    .directorist-form-element {
+      position: relative;
+      height: 42px;
+      padding: 15px 20px;
+      font-size: 14px;
+      font-weight: 400;
+      border-radius: 5px;
+      width: 100%;
+      border: 1px solid #ececec;
+      box-sizing: border-box;
+      margin-bottom: 0;
+    }
+  }
+  .directorist-form-social-fields select.directorist-form-element,
+  .directorist-custom-field-select select.directorist-form-element,
+  .directorist-form-group .directorist-form-element.directory_pricing_field {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after, 
+  .directorist-checkbox input[type=checkbox] + .directorist-radio__label:after, 
+  .directorist-checkbox input[type=radio] + .directorist-checkbox__label:after, 
+  .directorist-checkbox input[type=radio] + .directorist-radio__label:after, 
+  .directorist-radio input[type=checkbox] + .directorist-checkbox__label:after, 
+  .directorist-radio input[type=checkbox] + .directorist-radio__label:after, 
+  .directorist-radio input[type=radio] + .directorist-checkbox__label:after, 
+  .directorist-radio input[type=radio] + .directorist-radio__label:after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    content: "";
+    border: 1px solid #C6D0DC;
+    background-color: #fff;
+  }
+  .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after, 
+  .directorist-checkbox input[type=checkbox]:checked + .directorist-radio__label:after, 
+  .directorist-checkbox input[type=radio]:checked + .directorist-checkbox__label:after, 
+  .directorist-checkbox input[type=radio]:checked + .directorist-radio__label:after, 
+  .directorist-radio input[type=checkbox]:checked + .directorist-checkbox__label:after, 
+  .directorist-radio input[type=checkbox]:checked + .directorist-radio__label:after, 
+  .directorist-radio input[type=radio]:checked + .directorist-checkbox__label:after, 
+  .directorist-radio input[type=radio]:checked + .directorist-radio__label:after {
+    background-color: #202428;
+    border-color: #202428;
+  }
+  .directorist-radio input[type=radio] + .directorist-radio__label:before {
+    position: absolute;
+    left: 7px;
+    top: 7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #202428;
+    border: 0 none;
+    mask-image: none;
+    z-index: 2;
+    content: "";
+  }
+  .directorist-radio input[type=radio]:checked + .directorist-radio__label:after {
+    background-color: #fff;
+  }
+  .directorist-checkbox.directorist-checkbox-circle input[type=checkbox] + .directorist-checkbox__label:after, 
+  .directorist-checkbox.directorist-checkbox-circle input[type=checkbox] + .directorist-radio__label:after, 
+  .directorist-checkbox.directorist-checkbox-circle input[type=radio] + .directorist-checkbox__label:after, 
+  .directorist-checkbox.directorist-checkbox-circle input[type=radio] + .directorist-radio__label:after, 
+  .directorist-radio.directorist-radio-circle input[type=checkbox] + .directorist-checkbox__label:after, 
+  .directorist-radio.directorist-radio-circle input[type=checkbox] + .directorist-radio__label:after, 
+  .directorist-radio.directorist-radio-circle input[type=radio] + .directorist-checkbox__label:after, 
+  .directorist-radio.directorist-radio-circle input[type=radio] + .directorist-radio__label:after {
+    border-radius: 50%;
+  }
+  .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:before {
+    left: 5px;
+    top: 5px;
+    content: "";
+    mask-image: url("../../../icons/font-awesome/svgs/solid/check.svg");
+    mask-repeat: no-repeat;
+    width: 10px;
+    height: 10px;
+    border: none;
+    background-color: #fff;
     display: block;
-    margin-top: 5px;
-    color: #e80000;
-    font-size: 13px;
+    transition: all 0.3s ease 0s;
+    z-index: 2;
+  }
+
+  .plupload-upload-uic {
+    width: 420px;
+    margin: 0 auto !important;
+    border: 1px dashed #dbdee9;
+    padding: 30px;
+    text-align: center;
+    .plupload-browse-button-label i::after {
+      width: 50px;
+      height: 45px;
+      background-color: #808080;
+    }
+  }
+  .directorist-custom-field-file-upload .directorist-custom-field-file-upload__wrapper ~ .directorist-form-description {
+    text-align: center;
+  }
+  .directorist-form-social-info-field .directorist-btn {
+    width: auto;
+    padding: 11px 26px;
+    background: #444752;
+    color: #fff;
+    border-radius: 5px;
+    i::after {
+      background-color: #fff;
+    }
+  }
+  .directorist-form-map-field__maps #gmap {
+    border-radius: 0;
   }
 }
 
@@ -272,6 +469,8 @@
       input[type="checkbox"] {
         + .directorist-checkbox__label {
           &:after {
+            top: 3px;
+            left: 3px;
             width: 14px;
             height: 14px;
             border-radius: 100%;

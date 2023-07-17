@@ -5487,7 +5487,7 @@ input.atbdp-form-control {
 }
 .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
   left: 5px !important;
-  top: 4px !important;
+  top: 5px !important;
 }
 
 .directorist-form-group.directorist-faq-group {
@@ -7632,13 +7632,74 @@ body.stop-scrolling {
   display: flex;
 }
 
+.directorist-add-listing-form .directorist-content-module {
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
+  /* social info */
+}
+.directorist-add-listing-form .directorist-content-module__title i {
+  background-color: var(--directorist-color-primary);
+}
+.directorist-add-listing-form .directorist-content-module__title i:after {
+  background-color: var(--directorist-color-white);
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-social-fields {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  gap: 20px;
+  margin: 0 0 25px;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-social-fields:last-child {
+  margin: 0 0 40px;
+}
+@media screen and (max-width: 575px) {
+  .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-social-fields .directorist-form-group {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: 0;
+}
+@media screen and (max-width: 575px) {
+  .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields .directorist-form-group {
+    width: 100%;
+  }
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-social-fields .directorist-form-group.directorist-form-social-fields__action {
+  -webkit-box-flex: unset;
+  -webkit-flex: unset;
+      -ms-flex: unset;
+          flex: unset;
+}
+.directorist-add-listing-form .directorist-alert-required {
+  display: block;
+  margin-top: 5px;
+  color: #e80000;
+  font-size: 13px;
+}
+
 .directorist-add-listing-form .directorist-content-module,
 #directiost-listing-fields_wrapper .directorist-content-module {
   border: none;
   margin-bottom: 35px;
   border-radius: 16px;
-  -webkit-box-shadow: var(--directorist-box-shadow);
-          box-shadow: var(--directorist-box-shadow);
   /* social info */
 }
 .directorist-add-listing-form .directorist-content-module__title,
@@ -7666,13 +7727,11 @@ body.stop-scrolling {
   width: 36px;
   height: 36px;
   border-radius: 100%;
-  background-color: var(--directorist-color-primary);
 }
 .directorist-add-listing-form .directorist-content-module__title i:after,
 #directiost-listing-fields_wrapper .directorist-content-module__title i:after {
   width: 16px;
   height: 16px;
-  background-color: var(--directorist-color-white);
 }
 .directorist-add-listing-form .directorist-content-module .directorist-form-group:not(:last-child),
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group:not(:last-child) {
@@ -7787,12 +7846,162 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__remove:hover i::after {
   background-color: var(--directorist-color-white);
 }
-.directorist-add-listing-form .directorist-alert-required,
-#directiost-listing-fields_wrapper .directorist-alert-required {
+
+#directiost-listing-fields_wrapper .directorist-content-module {
+  background: #fff;
+  border-radius: 0;
+  border: 1px solid #e3e6ef;
+}
+#directiost-listing-fields_wrapper .directorist-content-module__title {
+  padding: 20px 30px;
+  border-bottom: 1px solid #e3e6ef;
+}
+#directiost-listing-fields_wrapper .directorist-content-module__title i {
+  background-color: #000;
+}
+#directiost-listing-fields_wrapper .directorist-content-module__title i:after {
+  background-color: #fff;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields {
+  margin: 0 0 15px;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__remove {
+  background: #ededed !important;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__remove i::after {
+  background-color: #808080;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__remove:hover {
+  background: #000 !important;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__remove:hover i::after {
+  background-color: #fff;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-content-module__contents {
+  padding: 30px;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group .directorist-form-label {
+  margin-bottom: 10px;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group .directorist-form-element {
+  position: relative;
+  height: 42px;
+  padding: 15px 20px;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid #ececec;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-bottom: 0;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields select.directorist-form-element,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-custom-field-select select.directorist-form-element,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group .directorist-form-element.directory_pricing_field {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox input[type=checkbox] + .directorist-radio__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox input[type=radio] + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox input[type=radio] + .directorist-radio__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=checkbox] + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=checkbox] + .directorist-radio__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio] + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio] + .directorist-radio__label:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  content: "";
+  border: 1px solid #C6D0DC;
+  background-color: #fff;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox input[type=checkbox]:checked + .directorist-radio__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox input[type=radio]:checked + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox input[type=radio]:checked + .directorist-radio__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=checkbox]:checked + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=checkbox]:checked + .directorist-radio__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio]:checked + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio]:checked + .directorist-radio__label:after {
+  background-color: #202428;
+  border-color: #202428;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio] + .directorist-radio__label:before {
+  position: absolute;
+  left: 7px;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #202428;
+  border: 0 none;
+  -webkit-mask-image: none;
+          mask-image: none;
+  z-index: 2;
+  content: "";
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio]:checked + .directorist-radio__label:after {
+  background-color: #fff;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox.directorist-checkbox-circle input[type=checkbox] + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox.directorist-checkbox-circle input[type=checkbox] + .directorist-radio__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox.directorist-checkbox-circle input[type=radio] + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox.directorist-checkbox-circle input[type=radio] + .directorist-radio__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio.directorist-radio-circle input[type=checkbox] + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio.directorist-radio-circle input[type=checkbox] + .directorist-radio__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio.directorist-radio-circle input[type=radio] + .directorist-checkbox__label:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-radio.directorist-radio-circle input[type=radio] + .directorist-radio__label:after {
+  border-radius: 50%;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:before {
+  left: 5px;
+  top: 5px;
+  content: "";
+  -webkit-mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);
+          mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  width: 10px;
+  height: 10px;
+  border: none;
+  background-color: #fff;
   display: block;
-  margin-top: 5px;
-  color: #e80000;
-  font-size: 13px;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  z-index: 2;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .plupload-upload-uic {
+  width: 420px;
+  margin: 0 auto !important;
+  border: 1px dashed #dbdee9;
+  padding: 30px;
+  text-align: center;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .plupload-upload-uic .plupload-browse-button-label i::after {
+  width: 50px;
+  height: 45px;
+  background-color: #808080;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-custom-field-file-upload .directorist-custom-field-file-upload__wrapper ~ .directorist-form-description {
+  text-align: center;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-info-field .directorist-btn {
+  width: auto;
+  padding: 11px 26px;
+  background: #444752;
+  color: #fff;
+  border-radius: 5px;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-info-field .directorist-btn i::after {
+  background-color: #fff;
+}
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-map-field__maps #gmap {
+  border-radius: 0;
 }
 
 /* ==========================
@@ -7916,6 +8125,8 @@ body.stop-scrolling {
   }
 }
 .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:after {
+  top: 3px;
+  left: 3px;
   width: 14px;
   height: 14px;
   border-radius: 100%;

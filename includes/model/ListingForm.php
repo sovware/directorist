@@ -97,7 +97,7 @@ class Directorist_Listing_Form {
 				break;
 			case 'number':
 				echo '<div>';
-				printf( '<input type="number" %s  name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', ! empty( $allow_decimal ) ? 'step="any"' : '', esc_attr( $id ), esc_attr( $cf_placeholder ), esc_attr( $value ) );
+				printf( '<input type="number" %s name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s" min="0"/>', ! empty( $allow_decimal ) ? 'step="any"' : '', esc_attr( $id ), esc_attr( $cf_placeholder ), esc_attr( $value ) );
 				echo '</div>';
 				break;
 			case 'textarea':

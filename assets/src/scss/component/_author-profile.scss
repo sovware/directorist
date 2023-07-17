@@ -285,6 +285,10 @@
     }
 }
 
+.directorist-author-contact .directorist-author-social {
+    margin: 22px 0 0;
+}
+
 .directorist-author-info-widget,
 .directorist-single-author-info,
 .directorist-authors-section,
@@ -389,7 +393,7 @@
             background: transparent;
             border: none;
             padding: 0;
-            min-height: auto;
+            min-height: 30px;
             color: var(--directorist-color-body);
             @media screen and (max-width: 575px) {
                 font-size: 0;
@@ -402,9 +406,6 @@
                     background-color: var(--directorist-color-body);
                 }
             }
-        }
-        @include e(link) {
-            top: 50px;
         }
 
     }
@@ -462,6 +463,9 @@
                 width: 100%;
             }
         }
+    }
+    .directorist-pagination {
+        padding-top: 35px;
     }
 }
 

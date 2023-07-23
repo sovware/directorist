@@ -10614,19 +10614,19 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 14px;
   background-color: var(--directorist-color-light);
 }
-.directorist-search-field-review .directorist-checkbox input[name=search_by_rating_5] + label .directorist-icon-mask:after {
+.directorist-search-field-review .directorist-checkbox input[value="5"] + label .directorist-icon-mask:after {
   background-color: var(--directorist-color-primary);
 }
-.directorist-search-field-review .directorist-checkbox input[name=search_by_rating_4] + label .directorist-icon-mask:not(:nth-child(5)):after {
+.directorist-search-field-review .directorist-checkbox input[value="4"] + label .directorist-icon-mask:not(:nth-child(5)):after {
   background-color: var(--directorist-color-primary);
 }
-.directorist-search-field-review .directorist-checkbox input[name=search_by_rating_3] + label .directorist-icon-mask:nth-child(1):after, .directorist-search-field-review .directorist-checkbox input[name=search_by_rating_3] + label .directorist-icon-mask:nth-child(2):after, .directorist-search-field-review .directorist-checkbox input[name=search_by_rating_3] + label .directorist-icon-mask:nth-child(3):after {
+.directorist-search-field-review .directorist-checkbox input[value="3"] + label .directorist-icon-mask:nth-child(1):after, .directorist-search-field-review .directorist-checkbox input[value="3"] + label .directorist-icon-mask:nth-child(2):after, .directorist-search-field-review .directorist-checkbox input[value="3"] + label .directorist-icon-mask:nth-child(3):after {
   background-color: var(--directorist-color-primary);
 }
-.directorist-search-field-review .directorist-checkbox input[name=search_by_rating_2] + label .directorist-icon-mask:nth-child(1):after, .directorist-search-field-review .directorist-checkbox input[name=search_by_rating_2] + label .directorist-icon-mask:nth-child(2):after {
+.directorist-search-field-review .directorist-checkbox input[value="2"] + label .directorist-icon-mask:nth-child(1):after, .directorist-search-field-review .directorist-checkbox input[value="2"] + label .directorist-icon-mask:nth-child(2):after {
   background-color: var(--directorist-color-primary);
 }
-.directorist-search-field-review .directorist-checkbox input[name=search_by_rating_1] + label .directorist-icon-mask:nth-child(1):after {
+.directorist-search-field-review .directorist-checkbox input[value="1"] + label .directorist-icon-mask:nth-child(1):after {
   background-color: var(--directorist-color-primary);
 }
 

@@ -1466,9 +1466,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
     var tag = [];
     var price = [];
+    var search_by_rating = [];
     var custom_field = {};
     $(this).find('input[name^="in_tag["]:checked').each(function (index, el) {
       tag.push($(el).val());
+    });
+    $(this).find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+      search_by_rating.push($(el).val());
     });
     $(this).find('input[name^="price["]').each(function (index, el) {
       price.push($(el).val());
@@ -1509,6 +1513,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       current_page_id: directorist.current_page_id,
       in_tag: tag,
       price: price,
+      search_by_rating: search_by_rating,
       custom_field: custom_field,
       data_atts: JSON.parse(data_atts)
     };
@@ -1517,7 +1522,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       in_cat: $(this).find('.bdas-category-search, .directorist-category-select').val(),
       in_loc: $(this).find('.bdas-category-location, .directorist-location-select').val(),
       price_range: $(this).find("input[name='price_range']:checked").val(),
-      search_by_rating: $(this).find('select[name=search_by_rating]').val(),
       address: $(this).find('input[name="address"]').val(),
       zip: $(this).find('input[name="zip"]').val(),
       fax: $(this).find('input[name="fax"]').val(),
@@ -1553,11 +1557,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var priceFieldEmpty = data.price.every(function (item) {
       return !item;
     });
+    var ratingFieldEmpty = data.search_by_rating.every(function (item) {
+      return !item;
+    });
     var customFieldsAreEmpty = Object.values(data.custom_field).every(function (item) {
       return !item;
     });
 
-    if (!allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty) {
+    if (!allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty || !ratingFieldEmpty) {
       if (view && view.length) {
         form_data.view = view;
       }
@@ -1599,9 +1606,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
       var tag = [];
       var price = [];
+      var search_by_rating = [];
       var custom_field = {};
       $(this).find('input[name^="in_tag["]:checked').each(function (index, el) {
         tag.push($(el).val());
+      });
+      $(this).find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+        search_by_rating.push($(el).val());
       });
       $(this).find('input[name^="price["]').each(function (index, el) {
         price.push($(el).val());
@@ -1642,6 +1653,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         current_page_id: directorist.current_page_id,
         in_tag: tag,
         price: price,
+        search_by_rating: search_by_rating,
         custom_field: custom_field,
         data_atts: JSON.parse(data_atts)
       };
@@ -1650,7 +1662,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         in_cat: $(this).find('.bdas-category-search, .directorist-category-select').val(),
         in_loc: $(this).find('.bdas-category-location, .directorist-location-select').val(),
         price_range: $(this).find("input[name='price_range']:checked").val(),
-        search_by_rating: $(this).find('select[name=search_by_rating]').val(),
         address: $(this).find('input[name="address"]').val(),
         zip: $(this).find('input[name="zip"]').val(),
         fax: $(this).find('input[name="fax"]').val(),
@@ -1686,11 +1697,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       var priceFieldEmpty = data.price.every(function (item) {
         return !item;
       });
+      var ratingFieldEmpty = data.search_by_rating.every(function (item) {
+        return !item;
+      });
       var customFieldsAreEmpty = Object.values(data.custom_field).every(function (item) {
         return !item;
       });
 
-      if (!allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty) {
+      if (!allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty || !ratingFieldEmpty) {
         if (view && view.length) {
           form_data.view = view;
         }
@@ -1771,16 +1785,20 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     e.preventDefault();
   }); // Directorist view as changes
 
-  $('body').on("click", ".directorist-instant-search .directorist-viewas-dropdown .directorist-dropdown__links--single", function (e) {
+  $('body').on("click", ".directorist-instant-search .directorist-viewas .directorist-viewas__item", function (e) {
     e.preventDefault();
 
     var _this = $(this);
 
     var tag = [];
     var price = [];
+    var search_by_rating = [];
     var custom_field = {};
     $(_this).closest('.directorist-instant-search').find('input[name^="in_tag["]:checked').each(function (index, el) {
       tag.push($(el).val());
+    });
+    $(_this).closest('.directorist-instant-search').find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+      search_by_rating.push($(el).val());
     });
     $(_this).closest('.directorist-instant-search').find('input[name^="price["]').each(function (index, el) {
       price.push($(el).val());
@@ -1822,7 +1840,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var in_cat = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();
     var in_loc = $(this).closest('.directorist-instant-search').find('.bdas-category-location, .directorist-location-select').val();
     var price_range = $(this).closest('.directorist-instant-search').find("input[name='price_range']:checked").val();
-    var search_by_rating = $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val();
     var cityLat = $(this).closest('.directorist-instant-search').find('#cityLat').val();
     var cityLng = $(this).closest('.directorist-instant-search').find('#cityLng').val();
     var miles = $(this).closest('.directorist-instant-search').find('input[name="miles"]').val();
@@ -1832,7 +1849,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var email = $(this).closest('.directorist-instant-search').find('input[name="email"]').val();
     var website = $(this).closest('.directorist-instant-search').find('input[name="website"]').val();
     var phone = $(this).closest('.directorist-instant-search').find('input[name="phone"]').val();
-    $(".directorist-viewas-dropdown .directorist-dropdown__links--single").removeClass('active');
+    $(".directorist-viewas .directorist-viewas__item").removeClass('active');
     $(this).addClass("active");
     var form_data = {
       action: 'directorist_instant_search',
@@ -1911,12 +1928,16 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
     var tag = [];
     var price = [];
+    var search_by_rating = [];
     var custom_field = {};
     $(_this).closest('.directorist-instant-search').find('input[name^="in_tag["]:checked').each(function (index, el) {
       tag.push($(el).val());
     });
     $(_this).closest('.directorist-instant-search').find('input[name^="price["]').each(function (index, el) {
       price.push($(el).val());
+    });
+    $(_this).closest('.directorist-instant-search').find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+      search_by_rating.push($(el).val());
     });
     $(_this).closest('.directorist-instant-search').find('[name^="custom_field"]').each(function (index, el) {
       var name = $(el).attr('name');
@@ -1941,7 +1962,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         custom_field[post_id] = value;
       }
     });
-    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_href = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var sort_href = $(this).attr('data-link');
@@ -1954,7 +1975,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var in_cat = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();
     var in_loc = $(this).closest('.directorist-instant-search').find('.bdas-category-location, .directorist-location-select').val();
     var price_range = $(this).closest('.directorist-instant-search').find("input[name='price_range']:checked").val();
-    var search_by_rating = $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val();
     var cityLat = $(this).closest('.directorist-instant-search').find('#cityLat').val();
     var cityLng = $(this).closest('.directorist-instant-search').find('#cityLng').val();
     var miles = $(this).closest('.directorist-instant-search').find('input[name="miles"]').val();
@@ -2035,12 +2055,16 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     e.preventDefault();
     var tag = [];
     var price = [];
+    var search_by_rating = [];
     var custom_field = {};
 
     var _this = $(this);
 
     $(_this).closest('.directorist-instant-search').find('input[name^="in_tag["]:checked').each(function (index, el) {
       tag.push($(el).val());
+    });
+    $(_this).closest('.directorist-instant-search').find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+      search_by_rating.push($(el).val());
     });
     $(_this).closest('.directorist-instant-search').find('input[name^="price["]').each(function (index, el) {
       price.push($(el).val());
@@ -2082,7 +2106,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var in_cat = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();
     var in_loc = $(this).closest('.directorist-instant-search').find('.bdas-category-location, .directorist-location-select').val();
     var price_range = $(this).closest('.directorist-instant-search').find("input[name='price_range']:checked").val();
-    var search_by_rating = $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val();
     var cityLat = $(this).closest('.directorist-instant-search').find('#cityLat').val();
     var cityLng = $(this).closest('.directorist-instant-search').find('#cityLng').val();
     var miles = $(this).closest('.directorist-instant-search').find('input[name="miles"]').val();

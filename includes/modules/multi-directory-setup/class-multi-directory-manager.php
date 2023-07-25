@@ -1,6 +1,7 @@
 <?php
 
 namespace Directorist;
+use \ATBDP_Permalink;
 
 include_files();
 class Multi_Directory_Manager
@@ -4053,39 +4054,35 @@ class Multi_Directory_Manager
             ],
 
             // TERMS AND CONDITIONS
-            'listing_terms_condition' => [
+            'display_terms_privacy' => [
                 'label' => __('Enable', 'directorist'),
                 'type'  => 'toggle',
                 'value' => true,
             ],
-            'require_terms_conditions' => [
-                'label' => __('Required', 'directorist'),
-                'type'  => 'toggle',
-                'value' => true,
+            'terms_name' => [
+                'label'       => __('Terms Name', 'directorist'),
+                'type'        => 'text',
+                'value'       => __( 'Terms & Conditions', 'directorist' ),
             ],
-            'terms_label' => [
+            'terms_link' => [
+                'label'       => __('Terms Link', 'directorist'),
+                'type'        => 'text',
+                'value'       => ATBDP_Permalink::get_terms_and_conditions_page_url(),
+            ],
+            'privacy_name' => [
+                'label'       => __('Privacy name', 'directorist'),
+                'type'        => 'text',
+                'value'       => __( 'Privacy & Policy', 'directorist' ),
+            ],
+            'privacy_link' => [
+                'label'       => __('Terms Link', 'directorist'),
+                'type'        => 'text',
+                'value'       => ATBDP_Permalink::get_privacy_policy_page_url(),
+            ],
+            'terms_privacy_label' => [
                 'label'       => __('Label', 'directorist'),
                 'type'        => 'text',
-                'description' => __( 'Place the linking text between two <code>%</code> mark. Ex: %link% ', 'directorist' ),
-                'value'       => 'I agree with all %terms & conditions%',
-            ],
-
-            // PRIVACY AND POLICY
-            'listing_privacy' => [
-                'label' => __('Enable', 'directorist'),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
-            'require_privacy' => [
-                'label' => __('Required', 'directorist'),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
-            'privacy_label' => [
-                'label' => __('Label', 'directorist'),
-                'type'  => 'text',
-                'description' => __( 'Place the linking text between two <code>%</code> mark. Ex: %link% ', 'directorist' ),
-                'value' => 'I agree to the %Privacy & Policy%',
+                'value'       => __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ),
             ],
 
             'single_listings_contents' => [
@@ -4589,16 +4586,12 @@ class Multi_Directory_Manager
                                 'fields' => [
                                     'listing_terms_condition',
                                     'require_terms_conditions',
-                                    'terms_label',
-                                ],
-                            ],
-                            'privacy_and_policy' => [
-                                'title' => __('Privacy and Policy', 'directorist'),
-                                'container' => 'short-width',
-                                'fields' => [
-                                    'listing_privacy',
-                                    'require_privacy',
-                                    'privacy_label',
+                                    'listing_privacy_terms_condition',
+                                    'terms_name',
+                                    'terms_link',
+                                    'privacy_name',
+                                    'privacy_link',
+                                    'terms_privacy_label'
                                 ],
                             ],
                             'submittion_settings' => [

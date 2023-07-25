@@ -1007,12 +1007,12 @@ class Directorist_Listings {
 		}
 
 		if ( ! empty( $_REQUEST['search_by_rating'] ) ) {
-			$rating_query = sanitize_text_field( wp_unslash( $_REQUEST['search_by_rating'] ) );
+			$rating_query = directorist_clean( wp_unslash( $_REQUEST['search_by_rating'] ) );
 			$meta_queries['_rating'] = array(
 				'key'     => directorist_get_rating_field_meta_key(),
-				'value'   => absint( $rating_query ),
+				'value'   => $rating_query,
 				'type'    => 'NUMERIC',
-				'compare' => '>='
+				'compare' => 'IN'
 			);
 		}
 

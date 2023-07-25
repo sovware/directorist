@@ -143,17 +143,6 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 				'condition' => array( 'more_filter_search_btn' => 'yes', 'show_more_filter_btn' => 'yes' ),
 			),
 			array(
-				'type'    => Controls_Manager::SELECT,
-				'id'      => 'more_filter',
-				'label'   => __( 'More Filter By', 'directorist' ),
-				'options' => array(
-                    'overlapping' => __('Overlapping', 'directorist'),
-                    'sliding'     => __('Sliding', 'directorist'),
-                    'always_open' => __('Always Open', 'directorist')
-				),
-				'default' => 'overlapping',
-			),
-			array(
 				'type'      => Controls_Manager::SWITCHER,
 				'id'        => 'user',
 				'label'     => __( 'Show only for logged in user?', 'directorist' ),
@@ -230,7 +219,6 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 			'apply_filters_button'  => $settings['more_filter_search_btn'],
 			'reset_filters_text'    => $settings['more_filter_reset_btn_text'],
 			'apply_filters_text'    => $settings['more_filter_search_btn_text'],
-			'more_filters_display'  => $settings['more_filter'],
 			'logged_in_user_only'   => $settings['user'] ? $settings['user'] : 'no',
 		);
 

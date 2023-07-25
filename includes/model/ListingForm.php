@@ -424,17 +424,9 @@ class Directorist_Listing_Form {
 	}
 
 	public function privacy_label() {
-		$type = $this->current_listing_type;
-		$privacy_label = get_directorist_type_option( $type, 'privacy_label', __( 'I agree to the %Privacy & Policy%', 'directorist' ) );
-		$privacy_link  =  ATBDP_Permalink::get_privacy_policy_page_url();
-		return $this->generate_linktext( $privacy_label, $privacy_link );
-	}
-
-	public function terms_label() {
-		$type = $this->current_listing_type;
-		$terms_label = get_directorist_type_option( $type, 'terms_label', __( 'I agree with all %terms & conditions%', 'directorist' ) );
-		$terms_link  =  ATBDP_Permalink::get_terms_and_conditions_page_url();
-		return $this->generate_linktext( $terms_label, $terms_link );
+		$type          = $this->current_listing_type;
+		$privacy_label = get_directorist_type_option( $type, 'terms_privacy_label', __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ) );
+		return $this->generate_linktext( $privacy_label );
 	}
 
 	public function submit_label() {
@@ -459,11 +451,8 @@ class Directorist_Listing_Form {
 			'display_guest_listings'  => get_directorist_option( 'guest_listings', 0 ),
 			'guest_email_label'       => get_directorist_type_option( $type, 'guest_email_label', __( 'Email Address', 'directorist' ) ),
 			'guest_email_placeholder' => get_directorist_type_option( $type, 'guest_email_placeholder' ),
-			'display_privacy'         => (bool) get_directorist_type_option( $type, 'listing_privacy', 1 ),
-			'privacy_is_required'     => get_directorist_type_option( $type, 'require_privacy', 1 ),
+			'display_terms_privacy'   => (bool) get_directorist_type_option( $type, 'display_terms_privacy', 1 ),
 			'privacy_checked'         => (bool) get_post_meta( $p_id, '_privacy_policy', true ),
-			'display_terms'           => (bool) get_directorist_type_option( $type, 'listing_terms_condition', 1 ),
-			'terms_is_required'       => get_directorist_type_option( $type, 'require_terms_conditions', 1 ),
 			'terms_checked'           => (bool) get_post_meta( $p_id, '_t_c_check', true ),
 			'submit_label'            => get_directorist_type_option( $type, 'submit_button_label', __( 'Save & Preview', 'directorist' ) ),
 		);
@@ -489,17 +478,50 @@ class Directorist_Listing_Form {
 		Helper::get_template( 'listing-form/social-item', $args );
 	}
 
-	public function generate_linktext( $text, $link ) {
-		$pattern = '%\%(.+)\%%'; // extract 'text' from 'some %text%'
-		preg_match( $pattern, $text, $matches );
-
-		if ( !empty( $matches ) ) {
-			$changed = sprintf( '<a target="_blank" href="%s">%s</a>', $link, $matches[1] );
+	public function generate_linktext( $text ) {
+		$pattern = '/%([^%]+)%/';                // extract 'text' from 'some %text%'
+		preg_match_all( $pattern, $text, $matches );
+		
+		if ( ! empty( $matches[1] ) ) {
+			foreach( $matches[1] as $match ) {
+				$label     = $this->terms_privacy_name( $match);
+				$link      = $this->terms_privacy_link( $match );
+				$changed[] = sprintf('<a target="_blank" href="%s">%s</a>', $link, $label);
+			}
+	
 			$result = str_replace( $matches[0], $changed, $text );
 			return $result;
 		}
-
+	
 		return $text;
+	}
+
+	private function terms_privacy_name( $name ) {
+		switch ( $name ) {
+			case 'terms_name':
+				$name = get_directorist_type_option( $this->current_listing_type, 'terms_name', __( 'Terms & Conditions', 'directorist' ) );
+				break;
+			case 'privacy_name':
+				$name = get_directorist_type_option( $this->current_listing_type, 'privacy_name', __( 'Privacy & Policy', 'directorist' ) );
+				break;
+			default:
+            	$name =  '';
+		}
+		return $name;
+	}
+
+	private function terms_privacy_link( $name ) {
+		switch ( $name ) {
+			case 'terms_name':
+				$link = get_directorist_type_option( $this->current_listing_type, 'terms_link', ATBDP_Permalink::get_terms_and_conditions_page_url() );
+				break;
+			case 'privacy_name':
+				$link = get_directorist_type_option( $this->current_listing_type, 'privacy_link', ATBDP_Permalink::get_privacy_policy_page_url() );
+				break;
+			default:
+            	$link =  '';
+		}
+		return $link;
 	}
 
 	public function type_hidden_field() {

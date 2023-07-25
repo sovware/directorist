@@ -91,13 +91,18 @@ import {
     /* Directorist instant search */
     $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form", function (e) {
         e.preventDefault();
-        let _this        = $(this);
-        let tag          = [];
-        let price        = [];
-        let custom_field = {};
+        let _this            = $(this);
+        let tag              = [];
+        let price            = [];
+        let search_by_rating = [];
+        let custom_field     = {};
 
         $(this).find('input[name^="in_tag["]:checked').each(function (index, el) {
             tag.push($(el).val())
+        });
+
+        $(this).find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+            search_by_rating.push($(el).val())
         });
 
         $(this).find('input[name^="price["]').each(function (index, el) {
@@ -136,13 +141,14 @@ import {
         let data_atts      = $('.directorist-instant-search').attr('data-atts');
 
         var data = {
-            action         : 'directorist_instant_search',
-            _nonce         : directorist.ajax_nonce,
-            current_page_id: directorist.current_page_id,
-            in_tag         : tag,
-            price          : price,
-            custom_field   : custom_field,
-            data_atts      : JSON.parse(data_atts)
+            action          : 'directorist_instant_search',
+            _nonce          : directorist.ajax_nonce,
+            current_page_id : directorist.current_page_id,
+            in_tag          : tag,
+            price           : price,
+            search_by_rating: search_by_rating,
+            custom_field    : custom_field,
+            data_atts       : JSON.parse(data_atts)
         };
 
         var fields = {
@@ -150,7 +156,6 @@ import {
             in_cat          : $(this).find('.bdas-category-search, .directorist-category-select').val(),
             in_loc          : $(this).find('.bdas-category-location, .directorist-location-select').val(),
             price_range     : $(this).find("input[name='price_range']:checked").val(),
-            search_by_rating: $(this).find('select[name=search_by_rating]').val(),
             address         : $(this).find('input[name="address"]').val(),
             zip             : $(this).find('input[name="zip"]').val(),
             fax             : $(this).find('input[name="fax"]').val(),
@@ -181,12 +186,13 @@ import {
             ...fields
         };
 
-        const allFieldsAreEmpty = Object.values(fields).every(item => !item);
-        const tagFieldEmpty = data.in_tag.every(item => !item);
-        const priceFieldEmpty = data.price.every(item => !item);
+        const allFieldsAreEmpty    = Object.values(fields).every(item => !item);
+        const tagFieldEmpty        = data.in_tag.every(item => !item);
+        const priceFieldEmpty      = data.price.every(item => !item);
+        const ratingFieldEmpty     = data.search_by_rating.every(item => !item);
         const customFieldsAreEmpty = Object.values(data.custom_field).every(item => !item);
 
-        if (!allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty) {
+        if ( !allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty || !ratingFieldEmpty ) {
 
             if (view && view.length) {
                 form_data.view = view
@@ -226,13 +232,18 @@ import {
     $('body').on("submit", ".widget .default-ad-search:not(.directorist_single) .directorist-advanced-filter__form", function (e) {
         if ($('.directorist-instant-search').length) {
             e.preventDefault();
-            let _this        = $(this);
-            let tag          = [];
-            let price        = [];
-            let custom_field = {};
+            let _this            = $(this);
+            let tag              = [];
+            let price            = [];
+            let search_by_rating = [];
+            let custom_field     = {};
 
             $(this).find('input[name^="in_tag["]:checked').each(function (index, el) {
                 tag.push($(el).val())
+            });
+
+            $(this).find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+                search_by_rating.push($(el).val())
             });
 
             $(this).find('input[name^="price["]').each(function (index, el) {
@@ -271,13 +282,14 @@ import {
             let data_atts      = $('.directorist-instant-search').attr('data-atts');
 
             var data = {
-                action         : 'directorist_instant_search',
-                _nonce         : directorist.ajax_nonce,
-                current_page_id: directorist.current_page_id,
-                in_tag         : tag,
-                price          : price,
-                custom_field   : custom_field,
-                data_atts      : JSON.parse(data_atts)
+                action          : 'directorist_instant_search',
+                _nonce          : directorist.ajax_nonce,
+                current_page_id : directorist.current_page_id,
+                in_tag          : tag,
+                price           : price,
+                search_by_rating: search_by_rating,
+                custom_field    : custom_field,
+                data_atts       : JSON.parse(data_atts)
             };
 
             var fields = {
@@ -285,7 +297,6 @@ import {
                 in_cat          : $(this).find('.bdas-category-search, .directorist-category-select').val(),
                 in_loc          : $(this).find('.bdas-category-location, .directorist-location-select').val(),
                 price_range     : $(this).find("input[name='price_range']:checked").val(),
-                search_by_rating: $(this).find('select[name=search_by_rating]').val(),
                 address         : $(this).find('input[name="address"]').val(),
                 zip             : $(this).find('input[name="zip"]').val(),
                 fax             : $(this).find('input[name="fax"]').val(),
@@ -318,9 +329,10 @@ import {
             const allFieldsAreEmpty    = Object.values(fields).every(item => !item);
             const tagFieldEmpty        = data.in_tag.every(item => !item);
             const priceFieldEmpty      = data.price.every(item => !item);
+            const ratingFieldEmpty     = data.search_by_rating.every(item => !item);
             const customFieldsAreEmpty = Object.values(data.custom_field).every(item => !item);
 
-            if (!allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty) {
+            if ( !allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty || !ratingFieldEmpty ) {
 
                 if (view && view.length) {
                     form_data.view = view
@@ -411,15 +423,20 @@ import {
     })
 
     // Directorist view as changes
-    $('body').on("click", ".directorist-instant-search .directorist-viewas-dropdown .directorist-dropdown__links--single", function (e) {
+    $('body').on("click", ".directorist-instant-search .directorist-viewas .directorist-viewas__item", function (e) {
         e.preventDefault();
-        let _this        = $(this);
-        let tag          = [];
-        let price        = [];
-        let custom_field = {};
+        let _this            = $(this);
+        let tag              = [];
+        let price            = [];
+        let search_by_rating = [];
+        let custom_field     = {};
 
         $(_this).closest('.directorist-instant-search').find('input[name^="in_tag["]:checked').each(function (index, el) {
             tag.push($(el).val())
+        });
+
+        $(_this).closest('.directorist-instant-search').find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+            search_by_rating.push($(el).val())
         });
 
         $(_this).closest('.directorist-instant-search').find('input[name^="price["]').each(function (index, el) {
@@ -465,7 +482,6 @@ import {
         let in_cat           = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();
         let in_loc           = $(this).closest('.directorist-instant-search').find('.bdas-category-location, .directorist-location-select').val();
         let price_range      = $(this).closest('.directorist-instant-search').find("input[name='price_range']:checked").val();
-        let search_by_rating = $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val();
         let cityLat          = $(this).closest('.directorist-instant-search').find('#cityLat').val();
         let cityLng          = $(this).closest('.directorist-instant-search').find('#cityLng').val();
         let miles            = $(this).closest('.directorist-instant-search').find('input[name="miles"]').val();
@@ -476,7 +492,7 @@ import {
         let website          = $(this).closest('.directorist-instant-search').find('input[name="website"]').val();
         let phone            = $(this).closest('.directorist-instant-search').find('input[name="phone"]').val();
 
-        $(".directorist-viewas-dropdown .directorist-dropdown__links--single").removeClass('active');
+        $(".directorist-viewas .directorist-viewas__item").removeClass('active');
         $(this).addClass("active");
         var form_data = {
             action          : 'directorist_instant_search',
@@ -555,10 +571,11 @@ import {
     // Directorist sort by changes
     $('body').on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js", function (e) {
         e.preventDefault();
-        let _this        = $(this);
-        let tag          = [];
-        let price        = [];
-        let custom_field = {};
+        let _this            = $(this);
+        let tag              = [];
+        let price            = [];
+        let search_by_rating = [];
+        let custom_field     = {};
 
         $(_this).closest('.directorist-instant-search').find('input[name^="in_tag["]:checked').each(function (index, el) {
             tag.push($(el).val())
@@ -566,6 +583,10 @@ import {
 
         $(_this).closest('.directorist-instant-search').find('input[name^="price["]').each(function (index, el) {
             price.push($(el).val())
+        });
+
+        $(_this).closest('.directorist-instant-search').find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+            search_by_rating.push($(el).val())
         });
 
         $(_this).closest('.directorist-instant-search').find('[name^="custom_field"]').each(function (index, el) {
@@ -591,7 +612,7 @@ import {
             }
         });
 
-        let view_href      = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+        let view_href      = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
         let view_as        = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
         let view           = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
         let sort_href      = $(this).attr('data-link');
@@ -605,7 +626,6 @@ import {
         let in_cat           = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();
         let in_loc           = $(this).closest('.directorist-instant-search').find('.bdas-category-location, .directorist-location-select').val();
         let price_range      = $(this).closest('.directorist-instant-search').find("input[name='price_range']:checked").val();
-        let search_by_rating = $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val();
         let cityLat          = $(this).closest('.directorist-instant-search').find('#cityLat').val();
         let cityLng          = $(this).closest('.directorist-instant-search').find('#cityLng').val();
         let miles            = $(this).closest('.directorist-instant-search').find('input[name="miles"]').val();
@@ -685,13 +705,18 @@ import {
     // Directorist pagination
     $('body').on("click", ".directorist-instant-search .directorist-pagination .page-numbers", function (e) {
         e.preventDefault();
-        let tag          = [];
-        let price        = [];
-        let custom_field = {};
-        let _this        = $(this);
+        let tag              = [];
+        let price            = [];
+        let search_by_rating = [];
+        let custom_field     = {};
+        let _this            = $(this);
 
         $(_this).closest('.directorist-instant-search').find('input[name^="in_tag["]:checked').each(function (index, el) {
             tag.push($(el).val())
+        });
+
+        $(_this).closest('.directorist-instant-search').find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+            search_by_rating.push($(el).val())
         });
 
         $(_this).closest('.directorist-instant-search').find('input[name^="price["]').each(function (index, el) {
@@ -736,7 +761,6 @@ import {
         let in_cat           = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();
         let in_loc           = $(this).closest('.directorist-instant-search').find('.bdas-category-location, .directorist-location-select').val();
         let price_range      = $(this).closest('.directorist-instant-search').find("input[name='price_range']:checked").val();
-        let search_by_rating = $(this).closest('.directorist-instant-search').find('select[name=search_by_rating]').val();
         let cityLat          = $(this).closest('.directorist-instant-search').find('#cityLat').val();
         let cityLng          = $(this).closest('.directorist-instant-search').find('#cityLng').val();
         let miles            = $(this).closest('.directorist-instant-search').find('input[name="miles"]').val();

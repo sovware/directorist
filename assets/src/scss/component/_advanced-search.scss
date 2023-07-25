@@ -214,21 +214,21 @@
             }
         }
     }
-    input[name=search_by_rating_5] + label {
+    input[value="5"] + label {
         .directorist-icon-mask{
             &:after {
                 background-color: var(--directorist-color-primary);
             }
         }
     }
-    input[name=search_by_rating_4] + label {
+    input[value="4"] + label {
         .directorist-icon-mask{
             &:not(:nth-child(5)):after {
                 background-color: var(--directorist-color-primary);
             }
         }
     }
-    input[name=search_by_rating_3] + label {
+    input[value="3"] + label {
         .directorist-icon-mask{
             &:nth-child(1):after,
             &:nth-child(2):after,
@@ -237,7 +237,7 @@
             }
         }
     }
-    input[name=search_by_rating_2] + label {
+    input[value="2"] + label {
         .directorist-icon-mask{
             &:nth-child(1):after,
             &:nth-child(2):after {
@@ -245,7 +245,7 @@
             }
         }
     }
-    input[name=search_by_rating_1] + label {
+    input[value="1"] + label {
         .directorist-icon-mask{
             &:nth-child(1):after {
                 background-color: var(--directorist-color-primary);

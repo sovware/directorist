@@ -246,6 +246,7 @@ import { directorist_range_slider } from './range-slider';
                     }
 
                     $search_form_box.removeClass('atbdp-form-fade');
+                    checkEmptySearchFields();
                   },
                   error: function error(_error) {
                     //console.log(_error);
@@ -253,6 +254,20 @@ import { directorist_range_slider } from './range-slider';
                 });
             });
         }
+
+        // Check Empty Search Fields on Search Modal
+        function checkEmptySearchFields(){
+            var inputFields = document.querySelectorAll('.directorist-search-modal__input');
+        
+            inputFields.forEach((inputField)=>{
+                var searchField = inputField.querySelector('.directorist-search-field');
+                if(!searchField){
+                    inputField.style.display = 'none';
+                }
+            });
+        }
+
+        checkEmptySearchFields();
 
         // hide country result when click outside the zipcode field
         $(document).on('click', function (e) {
@@ -661,6 +676,7 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
         }
+        
         $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
             handleRadiusVisibility();
         });

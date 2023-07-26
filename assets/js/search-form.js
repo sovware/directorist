@@ -1348,7 +1348,7 @@ __webpack_require__.r(__webpack_exports__);
                   var locationIconHTML = "<span class='location-icon'>" + iconHTML + "</span>";
 
                   for (var i = 0, len = data.length; i < len; i++) {
-                    res += "<li><a href=\"#\" data-lat=" + data[i].lat + "data-lon=" + data[i].lon + ">" + locationIconHTML + "<span class='location-address'>" + data[i].display_name, +"</span></a></li>";
+                    res += "<li><a href=\"#\" data-lat=" + data[i].lat + " data-lon=" + data[i].lon + ">" + locationIconHTML + "<span class='location-address'>" + data[i].display_name, +"</span></a></li>";
                   }
 
                   function displayLocation(position, event) {

@@ -460,6 +460,10 @@ class Directorist_Listing_Search_Form {
 		Helper::get_template( 'search-form/more-buttons', [ 'searchform' => $this ] );
 	}
 
+	public function advanced_search_form_basic_fields_template() {
+		Helper::get_template( 'search-form/basic-search', array('searchform' => $this) );
+	}
+
 	public function advanced_search_form_advanced_fields_template() {
 		Helper::get_template( 'search-form/adv-search', array('searchform' => $this) );
 	}

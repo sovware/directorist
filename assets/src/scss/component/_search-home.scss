@@ -60,14 +60,11 @@
     @media screen and (max-width: 767px) {
       width: 100%;
     }
-    @media only screen and (max-width: 575px) {
-      // display: none;
-    }
-    @media screen and (min-width: 575px) {
+    @media screen and (min-width: 576px) {
       .directorist-search-modal__contents {
         border-radius: 0;
       }
-      
+
       .directorist-search-query:after {
         display: none;
       }
@@ -95,8 +92,8 @@
       
       .directorist-search-adv-filter.directorist-advanced-filter.directorist-search-modal__contents {
           position: unset;
-          opacity: 1;
-          visibility: visible;
+          opacity: 1 !important;
+          visibility: visible !important;
           transform: unset;
           width: 100%;
           margin: 0;
@@ -116,6 +113,9 @@
       .directorist-advanced-filter .directorist-form-group.directorist-icon-right .directorist-input-icon,
       .select2-container[dir="ltr"] .directorist-select2-addons-area .directorist-select2-dropdown-toggle {
         right: 15px;
+      }
+      .select2-container[dir="ltr"] .directorist-select2-addons-area .directorist-select2-dropdown-close {
+        right: 30px;
       }
       .directorist-search-modal__input:focus .directorist-select2-dropdown-toggle, 
       .directorist-search-modal__input:focus .directorist-search-field .directorist-input-icon, 

@@ -13,12 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="directorist-search-form-box directorist-search-form__box">
 
 	<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline directorist-search-form__top directorist-search-modal directorist-search-modal--basic">
-		<div class="directorist-search-modal__contents"></div>
-		<?php
-		foreach ( $searchform->form_data[0]['fields'] as $field ){
-			$searchform->field_template( $field );
-		}
-		?>
+		<?php $searchform->advanced_search_form_basic_fields_template();?>
 	</div>
 	<?php
 		$searchform->more_buttons_template();

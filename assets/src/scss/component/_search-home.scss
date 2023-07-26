@@ -61,8 +61,74 @@
       width: 100%;
     }
     @media only screen and (max-width: 575px) {
-      display: none;
+      // display: none;
     }
+    @media screen and (min-width: 575px) {
+      .directorist-search-modal__contents {
+        border-radius: 0;
+      }
+      
+      .directorist-search-query:after {
+        display: none;
+      }
+
+      .directorist-search-modal__input {
+        flex: 30%;
+        margin: 0;
+        border: none;
+        border-radius: 0;
+        .directorist-search-modal__input__btn {
+          display: none;
+        }
+        .directorist-form-group .directorist-form-element:focus {
+          border-bottom: 2px solid var(--directorist-color-primary);
+        }
+      }
+
+      .directorist-search-modal__contents__body .directorist-search-modal__input .directorist-search-field {
+        border: 0 none;
+      }
+      
+      .directorist-search-modal__input:not(:nth-last-child(2)) .directorist-search-field {
+        border-right: 1px solid var(--directorist-color-border);
+      }
+      
+      .directorist-search-adv-filter.directorist-advanced-filter.directorist-search-modal__contents {
+          position: unset;
+          opacity: 1;
+          visibility: visible;
+          transform: unset;
+          width: 100%;
+          margin: 0;
+          max-width: unset;
+      }
+      
+      .directorist-search-modal__contents__body {
+          height: auto;
+          padding: 0;
+          display: flex;
+          gap: 18px;
+          margin: 0;
+      }
+      .directorist-advanced-filter .directorist-form-group.directorist-icon-left .directorist-input-icon {
+        left: 15px;
+      }
+      .directorist-advanced-filter .directorist-form-group.directorist-icon-right .directorist-input-icon,
+      .select2-container[dir="ltr"] .directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+        right: 15px;
+      }
+      .directorist-search-modal__input:focus .directorist-select2-dropdown-toggle, 
+      .directorist-search-modal__input:focus .directorist-search-field .directorist-input-icon, 
+      .directorist-search-modal__input:focus-within .directorist-select2-dropdown-toggle, 
+      .directorist-search-modal__input:focus-within .directorist-search-field .directorist-input-icon {
+        display: block;
+      }
+    }
+
+    .directorist-search-category {
+      width: calc(100% + 15px);
+    }
+
     .directorist-search-field {
       flex: 30%;
       flex-direction: column;

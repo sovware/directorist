@@ -40,19 +40,4 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<?php endif; ?>
 
-	<div class="directorist-search-form-action__modal">
-		<a href="#" class="directorist-btn directorist-btn-light directorist-search-form-action__modal__btn-search directorist-modal-btn directorist-modal-btn--basic">
-
-			<?php directorist_icon( 'las la-search' ); ?>
-
-			<?php echo esc_html( $searchform->search_button_text );?>
-
-		</a>
-		<a href="#" class="directorist-search-form-action__modal__btn-advanced directorist-modal-btn directorist-modal-btn--advanced">
-
-			<?php directorist_icon( 'fas fa-sliders-h' ); ?>
-
-		</a>
-	</div>
-
 </div>

@@ -1211,13 +1211,27 @@ __webpack_require__.r(__webpack_exports__);
             }
 
             $search_form_box.removeClass('atbdp-form-fade');
+            checkEmptySearchFields();
           },
           error: function error(_error) {//console.log(_error);
           }
         });
       });
-    } // hide country result when click outside the zipcode field
+    } // Check Empty Search Fields on Search Modal
 
+
+    function checkEmptySearchFields() {
+      var inputFields = document.querySelectorAll('.directorist-search-modal__input');
+      inputFields.forEach(function (inputField) {
+        var searchField = inputField.querySelector('.directorist-search-field');
+
+        if (!searchField) {
+          inputField.style.display = 'none';
+        }
+      });
+    }
+
+    checkEmptySearchFields(); // hide country result when click outside the zipcode field
 
     $(document).on('click', function (e) {
       if (!$(e.target).closest('.directorist-zip-code').length) {

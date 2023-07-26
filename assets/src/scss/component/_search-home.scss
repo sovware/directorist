@@ -61,8 +61,12 @@
       width: 100%;
     }
     @media screen and (min-width: 576px) {
+      .directorist-search-modal__minimizer {
+        display: none;
+      }
       .directorist-search-modal__contents {
         border-radius: 0;
+        z-index: 1;
       }
 
       .directorist-search-query:after {
@@ -106,6 +110,7 @@
           display: flex;
           gap: 18px;
           margin: 0;
+          flex-wrap: wrap;
       }
       .directorist-advanced-filter .directorist-form-group.directorist-icon-left .directorist-input-icon {
         left: 15px;
@@ -124,7 +129,13 @@
         display: block;
       }
     }
+    @media screen and (max-width: 767px) {
+      .directorist-search-modal__input {
+        flex: 44%;
+      }
+    }
 
+    .directorist-select,
     .directorist-search-category {
       width: calc(100% + 15px);
     }

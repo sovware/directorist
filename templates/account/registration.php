@@ -18,24 +18,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="add_listing_title atbd_success_mesage">
 					<?php
 					if ( ! empty( $_GET['registration_status'] ) && true == $_GET['registration_status'] ) {
-						if ( empty( $display_password_reg ) ) {
 							?>
-							<p style="padding: 20px" class="alert-success"><?php directorist_icon( 'las la-check' ); ?><?php esc_html_e(' Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
-								<?php
-								$output = sprintf( __( 'Click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' );
-								echo wp_kses_post( $output );
-								?>
-							</p>
-						<?php } else { ?>
 							<!--registration succeeded, so show notification -->
-							<p style="padding: 20px" class="alert-success"><?php directorist_icon( 'las la-check' ); ?><?php esc_html_e(' Registration completed. Please check your email for confirmation.', 'directorist'); ?>
+							<p class="directorist-alert directorist-alert-success">
 								<?php
-								$output = sprintf( __('Or click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' );
-								echo wp_kses_post( $output );
+								if(get_directorist_option('enable_email_verification')) {
+									$send_confirm_mail_url = add_query_arg([
+										'action' => 'send_confirmation_email',
+										'user'   => isset($_REQUEST['email']) ? $_REQUEST['email'] : '',
+										'directorist_nonce' => wp_create_nonce('directorist_nonce'),
+									], admin_url('admin-ajax.php'));
+
+									echo directorist_icon( 'las la-check', false ) . ' ' . __("Thank you for signing up! To complete the registration process, please verify your email address by clicking on the link we've sent to your email.", 'directorist');
+									echo "<span style='display:inline-block;margin-top:10px;'>" . sprintf(__("If you didn't receive the confirmation email, please check your spam folder. If you still can't find it, click on the %s to have a new email sent to you.", "directorist"), "<a href='" . $send_confirm_mail_url . "'>". __("Resend confirmation email")."</a>")."</span>";
+								} else {
+									$output = sprintf( __('Click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_url() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' );
+									echo wp_kses_post( $output );
+								}
 								?>
 							</p>
 						<?php
-						}
 					}
 					?>
 					<!--Registration failed, so show notification.-->
@@ -134,11 +136,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						 */
 						do_action( 'atbdp_before_user_registration_submit' );
 						?>
-						<?php if(!$display_password_reg) {?>
-						<div class="directory_regi_btn">
-							<p><?php esc_html_e('Password will be e-mailed to you.','directorist');?></p>
-						</div>
-						<?php } ?>
 						<div class="directory_regi_btn directorist-mb-15">
 							<?php if ( get_directorist_option( 'redirection_after_reg' ) === 'previous_page' ) { ?>
 							<input type="hidden" name='previous_page' value='<?php echo esc_url( wp_get_referer() ); ?>'>
@@ -157,4 +154,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div> <!--ends .row-->
 	</div>
 </div>
-

@@ -544,7 +544,7 @@ window.addEventListener('DOMContentLoaded', function () {
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {
       e.preventDefault();
-      $('p.status').show().html(directorist.loading_message);
+      $('p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
       $.ajax({
         type: 'POST',
         dataType: 'json',
@@ -559,32 +559,54 @@ window.addEventListener('DOMContentLoaded', function () {
         },
         success: function success(data) {
           if ('nonce_faild' in data && data.nonce_faild) {
-            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
 
           if (data.loggedin == true) {
-            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
             document.location.href = directorist.redirect_url;
           } else {
-            $('p.status').html('<span class="status-failed">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-danger"><span>' + data.message + '</span></div>');
           }
         },
         error: function error(data) {
           if ('nonce_faild' in data && data.nonce_faild) {
-            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
 
-          $('p.status').show().html('<span class="status-failed">' + directorist.login_error_message + '</span>');
+          $('p.status').show().html('<div class="directorist-alert directorist-alert-danger"><span>' + directorist.login_error_message + '</span></div>');
         }
       });
       e.preventDefault();
+    });
+    $('form#login .status').on('click', 'a', function (e) {
+      e.preventDefault();
+      var element = $(this);
+      var href = element.attr('href');
+
+      if (0 < href.search('lostpassword')) {
+        $("#recover-pass-modal").slideToggle().show();
+      } else {
+        location.href = href;
+      }
     }); // Alert users to login (only if applicable)
 
     $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
       e.preventDefault();
       alert(directorist.login_alert_message);
       return false;
-    });
+    }); // Remove URL params to avoid show message again and again
+
+    var current_url = location.href;
+    var url = new URL(current_url);
+    url.searchParams.delete('registration_status');
+    url.searchParams.delete('errors');
+    url.searchParams.delete('key');
+    url.searchParams.delete('password_reset');
+    url.searchParams.delete('confirm_mail');
+    url.searchParams.delete('user');
+    url.searchParams.delete('send_email_confirm_mail');
+    window.history.pushState(null, null, url.toString());
   });
 })(jQuery);
 

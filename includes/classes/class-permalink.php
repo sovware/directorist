@@ -139,7 +139,7 @@ class ATBDP_Permalink {
         return apply_filters( 'atbdp_login_redirection_page_url', $link, $page_id );
     }
 
-    public static function get_reg_redirection_page_link( $previous_page )
+    public static function get_reg_redirection_page_link( $previous_page, $query_vars=array() )
     {
         $page_id = get_directorist_option( 'redirection_after_reg', 'previous_page' );
 
@@ -147,6 +147,10 @@ class ATBDP_Permalink {
             $link = $previous_page;
         } else {
             $link = $page_id ? get_permalink( $page_id ) : '';
+        }
+
+        if ( ! empty( $query_vars ) && is_array( $query_vars ) ) {
+            $link = add_query_arg( $query_vars, $link );
         }
 
         return apply_filters( 'atbdp_reg_redirection_page_url', $link, $page_id );

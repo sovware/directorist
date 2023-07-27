@@ -107,6 +107,7 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 			$order_receipt_link = ATBDP_Permalink::get_payment_receipt_page_link( $order_id );
 			$cats = wp_get_object_terms( $listing_id, ATBDP_CATEGORY, array( 'fields' => 'names' ) );/*@todo, maybe we can use get_the_terms() for utilizing some default caching???*/
 			$cat_name = ! empty( $cats ) ? $cats[0] : '';/*@todo; if a listing is attached to multiple cats, we can print more than one cat later.*/
+
 			$find_replace = array(
 				'==NAME==' => ! empty( $user->display_name ) ? $user->display_name : '',
 				'==USERNAME==' => ! empty( $user->user_login ) ? $user->user_login : '',
@@ -130,6 +131,8 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 				'==USER_PASSWORD==' => $user_password,
 				'==USER_DASHBOARD==' => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
 				'==PIN==' => $pin,
+				'==CONFIRM_EMAIL_ADDRESS_URL==' => sprintf( '<a href="%s">%s</a>',  esc_url_raw(directorist_password_reset_url($user, false, true)), __( 'Confirm Email Address', 'directorist' ) ),
+				'==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => sprintf( '<a href="%s">%s</a>',  esc_url_raw(directorist_password_reset_url($user, true, true)), __( 'Set Password And Confirm Email Address', 'directorist' ) )
 			);
 			$c = nl2br( strtr( $content, $find_replace ) );
 			// we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
@@ -1109,12 +1112,16 @@ This email is sent automatically for information purpose only. Please do not res
 		/**
 		 * @since 5.8
 		 */
-		function custom_wp_new_user_notification_email( $user_id ) {
+		public function custom_wp_new_user_notification_email( $user_id ) {			
+
 			$user = get_user_by( 'ID', $user_id );
+
 			if ( get_directorist_option( 'disable_email_notification' ) ) {
 				return;
 			}
+
 			$sub = get_directorist_option( 'email_sub_registration_confirmation', __( 'Registration Confirmation!', 'directorist' ) );
+
 			$body = get_directorist_option(
 				'email_tmpl_registration_confirmation',
 				'Hi ==USERNAME==,
@@ -1123,12 +1130,39 @@ Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==US
 
 We look forward to seeing you soon'
 			);
+			
+
 			$body = $this->replace_in_content( $body, null, null, $user );
 			$body = atbdp_email_html( $sub, $body );
 			$mail = $this->send_mail( $user->user_email, $sub, $body, $this->get_email_headers() );
 			if ( $mail ) {
 				delete_user_meta( $user_id, '_atbdp_generated_password' );
 			}
+		}
+
+		public function send_user_confirmation_email(Wp_User $user) {
+
+			if ( get_directorist_option( 'disable_email_notification' ) ) {
+				return;
+			}
+
+			$subject = __( 'Verify your email address', 'directorist' );
+
+			$body = sprintf(__( "Hi %s,
+
+			Thank you for signing up at ==SITE_NAME==, to complete the registration, we need to verify your email address.
+
+			==CONFIRM_EMAIL_ADDRESS_URL==
+
+			To activate your account simply click the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
+
+			If you did not sign up for this account you can ignore this email.", 'directorist' ), $user->user_nicename);
+
+			$body = $this->replace_in_content( $body, null, null, $user );
+
+			$body = atbdp_email_html( $subject, $body );
+
+			return $this->send_mail( $user->user_email, $subject, $body, $this->get_email_headers() );
 		}
 
 	} // ends class

@@ -3188,6 +3188,7 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  background-color: var(--directorist-color-white);
 }
 
 .directorist-add-listing-form .directorist-content-module {
@@ -4545,6 +4546,13 @@ body.stop-scrolling {
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.multistep-wizard__nav.sticky {
+  position: fixed;
+  top: 0;
 }
 @media only screen and (max-width: 991px) {
   .multistep-wizard__nav {
@@ -4820,6 +4828,10 @@ body.stop-scrolling {
             flex: 0 0 100%;
     text-align: center;
   }
+}
+
+.logged-in .multistep-wizard__nav.sticky {
+  top: 32px;
 }
 
 .upload-error {
@@ -12986,13 +12998,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.directorist-all-listing-btn,
-.directorist-all-listing-modal,
-.directorist-type-nav,
-.directorist-header-bar {
-  background: var(--directorist-color-white);
 }
 
 .directorist-all-listing-btn {

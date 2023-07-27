@@ -858,7 +858,42 @@ $(document).ready(function () {
         submit_button.html(submit_button_default_html);
       }
     });
-  }); // MultiStep Wizard
+  });
+
+  function addSticky() {
+    $(window).scroll(function () {
+      var windowWidth = $(window).width();
+      var sidebarWidth = $(".multistep-wizard__nav").width();
+      var sidebarHeight = $(".multistep-wizard__nav").height();
+      var multiStepWizardOffset = $(".multistep-wizard").offset().top;
+      var multiStepWizardHeight = $(".multistep-wizard").outerHeight();
+
+      if (windowWidth > 991) {
+        var scrollPos = $(window).scrollTop(); // Check if the user has scrolled down to the container position
+
+        if (scrollPos >= multiStepWizardOffset) {
+          $(".multistep-wizard__nav").addClass("sticky");
+          $(".multistep-wizard__content").css("padding-left", sidebarWidth + 30 + 'px'); // Check if the user has fully scrolled the container
+
+          if (scrollPos >= multiStepWizardOffset + multiStepWizardHeight - sidebarHeight) {
+            $(".multistep-wizard__nav").removeClass("sticky");
+            $(".multistep-wizard__content").css("padding-left", '0px');
+          } else {
+            $(".multistep-wizard__nav").addClass("sticky");
+            $(".multistep-wizard__content").css("padding-left", sidebarWidth + 30 + 'px');
+          }
+        } else {
+          $(".multistep-wizard__nav").removeClass("sticky");
+          $(".multistep-wizard__content").css("padding-left", '0px');
+        }
+      } else {
+        $(".multistep-wizard__nav").removeClass("sticky");
+        $(".multistep-wizard__content").css("padding-left", '0px');
+      }
+    });
+  }
+
+  addSticky(); // MultiStep Wizard
 
   function multiStepWizard() {
     var totalStep = document.querySelectorAll('.multistep-wizard__nav__btn');

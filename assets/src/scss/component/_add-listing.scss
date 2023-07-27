@@ -62,6 +62,7 @@
 
 .directorist-add-listing-wrapper {
   display: flex;
+  background-color: var(--directorist-color-white);
 }
 
 .directorist-add-listing-form {
@@ -1244,6 +1245,11 @@
   @include e(nav) {
     display: flex;
     flex-direction: column;
+    height: fit-content;
+    &.sticky {
+      position: fixed;
+      top: 0;
+    }
     @media only screen and (max-width: 991px) {
       gap: 10px;
       flex-wrap: wrap;
@@ -1452,5 +1458,10 @@
       flex: 0 0 100%;
       text-align: center;
     }
+  }
+}
+.logged-in {
+  .multistep-wizard__nav.sticky {
+    top: 32px;
   }
 }

@@ -324,7 +324,7 @@
         });
       }
       
-      var dirImageUpload = document.querySelector(".directorist-image-upload")
+      var dirImageUpload = document.querySelector(".directorist-image-upload");
 
       if(dirImageUpload && dirImageUpload.classList.contains('max-file-reached')) {
         dirImageUpload.classList.remove('max-file-reached');

@@ -236,7 +236,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		 */
 		public function filter_user_row_actions( array $actions, \WP_User $user_object ) : array {
 
-			$is_email_unverified = get_user_meta( $user_object->ID, 'directorist_user_email_unverified', true );
+			$is_email_unverified = (bool) get_user_meta( $user_object->ID, 'directorist_user_email_unverified', true );
 
 			if ( $is_email_unverified ) {
 				$url = add_query_arg( array(
@@ -329,8 +329,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			switch ($column_name) {
 				case 'directorist_email_verified':
-					$is_user_unverified = get_user_meta($user_id, 'directorist_user_email_unverified', true);
-					if($is_user_unverified) {
+					$is_user_unverified = (bool) get_user_meta( $user_id, 'directorist_user_email_unverified', true );
+					if ( $is_user_unverified ) {
 						return "<p style='margin-left:32px;'><span class='dashicons dashicons-dismiss' style='color:#999;'></span></p>";
 					} else {
 						return "<p style='margin-left:32px;'><span class='dashicons dashicons-yes-alt' style='color:#08bf9c;'></span></p>";

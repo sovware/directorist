@@ -501,7 +501,7 @@ This email is sent automatically for information purpose only. Please do not res
 			if ( ! in_array( 'order_completed', get_directorist_option( 'notify_user', array( 'order_completed' ) ) ) ) {
 				return false;
 			}
-			$user = $this->get_owner( $listing_id );
+			$user = $this->get_owner( $listing_id ? $listing_id : $order_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_completed_order' ), $order_id, $listing_id, $user );
 			$body = $this->replace_in_content( get_directorist_option( 'email_tmpl_completed_order' ), $order_id, $listing_id, $user );
 			$message = atbdp_email_html( $subject, $body );

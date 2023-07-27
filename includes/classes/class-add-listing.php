@@ -65,6 +65,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			return $id;
 		}
 
+
 		/**
 		 * Process listing submission.
 		 *
@@ -108,79 +109,109 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			}
 
 			// isolate data
-			$error     = array();
-			$meta_data = array();
-
-			$tag                       = ! empty( $posted_data['tax_input']['at_biz_dir-tags'] ) ? ( $posted_data['tax_input']['at_biz_dir-tags'] ) : array();
-			$location                  = ! empty( $posted_data['tax_input']['at_biz_dir-location'] ) ? ( $posted_data['tax_input']['at_biz_dir-location'] ) : array();
-			$admin_category_select     = ! empty( $posted_data['tax_input']['at_biz_dir-category'] ) ? ( $posted_data['tax_input']['at_biz_dir-category'] ) : array();
+			$error                     = array();
+			$meta_data                 = array();
 			$images                    = ! empty( $posted_data['files_meta'] ) ? $posted_data['files_meta'] : array();
 			$manual_lat                = ! empty( $posted_data['manual_lat'] ) ? $posted_data['manual_lat'] : array();
 			$manual_lng                = ! empty( $posted_data['manual_lng'] ) ? $posted_data['manual_lng'] : array();
 			$map                       = ! empty( $manual_lat ) && ! empty( $manual_lng ) ? true : false;
 			$attachment_only_for_admin = false;
+			$is_description_admin_only = false;
+
+			$posted_tags                = directorist_get_var( $posted_data['tax_input'][ ATBDP_TAGS ], array() );
+			$posted_locations           = directorist_get_var( $posted_data['tax_input'][ ATBDP_LOCATION ], array() );
+			$posted_categories          = directorist_get_var( $posted_data['tax_input'][ ATBDP_CATEGORY ], array() );
+			$is_tag_admin_only          = false;
+			$is_category_admin_only     = false;
+			$is_location_admin_only     = false;
+			$is_tag_insert_allowed      = false;
+			$is_category_insert_allowed = false;
+			$is_location_insert_allowed = false;
+			$max_allowed_location = 0;
+
+			$public_fields_with_empty_post_data = array();
 
 			// meta input
 			foreach ( $submission_form_fields as $field_internal_key => $form_field ) {
+				$field_type       = directorist_get_var( $form_field['type'] );
 				$field_key        = ! empty( $form_field['field_key'] ) ? $form_field['field_key'] : '';
 				$submitted_data   = ! empty( $posted_data[ $field_key ] ) ? $posted_data[ $field_key ] : '';
 				$required         = ! empty( $form_field['required'] ) ? true : false;
-				$only_for_admin   = ! empty( $form_field['only_for_admin'] ) ? true : false;
+				$admin_only_field = ! empty( $form_field['only_for_admin'] ) ? true : false;
 				$label            = ! empty( $form_field['label'] ) ? $form_field['label'] : '';
 
+				if ( ! $admin_only_field && $field_key && empty( $submitted_data ) ) {
+					$public_fields_with_empty_post_data[] = '_' . $field_key;
+				}
+
 				// No need to process admin only fields on the frontend.
-				if ( $only_for_admin ) {
+				if ( $admin_only_field ) {
+					if ( 'image_upload' === $field_internal_key ) {
+						$attachment_only_for_admin = true;
+					}
+
+					if ( 'tag' === $field_internal_key ) {
+						$is_tag_admin_only = true;
+					}
+
+					if ( 'category' === $field_internal_key ) {
+						$is_category_admin_only = true;
+					}
+
+					if ( 'location' === $field_internal_key ) {
+						$is_location_admin_only = true;
+					}
+
+					if ( 'description' === $field_internal_key ) {
+						$is_description_admin_only = true;
+					}
+
 					continue;
 				}
 
-				$additional_logic = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $form_field, $posted_data );
-
-				$field_category = ! empty( $form_field['category'] ) ? $form_field['category'] : '';
-				if ( $field_category && ! in_array( $field_category, $admin_category_select ) ) {
-					$additional_logic = false;
+				if ( 'location' === $field_internal_key ) {
+					$is_location_insert_allowed = (bool) $form_field['create_new_loc'];
+					$max_allowed_location       = (int) directorist_get_var( $form_field['max_location_creation'], 0 );
 				}
 
-				if ( $additional_logic ) {
-					$regular_field = true;
-					// error handling
-					if ( ( 'category' === $field_internal_key ) && $required && ! $admin_category_select ) {
-						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-						$regular_field = false;
-					}
-
-					if ( ( 'location' === $field_internal_key ) && $required && ! $location ) {
-						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-						$regular_field = false;
-					}
-
-					if ( ( 'tag' === $field_internal_key ) && $required && ! $tag ) {
-						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-						$regular_field = false;
-					}
-
-					if ( ( 'image_upload' === $field_internal_key ) && $required && ! $images ) {
-						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-						$regular_field = false;
-					}
-
-					if ( ( 'map' === $field_internal_key ) && $required && ! $map ) {
-						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-						$regular_field = false;
-					}
-
-					if ( $regular_field && $required && ! $submitted_data ) {
-						// translators: %s field label.
-						$error[] = sprintf( __( '%s field is required!', 'directorist' ), $label );
-					}
+				if ( 'category' === $field_internal_key ) {
+					$is_category_insert_allowed = (bool) $form_field['create_new_cat'];
 				}
 
-				if ( ( 'image_upload' === $field_internal_key ) && $only_for_admin ) {
-					$attachment_only_for_admin = true;
+				if ( 'tag' === $field_internal_key ) {
+					$is_tag_insert_allowed = (bool) $form_field['allow_new'];
+				}
+
+				$should_validate = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $form_field, $posted_data );
+
+				$field_category_id = (int) directorist_get_var( $form_field['category'], 0 );
+				if ( $field_category_id && is_array( $posted_categories ) && ! in_array( $field_category_id, $posted_categories, true ) ) {
+					$should_validate = false;
+				}
+
+				if ( $should_validate && $required ) {
+					$is_empty = false;
+
+					if ( 'category' === $field_internal_key && empty( $posted_categories ) ) {
+						$is_empty = true;
+					} elseif ( 'location' === $field_internal_key && empty( $posted_locations ) ) {
+						$is_empty = true;
+					} elseif ( 'tag' === $field_internal_key && empty( $posted_tags ) ) {
+						$is_empty = true;
+					} elseif ( 'image_upload' === $field_internal_key && empty( $images ) ) {
+						$is_empty = true;
+					} elseif ( 'map' === $field_internal_key && ! $map ) {
+						$is_empty = true;
+					}
+
+					if ( ! in_array( $field_internal_key, array( 'category', 'location', 'tag', 'image_upload', 'map' ), true ) && ! $submitted_data ) {
+						$is_empty = true;
+					}
+
+					if ( $is_empty ) {
+						// translators: %s field label.
+						$error[] = sprintf( __( '<strong>%s</strong> field is required!', 'directorist' ), $label );
+					}
 				}
 
 				// process meta
@@ -198,20 +229,22 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				if ( ! in_array( $field_key, array( 'listing_title', 'listing_content', 'tax_input' ), true ) && isset( $posted_data[ $field_key ] ) ) {
 					$meta_field_key = '_' . $field_key;
-					$meta_data[ $meta_field_key ] = sanitize_text_field( $posted_data[ $field_key ] );
+					if ( $field_type === 'textarea' ) {
+						$meta_data[ $meta_field_key ] = sanitize_textarea_field( $posted_data[ $field_key ] );
+					} elseif ( $field_type === 'email' ) {
+						$meta_data[ $meta_field_key ] = sanitize_email( $posted_data[ $field_key ] );
+					} else {
+						$meta_data[ $meta_field_key ] = directorist_clean( $posted_data[ $field_key ] );
+					}
 				}
 			}
 
-			// wp_send_json( $error );
-			$title   = ! empty( $posted_data['listing_title'] ) ? sanitize_text_field( $posted_data['listing_title'] ) : '';
-			$content = ! empty( $posted_data['listing_content'] ) ? wp_kses_post( $posted_data['listing_content'] ) : '';
-
 			if ( ! empty( $posted_data['privacy_policy'] ) ) {
-				$meta_data['_privacy_policy'] = $posted_data['privacy_policy'];
+				$meta_data['_privacy_policy'] = (bool) $posted_data['privacy_policy'];
 			}
 
 			if ( ! empty( $posted_data['t_c_check'] ) ) {
-				$meta_data['_t_c_check'] = $posted_data['t_c_check'];
+				$meta_data['_t_c_check'] = (bool) $posted_data['t_c_check'];
 			}
 
 			$meta_data['_directory_type'] = $directory_type;
@@ -225,7 +258,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			}
 
 			if ( $error ) {
-				$data['error_msg'] = $error;
+				$data['error_msg'] = implode( '<br>', $error );
 				$data['error']     = true;
 			}
 			/**
@@ -236,6 +269,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			$meta_data = apply_filters( 'atbdp_listing_meta_user_submission', $meta_data );
 			$meta_data = apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $meta_data, $posted_data );
+
 			$meta_input = array_filter( $meta_data, static function( $value ) {
 				if ( is_array( $value ) ) {
 					return ! empty( $value );
@@ -244,12 +278,14 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			} );
 
 			$args = array(
-				'post_content' => $content,
-				'post_title'   => $title,
+				'post_title'   => sanitize_text_field( directorist_get_var( $posted_data['listing_title'], '' ) ),
 				'post_type'    => ATBDP_POST_TYPE,
-				'tax_input'    => ! empty( $posted_data['tax_input'] ) ? directorist_clean( $posted_data['tax_input'] ) : array(),
 				'meta_input'   => $meta_input,
 			);
+
+			if ( ! $is_description_admin_only && isset( $posted_data['listing_content'] ) ) {
+				$args['post_content'] = wp_kses_post( $posted_data['listing_content'] );
+			}
 
 			// is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
 			if ( ! empty( $posted_data['listing_id'] ) ) {
@@ -260,9 +296,13 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				 */
 				do_action( 'atbdp_before_processing_to_update_listing' );
 
-				$deletable_meta_data = array_diff_key( $meta_data, $meta_input );
-				foreach ( $deletable_meta_data as $deletable_meta_key => $v ) {
-					delete_post_meta( $listing_id, $deletable_meta_key );
+				$deletable_meta_fields = array_merge(
+					$public_fields_with_empty_post_data,
+					array_keys( array_diff_key( $meta_data, $meta_input ) )
+				);
+
+				foreach ( $deletable_meta_fields as $deletable_meta_field ) {
+					delete_post_meta( $listing_id, $deletable_meta_field );
 				}
 
 				$_args       = array(
@@ -288,58 +328,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				// Check if the current user is the owner of the post
 				$post = get_post( $args['ID'] );
+
 				// update the post if the current user own the listing he is trying to edit. or we and give access to the editor or the admin of the post.
 				if ( get_current_user_id() == $post->post_author || current_user_can( 'edit_others_at_biz_dirs' ) ) {
-					// Convert taxonomy input to term IDs, to avoid ambiguity.
-					if ( isset( $args['tax_input'] ) ) {
-						foreach ( (array) $args['tax_input'] as $taxonomy => $terms ) {
-							// Hierarchical taxonomy data is already sent as term IDs, so no conversion is necessary.
-							if ( is_taxonomy_hierarchical( $taxonomy ) ) {
-								continue;
-							}
-
-							/*
-								* Assume that a 'tax_input' string is a comma-separated list of term names.
-								* Some languages may use a character other than a comma as a delimiter, so we standardize on
-								* commas before parsing the list.
-								*/
-							if ( ! is_array( $terms ) ) {
-								$comma = _x( ',', 'tag delimiter', 'directorist' );
-								if ( ',' !== $comma ) {
-									$terms = str_replace( $comma, ',', $terms );
-								}
-								$terms = explode( ',', trim( $terms, " \n\t\r\0\x0B," ) );
-							}
-
-							$clean_terms = array();
-							foreach ( $terms as $term ) {
-								// Empty terms are invalid input.
-								if ( empty( $term ) ) {
-									continue;
-								}
-
-								$_term = get_terms(
-									$taxonomy,
-									array(
-										'name'       => $term,
-										'fields'     => 'ids',
-										'hide_empty' => false,
-									)
-								);
-
-								if ( ! empty( $_term ) ) {
-									$clean_terms[] = intval( $_term[0] );
-								} else {
-									// No existing term was found, so pass the string. A new term will be created.
-									$clean_terms[] = $term;
-								}
-							}
-
-							$args['tax_input'][ $taxonomy ] = $clean_terms;
-						}
-					}
-
 					$post_id = wp_update_post( $args );
+
 					// TODO: figure out why directory type is being updated again.
 					update_post_meta( $post_id, '_directory_type', $directory_type );
 
@@ -347,62 +340,118 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						wp_set_object_terms( $post_id, (int) $directory_type, 'atbdp_listing_types' );
 					}
 
-					if ( ! empty( $location ) ) {
-						$append = false;
-						if ( count( $location ) > 1 ) {
-							$append = true;
-						}
-						foreach ( $location as $single_loc ) {
-							$locations = get_term_by( 'term_id', $single_loc, ATBDP_LOCATION );
-							if ( ! $locations ) {
-								$result = wp_insert_term( $single_loc, ATBDP_LOCATION );
-								if ( ! is_wp_error( $result ) ) {
-									$term_id = $result['term_id'];
-									wp_set_object_terms( $post_id, $term_id, ATBDP_LOCATION, $append );
-									update_term_meta( $term_id, '_directory_type', array( $directory_type ) );
-
-								}
-							} else {
-								wp_set_object_terms( $post_id, $locations->name, ATBDP_LOCATION, $append );
-							}
-						}
-					} else {
-						wp_set_object_terms( $post_id, '', ATBDP_LOCATION );
-					}
-					if ( ! empty( $tag ) ) {
-						if ( count( $tag ) > 1 ) {
-							foreach ( $tag as $single_tag ) {
-								$tag = get_term_by( 'slug', $single_tag, ATBDP_TAGS );
-								wp_set_object_terms( $post_id, $tag->name, ATBDP_TAGS, true );
-							}
+					// Process locations.
+					if ( ! $is_location_admin_only && is_array( $posted_locations ) ) {
+						if ( empty( $posted_locations ) ) {
+							wp_set_object_terms( $post_id, '', ATBDP_LOCATION );
 						} else {
-							wp_set_object_terms( $post_id, $tag[0], ATBDP_TAGS );// update the term relationship when a listing updated by author
+							$location_ids = array();
+
+							foreach ( $posted_locations as $location ) {
+
+								$location_id = (int) $location;
+								if ( $location_id && term_exists( $location_id, ATBDP_LOCATION ) ) {
+									$location_ids[] = $location_id;
+									continue;
+								}
+
+								if ( $is_location_insert_allowed ) {
+									$location_added = wp_insert_term( $location, ATBDP_LOCATION );
+
+									if ( is_wp_error( $location_added ) ) {
+										if ( $location_added->get_error_code() === 'term_exists' ) {
+											$location_ids[] = $location_added->get_error_data();
+										} else {
+											continue;
+										}
+									} else {
+										$location_ids[] = $location_added['term_id'];
+										update_term_meta( $location_added['term_id'], '_directory_type', array( $directory_type ) );
+									}
+								}
+							}
+
+							if ( $max_allowed_location > 0 ) {
+								$location_ids = array_slice( $location_ids, 0, $max_allowed_location );
+							}
+
+							wp_set_object_terms( $post_id, $location_ids, ATBDP_LOCATION );
 						}
-					} else {
-						wp_set_object_terms( $post_id, '', ATBDP_TAGS );
 					}
 
-					if ( ! empty( $admin_category_select ) ) {
-						update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-						$append = false;
-						if ( count( $admin_category_select ) > 1 ) {
-							$append = true;
-						}
-						foreach ( $admin_category_select as $single_category ) {
-							$cat = get_term_by( 'term_id', $single_category, ATBDP_CATEGORY );
-							if ( ! $cat ) {
-								$result = wp_insert_term( $single_category, ATBDP_CATEGORY );
-								if ( ! is_wp_error( $result ) ) {
-									$term_id = $result['term_id'];
-									wp_set_object_terms( $post_id, $term_id, ATBDP_CATEGORY, $append );
-									update_term_meta( $term_id, '_directory_type', array( $directory_type ) );
+					// Process tags.
+					if ( ! $is_tag_admin_only && is_array( $posted_tags ) ) {
+						$posted_tags = array_map( static function( $tag ) {
+							return trim( $tag );
+						}, $posted_tags );
+
+						if ( empty( $posted_tags ) ) {
+							wp_set_object_terms( $post_id, '', ATBDP_TAGS );
+						} else {
+							$tag_ids = array();
+
+							foreach ( $posted_tags as $tag ) {
+
+								if ( ( $_tag = term_exists( $tag, ATBDP_TAGS ) ) ) {
+									$tag_ids[] = (int) $_tag['term_id'];
+									continue;
 								}
-							} else {
-								wp_set_object_terms( $post_id, $cat->name, ATBDP_CATEGORY, $append );
+
+								if ( $is_tag_insert_allowed ) {
+									$tag_added = wp_insert_term( $tag, ATBDP_TAGS );
+
+									if ( is_wp_error( $tag_added ) ) {
+										if ( $tag_added->get_error_code() === 'term_exists' ) {
+											$tag_ids[] = $tag_added->get_error_data();
+										} else {
+											continue;
+										}
+									} else {
+										$tag_ids[] = $tag_added['term_id'];
+									}
+								}
 							}
+
+							wp_set_object_terms( $post_id, $tag_ids, ATBDP_TAGS );
 						}
-					} else {
-						wp_set_object_terms( $post_id, '', ATBDP_CATEGORY );
+					}
+
+					// Process categories.
+					if ( ! $is_category_admin_only && is_array( $posted_categories ) ) {
+						if ( empty( $posted_categories ) ) {
+							wp_set_object_terms( $post_id, '', ATBDP_CATEGORY );
+						} else {
+							$category_ids = array();
+
+							foreach ( $posted_categories as $category ) {
+
+								$category_id = (int) $category;
+								if ( $category_id && term_exists( $category_id, ATBDP_CATEGORY ) ) {
+									$category_ids[] = $category_id;
+									continue;
+								}
+
+								if ( $is_category_insert_allowed ) {
+									$category_added = wp_insert_term( $category, ATBDP_CATEGORY );
+
+									if ( is_wp_error( $category_added ) ) {
+										if ( $category_added->get_error_code() === 'term_exists' ) {
+											$category_ids[] = $category_added->get_error_data();
+										} else {
+											continue;
+										}
+									} else {
+										$category_ids[] = $category_added['term_id'];
+										update_term_meta( $category_added['term_id'], '_directory_type', array( $directory_type ) );
+									}
+								}
+							}
+
+							wp_set_object_terms( $post_id, $category_ids, ATBDP_CATEGORY );
+
+							//TODO: need to know the purpose of this.
+							update_post_meta( $post_id, '_admin_category_select', $category_ids );
+						}
 					}
 
 					// for dev
@@ -416,81 +465,15 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				// the post is a new post, so insert it as new post.
 				if ( current_user_can( 'publish_at_biz_dirs' ) && ( ! isset( $data['error'] ) ) ) {
-					// $_args = [ 'id' => '', 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status];
-					$post_status = $new_l_status;
-
+					$post_status         = $new_l_status;
 					$args['post_status'] = $post_status;
 
 					if ( 'pending' === $post_status ) {
 						$data['pending'] = true;
 					}
 
-					// $monitization = get_directorist_option('enable_monetization', 0);
-					// if listing under a purchased package
-					// if (is_fee_manager_active()) {
-					// if (('package' === package_or_PPL($plan = null)) && $plan_purchased && ('publish' === $new_l_status)) {
-					// status for paid users
-					// $args['post_status'] = $new_l_status;
-					// } else {
-					// status for non paid users
-					// $args['post_status'] = 'pending';
-					// }
-					// }
-					// if (!empty($featured_enabled && $monitization) && ('featured' === $posted_data['listing_type'] ) ) {
-					// $args['post_status'] = 'pending';
-					// } else {
-					// $args['post_status'] = $post_status;
-					// }
 					if ( ! empty( $preview_enable ) ) {
 						$args['post_status'] = 'private';
-					}
-
-					if ( isset( $args['tax_input'] ) ) {
-						foreach ( (array) $args['tax_input'] as $taxonomy => $terms ) {
-							// Hierarchical taxonomy data is already sent as term IDs, so no conversion is necessary.
-							if ( is_taxonomy_hierarchical( $taxonomy ) ) {
-								continue;
-							}
-
-							/*
-								* Assume that a 'tax_input' string is a comma-separated list of term names.
-								* Some languages may use a character other than a comma as a delimiter, so we standardize on
-								* commas before parsing the list.
-								*/
-							if ( ! is_array( $terms ) ) {
-								$comma = _x( ',', 'tag delimiter', 'directorist' );
-								if ( ',' !== $comma ) {
-									$terms = str_replace( $comma, ',', $terms );
-								}
-								$terms = explode( ',', trim( $terms, " \n\t\r\0\x0B," ) );
-							}
-
-							$clean_terms = array();
-							foreach ( $terms as $term ) {
-								// Empty terms are invalid input.
-								if ( empty( $term ) ) {
-									continue;
-								}
-
-								$_term = get_terms(
-									$taxonomy,
-									array(
-										'name'       => $term,
-										'fields'     => 'ids',
-										'hide_empty' => false,
-									)
-								);
-
-								if ( ! empty( $_term ) ) {
-									$clean_terms[] = intval( $_term[0] );
-								} else {
-									// No existing term was found, so pass the string. A new term will be created.
-									$clean_terms[] = $term;
-								}
-							}
-
-							$args['tax_input'][ $taxonomy ] = $clean_terms;
-						}
 					}
 
 					$post_id = wp_insert_post( $args );
@@ -510,7 +493,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 						update_post_meta( $post_id, '_featured', 0 );
 						update_post_meta( $post_id, '_listing_status', 'post_status' );
-						update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
+						update_post_meta( $post_id, '_admin_category_select', $posted_categories );
 						/*
 							* It fires before processing a listing from the front end
 							* @param array $_POST the array containing the submitted fee data.
@@ -521,63 +504,119 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						if ( ! empty( $directory_type ) ) {
 							wp_set_object_terms( $post_id, (int) $directory_type, 'atbdp_listing_types' );
 						}
-						// location
-						if ( ! empty( $location ) ) {
-							$append = false;
-							if ( count( $location ) > 1 ) {
-								$append = true;
-							}
-							foreach ( $location as $single_loc ) {
-								$locations = get_term_by( 'term_id', $single_loc, ATBDP_LOCATION );
-								if ( ! $locations ) {
-									$result = wp_insert_term( $single_loc, ATBDP_LOCATION );
-									if ( ! is_wp_error( $result ) ) {
-										$term_id = $result['term_id'];
-										wp_set_object_terms( $post_id, $term_id, ATBDP_LOCATION, $append );
-										update_term_meta( $term_id, '_directory_type', array( $directory_type ) );
-									}
-								} else {
-									wp_set_object_terms( $post_id, $locations->name, ATBDP_LOCATION, $append );
-								}
-							}
-						} else {
-							wp_set_object_terms( $post_id, '', ATBDP_LOCATION );
-						}
-						// tag
-						if ( ! empty( $tag ) ) {
-							if ( count( $tag ) > 1 ) {
-								foreach ( $tag as $single_tag ) {
-									$tag = get_term_by( 'slug', $single_tag, ATBDP_TAGS );
-									wp_set_object_terms( $post_id, $tag->name, ATBDP_TAGS, true );
-								}
+
+						// Process locations.
+						if ( ! $is_location_admin_only && is_array( $posted_locations ) ) {
+							if ( empty( $posted_locations ) ) {
+								wp_set_object_terms( $post_id, '', ATBDP_LOCATION );
 							} else {
-								wp_set_object_terms( $post_id, $tag[0], ATBDP_TAGS );// update the term relationship when a listing updated by author
-							}
-						} else {
-							wp_set_object_terms( $post_id, '', ATBDP_TAGS );
-						}
-						// category
-						if ( ! empty( $admin_category_select ) ) {
-							update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-							$append = false;
-							if ( count( $admin_category_select ) > 1 ) {
-								$append = true;
-							}
-							foreach ( $admin_category_select as $single_category ) {
-								$cat = get_term_by( 'term_id', $single_category, ATBDP_CATEGORY );
-								if ( ! $cat ) {
-									$result = wp_insert_term( $single_category, ATBDP_CATEGORY );
-									if ( ! is_wp_error( $result ) ) {
-										$term_id = $result['term_id'];
-										wp_set_object_terms( $post_id, $term_id, ATBDP_CATEGORY, $append );
-										update_term_meta( $term_id, '_directory_type', array( $directory_type ) );
+								$location_ids = array();
+
+								foreach ( $posted_locations as $location ) {
+
+									$location_id = (int) $location;
+									if ( $location_id && term_exists( $location_id, ATBDP_LOCATION ) ) {
+										$location_ids[] = $location_id;
+										continue;
 									}
-								} else {
-									wp_set_object_terms( $post_id, $cat->name, ATBDP_CATEGORY, $append );
+
+									if ( $is_location_insert_allowed ) {
+										$location_added = wp_insert_term( $location, ATBDP_LOCATION );
+
+										if ( is_wp_error( $location_added ) ) {
+											if ( $location_added->get_error_code() === 'term_exists' ) {
+												$location_ids[] = $location_added->get_error_data();
+											} else {
+												continue;
+											}
+										} else {
+											$location_ids[] = $location_added['term_id'];
+											update_term_meta( $location_added['term_id'], '_directory_type', array( $directory_type ) );
+										}
+									}
 								}
+
+								if ( $max_allowed_location > 0 ) {
+									$location_ids = array_slice( $location_ids, 0, $max_allowed_location );
+								}
+
+								wp_set_object_terms( $post_id, $location_ids, ATBDP_LOCATION );
 							}
-						} else {
-							wp_set_object_terms( $post_id, '', ATBDP_CATEGORY );
+						}
+
+						// Process tags.
+						if ( ! $is_tag_admin_only && is_array( $posted_tags ) ) {
+							$posted_tags = array_map( static function( $tag ) {
+								return trim( $tag );
+							}, $posted_tags );
+
+							if ( empty( $posted_tags ) ) {
+								wp_set_object_terms( $post_id, '', ATBDP_TAGS );
+							} else {
+								$tag_ids = array();
+
+								foreach ( $posted_tags as $tag ) {
+
+									if ( ( $_tag = term_exists( $tag, ATBDP_TAGS ) ) ) {
+										$tag_ids[] = (int) $_tag['term_id'];
+										continue;
+									}
+
+									if ( $is_tag_insert_allowed ) {
+										$tag_added = wp_insert_term( $tag, ATBDP_TAGS );
+
+										if ( is_wp_error( $tag_added ) ) {
+											if ( $tag_added->get_error_code() === 'term_exists' ) {
+												$tag_ids[] = $tag_added->get_error_data();
+											} else {
+												continue;
+											}
+										} else {
+											$tag_ids[] = $tag_added['term_id'];
+										}
+									}
+								}
+
+								wp_set_object_terms( $post_id, $tag_ids, ATBDP_TAGS );
+							}
+						}
+
+						// Process categories.
+						if ( ! $is_category_admin_only && is_array( $posted_categories ) ) {
+							if ( empty( $posted_categories ) ) {
+								wp_set_object_terms( $post_id, '', ATBDP_CATEGORY );
+							} else {
+								$category_ids = array();
+
+								foreach ( $posted_categories as $category ) {
+
+									$category_id = (int) $category;
+									if ( $category_id && term_exists( $category_id, ATBDP_CATEGORY ) ) {
+										$category_ids[] = $category_id;
+										continue;
+									}
+
+									if ( $is_category_insert_allowed ) {
+										$category_added = wp_insert_term( $category, ATBDP_CATEGORY );
+
+										if ( is_wp_error( $category_added ) ) {
+											if ( $category_added->get_error_code() === 'term_exists' ) {
+												$category_ids[] = $category_added->get_error_data();
+											} else {
+												continue;
+											}
+										} else {
+											$category_ids[] = $category_added['term_id'];
+											update_term_meta( $category_added['term_id'], '_directory_type', array( $directory_type ) );
+										}
+									}
+								}
+
+								wp_set_object_terms( $post_id, $category_ids, ATBDP_CATEGORY );
+
+								//TODO: need to know the purpose of this.
+								update_post_meta( $post_id, '_admin_category_select', $category_ids );
+							}
 						}
 					}
 					if ( 'publish' == $new_l_status ) {
@@ -869,7 +908,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			wp_safe_redirect( $r_url );
 			exit;
 		}
-
 
 	} // ends ATBDP_Add_Listing
 

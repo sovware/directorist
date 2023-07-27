@@ -114,6 +114,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			// user verification
 			add_action('wp_ajax_send_confirmation_email', [$this, 'send_confirm_email'] );
 			add_action('wp_ajax_nopriv_send_confirmation_email', [$this, 'send_confirm_email'] );
+
+			// zipcode search
+			add_action( 'wp_ajax_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
+			add_action( 'wp_ajax_nopriv_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
 		}
 
 		public function send_confirm_email() {
@@ -142,6 +146,34 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 			wp_safe_redirect(ATBDP_Permalink::get_login_page_url(['send_email_confirm_mail' => true]));
 			exit;
+		}
+
+		public function zipcode_search() {
+			if ( ! directorist_verify_nonce( 'nonce' ) ) {
+				wp_send_json(
+					array(
+						'search_form' => __( 'Something went wrong, please try again.', 'directorist' ),
+					)
+				);
+			}
+			$google_api = get_directorist_option( 'map_api_key' );
+			$zipcode = ! empty( $_POST['zipcode'] ) ? sanitize_text_field( $_POST['zipcode'] ) : '';
+			$url      = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=postcode+' . $zipcode . '&key=' . $google_api;
+			$data     = wp_remote_get( $url );
+			$response = wp_remote_retrieve_body( $data );
+			$json     = $response ? json_decode( $response, true ) : array();
+			$lat_long = ! empty( $json['results'][0]['geometry']['location'] ) ? directorist_clean( $json['results'][0]['geometry']['location'] ) : array();
+			if( ! empty( $lat_long ) ) {
+				wp_send_json( $lat_long );
+			} else {
+				wp_send_json_error( 
+					array( 
+						'error_message' => sprintf( 
+							__( '<div class="error_message">%s <p>%s</p></div>', 'directorist' ), 
+							directorist_icon('fas fa-info-circle', false), __( 'Please enter a valid zip code.', 'directorist' ) )
+					)
+				);
+			}
 		}
 
 		public function instant_search() {

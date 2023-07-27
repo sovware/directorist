@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.0
-Stable tag: 7.5.1
+Stable tag: 7.6.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -307,6 +307,8 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 🔥 **[Connections to Directorist Migrator](https://wordpress.org/plugins/connections-to-directorist-migrator/)** - Directorist offers a user-friendly tool to simplify the migration process by letting you import thousands of Connections listings data to Directorist without the need to import/export CSV.
 
+🔥 **[Helpgent Integration](https://directorist.com/product/directorist-helpgent-integration/)** - Connect your audience through video & audio messaging, screen recording, and text messaging asynchronously. Which helps to connect listing owners to their visitors.
+
 == Themes ==
 
 Directorist Business Directory offers free and cost-effective premium [Directorist Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
@@ -407,6 +409,55 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.6.1 - Jul 26, 2023
+
+* Fix - Can't update user profile image from dashboard
+
+7.6.0 - Jul 12, 2023
+
+* Add - Lazy load on Add Listing Form
+* Add - Google API Support on Zip code Search
+* Add - ‘directorist_listings_query_results’ Filter Hook
+* Add - Placeholder on Custom Select Field in Search Form
+* Improve - Image Validation on Add Listing
+* Remove  - Search Bar Label Option from Search Form
+* Fix - Translation Issue
+* Fix - Category Custom Field Checkbox Issue in Listing Form
+* Fix -  Column Issue in All Categories & Locations Page
+* Fix - Publish Date Issue when Importing Listings
+* Fix - Typo Issue in Users REST API
+* Fix - Image Size Issue in Single Listing Slider 
+* Fix - Listing Count Issue in All Categories & Locations Page
+* Fix - PHP 8 Deprecated Notices
+* Fix - inlineEditPost JS Console Error 
+
+7.5.5 - Jun 01, 2023
+
+* Fix - Security issues ( Password recovery and listing deletion )
+
+7.5.4 - Apr 29, 2023
+
+* Improve - Security of listing importer
+
+7.5.3 - Apr 06, 2023
+
+* Fix - Category, location & tag validation issue in add listing
+* Fix - Textarea new line issue
+
+7.5.2 - Apr 04, 2023
+
+* Add - WordPress 6.2 compatibility
+* Add - Icon reset button to icon picker
+* Fix - Directory builder widget label issue
+* Fix - Warning in single listing review section when no review found
+* Fix - Dashboard Tab Sub Menu Hash Link add on Click Issue
+* FIx - Sub location & category segmentation on admin add listing
+* Fix - Video thumbnail issue on mobile view
+* Fix - Apply & reset filter disappears issue on all listing search form.
+* Fix - Data overriding issue from frontend edit listing
+* Fix - Markup issue of Similar listing
+* Improve -  Update existing listings on listing importer, by specifying ID
 
 7.5.1 - Mar 02, 2023
 

@@ -298,7 +298,7 @@ class Listings_Exporter {
     // updateMetaKeyFieldData
     public static function updateMetaKeyFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
         $value = get_post_meta( get_the_id(), '_' . $field_args['field_key'], true );
-        // $row[ $field_args['field_key'] ] = ( is_string( $value ) ) ? str_replace( '"', '""', $value ) : $value;
+        $row[ 'publish_date' ] = get_the_date( 'Y-m-d H:i:s', get_the_ID() );
         $row[ $field_args['field_key'] ] = $value;
 
         return $row;
@@ -356,20 +356,13 @@ class Listings_Exporter {
 
     // get_term_names
     public static function get_term_names( $post_id = 0, $taxonomy = '' ) {
-        // $term_names = [];
-        $term_name = '';
         $terms = get_the_terms( $post_id, $taxonomy );
-
-        if ( ! empty( $terms ) ) {
-            $term_name = $terms[0]->name;
-            // foreach ( $terms as $term ) {
-            //     array_push( $term_names, $term->name );
-            // }
+    
+        if ( is_wp_error( $terms ) || empty( $terms ) ) {
+            return '';
         }
-
-        // $term_names = ( ! empty( $term_names ) ) ? join( ',', $term_names ) : '';
-
-        return $term_name;
+        
+        return join( ',', wp_list_pluck( $terms, 'name' ) );
     }
 
 }

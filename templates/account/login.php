@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.4.4
+ * @version 7.5.5
  */
 
 use \Directorist\Helper;
@@ -24,13 +24,17 @@ use \Directorist\Helper;
 						<?php
 					}
 
+					$key = isset( $_GET['key'] ) ? $_GET['key'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- ignore password sanitization
+
 					// start recovery stuff
-					if ( ! empty( $recovery ) ) {
-						$user = get_user_by( 'email', $recovery );
+					if ( ! empty( $recovery ) && ! empty( $key ) ) {
+
+						$user   = get_user_by( 'email', $recovery );
+						$db_key = get_user_meta( $user->ID, '_atbdp_recovery_key', true );
+
 						if( $user instanceof \WP_User ) {
-							$key = isset( $_GET['key'] ) ? $_GET['key'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- ignore password sanitization
 							
-							if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) ) :
+							if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) && ( $db_key === $key ) ) :
 								// Ignore password sanitization
 								$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 								$password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -55,8 +59,8 @@ use \Directorist\Helper;
 
 							$check_password_reset_key = check_password_reset_key($key, $user->user_login);
 
-							if (!is_wp_error($check_password_reset_key)) {
-								if(!empty($_GET['confirm_mail'])) {
+							if ( ! is_wp_error( $check_password_reset_key ) ) {
+								if( ! empty($_GET['confirm_mail'] ) ) {
 									/**
 									 * Verify user and send registration confirmation mail
 									 */
@@ -69,8 +73,7 @@ use \Directorist\Helper;
 									</div>
 									<?php
 								}
-
-								if(!empty($_GET['password_reset'])) {
+								if( ! empty( $_GET['password_reset'] ) ) {
 									include ATBDP_DIR . 'templates/account/password-reset-form.php';
 								}
 							} elseif(!empty($key)) {?>
@@ -162,7 +165,10 @@ use \Directorist\Helper;
 							} else if ( ! email_exists( $email ) ) {
 								$error = __( 'There is no user registered with that email address.', 'directorist' );
 							} else {
-								$user    = get_user_by( 'email', $email );
+								$random_password = wp_generate_password( 22, false );
+								$user            = get_user_by( 'email', $email );
+								$update_user     = update_user_meta( $user->ID, '_atbdp_recovery_key', $random_password );
+
 								$subject = esc_html__( 'Password Reset Request', 'directorist' );
 								//$message = esc_html__('Your new password is: ', 'directorist') . $random_password;
 

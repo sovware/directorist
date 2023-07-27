@@ -3999,7 +3999,7 @@ function directorist_get_page_id( string $page_name = '' ) : int {
 
 function directorist_password_reset_url(\Wp_User $user, $password_reset = true, $confirm_mail = false) {
 
-    $args = array( 
+    $args = array(
         'user' => $user->user_email
     );
 
@@ -4064,4 +4064,13 @@ function directorist_get_mime_types( $filter_type = '', $return_type = '' ) {
 	}
 
 	return $supported_mime_types;
+}
+
+/**
+ * The function checks if email verification is enabled in the settings.
+ *
+ * @return bool a boolean value indicating whether email verification is enabled or not.
+ */
+function directorist_is_email_verification_enabled() {
+	return (bool) get_directorist_option( 'enable_email_verification' );
 }

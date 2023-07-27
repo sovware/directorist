@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<!--registration succeeded, so show notification -->
 							<p class="directorist-alert directorist-alert-success">
 								<?php
-								if(get_directorist_option('enable_email_verification')) {
+								if(directorist_is_email_verification_enabled()) {
 									$send_confirm_mail_url = add_query_arg([
 										'action' => 'send_confirmation_email',
 										'user'   => isset($_REQUEST['email']) ? $_REQUEST['email'] : '',

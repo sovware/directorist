@@ -28,18 +28,16 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			add_action( 'plugins_loaded', array( $this, 'user_functions_ready_hook' ) );// before we add custom image uploading, lets use WordPress default image uploading by letting subscriber and contributor upload imaging capability
 
 			add_action( 'template_redirect', [ $this, 'registration_redirection' ] );
-			
-			$is_enable_email_verification = get_directorist_option('enable_email_verification');
-			
-			if($is_enable_email_verification) {
+
+			if ( directorist_is_email_verification_enabled() ) {
 				add_filter( 'authenticate', [$this, 'filter_authenticate'], 999999, 2 );
 			}
 
-			if(is_admin()) {
+			if ( is_admin() ) {
 				add_filter( 'manage_users_columns', [$this,'manage_users_columns'], 10, 1 );
 				add_filter( 'manage_users_custom_column', [$this,'manage_users_custom_column'], 10, 3 );
 
-				if($is_enable_email_verification) {
+				if ( directorist_is_email_verification_enabled() ) {
 					add_filter( 'user_row_actions', [$this, 'filter_user_row_actions'], 10, 2 );
 					add_filter( 'bulk_actions-users', [$this, 'filter_users_table_bulk_actions'] );
 					add_filter( 'handle_bulk_actions-users', [$this, 'filter_handle_bulk_actions_users'], 10, 3 );
@@ -54,80 +52,83 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			}
 		}
 
-		public function filter_users_table_bulk_actions(array $actions) {
+		public function filter_users_table_bulk_actions( array $actions ) {
 
-			$actions['directorist_request_email_verification'] = esc_html__('Request email verification', 'directorist');
-			$actions['directorist_mark_as_email_verified']     = esc_html__('Mark as email verified', 'directorist');
-			$actions['directorist_mark_as_email_unverified']   = esc_html__('Mark as email unverified', 'directorist');
+			$actions['directorist_request_email_verification'] = esc_html__( 'Request email verification', 'directorist' );
+			$actions['directorist_mark_as_email_verified']     = esc_html__( 'Mark as email verified', 'directorist' );
+			$actions['directorist_mark_as_email_unverified']   = esc_html__( 'Mark as email unverified', 'directorist' );
 
 			return $actions;
 		}
 
-		public function user_email_verification_input($profile_user) {
-			
+		public function user_email_verification_input( $profile_user ) {
+
 			$email_verify_status = 0;
 
-			if($profile_user instanceof \WP_User) {
-				
-				$is_email_unverified = get_user_meta($profile_user->ID, 'directorist_user_email_unverified', true);
-				
-				if(!$is_email_unverified) {
+			if ( $profile_user instanceof \WP_User ) {
+
+				$is_email_unverified = (bool) get_user_meta( $profile_user->ID, 'directorist_user_email_unverified', true );
+
+				if ( ! $is_email_unverified ) {
 					$email_verify_status = 1;
 				}
 			}
 
-			wp_nonce_field('update_user_info', 'directorist_nonce');
+			wp_nonce_field( 'update_user_info', 'directorist_nonce' );
 			ob_start();
 			?>
 			<tr>
-				<th scope="row"><?php esc_html_e('Email Verified?', 'directorist')?></th>
+				<th scope="row"><?php esc_html_e( 'Email Verified?', 'directorist' ); ?></th>
 				<td>
-					<input type="checkbox" name="directorist_user_email_verified" id="directorist_user_email_verified" value="1" <?php checked($email_verify_status, 1, true)?>>
-					<label for="directorist_user_email_verified"><?php esc_html_e('Check this option to mark user email as verified', 'directorist')?></label>
+					<input type="checkbox" name="directorist_user_email_verified" id="directorist_user_email_verified" value="1" <?php checked( $email_verify_status, 1 ); ?>>
+					<label for="directorist_user_email_verified"><?php esc_html_e( 'Check this option to mark user email as verified', 'directorist' ); ?></label>
 				</td>
 			</tr>
 			<?php $email_verify_checkbox = ob_get_clean(); ?>
 			<script>
 				jQuery(($) => {
-					$('#your-profile .user-email-wrap').after(`<?php echo $email_verify_checkbox;?>`);
+					$('#your-profile .user-email-wrap, #createuser .user-pass2-wrap').after(`<?php echo $email_verify_checkbox;?>`);
 				});
 			</script>
 			<?php
 		}
 
-		public function action_admin_edit_user_info(int $user_id) {
-
-			if(empty( $_REQUEST['directorist_nonce'] ) || !wp_verify_nonce( $_REQUEST['directorist_nonce'], 'update_user_info' )) {
+		public function action_admin_edit_user_info( int $user_id ) {
+			if ( empty( $_POST['directorist_nonce'] ) || ! wp_verify_nonce( $_POST['directorist_nonce'], 'update_user_info' ) ) {
 				return;
 			}
 
-			if(empty($_REQUEST['directorist_user_email_verified'])) {
-				update_user_meta($user_id, 'directorist_user_email_unverified', true);
+			if ( ! current_user_can( 'edit_users' ) ) {
+				return;
+			}
+
+			if ( empty( $_POST['directorist_user_email_verified'] ) ) {
+				update_user_meta( $user_id, 'directorist_user_email_unverified', true );
 			} else {
-				delete_user_meta($user_id, 'directorist_user_email_unverified');
+				delete_user_meta( $user_id, 'directorist_user_email_unverified' );
 			}
 		}
 
-		public function filter_handle_bulk_actions_users( string $sendback, string $action, array $items ) {
+		public function filter_handle_bulk_actions_users( string $sendback, string $action, array $user_ids ) {
 
-			if( empty( $items ) ) {
+			if ( empty( $user_ids ) ) {
 				return $sendback;
 			}
 
-			$user_ids = map_deep($items, 'intval');
+			$user_ids = wp_parse_id_list( $user_ids );
 
 			$email_verification_type = '';
 
-			switch ($action) {
+			switch ( $action ) {
 				case 'directorist_request_email_verification':
-					$users = get_users(['include' => $user_ids]);
+					$users = get_users( array( 'include' => $user_ids ) );
 
-					foreach ($users as $user) {
+					foreach ( $users as $user ) {
 
-						$is_email_unverified = get_user_meta($user->ID, 'directorist_user_email_unverified', true);
+						$is_email_unverified = (bool) get_user_meta( $user->ID, 'directorist_user_email_unverified', true );
 
-						if($is_email_unverified) {
-							ATBDP()->email->send_user_confirmation_email($user);
+						if ( $is_email_unverified ) {
+							ATBDP()->email->send_user_confirmation_email( $user );
 						}
 					}
 
@@ -135,84 +136,92 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					break;
 
 				case 'directorist_mark_as_email_verified':
-					foreach($user_ids as $user_id) {
-						delete_user_meta($user_id, 'directorist_user_email_unverified');
+					foreach ( $user_ids as $user_id ) {
+						delete_user_meta( $user_id, 'directorist_user_email_unverified' );
 					}
 
 					$email_verification_type = 'verified';
 					break;
 
 				case 'directorist_mark_as_email_unverified':
-					foreach($user_ids as $user_id) {
-						update_user_meta($user_id, 'directorist_user_email_unverified', true);
+					foreach ( $user_ids as $user_id ) {
+						update_user_meta( $user_id, 'directorist_user_email_unverified', true );
 					}
 
 					$email_verification_type = 'unverified';
 					break;
 			}
-			
-			return add_query_arg([
-				'users' => $user_ids,
+
+			return add_query_arg( array(
+				'users'                   => $user_ids,
 				'email-verification-type' => $email_verification_type,
-				'_wpnonce' => wp_create_nonce('verify_user_email')
-			], $sendback);
+				'_wpnonce'                => wp_create_nonce( 'directorist_verify_user_email_notice' )
+			), $sendback );
 		}
 
 		public function action_email_verification_notice() {
 
-			if( empty( $_REQUEST['users'] ) || empty( $_REQUEST['email-verification-type'] ) || empty($_REQUEST['_wpnonce']) || ! wp_verify_nonce($_REQUEST['_wpnonce'], 'verify_user_email')) {
+			if ( empty( $_GET['users'] ) || empty( $_GET['email-verification-type'] ) || empty( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'directorist_verify_user_email_notice' ) ) {
 				return;
 			}
 
-			$user_ids = map_deep($_REQUEST['users'], 'intval');
+			$user_ids = wp_parse_id_list( $_GET['users'] );
 
-			$users = get_users(['include' => $user_ids]);
-
-			$links = [];
-
-			foreach($users as $user) {
-				array_push($links, "<a href='" . get_edit_user_link($user->ID) . "'>" . $user->ID . "</a>");
+			if ( empty( $user_ids ) ) {
+				return;
 			}
 
-			$total_links = count($links);
-			$raw_links   = implode(', ', $links);
+			$users = get_users( array( 'include' => $user_ids ) );
 
-			switch($_REQUEST['email-verification-type']) {
+			$links = array();
+
+			foreach ( $users as $user ) {
+				$links[] = '<a href="' . get_edit_user_link( $user->ID ) . '">' . $user->user_nicename . '</a>';
+			}
+
+			$total_links = count( $links );
+			$raw_links   = implode( ', ', $links );
+			$message     = '';
+
+			switch ( $_GET['email-verification-type'] ) {
 				case 'sent-request':
-					if(1 < $total_links) {
-						$message = sprintf(__( 'Email verification request sent to %s users.', 'directorist' ), $raw_links);
-					} else {
-						$message = sprintf(__( 'Email verification request sent to %s user.', 'directorist' ), $raw_links);
-					}
+					$message = sprintf( _n(
+						'Email verification request sent to %s user.',
+						'Email verification request sent to %s users.',
+						$total_links,
+						'directorist'
+					), $raw_links );
 					break;
 				case 'verified':
-					if(1 < $total_links) {
-						$message = sprintf(__( '%s users marked as email verified.', 'directorist' ), $raw_links);
-					} else {
-						$message = sprintf(__( '%s user marked as email verified.', 'directorist' ), $raw_links);
-					}
+					$message = sprintf( _n(
+						'%s user marked as email verified.',
+						'%s users marked as email verified.',
+						$total_links,
+						'directorist'
+					), $raw_links );
 					break;
 				case 'unverified':
-					if(1 < $total_links) {
-						$message = sprintf(__( '%s users marked as email unverified.', 'directorist' ), $raw_links);
-					} else {
-						$message = sprintf(__( '%s user marked as email unverified.', 'directorist' ), $raw_links);
-					}
+					$message = sprintf( _n(
+						'%s user marked as email unverified.',
+						'%s users marked as email unverified.',
+						$total_links,
+						'directorist'
+					), $raw_links );
+					break;
 			}
 
-			if( empty( $message ) ) {
+			if ( empty( $message ) ) {
 				return;
 			}
-
 			?>
 			<div class="updated notice notice-success is-dismissible">
-				<p><?php echo $message; ?></p>
+				<p><?php echo wp_kses( $message, array( 'a' => array( 'href' => array() ) ) ); ?></p>
 			</div>
 			<script>
 				var current_url = location.href;
-				var url = new URL(current_url);
-				url.searchParams.delete('_wpnonce');
-				url.searchParams.delete('email-verification-type');
+				var url = new URL( current_url );
+				url.searchParams.delete( '_wpnonce' );
+				url.searchParams.delete( 'email-verification-type' );
 				window.history.pushState(null, null, url.toString());
 			</script>
 			<?php
@@ -227,17 +236,16 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		 */
 		public function filter_user_row_actions( array $actions, \WP_User $user_object ) : array {
 
-			$is_email_unverified = get_user_meta($user_object->ID, 'directorist_user_email_unverified', true);
+			$is_email_unverified = get_user_meta( $user_object->ID, 'directorist_user_email_unverified', true );
 
-			if($is_email_unverified) {
-
-				$url = add_query_arg([
+			if ( $is_email_unverified ) {
+				$url = add_query_arg( array(
 					'action'   => 'directorist_request_email_verification',
 					'users[]'  => $user_object->ID,
-					'_wpnonce' => wp_create_nonce('bulk-users')
-				], admin_url('users.php'));
-	
-				$actions['directorist_request_email_verification'] = "<a style='cursor:pointer;' href=" . esc_url_raw($url) . ">" . esc_html__('Request Email Verification', 'directorist') . "</a>";
+					'_wpnonce' => wp_create_nonce( 'bulk-users' )
+				), admin_url( 'users.php' ) );
+
+				$actions['directorist_request_email_verification'] = "<a style='cursor:pointer;' href=" . esc_url( $url ) . ">" . esc_html__( 'Request email verification', 'directorist' ) . "</a>";
 			}
 
 			return $actions;
@@ -261,41 +269,42 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		 */
 		public function filter_authenticate( $user, string $username ) {
 
-			if(empty($username)) {
+			if( empty( $username ) ) {
 				return $user;
 			}
 
-			if(is_email($username)) {
-				$db_user = get_user_by('email', $username);
+			if ( is_email( $username ) ) {
+				$db_user = get_user_by( 'email', $username );
 			} else {
-				$db_user = get_user_by('slug', $username);
+				$db_user = get_user_by( 'slug', $username );
 			}
 
 			/**
 			 * Return if Logged user not found
 			 */
-			if(!$db_user instanceof \WP_User) {
+			if ( ! $db_user instanceof \WP_User ) {
 				return $user;
 			}
 
-			$is_email_unverified = get_user_meta($db_user->ID, 'directorist_user_email_unverified', true);
+			$is_email_unverified = (bool) get_user_meta( $db_user->ID, 'directorist_user_email_unverified', true );
 
 			/**
 			 * Return if email is already verified
 			 */
-			if(!$is_email_unverified) {
+			if ( ! $is_email_unverified ) {
 				return $user;
 			}
 
-			$mail_send_url = add_query_arg([
-				'action' => 'send_confirmation_email',
-				'user'   => $db_user->user_email,
-				'directorist_nonce' => wp_create_nonce('directorist_nonce'),
-			], admin_url('admin-ajax.php'));
+			$mail_send_url = add_query_arg( array(
+				'action'            => 'send_confirmation_email',
+				'user'              => $db_user->user_email,
+				'directorist_nonce' => wp_create_nonce( 'directorist_nonce' ),
+			), admin_url( 'admin-ajax.php' ) );
 
-			return new WP_Error(
-				'email_unverified', 
-				sprintf(__("Your account is not yet verified. Please check your email to verify your account. If you didn't receive the verification email, please click on the %s", "directorist"), " <a href='" . esc_url_raw($mail_send_url) . "'>" . __("Resend confirmation email", "directorist") . "</a>"));
+			return new WP_Error( 'email_unverified', sprintf(
+				__( 'Your account is not yet verified. Please check your email to verify your account. If you did not receive the verification email, please click on the %s', 'directorist'),
+				'<a href="' . esc_url_raw( $mail_send_url ) . '">' . __( 'Resend confirmation email', 'directorist' ) . '</a>' )
+			);
 		}
 
 		public function registration_redirection() {
@@ -328,7 +337,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					}
 				case 'user_type':
 					$user_type = (string) get_user_meta( $user_id, '_user_type', true );
-					
+
 					if ( 'author' === $user_type ) {
 						return esc_html__( 'Author', 'directorist' );
 					} elseif ( 'general' === $user_type ) {
@@ -352,7 +361,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		 * @return array
 		 */
 		function manage_users_columns( $columns ) {
-			if(get_directorist_option('enable_email_verification')) {
+			if(directorist_is_email_verification_enabled()) {
 				$columns['directorist_email_verified'] = esc_html__( 'Email Verified?', 'directorist' );
 			}
 			$columns['user_type'] = esc_html__( 'User Type', 'directorist' );
@@ -711,7 +720,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					'email' => $email
 				];
 
-				if( get_directorist_option('enable_email_verification') ) {
+				if( directorist_is_email_verification_enabled() ) {
 					ATBDP()->email->send_user_confirmation_email(get_user_by('ID', $user_id));
 
 					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link( $query_vars ) ) );

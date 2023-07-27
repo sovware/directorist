@@ -129,7 +129,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				exit;
 			}
 
-			if( ! get_directorist_option('enable_email_verification') ) {
+			if( ! directorist_is_email_verification_enabled() ) {
 				wp_send_json_error([
 					'code' => 'invalid_request',
 					'message'  => __( 'Invalid Request', 'directorist' )
@@ -166,10 +166,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if( ! empty( $lat_long ) ) {
 				wp_send_json( $lat_long );
 			} else {
-				wp_send_json_error( 
-					array( 
-						'error_message' => sprintf( 
-							__( '<div class="error_message">%s <p>%s</p></div>', 'directorist' ), 
+				wp_send_json_error(
+					array(
+						'error_message' => sprintf(
+							__( '<div class="error_message">%s <p>%s</p></div>', 'directorist' ),
 							directorist_icon('fas fa-info-circle', false), __( 'Please enter a valid zip code.', 'directorist' ) )
 					)
 				);

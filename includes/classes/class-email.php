@@ -1112,7 +1112,7 @@ This email is sent automatically for information purpose only. Please do not res
 		/**
 		 * @since 5.8
 		 */
-		public function custom_wp_new_user_notification_email( $user_id ) {			
+		public function custom_wp_new_user_notification_email( $user_id ) {
 
 			$user = get_user_by( 'ID', $user_id );
 
@@ -1130,7 +1130,7 @@ Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==US
 
 We look forward to seeing you soon'
 			);
-			
+
 
 			$body = $this->replace_in_content( $body, null, null, $user );
 			$body = atbdp_email_html( $sub, $body );
@@ -1146,17 +1146,17 @@ We look forward to seeing you soon'
 				return;
 			}
 
-			$subject = __( 'Verify your email address', 'directorist' );
+			$subject = __( 'Verify Your Email Address', 'directorist' );
 
 			$body = sprintf(__( "Hi %s,
 
-			Thank you for signing up at ==SITE_NAME==, to complete the registration, we need to verify your email address.
+			Thank you for signing up at ==SITE_NAME==, to complete the registration, please verify your email address.
 
 			==CONFIRM_EMAIL_ADDRESS_URL==
 
-			To activate your account simply click the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
+			To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
 
-			If you did not sign up for this account you can ignore this email.", 'directorist' ), $user->user_nicename);
+			If you did not sign up for this account you can ignore this email.", 'directorist' ), $user->user_nicename );
 
 			$body = $this->replace_in_content( $body, null, null, $user );
 

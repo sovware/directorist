@@ -112,8 +112,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			add_action( 'wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
 
 			// user verification
-			add_action('wp_ajax_send_confirmation_email', [$this, 'send_confirm_email'] );
-			add_action('wp_ajax_nopriv_send_confirmation_email', [$this, 'send_confirm_email'] );
+			add_action('wp_ajax_directorist_send_confirmation_email', [$this, 'send_confirm_email'] );
+			add_action('wp_ajax_nopriv_directorist_send_confirmation_email', [$this, 'send_confirm_email'] );
 
 			// zipcode search
 			add_action( 'wp_ajax_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
@@ -129,7 +129,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				exit;
 			}
 
-			if( ! directorist_is_email_verification_enabled() ) {
+			if ( ! directorist_is_email_verification_enabled() ) {
 				wp_send_json_error([
 					'code' => 'invalid_request',
 					'message'  => __( 'Invalid Request', 'directorist' )
@@ -137,14 +137,21 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				exit;
 			}
 
-			if(isset($_REQUEST['user'])) {
-				$email = sanitize_email(wp_unslash($_REQUEST['user']));
-				$user  = get_user_by('email', $email);
-				if($user instanceof \WP_User) {
-					ATBDP()->email->send_user_confirmation_email($user);
-				}
+			$email = isset( $_REQUEST['user'] ) ? sanitize_email( wp_unslash( $_REQUEST['user'] ) ) : '';
+			if ( ! is_email( $email ) ) {
+				wp_send_json_error([
+					'code' => 'invalid_email',
+					'message'  => __( 'Invalid email address', 'directorist' )
+				]);
+				exit;
 			}
-			wp_safe_redirect(ATBDP_Permalink::get_login_page_url(['send_email_confirm_mail' => true]));
+
+			$user  = get_user_by( 'email', $email );
+			if ( $user instanceof \WP_User ) {
+				ATBDP()->email->send_user_confirmation_email( $user );
+			}
+
+			wp_safe_redirect( ATBDP_Permalink::get_login_page_url(['send_email_confirm_mail' => true]) );
 			exit;
 		}
 

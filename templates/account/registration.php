@@ -16,33 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="<?php Helper::directorist_row(); ?>">
 			<div class="directorist-col-md-6 directorist-offset-md-3">
 				<div class="add_listing_title atbd_success_mesage">
-					<?php
-					if ( ! empty( $_GET['registration_status'] ) && true == $_GET['registration_status'] ) {
-							?>
-							<!--registration succeeded, so show notification -->
-							<p class="directorist-alert directorist-alert-success">
-								<?php
-								if(directorist_is_email_verification_enabled()) {
-									$send_confirm_mail_url = add_query_arg([
-										'action' => 'send_confirmation_email',
-										'user'   => isset($_REQUEST['email']) ? $_REQUEST['email'] : '',
-										'directorist_nonce' => wp_create_nonce('directorist_nonce'),
-									], admin_url('admin-ajax.php'));
-
-									echo directorist_icon( 'las la-check', false ) . ' ' . __("Thank you for signing up! To complete the registration process, please verify your email address by clicking on the link we've sent to your email.", 'directorist');
-									echo "<span style='display:inline-block;margin-top:10px;'>" . sprintf(__("If you didn't receive the confirmation email, please check your spam folder. If you still can't find it, click on the %s to have a new email sent to you.", "directorist"), "<a href='" . $send_confirm_mail_url . "'>". __("Resend confirmation email")."</a>")."</span>";
-								} else {
-									$output = sprintf( __('Click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_url() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' );
-									echo wp_kses_post( $output );
-								}
-								?>
-							</p>
-						<?php
-					}
-					?>
 					<!--Registration failed, so show notification.-->
 					<?php if ( isset( $_GET['errors'] ) ) { ?>
-					<p style="padding: 20px" class="alert-danger"><?php directorist_icon( 'las la-exclamation-triangle' ); ?> <?php echo wp_kses_post( directorist_get_registration_error_message( sanitize_text_field( wp_unslash( $_GET['errors'] ) ) ) ); ?></p>
+						<p style="padding: 20px" class="alert-danger"><?php directorist_icon( 'las la-exclamation-triangle' ); ?> <?php echo wp_kses_post( directorist_get_registration_error_message( sanitize_text_field( wp_unslash( $_GET['errors'] ) ) ) ); ?></p>
 					<?php } ?>
 				</div>
 			</div>
@@ -144,9 +120,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( directorist_get_nonce_key() ) ); ?>" name="directorist_nonce">
 						</div>
 						<?php if ( ! empty( $display_login ) ) { ?>
-						<div class="directory_regi_btn">
-							<p><?php echo esc_html( $login_text ); ?> <a href="<?php echo esc_url( $login_url ); ?>"><?php echo esc_html( $log_linkingmsg ); ?></a></p>
-						</div>
+							<div class="directory_regi_btn">
+								<p><?php echo esc_html( $login_text ); ?> <a href="<?php echo esc_url( $login_url ); ?>"><?php echo esc_html( $log_linkingmsg ); ?></a></p>
+							</div>
 						<?php } ?>
 					</form>
 				</div>

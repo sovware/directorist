@@ -255,7 +255,7 @@ class ATBDP_Permalink {
      */
     public static function get_login_page_link($query_vars=array())
     {
-        $login_url = ATBDP_Permalink::get_login_page_url();
+        $login_url = ATBDP_Permalink::get_login_page_url( $query_vars );
         return apply_filters('atbdp_user_login_page_url', $login_url);
     }
 

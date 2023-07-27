@@ -1091,12 +1091,16 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       handleRadiusVisibility();
+      var searchModalElement = document.querySelectorAll('.directorist-search-modal');
+      searchModalElement.forEach(function (searchModal) {
+        searchModalClose(searchModal);
+      });
     }
     /* Advance Search Filter For Search Home Short Code */
 
 
-    if ($(".directorist-search-form .directorist-btn-reset-js") !== null) {
-      $("body").on("click", ".directorist-search-form .directorist-btn-reset-js", function (e) {
+    if ($(".directorist-btn-reset-js") !== null) {
+      $("body").on("click", ".directorist-btn-reset-js", function (e) {
         e.preventDefault();
 
         if (this.closest('.directorist-contents-wrap')) {
@@ -1104,6 +1108,12 @@ __webpack_require__.r(__webpack_exports__);
 
           if (searchForm) {
             adsFormReset(searchForm);
+          }
+
+          var advanceSearchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__form');
+
+          if (advanceSearchForm) {
+            adsFormReset(advanceSearchForm);
           }
         }
 
@@ -1469,9 +1479,14 @@ __webpack_require__.r(__webpack_exports__);
       var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
       var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
 
-      modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease"; // Modal Content Style
+      if (modalOverlay) {
+        modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease";
+      } // Modal Content Style
 
-      modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
+
+      if (modalContent) {
+        modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
+      }
     } // Modal Minimizer
 
 

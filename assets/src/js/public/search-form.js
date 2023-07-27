@@ -99,16 +99,26 @@ import { directorist_range_slider } from './range-slider';
                 rangeValue.innerHTML = "0";
             }
             handleRadiusVisibility();
+
+            var searchModalElement = document.querySelectorAll('.directorist-search-modal');
+            searchModalElement.forEach((searchModal)=>{
+                searchModalClose(searchModal);
+            })
+            
         }
 
         /* Advance Search Filter For Search Home Short Code */
-        if ($(".directorist-search-form .directorist-btn-reset-js") !== null) {
-            $("body").on("click", ".directorist-search-form .directorist-btn-reset-js", function (e) {
+        if ($(".directorist-btn-reset-js") !== null) {
+            $("body").on("click", ".directorist-btn-reset-js", function (e) {
                 e.preventDefault();
                 if (this.closest('.directorist-contents-wrap')) {
                     const searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
                     if (searchForm) {
                         adsFormReset(searchForm);
+                    }
+                    const advanceSearchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__form');
+                    if (advanceSearchForm) {
+                        adsFormReset(advanceSearchForm);
                     }
                 }
                 if($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length){
@@ -551,10 +561,14 @@ import { directorist_range_slider } from './range-slider';
             var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
 
             // Overlay Style
-            modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease";
+            if(modalOverlay) {
+                modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease";
+            }
 
             // Modal Content Style
-            modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
+            if(modalContent) { 
+                modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
+            }
         }
 
         // Modal Minimizer

@@ -7,57 +7,59 @@
 
 use \Directorist\Helper;
 
-$recovery = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
-$key      = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
+$user_email = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
+$key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
 ?>
 <div class="directorist-login-wrapper directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
             <div class="directorist-col-md-6 directorist-offset-md-3">
                 <div class="atbdp_login_form_shortcode">
-					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['verification'] ) && ! empty( $_GET['email'] ) ) : ?>
+					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['verification'] ) && is_email( $user_email ) ) : ?>
 						<p class="directorist-alert directorist-alert-success">
+							<span>
 							<?php
 							$send_confirm_mail_url = add_query_arg( array(
 								'action'            => 'directorist_send_confirmation_email',
-								'user'              => isset( $_GET['email'] ) ? sanitize_email( $_GET['email'] ) : '',
+								'user'              => $user_email,
 								'directorist_nonce' => wp_create_nonce( 'directorist_nonce' ),
 							), admin_url( 'admin-ajax.php' ) );
 
-							esc_html_e( 'Thank you for signing up! To complete the registration, please verify your email address by clicking on the link we have sent to your email.', 'directorist' );
-							echo '<span style="display:inline-block;margin-top:10px;">' . sprintf( __( "If you didn't receive the confirmation email, please check your spam folder. If you still can't find it, click on the %s to have a new email sent to you.", "directorist" ), "<a href='" . esc_url( $send_confirm_mail_url ) . "'>". esc_html__( 'Resend confirmation email', 'directorist' ) . "</a>" ). "</span>";
+							echo wp_kses( sprintf( __( "Thank you for signing up! To complete the registration, please verify your email address by clicking on the link we have sent to your email.<br><br>If you didn't find the verification email, please check your spam folder. If you still can't find it, click on the <a href='%s'>Resend confirmation email</a> to have a new email sent to you.", 'directorist' ), esc_url( $send_confirm_mail_url ) ), array( 'a' => array( 'href' => array() ), 'br' => array() ) );
 							?>
+							</span>
 						</p>
 					<?php endif; ?>
 
-					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['send_email_confirm_mail'] ) && empty( $recovery ) ) : ?>
+					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['send_verification_email'] ) && is_email( $user_email ) ) : ?>
 						<p class="directorist-alert directorist-alert-success">
+							<span>
 							<?php
 							$send_confirm_mail_url = add_query_arg( array(
 								'action'            => 'directorist_send_confirmation_email',
-								'user'              => isset( $_GET['email'] ) ? sanitize_email( $_GET['email'] ) : '',
+								'user'              => $user_email,
 								'directorist_nonce' => wp_create_nonce( 'directorist_nonce' ),
 							), admin_url( 'admin-ajax.php' ) );
 
-							printf( __( "Thank you for requesting a new confirmation email. We've sent a new email to your inbox. Please check your email and verify to complete the registration. <br> If you still can't find it, click on the %s to have a new email sent to you.", 'directorist' ), "<a href='" . esc_url( $send_confirm_mail_url ) . "'>". esc_html__( 'Resend confirmation email', 'directorist' ) . "</a>" ); ?>
+							// translators: %s - verification email sending link.
+							echo wp_kses( sprintf( __( "Thank you for requesting a new verification email. Please check your inbox and verify to complete the registration.<br><br>If you still can't find it, please check your spam folder or click on the <a href='%s'>Resend confirmation email</a> to have a new email sent to you.", 'directorist' ), esc_url( $send_confirm_mail_url ) ), array( 'a' => array( 'href' => array() ), 'br' => array() ) ); ?>
+							</span>
 						</p>
 					<?php endif; ?>
 
 					<?php
 					// start recovery stuff
-					if ( ! empty( $recovery ) && ! empty( $key ) ) {
-
-						$user   = get_user_by( 'email', $recovery );
+					if ( is_email( $user_email ) && ! empty( $key ) ) {
+						$user   = get_user_by( 'email', $user_email );
 						$db_key = get_user_meta( $user->ID, '_atbdp_recovery_key', true );
 
-						if( $user instanceof \WP_User ) {
-
+						if ( $user instanceof \WP_User ) {
 							if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) && ( $db_key === $key ) ) :
 								// Ignore password sanitization
 								$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 								$password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-								if ( !empty( $password_1 ) && ( $password_1 === $password_2 ) ) :
+								if ( ! empty( $password_1 ) && ( $password_1 === $password_2 ) ) :
 									$update_user = wp_update_user( [
 										'ID'        => $user->ID,
 										'user_pass' => $password_2,
@@ -75,7 +77,7 @@ $key      = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'
 								<?php endif;
 							endif;
 
-							$check_password_reset_key = check_password_reset_key($key, $user->user_login);
+							$check_password_reset_key = check_password_reset_key( $key, $user->user_login );
 
 							if ( ! is_wp_error( $check_password_reset_key ) ) {
 								if( ! empty($_GET['confirm_mail'] ) ) {
@@ -91,18 +93,17 @@ $key      = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'
 									</div>
 									<?php
 								}
-								if( ! empty( $_GET['password_reset'] ) ) {
+								if ( ! empty( $_GET['password_reset'] ) ) {
 									include ATBDP_DIR . 'templates/account/password-reset-form.php';
 								}
-							} elseif(!empty($key)) {?>
+							} elseif ( ! empty( $key ) ) { ?>
 								<p class="directorist-alert directorist-alert-danger">
-									<?php esc_html_e('Sorry! The link is invalid.', 'directorist'); ?>
+									<?php esc_html_e( 'Sorry! The link is invalid.', 'directorist' ); ?>
 								</p>
 							<?php }
-
 						} else { ?>
 							<p class="directorist-alert directorist-alert-danger">
-								<?php esc_html_e('Sorry! user not found', 'directorist'); ?>
+								<?php esc_html_e( 'Sorry! user not found', 'directorist' ); ?>
 							</p>
 						<?php }
 					} else {
@@ -150,10 +151,8 @@ $key      = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'
 							</div>
 
 							<?php if ( $display_recpass ) :
-								$output = sprintf( __( '<p>%s</p>', 'directorist' ), "<a href='' class='atbdp_recovery_pass'> " . $recpass_text . '</a>' );
-								echo wp_kses_post( $output );
+								printf( '<p><a href="" class="atbdp_recovery_pass">%s</a></p>', esc_html( $recpass_text ) );
 							endif; ?>
-
 						</form>
 
 						<div class="atbd_social_login">

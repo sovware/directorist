@@ -719,7 +719,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					ATBDP()->email->send_user_confirmation_email( get_user_by( 'ID', $user_id ) );
 
 					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_login_page_link( array(
-						'email'        => $email,
+						'user'        => $email,
 						'verification' => 1,
 					) ) ) );
 					exit();

@@ -6,6 +6,9 @@
  */
 
 use \Directorist\Helper;
+
+$recovery = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
+$key      = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
 ?>
 <div class="directorist-login-wrapper directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
@@ -22,23 +25,25 @@ use \Directorist\Helper;
 							), admin_url( 'admin-ajax.php' ) );
 
 							esc_html_e( 'Thank you for signing up! To complete the registration, please verify your email address by clicking on the link we have sent to your email.', 'directorist' );
-							echo '<span style="display:inline-block;margin-top:10px;">' . sprintf( __( "If you didn't receive the confirmation email, please check your spam folder. If you still can't find it, click on the %s to have a new email sent to you.", "directorist" ), "<a href='" . $send_confirm_mail_url . "'>". esc_html__( 'Resend confirmation email', 'directorist' ) . "</a>" ). "</span>";
+							echo '<span style="display:inline-block;margin-top:10px;">' . sprintf( __( "If you didn't receive the confirmation email, please check your spam folder. If you still can't find it, click on the %s to have a new email sent to you.", "directorist" ), "<a href='" . esc_url( $send_confirm_mail_url ) . "'>". esc_html__( 'Resend confirmation email', 'directorist' ) . "</a>" ). "</span>";
 							?>
 						</p>
 					<?php endif; ?>
-                    <?php
-					$recovery = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
 
-					if(isset($_REQUEST['send_email_confirm_mail']) && empty($recovery)){
-						?>
+					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['send_email_confirm_mail'] ) && empty( $recovery ) ) : ?>
 						<p class="directorist-alert directorist-alert-success">
-							<?php echo __("Thank you for requesting a new confirmation email. We've sent a new email to your inbox. Please check your email and verify to complete the registration. If you still don't receive the email, please contact our support team for assistance.", 'directorist')?>
+							<?php
+							$send_confirm_mail_url = add_query_arg( array(
+								'action'            => 'directorist_send_confirmation_email',
+								'user'              => isset( $_GET['email'] ) ? sanitize_email( $_GET['email'] ) : '',
+								'directorist_nonce' => wp_create_nonce( 'directorist_nonce' ),
+							), admin_url( 'admin-ajax.php' ) );
+
+							printf( __( "Thank you for requesting a new confirmation email. We've sent a new email to your inbox. Please check your email and verify to complete the registration. <br> If you still can't find it, click on the %s to have a new email sent to you.", 'directorist' ), "<a href='" . esc_url( $send_confirm_mail_url ) . "'>". esc_html__( 'Resend confirmation email', 'directorist' ) . "</a>" ); ?>
 						</p>
-						<?php
-					}
+					<?php endif; ?>
 
-					$key = isset( $_GET['key'] ) ? $_GET['key'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- ignore password sanitization
-
+					<?php
 					// start recovery stuff
 					if ( ! empty( $recovery ) && ! empty( $key ) ) {
 

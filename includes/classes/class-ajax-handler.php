@@ -147,7 +147,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			$user  = get_user_by( 'email', $email );
-			if ( $user instanceof \WP_User ) {
+			if ( $user instanceof \WP_User && get_user_meta( $user->ID, 'directorist_user_email_unverified', true ) ) {
 				ATBDP()->email->send_user_confirmation_email( $user );
 			}
 

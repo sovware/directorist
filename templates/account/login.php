@@ -50,10 +50,11 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 					<?php
 					// start recovery stuff
 					if ( is_email( $user_email ) && ! empty( $key ) ) {
-						$user   = get_user_by( 'email', $user_email );
-						$db_key = get_user_meta( $user->ID, '_atbdp_recovery_key', true );
+						$user = get_user_by( 'email', $user_email );
 
-						if ( $user instanceof \WP_User ) {
+						if ( $user && $user instanceof \WP_User ) {
+							$db_key = get_user_meta( $user->ID, '_atbdp_recovery_key', true );
+
 							if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) && ( $db_key === $key ) ) :
 								// Ignore password sanitization
 								$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized

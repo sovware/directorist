@@ -9,6 +9,7 @@ use \Directorist\Helper;
 
 $user_email = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
 $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
+echo $key;
 ?>
 <div class="directorist-login-wrapper directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
@@ -213,12 +214,11 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							}
 
 							if ( ! empty( $error ) ) {
-								$output =  '<div class="message"><p class="error"><strong>' . __( 'ERROR:', 'directorist' ) . '</strong> ' . $error . '</p></div>';
-								echo wp_kses_post( $output );
+								echo '<div class="message"><p class="error directorist-alert directorist-alert-danger">' . wp_kses( sprintf( __( '<strong>ERROR: </strong> %s', 'directorist' ), esc_html( $error ) ), array( 'strong' => array() ) ) . '</p></div>';
 							}
 
 							if ( ! empty( $success ) ) {
-								echo '<div class="error_login"><p class="success">' . esc_html( $success ) . '</p></div>';
+								echo '<div class="error_login"><p class="success directorist-alert directorist-alert-success">' . esc_html( $success ) . '</p></div>';
 							}
 
 						endif; ?>

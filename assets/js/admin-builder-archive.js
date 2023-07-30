@@ -94,14 +94,16 @@
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery; // Open Delete Modal
+  var $ = jQuery;
 
+  // Open Delete Modal
   $('.atbdp-directory-delete-link-action').on('click', function (e) {
     e.preventDefault();
     var delete_link = $(this).data('delete-link');
     $('.atbdp-directory-delete-link').prop('href', delete_link);
-  }); // Delete Action
+  });
 
+  // Delete Action
   $('.atbdp-directory-delete-link').on('click', function (e) {
     // e.preventDefault();
     $(this).prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
@@ -121,10 +123,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('DOMContentLoaded', function () {
   var $ = jQuery;
+  var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 
-  var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default; // Migration Link
-
-
+  // Migration Link
   $('.atbdp-directory-migration-link').on('click', function (e) {
     e.preventDefault();
     var self = this;
@@ -133,38 +134,37 @@ window.addEventListener('DOMContentLoaded', function () {
     $(this).html('<i class="fas fa-circle-notch fa-spin"></i> Migrating');
     $(this).addClass('atbdp-disabled');
     var form_data = new FormData();
-    form_data.append('action', 'directorist_force_migrate'); // Response Success Callback
+    form_data.append('action', 'directorist_force_migrate');
 
+    // Response Success Callback
     var responseSuccessCallback = function responseSuccessCallback(response) {
       var _response$data;
-
       // console.log( { response } );
+
       if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
         var _response$data$messag, _response$data2;
-
-        var msg = (_response$data$messag = response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
+        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
         var alert_content = "\n                <div class=\"cptm-section-alert-content\">\n                    <div class=\"cptm-section-alert-icon cptm-alert-success\">\n                        <span class=\"fa fa-check\"></span>\n                    </div>\n\n                    <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n                </div>\n                ");
         $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
         $(self).remove();
         location.reload();
         return;
       }
-
       responseFaildCallback(response);
-    }; // Response Error Callback
+    };
 
-
+    // Response Error Callback
     var responseFaildCallback = function responseFaildCallback(response) {
       var _response$data$messag2, _response$data3;
-
       // console.log( { response } );
-      var msg = (_response$data$messag2 = response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
+
+      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
       var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
       $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
       $(self).remove();
-    }; // Send Request
+    };
 
-
+    // Send Request
     axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
       responseSuccessCallback(response);
     }).catch(function (response) {
@@ -183,16 +183,13 @@ window.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 window.addEventListener('DOMContentLoaded', function () {
   var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
+  var $ = jQuery;
 
-  var $ = jQuery; // cptm-import-directory-form
-
+  // cptm-import-directory-form
   var term_id = 0;
   $('.cptm-import-directory-form').on('submit', function (e) {
     e.preventDefault();
@@ -202,32 +199,27 @@ window.addEventListener('DOMContentLoaded', function () {
     var form_data = new FormData();
     form_data.append('action', 'save_imported_post_type_data');
     form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
-
     if (Number.isInteger(term_id) && term_id > 0) {
       form_data.append('term_id', term_id);
     }
-
     var form_fields = $(this).find('.cptm-form-field');
     var general_fields = ['text', 'number'];
     $(this).find('button[type=submit] .cptm-loading-icon').removeClass('cptm-d-none');
-
     var _iterator = _createForOfIteratorHelper(form_fields),
-        _step;
-
+      _step;
     try {
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
         var field = _step.value;
-
         if (!field.name.length) {
           continue;
-        } // General fields
+        }
 
-
+        // General fields
         if (general_fields.includes(field.type)) {
           form_data.append(field.name, $(field).val());
-        } // Media fields
+        }
 
-
+        // Media fields
         if ('file' === field.type) {
           form_data.append(field.name, field.files[0]);
         }
@@ -237,30 +229,31 @@ window.addEventListener('DOMContentLoaded', function () {
     } finally {
       _iterator.f();
     }
-
     var self = this;
     form_feedback.html('');
     axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
       // console.log( { response } );
-      $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none'); // Store term ID if exist
+      $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none');
 
+      // Store term ID if exist
       if (response.data.term_id && Number.isInteger(response.data.term_id) && response.data.term_id > 0) {
-        term_id = response.data.term_id; // console.log( 'Term ID has been updated' );
-      } // Show status log
+        term_id = response.data.term_id;
+        // console.log( 'Term ID has been updated' );
+      }
 
-
+      // Show status log
       if (response.data && response.data.status.status_log) {
         var status_log = response.data.status.status_log;
-
         for (var status in status_log) {
           var alert = '<div class="cptm-form-alert cptm-' + status_log[status].type + '">' + status_log[status].message + '</div>';
           form_feedback.append(alert);
         }
-      } // Reload the page if success
+      }
 
-
+      // Reload the page if success
       if (response.data && response.data.status && response.data.status.success) {
         // console.log( 'reloading...' );
+
         modal_content.addClass('cptm-d-none');
         modal_alert.removeClass('cptm-d-none');
         $(self).trigger("reset");
@@ -2384,10 +2377,10 @@ module.exports = {
 /*!*****************************************!*\
   !*** ./node_modules/axios/package.json ***!
   \*****************************************/
-/*! exports provided: _args, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, browser, bugs, bundlesize, dependencies, description, devDependencies, homepage, jsdelivr, keywords, license, main, name, repository, scripts, typings, unpkg, version, default */
+/*! exports provided: name, version, description, main, scripts, repository, keywords, author, license, bugs, homepage, devDependencies, browser, jsdelivr, unpkg, typings, dependencies, bundlesize, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_args\":[[\"axios@0.21.4\",\"C:\\\\laragon\\\\www\\\\directorist\\\\wp-content\\\\plugins\\\\directorist\"]],\"_from\":\"axios@0.21.4\",\"_id\":\"axios@0.21.4\",\"_inBundle\":false,\"_integrity\":\"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==\",\"_location\":\"/axios\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"axios@0.21.4\",\"name\":\"axios\",\"escapedName\":\"axios\",\"rawSpec\":\"0.21.4\",\"saveSpec\":null,\"fetchSpec\":\"0.21.4\"},\"_requiredBy\":[\"/\"],\"_resolved\":\"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz\",\"_spec\":\"0.21.4\",\"_where\":\"C:\\\\laragon\\\\www\\\\directorist\\\\wp-content\\\\plugins\\\\directorist\",\"author\":{\"name\":\"Matt Zabriskie\"},\"browser\":{\"./lib/adapters/http.js\":\"./lib/adapters/xhr.js\"},\"bugs\":{\"url\":\"https://github.com/axios/axios/issues\"},\"bundlesize\":[{\"path\":\"./dist/axios.min.js\",\"threshold\":\"5kB\"}],\"dependencies\":{\"follow-redirects\":\"^1.14.0\"},\"description\":\"Promise based HTTP client for the browser and node.js\",\"devDependencies\":{\"coveralls\":\"^3.0.0\",\"es6-promise\":\"^4.2.4\",\"grunt\":\"^1.3.0\",\"grunt-banner\":\"^0.6.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-clean\":\"^1.1.0\",\"grunt-contrib-watch\":\"^1.0.0\",\"grunt-eslint\":\"^23.0.0\",\"grunt-karma\":\"^4.0.0\",\"grunt-mocha-test\":\"^0.13.3\",\"grunt-ts\":\"^6.0.0-beta.19\",\"grunt-webpack\":\"^4.0.2\",\"istanbul-instrumenter-loader\":\"^1.0.0\",\"jasmine-core\":\"^2.4.1\",\"karma\":\"^6.3.2\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^2.1.0\",\"karma-jasmine\":\"^1.1.1\",\"karma-jasmine-ajax\":\"^0.1.13\",\"karma-safari-launcher\":\"^1.0.0\",\"karma-sauce-launcher\":\"^4.3.6\",\"karma-sinon\":\"^1.0.5\",\"karma-sourcemap-loader\":\"^0.3.8\",\"karma-webpack\":\"^4.0.2\",\"load-grunt-tasks\":\"^3.5.2\",\"minimist\":\"^1.2.0\",\"mocha\":\"^8.2.1\",\"sinon\":\"^4.5.0\",\"terser-webpack-plugin\":\"^4.2.3\",\"typescript\":\"^4.0.5\",\"url-search-params\":\"^0.10.0\",\"webpack\":\"^4.44.2\",\"webpack-dev-server\":\"^3.11.0\"},\"homepage\":\"https://axios-http.com\",\"jsdelivr\":\"dist/axios.min.js\",\"keywords\":[\"xhr\",\"http\",\"ajax\",\"promise\",\"node\"],\"license\":\"MIT\",\"main\":\"index.js\",\"name\":\"axios\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/axios/axios.git\"},\"scripts\":{\"build\":\"NODE_ENV=production grunt build\",\"coveralls\":\"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"examples\":\"node ./examples/server.js\",\"fix\":\"eslint --fix lib/**/*.js\",\"postversion\":\"git push && git push --tags\",\"preversion\":\"npm test\",\"start\":\"node ./sandbox/server.js\",\"test\":\"grunt test\",\"version\":\"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json\"},\"typings\":\"./index.d.ts\",\"unpkg\":\"dist/axios.min.js\",\"version\":\"0.21.4\"}");
+module.exports = JSON.parse("{\"name\":\"axios\",\"version\":\"0.21.4\",\"description\":\"Promise based HTTP client for the browser and node.js\",\"main\":\"index.js\",\"scripts\":{\"test\":\"grunt test\",\"start\":\"node ./sandbox/server.js\",\"build\":\"NODE_ENV=production grunt build\",\"preversion\":\"npm test\",\"version\":\"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json\",\"postversion\":\"git push && git push --tags\",\"examples\":\"node ./examples/server.js\",\"coveralls\":\"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"fix\":\"eslint --fix lib/**/*.js\"},\"repository\":{\"type\":\"git\",\"url\":\"https://github.com/axios/axios.git\"},\"keywords\":[\"xhr\",\"http\",\"ajax\",\"promise\",\"node\"],\"author\":\"Matt Zabriskie\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/axios/axios/issues\"},\"homepage\":\"https://axios-http.com\",\"devDependencies\":{\"coveralls\":\"^3.0.0\",\"es6-promise\":\"^4.2.4\",\"grunt\":\"^1.3.0\",\"grunt-banner\":\"^0.6.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-clean\":\"^1.1.0\",\"grunt-contrib-watch\":\"^1.0.0\",\"grunt-eslint\":\"^23.0.0\",\"grunt-karma\":\"^4.0.0\",\"grunt-mocha-test\":\"^0.13.3\",\"grunt-ts\":\"^6.0.0-beta.19\",\"grunt-webpack\":\"^4.0.2\",\"istanbul-instrumenter-loader\":\"^1.0.0\",\"jasmine-core\":\"^2.4.1\",\"karma\":\"^6.3.2\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^2.1.0\",\"karma-jasmine\":\"^1.1.1\",\"karma-jasmine-ajax\":\"^0.1.13\",\"karma-safari-launcher\":\"^1.0.0\",\"karma-sauce-launcher\":\"^4.3.6\",\"karma-sinon\":\"^1.0.5\",\"karma-sourcemap-loader\":\"^0.3.8\",\"karma-webpack\":\"^4.0.2\",\"load-grunt-tasks\":\"^3.5.2\",\"minimist\":\"^1.2.0\",\"mocha\":\"^8.2.1\",\"sinon\":\"^4.5.0\",\"terser-webpack-plugin\":\"^4.2.3\",\"typescript\":\"^4.0.5\",\"url-search-params\":\"^0.10.0\",\"webpack\":\"^4.44.2\",\"webpack-dev-server\":\"^3.11.0\"},\"browser\":{\"./lib/adapters/http.js\":\"./lib/adapters/xhr.js\"},\"jsdelivr\":\"dist/axios.min.js\",\"unpkg\":\"dist/axios.min.js\",\"typings\":\"./index.d.ts\",\"dependencies\":{\"follow-redirects\":\"^1.14.0\"},\"bundlesize\":[{\"path\":\"./dist/axios.min.js\",\"threshold\":\"5kB\"}]}");
 
 /***/ }),
 

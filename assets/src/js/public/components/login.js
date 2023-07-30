@@ -56,7 +56,7 @@
                 location.href = href;
             }
         })
-        
+
 
         // Alert users to login (only if applicable)
         $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
@@ -71,11 +71,11 @@
         var url = new URL(current_url);
         url.searchParams.delete('registration_status');
         url.searchParams.delete('errors');
-        url.searchParams.delete('key');
+        // url.searchParams.delete('key');
         url.searchParams.delete('password_reset');
         url.searchParams.delete('confirm_mail');
-        url.searchParams.delete('user');
-        url.searchParams.delete('send_email_confirm_mail');
+        // url.searchParams.delete('user');
+        url.searchParams.delete('send_verification_email');
         window.history.pushState(null, null, url.toString());
     });
 })(jQuery);

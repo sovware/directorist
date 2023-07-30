@@ -9039,6 +9039,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     max-height: 75px;
   }
 }
+.directorist-author-profile__avatar__info .directorist-author-profile__avatar__info__name {
+  margin: 0 0 5px;
+}
 .directorist-author-profile__avatar__info__name {
   font-size: 20px;
   font-weight: 500;
@@ -9208,6 +9211,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -ms-flexbox;
   display: flex;
   gap: 12px;
+  margin: 0;
 }
 .directorist-author-profile-content .directorist-card__header--title i {
   width: 34px;
@@ -9393,6 +9397,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-author-contact .directorist-author-social {
   margin: 22px 0 0;
+}
+.directorist-author-contact .directorist-author-social li {
+  margin: 0;
 }
 
 .directorist-author-info-widget--light .directorist-author-social-item,

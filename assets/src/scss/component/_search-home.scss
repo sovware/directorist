@@ -102,14 +102,16 @@
           width: 100%;
           margin: 0;
           max-width: unset;
+          overflow: visible;
       }
       
       .directorist-search-modal__contents__body {
           height: auto;
           padding: 0;
-          display: flex;
           gap: 18px;
           margin: 0;
+          overflow: unset;
+          display: flex;
           flex-wrap: wrap;
           align-items: flex-start;
       }

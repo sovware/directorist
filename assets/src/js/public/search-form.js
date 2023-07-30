@@ -159,6 +159,12 @@ import { directorist_range_slider } from './range-slider';
         });
         $(".directorist-advanced-filter").parents("div").css("overflow", "visible");
 
+        
+        // Stop Continuously Incrementing/Decrementing number
+        document.querySelector('input[type="number"]').addEventListener('mouseup', function (e) {
+            e.stopPropagation();
+        });
+
 
         //remove preload after window load
         $(window).on('load', function () {

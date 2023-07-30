@@ -1042,7 +1042,11 @@ __webpack_require__.r(__webpack_exports__);
         Object(_range_slider__WEBPACK_IMPORTED_MODULE_4__["directorist_range_slider"])('.directorist-range-slider', config);
       }
     });
-    $(".directorist-advanced-filter").parents("div").css("overflow", "visible"); //remove preload after window load
+    $(".directorist-advanced-filter").parents("div").css("overflow", "visible"); // Stop Continuously Incrementing/Decrementing number
+
+    document.querySelector('input[type="number"]').addEventListener('mouseup', function (e) {
+      e.stopPropagation();
+    }); //remove preload after window load
 
     $(window).on('load', function () {
       $("body").removeClass("directorist-preload");

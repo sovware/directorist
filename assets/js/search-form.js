@@ -1378,7 +1378,6 @@ __webpack_require__.r(__webpack_exports__);
                   function displayLocation(position, event) {
                     var lat = position.coords.latitude;
                     var lng = position.coords.longitude;
-                    var locIcon = event.target;
                     $.ajax({
                       url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
                       type: 'POST',

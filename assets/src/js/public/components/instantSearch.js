@@ -88,8 +88,27 @@ import {
         return decodeURIComponent( results[2] );
     }
 
+    function closeAllSearchModal() {
+        var searchModalElement = document.querySelectorAll('.directorist-search-modal');
+
+        searchModalElement.forEach((modal)=>{
+            var modalOverlay = modal.querySelector('.directorist-search-modal__overlay');
+            var modalContent = modal.querySelector('.directorist-search-modal__contents');
+
+            // Overlay Style
+            if(modalOverlay) {
+                modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease";
+            }
+
+            // Modal Content Style
+            if(modalContent) { 
+                modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
+            }
+        })
+    }
+
     /* Directorist instant search */
-    $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form", function (e) {
+    $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form, .directorist-instant-search .directorist-search-form", function (e) {
         e.preventDefault();
         let _this            = $(this);
         let tag              = [];
@@ -214,6 +233,7 @@ import {
                     $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show')
                     $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').hide();
                     $(document).scrollTop($(_this).closest(".directorist-instant-search").offset().top);
+                    closeAllSearchModal();
                 },
                 success: function (html) {
                     if (html.search_result) {

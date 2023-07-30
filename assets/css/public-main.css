@@ -9936,6 +9936,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-direction: column;
           flex-direction: column;
 }
+.directorist-content-active .directorist-archive-items .directorist-archive-notfound {
+  padding: 15px 0;
+}
 
 .directorist-viewas__wrap {
   display: -webkit-box;
@@ -11082,6 +11085,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     -webkit-flex-wrap: wrap;
         -ms-flex-wrap: wrap;
             flex-wrap: wrap;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+            align-items: flex-start;
   }
   .directorist-search-form__top .directorist-advanced-filter .directorist-form-group.directorist-icon-left .directorist-input-icon {
     left: 15px;

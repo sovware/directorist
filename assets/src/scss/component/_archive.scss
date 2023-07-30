@@ -191,6 +191,9 @@
 	.directorist-archive-items {
 		display: flex;
 		flex-direction: column;
+		.directorist-archive-notfound {
+			padding: 15px 0;
+		}
 	}
 }
 

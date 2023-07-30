@@ -137,6 +137,7 @@
     button:not(:hover):not(:active):not(.has-background){
         &.directorist-btn.directorist-btn-light{
             background-color: var(--directorist-color-light);
+            color: var(--directorist-color-title);
         }
     }
 }

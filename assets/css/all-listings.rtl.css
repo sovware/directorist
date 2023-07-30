@@ -15260,6 +15260,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-single button:not(:hover):not(:active):not(.has-background).directorist-btn.directorist-btn-light {
   background-color: var(--directorist-color-light);
+  color: var(--directorist-color-title);
 }
 
 .directorist-listing-details .directorist-listing-single {
@@ -15584,7 +15585,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-map__address i::after {
   width: 14px;
   height: 14px;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 .directorist-single-map__direction a {
   display: -webkit-box;
@@ -18728,11 +18729,16 @@ Review: New Style
   font-size: 15px;
 }
 
+.directorist-payment-table .directorist-table {
+  margin: 0;
+  border: none;
+}
 .directorist-payment-table th {
   font-size: 14px;
   font-weight: 500;
   text-align: right;
   padding: 9px 20px;
+  border: none;
   color: var(--directorist-color-dark);
   background-color: var(--directorist-color-bg-gray);
 }
@@ -18741,7 +18747,11 @@ Review: New Style
   font-weight: 500;
   padding: 5px 0;
   vertical-align: top;
+  border: none;
   color: var(--directorist-color-dark);
+}
+.directorist-payment-table tbody tr:first-child td {
+  padding-top: 20px;
 }
 .directorist-payment-table__label {
   font-weight: 400;
@@ -18751,7 +18761,7 @@ Review: New Style
 .directorist-payment-table__title {
   font-size: 15px;
   font-weight: 500;
-  margin: 0;
+  margin: 0 !important;
   text-transform: capitalize;
   color: var(--directorist-color-dark);
 }
@@ -18766,6 +18776,9 @@ Review: New Style
 
 .directorist-payment-summery-table tbody td {
   padding: 12px 0;
+}
+.directorist-payment-summery-table tbody td:nth-child(even) {
+  text-align: left;
 }
 .directorist-payment-summery-table tbody tr.directorsit-payment-table-total td,
 .directorist-payment-summery-table tbody tr.directorsit-payment-table-total .directorist-payment-table__title {

@@ -12143,12 +12143,17 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle + .directorist-taxonomy-list__sub-item {
   height: 0;
+  opacity: 0;
+  padding: 0;
+  visibility: hidden;
   overflow: hidden;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle.directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item {
+  opacity: 1;
   height: auto;
+  visibility: visible;
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle.directorist-taxonomy-list__toggle--open .directorist-taxonomy-list__sub-item-toggler::after {
   content: none;
@@ -15401,19 +15406,20 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-sidebar .directorist-widget-taxonomy .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open:not(.directorist-taxonomy-list__card--icon) + .directorist-taxonomy-list__sub-item {
   padding: 0;
 }
-.directorist-sidebar .directorist-widget-taxonomy .directorist-taxonomy-list-one .directorist-taxonomy-list .directorist-taxonomy-list__toggle--open ~ .directorist-taxonomy-list__sub-item {
+.directorist-sidebar .directorist-widget-taxonomy .directorist-taxonomy-list-one .directorist-taxonomy-list > .directorist-taxonomy-list__toggle--open ~ .directorist-taxonomy-list__sub-item {
   margin-top: 10px;
+  padding: 10px 20px;
 }
 .directorist-sidebar .directorist-taxonomy-list-one .directorist-taxonomy-list__card + .directorist-taxonomy-list__sub-item {
-  padding-bottom: 0;
+  padding: 0;
   margin-top: 0;
-}
-.directorist-sidebar .directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item a {
-  padding: 8px 20px;
 }
 .directorist-sidebar .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item {
   background: var(--directorist-color-light);
   border-radius: 16px;
+}
+.directorist-sidebar .directorist-sidebar .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item li {
+  margin-top: 0;
 }
 
 .directorist-signle-listing-top {

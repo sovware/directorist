@@ -295,12 +295,17 @@
         align-items: center;
         + .directorist-taxonomy-list__sub-item{
             height: 0;
+            opacity: 0;
+            padding: 0;
+            visibility: hidden;
             overflow: hidden;
             transition: 0.3s ease;
         }
         &.directorist-taxonomy-list__toggle--open{
             + .directorist-taxonomy-list__sub-item{
+                opacity: 1;
                 height: auto;
+                visibility: visible;
             }
         }
         &.directorist-taxonomy-list__toggle--open{

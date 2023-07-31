@@ -279,6 +279,7 @@ class All_Categories extends \WP_Widget {
                 $plus_icon           = (!empty($child_category) )? directorist_icon( 'las la-plus', false ) : '';
                 $icon                = get_term_meta($term->term_id,'category_icon',true);
                 $child_icon          = empty($parent)  ? directorist_icon( $icon, false ) : '';
+                $has_icon               = $parent ? '' : 'directorist-taxonomy-list__card--icon';
 
                 $has_child_class = '';
                 if ( empty( $child_category ) ) {

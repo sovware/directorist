@@ -243,18 +243,19 @@
     .directorist-widget-taxonomy .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open:not(.directorist-taxonomy-list__card--icon) + .directorist-taxonomy-list__sub-item {
         padding: 0;
     }
-    .directorist-widget-taxonomy .directorist-taxonomy-list-one .directorist-taxonomy-list .directorist-taxonomy-list__toggle--open ~ .directorist-taxonomy-list__sub-item {
+    .directorist-widget-taxonomy .directorist-taxonomy-list-one .directorist-taxonomy-list > .directorist-taxonomy-list__toggle--open ~ .directorist-taxonomy-list__sub-item {
         margin-top: 10px;
+        padding: 10px 20px;
     }
     .directorist-taxonomy-list-one .directorist-taxonomy-list__card + .directorist-taxonomy-list__sub-item {
-        padding-bottom: 0;
+        padding: 0;
         margin-top: 0;
-    }
-    .directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item a {
-        padding: 8px 20px;
     }
     .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item {
         background: var(--directorist-color-light);
         border-radius: 16px;
+    }
+    .directorist-sidebar .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item li {
+        margin-top: 0;
     }
 }

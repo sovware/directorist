@@ -16,8 +16,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
             <div class="directorist-col-md-6 directorist-offset-md-3">
                 <div class="atbdp_login_form_shortcode">
 					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['verification'] ) && is_email( $user_email ) ) : ?>
-						<p class="directorist-alert directorist-alert-success">
-							<span>
+						<p class="directorist-alert directorist-alert-success"><span>
 							<?php
 							$send_confirm_mail_url = add_query_arg( array(
 								'action'            => 'directorist_send_confirmation_email',
@@ -27,24 +26,13 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 
 							echo wp_kses( sprintf( __( "Thank you for signing up! To complete the registration, please verify your email address by clicking on the link we have sent to your email.<br><br>If you didn't find the verification email, please check your spam folder. If you still can't find it, click on the <a href='%s'>Resend confirmation email</a> to have a new email sent to you.", 'directorist' ), esc_url( $send_confirm_mail_url ) ), array( 'a' => array( 'href' => array() ), 'br' => array() ) );
 							?>
-							</span>
-						</p>
+						</span></p>
 					<?php endif; ?>
 
-					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['send_verification_email'] ) && is_email( $user_email ) ) : ?>
-						<p class="directorist-alert directorist-alert-success">
-							<span>
-							<?php
-							$send_confirm_mail_url = add_query_arg( array(
-								'action'            => 'directorist_send_confirmation_email',
-								'user'              => $user_email,
-								'directorist_nonce' => wp_create_nonce( 'directorist_nonce' ),
-							), admin_url( 'admin-ajax.php' ) );
-
-							// translators: %s - verification email sending link.
-							echo wp_kses( sprintf( __( "Thank you for requesting a new verification email. Please check your inbox and verify to complete the registration.<br><br>If you still can't find it, please check your spam folder or click on the <a href='%s'>Resend confirmation email</a> to have a new email sent to you.", 'directorist' ), esc_url( $send_confirm_mail_url ) ), array( 'a' => array( 'href' => array() ), 'br' => array() ) ); ?>
-							</span>
-						</p>
+					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['send_verification_email'] ) ) : ?>
+						<p class="directorist-alert directorist-alert-success"><span>
+							<?php echo wp_kses( __( "Thank you for requesting a new verification email. Please check your inbox and verify to complete the registration.<br><br>If you still can't find it, please check your spam folder. And please contact if you are still having trouble.", 'directorist' ), array( 'br' => array() ) ); ?>
+						</span></p>
 					<?php endif; ?>
 
 					<?php

@@ -243,6 +243,7 @@
     url.searchParams.delete('password_reset');
     url.searchParams.delete('confirm_mail');
     // url.searchParams.delete('user');
+    url.searchParams.delete('verification');
     url.searchParams.delete('send_verification_email');
     window.history.pushState(null, null, url.toString());
   });

@@ -152,8 +152,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			wp_safe_redirect( ATBDP_Permalink::get_login_page_url( array(
-				'send_verification_email' => true,
-				'user'                   => $email
+				'send_verification_email' => true
 			) ) );
 			exit;
 		}

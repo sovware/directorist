@@ -9349,6 +9349,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 22px 0 0;
   list-style: none;
 }
+.directorist-author-social__item {
+  margin: 0;
+}
 .directorist-author-social__item a {
   display: -webkit-box;
   display: -webkit-flex;
@@ -15419,7 +15422,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background: var(--directorist-color-light);
   border-radius: 16px;
 }
-.directorist-sidebar .directorist-sidebar .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item li {
+.directorist-sidebar .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item li {
   margin-top: 0;
 }
 

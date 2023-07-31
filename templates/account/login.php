@@ -75,9 +75,11 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 										<p class="atbd_reset_error directorist-alert directorist-alert-danger"><?php echo esc_html__( 'Passwords do not match!', 'directorist' ); ?></p>
 									<?php else :
 										wp_set_password( $password_2, $user->ID );
+										// Since password reset is handled through email, so we can consider it verified!
+										delete_user_meta( $user->ID, 'directorist_user_email_unverified' );
 										?>
 										<p class="atbd_reset_success directorist-alert directorist-alert-success"><?php echo wp_kses( sprintf(
-											__( 'Password changed successfully!. Please <a href="%s">click here to login</a>.', 'directorist' ),
+											__( 'Password changed successfully. Please <a href="%s">click here to login</a>.', 'directorist' ),
 											esc_url( ATBDP_Permalink::get_login_page_url() )
 										), array( 'a' => array( 'href' => array() ) ) ); ?></p>
 									<?php endif;

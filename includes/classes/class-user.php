@@ -271,25 +271,29 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		 * @return null|\WP_User|\WP_Error WP_User if the user is authenticated. WP_Error or null otherwise.
 		 */
 		public function filter_authenticate( $user, string $username ) {
+			if ( is_wp_error( $user ) ) {
+				if ( $user->get_error_code() === 'incorrect_password' && isset( $_POST['action'] ) && $_POST['action'] === 'ajaxlogin' ) {
 
-			if( empty( $username ) ) {
+					$message = $user->get_error_message();
+					$code    = $user->get_error_code();
+
+					$user->remove( $user->get_error_code() );
+
+					$message = preg_replace( '/href=".+?"/m', 'href="#atbdp_recovery_pass"', $message );
+					$user->add( $code, $message );
+				}
+
 				return $user;
-			}
-
-			if ( is_email( $username ) ) {
-				$db_user = get_user_by( 'email', $username );
-			} else {
-				$db_user = get_user_by( 'slug', $username );
 			}
 
 			/**
 			 * Return if Logged user not found
 			 */
-			if ( ! $db_user instanceof \WP_User ) {
+			if ( ! $user instanceof \WP_User ) {
 				return $user;
 			}
 
-			$is_email_unverified = (bool) get_user_meta( $db_user->ID, 'directorist_user_email_unverified', true );
+			$is_email_unverified = (bool) get_user_meta( $user->ID, 'directorist_user_email_unverified', true );
 
 			/**
 			 * Return if email is already verified
@@ -300,7 +304,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			$mail_send_url = add_query_arg( array(
 				'action'            => 'directorist_send_confirmation_email',
-				'user'              => $db_user->user_email,
+				'user'              => $user->user_email,
 				'directorist_nonce' => wp_create_nonce( 'directorist_nonce' ),
 			), admin_url( 'admin-ajax.php' ) );
 

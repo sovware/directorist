@@ -133,7 +133,7 @@ import {
         let type_href      = $('.directorist-type-nav__list .current a').attr('href');
         let type           = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
         let directory_type = getURLParameter(type_href, 'directory_type');
-        let data_atts      = $('.directorist-instant-search').attr('data-atts');
+        let data_atts      = $(this).closest('.directorist-instant-search').attr('data-atts');
 
         var data = {
             action         : 'directorist_instant_search',
@@ -268,7 +268,7 @@ import {
             let type_href      = $('.directorist-type-nav__list .current a').attr('href');
             let type           = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
             let directory_type = getURLParameter(type_href, 'directory_type');
-            let data_atts      = $('.directorist-instant-search').attr('data-atts');
+            let data_atts      = $(this).closest('.directorist-instant-search').attr('data-atts');
 
             var data = {
                 action         : 'directorist_instant_search',
@@ -366,7 +366,7 @@ import {
         let type      = type_href.match(/directory_type=.+/);
         //let directory_type = ( type && type.length ) ? type[0].replace( /directory_type=/, '' ) : '';
         let directory_type = getURLParameter(type_href, 'directory_type');
-        let data_atts      = $('.directorist-instant-search').attr('data-atts');
+        let data_atts      = $(this).closest('.directorist-instant-search').attr('data-atts');
         var form_data      = {
             action         : 'directorist_instant_search',
             _nonce         : directorist.ajax_nonce,
@@ -459,7 +459,7 @@ import {
         let type           = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
         let directory_type = getURLParameter(type_href, 'directory_type');
         let page_no        = $(".page-numbers.current").text();
-        let data_atts      = $('.directorist-instant-search').attr('data-atts');
+        let data_atts      = $(this).closest('.directorist-instant-search').attr('data-atts');
 
         let q                = $(this).closest('.directorist-instant-search').find('input[name="q"]').val();
         let in_cat           = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();
@@ -599,7 +599,7 @@ import {
         let type_href      = $('.directorist-type-nav__list .current a').attr('href');
         let type           = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
         let directory_type = getURLParameter(type_href, 'directory_type');
-        let data_atts      = $('.directorist-instant-search').attr('data-atts');
+        let data_atts      = $(this).closest('.directorist-instant-search').attr('data-atts');
 
         let q                = $(this).closest('.directorist-instant-search').find('input[name="q"]').val();
         let in_cat           = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();
@@ -730,7 +730,7 @@ import {
         let type_href      = $('.directorist-type-nav__list .current a').attr('href');
         let type           = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
         let directory_type = getURLParameter(type_href, 'directory_type');
-        let data_atts      = $('.directorist-instant-search').attr('data-atts');
+        let data_atts      = $(this).closest('.directorist-instant-search').attr('data-atts');
 
         let q                = $(this).closest('.directorist-instant-search').find('input[name="q"]').val();
         let in_cat           = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();

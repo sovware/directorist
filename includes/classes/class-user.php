@@ -582,7 +582,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		}
 
 		public function handle_user_registration() {
-			$new_user_registration = get_directorist_option( 'new_user_registration', true );
+			$new_user_registration = (bool) get_directorist_option( 'new_user_registration', true );
 			if ( ! directorist_verify_nonce() || ! isset( $_POST['atbdp_user_submit'] ) || ! $new_user_registration ) {
 				return;
 			}
@@ -722,7 +722,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					ATBDP()->email->send_user_confirmation_email( get_user_by( 'ID', $user_id ) );
 
 					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_login_page_link( array(
-						'user'        => $email,
+						'user'         => $email,
 						'verification' => 1,
 					) ) ) );
 					exit();
@@ -733,7 +733,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				$redirection_after_reg = get_directorist_option( 'redirection_after_reg');
 				$auto_login            = get_directorist_option( 'auto_login' );
 
-				if( ! empty( $auto_login ) ) {
+				if ( ! empty( $auto_login ) ) {
 					wp_set_current_user( $user_id, $email );
 					wp_set_auth_cookie( $user_id );
 				}

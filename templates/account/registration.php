@@ -16,6 +16,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="<?php Helper::directorist_row(); ?>">
 			<div class="directorist-col-md-6 directorist-offset-md-3">
 				<div class="add_listing_title atbd_success_mesage">
+					<?php
+					if ( ! empty( $_GET['registration_status'] ) && true == $_GET['registration_status'] ) {
+						if ( empty( $display_password_reg ) ) {
+							?>
+							<p style="padding: 20px" class="alert-success directorist-alert directorist-alert-success"><span><?php directorist_icon( 'las la-check' ); ?> <?php esc_html_e('Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
+								<?php
+								$output = sprintf( __( 'Click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><i style="color: red">' . __( 'Here', 'directorist' ) . '</i></a>' );
+								echo wp_kses_post( $output );
+								?>
+							</span></p>
+						<?php } else { ?>
+							<!--registration succeeded, so show notification -->
+							<p style="padding: 20px" class="alert-success directorist-alert directorist-alert-success"><span><?php directorist_icon( 'las la-check' ); ?> <?php esc_html_e('Registration completed. Please check your email for confirmation.', 'directorist'); ?>
+								<?php
+								$output = sprintf( __('Or click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' );
+								echo wp_kses_post( $output );
+								?>
+							</span></p>
+						<?php
+						}
+					}
+					?>
 					<!--Registration failed, so show notification.-->
 					<?php if ( isset( $_GET['errors'] ) ) { ?>
 						<p style="padding: 20px" class="alert-danger"><?php directorist_icon( 'las la-exclamation-triangle' ); ?> <?php echo wp_kses_post( directorist_get_registration_error_message( sanitize_text_field( wp_unslash( $_GET['errors'] ) ) ) ); ?></p>

@@ -146,6 +146,9 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				case 'directorist_mark_as_email_unverified':
 					foreach ( $user_ids as $user_id ) {
 						update_user_meta( $user_id, 'directorist_user_email_unverified', true );
+
+						$sessions = WP_Session_Tokens::get_instance( $user_id );
+						$sessions->destroy_all();
 					}
 
 					$email_verification_type = 'unverified';

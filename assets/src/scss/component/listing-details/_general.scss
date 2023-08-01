@@ -137,10 +137,8 @@
     button:not(:hover):not(:active):not(.has-background){
         &.directorist-btn.directorist-btn-light{
             background-color: var(--directorist-color-light);
+            color: var(--directorist-color-title);
         }
-    }
-    button:not(:hover):not(:active):not(.has-text-color){
-        color: initial;
     }
 }
 
@@ -222,5 +220,42 @@
         .directorist-modal-btn--advanced {
             padding-left: 0;
         }
+    }
+    .directorist-add-listing-types {
+        padding: 25px;
+        @include e(single) {
+            margin: 0;
+        }
+        .directorist-container-fluid {
+            padding: 0;
+        }
+        .directorist-row {
+            gap: 15px;
+            margin: 0;
+        }
+        .directorist-col-lg-3.directorist-col-md-4.directorist-col-sm-6 {
+            width: 100%;
+            flex: 0 0 45%;
+            padding: 0;
+            margin: 0;
+        }
+    }
+    .directorist-widget-taxonomy .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open:not(.directorist-taxonomy-list__card--icon) + .directorist-taxonomy-list__sub-item {
+        padding: 0;
+    }
+    .directorist-widget-taxonomy .directorist-taxonomy-list-one .directorist-taxonomy-list > .directorist-taxonomy-list__toggle--open ~ .directorist-taxonomy-list__sub-item {
+        margin-top: 10px;
+        padding: 10px 20px;
+    }
+    .directorist-taxonomy-list-one .directorist-taxonomy-list__card + .directorist-taxonomy-list__sub-item {
+        padding: 0;
+        margin-top: 0;
+    }
+    .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item {
+        background: var(--directorist-color-light);
+        border-radius: 16px;
+    }
+    .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item li {
+        margin-top: 0;
     }
 }

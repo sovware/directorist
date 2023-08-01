@@ -36,6 +36,9 @@
             }
         }
         @include e(info) {
+            .directorist-author-profile__avatar__info__name {
+                margin: 0 0 5px;
+            }
             @include e(name) {
                 font-size: 20px;
                 font-weight: 500;
@@ -142,6 +145,7 @@
     .directorist-card__header--title {
         display: flex;
         gap: 12px;
+        margin: 0;
         i {
             width: 34px;
             height: 34px;
@@ -248,6 +252,7 @@
     margin: 22px 0 0;
     list-style: none;
     @include e(item) {
+        margin: 0;
         a {
             display: flex;
             justify-content: center;
@@ -287,6 +292,9 @@
 
 .directorist-author-contact .directorist-author-social {
     margin: 22px 0 0;
+    li {
+        margin: 0;
+    }
 }
 
 .directorist-author-info-widget,

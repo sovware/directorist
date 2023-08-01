@@ -135,7 +135,7 @@
         i::after {
             width: 14px;
             height: 14px;
-            margin-top: 5px;
+            margin-top: 4px;
         }
     }
     @include e(direction a) {
@@ -238,7 +238,6 @@
 }
 
 .directorist-single-listing-action {
-    flex: 1;
     gap: 8px;
     justify-content: center;
     font-size: 13px;

@@ -14,11 +14,16 @@
 }
 
 .directorist-payment-table{
+    .directorist-table {
+        margin: 0;
+        border: none;
+    }
     th{
         font-size: 14px;
         font-weight: 500;
         text-align: left;
         padding: 9px 20px;
+        border: none;
         color: var(--directorist-color-dark);
         background-color: var(--directorist-color-bg-gray);
     }
@@ -28,7 +33,15 @@
             font-weight: 500;
             padding: 5px 0;
             vertical-align: top;
+            border: none;
             color: var(--directorist-color-dark);
+        }
+        tr{
+            &:first-child{
+                td{
+                    padding-top: 20px;
+                }
+            }
         }
     }
 
@@ -41,7 +54,7 @@
     @include e('title'){
         font-size: 15px;
         font-weight: 500;
-        margin: 0;
+        margin: 0 !important;
         text-transform: capitalize;
         color: var(--directorist-color-dark);
         &.directorist-payment-table__title--large{
@@ -59,6 +72,9 @@
     tbody{
         td{
             padding: 12px 0;
+            &:nth-child(even) {
+                text-align: right;
+            }
         }
         tr.directorsit-payment-table-total{
             td,

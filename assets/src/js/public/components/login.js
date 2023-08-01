@@ -47,11 +47,12 @@
 
         $('form#login .status').on('click', 'a', function(e) {
             e.preventDefault();
-            let element = $(this);
-            let href    = element.attr('href');
-
-            if( 0 < href.search('lostpassword') ) {
-                $("#recover-pass-modal").slideToggle().show();
+            if ( $(this).attr('href') === '#atbdp_recovery_pass' ) {
+                $("#recover-pass-modal").slideDown().show();
+                window.scrollTo({
+                    top: $("#recover-pass-modal").offset().top - 100,
+                    behavior: 'smooth',
+                });
             } else {
                 location.href = href;
             }

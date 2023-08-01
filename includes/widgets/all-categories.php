@@ -296,7 +296,7 @@ class All_Categories extends \WP_Widget {
                 }
 
                 $html .= '<li>';
-                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_category_page( $term ) . '" class="' . $has_child_class . ' ' . $has_icon . '">';
+                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_category_page( $term ) . '" class="' . $has_child_class . ' ' . $child_icon . '">';
                 $html .= '<span class="directorist-taxonomy-list__name">' . $term->name . '</span>';
                 if( ! empty( $settings['show_count'] ) ) {
                     $expired_listings = atbdp_get_expired_listings(ATBDP_CATEGORY, $term->term_id);

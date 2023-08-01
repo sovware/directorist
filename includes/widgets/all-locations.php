@@ -216,7 +216,7 @@ class All_Locations extends \WP_Widget {
                 }
                 $html .= $plus_icon ? '<span class="directorist-taxonomy-list__toggler">'. $plus_icon . '</span>' : '';
                 $html .= '</a>';
-                $html .= $this->list_locations( $settings );
+                $html .= $this->sub_locations_list( $settings );
                 $html .= '</div>';
                 $html .= '</div>';
                 if(!empty($args['number'])) {
@@ -229,6 +229,78 @@ class All_Locations extends \WP_Widget {
 
         return $html;
 
+    }
+
+    public function sub_locations_list( $settings ) {
+        if( $settings['immediate_category'] ) {
+            if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+                return;
+            }
+        }
+
+        $args = array(
+            'taxonomy'     => ATBDP_LOCATION,
+            'orderby'      => $settings['orderby'],
+            'order'        => $settings['order'],
+            'hide_empty'   => $settings['hide_empty'],
+            'parent'       => $settings['term_id'],
+            'hierarchical' => !empty( $settings['hide_empty'] ) ? true : false,
+            'child_of'     => 0,
+            'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
+        );
+
+        $terms = get_terms( $args );
+        $parent = $args['parent'];
+        $child_class = !empty($parent) ? 'directorist-taxonomy-list__sub-item' : '';
+        $html = '';
+        if( count( $terms ) > 0 ) {
+            $i = 1;
+            $html .= '<ul class="' .$child_class. '">';
+            foreach( $terms as $term ) {
+                $settings['term_id'] = $term->term_id;
+                $child_category      = get_term_children( $term->term_id, ATBDP_LOCATION );
+                $plus_icon           = (!empty($child_category) )? directorist_icon( 'las la-plus', false ) : '';
+                $icon                = get_term_meta($term->term_id,'category_icon',true);
+                $child_icon          = empty($parent)  ? directorist_icon( $icon, false ) : '';
+
+                $has_child_class = '';
+                if ( empty( $child_category ) ) {
+                    $has_child_class = '';
+                } else {
+                    $has_child_class = 'directorist-taxonomy-list__sub-item-toggle';
+                }
+
+                $count = 0;
+                if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
+                    $count = atbdp_listings_count_by_location( $term->term_id );
+
+                    if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
+                }
+
+                $html .= '<li>';
+                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_location_page( $term ) . '" class="' . $has_child_class . ' ' . $child_icon . '">';
+                $html .= '<span class="directorist-taxonomy-list__name">' . $term->name . '</span>';
+                if( ! empty( $settings['show_count'] ) ) {
+                    $expired_listings = atbdp_get_expired_listings(ATBDP_LOCATION, $term->term_id);
+                    $number_of_expired = $expired_listings->post_count;
+                    $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
+                    $total = ($count)?($count-$number_of_expired):$count;
+                    $html .= '<span class="directorist-taxonomy-list__count"> (' .
+                    $total . ') </span>';
+                }
+                $html .= $plus_icon ? '<span class="directorist-taxonomy-list__sub-item-toggler"></span>' : '';
+                $html .= '</a>';
+                $html .= $this->sub_locations_list( $settings );
+                $html .= '</li>';
+                if(!empty($args['number'])) {
+                    if( $i++ == $args['number'] ) break;
+                }
+            }
+            $html .= '</ul>';
+
+        }
+
+        return $html;
     }
 
     public function dropdown_locations( $settings, $prefix = '' ) {

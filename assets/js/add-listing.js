@@ -668,8 +668,8 @@ $(document).ready(function () {
 
     if (error_count) {
       on_processing = false;
-      $submitButton.attr('disabled', false);
-      console.log('Form has invalid data');
+      $submitButton.attr('disabled', false); // console.log('Form has invalid data');
+
       console.log(error_count, err_log);
       return;
     }
@@ -750,7 +750,6 @@ $(document).ready(function () {
         $submitButton.attr('disabled', false);
         $submitButton.removeClass('atbd_loading');
         console.log(_error);
-        "";
       }
     });
   }); // Custom Field Checkbox Button More
@@ -893,116 +892,132 @@ $(document).ready(function () {
     });
   }
 
-  addSticky(); // MultiStep Wizard
+  addSticky();
+  multiStepWizard();
+}); // MultiStep Wizard
 
-  function multiStepWizard() {
-    var totalStep = document.querySelectorAll('.multistep-wizard__nav__btn');
-    var totalWizard = document.querySelectorAll('.multistep-wizard__single');
-    var totalWizardCount = document.querySelector('.multistep-wizard__count__total');
-    var currentWizardCount = document.querySelector('.multistep-wizard__count__current');
-    var progressWidth = document.querySelector('.multistep-wizard__progressbar__width');
-    var stepCount = 1;
-    var progressPerStep = 100 / totalWizard.length; // Initialize Wizard Count & Progressbar
+function multiStepWizard() {
+  var totalStep = document.querySelectorAll('.multistep-wizard__nav__btn');
+  var totalWizard = document.querySelectorAll('.multistep-wizard__single');
+  var totalWizardCount = document.querySelector('.multistep-wizard__count__total');
+  var currentWizardCount = document.querySelector('.multistep-wizard__count__current');
+  var progressWidth = document.querySelector('.multistep-wizard__progressbar__width');
+  var stepCount = 1;
+  var progressPerStep = 100 / totalWizard.length; // Initialize Wizard Count & Progressbar
 
+  if (currentWizardCount) {
     currentWizardCount.innerHTML = stepCount;
-    totalWizardCount.innerHTML = totalWizard.length;
-    progressWidth.style.width = progressPerStep + '%'; // Set data-id on Wizards
-
-    totalWizard.forEach(function (item, index) {
-      item.setAttribute('data-id', index);
-
-      if (index === 0) {
-        item.classList.add('active');
-      }
-    }); // Set data-step on Nav Items
-
-    totalStep.forEach(function (item, index) {
-      item.setAttribute('data-step', index);
-
-      if (index === 0) {
-        item.classList.add('active');
-      }
-    }); // Previous Step
-
-    $('.multistep-wizard__btn--prev').on('click', function (e) {
-      if (stepCount > 1) {
-        stepCount--;
-        activeWizard(stepCount);
-
-        if (stepCount <= 1) {
-          this.setAttribute('disabled', true);
-        }
-      }
-    }); // Next Step
-
-    $('.multistep-wizard__btn--next').on('click', function (e) {
-      if (stepCount < totalWizard.length) {
-        stepCount++;
-        activeWizard(stepCount);
-      }
-    }); // Random Step
-
-    $('.multistep-wizard__nav__btn').on('click', function (e) {
-      e.preventDefault();
-
-      if (this.classList.contains('completed')) {
-        var currentStep = Number(this.attributes[2].value) + 1;
-        stepCount = currentStep;
-        activeWizard(stepCount);
-      }
-    }); // Active Wizard
-
-    function activeWizard(value) {
-      // Add Active Class
-      totalWizard.forEach(function (item, index) {
-        if (item.classList.contains('active')) {
-          item.classList.remove('active');
-        } else if (value - 1 === index) {
-          item.classList.add('active');
-        }
-      }); // Add Completed Class
-
-      totalStep.forEach(function (item, index) {
-        if (index + 1 < value) {
-          item.classList.add('completed');
-        } else {
-          item.classList.remove('completed');
-        }
-
-        if (item.classList.contains('active')) {
-          item.classList.remove('active');
-        } else if (value - 1 === index) {
-          item.classList.add('active');
-        }
-      }); // Enable Button
-
-      if (value >= 1) {
-        $('.multistep-wizard__btn--prev').removeAttr('disabled');
-      } // Change Button Text on Last Step
-
-
-      var nextBtn = document.querySelector('.multistep-wizard__btn--next');
-      var previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
-      var submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
-
-      if (value === totalWizard.length) {
-        nextBtn.style.cssText = "display:none; width: 0; height: 0; opacity: 0; visibility: hidden;";
-        previewBtn.style.cssText = "height: 54px; flex: unset; opacity: 1; visibility: visible;";
-        submitBtn.style.cssText = "height: 54px; opacity: 1; visibility: visible;";
-      } else {
-        nextBtn.style.cssText = "display:inline-flex; width: 200px; height: 54px; opacity: 1; visibility: visible;";
-        previewBtn.style.cssText = "height: 0; flex: 0 0 100%; opacity: 0; visibility: hidden;";
-        submitBtn.style.cssText = "height: 0; opacity: 0; visibility: hidden;";
-      } // Update Wizard Count & Progressbar
-
-
-      currentWizardCount.innerHTML = value;
-      progressWidth.style.width = progressPerStep * value + '%';
-      progressWidth.style.transition = "0.5s ease";
-    }
   }
 
-  multiStepWizard();
+  if (totalWizardCount) {
+    totalWizardCount.innerHTML = totalWizard.length;
+  }
+
+  if (progressWidth) {
+    progressWidth.style.width = progressPerStep + '%';
+  } // Set data-id on Wizards
+
+
+  totalWizard.forEach(function (item, index) {
+    item.setAttribute('data-id', index);
+
+    if (index === 0) {
+      item.classList.add('active');
+    }
+  }); // Set data-step on Nav Items
+
+  totalStep.forEach(function (item, index) {
+    item.setAttribute('data-step', index);
+
+    if (index === 0) {
+      item.classList.add('active');
+    }
+  }); // Previous Step
+
+  $('.multistep-wizard__btn--prev').on('click', function (e) {
+    if (stepCount > 1) {
+      stepCount--;
+      activeWizard(stepCount);
+
+      if (stepCount <= 1) {
+        this.setAttribute('disabled', true);
+      }
+    }
+  }); // Next Step
+
+  $('.multistep-wizard__btn--next').on('click', function (e) {
+    if (stepCount < totalWizard.length) {
+      stepCount++;
+      activeWizard(stepCount);
+    }
+  }); // Random Step
+
+  $('.multistep-wizard__nav__btn').on('click', function (e) {
+    e.preventDefault();
+
+    if (this.classList.contains('completed')) {
+      var currentStep = Number(this.attributes[2].value) + 1;
+      stepCount = currentStep;
+      activeWizard(stepCount);
+    }
+  }); // Active Wizard
+
+  function activeWizard(value) {
+    // Add Active Class
+    totalWizard.forEach(function (item, index) {
+      if (item.classList.contains('active')) {
+        item.classList.remove('active');
+      } else if (value - 1 === index) {
+        item.classList.add('active');
+      }
+    }); // Add Completed Class
+
+    totalStep.forEach(function (item, index) {
+      if (index + 1 < value) {
+        item.classList.add('completed');
+      } else {
+        item.classList.remove('completed');
+      }
+
+      if (item.classList.contains('active')) {
+        item.classList.remove('active');
+      } else if (value - 1 === index) {
+        item.classList.add('active');
+      }
+    }); // Enable Button
+
+    if (value >= 1) {
+      $('.multistep-wizard__btn--prev').removeAttr('disabled');
+    } // Change Button Text on Last Step
+
+
+    var nextBtn = document.querySelector('.multistep-wizard__btn--next');
+    var previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
+    var submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
+
+    if (value === totalWizard.length) {
+      nextBtn.style.cssText = "display:none; width: 0; height: 0; opacity: 0; visibility: hidden;";
+      previewBtn.style.cssText = "height: 54px; flex: unset; opacity: 1; visibility: visible;";
+      submitBtn.style.cssText = "height: 54px; opacity: 1; visibility: visible;";
+    } else {
+      nextBtn.style.cssText = "display:inline-flex; width: 200px; height: 54px; opacity: 1; visibility: visible;";
+      previewBtn.style.cssText = "height: 0; flex: 0 0 100%; opacity: 0; visibility: hidden;";
+      submitBtn.style.cssText = "height: 0; opacity: 0; visibility: hidden;";
+    } // Update Wizard Count & Progressbar
+
+
+    currentWizardCount.innerHTML = value;
+    progressWidth.style.width = progressPerStep * value + '%';
+    progressWidth.style.transition = "0.5s ease";
+  }
+}
+/* Elementor Edit Mode */
+
+
+$(window).on('elementor/frontend/init', function () {
+  setTimeout(function () {
+    multiStepWizard();
+  }, 3000);
 });
 
 /***/ }),

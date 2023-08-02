@@ -138,6 +138,10 @@
             .mce-statusbar {
                 display: none;
             }
+            #wp-listing_content-editor-tools {
+                display: flex;
+                justify-content: end;
+            }
         }
         .directorist-form-social-info-field {
             .directorist-btn {

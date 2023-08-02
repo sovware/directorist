@@ -383,6 +383,16 @@
 .directorist-content-module__contents .directorist-form-description-field .mce-statusbar {
   display: none;
 }
+.directorist-content-module__contents .directorist-form-description-field #wp-listing_content-editor-tools {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+}
 .directorist-content-module__contents .directorist-form-social-info-field .directorist-btn {
   width: 100%;
   gap: 10px;

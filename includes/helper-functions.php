@@ -3335,6 +3335,8 @@ function directorist_get_supported_file_types_groups( $group = null ) {
 		]
 	];
 
+    $groups = apply_filters( 'directorist_supported_file_types_groups', $groups );
+
 	if ( is_null( $group ) ) {
 		return $groups;
 	}

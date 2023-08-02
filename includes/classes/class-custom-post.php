@@ -400,8 +400,10 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					// TODO: Status has been migrated, remove related code.
 					// $status = get_post_meta( $post_id, '_listing_status', true );
 					// $status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
-					$status = get_post_status( $post_id );
-					echo esc_html( ucfirst( $status ) );
+					$status     = get_post_status( $post_id );
+					$status_obj = get_post_status_object( get_post_status( $post_id ) );
+
+					echo $status_obj ? $status_obj->label : $status;
 					break;
 
 				case 'atbdp_featured':

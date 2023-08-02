@@ -111,9 +111,50 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			add_action( 'wp_ajax_directorist_instant_search', array( $this, 'instant_search' ) );
 			add_action( 'wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
 
+			// user verification
+			add_action('wp_ajax_directorist_send_confirmation_email', [$this, 'send_confirm_email'] );
+			add_action('wp_ajax_nopriv_directorist_send_confirmation_email', [$this, 'send_confirm_email'] );
+
 			// zipcode search
 			add_action( 'wp_ajax_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
 			add_action( 'wp_ajax_nopriv_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
+		}
+
+		public function send_confirm_email() {
+			if ( ! check_ajax_referer( 'directorist_nonce', 'directorist_nonce', false ) ) {
+				wp_send_json_error([
+					'code' => 'invalid_nonce',
+					'message'  => __( 'Invalid Nonce', 'directorist' )
+				]);
+				exit;
+			}
+
+			if ( ! directorist_is_email_verification_enabled() ) {
+				wp_send_json_error([
+					'code' => 'invalid_request',
+					'message'  => __( 'Invalid Request', 'directorist' )
+				]);
+				exit;
+			}
+
+			$email = isset( $_REQUEST['user'] ) ? sanitize_email( wp_unslash( $_REQUEST['user'] ) ) : '';
+			if ( ! is_email( $email ) ) {
+				wp_send_json_error([
+					'code' => 'invalid_email',
+					'message'  => __( 'Invalid email address', 'directorist' )
+				]);
+				exit;
+			}
+
+			$user  = get_user_by( 'email', $email );
+			if ( $user instanceof \WP_User && get_user_meta( $user->ID, 'directorist_user_email_unverified', true ) ) {
+				ATBDP()->email->send_user_confirmation_email( $user );
+			}
+
+			wp_safe_redirect( ATBDP_Permalink::get_login_page_url( array(
+				'send_verification_email' => true
+			) ) );
+			exit;
 		}
 
 		public function zipcode_search() {
@@ -134,16 +175,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if( ! empty( $lat_long ) ) {
 				wp_send_json( $lat_long );
 			} else {
-				wp_send_json_error( 
-					array( 
-						'error_message' => sprintf( 
-							__( '<div class="error_message">%s <p>%s</p></div>', 'directorist' ), 
+				wp_send_json_error(
+					array(
+						'error_message' => sprintf(
+							__( '<div class="error_message">%s <p>%s</p></div>', 'directorist' ),
 							directorist_icon('fas fa-info-circle', false), __( 'Please enter a valid zip code.', 'directorist' ) )
 					)
 				);
 			}
-			
-
 		}
 
 		public function instant_search() {
@@ -672,7 +711,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				echo json_encode(
 					array(
 						'loggedin' => false,
-						'message'  => __( 'Wrong username or password.', 'directorist' ),
+						'message'  => $user_signon->get_error_message()
 					)
 				);
 			} else {

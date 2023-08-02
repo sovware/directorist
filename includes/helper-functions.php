@@ -3271,9 +3271,9 @@ function directorist_get_registration_error_message( $error_code ) {
 	$message = [
 		'0' => __( 'Something went wrong!', 'directorist' ),
 		'1' => __( 'Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', 'directorist' ),
-		'2' => __( 'Sorry, that email already exists!', 'directorist' ),
+		'2' => sprintf( __( 'This email is already registered. Please <a href="%s">click here to login</a>.', 'directorist' ), ATBDP_Permalink::get_login_page_link() ),
 		'3' => __( 'Username too short. At least 4 characters is required', 'directorist' ),
-		'4' => __( 'Sorry, that username already exists!', 'directorist' ),
+		'4' => sprintf( __( 'This username is already registered. Please <a href="%s">click here to login</a>.', 'directorist' ), ATBDP_Permalink::get_login_page_link() ),
 		'5' => __( 'Password length must be greater than 5', 'directorist' ),
 		'6' => __( 'Email is not valid', 'directorist' ),
 		'7' => __( 'Space is not allowed in username', 'directorist' ),
@@ -3997,6 +3997,35 @@ function directorist_get_page_id( string $page_name = '' ) : int {
     return (int) apply_filters( 'directorist_page_id', $page_id, $page_name );
 }
 
+function directorist_password_reset_url(\Wp_User $user, $password_reset = true, $confirm_mail = false) {
+
+    $args = array(
+        'user' => $user->user_email
+    );
+
+    global $directories_user_rest_keys;
+
+    if( is_array( $directories_user_rest_keys ) && !empty( $directories_user_rest_keys[$user->user_email] ) ) {
+        $args['key'] = $directories_user_rest_keys[$user->user_email];
+    } else {
+        $key = get_password_reset_key( $user );
+        $directories_user_rest_keys[$user->user_email] = $key;
+        $args['key'] = $key;
+    }
+
+    if($password_reset) {
+        $args['password_reset'] = true;
+    }
+
+    if($confirm_mail) {
+        $args['confirm_mail'] = true;
+    }
+
+    $reset_password_url = ATBDP_Permalink::get_login_page_url($args);
+
+    return apply_filters( 'directorist_password_reset_url', $reset_password_url );
+}
+
 function directorist_get_mime_types( $filter_type = '', $return_type = '' ) {
 	$supported_mime_types = wp_get_mime_types();
 
@@ -4035,4 +4064,13 @@ function directorist_get_mime_types( $filter_type = '', $return_type = '' ) {
 	}
 
 	return $supported_mime_types;
+}
+
+/**
+ * The function checks if email verification is enabled in the settings.
+ *
+ * @return bool a boolean value indicating whether email verification is enabled or not.
+ */
+function directorist_is_email_verification_enabled() {
+	return (bool) get_directorist_option( 'enable_email_verification' );
 }

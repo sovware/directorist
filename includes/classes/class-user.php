@@ -29,9 +29,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			add_action( 'template_redirect', [ $this, 'registration_redirection' ] );
 
-			if ( directorist_is_email_verification_enabled() ) {
-				add_filter( 'authenticate', [$this, 'filter_authenticate'], 999999, 2 );
-			}
+			add_filter( 'authenticate', [$this, 'filter_authenticate'], 999999, 2 );
 
 			if ( is_admin() ) {
 				add_filter( 'manage_users_columns', [$this,'manage_users_columns'], 10, 1 );
@@ -286,9 +284,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				return $user;
 			}
 
-			/**
-			 * Return if Logged user not found
-			 */
 			if ( ! $user instanceof \WP_User ) {
 				return $user;
 			}
@@ -298,7 +293,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			/**
 			 * Return if email is already verified
 			 */
-			if ( ! $is_email_unverified ) {
+			if ( ! directorist_is_email_verification_enabled() || ( directorist_is_email_verification_enabled() && ! $is_email_unverified ) ) {
 				return $user;
 			}
 

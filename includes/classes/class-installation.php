@@ -30,6 +30,7 @@ class ATBDP_Installation {
 			'directorist_770_migrate_renewal_meta_to_renewal_status',
 			// 'directorist_770_clean_listing_status_expired_meta',
 			// 'directorist_770_clean_listing_status_renewal_meta',
+			'directorist_770_drop_reviews_table',
 			'directorist_770_update_db_version',
 		],
 		'7.1.0' => [

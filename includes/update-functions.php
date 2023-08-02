@@ -47,10 +47,6 @@ function directorist_710_migrate_reviews_table_to_comments_table() {
 	}
 
 	update_option( 'directorist_old_reviews_table_migrated', 1, false );
-
-	//Delete review table
-	// TODO: Delete this table in future.
-	// $wpdb->query( "DROP TABLE IF EXISTS {$review_table}" );
 }
 
 // pending -> pending:0
@@ -141,7 +137,7 @@ function directorist_770_migrate_expired_meta_to_expired_status( $updater ) {
 	$listings = new \WP_Query( array(
 		'post_status'    => 'private',
 		'post_type'      => ATBDP_POST_TYPE,
-		'posts_per_page' => 10,
+		'posts_per_page' => 50,
 		'cache_results'  => false,
 		'nopaging'       => true,
 		'meta_key'       => '_listing_status',
@@ -165,7 +161,7 @@ function directorist_770_migrate_renewal_meta_to_renewal_status( $updater ) {
 	$listings = new \WP_Query( array(
 		'post_status'    => array( 'private', 'publish', 'draft', 'auto-draft', 'pending' ),
 		'post_type'      => ATBDP_POST_TYPE,
-		'posts_per_page' => 10,
+		'posts_per_page' => 50,
 		'cache_results'  => false,
 		'nopaging'       => true,
 		'meta_key'       => '_listing_status',
@@ -215,6 +211,21 @@ function directorist_770_clean_listing_status_renewal_meta() {
 			$meta_value
 		)
 	);
+}
+
+/**
+ * Drop old reviews table.
+ * Reviews table was migrated in version 7.1.0
+ * @see directorist_710_migrate_reviews_table_to_comments_table
+ *
+ * @return void
+ */
+function directorist_770_drop_reviews_table() {
+	global $wpdb;
+
+	$review_table = $wpdb->prefix . 'atbdp_review';
+
+	$wpdb->query( "DROP TABLE IF EXISTS {$review_table}" );
 }
 
 function directorist_770_update_db_version() {

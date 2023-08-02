@@ -30,7 +30,7 @@ class ATBDP_Installation {
 			'directorist_710_migrate_posts_table_to_comments_table',
 			'directorist_710_review_rating_clear_transients',
 			'directorist_710_update_db_version',
-		],
+		]
 	);
 
 	/**

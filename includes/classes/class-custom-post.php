@@ -70,9 +70,9 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 		}
 
 		public function quick_edit_scripts() {
-			global $current_screen, $pagenow;
+			global $current_screen;
 
-			if ( $pagenow !== 'edit.php' || ATBDP_POST_TYPE !== $current_screen->post_type ) {
+			if ( ! isset( $current_screen ) || 'edit-at_biz_dir' !== $current_screen->id ) {
 				return;
 			}
 			?>

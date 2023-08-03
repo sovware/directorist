@@ -59,8 +59,8 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
 			add_filter('wpseo_title', array($this, 'wpseo_title'));
 			add_filter('wpseo_metadesc', array($this, 'wpseo_metadesc'));
-			add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
-			add_filter('wpseo_opengraph_url', array($this, 'wpseo_canonical'));
+			add_filter('wpseo_canonical', array($this, 'directorist_canonical'));
+			add_filter('wpseo_opengraph_url', array($this, 'directorist_canonical'));
 			add_filter('wpseo_opengraph_title', array($this, 'wpseo_opengraph_title'));
 			//add_filter('wpseo_opengraph_image', array($this, 'wpseo_opengraph_image'));
 
@@ -77,6 +77,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
             add_filter( 'rank_math/frontend/title', [ $this, 'optimize_rankmath_frontend_meta_title' ], 20, 1 );
             add_filter( 'rank_math/frontend/description', [ $this, 'optimize_rankmath_frontend_meta_description' ], 20, 1);
+            add_filter( 'rank_math/frontend/canonical', [ $this, 'directorist_canonical' ], 20, 1);
         }
 
 		// Optimize rankmath frontend meta title
@@ -549,7 +550,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
          * @param     array    $url    The Yoast canonical URL.
          * @return                     Modified canonical URL.
          */
-        public function wpseo_canonical($url)
+        public function directorist_canonical($url)
         {
             global $post;
 

@@ -239,7 +239,7 @@ class Directorist_Listings {
 
 	public function prepare_atts_data() {
 		$defaults = array(
-			'view'                     => $this->options['listing_view'],
+			'view'                     => !empty(get_term_meta($this->get_current_listing_type(), 'default_view_type', true)) ? get_term_meta($this->get_current_listing_type(), 'default_view_type', true) : $this->options['listing_view'],
 			'_featured'                => 1,
 			'filterby'                 => '',
 			'orderby'                  => $this->options['order_listing_by'],
@@ -271,7 +271,7 @@ class Directorist_Listings {
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
 		$this->params = shortcode_atts( $defaults, $this->atts );
 
-		$this->view                     = atbdp_get_listings_current_view_name( $this->params['view'] );
+		$this->view                     = atbdp_get_listings_current_view_name( $this->params['view'], $this->get_current_listing_type() );
 		$this->_featured                = $this->params['_featured'];
 		$this->filterby                 = $this->params['filterby'];
 		$this->orderby                  = $this->params['orderby'];

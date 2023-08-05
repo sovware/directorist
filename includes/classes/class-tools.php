@@ -18,7 +18,6 @@
         public $importable_fields = [];
         private $default_directory;
 
-
         public function __construct()
         {
 			// Prevent frontend executions.
@@ -57,7 +56,7 @@
 
             ob_start();
 
-            ATBDP()->load_template( 'admin-templates/import-export/data-table', array( 'data' => csv_get_data( $file, false, $delimiter ), 'fields' => $this->importable_fields, 'csv_file' => $file ) );
+            ATBDP()->load_template( 'admin-templates/import-export/data-table', array( 'data' => csv_get_data( $file, false, $delimiter ), 'fields' => $this->get_importable_fields(), 'csv_file' => $file ) );
 
             $response = ob_get_clean();
 
@@ -451,7 +450,7 @@
                     }
                 }
 
-                apply_filters( 'directorist_importable_fields', $this->importable_fields[ $field_key ] = $label );
+                $this->importable_fields[ $field_key ] = $label;
             }
         }
 
@@ -477,7 +476,7 @@
             $data = [
                 'data'     => $csv_data,
                 'csv_file' => $file_path,
-                'fields'   => $this->importable_fields
+                'fields'   => $this->get_importable_fields(),
             ];
 
             ATBDP()->load_template('admin-templates/import-export/data-table', $data );
@@ -588,6 +587,10 @@
             ATBDP()->load_template( $template_path, $template_data );
 
         }
+
+		public function get_importable_fields() {
+			return apply_filters( 'directorist_importable_fields', $this->importable_fields );
+		}
     }
 
 endif;

@@ -179,27 +179,16 @@
                             $multiple = $terms > 0;
 
                             foreach( $terms as $term ) {
+								$term_id = $this->get_or_create_term_id( $term, $taxonomy );
 
-                                $_term = wp_insert_term( $term, $taxonomy );
-
-                                if ( is_wp_error( $_term ) ) {
-                                    if ( $_term->get_error_code() === 'term_exists' ) {
-                                        // When term exists, error data should contain existing term id.
-                                        $term_id = $_term->get_error_data();
-
-                                    } else {
-                                        break; // We cannot continue on any other error.
-                                    }
-                                } else {
-                                    // New term.
-                                    $term_id = $_term['term_id'];
-                                }
+								if ( empty( $term_id ) ) {
+									continue;
+								}
 
                                 update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
-
                                 $term_ids[] = $term_id;
-
                             }
+
                             wp_set_object_terms( $post_id, $term_ids, $taxonomy, $multiple );
                         }
                     }
@@ -268,6 +257,27 @@
 
             wp_send_json( $data );
         }
+
+		/**
+		 * @param string $term
+		 * @param string $taxonomy
+		 * @return int|null Term ID
+		 */
+		public function get_or_create_term_id( $term, $taxonomy ) {
+			$term_data = term_exists( $term, $taxonomy );
+
+			if ( is_array( $term_data ) ) {
+				return (int) $term_data['term_id'];
+			}
+
+			$term_data = wp_insert_term( $term, $taxonomy );
+
+			if ( ! is_wp_error( $term_data ) ) {
+				return (int) $term_data['term_id'];
+			}
+
+			return null;
+		}
 
         // maybe_unserialize_csv_string
         public function maybe_unserialize_csv_string( $data ) {

@@ -100,19 +100,26 @@ class Directorist_Listing_Dashboard {
 			$args['no_found_rows'] = false;
 		}
 
-		if ( $type == 'publish' ) {
+		// TODO: Status has been migrated, remove related code.
+		// if ( $type === 'publish' ) {
+		// 	$args['post_status'] = $type;
+		// }
+		// if ( $type == 'pending' ) {
+		// 	$args['post_status'] = 'pending';
+		// }
+		// elseif ( $type == 'expired' ) {
+		// 	$args['meta_query'] = array(
+		// 		array(
+		// 			'key'   => '_listing_status',
+		// 			'value' => 'expired'
+		// 		),
+		// 	);
+		// }
+
+		if ( $type === 'pending' || $type === 'expired' ) {
+			$args['post_status'] = $type;
+		} else {
 			$args['post_status'] = 'publish';
-		}
-		if ( $type == 'pending' ) {
-			$args['post_status'] = 'pending';
-		}
-		elseif ( $type == 'expired' ) {
-			$args['meta_query'] = array(
-				array(
-					'key'   => '_listing_status',
-					'value' => 'expired'
-				),
-			);
 		}
 
 		if ( $search ) {
@@ -138,14 +145,31 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function get_listing_expired_html() {
-		$id = get_the_ID();
-		$date_format = get_option('date_format');
-		$exp_date  = get_post_meta($id, '_expiry_date', true);
-		$never_exp = get_post_meta($id, '_never_expire', true);
-		$status    = get_post_meta($id, '_listing_status', true);
-		$exp_text  = !empty($never_exp) ? __('Never Expires', 'directorist') : date_i18n($date_format, strtotime($exp_date));
-		$exp_html  = ( $status == 'expired' ) ? '<span style="color: red">' . __('Expired', 'directorist') . '</span>' : $exp_text;
-		return $exp_html;
+		// TODO: Status has been migrated, remove related code.
+		// $id = get_the_ID();
+		// $date_format = get_option('date_format');
+		// $exp_date  = get_post_meta($id, '_expiry_date', true);
+		// $never_exp = get_post_meta($id, '_never_expire', true);
+		// $status    = get_post_meta($id, '_listing_status', true);
+		// $exp_text  = !empty($never_exp) ? __('Never Expires', 'directorist') : date_i18n($date_format, strtotime($exp_date));
+		// $exp_html  = ( $status == 'expired' ) ? '<span style="color: red">' . __('Expired', 'directorist') . '</span>' : $exp_text;
+		// return $exp_html;
+
+		if ( get_post_status( get_the_ID() ) === 'expired' ) {
+			return '<span style="color: red">' . esc_html__( 'Expired', 'directorist' ) . '</span>';
+		}
+
+		$never_expire = (bool) get_post_meta( get_the_ID(), '_never_expire', true );
+		if ( $never_expire ) {
+			return '<span>' . esc_html__( 'Never Expires', 'directorist' ) . '</span>';
+		}
+
+		$expiry_date  = strtotime( get_post_meta( get_the_ID(), '_expiry_date', true ) );
+		if ( $expiry_date ) {
+			return '<span>' . date_i18n( get_option( 'date_format' ), $expiry_date ) . '</span>';
+		}
+
+		return '';
 	}
 
 	public function listing_pagination( $base = '', $paged = '' ) {
@@ -517,30 +541,47 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function can_renew() {
-		$post_id = get_the_ID();
-		$status  = get_post_meta( $post_id, '_listing_status', true );
+		// TODO: Status has been migrated, remove related code.
+		// $post_id = get_the_ID();
+		// $status  = get_post_meta( $post_id, '_listing_status', true );
 
-		if ( 'renewal' == $status || 'expired' == $status ) {
-			$can_renew = get_directorist_option( 'can_renew_listing' );
-			if ( $can_renew ) {
-				return true;
-			}
+		// if ( 'renewal' == $status || 'expired' == $status ) {
+		// 	$can_renew = get_directorist_option( 'can_renew_listing' );
+		// 	if ( $can_renew ) {
+		// 		return true;
+		// 	}
+		// }
+
+		if ( in_array( get_post_status( get_the_ID() ), array( 'expired', 'renewal' ), true ) ) {
+			return (bool) get_directorist_option( 'can_renew_listing' );
 		}
 
 		return false;
 	}
 
 	public function can_promote() {
-		$post_id = get_the_ID();
-		$status  = get_post_meta( $post_id, '_listing_status', true );
-		$featured_active = get_directorist_option( 'enable_featured_listing' );
-		$featured = get_post_meta( $post_id, '_featured', true );
+		// TODO: Status has been migrated, remove related code.
+		// $post_id = get_the_ID();
+		// $status  = get_post_meta( $post_id, '_listing_status', true );
+		// $featured_active = get_directorist_option( 'enable_featured_listing' );
+		// $featured = get_post_meta( $post_id, '_featured', true );
 
-		if ( 'renewal' == $status || 'expired' == $status ) {
+		// if ( 'renewal' == $status || 'expired' == $status ) {
+		// 	return false;
+		// }
+
+		// if ( $featured_active && empty( $featured ) ) {
+		// 	return true;
+		// }
+
+		if ( in_array( get_post_status( get_the_ID() ), array( 'expired', 'renewal' ), true ) ) {
 			return false;
 		}
 
-		if ( $featured_active && empty( $featured ) ) {
+		$featured_enabled = (bool) get_directorist_option( 'enable_featured_listing' );
+		$is_featured      = (bool) get_post_meta( get_the_ID(), '_featured', true );
+
+		if ( $featured_enabled && ! $is_featured ) {
 			return true;
 		}
 

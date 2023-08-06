@@ -447,7 +447,6 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
-			ATBDP_INC_DIR . 'backward-compatibility',
 		]);
 
 		$this->autoload( ATBDP_INC_DIR . 'database/' );
@@ -548,7 +547,7 @@ final class Directorist_Base
 	{
 
 		load_plugin_textdomain('directorist', false, ATBDP_LANG_DIR);
-		if ( is_admin() && get_transient( '_directorist_setup_page_redirect' ) ) {
+		if ( get_transient( '_directorist_setup_page_redirect' ) ) {
 			directorist_redirect_to_admin_setup_wizard();
 		}
 	}

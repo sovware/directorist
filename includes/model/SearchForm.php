@@ -44,18 +44,13 @@ class Directorist_Listing_Search_Form {
 	public $apply_filters_text;
 
 	public $c_symbol;
+	public $categories_fields;
+	public $locations_fields;
 	public $category_id;
 	public $category_class;
 	public $location_id;
 	public $location_class;
 	public $select_listing_map;
-
-	protected $deferred_data = array();
-
-	protected $deferred_props = array(
-		'categories_fields',
-		'locations_fields',
-	);
 
 	public function __construct( $type, $listing_type, $atts = array() ) {
 
@@ -91,27 +86,9 @@ class Directorist_Listing_Search_Form {
 		$this->form_data          = $this->build_form_data();
 
 		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
-		// $this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
-		// $this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+		$this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+		$this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
-	}
-
-	public function __get( $prop ) {
-		if ( in_array( $prop, $this->deferred_props, true ) ) {
-			if ( array_key_exists( $prop, $this->deferred_data ) ) {
-				return $this->deferred_data[ $prop ];
-			}
-
-			if ( $prop === 'categories_fields' ) {
-				$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
-			}
-
-			if ( $prop === 'locations_fields' ) {
-				$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
-			}
-
-			return $this->deferred_data[ $prop ];
-		}
 	}
 
 	// set_default_options

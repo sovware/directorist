@@ -3659,7 +3659,7 @@ function directorist_set_listing_views_count( $listing_id = 0 ) {
  */
 function directorist_translate_to_listing_field_key( $header_key = '' ) {
 	//
-    $fields_map = array(
+    $fields_map = apply_filters( 'directorist_listings_field_label_to_key_map', array(
 		'date'                     => 'publish_date',
 		'publish_date'             => 'publish_date',
 		'Published'                => 'publish_date',
@@ -3718,7 +3718,7 @@ function directorist_translate_to_listing_field_key( $header_key = '' ) {
 		'Tagline'                  => 'tagline',
 		'address'                  => 'address',
 		'Address'                  => 'address',
-    );
+    ) );
 
     return isset( $fields_map[ $header_key ] ) ? $fields_map[ $header_key ] : '';
 }

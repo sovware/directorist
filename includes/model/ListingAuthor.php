@@ -220,14 +220,13 @@ class Directorist_Listing_Author {
 			$args['tax_query'] = $category;
 		}
 		$meta_queries   = array();
-		// TODO: Status has been migrated, remove related code.
-		// $meta_queries['expired'] = array(
-		// 	array(
-		// 		'key'     => '_listing_status',
-		// 		'value'   => 'expired',
-		// 		'compare' => '!=',
-		// 	),
-		// );
+		$meta_queries['expired'] = array(
+			array(
+				'key'     => '_listing_status',
+				'value'   => 'expired',
+				'compare' => '!=',
+			),
+		);
 
 		$meta_queries       = apply_filters( 'atbdp_author_listings_meta_queries', $meta_queries );
 		$count_meta_queries = count( $meta_queries );

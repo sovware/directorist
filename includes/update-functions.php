@@ -47,10 +47,6 @@ function directorist_710_migrate_reviews_table_to_comments_table() {
 	}
 
 	update_option( 'directorist_old_reviews_table_migrated', 1, false );
-
-	//Delete review table
-	// TODO: Delete this table in future.
-	// $wpdb->query( "DROP TABLE IF EXISTS {$review_table}" );
 }
 
 // pending -> pending:0
@@ -135,4 +131,103 @@ function _directorist_get_comment_status_by_review_status( $status = 'approved' 
 
 function directorist_710_update_db_version() {
 	\ATBDP_Installation::update_db_version( '7.1.0' );
+}
+
+function directorist_770_migrate_expired_meta_to_expired_status( $updater ) {
+	$listings = new \WP_Query( array(
+		'post_status'    => 'private',
+		'post_type'      => ATBDP_POST_TYPE,
+		'posts_per_page' => 50,
+		'cache_results'  => false,
+		'nopaging'       => true,
+		'meta_key'       => '_listing_status',
+		'meta_value'     => 'expired',
+	) );
+
+	while ( $listings->have_posts() ) {
+		$listings->the_post();
+
+		wp_update_post( array(
+			'ID'          => get_the_ID(),
+			'post_status' => 'expired',
+		) );
+	}
+	wp_reset_postdata();
+
+	return $listings->have_posts();
+}
+
+function directorist_770_migrate_renewal_meta_to_renewal_status( $updater ) {
+	$listings = new \WP_Query( array(
+		'post_status'    => array( 'private', 'publish', 'draft', 'auto-draft', 'pending' ),
+		'post_type'      => ATBDP_POST_TYPE,
+		'posts_per_page' => 50,
+		'cache_results'  => false,
+		'nopaging'       => true,
+		'meta_key'       => '_listing_status',
+		'meta_value'     => 'renewal',
+	) );
+
+	while ( $listings->have_posts() ) {
+		$listings->the_post();
+
+		wp_update_post( array(
+			'ID'          => get_the_ID(),
+			'post_status' => 'renewal',
+		) );
+	}
+	wp_reset_postdata();
+
+	return $listings->have_posts();
+}
+
+function directorist_770_clean_listing_status_expired_meta() {
+	global $wpdb;
+
+	$table_name = $wpdb->prefix . 'postmeta';
+	$meta_key = '_listing_status';
+	$meta_value = 'expired';
+
+	$wpdb->query(
+		$wpdb->prepare(
+			"DELETE FROM $table_name WHERE meta_key = %s AND meta_value = %s",
+			$meta_key,
+			$meta_value
+		)
+	);
+}
+
+function directorist_770_clean_listing_status_renewal_meta() {
+	global $wpdb;
+
+	$table_name = $wpdb->prefix . 'postmeta';
+	$meta_key = '_listing_status';
+	$meta_value = 'renewal';
+
+	$wpdb->query(
+		$wpdb->prepare(
+			"DELETE FROM $table_name WHERE meta_key = %s AND meta_value = %s",
+			$meta_key,
+			$meta_value
+		)
+	);
+}
+
+/**
+ * Drop old reviews table.
+ * Reviews table was migrated in version 7.1.0
+ * @see directorist_710_migrate_reviews_table_to_comments_table
+ *
+ * @return void
+ */
+function directorist_770_drop_reviews_table() {
+	global $wpdb;
+
+	$review_table = $wpdb->prefix . 'atbdp_review';
+
+	$wpdb->query( "DROP TABLE IF EXISTS {$review_table}" );
+}
+
+function directorist_770_update_db_version() {
+	\ATBDP_Installation::update_db_version( '7.7.0' );
 }

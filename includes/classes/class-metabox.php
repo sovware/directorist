@@ -97,7 +97,7 @@ class ATBDP_Metabox {
 			}
 		}
 		$terms = get_terms( $taxonomy_id, $args);
-	
+
 		if( $terms ) {
 			foreach( $terms as $term ) {
 				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
@@ -179,7 +179,9 @@ class ATBDP_Metabox {
 
 		$featured               = get_post_meta( $listing_id, '_featured', true);
 		$listing_type           = get_post_meta( $listing_id, '_listing_type', true);
-		$listing_status         = get_post_meta( $listing_id, '_listing_status', true);
+		// TODO: Status has been migrated, remove related code.
+		// $listing_status         = get_post_meta( $listing_id, '_listing_status', true);
+		$listing_status         = get_post_status( $listing_id );
 		$default_expire_in_days = !empty( $default_expire_in_days ) ? $default_expire_in_days : '';
 		// load the meta fields
 		$data = compact('f_active', 'never_expire', 'expiry_date', 'featured', 'listing_type', 'listing_status', 'default_expire_in_days');
@@ -316,7 +318,9 @@ class ATBDP_Metabox {
 
 		$featured               = get_post_meta($post->ID, '_featured', true);
 		$listing_type           = get_post_meta($post->ID, '_listing_type', true);
-		$listing_status         = get_post_meta($post->ID, '_listing_status', true);
+		// TODO: Status has been migrated, remove related code.
+		// $listing_status         = get_post_meta($post->ID, '_listing_status', true);
+		$listing_status         = get_post_status( $post->ID );
 		$default_expire_in_days = !empty($default_expire_in_days) ? $default_expire_in_days : '';
 		// load the meta fields
 		$data = compact('f_active', 'never_expire', 'expiry_date', 'featured', 'listing_type', 'listing_status', 'default_expire_in_days');
@@ -407,7 +411,11 @@ class ATBDP_Metabox {
 			wp_set_object_terms( $post_id, (int) $listing_type, ATBDP_TYPE );
 		}
 
-		$metas['_featured'] = !empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
+        $admin_plan = isset( $_POST['admin_plan'] ) ? directorist_clean( wp_unslash( $_POST['admin_plan'] ) ) : '';
+
+		if ( ! is_fee_manager_active() || ( 'null' === $admin_plan ) ) {
+			$metas['_featured'] = !empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
+		}
 
 	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
 		$metas['_never_expire']      = !empty($_POST['never_expire']) ? (int) directorist_clean( wp_unslash( $_POST['never_expire'] ) ) : $expiration_to_forever;
@@ -440,20 +448,21 @@ class ATBDP_Metabox {
 			delete_post_thumbnail($post_id);
 		}
 
-		$listing_status = get_post_meta($post_id, '_listing_status', true);
+		// TODO: Status has been migrated, remove related code.
+		// $listing_status = get_post_meta($post_id, '_listing_status', true);
 		$post_status = get_post_status($post_id);
 		$current_d = current_time('mysql');
 
 		// let's check is listing need to update
-		if ( empty( $listing_status ) || ('expired' === $listing_status) && ('private' === $post_status)){
-
+		if ( 'expired' === $post_status ) {
 			if ( ( $exp_dt > $current_d ) || !empty( $_POST['never_expire'] ) ) {
 				wp_update_post( array(
-					'ID'           => $post_id,
+					'ID'          => $post_id,
 					'post_status' => $post_status, // update the status to private so that we do not run this func a second time
-					'meta_input' => array(
-						'_listing_status' => 'post_status',
-					), // insert all meta data once to reduce update meta query
+					// TODO: Status has been migrated, remove related code.
+					// 'meta_input' => array(
+					// 	'_listing_status' => 'post_status',
+					// ), // insert all meta data once to reduce update meta query
 				) );
 			}
 		}
@@ -463,8 +472,9 @@ class ATBDP_Metabox {
 			update_post_meta( $post_id, '_featured', false );
 		}
 
-		if ( ! metadata_exists( 'post', $post_id, '_listing_status' ) ) {
-			update_post_meta( $post_id, '_listing_status', 'post_status' );
-		}
+		// TODO: Status has been migrated, remove related code.
+		// if ( ! metadata_exists( 'post', $post_id, '_listing_status' ) ) {
+		// 	update_post_meta( $post_id, '_listing_status', 'post_status' );
+		// }
 	}
 }

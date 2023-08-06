@@ -1176,12 +1176,11 @@ class Directorist_Single_Listing {
 		}
 
 		$meta_queries = array();
-		// TODO: Status has been migrated, remove related code.
-		// $meta_queries['expired'] = array(
-		// 	'key'     => '_listing_status',
-		// 	'value'   => 'expired',
-		// 	'compare' => '!=',
-		// );
+		$meta_queries['expired'] = array(
+				'key'     => '_listing_status',
+				'value'   => 'expired',
+				'compare' => '!=',
+			);
 		$meta_queries['directory_type'] = array(
 				'key'     => '_directory_type',
 				'value'   => $this->type,

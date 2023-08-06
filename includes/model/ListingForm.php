@@ -725,7 +725,7 @@ class Directorist_Listing_Form {
 			$type = $get_listing_type;
 		}
 		else {
-			$type = isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : '';
+			$type = isset( $_REQUEST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) ) : '';
 		}
 		if( !empty( $type ) && ! is_numeric( $type ) ) {
 			$term = get_term_by( 'slug', $type, ATBDP_TYPE );

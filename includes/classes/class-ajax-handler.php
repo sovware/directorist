@@ -804,7 +804,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 				// Update the meta when post id is available.
 				if ( ! empty( $post_id ) ) {
-					update_post_meta( $post_id, $field_id, $status['url'] );
+					update_post_meta( $post_id, '_' . $field_id, $status['url'] );
 
 					wp_send_json_success( $status['url'], 201 );
 				}

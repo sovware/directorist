@@ -9787,10 +9787,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-type-nav__list__current .directorist-type-nav__link {
   font-weight: 600;
   color: var(--directorist-color-primary);
-}
-.directorist-type-nav__list__current .directorist-type-nav__link::after {
-  opacity: 1;
-  visibility: visible;
+  border-color: var(--directorist-color-primary);
 }
 .directorist-type-nav__list__current .directorist-icon-mask::after {
   background-color: var(--directorist-color-primary);
@@ -9815,6 +9812,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-decoration: none;
   white-space: nowrap;
   padding: 0 0 8px;
+  border-bottom: 2px solid transparent;
   color: var(--directorist-color-body);
 }
 .directorist-type-nav__link:hover {
@@ -9822,18 +9820,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-type-nav__link:focus {
   background-color: transparent;
-}
-.directorist-type-nav__link::after {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  border-radius: 6px;
-  content: "";
-  opacity: 0;
-  visibility: hidden;
-  background-color: var(--directorist-color-primary);
 }
 .directorist-type-nav__link .directorist-icon-mask {
   display: inline-block;

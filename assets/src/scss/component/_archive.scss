@@ -427,6 +427,10 @@
             flex-direction: column;
         }
 
+		&.right-sidebar-contents {
+			order: 2;
+		}
+
 	}
 	@include e(listing) {
 		display: inline-flex;

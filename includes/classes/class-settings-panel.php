@@ -250,7 +250,9 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 {$c}==TODAY=={$e} : It outputs the current date<br/>
                 {$c}==NOW=={$e} : It outputs the current time<br/>
                 {$c}==DASHBOARD_LINK=={$e} : It outputs the user dashboard page link<br/>
-                {$c}==USER_PASSWORD=={$e} : It outputs new user's temporary passoword<br/><br/>
+                {$c}==USER_PASSWORD=={$e} : It outputs new user's temporary passoword<br/>
+                {$c}==CONFIRM_EMAIL_ADDRESS_URL=={$e} : It outputs verify email link<br/>
+                {$c}==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL=={$e} : It outputs set new password and verify email link<br/><br/>
                 Additionally, you can also use HTML tags in your template.
 SWBD;
 
@@ -3778,6 +3780,12 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'          => 'toggle',
                     'value'         => true,
                 ],
+                'enable_email_verification' => [
+                    'label'         => __('Enable Email Verification', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                    'description'   => sprintf(__('Enable email verification to verify user email during registration. To view the verification status navigate to Users → %s.', 'directorist'), "<a href='" . admin_url('users.php') . "'>" . __('All Users', 'directorist') . "</a>")
+                ],
                 'reg_username'    => [
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
@@ -4741,7 +4749,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => '',
                                     'description' => '',
                                     'fields'      => [
-                                        'new_user_registration'
+                                        'new_user_registration', 'enable_email_verification'
                                      ],
                                 ],
                                 'username' => [
@@ -5406,6 +5414,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
             var_dump( [ '$check_new' => $check_new,  '$check_edit' => $check_edit] ); */
 
+			$settings_builder_data['fields'] = $this->sanitize_fields_data( $settings_builder_data['fields'] );
 
             $data = [
                 'settings_builder_data' => base64_encode( json_encode( $settings_builder_data ) )
@@ -5413,6 +5422,38 @@ Please remember that your order may be canceled if you do not make your payment 
 
             atbdp_load_admin_template( 'settings-manager/settings', $data );
         }
+
+		/**
+		 * Sanitize Fields Data
+		 *
+		 * @param array $fields
+		 * @return array Fields
+		 */
+		public function sanitize_fields_data( $fields ) {
+
+			foreach( $fields as $key => $field_args ) {
+
+				foreach( $field_args as $field_args_key => $field_args_value ) {
+
+					$type = isset( $field_args['type'] ) ? $field_args['type'] : 'text';
+
+					if ( 'value' === $field_args_key && 'textarea' === $type ) {
+						$fields[ $key ][ $field_args_key ] = sanitize_textarea_field( $field_args_value );
+						continue;
+					}
+
+					if ( 'value' === $field_args_key && 'number' === $type ) {
+						$fields[ $key ][ $field_args_key ] = floatval( sanitize_text_field( $field_args_value ) );
+						continue;
+					}
+
+					$fields[ $key ][ $field_args_key ] = directorist_clean( $field_args_value );
+				}
+
+			}
+
+			return $fields;
+		}
 
         /**
          * Get all the pages in an array where each page is an array of key:value:id and key:label:name

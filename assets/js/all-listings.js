@@ -1442,7 +1442,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
-    var data_atts = $('.directorist-instant-search').attr('data-atts');
+    var data_atts = $(this).closest('.directorist-instant-search').attr('data-atts');
     var data = {
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
@@ -1575,7 +1575,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       var type_href = $('.directorist-type-nav__list .current a').attr('href');
       var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
       var directory_type = getURLParameter(type_href, 'directory_type');
-      var data_atts = $('.directorist-instant-search').attr('data-atts');
+      var data_atts = $(this).closest('.directorist-instant-search').attr('data-atts');
       var data = {
         action: 'directorist_instant_search',
         _nonce: directorist.ajax_nonce,
@@ -1675,7 +1675,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type = type_href.match(/directory_type=.+/); //let directory_type = ( type && type.length ) ? type[0].replace( /directory_type=/, '' ) : '';
 
     var directory_type = getURLParameter(type_href, 'directory_type');
-    var data_atts = $('.directorist-instant-search').attr('data-atts');
+    var data_atts = $(this).closest('.directorist-instant-search').attr('data-atts');
     var form_data = {
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
@@ -1757,7 +1757,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var page_no = $(".page-numbers.current").text();
-    var data_atts = $('.directorist-instant-search').attr('data-atts');
+    var data_atts = $(this).closest('.directorist-instant-search').attr('data-atts');
     var q = $(this).closest('.directorist-instant-search').find('input[name="q"]').val();
     var in_cat = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();
     var in_loc = $(this).closest('.directorist-instant-search').find('.bdas-category-location, .directorist-location-select').val();
@@ -1889,7 +1889,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
-    var data_atts = $('.directorist-instant-search').attr('data-atts');
+    var data_atts = $(this).closest('.directorist-instant-search').attr('data-atts');
     var q = $(this).closest('.directorist-instant-search').find('input[name="q"]').val();
     var in_cat = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();
     var in_loc = $(this).closest('.directorist-instant-search').find('.bdas-category-location, .directorist-location-select').val();
@@ -2017,7 +2017,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var type_href = $('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
-    var data_atts = $('.directorist-instant-search').attr('data-atts');
+    var data_atts = $(this).closest('.directorist-instant-search').attr('data-atts');
     var q = $(this).closest('.directorist-instant-search').find('input[name="q"]').val();
     var in_cat = $(this).closest('.directorist-instant-search').find('.bdas-category-search, .directorist-category-select').val();
     var in_loc = $(this).closest('.directorist-instant-search').find('.bdas-category-location, .directorist-location-select').val();

@@ -399,7 +399,9 @@ if (!function_exists('load_some_file')):
             }, $files);// add '.php' to the end of all files
             $found_files = scandir($dir); // get the list of all the files in the given $dir
             foreach ($files_to_loads as $file_to_load) {
-                in_array($file_to_load, $found_files) ? require_once $dir . $file_to_load : null;
+                if(is_array($found_files)) {
+                    in_array($file_to_load, $found_files) ? require_once $dir . $file_to_load : null;
+                }
             }
         }
 
@@ -2146,7 +2148,7 @@ function atbdp_can_use_yoast()
 {
 
     $can_use_yoast  = false;
-    $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+    $active_plugins = apply_filters('active_plugins', get_option('active_plugins', []));
 
     $yoast_free_is_active    = ( in_array('wordpress-seo/wp-seo.php', $active_plugins) ) ? true : false;
     $yoast_premium_is_active = ( in_array('wordpress-seo-premium/wp-seo-premium.php', $active_plugins) ) ? true : false;
@@ -2323,7 +2325,13 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                     if (!empty($settings['hide_empty']) && 0 == $count) continue;
                 }
                 $selected = ($term_id == $term->term_id) ? "selected" : '';
-                $custom_field    = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
+
+                $custom_field = '';
+
+                if(is_array($settings['assign_to_category']['assign_to_cat'])) {
+                    $custom_field = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
+                }
+
                 $html .= '<option data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
                 $html .= $prefix . $term->name;
                 if (!empty($settings['show_count'])) {
@@ -2350,8 +2358,6 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
 
     }
 
-    $term_slug = get_query_var($taxonomy_id);
-
     $args = array(
         'orderby' => $settings['orderby'],
         'order' => $settings['order'],
@@ -2361,9 +2367,8 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
         'hierarchical' => !empty($settings['hide_empty']) ? true : false
     );
 
-    $terms             = get_terms($taxonomy_id, $args);
-
-    $html = '';
+    $terms = get_terms($taxonomy_id, $args);
+    $html  = '';
 
     if (count($terms) > 0) {
 

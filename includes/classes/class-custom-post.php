@@ -24,8 +24,8 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			add_filter( 'load-edit.php', array( $this, 'work_row_actions_for_quick_view' ), 10, 2 );
 
 			// bulk directory type assign
-			add_filter( 'quick_edit_custom_box', array( $this, 'on_quick_edit_custom_box' ), 10, 2 );
-			add_filter( 'bulk_edit_custom_box', array( $this, 'on_quick_edit_custom_box' ), 10, 2 );
+			add_action( 'quick_edit_custom_box', array( $this, 'on_quick_edit_custom_box' ), 10, 2 );
+			add_action( 'bulk_edit_custom_box', array( $this, 'on_quick_edit_custom_box' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'save_quick_edit_custom_box' ) );
 
 			// Customize listing slug
@@ -33,6 +33,47 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 				add_filter( 'post_type_link', array( $this, 'customize_listing_slug' ), 20, 2 );
 				add_filter( 'post_link ', array( $this, 'customize_listing_slug' ), 20, 2 );
 			}
+
+			add_action( 'admin_footer', array( $this, 'quick_edit_scripts' ) );
+		}
+
+		public function quick_edit_scripts() {
+			global $current_screen;
+
+			if ( ! isset( $current_screen ) || 'edit-at_biz_dir' !== $current_screen->id ) {
+				return;
+			}
+			?>
+			<script>
+			jQuery( function( $ ) {
+				var wp_inline_edit_function = inlineEditPost.edit;
+
+				// we overwrite the it with our own
+				inlineEditPost.edit = function( post_id ) {
+					// let's merge arguments of the original function
+					wp_inline_edit_function.apply( this, arguments );
+
+					// get the post ID from the argument
+					if ( typeof( post_id ) === 'object' ) { // if it is object, get the ID number
+						post_id = Number( this.getId( post_id ) );
+					}
+
+					// add rows to variables
+					var $edit_row = $( '#edit-' + post_id );
+					var $post_row = $( '#post-' + post_id );
+					var directory_type = $( '.column-directory_type', $post_row ).text().trim();
+					var $directory_select = $( 'select[name="directory_type"]', $edit_row );
+					var $selected_option = $directory_select.find('option').filter(function(index, element) {
+						return element.textContent.trim() === directory_type;
+					});
+
+					if ($selected_option.length > 0) {
+						$directory_select.val($selected_option[0].value);
+					}
+				}
+			});
+			</script>
+			<?php
 		}
 
 		// customize_listing_slug
@@ -71,30 +112,30 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 		}
 
 		public function on_quick_edit_custom_box( $column_name, $post_type ) {
-
-			if ( 'directory_type' === $column_name && ATBDP_POST_TYPE == $post_type ) { ?>
-				<fieldset class="inline-edit-col-right" style="margin-top: 0;">
-					<div class="inline-edit-group wp-clearfix">
-						<?php wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' ); ?>
-						<span class="title"><?php esc_html_e( 'Directory Type', 'directorist' ); ?></span>
+			if ( ATBDP_POST_TYPE !== $post_type || 'directory_type' !== $column_name ) {
+				return;
+			}
+			?>
+			<fieldset class="inline-edit-col-right" style="margin-top: 0;">
+				<div class="inline-edit-group wp-clearfix">
+					<?php wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' ); ?>
+					<label class="inline-edit-directory-type alignleft">
+						<span class="title"><?php esc_html_e( 'Directory', 'directorist' ); ?></span>
 						<select name="directory_type">
-							<option value="">- <?php esc_html_e( 'Select', 'directorist' ); ?> -</option>
+							<option value="">— <?php esc_html_e( 'Select type', 'directorist' ); ?> —</option>
 							<?php
-							$listing_types = get_terms(
-								array(
-									'taxonomy'   => ATBDP_TYPE,
-									'hide_empty' => false,
-								)
-							);
-							foreach ( $listing_types as $listing_type ) {
-								?>
+							$listing_types = get_terms( array(
+								'taxonomy'   => ATBDP_TYPE,
+								'hide_empty' => false,
+							) );
+							foreach ( $listing_types as $listing_type ) { ?>
 								<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
 							<?php } ?>
 						</select>
-					</div>
-				</fieldset>
-				<?php
-			};
+					</label>
+				</div>
+			</fieldset>
+			<?php
 		}
 
 		public function add_cpt_to_pll( $post_types, $hide ) {
@@ -141,14 +182,11 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 		 * @access   public
 		 */
 		public function add_row_actions_for_quick_view( $actions, $post ) {
-
-			global $current_screen;
-
-			if ( ATBDP_POST_TYPE != $current_screen->post_type ) {
+			if ( ATBDP_POST_TYPE !== $post->post_type ) {
 				return $actions;
 			}
 
-			if ( get_post_status( $post ) != 'publish' && current_user_can( 'publish_at_biz_dirs' ) ) {
+			if ( get_post_status( $post ) !== 'publish' && current_user_can( 'publish_at_biz_dirs' ) ) {
 				$nonce              = wp_create_nonce( 'quick-publish-action' );
 				$link               = admin_url( "edit.php?update_id={$post->ID}&_wpnonce={$nonce}&post_type=at_biz_dir" );
 				$actions['publish'] = "<a href='$link' style='color: #4caf50; font-weight: bold'>Publish</a>";

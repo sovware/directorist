@@ -61,6 +61,13 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'description' => __( 'Loads unminified .css, .js files', 'directorist' ),
             ];
 
+            $fields['legacy_icon'] = [
+                'type'  => 'toggle',
+                'label' => __( 'Legacy Icon Support', 'directorist' ),
+				'value' => false,
+                'description' => sprintf( __( 'Icon support for legacy v7.3.3 templates. Enable this only if there are outdated directorist templates in your theme, you can check them <a href="%s" target="__blank">here</a>.<br/>Note: This setting is temporary and will be removed in the future.', 'directorist' ), menu_page_url( 'directorist-status', false ) . '#atbds_template' ),
+            ];
+
             $fields['import_settings'] = [
                 'type'         => 'import',
                 'label'        => 'Import Settings',
@@ -124,7 +131,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'data'                       => [],
             ];
 
-            $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
+			$users = get_users(
+				array(
+					'role__not_in' => 'Administrator',   // Administrator | Subscriber
+					'number'       => apply_filters( 'directorist_announcement_user_query_num', 1000 ),
+				)
+			);
             $recipient = [];
 
             if ( ! empty( $users ) ) {
@@ -238,7 +250,9 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 {$c}==TODAY=={$e} : It outputs the current date<br/>
                 {$c}==NOW=={$e} : It outputs the current time<br/>
                 {$c}==DASHBOARD_LINK=={$e} : It outputs the user dashboard page link<br/>
-                {$c}==USER_PASSWORD=={$e} : It outputs new user's temporary passoword<br/><br/>
+                {$c}==USER_PASSWORD=={$e} : It outputs new user's temporary passoword<br/>
+                {$c}==CONFIRM_EMAIL_ADDRESS_URL=={$e} : It outputs verify email link<br/>
+                {$c}==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL=={$e} : It outputs set new password and verify email link<br/><br/>
                 Additionally, you can also use HTML tags in your template.
 SWBD;
 
@@ -327,9 +341,10 @@ SWBD;
             ];
 
 			$fields['lazy_load_taxonomy_fields'] = [
-                'type'  => 'toggle',
-                'label' => __( 'Lazy load category and location fields', 'directorist' ),
-				'value' => false
+                'type'        => 'toggle',
+                'label'       => __( 'Lazy Load Term Fields', 'directorist' ),
+                'description' => __( 'Enables lazy loading in category, location and tag fields', 'directorist' ),
+                'value'       => false
             ];
 
             return $fields;
@@ -470,6 +485,9 @@ Please remember that your order may be canceled if you do not make your payment 
 
         $bank_payment_desc = __('You can make your payment directly to our bank account using this gateway. Please use your ORDER ID as a reference when making the payment. We will complete your order as soon as your deposit is cleared in our bank.', 'directorist');
         $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
+
+		$default_size = directorist_default_preview_size();
+		$default_preview_size_text = $default_size['width'].'x'.$default_size['height'].' px';
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
 
@@ -1835,8 +1853,12 @@ Please remember that your order may be canceled if you do not make your payment 
                 'preview_image_quality' => [
                     'label' => __('Preview Image Quality', 'directorist'),
                     'type'  => 'select',
-                    'value' => 'large',
+                    'value' => 'directorist_preview',
                     'options' => [
+                        [
+                            'value' => 'directorist_preview',
+                            'label' => __( 'Default', 'directorist' ),
+                        ],
                         [
                             'value' => 'medium',
                             'label' => __('Medium', 'directorist'),
@@ -1850,6 +1872,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Full', 'directorist'),
                         ],
                     ],
+					'description' => sprintf( __( 'Default: %s.<br/>If you change this option, please regenerate all thumbnails using <a href="%s" target="_blank">this</a> plugin. Otherwise it may not work properly.', 'directorist' ), $default_preview_size_text, 'https://wordpress.org/plugins/regenerate-thumbnails/' ),
                 ],
                 'way_to_show_preview' => [
                     'label' => __('Image Size', 'directorist'),
@@ -3757,6 +3780,12 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'          => 'toggle',
                     'value'         => true,
                 ],
+                'enable_email_verification' => [
+                    'label'         => __('Enable Email Verification', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                    'description'   => sprintf(__('Enable email verification to verify user email during registration. To view the verification status navigate to Users → %s.', 'directorist'), "<a href='" . admin_url('users.php') . "'>" . __('All Users', 'directorist') . "</a>")
+                ],
                 'reg_username'    => [
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
@@ -4559,7 +4588,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'general_settings' => [
                                     'fields'      => [
                                         'enable_multi_directory',
-                                        'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings',
+                                        'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 'lazy_load_taxonomy_fields'
                                     ],
                                 ],
 
@@ -4687,7 +4716,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'directorist_search_setting_sections', [
                                 'search_form' => [
                                     'fields'      => [
-                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg', 'lazy_load_taxonomy_fields'
+                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg',
                                      ],
                                 ],
                             ] ),
@@ -4720,7 +4749,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => '',
                                     'description' => '',
                                     'fields'      => [
-                                        'new_user_registration'
+                                        'new_user_registration', 'enable_email_verification'
                                      ],
                                 ],
                                 'username' => [
@@ -5303,6 +5332,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title' => __( 'Debugging', 'directorist' ),
                                     'fields'      => [
                                         'script_debugging',
+                                     ],
+                                ],
+                                'others' => [
+                                    'title' => __( 'Others', 'directorist' ),
+                                    'fields'      => [
+                                        'legacy_icon',
                                      ],
                                 ],
                                 'uninstall' => [

@@ -338,6 +338,11 @@
                 .directorist-icon-mask{
                     margin-right: 5px;
                 }
+
+                /* Legacy Icon */
+                > span:not(.directorist-icon-mask){
+                    margin-right: 5px;
+                }
             }
         }
 
@@ -478,6 +483,21 @@
                         height: 15px;
                     }
                 }
+
+                /* Legacy Icon */
+                > span{
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    background: #F3F3F3;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 10px;
+                    &:before{
+                        color: #51526E;
+                    }
+                }
             }
         }
 
@@ -515,6 +535,12 @@
                         height: 15px;
                         background-color: #767792;
                     }
+                }
+
+                /* Legacy Icon */
+                > span{
+                    display: inline-block;
+                    margin-right: 5px;
                 }
             }
 
@@ -594,10 +620,6 @@
         text-decoration: none !important;
     }
 
-    &.directorist-added-to-favorite {
-        background: rgba(0, 0, 0, 0.5) !important;
-    }
-
     .directorist-favorite-icon {
         display: flex;
         align-items: center;
@@ -610,6 +632,16 @@
             width: 15px;
             height: 15px;
             background-color: #fff;
+            transition: 0.3s ease;
+        }
+    }
+
+    &.directorist-added-to-favorite {
+        background: rgba(0, 0, 0, 0.5) !important;
+        .directorist-favorite-icon {
+            &:before {
+                mask-image: url("../../../../icons/line-awesome/svgs/heart-solid.svg");
+            }
         }
     }
 

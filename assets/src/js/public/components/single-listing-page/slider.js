@@ -1,21 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
     let $ = jQuery;
     // Plasma Slider Initialization
-    if($('.plasmaSlider').length !==0){
+    if($('.plasmaSlider').length !== 0){
         var single_listing_slider = new PlasmaSlider({
             containerID: "directorist-single-listing-slider",
         });
         single_listing_slider.init();
+        
+        var singleListingSlider = document.getElementById("directorist-single-listing-slider");
+
+        var width = singleListingSlider.getAttribute("data-width");
+        var height = singleListingSlider.getAttribute("data-height");
+        
+        if(width) {
+            singleListingSlider.style.setProperty('width', width + "px");           
+        }        
+        if(height) {
+            singleListingSlider.style.setProperty('height', height + "px");            
+        }
     }
 
     /* Related listings slider */
     var rtl = (directorist.rtl === 'true');
     const relLis = $('.directorist-related-carousel');
-    if (relLis !== null) {
+    if (relLis.length !== 0) {
         const relLisData = relLis.data('attr');
-        const prevArrow = relLisData.prevArrow;
-        const nextArrow = relLisData.nextArrow;
-        const relLisCol = relLisData.columns;
+        const prevArrow = typeof relLisData !== 'undefined' ? relLisData.prevArrow : '';
+        const nextArrow = typeof relLisData !== 'undefined' ? relLisData.nextArrow: '';
+        const relLisCol = typeof relLisData !== 'undefined' ? relLisData.columns : 3;
         $('.directorist-related-carousel').slick({
             dots: false,
             arrows: true,

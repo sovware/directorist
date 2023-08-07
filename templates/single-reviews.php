@@ -3,7 +3,7 @@
  * Comment and review template for single view.
  *
  * @since   7.1.0
- * @version 7.4.0
+ * @version 7.5.2
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -14,6 +14,7 @@ use Directorist\Review\Builder;
 use Directorist\Review\Markup;
 use Directorist\Review\Walker as Review_Walker;
 use Directorist\Review\Comment_Form_Renderer;
+use Directorist\Directorist_Single_Listing;
 
 $builder       = Builder::get( get_the_ID() );
 $review_rating = directorist_get_listing_rating( get_the_ID() );
@@ -23,8 +24,12 @@ $review_text   = sprintf( _n( '%s review', '%s reviews', $review_count, 'directo
 // Load walker class
 Bootstrap::load_walker();
 
+$listing       = Directorist_Single_Listing::instance();
+$section_data  = $listing->get_review_section_data();
+$section_id    = isset( $section_data['id'] ) ? $section_data['id'] : '';
+$section_class = isset( $section_data['class'] ) ? $section_data['class'] : '';
 ?>
-<div id="reviews" class="directorist-review-container">
+<div id="<?php echo esc_attr( $section_id ); ?>" class="directorist-review-container <?php echo esc_attr( $section_class ); ?>">
 	<div class="directorist-review-content">
 		<div class="directorist-review-content__header <?php if ( ! have_comments() ) : ?>directorist-review-content__header--noreviews<?php endif;?>">
 			<?php if ( ! have_comments() ) : ?><div><?php endif;?>
@@ -70,7 +75,7 @@ Bootstrap::load_walker();
 					'prev_text'    => $prev_text,
 					'next_text'    => $next_text,
 					'type'         => 'list',
-					'add_fragment' => '#reviews',
+					'add_fragment' => '#' . $section_id,
 				) );
 				?>
 			</nav>

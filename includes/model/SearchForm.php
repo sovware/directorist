@@ -44,13 +44,18 @@ class Directorist_Listing_Search_Form {
 	public $apply_filters_text;
 
 	public $c_symbol;
-	public $categories_fields;
-	public $locations_fields;
 	public $category_id;
 	public $category_class;
 	public $location_id;
 	public $location_class;
 	public $select_listing_map;
+
+	protected $deferred_data = array();
+
+	protected $deferred_props = array(
+		'categories_fields',
+		'locations_fields',
+	);
 
 	public function __construct( $type, $listing_type, $atts = array() ) {
 
@@ -73,7 +78,7 @@ class Directorist_Listing_Search_Form {
 		}
 
 		// Search result page
-		if ( $type == 'search_result' ) {
+		if ( $type == 'search_result' || $type === 'instant_search' ) {
 			$this->update_options_for_search_result_page();
 			$this->prepare_search_data($atts);
 		}
@@ -86,9 +91,27 @@ class Directorist_Listing_Search_Form {
 		$this->form_data          = $this->build_form_data();
 
 		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
-		$this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
-		$this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+		// $this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+		// $this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
+	}
+
+	public function __get( $prop ) {
+		if ( in_array( $prop, $this->deferred_props, true ) ) {
+			if ( array_key_exists( $prop, $this->deferred_data ) ) {
+				return $this->deferred_data[ $prop ];
+			}
+
+			if ( $prop === 'categories_fields' ) {
+				$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+			}
+
+			if ( $prop === 'locations_fields' ) {
+				$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+			}
+
+			return $this->deferred_data[ $prop ];
+		}
 	}
 
 	// set_default_options
@@ -378,6 +401,9 @@ class Directorist_Listing_Search_Form {
 
 	public function field_template( $field_data ) {
 		$key = $field_data['field_key'];
+
+		$field_data['lazy_load'] = get_directorist_option( 'lazy_load_taxonomy_fields', true );
+
 		if ( $this->is_custom_field( $field_data ) ) {
 			if ( !empty( $_REQUEST['custom_field'][$key] ) ) {
 				$value = is_array( $_REQUEST['custom_field'][$key] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['custom_field'][$key] ) ) : sanitize_text_field( wp_unslash( $_REQUEST['custom_field'][$key] ) );

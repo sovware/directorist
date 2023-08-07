@@ -1,7 +1,5 @@
 <?php
 
-use Directorist\Helper;
-
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
@@ -109,41 +107,41 @@ function atbdp_get_widget_template_path( $template ) {
     return atbdp_get_template_path( $template );
 }
 
-function atbdp_get_shortcode_template_paths( $template_file ) {
-    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template()' );
-    $theme_template_file  = '/directorist/shortcodes/' . $template_file . '.php';
-    $theme_template_path  = get_stylesheet_directory() . $theme_template_file;
-    $plugin_template_path = Helper::template_directory() . 'public-templates/shortcodes/' . $template_file . '.php';
+function directorist_get_listing_thumbnail_id( $listing = null ) {
+	$listing = get_post( $listing );
 
-    return [
-        'theme'  => $theme_template_path,
-        'plugin' => $plugin_template_path,
-    ];
+	if ( ! $listing ) {
+		return false;
+	}
+
+	if ( $listing->post_type !== ATBDP_POST_TYPE ) {
+		return false;
+	}
+
+	$thumbnail_id = get_post_thumbnail_id( $listing );
+	if ( $thumbnail_id ) {
+		return $thumbnail_id;
+	}
+
+	$thumbnail_id = (int) get_post_meta( $listing->ID, '_listing_prv_img', true );
+	if ( $thumbnail_id ) {
+		return $thumbnail_id;
+	}
+
+	$gallery_image_ids = (array) get_post_meta( $listing->ID, '_listing_img', true );
+	$gallery_image_ids = wp_parse_id_list( $gallery_image_ids );
+	$gallery_image_ids = array_filter( $gallery_image_ids );
+	if ( empty( $gallery_image_ids ) ) {
+		return false;
+	}
+
+	return $gallery_image_ids[0];
 }
 
-function atbdp_get_shortcode_template( $template, $args = [] ) {
-    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template()' );
-
-    return Helper::get_template( $template, $args );
+function directorist_has_listing_thumbnail( $listing = null ) {
+	return (bool) directorist_get_listing_thumbnail_id( $listing );
 }
 
-function atbdp_return_shortcode_template( $template, $args = [] ) {
-    _deprecated_function( __FUNCTION__, '7.0', 'Helper::get_template_contents()' );
-
-    return Helper::get_template_contents( $template, $args );
-}
-
-function atbdp_return_widget_template( $template, $args = [] ) {
-    _deprecated_function( __FUNCTION__, '7.0' );
-    ob_start();
-    atbdp_get_widget_template( $template, $args );
-
-    return ob_get_clean();
-}
-
-function atbdp_get_shortcode_template_path( $template ) {
-    _deprecated_function( __FUNCTION__, '7.0' );
-    $template = 'shortcodes/' . $template;
-
-    return atbdp_get_template_path( $template );
+function directorist_the_locations( $before = '', $sep = ', ', $after = '', $listing_id = null ) {
+	the_terms( $listing_id, ATBDP_LOCATION, $before, $sep, $after );
 }

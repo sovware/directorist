@@ -20,6 +20,9 @@ import { directorist_range_slider } from './range-slider';
                 let item = $(element).siblings('.atbdp_cf_checkbox, .direcorist-search-field-tag, .directorist-search-tags');
                 var abc2 = $(item).find('.directorist-checkbox');
                 $(abc2).slice(4, abc2.length).fadeOut();
+                if(abc2.length <= 4){
+                    $(element).css('display', 'none');
+                }
             });
         }
         $(window).on('load', defaultTags);
@@ -493,8 +496,8 @@ import { directorist_range_slider } from './range-slider';
                     if (response) {
                       $search_form_box.html(response['search_form']);
 
-                      $container.find('.directorist-category-select option[value="'+cat_id+'"]').attr('selected', true);
                       $container.find('.directorist-category-select option').data('custom-field', 1);
+                      $container.find('.directorist-category-select').val(cat_id);
 
                       [
                         new CustomEvent('directorist-search-form-nav-tab-reloaded'),
@@ -575,39 +578,70 @@ import { directorist_range_slider } from './range-slider';
             var zipcode         = $(this).val();
             var zipcode_search  = $(this).closest('.directorist-zipcode-search');
             var country_suggest = zipcode_search.find('.directorist-country');
-
-            $('.directorist-country').css({
-                display: 'block'
-            });
-
-            if (zipcode === '') {
-                $('.directorist-country').css({
-                    display: 'none'
-                });
+            var zipcode_search  = $(this).closest('.directorist-zipcode-search');
+            
+            if(zipcode) {
+                zipcode_search.addClass('dir_loading');
             }
+
+            if( directorist.i18n_text.select_listing_map === 'google' ) {
+              var url = directorist.ajax_url;
+            } else {
+                url = `https://nominatim.openstreetmap.org/?postalcode=+${zipcode}+&format=json&addressdetails=1`;
+
+                $('.directorist-country').css({
+                    display: 'block'
+                });
+    
+                if (zipcode === '') {
+                    $('.directorist-country').css({
+                        display: 'none'
+                    });
+                }
+                
+            }
+            
             let res = '';
+            let google_data = {
+                'nonce' : directorist.directorist_nonce,
+                'action' : 'directorist_zipcode_search',
+                'zipcode' : zipcode
+            };
             $.ajax({
-                url: `https://nominatim.openstreetmap.org/?postalcode=+${zipcode}+&format=json&addressdetails=1`,
-                type: "POST",
-                data: {},
+                url: url,
+                method: 'POST',
+                data : directorist.i18n_text.select_listing_map === 'google' ? google_data : "",
                 success: function( data ) {
-                    if( data.length === 1 ) {
-                        var lat = data[0].lat;
-                        var lon = data[0].lon;
-                        zipcode_search.find('.zip-cityLat').val(lat);
-                        zipcode_search.find('.zip-cityLng').val(lon);
-                    } else {
-                        for (let i = 0; i < data.length; i++) {
-                            res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].address.country}</a></li>`;
-                        }
+                    if( data.data && data.data.error_message ) {
+                        zipcode_search.find('.error_message').remove();
+                        zipcode_search.find('.zip-cityLat').val( '' );
+                        zipcode_search.find('.zip-cityLng').val( '' );
+                        zipcode_search.append( data.data.error_message );
                     }
-
-                    $(country_suggest).html(`<ul>${res}</ul>`);
-
-                    if (res.length) {
-                        $('.directorist-country').show();
+                    zipcode_search.removeClass('dir_loading');
+                    if( directorist.i18n_text.select_listing_map === 'google' && typeof data.lat !== 'undefined' && typeof data.lng !== 'undefined' ) {
+                        zipcode_search.find('.error_message').remove();
+                        zipcode_search.find('.zip-cityLat').val( data.lat );
+                        zipcode_search.find('.zip-cityLng').val( data.lng );
                     } else {
-                        $('.directorist-country').hide();
+                        if( data.length === 1 ) {
+                            var lat = data[0].lat;
+                            var lon = data[0].lon;
+                            zipcode_search.find('.zip-cityLat').val(lat);
+                            zipcode_search.find('.zip-cityLng').val(lon);
+                        } else {
+                            for (let i = 0; i < data.length; i++) {
+                                res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].address.country}</a></li>`;
+                            }
+                        }
+
+                        $(country_suggest).html(`<ul>${res}</ul>`);
+
+                        if (res.length) {
+                            $('.directorist-country').show();
+                        } else {
+                            $('.directorist-country').hide();
+                        }
                     }
                 }
             });
@@ -729,49 +763,59 @@ import { directorist_range_slider } from './range-slider';
                         return;
                     }
 
-                    $(field.input_elm).on('keyup', function (event) {
+                    $(field.input_elm).on('keyup', directorist_debounce(function (event) {
                         event.preventDefault();
+
+                        const blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
+
+                        // Return early when blocked key is pressed.
+                        if (blockedKeyCodes.includes(event.keyCode)) {
+                            return;
+                        }
+
+                        const locationAddressField = $(this).parent('.directorist-search-field');
+                        const result_container = field.getResultContainer(this, field);
                         const search = $(this).val();
 
-                        let result_container = field.getResultContainer(this, field);
-                        result_container.css({
-                            display: 'block'
-                        });
-
-                        if (search === '') {
+                        if (search.length < 3) {
                             result_container.css({
                                 display: 'none'
                             });
+                        } else {
+                            locationAddressField.addClass('atbdp-form-fade');
+                            result_container.css({
+                                display: 'block'
+                            });
+
+                            $.ajax({
+                                url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+                                type: 'POST',
+                                data: {},
+                                success: function success(data) {
+                                    let res = '';
+
+                                    for (let i = 0, len = data.length; i < len; i++) {
+                                        res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
+                                    }
+
+                                    result_container.html("<ul>".concat(res, "</ul>"));
+                                    if (res.length) {
+                                        result_container.show();
+                                    } else {
+                                        result_container.hide();
+                                    }
+
+                                    locationAddressField.removeClass('atbdp-form-fade');
+                                },
+                                error: function error(_error3) {
+                                    console.log({
+                                        error: _error3
+                                    });
+                                }
+                            });
                         }
-
-                        let res = '';
-                        $.ajax({
-                            url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
-                            type: 'POST',
-                            data: {},
-                            success(data) {
-
-                                for (let i = 0; i < data.length; i++) {
-                                    res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`;
-                                }
-
-                                result_container.html(`<ul>${res}</ul>`);
-
-                                if (res.length) {
-                                    result_container.show();
-                                } else {
-                                    result_container.hide();
-                                }
-                            },
-                            error(error) {
-                                console.log({
-                                    error
-                                });
-                            }
-                        });
-                    });
+                    }, 750));
                 });
-
 
                 // hide address result when click outside the input field
                 $(document).on('click', function (e) {
@@ -831,7 +875,7 @@ import { directorist_range_slider } from './range-slider';
         /* When location field is empty we need to hide Radius Search */
         function handleRadiusVisibility(){
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('direcorist-search-field-radius_search');
-            $('.directorist-location-js').each((index,locationDom)=>{
+            $('.directorist-location-js, .zip-radius-search').each((index,locationDom)=>{
                 if($(locationDom).val() === ''){
                     $(locationDom).closest('.directorist-search-form, .directorist-advanced-filter__form').find('.direcorist-search-field-radius_search').css({display: "none"});
                 }else{
@@ -840,7 +884,7 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
         }
-        $('body').on('keyup keydown input change focus', '.directorist-location-js', function (e) {
+        $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
             handleRadiusVisibility();
         });
         // DOM Mutation observer

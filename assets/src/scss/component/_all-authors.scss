@@ -136,6 +136,14 @@
                             height: 16px;
                         }
                     }
+
+                    /* Legacy Icon */
+                    > i:not(.directorist-icon-mask){
+                        display: inline-block;
+                        margin-right: 5px;
+                        margin-top: 5px;
+                        font-size: 16px;
+                    }
                 }
             }
 
@@ -149,9 +157,15 @@
                 a {
                     border: 0 none;
                     box-shadow: none;
+                    text-decoration: none;
 
                     &:hover {
                         background: #000;
+                        /* Legacy Icon */
+                        >span{
+                            background: none;
+                            color: #fff;
+                        }
                     }
                 }
             }

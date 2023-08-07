@@ -105,18 +105,17 @@
 
     a {
       position: relative;
-      display: block;
+      display: flex;
+      align-items: center;
       font-size: 15px;
       font-weight: 500;
       text-decoration: none;
       white-space: nowrap;
       padding: 6px 0;
       color: #8f8e9f;
-
       &:focus {
         background-color: transparent;
       }
-
       &::after {
         position: absolute;
         left: 0;
@@ -129,11 +128,24 @@
         visibility: hidden;
         background-color: $dark;
       }
+      .directorist-icon-mask{
+        display: inline-block;
+        margin-right: 4px;
+        &::after{
+          width: 15px;
+          height: 15px;
+          background-color: #8f8e9f;
+        }
+      }
     }
 
     .directorist-listing-type-selection__link--current {
       color: $dark;
-
+      .directorist-icon-mask{
+        &::after{
+          background-color: $dark;
+        }
+      }
       &::after {
         opacity: 1;
         visibility: visible;
@@ -251,6 +263,15 @@
         }
       }
     }
+
+    .atbdp-form-fade {
+      &:before {
+        width: 15px;
+        height: 15px;
+        left: unset;
+        right: 0;        
+      }
+    }
   }
 }
 
@@ -277,15 +298,18 @@
 
   .directorist-btn-ml {
     &::after {
-      font-family: "Line Awesome Free";
-      content: "\f107";
-      font-weight: 900;
-      padding-left: 5px;
+      content: "";
+      display: inline-block;
+      margin-left: 5px;
+      mask-image: url(../../../../icons/line-awesome/svgs/angle-down-solid.svg);
+      width: 12px;
+      height: 12px;
+      background-color: #7a82a6;
     }
 
     &.active {
       &:after {
-        content: "\f106";
+        mask-image: url(../../../../icons/line-awesome/svgs/angle-up-solid.svg);
       }
     }
   }
@@ -374,6 +398,7 @@
             color: #7a82a6;
             line-height: 22px;
             display: block;
+            text-decoration: none;
 
             &:hover {
               color: $primary;

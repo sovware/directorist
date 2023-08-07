@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.6.3
+ * @version 7.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 					<div class="directorist-form-group">
 
-						<label for="directorist-report-message"><?php esc_html_e( 'Your Complain', 'directorist' ); ?><span class="directorist-report-star">*</span></label>
+						<label for="directorist-report-message"><?php esc_html_e( 'Your Complaint', 'directorist' ); ?><span class="directorist-report-star">*</span></label>
 
 						<textarea class="directorist-form-element" id="directorist-report-message" rows="3" placeholder="<?php esc_attr_e( 'Message...', 'directorist' ); ?>" required></textarea>
 

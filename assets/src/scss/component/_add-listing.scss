@@ -30,6 +30,11 @@
           background-color: #fff;
         }
       }
+      /* Legacy Icon */
+      & > i:not(.directorist-icon-mask){
+        display: inline-block;
+        margin-bottom: 10px;
+      }
     }
   }
 }
@@ -43,6 +48,23 @@
     .directorist-form-group {
       &:not(:last-child) {
         margin-bottom: 15px;
+      }
+    }
+
+    .directorist-form-address-field {
+      &.atbdp-form-fade {
+        padding: 0;
+        &:before {
+          width: 15px;
+          height: 15px;
+          left: unset;
+          right: 0; 
+          top: 54px;       
+        }
+        &:after {
+          height: 42px;
+          top: 34px;
+        }
       }
     }
   }
@@ -305,6 +327,45 @@
     background-color: $dark;
     color: #fff;
   }
+
+  .directorist-image-upload {
+    &.max-file-reached {
+      .ezmu__upload-button-wrap {
+        .ezmu__btn {
+          pointer-events: none;
+          opacity: 0.7;
+        }
+      }
+      &.highlight {
+        position: relative;
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 100%;
+          background-color: #ddd;
+          cursor: no-drop;
+          z-index: 9999;
+        }
+        &:after {
+          content: 'Maximum Files Uploaded';
+          font-size: 18px;
+          font-weight: 700;
+          color: $danger;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          cursor: no-drop;
+          z-index: 9999;
+        }
+      }
+    } 
+
+  }
+
 
   .ezmu__info-list {
     .ezmu__info-list-item {
@@ -585,6 +646,27 @@
     margin-top: 0;
     input{
       margin-top: 0;
+    }
+  }
+}
+
+// Error Message
+.directorist-zipcode-search {
+  position: relative;
+  .error_message {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    bottom: -22px;
+    margin: 0;
+    p {
+      margin: 0;
+      color: #f00;
+      font-family: $font-family-base;
+    }
+    i {
+      display: none;
     }
   }
 }

@@ -5,14 +5,14 @@
 
 namespace Directorist;
 
-use \ATBDP_Listings_Data_Store;
-use \ATBDP_Permalink;
-use Directory;
-use WP_Query;
+use ATBDP_Permalink;
+use Directorist\database\DB;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Listings {
+	protected $thumbnails_cached = false;
+
 	public $query_args = [];
 	public $query_results = [];
 	public $options = [];
@@ -77,7 +77,7 @@ class Directorist_Listings {
 	public $views;
 
 	public $location_placeholder;
-	public $locations_fields;
+	public $category_placeholder;
 
 	public $c_symbol;
 	public $popular_badge_text;
@@ -114,6 +114,14 @@ class Directorist_Listings {
 	public $display_title_map;
 	public $display_address_map;
 	public $display_direction_map;
+	public $filter_button_text;
+
+	protected $deferred_data = array();
+
+	protected $deferred_props = array(
+		'categories_fields',
+		'locations_fields',
+	);
 
 	public function __construct( $atts = array(), $type = 'listing', $query_args = false, array $caching_options = [] ) {
 		$this->atts = !empty( $atts ) ? $atts : array();
@@ -121,7 +129,9 @@ class Directorist_Listings {
 
 		$this->set_options();
 
-		if ( 'search_result' == $this->type ) {
+		$current_page = !empty( $this->atts['_current_page'] ) ? $this->atts['_current_page'] : '';
+
+		if ( 'search_result' === $this->type || ( 'instant_search' == $this->type && 'search_result' === $current_page ) ) {
 			$this->update_search_options();
 		}
 
@@ -132,7 +142,7 @@ class Directorist_Listings {
 			$this->query_args = $query_args;
 		}
 		else {
-			if ( $this->type == 'search_result' || ! empty( $_GET ) ) {
+			if ( $this->type == 'search_result' || $this->type == 'instant_search' || ! empty( $_GET ) ) {
 				$this->query_args = $this->parse_search_query_args();
 			}
 			else {
@@ -140,7 +150,25 @@ class Directorist_Listings {
 			}
 		}
 
-		$this->query_results = $this->get_query_results( $caching_options );
+		$this->query_results = $this->get_query_results();
+	}
+
+	public function __get( $prop ) {
+		if ( in_array( $prop, $this->deferred_props, true ) ) {
+			if ( array_key_exists( $prop, $this->deferred_data ) ) {
+				return $this->deferred_data[ $prop ];
+			}
+
+			if ( $prop === 'categories_fields' ) {
+				$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+			}
+
+			if ( $prop === 'locations_fields' ) {
+				$this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+			}
+
+			return $this->deferred_data[ $prop ];
+		}
 	}
 
 	// set_options
@@ -328,8 +356,8 @@ class Directorist_Listings {
 		$this->views                 = atbdp_get_listings_view_options( $view_as_items );
 		$this->category_placeholder  = $this->options['listings_category_placeholder'];
 		$this->location_placeholder  = $this->options['listings_location_placeholder'];
-		$this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
-		$this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+		// $this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+		// $this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 		$this->c_symbol                   = atbdp_currency_symbol( $this->options['g_currency'] );
 		$this->popular_badge_text         = $this->options['popular_badge_text'];
 		$this->feature_badge_text         = $this->options['feature_badge_text'];
@@ -358,6 +386,7 @@ class Directorist_Listings {
 		$u_pro_pic   = get_user_meta( $author_id, 'pro_pic', true );
 		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
 		$bdbh        = get_post_meta( $id, '_bdbh', true );
+
 
 		$listing_type 		= $this->current_listing_type;
 		$card_fields  		= get_term_meta( $listing_type, 'listings_card_grid_view', true );
@@ -659,24 +688,13 @@ class Directorist_Listings {
 		}
 	}
 
-	// get_query_results
-	public function get_query_results( array $caching_options = [] ) {
-		if ( ! empty( $this->query_args['orderby'] ) ) {
-			if ( is_string( $this->query_args['orderby'] ) && preg_match( '/rand/', $this->query_args['orderby'] ) ) {
-				$caching_options['cache'] = false;
-			}
-
-			if ( is_array( $this->query_args['orderby'] ) ) {
-				foreach ( $this->query_args['orderby'] as $key => $value ) {
-					if ( preg_match( '/rand/', $value ) ) {
-						$caching_options['cache'] = false;
-					}
-				}
-			}
-
-		}
-
-		return ATBDP_Listings_Data_Store::get_archive_listings_query( $this->query_args, $caching_options );
+	/**
+	 * get_query_results
+	 *
+	 * @return object
+	 */
+	public function get_query_results() {
+		return DB::get_listings_data( $this->query_args );
 	}
 
 	public function parse_query_args() {
@@ -739,7 +757,17 @@ class Directorist_Listings {
 			$args['meta_query'] = array_merge( array( 'relation' => 'AND' ), $meta_queries );
 		}
 
-		return apply_filters( 'atbdp_all_listings_query_arguments', $args );
+		/**
+		 * Filters the All Listing main query to modify or extend it
+		 *
+		 * @since 7.4.2
+		 *
+		 * @param array 	$args 		All listing query arguments
+		 * @param object 	$this 		Listings object
+		 */
+		$args = apply_filters( 'directorist_all_listings_query_arguments', $args, $this );
+
+		return apply_filters_deprecated( 'atbdp_all_listings_query_arguments', array( $args ), '7.4.2', 'directorist_all_listings_query_arguments' );
 	}
 
 	public function parse_search_query_args() {
@@ -864,8 +892,9 @@ class Directorist_Listings {
 						);
 					}
 				} else {
-					$field_type = get_post_meta( $key, 'type', true );
-					$operator   = ( in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=' );
+					$field_type = str_replace( 'custom-', '', $key );
+					$field_type = preg_replace( '/([!^0-9])|(-)/', '', $field_type ); //replaces any additional numbering to just keep the field name, for example if previous line gives us "text-2", this line makes it "text"
+					$operator   = in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=';
 					$meta_queries[] = array(
 						'key'     => '_' . $key,
 						'value'   => sanitize_text_field( $values ),
@@ -956,7 +985,7 @@ class Directorist_Listings {
 			);
 		}
 
-		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
+		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['address'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
@@ -973,12 +1002,12 @@ class Directorist_Listings {
 			);
 		}
 
-		if ( 'zip' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['zip-cityLat'] ) && ! empty( $_REQUEST['zip-cityLng'] ) ) {
+		if ( 'zip' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['zip_cityLat'] ) && ! empty( $_REQUEST['zip_cityLng'] ) ) {
 			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
-				'latitude'  => sanitize_text_field( wp_unslash( $_REQUEST['zip-cityLat'] ) ),
-				'longitude' => sanitize_text_field( wp_unslash( $_REQUEST['zip-cityLng'] ) ),
+				'latitude'  => sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLat'] ) ),
+				'longitude' => sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ),
 				'distance'  => sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ),
 				'units'     => $this->radius_search_unit
 			);
@@ -1045,10 +1074,16 @@ class Directorist_Listings {
 	}
 
 	public function loop_template( $loop = 'grid', $id = NULL ) {
-		if( ! $id ) return;
+		if ( ! $id ) {
+			return;
+		}
+
+		_prime_post_caches( $this->post_ids() );
+
 		global $post;
 		$post = get_post( $id );
-		setup_postdata( $id );
+		setup_postdata( $post );
+
 		$this->set_loop_data();
 
 		if ( $loop == 'grid' && !empty( $this->loop['card_fields'] ) ) {
@@ -1480,40 +1515,44 @@ class Directorist_Listings {
 			echo "</div>";
 		}
 
-		public function loop_get_the_thumbnail( $class='' ) {
-			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
-
-			$id = get_the_ID();
-			$image_quality     = get_directorist_option('preview_image_quality', 'large');
-			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
-			$listing_img       = get_post_meta($id, '_listing_img', true);
-
-			if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
-				$thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
-				$thumbnail_id = $listing_img[0];
+		protected function cache_thumbnails() {
+			if ( $this->thumbnails_cached || empty( $this->query_results->ids ) ) {
+				return;
 			}
 
-			if ( ! empty( $listing_prv_img ) ) {
-				$thumbnail_img = atbdp_get_image_source( $listing_prv_img, $image_quality );
-				$thumbnail_id = $listing_prv_img;
+			$thumb_ids = array();
+			foreach ( $this->query_results->ids as $id ) {
+				$id = directorist_get_listing_thumbnail_id( $id );
+				if ( $id ) {
+					$thumb_ids[] = $id;
+				}
 			}
 
-			if ( ! empty( $img_src ) ) {
-				$thumbnail_img = $img_src;
-				$thumbnail_id = 0;
+			if ( ! empty( $thumb_ids ) ) {
+				_prime_post_caches( $thumb_ids, false, true );
 			}
 
-			if ( empty( $thumbnail_img ) ) {
-				$thumbnail_img = $default_image_src;
-				$thumbnail_id = 0;
+			$this->thumbnails_cached = true;
+		}
+
+		public function loop_get_the_thumbnail( $class = '' ) {
+			$image_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
+
+			if ( directorist_has_listing_thumbnail( get_the_ID() ) ) {
+				$this->cache_thumbnails();
+
+				$thumbnail_id = directorist_get_listing_thumbnail_id( get_the_ID() );
+				$image_url    = wp_get_attachment_image_url( $thumbnail_id, $image_size );
+				$image_alt    = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
+			} else {
+				$image_url = Helper::default_preview_image_src( $this->current_listing_type );
 			}
 
-			$image_src    = $thumbnail_img;
-			$image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-			$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
-			$image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
+			if ( empty( $image_alt ) ) {
+				$image_alt = get_the_title( get_the_ID() );
+			}
 
-			return "<img src='$image_src' alt='$image_alt' class='$class' />";
+			return '<img class="' . esc_attr( $class ) . '" src="' . esc_url( $image_url ) . '" alt="' . esc_attr( $image_alt ) . '"/>';
 		}
 
 		public function loop_thumb_card_template() {
@@ -1550,6 +1589,13 @@ class Directorist_Listings {
 			return in_array( get_the_id() , $favourites );
 		}
 
+		/**
+		 * Unused method
+		 *
+		 * @todo remove
+		 *
+		 * @return string
+		 */
 		public function item_found_title_for_search($count) {
 			$cat_name = $loc_name = '';
 
@@ -1594,13 +1640,7 @@ class Directorist_Listings {
 
 		public function item_found_title() {
 			$count = $this->query_results->total;
-
-			if ( $this->type == 'search_result' ) {
-				$title = $this->item_found_title_for_search( $count );
-			}
-			else {
-				$title = sprintf('<span>%s</span> %s', $count, $this->header_title );
-			}
+			$title = sprintf('<span>%s</span> %s', $count, $this->header_title );
 			return apply_filters('directorist_listings_found_text', $title );
 		}
 
@@ -1617,30 +1657,7 @@ class Directorist_Listings {
 		}
 
 		public function get_the_location() {
-
-			$id = get_the_ID();
-			$locs = get_the_terms( $id, ATBDP_LOCATION );
-
-			if ( empty( $locs ) ) {
-				return;
-			}
-
-			$local_names = array();
-			foreach ($locs as $term) {
-				$local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
-				ksort($local_names);
-				$locals = array_reverse($local_names);
-			}
-			$output = array();
-			$link = array();
-			foreach ($locals as $location) {
-				$term = get_term_by('slug', $location, ATBDP_LOCATION);
-				$link = esc_url( get_term_link( $term->term_id, ATBDP_LOCATION ) );
-				$space = str_repeat(' ', 1);
-				$output[] = "<a href='{$link}'>{$term->name}</a>";
-			}
-
-			return implode(', ', $output);
+			return get_the_term_list( get_the_ID(), ATBDP_LOCATION, '', ', ', '' );
 		}
 
 		public function loop_wrapper_class() {
@@ -1715,6 +1732,7 @@ class Directorist_Listings {
 		}
 
 		public function data_atts() {
+			$this->atts['_current_page'] = $this->type; // search_result or listing
 			// Separates class names with a single space, collates class names for wrapper tag element.
 			echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
 		}

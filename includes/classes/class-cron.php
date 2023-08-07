@@ -27,13 +27,15 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 			// add_action('init', array($this, 'atbdp_schedule_tasks'));
 			add_filter( 'cron_schedules', array( $this, 'atbdp_cron_init' ) );
 
-			add_action( 'edit_post', array( $this, 'update_atbdp_schedule_tasks' ) );
+			add_action( 'edit_post', array( $this, 'update_atbdp_schedule_tasks' ), 10, 2 );
 		}
 
 		// update_atbdp_schedule_tasks
-		function update_atbdp_schedule_tasks( $post_id = 0 ) {
-			if ( ATBDP_POST_TYPE !== get_post_type( $post_id ) ) {
-				return; }
+		function update_atbdp_schedule_tasks( $post_id, $post ) {
+			
+			if ( ! is_admin() || ATBDP_POST_TYPE !== get_post_type( $post_id ) ) {
+				return; 
+			}
 
 			$this->atbdp_schedule_tasks();
 		}

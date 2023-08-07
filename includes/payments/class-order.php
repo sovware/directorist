@@ -340,7 +340,7 @@ class ATBDP_Order
                 $currency        = atbdp_get_payment_currency();
                 $symbol          = atbdp_currency_symbol($currency);
                 ('after' == $c_position) ? $after = $symbol : $before = $symbol;
-                echo esc_attr( $before . atbdp_format_payment_amount( $value ) . $after );
+                echo esc_attr( $before . $value . $after );
                 break;
             case 'type' :
                 $gateway = get_post_meta($post_id, '_payment_gateway', true);

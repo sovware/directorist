@@ -127,17 +127,23 @@ class Multi_Directory_Manager
             'hide_empty' => false,
         ));
 
+        $directory_type = isset( $_GET['listing_type_id'] ) ? absint( $_GET['listing_type_id'] ) : directorist_get_default_directory();
         $options = [];
 
         if ( is_wp_error( $terms ) ) { return $options; }
         if ( ! count( $terms ) ) { return $options; }
 
         foreach( $terms as $term ) {
-            $options[] = [
-                'id'    => $term->term_id,
-                'value' => $term->term_id,
-                'label' => $term->name,
-            ];
+            $term_directory_types  = get_term_meta( $term->term_id, '_directory_type', true );
+
+            if( is_array( $term_directory_types ) && in_array( $directory_type, $term_directory_types, true ) ) {
+                $options[] = [
+                    'id'    => $term->term_id,
+                    'value' => $term->term_id,
+                    'label' => $term->name,
+                ];
+            }
+
         }
 
         return $options;
@@ -2506,12 +2512,6 @@ class Multi_Directory_Manager
                                 'label' => __( 'Required', 'directorist' ),
                                 'value' => false,
                             ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => '',
-                                'sync' => false,
-                            ],
                             'placeholder' => [
                                 'type'  => 'text',
                                 'label' => __( 'Placeholder', 'directorist' ),
@@ -2883,6 +2883,11 @@ class Multi_Directory_Manager
                                 'type'  => 'text',
                                 'label'  => __( 'Label', 'directorist' ),
                                 'value' => 'Tag',
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => __( 'Placeholder', 'directorist' ),
+                                'value' => 'Select',
                             ],
                             'required' => [
                                 'type'  => 'toggle',

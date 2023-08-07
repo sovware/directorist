@@ -18,7 +18,11 @@ if ( $location_source == 'listing' ) {
 			<select name="in_loc" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true" data-selected-id="<?php echo esc_attr( $selected_item['id'] ); ?>" data-selected-label="<?php echo esc_attr( $selected_item['label'] ); ?>">
 				<?php
 				echo '<option value="">' . esc_html__( 'Select Location', 'directorist' ) . '</option>';
-				echo directorist_kses( $searchform->locations_fields, 'form_input' );
+
+				if ( empty( $data['lazy_load'] ) ) {
+					echo directorist_kses( $searchform->locations_fields, 'form_input' );
+				}
+
 				?>
 			</select>
 		</div>

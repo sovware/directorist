@@ -110,6 +110,79 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			// instant search
 			add_action( 'wp_ajax_directorist_instant_search', array( $this, 'instant_search' ) );
 			add_action( 'wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
+
+			// user verification
+			add_action('wp_ajax_directorist_send_confirmation_email', [$this, 'send_confirm_email'] );
+			add_action('wp_ajax_nopriv_directorist_send_confirmation_email', [$this, 'send_confirm_email'] );
+
+			// zipcode search
+			add_action( 'wp_ajax_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
+			add_action( 'wp_ajax_nopriv_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
+		}
+
+		public function send_confirm_email() {
+			if ( ! check_ajax_referer( 'directorist_nonce', 'directorist_nonce', false ) ) {
+				wp_send_json_error([
+					'code' => 'invalid_nonce',
+					'message'  => __( 'Invalid Nonce', 'directorist' )
+				]);
+				exit;
+			}
+
+			if ( ! directorist_is_email_verification_enabled() ) {
+				wp_send_json_error([
+					'code' => 'invalid_request',
+					'message'  => __( 'Invalid Request', 'directorist' )
+				]);
+				exit;
+			}
+
+			$email = isset( $_REQUEST['user'] ) ? sanitize_email( wp_unslash( $_REQUEST['user'] ) ) : '';
+			if ( ! is_email( $email ) ) {
+				wp_send_json_error([
+					'code' => 'invalid_email',
+					'message'  => __( 'Invalid email address', 'directorist' )
+				]);
+				exit;
+			}
+
+			$user  = get_user_by( 'email', $email );
+			if ( $user instanceof \WP_User && get_user_meta( $user->ID, 'directorist_user_email_unverified', true ) ) {
+				ATBDP()->email->send_user_confirmation_email( $user );
+			}
+
+			wp_safe_redirect( ATBDP_Permalink::get_login_page_url( array(
+				'send_verification_email' => true
+			) ) );
+			exit;
+		}
+
+		public function zipcode_search() {
+			if ( ! directorist_verify_nonce( 'nonce' ) ) {
+				wp_send_json(
+					array(
+						'search_form' => __( 'Something went wrong, please try again.', 'directorist' ),
+					)
+				);
+			}
+			$google_api = get_directorist_option( 'map_api_key' );
+			$zipcode = ! empty( $_POST['zipcode'] ) ? sanitize_text_field( $_POST['zipcode'] ) : '';
+			$url      = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=postcode+' . $zipcode . '&key=' . $google_api;
+			$data     = wp_remote_get( $url );
+			$response = wp_remote_retrieve_body( $data );
+			$json     = $response ? json_decode( $response, true ) : array();
+			$lat_long = ! empty( $json['results'][0]['geometry']['location'] ) ? directorist_clean( $json['results'][0]['geometry']['location'] ) : array();
+			if( ! empty( $lat_long ) ) {
+				wp_send_json( $lat_long );
+			} else {
+				wp_send_json_error(
+					array(
+						'error_message' => sprintf(
+							__( '<div class="error_message">%s <p>%s</p></div>', 'directorist' ),
+							directorist_icon('fas fa-info-circle', false), __( 'Please enter a valid zip code.', 'directorist' ) )
+					)
+				);
+			}
 		}
 
 		public function instant_search() {
@@ -638,7 +711,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				echo json_encode(
 					array(
 						'loggedin' => false,
-						'message'  => __( 'Wrong username or password.', 'directorist' ),
+						'message'  => $user_signon->get_error_message()
 					)
 				);
 			} else {
@@ -731,7 +804,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 				// Update the meta when post id is available.
 				if ( ! empty( $post_id ) ) {
-					update_post_meta( $post_id, $field_id, $status['url'] );
+					update_post_meta( $post_id, '_' . $field_id, $status['url'] );
 
 					wp_send_json_success( $status['url'], 201 );
 				}
@@ -1251,8 +1324,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$subject  = strtr( $contact_email_subject, $placeholders );
 			$message  = strtr( $contact_email_body, $placeholders );
 			$message  = nl2br( $message );
-			$headers  = "From: {$name} <{$site_email}>\r\n";
-			$headers .= "Reply-To: {$email}\r\n";
+			$headers  = ATBDP()->email->get_email_headers();
 			$message  = atbdp_email_html( $subject, $message );
 			// return true or false, based on the result
 			$is_sent = ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;

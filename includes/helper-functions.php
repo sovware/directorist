@@ -1528,66 +1528,68 @@ function atbdp_get_listings_current_order($default_order = '')
  * @since    1.0.0
  *
  */
-function atbdp_get_listings_orderby_options($sort_by_items)
-{
-    $options = array(
-        'title-asc' => __("A to Z (title)", 'directorist'),
-        'title-desc' => __("Z to A (title)", 'directorist'),
-        'date-desc' => __("Latest listings", 'directorist'),
-        'date-asc' => __("Oldest listings", 'directorist'),
-        'views-desc' => __("Popular listings", 'directorist'),
-        'price-asc' => __("Price (low to high)", 'directorist'),
-        'price-desc' => __("Price (high to low)", 'directorist'),
-        'rand' => __("Random listings", 'directorist'),
-    );
-    $sort_by_items 	= is_array( $sort_by_items ) ? $sort_by_items : [];
-    if (!in_array('a_z', $sort_by_items)) {
-        unset($options['title-asc']);
-    }
-    if (!in_array('z_a', $sort_by_items)) {
-        unset($options['title-desc']);
-    }
-    if (!in_array('latest', $sort_by_items)) {
-        unset($options['date-desc']);
-    }
-    if (!in_array('oldest', $sort_by_items)) {
-        unset($options['date-asc']);
-    }
-    if (!in_array('popular', $sort_by_items)) {
-        unset($options['views-desc']);
-    }
-    if (!in_array('price_low_high', $sort_by_items)) {
-        unset($options['price-asc']);
-    }
-    if (!in_array('price_high_low', $sort_by_items)) {
-        unset($options['price-desc']);
-    }
-    if (!in_array('random', $sort_by_items)) {
-        unset($options['rand']);
-    }
-    $args = array(
-        'post_type'   => ATBDP_POST_TYPE,
-        'post_status' => 'publish',
-        'meta_key'    => '_price'
+function atbdp_get_listings_orderby_options( $orderby = array() ) {
+    $orderby_options = array(
+        'title-asc'  => __( 'A to Z (title)', 'directorist' ),
+        'title-desc' => __( 'Z to A (title)', 'directorist' ),
+        'date-desc'  => __( 'Latest listings', 'directorist' ),
+        'date-asc'   => __( 'Oldest listings', 'directorist' ),
+        'views-desc' => __( 'Popular listings', 'directorist' ),
+        'price-asc'  => __( 'Price (low to high)', 'directorist' ),
+        'price-desc' => __( 'Price (high to low)', 'directorist' ),
+        'rand'       => __( 'Random listings', 'directorist' ),
     );
 
-    $values = new WP_Query($args);
-    $prices = array();
-    if ($values->have_posts()) {
-        while ($values->have_posts()) {
-            $values->the_post();
-            $prices[] = get_post_meta(get_the_ID(), '_price', true);
-        }
-        wp_reset_postdata();
-        $has_price = join($prices);
+    if ( ! is_array( $orderby ) ) {
+		$orderby = (array) $orderby;
+	}
+
+    if ( ! in_array( 'a_z', $orderby, true ) ) {
+        unset( $orderby_options['title-asc'] );
     }
-    $disabled_price_by_admin = get_directorist_option('disable_list_price', 0);
-    if ($disabled_price_by_admin || empty($has_price)) {
-        unset($options['price-asc'], $options['price-desc']);
+    if ( ! in_array( 'z_a', $orderby, true ) ) {
+        unset( $orderby_options['title-desc'] );
+    }
+    if ( ! in_array( 'latest', $orderby, true ) ) {
+        unset( $orderby_options['date-desc'] );
+    }
+    if ( ! in_array( 'oldest', $orderby, true ) ) {
+        unset( $orderby_options['date-asc'] );
+    }
+    if ( ! in_array( 'popular', $orderby, true ) ) {
+        unset( $orderby_options['views-desc'] );
+    }
+    if ( ! in_array( 'price_low_high', $orderby, true ) ) {
+        unset( $orderby_options['price-asc'] );
+    }
+    if ( ! in_array( 'price_high_low', $orderby, true ) ) {
+        unset( $orderby_options['price-desc'] );
+    }
+    if ( ! in_array( 'random', $orderby, true ) ) {
+        unset( $orderby_options['rand'] );
     }
 
-    return apply_filters('atbdp_get_listings_orderby_options', $options);
+    $listings_price_disabled = (bool) get_directorist_option( 'disable_list_price', 0 );
+	if ( $listings_price_disabled || ! directorist_have_listings_with_price() ) {
+        unset( $orderby_options['price-asc'], $orderby_options['price-desc'] );
+    }
 
+    return apply_filters( 'atbdp_get_listings_orderby_options', $orderby_options );
+}
+
+function directorist_have_listings_with_price() {
+	$args = array(
+		'post_type'              => ATBDP_POST_TYPE,
+		'post_status'            => 'publish',
+		'meta_key'               => '_price',
+		'no_found_rows'          => true,
+		'posts_per_page'         => 1,
+		'update_post_meta_cache' => false,
+		'update_post_term_cache' => false,
+    );
+
+	$listings_with_price = new WP_Query( $args );
+	return $listings_with_price->have_posts();
 }
 
 /**
@@ -2851,49 +2853,58 @@ function atbdp_style_example_image ($src) {
 }
 
 if(!function_exists('csv_get_data')){
-    function csv_get_data($default_file = null, $multiple = null, $delimiter = ',')
-    {
-        $data = $multiple ? array() : '';
+    function csv_get_data( $csv_file = null, $multiple = null, $delimiter = ',' ) {
+		if ( empty( $delimiter ) ) {
+			$delimiter = ',';
+		}
+
+        $data   = $multiple ? array() : '';
         $errors = array();
-        // Get array of CSV files
-        $file = $default_file ? $default_file : '';
-        if (!$file) return;
+
+        if ( ! $csv_file ) {
+			return $data;
+		}
 
         // Attempt to change permissions if not readable
-        if (!is_readable($file)) {
-            chmod($file, 0744);
+        if ( ! is_readable( $csv_file ) ) {
+            chmod( $csv_file, 0744 );
         }
 
         // Check if file is writable, then open it in 'read only' mode
-        if (is_readable($file) && $_file = fopen($file, "r")) {
+        if ( is_readable( $csv_file ) && $_file = fopen( $csv_file, 'r' ) ) {
 
             // To sum this part up, all it really does is go row by
             //  row, column by column, saving all the data
             $post = array();
 
             // Get first row in CSV, which is of course the headers
-            $header = fgetcsv($_file, 0, $delimiter);
+            $header = fgetcsv( $_file, 0, $delimiter );
 
-            while ($row = fgetcsv($_file, 0, $delimiter)) {
+            while ( $row = fgetcsv( $_file, 0, $delimiter ) ) {
 
-                foreach ($header as $i => $key) {
-                    $post[$key] = $row[$i];
+                foreach ( $header as $i => $key ) {
+                    $post[ $key ] = $row[ $i ];
                 }
 
-                if ($multiple) {
+                if ( $multiple ) {
                     $data[] = $post;
                 } else {
                     $data = $post;
                 }
             }
 
-            fclose($_file);
+            fclose( $_file );
         } else {
-            $errors[] = "File '$file' could not be opened. Check the file's permissions to make sure it's readable by your server.";
+            $errors[] = sprintf(
+				esc_html__( "File '%s' could not be opened. Check the file's permissions to make sure it's readable by your server.", 'directorist' ),
+				$csv_file
+			);
         }
-        if (!empty($errors)) {
+
+        if ( ! empty( $errors ) ) {
             // ... do stuff with the errors
         }
+
         return $data;
     }
 }
@@ -2917,18 +2928,7 @@ function directorist_redirect_to_admin_setup_wizard() {
 }
 
 function directorist_default_directory(){
-    $id = '';
-    $all_types     = get_terms(array(
-        'taxonomy'   => ATBDP_TYPE,
-        'hide_empty' => false,
-    ));
-    foreach( $all_types as $type ) {
-        $default = get_term_meta( $type->term_id, '_default', true );
-        if( $default ){
-            $id = $type->term_id;
-        }
-    }
-    return $id;
+	return directorist_get_default_directory();
 }
 
 
@@ -3267,9 +3267,9 @@ function directorist_get_registration_error_message( $error_code ) {
 	$message = [
 		'0' => __( 'Something went wrong!', 'directorist' ),
 		'1' => __( 'Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', 'directorist' ),
-		'2' => __( 'Sorry, that email already exists!', 'directorist' ),
+		'2' => sprintf( __( 'This email is already registered. Please <a href="%s">click here to login</a>.', 'directorist' ), ATBDP_Permalink::get_login_page_link() ),
 		'3' => __( 'Username too short. At least 4 characters is required', 'directorist' ),
-		'4' => __( 'Sorry, that username already exists!', 'directorist' ),
+		'4' => sprintf( __( 'This username is already registered. Please <a href="%s">click here to login</a>.', 'directorist' ), ATBDP_Permalink::get_login_page_link() ),
 		'5' => __( 'Password length must be greater than 5', 'directorist' ),
 		'6' => __( 'Email is not valid', 'directorist' ),
 		'7' => __( 'Space is not allowed in username', 'directorist' ),
@@ -3330,6 +3330,8 @@ function directorist_get_supported_file_types_groups( $group = null ) {
 			'doc', 'docx', 'odt', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx'
 		]
 	];
+
+    $groups = apply_filters( 'directorist_supported_file_types_groups', $groups );
 
 	if ( is_null( $group ) ) {
 		return $groups;
@@ -3663,40 +3665,67 @@ function directorist_set_listing_views_count( $listing_id = 0 ) {
  * @return string Listing field key
  */
 function directorist_translate_to_listing_field_key( $header_key = '' ) {
-    $fields_map = array(
-        'date'                   => 'publish_date',
-        'publish_date'           => 'publish_date',
-        'status'                 => 'listing_status',
-        'listing_status'         => 'listing_status',
-        'name'                   => 'listing_title',
-        'title'                  => 'listing_title',
-        'details'                => 'listing_content',
-        'content'                => 'listing_content',
-        'price'                  => 'price',
-        'price_range'            => 'price_range',
-        'location'               => 'location',
-        'tag'                    => 'tag',
-        'ategory'                => 'category',
-        'zip'                    => 'zip',
-        'phone'                  => 'phone',
-        'phone2'                 => 'phone2',
-        'fax'                    => 'fax',
-        'email'                  => 'email',
-        'website'                => 'website',
-        'social'                 => 'social',
-        'atbdp_post_views_count' => 'atbdp_post_views_count',
-        'views_count'            => 'atbdp_post_views_count',
-        'manual_lat'             => 'manual_lat',
-        'manual_lng'             => 'manual_lng',
-        'hide_map'               => 'hide_map',
-        'hide_contact_info'      => 'hide_contact_owner',
-        'listing_prv_img'        => 'listing_img',
-        'preview'                => 'listing_img',
-        'listing_img'            => 'listing_img',
-        'videourl'               => 'videourl',
-        'tagline'                => 'tagline',
-        'address'                => 'address',
-    );
+	//
+    $fields_map = apply_filters( 'directorist_listings_field_label_to_key_map', array(
+		'date'                     => 'publish_date',
+		'publish_date'             => 'publish_date',
+		'Published'                => 'publish_date',
+		'status'                   => 'listing_status',
+		'listing_status'           => 'listing_status',
+		'Status'                   => 'listing_status',
+		'name'                     => 'listing_title',
+		'title'                    => 'listing_title',
+		'Title'                    => 'listing_title',
+		'details'                  => 'listing_content',
+		'content'                  => 'listing_content',
+		'Description'              => 'listing_content',
+		'Excerpt'                  => 'excerpt',
+		'price'                    => 'price',
+		'Price'                    => 'price',
+		'price_range'              => 'price_range',
+		'Price Range'              => 'price_range',
+		'location'                 => 'location',
+		'Locations'                => 'location',
+		'tag'                      => 'tag',
+		'Tags'                     => 'tag',
+		'category'                 => 'category',
+		'Categories'               => 'category',
+		'zip'                      => 'zip',
+		'Zip'                      => 'zip',
+		'phone'                    => 'phone',
+		'Phone'                    => 'phone',
+		'phone2'                   => 'phone2',
+		'Phone2'                   => 'phone2',
+		'fax'                      => 'fax',
+		'Fax'                      => 'fax',
+		'email'                    => 'email',
+		'Email'                    => 'email',
+		'website'                  => 'website',
+		'Website'                  => 'website',
+		'social'                   => 'social',
+		'Socials'                  => 'social',
+		'atbdp_post_views_count'   => 'atbdp_post_views_count',
+		'views_count'              => 'atbdp_post_views_count',
+		'Views Count'              => 'atbdp_post_views_count',
+		'manual_lat'               => 'manual_lat',
+		'Map Latitude'             => 'manual_lat',
+		'manual_lng'               => 'manual_lng',
+		'Map Logitude'             => 'manual_lng',
+		'hide_map'                 => 'hide_map',
+		'Hide Map?'                => 'hide_map',
+		'hide_contact_info'        => 'hide_contact_owner',
+		'Hide Owner Contact Form?' => 'hide_contact_owner',
+		'listing_prv_img'          => 'listing_img',
+		'preview'                  => 'listing_img',
+		'Image'                    => 'listing_img',
+		'listing_img'              => 'listing_img',
+		'videourl'                 => 'videourl',
+		'Video'                    => 'videourl',
+		'tagline'                  => 'tagline',
+		'Tagline'                  => 'tagline',
+		'address'                  => 'address',
+		'Address'                  => 'address',
+    ) );
 
     return isset( $fields_map[ $header_key ] ) ? $fields_map[ $header_key ] : '';
 }
@@ -3706,7 +3735,7 @@ function directorist_translate_to_listing_field_key( $header_key = '' ) {
  *
  * @since  7.3.0
  * @param  mixed  $var     Variable.
- * @param  string $default Default value.
+ * @param  mixed|null $default Default value.
  * @return mixed
  */
 function directorist_get_var( &$var, $default = null ) {
@@ -3931,7 +3960,7 @@ function directorist_default_preview_size() {
  * @return int Page ID
  */
 function directorist_get_page_id( string $page_name = '' ) : int {
-    
+
     $page_to_option_map = apply_filters( 'directorist_pages', array(
         'location'      => 'single_location_page',
         'category'      => 'single_category_page',
@@ -3964,4 +3993,82 @@ function directorist_get_page_id( string $page_name = '' ) : int {
     }
 
     return (int) apply_filters( 'directorist_page_id', $page_id, $page_name );
+}
+
+function directorist_password_reset_url(\Wp_User $user, $password_reset = true, $confirm_mail = false) {
+
+    $args = array(
+        'user' => $user->user_email
+    );
+
+    global $directories_user_rest_keys;
+
+    if( is_array( $directories_user_rest_keys ) && !empty( $directories_user_rest_keys[$user->user_email] ) ) {
+        $args['key'] = $directories_user_rest_keys[$user->user_email];
+    } else {
+        $key = get_password_reset_key( $user );
+        $directories_user_rest_keys[$user->user_email] = $key;
+        $args['key'] = $key;
+    }
+
+    if($password_reset) {
+        $args['password_reset'] = true;
+    }
+
+    if($confirm_mail) {
+        $args['confirm_mail'] = true;
+    }
+
+    $reset_password_url = ATBDP_Permalink::get_login_page_url($args);
+
+    return apply_filters( 'directorist_password_reset_url', $reset_password_url );
+}
+
+function directorist_get_mime_types( $filter_type = '', $return_type = '' ) {
+	$supported_mime_types = wp_get_mime_types();
+
+	// Filter
+	if ( ! empty( $filter_type ) ) {
+		$filtered_supported_mime_types = [];
+
+		foreach ($supported_mime_types as $key => $value) {
+			$_type = preg_replace( "/\/\w+$/", '', $value );
+
+			if ( $_type !== $filter_type ) {
+				continue;
+			}
+
+			$filtered_supported_mime_types[ $key ] = $value;
+		}
+
+		$supported_mime_types = $filtered_supported_mime_types;
+	}
+
+	// Convert to extension
+	if ( $return_type === 'extension' || $return_type === '.extension' ) {
+		$extensions = array_keys( $supported_mime_types );
+
+		$extended_extensions = [];
+
+		foreach ( $extensions as $extension ) {
+			$_sub_extensions = explode( '|',  $extension );
+
+			foreach ( $_sub_extensions as $sub_extension ) {
+				$extended_extensions[] = ( $return_type === '.extension' ) ? '.' . $sub_extension : $sub_extension;
+			}
+		}
+
+		$supported_mime_types = array_values( $extended_extensions );
+	}
+
+	return $supported_mime_types;
+}
+
+/**
+ * The function checks if email verification is enabled in the settings.
+ *
+ * @return bool a boolean value indicating whether email verification is enabled or not.
+ */
+function directorist_is_email_verification_enabled() {
+	return (bool) get_directorist_option( 'enable_email_verification' );
 }

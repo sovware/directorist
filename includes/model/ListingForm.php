@@ -595,6 +595,8 @@ class Directorist_Listing_Form {
 		$listing_id = $this->get_add_listing_id();
 		$value = '';
 
+		$field_data['lazy_load'] = get_directorist_option( 'lazy_load_taxonomy_fields', true );
+
 		if ( ! empty( $listing_id ) ) {
 			if ( $field_data['widget_name'] == 'title' ) {
 				$value = $this->add_listing_post->post_title;
@@ -723,7 +725,7 @@ class Directorist_Listing_Form {
 			$type = $get_listing_type;
 		}
 		else {
-			$type = isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : '';
+			$type = isset( $_REQUEST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) ) : '';
 		}
 		if( !empty( $type ) && ! is_numeric( $type ) ) {
 			$term = get_term_by( 'slug', $type, ATBDP_TYPE );

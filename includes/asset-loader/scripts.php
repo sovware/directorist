@@ -349,7 +349,7 @@ class Scripts {
 
 	private static function gmap_url() {
 		$api = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' );
-		$url = '//maps.googleapis.com/maps/api/js?key=' . $api . '&libraries=places';
+		$url = '//maps.googleapis.com/maps/api/js?key=' . $api . '&libraries=places&callback=Function.prototype';
 		return $url;
 	}
 }

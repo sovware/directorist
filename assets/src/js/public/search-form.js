@@ -45,11 +45,6 @@ import { directorist_range_slider } from './range-slider';
 
         });
 
-        // Stop Continuously Incrementing/Decrementing number
-        document.querySelector('input[type="number"]').addEventListener('mouseup', (e) => {
-            e.stopPropagation();
-        });
-
         //remove preload after window load
         $(window).on('load', function () {
             $("body").removeClass("directorist-preload");

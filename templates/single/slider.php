@@ -11,6 +11,20 @@ if ( !$has_slider ) {
    return;
 }
 $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlider__cover';
+
+$allowed_attr_for_image_item = [
+	'class'    => true,
+	'alt'      => true,
+	'src'      => true,
+	'data-src' => true,
+	'data-alt' => true,
+];
+
+$allowed_html_for_image_item = [
+	'img'  => $allowed_attr_for_image_item,
+	'span' => $allowed_attr_for_image_item,
+];
+
 ?>
 <div id="directorist-single-listing-slider" class="plasmaSlider"
 	data-width="<?php echo esc_attr( $data['width'] ); ?>"
@@ -29,11 +43,11 @@ $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlid
 			$img_alt = $data['images'][0]['alt'];
 			if ( 'contain' === $data['background-size'] && $data['blur-background'] ) {
 				$output = "<img class='plasmaSliderTempImgBlur' src='{$img_src}' alt='{$img_alt}'>";
-				echo wp_kses_post( $output );
+				echo wp_kses( $output, $allowed_html_for_image_item );
 			}
 
 			$output = "<img class='plasmaSliderTempImg {$img_size_class}' src='{$img_src}' alt='{$img_alt}'/>";
-			echo wp_kses_post( $output );
+			echo wp_kses( $output, $allowed_html_for_image_item );
 		endif; ?>
 	</div>
 
@@ -44,7 +58,7 @@ $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlid
 					$img_src = $image['src'];
 					$img_alt = $image['alt'];
 					$output = "<span class='plasmaSliderImageItem' data-src='{$img_src}' data-alt='{$img_alt}'></span>" . "\n";
-					echo wp_kses_post( $output );
+					echo wp_kses( $output, $allowed_html_for_image_item );
 				}
 			endif;
 		?>

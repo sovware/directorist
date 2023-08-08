@@ -110,6 +110,79 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			// instant search
 			add_action( 'wp_ajax_directorist_instant_search', array( $this, 'instant_search' ) );
 			add_action( 'wp_ajax_nopriv_directorist_instant_search', array( $this, 'instant_search' ) );
+
+			// user verification
+			add_action('wp_ajax_directorist_send_confirmation_email', [$this, 'send_confirm_email'] );
+			add_action('wp_ajax_nopriv_directorist_send_confirmation_email', [$this, 'send_confirm_email'] );
+
+			// zipcode search
+			add_action( 'wp_ajax_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
+			add_action( 'wp_ajax_nopriv_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
+		}
+
+		public function send_confirm_email() {
+			if ( ! check_ajax_referer( 'directorist_nonce', 'directorist_nonce', false ) ) {
+				wp_send_json_error([
+					'code' => 'invalid_nonce',
+					'message'  => __( 'Invalid Nonce', 'directorist' )
+				]);
+				exit;
+			}
+
+			if ( ! directorist_is_email_verification_enabled() ) {
+				wp_send_json_error([
+					'code' => 'invalid_request',
+					'message'  => __( 'Invalid Request', 'directorist' )
+				]);
+				exit;
+			}
+
+			$email = isset( $_REQUEST['user'] ) ? sanitize_email( wp_unslash( $_REQUEST['user'] ) ) : '';
+			if ( ! is_email( $email ) ) {
+				wp_send_json_error([
+					'code' => 'invalid_email',
+					'message'  => __( 'Invalid email address', 'directorist' )
+				]);
+				exit;
+			}
+
+			$user  = get_user_by( 'email', $email );
+			if ( $user instanceof \WP_User && get_user_meta( $user->ID, 'directorist_user_email_unverified', true ) ) {
+				ATBDP()->email->send_user_confirmation_email( $user );
+			}
+
+			wp_safe_redirect( ATBDP_Permalink::get_login_page_url( array(
+				'send_verification_email' => true
+			) ) );
+			exit;
+		}
+
+		public function zipcode_search() {
+			if ( ! directorist_verify_nonce( 'nonce' ) ) {
+				wp_send_json(
+					array(
+						'search_form' => __( 'Something went wrong, please try again.', 'directorist' ),
+					)
+				);
+			}
+			$google_api = get_directorist_option( 'map_api_key' );
+			$zipcode = ! empty( $_POST['zipcode'] ) ? sanitize_text_field( $_POST['zipcode'] ) : '';
+			$url      = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=postcode+' . $zipcode . '&key=' . $google_api;
+			$data     = wp_remote_get( $url );
+			$response = wp_remote_retrieve_body( $data );
+			$json     = $response ? json_decode( $response, true ) : array();
+			$lat_long = ! empty( $json['results'][0]['geometry']['location'] ) ? directorist_clean( $json['results'][0]['geometry']['location'] ) : array();
+			if( ! empty( $lat_long ) ) {
+				wp_send_json( $lat_long );
+			} else {
+				wp_send_json_error(
+					array(
+						'error_message' => sprintf(
+							__( '<div class="error_message">%s <p>%s</p></div>', 'directorist' ),
+							directorist_icon('fas fa-info-circle', false), __( 'Please enter a valid zip code.', 'directorist' ) )
+					)
+				);
+			}
 		}
 
 		public function instant_search() {
@@ -638,7 +711,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				echo json_encode(
 					array(
 						'loggedin' => false,
-						'message'  => __( 'Wrong username or password.', 'directorist' ),
+						'message'  => $user_signon->get_error_message()
 					)
 				);
 			} else {
@@ -731,7 +804,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 				// Update the meta when post id is available.
 				if ( ! empty( $post_id ) ) {
-					update_post_meta( $post_id, $field_id, $status['url'] );
+					update_post_meta( $post_id, '_' . $field_id, $status['url'] );
 
 					wp_send_json_success( $status['url'], 201 );
 				}
@@ -1251,8 +1324,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$subject  = strtr( $contact_email_subject, $placeholders );
 			$message  = strtr( $contact_email_body, $placeholders );
 			$message  = nl2br( $message );
-			$headers  = "From: {$name} <{$site_email}>\r\n";
-			$headers .= "Reply-To: {$email}\r\n";
+			$headers  = ATBDP()->email->get_email_headers();
 			$message  = atbdp_email_html( $subject, $message );
 			// return true or false, based on the result
 			$is_sent = ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
@@ -1368,13 +1440,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		 * @access   public
 		 */
 		public function ajax_callback_send_contact_email() {
-			$data = array( 'error' => 0 );
-
 			if ( ! directorist_verify_nonce() ) {
-				$data['error']   = 1;
-				$data['message'] = __( 'Something is wrong! Please refresh and retry.', 'directorist' );
-
-				wp_send_json( $data, 200 );
+				wp_send_json( [
+					'error' => 1,
+					'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' )
+				], 200 );
 			}
 
 			/**
@@ -1384,53 +1454,56 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			 */
 			do_action( 'atbdp_before_processing_contact_to_owner' );
 
-			$sendOwner                 = in_array( 'listing_contact_form', get_directorist_option( 'notify_user', array( 'listing_contact_form' ) ) );
-			$sendAdmin                 = in_array( 'listing_contact_form', get_directorist_option( 'notify_admin', array( 'listing_contact_form' ) ) );
-			$disable_all_email         = get_directorist_option( 'disable_email_notification' );
-			$data['sendOwner']         = $sendOwner;
-			$data['sendAdmin']         = $sendAdmin;
-			$data['disable_all_email'] = $disable_all_email;
+			$disable_all_email = get_directorist_option( 'disable_email_notification' );
+
+			$error_response = [
+				'error' => 1,
+				'message' => __( 'Sorry! Please try again.', 'directorist' )
+			];
+
 			// is admin disabled all the notification
 			if ( $disable_all_email ) {
-				$data['error']   = 1;
-				$data['message'] = __( 'Sorry! Something wrong.', 'directorist' );
-				echo wp_json_encode( $data );
+				echo wp_json_encode($error_response);
 				die();
 			}
+
+			$sendOwner = in_array( 'listing_contact_form', get_directorist_option( 'notify_user', array( 'listing_contact_form' ), true ) );
+			$sendAdmin = in_array( 'listing_contact_form', get_directorist_option( 'notify_admin', array( 'listing_contact_form' ), true ) );
+
 			// is admin disabled both notification
 			if ( ! $sendOwner && ! $sendAdmin ) {
-				$data['error']   = 1;
-				$data['message'] = __( 'Sorry! Something wrong.', 'directorist' );
-				echo wp_json_encode( $data );
+				echo wp_json_encode($error_response);
 				die();
 			}
+
 			// let's check is admin decides to send email to it's owner
 			if ( $sendOwner ) {
 				$send_to_owner = $this->atbdp_email_listing_owner_listing_contact();
 				if ( ! $send_to_owner ) {
-					$data['error']   = 1;
-					$data['message'] = __( 'Sorry! Please try again.', 'directorist' );
+					echo wp_json_encode($error_response);
+					die();
 				}
 			}
 			// let's check is admin decides to send email to him/her
 			if ( $sendAdmin ) {
 				$send_to_admin = $this->atbdp_email_admin_listing_contact();
 				if ( ! $send_to_admin ) {
-					$data['error']   = 1;
-					$data['message'] = __( 'Sorry! Please try again.', 'directorist' );
+					echo wp_json_encode($error_response);
+					die();
 				}
 			}
-			// no error found so let's show submitter the success message
-			if ( $data['error'] === 0 ) {
-				$data['message'] = __( 'Your message sent successfully.', 'directorist' );
-			}
+
 			/**
 			 * @package Directorist
 			 * @since 6.3.3
 			 * It fires when a contact is made by visitor with listing owner
 			 */
 			do_action( 'atbdp_listing_contact_owner_submitted' );
-			echo wp_json_encode( $data );
+
+			echo wp_json_encode( [
+				'error' => 1,
+				'message' => __( 'Your message sent successfully.', 'directorist' )
+			] );
 			die();
 		}
 

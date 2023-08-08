@@ -427,12 +427,12 @@ class Helper {
 	public static function parse_video( $url ) {
 		$embeddable_url = '';
 
-		$is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url);
-		if ($is_youtube) {
-			$pattern = '/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/';
+		$is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url) || preg_match('/youtube\.com\/shorts/i', $url);
+        if ($is_youtube) {
+			$pattern = '/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(shorts\/)|(watch\?))\??v?=?([^#\&\?]*).*/';
 			preg_match($pattern, $url, $matches);
-			if (count($matches) && strlen($matches[7]) == 11) {
-				$embeddable_url = 'https://www.youtube.com/embed/' . $matches[7];
+			if (count($matches) && strlen($matches[8]) == 11) {
+				$embeddable_url = 'https://www.youtube.com/embed/' . $matches[8];
 			}
 		}
 

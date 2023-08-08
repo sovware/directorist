@@ -261,6 +261,8 @@ abstract class Terms_Controller extends Abstract_Controller {
 		 */
 		$prepared_args = apply_filters( "directorist_rest_{$taxonomy}_query", $prepared_args, $request );
 
+		do_action( 'directorist_rest_before_query', 'get_term_items', $request, $prepared_args, $taxonomy );
+
 		if ( ! empty( $prepared_args['listing'] ) ) {
 			$query_result = $this->get_terms_for_listing( $prepared_args, $request );
 			$total_terms  = $this->total_terms;
@@ -272,7 +274,7 @@ abstract class Terms_Controller extends Abstract_Controller {
 				unset( $_prepared_args['offset'] );
 
 				$terms               = get_terms( $taxonomy, $_prepared_args );
-				$queried_directories = $request['directory'];
+				$queried_directories = ( is_array( $request['directory'] ) ) ? $request['directory'] : [ $request['directory'] ];
 
 				$terms = array_filter( $terms, function( $term ) use( $queried_directories ) {
 					$directories = get_term_meta( $term->term_id, '_directory_type', true );
@@ -312,6 +314,7 @@ abstract class Terms_Controller extends Abstract_Controller {
 				}
 			}
 		}
+
 		$response = array();
 		foreach ( $query_result as $term ) {
 			$data       = $this->prepare_item_for_response( $term, $request );
@@ -342,6 +345,10 @@ abstract class Terms_Controller extends Abstract_Controller {
 			$next_link = add_query_arg( 'page', $next_page, $base );
 			$response->link_header( 'next', $next_link );
 		}
+
+		do_action( 'directorist_rest_after_query', 'get_term_items', $request, $prepared_args, $taxonomy );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_term_items', $request, $prepared_args, $taxonomy );
 
 		return $response;
 	}
@@ -414,7 +421,10 @@ abstract class Terms_Controller extends Abstract_Controller {
 			$args['parent'] = $request['parent'];
 		}
 
+		do_action( 'directorist_rest_before_query', 'create_term_items', $request, $args, $taxonomy );
+
 		$term = wp_insert_term( $name, $taxonomy, $args );
+
 		if ( is_wp_error( $term ) ) {
 			$error_data = array( 'status' => 400 );
 
@@ -437,8 +447,12 @@ abstract class Terms_Controller extends Abstract_Controller {
 		if ( is_wp_error( $meta_fields ) ) {
 			wp_delete_term( $term->term_id, $taxonomy );
 
+			do_action( 'directorist_rest_after_query', 'create_term_items', $request, $args, $taxonomy );
+
 			return $meta_fields;
 		}
+
+		do_action( 'directorist_rest_after_query', 'create_term_items', $request, $args, $taxonomy );
 
 		/**
 		 * Fires after a single term is created or updated via the REST API.
@@ -458,6 +472,8 @@ abstract class Terms_Controller extends Abstract_Controller {
 
 		$response->header( 'Location', rest_url( $base . '/' . $term->term_id ) );
 
+		$response = apply_filters( 'directorist_rest_response', $response, 'create_term_items', $request, $args, $taxonomy );
+
 		return $response;
 	}
 
@@ -469,13 +485,21 @@ abstract class Terms_Controller extends Abstract_Controller {
 	 */
 	public function get_item( $request ) {
 		$taxonomy = $this->taxonomy;
-		$term     = get_term( (int) $request['id'], $taxonomy );
+		$id       = (int) $request['id'];
+
+		do_action( 'directorist_rest_before_query', 'get_term_item', $request, $id, $taxonomy );
+
+		$term = get_term( (int) $request['id'], $taxonomy );
 
 		if ( is_wp_error( $term ) ) {
 			return $term;
 		}
 
 		$response = $this->prepare_item_for_response( $term, $request );
+
+		do_action( 'directorist_rest_after_query', 'get_term_item', $request, $id, $taxonomy );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_term_item', $request, $id, $taxonomy );
 
 		return rest_ensure_response( $response );
 	}
@@ -488,6 +512,10 @@ abstract class Terms_Controller extends Abstract_Controller {
 	 */
 	public function update_item( $request ) {
 		$taxonomy      = $this->taxonomy;
+		$id            = (int) $request['id'];
+
+		do_action( 'directorist_rest_before_query', 'update_term_item', $request, $id, $taxonomy );
+
 		$term          = get_term( (int) $request['id'], $taxonomy );
 		$schema        = $this->get_item_schema();
 		$prepared_args = array();
@@ -512,17 +540,20 @@ abstract class Terms_Controller extends Abstract_Controller {
 		if ( ! empty( $prepared_args ) ) {
 			$update = wp_update_term( $term->term_id, $term->taxonomy, $prepared_args );
 			if ( is_wp_error( $update ) ) {
+				do_action( 'directorist_rest_after_query', 'update_term_item', $request, $id, $taxonomy );
 				return $update;
 			}
 		}
 
-		$term = get_term( (int) $request['id'], $taxonomy );
+		$term = get_term( $id, $taxonomy );
 
 		$this->update_additional_fields_for_object( $term, $request );
 
 		// Update term data.
 		$meta_fields = $this->update_term_meta_fields( $term, $request );
+
 		if ( is_wp_error( $meta_fields ) ) {
+			do_action( 'directorist_rest_after_query', 'update_term_item', $request, $id, $taxonomy );
 			return $meta_fields;
 		}
 
@@ -537,6 +568,11 @@ abstract class Terms_Controller extends Abstract_Controller {
 
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $term, $request );
+
+		do_action( 'directorist_rest_after_query', 'update_term_item', $request, $id, $taxonomy );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'update_term_item', $request, $id, $taxonomy );
+
 		return rest_ensure_response( $response );
 	}
 
@@ -555,12 +591,19 @@ abstract class Terms_Controller extends Abstract_Controller {
 			return new WP_Error( 'directorist_rest_trash_not_supported', __( 'Resource does not support trashing.', 'directorist' ), array( 'status' => 501 ) );
 		}
 
-		$term = get_term( (int) $request['id'], $taxonomy );
+		$id = (int) $request['id'];
+
+		do_action( 'directorist_rest_before_query', 'delete_term_item', $request, $id, $taxonomy );
+
+		$term = get_term( $id, $taxonomy );
 
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $term, $request );
 
 		$retval = wp_delete_term( $term->term_id, $term->taxonomy );
+
+		do_action( 'directorist_rest_after_query', 'delete_term_item', $request, $id, $taxonomy );
+
 		if ( ! $retval ) {
 			return new WP_Error( 'directorist_rest_cannot_delete', __( 'The resource cannot be deleted.', 'directorist' ), array( 'status' => 500 ) );
 		}
@@ -573,6 +616,8 @@ abstract class Terms_Controller extends Abstract_Controller {
 		 * @param WP_REST_Request  $request  The request sent to the API.
 		 */
 		do_action( "directorist_rest_delete_{$taxonomy}", $term, $response, $request );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'delete_term_item', $request, $id, $taxonomy );
 
 		return $response;
 	}

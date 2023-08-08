@@ -18,7 +18,6 @@
         public $importable_fields = [];
         private $default_directory;
 
-
         public function __construct()
         {
 			// Prevent frontend executions.
@@ -43,10 +42,12 @@
             }
 
             $term_id = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_type'] ) ) : '';
-            $file    = ! empty( $_POST['csv_file'] ) ? directorist_clean( wp_unslash( $_POST['csv_file'] ) ) : '';
+            $file    = ! empty( $_POST['file_id'] ) ? get_attached_file( directorist_clean( wp_unslash( $_POST['file_id'] ) ) ) : '';
 
-            if ( empty( $file ) && isset( $_POST['file'] ) ) {
-                $file = directorist_clean( wp_unslash( $_POST['file'] ) );
+            if( ! $file ) {
+                wp_send_json( array(
+					'error' => esc_html__( 'Invalid file!', 'directorist' ),
+				) );
             }
 
             $delimiter = ! empty( $_POST['delimiter'] ) ? directorist_clean( wp_unslash( $_POST['delimiter'] ) ) : '';
@@ -55,7 +56,7 @@
 
             ob_start();
 
-            ATBDP()->load_template( 'admin-templates/import-export/data-table', array( 'data' => csv_get_data( $file, false, $delimiter ), 'fields' => $this->importable_fields ) );
+            ATBDP()->load_template( 'admin-templates/import-export/data-table', array( 'data' => csv_get_data( $file, false, $delimiter ), 'fields' => $this->get_importable_fields(), 'csv_file' => $file ) );
 
             $response = ob_get_clean();
 
@@ -79,7 +80,7 @@
             $data                  = array();
             $preview_image         = isset( $_POST['listing_img'] ) ? directorist_clean( wp_unslash( $_POST['listing_img'] ) ) : '';
             $default_directory     =  directorist_default_directory();
-            $directory_type        = isset( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
+            $directory_type        = isset( $_POST['directory_type'] ) ? absint( $_POST['directory_type'] ) : 0;
             $directory_type        = ( empty( $directory_type ) ) ? $default_directory : $directory_type;
             $title                 = isset( $_POST['listing_title'] ) ? directorist_clean( wp_unslash( $_POST['listing_title'] ) ) : '';
             $new_listing_status    = get_term_meta( $directory_type, 'new_listing_status', 'pending');
@@ -177,27 +178,16 @@
                             $multiple = $terms > 0;
 
                             foreach( $terms as $term ) {
+								$term_id = $this->get_or_create_term_id( $term, $taxonomy );
 
-                                $_term = wp_insert_term( $term, $taxonomy );
-
-                                if ( is_wp_error( $_term ) ) {
-                                    if ( $_term->get_error_code() === 'term_exists' ) {
-                                        // When term exists, error data should contain existing term id.
-                                        $term_id = $_term->get_error_data();
-
-                                    } else {
-                                        break; // We cannot continue on any other error.
-                                    }
-                                } else {
-                                    // New term.
-                                    $term_id = $_term['term_id'];
-                                }
+								if ( empty( $term_id ) ) {
+									continue;
+								}
 
                                 update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
-
                                 $term_ids[] = $term_id;
-
                             }
+
                             wp_set_object_terms( $post_id, $term_ids, $taxonomy, $multiple );
                         }
                     }
@@ -264,6 +254,27 @@
 
             wp_send_json( $data );
         }
+
+		/**
+		 * @param string $term
+		 * @param string $taxonomy
+		 * @return int|null Term ID
+		 */
+		public function get_or_create_term_id( $term, $taxonomy ) {
+			$term_data = term_exists( $term, $taxonomy );
+
+			if ( is_array( $term_data ) ) {
+				return (int) $term_data['term_id'];
+			}
+
+			$term_data = wp_insert_term( $term, $taxonomy );
+
+			if ( ! is_wp_error( $term_data ) ) {
+				return (int) $term_data['term_id'];
+			}
+
+			return null;
+		}
 
         // maybe_unserialize_csv_string
         public function maybe_unserialize_csv_string( $data ) {
@@ -374,7 +385,7 @@
 
 			if ( isset( $file['error'] ) ) {
 				wp_die(
-					$file['error'],
+					wp_kses_post( $file['error'] ),
 					'Directorist CSV Import Error!',
 					array(
 						'back_link' => true,
@@ -386,8 +397,8 @@
                 'post_type'       => ATBDP_POST_TYPE,
                 'page'            => 'tools',
                 'file_id'          => $file['id'],
-                'delimiter'       => isset( $_REQUEST['delimiter'] ) ? $_REQUEST['delimiter'] : ',',
-                'update_existing' => isset( $_REQUEST['update_existing'] ) ? $_REQUEST['update_existing'] : false,
+                'delimiter'       => isset( $_REQUEST['delimiter'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['delimiter'] ) ) : ',',
+                'update_existing' => isset( $_REQUEST['update_existing'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['update_existing'] ) ) : false,
                 'step'            => 2,
             ] );
 
@@ -437,21 +448,25 @@
                     }
                 }
 
-                apply_filters( 'directorist_importable_fields', $this->importable_fields[ $field_key ] = $label );
+                $this->importable_fields[ $field_key ] = $label;
             }
         }
 
         /**
          * It adds a submenu for showing all the Tools and details support
          */
-        public function add_tools_submenu()
-        {
-            add_submenu_page(null,
-            __('Tools', 'directorist'),
-            __('Tools', 'directorist'),
-            'manage_options',
-            'tools',
-            array($this, 'render_tools_submenu_page'));
+        public function add_tools_submenu() {
+			add_submenu_page(
+				'edit.php?post_type=at_biz_dir',
+				__( 'Tools', 'directorist' ),
+				__( 'Tools', 'directorist' ),
+				'manage_options',
+				'tools',
+				array( $this, 'render_tools_submenu_page' )
+			);
+
+			// Remove to remove the menu item.
+			remove_submenu_page( 'edit.php?post_type=at_biz_dir', 'tools' );
         }
 
         public function get_data_table( $file_path, $delimiter = ',' ){
@@ -459,7 +474,7 @@
             $data = [
                 'data'     => $csv_data,
                 'csv_file' => $file_path,
-                'fields'   => $this->importable_fields
+                'fields'   => $this->get_importable_fields(),
             ];
 
             ATBDP()->load_template('admin-templates/import-export/data-table', $data );
@@ -570,6 +585,10 @@
             ATBDP()->load_template( $template_path, $template_data );
 
         }
+
+		public function get_importable_fields() {
+			return apply_filters( 'directorist_importable_fields', $this->importable_fields );
+		}
     }
 
 endif;

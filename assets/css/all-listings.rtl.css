@@ -18303,6 +18303,7 @@ Review: New Style
   position: relative;
   right: 0;
   border-radius: 4px;
+  overflow: hidden;
   background-color: #fff;
   -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);

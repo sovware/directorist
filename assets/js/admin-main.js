@@ -3207,10 +3207,10 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
         return;
       }
 
-      selected_id = selected_id.split(',');
-      selected_label = selected_label ? selected_label.split(',') : [];
-      selected_id.forEach(function (id, index) {
-        var label = selected_label.length >= index + 1 ? selected_label[index] : '';
+      var selected_ids = "".concat(selected_id).split(',');
+      var selected_labels = selected_label ? "".concat(selected_label).split(',') : [];
+      selected_ids.forEach(function (id, index) {
+        var label = selected_labels.length >= index + 1 ? selected_labels[index] : '';
         var option = new Option(label, id, true, true);
         $(element).append(option);
         $(element).trigger({

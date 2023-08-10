@@ -246,11 +246,11 @@ function initSelect2AjaxTaxonomy( args, terms_options ) {
                 return;
             }
 
-            selected_id    = selected_id.split( ',' );
-            selected_label = selected_label ? selected_label.split( ',' ) : [];
+            const selected_ids    = `${selected_id}`.split( ',' );
+            const selected_labels = selected_label ? `${selected_label}`.split( ',' ) : [];
 
-            selected_id.forEach( ( id, index ) => {
-                const label  = ( selected_label.length >= ( index + 1 ) ) ? selected_label[index] : '';
+            selected_ids.forEach( ( id, index ) => {
+                const label  = ( selected_labels.length >= ( index + 1 ) ) ? selected_labels[index] : '';
                 var   option = new Option( label, id, true, true );
 
                 $( element ).append( option );

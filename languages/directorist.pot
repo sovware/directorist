@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-26 04:17+0000\n"
+"POT-Creation-Date: 2023-08-10 05:28+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -684,19 +684,19 @@ msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
 #. translators: %s field label.
-#: ../includes/classes/class-add-listing.php:213
+#: ../includes/classes/class-add-listing.php:226
 msgid "<strong>%s</strong> field is required!"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:754
+#: ../includes/classes/class-add-listing.php:759
 msgid "Your Submission is Completed! redirecting.."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:758
+#: ../includes/classes/class-add-listing.php:763
 msgid "Sorry! Something Wrong with Your Submission"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:764
+#: ../includes/classes/class-add-listing.php:769
 msgid "Payment Required! redirecting to checkout.."
 msgstr ""
 
@@ -4790,43 +4790,43 @@ msgstr ""
 msgid "No Title "
 msgstr ""
 
-#: ../includes/model/ListingForm.php:428
+#: ../includes/model/ListingForm.php:434
 msgid "I agree to the %Privacy & Policy%"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:435
+#: ../includes/model/ListingForm.php:441
 msgid "I agree with all %terms & conditions%"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:448, ../includes/model/ListingForm.php:468, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4016, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4023
+#: ../includes/model/ListingForm.php:454, ../includes/model/ListingForm.php:474, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4016, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:4023
 msgid "Save & Preview"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:445
+#: ../includes/model/ListingForm.php:451
 msgid "Preview Changes"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:460, ../includes/model/SingleListing.php:961, ../includes/review/class-builder-screen.php:114
+#: ../includes/model/ListingForm.php:466, ../includes/model/SingleListing.php:961, ../includes/review/class-builder-screen.php:114
 msgid "Your Email"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:777
+#: ../includes/model/ListingForm.php:783
 msgid "You can drag the marker to your desired place to place a marker"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:778
+#: ../includes/model/ListingForm.php:784
 msgid "Geocode was not successful for the following reason: "
 msgstr ""
 
-#: ../includes/model/ListingForm.php:834
+#: ../includes/model/ListingForm.php:840
 msgid "Notice: Your given directory type is not valid. Please use a valid directory type"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:831
+#: ../includes/model/ListingForm.php:837
 msgid "There's something unexpected happen. Please contact site admin."
 msgstr ""
 
-#: ../includes/model/ListingForm.php:829
+#: ../includes/model/ListingForm.php:835
 msgid "Please add a directory type first %s"
 msgstr ""
 

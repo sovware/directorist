@@ -4072,3 +4072,50 @@ function directorist_get_mime_types( $filter_type = '', $return_type = '' ) {
 function directorist_is_email_verification_enabled() {
 	return (bool) get_directorist_option( 'enable_email_verification' );
 }
+
+/**
+ * @param int $term_id
+ * @param string $taxonomy
+ *
+ * @return string Term Label
+ */
+function directorist_get_term_label( $term_id, $taxonomy ) {
+	$term = get_term_by( 'term_id', $term_id, $taxonomy );
+
+	if ( false === $term ) {
+		return '';
+	}
+
+	return $term->name;
+}
+
+/**
+ * @param mixed $item
+ * @return mixed Item
+ */
+function directorist_sanitize_term_item( $item ) {
+	$item = trim( $item );
+	return directorist_maybe_number( $item );
+}
+
+/**
+ * @param mixed $item
+ * @return mixed item
+ */
+function directorist_maybe_number( $item ) {
+	if ( ! is_string( $item ) && ! is_numeric( $item )  ) {
+		return $item;
+	}
+
+	if ( preg_match( "/[^0-9.]/", $item ) ) {
+		return $item;
+	}
+
+	$item = trim( $item, '. ' );
+
+	if ( false === strpos( $item, '.' ) ) {
+		return absint( $item );
+	}
+
+	return ( float ) $item;
+}

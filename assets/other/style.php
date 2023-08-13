@@ -626,7 +626,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .custom-control .custom-control-input:checked~.radio--select,
     #atpp-plan-change-modal .atm-contents-inner .dcl_pricing_plan input:checked+label:before,
     #dwpp-plan-renew-modal .atm-contents-inner .dcl_pricing_plan input:checked+label:before {
-        border-color: var(--directorist-color-primary) !important;
+        border-color: var(--directorist-color-primary);
     }
 
     /*

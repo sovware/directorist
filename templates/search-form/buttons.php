@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-advanced-filter__action directorist-flex align directorist-align-center directorist-justify-content-between flex-wrap">
+<div class="directorist-advanced-filter__action directorist-flex directorist-align-center directorist-justify-content-between flex-wrap">
 
 	<?php if ( $searchform->has_reset_filters_button ): ?>
 		<a href="#" class="directorist-btn-reset-js"><?php echo esc_html( $searchform->reset_filters_text ); ?></a>

@@ -1032,10 +1032,6 @@ __webpack_require__.r(__webpack_exports__);
         $(this).text(directorist.i18n_text.show_more);
         $(item_checkbox).slice(4, item_checkbox.length).fadeOut();
       }
-    }); // Stop Continuously Incrementing/Decrementing number
-
-    document.querySelector('input[type="number"]').addEventListener('mouseup', function (e) {
-      e.stopPropagation();
     }); //remove preload after window load
 
     $(window).on('load', function () {

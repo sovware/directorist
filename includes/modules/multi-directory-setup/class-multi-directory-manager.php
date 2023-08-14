@@ -2530,7 +2530,7 @@ class Multi_Directory_Manager
                 'template' => 'submission_form_fields',
                 'widgets' => [
                     'title' => [
-                        'label' => __( 'Search Bar', 'directorist' ),
+                        'label' => __( 'Search Box', 'directorist' ),
                         'options' => [
                             'required' => [
                                 'type'  => 'toggle',
@@ -4294,13 +4294,13 @@ class Multi_Directory_Manager
                 'value' => [
                     'groups' => [
                         [
-                            'label'     => __( 'Basic', 'directorist' ),
+                            'label'     => __( 'Search Bar', 'directorist' ),
                             'lock'      => true,
                             'draggable' => false,
                             'fields'    => [],
                         ],
                         [
-                            'label'     => __( 'Advanced', 'directorist' ),
+                            'label'     => __( 'Search Filter', 'directorist' ),
                             'lock'      => true,
                             'draggable' => false,
                             'fields'    => [],

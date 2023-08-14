@@ -10415,6 +10415,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .directorist-form-group textarea.directorist-form-element {
   min-height: 120px;
   max-width: 100%;
+  width: 100%;
 }
 
 .directorist-form-group label {

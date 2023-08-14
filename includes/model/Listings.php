@@ -1240,6 +1240,17 @@ class Directorist_Listings {
 		return (int) $current;
 	}
 
+	public function get_directory_type_slug() {
+		$current_directory_type = $this->get_current_listing_type();
+		
+		if ( is_numeric( $current_directory_type ) ) {
+			$term                   = get_term_by( 'id', $current_directory_type, ATBDP_TYPE) ;
+			$current_directory_type = $term->slug;
+		}
+
+		return $current_directory_type;
+	}
+
 	public function search_category_location_args() {
 		return array(
 			'parent'             => 0,

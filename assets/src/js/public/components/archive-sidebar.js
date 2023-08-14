@@ -1,3 +1,5 @@
+(function ($) {
+
 window.addEventListener('DOMContentLoaded', () => {
     /* Archive sidebar toggle */
     const archiveSidebar = document.querySelector('.listing-with-sidebar__sidebar');
@@ -48,5 +50,16 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     body.addEventListener('click', handleOutsideClick);
 
-
+    $('body').on("submit", ".listing-with-sidebar .directorist-basic-search, .listing-with-sidebar .directorist-advanced-search", function (e) {
+        e.preventDefault();
+        let basic_data   = $('.listing-with-sidebar .directorist-basic-search').serialize();
+        let advanced_data = $('.listing-with-sidebar .directorist-advanced-search').serialize();
+        let actionValue  = $('.directorist-advanced-search').attr('action');
+        let url          = actionValue + '?' + basic_data + '&' + advanced_data;
+    
+        window.location.href = url;
+    });
+    
 });
+
+})(jQuery);

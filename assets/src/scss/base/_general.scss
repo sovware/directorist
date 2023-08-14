@@ -142,6 +142,9 @@
                 display: flex;
                 justify-content: end;
             }
+            iframe {
+                max-width: 100%;
+            }
         }
         .directorist-form-social-info-field {
             .directorist-btn {

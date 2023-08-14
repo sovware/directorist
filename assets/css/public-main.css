@@ -393,6 +393,9 @@
       -ms-flex-pack: end;
           justify-content: end;
 }
+.directorist-content-module__contents .directorist-form-description-field iframe {
+  max-width: 100%;
+}
 .directorist-content-module__contents .directorist-form-social-info-field .directorist-btn {
   width: 100%;
   gap: 10px;
@@ -3700,6 +3703,12 @@ body.stop-scrolling {
   height: 14px;
   border-radius: 100%;
   border: 2px solid #c6d0dc;
+}
+@media screen and (max-width: 575px) {
+  .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:after {
+    left: unset;
+    right: 3px;
+  }
 }
 .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:before {
   left: 0;
@@ -8394,6 +8403,7 @@ p.atbd-min {
 .directorist-form-group textarea,
 .directorist-form-group textarea.directorist-form-element {
   min-height: 120px;
+  max-width: 100%;
 }
 
 .directorist-form-group label {

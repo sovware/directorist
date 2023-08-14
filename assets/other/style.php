@@ -274,14 +274,14 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     #directorist.atbd_wrapper .btn-primary,
     .default-ad-search .submit_btn .btn-default,
     .atbdp_login_form_shortcode #loginform p input[type="submit"], .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .atbd-add-payment-method form .atbd-save-card, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
-        border-color: var(--directorist-color-primary) !important;
+        border-color: var(--directorist-color-primary);
     }
 
     /* Hover Border Color */
     #directorist.atbd_wrapper .btn-primary:hover,
     .default-ad-search .submit_btn .btn-default:hover,
     .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .atbd-add-payment-method form .atbd-save-card:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
-        border-color: var(--directorist-color-primary) !important;
+        border-color: var(--directorist-color-primary);
     }
 
     /* =======================================
@@ -308,12 +308,12 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
 
     /* Border Color */
     #directorist.atbd_wrapper .btn-secondary, .directorist-btn.directorist-btn-secondary {
-        border-color: var(--directorist-color-secondary) !important;
+        border-color: var(--directorist-color-secondary);
     }
 
     /* Hover Border Color */
     #directorist.atbd_wrapper .btn-secondary:hover, .directorist-btn.directorist-btn-secondary:hover {
-        border-color: var(--directorist-color-secondary) !important;
+        border-color: var(--directorist-color-secondary);
     }
 
 
@@ -350,12 +350,12 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
 
     /* Border Color */
     #directorist.atbd_wrapper .btn-danger, .directorist-btn.directorist-btn-danger {
-        border-color: var(--directorist-color-danger) !important;
+        border-color: var(--directorist-color-danger);
     }
 
     /* Hover Border Color */
     #directorist.atbd_wrapper .btn-danger:hover, .directorist-btn.directorist-btn-danger:hover {
-        border-color: var(--directorist-color-danger) !important;
+        border-color: var(--directorist-color-danger);
     }
 
 
@@ -384,12 +384,12 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
 
     /* Border Color */
     #directorist.atbd_wrapper .btn-success {
-        border-color: var(--directorist-color-success) !important;
+        border-color: var(--directorist-color-success);
     }
 
     /* Hover Border Color */
     #directorist.atbd_wrapper .btn-success:hover {
-        border-color: var(--directorist-color-success) !important;
+        border-color: var(--directorist-color-success);
     }
 
     /* =======================================
@@ -414,24 +414,24 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter,
     #directorist.atbd_wrapper .btn-outline-primary,
     .atbd_dropdown .atbd_dropdown-toggle, .directorist-btn.directorist-btn-outline-dark, .directorist-btn.directorist-btn-outline-primary {
-        border: 1px solid var(--directorist-color-primary) !important;
+        border: 1px solid var(--directorist-color-primary);
     }
 
     .atbd_dropdown .atbd_dropdown-toggle .atbd_drop-caret:before {
-        border-left: 1px solid var(--directorist-color-primary) !important;
-        border-bottom: 1px solid var(--directorist-color-primary) !important;
+        border-left: 1px solid var(--directorist-color-primary);
+        border-bottom: 1px solid var(--directorist-color-primary);
     }
 
     /* border color hover */
     .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover,
     #directorist.atbd_wrapper .btn-outline-primary:hover,
     .atbd_dropdown .atbd_dropdown-toggle:hover, .directorist-btn.directorist-btn-outline-dark:hover, .directorist-btn.directorist-btn-outline-primary:hover {
-        border-color: rgba(var(--directorist-color-primary-rgb),.80) !important;
+        border-color: rgba(var(--directorist-color-primary-rgb),.80);
     }
 
     .atbd_dropdown .atbd_dropdown-toggle:hover .atbd_drop-caret:before {
-        border-left-color: rgba(var(--directorist-color-primary-rgb),.80) !important;
-        border-bottom-color: rgba(var(--directorist-color-primary-rgb),.80) !important;
+        border-left-color: rgba(var(--directorist-color-primary-rgb),.80);
+        border-bottom-color: rgba(var(--directorist-color-primary-rgb),.80);
     }
 
     /* background */
@@ -466,12 +466,12 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
 
     /* border color */
     .atbdp_float_none .btn.btn-outline-light {
-        border: 1px solid var(--directorist-color-light) !important;
+        border: 1px solid var(--directorist-color-light);
     }
 
     /* border color hover */
     .atbdp_float_none .btn.btn-outline-light:hover{
-        border-color: var(--directorist-color-light) !important;
+        border-color: var(--directorist-color-light);
     }
 
     /* background */
@@ -500,12 +500,12 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
 
     /* border color */
     #directorist.atbd_wrapper .btn-outline-danger {
-        border: 1px solid <?php echo $border_danout_color; ?> !important;
+        border: 1px solid <?php echo $border_danout_color; ?>;
     }
 
     /* border color hover */
     #directorist.atbd_wrapper .btn-outline-danger:hover {
-        border-color: <?php echo $border_danout_hover_color; ?> !important;
+        border-color: <?php echo $border_danout_hover_color; ?>;
     }
 
     /* background */
@@ -534,12 +534,12 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
 
     /* border color */
     .directorist-btn.directorist-btn-lighter {
-        border: 1px solid <?php echo $border_lighter_color; ?> !important;
+        border: 1px solid <?php echo $border_lighter_color; ?>;
     }
 
     /* border color hover */
     .directorist-btn.directorist-btn-lighter:hover {
-        border-color: <?php echo $border_lighter_hover_color; ?> !important;
+        border-color: <?php echo $border_lighter_hover_color; ?>;
     }
 
     /* background */

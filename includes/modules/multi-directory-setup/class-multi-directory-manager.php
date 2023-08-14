@@ -4268,7 +4268,7 @@ class Multi_Directory_Manager
 
             'listing_sidebar_top_search_bar' => [
                 'type'  => 'toggle',
-                'label' => __( 'Hide the top search bar', 'directorist' ),
+                'label' => __( 'Hide The Top Search Bar', 'directorist' ),
                 'value' => false,
                 'show_if' => [
                     'where' => "self.all_listing_layout",

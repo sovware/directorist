@@ -11250,6 +11250,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           align-items: center;
   margin-right: auto;
   gap: 10px;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
 }
 @media only screen and (max-width: 767px) {
   .directorist-search-form-action {
@@ -13415,6 +13417,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-right: 3px;
 }
 .directorist-listing-single__info .directorist-listing-tagline {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
   margin: 0 4px 15px 4px;
 }
 .directorist-listing-single__info .directorist-listing-title {

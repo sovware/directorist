@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Markup {
 
-	public static function get_rating( $selected = 0 ) {
+	public static function get_rating( $selected = 0, $comment = null ) {
 		ob_start();
 		?>
 		<div class="directorist-review-criteria__single">
@@ -30,7 +30,7 @@ class Markup {
 		<?php
 		$html = ob_get_clean();
 
-		return apply_filters( 'directorist/review/rating_html', $html );
+		return apply_filters( 'directorist/review/rating_html', $html, $comment );
 	}
 
 	public static function get_rating_stars( $rating = 0, $base_rating = 5 ) {

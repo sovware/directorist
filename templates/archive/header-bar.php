@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<div class="directorist-listings-header__left">
 
-					<?php if ( $listings->has_filters_button && empty( $listings->options['listings_sidebar'] ) ): ?>
+					<?php if ( $listings->has_filters_button && 'no_sidebar' === $listings->options['all_listing_layout'] ): ?>
 						<a href="#" class="directorist-btn directorist-btn-sm directorist-filter-btn directorist-modal-btn directorist-modal-btn--full"><?php echo wp_kses_post( $listings->filter_btn_html() ); ?></a>
 					<?php endif; ?>
 

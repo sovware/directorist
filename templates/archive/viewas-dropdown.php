@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<div class="directorist-viewas__wrap">
 
 		<!-- Archive sidebar offcanvas toggle -->
-		<?php if( $listings->options['listings_sidebar'] ) : ?>
+		<?php if( $listings->options['all_listing_layout'] != 'no_sidebar' ) : ?>
 		<a class="directorist-viewas__item directorist-archive-sidebar-toggle">
 			<?php directorist_icon( 'fas fa-filter' ); ?>
 			Filter

@@ -357,16 +357,22 @@ class Directorist_Listing_Form {
 		return $location_fields;
 	}
 
-	public function add_listing_cat_ids() {
-		$p_id  = $this->add_listing_id;
-		$terms = get_the_terms( $p_id, ATBDP_CATEGORY );
-		$ids   = array();
-		if ( ! empty( $terms ) ) {
-			foreach ( $terms as $term ) {
-				$ids[] = $term->term_id;
-			}
+	public function add_listing_terms( $taxonomy ) {
+		$terms = get_the_terms( $this->add_listing_id, $taxonomy );
+
+		if ( is_wp_error( $terms ) || empty( $terms ) ) {
+			return [];
 		}
-		return $ids;
+
+		return $terms;
+	}
+
+	public function add_listing_term_ids( $taxonomy ) {
+		return directorist_get_object_terms( $this->add_listing_id, $taxonomy, 'term_id' );
+	}
+
+	public function add_listing_cat_ids() {
+		return $this->add_listing_term_ids( ATBDP_CATEGORY );
 	}
 
 	/**
@@ -382,7 +388,7 @@ class Directorist_Listing_Form {
 		$p_id     = $this->add_listing_id;
 		$fm_plan  = get_post_meta( $p_id, '_fm_plans', true );
 		$plan_cat = is_fee_manager_active() ? is_plan_allowed_category( $fm_plan ) : array();
-		$ids      = $this->add_listing_cat_ids();
+		$ids      = $this->add_listing_term_ids( ATBDP_CATEGORY );
 
 		$query_args = array(
 			'parent'             => 0,
@@ -747,7 +753,7 @@ class Directorist_Listing_Form {
 			$type = $get_listing_type;
 		}
 		else {
-			$type = isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : '';
+			$type = isset( $_REQUEST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) ) : '';
 		}
 		if( !empty( $type ) && ! is_numeric( $type ) ) {
 			$term = get_term_by( 'slug', $type, ATBDP_TYPE );

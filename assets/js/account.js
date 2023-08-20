@@ -187,7 +187,7 @@
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {
       e.preventDefault();
-      $('p.status').show().html(directorist.loading_message);
+      $('p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
       $.ajax({
         type: 'POST',
         dataType: 'json',
@@ -202,34 +202,82 @@
         },
         success: function success(data) {
           if ('nonce_faild' in data && data.nonce_faild) {
-            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
 
           if (data.loggedin == true) {
-            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
             document.location.href = directorist.redirect_url;
           } else {
-            $('p.status').html('<span class="status-failed">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-danger"><span>' + data.message + '</span></div>');
           }
         },
         error: function error(data) {
           if ('nonce_faild' in data && data.nonce_faild) {
-            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
 
-          $('p.status').show().html('<span class="status-failed">' + directorist.login_error_message + '</span>');
+          $('p.status').show().html('<div class="directorist-alert directorist-alert-danger"><span>' + directorist.login_error_message + '</span></div>');
         }
       });
       e.preventDefault();
+    });
+    $('form#login .status').on('click', 'a', function (e) {
+      e.preventDefault();
+
+      if ($(this).attr('href') === '#atbdp_recovery_pass') {
+        $("#recover-pass-modal").slideDown().show();
+        window.scrollTo({
+          top: $("#recover-pass-modal").offset().top - 100,
+          behavior: 'smooth'
+        });
+      } else {
+        location.href = href;
+      }
     }); // Alert users to login (only if applicable)
 
     $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
       e.preventDefault();
       alert(directorist.login_alert_message);
       return false;
-    });
+    }); // Remove URL params to avoid show message again and again
+
+    var current_url = location.href;
+    var url = new URL(current_url);
+    url.searchParams.delete('registration_status');
+    url.searchParams.delete('errors'); // url.searchParams.delete('key');
+
+    url.searchParams.delete('password_reset');
+    url.searchParams.delete('confirm_mail'); // url.searchParams.delete('user');
+
+    url.searchParams.delete('verification');
+    url.searchParams.delete('send_verification_email');
+    window.history.pushState(null, null, url.toString());
   });
 })(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/reset-password.js":
+/*!***********************************************************!*\
+  !*** ./assets/src/js/public/components/reset-password.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+jQuery(function ($) {
+  $('.directorist-ResetPassword').on('submit', function () {
+    var form = $(this);
+
+    if (form.find('#password_1').val() != form.find('#password_2').val()) {
+      form.find('.password-not-match').show();
+      return false;
+    }
+
+    form.find('.password-not-match').hide();
+    return true;
+  });
+});
 
 /***/ }),
 
@@ -246,9 +294,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/login */ "./assets/src/js/public/components/login.js");
 /* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
-/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_reset_password__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/reset-password */ "./assets/src/js/public/components/reset-password.js");
+/* harmony import */ var _components_reset_password__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_reset_password__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_3__);
 // General Components
+
 
 
 

@@ -267,7 +267,7 @@ class Client {
     /**
      * Translate function __()
      */
-    public function __trans( $text ) {
+    public function _trans( $text ) {
         return call_user_func( '__', $text, $this->textdomain );
     }
 

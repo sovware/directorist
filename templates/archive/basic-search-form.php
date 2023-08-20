@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-search-form">
+<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-search-form directorist-basic-search">
     <div class="directorist-search-form-box-wrap directorist-search-form__box-wrap">
         <div class="directorist-search-form-box directorist-search-form__box">
             <div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline directorist-search-form__top">

@@ -47,6 +47,5 @@ window.addEventListener('DOMContentLoaded', () => {
         archiveSidebarClose.addEventListener('click', handleSidebarCloseClick);
     }
     body.addEventListener('click', handleOutsideClick);
-
-
+    
 });

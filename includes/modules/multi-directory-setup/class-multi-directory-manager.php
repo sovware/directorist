@@ -2530,7 +2530,7 @@ class Multi_Directory_Manager
                 'template' => 'submission_form_fields',
                 'widgets' => [
                     'title' => [
-                        'label' => __( 'Search Bar', 'directorist' ),
+                        'label' => __( 'Search Box', 'directorist' ),
                         'options' => [
                             'required' => [
                                 'type'  => 'toggle',
@@ -4240,10 +4240,39 @@ class Multi_Directory_Manager
                 'label' => __( 'Number of columns', 'directorist' ),
                 'value' => 3,
             ],
-            'listings_sidebar' => [
+
+            'all_listing_layout' => [
+                'type'  => 'radio',
+                'value' => 'no_sidebar',
+                'label' => __( 'All Listing Layout', 'directorist' ),
+                'options' => [
+                    [
+                        'label' => __('Listing with Left Sidebar', 'directorist'),
+                        'value' => 'left_sidebar',
+                    ],
+                    [
+                        'label' => __('Listing with Right Sidebar', 'directorist'),
+                        'value' => 'right_sidebar',
+                    ],
+                    [
+                        'label' => __('Listing with No Sidebar', 'directorist'),
+                        'value' => 'no_sidebar',
+                    ],
+                ]
+            ],
+
+            'listing_sidebar_top_search_bar' => [
                 'type'  => 'toggle',
-                'label' => __( 'Listings with Left Sidebar', 'directorist' ),
+                'label' => __( 'Hide The Top Search Bar', 'directorist' ),
                 'value' => false,
+                'show_if' => [
+                    'where' => "self.all_listing_layout",
+                    'compare' => 'or',
+                    'conditions' => [
+                        ['key' => 'value', 'compare' => '=', 'value' => 'left_sidebar'],
+                        ['key' => 'value', 'compare' => '=', 'value' => 'right_sidebar'],
+                    ],
+                ],
             ],
 
             'search_form_fields' => [
@@ -4260,13 +4289,13 @@ class Multi_Directory_Manager
                 'value' => [
                     'groups' => [
                         [
-                            'label'     => __( 'Basic', 'directorist' ),
+                            'label'     => __( 'Search Bar', 'directorist' ),
                             'lock'      => true,
                             'draggable' => false,
                             'fields'    => [],
                         ],
                         [
-                            'label'     => __( 'Advanced', 'directorist' ),
+                            'label'     => __( 'Search Filter', 'directorist' ),
                             'lock'      => true,
                             'draggable' => false,
                             'fields'    => [],
@@ -4699,7 +4728,7 @@ class Multi_Directory_Manager
                                 'title' => __( 'Settings', 'directorist'),
                                 'title_align' => 'left',
                                 'fields' => [
-                                    'listings_sidebar'
+                                    'all_listing_layout', 'listing_sidebar_top_search_bar'
                                 ],
                             ],
                         ],

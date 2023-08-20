@@ -246,7 +246,8 @@ class Directorist_Listings {
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
 		$this->options['listing_instant_search']          = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
-		$this->options['listings_sidebar']         		  = get_directorist_type_option( $this->get_current_listing_type(), 'listings_sidebar', false );
+		$this->options['all_listing_layout']         	  = get_directorist_type_option( $this->get_current_listing_type(), 'all_listing_layout', 'no_sidebar' );
+		$this->options['listing_sidebar_top_search_bar']  = get_directorist_type_option( $this->get_current_listing_type(), 'listing_sidebar_top_search_bar', false );
 	}
 
 	// update_search_options
@@ -1077,11 +1078,17 @@ class Directorist_Listings {
 		if ( ! empty( $atts['shortcode'] ) ) {
 			Helper::add_shortcode_comment( $atts['shortcode'] );
 		}
-
-		if( ! empty( $this->options['listings_sidebar'] ) ) {
-			$template = 'sidebar-archive-contents';
-		} else {
-			$template = 'archive-contents';
+		
+		switch ( $this->options['all_listing_layout'] ) {
+			case 'left_sidebar':
+				$template = 'sidebar-archive-contents';
+				break;
+			case 'right_sidebar':
+				$template = 'sidebar-archive-contents';
+				break;
+			case 'no_sidebar':
+				$template = 'archive-contents';
+				break;
 		}
 
 		// Load the template
@@ -1269,6 +1276,17 @@ class Directorist_Listings {
 			$current = $term->term_id;
 		}
 		return (int) $current;
+	}
+
+	public function get_directory_type_slug() {
+		$current_directory_type = $this->get_current_listing_type();
+		
+		if ( is_numeric( $current_directory_type ) ) {
+			$term                   = get_term_by( 'id', $current_directory_type, ATBDP_TYPE) ;
+			$current_directory_type = $term->slug;
+		}
+
+		return $current_directory_type;
 	}
 
 	public function search_category_location_args() {
@@ -2051,6 +2069,29 @@ class Directorist_Listings {
 		public function grid_container_fluid() {
 			$container = is_directoria_active() ? 'container' : 'container-fluid';
 			return apply_filters( 'atbdp_listings_grid_container_fluid', $container );
+		}
+
+		public function sidebar_class() {
+			$class = 'no-sidebar-contents';
+
+			if ( $this->options['all_listing_layout'] ) {
+
+				switch ( $this->options['all_listing_layout'] ) {
+					case 'left_sidebar':
+						$class = 'left-sidebar-contents';
+						break;
+					case 'right_sidebar':
+						$class = 'right-sidebar-contents';
+						break;
+				}
+
+			}
+
+			return $class;
+		}
+
+		public function hide_top_search_bar_on_sidebar_layout() {
+			return $this->options['listing_sidebar_top_search_bar'] ? $this->options['listing_sidebar_top_search_bar'] : false;
 		}
 
 		public function sortby_dropdown_template() {

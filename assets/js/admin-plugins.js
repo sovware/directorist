@@ -109,14 +109,18 @@ jQuery(document).ready(function ($) {
     var table = $(e.target).closest('table');
     $('td input:checkbox', table).prop('checked', this.checked);
   });
+
   if ($(extWrapper).innerHeight() > 250) {
     $(extWrapper).addClass('ext-height-fix');
     $(moreLink).show();
     $(extWrapper).css('padding-bottom', '60px');
   }
+
   $(moreLink).on('click', function (e) {
     var _this = this;
+
     e.preventDefault();
+
     if ($(extWrapper).hasClass('ext-height-fix')) {
       $(extWrapper).animate({
         height: '100%'
@@ -131,6 +135,7 @@ jQuery(document).ready(function ($) {
       }, 1000);
     }
   });
+
   if ($(tbody).html() === '') {
     $('.directorist-extensions').hide();
   }

@@ -4240,11 +4240,6 @@ class Multi_Directory_Manager
                 'label' => __( 'Number of columns', 'directorist' ),
                 'value' => 3,
             ],
-            'listings_sidebar' => [
-                'type'  => 'toggle',
-                'label' => __( 'Listings with Left Sidebar', 'directorist' ),
-                'value' => false,
-            ],
 
             'all_listing_layout' => [
                 'type'  => 'radio',
@@ -4733,7 +4728,7 @@ class Multi_Directory_Manager
                                 'title' => __( 'Settings', 'directorist'),
                                 'title_align' => 'left',
                                 'fields' => [
-                                    'listings_sidebar', 'all_listing_layout', 'listing_sidebar_top_search_bar'
+                                    'all_listing_layout', 'listing_sidebar_top_search_bar'
                                 ],
                             ],
                         ],

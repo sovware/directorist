@@ -1637,7 +1637,7 @@ __webpack_require__.r(__webpack_exports__);
               });
               $.ajax({
                 url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-                type: 'POST',
+                type: 'GET',
                 data: {},
                 success: function success(data) {
                   var res = '';

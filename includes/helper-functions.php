@@ -2325,10 +2325,6 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                     if (!empty($settings['hide_empty']) && 0 == $count) continue;
                 }
                 $selected = ($term_id == $term->term_id) ? "selected" : '';
-<<<<<<< HEAD
-                $custom_field    = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
-                $html .= '<option data-icon = "' . esc_url( $icon_src ) . '" data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
-=======
 
                 $custom_field = '';
 
@@ -2337,7 +2333,6 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                 }
 
                 $html .= '<option data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
->>>>>>> 7033b3cd23b9fbcad2edc3372778e3f02e97b68b
                 $html .= $prefix . $term->name;
                 if (!empty($settings['show_count'])) {
                     $html .= ' (' . $count . ')';

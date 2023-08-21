@@ -114,13 +114,6 @@ class Directorist_Listings {
 	public $display_title_map;
 	public $display_address_map;
 	public $display_direction_map;
-<<<<<<< HEAD
-	public $display_favorite_badge_map;
-	public $display_user_avatar_map;
-	public $display_review_map;
-	public $display_price_map;
-	public $display_phone_map;
-=======
 	public $filter_button_text;
 
 	protected $deferred_data = array();
@@ -129,7 +122,6 @@ class Directorist_Listings {
 		'categories_fields',
 		'locations_fields',
 	);
->>>>>>> 7033b3cd23b9fbcad2edc3372778e3f02e97b68b
 
 	public function __construct( $atts = array(), $type = 'listing', $query_args = false, array $caching_options = [] ) {
 		$this->atts = !empty( $atts ) ? $atts : array();
@@ -1582,70 +1574,6 @@ class Directorist_Listings {
 			echo "</div>";
 		}
 
-<<<<<<< HEAD
-		public function get_favorite_badge() {
-			Helper::get_template( 'archive/fields/favorite_badge', array( 'listings' => $this ) );
-		}
-
-		public function get_user_avatar() {
-			Helper::get_template( 'archive/fields/user_avatar', array( 'listings' => $this ) );
-		}
-
-		public function get_listing_review() {
-			Helper::get_template( 'archive/fields/rating', array( 'listings' => $this ) );
-		}
-
-		public function get_price() {
-			Helper::get_template( 'archive/fields/pricing', array( 'listings' => $this ) );
-		}
-
-		function loop_get_the_thumbnail( $class = '' ) {
-			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
-
-			$id = get_the_ID();
-			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
-			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
-			$listing_img       = get_post_meta($id, '_listing_img', true);
-			$thumbnail_img_id  = array_filter( array_merge( (array) $listing_prv_img, (array) $listing_img ) );
-
-			if ( empty( $thumbnail_img_id ) ) {
-				$thumbnail_img_id = $default_image_src;
-				$image_alt = esc_html( get_the_title( $id ) );
-				return "<img src='$default_image_src' alt='$image_alt' class='$class' />";
-			}
-
-			$image_count = count( $thumbnail_img_id );
-
-			if ( 1 === (int) $image_count ) {
-				$image_src = atbdp_get_image_source( reset( $thumbnail_img_id ), $image_quality );
-				$image_alt = get_post_meta( reset( $thumbnail_img_id ), '_wp_attachment_image_alt', true );
-				$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( reset( $thumbnail_img_id ) ) );
-
-				return "<img src='$image_src' alt='$image_alt' class='$class' />";
-
-			} else {
-				ob_start();
-				echo "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='1500' data-sw-autoplay='false' data-sw-responsive='{}' >
-				<div class='swiper-wrapper'>";
-				foreach ( $thumbnail_img_id as $img_id  ) {
-					$image_src = atbdp_get_image_source( $img_id, $image_quality );
-					$image_alt = get_post_meta($img_id, '_wp_attachment_image_alt', true);
-					$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $img_id ) );
-					echo "<div class='swiper-slide'>
-							<img src='$image_src' alt='$image_alt' class='$class' />
-						</div>";
-				}
-				echo "</div>
-						<div class='directorist-swiper__navigation'>
-							<div class='directorist-swiper__nav directorist-swiper__nav--prev directorist-swiper__nav--prev-listing'>".directorist_icon('las la-angle-left', false)."</div>
-							<div class='directorist-swiper__nav directorist-swiper__nav--next directorist-swiper__nav--next-listing'>".directorist_icon('las la-angle-right', false)."</div>
-						</div>
-
-						<div class='directorist-swiper__pagination directorist-swiper__pagination--listing'></div>
-					</div>";
-				return ob_get_clean();
-			}
-=======
 		protected function cache_thumbnails() {
 			if ( $this->thumbnails_cached || empty( $this->query_results->ids ) ) {
 				return;
@@ -1684,7 +1612,6 @@ class Directorist_Listings {
 			}
 
 			return '<img class="' . esc_attr( $class ) . '" src="' . esc_url( $image_url ) . '" alt="' . esc_attr( $image_alt ) . '"/>';
->>>>>>> 7033b3cd23b9fbcad2edc3372778e3f02e97b68b
 		}
 
 		public function loop_thumb_card_template() {

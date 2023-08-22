@@ -226,7 +226,7 @@
         var res = "";
         $.ajax({
           url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-          type: 'POST',
+          type: 'GET',
           data: {},
           success: function success(data) {
             //console.log(data);
@@ -254,7 +254,7 @@
         var lng = position.coords.longitude;
         $.ajax({
           url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
-          type: 'POST',
+          type: 'GET',
           data: {},
           success: function success(data) {
             $('#address_widget').val(data.display_name);

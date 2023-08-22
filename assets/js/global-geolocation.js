@@ -215,7 +215,7 @@ window.addEventListener('DOMContentLoaded', function () {
           var locIcon = event.target;
           $.ajax({
             url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
-            type: 'POST',
+            type: 'GET',
             data: {},
             success: function success(data) {
               $('.directorist-location-js, .atbdp-search-address').val(data.display_name);

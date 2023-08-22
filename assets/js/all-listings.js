@@ -1487,10 +1487,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   /* Directorist instant search */
 
 
-  $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form, .directorist-instant-search .directorist-search-form", function (e) {
+  $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form, .directorist-instant-search .directorist-search-form, .directorist-instant-search .directorist-basic-search, .directorist-instant-search .directorist-advanced-search", function (e) {
     e.preventDefault();
     var instant_search_element = $(this).closest('.directorist-instant-search');
     var tag = [];
+    var search_by_rating = [];
     var price = [];
     var custom_field = {};
     $(this).find('input[name^="in_tag["]:checked').each(function (index, el) {
@@ -1609,6 +1610,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show');
           instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').hide();
           $(document).scrollTop(instant_search_element.offset().top);
+          closeAllSearchModal();
         },
         success: function success(html) {
           if (html.search_result) {
@@ -1623,6 +1625,95 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       });
     }
   });
+  /* Directorist instant reset */
+
+  $('body').on("click", ".directorist-instant-search .directorist-btn-reset-js", function (e) {
+    e.preventDefault();
+    var instant_search_element = $(this).closest('.directorist-instant-search');
+    var tag = [];
+    var search_by_rating = [];
+    var price = [];
+    var custom_field = {};
+    $(this).find('input[name^="in_tag["]:checked').each(function (index, el) {
+      tag.push($(el).val());
+    });
+    $(this).find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+      search_by_rating.push($(el).val());
+    });
+    $(this).find('input[name^="price["]').each(function (index, el) {
+      price.push($(el).val());
+    });
+    $(this).find('[name^="custom_field"]').each(function (index, el) {
+      var name = $(el).attr('name');
+      var type = $(el).attr('type');
+      var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
+
+      if ('radio' === type) {
+        $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
+          value = $(this).val();
+          custom_field[post_id] = value;
+        });
+      } else if ('checkbox' === type) {
+        post_id = post_id.split('[]')[0];
+        $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
+          var checkValue = [];
+          value = $(this).val();
+          checkValue.push(value);
+          custom_field[post_id] = checkValue;
+        });
+      } else {
+        var value = $(el).val();
+        custom_field[post_id] = value;
+      }
+    });
+    var view_href = instant_search_element.find(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
+    var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
+    var directory_type = getURLParameter(type_href, 'directory_type');
+    var data_atts = instant_search_element.attr('data-atts');
+    var data = {
+      action: 'directorist_instant_search',
+      _nonce: directorist.ajax_nonce,
+      current_page_id: directorist.current_page_id,
+      data_atts: JSON.parse(data_atts)
+    };
+
+    var form_data = _objectSpread({}, data);
+
+    if (view && view.length) {
+      form_data.view = view;
+    }
+
+    if (directory_type && directory_type.length) {
+      form_data.directory_type = directory_type;
+    }
+
+    update_instant_search_url(form_data);
+    $.ajax({
+      url: directorist.ajaxurl,
+      type: "POST",
+      data: form_data,
+      beforeSend: function beforeSend() {
+        instant_search_element.find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", true);
+        instant_search_element.find('.directorist-archive-items').addClass('atbdp-form-fade');
+        instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show');
+        instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').hide();
+        $(document).scrollTop(instant_search_element.offset().top);
+      },
+      success: function success(html) {
+        if (html.search_result) {
+          instant_search_element.find('.directorist-header-found-title span').text(html.count);
+          instant_search_element.find('.directorist-archive-items').replaceWith(html.search_result);
+          instant_search_element.find('.directorist-archive-items').removeClass('atbdp-form-fade');
+          instant_search_element.find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false);
+          window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
+          window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+        }
+      }
+    });
+  });
   $('body').on("submit", ".widget .default-ad-search:not(.directorist_single) .directorist-advanced-filter__form", function (e) {
     if ($('.directorist-instant-search').length) {
       e.preventDefault();
@@ -1631,13 +1722,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
       var tag = [];
       var price = [];
-      var _search_by_rating = [];
+      var search_by_rating = [];
       var custom_field = {};
       $(this).find('input[name^="in_tag["]:checked').each(function (index, el) {
         tag.push($(el).val());
       });
       $(this).find('input[name^="search_by_rating["]:checked').each(function (index, el) {
-        _search_by_rating.push($(el).val());
+        search_by_rating.push($(el).val());
       });
       $(this).find('input[name^="price["]').each(function (index, el) {
         price.push($(el).val());
@@ -1678,7 +1769,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         current_page_id: directorist.current_page_id,
         in_tag: tag,
         price: price,
-        search_by_rating: _search_by_rating,
+        search_by_rating: search_by_rating,
         custom_field: custom_field,
         data_atts: JSON.parse(data_atts)
       };
@@ -2335,14 +2426,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       });
     }
   });
-  $('body').on("submit", ".listing-with-sidebar .directorist-basic-search, .listing-with-sidebar .directorist-advanced-search", function (e) {
-    e.preventDefault();
-    var basic_data = $('.listing-with-sidebar .directorist-basic-search').serialize();
-    var advanced_data = $('.listing-with-sidebar .directorist-advanced-search').serialize();
-    var actionValue = $('.directorist-advanced-search').attr('action');
-    var url = actionValue + '?' + basic_data + '&' + advanced_data;
-    window.location.href = url;
-  });
+
+  if ($('.directorist-instant-search').length === 0) {
+    $('body').on("submit", ".listing-with-sidebar .directorist-basic-search, .listing-with-sidebar .directorist-advanced-search", function (e) {
+      e.preventDefault();
+      var basic_data = $('.listing-with-sidebar .directorist-basic-search').serialize();
+      var advanced_data = $('.listing-with-sidebar .directorist-advanced-search').serialize();
+      var action_value = $('.directorist-advanced-search').attr('action');
+      var url = action_value + '?' + basic_data + '&' + advanced_data;
+      window.location.href = url;
+    });
+  }
 })(jQuery);
 
 /***/ }),

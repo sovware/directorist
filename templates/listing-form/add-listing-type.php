@@ -23,6 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 							<?php 
 							if( ! empty( $value['data']['icon'] ) ) {
 								directorist_icon( $value['data']['icon'] ); 
+							} else {
+								directorist_icon( 'las la-home' ); 
 							}
 							?>
 							<span><?php echo esc_html( $value['name'] );?></span>

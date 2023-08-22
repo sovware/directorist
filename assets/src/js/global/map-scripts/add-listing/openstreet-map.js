@@ -45,7 +45,7 @@ import {
                 $('#manual_lng').val(position.lng);
                 $.ajax({
                     url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${position.lng}&lat=${position.lat}`,
-                    type: 'POST',
+                    type: 'GET',
                     data: {},
                     success: function (data) {
                         $('.directorist-location-js').val(data.display_name);
@@ -132,7 +132,7 @@ import {
 
                     $.ajax({
                         url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
-                        type: 'POST',
+                        type: 'GET',
                         data: {},
                         success: function (data) {
                             let res = '';

@@ -35,4 +35,13 @@
             }
         });
     });
+
+    /* Elementor Edit Mode */
+    $(window).on('elementor/frontend/init', function () {
+        console.log('Check Elementor');
+        setTimeout(function() {
+            console.log('Check Elementor Modal');
+        }, 3000);
+
+    });
 })(jQuery);

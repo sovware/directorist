@@ -135,7 +135,7 @@ __webpack_require__.r(__webpack_exports__);
         $('#manual_lng').val(position.lng);
         $.ajax({
           url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(position.lng, "&lat=").concat(position.lat),
-          type: 'POST',
+          type: 'GET',
           data: {},
           success: function success(data) {
             $('.directorist-location-js').val(data.display_name);
@@ -219,7 +219,7 @@ __webpack_require__.r(__webpack_exports__);
           });
           $.ajax({
             url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-            type: 'POST',
+            type: 'GET',
             data: {},
             success: function success(data) {
               var res = '';

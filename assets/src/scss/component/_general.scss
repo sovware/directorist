@@ -250,6 +250,9 @@ button[type="submit"] {
 }
 
 /* Login/Signup Form CSS */
+#recover-pass-modal {
+  display: none;
+}
 .directorist-login-wrapper #recover-pass-modal .directorist-btn{
   margin-top: 15px;
   &:hover{

@@ -144,19 +144,6 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 								<button class="directorist-btn directorist-btn-block directorist-btn-primary directorist-author__form__btn" type="submit" value="<?php echo esc_attr( $log_button ); ?>" name="submit"><?php echo esc_html( $log_button ); ?></button>
 								<?php wp_nonce_field( 'ajax-login-nonce', 'security' );?>
 							</div>
-
-							<div class="keep_signed directorist-checkbox directorist-mb-15">
-								<?php if ( $display_rememberMe ) : ?>
-									<input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked>
-									<label for="keep_signed_in" class="directorist-checkbox__label not_empty">
-										<?php echo esc_html( $log_rememberMe ); ?>
-									</label>
-								<?php endif; ?>
-							</div>
-
-							<?php if ( $display_recpass ) :
-								printf( '<p><a href="" class="atbdp_recovery_pass">%s</a></p>', esc_html( $recpass_text ) );
-							endif; ?>
 						</form>
 
 						<div class="atbd_social_login">

@@ -476,6 +476,10 @@
             height: 14px;
             border-radius: 100%;
             border: 2px solid #c6d0dc;
+            @media screen and (max-width: 575px) {
+              left: unset;
+              right: 3px;
+            }
           }
           &:before {
             left: 0;

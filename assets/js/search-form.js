@@ -504,19 +504,30 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
     var selected_item_id = $(item).data('selected-id');
     var selected_item_label = $(item).data('selected-label');
 
-    if (selected_item_id) {
-      var option = new Option(selected_item_label, selected_item_id, true, true);
-      $(item).append(option);
-      $(item).trigger({
-        type: 'select2:select',
-        params: {
-          data: {
-            id: selected_item_id,
-            text: selected_item_label
+    var setup_selected_items = function setup_selected_items(element, selected_id, selected_label) {
+      if (!element || !selected_id) {
+        return;
+      }
+
+      var selected_ids = "".concat(selected_id).split(',');
+      var selected_labels = selected_label ? "".concat(selected_label).split(',') : [];
+      selected_ids.forEach(function (id, index) {
+        var label = selected_labels.length >= index + 1 ? selected_labels[index] : '';
+        var option = new Option(label, id, true, true);
+        $(element).append(option);
+        $(element).trigger({
+          type: 'select2:select',
+          params: {
+            data: {
+              id: id,
+              text: selected_item_label
+            }
           }
-        }
+        });
       });
-    }
+    };
+
+    setup_selected_items(item, selected_item_id, selected_item_label);
   });
 }
 

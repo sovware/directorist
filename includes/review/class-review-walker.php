@@ -137,7 +137,9 @@ class Walker extends Walker_Comment {
 								<h2 class="fn"><?php comment_author_link(); ?> <time datetime="<?php echo esc_attr( get_comment_date( 'Y-m-d H:i:s' ) ); ?>"><?php comment_date( apply_filters( 'directorist_review_date_format', 'j F, Y' ) ); ?></time></h2>
 
 								<?php if ( $is_review && $rating ) : ?>
-									<span class="directorist-rating-stars">
+									<span class="directorist-rating-stars<?php 
+									echo esc_html( $rating > 4 ? 'excellent' : ($rating > 3 ? 'very-good' : ($rating > 2 ? 'average' : ( $rating > 1 ? 'poor' : 'terrible') ) ) ); 
+									?>">
 										<?php Markup::show_rating_stars( $rating ); ?>
 									</span>
 								<?php endif; ?>

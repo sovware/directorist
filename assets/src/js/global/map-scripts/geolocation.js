@@ -120,7 +120,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                     $.ajax({
                         url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${lng}&lat=${lat}`,
-                        type: 'POST',
+                        type: 'GET',
                         data: {},
                         success(data) {
                             $('.directorist-location-js, .atbdp-search-address').val(data.display_name);

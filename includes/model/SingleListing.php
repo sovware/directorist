@@ -504,7 +504,7 @@ class Directorist_Single_Listing {
 		}
 	}
 
-	public function get_slider_data( $data ) {
+	public function get_slider_data( $data = null ) {
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 

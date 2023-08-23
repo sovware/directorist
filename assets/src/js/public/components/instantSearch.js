@@ -1109,5 +1109,18 @@ import {
 
     }
 
+    function initObserver() {
+        const targetNode = document.querySelector('.directorist-range-slider');
+        if(targetNode){
+            const observer = new MutationObserver((mutationsList, observer) => {
+                var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
+                filterSidebar(sidebarElm);
+            });
+            observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
+        }
+    }
+    initObserver();
+    
+
 })(jQuery);
 

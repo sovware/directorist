@@ -2439,6 +2439,24 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       window.location.href = url;
     });
   }
+
+  function initObserver() {
+    var targetNode = document.querySelector('.directorist-range-slider');
+
+    if (targetNode) {
+      var observer = new MutationObserver(function (mutationsList, observer) {
+        var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
+        filterSidebar(sidebarElm);
+      });
+      observer.observe(targetNode, {
+        attributes: true,
+        childList: true,
+        subtree: true
+      });
+    }
+  }
+
+  initObserver();
 })(jQuery);
 
 /***/ }),

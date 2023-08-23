@@ -731,7 +731,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$states['listing_is_featured']    = ( ! empty( $posted_data['listing_type'] ) && ( 'featured' === $posted_data['listing_type'] ) ) ? true : false;
 				$states['is_monetizable']         = ( $states['monetization_is_enable'] && $states['featured_enabled'] && $states['listing_is_featured'] ) ? true : false;
 
-				if ( $states['is_monetizable'] ) {
+				if ( $states['is_monetizable'] && ! is_fee_manager_active() ) {
 					$payment_status            = Directorist\Helper::get_listing_payment_status( $post_id );
 					$rejectable_payment_status = array( 'failed', 'cancelled', 'refunded' );
 

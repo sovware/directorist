@@ -100,10 +100,11 @@ class ATBDP_Metabox {
 	
 		if( $terms ) {
 			foreach( $terms as $term ) {
-				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
-				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
-				$checked        = in_array( $term->term_id, $saving_values, true ) ? 'checked' : '';
-				if( in_array( $term_id, $directory_type, true ) ) { ?>
+				$directory_type     = get_term_meta( $term->term_id, '_directory_type', true );
+				$directory_type     = ! empty ( $directory_type ) ? $directory_type : array();
+				$directory_type_int = array_map( 'intval', $directory_type );
+				$checked            = in_array( $term->term_id, $saving_values, true ) ? 'checked' : '';
+				if ( in_array( $term_id, $directory_type_int, true ) ) { ?>
 					<li id="<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>">
 						<label class="selectit">
 							<input value="<?php echo esc_attr( $term->term_id ); ?>" type="checkbox" name="tax_input[<?php echo esc_attr( $taxonomy_id ); ?>][]" id="in-<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>" <?php echo ! empty( $checked ) ? esc_attr( $checked ) : ''; ?>>

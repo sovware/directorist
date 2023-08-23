@@ -949,7 +949,7 @@ import {
         });
     });
 
-    function filterSidebar(sidebarElm) {
+    function filterListing(sidebarElm) {
         let _this            = sidebarElm;
         let tag              = [];
         let price            = [];
@@ -1050,49 +1050,47 @@ import {
         const priceFieldEmpty      = data.price.every(item => !item);
         const ratingFieldEmpty     = data.search_by_rating.every(item => !item);
         const customFieldsAreEmpty = Object.values(data.custom_field).every(item => !item);
+        
+        if (view && view.length) {
+            form_data.view = view
+        }
 
-        // if ( !allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty || !ratingFieldEmpty ) {
+        if (directory_type && directory_type.length) {
+            form_data.directory_type = directory_type;
+        }
 
-            if (view && view.length) {
-                form_data.view = view
-            }
+        update_instant_search_url(form_data);
 
-            if (directory_type && directory_type.length) {
-                form_data.directory_type = directory_type;
-            }
-
-            update_instant_search_url(form_data);
-
-            $.ajax({
-                url: directorist.ajaxurl,
-                type: "POST",
-                data: form_data,
-                beforeSend: function () {
-                    $(_this).closest('.directorist-instant-search').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", true);
-                    $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').addClass('atbdp-form-fade');
-                    $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show')
-                    $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').hide();
-                    $(document).scrollTop($(_this).closest(".directorist-instant-search").offset().top);
-                },
-                success: function (html) {
-                    if (html.search_result) {
-                        $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title span').text(html.count);
-                        $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').replaceWith(html.search_result);
-                        $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
-                        $(_this).closest('.directorist-instant-search').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false)
-                        window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
-                        window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
-                    }
+        $.ajax({
+            url: directorist.ajaxurl,
+            type: "POST",
+            data: form_data,
+            beforeSend: function () {
+                $(_this).closest('.directorist-instant-search').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", true);
+                $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').addClass('atbdp-form-fade');
+                $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show')
+                $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').hide();
+                $(document).scrollTop($(_this).closest(".directorist-instant-search").offset().top);
+            },
+            success: function (html) {
+                if (html.search_result) {
+                    $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title span').text(html.count);
+                    $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').replaceWith(html.search_result);
+                    $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
+                    $(_this).closest('.directorist-instant-search').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false)
+                    window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
+                    window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
                 }
-            });
-        // }
+            }
+        });
+        
     }
 
     // sidebar on click searching
     $('body').on("change", ".directorist-instant-search .listing-with-sidebar", function (e) {
         e.preventDefault();
         var sidebarElm = $(this);
-        filterSidebar(sidebarElm);
+        filterListing(sidebarElm);
     });
     
     if( $('.directorist-instant-search').length === 0 ) {
@@ -1110,17 +1108,21 @@ import {
     }
 
     function initObserver() {
-        const targetNode = document.querySelector('.directorist-range-slider');
+        const targetNode = document.querySelector('.directorist-range-slider-wrap .directorist-range-slider');
         if(targetNode){
-            const observer = new MutationObserver((mutationsList, observer) => {
-                var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
-                filterSidebar(sidebarElm);
+            const observer = new MutationObserver((mutationList, observer) => {
+                for (const mutation of mutationList) {
+                    if(mutation.attributeName == 'value') {
+                        var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
+                        filterListing(sidebarElm);
+                    }
+                }
             });
             observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
         }
     }
     initObserver();
-    
 
+    
 })(jQuery);
 

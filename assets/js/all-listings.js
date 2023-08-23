@@ -1356,6 +1356,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
 
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -2287,7 +2293,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     });
   });
 
-  function filterSidebar(sidebarElm) {
+  function filterListing(sidebarElm) {
     var _this = sidebarElm;
     var tag = [];
     var price = [];
@@ -2387,7 +2393,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     });
     var customFieldsAreEmpty = Object.values(data.custom_field).every(function (item) {
       return !item;
-    }); // if ( !allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty || !ratingFieldEmpty ) {
+    });
 
     if (view && view.length) {
       form_data.view = view;
@@ -2419,14 +2425,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
         }
       }
-    }); // }
+    });
   } // sidebar on click searching
 
 
   $('body').on("change", ".directorist-instant-search .listing-with-sidebar", function (e) {
     e.preventDefault();
     var sidebarElm = $(this);
-    filterSidebar(sidebarElm);
+    filterListing(sidebarElm);
   });
 
   if ($('.directorist-instant-search').length === 0) {
@@ -2441,12 +2447,27 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   }
 
   function initObserver() {
-    var targetNode = document.querySelector('.directorist-range-slider');
+    var targetNode = document.querySelector('.directorist-range-slider-wrap .directorist-range-slider');
 
     if (targetNode) {
-      var observer = new MutationObserver(function (mutationsList, observer) {
-        var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
-        filterSidebar(sidebarElm);
+      var observer = new MutationObserver(function (mutationList, observer) {
+        var _iterator = _createForOfIteratorHelper(mutationList),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var mutation = _step.value;
+
+            if (mutation.attributeName == 'value') {
+              var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
+              filterListing(sidebarElm);
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
       });
       observer.observe(targetNode, {
         attributes: true,

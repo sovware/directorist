@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.7.0
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -17,7 +17,9 @@ if( $listing->contact_owner_form_disabled() ) {
 	<div class="directorist-card__header">
 
 		<h4 class="directorist-card__header--title">
-			<span class="directorist-card__header-icon"><?php directorist_icon( $icon );?></span>
+			<?php if ( ! empty( $icon ) ) : ?>
+				<span class="directorist-card__header-icon"><?php directorist_icon( $icon );?></span>
+			<?php endif; ?>
 			<span class="directorist-card__header-text"><?php echo esc_html( $label );?></span>
 		</h4>
 

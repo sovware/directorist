@@ -3,7 +3,7 @@
  * Comment and review template for single view.
  *
  * @since   7.1.0
- * @version 7.7.0
+ * @version 8.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -36,7 +36,9 @@ $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
 		<div class="directorist-card__header directorist-review-content__header <?php if ( ! have_comments() ) : ?>directorist-review-content__header--noreviews<?php endif;?>">
 			<?php if ( ! have_comments() ) : ?><?php endif;?>
 			<h4 class="directorist-card__header--title">
-				<span class="directorist-card__header-icon"><?php directorist_icon( $section_icon );?> </span>
+				<?php if ( ! empty( $section_icon ) ) : ?>
+					<span class="directorist-card__header-icon"><?php directorist_icon( $section_icon ); ?> </span>
+				<?php endif; ?>
 				<span class="directorist-card__header-text"><?php echo esc_html( $section_label ); ?></span>
 			</h4>
 

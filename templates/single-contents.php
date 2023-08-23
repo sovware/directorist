@@ -61,7 +61,7 @@ $listing = Directorist_Single_Listing::instance();
 
 						<div class="directorist-alert__content">
 
-							<span>Single listing view is disabled</span>
+							<span><?php esc_html_e( 'Single listing view is disabled', 'directorist' ); ?></span>
 
 						</div>
 

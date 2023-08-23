@@ -1985,22 +1985,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
 
-                'publish_date_format' => [
-                    'label' => __('Publish Date Format', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'time_ago',
-                    'options' => [
-                        [
-                            'value' => 'time_ago',
-                            'label' => __('Number of Days Ago', 'directorist'),
-                        ],
-                        [
-                            'value' => 'publish_date',
-                            'label' => __('Standard Date Format', 'directorist'),
-                        ],
-                    ],
-                ],
-
                 'paginate_all_listings' => [
                     'type' => 'toggle',
                     'label' => __('Paginate Listings'),
@@ -4600,7 +4584,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'display_listings_header', 'all_listing_title', 'listing_instant_search', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'address_location', 'publish_date_format', 'paginate_all_listings', 'all_listing_page_items'
+                                        'display_listings_header', 'all_listing_title', 'listing_instant_search', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'address_location', 'paginate_all_listings', 'all_listing_page_items'
                                     ],
                                 ],
                             ] ),

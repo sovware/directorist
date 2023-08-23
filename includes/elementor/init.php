@@ -21,7 +21,7 @@ class Widget_Init {
 		$this->init();
 		add_action( 'elementor/editor/after_enqueue_styles',    array( $this, 'editor_style' ) );
 		add_action( 'elementor/elements/categories_registered', array( $this, 'widget_categoty' ) );
-		add_action( 'elementor/widgets/register',     array( $this, 'register_widgets' ) );
+		// add_action( 'elementor/widgets/register',     array( $this, 'register_widgets' ) );
 	}
 
 	public static function instance() {

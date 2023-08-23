@@ -949,41 +949,39 @@ import {
         });
     });
 
-    // sidebar on click searching
-    $('body').on("change", ".directorist-instant-search .listing-with-sidebar", function (e) {
-        e.preventDefault();
-        let _this            = $(this);
+    function filterSidebar(sidebarElm) {
+        let _this            = sidebarElm;
         let tag              = [];
         let price            = [];
         let search_by_rating = [];
         let custom_field     = {};
 
-        $(this).find('input[name^="in_tag["]:checked').each(function (index, el) {
-            tag.push($(el).val())
+        sidebarElm.find('input[name^="in_tag[]"]:checked').each(function (index, el) {
+            tag.push($(el).val());
         });
 
-        $(this).find('input[name^="search_by_rating["]:checked').each(function (index, el) {
+        sidebarElm.find('input[name^="search_by_rating[]"]:checked').each(function (index, el) {
             search_by_rating.push($(el).val())
         });
 
-        $(this).find('input[name^="price["]').each(function (index, el) {
+        sidebarElm.find('input[name^="price["]').each(function (index, el) {
             price.push($(el).val())
         });
 
-        $(this).find('[name^="custom_field"]').each(function (index, el) {
+        sidebarElm.find('[name^="custom_field"]').each(function (index, el) {
             var name = $(el).attr('name');
             var type = $(el).attr('type');
             var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
             if ('radio' === type) {
                 $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
-                    value                 = $(this).val();
+                    value                 = sidebarElm.val();
                     custom_field[post_id] = value;
                 });
             } else if ('checkbox' === type) {
                 post_id = post_id.split('[]')[0];
                 $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
                     var checkValue = [];
-                        value      = $(this).val();
+                        value      = sidebarElm.val();
                     checkValue.push(value);
                     custom_field[post_id] = checkValue;
                 });
@@ -1013,33 +1011,33 @@ import {
         };
 
         var fields = {
-            q               : $(this).find('input[name="q"]').val(),
-            in_cat          : $(this).find('.bdas-category-search, .directorist-category-select').val(),
-            in_loc          : $(this).find('.bdas-category-location, .directorist-location-select').val(),
-            price_range     : $(this).find("input[name='price_range']:checked").val(),
-            address         : $(this).find('input[name="address"]').val(),
-            zip             : $(this).find('input[name="zip"]').val(),
-            fax             : $(this).find('input[name="fax"]').val(),
-            email           : $(this).find('input[name="email"]').val(),
-            website         : $(this).find('input[name="website"]').val(),
-            phone           : $(this).find('input[name="phone"]').val(),
+            q               : sidebarElm.find('input[name="q"]').val(),
+            in_cat          : sidebarElm.find('.bdas-category-search, .directorist-category-select').val(),
+            in_loc          : sidebarElm.find('.bdas-category-location, .directorist-location-select').val(),
+            price_range     : sidebarElm.find("input[name='price_range']:checked").val(),
+            address         : sidebarElm.find('input[name="address"]').val(),
+            zip             : sidebarElm.find('input[name="zip"]').val(),
+            fax             : sidebarElm.find('input[name="fax"]').val(),
+            email           : sidebarElm.find('input[name="email"]').val(),
+            website         : sidebarElm.find('input[name="website"]').val(),
+            phone           : sidebarElm.find('input[name="phone"]').val(),
         };
 
         //business hours
         if ( $('input[name="open_now"]').is(':checked') ) {
-            fields.open_now = $(this).find('input[name="open_now"]').val();
+            fields.open_now = sidebarElm.find('input[name="open_now"]').val();
         }
 
         if (fields.address && fields.address.length) {
-            fields.cityLat = $(this).find('#cityLat').val();
-            fields.cityLng = $(this).find('#cityLng').val();
-            fields.miles = $(this).find('.directorist-range-slider-value').val();
+            fields.cityLat = sidebarElm.find('#cityLat').val();
+            fields.cityLng = sidebarElm.find('#cityLng').val();
+            fields.miles = sidebarElm.find('.directorist-range-slider-value').val();
         }
 
         if (fields.zip && fields.zip.length) {
-            fields.zip_cityLat = $(this).find('.zip-cityLat').val();
-            fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-            fields.miles = $(this).find('.directorist-range-slider-value').val();
+            fields.zip_cityLat = sidebarElm.find('.zip-cityLat').val();
+            fields.zip_cityLng = sidebarElm.find('.zip-cityLng').val();
+            fields.miles = sidebarElm.find('.directorist-range-slider-value').val();
         }
 
         var form_data = {
@@ -1053,7 +1051,7 @@ import {
         const ratingFieldEmpty     = data.search_by_rating.every(item => !item);
         const customFieldsAreEmpty = Object.values(data.custom_field).every(item => !item);
 
-        if ( !allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty || !ratingFieldEmpty ) {
+        // if ( !allFieldsAreEmpty || !tagFieldEmpty || !priceFieldEmpty || !customFieldsAreEmpty || !ratingFieldEmpty ) {
 
             if (view && view.length) {
                 form_data.view = view
@@ -1087,7 +1085,14 @@ import {
                     }
                 }
             });
-        }
+        // }
+    }
+
+    // sidebar on click searching
+    $('body').on("change", ".directorist-instant-search .listing-with-sidebar", function (e) {
+        e.preventDefault();
+        var sidebarElm = $(this);
+        filterSidebar(sidebarElm);
     });
     
     if( $('.directorist-instant-search').length === 0 ) {
@@ -1104,4 +1109,18 @@ import {
 
     }
 
+    function initObserver() {
+        const targetNode = document.querySelector('.directorist-range-slider');
+        if(targetNode){
+            const observer = new MutationObserver((mutationsList, observer) => {
+                var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
+                filterSidebar(sidebarElm);
+            });
+            observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
+        }
+    }
+    initObserver();
+    
+
 })(jQuery);
+

@@ -2291,7 +2291,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
       }
     });
-  }); // sidebar on click searching
+  });
 
   function filterListing(sidebarElm) {
     var _this = sidebarElm;

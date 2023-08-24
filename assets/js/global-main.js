@@ -96,7 +96,7 @@
 ;
 
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  function modalToggle() {
     // Recovery Password Modal
     $("#recover-pass-modal").hide();
     $(".atbdp_recovery_pass").on("click", function (e) {
@@ -125,13 +125,16 @@
         directoristModal.classList.remove('directorist-show');
       }
     });
+  }
+
+  window.addEventListener('DOMContentLoaded', function () {
+    modalToggle();
   });
   /* Elementor Edit Mode */
 
   $(window).on('elementor/frontend/init', function () {
-    console.log('Check Elementor');
     setTimeout(function () {
-      console.log('Check Elementor Modal');
+      modalToggle();
     }, 3000);
   });
 })(jQuery);

@@ -789,7 +789,7 @@ import { directorist_range_slider } from './range-slider';
 
                             $.ajax({
                                 url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-                                type: 'POST',
+                                type: 'GET',
                                 data: {},
                                 success: function success(data) {
                                     let res = '';

@@ -106,3 +106,42 @@ function atbdp_get_widget_template_path( $template ) {
 
     return atbdp_get_template_path( $template );
 }
+
+function directorist_get_listing_thumbnail_id( $listing = null ) {
+	$listing = get_post( $listing );
+
+	if ( ! $listing ) {
+		return false;
+	}
+
+	if ( $listing->post_type !== ATBDP_POST_TYPE ) {
+		return false;
+	}
+
+	$thumbnail_id = get_post_thumbnail_id( $listing );
+	if ( $thumbnail_id ) {
+		return $thumbnail_id;
+	}
+
+	$thumbnail_id = (int) get_post_meta( $listing->ID, '_listing_prv_img', true );
+	if ( $thumbnail_id ) {
+		return $thumbnail_id;
+	}
+
+	$gallery_image_ids = (array) get_post_meta( $listing->ID, '_listing_img', true );
+	$gallery_image_ids = wp_parse_id_list( $gallery_image_ids );
+	$gallery_image_ids = array_filter( $gallery_image_ids );
+	if ( empty( $gallery_image_ids ) ) {
+		return false;
+	}
+
+	return $gallery_image_ids[0];
+}
+
+function directorist_has_listing_thumbnail( $listing = null ) {
+	return (bool) directorist_get_listing_thumbnail_id( $listing );
+}
+
+function directorist_the_locations( $before = '', $sep = ', ', $after = '', $listing_id = null ) {
+	the_terms( $listing_id, ATBDP_LOCATION, $before, $sep, $after );
+}

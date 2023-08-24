@@ -138,6 +138,9 @@ function initSelect2AjaxTaxonomy( args, terms_options ) {
     [ ...args.selector ].forEach( ( item, index ) => {
         let directory_type_id = 0;
 
+        let createNew = item.getAttribute("data-allow_new");
+        let maxLength = item.getAttribute("data-max");
+
         if ( terms_options.has_directory_type ) {
             const search_form_parent            = $( item ).closest( '.directorist-search-form' );
             const archive_page_parent           = $( item ).closest( '.directorist-archive-contents' );
@@ -174,6 +177,8 @@ function initSelect2AjaxTaxonomy( args, terms_options ) {
 
         $( item ).select2({
             allowClear: true,
+            tags: createNew,
+            maximumSelectionLength: maxLength,
             width: '100%',
             escapeMarkup: function (text) {
                 return text;
@@ -233,23 +238,30 @@ function initSelect2AjaxTaxonomy( args, terms_options ) {
         });
 
         // Setup Preselected Option
-        const selected_item_id = $( item ).data( 'selected-id' );
+        const selected_item_id    = $( item ).data( 'selected-id' );
         const selected_item_label = $( item ).data( 'selected-label' );
 
-        if ( selected_item_id ) {
-            var option = new Option( selected_item_label, selected_item_id, true, true );
-            $( item ).append( option );
+        const setup_selected_items = function ( element, selected_id, selected_label ) {
+            if ( ! element || ! selected_id ) {
+                return;
+            }
 
-            $( item ).trigger({
-                type: 'select2:select',
-                params: {
-                    data: {
-                        id: selected_item_id, text:
-                        selected_item_label
-                    }
-                }
-            });
+            const selected_ids    = `${selected_id}`.split( ',' );
+            const selected_labels = selected_label ? `${selected_label}`.split( ',' ) : [];
+
+            selected_ids.forEach( ( id, index ) => {
+                const label  = ( selected_labels.length >= ( index + 1 ) ) ? selected_labels[index] : '';
+                var   option = new Option( label, id, true, true );
+
+                $( element ).append( option );
+                $( element ).trigger({
+                    type: 'select2:select',
+                    params: { data: { id: id,  text: selected_item_label } }
+                });
+            } );
         }
+
+        setup_selected_items( item, selected_item_id, selected_item_label );
     });
 
 }

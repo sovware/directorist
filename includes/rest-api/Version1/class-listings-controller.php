@@ -92,7 +92,10 @@ class Listings_Controller extends Posts_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_items( $request ) {
-		$query_args    = $this->prepare_objects_query( $request );
+		$query_args = $this->prepare_objects_query( $request );
+
+		do_action( 'directorist_rest_before_query', 'get_listing_items', $request, $query_args );
+
 		$query_results = $this->get_listings( $query_args );
 
 		$objects = array();
@@ -127,6 +130,10 @@ class Listings_Controller extends Posts_Controller {
 			$next_link = add_query_arg( 'page', $next_page, $base );
 			$response->link_header( 'next', $next_link );
 		}
+
+		do_action( 'directorist_rest_after_query', 'get_listing_items', $request, $query_args );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_listing_items', $request, $query_args );
 
 		return $response;
 	}
@@ -487,7 +494,10 @@ class Listings_Controller extends Posts_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
-		$id   = (int) $request['id'];
+		$id = (int) $request['id'];
+
+		do_action( 'directorist_rest_before_query', 'get_listing_item', $request, $id );
+
 		$post = get_post( $id );
 
 		if ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
@@ -500,6 +510,10 @@ class Listings_Controller extends Posts_Controller {
 		if ( $this->public ) {
 			$response->link_header( 'alternate', get_permalink( $id ), array( 'type' => 'text/html' ) );
 		}
+
+		do_action( 'directorist_rest_after_query', 'get_listing_item', $request, $id );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_listing_item', $request, $id );
 
 		return $response;
 	}
@@ -1491,6 +1505,10 @@ class Listings_Controller extends Posts_Controller {
 	 * @param WP_Post $post Post object.
 	 */
 	protected function delete_post( $post ) {
+		do_action( 'directorist_rest_before_query', 'delete_listing_item', $post );
+
 		wp_delete_post( $post->ID, true );
+
+		do_action( 'directorist_rest_after_query', 'delete_listing_item', $post );
 	}
 }

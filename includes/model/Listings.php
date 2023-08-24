@@ -115,6 +115,11 @@ class Directorist_Listings {
 	public $display_address_map;
 	public $display_direction_map;
 	public $filter_button_text;
+	public $display_favorite_badge_map;
+	public $display_user_avatar_map;
+	public $display_review_map;
+	public $display_price_map;
+	public $display_phone_map;
 
 	protected $deferred_data = array();
 
@@ -1571,6 +1576,22 @@ class Directorist_Listings {
 				wp_reset_postdata();
 			endif;
 			echo "</div>";
+		}
+
+		public function get_favorite_badge() {
+			Helper::get_template( 'archive/fields/favorite_badge', array( 'listings' => $this ) );
+		}
+
+		public function get_user_avatar() {
+			Helper::get_template( 'archive/fields/user_avatar', array( 'listings' => $this ) );
+		}
+
+		public function get_listing_review() {
+			Helper::get_template( 'archive/fields/rating', array( 'listings' => $this ) );
+		}
+
+		public function get_price() {
+			Helper::get_template( 'archive/fields/pricing', array( 'listings' => $this ) );
 		}
 
 		protected function cache_thumbnails() {

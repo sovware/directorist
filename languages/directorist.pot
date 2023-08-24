@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-24 04:25+0000\n"
+"POT-Creation-Date: 2023-08-24 04:33+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -610,11 +610,11 @@ msgstr ""
 msgid "Line Awesome"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:234, ../includes/asset-loader/localized_data.php:248, ../includes/model/Listings.php:204, ../includes/model/Listings.php:254
+#: ../includes/asset-loader/localized_data.php:234, ../includes/asset-loader/localized_data.php:248, ../includes/model/Listings.php:209, ../includes/model/Listings.php:259
 msgid "Select a category"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:235, ../includes/asset-loader/localized_data.php:249, ../includes/model/Listings.php:205, ../includes/model/Listings.php:255
+#: ../includes/asset-loader/localized_data.php:235, ../includes/asset-loader/localized_data.php:249, ../includes/model/Listings.php:210, ../includes/model/Listings.php:260
 msgid "Select a location"
 msgstr ""
 
@@ -658,7 +658,7 @@ msgstr ""
 msgid "Sorry, Something went wrong. Listing ID is missing. Please try again."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:86, ../includes/checkout/class-checkout.php:182, ../includes/classes/class-custom-post.php:297, ../includes/classes/class-custom-post.php:305, ../includes/classes/class-settings-panel.php:519, ../includes/classes/class-settings-panel.php:2238, ../includes/model/Listings.php:211, ../includes/model/Listings.php:2177, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3347, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
+#: ../includes/checkout/class-checkout.php:86, ../includes/checkout/class-checkout.php:182, ../includes/classes/class-custom-post.php:297, ../includes/classes/class-custom-post.php:305, ../includes/classes/class-settings-panel.php:519, ../includes/classes/class-settings-panel.php:2238, ../includes/model/Listings.php:216, ../includes/model/Listings.php:2198, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3347, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
 msgid "Featured"
 msgstr ""
 
@@ -1564,7 +1564,7 @@ msgstr ""
 msgid "Location:"
 msgstr ""
 
-#: ../includes/classes/class-helper.php:514, ../includes/model/Listings.php:212
+#: ../includes/classes/class-helper.php:514, ../includes/model/Listings.php:217
 msgid "Read More"
 msgstr ""
 
@@ -2178,7 +2178,7 @@ msgstr ""
 msgid "Header Title"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1581, ../includes/elementor/category.php:37, ../includes/model/Listings.php:182
+#: ../includes/classes/class-settings-panel.php:1581, ../includes/elementor/category.php:37, ../includes/model/Listings.php:187
 msgid "Items Found"
 msgstr ""
 
@@ -2198,7 +2198,7 @@ msgstr ""
 msgid "Filters Button Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1613, ../includes/classes/class-settings-panel.php:2991, ../includes/model/Listings.php:206, ../includes/model/Listings.php:248, ../includes/model/Listings.php:249, ../templates/archive/advance-search-form.php:16
+#: ../includes/classes/class-settings-panel.php:1613, ../includes/classes/class-settings-panel.php:2991, ../includes/model/Listings.php:211, ../includes/model/Listings.php:253, ../includes/model/Listings.php:254, ../templates/archive/advance-search-form.php:16
 msgid "Filters"
 msgstr ""
 
@@ -2250,7 +2250,7 @@ msgstr ""
 msgid "\"Sort By\" Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1674, ../includes/classes/class-settings-panel.php:3148, ../includes/classes/class-settings-panel.php:3235, ../includes/model/Listings.php:199, ../includes/model/Listings.php:260
+#: ../includes/classes/class-settings-panel.php:1674, ../includes/classes/class-settings-panel.php:3148, ../includes/classes/class-settings-panel.php:3235, ../includes/model/Listings.php:204, ../includes/model/Listings.php:265
 msgid "Sort By"
 msgstr ""
 
@@ -2266,7 +2266,7 @@ msgstr ""
 msgid "\"View As\" Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1744, ../includes/classes/class-settings-panel.php:3096, ../includes/elementor/all-categories.php:65, ../includes/elementor/all-listing.php:87, ../includes/elementor/all-locations.php:65, ../includes/elementor/category.php:43, ../includes/elementor/location.php:43, ../includes/elementor/search-result.php:50, ../includes/elementor/tag.php:43, ../includes/model/Listings.php:190, ../includes/model/Listings.php:258
+#: ../includes/classes/class-settings-panel.php:1744, ../includes/classes/class-settings-panel.php:3096, ../includes/elementor/all-categories.php:65, ../includes/elementor/all-listing.php:87, ../includes/elementor/all-locations.php:65, ../includes/elementor/category.php:43, ../includes/elementor/location.php:43, ../includes/elementor/search-result.php:50, ../includes/elementor/tag.php:43, ../includes/model/Listings.php:195, ../includes/model/Listings.php:263
 msgid "View As"
 msgstr ""
 
@@ -2554,7 +2554,7 @@ msgstr ""
 msgid "Popular Badge Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2243, ../includes/model/Listings.php:210, ../includes/model/Listings.php:2189, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3361, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
+#: ../includes/classes/class-settings-panel.php:2243, ../includes/model/Listings.php:215, ../includes/model/Listings.php:2210, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:3361, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1604
 msgid "Popular"
 msgstr ""
 
@@ -4931,43 +4931,43 @@ msgstr ""
 msgid "Please add a directory type first %s"
 msgstr ""
 
-#: ../includes/model/Listings.php:469
+#: ../includes/model/Listings.php:474
 msgctxt "Listing grid review text"
 msgid "Review"
 msgid_plural "Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1170
+#: ../includes/model/Listings.php:1175
 msgid "No listing found."
 msgstr ""
 
-#: ../includes/model/Listings.php:1623
+#: ../includes/model/Listings.php:1644
 msgid "Posted %s ago"
 msgstr ""
 
-#: ../includes/model/Listings.php:1689
+#: ../includes/model/Listings.php:1710
 msgctxt "search result header"
 msgid "%s result"
 msgid_plural "%s results"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1686
+#: ../includes/model/Listings.php:1707
 msgctxt "search result header"
 msgid "%s result in %s"
 msgid_plural "%s results in %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1683
+#: ../includes/model/Listings.php:1704
 msgctxt "search result header"
 msgid "%s result for %s"
 msgid_plural "%s results for %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1680
+#: ../includes/model/Listings.php:1701
 msgctxt "search result header"
 msgid "%s result for %s in %s"
 msgid_plural "%s results for %s in %s"

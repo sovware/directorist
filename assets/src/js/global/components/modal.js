@@ -1,6 +1,6 @@
 ;
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    function modalToggle() {
         // Recovery Password Modal
         $("#recover-pass-modal").hide();
 
@@ -34,13 +34,17 @@
                 directoristModal.classList.remove('directorist-show');
             }
         });
+
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        modalToggle()
     });
 
     /* Elementor Edit Mode */
     $(window).on('elementor/frontend/init', function () {
-        console.log('Check Elementor');
         setTimeout(function() {
-            console.log('Check Elementor Modal');
+            modalToggle()
         }, 3000);
 
     });

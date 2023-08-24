@@ -136,7 +136,6 @@
     "display_contact_info": true,
     "address_location": "contact",
     "display_publish_date": true,
-    "publish_date_format": "time_ago",
     "display_category": true,
     "display_mark_as_fav": true,
     "display_view_count": true,

@@ -79,10 +79,29 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				), 400 );
 			}
 
+			wpWax\Directorist\RestApi\register_controllers();
+
 			$data = array();
 
 			$posted_data = wp_unslash( $_POST );
 
+			$request = new \WP_REST_Request( 'POST' );
+			// $request->set_query_params( wp_unslash( $_GET ) );
+			$request->set_body_params( array(
+				'id' => 103,
+				'name' => ''
+			) );
+			// $request->set_file_params( $_FILES );
+
+			$tags_c = new \Directorist\Rest_Api\Controllers\Version1\Tags_Controller();
+			$response = $tags_c->update_item( $request );
+
+			file_put_contents( __DIR__ . '/data.txt', print_r( $response, 1 ) );
+
+			return wp_send_json( array(
+				'error' => true,
+				'error_msg' =>  __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
+			), 400 );
 			/**
 			 * It fires before processing a submitted listing from the front end
 			 *

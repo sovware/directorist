@@ -447,6 +447,7 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
+			ATBDP_INC_DIR . 'directorist-directory-functions',
 		]);
 
 		$this->autoload( ATBDP_INC_DIR . 'database/' );

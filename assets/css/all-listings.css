@@ -4689,12 +4689,6 @@ body.stop-scrolling {
       -ms-flex: 1;
           flex: 1;
 }
-.multistep-wizard__single {
-  display: none;
-}
-.multistep-wizard__single.active {
-  display: block;
-}
 .multistep-wizard__single label {
   display: block;
 }
@@ -4785,11 +4779,11 @@ body.stop-scrolling {
 .multistep-wizard__btn:hover i:after {
   background-color: var(--directorist-color-white);
 }
-.multistep-wizard__btn[disabled=true] {
+.multistep-wizard__btn[disabled=true], .multistep-wizard__btn[disabled=disabled] {
   color: var(--directorist-color-light-gray);
   pointer-events: none;
 }
-.multistep-wizard__btn[disabled=true] i:after {
+.multistep-wizard__btn[disabled=true] i:after, .multistep-wizard__btn[disabled=disabled] i:after {
   background-color: var(--directorist-color-light-gray);
 }
 .multistep-wizard__btn i:after {

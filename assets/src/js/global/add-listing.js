@@ -743,7 +743,9 @@ $(document).ready(function () {
             var windowWidth = $(window).width();
             var sidebarWidth = $(".multistep-wizard__nav").width();
             var sidebarHeight = $(".multistep-wizard__nav").height();
-            var multiStepWizardOffset = $(".multistep-wizard").offset().top;
+            if($(".multistep-wizard").offset()) {
+                var multiStepWizardOffset = $(".multistep-wizard").offset().top;
+            }
             var multiStepWizardHeight = $(".multistep-wizard").outerHeight();
             
             if (windowWidth > 991) {
@@ -805,7 +807,9 @@ function multiStepWizard() {
     // Set data-id on Wizards
     totalWizard.forEach(function(item, index){
         item.setAttribute('data-id' , index); 
+        item.style.display = 'none';
         if (index === 0) {
+            item.style.display = 'block';
             item.classList.add('active');
         }
     })
@@ -820,6 +824,7 @@ function multiStepWizard() {
 
     // Previous Step
     $('.multistep-wizard__btn--prev').on('click', function (e) {
+        e.preventDefault();
         if(stepCount > 1) {
             stepCount--
             activeWizard(stepCount);
@@ -831,6 +836,7 @@ function multiStepWizard() {
 
     // Next Step
     $('.multistep-wizard__btn--next').on('click', function (e) {
+        e.preventDefault();
         if(stepCount < totalWizard.length) {
             stepCount++
             activeWizard(stepCount);
@@ -845,6 +851,10 @@ function multiStepWizard() {
             stepCount = currentStep;
             activeWizard(stepCount);
         }
+
+        if(stepCount<=1) {
+            $('.multistep-wizard__btn--prev').attr('disabled', true);
+        }
     });
 
     // Active Wizard
@@ -853,8 +863,10 @@ function multiStepWizard() {
         totalWizard.forEach(function(item, index){
             if (item.classList.contains('active')) {
                 item.classList.remove('active');
+                item.style.display = 'none';
             } else if (value - 1 === index)  {
                 item.classList.add('active');
+                item.style.display = 'block';
             }
         })
 
@@ -875,9 +887,9 @@ function multiStepWizard() {
         })
 
         // Enable Button
-        if(value >= 1) {
+        if(value > 1) {
             $('.multistep-wizard__btn--prev').removeAttr('disabled');
-        }
+        } 
 
         // Change Button Text on Last Step
         var nextBtn = document.querySelector('.multistep-wizard__btn--next');
@@ -902,10 +914,17 @@ function multiStepWizard() {
 
 /* Elementor Edit Mode */
 $(window).on('elementor/frontend/init', function () {
-
     setTimeout(function() {
-        multiStepWizard();
+        if ($('body').hasClass('elementor-editor-active')) {
+            multiStepWizard();
+        }
     }, 3000);
 
+});
 
+// Elementor EditMode
+$('body').on('click', function (e) {
+    if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
+        multiStepWizard();
+    }
 });

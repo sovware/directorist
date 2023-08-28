@@ -2413,7 +2413,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').addClass('atbdp-form-fade');
         $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show');
         $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').hide();
-        $(document).scrollTop($(_this).closest(".directorist-instant-search").offset().top);
+
+        if ($(".directorist-instant-search").offset() > 0) {
+          $(document).scrollTop($(_this).closest(".directorist-instant-search").offset().top);
+        }
       },
       success: function success(html) {
         if (html.search_result) {

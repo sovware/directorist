@@ -1,3 +1,6 @@
+// Lib
+import '../lib/dashTab';
+
 // Dashboard Js
 import '../components/dashboard/dashboardSidebar';
 import '../components/dashboard/dashboardTab';
@@ -8,9 +11,8 @@ import '../components/dashboard/dashboardAnnouncement';
 import '../components/dashboard/dashboardBecomeAuthor';
 
 // General Components
-import '../components/pureScriptTab';
+// import '../components/tab';
 import '../components/profileForm';
-import '../components/tab';
 import '../components/directoristDropdown';
 import '../components/directoristSelect';
 import '../components/legacy-support';

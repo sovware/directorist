@@ -448,6 +448,7 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
 			ATBDP_INC_DIR . 'directorist-directory-functions',
+			ATBDP_INC_DIR . 'fields/init',
 		]);
 
 		$this->autoload( ATBDP_INC_DIR . 'database/' );

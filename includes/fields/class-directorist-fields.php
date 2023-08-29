@@ -1,6 +1,6 @@
 <?php
 /**
- * Directorist Fields Repository class.
+ * Directorist Fields manager class.
  *
  */
 namespace Directorist\Fields;
@@ -9,40 +9,76 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use Exception;
+
 class Fields {
 
-	public static function instance() {
+	private static $fields = array();
 
+	public static function register( $field ) {
+		try {
+			if ( ! is_subclass_of( $field, Base_Field::class ) ) {
+				throw new Exception( 'Must be a subclass of <code>' . Base_Field::class . '</code>' );
+			}
+
+			if ( empty( $field->type ) ) {
+				throw new Exception( 'The type must be set' );
+			}
+
+			if ( isset( self::$fields[ $field->type ] ) ) {
+				throw new Exception( 'Field type already registered: ' . $field->type );
+			}
+
+			self::$fields[ $field->type ] = $field;
+		} catch ( Exception $e ) {
+			wp_die( $e->getMessage() );
+		}
 	}
 
-	public function __construct() {
-		$this->load_fields();
+	public static function exists( $field_type ) {
+		return isset( self::$fields[ $field_type ] );
 	}
 
-	public function load_fields() {
-		$dir = trailingslashit( ATBDP_INC_DIR . 'fields' );
-
-		require_once $dir . 'class-directorist-base-field.php';
-	
-		$fields = array(
-			'checkbox'    => 'class-directorist-checkbox-field.php',
-			'colorpicker' => 'class-directorist-colorpicker-field.php',
-			'date'        => 'class-directorist-date-field.php',
-			'file'        => 'class-directorist-file-field.php',
-			'number'      => 'class-directorist-number-field.php',
-			'radio'       => 'class-directorist-radio-field.php',
-			'select'      => 'class-directorist-select-field.php',
-			'text'        => 'class-directorist-text-field.php',
-			'textarea'    => 'class-directorist-textarea-field.php',
-			'time'        => 'class-directorist-time-field.php',
-			'title'       => 'class-directorist-title-field.php',
-			'url'         => 'class-directorist-url-field.php',
-		);
-
-		do_action( 'directorist_fields_loaded', $this );
+	/**
+	 * @param $field_type
+	 *
+	 * @return Base_Field
+	 */
+	public static function get( $field_type ) {
+		return isset( self::$fields[ $field_type ] ) ? self::$fields[ $field_type ] : false;
 	}
 
+	/**
+	 * Return all the registered field types.
+	 *
+	 * @return Base_Field[]
+	 */
+	public static function get_all() {
+		return self::$fields;
+	}
 
+	/**
+	 * Creates a Field object from an array of field properties.
+	 *
+	 * @param array|Base_Field $properties
+	 *
+	 * @return Base_Field | bool
+	 */
+	public static function create( $properties ) {
+		if ( $properties instanceof Base_Field ) {
+			$type = $properties->type;
+		} else {
+			$type = isset( $properties['type'] ) ? $properties['type'] : '';
+		}
+
+		if ( empty( $type ) || ! isset( self::$fields[ $type ] ) ) {
+			return new Base_Field( $properties );
+		}
+
+		$class      = self::$fields[ $type ];
+		$class_name = get_class( $class );
+		$field      = new $class_name( $properties );
+
+		return $field;
+	}
 }
-
-return new Fields();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Directorist Text Field class.
+ * Directorist Number Field class.
  *
  */
 namespace Directorist\Fields;
@@ -9,25 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// "number" => [
-//     "type" => "number",
-//     "label" => "Number",
-//     "field_key" => "custom-number",
-//     "placeholder" => "",
-//     "description" => "",
-//     "required" => "",
-//     "only_for_admin" => "",
-//     "assign_to" => "form",
-//     "category" => "",
-//     "widget_group" => "custom",
-//     "widget_name" => "number",
-//     "widget_key" => "number",
-//   ],
 class Number_Field extends Base_Field {
 
-	public static function get_type() : string {
-		return 'number';
-	}
+	public $type = 'number';
 
 	public function validate( $value ) {
 		return ( $this->is_required() && ( is_numeric( $value ) || ( is_string( $value ) && $value !== '' ) ) );
@@ -40,6 +24,69 @@ class Number_Field extends Base_Field {
 	public function display( array $attributes = array() ) : void {
 
 	}
+
+	public function get_builder_label() : string {
+		return esc_html_x( 'Number', 'Builder field label', 'directorist' );
+	}
+
+	public function get_builder_icon() : string {
+		return 'uil uil-0-plus';
+	}
+
+	public function get_builder_fields( $directory_manager ) : array {
+		return array(
+			'type' => array(
+				'type'  => 'hidden',
+				'value' => 'number',
+			),
+			'field_key' => array(
+				'type'  => 'hidden',
+				'value' => 'custom-number',
+				'rules' => [
+					'unique'   => true,
+					'required' => true,
+				]
+			),
+			'label' => array(
+				'type'  => 'text',
+				'label' => __( 'Label', 'directorist' ),
+				'value' => 'Number',
+			),
+			'description' => [
+				'type'  => 'text',
+				'label' => __( 'Description', 'directorist' ),
+				'value' => '',
+			],
+			'placeholder' => [
+				'type'  => 'text',
+				'label' => __( 'Placeholder', 'directorist' ),
+				'value' => '',
+			],
+			'required' => [
+				'type'  => 'toggle',
+				'label' => __( 'Required', 'directorist' ),
+				'value' => false,
+			],
+			'only_for_admin' => [
+				'type'  => 'toggle',
+				'label' => __( 'Administrative Only', 'directorist' ),
+				'value' => false,
+			],
+			'assign_to' => $directory_manager->get_assign_to_field(),
+			'category'  => $directory_manager->get_category_select_field( [
+				'show_if' => [
+					'where'      => 'self.assign_to',
+					'conditions' => [
+						[
+							'key'     => 'value',
+							'compare' => '=',
+							'value'   => 'category'
+						],
+					],
+				],
+			] ),
+		);
+	}
 }
 
-// Fields_Repository::register( Text_Field::get_type(), new Text_Field() );
+Fields::register( new Number_Field() );

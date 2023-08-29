@@ -48,7 +48,7 @@ class Directorist_DateTime extends DateTime {
 	 * @return int
 	 */
 	#[\ReturnTypeWillChange]
-	public function getOffset() {
+	public function getOffset() : int {
 		return $this->utc_offset ? $this->utc_offset : parent::getOffset();
 	}
 
@@ -58,8 +58,8 @@ class Directorist_DateTime extends DateTime {
 	 * @param DateTimeZone $timezone DateTimeZone instance.
 	 * @return DateTime
 	 */
-	#[\ReturnTypeWillChange]
-	public function setTimezone( $timezone ) {
+  #[\ReturnTypeWillChange]
+	public function setTimezone( $timezone ) : DateTime {
 		$this->utc_offset = 0;
 		return parent::setTimezone( $timezone );
 	}
@@ -68,7 +68,6 @@ class Directorist_DateTime extends DateTime {
 	 * Missing in PHP 5.2 so just here so it can be supported consistently.
 	 *
 	 * @since  3.0.0
-	 * @return int
 	 */
 	#[\ReturnTypeWillChange]
 	public function getTimestamp() {

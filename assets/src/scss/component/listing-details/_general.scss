@@ -159,16 +159,18 @@
         color: #51526E;
         transition: 0.3s ease;
         display: flex;
-        align-items: center;
+        gap: 10px;
         .directorist-icon-mask{
             display: inline-flex;
             align-items: center;
             justify-content: center;
             width: 35px;
             height: 35px;
+            min-width: 35px;
             border-radius: 50%;
             background: var(--directorist-color-bg-light);
-            margin-right: 10px;
+            position: relative;
+            top: -5px;
             transition: 0.3s ease;
             &:after{
                 font-size: 15px;

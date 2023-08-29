@@ -1044,12 +1044,6 @@ import {
             ...data,
             ...fields
         };
-
-        const allFieldsAreEmpty    = Object.values(fields).every(item => !item);
-        const tagFieldEmpty        = data.in_tag.every(item => !item);
-        const priceFieldEmpty      = data.price.every(item => !item);
-        const ratingFieldEmpty     = data.search_by_rating.every(item => !item);
-        const customFieldsAreEmpty = Object.values(data.custom_field).every(item => !item);
         
         if (view && view.length) {
             form_data.view = view

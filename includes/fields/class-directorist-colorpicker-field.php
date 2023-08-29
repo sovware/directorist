@@ -21,10 +21,6 @@ class Color_Picker_Field extends Base_Field {
 
 	}
 
-	public function display( array $attributes = array() ) : void {
-
-	}
-
 	public function get_builder_label() : string {
 		return esc_html_x( 'Color Picker', 'Builder field label', 'directorist' );
 	}

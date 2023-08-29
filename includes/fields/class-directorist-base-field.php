@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-abstract class Base_Field {
+class Base_Field {
 
 	public $type = 'base';
 
@@ -53,18 +53,15 @@ abstract class Base_Field {
 		return ( bool ) $this->widget_group === 'preset';
 	}
 
+	public function validate( $value ) {}
 
-	abstract public function validate( $value );
+	public function sanitize( $value ) {}
 
-	abstract public function sanitize( $value );
+	public function get_builder_label() : string { return ''; }
 
-	abstract public function get_builder_label() : string;
+	public function get_builder_icon() : string {  return ''; }
 
-	abstract public function get_builder_icon() : string;
-
-	abstract public function get_builder_fields( $directory_manager ) : array;
-
-	abstract public function display( array $attributes = array() ) : void;
+	public function get_builder_fields( $directory_manager ) : array { return []; }
 
 	public function to_builder_array( $directory_manager ) {
 		return array(

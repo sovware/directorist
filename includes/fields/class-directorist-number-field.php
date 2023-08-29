@@ -21,10 +21,6 @@ class Number_Field extends Base_Field {
 		return round( (float) $value, 4 );
 	}
 
-	public function display( array $attributes = array() ) : void {
-
-	}
-
 	public function get_builder_label() : string {
 		return esc_html_x( 'Number', 'Builder field label', 'directorist' );
 	}

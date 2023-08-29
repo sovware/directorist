@@ -21,9 +21,6 @@ class Time_Field extends Base_Field {
 
 	}
 
-	public function display( array $attributes = array() ) : void {
-
-	}
 	public function get_builder_label() : string {
 		return esc_html_x( 'Text', 'Builder field label', 'directorist' );
 	}

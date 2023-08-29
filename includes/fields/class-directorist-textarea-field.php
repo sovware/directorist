@@ -20,10 +20,8 @@ class Textarea_Field extends Base_Field {
 	public function sanitize( $value ) {
 		return sanitize_textarea_field( $value );
 	}
-
-	public function display( array $attributes = array() ) : void {
-
-	}public function get_builder_label() : string {
+	
+	public function get_builder_label() : string {
 		return esc_html_x( 'Textarea', 'Builder field label', 'directorist' );
 	}
 

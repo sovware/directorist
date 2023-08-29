@@ -21,10 +21,6 @@ class Text_Field extends Base_Field {
 		return sanitize_text_field( $value );
 	}
 
-	public function display( array $attributes = array() ) : void {
-
-	}
-
 	public function get_builder_label() : string {
 		return esc_html_x( 'Text', 'Builder field label', 'directorist' );
 	}

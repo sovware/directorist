@@ -1,6 +1,6 @@
 <?php
 /**
- * Directorist Upload Field class.
+ * Directorist File Field class.
  *
  */
 namespace Directorist\Fields;
@@ -9,19 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// "file" => [
-//     "type" => "file",
-//     "label" => "File Upload",
-//     "field_key" => "custom-file",
-//     "file_type" => "image",
-//     "file_size" => "2mb",
-//     "description" => "",
-//     "required" => "",
-//     "only_for_admin" => "",
-//     "widget_group" => "custom",
-//     "widget_name" => "file",
-//     "widget_key" => "file",
-//   ],
 class File_Field extends Base_Field {
 
 	public $type = 'file';
@@ -40,10 +27,6 @@ class File_Field extends Base_Field {
 
 	public function get_file_size() {
 		return wp_convert_hr_to_bytes( $this->file_size );
-	}
-
-	public function display( array $attributes = array() ) : void {
-
 	}
 
 	public function get_builder_label() : string {

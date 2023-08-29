@@ -21,10 +21,6 @@ class Url_Field extends Base_Field {
 		return sanitize_url( $value );
 	}
 
-	public function display( array $attributes = array() ) : void {
-
-	}
-
 	public function get_builder_label() : string {
 		return esc_html_x( 'URL', 'Builder field label', 'directorist' );
 	}

@@ -34,9 +34,6 @@ class Checkbox_Field extends Base_Field {
 		return directorist_clean( $value );
 	}
 
-	public function display( array $attributes = array() ) : void {
-
-	}
 	public function get_builder_label() : string {
 		return esc_html_x( 'Checkbox', 'Builder field label', 'directorist' );
 	}

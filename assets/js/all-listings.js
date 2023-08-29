@@ -2480,7 +2480,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     }
   }
 
-  initObserver();
+  $('body').on("click", ".directorist-instant-search .listing-with-sidebar .directorist-search-form-box", function (e) {
+    initObserver();
+  });
 })(jQuery);
 
 /***/ }),

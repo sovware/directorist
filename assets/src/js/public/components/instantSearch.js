@@ -1123,7 +1123,10 @@ import {
             observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
         }
     }
-    initObserver();
+
+    $('body').on("click", ".directorist-instant-search .listing-with-sidebar .directorist-search-form-box", function (e) {
+        initObserver();
+    })
 
     
 })(jQuery);

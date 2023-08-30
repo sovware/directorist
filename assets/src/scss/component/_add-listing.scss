@@ -1339,10 +1339,6 @@
     flex: 1;
   }
   @include e(single) {
-    display: none;
-    &.active {
-      display: block;
-    }
     label {
       display: block;
     }
@@ -1413,7 +1409,8 @@
         background-color: var(--directorist-color-white);
       }
     }
-    &[disabled="true"] {
+    &[disabled="true"],
+    &[disabled="disabled"] {
       color: var(--directorist-color-light-gray);
       pointer-events: none;
       i {

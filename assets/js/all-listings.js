@@ -2379,22 +2379,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
     var form_data = _objectSpread(_objectSpread({}, data), fields);
 
-    var allFieldsAreEmpty = Object.values(fields).every(function (item) {
-      return !item;
-    });
-    var tagFieldEmpty = data.in_tag.every(function (item) {
-      return !item;
-    });
-    var priceFieldEmpty = data.price.every(function (item) {
-      return !item;
-    });
-    var ratingFieldEmpty = data.search_by_rating.every(function (item) {
-      return !item;
-    });
-    var customFieldsAreEmpty = Object.values(data.custom_field).every(function (item) {
-      return !item;
-    });
-
     if (view && view.length) {
       form_data.view = view;
     }
@@ -2413,7 +2397,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').addClass('atbdp-form-fade');
         $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show');
         $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').hide();
-        $(document).scrollTop($(_this).closest(".directorist-instant-search").offset().top);
+
+        if ($(".directorist-instant-search").offset() > 0) {
+          $(document).scrollTop($(_this).closest(".directorist-instant-search").offset().top);
+        }
       },
       success: function success(html) {
         if (html.search_result) {
@@ -2477,7 +2464,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     }
   }
 
-  initObserver();
+  $('body').on("click", ".directorist-instant-search .listing-with-sidebar .directorist-search-form-box", function (e) {
+    initObserver();
+  });
 })(jQuery);
 
 /***/ }),

@@ -1044,12 +1044,6 @@ import {
             ...data,
             ...fields
         };
-
-        const allFieldsAreEmpty    = Object.values(fields).every(item => !item);
-        const tagFieldEmpty        = data.in_tag.every(item => !item);
-        const priceFieldEmpty      = data.price.every(item => !item);
-        const ratingFieldEmpty     = data.search_by_rating.every(item => !item);
-        const customFieldsAreEmpty = Object.values(data.custom_field).every(item => !item);
         
         if (view && view.length) {
             form_data.view = view
@@ -1070,7 +1064,9 @@ import {
                 $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').addClass('atbdp-form-fade');
                 $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show')
                 $(_this).closest('.directorist-instant-search').find('.directorist-header-bar .directorist-advanced-filter').hide();
-                $(document).scrollTop($(_this).closest(".directorist-instant-search").offset().top);
+                if ($(".directorist-instant-search").offset() > 0) {
+                    $(document).scrollTop($(_this).closest(".directorist-instant-search").offset().top);
+                }
             },
             success: function (html) {
                 if (html.search_result) {
@@ -1121,7 +1117,10 @@ import {
             observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
         }
     }
-    initObserver();
+
+    $('body').on("click", ".directorist-instant-search .listing-with-sidebar .directorist-search-form-box", function (e) {
+        initObserver();
+    })
 
     
 })(jQuery);

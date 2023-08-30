@@ -1431,7 +1431,6 @@ class Directorist_Listings {
 
 		$map_data = [];
 
-		$this->set_loop_data();
 		$listings = $this->query_results;
 
 		if ( ! empty( $listings->ids ) ) :
@@ -1445,7 +1444,7 @@ class Directorist_Listings {
 			foreach ( $listings->ids as $listings_id ) :
 				$GLOBALS['post'] = get_post( $listings_id );
 				setup_postdata( $GLOBALS['post'] );
-
+				$this->set_loop_data();
 				$ls_data = [];
 
 				$ls_data['manual_lat']      = get_post_meta($listings_id, '_manual_lat', true);
@@ -1521,7 +1520,6 @@ class Directorist_Listings {
 		?>
 		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo esc_attr( $map_height );?>px;">
 			<?php
-			$this->set_loop_data();
 			$listings = $this->query_results;
 
 			if ( ! empty( $listings->ids ) ) :
@@ -1535,6 +1533,7 @@ class Directorist_Listings {
 				foreach ( $listings->ids as $listings_id ) :
 					$GLOBALS['post'] = get_post( $listings_id );
 					setup_postdata( $GLOBALS['post'] );
+					$this->set_loop_data();
 					$ls_data = [];
 
 					$ls_data['post_id']         = $listings_id;

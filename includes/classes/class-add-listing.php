@@ -79,38 +79,15 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				), 400 );
 			}
 
-			wpWax\Directorist\RestApi\register_controllers();
-
-			$data = array();
-
+			$data        = array();
 			$posted_data = wp_unslash( $_POST );
 
-			$request = new \WP_REST_Request( 'POST' );
-			// $request->set_query_params( wp_unslash( $_GET ) );
-			$request->set_body_params( array(
-				'id' => 103,
-				'name' => ''
-			) );
-			// $request->set_file_params( $_FILES );
-
-			$tags_c = new \Directorist\Rest_Api\Controllers\Version1\Tags_Controller();
-			$response = $tags_c->update_item( $request );
-
-			file_put_contents( __DIR__ . '/data.txt', print_r( $response, 1 ) );
-
-			return wp_send_json( array(
-				'error' => true,
-				'error_msg' =>  __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
-			), 400 );
 			/**
 			 * It fires before processing a submitted listing from the front end
 			 *
 			 * @param array $_POST the array containing the submitted listing data.
 			 * */
 			do_action( 'atbdp_before_processing_submitted_listing_frontend', $posted_data );
-
-			$guest_listing_enabled = (bool) get_directorist_option( 'guest_listings', 0 );
-			$featured_enabled      = get_directorist_option( 'enable_featured_listing' );
 
 			// data validation
 			$directory             = ! empty( $posted_data['directory_type'] ) ? sanitize_text_field( $posted_data['directory_type'] ) : '';
@@ -284,7 +261,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			// guest user
 			if ( ! is_user_logged_in() ) {
 				$guest_email = isset( $posted_data['guest_user_email'] ) ? sanitize_email( $posted_data['guest_user_email'] ) : '';
-				if ( $guest_listing_enabled && is_email( $guest_email ) ) {
+				if ( directorist_is_guest_listing_enabled() && is_email( $guest_email ) ) {
 					atbdp_guest_submission( $guest_email );
 				}
 			}
@@ -744,13 +721,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, ATBDP_Permalink::get_dashboard_page_link() ) : ATBDP_Permalink::get_dashboard_page_link();
 				}
 
-				$states                           = array();
-				$states['monetization_is_enable'] = get_directorist_option( 'enable_monetization' );
-				$states['featured_enabled']       = $featured_enabled;
-				$states['listing_is_featured']    = ( ! empty( $posted_data['listing_type'] ) && ( 'featured' === $posted_data['listing_type'] ) ) ? true : false;
-				$states['is_monetizable']         = ( $states['monetization_is_enable'] && $states['featured_enabled'] && $states['listing_is_featured'] ) ? true : false;
+				$is_listing_featured = ( ! empty( $posted_data['listing_type'] ) && ( 'featured' === $posted_data['listing_type'] ) );
+				$should_monetize     = ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() && $is_listing_featured );
 
-				if ( $states['is_monetizable'] ) {
+				if ( $should_monetize ) {
 					$payment_status            = Directorist\Helper::get_listing_payment_status( $post_id );
 					$rejectable_payment_status = array( 'failed', 'cancelled', 'refunded' );
 

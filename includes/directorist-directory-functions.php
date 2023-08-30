@@ -47,6 +47,14 @@ function directorist_get_listing_submission_form_groups( int $directory_id ) {
 	return $groups;
 }
 
-function directorist_generate_listing_submission_form_group_key( array $fields ) {
-	return md5( json_encode( $fields ) );
+function directorist_is_guest_listing_enabled() {
+	return (bool) get_directorist_option( 'guest_listings', 0 );
+}
+
+function directorist_is_featured_listing_enabled() {
+	return (bool) get_directorist_option( 'enable_featured_listing' );
+}
+
+function directorist_is_monetization_enabled() {
+	return (bool) get_directorist_option( 'enable_monetization' );
 }

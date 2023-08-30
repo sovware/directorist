@@ -15208,9 +15208,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-report-abuse-modal .directorist-modal__body textarea {
   min-height: 90px;
   resize: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  border: 1px solid var(--directorist-color-border-gray) !important;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--directorist-color-border);
+}
+.directorist-report-abuse-modal .directorist-modal__body textarea:focus {
+  border: 1px solid var(--directorist-color-primary);
 }
 .directorist-report-abuse-modal #directorist-report-abuse-message-display {
   color: var(--directorist-color-body);

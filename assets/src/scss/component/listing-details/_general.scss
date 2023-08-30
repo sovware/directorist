@@ -50,9 +50,12 @@
         textarea {
             min-height: 90px;
             resize: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            border: 1px solid var(--directorist-color-border-gray) !important;
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--directorist-color-border);
+            &:focus {
+                border: 1px solid var(--directorist-color-primary);
+            }
         }
     }
     #directorist-report-abuse-message-display{

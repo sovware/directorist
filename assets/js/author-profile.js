@@ -299,6 +299,7 @@
       });
     });
     $('body').on("click", '.directorist-mark-as-favorite__btn', function (event) {
+      console.log('Clicked to Favourite');
       event.preventDefault();
       var data = {
         'action': 'atbdp-favourites-all-listing',

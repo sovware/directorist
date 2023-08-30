@@ -1532,7 +1532,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         custom_field[post_id] = value;
       }
     });
-    var view_href = instant_search_element.find(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
@@ -1672,7 +1672,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         custom_field[post_id] = value;
       }
     });
-    var view_href = instant_search_element.find(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
@@ -1762,7 +1762,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           custom_field[post_id] = value;
         }
       });
-      var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+      var view_href = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
       var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
       var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
       var type_href = $('.directorist-type-nav__list .current a').attr('href');
@@ -2073,7 +2073,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         custom_field[post_id] = value;
       }
     });
-    var view_href = instant_search_element.find(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var sort_href = $(this).closest(this).attr('data-link');
@@ -2201,7 +2201,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var sort_href = instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
-    var view_href = instant_search_element.find(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
@@ -2331,7 +2331,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         custom_field[post_id] = value;
       }
     });
-    var view_href = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+    var view_href = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var type_href = $('.directorist-type-nav__list .current a').attr('href');

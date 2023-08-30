@@ -151,7 +151,7 @@ import {
             }
         });
 
-        let view_href      = instant_search_element.find(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+        let view_href      = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
         let view_as        = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
         let view           = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
         let type_href      = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
@@ -293,7 +293,7 @@ import {
             }
         });
 
-        let view_href      = instant_search_element.find(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+        let view_href      = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
         let view_as        = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
         let view           = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
         let type_href      = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
@@ -390,7 +390,7 @@ import {
                 }
             });
 
-            let view_href      = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+            let view_href      = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
             let view_as        = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
             let view           = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
             let type_href      = $('.directorist-type-nav__list .current a').attr('href');
@@ -720,7 +720,7 @@ import {
             }
         });
 
-        let view_href        = instant_search_element.find(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+        let view_href        = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
         let view_as          = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
         let view             = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
         let sort_href        = $(this).closest(this).attr('data-link');
@@ -853,7 +853,7 @@ import {
         let sort_href      = instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
         let sort_by        = (sort_href && sort_href.length) ? sort_href.match(/sort=.+/) : '';
         let sort           = (sort_by && sort_by.length) ? sort_by[0].replace(/sort=/, '') : '';
-        let view_href      = instant_search_element.find(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+        let view_href      = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
         let view_as        = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
         let view           = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
         let type_href      = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
@@ -991,7 +991,7 @@ import {
             }
         });
 
-        let view_href      = $(".directorist-viewas-dropdown .directorist-dropdown__links--single.active").attr('href');
+        let view_href      = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
         let view_as        = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
         let view           = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
         let type_href      = $('.directorist-type-nav__list .current a').attr('href');

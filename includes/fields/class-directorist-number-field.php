@@ -13,12 +13,30 @@ class Number_Field extends Base_Field {
 
 	public $type = 'number';
 
-	public function validate( $value ) {
-		return ( $this->is_required() && ( is_numeric( $value ) || ( is_string( $value ) && $value !== '' ) ) );
+	public function validate( $posted_data ) {
+		$value = $this->get_value( $posted_data );
+
+		if ( $this->is_required() && $value === '' ) {
+			$this->add_error( __( 'This field is required.', 'directorist' ) );
+		}
+
+		if ( $value !== '' && ! is_numeric( $value ) ) {
+			$this->add_error( __( 'Invalid number.', 'directorist' ) );
+		}
+
+		if ( $this->has_error() ) {
+			return false;
+		}
+
+		return true;
 	}
 
-	public function sanitize( $value ) {
-		return round( (float) $value, 4 );
+	protected function get_value( $posted_data ) {
+		return directorist_get_var( $posted_data[ $this->get_key() ], '' );
+	}
+
+	public function sanitize( $posted_data ) {
+		return round( (float) $this->get_value( $posted_data ), 2 );
 	}
 
 	public function get_builder_label() : string {

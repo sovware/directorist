@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function directorist_get_directory_meta( int $directory_id, string $meta_key ) {
 	if ( ! term_exists( $directory_id, ATBDP_DIRECTORY_TYPE ) ) {
-		return new WP_Error( 'invalid_directory', __( 'Invalid directory.', 'directorist' ) );
+		return false;
 	}
 
 	if ( empty( $meta_key ) ) {
-		return new WP_Error( 'empty_directory_meta_key', __( 'Empty directory meta key.', 'directorist' ) );
+		return false;
 	}
 
     return get_term_meta( $directory_id, $meta_key, true );
@@ -30,7 +30,8 @@ function directorist_get_listing_submission_meta( int $directory_id ) {
 
 function directorist_get_listing_submission_form_fields( int $directory_id ) {
     $form_data = directorist_get_listing_submission_meta( $directory_id );
-    return $form_data['fields'];
+	
+    return directorist_get_var( $form_data['fields'], array() );
 }
 
 function directorist_get_listing_submission_form_groups( int $directory_id ) {
@@ -45,6 +46,10 @@ function directorist_get_listing_submission_form_groups( int $directory_id ) {
 	}
 
 	return $groups;
+}
+
+function directorist_is_multi_directory_enabled() {
+	return (bool) get_directorist_option( 'enable_multi_directory', false );
 }
 
 function directorist_is_guest_listing_enabled() {

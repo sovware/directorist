@@ -3989,7 +3989,7 @@ class Multi_Directory_Manager
                 'icon' => '<span class="uil uil-file-edit-alt"></span>',
                 'submenu' => [
                     'form_fields' => [
-                        'label' => __( 'Form add_menu_pages', 'directorist' ),
+                        'label' => __( 'Form Fields', 'directorist' ),
                         'container' => 'wide',
                         'sections' => [
                             'form_fields' => [

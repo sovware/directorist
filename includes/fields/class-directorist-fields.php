@@ -71,6 +71,8 @@ class Fields {
 			$type = isset( $properties['type'] ) ? $properties['type'] : '';
 		}
 
+		$type = self::translate_to_new( $type );
+
 		if ( empty( $type ) || ! isset( self::$fields[ $type ] ) ) {
 			return new Base_Field( $properties );
 		}
@@ -80,5 +82,13 @@ class Fields {
 		$field      = new $class_name( $properties );
 
 		return $field;
+	}
+
+	public static function translate_to_new( $type ) {
+		$map = array(
+			'color' => 'color_picker'
+		);
+
+		return isset( $map[ $type ] ) ? $map[ $type ] : $type;
 	}
 }

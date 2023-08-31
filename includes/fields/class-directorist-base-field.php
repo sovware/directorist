@@ -15,6 +15,8 @@ class Base_Field {
 
 	protected $props = array();
 
+	protected $errors = array();
+
 	public function __construct( array $props = array() ) {
 		$this->props = $props;
 	}
@@ -51,6 +53,22 @@ class Base_Field {
 
 	public function is_preset() : bool {
 		return ( bool ) $this->widget_group === 'preset';
+	}
+
+	public function add_error( $message = '' ) {
+		if ( ! isset( $this->errors[ $this->get_internal_key() ] ) ) {
+			$this->errors[ $this->get_internal_key() ] = array();
+		}
+
+		$this->errors[ $this->get_internal_key() ][] = $message;
+	}
+
+	public function get_error() {
+		return isset( $this->errors[ $this->get_internal_key() ] ) ? implode( ' ', $this->errors[ $this->get_internal_key() ] ) : '';
+	}
+
+	public function has_error() {
+		return ( ! empty( $this->get_error() ) );
 	}
 
 	public function validate( $value ) {}

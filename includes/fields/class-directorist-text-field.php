@@ -13,12 +13,24 @@ class Text_Field extends Base_Field {
 
 	public $type = 'text';
 
-	public function validate( $value ) {
-		return ( $this->is_required() && ! empty( $value ) );
+	public function validate( $posted_data ) {
+		$value = $this->sanitize( $posted_data );
+
+		if ( $this->is_required() && $value === '' ) {
+			$this->add_error( __( 'This field is required.', 'directorist' ) );
+
+			return false;
+		}
+
+		return true;
 	}
 
-	public function sanitize( $value ) {
-		return sanitize_text_field( $value );
+	protected function get_value( $posted_data ) {
+		return (string) directorist_get_var( $posted_data[ $this->get_key() ], '' );
+	}
+
+	public function sanitize( $posted_data ) {
+		return sanitize_text_field( $this->get_value( $posted_data ) );
 	}
 
 	public function get_builder_label() : string {

@@ -14,22 +14,35 @@ class Radio_Field extends Base_Field {
 	public $type = 'radio';
 
 	public function get_options() {
-		return $this->options;
+		$options = $this->options;
+
+		if ( ! is_array( $options ) ) {
+			return array();
+		}
+
+		return wp_list_pluck( $options, 'option_value' );
 	}
 
-	public function validate( $value ) {
-		if ( $this->is_required() && ( empty( $value ) || ! is_array( $value ) ) ) {
+	public function validate( $posted_data ) {
+		$value = $this->get_value( $posted_data );
+
+		if ( $this->is_required() && $value === '' ) {
+			$this->add_error( __( 'This field is required.', 'directorist' ) );
+
 			return false;
 		}
 
-		$options = $this->get_options();
-		$options = array_unique( wp_list_pluck( $options, 'option_value' ) );
+		if ( $value !== '' && ! in_array( $value, $this->get_options(), true ) ) {
+			$this->add_error( __( 'Invalid selection.', 'directorist' ) );
 
-		return ( count( array_intersect( $value, $options ) ) === count( $value ) );
+			return false;
+		}
+
+		return true;
 	}
 
-	public function sanitize( $value ) {
-		return directorist_clean( $value );
+	protected function get_value( $posted_data ) {
+		return (string) directorist_get_var( $posted_data[ $this->get_key() ], '' );
 	}
 
 	public function get_builder_label() : string {

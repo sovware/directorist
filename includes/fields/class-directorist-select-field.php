@@ -14,23 +14,39 @@ class Select_Field extends Base_Field {
 	public $type = 'select';
 
 	public function get_options() {
-		return $this->options;
+		$options = $this->options;
+
+		if ( ! is_array( $options ) ) {
+			return array();
+		}
+
+		return wp_list_pluck( $options, 'option_value' );
 	}
 
-	public function validate( $value ) {
-		$options = $this->get_options();
+	public function validate( $posted_data ) {
+		$value = $this->get_value( $posted_data );
 
-		if ( $this->is_required() && ( empty( $options ) || ! is_array( $options ) ) ) {
+		if ( $this->is_required() && $value === '' ) {
+			$this->add_error( __( 'This field is required.', 'directorist' ) );
+
 			return false;
 		}
 
-		$values = array_unique( wp_list_pluck( $options, 'option_value' ) );
+		if ( $value !== '' && ! in_array( $value, $this->get_options(), true ) ) {
+			$this->add_error( __( 'Invalid selection.', 'directorist' ) );
 
-		return in_array( $value, $values, true );
+			return false;
+		}
+
+		return true;
 	}
 
-	public function sanitize( $value ) {
-		return sanitize_text_field( $value );
+	protected function get_value( $posted_data ) {
+		return (string) directorist_get_var( $posted_data[ $this->get_key() ], '' );
+	}
+
+	public function sanitize( $posted_data ) {
+		return sanitize_text_field( $this->get_value( $posted_data ) );
 	}
 
 	public function get_builder_label() : string {

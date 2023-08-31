@@ -183,7 +183,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 					$field->validate( $posted_data );
 
-					$_meta_data['_' . $field->get_key() ] = $field->get_error();
+					$_meta_data['_' . $field->get_key() ] = $field;
 					
 					// if ( ! $field->validate( $posted_data ) ) {
 					// 	$error->add( 'invalid_' . $field->get_key(), $field->get_error() );
@@ -302,7 +302,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				file_put_contents(
 					__DIR__ . '/error.txt',
-					var_export( $error, 1 ) . "\n"
+					var_export( $posted_data, 1 ) . "\n"
 				);
 
 				file_put_contents(

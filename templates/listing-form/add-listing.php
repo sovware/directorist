@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.0
  */
 
 use \Directorist\Helper;
@@ -23,17 +23,19 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                 <div class="multistep-wizard"> 
                     <div class="multistep-wizard__nav">
                         <?php 
+                            $counter = 1;
                             foreach ( $form_data as $key => $section ) {   
                                 $listing_type = isset( $section['fields']['listing_type'] ) ? $section['fields']['listing_type']['widget_name'] : '';
 
                                 if ( empty( $listing_type ) ) {
+                                    printf( '<div class="multistep-wizard__nav__item add-listing-nav-%s"><a href="#" class="multistep-wizard__nav__btn">%s %s</a></div>', esc_attr( $counter ), ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : directorist_icon( 'fas fa-circle', false ) ), $section['label'] );
 
-                                    printf( '<div class="multistep-wizard__nav__item"><a href="#" class="multistep-wizard__nav__btn">%s %s</a></div>', ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : directorist_icon( 'fas fa-circle', false ) ), $section['label'] ) ;
+                                    $counter++; 
                                 }
                             }
                         ?>
                         <div class="multistep-wizard__nav__item">
-                            <a href="#" class="multistep-wizard__nav__btn"><?php directorist_icon( 'fas fa-check' ); ?>Finish</a>
+                            <a href="#" class="multistep-wizard__nav__btn add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>
                         </div>
                     </div>
                     <div class="multistep-wizard__content">
@@ -43,13 +45,15 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                 if ( !empty( $is_edit_mode ) || !empty( $single_directory )) {
                                     $listing_form->type_hidden_field();
                                 }
+                                $counter = 1;
                                 foreach ( $form_data as $section ) {
-                                    echo '<div class="multistep-wizard__single">';
+                                    echo '<div class="multistep-wizard__single add-listing-content-'. esc_attr( $counter ) . '">';
                                         $listing_form->section_template( $section );
                                     echo '</div>';
+                                    $counter++; 
                                 }
                             ?>
-                            <div class="multistep-wizard__single">
+                            <div class="multistep-wizard__single add-listing-content-999">
                                 <?php 
                                     $listing_form->submit_template();
                                 ?>

@@ -192,6 +192,13 @@ class Directorist_Single_Listing {
 				}
 			}
 
+			if( 'image_upload' === $field['widget_name'] ) {
+				if( $this->get_contents() ) {
+					$has_contents = true;
+					break;
+				}
+			}
+
 			if( 'description' === $field['widget_name'] ) {
 				if( $this->get_contents() ) {
 					$has_contents = true;

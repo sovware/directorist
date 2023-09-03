@@ -20,7 +20,7 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                 <input type="hidden" name="add_listing_form" value="1">
                 <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
                 <!-- MultiStep Wizard Start -->
-                <div class="multistep-wizard"> 
+                <div class="multistep-wizard default-add-listing"> 
                     <div class="multistep-wizard__nav">
                         <?php 
                             $counter = 1;
@@ -28,14 +28,14 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                 $listing_type = isset( $section['fields']['listing_type'] ) ? $section['fields']['listing_type']['widget_name'] : '';
 
                                 if ( empty( $listing_type ) ) {
-                                    printf( '<div class="multistep-wizard__nav__item add-listing-nav-%s"><a href="#" class="multistep-wizard__nav__btn">%s %s</a></div>', esc_attr( $counter ), ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : directorist_icon( 'fas fa-circle', false ) ), $section['label'] );
+                                    printf( '<div class="multistep-wizard__nav__item"><a href="#add-listing-content-%s" id="add-listing-nav-%s" class="multistep-wizard__nav__btn">%s %s</a></div>', esc_attr( $counter ), esc_attr( $counter ), ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : directorist_icon( 'fas fa-circle', false ) ), $section['label'] );
 
                                     $counter++; 
                                 }
                             }
                         ?>
                         <div class="multistep-wizard__nav__item">
-                            <a href="#" class="multistep-wizard__nav__btn add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>
+                            <a href="#" class="multistep-wizard__nav__btn multistep-wizard__nav__btn--finish  add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>
                         </div>
                     </div>
                     <div class="multistep-wizard__content">
@@ -47,7 +47,7 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                 }
                                 $counter = 1;
                                 foreach ( $form_data as $section ) {
-                                    echo '<div class="multistep-wizard__single add-listing-content-'. esc_attr( $counter ) . '">';
+                                    echo '<div class="multistep-wizard__single" id="add-listing-content-'. esc_attr( $counter ) . '">';
                                         $listing_form->section_template( $section );
                                     echo '</div>';
                                     $counter++; 
@@ -76,6 +76,11 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                             <button type="submit" class="directorist-btn directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--save-preview">Save & Preview</button>
 
                             <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--skip-preview">Skip preview and submit listing</button>
+                        </div>
+
+                        <div class="default-add-listing-bottom">
+                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn">Skip Preview </button>
+                            <button type="submit" class="directorist-btn directorist-form-submit__btn">Save & Preview</button>
                         </div>
                     </div>
                 </div>

@@ -309,7 +309,9 @@ class Directorist_Single_Listing {
 
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 
-		Helper::get_template( $template, $args );
+		if( $load_template ) {
+			Helper::get_template( $template, $args );
+		}
 	}
 
 	public function is_custom_field( $data ) {

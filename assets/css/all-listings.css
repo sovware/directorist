@@ -4842,6 +4842,12 @@ body.stop-scrolling {
     text-align: center;
   }
 }
+.multistep-wizard.default-style .multistep-wizard__single {
+  display: block !important;
+}
+.multistep-wizard.default-style .multistep-wizard__bottom {
+  display: none !important;
+}
 
 .logged-in .multistep-wizard__nav.sticky {
   top: 32px;

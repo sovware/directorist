@@ -777,7 +777,7 @@ $(document).ready(function () {
 
     addSticky ();
 
-    multiStepWizard();
+    // multiStepWizard();
     
 })
 
@@ -916,7 +916,7 @@ function multiStepWizard() {
 $(window).on('elementor/frontend/init', function () {
     setTimeout(function() {
         if ($('body').hasClass('elementor-editor-active')) {
-            multiStepWizard();
+            // multiStepWizard();
         }
     }, 3000);
 
@@ -925,6 +925,6 @@ $(window).on('elementor/frontend/init', function () {
 // Elementor EditMode
 $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
-        multiStepWizard();
+        // multiStepWizard();
     }
 });

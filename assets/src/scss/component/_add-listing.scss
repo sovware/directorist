@@ -1460,6 +1460,15 @@
       text-align: center;
     }
   }
+
+  &.default-style {
+    .multistep-wizard__single {
+      display: block !important;
+    }
+    .multistep-wizard__bottom {
+      display: none !important;
+    }
+  }
 }
 .logged-in {
   .multistep-wizard__nav.sticky {

@@ -9284,6 +9284,29 @@ body.stop-scrolling {
     text-align: center;
   }
 }
+.multistep-wizard.default-add-listing .multistep-wizard__single {
+  display: block !important;
+}
+.multistep-wizard.default-add-listing .multistep-wizard__bottom,
+.multistep-wizard.default-add-listing .multistep-wizard__progressbar,
+.multistep-wizard.default-add-listing .multistep-wizard__nav__btn--finish {
+  display: none !important;
+}
+.multistep-wizard.default-add-listing .default-add-listing-bottom {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  padding: 35px 0;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
 
 .logged-in .multistep-wizard__nav.sticky {
   top: 32px;

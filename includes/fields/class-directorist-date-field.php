@@ -17,7 +17,7 @@ class Date_Field extends Base_Field {
 		$value = $this->get_value( $posted_data );
 
 		if ( ! empty( $value ) && strtotime( $value ) === false ) {
-			$this->add_error( __( 'Invalid date.', 'directorist' ) );
+			$this->add_error( sprintf( __( '[%s] Invalid date.', 'directorist' ), $value ) );
 
 			return false;
 		}

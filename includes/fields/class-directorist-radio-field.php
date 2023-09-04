@@ -27,7 +27,7 @@ class Radio_Field extends Base_Field {
 		$value = $this->get_value( $posted_data );
 
 		if ( ! empty( $value ) && ! in_array( $value, $this->get_options(), true ) ) {
-			$this->add_error( __( 'Invalid selection.', 'directorist' ) );
+			$this->add_error( sprintf( __( '[%s] Invalid selection.', 'directorist' ), $value ) );
 
 			return false;
 		}

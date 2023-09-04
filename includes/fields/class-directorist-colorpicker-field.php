@@ -17,7 +17,7 @@ class Color_Picker_Field extends Base_Field {
 		$value = $this->get_value( $posted_data );
 
 		if ( ! empty( $value ) && sanitize_hex_color( $value ) !== $value ) {
-			$this->add_error( __( 'Invalid color code.', 'directorist' ) );
+			$this->add_error( sprintf( __( '[%s] Invalid color code.', 'directorist' ), $value ) );
 
 			return false;
 		}

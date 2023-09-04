@@ -1,42 +1,59 @@
 array (
   'post_type' => 'at_biz_dir',
-  'post_title' => 'asdfasdf',
-  'post_excerpt' => 'asdfasdfasdf',
-  'post_content' => '<strong>asdasdf asdf asdfsdf</strong>',
+  'post_title' => 'asdf',
+  'post_content' => 'asdf',
+  'post_excerpt' => 'asdfasdf',
   'meta_input' => 
   array (
     '_directory_type' => 2,
-    '_address' => 'asdfasdf',
-    '_zip' => 'asdfasdf',
-    '_phone' => 'asdfaasdf',
-    '_phone2' => 'asdfasdfasdf',
-    '_fax' => 'asdfasdf',
-    '_email' => 'email@email.com',
+    '_tagline' => 'as',
+    '_hide_map' => false,
+    '_manual_lat' => '40.7127753',
+    '_manual_lng' => '-74.0059728',
+    '_address' => 'kkk',
+    '_zip' => '5401',
+    '_phone' => '01738238764',
+    '_phone2' => '01717076548',
+    '_fax' => 'kkkkk',
+    '_email' => 'obiplabon@gmail.com',
     '_website' => 'https://sovware.com',
+    '_social' => 
+    array (
+      0 => 
+      array (
+        'id' => 'facebook',
+        'url' => 'http://behance.com',
+      ),
+    ),
+    '_videourl' => 'https://www.youtube.com/watch?v=fKVnhxgXdKM',
     '_custom-text' => 'asdfasdf',
-    '_custom-textarea' => 'sdfasdf',
-    '_custom-number' => -6.0,
+    '_custom-textarea' => 'jjjjj',
+    '_custom-number' => 444.0,
     '_custom-url' => 'https://url.com',
-    '_custom-date' => '2023-09-09',
-    '_custom-time' => '17:18',
-    '_custom-color-picker' => '#686868',
-    '_atbd_listing_pricing' => 'range',
-    '_price_range' => 'moderate',
-    '_tagline' => 'asdfasdfasdf',
+    '_custom-date' => '2023-09-14',
+    '_custom-time' => '19:02',
+    '_custom-color-picker' => '#a8a8a8',
+    '_custom-select' => '2',
+    '_custom-checkbox' => 
+    array (
+      0 => 'cat',
+      1 => 'dog',
+    ),
+    '_custom-radio' => 'female',
   ),
   'tax_input' => 
   array (
     'at_biz_dir-location' => 
     array (
-      0 => 102,
-    ),
-    'at_biz_dir-tags' => 
-    array (
-      0 => 140,
+      0 => 112,
     ),
     'at_biz_dir-category' => 
     array (
-      0 => 114,
+      0 => 111,
+    ),
+    'at_biz_dir-tags' => 
+    array (
+      0 => 141,
     ),
   ),
 )

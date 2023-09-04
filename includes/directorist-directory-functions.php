@@ -25,9 +25,22 @@ function directorist_get_directory_meta( int $directory_id, string $meta_key ) {
 }
 
 function directorist_get_listing_form_fields( int $directory_id ) {
-    $form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
+	$form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
+	$_fields   = directorist_get_var( $form_data['fields'], array() );
+	$_groups   = directorist_get_var( $form_data['groups'], array() );
 	
-    return directorist_get_var( $form_data['fields'], array() );
+	$fields_keys = array();
+	$fields      = array();
+
+	foreach ( $_groups as $group ) {
+		$fields_keys = array_merge( $fields_keys, $group['fields'] );
+	}
+
+	foreach ( $fields_keys as $field_key ) {
+		$fields[ $field_key ] = $_fields[ $field_key ];
+	}
+
+	return $fields;
 }
 
 function directorist_get_listing_form_groups( int $directory_id ) {

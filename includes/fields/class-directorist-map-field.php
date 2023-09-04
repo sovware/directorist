@@ -14,7 +14,7 @@ class Map_Field extends Base_Field {
 	public $type = 'map';
 
 	public function get_value( $posted_data ) {
-		if ( ! isset( $posted_data['hide_map'], $posted_data['manual_lat'], $posted_data['manual_lng'] ) ) {
+		if ( empty( $posted_data['manual_lat'] ) && empty( $posted_data['manual_lng'] ) && ! isset( $posted_data['hide_map'] ) ) {
 			return array();
 		}
 

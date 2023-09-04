@@ -1,0 +1,42 @@
+array (
+  'post_type' => 'at_biz_dir',
+  'post_title' => 'asdfasdf',
+  'post_excerpt' => 'asdfasdfasdf',
+  'post_content' => '<strong>asdasdf asdf asdfsdf</strong>',
+  'meta_input' => 
+  array (
+    '_directory_type' => 2,
+    '_address' => 'asdfasdf',
+    '_zip' => 'asdfasdf',
+    '_phone' => 'asdfaasdf',
+    '_phone2' => 'asdfasdfasdf',
+    '_fax' => 'asdfasdf',
+    '_email' => 'email@email.com',
+    '_website' => 'https://sovware.com',
+    '_custom-text' => 'asdfasdf',
+    '_custom-textarea' => 'sdfasdf',
+    '_custom-number' => -6.0,
+    '_custom-url' => 'https://url.com',
+    '_custom-date' => '2023-09-09',
+    '_custom-time' => '17:18',
+    '_custom-color-picker' => '#686868',
+    '_atbd_listing_pricing' => 'range',
+    '_price_range' => 'moderate',
+    '_tagline' => 'asdfasdfasdf',
+  ),
+  'tax_input' => 
+  array (
+    'at_biz_dir-location' => 
+    array (
+      0 => 102,
+    ),
+    'at_biz_dir-tags' => 
+    array (
+      0 => 140,
+    ),
+    'at_biz_dir-category' => 
+    array (
+      0 => 114,
+    ),
+  ),
+)

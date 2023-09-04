@@ -191,7 +191,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 							break;
 
 						default:
-							$meta_data[ '_' . $field->get_key() ] = $field->get_value( $posted_data );
+							$meta_data[ '_' . $field->get_key() ] = $field->sanitize( $posted_data );
 					}
 				}
 
@@ -224,16 +224,15 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$meta_data = apply_filters( 'atbdp_listing_meta_user_submission', $meta_data );
 				$meta_data = apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $meta_data, $posted_data );
 	
-				$meta_input = array_filter( $meta_data, static function( $value ) {
-					if ( is_array( $value ) ) {
-						return ! empty( $value );
-					}
-
-					return ( $value !== '' );
-				} );
-	
-				$listing_data['meta_input'] = $meta_input;
+				$listing_data['meta_input'] = self::filter_empty_meta_data( $meta_data );
 				$listing_data['tax_input']  = $taxonomy_data;
+
+				file_put_contents(
+					__DIR__ . '/data.txt',
+					var_export( $listing_data, 1 ) . "\n"
+				);
+
+				return;
 
 				if ( $listing_id ) {
 					/**
@@ -491,6 +490,32 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					'error_msg' => $e->getMessage(),
 				), $e->getCode() );
 			}
+		}
+
+		public static function filter_empty_meta_data( $meta_data ) {
+			return array_filter( $meta_data, static function( $value, $key ) {
+				if ( $key === '_hide_contact_owner' && ! $value ) {
+					return false;
+				}
+				
+				if ( is_array( $value ) ) {
+					return ! empty( $value );
+				}
+
+				if ( is_null( $value ) ) {
+					return false;
+				}
+
+				if ( is_string( $value ) && $value === '' ) {
+					return false;
+				}
+
+				if ( is_numeric( $value ) && $value == 0 ) {
+					return false;
+				}
+
+				return true;
+			}, ARRAY_FILTER_USE_BOTH );
 		}
 
 		public static function is_admin_only_field( $field ) {

@@ -4121,10 +4121,6 @@ function directorist_maybe_number( $item ) {
 }
 
 function directorist_validate_youtube_vimeo_url( $url ) {
-	if ( ! wp_http_validate_url( $url ) ) {
-		return false;
-	}
-
     if ( preg_match( '/^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)/i', $url ) ) {
         return true;
     }

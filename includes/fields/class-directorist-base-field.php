@@ -84,7 +84,7 @@ class Base_Field {
 	}
 
 	public function get_value( $posted_data ) {
-		return directorist_get_var( $posted_data[ $this->get_internal_key() ] );
+		return directorist_get_var( $posted_data[ $this->get_key() ] );
 	}
 
 	public function is_value_empty( $posted_data ) {

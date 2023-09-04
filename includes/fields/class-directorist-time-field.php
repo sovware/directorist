@@ -15,8 +15,8 @@ class Time_Field extends Base_Field {
 
 	public function validate( $posted_data ) {
 		$value = $this->get_value( $posted_data );
-
-		if ( $value !== '' && date( 'H:i', strtotime( 'today ' . $value ) ) !== $value ) {
+		
+		if ( ! is_null( $value ) && date( 'H:i', strtotime( 'today ' . $value ) ) !== $value ) {
 			$this->add_error( __( 'Invalid time.', 'directorist' ) );
 
 			return false;

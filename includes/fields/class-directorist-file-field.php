@@ -17,14 +17,6 @@ class File_Field extends Base_Field {
 		return true;
 	}
 
-	public function get_value( $posted_data ) {
-		return (string) directorist_get_var( $posted_data[ $this->get_key() ], '' );
-	}
-
-	public function sanitize( $posted_data ) {
-		return $this->get_value( $posted_data );
-	}
-
 	public function get_file_types() {
 		return $this->file_type;
 	}

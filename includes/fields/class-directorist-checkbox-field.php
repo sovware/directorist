@@ -1,7 +1,6 @@
 <?php
 /**
  * Directorist Checkbox Field class.
- *
  */
 namespace Directorist\Fields;
 
@@ -24,13 +23,7 @@ class Checkbox_Field extends Base_Field {
 	}
 
 	public function validate( $posted_data ) {
-		$value = $this->get_value( $posted_data );
-
-		if ( $this->is_required() && empty( $value ) ) {
-			$this->add_error( __( 'This field is required.', 'directorist' ) );
-
-			return false;
-		}
+		$value = (array) $this->get_value( $posted_data );
 
 		if ( ( count( array_intersect( $value, $this->get_options() ) ) !== count( $value ) ) ) {
 			$this->add_error( __( 'Invalid selection.', 'directorist' ) );
@@ -40,11 +33,7 @@ class Checkbox_Field extends Base_Field {
 
 		return true;
 	}
-
-	public function get_value( $posted_data ) {
-		return (array) directorist_get_var( $posted_data[ $this->get_key() ], array() );
-	}
-
+	
 	public function sanitize( $posted_data ) {
 		return directorist_clean( $posted_data );
 	}

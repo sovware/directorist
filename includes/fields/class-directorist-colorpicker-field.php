@@ -16,23 +16,13 @@ class Color_Picker_Field extends Base_Field {
 	public function validate( $posted_data ) {
 		$value = $this->get_value( $posted_data );
 
-		if ( $this->is_required() && $value === '' ) {
-			$this->add_error( __( 'This field is required.', 'directorist' ) );
-
-			return false;
-		}
-
 		if ( ! empty( $value ) && sanitize_hex_color( $value ) !== $value ) {
-			$this->add_error( __( 'Invalid color.', 'directorist' ) );
+			$this->add_error( __( 'Invalid color code.', 'directorist' ) );
 
 			return false;
 		}
 
 		return true;
-	}
-
-	public function get_value( $posted_data ) {
-		return (string) directorist_get_var( $posted_data[ $this->get_key() ], '' );
 	}
 
 	public function sanitize( $posted_data ) {

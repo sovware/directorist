@@ -16,12 +16,6 @@ class Video_Field extends Base_Field {
 	public function validate( $posted_data ) {
 		$value = $this->get_value( $posted_data );
 
-		if ( $this->is_required() && $value === '' ) {
-			$this->add_error( __( 'This field is required.', 'directorist' ) );
-
-			return false;
-		}
-
 		if ( ! empty( $value ) && ! directorist_validate_youtube_vimeo_url( $value ) ) {
 			$this->add_error( __( 'Invalid URL.', 'directorist' ) );
 
@@ -29,10 +23,6 @@ class Video_Field extends Base_Field {
 		}
 
 		return true;
-	}
-
-	public function get_value( $posted_data ) {
-		return (string) directorist_get_var( $posted_data[ $this->get_key() ], '' );
 	}
 
 	public function sanitize( $posted_data ) {

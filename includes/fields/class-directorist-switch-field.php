@@ -24,7 +24,7 @@ class Switch_Field extends Base_Field {
 	}
 
 	public function sanitize( $posted_data ) {
-		return (bool) directorist_get_var( $posted_data[ $this->get_key() ] );
+		return (bool) $this->get_value( $posted_data );
 	}
 
 	public function get_builder_label() : string {
@@ -33,10 +33,6 @@ class Switch_Field extends Base_Field {
 
 	public function get_builder_icon() : string {
 		return 'uil uil-check-square';
-	}
-
-	public function get_builder_fields( $directory_manager ) : array {
-		return $this->fields;
 	}
 }
 

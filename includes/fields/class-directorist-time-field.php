@@ -16,12 +16,6 @@ class Time_Field extends Base_Field {
 	public function validate( $posted_data ) {
 		$value = $this->get_value( $posted_data );
 
-		if ( $this->is_required() && $value === '' ) {
-			$this->add_error( __( 'This field is required.', 'directorist' ) );
-
-			return false;
-		}
-
 		if ( $value !== '' && date( 'H:i', strtotime( 'today ' . $value ) ) !== $value ) {
 			$this->add_error( __( 'Invalid time.', 'directorist' ) );
 
@@ -29,14 +23,6 @@ class Time_Field extends Base_Field {
 		}
 
 		return true;
-	}
-
-	public function get_value( $posted_data ) {
-		return (string) directorist_get_var( $posted_data[ $this->get_key() ], '' );
-	}
-
-	public function sanitize( $posted_data ) {
-		return sanitize_text_field( $this->get_value( $posted_data ) );
 	}
 
 	public function get_builder_label() : string {

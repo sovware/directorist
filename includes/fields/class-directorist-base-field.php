@@ -97,7 +97,7 @@ class Base_Field {
 	}
 
 	public function sanitize( $posted_data ) {
-		return directorist_clean( $posted_data );
+		return directorist_clean( $this->get_value( $posted_data ) );
 	}
 
 	public function get_builder_label() : string {

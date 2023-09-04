@@ -1,335 +1,50 @@
 array (
-  '_listing_title' => 
-  Directorist\Fields\Text_Field::__set_state(array(
-     'type' => 'text',
-     'props' => 
-    array (
-      'widget_group' => 'preset',
-      'widget_name' => 'title',
-      'type' => 'text',
-      'field_key' => 'listing_title',
-      'required' => '1',
-      'label' => 'Title',
-      'placeholder' => '',
-      'widget_key' => 'title',
-    ),
-     'errors' => 
-    array (
-      'title' => 
-      array (
-        0 => 'This field is required.',
-      ),
-    ),
-  )),
-  '_custom-text' => 
-  Directorist\Fields\Text_Field::__set_state(array(
-     'type' => 'text',
-     'props' => 
-    array (
-      'type' => 'text',
-      'label' => 'Text',
-      'field_key' => 'custom-text',
-      'placeholder' => '',
-      'description' => '',
-      'required' => '1',
-      'only_for_admin' => '',
-      'assign_to' => 'form',
-      'category' => '105',
-      'widget_group' => 'custom',
-      'widget_name' => 'text',
-      'widget_key' => 'text',
-    ),
-     'errors' => 
-    array (
-      'text' => 
-      array (
-        0 => 'This field is required.',
-      ),
-    ),
-  )),
-  '_custom-textarea' => 
-  Directorist\Fields\Textarea_Field::__set_state(array(
-     'type' => 'textarea',
-     'props' => 
-    array (
-      'type' => 'textarea',
-      'label' => 'My Textarea',
-      'field_key' => 'custom-textarea',
-      'rows' => '4',
-      'placeholder' => 'Really',
-      'description' => 'awesome',
-      'required' => '1',
-      'only_for_admin' => '',
-      'assign_to' => 'form',
-      'category' => '105',
-      'widget_group' => 'custom',
-      'widget_name' => 'textarea',
-      'widget_key' => 'textarea',
-    ),
-     'errors' => 
-    array (
-      'textarea' => 
-      array (
-        0 => 'This field is required.',
-      ),
-    ),
-  )),
-  '_custom-number' => 
-  Directorist\Fields\Number_Field::__set_state(array(
-     'type' => 'number',
-     'props' => 
-    array (
-      'type' => 'number',
-      'label' => 'Number',
-      'field_key' => 'custom-number',
-      'placeholder' => '',
-      'description' => '',
-      'required' => '1',
-      'only_for_admin' => '',
-      'assign_to' => 'form',
-      'category' => '',
-      'widget_group' => 'custom',
-      'widget_name' => 'number',
-      'widget_key' => 'number',
-    ),
-     'errors' => 
-    array (
-      'number' => 
-      array (
-        0 => 'This field is required.',
-      ),
-    ),
-  )),
-  '_custom-url' => 
-  Directorist\Fields\Text_Field::__set_state(array(
-     'type' => 'text',
-     'props' => 
-    array (
-      'type' => 'text',
-      'label' => 'URL',
-      'field_key' => 'custom-url',
-      'placeholder' => '',
-      'target' => '',
-      'description' => '',
-      'required' => '',
-      'only_for_admin' => '',
-      'assign_to' => 'form',
-      'category' => '',
-      'widget_group' => 'custom',
-      'widget_name' => 'url',
-      'widget_key' => 'url',
-    ),
-     'errors' => 
+  0 => 
+  array (
+    'post_type' => 'at_biz_dir',
+    'post_title' => '',
+    'post_excerpt' => '',
+  ),
+  1 => 
+  array (
+    'at_biz_dir-location' => 
     array (
     ),
-  )),
-  '_custom-date' => 
-  Directorist\Fields\Date_Field::__set_state(array(
-     'type' => 'date',
-     'props' => 
-    array (
-      'type' => 'date',
-      'label' => 'Date',
-      'field_key' => 'custom-date',
-      'placeholder' => '',
-      'description' => '',
-      'required' => '',
-      'only_for_admin' => '',
-      'assign_to' => 'form',
-      'category' => '',
-      'widget_group' => 'custom',
-      'widget_name' => 'date',
-      'widget_key' => 'date',
-    ),
-     'errors' => 
+    'at_biz_dir-tags' => 
     array (
     ),
-  )),
-  '_custom-time' => 
-  Directorist\Fields\Time_Field::__set_state(array(
-     'type' => 'time',
-     'props' => 
-    array (
-      'type' => 'time',
-      'label' => 'Time',
-      'field_key' => 'custom-time',
-      'placeholder' => '',
-      'description' => '',
-      'required' => '1',
-      'only_for_admin' => '',
-      'assign_to' => 'form',
-      'category' => '',
-      'widget_group' => 'custom',
-      'widget_name' => 'time',
-      'widget_key' => 'time',
-    ),
-     'errors' => 
-    array (
-      'time' => 
-      array (
-        0 => 'This field is required.',
-      ),
-    ),
-  )),
-  '_custom-color-picker' => 
-  Directorist\Fields\Color_Picker_Field::__set_state(array(
-     'type' => 'color_picker',
-     'props' => 
-    array (
-      'type' => 'color',
-      'label' => 'Color',
-      'field_key' => 'custom-color-picker',
-      'description' => '',
-      'required' => '1',
-      'only_for_admin' => '',
-      'assign_to' => 'form',
-      'category' => '',
-      'widget_group' => 'custom',
-      'widget_name' => 'color_picker',
-      'widget_key' => 'color_picker',
-    ),
-     'errors' => 
-    array (
-      'color_picker' => 
-      array (
-        0 => 'This field is required.',
-      ),
-    ),
-  )),
-  '_custom-select' => 
-  Directorist\Fields\Select_Field::__set_state(array(
-     'type' => 'select',
-     'props' => 
-    array (
-      'type' => 'select',
-      'label' => 'Select',
-      'field_key' => 'custom-select',
-      'options' => 
-      array (
-        0 => 
-        array (
-          'option_value' => 'key',
-          'option_label' => 'value',
-        ),
-        1 => 
-        array (
-          'option_value' => 'key2',
-          'option_label' => 'value',
-        ),
-        2 => 
-        array (
-          'option_value' => 'key3',
-          'option_label' => 'vaue',
-        ),
-      ),
-      'description' => '',
-      'required' => '1',
-      'only_for_admin' => '',
-      'assign_to' => 'form',
-      'category' => '',
-      'widget_group' => 'custom',
-      'widget_name' => 'select',
-      'widget_key' => 'select',
-    ),
-     'errors' => 
+  ),
+  2 => 
+  array (
+    '_directory_type' => 2,
+    '_tagline' => '',
+    '_atbdp_post_views_count' => '',
+    '_address' => '',
+    '_zip' => '',
+    '_phone' => '',
+    '_phone2' => '',
+    '_fax' => '',
+    '_email' => '',
+    '_website' => '',
+    '_social' => NULL,
+    '_listing_img' => NULL,
+    '_videourl' => '',
+    '_hide_contact_owner' => NULL,
+    '_custom-text' => '',
+    '_custom-textarea' => '',
+    '_custom-number' => '',
+    '_custom-url' => '',
+    '_custom-date' => '',
+    '_custom-time' => '',
+    '_custom-color-picker' => '',
+    '_custom-select' => '',
+    '_custom-checkbox' => 
     array (
     ),
-  )),
-  '_custom-checkbox' => 
-  Directorist\Fields\Checkbox_Field::__set_state(array(
-     'type' => 'checkbox',
-     'props' => 
-    array (
-      'type' => 'checkbox',
-      'label' => 'Checkbox',
-      'field_key' => 'custom-checkbox',
-      'options' => 
-      array (
-        0 => 
-        array (
-          'option_value' => 'val',
-          'option_label' => 'label',
-        ),
-        1 => 
-        array (
-          'option_value' => 'val',
-          'option_label' => 'label',
-        ),
-      ),
-      'description' => '',
-      'required' => '1',
-      'only_for_admin' => '',
-      'assign_to' => 'form',
-      'category' => '',
-      'widget_group' => 'custom',
-      'widget_name' => 'checkbox',
-      'widget_key' => 'checkbox',
-    ),
-     'errors' => 
-    array (
-      'checkbox' => 
-      array (
-        0 => 'This field is required.',
-      ),
-    ),
-  )),
-  '_custom-radio' => 
-  Directorist\Fields\Radio_Field::__set_state(array(
-     'type' => 'radio',
-     'props' => 
-    array (
-      'type' => 'radio',
-      'label' => 'Radio',
-      'field_key' => 'custom-radio',
-      'options' => 
-      array (
-        0 => 
-        array (
-          'option_value' => 'val',
-          'option_label' => 'label',
-        ),
-        1 => 
-        array (
-          'option_value' => 'val',
-          'option_label' => 'label',
-        ),
-      ),
-      'description' => '',
-      'required' => '1',
-      'only_for_admin' => '',
-      'assign_to' => 'form',
-      'category' => '',
-      'widget_group' => 'custom',
-      'widget_name' => 'radio',
-      'widget_key' => 'radio',
-    ),
-     'errors' => 
-    array (
-      'radio' => 
-      array (
-        0 => 'This field is required.',
-      ),
-    ),
-  )),
-  '_custom-file' => 
-  Directorist\Fields\File_Field::__set_state(array(
-     'type' => 'file',
-     'props' => 
-    array (
-      'type' => 'file',
-      'label' => 'File Upload',
-      'field_key' => 'custom-file',
-      'file_type' => 'image',
-      'file_size' => '5mb',
-      'description' => 'kkkkk',
-      'required' => '1',
-      'only_for_admin' => '',
-      'widget_group' => 'custom',
-      'widget_name' => 'file',
-      'widget_key' => 'file',
-    ),
-     'errors' => 
-    array (
-    ),
-  )),
+    '_custom-radio' => '',
+    '_custom-file' => '',
+    '_atbd_listing_pricing' => 'price',
+    '_price' => 444.0,
+    '_price_range' => '',
+  ),
 )

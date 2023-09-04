@@ -555,141 +555,9 @@ class Multi_Directory_Manager
                 'description' => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
                 'widgets' => apply_filters('atbdp_form_preset_widgets', [
-                    'title' => [
-                        'label' => __( 'Title', 'directorist' ),
-                        'icon' => 'las la-text-height',
-                        'canTrash' => false,
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'text',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value'  => 'listing_title',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Title',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => '',
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => true,
-                            ],
-
-                        ],
-                    ],
-
-                    'description' => [
-                        'label' => __( 'Description', 'directorist' ),
-                        'icon' => 'las la-align-left',
-                        'show' => true,
-                        'options' => [
-                            'type' => [
-                                'type'  => 'select',
-                                'label' => 'Type',
-                                'value' => 'wp_editor',
-                                'options' => [
-                                    [
-                                        'label' => __('Textarea', 'directorist'),
-                                        'value' => 'textarea',
-                                    ],
-                                    [
-                                        'label' => __('WP Editor', 'directorist'),
-                                        'value' => 'wp_editor',
-                                    ],
-                                ]
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value' => 'listing_content',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Description',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => '',
-                                'show_if' => [
-                                    'where' => "self.type",
-                                    'conditions' => [
-                                        ['key' => 'value', 'compare' => '=', 'value' => 'textarea'],
-                                    ],
-                                ],
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'name'  => 'required',
-                                'label'  => 'Required',
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use', 'directorist' ),
-                                'value' => false,
-                            ],
-
-                        ]
-                    ],
-
-                    'tagline' => [
-                        'label' => __( 'Tagline', 'directorist' ),
-                        'icon' => 'uil uil-text-fields',
-                        'show' => true,
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'text',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value'  => 'tagline',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Tagline',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => '',
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use', 'directorist' ),
-                                'value' => false,
-                            ],
-
-                        ],
-                    ],
+                    'title'       => Fields::get( 'title' )->to_builder_array( $this ),
+                    'description' => Fields::get( 'description' )->to_builder_array( $this ),
+                    'tagline'     => Fields::get( 'tagline' )->to_builder_array( $this ),       // not sure what "show" param means!
 
                     'pricing' => [
                         'label' => __( 'Pricing', 'directorist' ),
@@ -811,87 +679,8 @@ class Multi_Directory_Manager
                         ]
                     ],
 
-                    'view_count' => [
-                        'label' => __( 'View Count', 'directorist' ),
-                        'icon' => 'uil uil-eye',
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'number',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value' => 'atbdp_post_views_count',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'View Count',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => '',
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use', 'directorist' ),
-                                'value' => true,
-                            ],
-
-
-                        ],
-                    ],
-
-                    'excerpt' => [
-                        'label' => __( 'Excerpt', 'directorist' ),
-                        'icon' => 'uil uil-subject',
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'textarea',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value' => 'excerpt',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Excerpt',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => '',
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use', 'directorist' ),
-                                'value' => false,
-                            ],
-
-
-                        ],
-                    ],
+                    'view_count' => Fields::get( 'view_count' )->to_builder_array( $this ),
+                    'excerpt'    => Fields::get( 'excerpt' )->to_builder_array( $this ),
 
                     'location' => [
                         'label' => 'Location',
@@ -1114,296 +903,13 @@ class Multi_Directory_Manager
                         ],
                     ],
 
-                    'address' => [
-                        'label' => 'Address',
-                        'icon' => 'uil uil-map-pin',
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'text',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value'  => 'address',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Address',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => __( 'Listing address eg. New York, USA', 'directorist' ),
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use', 'directorist' ),
-                                'value' => false,
-                            ],
-                        ],
-                    ],
-
-                    'zip' => [
-                        'label' => 'Zip/Post Code',
-                        'icon' => 'uil uil-map-pin',
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'text',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value'  => 'zip',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Zip/Post Code',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => '',
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use'),
-                                'value' => false,
-                            ],
-
-
-                        ],
-                    ],
-
-                    'phone' => [
-                        'label' => 'Phone',
-                        'icon' => 'uil uil-phone',
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'tel',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value'  => 'phone',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Phone',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => '',
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'whatsapp' => [
-                                'type'  => 'toggle',
-                                'label' => __( 'Link with WhatsApp', 'directorist' ),
-                                'value' => false,
-                            ],
-                        ],
-                    ],
-
-                    'phone2' => [
-                        'label' => 'Phone 2',
-                        'icon' => 'uil uil-phone',
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'tel',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value'  => 'phone2',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Phone 2',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => '',
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'whatsapp' => [
-                                'type'  => 'toggle',
-                                'label' => __( 'Link with WhatsApp', 'directorist' ),
-                                'value' => false,
-                            ],
-                        ],
-                    ],
-
-                    'fax' => [
-                        'label' => 'Fax',
-                        'icon' => 'uil uil-print',
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'number',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value'  => 'fax',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Fax',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => '',
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use', 'directorist' ),
-                                'value' => false,
-                            ],
-
-
-                        ],
-                    ],
-
-                    'email' => [
-                        'label' => 'Email',
-                        'icon' => 'uil uil-envelope',
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'email',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value'  => 'email',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Email',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist'),
-                                'value' => '',
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use', 'directorist' ),
-                                'value' => false,
-                            ],
-
-
-                        ],
-                    ],
-
-                    'website' => [
-                        'label' => 'Website',
-                        'icon' => 'uil uil-globe',
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'text',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value'  => 'website',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Website',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => '',
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use', 'directorist' ),
-                                'value' => false,
-                            ],
-
-
-                        ],
-                    ],
+                    'address' => Fields::get( 'address' )->to_builder_array( $this ),
+                    'zip'     => Fields::get( 'zip' )->to_builder_array( $this ),
+                    'phone'   => Fields::get( 'phone' )->to_builder_array( $this ),
+                    'phone2'  => Fields::get( 'phone2' )->to_builder_array( $this ),
+                    'fax'     => Fields::get( 'fax' )->to_builder_array( $this ),
+                    'email'   => Fields::get( 'email' )->to_builder_array( $this ),
+                    'website' => Fields::get( 'website' )->to_builder_array( $this ),
 
                     'social_info' => [
                         'label' => 'Social Info',
@@ -1436,8 +942,6 @@ class Multi_Directory_Manager
                                 'label'  => __( 'Only For Admin Use', 'directorist' ),
                                 'value' => false,
                             ],
-
-
                         ],
                     ],
 
@@ -1497,60 +1001,21 @@ class Multi_Directory_Manager
                         ],
                     ],
 
-                    'video' => [
-                        'label' => 'Video',
-                        'icon' => 'uil uil-video',
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'text',
-                            ],
-                            'field_key' => [
-                                'type'   => 'hidden',
-                                'value'  => 'videourl',
-                                'rules' => [
-                                    'unique' => true,
-                                    'required' => true,
-                                ]
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Video',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => 'Only YouTube & Vimeo URLs.',
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => __( 'Only For Admin Use', 'directorist' ),
-                                'value' => false,
-                            ],
-
-
-                        ],
-                    ],
+                    'video' => Fields::get( 'video' )->to_builder_array( $this ),
 
                     'hide_contact_owner' => [
-                        'label' => 'Hiding Contact Owner Form',
-                        'icon' => 'uil uil-postcard',
+                        'label'   => _x( 'Hide Owner Contact Form', 'directorist' ),
+                        'icon'    => 'uil uil-postcard',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
                                 'value' => 'checkbox',
                             ],
                             'field_key' => [
-                                'type'   => 'hidden',
-                                'value'  => 'hide_contact_owner',
+                                'type'  => 'hidden',
+                                'value' => 'hide_contact_owner',
                                 'rules' => [
-                                    'unique' => true,
+                                    'unique'   => true,
                                     'required' => true,
                                 ]
                             ],
@@ -1561,7 +1026,7 @@ class Multi_Directory_Manager
                             ],
                         ],
                     ],
-                ]),
+                ] ),
             ],
 
             'custom' => [

@@ -1,6 +1,6 @@
 <?php
 /**
- * Directorist Title Field class.
+ * Directorist Fax Field class.
  *
  */
 namespace Directorist\Fields;
@@ -9,29 +9,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Title_Field extends Text_Field {
+class Fax_Field extends Text_Field {
 
-	public $type = 'title';
+	public $type = 'fax';
 
-	protected $can_trash = false;
-	
 	public function get_builder_label() : string {
-		return esc_html_x( 'Title', 'Builder field label', 'directorist' );
+		return esc_html_x( 'Fax', 'Builder field label', 'directorist' );
 	}
 
 	public function get_builder_icon() : string {
-		return 'las la-text-height';
+		return 'uil uil-print';
 	}
 
 	public function get_builder_fields( $directory_manager ) : array {
 		return array(
 			'type' => [
 				'type'  => 'hidden',
-				'value' => 'text',
+				'value' => 'number',
 			],
 			'field_key' => [
 				'type'  => 'hidden',
-				'value' => 'listing_title',
+				'value' => 'fax',
 				'rules' => [
 					'unique'   => true,
 					'required' => true,
@@ -40,7 +38,7 @@ class Title_Field extends Text_Field {
 			'label' => [
 				'type'  => 'text',
 				'label' => __( 'Label', 'directorist' ),
-				'value' => 'Title',
+				'value' => 'Fax',
 			],
 			'placeholder' => [
 				'type'  => 'text',
@@ -50,10 +48,15 @@ class Title_Field extends Text_Field {
 			'required' => [
 				'type'  => 'toggle',
 				'label' => __( 'Required', 'directorist' ),
-				'value' => true,
+				'value' => false,
+			],
+			'only_for_admin' => [
+				'type'  => 'toggle',
+				'label' => __( 'Administrative Only', 'directorist' ),
+				'value' => false,
 			],
 		);
 	}
 }
 
-Fields::register( new Title_Field() );
+Fields::register( new Fax_Field() );

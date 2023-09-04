@@ -1,7 +1,6 @@
 <?php
 /**
- * Directorist Title Field class.
- *
+ * Directorist Address Field class.
  */
 namespace Directorist\Fields;
 
@@ -9,18 +8,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Title_Field extends Text_Field {
+class Address_Field extends Text_Field {
 
-	public $type = 'title';
+	public $type = 'address';
 
-	protected $can_trash = false;
-	
 	public function get_builder_label() : string {
-		return esc_html_x( 'Title', 'Builder field label', 'directorist' );
+		return esc_html_x( 'Address', 'Builder field label', 'directorist' );
 	}
 
 	public function get_builder_icon() : string {
-		return 'las la-text-height';
+		return 'uil uil-map-pin';
 	}
 
 	public function get_builder_fields( $directory_manager ) : array {
@@ -31,7 +28,7 @@ class Title_Field extends Text_Field {
 			],
 			'field_key' => [
 				'type'  => 'hidden',
-				'value' => 'listing_title',
+				'value' => 'address',
 				'rules' => [
 					'unique'   => true,
 					'required' => true,
@@ -40,20 +37,25 @@ class Title_Field extends Text_Field {
 			'label' => [
 				'type'  => 'text',
 				'label' => __( 'Label', 'directorist' ),
-				'value' => 'Title',
+				'value' => 'Address',
 			],
 			'placeholder' => [
 				'type'  => 'text',
 				'label' => __( 'Placeholder', 'directorist' ),
-				'value' => '',
+				'value' => __( 'Listing address eg. New York, USA', 'directorist' ),
 			],
 			'required' => [
 				'type'  => 'toggle',
 				'label' => __( 'Required', 'directorist' ),
-				'value' => true,
+				'value' => false,
+			],
+			'only_for_admin' => [
+				'type'  => 'toggle',
+				'label' => __( 'Administrative Only', 'directorist' ),
+				'value' => false,
 			],
 		);
 	}
 }
 
-Fields::register( new Title_Field() );
+Fields::register( new Address_Field() );

@@ -31,7 +31,7 @@ class Color_Picker_Field extends Base_Field {
 		return true;
 	}
 
-	protected function get_value( $posted_data ) {
+	public function get_value( $posted_data ) {
 		return (string) directorist_get_var( $posted_data[ $this->get_key() ], '' );
 	}
 
@@ -64,7 +64,7 @@ class Color_Picker_Field extends Base_Field {
 			'label' => array(
 				'type'  => 'text',
 				'label' => __( 'Label', 'directorist' ),
-				'value' => 'Text',
+				'value' => 'Color',
 			),
 			'description' => [
 				'type'  => 'text',

@@ -41,7 +41,7 @@ class Select_Field extends Base_Field {
 		return true;
 	}
 
-	protected function get_value( $posted_data ) {
+	public function get_value( $posted_data ) {
 		return (string) directorist_get_var( $posted_data[ $this->get_key() ], '' );
 	}
 

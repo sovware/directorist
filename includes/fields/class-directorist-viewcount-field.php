@@ -1,6 +1,6 @@
 <?php
 /**
- * Directorist Title Field class.
+ * Directorist View Count Field class.
  *
  */
 namespace Directorist\Fields;
@@ -9,29 +9,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Title_Field extends Text_Field {
+class View_Count_Field extends Number_Field {
 
-	public $type = 'title';
+	public $type = 'view_count';
 
-	protected $can_trash = false;
-	
+	public function sanitize( $posted_data ) {
+		return absint( $this->get_value( $posted_data ) );
+	}
+
 	public function get_builder_label() : string {
-		return esc_html_x( 'Title', 'Builder field label', 'directorist' );
+		return esc_html_x( 'View Count', 'Builder field label', 'directorist' );
 	}
 
 	public function get_builder_icon() : string {
-		return 'las la-text-height';
+		return 'uil uil-eye';
 	}
 
 	public function get_builder_fields( $directory_manager ) : array {
 		return array(
 			'type' => [
 				'type'  => 'hidden',
-				'value' => 'text',
+				'value' => 'number',
 			],
 			'field_key' => [
 				'type'  => 'hidden',
-				'value' => 'listing_title',
+				'value' => 'atbdp_post_views_count',
 				'rules' => [
 					'unique'   => true,
 					'required' => true,
@@ -40,7 +42,7 @@ class Title_Field extends Text_Field {
 			'label' => [
 				'type'  => 'text',
 				'label' => __( 'Label', 'directorist' ),
-				'value' => 'Title',
+				'value' => 'View Count',
 			],
 			'placeholder' => [
 				'type'  => 'text',
@@ -50,10 +52,15 @@ class Title_Field extends Text_Field {
 			'required' => [
 				'type'  => 'toggle',
 				'label' => __( 'Required', 'directorist' ),
+				'value' => false,
+			],
+			'only_for_admin' => [
+				'type'  => 'toggle',
+				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => true,
 			],
 		);
 	}
 }
 
-Fields::register( new Title_Field() );
+Fields::register( new View_Count_Field() );

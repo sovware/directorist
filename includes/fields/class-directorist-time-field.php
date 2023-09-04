@@ -31,7 +31,7 @@ class Time_Field extends Base_Field {
 		return true;
 	}
 
-	protected function get_value( $posted_data ) {
+	public function get_value( $posted_data ) {
 		return (string) directorist_get_var( $posted_data[ $this->get_key() ], '' );
 	}
 
@@ -40,7 +40,7 @@ class Time_Field extends Base_Field {
 	}
 
 	public function get_builder_label() : string {
-		return esc_html_x( 'Text', 'Builder field label', 'directorist' );
+		return esc_html_x( 'Time', 'Builder field label', 'directorist' );
 	}
 
 	public function get_builder_icon() : string {

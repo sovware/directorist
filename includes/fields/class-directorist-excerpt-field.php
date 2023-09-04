@@ -1,6 +1,6 @@
 <?php
 /**
- * Directorist Title Field class.
+ * Directorist Excerpt Field class.
  *
  */
 namespace Directorist\Fields;
@@ -9,29 +9,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Title_Field extends Text_Field {
+class Excerpt_Field extends Textarea_Field {
 
-	public $type = 'title';
-
-	protected $can_trash = false;
+	public $type = 'excerpt';
 	
 	public function get_builder_label() : string {
-		return esc_html_x( 'Title', 'Builder field label', 'directorist' );
+		return esc_html_x( 'Excerpt', 'Builder field label', 'directorist' );
 	}
 
 	public function get_builder_icon() : string {
-		return 'las la-text-height';
+		return 'uil uil-subject';
 	}
 
 	public function get_builder_fields( $directory_manager ) : array {
 		return array(
 			'type' => [
 				'type'  => 'hidden',
-				'value' => 'text',
+				'value' => 'textarea',
 			],
 			'field_key' => [
 				'type'  => 'hidden',
-				'value' => 'listing_title',
+				'value' => 'excerpt',
 				'rules' => [
 					'unique'   => true,
 					'required' => true,
@@ -40,7 +38,7 @@ class Title_Field extends Text_Field {
 			'label' => [
 				'type'  => 'text',
 				'label' => __( 'Label', 'directorist' ),
-				'value' => 'Title',
+				'value' => 'Excerpt',
 			],
 			'placeholder' => [
 				'type'  => 'text',
@@ -50,10 +48,15 @@ class Title_Field extends Text_Field {
 			'required' => [
 				'type'  => 'toggle',
 				'label' => __( 'Required', 'directorist' ),
-				'value' => true,
+				'value' => false,
+			],
+			'only_for_admin' => [
+				'type'  => 'toggle',
+				'label' => __( 'Administrative Only', 'directorist' ),
+				'value' => false,
 			],
 		);
 	}
 }
 
-Fields::register( new Title_Field() );
+Fields::register( new Excerpt_Field() );

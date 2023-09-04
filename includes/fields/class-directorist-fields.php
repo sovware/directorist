@@ -68,10 +68,10 @@ class Fields {
 		if ( $properties instanceof Base_Field ) {
 			$type = $properties->type;
 		} else {
-			$type = isset( $properties['type'] ) ? $properties['type'] : '';
+			$type = isset( $properties['widget_name'] ) ? $properties['widget_name'] : '';
 		}
 
-		$type = self::translate_to_new( $type );
+		$type = self::translate_key_to_field( $type );
 
 		if ( empty( $type ) || ! isset( self::$fields[ $type ] ) ) {
 			return new Base_Field( $properties );
@@ -84,9 +84,14 @@ class Fields {
 		return $field;
 	}
 
-	public static function translate_to_new( $type ) {
+	public static function translate_key_to_field( $type ) {
 		$map = array(
-			'color' => 'color_picker'
+			'color'              => 'color_picker',
+			'listing_title'      => 'title',
+			'hide_contact_owner' => 'switch',
+			'tag'                => 'tags',
+			'location'           => 'locations',
+			'category'           => 'categories',
 		);
 
 		return isset( $map[ $type ] ) ? $map[ $type ] : $type;

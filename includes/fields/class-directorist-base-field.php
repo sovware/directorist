@@ -13,12 +13,24 @@ class Base_Field {
 
 	public $type = 'base';
 
+	protected $directory_id = 0;
+
+	protected $can_trash = true;
+
 	protected $props = array();
 
 	protected $errors = array();
 
 	public function __construct( array $props = array() ) {
 		$this->props = $props;
+	}
+
+	public function set_directory_id( int $id ) {
+		$this->directory_id = $id;
+	}
+
+	public function get_directory_id() : int {
+		return $this->directory_id;
 	}
 
 	public function __get( $name ) {
@@ -52,7 +64,7 @@ class Base_Field {
 	}
 
 	public function is_preset() : bool {
-		return ( bool ) $this->widget_group === 'preset';
+		return ( bool ) ( $this->widget_group === 'preset' );
 	}
 
 	public function add_error( $message = '' ) {
@@ -71,21 +83,41 @@ class Base_Field {
 		return ( ! empty( $this->get_error() ) );
 	}
 
-	public function validate( $value ) {}
+	public function get_value( $posted_data ) {
+		return directorist_get_var( $posted_data[ $this->get_internal_key() ] );
+	}
 
-	public function sanitize( $value ) {}
+	public function is_value_empty( $posted_data ) {
+		$value = $this->get_value( $posted_data );
+		return ( is_null( $value ) || ( is_string( $value ) && $value === '' ) || ( is_array( $value ) && empty( $value ) ) );
+	}
 
-	public function get_builder_label() : string { return ''; }
+	public function validate( $posted_data ) {
+		return true;
+	}
 
-	public function get_builder_icon() : string {  return ''; }
+	public function sanitize( $posted_data ) {
+		return directorist_clean( $posted_data );
+	}
 
-	public function get_builder_fields( $directory_manager ) : array { return []; }
+	public function get_builder_label() : string {
+		return esc_html_x( 'Base Field', 'Builder field label', 'directorist' );
+	}
+
+	public function get_builder_icon() : string {
+		return 'uil uil-map-pin';
+	}
+	
+	public function get_builder_fields( $directory_manager ) : array {
+		return array();
+	}
 
 	public function to_builder_array( $directory_manager ) {
 		return array(
-			'label'   => $this->get_builder_label(),
-			'icon'    => $this->get_builder_icon(),
-			'options' => $this->get_builder_fields( $directory_manager ),
+			'label'    => $this->get_builder_label(),
+			'icon'     => $this->get_builder_icon(),
+			'options'  => $this->get_builder_fields( $directory_manager ),
+			'canTrash' => $this->can_trash,
 		);
 	}
 }

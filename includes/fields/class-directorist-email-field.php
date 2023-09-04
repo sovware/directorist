@@ -1,6 +1,6 @@
 <?php
 /**
- * Directorist Date Field class.
+ * Directorist Email Field class.
  *
  */
 namespace Directorist\Fields;
@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Date_Field extends Base_Field {
+class Email_Field extends Base_Field {
 
-	public $type = 'date';
+	public $type = 'email';
 
 	public function validate( $posted_data ) {
 		$value = $this->get_value( $posted_data );
@@ -22,8 +22,8 @@ class Date_Field extends Base_Field {
 			return false;
 		}
 
-		if ( ! empty( $value ) && strtotime( $value ) === false ) {
-			$this->add_error( __( 'Invalid date.', 'directorist' ) );
+		if ( ! empty( $value ) && ! is_email( $value ) ) {
+			$this->add_error( __( 'Invalid email address.', 'directorist' ) );
 
 			return false;
 		}
@@ -36,44 +36,39 @@ class Date_Field extends Base_Field {
 	}
 
 	public function sanitize( $posted_data ) {
-		return sanitize_text_field( $this->get_value( $posted_data ) );
+		return sanitize_email( $this->get_value( $posted_data ) );
 	}
 
 	public function get_builder_label() : string {
-		return esc_html_x( 'Date', 'Builder field label', 'directorist' );
+		return esc_html_x( 'Email', 'Builder field label', 'directorist' );
 	}
 
 	public function get_builder_icon() : string {
-		return 'uil uil-calender';
+		return 'uil uil-envelope';
 	}
 
 	public function get_builder_fields( $directory_manager ) : array {
 		return array(
-			'type' => array(
+			'type' => [
 				'type'  => 'hidden',
-				'value' => 'date',
-			),
-			'field_key' => array(
+				'value' => 'email',
+			],
+			'field_key' => [
 				'type'  => 'hidden',
-				'value' => 'custom-date',
+				'value' => 'email',
 				'rules' => [
 					'unique'   => true,
 					'required' => true,
 				]
-			),
-			'label' => array(
+			],
+			'label' => [
 				'type'  => 'text',
 				'label' => __( 'Label', 'directorist' ),
-				'value' => 'Date',
-			),
-			'description' => [
-				'type'  => 'text',
-				'label' => __( 'Description', 'directorist' ),
-				'value' => '',
+				'value' => 'Email',
 			],
 			'placeholder' => [
 				'type'  => 'text',
-				'label' => __( 'Placeholder', 'directorist' ),
+				'label' => __( 'Placeholder', 'directorist'),
 				'value' => '',
 			],
 			'required' => [
@@ -86,21 +81,8 @@ class Date_Field extends Base_Field {
 				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => false,
 			],
-			'assign_to' => $directory_manager->get_assign_to_field(),
-			'category'  => $directory_manager->get_category_select_field( [
-				'show_if' => [
-					'where'      => 'self.assign_to',
-					'conditions' => [
-						[
-							'key'     => 'value',
-							'compare' => '=',
-							'value'   => 'category'
-						],
-					],
-				],
-			] ),
 		);
 	}
 }
 
-Fields::register( new Date_Field() );
+Fields::register( new Email_Field() );

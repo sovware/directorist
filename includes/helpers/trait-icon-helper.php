@@ -51,7 +51,7 @@ trait Icon_Helper {
 	 * @return string
 	 */
 	private static function get_font_awesome_file( $icon ) {
-		list( $prefix, $name ) = explode( ' ', $icon );
+		list( $prefix, $name ) = array_pad( explode( ' ', $icon ), 2, '' );
 		$filename              = str_replace( 'fa-', '', $name );
 		$filename              = $filename . '.svg';
 

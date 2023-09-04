@@ -1461,12 +1461,22 @@
     }
   }
 
-  &.default-style {
+  &.default-add-listing {
     .multistep-wizard__single {
       display: block !important;
     }
-    .multistep-wizard__bottom {
+    .multistep-wizard__bottom,
+    .multistep-wizard__progressbar,
+    .multistep-wizard__nav__btn--finish {
       display: none !important;
+    }
+
+    .default-add-listing-bottom {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 35px 0;
+      justify-content: space-between;
     }
   }
 }

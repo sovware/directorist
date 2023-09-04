@@ -45,4 +45,5 @@ require_once __DIR__ . '/class-directorist-tags-field.php';
 
 require_once __DIR__ . '/class-directorist-pricing-field.php';
 require_once __DIR__ . '/class-directorist-map-field.php';
-require_once __DIR__ . '/class-directorist-socialinfo-field.php';
+require_once __DIR__ . '/class-directorist-social-info-field.php';
+require_once __DIR__ . '/class-directorist-image-upload-field.php';

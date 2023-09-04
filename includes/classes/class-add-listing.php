@@ -223,13 +223,15 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				 */
 				$meta_data = apply_filters( 'atbdp_listing_meta_user_submission', $meta_data );
 				$meta_data = apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $meta_data, $posted_data );
-	
-				$listing_data['meta_input'] = self::filter_empty_meta_data( $meta_data );
+
+				$meta_input = self::filter_empty_meta_data( $meta_data );
+
+				$listing_data['meta_input'] = $meta_input;
 				$listing_data['tax_input']  = $taxonomy_data;
 
 				file_put_contents(
 					__DIR__ . '/data.txt',
-					var_export( $listing_data, 1 ) . "\n"
+					var_export( [$posted_data, $_FILES], 1 ) . "\n"
 				);
 
 				return;
@@ -336,85 +338,85 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				// 	$data['id'] = $listing_id;
 
-				// 	// handling media files
-				// 	// if ( ! $attachment_only_for_admin ) {
-				// 	// 	$listing_images = atbdp_get_listing_attachment_ids( $post_id );
-				// 	// 	$files          = ! empty( $_FILES['listing_img'] ) ? directorist_clean( wp_unslash(  $_FILES['listing_img'] ) ) : array();
-				// 	// 	$files_meta     = ! empty( $_POST['files_meta'] ) ? directorist_clean( wp_unslash( $_POST['files_meta'] ) ) : array();
+					// handling media files
+					if ( ! $attachment_only_for_admin ) {
+						$listing_images = atbdp_get_listing_attachment_ids( $post_id );
+						$files          = ! empty( $_FILES['listing_img'] ) ? directorist_clean( wp_unslash(  $_FILES['listing_img'] ) ) : array();
+						$files_meta     = ! empty( $_POST['files_meta'] ) ? directorist_clean( wp_unslash( $_POST['files_meta'] ) ) : array();
 
-				// 	// 	if ( ! empty( $listing_images ) ) {
-				// 	// 		foreach ( $listing_images as $__old_id ) {
-				// 	// 			$match_found = false;
-				// 	// 			if ( ! empty( $files_meta ) ) {
-				// 	// 				foreach ( $files_meta as $__new_id ) {
-				// 	// 					$new_id = isset( $__new_id['attachmentID'] ) ? (int) $__new_id['attachmentID'] : '';
-				// 	// 					if ( $new_id === (int) $__old_id ) {
-				// 	// 						$match_found = true;
-				// 	// 						break;
-				// 	// 					}
-				// 	// 				}
-				// 	// 			}
-				// 	// 			if ( ! $match_found ) {
-				// 	// 				wp_delete_attachment( (int) $__old_id, true );
-				// 	// 			}
-				// 	// 		}
-				// 	// 	}
-				// 	// 	$attach_data = array();
-				// 	// 	if ( $files ) {
-				// 	// 		foreach ( $files['name'] as $key => $value ) {
+						if ( ! empty( $listing_images ) ) {
+							foreach ( $listing_images as $__old_id ) {
+								$match_found = false;
+								if ( ! empty( $files_meta ) ) {
+									foreach ( $files_meta as $__new_id ) {
+										$new_id = isset( $__new_id['attachmentID'] ) ? (int) $__new_id['attachmentID'] : '';
+										if ( $new_id === (int) $__old_id ) {
+											$match_found = true;
+											break;
+										}
+									}
+								}
+								if ( ! $match_found ) {
+									wp_delete_attachment( (int) $__old_id, true );
+								}
+							}
+						}
+						$attach_data = array();
+						if ( $files ) {
+							foreach ( $files['name'] as $key => $value ) {
 
-				// 	// 			$filetype = wp_check_filetype( $files['name'][ $key ] );
+								$filetype = wp_check_filetype( $files['name'][ $key ] );
 
-				// 	// 			if ( empty( $filetype['ext'] ) ) {
-				// 	// 				continue;
-				// 	// 			}
+								if ( empty( $filetype['ext'] ) ) {
+									continue;
+								}
 
-				// 	// 			if ( $files['name'][ $key ] ) {
-				// 	// 				$file                     = array(
-				// 	// 					'name'     => $files['name'][ $key ],
-				// 	// 					'type'     => $files['type'][ $key ],
-				// 	// 					'tmp_name' => $files['tmp_name'][ $key ],
-				// 	// 					'error'    => $files['error'][ $key ],
-				// 	// 					'size'     => $files['size'][ $key ],
-				// 	// 				);
-				// 	// 				$_FILES['my_file_upload'] = $file;
-				// 	// 				$meta_data                = array();
-				// 	// 				$meta_data['name']        = $files['name'][ $key ];
-				// 	// 				$meta_data['id']          = atbdp_handle_attachment( 'my_file_upload', $post_id );
-				// 	// 				array_push( $attach_data, $meta_data );
-				// 	// 			}
-				// 	// 		}
-				// 	// 	}
+								if ( $files['name'][ $key ] ) {
+									$file                     = array(
+										'name'     => $files['name'][ $key ],
+										'type'     => $files['type'][ $key ],
+										'tmp_name' => $files['tmp_name'][ $key ],
+										'error'    => $files['error'][ $key ],
+										'size'     => $files['size'][ $key ],
+									);
+									$_FILES['my_file_upload'] = $file;
+									$meta_data                = array();
+									$meta_data['name']        = $files['name'][ $key ];
+									$meta_data['id']          = atbdp_handle_attachment( 'my_file_upload', $post_id );
+									array_push( $attach_data, $meta_data );
+								}
+							}
+						}
 
-				// 	// 	$new_files_meta = array();
-				// 	// 	foreach ( $files_meta as $key => $value ) {
-				// 	// 		if ( $key === 0 && $value['oldFile'] === 'true' ) {
-				// 	// 			update_post_meta( $post_id, '_listing_prv_img', $value['attachmentID'] );
-				// 	// 			set_post_thumbnail( $post_id, $value['attachmentID'] );
-				// 	// 		}
-				// 	// 		if ( $key === 0 && $value['oldFile'] !== 'true' ) {
-				// 	// 			foreach ( $attach_data as $item ) {
-				// 	// 				if ( $item['name'] === $value['name'] ) {
-				// 	// 					$id = $item['id'];
-				// 	// 					update_post_meta( $post_id, '_listing_prv_img', $id );
-				// 	// 					set_post_thumbnail( $post_id, $id );
-				// 	// 				}
-				// 	// 			}
-				// 	// 		}
-				// 	// 		if ( $key !== 0 && $value['oldFile'] === 'true' ) {
-				// 	// 			array_push( $new_files_meta, $value['attachmentID'] );
-				// 	// 		}
-				// 	// 		if ( $key !== 0 && $value['oldFile'] !== 'true' ) {
-				// 	// 			foreach ( $attach_data as $item ) {
-				// 	// 				if ( $item['name'] === $value['name'] ) {
-				// 	// 					$id = $item['id'];
-				// 	// 					array_push( $new_files_meta, $id );
-				// 	// 				}
-				// 	// 			}
-				// 	// 		}
-				// 	// 	}
-				// 	// 	update_post_meta( $post_id, '_listing_img', $new_files_meta );
-				// 	// }
+						$new_files_meta = array();
+						foreach ( $files_meta as $key => $value ) {
+							if ( $key === 0 && $value['oldFile'] === 'true' ) {
+								update_post_meta( $post_id, '_listing_prv_img', $value['attachmentID'] );
+								set_post_thumbnail( $post_id, $value['attachmentID'] );
+							}
+							if ( $key === 0 && $value['oldFile'] !== 'true' ) {
+								foreach ( $attach_data as $item ) {
+									if ( $item['name'] === $value['name'] ) {
+										$id = $item['id'];
+										update_post_meta( $post_id, '_listing_prv_img', $id );
+										set_post_thumbnail( $post_id, $id );
+									}
+								}
+							}
+							if ( $key !== 0 && $value['oldFile'] === 'true' ) {
+								array_push( $new_files_meta, $value['attachmentID'] );
+							}
+							if ( $key !== 0 && $value['oldFile'] !== 'true' ) {
+								foreach ( $attach_data as $item ) {
+									if ( $item['name'] === $value['name'] ) {
+										$id = $item['id'];
+										array_push( $new_files_meta, $id );
+									}
+								}
+							}
+						}
+						update_post_meta( $post_id, '_listing_img', $new_files_meta );
+					}
 
 				// 	$permalink = get_permalink( $listing_id );
 				// 	// no pay extension own yet let treat as general user
@@ -520,6 +522,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 		public static function is_admin_only_field( $field ) {
 			return ( $field->is_admin_only() && ! current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_others_posts ) );
+		}
+
+		public static function upload_images( $listing_id, $posted_data ) {
+			
 		}
 
 		public static function process_map( $field, $posted_data, &$data, $error ) {

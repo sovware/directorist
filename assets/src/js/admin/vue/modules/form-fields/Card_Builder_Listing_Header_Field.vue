@@ -32,6 +32,7 @@
           :availableWidgets="theAvailableWidgets"
           :activeWidgets="active_widgets"
           :acceptedWidgets="placeholders.quick_info.acceptedWidgets"
+          :rejectedWidgets="placeholders.quick_info.rejectedWidgets"
           :selectedWidgets="placeholders.quick_info.selectedWidgets"
           :maxWidget="placeholders.quick_info.maxWidget"
           :showWidgetsPickerWindow="
@@ -43,7 +44,7 @@
           @drop-widget="appendWidget($event, placeholders.quick_info)"
           @dragend-widget="onDragEndWidget()"
           @edit-widget="editWidget($event)"
-          @trash-widget="trashWidget($event, placeholders.quick_info)"
+          @trash-widget="trashWidget($event, placeholders.quick_info, 'quick_info')"
           @placeholder-on-drop="
             handleDropOnPlaceholder(placeholders.quick_info)
           "
@@ -59,6 +60,7 @@
           :availableWidgets="theAvailableWidgets"
           :activeWidgets="active_widgets"
           :acceptedWidgets="placeholders.quick_actions.acceptedWidgets"
+          :rejectedWidgets="placeholders.quick_actions.rejectedWidgets"
           :selectedWidgets="placeholders.quick_actions.selectedWidgets"
           :maxWidget="placeholders.quick_actions.maxWidget"
           :showWidgetsPickerWindow="
@@ -70,7 +72,7 @@
           @drop-widget="appendWidget($event, placeholders.quick_actions)"
           @dragend-widget="onDragEndWidget()"
           @edit-widget="editWidget($event)"
-          @trash-widget="trashWidget($event, placeholders.quick_actions)"
+          @trash-widget="trashWidget($event, placeholders.quick_actions, 'quick_actions')"
           @placeholder-on-drop="
             handleDropOnPlaceholder(placeholders.quick_actions)
           "
@@ -94,6 +96,7 @@
           :availableWidgets="theAvailableWidgets"
           :activeWidgets="active_widgets"
           :acceptedWidgets="placeholderItem.acceptedWidgets"
+          :rejectedWidgets="placeholderItem.rejectedWidgets"
           :selectedWidgets="placeholderItem.selectedWidgets"
           :maxWidget="placeholderItem.maxWidget"
           :showWidgetsPickerWindow="
@@ -105,13 +108,19 @@
           @drop-widget="appendWidget($event, placeholderItem)"
           @dragend-widget="onDragEndWidget()"
           @edit-widget="editWidget($event)"
-          @trash-widget="trashWidget($event, placeholderItem)"
+          @trash-widget="trashWidget($event, placeholderItem, 'bottom', index)"
           @placeholder-on-drop="handleDropOnPlaceholder(placeholderItem)"
           @open-widgets-picker-window="
             activeInsertWindow('listings_header_bottom_' + index)
           "
           @close-widgets-picker-window="closeInsertWindow()"
         />
+      </div>
+
+      <div class="cptm-bottom-action" v-if="placeholders.bottom.length < 3">
+        <button type="button" @click="addImagePlaceholder">
+          Add Image/Slider
+        </button>
       </div>
     </div>
   </div>
@@ -194,7 +203,7 @@ export default {
 
           let widget_data = {};
 
-          if ( typeof index === 'number' ) {
+          if (typeof index === "number") {
             widget_data.index = index;
           }
 
@@ -242,7 +251,6 @@ export default {
 
       // Parse Layout
       for (let section_area in layout) {
-
         // Parse Repetitive Placeholders
         if (Array.isArray(layout[section_area])) {
           layout[section_area].forEach((value, index) => {
@@ -251,9 +259,12 @@ export default {
             if (!data) {
               return;
             }
-            
-            const oldData = typeof output[section_area] !== 'undefined' ? output[section_area] : [];
-            output[section_area] = [ ...oldData, ...data ];
+
+            const oldData =
+              typeof output[section_area] !== "undefined"
+                ? output[section_area]
+                : [];
+            output[section_area] = [...oldData, ...data];
           });
 
           continue;
@@ -413,21 +424,13 @@ export default {
         bottom: [
           {
             label: "Bottom Widgets",
-            selectedWidgets: [
-              // {
-              //   type: "button",
-              //   label: "Bookmark",
-              //   widget_name: "bookmark",
-              //   widget_key: "bookmark",
-              // },
-            ],
-          },
-          {
-            label: "Bottom Widgets",
+            acceptedWidgets: ["title"],
+            rejectedWidgets: ["slider"],
             selectedWidgets: [],
           },
           {
             label: "Bottom Widgets",
+            rejectedWidgets: ["slider"],
             selectedWidgets: [],
           },
         ],
@@ -441,6 +444,24 @@ export default {
       this.importCardOptions();
       this.importPlaceholders();
       this.importOldData();
+    },
+
+    addImagePlaceholder() {
+      const key = "slider";
+
+      if (!this.isTruthyObject(this.theAvailableWidgets[key])) {
+        return;
+      }
+
+      Vue.set(this.active_widgets, key, { ...this.theAvailableWidgets[key] });
+
+      this.placeholders.bottom.splice(this.placeholders.bottom.length, 0, {
+        label: "Bottom Widgets",
+        selectedWidgets: [key],
+        acceptedWidgets: [key],
+        maxWidget: 1,
+        canDelete: true,
+      });
     },
 
     isTruthyObject(obj) {
@@ -511,7 +532,7 @@ export default {
             selectedWidgets.push({
               area: area,
               widget: widget.widget_key,
-              widgetIndex: isNaN( widget.index ) ? null : parseInt( widget.index ),
+              widgetIndex: isNaN(widget.index) ? null : parseInt(widget.index),
             });
           }
         }
@@ -576,11 +597,12 @@ export default {
           continue;
         }
 
-        if ( isNaN( item.widgetIndex ) ) {
+        if (isNaN(item.widgetIndex)) {
           continue;
         }
 
-        const length = this.placeholders[item.area][item.widgetIndex].selectedWidgets.length;
+        const length =
+          this.placeholders[item.area][item.widgetIndex].selectedWidgets.length;
         this.placeholders[item.area][item.widgetIndex].selectedWidgets.splice(
           length,
           0,
@@ -713,6 +735,24 @@ export default {
       return false;
     },
 
+    widgetIsNotAccepted(path, key) {
+      if (!path.rejectedWidgets) {
+        return false;
+      }
+
+      if (!this.isTruthyObject(path.rejectedWidgets)) {
+        return false;
+      }
+
+      if (
+        path.rejectedWidgets.includes(this.theAvailableWidgets[key].widget_name)
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+
     widgetIsDropable(path) {
       if (!this._currentDraggingWidget.key.length) {
         return false;
@@ -727,6 +767,10 @@ export default {
       }
 
       if (this.maxWidgetLimitIsReached(path)) {
+        return false;
+      }
+
+      if (this.widgetIsNotAccepted(path, this._currentDraggingWidget.key)) {
         return false;
       }
 
@@ -875,7 +919,7 @@ export default {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
     },
 
-    trashWidget(key, where) {
+    trashWidget(key, where, placeholderKey, placeholderIndex) {
       if (!where.selectedWidgets.includes(key)) {
         return;
       }
@@ -886,11 +930,39 @@ export default {
       if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
+
       Vue.delete(this.active_widgets, key);
 
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
       }
+
+      if ( ! where.canDelete ) {
+        return;
+      }
+
+      if ( where.selectedWidgets.length ) {
+        return;
+      }
+
+      if (!placeholderKey) {
+        return;
+      }
+
+      if (!this.placeholders[placeholderKey]) {
+        return;
+      }
+
+      if ( isNaN( placeholderIndex ) ) {
+        Vue.delete( this.placeholders, placeholderKey );
+        return;
+      }
+
+      if ( ! this.placeholders[placeholderKey][placeholderIndex] ) {
+        return;
+      }
+
+      Vue.delete( this.placeholders[placeholderKey], placeholderIndex );
     },
 
     activeInsertWindow(current_item_key) {

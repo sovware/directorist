@@ -18,6 +18,7 @@
             :id="id"
             :availableWidgets="availableWidgets"
             :acceptedWidgets="acceptedWidgets"
+            :rejectedWidgets="rejectedWidgets"
             :activeWidgets="activeWidgets"
             :selectedWidgets="selectedWidgets"
             :active="showWidgetsPickerWindow"
@@ -30,6 +31,7 @@
         </div>
 
         <a
+          v-if="canAddMore"
           href="#"
           class="cptm-widget-insert-link"
           @click.prevent="$emit('open-widgets-picker-window')"
@@ -89,6 +91,9 @@ export default {
     acceptedWidgets: {
       type: Array,
     },
+    rejectedWidgets: {
+      type: Array,
+    },
     selectedWidgets: {
       type: Array,
     },
@@ -110,9 +115,16 @@ export default {
     },
   },
   created() {
-    
+
   },
   computed: {
+    canAddMore() {
+      if ( this.maxWidget < 1 ) {
+        return true;
+      }
+
+      return this.selectedWidgets.length < this.maxWidget;
+    },
     getContainerClass() {
       if ( typeof this.containerClass === 'string' ) {
         return {

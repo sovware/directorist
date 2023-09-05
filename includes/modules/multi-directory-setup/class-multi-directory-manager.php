@@ -4382,6 +4382,21 @@ class Multi_Directory_Manager
                     'contents_area' => ['title_and_tagline', 'description'],
                 ],
                 'widgets' => [
+                    'back' => [
+                        'type' => "button",
+                        'label' => __( "Back", "directorist" ),
+                        'icon' => 'las la-bookmark',
+                    ],
+                    'title' => [
+                        'type' => "title",
+                        'label' => __( "Title", "directorist" ),
+                        'icon' => 'las la-bookmark',
+                    ],
+                    'slider' => [
+                        'type' => "thumbnail",
+                        'label' => __( "Slider/Image", "directorist" ),
+                        'icon' => 'las la-bookmark',
+                    ],
                     'bookmark' => [
                         'type' => "button",
                         'label' => __( "Bookmark", "directorist" ),
@@ -4485,8 +4500,14 @@ class Multi_Directory_Manager
 
                 'layout' => [
                     'listings_header' => [
+                        'quick_info' => [
+                            'label' => __( '#@Quick info', 'directorist' ),
+                            'maxWidget' => 1,
+                            'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                            'acceptedWidgets' => [ 'back' ],
+                        ],
                         'quick_actions' => [
-                            'label' => __( '@Top Right', 'directorist' ),
+                            'label' => __( '#@Top Right', 'directorist' ),
                             'maxWidget' => 0,
                             'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                             'acceptedWidgets' => [ 'bookmark', 'share', 'report' ],
@@ -4502,7 +4523,7 @@ class Multi_Directory_Manager
                                 'label' => __( '@Bottom Widget', 'directorist' ),
                                 'maxWidget' => 1,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => [ 'listing_slider' ],
+                                'acceptedWidgets' => [ 'title' ],
                             ],
                             [
                                 'label' => __( '@Bottom Widget', 'directorist' ),
@@ -4510,24 +4531,6 @@ class Multi_Directory_Manager
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => [ 'listing_slider' ],
                             ],
-                            [
-                                'label' => __( '@Bottom Widget', 'directorist' ),
-                                'maxWidget' => 1,
-                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => [ 'listing_slider' ],
-                            ],
-                            [
-                                'label' => __( '@Bottom Widget', 'directorist' ),
-                                'maxWidget' => 1,
-                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => [ 'listing_slider' ],
-                            ],
-                        ],
-                        'quick_info' => [
-                            'label' => __( '@Quick info', 'directorist' ),
-                            'maxWidget' => 0,
-                            'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                            'acceptedWidgets' => [ 'badges', 'price', 'reviews', 'ratings_count', 'category', 'location' ],
                         ],
                     ],
                 ],

@@ -14970,6 +14970,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-widget-placeholder",
   props: {
@@ -14994,6 +14996,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     acceptedWidgets: {
       type: Array
     },
+    rejectedWidgets: {
+      type: Array
+    },
     selectedWidgets: {
       type: Array
     },
@@ -15016,6 +15021,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   },
   created: function created() {},
   computed: {
+    canAddMore: function canAddMore() {
+      if (this.maxWidget < 1) {
+        return true;
+      }
+
+      return this.selectedWidgets.length < this.maxWidget;
+    },
     getContainerClass: function getContainerClass() {
       if (typeof this.containerClass === 'string') {
         var _ref;
@@ -16631,13 +16643,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'widgets-window',
   props: {
@@ -16661,6 +16666,9 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     },
     acceptedWidgets: {
+      type: Array
+    },
+    rejectedWidgets: {
       type: Array
     },
     activeWidgets: {
@@ -16689,6 +16697,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     widgetsList: function widgetsList() {
+      var _this = this;
+
       if (!this.availableWidgets && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.availableWidgets) !== 'object') {
         return {};
       }
@@ -16698,6 +16708,16 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var availableWidgets = JSON.parse(JSON.stringify(this.availableWidgets));
+
+      if (this.rejectedWidgets && this.rejectedWidgets.length) {
+        availableWidgets = Object.keys(availableWidgets).filter(function (key) {
+          return !_this.rejectedWidgets.includes(availableWidgets[key].widget_name);
+        }).reduce(function (obj, key) {
+          obj[key] = availableWidgets[key];
+          return obj;
+        }, {});
+      }
+
       var accepted_widgets = this.acceptedWidgets;
 
       if (!accepted_widgets && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(accepted_widgets) !== 'object') {
@@ -26314,6 +26334,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -26384,7 +26413,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
           var widget_data = {};
 
-          if (typeof index === 'number') {
+          if (typeof index === "number") {
             widget_data.index = index;
           }
 
@@ -26441,7 +26470,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               return;
             }
 
-            var oldData = typeof output[section_area] !== 'undefined' ? output[section_area] : [];
+            var oldData = typeof output[section_area] !== "undefined" ? output[section_area] : [];
             output[section_area] = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(oldData), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(data));
           });
           return "continue";
@@ -26600,18 +26629,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         },
         bottom: [{
           label: "Bottom Widgets",
-          selectedWidgets: [// {
-            //   type: "button",
-            //   label: "Bookmark",
-            //   widget_name: "bookmark",
-            //   widget_key: "bookmark",
-            // },
-          ]
-        }, {
-          label: "Bottom Widgets",
+          acceptedWidgets: ["title"],
+          rejectedWidgets: ["slider"],
           selectedWidgets: []
         }, {
           label: "Bottom Widgets",
+          rejectedWidgets: ["slider"],
           selectedWidgets: []
         }]
       }
@@ -26623,6 +26646,22 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.importCardOptions();
       this.importPlaceholders();
       this.importOldData();
+    },
+    addImagePlaceholder: function addImagePlaceholder() {
+      var key = "slider";
+
+      if (!this.isTruthyObject(this.theAvailableWidgets[key])) {
+        return;
+      }
+
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.active_widgets, key, _objectSpread({}, this.theAvailableWidgets[key]));
+      this.placeholders.bottom.splice(this.placeholders.bottom.length, 0, {
+        label: "Bottom Widgets",
+        selectedWidgets: [key],
+        acceptedWidgets: [key],
+        maxWidget: 1,
+        canDelete: true
+      });
     },
     isTruthyObject: function isTruthyObject(obj) {
       if (!obj && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(obj) !== "object") {
@@ -26871,6 +26910,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       return false;
     },
+    widgetIsNotAccepted: function widgetIsNotAccepted(path, key) {
+      if (!path.rejectedWidgets) {
+        return false;
+      }
+
+      if (!this.isTruthyObject(path.rejectedWidgets)) {
+        return false;
+      }
+
+      if (path.rejectedWidgets.includes(this.theAvailableWidgets[key].widget_name)) {
+        return true;
+      }
+
+      return false;
+    },
     widgetIsDropable: function widgetIsDropable(path) {
       if (!this._currentDraggingWidget.key.length) {
         return false;
@@ -26885,6 +26939,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       if (this.maxWidgetLimitIsReached(path)) {
+        return false;
+      }
+
+      if (this.widgetIsNotAccepted(path, this._currentDraggingWidget.key)) {
         return false;
       }
 
@@ -27002,7 +27060,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
     },
-    trashWidget: function trashWidget(key, where) {
+    trashWidget: function trashWidget(key, where, placeholderKey, placeholderIndex) {
       if (!where.selectedWidgets.includes(key)) {
         return;
       }
@@ -27019,6 +27077,33 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
       }
+
+      if (!where.canDelete) {
+        return;
+      }
+
+      if (where.selectedWidgets.length) {
+        return;
+      }
+
+      if (!placeholderKey) {
+        return;
+      }
+
+      if (!this.placeholders[placeholderKey]) {
+        return;
+      }
+
+      if (isNaN(placeholderIndex)) {
+        vue__WEBPACK_IMPORTED_MODULE_3__["default"].delete(this.placeholders, placeholderKey);
+        return;
+      }
+
+      if (!this.placeholders[placeholderKey][placeholderIndex]) {
+        return;
+      }
+
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].delete(this.placeholders[placeholderKey], placeholderIndex);
     },
     activeInsertWindow: function activeInsertWindow(current_item_key) {
       var self = this;
@@ -33312,6 +33397,7 @@ var render = function () {
                   id: _vm.id,
                   availableWidgets: _vm.availableWidgets,
                   acceptedWidgets: _vm.acceptedWidgets,
+                  rejectedWidgets: _vm.rejectedWidgets,
                   activeWidgets: _vm.activeWidgets,
                   selectedWidgets: _vm.selectedWidgets,
                   active: _vm.showWidgetsPickerWindow,
@@ -33332,20 +33418,22 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "cptm-widget-insert-link",
-              attrs: { href: "#" },
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.$emit("open-widgets-picker-window")
+          _vm.canAddMore
+            ? _c(
+                "a",
+                {
+                  staticClass: "cptm-widget-insert-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.$emit("open-widgets-picker-window")
+                    },
+                  },
                 },
-              },
-            },
-            [_c("span", { staticClass: "fa fa-plus" })]
-          ),
+                [_c("span", { staticClass: "fa fa-plus" })]
+              )
+            : _vm._e(),
         ]),
       ]),
       _vm._v(" "),
@@ -41295,6 +41383,7 @@ var render = function () {
               availableWidgets: _vm.theAvailableWidgets,
               activeWidgets: _vm.active_widgets,
               acceptedWidgets: _vm.placeholders.quick_info.acceptedWidgets,
+              rejectedWidgets: _vm.placeholders.quick_info.rejectedWidgets,
               selectedWidgets: _vm.placeholders.quick_info.selectedWidgets,
               maxWidget: _vm.placeholders.quick_info.maxWidget,
               showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
@@ -41322,7 +41411,11 @@ var render = function () {
                 return _vm.editWidget($event)
               },
               "trash-widget": function ($event) {
-                return _vm.trashWidget($event, _vm.placeholders.quick_info)
+                return _vm.trashWidget(
+                  $event,
+                  _vm.placeholders.quick_info,
+                  "quick_info"
+                )
               },
               "placeholder-on-drop": function ($event) {
                 return _vm.handleDropOnPlaceholder(_vm.placeholders.quick_info)
@@ -41345,6 +41438,7 @@ var render = function () {
               availableWidgets: _vm.theAvailableWidgets,
               activeWidgets: _vm.active_widgets,
               acceptedWidgets: _vm.placeholders.quick_actions.acceptedWidgets,
+              rejectedWidgets: _vm.placeholders.quick_actions.rejectedWidgets,
               selectedWidgets: _vm.placeholders.quick_actions.selectedWidgets,
               maxWidget: _vm.placeholders.quick_actions.maxWidget,
               showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
@@ -41374,7 +41468,11 @@ var render = function () {
                 return _vm.editWidget($event)
               },
               "trash-widget": function ($event) {
-                return _vm.trashWidget($event, _vm.placeholders.quick_actions)
+                return _vm.trashWidget(
+                  $event,
+                  _vm.placeholders.quick_actions,
+                  "quick_actions"
+                )
               },
               "placeholder-on-drop": function ($event) {
                 return _vm.handleDropOnPlaceholder(
@@ -41411,6 +41509,7 @@ var render = function () {
               availableWidgets: _vm.theAvailableWidgets,
               activeWidgets: _vm.active_widgets,
               acceptedWidgets: placeholderItem.acceptedWidgets,
+              rejectedWidgets: placeholderItem.rejectedWidgets,
               selectedWidgets: placeholderItem.selectedWidgets,
               maxWidget: placeholderItem.maxWidget,
               showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
@@ -41435,7 +41534,7 @@ var render = function () {
                 return _vm.editWidget($event)
               },
               "trash-widget": function ($event) {
-                return _vm.trashWidget($event, placeholderItem)
+                return _vm.trashWidget($event, placeholderItem, "bottom", index)
               },
               "placeholder-on-drop": function ($event) {
                 return _vm.handleDropOnPlaceholder(placeholderItem)
@@ -41451,6 +41550,19 @@ var render = function () {
         }),
         1
       ),
+      _vm._v(" "),
+      _vm.placeholders.bottom.length < 3
+        ? _c("div", { staticClass: "cptm-bottom-action" }, [
+            _c(
+              "button",
+              {
+                attrs: { type: "button" },
+                on: { click: _vm.addImagePlaceholder },
+              },
+              [_vm._v("\n        Add Image/Slider\n      ")]
+            ),
+          ])
+        : _vm._e(),
     ]),
   ])
 }

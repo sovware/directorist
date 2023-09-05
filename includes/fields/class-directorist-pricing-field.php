@@ -28,10 +28,6 @@ class Pricing_Field extends Base_Field {
 	public function validate( $posted_data ) {
 		$value = $this->get_value( $posted_data );
 
-		if ( empty( $value ) ) {
-			return true;
-		}
-
 		if ( ! empty( $value['price_type'] ) && ! in_array( $value['price_type'], $this->get_price_types(), true ) ) {
 			$this->add_error( __( 'Invalid price type.' . $value['price_type'], 'directorist' ) );
 		}

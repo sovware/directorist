@@ -26,7 +26,7 @@ class Select_Field extends Base_Field {
 	public function validate( $posted_data ) {
 		$value = $this->get_value( $posted_data );
 
-		if ( ! empty( $value ) && ! in_array( $value, $this->get_options(), true ) ) {
+		if ( ! in_array( $value, $this->get_options(), true ) ) {
 			$this->add_error( sprintf( __( '[%s] Invalid value.', 'directorist' ), $value ) );
 
 			return false;

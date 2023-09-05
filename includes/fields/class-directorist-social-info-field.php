@@ -14,7 +14,7 @@ class Social_Info_Field extends Base_Field {
 	public $type = 'social_info';
 
 	public function get_value( $posted_data ) {
-		if ( ! isset( $posted_data['social'] ) || ! is_array($posted_data['social'] ) ) {
+		if ( ! isset( $posted_data['social'] ) || ! is_array( $posted_data['social'] ) ) {
 			return array();
 		}
 

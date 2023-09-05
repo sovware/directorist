@@ -753,7 +753,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			if ( $field->is_required() && self::is_field_submission_empty( $field, $posted_data ) ) {
 				$field->add_error( __( 'This field is required.', 'directorist' ) );
-			} else {
+			} elseif ( ! self::is_field_submission_empty( $field, $posted_data ) ) {
 				$field->validate( $posted_data );
 			}
 

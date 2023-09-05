@@ -13,16 +13,6 @@ class Switch_Field extends Base_Field {
 
 	public $type = 'switch';
 
-	public function validate( $posted_data ) {
-		if ( $this->is_required() && ! isset( $posted_data[ $this->get_key() ] ) ) {
-			$this->add_error( __( 'This field is required.', 'directorist' ) );
-
-			return false;
-		}
-
-		return true;
-	}
-
 	public function sanitize( $posted_data ) {
 		return (bool) $this->get_value( $posted_data );
 	}

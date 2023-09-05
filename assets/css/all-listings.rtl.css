@@ -4772,6 +4772,12 @@ body.stop-scrolling {
   cursor: pointer;
   background-color: var(--directorist-color-light);
 }
+.multistep-wizard__btn.directorist-btn {
+  color: var(--directorist-color-body);
+}
+.multistep-wizard__btn.directorist-btn i:after {
+  background-color: var(--directorist-color-body);
+}
 .multistep-wizard__btn:hover {
   color: var(--directorist-color-white);
   background-color: var(--directorist-color-primary);
@@ -4864,6 +4870,9 @@ body.stop-scrolling {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+.multistep-wizard.default-add-listing .default-add-listing-bottom .directorist-form-submit__btn {
+  width: 100%;
 }
 
 .logged-in .multistep-wizard__nav.sticky {

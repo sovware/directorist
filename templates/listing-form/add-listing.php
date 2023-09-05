@@ -79,8 +79,7 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                         </div>
 
                         <div class="default-add-listing-bottom">
-                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn">Skip Preview </button>
-                            <button type="submit" class="directorist-btn directorist-form-submit__btn">Save & Preview</button>
+                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn">Save & Preview</button>
                         </div>
                     </div>
                 </div>

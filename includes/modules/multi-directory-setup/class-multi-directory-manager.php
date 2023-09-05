@@ -4486,19 +4486,45 @@ class Multi_Directory_Manager
                 'layout' => [
                     'listings_header' => [
                         'quick_actions' => [
-                            'label' => __( 'Top Right', 'directorist' ),
+                            'label' => __( '@Top Right', 'directorist' ),
                             'maxWidget' => 0,
                             'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                             'acceptedWidgets' => [ 'bookmark', 'share', 'report' ],
                         ],
                         'thumbnail' => [
-                            'label' => __( 'Thumbnail', 'directorist' ),
+                            'label' => __( '@Thumbnail', 'directorist' ),
                             'maxWidget' => 1,
                             'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                             'acceptedWidgets' => [ 'listing_slider' ],
                         ],
+                        'bottom' => [
+                            [
+                                'label' => __( '@Bottom Widget', 'directorist' ),
+                                'maxWidget' => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => [ 'listing_slider' ],
+                            ],
+                            [
+                                'label' => __( '@Bottom Widget', 'directorist' ),
+                                'maxWidget' => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => [ 'listing_slider' ],
+                            ],
+                            [
+                                'label' => __( '@Bottom Widget', 'directorist' ),
+                                'maxWidget' => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => [ 'listing_slider' ],
+                            ],
+                            [
+                                'label' => __( '@Bottom Widget', 'directorist' ),
+                                'maxWidget' => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => [ 'listing_slider' ],
+                            ],
+                        ],
                         'quick_info' => [
-                            'label' => __( 'Quick info', 'directorist' ),
+                            'label' => __( '@Quick info', 'directorist' ),
                             'maxWidget' => 0,
                             'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                             'acceptedWidgets' => [ 'badges', 'price', 'reviews', 'ratings_count', 'category', 'location' ],

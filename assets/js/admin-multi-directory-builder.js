@@ -4259,6 +4259,7 @@ var map = {
 	"./form-fields/Card_Builder_List_View_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_List_View_Field.vue",
 	"./form-fields/Card_Builder_List_View_With_Thumbnail_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_List_View_With_Thumbnail_Field.vue",
 	"./form-fields/Card_Builder_List_View_Without_Thumbnail_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_List_View_Without_Thumbnail_Field.vue",
+	"./form-fields/Card_Builder_Listing_Header_Field.old.vue": "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue",
 	"./form-fields/Card_Builder_Listing_Header_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.vue",
 	"./form-fields/Checkbox_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Checkbox_Field.vue",
 	"./form-fields/ColorField.vue": "./assets/src/js/admin/vue/modules/form-fields/ColorField.vue",
@@ -7583,6 +7584,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Card_Builder_List_View_Without_Thumbnail_Field_vue_vue_type_template_id_3b80dd7f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Card_Builder_List_View_Without_Thumbnail_Field_vue_vue_type_template_id_3b80dd7f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue":
+/*!***********************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue ***!
+  \***********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Card_Builder_Listing_Header_Field_old_vue_vue_type_template_id_1e980324___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Card_Builder_Listing_Header_Field.old.vue?vue&type=template&id=1e980324& */ "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=template&id=1e980324&");
+/* harmony import */ var _Card_Builder_Listing_Header_Field_old_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Card_Builder_Listing_Header_Field.old.vue?vue&type=script&lang=js& */ "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Card_Builder_Listing_Header_Field_old_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Card_Builder_Listing_Header_Field_old_vue_vue_type_template_id_1e980324___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Card_Builder_Listing_Header_Field_old_vue_vue_type_template_id_1e980324___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Card_Builder_Listing_Header_Field_old_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--3-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Card_Builder_Listing_Header_Field.old.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Card_Builder_Listing_Header_Field_old_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=template&id=1e980324&":
+/*!******************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=template&id=1e980324& ***!
+  \******************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Card_Builder_Listing_Header_Field_old_vue_vue_type_template_id_1e980324___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Card_Builder_Listing_Header_Field.old.vue?vue&type=template&id=1e980324& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=template&id=1e980324&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Card_Builder_Listing_Header_Field_old_vue_vue_type_template_id_1e980324___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Card_Builder_Listing_Header_Field_old_vue_vue_type_template_id_1e980324___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -25123,10 +25193,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -26013,6 +26083,911 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       if (this.isObject(widget.options) && widget.options.fields && widget.options.fields.label && widget.options.fields.type === 'text' && widget.options.fields.label.value && widget.options.fields.label.value.length) {
+        label = widget.options.fields.label.value;
+      }
+
+      return label;
+    },
+    getActiveInsertWindowStatus: function getActiveInsertWindowStatus(current_item_key) {
+      if (current_item_key === this.active_insert_widget_key) {
+        return true;
+      }
+
+      return false;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "card-builder-listing-header-field",
+  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__["default"]],
+  props: {
+    fieldId: {
+      required: false,
+      default: ""
+    },
+    value: {
+      required: false,
+      default: null
+    },
+    widgets: {
+      required: false,
+      default: null
+    },
+    cardOptions: {
+      required: false,
+      default: null
+    },
+    layout: {
+      required: false,
+      default: null
+    }
+  },
+  mounted: function mounted() {
+    var self = this;
+    document.addEventListener("click", function (e) {
+      self.closeInsertWindow();
+    });
+  },
+  created: function created() {
+    this.init();
+    this.$emit("update", this.output_data);
+  },
+  watch: {
+    output_data: function output_data() {
+      this.$emit("update", this.output_data);
+    }
+  },
+  computed: {
+    output_data: function output_data() {
+      var _this = this;
+
+      var output = {};
+      var layout = this.placeholders;
+
+      var getWidgetData = function getWidgetData(placeholderData, index) {
+        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(placeholderData) !== "object") {
+          return null;
+        }
+
+        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(placeholderData.selectedWidgets) !== "object") {
+          return null;
+        }
+
+        var data = [];
+
+        for (var _widget in placeholderData.selectedWidgets) {
+          var widget_name = placeholderData.selectedWidgets[_widget];
+
+          if (!_this.active_widgets[widget_name] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(_this.active_widgets[widget_name]) !== "object") {
+            continue;
+          }
+
+          var widget_data = {};
+
+          if (typeof index === 'number') {
+            widget_data.index = index;
+          }
+
+          for (var root_option in _this.active_widgets[widget_name]) {
+            if ("options" === root_option) {
+              continue;
+            }
+
+            if ("icon" === root_option) {
+              continue;
+            }
+
+            if ("show_if" === root_option) {
+              continue;
+            }
+
+            if ("fields" === root_option) {
+              continue;
+            }
+
+            widget_data[root_option] = _this.active_widgets[widget_name][root_option];
+          }
+
+          if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(_this.active_widgets[widget_name].options) !== "object") {
+            data.push(widget_data);
+            continue;
+          }
+
+          if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(_this.active_widgets[widget_name].options.fields) !== "object") {
+            data.push(widget_data);
+            continue;
+          }
+
+          var widget_options = _this.active_widgets[widget_name].options.fields;
+
+          for (var option in widget_options) {
+            widget_data[option] = widget_options[option].value;
+          }
+
+          data.push(widget_data);
+        }
+
+        return data;
+      }; // Parse Layout
+
+
+      var _loop = function _loop(section_area) {
+        // Parse Repetitive Placeholders
+        if (Array.isArray(layout[section_area])) {
+          layout[section_area].forEach(function (value, index) {
+            var data = getWidgetData(value, index);
+
+            if (!data) {
+              return;
+            }
+
+            var oldData = typeof output[section_area] !== 'undefined' ? output[section_area] : [];
+            output[section_area] = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(oldData), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(data));
+          });
+          return "continue";
+        } // Parse Singular Placeholders
+
+
+        var data = getWidgetData(layout[section_area]);
+
+        if (!data) {
+          return "continue";
+        }
+
+        output[section_area] = data;
+      };
+
+      for (var section_area in layout) {
+        var _ret = _loop(section_area);
+
+        if (_ret === "continue") continue;
+      }
+
+      return {
+        listings_header: output
+      };
+    },
+    theAvailableWidgets: function theAvailableWidgets() {
+      var available_widgets = JSON.parse(JSON.stringify(this.available_widgets));
+
+      for (var _widget2 in available_widgets) {
+        available_widgets[_widget2].widget_name = _widget2;
+        available_widgets[_widget2].widget_key = _widget2; // Check show if condition
+
+        var show_if_cond_state = null;
+
+        if (this.isObject(available_widgets[_widget2].show_if)) {
+          show_if_cond_state = this.checkShowIfCondition({
+            condition: available_widgets[_widget2].show_if
+          });
+          var main_widget = available_widgets[_widget2];
+          delete available_widgets[_widget2];
+
+          if (show_if_cond_state.status) {
+            var widget_keys = [];
+
+            var _iterator = _createForOfIteratorHelper(show_if_cond_state.matched_data),
+                _step;
+
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var matched_field = _step.value;
+
+                // console.log( {matched_field} );
+                var _main_widget = JSON.parse(JSON.stringify(main_widget));
+
+                var current_key = widget_keys.includes(_widget2) ? _widget2 + "_" + (widget_keys.length + 1) : _widget2;
+                _main_widget.widget_key = current_key;
+
+                if (matched_field.widget_key) {
+                  _main_widget.widget_key = matched_field.widget_key;
+                }
+
+                if (typeof matched_field.label === "string" && matched_field.label.length) {
+                  _main_widget.label = matched_field.label;
+                }
+
+                available_widgets[current_key] = _main_widget;
+                widget_keys.push(current_key);
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+          }
+        }
+      }
+
+      return available_widgets;
+    },
+    widgetOptionsWindowActiveStatus: function widgetOptionsWindowActiveStatus() {
+      if (!this.widgetOptionsWindow.widget.length) {
+        return false;
+      }
+
+      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === "undedined") {
+        return false;
+      }
+
+      return true;
+    },
+    widgetCardOptionsWindowActiveStatus: function widgetCardOptionsWindowActiveStatus() {
+      if (!this.isObject(this.widgetCardOptionsWindow.widget)) {
+        return false;
+      }
+
+      return true;
+    },
+    _currentDraggingWidget: function _currentDraggingWidget() {
+      return this.currentDraggingWidget;
+    }
+  },
+  data: function data() {
+    return {
+      active_insert_widget_key: "",
+      // Widget Options Window
+      widgetOptionsWindowDefault: {
+        animation: "cptm-animation-flip",
+        widget: ""
+      },
+      widgetCardOptionsWindow: {
+        animation: "cptm-animation-flip",
+        widget: ""
+      },
+      widgetOptionsWindow: {
+        animation: "cptm-animation-flip",
+        widget: ""
+      },
+      currentDraggingWidget: {
+        origin: {},
+        key: ""
+      },
+      // Available Widgets
+      available_widgets: {},
+      // Active Widgets
+      active_widgets: {},
+      // Card Options
+      card_options: {
+        general: {},
+        content_settings: {}
+      },
+      // Layout
+      local_layout: {
+        listings_header: {
+          quick_actions: {
+            label: "Quick Actions",
+            selectedWidgets: []
+          },
+          thumbnail: {
+            label: "Thumbnail",
+            selectedWidgets: []
+          },
+          quick_info: {
+            label: "Quick Info",
+            selectedWidgets: []
+          }
+        }
+      },
+      placeholders: {
+        quick_actions: {
+          label: "Top Right",
+          selectedWidgets: []
+        },
+        quick_info: {
+          label: "Top Left",
+          selectedWidgets: []
+        },
+        bottom: [{
+          label: "Bottom Widgets",
+          selectedWidgets: [// {
+            //   type: "button",
+            //   label: "Bookmark",
+            //   widget_name: "bookmark",
+            //   widget_key: "bookmark",
+            // },
+          ]
+        }, {
+          label: "Bottom Widgets",
+          selectedWidgets: []
+        }, {
+          label: "Bottom Widgets",
+          selectedWidgets: []
+        }]
+      }
+    };
+  },
+  methods: {
+    init: function init() {
+      this.importWidgets();
+      this.importCardOptions();
+      this.importPlaceholders();
+      this.importOldData();
+    },
+    isTruthyObject: function isTruthyObject(obj) {
+      if (!obj && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(obj) !== "object") {
+        return false;
+      }
+
+      return true;
+    },
+    isJSON: function isJSON(string) {
+      try {
+        JSON.parse(string);
+      } catch (e) {
+        return false;
+      }
+
+      return true;
+    },
+    importOldData: function importOldData() {
+      var value = JSON.parse(JSON.stringify(this.value));
+
+      if (!this.isTruthyObject(value)) {
+        return;
+      } // Import Layout
+      // -------------------------
+
+
+      var selectedWidgets = []; // Get Active Widgets Data
+
+      var active_widgets_data = {};
+
+      for (var section in value) {
+        if ("options" === section) {
+          continue;
+        }
+
+        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(value[section]) !== "object") {
+          continue;
+        }
+
+        for (var area in value[section]) {
+          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(value[section][area]) !== "object") {
+            continue;
+          }
+
+          var _iterator2 = _createForOfIteratorHelper(value[section][area]),
+              _step2;
+
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var _widget3 = _step2.value;
+
+              if (typeof _widget3.widget_key === "undefined") {
+                continue;
+              }
+
+              if (typeof _widget3.widget_name === "undefined") {
+                continue;
+              }
+
+              if (typeof this.available_widgets[_widget3.widget_name] === "undefined") {
+                continue;
+              }
+
+              if (typeof this.placeholders[area] === "undefined") {
+                continue;
+              }
+
+              active_widgets_data[_widget3.widget_key] = _widget3;
+              selectedWidgets.push({
+                area: area,
+                widget: _widget3.widget_key,
+                widgetIndex: isNaN(_widget3.index) ? null : parseInt(_widget3.index)
+              });
+            }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
+          }
+        }
+      } // Load Active Widgets
+
+
+      for (var widget_key in active_widgets_data) {
+        if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
+          continue;
+        }
+
+        var widgets_template = _objectSpread({}, this.theAvailableWidgets[widget_key]);
+
+        var widget_options = !active_widgets_data[widget_key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(active_widgets_data[widget_key].options) !== "object" ? false : active_widgets_data[widget_key].options;
+        var has_widget_options = false;
+
+        if (widgets_template.options && widgets_template.options.fields) {
+          has_widget_options = true;
+        }
+
+        for (var root_option in widgets_template) {
+          if ("options" === root_option) {
+            continue;
+          }
+
+          if (active_widgets_data[widget_key][root_option] === "undefined") {
+            continue;
+          }
+
+          widgets_template[root_option] = active_widgets_data[widget_key][root_option];
+        }
+
+        if (has_widget_options) {
+          for (var option_key in widgets_template.options.fields) {
+            if (typeof active_widgets_data[widget_key][option_key] === "undefined") {
+              continue;
+            }
+
+            widgets_template.options.fields[option_key].value = active_widgets_data[widget_key][option_key];
+          }
+        }
+
+        vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.active_widgets, widget_key, widgets_template);
+      } // Load Selected Widgets Data
+
+
+      for (var _i = 0, _selectedWidgets = selectedWidgets; _i < _selectedWidgets.length; _i++) {
+        var item = _selectedWidgets[_i];
+
+        if (!Array.isArray(this.placeholders[item.area])) {
+          var _length = this.placeholders[item.area].selectedWidgets.length;
+          this.placeholders[item.area].selectedWidgets.splice(_length, 0, item.widget);
+          continue;
+        }
+
+        if (isNaN(item.widgetIndex)) {
+          continue;
+        }
+
+        var length = this.placeholders[item.area][item.widgetIndex].selectedWidgets.length;
+        this.placeholders[item.area][item.widgetIndex].selectedWidgets.splice(length, 0, item.widget);
+      }
+    },
+    importWidgets: function importWidgets() {
+      if (!this.isTruthyObject(this.widgets)) {
+        return;
+      }
+
+      this.available_widgets = this.widgets;
+    },
+    importCardOptions: function importCardOptions() {
+      if (!this.isTruthyObject(this.cardOptions)) {
+        return;
+      }
+
+      for (var section in this.card_options) {
+        if (!this.isTruthyObject(this.cardOptions[section])) {
+          return;
+        }
+
+        vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.card_options, section, JSON.parse(JSON.stringify(this.cardOptions[section])));
+      }
+    },
+    importPlaceholders: function importPlaceholders() {
+      if (!this.isTruthyObject(this.layout)) {
+        return;
+      }
+
+      if (!this.isTruthyObject(this.layout.listings_header)) {
+        return;
+      }
+
+      var singularPlaceholders = ["quick_actions", "quick_info"];
+      var repetitivePlaceholders = ["bottom"]; // Singular Placeholders
+
+      for (var _i2 = 0, _singularPlaceholders = singularPlaceholders; _i2 < _singularPlaceholders.length; _i2++) {
+        var key = _singularPlaceholders[_i2];
+
+        if (!this.isTruthyObject(this.layout.listings_header[key])) {
+          continue;
+        }
+
+        Object.assign(this.placeholders[key], this.layout.listings_header[key]);
+      } // Repetitive Placeholders
+      // for (const key of repetitivePlaceholders) {
+      //   if ( ! Array.isArray( this.layout.listings_header[key] ) ) {
+      //     continue;
+      //   }
+      //   const placeholders = this.layout.listings_header[key].filter(
+      //     item => this.isTruthyObject( item )
+      //   );
+      //   Object.assign(
+      //     this.placeholders[key],
+      //     placeholders
+      //   );
+      // }
+
+    },
+    importLayout: function importLayout() {
+      if (!this.isTruthyObject(this.layout)) {
+        return;
+      }
+
+      for (var section in this.local_layout) {
+        if (!this.isTruthyObject(this.layout[section])) {
+          continue;
+        }
+
+        for (var area in this.local_layout[section]) {
+          if (!this.isTruthyObject(this.layout[section][area])) {
+            continue;
+          }
+
+          Object.assign(this.local_layout[section][area], this.layout[section][area]);
+        }
+      }
+    },
+    onDragStartWidget: function onDragStartWidget(key, origin) {
+      this.currentDraggingWidget.key = key;
+      this.currentDraggingWidget.origin = origin;
+    },
+    onDragEndWidget: function onDragEndWidget() {
+      this.currentDraggingWidget.key = "";
+      this.currentDraggingWidget.origin = "";
+    },
+    maxWidgetLimitIsReached: function maxWidgetLimitIsReached(path) {
+      if (!path.maxWidget) {
+        return false;
+      }
+
+      if (path.selectedWidgets.length >= path.maxWidget) {
+        return true;
+      }
+
+      return false;
+    },
+    widgetIsAccepted: function widgetIsAccepted(path, key) {
+      if (!path.acceptedWidgets) {
+        return true;
+      }
+
+      if (!this.isTruthyObject(path.acceptedWidgets)) {
+        return true;
+      }
+
+      if (path.acceptedWidgets.includes(this.theAvailableWidgets[key].widget_name)) {
+        return true;
+      }
+
+      return false;
+    },
+    widgetIsDropable: function widgetIsDropable(path) {
+      if (!this._currentDraggingWidget.key.length) {
+        return false;
+      }
+
+      if (!this.isTruthyObject(this._currentDraggingWidget.origin)) {
+        return false;
+      }
+
+      if (path.selectedWidgets.includes(this._currentDraggingWidget.key)) {
+        return true;
+      }
+
+      if (this.maxWidgetLimitIsReached(path)) {
+        return false;
+      }
+
+      if (!this.widgetIsAccepted(path, this._currentDraggingWidget.key)) {
+        return false;
+      }
+
+      return true;
+    },
+    appendWidget: function appendWidget(dest_key, dest_path) {
+      var key = this.currentDraggingWidget.key;
+      var from = this.currentDraggingWidget.origin.selectedWidgets;
+      var orign_index = from.indexOf(key);
+      var dest_index = dest_path.selectedWidgets.indexOf(dest_key) + 1;
+
+      if (dest_path.selectedWidgets.includes(key) && 0 === orign_index) {
+        dest_index--;
+      }
+
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].delete(from, from.indexOf(key));
+      dest_path.selectedWidgets.splice(dest_index, 0, this.currentDraggingWidget.key);
+      this.onDragEndWidget();
+    },
+    handleDropOnPlaceholder: function handleDropOnPlaceholder(dest) {
+      // return;
+      var key = this.currentDraggingWidget.key;
+      var from = this.currentDraggingWidget.origin.selectedWidgets;
+      var to = dest.selectedWidgets;
+
+      if (!this.isTruthyObject(from)) {
+        return;
+      }
+
+      if (!this.isTruthyObject(to)) {
+        return;
+      }
+
+      if (this.maxWidgetLimitIsReached(dest)) {
+        return;
+      }
+
+      if (!this.widgetIsAccepted(dest, key)) {
+        return;
+      }
+
+      if (!to.includes(key)) {
+        vue__WEBPACK_IMPORTED_MODULE_3__["default"].delete(from, from.indexOf(key));
+        vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(to, to.length, key);
+      }
+
+      this.onDragEndWidget();
+    },
+    handleDragEnterOnPlaceholder: function handleDragEnterOnPlaceholder(where) {// console.log( 'handleDragEnterOnPlaceholder', where );
+    },
+    handleDragOverOnPlaceholder: function handleDragOverOnPlaceholder(where) {// console.log( 'handleDragOverOnPlaceholder', where );
+    },
+    handleDragleaveOnPlaceholder: function handleDragleaveOnPlaceholder(where) {// console.log( 'handleDragleaveOnPlaceholder', where );
+    },
+    editWidget: function editWidget(key) {
+      if (typeof this.active_widgets[key] === "undefined") {
+        return;
+      }
+
+      if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.active_widgets[key].options) !== "object") {
+        return;
+      }
+
+      this.widgetOptionsWindow = _objectSpread(_objectSpread({}, this.widgetOptionsWindowDefault), this.active_widgets[key].options);
+      this.widgetOptionsWindow.widget = key;
+      this.active_insert_widget_key = "";
+    },
+    editOption: function editOption(widget_path, widget_key) {
+      if (!this.isObject(widget_path[widget_key].options)) {
+        return;
+      }
+
+      var widget_options = widget_path[widget_key].options; // let window_default = JSON.parse( JSON.stringify( this.widgetOptionsWindowDefault ) );
+
+      var window_default = this.widgetOptionsWindowDefault;
+      this.widgetCardOptionsWindow = _objectSpread(_objectSpread({}, window_default), widget_options);
+      this.widgetCardOptionsWindow.widget = {
+        path: widget_path,
+        widget_key: widget_key
+      };
+    },
+    updateCardWidgetOptionsData: function updateCardWidgetOptionsData(data, options_window) {
+      return;
+
+      if (typeof this.card_option_widgets[options_window.widget] === "undefined") {
+        return;
+      }
+
+      if (typeof this.card_option_widgets[options_window.widget].options === "undefined") {
+        return;
+      }
+
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.card_option_widgets[options_window.widget].options, "fields", data);
+    },
+    updateWidgetOptionsData: function updateWidgetOptionsData(data, options_window) {
+      return;
+
+      if (typeof this.active_widgets[widget.widget] === "undefined") {
+        return;
+      }
+
+      if (typeof this.active_widgets[widget.widget].options === "undefined") {
+        return;
+      }
+
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.active_widgets[widget.widget].options, "fields", data);
+    },
+    closeCardWidgetOptionsWindow: function closeCardWidgetOptionsWindow() {
+      this.widgetCardOptionsWindow = this.widgetOptionsWindowDefault;
+    },
+    closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
+      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+    },
+    trashWidget: function trashWidget(key, where) {
+      if (!where.selectedWidgets.includes(key)) {
+        return;
+      }
+
+      var index = where.selectedWidgets.indexOf(key);
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].delete(where.selectedWidgets, index);
+
+      if (typeof this.active_widgets[key] === "undefined") {
+        return;
+      }
+
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].delete(this.active_widgets, key);
+
+      if (key === this.widgetOptionsWindow.widget) {
+        this.closeWidgetOptionsWindow();
+      }
+    },
+    activeInsertWindow: function activeInsertWindow(current_item_key) {
+      var self = this;
+      setTimeout(function () {
+        if (self.active_insert_widget_key === current_item_key) {
+          self.active_insert_widget_key = "";
+          return;
+        }
+
+        self.active_insert_widget_key = current_item_key;
+      }, 0);
+    },
+    insertWidget: function insertWidget(payload, where) {
+      if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
+        return;
+      }
+
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.theAvailableWidgets[payload.key]));
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(where, "selectedWidgets", payload.selected_widgets);
+      this.editWidget(payload.key);
+    },
+    closeInsertWindow: function closeInsertWindow(widget_insert_window) {
+      this.active_insert_widget_key = "";
+    },
+    getWidgetLabel: function getWidgetLabel(widget) {
+      var label = "";
+
+      if (typeof widget.label === "string") {
+        label = widget.label;
+      }
+
+      if (this.isObject(widget.options) && widget.options.fields && widget.options.fields.label && widget.options.fields.type === "text" && widget.options.fields.label.value && widget.options.fields.label.value.length) {
         label = widget.options.fields.label.value;
       }
 
@@ -39607,10 +40582,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.vue?vue&type=template&id=2b7791eb&":
-/*!********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.vue?vue&type=template&id=2b7791eb& ***!
-  \********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=template&id=1e980324&":
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.old.vue?vue&type=template&id=1e980324& ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -40037,6 +41012,255 @@ var staticRenderFns = [
     ])
   },
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.vue?vue&type=template&id=2b7791eb&":
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.vue?vue&type=template&id=2b7791eb& ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "cptm-builder-section" }, [
+    _vm.widgetCardOptionsWindowActiveStatus ||
+    _vm.widgetOptionsWindowActiveStatus
+      ? _c(
+          "div",
+          { staticClass: "cptm-options-area" },
+          [
+            _c(
+              "options-window",
+              _vm._b(
+                {
+                  attrs: { active: _vm.widgetCardOptionsWindowActiveStatus },
+                  on: {
+                    close: function ($event) {
+                      return _vm.closeCardWidgetOptionsWindow()
+                    },
+                  },
+                },
+                "options-window",
+                _vm.widgetCardOptionsWindow,
+                false
+              )
+            ),
+            _vm._v(" "),
+            _c(
+              "options-window",
+              _vm._b(
+                {
+                  attrs: { active: _vm.widgetOptionsWindowActiveStatus },
+                  on: {
+                    update: function ($event) {
+                      return _vm.updateWidgetOptionsData(
+                        $event,
+                        _vm.widgetOptionsWindow
+                      )
+                    },
+                    close: function ($event) {
+                      return _vm.closeWidgetOptionsWindow()
+                    },
+                  },
+                },
+                "options-window",
+                _vm.widgetOptionsWindow,
+                false
+              )
+            ),
+          ],
+          1
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "cptm-preview-placeholder" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "cptm-preview-placeholder__card cptm-preview-placeholder__card--top",
+        },
+        [
+          _c("card-widget-placeholder", {
+            attrs: {
+              id: "listings_header_quick_info",
+              containerClass:
+                "cptm-preview-placeholder__card__box cptm-preview-placeholder__card__top_left cptm-card-light",
+              label: _vm.placeholders.quick_info.label,
+              availableWidgets: _vm.theAvailableWidgets,
+              activeWidgets: _vm.active_widgets,
+              acceptedWidgets: _vm.placeholders.quick_info.acceptedWidgets,
+              selectedWidgets: _vm.placeholders.quick_info.selectedWidgets,
+              maxWidget: _vm.placeholders.quick_info.maxWidget,
+              showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                "listings_header_quick_info"
+              ),
+              widgetDropable: _vm.widgetIsDropable(_vm.placeholders.quick_info),
+            },
+            on: {
+              "insert-widget": function ($event) {
+                return _vm.insertWidget($event, _vm.placeholders.quick_info)
+              },
+              "drag-widget": function ($event) {
+                return _vm.onDragStartWidget(
+                  $event,
+                  _vm.placeholders.quick_info
+                )
+              },
+              "drop-widget": function ($event) {
+                return _vm.appendWidget($event, _vm.placeholders.quick_info)
+              },
+              "dragend-widget": function ($event) {
+                return _vm.onDragEndWidget()
+              },
+              "edit-widget": function ($event) {
+                return _vm.editWidget($event)
+              },
+              "trash-widget": function ($event) {
+                return _vm.trashWidget($event, _vm.placeholders.quick_info)
+              },
+              "placeholder-on-drop": function ($event) {
+                return _vm.handleDropOnPlaceholder(_vm.placeholders.quick_info)
+              },
+              "open-widgets-picker-window": function ($event) {
+                return _vm.activeInsertWindow("listings_header_quick_info")
+              },
+              "close-widgets-picker-window": function ($event) {
+                return _vm.closeInsertWindow()
+              },
+            },
+          }),
+          _vm._v(" "),
+          _c("card-widget-placeholder", {
+            attrs: {
+              id: "listings_header_quick_actions",
+              containerClass:
+                "cptm-preview-placeholder__card__box cptm-preview-placeholder__card__top_right cptm-card-light",
+              label: _vm.placeholders.quick_actions.label,
+              availableWidgets: _vm.theAvailableWidgets,
+              activeWidgets: _vm.active_widgets,
+              acceptedWidgets: _vm.placeholders.quick_actions.acceptedWidgets,
+              selectedWidgets: _vm.placeholders.quick_actions.selectedWidgets,
+              maxWidget: _vm.placeholders.quick_actions.maxWidget,
+              showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                "listings_header_quick_actions"
+              ),
+              widgetDropable: _vm.widgetIsDropable(
+                _vm.placeholders.quick_actions
+              ),
+            },
+            on: {
+              "insert-widget": function ($event) {
+                return _vm.insertWidget($event, _vm.placeholders.quick_actions)
+              },
+              "drag-widget": function ($event) {
+                return _vm.onDragStartWidget(
+                  $event,
+                  _vm.placeholders.quick_actions
+                )
+              },
+              "drop-widget": function ($event) {
+                return _vm.appendWidget($event, _vm.placeholders.quick_actions)
+              },
+              "dragend-widget": function ($event) {
+                return _vm.onDragEndWidget()
+              },
+              "edit-widget": function ($event) {
+                return _vm.editWidget($event)
+              },
+              "trash-widget": function ($event) {
+                return _vm.trashWidget($event, _vm.placeholders.quick_actions)
+              },
+              "placeholder-on-drop": function ($event) {
+                return _vm.handleDropOnPlaceholder(
+                  _vm.placeholders.quick_actions
+                )
+              },
+              "open-widgets-picker-window": function ($event) {
+                return _vm.activeInsertWindow("listings_header_quick_actions")
+              },
+              "close-widgets-picker-window": function ($event) {
+                return _vm.closeInsertWindow()
+              },
+            },
+          }),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "cptm-preview-placeholder__card cptm-preview-placeholder__card--bottom",
+        },
+        _vm._l(_vm.placeholders.bottom, function (placeholderItem, index) {
+          return _c("card-widget-placeholder", {
+            key: index,
+            class: "listings_header_bottom_" + index,
+            attrs: {
+              id: "listings_header_bottom_" + index,
+              containerClass:
+                "cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light",
+              label: placeholderItem.label,
+              availableWidgets: _vm.theAvailableWidgets,
+              activeWidgets: _vm.active_widgets,
+              acceptedWidgets: placeholderItem.acceptedWidgets,
+              selectedWidgets: placeholderItem.selectedWidgets,
+              maxWidget: placeholderItem.maxWidget,
+              showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                "listings_header_bottom_" + index
+              ),
+              widgetDropable: _vm.widgetIsDropable(placeholderItem),
+            },
+            on: {
+              "insert-widget": function ($event) {
+                return _vm.insertWidget($event, placeholderItem)
+              },
+              "drag-widget": function ($event) {
+                return _vm.onDragStartWidget($event, placeholderItem)
+              },
+              "drop-widget": function ($event) {
+                return _vm.appendWidget($event, placeholderItem)
+              },
+              "dragend-widget": function ($event) {
+                return _vm.onDragEndWidget()
+              },
+              "edit-widget": function ($event) {
+                return _vm.editWidget($event)
+              },
+              "trash-widget": function ($event) {
+                return _vm.trashWidget($event, placeholderItem)
+              },
+              "placeholder-on-drop": function ($event) {
+                return _vm.handleDropOnPlaceholder(placeholderItem)
+              },
+              "open-widgets-picker-window": function ($event) {
+                return _vm.activeInsertWindow("listings_header_bottom_" + index)
+              },
+              "close-widgets-picker-window": function ($event) {
+                return _vm.closeInsertWindow()
+              },
+            },
+          })
+        }),
+        1
+      ),
+    ]),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

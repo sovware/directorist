@@ -457,7 +457,8 @@ class Directorist_Listing_Form {
 			'display_guest_listings'  => get_directorist_option( 'guest_listings', 0 ),
 			'guest_email_label'       => get_directorist_type_option( $type, 'guest_email_label', __( 'Email Address', 'directorist' ) ),
 			'guest_email_placeholder' => get_directorist_type_option( $type, 'guest_email_placeholder' ),
-			'display_terms_privacy'   => (bool) get_directorist_type_option( $type, 'display_terms_privacy', 1 ),
+			'display_privacy'         => (bool) get_directorist_type_option( $type, 'listing_privacy', 1 ),
+			'privacy_is_required'     => get_directorist_type_option( $type, 'require_privacy', 1 ),
 			'privacy_checked'         => (bool) get_post_meta( $p_id, '_privacy_policy', true ),
 			'terms_checked'           => (bool) get_post_meta( $p_id, '_t_c_check', true ),
 			'submit_label'            => get_directorist_type_option( $type, 'submit_button_label', __( 'Save & Preview', 'directorist' ) ),
@@ -842,10 +843,11 @@ class Directorist_Listing_Form {
 
 		// Edit Mode
 		if ( $p_id ) {
-			$terms =  get_the_terms( $p_id, ATBDP_TYPE );
-			$type  = !empty($terms) ? $terms[0]->term_id : '';
-			$args['form_data'] = $this->build_form_data( $type );
-			$args['is_edit_mode'] = true;
+			$terms                  = get_the_terms( $p_id, ATBDP_TYPE );
+			$type                   = !empty($terms) ? $terms[0]->term_id : '';
+			$args['form_data']      = $this->build_form_data( $type );
+			$args['enable_sidebar'] = (bool) get_directorist_type_option( $type, 'enable_sidebar', 1 );
+			$args['is_edit_mode']   = true;
 
 			return Helper::get_template_contents( 'listing-form/add-listing', $args );
 		} else {
@@ -868,9 +870,10 @@ class Directorist_Listing_Form {
 			$type = $this->get_current_listing_type();
 
 			if ( $type ) {
-				$args['form_data'] = $this->build_form_data( $type );
+				$args['form_data']        = $this->build_form_data( $type );
+				$args['enable_sidebar']   = (bool) get_directorist_type_option( $type, 'enable_sidebar', 1 );
 				$args['single_directory'] = $type;
-				$template = Helper::get_template_contents( 'listing-form/add-listing', $args );
+				$template                 = Helper::get_template_contents( 'listing-form/add-listing', $args );
 
 				return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 			}

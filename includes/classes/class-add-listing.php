@@ -124,19 +124,19 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					'post_type' => ATBDP_POST_TYPE,
 				);
 
+				if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) ) {
+					$error->add( 'invalid_privacy_policy', __( 'Privacy Policy is required.', 'directorist' ) );
+				}
+
 				if ( directorist_should_check_terms_and_condition( $directory_id ) && empty( $posted_data['t_c_check'] ) ) {
 					$error->add( 'invalid_terms_and_condition', __( 'Terms and condition is required.', 'directorist' ) );
 				}
 
-				if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) ) {
-					$error->add( 'invalid_privacy_policy', __( 'Privacy policy is required.', 'directorist' ) );
-				}
-
 				if ( $error->has_errors() ) {
-					return wp_send_json( array(
+					return wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', array(
 						'error'     => true,
 						'error_msg' => implode( '<br>', $error->get_error_messages() ),
-					), 400 );
+					) ) );
 				}
 
 				/**
@@ -155,7 +155,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$result = self::validate_field( $field, $posted_data );
 
 					if ( ! $result['is_valid'] ) {
-						$error->add( $field->get_key(), $result['message'] );
+						$error->add(
+							$field->get_key(),
+							sprintf( '<strong>%1$s</strong>: %2$s', $field->label, $result['message'] )
+						);
 
 						continue;
 					}
@@ -202,7 +205,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				// guest user
 				if ( ! is_user_logged_in() ) {
 					$guest_email = isset( $posted_data['guest_user_email'] ) ? sanitize_email( $posted_data['guest_user_email'] ) : '';
-					if ( directorist_is_guest_listing_enabled() && is_email( $guest_email ) ) {
+					if ( directorist_is_guest_submission_enabled() && is_email( $guest_email ) ) {
 						atbdp_guest_submission( $guest_email );
 					}
 				}
@@ -754,7 +757,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			return array(
 				'is_valid' => ! $field->has_error(),
-				'message'  => '<strong>' . $field->label . '</strong> - ' . $field->get_error()
+				'message'  => $field->get_error()
 			);
 		}
 

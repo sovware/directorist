@@ -26,7 +26,7 @@ class Checkbox_Field extends Base_Field {
 		$value = (array) $this->get_value( $posted_data );
 
 		if ( ( count( array_intersect( $value, $this->get_options() ) ) !== count( $value ) ) ) {
-			$this->add_error( sprintf( __( '[%s] Invalid selection.', 'directorist' ), implode( ', ', array_diff( $value, $this->get_options() ) ) ) );
+			$this->add_error( sprintf( __( '[%s] Invalid value.', 'directorist' ), implode( ', ', array_diff( $value, $this->get_options() ) ) ) );
 
 			return false;
 		}

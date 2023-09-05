@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Builder preset fields.
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

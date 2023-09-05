@@ -435,17 +435,17 @@ $(document).ready(function () {
         const err_log       = {};
         let   error_count   = 0;
 
-        // if (on_processing) {
-        //     $submitButton.attr('disabled', true);
-        //     return;
-        // }
+        if (on_processing) {
+            $submitButton.attr('disabled', true);
+            return;
+        }
 
         const form_data = new FormData();
 
         form_data.append('action', 'add_listing_action');
         form_data.append('directorist_nonce', directorist.directorist_nonce);
 
-        // $submitButton.addClass('atbd_loading');
+        $submitButton.addClass('atbd_loading');
 
         const fieldValuePairs = $form.serializeArray();
 

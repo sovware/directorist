@@ -21,7 +21,7 @@ class Video_Field extends Base_Field {
 		}
 
 		if ( ! directorist_validate_youtube_vimeo_url( $value ) ) {
-			$this->add_error( __( 'Vimeo and Youtube video URL allowed only.', 'directorist' ) );
+			$this->add_error( __( 'Vimeo and Youtube video allowed only.', 'directorist' ) );
 		}
 
 		if ( $this->has_error() ) {

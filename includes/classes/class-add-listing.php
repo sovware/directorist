@@ -92,18 +92,33 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$directory          = get_term_by( ( is_numeric( $maybe_directory_id ) ? 'id' : 'slug' ), $maybe_directory_id, ATBDP_DIRECTORY_TYPE );
 				
 				if ( directorist_is_multi_directory_enabled() && ! $directory ) {
-					throw new Exception( __( 'Invalid directory!', 'directorist' ), 400 );
+					throw new Exception( __( 'Invalid directory!', 'directorist' ), 200 );
 				}
 
 				// Make sure we are dealing with a real listing in edit mode.
 				$listing_id = absint( directorist_get_var( $posted_data['listing_id'], 0 ) );
 
 				if ( $listing_id && get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
-					throw new Exception( __( 'Invalid listing!', 'directorist' ), 400 );
+					throw new Exception( __( 'Invalid listing!', 'directorist' ), 200 );
 				}
 
 				if ( $listing_id && ! current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_post, $listing_id ) ) {
-					throw new Exception( __( 'You are not allowed to edit this listing.', 'directorist' ), 403 );
+					throw new Exception( __( 'Not allowed to edit this listing.', 'directorist' ), 200 );
+				}
+
+				if ( ! directorist_is_guest_submission_enabled() && ! self::current_user_can_create() ) {
+					throw new Exception( __( 'Not allowed to create listing.', 'directorist' ), 200 );
+				}
+
+				// Guest submission handle.
+				if ( directorist_is_guest_submission_enabled() && isset( $posted_data['guest_user_email'] ) && ! self::current_user_can_create() ) {
+					$guest_email = sanitize_email( $posted_data['guest_user_email'] );
+
+					if ( ! is_email( $guest_email ) ) {
+						throw new Exception( __( 'Invalid guest email.', 'directorist' ), 200 );
+					}
+
+					atbdp_guest_submission( $guest_email );
 				}
 
 				// When invalid directory is selected fallback to default directory.
@@ -123,21 +138,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$listing_data  = array(
 					'post_type' => ATBDP_POST_TYPE,
 				);
-
-				if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) ) {
-					$error->add( 'invalid_privacy_policy', __( 'Privacy Policy is required.', 'directorist' ) );
-				}
-
-				if ( directorist_should_check_terms_and_condition( $directory_id ) && empty( $posted_data['t_c_check'] ) ) {
-					$error->add( 'invalid_terms_and_condition', __( 'Terms and condition is required.', 'directorist' ) );
-				}
-
-				if ( $error->has_errors() ) {
-					return wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', array(
-						'error'     => true,
-						'error_msg' => implode( '<br>', $error->get_error_messages() ),
-					) ) );
-				}
 
 				/**
 				 * Process form fields.
@@ -202,12 +202,12 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 				}
 
-				// guest user
-				if ( ! is_user_logged_in() ) {
-					$guest_email = isset( $posted_data['guest_user_email'] ) ? sanitize_email( $posted_data['guest_user_email'] ) : '';
-					if ( directorist_is_guest_submission_enabled() && is_email( $guest_email ) ) {
-						atbdp_guest_submission( $guest_email );
-					}
+				if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) ) {
+					$error->add( 'privacy_policy_required', __( 'Privacy Policy is required.', 'directorist' ) );
+				}
+
+				if ( directorist_should_check_terms_and_condition( $directory_id ) && empty( $posted_data['t_c_check'] ) ) {
+					$error->add( 'terms_and_condition_required', __( 'Terms and condition is required.', 'directorist' ) );
 				}
 
 				if ( $error->has_errors() ) {
@@ -215,6 +215,14 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						'error'     => true,
 						'error_msg' => implode( '<br>', $error->get_error_messages() ),
 					) ) );
+				}
+
+				if ( ! empty( $posted_data['privacy_policy'] ) ) {
+					$meta_data['_privacy_policy'] = (bool) $posted_data['privacy_policy'];
+				}
+	
+				if ( ! empty( $posted_data['t_c_check'] ) ) {
+					$meta_data['_t_c_check'] = (bool) $posted_data['t_c_check'];
 				}
 
 				$new_listing_status  = get_term_meta( $directory_id, 'new_listing_status', true );
@@ -278,7 +286,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					
 					do_action( 'atbdp_listing_updated', $listing_id );
 
-				} elseif ( current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->publish_posts ) ) {
+				} else {
 					if ( $preview_enable ) {
 						$listing_data['post_status'] = 'private';
 					} else {
@@ -318,16 +326,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						do_action( 'atbdp_listing_published', $listing_id );// for sending email notification
 					}
 				}
-
-				// file_put_contents(
-				// 	__DIR__ . '/error.txt',
-				// 	var_export( $error, 1 ) . "\n"
-				// );
-
-				// file_put_contents(
-				// 	__DIR__ . '/data.txt',
-				// 	var_export( $listing_data, 1 ) . "\n"
-				// );
 
 				do_action( 'atbdp_after_created_listing', $listing_id );
 
@@ -400,6 +398,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					'error_msg' => $e->getMessage(),
 				), $e->getCode() );
 			}
+		}
+
+		public static function current_user_can_create() {
+			return current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_posts );
 		}
 
 		public static function filter_empty_meta_data( $meta_data ) {

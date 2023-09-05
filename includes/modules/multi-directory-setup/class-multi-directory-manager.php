@@ -539,16 +539,6 @@ class Multi_Directory_Manager
     public function prepare_settings() {
         $this->cetagory_options = $this->get_cetagory_options();
 
-        $custom_field_meta_key_field = apply_filters( 'directorist_custom_field_meta_key_field_args', [
-            'type'  => 'hidden',
-            'label' => __( 'Key', 'directorist' ),
-            'value' => 'custom-text',
-            'rules' => [
-                'unique' => true,
-                'required' => true,
-            ]
-        ]);
-
         $form_field_widgets = [
             'preset' => [
                 'title'         => __( 'Preset Fields', 'directorist' ),

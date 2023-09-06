@@ -55,6 +55,22 @@ class Base_Field {
 		return ( bool ) ( $this->widget_group === 'preset' );
 	}
 
+	public function is_category_only() {
+		if ( $this->is_preset() || empty( $this->__get( 'assign_to' ) ) || $this->__get( 'assign_to' ) === 'form' ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public function get_assigned_category() {
+		if ( ! $this->is_category_only() || empty( $this->__get( 'category' ) ) ) {
+			return 0;
+		}
+
+		return absint( $this->__get( 'category' ) );
+	}
+
 	public function add_error( $message = '' ) {
 		if ( ! isset( $this->errors[ $this->get_internal_key() ] ) ) {
 			$this->errors[ $this->get_internal_key() ] = array();

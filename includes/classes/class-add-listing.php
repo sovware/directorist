@@ -22,6 +22,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 	 */
 	class ATBDP_Add_Listing {
 
+		protected static $selected_categories = null;
+
 		/**
 		 * Nonce name.
 		 *
@@ -138,6 +140,17 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$listing_data  = array(
 					'post_type' => ATBDP_POST_TYPE,
 				);
+
+				// Cache categories to check assigned categories in custom fields.
+				$category_field = directorist_get_listing_form_category_field( $directory_id );
+
+				if ( ! empty( $category_field ) ) {
+					$category_field = Fields::create( $category_field );
+
+					if ( is_null( self::$selected_categories ) ) {
+						self::$selected_categories = array_filter( wp_parse_id_list( $category_field->get_value( $posted_data ) ) );
+					}
+				}
 
 				/**
 				 * Process form fields.
@@ -744,6 +757,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 		public static function validate_field( $field, $posted_data ) {
 			$should_validate = (bool) apply_filters( 'atbdp_add_listing_form_validation_logic', true, $field, $posted_data );
+
+			if ( $field->is_category_only() && ! in_array( $field->get_assigned_category(), self::$selected_categories, true ) ) {
+				$should_validate = false;
+			}
 
 			if ( ! $should_validate ) {
 				return array(

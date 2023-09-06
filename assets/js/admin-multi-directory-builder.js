@@ -14830,16 +14830,16 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 //
 //
@@ -14920,6 +14920,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       // type: String,
       default: ""
     },
+    placeholderKey: {
+      default: ""
+    },
     label: {
       type: String,
       default: ""
@@ -14966,17 +14969,23 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return this.selectedWidgets.length < this.maxWidget;
     },
     getContainerClass: function getContainerClass() {
+      var classNames = {
+        'drag-enter': this.placeholderDragEnter
+      };
+
+      if (this.placeholderKey) {
+        classNames[this.placeholderKey] = true;
+      }
+
       if (typeof this.containerClass === 'string') {
-        var _ref;
-
-        return _ref = {}, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_ref, this.containerClass, true), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_ref, 'drag-enter', this.placeholderDragEnter), _ref;
+        classNames[this.containerClass] = true;
       }
 
-      if (this.containerClass && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.containerClass) === 'object' && !Array.isArray(this.containerClass)) {
-        return _objectSpread(_objectSpread({}, this.containerClass), {}, {
-          'drag-enter': this.placeholderDragEnter
-        });
+      if (this.containerClass && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.containerClass) === 'object' && !Array.isArray(this.containerClass)) {
+        classNames = _objectSpread(_objectSpread({}, classNames), this.containerClass);
       }
+
+      return classNames;
     }
   },
   data: function data() {
@@ -14986,11 +14995,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   },
   methods: {
     widgetHasOptions: function widgetHasOptions(active_widget) {
-      if (!active_widget.options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(active_widget.options) !== 'object') {
+      if (!active_widget.options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(active_widget.options) !== 'object') {
         return false;
       }
 
-      if (!active_widget.options.fields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(active_widget.options.fields) !== 'object') {
+      if (!active_widget.options.fields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(active_widget.options.fields) !== 'object') {
         return false;
       }
 
@@ -15009,7 +15018,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       this.$emit('placeholder-on-dragleave');
     },
     hasValidWidget: function hasValidWidget(widget_key) {
-      if (!this.activeWidgets[widget_key] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.activeWidgets[widget_key]) !== "object") {
+      if (!this.activeWidgets[widget_key] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.activeWidgets[widget_key]) !== "object") {
         return false;
       }
 
@@ -26287,6 +26296,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
 
 
 
@@ -26601,8 +26613,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.active_widgets, key, _objectSpread({}, this.theAvailableWidgets[key]));
       this.placeholders.bottom.splice(this.placeholders.bottom.length, 0, {
         label: "Bottom Widgets",
+        placeholderKey: "slider-placeholder",
         selectedWidgets: [key],
-        acceptedWidgets: [key],
         maxWidget: 1,
         canDelete: true
       });
@@ -41206,6 +41218,7 @@ var render = function () {
               id: "listings_header_quick_info",
               containerClass:
                 "cptm-preview-placeholder__card__box cptm-preview-placeholder__card__top_left cptm-card-light",
+              placeholderKey: _vm.placeholders.quick_info.placeholderKey,
               label: _vm.placeholders.quick_info.label,
               availableWidgets: _vm.theAvailableWidgets,
               activeWidgets: _vm.active_widgets,
@@ -41261,6 +41274,7 @@ var render = function () {
               id: "listings_header_quick_actions",
               containerClass:
                 "cptm-preview-placeholder__card__box cptm-preview-placeholder__card__top_right cptm-card-light",
+              placeholderKey: _vm.placeholders.quick_actions.placeholderKey,
               label: _vm.placeholders.quick_actions.label,
               availableWidgets: _vm.theAvailableWidgets,
               activeWidgets: _vm.active_widgets,
@@ -41330,6 +41344,7 @@ var render = function () {
               key: index,
               class: "listings_header_bottom_" + index,
               attrs: {
+                placeholderKey: placeholderItem.placeholderKey,
                 id: "listings_header_bottom_" + index,
                 containerClass:
                   "cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light",

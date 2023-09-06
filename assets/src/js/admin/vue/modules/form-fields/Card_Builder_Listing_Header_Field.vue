@@ -28,6 +28,7 @@
         <card-widget-placeholder
           id="listings_header_quick_info"
           containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__top_left cptm-card-light"
+          :placeholderKey="placeholders.quick_info.placeholderKey"
           :label="placeholders.quick_info.label"
           :availableWidgets="theAvailableWidgets"
           :activeWidgets="active_widgets"
@@ -56,6 +57,7 @@
         <card-widget-placeholder
           id="listings_header_quick_actions"
           containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__top_right cptm-card-light"
+          :placeholderKey="placeholders.quick_actions.placeholderKey"
           :label="placeholders.quick_actions.label"
           :availableWidgets="theAvailableWidgets"
           :activeWidgets="active_widgets"
@@ -89,6 +91,7 @@
         <card-widget-placeholder
           v-for="(placeholderItem, index) in placeholders.bottom"
           :key="index"
+          :placeholderKey="placeholderItem.placeholderKey"
           :id="'listings_header_bottom_' + index"
           :class="'listings_header_bottom_' + index"
           containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light"
@@ -459,8 +462,8 @@ export default {
 
       this.placeholders.bottom.splice(this.placeholders.bottom.length, 0, {
         label: "Bottom Widgets",
+        placeholderKey: "slider-placeholder",
         selectedWidgets: [key],
-        acceptedWidgets: [key],
         maxWidget: 1,
         canDelete: true,
       });

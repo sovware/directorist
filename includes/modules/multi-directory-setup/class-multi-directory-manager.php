@@ -4531,6 +4531,12 @@ class Multi_Directory_Manager
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => [ 'listing_slider' ],
                             ],
+                            [
+                                'label' => __( '@Bottom Widget', 'directorist' ),
+                                'maxWidget' => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => [ 'slider' ],
+                            ],
                         ],
                     ],
                 ],

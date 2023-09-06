@@ -78,6 +78,9 @@ export default {
       // type: String,
       default: "",
     },
+    placeholderKey: {
+      default: "",
+    },
     label: {
       type: String,
       default: "",
@@ -126,21 +129,30 @@ export default {
       return this.selectedWidgets.length < this.maxWidget;
     },
     getContainerClass() {
+      let classNames = {
+        'drag-enter': this.placeholderDragEnter,
+      };
+
+      if ( this.placeholderKey ) {
+        classNames[ this.placeholderKey ] = true;
+      }
+
       if ( typeof this.containerClass === 'string' ) {
-        return {
-          [ this.containerClass ]: true,
-          'drag-enter': this.placeholderDragEnter,
-        }
+        classNames[ this.containerClass ] = true;
       }
-      if ( this.containerClass &&
-          typeof this.containerClass === 'object' &&
-        ! Array.isArray( this.containerClass )
+
+      if ( 
+        this.containerClass 
+        && typeof this.containerClass === 'object' 
+        && ! Array.isArray( this.containerClass )
       ) {
-        return {
-          ...this.containerClass,
-          'drag-enter': this.placeholderDragEnter,
-        }
+        classNames = {
+          ...classNames,
+          ...this.containerClass
+        };
       }
+
+      return classNames;
       
     }
   },

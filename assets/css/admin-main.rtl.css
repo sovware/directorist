@@ -11674,6 +11674,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   top: -35px;
   height: 30px;
   line-height: 30px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   padding: 0 20px;
   font-size: 12px;
   border-radius: 15px;

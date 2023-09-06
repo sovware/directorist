@@ -115,13 +115,15 @@
           "
           @close-widgets-picker-window="closeInsertWindow()"
         />
+
+        <div class="cptm-preview-placeholder__card__action" v-if="placeholders.bottom.length < 3">
+          <button type="button" class="cptm-preview-placeholder__card__btn" @click="addImagePlaceholder">
+            <span class="icon fa fa-plus"></span> Add Image/Slider
+          </button>
+        </div>
       </div>
 
-      <div class="cptm-bottom-action" v-if="placeholders.bottom.length < 3">
-        <button type="button" @click="addImagePlaceholder">
-          Add Image/Slider
-        </button>
-      </div>
+      
     </div>
   </div>
 </template>

@@ -14028,6 +14028,16 @@ input[type=radio].cptm-radio {
   }
 }
 
+.cptm-widget-thumb .cptm-widget-thumb-icon i {
+  font-size: 80px;
+  opacity: 0.1;
+}
+.cptm-widget-thumb .cptm-widget-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #868EAE;
+}
+
 .cptm-placeholder-blcok {
   padding: 2px;
   position: relative;
@@ -15222,6 +15232,11 @@ input[type=radio] {
   }
 }
 
+.cptm-preview-placeholder {
+  width: 700px;
+  max-width: 100%;
+  margin: 0 auto;
+}
 .cptm-preview-placeholder__card {
   display: -webkit-box;
   display: -webkit-flex;
@@ -15255,6 +15270,12 @@ input[type=radio] {
       -ms-flex-direction: column;
           flex-direction: column;
 }
+.cptm-preview-placeholder__card__top_right {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+      -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
+}
 .cptm-preview-placeholder__card__box {
   padding: 10px 10px 19px;
   border-radius: 8px;
@@ -15267,10 +15288,17 @@ input[type=radio] {
   font-size: 18px;
   font-weight: 500;
 }
-.cptm-preview-placeholder__card__box .cptm-widget-badge-card-wrap {
+.cptm-preview-placeholder__card__box .cptm-widget-preview-area {
   gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
-.cptm-preview-placeholder__card__box .cptm-widget-badge-card-wrap .cptm-widget-badge {
+.cptm-preview-placeholder__card__box .cptm-widget-preview-area .cptm-widget-badge {
   margin: 0;
   padding: 6px 19px 7px 20px;
   border-radius: 8px;
@@ -15297,6 +15325,25 @@ input[type=radio] {
 }
 .cptm-preview-placeholder__card__bottom_widget:hover:before {
   color: #1e1e1e;
+}
+.cptm-preview-placeholder__card__btn {
+  width: 100%;
+  height: 66px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #5A5F7D;
+  font-size: 13px;
+  font-weight: 500;
+}
+.cptm-preview-placeholder__card__btn .icon {
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  background: #fff;
+  border-radius: 100%;
+  -webkit-margin-end: 7px;
+          margin-inline-end: 7px;
 }
 
 .atbdp-sidebar-nav-area {
@@ -17326,6 +17373,16 @@ input[type=radio].cptm-radio {
   }
 }
 
+.cptm-widget-thumb .cptm-widget-thumb-icon i {
+  font-size: 80px;
+  opacity: 0.1;
+}
+.cptm-widget-thumb .cptm-widget-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #868EAE;
+}
+
 .cptm-placeholder-blcok {
   padding: 2px;
   position: relative;
@@ -18520,6 +18577,11 @@ input[type=radio] {
   }
 }
 
+.cptm-preview-placeholder {
+  width: 700px;
+  max-width: 100%;
+  margin: 0 auto;
+}
 .cptm-preview-placeholder__card {
   display: -webkit-box;
   display: -webkit-flex;
@@ -18553,6 +18615,12 @@ input[type=radio] {
       -ms-flex-direction: column;
           flex-direction: column;
 }
+.cptm-preview-placeholder__card__top_right {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+      -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
+}
 .cptm-preview-placeholder__card__box {
   padding: 10px 10px 19px;
   border-radius: 8px;
@@ -18565,10 +18633,17 @@ input[type=radio] {
   font-size: 18px;
   font-weight: 500;
 }
-.cptm-preview-placeholder__card__box .cptm-widget-badge-card-wrap {
+.cptm-preview-placeholder__card__box .cptm-widget-preview-area {
   gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
-.cptm-preview-placeholder__card__box .cptm-widget-badge-card-wrap .cptm-widget-badge {
+.cptm-preview-placeholder__card__box .cptm-widget-preview-area .cptm-widget-badge {
   margin: 0;
   padding: 6px 19px 7px 20px;
   border-radius: 8px;
@@ -18595,6 +18670,25 @@ input[type=radio] {
 }
 .cptm-preview-placeholder__card__bottom_widget:hover:before {
   color: #1e1e1e;
+}
+.cptm-preview-placeholder__card__btn {
+  width: 100%;
+  height: 66px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #5A5F7D;
+  font-size: 13px;
+  font-weight: 500;
+}
+.cptm-preview-placeholder__card__btn .icon {
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  background: #fff;
+  border-radius: 100%;
+  -webkit-margin-end: 7px;
+          margin-inline-end: 7px;
 }
 
 .atbdp-sidebar-nav-area {
@@ -20893,6 +20987,16 @@ input[type=radio].cptm-radio {
   }
 }
 
+.cptm-widget-thumb .cptm-widget-thumb-icon i {
+  font-size: 80px;
+  opacity: 0.1;
+}
+.cptm-widget-thumb .cptm-widget-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #868EAE;
+}
+
 .cptm-placeholder-blcok {
   padding: 2px;
   position: relative;
@@ -22087,6 +22191,11 @@ input[type=radio] {
   }
 }
 
+.cptm-preview-placeholder {
+  width: 700px;
+  max-width: 100%;
+  margin: 0 auto;
+}
 .cptm-preview-placeholder__card {
   display: -webkit-box;
   display: -webkit-flex;
@@ -22120,6 +22229,12 @@ input[type=radio] {
       -ms-flex-direction: column;
           flex-direction: column;
 }
+.cptm-preview-placeholder__card__top_right {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+      -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
+}
 .cptm-preview-placeholder__card__box {
   padding: 10px 10px 19px;
   border-radius: 8px;
@@ -22132,10 +22247,17 @@ input[type=radio] {
   font-size: 18px;
   font-weight: 500;
 }
-.cptm-preview-placeholder__card__box .cptm-widget-badge-card-wrap {
+.cptm-preview-placeholder__card__box .cptm-widget-preview-area {
   gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
-.cptm-preview-placeholder__card__box .cptm-widget-badge-card-wrap .cptm-widget-badge {
+.cptm-preview-placeholder__card__box .cptm-widget-preview-area .cptm-widget-badge {
   margin: 0;
   padding: 6px 19px 7px 20px;
   border-radius: 8px;
@@ -22162,6 +22284,25 @@ input[type=radio] {
 }
 .cptm-preview-placeholder__card__bottom_widget:hover:before {
   color: #1e1e1e;
+}
+.cptm-preview-placeholder__card__btn {
+  width: 100%;
+  height: 66px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #5A5F7D;
+  font-size: 13px;
+  font-weight: 500;
+}
+.cptm-preview-placeholder__card__btn .icon {
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  background: #fff;
+  border-radius: 100%;
+  -webkit-margin-end: 7px;
+          margin-inline-end: 7px;
 }
 
 .atbdp-sidebar-nav-area {

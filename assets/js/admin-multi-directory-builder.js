@@ -18129,6 +18129,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'thumbnail-card-widget',
   props: {
@@ -26152,6 +26157,8 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+//
+//
 //
 //
 //
@@ -35548,10 +35555,15 @@ var render = function () {
         "div",
         {
           staticClass:
-            "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+            "cptm-widget-card cptm-widget-thumb cptm-has-widget-control cptm-widget-actions-tools-wrap",
         },
         [
-          _vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "cptm-widget-label" }, [
+            _vm._v("\n            " + _vm._s(_vm.label) + "\n        "),
+          ]),
+          _vm._v(" "),
           _c("widget-action-tools", {
             attrs: {
               canEdit: _vm.canEdit,
@@ -35598,7 +35610,16 @@ var render = function () {
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cptm-widget-thumb-icon" }, [
+      _c("i", { staticClass: "uil uil-image-v" }),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -41303,72 +41324,89 @@ var render = function () {
           staticClass:
             "cptm-preview-placeholder__card cptm-preview-placeholder__card--bottom",
         },
-        _vm._l(_vm.placeholders.bottom, function (placeholderItem, index) {
-          return _c("card-widget-placeholder", {
-            key: index,
-            class: "listings_header_bottom_" + index,
-            attrs: {
-              id: "listings_header_bottom_" + index,
-              containerClass:
-                "cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light",
-              label: placeholderItem.label,
-              availableWidgets: _vm.theAvailableWidgets,
-              activeWidgets: _vm.active_widgets,
-              acceptedWidgets: placeholderItem.acceptedWidgets,
-              rejectedWidgets: placeholderItem.rejectedWidgets,
-              selectedWidgets: placeholderItem.selectedWidgets,
-              maxWidget: placeholderItem.maxWidget,
-              showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
-                "listings_header_bottom_" + index
-              ),
-              widgetDropable: _vm.widgetIsDropable(placeholderItem),
-            },
-            on: {
-              "insert-widget": function ($event) {
-                return _vm.insertWidget($event, placeholderItem)
+        [
+          _vm._l(_vm.placeholders.bottom, function (placeholderItem, index) {
+            return _c("card-widget-placeholder", {
+              key: index,
+              class: "listings_header_bottom_" + index,
+              attrs: {
+                id: "listings_header_bottom_" + index,
+                containerClass:
+                  "cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light",
+                label: placeholderItem.label,
+                availableWidgets: _vm.theAvailableWidgets,
+                activeWidgets: _vm.active_widgets,
+                acceptedWidgets: placeholderItem.acceptedWidgets,
+                rejectedWidgets: placeholderItem.rejectedWidgets,
+                selectedWidgets: placeholderItem.selectedWidgets,
+                maxWidget: placeholderItem.maxWidget,
+                showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus(
+                  "listings_header_bottom_" + index
+                ),
+                widgetDropable: _vm.widgetIsDropable(placeholderItem),
               },
-              "drag-widget": function ($event) {
-                return _vm.onDragStartWidget($event, placeholderItem)
+              on: {
+                "insert-widget": function ($event) {
+                  return _vm.insertWidget($event, placeholderItem)
+                },
+                "drag-widget": function ($event) {
+                  return _vm.onDragStartWidget($event, placeholderItem)
+                },
+                "drop-widget": function ($event) {
+                  return _vm.appendWidget($event, placeholderItem)
+                },
+                "dragend-widget": function ($event) {
+                  return _vm.onDragEndWidget()
+                },
+                "edit-widget": function ($event) {
+                  return _vm.editWidget($event)
+                },
+                "trash-widget": function ($event) {
+                  return _vm.trashWidget(
+                    $event,
+                    placeholderItem,
+                    "bottom",
+                    index
+                  )
+                },
+                "placeholder-on-drop": function ($event) {
+                  return _vm.handleDropOnPlaceholder(placeholderItem)
+                },
+                "open-widgets-picker-window": function ($event) {
+                  return _vm.activeInsertWindow(
+                    "listings_header_bottom_" + index
+                  )
+                },
+                "close-widgets-picker-window": function ($event) {
+                  return _vm.closeInsertWindow()
+                },
               },
-              "drop-widget": function ($event) {
-                return _vm.appendWidget($event, placeholderItem)
-              },
-              "dragend-widget": function ($event) {
-                return _vm.onDragEndWidget()
-              },
-              "edit-widget": function ($event) {
-                return _vm.editWidget($event)
-              },
-              "trash-widget": function ($event) {
-                return _vm.trashWidget($event, placeholderItem, "bottom", index)
-              },
-              "placeholder-on-drop": function ($event) {
-                return _vm.handleDropOnPlaceholder(placeholderItem)
-              },
-              "open-widgets-picker-window": function ($event) {
-                return _vm.activeInsertWindow("listings_header_bottom_" + index)
-              },
-              "close-widgets-picker-window": function ($event) {
-                return _vm.closeInsertWindow()
-              },
-            },
-          })
-        }),
-        1
+            })
+          }),
+          _vm._v(" "),
+          _vm.placeholders.bottom.length < 3
+            ? _c(
+                "div",
+                { staticClass: "cptm-preview-placeholder__card__action" },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "cptm-preview-placeholder__card__btn",
+                      attrs: { type: "button" },
+                      on: { click: _vm.addImagePlaceholder },
+                    },
+                    [
+                      _c("span", { staticClass: "icon fa fa-plus" }),
+                      _vm._v(" Add Image/Slider\n        "),
+                    ]
+                  ),
+                ]
+              )
+            : _vm._e(),
+        ],
+        2
       ),
-      _vm._v(" "),
-      _vm.placeholders.bottom.length < 3
-        ? _c("div", { staticClass: "cptm-bottom-action" }, [
-            _c(
-              "button",
-              {
-                attrs: { type: "button" },
-                on: { click: _vm.addImagePlaceholder },
-              },
-              [_vm._v("\n        Add Image/Slider\n      ")]
-            ),
-          ])
-        : _vm._e(),
     ]),
   ])
 }

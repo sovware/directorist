@@ -544,26 +544,14 @@ class Multi_Directory_Manager
                 'title'         => __( 'Preset Fields', 'directorist' ),
                 'description'   => __( 'Drag and drop on a section to use the fields.', 'directorist' ),
                 'allowMultiple' => false,
-                'widgets'       => apply_filters( 'atbdp_form_preset_widgets', require __DIR__ . '/directorist-builder-preset-fields.php' ),
+                'widgets'       => apply_filters( 'atbdp_form_preset_widgets', require_once __DIR__ . '/directorist-builder-preset-fields.php' ),
             ],
 
             'custom' => [
                 'title'         => __( 'Custom Fields', 'directorist' ),
                 'description'   => __( 'Click on a field type you want to create.', 'directorist' ),
                 'allowMultiple' => true,
-                'widgets'       => apply_filters( 'atbdp_form_custom_widgets', [
-                    'text'         => Fields::get( 'text' )->to_builder_array( $this ),
-                    'textarea'     => Fields::get( 'textarea' )->to_builder_array( $this ),
-                    'number'       => Fields::get( 'number' )->to_builder_array( $this ),
-                    'url'          => Fields::get( 'url' )->to_builder_array( $this ),
-                    'date'         => Fields::get( 'date' )->to_builder_array( $this ),
-                    'time'         => Fields::get( 'time' )->to_builder_array( $this ),
-                    'color_picker' => Fields::get( 'color_picker' )->to_builder_array( $this ),
-                    'select'       => Fields::get( 'select' )->to_builder_array( $this ),
-                    'checkbox'     => Fields::get( 'checkbox' )->to_builder_array( $this ),
-                    'radio'        => Fields::get( 'radio' )->to_builder_array( $this ),
-                    'file'         => Fields::get( 'file' )->to_builder_array( $this ),
-                ] )
+                'widgets'       => apply_filters( 'atbdp_form_custom_widgets', require_once __DIR__ . '/directorist-builder-custom-fields.php' )
             ],
         ];
 

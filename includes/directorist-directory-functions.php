@@ -58,16 +58,21 @@ function directorist_get_listing_form_groups( int $directory_id ) {
 	return $groups;
 }
 
-function directorist_listing_form_category_field_exists( $directory_id ) {
-	$fields = directorist_get_listing_form_fields( $directory_id );
-
-	foreach ( $fields as $field ) {
-		if ( isset( $field['widget_name'] ) && $field['widget_name'] === 'category' ) {
-			return true;
-		}
+function directorist_get_listing_form_field( $directory_id, $field_key = '' ) {
+	if ( empty( $field_key ) ) {
+		return array();
 	}
 
-	return false;
+	return directorist_get_listing_form_fields( $directory_id )[ $field_key ] ?: array();
+}
+
+function directorist_get_listing_form_category_field( int $directory_id ) {
+	return directorist_get_listing_form_field( $directory_id, 'category' );
+}
+
+function directorist_listing_form_has_category_field( int $directory_id ) {
+	$category_field = directorist_get_listing_form_category_field( $directory_id );
+	return ! empty( $category_field );
 }
 
 function directorist_is_multi_directory_enabled() {

@@ -431,7 +431,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		}
 
 		public static function is_admin_only_field( $field ) {
-			return ( $field->is_admin_only() && ! current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_others_posts ) );
+			return $field->is_admin_only();
+			// return ( $field->is_admin_only() && ! current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_others_posts ) );
 		}
 
 		public static function upload_images( $listing_id, $posted_data ) {

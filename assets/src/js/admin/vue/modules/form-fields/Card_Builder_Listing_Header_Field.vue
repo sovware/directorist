@@ -91,6 +91,7 @@
       </div>
 
       <div
+        v-if="placeholders.bottom.length"
         class="cptm-preview-placeholder__card cptm-preview-placeholder__card--bottom"
       >
         <Container @drop="onDrop">
@@ -428,24 +429,6 @@ export default {
         content_settings: {},
       },
 
-      // Layout
-      local_layout: {
-        listings_header: {
-          quick_actions: {
-            label: "Quick Actions",
-            selectedWidgets: [],
-          },
-          thumbnail: {
-            label: "Thumbnail",
-            selectedWidgets: [],
-          },
-          quick_info: {
-            label: "Quick Info",
-            selectedWidgets: [],
-          },
-        },
-      },
-
       placeholders: {
         quick_actions: {
           label: "Top Right",
@@ -456,17 +439,17 @@ export default {
           selectedWidgets: [],
         },
         bottom: [
-          {
-            label: "Bottom Widgets",
-            acceptedWidgets: ["title"],
-            rejectedWidgets: ["slider"],
-            selectedWidgets: [],
-          },
-          {
-            label: "Bottom Widgets",
-            rejectedWidgets: ["slider"],
-            selectedWidgets: [],
-          },
+          // {
+          //   label: "Bottom Widgets",
+          //   acceptedWidgets: ["title"],
+          //   rejectedWidgets: ["slider"],
+          //   selectedWidgets: [],
+          // },
+          // {
+          //   label: "Bottom Widgets",
+          //   rejectedWidgets: ["slider"],
+          //   selectedWidgets: [],
+          // },
         ],
       },
     };
@@ -643,6 +626,11 @@ export default {
 
       // Load Selected Widgets Data
       for (let item of selectedWidgets) {
+
+        if ( ! this.placeholders[item.area] ) {
+          continue;
+        }
+
         if (!Array.isArray(this.placeholders[item.area])) {
           const length = this.placeholders[item.area].selectedWidgets.length;
 
@@ -656,6 +644,18 @@ export default {
         }
 
         if (isNaN(item.widgetIndex)) {
+          continue;
+        }
+
+        if ( ! Array.isArray( this.placeholders[item.area] ) ) {
+          continue;
+        }
+
+        if ( ! this.placeholders[item.area].length ) {
+          continue;
+        }
+
+        if ( typeof this.placeholders[item.area][item.widgetIndex] === 'undefined' ) {
           continue;
         }
 
@@ -703,8 +703,8 @@ export default {
         return;
       }
 
-      const singularPlaceholders = ["quick_actions", "quick_info"];
-      const repetitivePlaceholders = ["bottom"];
+      const singularPlaceholders = ['quick_actions', 'quick_info'];
+      const repetitivePlaceholders = ['bottom'];
 
       // Singular Placeholders
       for (const key of singularPlaceholders) {
@@ -712,46 +712,29 @@ export default {
           continue;
         }
 
+        this.layout.listings_header[key].selectedWidgets = [];
         Object.assign(this.placeholders[key], this.layout.listings_header[key]);
       }
 
       // Repetitive Placeholders
-      // for (const key of repetitivePlaceholders) {
-      //   if ( ! Array.isArray( this.layout.listings_header[key] ) ) {
-      //     continue;
-      //   }
+      const addSelectedWidgets = widget => {
+        widget.selectedWidgets = []; 
+        return widget;
+      };
 
-      //   const placeholders = this.layout.listings_header[key].filter(
-      //     item => this.isTruthyObject( item )
-      //   );
-
-      //   Object.assign(
-      //     this.placeholders[key],
-      //     placeholders
-      //   );
-      // }
-    },
-
-    importLayout() {
-      if (!this.isTruthyObject(this.layout)) {
-        return;
-      }
-
-      for (let section in this.local_layout) {
-        if (!this.isTruthyObject(this.layout[section])) {
+      for (const key of repetitivePlaceholders) {
+        if ( ! Array.isArray( this.layout.listings_header[key] ) ) {
           continue;
         }
 
-        for (let area in this.local_layout[section]) {
-          if (!this.isTruthyObject(this.layout[section][area])) {
-            continue;
-          }
+        const placeholders = this.layout.listings_header[key].filter(
+          item => this.isTruthyObject( item )
+        ).map( addSelectedWidgets );
 
-          Object.assign(
-            this.local_layout[section][area],
-            this.layout[section][area]
-          );
-        }
+        Object.assign(
+          this.placeholders[key],
+          placeholders
+        );
       }
     },
 

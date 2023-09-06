@@ -125,8 +125,8 @@
                     $post_status = ( in_array( $post_status, $supported_post_status, true ) ) ? $post_status : $new_listing_status;
 
                     $args = array(
-                        'post_title'   => isset( $post[ $title ] ) ? html_entity_decode( $post[ $title ] ): '',
-                        'post_content' => isset( $post[ $description ] ) ? html_entity_decode( $post[ $description ] ) : '',
+                        'post_title'   => isset( $post[ $title ] ) ? self::unescape_data( html_entity_decode( $post[ $title ] ) ) : '',
+                        'post_content' => isset( $post[ $description ] ) ? self::unescape_data( html_entity_decode( $post[ $description ] ) ) : '',
                         'post_type'    => ATBDP_POST_TYPE,
                         'post_status'  => $post_status,
                     );
@@ -193,7 +193,7 @@
                     }
 
                     foreach ( $metas as $index => $value ) {
-                        $meta_value = $post[ $value ] ? $post[ $value ] : '';
+                        $meta_value = $post[ $value ] ? self::unescape_data( $post[ $value ] ) : '';
                         $meta_value = $this->maybe_unserialize_csv_string( $meta_value );
 
                         if ( $meta_value ) {
@@ -588,6 +588,24 @@
 
 		public function get_importable_fields() {
 			return apply_filters( 'directorist_importable_fields', $this->importable_fields );
+		}
+
+		/**
+		 * The exporter prepends a ' to escape fields that start with =, +, - or @.
+		 * Remove the prepended ' character preceding those characters.
+		 *
+		 * @since 7.7.1
+		 * @param  string $value A string that may or may not have been escaped with '.
+		 * @return string
+		 */
+		protected static function unescape_data( $value ) {
+			$active_content_triggers = array( "'=", "'+", "'-", "'@" );
+
+			if ( in_array( mb_substr( $value, 0, 2 ), $active_content_triggers, true ) ) {
+				$value = mb_substr( $value, 1 );
+			}
+
+			return $value;
 		}
     }
 

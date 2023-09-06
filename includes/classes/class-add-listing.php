@@ -254,7 +254,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$meta_input = self::filter_empty_meta_data( $meta_data );
 
 				$listing_data['meta_input'] = $meta_input;
-				$listing_data['tax_input']  = $taxonomy_data;
 
 				if ( $listing_id ) {
 					/**
@@ -276,19 +275,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 
 					wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
-
-					// Clean empty taxonomy data.
-					if ( empty( $taxonomy_data[ ATBDP_LOCATION ] ) ) {
-						wp_set_object_terms( $listing_id, '', ATBDP_LOCATION );
-					}
-
-					if ( empty( $taxonomy_data[ ATBDP_CATEGORY ] ) ) {
-						wp_set_object_terms( $listing_id, '', ATBDP_CATEGORY );
-					}
-
-					if ( empty( $taxonomy_data[ ATBDP_TAGS ] ) ) {
-						wp_set_object_terms( $listing_id, '', ATBDP_TAGS );
-					}
+					self::set_listing_taxonomy_terms( $listing_id, $taxonomy_data );
 
 					// Clean empty meta data.
 					$deletable_meta_fields = array_keys( array_diff_key( $meta_data, $meta_input ) );
@@ -331,9 +318,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						 * @param array $_POST the array containing the submitted fee data.
 						 * */
 						do_action( 'atbdp_before_processing_listing_frontend', $listing_id );
-
-						wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
 					}
+					
+					wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
+					self::set_listing_taxonomy_terms( $listing_id, $taxonomy_data );
 
 					if ( 'publish' === $new_listing_status ) {
 						do_action( 'atbdp_listing_published', $listing_id );// for sending email notification
@@ -410,6 +398,22 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					'error'     => true,
 					'error_msg' => $e->getMessage(),
 				), $e->getCode() );
+			}
+		}
+
+		public static function set_listing_taxonomy_terms( $listing_id, $taxonomy_data = array() ) {
+			$taxonomies = array( ATBDP_LOCATION, ATBDP_CATEGORY, ATBDP_TAGS );
+
+			foreach ( $taxonomies as $taxonomy ) {
+				if ( ! isset( $taxonomy_data[ $taxonomy ] ) ) {
+					continue;
+				}
+
+				if ( ! empty( $taxonomy_data[ $taxonomy ] ) ) {
+					wp_set_object_terms( $listing_id, $taxonomy_data[ $taxonomy ], $taxonomy );
+				} else {
+					wp_set_object_terms( $listing_id, '', $taxonomy );
+				}
 			}
 		}
 

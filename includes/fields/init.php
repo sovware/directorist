@@ -22,27 +22,15 @@ require_once __DIR__ . '/class-directorist-radio-field.php';
 require_once __DIR__ . '/class-directorist-file-field.php';
 
 // Preset fields.
-require_once __DIR__ . '/class-directorist-title-field.php';
 require_once __DIR__ . '/class-directorist-description-field.php';
-require_once __DIR__ . '/class-directorist-tagline-field.php';
 require_once __DIR__ . '/class-directorist-viewcount-field.php';
-require_once __DIR__ . '/class-directorist-excerpt-field.php';
-
-require_once __DIR__ . '/class-directorist-address-field.php';
-require_once __DIR__ . '/class-directorist-zip-field.php';
-require_once __DIR__ . '/class-directorist-phone-field.php';
-require_once __DIR__ . '/class-directorist-phone2-field.php';
-require_once __DIR__ . '/class-directorist-fax-field.php';
 require_once __DIR__ . '/class-directorist-email-field.php';
-require_once __DIR__ . '/class-directorist-website-field.php';
 require_once __DIR__ . '/class-directorist-video-field.php';
 require_once __DIR__ . '/class-directorist-switch-field.php';
-
 require_once __DIR__ . '/class-directorist-taxonomy-field.php';
 require_once __DIR__ . '/class-directorist-locations-field.php';
 require_once __DIR__ . '/class-directorist-categories-field.php';
 require_once __DIR__ . '/class-directorist-tags-field.php';
-
 require_once __DIR__ . '/class-directorist-pricing-field.php';
 require_once __DIR__ . '/class-directorist-map-field.php';
 require_once __DIR__ . '/class-directorist-social-info-field.php';

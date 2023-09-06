@@ -28,51 +28,6 @@ class Email_Field extends Base_Field {
 	public function sanitize( $posted_data ) {
 		return sanitize_email( $this->get_value( $posted_data ) );
 	}
-
-	public function get_builder_label() : string {
-		return esc_html_x( 'Email', 'Builder field label', 'directorist' );
-	}
-
-	public function get_builder_icon() : string {
-		return 'uil uil-envelope';
-	}
-
-	public function get_builder_fields( $directory_manager ) : array {
-		return array(
-			'type' => [
-				'type'  => 'hidden',
-				'value' => 'email',
-			],
-			'field_key' => [
-				'type'  => 'hidden',
-				'value' => 'email',
-				'rules' => [
-					'unique'   => true,
-					'required' => true,
-				]
-			],
-			'label' => [
-				'type'  => 'text',
-				'label' => __( 'Label', 'directorist' ),
-				'value' => 'Email',
-			],
-			'placeholder' => [
-				'type'  => 'text',
-				'label' => __( 'Placeholder', 'directorist'),
-				'value' => '',
-			],
-			'required' => [
-				'type'  => 'toggle',
-				'label' => __( 'Required', 'directorist' ),
-				'value' => false,
-			],
-			'only_for_admin' => [
-				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
-				'value' => false,
-			],
-		);
-	}
 }
 
 Fields::register( new Email_Field() );

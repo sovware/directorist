@@ -13,24 +13,12 @@ class Base_Field {
 
 	public $type = 'base';
 
-	protected $directory_id = 0;
-
-	protected $can_trash = true;
-
 	protected $props = array();
 
 	protected $errors = array();
 
 	public function __construct( array $props = array() ) {
 		$this->props = $props;
-	}
-
-	public function set_directory_id( int $id ) {
-		$this->directory_id = $id;
-	}
-
-	public function get_directory_id() : int {
-		return $this->directory_id;
 	}
 
 	public function __get( $name ) {
@@ -98,26 +86,5 @@ class Base_Field {
 
 	public function sanitize( $posted_data ) {
 		return directorist_clean( $this->get_value( $posted_data ) );
-	}
-
-	public function get_builder_label() : string {
-		return esc_html_x( 'Base Field', 'Builder field label', 'directorist' );
-	}
-
-	public function get_builder_icon() : string {
-		return 'uil uil-map-pin';
-	}
-	
-	public function get_builder_fields( $directory_manager ) : array {
-		return array();
-	}
-
-	public function to_builder_array( $directory_manager ) {
-		return array(
-			'label'    => $this->get_builder_label(),
-			'icon'     => $this->get_builder_icon(),
-			'options'  => $this->get_builder_fields( $directory_manager ),
-			'canTrash' => $this->can_trash,
-		);
 	}
 }

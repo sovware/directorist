@@ -86,12 +86,20 @@ class Fields {
 
 	public static function translate_key_to_field( $type ) {
 		$map = array(
-			'color'              => 'color_picker',
-			'listing_title'      => 'title',
-			'hide_contact_owner' => 'switch',
-			'tag'                => 'tags',
-			'location'           => 'locations',
+			'address'            => 'text',
 			'category'           => 'categories',
+			'color'              => 'color_picker',
+			'excerpt'            => 'textarea',
+			'fax'                => 'text',
+			'hide_contact_owner' => 'switch',
+			'title'              => 'text',
+			'location'           => 'locations',
+			'phone'              => 'text',
+			'phone2'             => 'text',
+			'tag'                => 'tags',
+			'tagline'            => 'text',
+			'website'            => 'url',
+			'zip'                => 'text',
 		);
 
 		return isset( $map[ $type ] ) ? $map[ $type ] : $type;

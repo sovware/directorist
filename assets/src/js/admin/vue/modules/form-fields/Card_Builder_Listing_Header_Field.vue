@@ -45,7 +45,9 @@
           @drop-widget="appendWidget($event, placeholders.quick_info)"
           @dragend-widget="onDragEndWidget()"
           @edit-widget="editWidget($event)"
-          @trash-widget="trashWidget($event, placeholders.quick_info, 'quick_info')"
+          @trash-widget="
+            trashWidget($event, placeholders.quick_info, 'quick_info')
+          "
           @placeholder-on-drop="
             handleDropOnPlaceholder(placeholders.quick_info)
           "
@@ -54,6 +56,7 @@
           "
           @close-widgets-picker-window="closeInsertWindow()"
         />
+
         <card-widget-placeholder
           id="listings_header_quick_actions"
           containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__top_right cptm-card-light"
@@ -74,7 +77,9 @@
           @drop-widget="appendWidget($event, placeholders.quick_actions)"
           @dragend-widget="onDragEndWidget()"
           @edit-widget="editWidget($event)"
-          @trash-widget="trashWidget($event, placeholders.quick_actions, 'quick_actions')"
+          @trash-widget="
+            trashWidget($event, placeholders.quick_actions, 'quick_actions')
+          "
           @placeholder-on-drop="
             handleDropOnPlaceholder(placeholders.quick_actions)
           "
@@ -88,56 +93,79 @@
       <div
         class="cptm-preview-placeholder__card cptm-preview-placeholder__card--bottom"
       >
-        <card-widget-placeholder
-          v-for="(placeholderItem, index) in placeholders.bottom"
-          :key="index"
-          :placeholderKey="placeholderItem.placeholderKey"
-          :id="'listings_header_bottom_' + index"
-          :class="'listings_header_bottom_' + index"
-          containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light"
-          :label="placeholderItem.label"
-          :availableWidgets="theAvailableWidgets"
-          :activeWidgets="active_widgets"
-          :acceptedWidgets="placeholderItem.acceptedWidgets"
-          :rejectedWidgets="placeholderItem.rejectedWidgets"
-          :selectedWidgets="placeholderItem.selectedWidgets"
-          :maxWidget="placeholderItem.maxWidget"
-          :showWidgetsPickerWindow="
-            getActiveInsertWindowStatus('listings_header_bottom_' + index)
-          "
-          :widgetDropable="widgetIsDropable(placeholderItem)"
-          @insert-widget="insertWidget($event, placeholderItem)"
-          @drag-widget="onDragStartWidget($event, placeholderItem)"
-          @drop-widget="appendWidget($event, placeholderItem)"
-          @dragend-widget="onDragEndWidget()"
-          @edit-widget="editWidget($event)"
-          @trash-widget="trashWidget($event, placeholderItem, 'bottom', index)"
-          @placeholder-on-drop="handleDropOnPlaceholder(placeholderItem)"
-          @open-widgets-picker-window="
-            activeInsertWindow('listings_header_bottom_' + index)
-          "
-          @close-widgets-picker-window="closeInsertWindow()"
-        />
+        <Container @drop="onDrop">
+          <Draggable 
+            v-for="(placeholderItem, index) in placeholders.bottom" 
+            :key="index"
+            >
+            <div class="draggable-items" @mousedown="maybeCanDrag">
+              <card-widget-placeholder
+                :placeholderKey="placeholderItem.placeholderKey"
+                :id="'listings_header_bottom_' + index"
+                :class="'listings_header_bottom_' + index"
+                containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light"
+                :label="placeholderItem.label"
+                :availableWidgets="theAvailableWidgets"
+                :activeWidgets="active_widgets"
+                :acceptedWidgets="placeholderItem.acceptedWidgets"
+                :rejectedWidgets="placeholderItem.rejectedWidgets"
+                :selectedWidgets="placeholderItem.selectedWidgets"
+                :maxWidget="placeholderItem.maxWidget"
+                :showWidgetsPickerWindow="
+                  getActiveInsertWindowStatus('listings_header_bottom_' + index)
+                "
+                :widgetDropable="widgetIsDropable(placeholderItem)"
+                @insert-widget="insertWidget($event, placeholderItem)"
+                @drag-widget="onDragStartWidget($event, placeholderItem)"
+                @drop-widget="appendWidget($event, placeholderItem)"
+                @dragend-widget="onDragEndWidget()"
+                @edit-widget="editWidget($event)"
+                @trash-widget="
+                  trashWidget($event, placeholderItem, 'bottom', index)
+                "
+                @placeholder-on-drop="handleDropOnPlaceholder(placeholderItem)"
+                @open-widgets-picker-window="
+                  activeInsertWindow('listings_header_bottom_' + index)
+                "
+                @close-widgets-picker-window="closeInsertWindow()"
+              />
 
-        <div class="cptm-preview-placeholder__card__action" v-if="placeholders.bottom.length < 3">
-          <button type="button" class="cptm-preview-placeholder__card__btn" @click="addImagePlaceholder">
+              <div class="cptm-drag-element">Drag</div>
+
+            </div>
+          </Draggable>
+        </Container>
+
+        <div
+          class="cptm-preview-placeholder__card__action"
+          v-if="placeholders.bottom.length < 3"
+        >
+          <button
+            type="button"
+            class="cptm-preview-placeholder__card__btn"
+            @click="addImagePlaceholder"
+          >
             <span class="icon fa fa-plus"></span> Add Image/Slider
           </button>
         </div>
       </div>
-
-      
     </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
+import { Container, Draggable } from "vue-dndrop";
+import { applyDrag } from "../../helpers/vue-dndrop";
 import card_builder from "./../../mixins/form-fields/card-builder";
 import helpers from "../../mixins/helpers";
 
 export default {
   name: "card-builder-listing-header-field",
+  components: {
+    Container,
+    Draggable,
+  },
   mixins: [card_builder, helpers],
   props: {
     fieldId: {
@@ -226,8 +254,9 @@ export default {
               continue;
             }
 
-            widget_data[root_option] =
-              this.active_widgets[widget_name][root_option];
+            widget_data[root_option] = this.active_widgets[widget_name][
+              root_option
+            ];
           }
 
           if (typeof this.active_widgets[widget_name].options !== "object") {
@@ -451,6 +480,30 @@ export default {
       this.importOldData();
     },
 
+    onDrop(dropResult) {
+      this.placeholders.bottom = applyDrag(
+        this.placeholders.bottom,
+        dropResult
+      );
+    },
+
+    maybeCanDrag( event ) {
+      const classList = [ ...event.target.classList ];
+
+      if ( classList.includes( 'cptm-drag-element' ) ) {
+        return;
+      }
+
+      event.stopPropagation();
+    },
+
+    getGhostParent() {
+      return document.body;
+    },
+    getChildPayload(index) {
+      return this.items[index];
+    },
+
     addImagePlaceholder() {
       const key = "slider";
 
@@ -606,8 +659,8 @@ export default {
           continue;
         }
 
-        const length =
-          this.placeholders[item.area][item.widgetIndex].selectedWidgets.length;
+        const length = this.placeholders[item.area][item.widgetIndex]
+          .selectedWidgets.length;
         this.placeholders[item.area][item.widgetIndex].selectedWidgets.splice(
           length,
           0,
@@ -942,11 +995,11 @@ export default {
         this.closeWidgetOptionsWindow();
       }
 
-      if ( ! where.canDelete ) {
+      if (!where.canDelete) {
         return;
       }
 
-      if ( where.selectedWidgets.length ) {
+      if (where.selectedWidgets.length) {
         return;
       }
 
@@ -958,16 +1011,16 @@ export default {
         return;
       }
 
-      if ( isNaN( placeholderIndex ) ) {
-        Vue.delete( this.placeholders, placeholderKey );
+      if (isNaN(placeholderIndex)) {
+        Vue.delete(this.placeholders, placeholderKey);
         return;
       }
 
-      if ( ! this.placeholders[placeholderKey][placeholderIndex] ) {
+      if (!this.placeholders[placeholderKey][placeholderIndex]) {
         return;
       }
 
-      Vue.delete( this.placeholders[placeholderKey], placeholderIndex );
+      Vue.delete(this.placeholders[placeholderKey], placeholderIndex);
     },
 
     activeInsertWindow(current_item_key) {

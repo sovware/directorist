@@ -99,7 +99,7 @@
             v-for="(placeholderItem, index) in placeholders.bottom" 
             :key="index"
             >
-            <div class="draggable-items" @mousedown="maybeCanDrag">
+            <div class="draggable-item" @mousedown="maybeCanDrag">
               <card-widget-placeholder
                 :placeholderKey="placeholderItem.placeholderKey"
                 :id="'listings_header_bottom_' + index"
@@ -131,7 +131,7 @@
                 @close-widgets-picker-window="closeInsertWindow()"
               />
 
-              <div class="cptm-drag-element">Drag</div>
+              <div class="cptm-drag-element las la-arrows-alt"></div>
 
             </div>
           </Draggable>
@@ -825,10 +825,10 @@ export default {
     appendWidget(dest_key, dest_path) {
       const key = this.currentDraggingWidget.key;
       const from = this.currentDraggingWidget.origin.selectedWidgets;
-      const orign_index = from.indexOf(key);
+      const origin_index = from.indexOf(key);
       let dest_index = dest_path.selectedWidgets.indexOf(dest_key) + 1;
 
-      if (dest_path.selectedWidgets.includes(key) && 0 === orign_index) {
+      if (dest_path.selectedWidgets.includes(key) && 0 === origin_index) {
         dest_index--;
       }
 

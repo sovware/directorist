@@ -27056,10 +27056,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     appendWidget: function appendWidget(dest_key, dest_path) {
       var key = this.currentDraggingWidget.key;
       var from = this.currentDraggingWidget.origin.selectedWidgets;
-      var orign_index = from.indexOf(key);
+      var origin_index = from.indexOf(key);
       var dest_index = dest_path.selectedWidgets.indexOf(dest_key) + 1;
 
-      if (dest_path.selectedWidgets.includes(key) && 0 === orign_index) {
+      if (dest_path.selectedWidgets.includes(key) && 0 === origin_index) {
         dest_index--;
       }
 
@@ -44582,7 +44582,7 @@ var render = function () {
                       _c(
                         "div",
                         {
-                          staticClass: "draggable-items",
+                          staticClass: "draggable-item",
                           on: { mousedown: _vm.maybeCanDrag },
                         },
                         [
@@ -44650,9 +44650,9 @@ var render = function () {
                             },
                           }),
                           _vm._v(" "),
-                          _c("div", { staticClass: "cptm-drag-element" }, [
-                            _vm._v("Drag"),
-                          ]),
+                          _c("div", {
+                            staticClass: "cptm-drag-element las la-arrows-alt",
+                          }),
                         ],
                         1
                       ),

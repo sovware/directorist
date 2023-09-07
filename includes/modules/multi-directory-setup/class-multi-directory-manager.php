@@ -4385,18 +4385,19 @@ class Multi_Directory_Manager
                     'back' => [
                         'type' => "button",
                         'label' => __( "Back", "directorist" ),
-                        'icon' => 'las la-bookmark',
+                        'icon' => 'las la-arrow-left',
                     ],
                     'title' => [
                         'type' => "title",
-                        'label' => __( "Title", "directorist" ),
-                        'icon' => 'las la-bookmark',
+                        'label' => __( "Listing Title", "directorist" ),
+                        'icon' => 'las la-heading',
                     ],
                     'slider' => [
                         'type' => "thumbnail",
-                        'label' => __( "Slider/Image", "directorist" ),
-                        'icon' => 'las la-bookmark',
+                        'label' => __( "Listing Image/Slider", "directorist" ),
+                        'icon' => 'las la-image',
                     ],
+                    
                     'bookmark' => [
                         'type' => "button",
                         'label' => __( "Bookmark", "directorist" ),
@@ -4463,10 +4464,9 @@ class Multi_Directory_Manager
                             ],
                         ],
                     ],
-
                     'reviews' => [
                         'type' => "reviews",
-                        'label' => __( "Listings Reviews", "directorist" ),
+                        'label' => __( "Reviews", "directorist" ),
                         'icon' => 'uil uil-text-fields',
                     ],
                     'ratings_count' => [
@@ -4507,23 +4507,23 @@ class Multi_Directory_Manager
                             'acceptedWidgets' => ['back'],
                         ],
                         'quick_actions' => [
-                            'label' => __( 'Top Right', 'directorist' ),
+                            'label' => __( 'Quick Action', 'directorist' ),
                             'maxWidget' => 0,
                             'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                            'acceptedWidgets' => [ 'bookmark', 'share', 'report' ],
+                            'acceptedWidgets' => [ 'bookmark', 'reviews', 'share', 'report' ],
                         ],
                         'bottom' => [
                             [
-                                'label' => __( '@Bottom Widget', 'directorist' ),
+                                'label' => __( 'Listing Title', 'directorist' ),
                                 'maxWidget' => 1,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => ['title'],
-                                'rejectedWidgets' => ['slider'],
                             ],
                             [
-                                'label' => __( '@Bottom Widget', 'directorist' ),
-                                'maxWidget' => 1,
+                                'label' => __( 'More Widgets', 'directorist' ),
+                                'maxWidget' => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
                                 'rejectedWidgets' => ['slider'],
                             ],
                         ],

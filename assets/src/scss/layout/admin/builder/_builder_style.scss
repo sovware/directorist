@@ -2639,7 +2639,7 @@ input[type=radio] {
       z-index: unset;
       .cptm-placeholder-label {
         color: #868EAE;
-        font-size: 18px;
+        font-size: 13px;
         font-weight: 500;
       }
       .cptm-widget-preview-area {
@@ -2659,24 +2659,7 @@ input[type=radio] {
     }
 
     @include e(bottom_widget) {
-      position: relative;
-      margin-right: 30px;
-      &:before {
-        content: '\f31e';
-        font-family: 'Font Awesome 5 Free';
-        font-weight: 600;
-        font-size: 16px;
-        position: absolute;
-        right: -30px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #868EAE;
-      }
-      &:hover {
-        &:before {
-          color: #1e1e1e;
-        }
-      }
+      flex: 1;
     }
 
     @include e(btn){
@@ -2688,6 +2671,7 @@ input[type=radio] {
       color: #5A5F7D;
       font-size: 13px;
       font-weight: 500;
+      margin-top: 20px;
       .icon {
         width: 26px;
         height: 26px;
@@ -2695,6 +2679,39 @@ input[type=radio] {
         background: #fff;
         border-radius: 100%;
         margin-inline-end: 7px;
+      }
+    }
+
+    .slider-placeholder {
+      padding: 50px;
+      text-align: center;
+      .cptm-widget-preview-area {
+        .cptm-widget-label {
+          margin-top: 5px;
+        }
+      }
+    }
+
+    .dndrop-container.vertical {
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      > .dndrop-draggable-wrapper {
+        overflow: visible;
+      }
+    }
+
+    .draggable-item {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-direction: row;
+      .cptm-drag-element {
+        font-size: 15px;
+        color: #868EAE;
+        &:hover {
+          color: #1e1e1e;
+        }
       }
     }
   }

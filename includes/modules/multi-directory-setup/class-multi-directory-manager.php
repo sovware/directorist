@@ -4035,6 +4035,11 @@ class Multi_Directory_Manager
             ] ),
 
             // Submission Settings
+            'enable_sidebar' => [
+                'label' => __('Enable Sidebar', 'directorist'),
+                'type'  => 'toggle',
+                'value' => true,
+            ],
             'preview_mode' => [
                 'label' => __('Enable Listing Preview', 'directorist'),
                 'type'  => 'toggle',
@@ -4054,8 +4059,13 @@ class Multi_Directory_Manager
             ],
 
             // TERMS AND CONDITIONS
-            'display_terms_privacy' => [
+            'listing_privacy' => [
                 'label' => __('Enable', 'directorist'),
+                'type'  => 'toggle',
+                'value' => true,
+            ],
+            'require_privacy' => [
+                'label' => __('Required', 'directorist'),
                 'type'  => 'toggle',
                 'value' => true,
             ],
@@ -4637,9 +4647,7 @@ class Multi_Directory_Manager
                                 'title' => __('Terms and Conditions', 'directorist'),
                                 'container' => 'short-width',
                                 'fields' => [
-                                    'listing_terms_condition',
-                                    'require_terms_conditions',
-                                    'listing_privacy_terms_condition',
+                                    'listing_privacy',
                                     'terms_name',
                                     'terms_link',
                                     'privacy_name',
@@ -4651,6 +4659,7 @@ class Multi_Directory_Manager
                                 'title' => __('Submission Settings', 'directorist'),
                                 'container' => 'short-width',
                                 'fields' => [
+                                    'enable_sidebar',
                                     'preview_mode',
                                     'submit_button_label',
                                 ],

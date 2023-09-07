@@ -79,7 +79,7 @@ class Single_Map extends \WP_Widget {
 		$listing = \Directorist\Directorist_Single_Listing::instance();
 		$map_data = json_decode( $listing->map_data() );
 		$map_data->map_zoom_level = $map_zoom_level;
-		$map_data->info_content = $info_content;
+		//$map_data->info_content = $info_content;
 		$map_data = json_encode( $map_data );
 
 		Helper::get_template( 'widgets/single-map', compact( 'args', 'instance', 'map_data' ) );

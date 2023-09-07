@@ -192,6 +192,13 @@ class Directorist_Single_Listing {
 				}
 			}
 
+			if( 'image_upload' === $field['widget_name'] ) {
+				if( $this->get_contents() ) {
+					$has_contents = true;
+					break;
+				}
+			}
+
 			if( 'description' === $field['widget_name'] ) {
 				if( $this->get_contents() ) {
 					$has_contents = true;
@@ -309,7 +316,9 @@ class Directorist_Single_Listing {
 
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 
-		Helper::get_template( $template, $args );
+		if( $load_template ) {
+			Helper::get_template( $template, $args );
+		}
 	}
 
 	public function is_custom_field( $data ) {
@@ -1119,7 +1128,10 @@ class Directorist_Single_Listing {
 		$info_content .= $this->get_review_template();
 		$info_content .= $this->price_html();
 		$info_content .= "</div><div class='map-listing-card-single__content__info'>";
-		$info_content .= "<div class='directorist-info-item map-listing-card-single__content__phone'>" . directorist_icon( 'fas fa-phone-alt', false ) . "<div class='directorist-info-item'><a href='tel:${phone}'>{$phone}</a></div></div>";
+		
+		if( ! empty( $phone ) ) {
+			$info_content .= "<div class='directorist-info-item map-listing-card-single__content__phone'>" . directorist_icon( 'fas fa-phone-alt', false ) . "<div class='directorist-info-item'><a href='tel:${phone}'>{$phone}</a></div></div>";
+		}
 
 		if (!empty($display_address_map) && !empty($ad)) {
 			$info_content .= "<div class='directorist-info-item map-listing-card-single__content__address'>" .directorist_icon('fas fa-map-marker-alt', false). "<div class='directorist-info-item'>";

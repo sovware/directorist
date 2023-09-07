@@ -743,9 +743,7 @@ $(document).ready(function () {
             var windowWidth = $(window).width();
             var sidebarWidth = $(".multistep-wizard__nav").width();
             var sidebarHeight = $(".multistep-wizard__nav").height();
-            if($(".multistep-wizard").offset()) {
-                var multiStepWizardOffset = $(".multistep-wizard").offset().top;
-            }
+            var multiStepWizardOffset = $(".multistep-wizard").offset().top;
             var multiStepWizardHeight = $(".multistep-wizard").outerHeight();
             
             if (windowWidth > 991) {

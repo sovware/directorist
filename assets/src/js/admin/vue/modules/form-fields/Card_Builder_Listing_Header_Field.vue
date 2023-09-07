@@ -25,6 +25,7 @@
       <div
         class="cptm-preview-placeholder__card cptm-preview-placeholder__card--top"
       >
+        <!-- Header Left -->
         <card-widget-placeholder
           id="listings_header_quick_info"
           containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__top_left cptm-card-light"
@@ -57,6 +58,7 @@
           @close-widgets-picker-window="closeInsertWindow()"
         />
 
+        <!-- Header Right -->
         <card-widget-placeholder
           id="listings_header_quick_actions"
           containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__top_right cptm-card-light"
@@ -94,6 +96,7 @@
         v-if="placeholders.bottom.length"
         class="cptm-preview-placeholder__card cptm-preview-placeholder__card--bottom"
       >
+        <!-- Draggable Bottom Widgets -->
         <Container @drop="onDrop">
           <Draggable 
             v-for="(placeholderItem, index) in placeholders.bottom" 
@@ -137,6 +140,7 @@
           </Draggable>
         </Container>
 
+        <!-- Add Slider Button -->
         <div
           class="cptm-preview-placeholder__card__action"
           v-if="placeholders.bottom.length < 3"

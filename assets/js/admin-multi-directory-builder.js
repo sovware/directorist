@@ -26347,6 +26347,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
 
 
 
@@ -26665,21 +26666,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       placeholders: [{
         type: "placeholder_group",
         placeholders: [{
-          label: "Top Right",
+          label: "Quick Info",
           selectedWidgets: []
         }, {
-          label: "Top Left",
+          label: "Quick Action",
           selectedWidgets: []
         }]
       }, {
         type: "placeholder_item",
-        label: "Bottom Widgets",
+        label: "Listing Title",
         acceptedWidgets: ["title"],
         rejectedWidgets: ["slider"],
         selectedWidgets: []
       }, {
         type: "placeholder_item",
-        label: "Bottom Widgets",
+        label: "More Widgets",
         rejectedWidgets: ["slider"],
         selectedWidgets: []
       }]
@@ -44371,10 +44372,7 @@ var render = function () {
     _c("div", { staticClass: "cptm-preview-placeholder" }, [
       _c(
         "div",
-        {
-          staticClass:
-            "cptm-preview-placeholder__card cptm-preview-placeholder__card--bottom",
-        },
+        { staticClass: "cptm-preview-placeholder__card" },
         [
           _c(
             "Container",
@@ -44382,66 +44380,172 @@ var render = function () {
             _vm._l(_vm.placeholders, function (placeholderItem, index) {
               return _c("Draggable", { key: index }, [
                 placeholderItem.type == "placeholder_group"
-                  ? _c("div", { on: { mousedown: _vm.maybeCanDrag } }, [
-                      _c(
-                        "div",
-                        _vm._l(
-                          placeholderItem.placeholders,
-                          function (placeholderSubItem, subIndex) {
-                            return _c("card-widget-placeholder", {
-                              key: index + "_" + subIndex,
-                              class:
-                                "listings_header_bottom_" +
-                                index +
-                                "_" +
-                                subIndex,
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "draggable-item",
+                        on: { mousedown: _vm.maybeCanDrag },
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--top",
+                          },
+                          _vm._l(
+                            placeholderItem.placeholders,
+                            function (placeholderSubItem, subIndex) {
+                              return _c("card-widget-placeholder", {
+                                key: index + "_" + subIndex,
+                                attrs: {
+                                  placeholderKey:
+                                    placeholderSubItem.placeholderKey,
+                                  id:
+                                    "listings_header_" + index + "_" + subIndex,
+                                  containerClass:
+                                    "cptm-preview-placeholder__card__box cptm-card-light",
+                                  label: placeholderSubItem.label,
+                                  availableWidgets: _vm.theAvailableWidgets,
+                                  activeWidgets: _vm.active_widgets,
+                                  acceptedWidgets:
+                                    placeholderSubItem.acceptedWidgets,
+                                  rejectedWidgets:
+                                    placeholderSubItem.rejectedWidgets,
+                                  selectedWidgets:
+                                    placeholderSubItem.selectedWidgets,
+                                  maxWidget: placeholderSubItem.maxWidget,
+                                  showWidgetsPickerWindow:
+                                    _vm.getActiveInsertWindowStatus(
+                                      "listings_header_" +
+                                        index +
+                                        "_" +
+                                        subIndex
+                                    ),
+                                  widgetDropable:
+                                    _vm.widgetIsDropable(placeholderSubItem),
+                                },
+                                on: {
+                                  "insert-widget": function ($event) {
+                                    return _vm.insertWidget(
+                                      $event,
+                                      placeholderSubItem
+                                    )
+                                  },
+                                  "drag-widget": function ($event) {
+                                    return _vm.onDragStartWidget(
+                                      $event,
+                                      placeholderSubItem
+                                    )
+                                  },
+                                  "drop-widget": function ($event) {
+                                    return _vm.appendWidget(
+                                      $event,
+                                      placeholderSubItem
+                                    )
+                                  },
+                                  "dragend-widget": function ($event) {
+                                    return _vm.onDragEndWidget()
+                                  },
+                                  "edit-widget": function ($event) {
+                                    return _vm.editWidget($event)
+                                  },
+                                  "trash-widget": function ($event) {
+                                    return _vm.trashWidget(
+                                      $event,
+                                      placeholderSubItem,
+                                      index
+                                    )
+                                  },
+                                  "placeholder-on-drop": function ($event) {
+                                    return _vm.handleDropOnPlaceholder(
+                                      placeholderSubItem
+                                    )
+                                  },
+                                  "open-widgets-picker-window": function (
+                                    $event
+                                  ) {
+                                    return _vm.activeInsertWindow(
+                                      "listings_header_" +
+                                        index +
+                                        "_" +
+                                        subIndex
+                                    )
+                                  },
+                                  "close-widgets-picker-window": function (
+                                    $event
+                                  ) {
+                                    return _vm.closeInsertWindow()
+                                  },
+                                },
+                              })
+                            }
+                          ),
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", {
+                          staticClass: "cptm-drag-element las la-arrows-alt",
+                        }),
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                placeholderItem.type == "placeholder_item"
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "draggable-item",
+                        on: { mousedown: _vm.maybeCanDrag },
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom",
+                          },
+                          [
+                            _c("card-widget-placeholder", {
                               attrs: {
-                                placeholderKey:
-                                  placeholderSubItem.placeholderKey,
-                                id:
-                                  "listings_header_bottom_" +
-                                  index +
-                                  "_" +
-                                  subIndex,
+                                placeholderKey: placeholderItem.placeholderKey,
+                                id: "listings_header_" + index,
                                 containerClass:
-                                  "cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light",
-                                label: placeholderSubItem.label,
+                                  "cptm-preview-placeholder__card__box cptm-card-light",
+                                label: placeholderItem.label,
                                 availableWidgets: _vm.theAvailableWidgets,
                                 activeWidgets: _vm.active_widgets,
                                 acceptedWidgets:
-                                  placeholderSubItem.acceptedWidgets,
+                                  placeholderItem.acceptedWidgets,
                                 rejectedWidgets:
-                                  placeholderSubItem.rejectedWidgets,
+                                  placeholderItem.rejectedWidgets,
                                 selectedWidgets:
-                                  placeholderSubItem.selectedWidgets,
-                                maxWidget: placeholderSubItem.maxWidget,
+                                  placeholderItem.selectedWidgets,
+                                maxWidget: placeholderItem.maxWidget,
                                 showWidgetsPickerWindow:
                                   _vm.getActiveInsertWindowStatus(
-                                    "listings_header_bottom_" +
-                                      index +
-                                      "_" +
-                                      subIndex
+                                    "listings_header_" + index
                                   ),
                                 widgetDropable:
-                                  _vm.widgetIsDropable(placeholderSubItem),
+                                  _vm.widgetIsDropable(placeholderItem),
                               },
                               on: {
                                 "insert-widget": function ($event) {
                                   return _vm.insertWidget(
                                     $event,
-                                    placeholderSubItem
+                                    placeholderItem
                                   )
                                 },
                                 "drag-widget": function ($event) {
                                   return _vm.onDragStartWidget(
                                     $event,
-                                    placeholderSubItem
+                                    placeholderItem
                                   )
                                 },
                                 "drop-widget": function ($event) {
                                   return _vm.appendWidget(
                                     $event,
-                                    placeholderSubItem
+                                    placeholderItem
                                   )
                                 },
                                 "dragend-widget": function ($event) {
@@ -44453,23 +44557,20 @@ var render = function () {
                                 "trash-widget": function ($event) {
                                   return _vm.trashWidget(
                                     $event,
-                                    placeholderSubItem,
+                                    placeholderItem,
                                     index
                                   )
                                 },
                                 "placeholder-on-drop": function ($event) {
                                   return _vm.handleDropOnPlaceholder(
-                                    placeholderSubItem
+                                    placeholderItem
                                   )
                                 },
                                 "open-widgets-picker-window": function (
                                   $event
                                 ) {
                                   return _vm.activeInsertWindow(
-                                    "listings_header_bottom_" +
-                                      index +
-                                      "_" +
-                                      subIndex
+                                    "listings_header_" + index
                                   )
                                 },
                                 "close-widgets-picker-window": function (
@@ -44478,94 +44579,15 @@ var render = function () {
                                   return _vm.closeInsertWindow()
                                 },
                               },
-                            })
-                          }
+                            }),
+                          ],
+                          1
                         ),
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: "cptm-drag-element las la-arrows-alt",
-                      }),
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                placeholderItem.type == "placeholder_item"
-                  ? _c(
-                      "div",
-                      {
-                        staticClass: "draggable-item",
-                        on: { mousedown: _vm.maybeCanDrag },
-                      },
-                      [
-                        _c("card-widget-placeholder", {
-                          class: "listings_header_bottom_" + index,
-                          attrs: {
-                            placeholderKey: placeholderItem.placeholderKey,
-                            id: "listings_header_bottom_" + index,
-                            containerClass:
-                              "cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light",
-                            label: placeholderItem.label,
-                            availableWidgets: _vm.theAvailableWidgets,
-                            activeWidgets: _vm.active_widgets,
-                            acceptedWidgets: placeholderItem.acceptedWidgets,
-                            rejectedWidgets: placeholderItem.rejectedWidgets,
-                            selectedWidgets: placeholderItem.selectedWidgets,
-                            maxWidget: placeholderItem.maxWidget,
-                            showWidgetsPickerWindow:
-                              _vm.getActiveInsertWindowStatus(
-                                "listings_header_bottom_" + index
-                              ),
-                            widgetDropable:
-                              _vm.widgetIsDropable(placeholderItem),
-                          },
-                          on: {
-                            "insert-widget": function ($event) {
-                              return _vm.insertWidget($event, placeholderItem)
-                            },
-                            "drag-widget": function ($event) {
-                              return _vm.onDragStartWidget(
-                                $event,
-                                placeholderItem
-                              )
-                            },
-                            "drop-widget": function ($event) {
-                              return _vm.appendWidget($event, placeholderItem)
-                            },
-                            "dragend-widget": function ($event) {
-                              return _vm.onDragEndWidget()
-                            },
-                            "edit-widget": function ($event) {
-                              return _vm.editWidget($event)
-                            },
-                            "trash-widget": function ($event) {
-                              return _vm.trashWidget(
-                                $event,
-                                placeholderItem,
-                                index
-                              )
-                            },
-                            "placeholder-on-drop": function ($event) {
-                              return _vm.handleDropOnPlaceholder(
-                                placeholderItem
-                              )
-                            },
-                            "open-widgets-picker-window": function ($event) {
-                              return _vm.activeInsertWindow(
-                                "listings_header_bottom_" + index
-                              )
-                            },
-                            "close-widgets-picker-window": function ($event) {
-                              return _vm.closeInsertWindow()
-                            },
-                          },
-                        }),
                         _vm._v(" "),
                         _c("div", {
                           staticClass: "cptm-drag-element las la-arrows-alt",
                         }),
-                      ],
-                      1
+                      ]
                     )
                   : _vm._e(),
               ])

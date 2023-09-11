@@ -2607,10 +2607,7 @@ input[type=radio] {
   max-width: 100%;
   margin: 0 auto;
   @include e(card) {
-    display: flex;
-    gap: 20px;
-    padding: 12px 20px;
-    margin-bottom: 20px;
+    padding: 30px;
     border-radius: 6px;
     box-shadow: 0 0 10px rgba(134,142,174,0.2 );
     .cptm-widget-insert-link {
@@ -2619,19 +2616,26 @@ input[type=radio] {
       font-size: 12px;
       color: #fff;
     }
-    @include m(top) {
-      justify-content: space-between;
-    }
-    @include m(bottom) {
-      padding: 30px;
-      flex-direction: column;
-    }
 
-    @include e(top_right) {
-      flex: 0 0 50%;
+    @include e(item) {
+      flex: 1;
+      @include m(top) {
+        display: flex;
+        gap: 30px;
+        justify-content: space-between;
+        .cptm-preview-placeholder__card__box {
+          &:first-child {
+            flex: unset;
+          }
+          &:not(:first-child) {
+            flex: 0 0 50%;
+          }
+        }
+      }
     }
 
     @include e(box) {
+      flex: 1;
       padding: 10px 10px 19px;
       border-radius: 8px;
       min-height: 66px;
@@ -2656,10 +2660,6 @@ input[type=radio] {
           background-color: #e3e6ef;
         }
       }
-    }
-
-    @include e(bottom_widget) {
-      flex: 1;
     }
 
     @include e(btn){
@@ -2696,6 +2696,7 @@ input[type=radio] {
       display: flex;
       gap: 20px;
       flex-direction: column;
+      margin-bottom: 20px;
       > .dndrop-draggable-wrapper {
         overflow: visible;
       }

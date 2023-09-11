@@ -23,7 +23,7 @@
     <!-- cptm-preview-area -->
     <div class="cptm-preview-placeholder">
       <div
-        class="cptm-preview-placeholder__card cptm-preview-placeholder__card--bottom"
+        class="cptm-preview-placeholder__card"
       >
         <!-- Draggable Bottom Widgets -->
         <Container @drop="onDrop">
@@ -34,17 +34,17 @@
             <div
               v-if="placeholderItem.type == 'placeholder_group'"
               @mousedown="maybeCanDrag"
+              class="draggable-item"
             >
-              <div>
+            <div class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--top">
                 <card-widget-placeholder
                   v-for="(
                     placeholderSubItem, subIndex
                   ) in placeholderItem.placeholders"
                   :key="`${index}_${subIndex}`"
                   :placeholderKey="placeholderSubItem.placeholderKey"
-                  :id="`listings_header_bottom_${index}_${subIndex}`"
-                  :class="`listings_header_bottom_${index}_${subIndex}`"
-                  containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light"
+                  :id="`listings_header_${index}_${subIndex}`"
+                  containerClass="cptm-preview-placeholder__card__box cptm-card-light"
                   :label="placeholderSubItem.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
@@ -54,7 +54,7 @@
                   :maxWidget="placeholderSubItem.maxWidget"
                   :showWidgetsPickerWindow="
                     getActiveInsertWindowStatus(
-                      `listings_header_bottom_${index}_${subIndex}`
+                      `listings_header_${index}_${subIndex}`
                     )
                   "
                   :widgetDropable="widgetIsDropable(placeholderSubItem)"
@@ -69,7 +69,7 @@
                   "
                   @open-widgets-picker-window="
                     activeInsertWindow(
-                      `listings_header_bottom_${index}_${subIndex}`
+                      `listings_header_${index}_${subIndex}`
                     )
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
@@ -81,37 +81,38 @@
 
             <div
               v-if="placeholderItem.type == 'placeholder_item'"
-              class="draggable-item"
               @mousedown="maybeCanDrag"
+              class="draggable-item"
             >
-              <card-widget-placeholder
-                :placeholderKey="placeholderItem.placeholderKey"
-                :id="'listings_header_bottom_' + index"
-                :class="'listings_header_bottom_' + index"
-                containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light"
-                :label="placeholderItem.label"
-                :availableWidgets="theAvailableWidgets"
-                :activeWidgets="active_widgets"
-                :acceptedWidgets="placeholderItem.acceptedWidgets"
-                :rejectedWidgets="placeholderItem.rejectedWidgets"
-                :selectedWidgets="placeholderItem.selectedWidgets"
-                :maxWidget="placeholderItem.maxWidget"
-                :showWidgetsPickerWindow="
-                  getActiveInsertWindowStatus('listings_header_bottom_' + index)
-                "
-                :widgetDropable="widgetIsDropable(placeholderItem)"
-                @insert-widget="insertWidget($event, placeholderItem)"
-                @drag-widget="onDragStartWidget($event, placeholderItem)"
-                @drop-widget="appendWidget($event, placeholderItem)"
-                @dragend-widget="onDragEndWidget()"
-                @edit-widget="editWidget($event)"
-                @trash-widget="trashWidget($event, placeholderItem, index)"
-                @placeholder-on-drop="handleDropOnPlaceholder(placeholderItem)"
-                @open-widgets-picker-window="
-                  activeInsertWindow('listings_header_bottom_' + index)
-                "
-                @close-widgets-picker-window="closeInsertWindow()"
-              />
+              <div class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom">
+                <card-widget-placeholder
+                  :placeholderKey="placeholderItem.placeholderKey"
+                  :id="'listings_header_' + index"
+                  containerClass="cptm-preview-placeholder__card__box cptm-card-light"
+                  :label="placeholderItem.label"
+                  :availableWidgets="theAvailableWidgets"
+                  :activeWidgets="active_widgets"
+                  :acceptedWidgets="placeholderItem.acceptedWidgets"
+                  :rejectedWidgets="placeholderItem.rejectedWidgets"
+                  :selectedWidgets="placeholderItem.selectedWidgets"
+                  :maxWidget="placeholderItem.maxWidget"
+                  :showWidgetsPickerWindow="
+                    getActiveInsertWindowStatus('listings_header_' + index)
+                  "
+                  :widgetDropable="widgetIsDropable(placeholderItem)"
+                  @insert-widget="insertWidget($event, placeholderItem)"
+                  @drag-widget="onDragStartWidget($event, placeholderItem)"
+                  @drop-widget="appendWidget($event, placeholderItem)"
+                  @dragend-widget="onDragEndWidget()"
+                  @edit-widget="editWidget($event)"
+                  @trash-widget="trashWidget($event, placeholderItem, index)"
+                  @placeholder-on-drop="handleDropOnPlaceholder(placeholderItem)"
+                  @open-widgets-picker-window="
+                    activeInsertWindow('listings_header_' + index)
+                  "
+                  @close-widgets-picker-window="closeInsertWindow()"
+                />
+              </div>
 
               <div class="cptm-drag-element las la-arrows-alt"></div>
             </div>
@@ -433,25 +434,25 @@ export default {
           type: "placeholder_group",
           placeholders: [
             {
-              label: "Top Right",
+              label: "Quick Info",
               selectedWidgets: [],
             },
             {
-              label: "Top Left",
+              label: "Quick Action",
               selectedWidgets: [],
             },
           ],
         },
         {
           type: "placeholder_item",
-          label: "Bottom Widgets",
+          label: "Listing Title",
           acceptedWidgets: ["title"],
           rejectedWidgets: ["slider"],
           selectedWidgets: [],
         },
         {
           type: "placeholder_item",
-          label: "Bottom Widgets",
+          label: "More Widgets",
           rejectedWidgets: ["slider"],
           selectedWidgets: [],
         },

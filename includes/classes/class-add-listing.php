@@ -13,6 +13,7 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || die( 'Direct access is not allowed.' );
 
+use Directorist\Helper;
 use Directorist\Fields\Fields;
 
 if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
@@ -125,9 +126,9 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				// When invalid directory is selected fallback to default directory.
 				if ( ! $directory ) {
-					$directory_id = directorist_get_default_directory();
+					$directory_id = (int) directorist_get_default_directory();
 				} else {
-					$directory_id = $directory->term_id;
+					$directory_id = (int) $directory->term_id;
 				}
 
 				$posted_data['directory_id'] = $directory_id;
@@ -254,6 +255,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$meta_input = self::filter_empty_meta_data( $meta_data );
 
 				$listing_data['meta_input'] = $meta_input;
+				$listing_data['tax_input']  = $taxonomy_data;
 
 				if ( $listing_id ) {
 					/**
@@ -274,8 +276,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						throw new Exception( $listing_id->get_error_message() );
 					}
 
-					wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
-					self::set_listing_taxonomy_terms( $listing_id, $taxonomy_data );
+					self::reset_listing_taxonomy( $listing_id, $taxonomy_data );
+					self::set_listing_directory( $listing_id, $directory_id );
 
 					// Clean empty meta data.
 					$deletable_meta_fields = array_keys( array_diff_key( $meta_data, $meta_input ) );
@@ -299,6 +301,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						throw new Exception( $listing_id->get_error_message() );
 					}
 
+					self::set_listing_directory( $listing_id, $directory_id );
+
 					do_action( 'atbdp_listing_inserted', $listing_id ); // for sending email notification
 
 					// Every post with the published status should contain all the post meta keys so that we can include them in query.
@@ -319,9 +323,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						 * */
 						do_action( 'atbdp_before_processing_listing_frontend', $listing_id );
 					}
-
-					wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
-					self::set_listing_taxonomy_terms( $listing_id, $taxonomy_data );
 
 					if ( 'publish' === $new_listing_status ) {
 						do_action( 'atbdp_listing_published', $listing_id );// for sending email notification
@@ -353,7 +354,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$should_monetize     = ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() && $is_listing_featured );
 
 				if ( $should_monetize && ! is_fee_manager_active() ) {
-					$payment_status            = Directorist\Helper::get_listing_payment_status( $listing_id );
+					$payment_status            = Helper::get_listing_payment_status( $listing_id );
 					$rejectable_payment_status = array( 'failed', 'cancelled', 'refunded' );
 
 					if ( empty( $payment_status ) || in_array( $payment_status, $rejectable_payment_status, true ) ) {
@@ -384,11 +385,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				if ( ! empty( $posted_data['preview_url'] ) ) {
-					$data['preview_url'] = \Directorist\Helper::escape_query_strings_from_url( $posted_data['preview_url'] );
+					$data['preview_url'] = Helper::escape_query_strings_from_url( $posted_data['preview_url'] );
 				}
 
 				if ( ! empty( $posted_data['redirect_url'] ) ) {
-					$data['redirect_url'] = \Directorist\Helper::escape_query_strings_from_url( $posted_data['redirect_url'] );
+					$data['redirect_url'] = Helper::escape_query_strings_from_url( $posted_data['redirect_url'] );
 				}
 
 				wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
@@ -401,20 +402,18 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			}
 		}
 
-		public static function set_listing_taxonomy_terms( $listing_id, $taxonomy_data = array() ) {
+		public static function reset_listing_taxonomy( $listing_id, $taxonomy_data = array() ) {
 			$taxonomies = array( ATBDP_LOCATION, ATBDP_CATEGORY, ATBDP_TAGS );
 
 			foreach ( $taxonomies as $taxonomy ) {
-				if ( ! isset( $taxonomy_data[ $taxonomy ] ) ) {
-					continue;
-				}
-
-				if ( ! empty( $taxonomy_data[ $taxonomy ] ) ) {
-					wp_set_object_terms( $listing_id, $taxonomy_data[ $taxonomy ], $taxonomy );
-				} else {
+				if ( isset( $taxonomy_data[ $taxonomy ] ) && empty( $taxonomy_data[ $taxonomy ] ) ) {
 					wp_set_object_terms( $listing_id, '', $taxonomy );
 				}
 			}
+		}
+
+		public static function set_listing_directory( $listing_id, $directory_id ) {
+			wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
 		}
 
 		public static function current_user_can_create() {

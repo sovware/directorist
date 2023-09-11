@@ -33,7 +33,7 @@ class Multi_Directory_Manager
 
     // run
     public function run() {
-        add_action( 'init', [$this, 'register_terms'] );
+        add_action( 'init', [$this, 'register_directory_taxonomy'], 15 );
         add_action( 'init', [$this, 'setup_migration'] );
 
         if ( ! is_admin() ) {
@@ -3374,19 +3374,19 @@ class Multi_Directory_Manager
         }
     }
 
-    // register_terms
-    public function register_terms()
+    // register_directory_taxonomy
+    public function register_directory_taxonomy()
     {
         register_taxonomy( ATBDP_DIRECTORY_TYPE, [ ATBDP_POST_TYPE ], [
             'hierarchical' => false,
-            'labels' => [
-                'name' => _x('Listing Type', 'taxonomy general name', 'directorist'),
-                'singular_name' => _x('Listing Type', 'taxonomy singular name', 'directorist'),
-                'search_items' => __('Search Listing Type', 'directorist'),
-                'menu_name' => __('Listing Type', 'directorist'),
+            'labels'       => [
+                'name'          => _x( 'Listing Directory', 'taxonomy general name', 'directorist' ),
+                'singular_name' => _x( 'Listing Directory', 'taxonomy singular name', 'directorist' ),
+                'search_items'  => __( 'Search listing directory', 'directorist' ),
+                'menu_name'     => __( 'Listing Directory', 'directorist' ),
             ],
-            'show_ui' => false,
-        ]);
+			'show_ui'      => false,
+        ] );
     }
 
     /**

@@ -235,7 +235,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 				'labels'              => $labels,
 				'supports'            => array( 'title', 'editor', 'author' ),
 				// 'show_in_rest'         => true,
-				'taxonomies'          => array( ATBDP_CATEGORY, ATBDP_LOCATION, ATBDP_TAGS ),
+				'taxonomies'          => array( ATBDP_CATEGORY, ATBDP_LOCATION, ATBDP_TAGS, ATBDP_DIRECTORY_TYPE ),
 				'hierarchical'        => false,
 				'public'              => true,
 				'show_ui'             => current_user_can( 'edit_others_at_biz_dirs' ) ? true : false, // show the menu only to the admin

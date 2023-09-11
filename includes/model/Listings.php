@@ -229,7 +229,6 @@ class Directorist_Listings {
 		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 		$this->options['font_type']                       = 'line';
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
-		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
 		$this->options['listing_instant_search']         = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';

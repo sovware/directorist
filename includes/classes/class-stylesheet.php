@@ -136,7 +136,7 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
             $closed_back_color              = get_directorist_option( 'closed_back_color', '#e23636' );
             $featured_back_color            = get_directorist_option( 'featured_back_color', '#fa8b0c' );
             $popular_back_color             = get_directorist_option( 'popular_back_color', '#f51957' );
-            $new_back_color                 = get_directorist_option( 'new_back_color', '#122069' );
+            $new_back_color                 = get_directorist_option( 'new_back_color', '#2C99FF' );
             $primary_dark_back_color        = get_directorist_option( 'primary_dark_back_color', '#444752' );
             $primary_dark_border_color      = get_directorist_option( 'primary_dark_border_color', '#444752' );
             $marker_shape_color             = get_directorist_option( 'marker_shape_color', '#444752' );
@@ -488,7 +488,7 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
 
                 /* Badge New */
                 .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new {
-                    background: <?php echo ! empty( $new_back_color ) ? esc_attr( $new_back_color ) : esc_attr( '#122069' ); ?> !important;
+                    background: <?php echo ! empty( $new_back_color ) ? esc_attr( $new_back_color ) : esc_attr( '#2C99FF' ); ?> !important;
                 }
 
                 /*

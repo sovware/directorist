@@ -1422,7 +1422,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'new_back_color' => [
                     'type' => 'color',
                     'label' => __('New Background Color', 'directorist'),
-                    'value' => '#122069',
+                    'value' => '#2C99FF',
                 ],
 
                 'marker_shape_color' => [

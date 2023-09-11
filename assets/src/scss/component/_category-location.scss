@@ -198,6 +198,7 @@
             font-weight: var(--directorist-fw-medium);
         }
         @include m('icon'){
+            flex-wrap: wrap;
             padding-inline-start: 12px;
         }
     }
@@ -249,6 +250,8 @@
         list-style: none;
         overflow-y: auto;
         a{
+            flex-wrap: wrap;
+            display: flex;
             font-size: 16px;
             text-decoration: none;
             color: var(--directorist-color-dark);

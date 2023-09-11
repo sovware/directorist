@@ -9756,6 +9756,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 /* All listing archive page styles */
 .directorist-archive-contents .directorist-archive-items .directorist-pagination {
   margin-top: 35px;
+  -webkit-box-pack: end;
+  -webkit-justify-content: end;
+      -ms-flex-pack: end;
+          justify-content: end;
 }
 .directorist-archive-contents .gm-style-iw-t {
   bottom: 48px !important;
@@ -12095,6 +12099,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-weight: var(--directorist-fw-medium);
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__card--icon {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   -webkit-padding-start: 12px;
           padding-inline-start: 12px;
 }
@@ -12147,6 +12154,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   overflow-y: auto;
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item a {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   font-size: 16px;
   text-decoration: none;
   color: var(--directorist-color-dark);

@@ -212,10 +212,10 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			// Args for ATBDP_POST_TYPE, here any constant may not be available because this function will be called from the
 			// register_activation_hook .
 			$labels = array(
-				'name'               => _x( 'Directory listings', 'Plural Name of Directory listing', 'directorist' ),
-				'singular_name'      => _x( 'Directory listing', 'Singular Name of Directory listing', 'directorist' ),
-				'menu_name'          => __( 'Directory listings', 'directorist' ),
-				'name_admin_bar'     => __( 'Directory listing', 'directorist' ),
+				'name'               => _x( 'Directory Listings', 'Plural Name of Directory listing', 'directorist' ),
+				'singular_name'      => _x( 'Directory Listing', 'Singular Name of Directory listing', 'directorist' ),
+				'menu_name'          => __( 'Directory Listings', 'directorist' ),
+				'name_admin_bar'     => __( 'Directory Listing', 'directorist' ),
 				'parent_item_colon'  => __( 'Parent Directory listing:', 'directorist' ),
 				'all_items'          => __( 'All listings', 'directorist' ),
 				'add_new_item'       => __( 'Add New listing', 'directorist' ),
@@ -235,7 +235,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 				'labels'              => $labels,
 				'supports'            => array( 'title', 'editor', 'author' ),
 				// 'show_in_rest'         => true,
-				'taxonomies'          => array( ATBDP_CATEGORY ),
+				'taxonomies'          => array( ATBDP_CATEGORY, ATBDP_LOCATION, ATBDP_TAGS ),
 				'hierarchical'        => false,
 				'public'              => true,
 				'show_ui'             => current_user_can( 'edit_others_at_biz_dirs' ) ? true : false, // show the menu only to the admin

@@ -1614,24 +1614,34 @@ class Directorist_Listings {
 		}
 
 		public function loop_get_the_thumbnail( $class = '' ) {
-			$image_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
+            $id                = get_the_ID();
+            $default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
+            $image_quality     = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
+            $listing_prv_img   = get_post_meta( $id, '_listing_prv_img', true );
+            $listing_img       = get_post_meta( $id, '_listing_img', true );
+            $thumbnail_ids     = array_filter( (array) $listing_prv_img + (array) $listing_img );
 
-			if ( directorist_has_listing_thumbnail( get_the_ID() ) ) {
-				$this->cache_thumbnails();
+            // Sanitize and validate the class attribute
+            $class = sanitize_html_class( $class );
 
-				$thumbnail_id = directorist_get_listing_thumbnail_id( get_the_ID() );
-				$image_url    = wp_get_attachment_image_url( $thumbnail_id, $image_size );
-				$image_alt    = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
-			} else {
-				$image_url = Helper::default_preview_image_src( $this->current_listing_type );
-			}
+            if ( empty( $thumbnail_ids ) ) {
+                $default_image_src = esc_url( $default_image_src );
+                $image_alt         = esc_html( get_the_title( $id ) );
 
-			if ( empty( $image_alt ) ) {
-				$image_alt = get_the_title( get_the_ID() );
-			}
-
-			return '<img class="' . esc_attr( $class ) . '" src="' . esc_url( $image_url ) . '" alt="' . esc_attr( $image_alt ) . '"/>';
-		}
+                return "<img src='$default_image_src' alt='$image_alt' class='$class' />";
+            } else {
+                $images = [];
+                foreach ( $thumbnail_ids as $thumbnail_id ) {
+                    $this->cache_thumbnails();
+                    $image_src = esc_url( atbdp_get_image_source( $thumbnail_id, $image_quality ) );
+                    $image_alt = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
+                    $image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
+                    $images[]  = "<img src='$image_src' alt='$image_alt' class='$class' />";
+                }
+        
+                return implode( '', $images );
+            }
+        }
 
 		public function loop_thumb_card_template() {
 			Helper::get_template( 'archive/fields/thumb-card', array('listings' => $this) );

@@ -92,7 +92,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				$maybe_directory_id = sanitize_text_field( directorist_get_var( $posted_data['directory_type'], '' ) );
 				$directory          = get_term_by( ( is_numeric( $maybe_directory_id ) ? 'id' : 'slug' ), $maybe_directory_id, ATBDP_DIRECTORY_TYPE );
-				
+
 				if ( directorist_is_multi_directory_enabled() && ! $directory ) {
 					throw new Exception( __( 'Invalid directory!', 'directorist' ), 200 );
 				}
@@ -193,7 +193,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						case 'location':
 							self::process_locations( $field, $posted_data, $taxonomy_data, $error );
 							break;
-						
+
 						case 'category':
 							self::process_categories( $field, $posted_data, $taxonomy_data, $error );
 							break;
@@ -233,7 +233,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				if ( ! empty( $posted_data['privacy_policy'] ) ) {
 					$meta_data['_privacy_policy'] = (bool) $posted_data['privacy_policy'];
 				}
-	
+
 				if ( ! empty( $posted_data['t_c_check'] ) ) {
 					$meta_data['_t_c_check'] = (bool) $posted_data['t_c_check'];
 				}
@@ -283,7 +283,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					foreach ( $deletable_meta_fields as $deletable_meta_field ) {
 						delete_post_meta( $listing_id, $deletable_meta_field );
 					}
-					
+
 					do_action( 'atbdp_listing_updated', $listing_id );
 
 				} else {
@@ -319,7 +319,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						 * */
 						do_action( 'atbdp_before_processing_listing_frontend', $listing_id );
 					}
-					
+
 					wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
 					self::set_listing_taxonomy_terms( $listing_id, $taxonomy_data );
 
@@ -426,7 +426,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				if ( $key === '_hide_contact_owner' && ! $value ) {
 					return false;
 				}
-				
+
 				if ( is_array( $value ) ) {
 					return ! empty( $value );
 				}
@@ -496,7 +496,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 							'error'    => $files['error'][ $key ],
 							'size'     => $files['size'][ $key ],
 						);
-						
+
 						$_FILES['my_file_upload'] = $file;
 						$meta_data                = array();
 						$meta_data['name']        = $files['name'][ $key ];
@@ -536,7 +536,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 				}
 			}
-			
+
 			update_post_meta( $listing_id, '_listing_img', $new_files_meta );
 		}
 
@@ -611,7 +611,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				if ( $location_id && term_exists( $location_id, ATBDP_LOCATION ) ) {
 					$location_ids[] = $location_id;
-	
+
 					if ( $field->user_can_select_multiple() && ( $max_allowed > 0 ) && ( count( $location_ids ) >= $max_allowed ) ) {
 						break;
 					}
@@ -634,7 +634,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						}
 					} else {
 						$location_ids[] = (int) $location_added['term_id'];
-						
+
 						update_term_meta( $location_added['term_id'], '_directory_type', array( $posted_data['directory_id'] ) );
 					}
 				}
@@ -671,7 +671,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				if ( $category_id && term_exists( $category_id, ATBDP_CATEGORY ) ) {
 					$category_ids[] = $category_id;
-					
+
 					if ( ! $field->user_can_select_multiple() && count( $category_ids ) === 1 ) {
 						break;
 					}
@@ -690,7 +690,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						}
 					} else {
 						$category_ids[] = $category_added['term_id'];
-						
+
 						update_term_meta( $category_added['term_id'], '_directory_type', array( $posted_data['directory_id'] ) );
 					}
 				}
@@ -725,7 +725,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					if ( ! $field->user_can_select_multiple() && count( $tag_ids ) === 1 ) {
 						break;
 					}
-					
+
 					continue;
 				}
 
@@ -760,7 +760,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		}
 
 		public static function validate_field( $field, $posted_data ) {
-			$should_validate = (bool) apply_filters( 'atbdp_add_listing_form_validation_logic', true, $field, $posted_data );
+			$should_validate = (bool) apply_filters( 'atbdp_add_listing_form_validation_logic', true, $field->get_props(), $posted_data );
 
 			if ( $field->is_category_only() && ! in_array( $field->get_assigned_category(), self::$selected_categories, true ) ) {
 				$should_validate = false;

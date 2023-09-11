@@ -35,6 +35,10 @@ class Base_Field {
 		return isset( $this->props[ $name ] );
 	}
 
+	public function get_props() {
+		return $this->props;
+	}
+
 	public function get_key() : string {
 		return ( string ) $this->field_key;
 	}

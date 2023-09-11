@@ -23,86 +23,67 @@
     <!-- cptm-preview-area -->
     <div class="cptm-preview-placeholder">
       <div
-        class="cptm-preview-placeholder__card cptm-preview-placeholder__card--top"
-      >
-        <!-- Header Left -->
-        <card-widget-placeholder
-          id="listings_header_quick_info"
-          containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__top_left cptm-card-light"
-          :placeholderKey="placeholders.quick_info.placeholderKey"
-          :label="placeholders.quick_info.label"
-          :availableWidgets="theAvailableWidgets"
-          :activeWidgets="active_widgets"
-          :acceptedWidgets="placeholders.quick_info.acceptedWidgets"
-          :rejectedWidgets="placeholders.quick_info.rejectedWidgets"
-          :selectedWidgets="placeholders.quick_info.selectedWidgets"
-          :maxWidget="placeholders.quick_info.maxWidget"
-          :showWidgetsPickerWindow="
-            getActiveInsertWindowStatus('listings_header_quick_info')
-          "
-          :widgetDropable="widgetIsDropable(placeholders.quick_info)"
-          @insert-widget="insertWidget($event, placeholders.quick_info)"
-          @drag-widget="onDragStartWidget($event, placeholders.quick_info)"
-          @drop-widget="appendWidget($event, placeholders.quick_info)"
-          @dragend-widget="onDragEndWidget()"
-          @edit-widget="editWidget($event)"
-          @trash-widget="
-            trashWidget($event, placeholders.quick_info, 'quick_info')
-          "
-          @placeholder-on-drop="
-            handleDropOnPlaceholder(placeholders.quick_info)
-          "
-          @open-widgets-picker-window="
-            activeInsertWindow('listings_header_quick_info')
-          "
-          @close-widgets-picker-window="closeInsertWindow()"
-        />
-
-        <!-- Header Right -->
-        <card-widget-placeholder
-          id="listings_header_quick_actions"
-          containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__top_right cptm-card-light"
-          :placeholderKey="placeholders.quick_actions.placeholderKey"
-          :label="placeholders.quick_actions.label"
-          :availableWidgets="theAvailableWidgets"
-          :activeWidgets="active_widgets"
-          :acceptedWidgets="placeholders.quick_actions.acceptedWidgets"
-          :rejectedWidgets="placeholders.quick_actions.rejectedWidgets"
-          :selectedWidgets="placeholders.quick_actions.selectedWidgets"
-          :maxWidget="placeholders.quick_actions.maxWidget"
-          :showWidgetsPickerWindow="
-            getActiveInsertWindowStatus('listings_header_quick_actions')
-          "
-          :widgetDropable="widgetIsDropable(placeholders.quick_actions)"
-          @insert-widget="insertWidget($event, placeholders.quick_actions)"
-          @drag-widget="onDragStartWidget($event, placeholders.quick_actions)"
-          @drop-widget="appendWidget($event, placeholders.quick_actions)"
-          @dragend-widget="onDragEndWidget()"
-          @edit-widget="editWidget($event)"
-          @trash-widget="
-            trashWidget($event, placeholders.quick_actions, 'quick_actions')
-          "
-          @placeholder-on-drop="
-            handleDropOnPlaceholder(placeholders.quick_actions)
-          "
-          @open-widgets-picker-window="
-            activeInsertWindow('listings_header_quick_actions')
-          "
-          @close-widgets-picker-window="closeInsertWindow()"
-        />
-      </div>
-
-      <div
-        v-if="placeholders.bottom.length"
         class="cptm-preview-placeholder__card cptm-preview-placeholder__card--bottom"
       >
         <!-- Draggable Bottom Widgets -->
         <Container @drop="onDrop">
-          <Draggable 
-            v-for="(placeholderItem, index) in placeholders.bottom" 
+          <Draggable
+            v-for="(placeholderItem, index) in placeholders"
             :key="index"
+          >
+            <div
+              v-if="placeholderItem.type == 'placeholder_group'"
+              @mousedown="maybeCanDrag"
             >
-            <div class="draggable-item" @mousedown="maybeCanDrag">
+              <div>
+                <card-widget-placeholder
+                  v-for="(
+                    placeholderSubItem, subIndex
+                  ) in placeholderItem.placeholders"
+                  :key="`${index}_${subIndex}`"
+                  :placeholderKey="placeholderSubItem.placeholderKey"
+                  :id="`listings_header_bottom_${index}_${subIndex}`"
+                  :class="`listings_header_bottom_${index}_${subIndex}`"
+                  containerClass="cptm-preview-placeholder__card__box cptm-preview-placeholder__card__bottom_widget cptm-card-light"
+                  :label="placeholderSubItem.label"
+                  :availableWidgets="theAvailableWidgets"
+                  :activeWidgets="active_widgets"
+                  :acceptedWidgets="placeholderSubItem.acceptedWidgets"
+                  :rejectedWidgets="placeholderSubItem.rejectedWidgets"
+                  :selectedWidgets="placeholderSubItem.selectedWidgets"
+                  :maxWidget="placeholderSubItem.maxWidget"
+                  :showWidgetsPickerWindow="
+                    getActiveInsertWindowStatus(
+                      `listings_header_bottom_${index}_${subIndex}`
+                    )
+                  "
+                  :widgetDropable="widgetIsDropable(placeholderSubItem)"
+                  @insert-widget="insertWidget($event, placeholderSubItem)"
+                  @drag-widget="onDragStartWidget($event, placeholderSubItem)"
+                  @drop-widget="appendWidget($event, placeholderSubItem)"
+                  @dragend-widget="onDragEndWidget()"
+                  @edit-widget="editWidget($event)"
+                  @trash-widget="trashWidget($event, placeholderSubItem, index)"
+                  @placeholder-on-drop="
+                    handleDropOnPlaceholder(placeholderSubItem)
+                  "
+                  @open-widgets-picker-window="
+                    activeInsertWindow(
+                      `listings_header_bottom_${index}_${subIndex}`
+                    )
+                  "
+                  @close-widgets-picker-window="closeInsertWindow()"
+                />
+              </div>
+
+              <div class="cptm-drag-element las la-arrows-alt"></div>
+            </div>
+
+            <div
+              v-if="placeholderItem.type == 'placeholder_item'"
+              class="draggable-item"
+              @mousedown="maybeCanDrag"
+            >
               <card-widget-placeholder
                 :placeholderKey="placeholderItem.placeholderKey"
                 :id="'listings_header_bottom_' + index"
@@ -124,9 +105,7 @@
                 @drop-widget="appendWidget($event, placeholderItem)"
                 @dragend-widget="onDragEndWidget()"
                 @edit-widget="editWidget($event)"
-                @trash-widget="
-                  trashWidget($event, placeholderItem, 'bottom', index)
-                "
+                @trash-widget="trashWidget($event, placeholderItem, index)"
                 @placeholder-on-drop="handleDropOnPlaceholder(placeholderItem)"
                 @open-widgets-picker-window="
                   activeInsertWindow('listings_header_bottom_' + index)
@@ -135,7 +114,6 @@
               />
 
               <div class="cptm-drag-element las la-arrows-alt"></div>
-
             </div>
           </Draggable>
         </Container>
@@ -143,7 +121,7 @@
         <!-- Add Slider Button -->
         <div
           class="cptm-preview-placeholder__card__action"
-          v-if="placeholders.bottom.length < 3"
+          v-if="canShowAddImageSliderButton"
         >
           <button
             type="button"
@@ -215,10 +193,10 @@ export default {
 
   computed: {
     output_data() {
-      let output = {};
-      let layout = this.placeholders;
+      let output = [];
+      let placeholders = this.placeholders;
 
-      const getWidgetData = (placeholderData, index) => {
+      const getWidgetData = (placeholderData) => {
         if (typeof placeholderData !== "object") {
           return null;
         }
@@ -229,8 +207,8 @@ export default {
 
         let data = [];
 
-        for (let widget in placeholderData.selectedWidgets) {
-          const widget_name = placeholderData.selectedWidgets[widget];
+        for (let widgetIndex in placeholderData.selectedWidgets) {
+          const widget_name = placeholderData.selectedWidgets[widgetIndex];
 
           if (
             !this.active_widgets[widget_name] &&
@@ -240,10 +218,6 @@ export default {
           }
 
           let widget_data = {};
-
-          if (typeof index === "number") {
-            widget_data.index = index;
-          }
 
           for (let root_option in this.active_widgets[widget_name]) {
             if ("options" === root_option) {
@@ -289,36 +263,57 @@ export default {
       };
 
       // Parse Layout
-      for (let section_area in layout) {
-        // Parse Repetitive Placeholders
-        if (Array.isArray(layout[section_area])) {
-          layout[section_area].forEach((value, index) => {
-            let data = getWidgetData(value, index);
+      for (const placeholder of placeholders) {
+        if ("placeholder_item" === placeholder.type) {
+          const data = getWidgetData(placeholder);
 
+          if (!data) {
+            continue;
+          }
+
+          output.push({ ...placeholder, selectedWidgets: data });
+          continue;
+        }
+
+        if ("placeholder_group" === placeholder.type) {
+          let subGroupsData = [];
+
+          for (const subPlaceholder of placeholder.placeholders) {
+            const data = getWidgetData(subPlaceholder);
             if (!data) {
-              return;
+              continue;
             }
 
-            const oldData =
-              typeof output[section_area] !== "undefined"
-                ? output[section_area]
-                : [];
-            output[section_area] = [...oldData, ...data];
-          });
+            subGroupsData.push({ ...subPlaceholder, selectedWidgets: data });
+            continue;
+          }
 
+          output.push({ type: placeholder.type, placeholders: subGroupsData });
           continue;
         }
-
-        // Parse Singular Placeholders
-        const data = getWidgetData(layout[section_area]);
-        if (!data) {
-          continue;
-        }
-
-        output[section_area] = data;
       }
 
-      return { listings_header: output };
+      // console.log( '@chk', {output} );
+
+      return output;
+    },
+
+    canShowAddImageSliderButton() {
+      if (!this.placeholders.length) {
+        return true;
+      }
+
+      for (const item of this.placeholders) {
+        if ("placeholder_item" !== item.type) {
+          continue;
+        }
+
+        if (item.selectedWidgets.includes("slider")) {
+          return false;
+        }
+      }
+
+      return true;
     },
 
     theAvailableWidgets() {
@@ -433,29 +428,34 @@ export default {
         content_settings: {},
       },
 
-      placeholders: {
-        quick_actions: {
-          label: "Top Right",
+      placeholders: [
+        {
+          type: "placeholder_group",
+          placeholders: [
+            {
+              label: "Top Right",
+              selectedWidgets: [],
+            },
+            {
+              label: "Top Left",
+              selectedWidgets: [],
+            },
+          ],
+        },
+        {
+          type: "placeholder_item",
+          label: "Bottom Widgets",
+          acceptedWidgets: ["title"],
+          rejectedWidgets: ["slider"],
           selectedWidgets: [],
         },
-        quick_info: {
-          label: "Top Left",
+        {
+          type: "placeholder_item",
+          label: "Bottom Widgets",
+          rejectedWidgets: ["slider"],
           selectedWidgets: [],
         },
-        bottom: [
-          // {
-          //   label: "Bottom Widgets",
-          //   acceptedWidgets: ["title"],
-          //   rejectedWidgets: ["slider"],
-          //   selectedWidgets: [],
-          // },
-          // {
-          //   label: "Bottom Widgets",
-          //   rejectedWidgets: ["slider"],
-          //   selectedWidgets: [],
-          // },
-        ],
-      },
+      ],
     };
   },
 
@@ -468,16 +468,13 @@ export default {
     },
 
     onDrop(dropResult) {
-      this.placeholders.bottom = applyDrag(
-        this.placeholders.bottom,
-        dropResult
-      );
+      this.placeholders = applyDrag(this.placeholders, dropResult);
     },
 
-    maybeCanDrag( event ) {
-      const classList = [ ...event.target.classList ];
+    maybeCanDrag(event) {
+      const classList = [...event.target.classList];
 
-      if ( classList.includes( 'cptm-drag-element' ) ) {
+      if (classList.includes("cptm-drag-element")) {
         return;
       }
 
@@ -500,8 +497,9 @@ export default {
 
       Vue.set(this.active_widgets, key, { ...this.theAvailableWidgets[key] });
 
-      this.placeholders.bottom.splice(this.placeholders.bottom.length, 0, {
-        label: "Bottom Widgets",
+      this.placeholders.splice(this.placeholders.length, 0, {
+        type: "placeholder_item",
+        label: "Widgets",
         placeholderKey: "slider-placeholder",
         selectedWidgets: [key],
         maxWidget: 1,
@@ -510,7 +508,7 @@ export default {
     },
 
     isTruthyObject(obj) {
-      if (!obj && typeof obj !== "object") {
+      if (!obj && typeof obj !== "object" && !Array.isArray(obj)) {
         return false;
       }
 
@@ -530,7 +528,9 @@ export default {
     importOldData() {
       let value = JSON.parse(JSON.stringify(this.value));
 
-      if (!this.isTruthyObject(value)) {
+      console.log("chk", { value });
+
+      if (!Array.isArray(value)) {
         return;
       }
 
@@ -540,137 +540,223 @@ export default {
 
       // Get Active Widgets Data
       let active_widgets_data = {};
-      for (let section in value) {
-        if ("options" === section) {
-          continue;
-        }
-        if (!value[section] && typeof value[section] !== "object") {
-          continue;
-        }
 
-        for (let area in value[section]) {
+      const importWidgets = (widgets, destination, index) => {
+        let widgetIndex = 0;
+
+        for ( let widget of widgets ) {
+          if (typeof widget.widget_key === "undefined") {
+            continue;
+          }
+          if (typeof widget.widget_name === "undefined") {
+            continue;
+          }
+          
           if (
-            !value[section][area] &&
-            typeof value[section][area] !== "object"
+            typeof this.available_widgets[widget.widget_name] === "undefined"
           ) {
             continue;
           }
 
-          for (let widget of value[section][area]) {
-            if (typeof widget.widget_key === "undefined") {
-              continue;
-            }
-            if (typeof widget.widget_name === "undefined") {
-              continue;
-            }
-            if (
-              typeof this.available_widgets[widget.widget_name] === "undefined"
-            ) {
-              continue;
-            }
-            if (typeof this.placeholders[area] === "undefined") {
-              continue;
-            }
+          active_widgets_data[widget.widget_key] = widget;
 
-            active_widgets_data[widget.widget_key] = widget;
 
-            selectedWidgets.push({
-              area: area,
-              widget: widget.widget_key,
-              widgetIndex: isNaN(widget.index) ? null : parseInt(widget.index),
-            });
-          }
-        }
-      }
-
-      // Load Active Widgets
-      for (let widget_key in active_widgets_data) {
-        if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
-          continue;
-        }
-
-        let widgets_template = { ...this.theAvailableWidgets[widget_key] };
-        let widget_options =
-          !active_widgets_data[widget_key].options &&
-          typeof active_widgets_data[widget_key].options !== "object"
-            ? false
-            : active_widgets_data[widget_key].options;
-
-        let has_widget_options = false;
-        if (widgets_template.options && widgets_template.options.fields) {
-          has_widget_options = true;
-        }
-
-        for (let root_option in widgets_template) {
-          if ("options" === root_option) {
-            continue;
-          }
-          if (active_widgets_data[widget_key][root_option] === "undefined") {
-            continue;
+          try {
+            console.log( '#chk', { 
+              destination, 
+              selectedWidgets: destination[index].selectedWidgets
+            } );
+          } catch (error) {
+            console.log( '$chk', {  error, destination, index } );
           }
 
-          widgets_template[root_option] =
-            active_widgets_data[widget_key][root_option];
+          
+
+          // Vue.set( destination[index].selectedWidgets, widgetIndex, widget.widget_key );
+          widgetIndex++;
+        }
+      };
+
+
+      value.forEach( ( placeholder, index ) => {
+        if (!this.isTruthyObject(placeholder)) {
+          return;
         }
 
-        if (has_widget_options) {
-          for (let option_key in widgets_template.options.fields) {
-            if (
-              typeof active_widgets_data[widget_key][option_key] === "undefined"
-            ) {
-              continue;
-            }
-            widgets_template.options.fields[option_key].value =
-              active_widgets_data[widget_key][option_key];
+        if ("placeholder_item" === placeholder.type) {
+          if (!Array.isArray(placeholder.widgets)) {
+            return;
           }
+
+          if (!placeholder.widgets.length) {
+            return;
+          }
+
+          if ( typeof this.placeholder[ index ] === 'undefined' ) {
+            // this.placeholder.splice( index, 0, {} );
+            return;
+          }
+
+          importWidgets( placeholder.widgets, this.placeholders, index );
+          return;
         }
+      });
 
-        Vue.set(this.active_widgets, widget_key, widgets_template);
-      }
 
-      // Load Selected Widgets Data
-      for (let item of selectedWidgets) {
 
-        if ( ! this.placeholders[item.area] ) {
-          continue;
-        }
 
-        if (!Array.isArray(this.placeholders[item.area])) {
-          const length = this.placeholders[item.area].selectedWidgets.length;
+      // for (const placeholder of value) {
+      //   if (!this.isTruthyObject(placeholder)) {
+      //     continue;
+      //   }
 
-          this.placeholders[item.area].selectedWidgets.splice(
-            length,
-            0,
-            item.widget
-          );
+      //   if ("placeholder_item" === placeholder.type) {
+      //     if (!Array.isArray(placeholder.widgets)) {
+      //       continue;
+      //     }
 
-          continue;
-        }
+      //     if (!placeholder.widgets.length) {
+      //       continue;
+      //     }
 
-        if (isNaN(item.widgetIndex)) {
-          continue;
-        }
+      //     continue;
+      //   }
 
-        if ( ! Array.isArray( this.placeholders[item.area] ) ) {
-          continue;
-        }
+      //   if ("placeholder_group" === placeholder.type) {
+      //     continue;
+      //   }
 
-        if ( ! this.placeholders[item.area].length ) {
-          continue;
-        }
+      //   // -------------
 
-        if ( typeof this.placeholders[item.area][item.widgetIndex] === 'undefined' ) {
-          continue;
-        }
+      //   if (!value[section] && typeof value[section] !== "object") {
+      //     continue;
+      //   }
 
-        const length = this.placeholders[item.area][item.widgetIndex]
-          .selectedWidgets.length;
-        this.placeholders[item.area][item.widgetIndex].selectedWidgets.splice(
-          length,
-          0,
-          item.widget
-        );
-      }
+      //   for (let area in value[section]) {
+      //     if (
+      //       !value[section][area] &&
+      //       typeof value[section][area] !== "object"
+      //     ) {
+      //       continue;
+      //     }
+
+      //     for (let widget of value[section][area]) {
+      //       if (typeof widget.widget_key === "undefined") {
+      //         continue;
+      //       }
+      //       if (typeof widget.widget_name === "undefined") {
+      //         continue;
+      //       }
+      //       if (
+      //         typeof this.available_widgets[widget.widget_name] === "undefined"
+      //       ) {
+      //         continue;
+      //       }
+      //       if (typeof this.placeholders[area] === "undefined") {
+      //         continue;
+      //       }
+
+      //       active_widgets_data[widget.widget_key] = widget;
+
+      //       selectedWidgets.push({
+      //         area: area,
+      //         widget: widget.widget_key,
+      //         widgetIndex: isNaN(widget.index) ? null : parseInt(widget.index),
+      //       });
+      //     }
+      //   }
+      // }
+
+      // // Load Active Widgets
+      // for (let widget_key in active_widgets_data) {
+      //   if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
+      //     continue;
+      //   }
+
+      //   let widgets_template = { ...this.theAvailableWidgets[widget_key] };
+
+      //   let widget_options =
+      //     !active_widgets_data[widget_key].options &&
+      //     typeof active_widgets_data[widget_key].options !== "object"
+      //       ? false
+      //       : active_widgets_data[widget_key].options;
+
+      //   let has_widget_options = false;
+      //   if (widgets_template.options && widgets_template.options.fields) {
+      //     has_widget_options = true;
+      //   }
+
+      //   for (let root_option in widgets_template) {
+      //     if ("options" === root_option) {
+      //       continue;
+      //     }
+      //     if (active_widgets_data[widget_key][root_option] === "undefined") {
+      //       continue;
+      //     }
+
+      //     widgets_template[root_option] =
+      //       active_widgets_data[widget_key][root_option];
+      //   }
+
+      //   if (has_widget_options) {
+      //     for (let option_key in widgets_template.options.fields) {
+      //       if (
+      //         typeof active_widgets_data[widget_key][option_key] === "undefined"
+      //       ) {
+      //         continue;
+      //       }
+      //       widgets_template.options.fields[option_key].value =
+      //         active_widgets_data[widget_key][option_key];
+      //     }
+      //   }
+
+      //   Vue.set(this.active_widgets, widget_key, widgets_template);
+      // }
+
+      // // Load Selected Widgets Data
+      // for (let item of selectedWidgets) {
+      //   if (!this.placeholders[item.area]) {
+      //     continue;
+      //   }
+
+      //   if (!Array.isArray(this.placeholders[item.area])) {
+      //     const length = this.placeholders[item.area].selectedWidgets.length;
+
+      //     this.placeholders[item.area].selectedWidgets.splice(
+      //       length,
+      //       0,
+      //       item.widget
+      //     );
+
+      //     continue;
+      //   }
+
+      //   if (isNaN(item.widgetIndex)) {
+      //     continue;
+      //   }
+
+      //   if (!Array.isArray(this.placeholders[item.area])) {
+      //     continue;
+      //   }
+
+      //   if (!this.placeholders[item.area].length) {
+      //     continue;
+      //   }
+
+      //   if (
+      //     typeof this.placeholders[item.area][item.widgetIndex] === "undefined"
+      //   ) {
+      //     continue;
+      //   }
+
+      //   const length = this.placeholders[item.area][item.widgetIndex]
+      //     .selectedWidgets.length;
+      //   this.placeholders[item.area][item.widgetIndex].selectedWidgets.splice(
+      //     length,
+      //     0,
+      //     item.widget
+      //   );
+      // }
     },
 
     importWidgets() {
@@ -699,47 +785,69 @@ export default {
     },
 
     importPlaceholders() {
-      if (!this.isTruthyObject(this.layout)) {
+      if (!Array.isArray(this.layout)) {
         return;
       }
 
-      if (!this.isTruthyObject(this.layout.listings_header)) {
+      if (!this.layout.length) {
         return;
       }
 
-      const singularPlaceholders = ['quick_actions', 'quick_info'];
-      const repetitivePlaceholders = ['bottom'];
-
-      // Singular Placeholders
-      for (const key of singularPlaceholders) {
-        if (!this.isTruthyObject(this.layout.listings_header[key])) {
-          continue;
+      const sanitizePlaceholderData = (placeholder) => {
+        if (!this.isTruthyObject(placeholder)) {
+          placeholder = {};
         }
 
-        this.layout.listings_header[key].selectedWidgets = [];
-        Object.assign(this.placeholders[key], this.layout.listings_header[key]);
-      }
+        placeholder.selectedWidgets = [];
 
-      // Repetitive Placeholders
-      const addSelectedWidgets = widget => {
-        widget.selectedWidgets = []; 
-        return widget;
+        if (typeof placeholder.label === "undefined") {
+          placeholder.label = "Widgets";
+        }
+
+        return placeholder;
       };
 
-      for (const key of repetitivePlaceholders) {
-        if ( ! Array.isArray( this.layout.listings_header[key] ) ) {
+      let sanitizedPlaceholders = [];
+
+      for (const placeholder of this.layout) {
+        if (!this.isTruthyObject(placeholder)) {
           continue;
         }
 
-        const placeholders = this.layout.listings_header[key].filter(
-          item => this.isTruthyObject( item )
-        ).map( addSelectedWidgets );
+        let placeholderItem = placeholder;
 
-        Object.assign(
-          this.placeholders[key],
-          placeholders
-        );
+        if (typeof placeholderItem.type === "undefined") {
+          placeholderItem.type = "placeholder_item";
+        }
+
+        if (placeholderItem.type === "placeholder_item") {
+          sanitizedPlaceholders.push(sanitizePlaceholderData(placeholderItem));
+          continue;
+        }
+
+        if (placeholderItem.type === "placeholder_group") {
+          if (typeof placeholderItem.placeholders === "undefined") {
+            continue;
+          }
+
+          if (!Array.isArray(placeholderItem.placeholders)) {
+            continue;
+          }
+
+          if (!placeholderItem.placeholders.length) {
+            continue;
+          }
+
+          placeholderItem.placeholders = placeholderItem.placeholders.map(
+            sanitizePlaceholderData
+          );
+          sanitizedPlaceholders.push(placeholderItem);
+        }
+
+        continue;
       }
+
+      this.placeholders = sanitizedPlaceholders;
     },
 
     onDragStartWidget(key, origin) {
@@ -964,13 +1072,13 @@ export default {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
     },
 
-    trashWidget(key, where, placeholderKey, placeholderIndex) {
+    trashWidget(key, where, placeholderIndex) {
       if (!where.selectedWidgets.includes(key)) {
         return;
       }
 
-      let index = where.selectedWidgets.indexOf(key);
-      Vue.delete(where.selectedWidgets, index);
+      let widgetIndex = where.selectedWidgets.indexOf(key);
+      Vue.delete(where.selectedWidgets, widgetIndex);
 
       if (typeof this.active_widgets[key] === "undefined") {
         return;
@@ -990,24 +1098,11 @@ export default {
         return;
       }
 
-      if (!placeholderKey) {
+      if (typeof this.placeholders[placeholderIndex] === "undefined") {
         return;
       }
 
-      if (!this.placeholders[placeholderKey]) {
-        return;
-      }
-
-      if (isNaN(placeholderIndex)) {
-        Vue.delete(this.placeholders, placeholderKey);
-        return;
-      }
-
-      if (!this.placeholders[placeholderKey][placeholderIndex]) {
-        return;
-      }
-
-      Vue.delete(this.placeholders[placeholderKey], placeholderIndex);
+      Vue.delete(this.placeholders, placeholderIndex);
     },
 
     activeInsertWindow(current_item_key) {
@@ -1031,6 +1126,7 @@ export default {
       Vue.set(this.active_widgets, payload.key, {
         ...this.theAvailableWidgets[payload.key],
       });
+
       Vue.set(where, "selectedWidgets", payload.selected_widgets);
 
       this.editWidget(payload.key);

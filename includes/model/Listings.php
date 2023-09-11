@@ -1613,24 +1613,52 @@ class Directorist_Listings {
 			$this->thumbnails_cached = true;
 		}
 
-		public function loop_get_the_thumbnail( $class = '' ) {
-			$image_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
+		function loop_get_the_thumbnail( $class = '' ) {
+			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
+		
+			$id = get_the_ID();
+			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
+			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
+			$listing_img       = get_post_meta($id, '_listing_img', true);
+			$thumbnail_img_id  = array_filter( array_merge( (array) $listing_prv_img, (array) $listing_img ) );
+		
+			if ( empty( $thumbnail_img_id ) ) {
+				$thumbnail_img_id = $default_image_src;
+				$image_alt = esc_html( get_the_title( $id ) );
+				return "<img src='$default_image_src' alt='$image_alt' class='$class' />";
+			}
+		
+			$image_count = count( $thumbnail_img_id );
+		
+			if ( 1 === (int) $image_count ) {
+				$image_src = atbdp_get_image_source( reset( $thumbnail_img_id ), $image_quality );
+				$image_alt = get_post_meta( reset( $thumbnail_img_id ), '_wp_attachment_image_alt', true );
+				$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( reset( $thumbnail_img_id ) ) );
 
-			if ( directorist_has_listing_thumbnail( get_the_ID() ) ) {
-				$this->cache_thumbnails();
+				return "<img src='$image_src' alt='$image_alt' class='$class' />";
 
-				$thumbnail_id = directorist_get_listing_thumbnail_id( get_the_ID() );
-				$image_url    = wp_get_attachment_image_url( $thumbnail_id, $image_size );
-				$image_alt    = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
 			} else {
-				$image_url = Helper::default_preview_image_src( $this->current_listing_type );
-			}
+				ob_start();
+				echo "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='1500' data-sw-autoplay='false' data-sw-responsive='{}' >
+				<div class='swiper-wrapper'>";
+				foreach ( $thumbnail_img_id as $img_id  ) {
+					$image_src = atbdp_get_image_source( $img_id, $image_quality );
+					$image_alt = get_post_meta($img_id, '_wp_attachment_image_alt', true);
+					$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $img_id ) );
+					echo "<div class='swiper-slide'>
+							<img src='$image_src' alt='$image_alt' class='$class' />
+						</div>";
+				}
+				echo "</div>
+						<div class='directorist-swiper__navigation'>
+							<div class='directorist-swiper__nav directorist-swiper__nav--prev directorist-swiper__nav--prev-listing'>".directorist_icon('las la-angle-left', false)."</div>
+							<div class='directorist-swiper__nav directorist-swiper__nav--next directorist-swiper__nav--next-listing'>".directorist_icon('las la-angle-right', false)."</div>
+						</div>
 
-			if ( empty( $image_alt ) ) {
-				$image_alt = get_the_title( get_the_ID() );
+						<div class='directorist-swiper__pagination directorist-swiper__pagination--listing'></div>
+					</div>";
+				return ob_get_clean();
 			}
-
-			return '<img class="' . esc_attr( $class ) . '" src="' . esc_url( $image_url ) . '" alt="' . esc_attr( $image_alt ) . '"/>';
 		}
 
 		public function loop_thumb_card_template() {

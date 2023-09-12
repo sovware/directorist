@@ -26350,6 +26350,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -26718,22 +26723,90 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     getChildPayload: function getChildPayload(index) {
       return this.items[index];
     },
-    addImagePlaceholder: function addImagePlaceholder() {
-      var key = "slider";
+    canShowAddPlaceholderButton: function canShowAddPlaceholderButton(placeholderKey) {
+      var placeholder = this.placeholdersMap[placeholderKey];
 
-      if (!this.isTruthyObject(this.theAvailableWidgets[key])) {
-        return;
+      if (!placeholder.insertByButton) {
+        return false;
       }
 
-      vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.active_widgets, key, _objectSpread({}, this.theAvailableWidgets[key]));
-      this.placeholders.splice(this.placeholders.length, 0, {
-        type: "placeholder_item",
-        label: "Widgets",
-        placeholderKey: "slider-placeholder",
-        selectedWidgets: [key],
-        maxWidget: 1,
-        canDelete: true
-      });
+      var findPlaceholder = function findPlaceholder(placeholderKey, placeholders) {
+        var _iterator5 = _createForOfIteratorHelper(placeholders),
+            _step5;
+
+        try {
+          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+            var _placeholder = _step5.value;
+
+            if ("placeholder_item" === _placeholder.type) {
+              if (placeholderKey === _placeholder.placeholderKey) {
+                return _placeholder;
+              }
+
+              continue;
+            }
+
+            if ("placeholder_group" === _placeholder.type) {
+              var _targetPlaceholder = findPlaceholder(placeholderKey, _placeholder.placeholders);
+
+              if (_targetPlaceholder) {
+                return _targetPlaceholder;
+              }
+
+              continue;
+            }
+          }
+        } catch (err) {
+          _iterator5.e(err);
+        } finally {
+          _iterator5.f();
+        }
+
+        return null;
+      };
+
+      var targetPlaceholder = findPlaceholder(placeholderKey, this.placeholders);
+      return targetPlaceholder ? false : true;
+    },
+    addPlaceholder: function addPlaceholder(placeholderKey) {
+      var placeholder = this.placeholdersMap[placeholderKey];
+
+      if (placeholder.selectedWidgets && placeholder.selectedWidgets.length) {
+        var _iterator6 = _createForOfIteratorHelper(placeholder.selectedWidgets),
+            _step6;
+
+        try {
+          for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+            var widgetKey = _step6.value;
+
+            if (!this.isTruthyObject(this.theAvailableWidgets[widgetKey])) {
+              continue;
+            }
+
+            vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.active_widgets, widgetKey, _objectSpread({}, this.theAvailableWidgets[widgetKey]));
+          }
+        } catch (err) {
+          _iterator6.e(err);
+        } finally {
+          _iterator6.f();
+        }
+      }
+
+      this.placeholders.splice(this.placeholders.length, 0, placeholder);
+    },
+    getAddPlaceholderButtonLabel: function getAddPlaceholderButtonLabel(placeholderKey) {
+      var placeholder = this.placeholdersMap[placeholderKey];
+      var defaultLabel = "Add new placeholder";
+
+      if (!this.isTruthyObject(placeholder.insertButton)) {
+        return defaultLabel;
+      }
+
+      if (!placeholder.insertButton.label) {
+        return defaultLabel;
+      }
+
+      return placeholder.insertButton.label;
     },
     isTruthyObject: function isTruthyObject(obj) {
       if (!obj && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(obj) !== "object" && !Array.isArray(obj)) {
@@ -26810,12 +26883,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         destination.splice(targetPlaceholderIndex, 0, newPlaceholder);
         var widgetIndex = 0;
 
-        var _iterator5 = _createForOfIteratorHelper(placeholder.selectedWidgets),
-            _step5;
+        var _iterator7 = _createForOfIteratorHelper(placeholder.selectedWidgets),
+            _step7;
 
         try {
-          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-            var _widget2 = _step5.value;
+          for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+            var _widget2 = _step7.value;
 
             if (typeof _widget2.widget_key === "undefined") {
               continue;
@@ -26834,9 +26907,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             widgetIndex++;
           }
         } catch (err) {
-          _iterator5.e(err);
+          _iterator7.e(err);
         } finally {
-          _iterator5.f();
+          _iterator7.f();
         }
       };
 
@@ -26933,12 +27006,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       var sanitizedPlaceholders = [];
 
-      var _iterator6 = _createForOfIteratorHelper(this.layout),
-          _step6;
+      var _iterator8 = _createForOfIteratorHelper(this.layout),
+          _step8;
 
       try {
         var _loop = function _loop() {
-          var placeholder = _step6.value;
+          var placeholder = _step8.value;
 
           if (!_this3.isTruthyObject(placeholder)) {
             return "continue";
@@ -27003,15 +27076,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         };
 
-        for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+        for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
           var _ret = _loop();
 
           if (_ret === "continue") continue;
         }
       } catch (err) {
-        _iterator6.e(err);
+        _iterator8.e(err);
       } finally {
-        _iterator6.f();
+        _iterator8.f();
       }
 
       this.placeholders = sanitizedPlaceholders;
@@ -44558,26 +44631,57 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _vm.canShowAddImageSliderButton
-            ? _c(
-                "div",
-                { staticClass: "cptm-preview-placeholder__card__action" },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "cptm-preview-placeholder__card__btn",
-                      attrs: { type: "button" },
-                      on: { click: _vm.addImagePlaceholder },
-                    },
-                    [
-                      _c("span", { staticClass: "icon fa fa-plus" }),
-                      _vm._v(" Add Image/Slider\n        "),
-                    ]
-                  ),
-                ]
-              )
-            : _vm._e(),
+          _c(
+            "div",
+            { staticClass: "cptm-placeholder-buttons" },
+            [
+              _vm._l(
+                Object.keys(_vm.placeholdersMap),
+                function (placeholderKey) {
+                  return [
+                    _vm.canShowAddPlaceholderButton(placeholderKey)
+                      ? _c(
+                          "div",
+                          {
+                            key: placeholderKey,
+                            staticClass:
+                              "cptm-preview-placeholder__card__action",
+                          },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "cptm-preview-placeholder__card__btn",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.addPlaceholder(placeholderKey)
+                                  },
+                                },
+                              },
+                              [
+                                _c("span", { staticClass: "icon fa fa-plus" }),
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(
+                                      _vm.getAddPlaceholderButtonLabel(
+                                        placeholderKey
+                                      )
+                                    ) +
+                                    "\n            "
+                                ),
+                              ]
+                            ),
+                          ]
+                        )
+                      : _vm._e(),
+                  ]
+                }
+              ),
+            ],
+            2
+          ),
         ],
         1
       ),

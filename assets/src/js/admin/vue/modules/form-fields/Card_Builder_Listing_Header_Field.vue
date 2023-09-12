@@ -121,18 +121,23 @@
           </Draggable>
         </Container>
 
-        <!-- Add Slider Button -->
-        <div
-          class="cptm-preview-placeholder__card__action"
-          v-if="canShowAddImageSliderButton"
-        >
-          <button
-            type="button"
-            class="cptm-preview-placeholder__card__btn"
-            @click="addImagePlaceholder"
-          >
-            <span class="icon fa fa-plus"></span> Add Image/Slider
-          </button>
+        <div class="cptm-placeholder-buttons">
+          <template v-for="placeholderKey in Object.keys(placeholdersMap)">
+            <div
+              :key="placeholderKey"
+              class="cptm-preview-placeholder__card__action"
+              v-if="canShowAddPlaceholderButton(placeholderKey)"
+            >
+              <button
+                type="button"
+                class="cptm-preview-placeholder__card__btn"
+                @click="addPlaceholder(placeholderKey)"
+              >
+                <span class="icon fa fa-plus"></span>
+                {{ getAddPlaceholderButtonLabel(placeholderKey) }}
+              </button>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -504,23 +509,77 @@ export default {
       return this.items[index];
     },
 
-    addImagePlaceholder() {
-      const key = "slider";
+    canShowAddPlaceholderButton(placeholderKey) {
+      const placeholder = this.placeholdersMap[placeholderKey];
 
-      if (!this.isTruthyObject(this.theAvailableWidgets[key])) {
-        return;
+      if (!placeholder.insertByButton) {
+        return false;
       }
 
-      Vue.set(this.active_widgets, key, { ...this.theAvailableWidgets[key] });
+      const findPlaceholder = (placeholderKey, placeholders) => {
+        for (const placeholder of placeholders) {
+          if ("placeholder_item" === placeholder.type) {
+            if (placeholderKey === placeholder.placeholderKey) {
+              return placeholder;
+            }
+            continue;
+          }
 
-      this.placeholders.splice(this.placeholders.length, 0, {
-        type: "placeholder_item",
-        label: "Widgets",
-        placeholderKey: "slider-placeholder",
-        selectedWidgets: [key],
-        maxWidget: 1,
-        canDelete: true,
-      });
+          if ("placeholder_group" === placeholder.type) {
+            const targetPlaceholder = findPlaceholder(
+              placeholderKey,
+              placeholder.placeholders
+            );
+
+            if (targetPlaceholder) {
+              return targetPlaceholder;
+            }
+
+            continue;
+          }
+        }
+
+        return null;
+      };
+
+      const targetPlaceholder = findPlaceholder(
+        placeholderKey,
+        this.placeholders
+      );
+      return targetPlaceholder ? false : true;
+    },
+
+    addPlaceholder(placeholderKey) {
+      const placeholder = this.placeholdersMap[placeholderKey];
+
+      if (placeholder.selectedWidgets && placeholder.selectedWidgets.length) {
+        for (const widgetKey of placeholder.selectedWidgets) {
+          if (!this.isTruthyObject(this.theAvailableWidgets[widgetKey])) {
+            continue;
+          }
+
+          Vue.set(this.active_widgets, widgetKey, {
+            ...this.theAvailableWidgets[widgetKey],
+          });
+        }
+      }
+
+      this.placeholders.splice(this.placeholders.length, 0, placeholder);
+    },
+
+    getAddPlaceholderButtonLabel(placeholderKey) {
+      const placeholder = this.placeholdersMap[placeholderKey];
+      const defaultLabel = "Add new placeholder";
+
+      if (!this.isTruthyObject(placeholder.insertButton)) {
+        return defaultLabel;
+      }
+
+      if (!placeholder.insertButton.label) {
+        return defaultLabel;
+      }
+
+      return placeholder.insertButton.label;
     },
 
     isTruthyObject(obj) {
@@ -671,7 +730,7 @@ export default {
           newPlaceholder.placeholders = [];
           let targetPlaceholderIndex = this.placeholders.length;
 
-          newPlaceholders.splice( targetPlaceholderIndex, 0, newPlaceholder );
+          newPlaceholders.splice(targetPlaceholderIndex, 0, newPlaceholder);
 
           placeholder.placeholders.forEach((subPlaceholder) => {
             if (!Array.isArray(subPlaceholder.selectedWidgets)) {
@@ -682,10 +741,7 @@ export default {
               return;
             }
 
-            importWidgets(
-              subPlaceholder,
-              newPlaceholders[index].placeholders
-            );
+            importWidgets(subPlaceholder, newPlaceholders[index].placeholders);
           });
         }
       });

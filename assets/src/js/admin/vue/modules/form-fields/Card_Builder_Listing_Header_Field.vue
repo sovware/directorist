@@ -22,9 +22,7 @@
 
     <!-- cptm-preview-area -->
     <div class="cptm-preview-placeholder">
-      <div
-        class="cptm-preview-placeholder__card"
-      >
+      <div class="cptm-preview-placeholder__card">
         <!-- Draggable Bottom Widgets -->
         <Container @drop="onDrop">
           <Draggable
@@ -36,7 +34,9 @@
               @mousedown="maybeCanDrag"
               class="draggable-item"
             >
-            <div class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--top">
+              <div
+                class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--top"
+              >
                 <card-widget-placeholder
                   v-for="(
                     placeholderSubItem, subIndex
@@ -68,9 +68,7 @@
                     handleDropOnPlaceholder(placeholderSubItem)
                   "
                   @open-widgets-picker-window="
-                    activeInsertWindow(
-                      `listings_header_${index}_${subIndex}`
-                    )
+                    activeInsertWindow(`listings_header_${index}_${subIndex}`)
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -84,7 +82,9 @@
               @mousedown="maybeCanDrag"
               class="draggable-item"
             >
-              <div class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom">
+              <div
+                class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom"
+              >
                 <card-widget-placeholder
                   :placeholderKey="placeholderItem.placeholderKey"
                   :id="'listings_header_' + index"
@@ -106,7 +106,9 @@
                   @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
                   @trash-widget="trashWidget($event, placeholderItem, index)"
-                  @placeholder-on-drop="handleDropOnPlaceholder(placeholderItem)"
+                  @placeholder-on-drop="
+                    handleDropOnPlaceholder(placeholderItem)
+                  "
                   @open-widgets-picker-window="
                     activeInsertWindow('listings_header_' + index)
                   "
@@ -272,7 +274,11 @@ export default {
             continue;
           }
 
-          output.push({ ...placeholder, selectedWidgets: data });
+          output.push({
+            type: placeholder.type,
+            placeholderKey: placeholder.placeholderKey,
+            selectedWidgets: data,
+          });
           continue;
         }
 
@@ -285,16 +291,23 @@ export default {
               continue;
             }
 
-            subGroupsData.push({ ...subPlaceholder, selectedWidgets: data });
+            subGroupsData.push({
+              type: placeholder.type ? placeholder.type : "placeholder_item",
+              placeholderKey: subPlaceholder.placeholderKey,
+              selectedWidgets: data,
+            });
             continue;
           }
 
-          output.push({ type: placeholder.type, placeholders: subGroupsData });
+          output.push({
+            type: placeholder.type,
+            placeholderKey: placeholder.placeholderKey,
+            placeholders: subGroupsData,
+          });
+
           continue;
         }
       }
-
-      // console.log( '@chk', {output} );
 
       return output;
     },
@@ -429,6 +442,8 @@ export default {
         content_settings: {},
       },
 
+      placeholdersMap: {},
+
       placeholders: [
         {
           type: "placeholder_group",
@@ -529,235 +544,153 @@ export default {
     importOldData() {
       let value = JSON.parse(JSON.stringify(this.value));
 
-      console.log("chk", { value });
-
       if (!Array.isArray(value)) {
         return;
       }
 
+      let newPlaceholders = [];
+
       // Import Layout
       // -------------------------
-      let selectedWidgets = [];
+      const addActiveWidget = (widget) => {
+        let widgets_template = {
+          ...this.theAvailableWidgets[widget.widget_key],
+        };
 
-      // Get Active Widgets Data
-      let active_widgets_data = {};
+        let widget_options =
+          !widget.options && typeof widget.options !== "object"
+            ? false
+            : widget.options;
 
-      const importWidgets = (widgets, destination, index) => {
+        let has_widget_options = false;
+
+        if (widgets_template.options && widgets_template.options.fields) {
+          has_widget_options = true;
+        }
+
+        for (let root_option in widgets_template) {
+          if ("options" === root_option) {
+            continue;
+          }
+
+          if (widget[root_option] === "undefined") {
+            continue;
+          }
+
+          widgets_template[root_option] = widget[root_option];
+        }
+
+        if (has_widget_options) {
+          for (let option_key in widgets_template.options.fields) {
+            if (typeof widget[option_key] === "undefined") {
+              continue;
+            }
+
+            widgets_template.options.fields[option_key].value =
+              widget[option_key];
+          }
+        }
+
+        Vue.set(this.active_widgets, widget.widget_key, widgets_template);
+      };
+
+      const importWidgets = (placeholder, destination) => {
+        if (!this.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
+          return;
+        }
+
+        let newPlaceholder = JSON.parse(
+          JSON.stringify(this.placeholdersMap[placeholder.placeholderKey])
+        );
+
+        newPlaceholder.selectedWidgets = [];
+        newPlaceholder.maxWidget =
+          typeof newPlaceholder.maxWidget !== "undefined"
+            ? parseInt(newPlaceholder.maxWidget)
+            : 0;
+
+        let targetPlaceholderIndex = destination.length;
+
+        destination.splice(targetPlaceholderIndex, 0, newPlaceholder);
+
         let widgetIndex = 0;
 
-        for ( let widget of widgets ) {
+        for (let widget of placeholder.selectedWidgets) {
           if (typeof widget.widget_key === "undefined") {
             continue;
           }
           if (typeof widget.widget_name === "undefined") {
             continue;
           }
-          
+
           if (
             typeof this.available_widgets[widget.widget_name] === "undefined"
           ) {
             continue;
           }
 
-          active_widgets_data[widget.widget_key] = widget;
+          addActiveWidget(widget);
 
-
-          try {
-            console.log( '#chk', { 
-              destination, 
-              selectedWidgets: destination[index].selectedWidgets
-            } );
-          } catch (error) {
-            console.log( '$chk', {  error, destination, index } );
-          }
-
-          
-
-          // Vue.set( destination[index].selectedWidgets, widgetIndex, widget.widget_key );
+          destination[targetPlaceholderIndex].selectedWidgets.splice(
+            widgetIndex,
+            0,
+            widget.widget_key
+          );
           widgetIndex++;
         }
       };
 
-
-      value.forEach( ( placeholder, index ) => {
+      value.forEach((placeholder, index) => {
         if (!this.isTruthyObject(placeholder)) {
           return;
         }
 
         if ("placeholder_item" === placeholder.type) {
-          if (!Array.isArray(placeholder.widgets)) {
+          if (!Array.isArray(placeholder.selectedWidgets)) {
             return;
           }
 
-          if (!placeholder.widgets.length) {
+          if (!placeholder.selectedWidgets.length) {
             return;
           }
 
-          if ( typeof this.placeholder[ index ] === 'undefined' ) {
-            // this.placeholder.splice( index, 0, {} );
-            return;
-          }
-
-          importWidgets( placeholder.widgets, this.placeholders, index );
+          importWidgets(placeholder, newPlaceholders);
           return;
+        }
+
+        if ("placeholder_group" === placeholder.type) {
+          if (
+            !this.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)
+          ) {
+            return;
+          }
+
+          let newPlaceholder = JSON.parse(
+            JSON.stringify(this.placeholdersMap[placeholder.placeholderKey])
+          );
+          newPlaceholder.placeholders = [];
+          let targetPlaceholderIndex = this.placeholders.length;
+
+          newPlaceholders.splice( targetPlaceholderIndex, 0, newPlaceholder );
+
+          placeholder.placeholders.forEach((subPlaceholder) => {
+            if (!Array.isArray(subPlaceholder.selectedWidgets)) {
+              return;
+            }
+
+            if (!subPlaceholder.selectedWidgets.length) {
+              return;
+            }
+
+            importWidgets(
+              subPlaceholder,
+              newPlaceholders[index].placeholders
+            );
+          });
         }
       });
 
-
-
-
-      // for (const placeholder of value) {
-      //   if (!this.isTruthyObject(placeholder)) {
-      //     continue;
-      //   }
-
-      //   if ("placeholder_item" === placeholder.type) {
-      //     if (!Array.isArray(placeholder.widgets)) {
-      //       continue;
-      //     }
-
-      //     if (!placeholder.widgets.length) {
-      //       continue;
-      //     }
-
-      //     continue;
-      //   }
-
-      //   if ("placeholder_group" === placeholder.type) {
-      //     continue;
-      //   }
-
-      //   // -------------
-
-      //   if (!value[section] && typeof value[section] !== "object") {
-      //     continue;
-      //   }
-
-      //   for (let area in value[section]) {
-      //     if (
-      //       !value[section][area] &&
-      //       typeof value[section][area] !== "object"
-      //     ) {
-      //       continue;
-      //     }
-
-      //     for (let widget of value[section][area]) {
-      //       if (typeof widget.widget_key === "undefined") {
-      //         continue;
-      //       }
-      //       if (typeof widget.widget_name === "undefined") {
-      //         continue;
-      //       }
-      //       if (
-      //         typeof this.available_widgets[widget.widget_name] === "undefined"
-      //       ) {
-      //         continue;
-      //       }
-      //       if (typeof this.placeholders[area] === "undefined") {
-      //         continue;
-      //       }
-
-      //       active_widgets_data[widget.widget_key] = widget;
-
-      //       selectedWidgets.push({
-      //         area: area,
-      //         widget: widget.widget_key,
-      //         widgetIndex: isNaN(widget.index) ? null : parseInt(widget.index),
-      //       });
-      //     }
-      //   }
-      // }
-
-      // // Load Active Widgets
-      // for (let widget_key in active_widgets_data) {
-      //   if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
-      //     continue;
-      //   }
-
-      //   let widgets_template = { ...this.theAvailableWidgets[widget_key] };
-
-      //   let widget_options =
-      //     !active_widgets_data[widget_key].options &&
-      //     typeof active_widgets_data[widget_key].options !== "object"
-      //       ? false
-      //       : active_widgets_data[widget_key].options;
-
-      //   let has_widget_options = false;
-      //   if (widgets_template.options && widgets_template.options.fields) {
-      //     has_widget_options = true;
-      //   }
-
-      //   for (let root_option in widgets_template) {
-      //     if ("options" === root_option) {
-      //       continue;
-      //     }
-      //     if (active_widgets_data[widget_key][root_option] === "undefined") {
-      //       continue;
-      //     }
-
-      //     widgets_template[root_option] =
-      //       active_widgets_data[widget_key][root_option];
-      //   }
-
-      //   if (has_widget_options) {
-      //     for (let option_key in widgets_template.options.fields) {
-      //       if (
-      //         typeof active_widgets_data[widget_key][option_key] === "undefined"
-      //       ) {
-      //         continue;
-      //       }
-      //       widgets_template.options.fields[option_key].value =
-      //         active_widgets_data[widget_key][option_key];
-      //     }
-      //   }
-
-      //   Vue.set(this.active_widgets, widget_key, widgets_template);
-      // }
-
-      // // Load Selected Widgets Data
-      // for (let item of selectedWidgets) {
-      //   if (!this.placeholders[item.area]) {
-      //     continue;
-      //   }
-
-      //   if (!Array.isArray(this.placeholders[item.area])) {
-      //     const length = this.placeholders[item.area].selectedWidgets.length;
-
-      //     this.placeholders[item.area].selectedWidgets.splice(
-      //       length,
-      //       0,
-      //       item.widget
-      //     );
-
-      //     continue;
-      //   }
-
-      //   if (isNaN(item.widgetIndex)) {
-      //     continue;
-      //   }
-
-      //   if (!Array.isArray(this.placeholders[item.area])) {
-      //     continue;
-      //   }
-
-      //   if (!this.placeholders[item.area].length) {
-      //     continue;
-      //   }
-
-      //   if (
-      //     typeof this.placeholders[item.area][item.widgetIndex] === "undefined"
-      //   ) {
-      //     continue;
-      //   }
-
-      //   const length = this.placeholders[item.area][item.widgetIndex]
-      //     .selectedWidgets.length;
-      //   this.placeholders[item.area][item.widgetIndex].selectedWidgets.splice(
-      //     length,
-      //     0,
-      //     item.widget
-      //   );
-      // }
+      this.placeholders = newPlaceholders;
     },
 
     importWidgets() {
@@ -799,6 +732,10 @@ export default {
           placeholder = {};
         }
 
+        if (placeholder.insertByButton) {
+          return null;
+        }
+
         placeholder.selectedWidgets = [];
 
         if (typeof placeholder.label === "undefined") {
@@ -821,8 +758,28 @@ export default {
           placeholderItem.type = "placeholder_item";
         }
 
+        if (typeof placeholderItem.placeholderKey === "undefined") {
+          continue;
+        }
+
+        if (
+          this.placeholdersMap.hasOwnProperty(placeholderItem.placeholderKey)
+        ) {
+          continue;
+        }
+
+        Vue.set(
+          this.placeholdersMap,
+          placeholderItem.placeholderKey,
+          placeholderItem
+        );
+
         if (placeholderItem.type === "placeholder_item") {
-          sanitizedPlaceholders.push(sanitizePlaceholderData(placeholderItem));
+          const placeholderItemData = sanitizePlaceholderData(placeholderItem);
+          if (placeholderItemData) {
+            sanitizedPlaceholders.push(placeholderItemData);
+          }
+
           continue;
         }
 
@@ -839,13 +796,41 @@ export default {
             continue;
           }
 
-          placeholderItem.placeholders = placeholderItem.placeholders.map(
-            sanitizePlaceholderData
-          );
-          sanitizedPlaceholders.push(placeholderItem);
-        }
+          placeholderItem.placeholders.forEach(
+            (placeholderSubItem, subPlaceholderIndex) => {
+              if (
+                this.placeholdersMap.hasOwnProperty(
+                  placeholderSubItem.placeholderKey
+                )
+              ) {
+                placeholderItem.placeholders.splice(subPlaceholderIndex, 1);
+                return;
+              }
 
-        continue;
+              Vue.set(
+                this.placeholdersMap,
+                placeholderSubItem.placeholderKey,
+                placeholderSubItem
+              );
+
+              const placeholderItemData = sanitizePlaceholderData(
+                placeholderSubItem
+              );
+
+              if (placeholderItemData) {
+                placeholderItem.placeholders.splice(
+                  subPlaceholderIndex,
+                  1,
+                  placeholderItemData
+                );
+              }
+            }
+          );
+
+          if (placeholderItem.placeholders.length) {
+            sanitizedPlaceholders.push(placeholderItem);
+          }
+        }
       }
 
       this.placeholders = sanitizedPlaceholders;

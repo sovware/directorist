@@ -26839,7 +26839,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var addActiveWidget = function addActiveWidget(widget) {
         var widgets_template = _objectSpread({}, _this2.theAvailableWidgets[widget.widget_key]);
 
-        var widget_options = !widget.options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(widget.options) !== "object" ? false : widget.options;
         var has_widget_options = false;
 
         if (widgets_template.options && widgets_template.options.fields) {

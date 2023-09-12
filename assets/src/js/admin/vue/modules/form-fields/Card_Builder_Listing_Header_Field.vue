@@ -617,11 +617,6 @@ export default {
           ...this.theAvailableWidgets[widget.widget_key],
         };
 
-        let widget_options =
-          !widget.options && typeof widget.options !== "object"
-            ? false
-            : widget.options;
-
         let has_widget_options = false;
 
         if (widgets_template.options && widgets_template.options.fields) {

@@ -550,10 +550,11 @@ export default {
     },
 
     addPlaceholder(placeholderKey) {
-      const placeholder = this.placeholdersMap[placeholderKey];
+      const placeholder = JSON.parse( JSON.stringify( this.placeholdersMap[placeholderKey] ) );
 
       if (placeholder.selectedWidgets && placeholder.selectedWidgets.length) {
         for (const widgetKey of placeholder.selectedWidgets) {
+
           if (!this.isTruthyObject(this.theAvailableWidgets[widgetKey])) {
             continue;
           }

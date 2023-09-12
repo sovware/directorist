@@ -26769,7 +26769,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return targetPlaceholder ? false : true;
     },
     addPlaceholder: function addPlaceholder(placeholderKey) {
-      var placeholder = this.placeholdersMap[placeholderKey];
+      var placeholder = JSON.parse(JSON.stringify(this.placeholdersMap[placeholderKey]));
 
       if (placeholder.selectedWidgets && placeholder.selectedWidgets.length) {
         var _iterator6 = _createForOfIteratorHelper(placeholder.selectedWidgets),

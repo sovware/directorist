@@ -4519,7 +4519,7 @@ class Multi_Directory_Manager
                                 'label'             => __( 'Quick info', 'directorist' ),
                                 'maxWidget'         => 3,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                // 'acceptedWidgets'   => ['back'],
+                                'acceptedWidgets'   => ['back'],
                             ],
                             [
                                 'type'              => 'placeholder_item',
@@ -4527,7 +4527,7 @@ class Multi_Directory_Manager
                                 'label'             => __( 'Quick Action', 'directorist' ),
                                 'maxWidget'         => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                // 'acceptedWidgets'   => [ 'bookmark', 'reviews', 'share', 'report' ],
+                                'acceptedWidgets'   => [ 'bookmark', 'reviews', 'share', 'report' ],
                             ],
                         ],
                     ],
@@ -4545,7 +4545,7 @@ class Multi_Directory_Manager
                         'label'             => __( 'More Widgets', 'directorist' ),
                         'maxWidget'         => 0,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                        // 'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
+                        'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
                         'rejectedWidgets'   => ['slider'],
                     ],
                     [

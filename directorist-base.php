@@ -156,6 +156,12 @@ final class Directorist_Base
 	 */
 	public $ATBDP_Single_Templates;
 
+	public $multi_directory_manager;
+	public $settings_panel;
+	public $hooks;
+	public $announcement;
+	public $review;
+
 	/**
 	 * Main Directorist_Base Instance.
 	 *
@@ -195,7 +201,7 @@ final class Directorist_Base
 			Directorist\Asset_Loader\Asset_Loader::init();
 
 			// ATBDP_Listing_Type_Manager
-			self::$instance->multi_directory_manager = new Directorist\Multi_Directory_Manager();
+			self::$instance->multi_directory_manager = new Directorist\Multi_Directory\Multi_Directory_Manager();
 			self::$instance->multi_directory_manager->run();
 
 			self::$instance->settings_panel = new ATBDP_Settings_Panel();
@@ -361,6 +367,10 @@ final class Directorist_Base
 
 	// get_polylang_swicher_link_for_term
 	public function get_polylang_swicher_link_for_term( $args ) {
+		if ( ! function_exists( 'pll_get_post_language' ) ) {
+			return;
+		}
+
 		$default = [
 			'term_type'            => '',
 			'term_query_var'       => '',

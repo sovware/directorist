@@ -1,6 +1,6 @@
 <?php
 
-namespace Directorist;
+namespace Directorist\Multi_Directory;
 
 trait Multi_Directory_Helper {
     // add_directory

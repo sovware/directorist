@@ -4517,7 +4517,7 @@ class Multi_Directory_Manager
                                 'type'              => 'placeholder_item',
                                 'placeholderKey'    => 'quick-info-placeholder',
                                 'label'             => __( 'Quick info', 'directorist' ),
-                                'maxWidget'         => 3,
+                                'maxWidget'         => 1,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => ['back'],
                             ],

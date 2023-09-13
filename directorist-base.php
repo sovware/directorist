@@ -705,13 +705,14 @@ final class Directorist_Base
 	 * @return void
 	 */
 	public function init_appsero() {
-		if ( ! class_exists( '\Appsero\Client' ) ) {
+		if ( ! class_exists( '\Directorist\Appsero\Client' ) ) {
 			require_once ATBDP_INC_DIR . 'modules/appsero/src/Client.php';
 		}
 
-		$client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist – Business Directory & Classified Listings WordPress Plugin', __FILE__ );
+		$client = new \Directorist\Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist', __FILE__ );
 
 		// Active insights
+		$client->set_textdomain( 'directorist' );
 		$client->insights()->init();
 	}
 

@@ -4268,6 +4268,11 @@ class Multi_Directory_Manager
                         'label' => __('Listing with No Sidebar', 'directorist'),
                         'value' => 'no_sidebar',
                     ],
+                ],
+                'preview' => [
+                    'left_sidebar'  => esc_url( DIRECTORIST_ASSETS . 'images/left_sidebar.jpg' ),
+                    'right_sidebar' => esc_url( DIRECTORIST_ASSETS . 'images/right_sidebar.jpg' ),
+                    'no_sidebar'    => esc_url( DIRECTORIST_ASSETS . 'images/no_sidebar.jpg' ),
                 ]
             ],
 

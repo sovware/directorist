@@ -24,14 +24,13 @@
     <div class="cptm-preview-placeholder">
       <div class="cptm-preview-placeholder__card">
         <!-- Draggable Bottom Widgets -->
-        <Container @drop="onDrop">
+        <Container @drop="onDrop" drag-handle-selector=".cptm-drag-element">
           <Draggable
             v-for="(placeholderItem, index) in placeholders"
             :key="index"
           >
             <div
               v-if="placeholderItem.type == 'placeholder_group'"
-              @mousedown="maybeCanDrag"
               class="draggable-item"
             >
               <div
@@ -79,7 +78,6 @@
 
             <div
               v-if="placeholderItem.type == 'placeholder_item'"
-              @mousedown="maybeCanDrag"
               class="draggable-item"
             >
               <div
@@ -492,16 +490,6 @@ export default {
       this.placeholders = applyDrag(this.placeholders, dropResult);
     },
 
-    maybeCanDrag(event) {
-      const classList = [...event.target.classList];
-
-      if (classList.includes("cptm-drag-element")) {
-        return;
-      }
-
-      event.stopPropagation();
-    },
-
     getGhostParent() {
       return document.body;
     },
@@ -550,10 +538,11 @@ export default {
     },
 
     addPlaceholder(placeholderKey) {
-      const placeholder = this.placeholdersMap[placeholderKey];
+      const placeholder = JSON.parse( JSON.stringify( this.placeholdersMap[placeholderKey] ) );
 
       if (placeholder.selectedWidgets && placeholder.selectedWidgets.length) {
         for (const widgetKey of placeholder.selectedWidgets) {
+
           if (!this.isTruthyObject(this.theAvailableWidgets[widgetKey])) {
             continue;
           }
@@ -615,11 +604,6 @@ export default {
         let widgets_template = {
           ...this.theAvailableWidgets[widget.widget_key],
         };
-
-        let widget_options =
-          !widget.options && typeof widget.options !== "object"
-            ? false
-            : widget.options;
 
         let has_widget_options = false;
 

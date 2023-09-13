@@ -4516,15 +4516,15 @@ class Multi_Directory_Manager
                             [
                                 'type'              => 'placeholder_item',
                                 'placeholderKey'    => 'quick-info-placeholder',
-                                'label'             => __( '@Quick info', 'directorist' ),
-                                'maxWidget'         => 3,
+                                'label'             => __( 'Quick info', 'directorist' ),
+                                'maxWidget'         => 1,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => ['back'],
                             ],
                             [
                                 'type'              => 'placeholder_item',
                                 'placeholderKey'    => 'quick-action-placeholder',
-                                'label'             => __( '@Quick Action', 'directorist' ),
+                                'label'             => __( 'Quick Action', 'directorist' ),
                                 'maxWidget'         => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => [ 'bookmark', 'reviews', 'share', 'report' ],
@@ -4534,7 +4534,7 @@ class Multi_Directory_Manager
                     [
                         'type'              => 'placeholder_item',
                         'placeholderKey'    => 'listing-title-placeholder',
-                        'label'             => __( '@Listing Title', 'directorist' ),
+                        'label'             => __( 'Listing Title', 'directorist' ),
                         'maxWidget'         => 1,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets'   => ['title'],
@@ -4542,7 +4542,7 @@ class Multi_Directory_Manager
                     [
                         'type'              => 'placeholder_item',
                         'placeholderKey'    => 'more-widgets-placeholder',
-                        'label'             => __( '@More Widgets', 'directorist' ),
+                        'label'             => __( 'More Widgets', 'directorist' ),
                         'maxWidget'         => 0,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
@@ -4550,7 +4550,7 @@ class Multi_Directory_Manager
                     ],
                     [
                         'type'            => 'placeholder_item',
-                        'label'           => '@Slider Widgets',
+                        'label'           => 'Slider Widget',
                         'placeholderKey'  => 'slider-placeholder',
                         'selectedWidgets' => ['slider'],
                         'acceptedWidgets' => ['slider'],

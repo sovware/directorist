@@ -24,14 +24,13 @@
     <div class="cptm-preview-placeholder">
       <div class="cptm-preview-placeholder__card">
         <!-- Draggable Bottom Widgets -->
-        <Container @drop="onDrop">
+        <Container @drop="onDrop" drag-handle-selector=".cptm-drag-element">
           <Draggable
             v-for="(placeholderItem, index) in placeholders"
             :key="index"
           >
             <div
               v-if="placeholderItem.type == 'placeholder_group'"
-              @mousedown="maybeCanDrag"
               class="draggable-item"
             >
               <div
@@ -79,7 +78,6 @@
 
             <div
               v-if="placeholderItem.type == 'placeholder_item'"
-              @mousedown="maybeCanDrag"
               class="draggable-item"
             >
               <div
@@ -490,16 +488,6 @@ export default {
 
     onDrop(dropResult) {
       this.placeholders = applyDrag(this.placeholders, dropResult);
-    },
-
-    maybeCanDrag(event) {
-      const classList = [...event.target.classList];
-
-      if (classList.includes("cptm-drag-element")) {
-        return;
-      }
-
-      event.stopPropagation();
     },
 
     getGhostParent() {

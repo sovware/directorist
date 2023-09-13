@@ -1539,6 +1539,23 @@ input[type="radio"].cptm-radio {
     padding: 0;
   }
 }
+.cptm-preview-wrapper {
+  display: flex !important;
+  gap: 25px;
+  align-items: center;
+  justify-content: space-between;
+  .cptm-preview-radio-area {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    max-width: 300px;
+  }
+  .cptm-preview-area-archive {
+    img {
+      max-height: 100px;
+    }
+  }
+}
 .cptm-widget-thumb {
   .cptm-widget-thumb-icon {
     i {

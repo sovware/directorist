@@ -491,6 +491,31 @@ Please remember that your order may be canceled if you do not make your payment 
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
 
+                // 'all_listing_layout' => [
+                //     'type'  => 'radio',
+                //     'value' => 'no_sidebar',
+                //     'label' => __( 'All Listing Layout', 'directorist' ),
+                //     'options' => [
+                //         [
+                //             'label' => __('Listing with Left Sidebar', 'directorist'),
+                //             'value' => 'left_sidebar',
+                //         ],
+                //         [
+                //             'label' => __('Listing with Right Sidebar', 'directorist'),
+                //             'value' => 'right_sidebar',
+                //         ],
+                //         [
+                //             'label' => __('Listing with No Sidebar', 'directorist'),
+                //             'value' => 'no_sidebar',
+                //         ],
+                //     ],
+                //     'preview' => [
+                //         'left_sidebar'  => esc_url( DIRECTORIST_ASSETS . 'images/left_sidebar.png' ),
+                //         'right_sidebar' => esc_url( DIRECTORIST_ASSETS . 'images/right_sidebar.png' ),
+                //         'no_sidebar'    => esc_url( DIRECTORIST_ASSETS . 'images/no_sidebar.png' ),
+                //     ]
+                // ],
+
                 'enable_monetization' => [
                     'label' => __('Enable Monetization Feature', 'directorist'),
                     'type'  => 'toggle',
@@ -4664,6 +4689,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
                                 'general_settings' => [
                                     'fields'      => [
+                                        // 'all_listing_layout',
                                         'enable_multi_directory',
                                         'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 'lazy_load_taxonomy_fields'
                                     ],

@@ -1659,6 +1659,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     nonce: {
       required: false
+    },
+    preview: {
+      required: false
     }
   }
 });
@@ -16119,8 +16122,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     }
   }),
   watch: {
-    fields: function fields() {
-      console.log("updated");
+    fields: function fields() {// console.log("updated");
     }
   },
   methods: {
@@ -30149,9 +30151,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'radio-field-theme-butterfly',
+  name: "radio-field-theme-butterfly",
   mixins: [_mixins_form_fields_radio_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
@@ -30974,6 +31001,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_radio_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/radio-field */ "./assets/src/js/admin/vue/mixins/form-fields/radio-field.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -46754,106 +46794,133 @@ var render = function () {
           : _vm._e(),
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "atbdp-col atbdp-col-8" },
-        [
-          _c(
-            "div",
-            { staticClass: "cptm-radio-area" },
-            _vm._l(_vm.theOptions, function (option, option_index) {
-              return _c(
-                "div",
-                { key: option_index, staticClass: "cptm-radio-item" },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.local_value,
-                        expression: "local_value",
-                      },
-                    ],
-                    staticClass: "cptm-radio",
-                    attrs: {
-                      type: "radio",
-                      id: _vm.getOptionID(option, option_index, _vm.sectionId),
-                      name: _vm.name,
-                    },
-                    domProps: {
-                      value:
-                        typeof option.value !== "undefined" ? option.value : "",
-                      checked: _vm._q(
-                        _vm.local_value,
-                        typeof option.value !== "undefined" ? option.value : ""
-                      ),
-                    },
-                    on: {
-                      change: function ($event) {
-                        _vm.local_value =
-                          typeof option.value !== "undefined"
-                            ? option.value
-                            : ""
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
+      _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
+        _c(
+          "div",
+          { staticClass: "cptm-preview-wrapper" },
+          [
+            _c(
+              "div",
+              { staticClass: "cptm-radio-area" },
+              _vm._l(_vm.theOptions, function (option, option_index) {
+                return _c(
+                  "div",
+                  { key: option_index, staticClass: "cptm-radio-item" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.local_value,
+                          expression: "local_value",
+                        },
+                      ],
+                      staticClass: "cptm-radio",
                       attrs: {
-                        for: _vm.getOptionID(
+                        type: "radio",
+                        id: _vm.getOptionID(
                           option,
                           option_index,
                           _vm.sectionId
                         ),
+                        name: _vm.name,
                       },
-                    },
-                    [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(option.label) +
-                          "\n                    "
-                      ),
-                    ]
+                      domProps: {
+                        value:
+                          typeof option.value !== "undefined"
+                            ? option.value
+                            : "",
+                        checked: _vm._q(
+                          _vm.local_value,
+                          typeof option.value !== "undefined"
+                            ? option.value
+                            : ""
+                        ),
+                      },
+                      on: {
+                        change: function ($event) {
+                          _vm.local_value =
+                            typeof option.value !== "undefined"
+                              ? option.value
+                              : ""
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        attrs: {
+                          for: _vm.getOptionID(
+                            option,
+                            option_index,
+                            _vm.sectionId
+                          ),
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(option.label) +
+                            "\n              "
+                        ),
+                      ]
+                    ),
+                  ]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            !_vm.theOptions.length
+              ? _c("p", { staticClass: "cptm-info-text" }, [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.infoTextForNoOption) +
+                      "\n          "
                   ),
-                ]
-              )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("form-field-validatior", {
+              attrs: {
+                "section-id": _vm.sectionId,
+                "field-id": _vm.fieldId,
+                root: _vm.root,
+                value: _vm.value,
+                rules: _vm.rules,
+              },
+              on: {
+                validate: function ($event) {
+                  return _vm.$emit("validate", $event)
+                },
+              },
+              model: {
+                value: _vm.validationLog,
+                callback: function ($$v) {
+                  _vm.validationLog = $$v
+                },
+                expression: "validationLog",
+              },
             }),
-            0
-          ),
-          _vm._v(" "),
-          !_vm.theOptions.length
-            ? _c("p", { staticClass: "cptm-info-text" }, [
-                _vm._v(_vm._s(_vm.infoTextForNoOption)),
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("form-field-validatior", {
-            attrs: {
-              "section-id": _vm.sectionId,
-              "field-id": _vm.fieldId,
-              root: _vm.root,
-              value: _vm.value,
-              rules: _vm.rules,
-            },
-            on: {
-              validate: function ($event) {
-                return _vm.$emit("validate", $event)
-              },
-            },
-            model: {
-              value: _vm.validationLog,
-              callback: function ($$v) {
-                _vm.validationLog = $$v
-              },
-              expression: "validationLog",
-            },
-          }),
-        ],
-        1
-      ),
+            _vm._v(" "),
+            _vm.preview
+              ? _c(
+                  "div",
+                  { staticClass: "cptm-preview-area-archive" },
+                  _vm._l(Object.keys(_vm.preview), function (previewKey) {
+                    return _vm.local_value === previewKey
+                      ? _c("img", { attrs: { src: _vm.preview[previewKey] } })
+                      : _vm._e()
+                  }),
+                  0
+                )
+              : _vm._e(),
+          ],
+          1
+        ),
+      ]),
     ]),
   ])
 }
@@ -48608,119 +48675,134 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "cptm-form-group" },
-    [
-      _vm.label.length
-        ? _c(
-            "label",
-            [
-              _c(_vm.labelType, { tag: "component" }, [
-                _vm._v(_vm._s(_vm.label)),
-              ]),
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.description.length
-        ? _c("p", {
-            staticClass: "cptm-info-text",
-            domProps: { innerHTML: _vm._s(_vm.description) },
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "cptm-radio-area" },
-        _vm._l(_vm.theOptions, function (option, option_index) {
-          return _c(
-            "div",
-            { key: option_index, staticClass: "cptm-radio-item" },
-            [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.local_value,
-                    expression: "local_value",
-                  },
-                ],
-                staticClass: "cptm-radio",
-                attrs: {
-                  type: "radio",
-                  id: _vm.getOptionID(option, option_index, _vm.sectionId),
-                  name: _vm.name,
-                },
-                domProps: {
-                  value:
-                    typeof option.value !== "undefined" ? option.value : "",
-                  checked: _vm._q(
-                    _vm.local_value,
-                    typeof option.value !== "undefined" ? option.value : ""
-                  ),
-                },
-                on: {
-                  change: function ($event) {
-                    _vm.local_value =
-                      typeof option.value !== "undefined" ? option.value : ""
-                  },
-                },
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
+  return _c("div", { staticClass: "cptm-form-group cptm-preview-wrapper" }, [
+    _c(
+      "div",
+      { staticClass: "cptm-preview-radio-area" },
+      [
+        _vm.label.length
+          ? _c(
+              "label",
+              [
+                _c(_vm.labelType, { tag: "component" }, [
+                  _vm._v(_vm._s(_vm.label)),
+                ]),
+              ],
+              1
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.description.length
+          ? _c("p", {
+              staticClass: "cptm-info-text",
+              domProps: { innerHTML: _vm._s(_vm.description) },
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "cptm-radio-area" },
+          _vm._l(_vm.theOptions, function (option, option_index) {
+            return _c(
+              "div",
+              { key: option_index, staticClass: "cptm-radio-item" },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.local_value,
+                      expression: "local_value",
+                    },
+                  ],
+                  staticClass: "cptm-radio",
                   attrs: {
-                    for: _vm.getOptionID(option, option_index, _vm.sectionId),
+                    type: "radio",
+                    id: _vm.getOptionID(option, option_index, _vm.sectionId),
+                    name: _vm.name,
                   },
-                },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(option.label) +
-                      "\n            "
-                  ),
-                ]
-              ),
-            ]
-          )
+                  domProps: {
+                    value:
+                      typeof option.value !== "undefined" ? option.value : "",
+                    checked: _vm._q(
+                      _vm.local_value,
+                      typeof option.value !== "undefined" ? option.value : ""
+                    ),
+                  },
+                  on: {
+                    change: function ($event) {
+                      _vm.local_value =
+                        typeof option.value !== "undefined" ? option.value : ""
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    attrs: {
+                      for: _vm.getOptionID(option, option_index, _vm.sectionId),
+                    },
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(option.label) +
+                        "\n                "
+                    ),
+                  ]
+                ),
+              ]
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        !_vm.theOptions.length
+          ? _c("p", { staticClass: "cptm-info-text" }, [
+              _vm._v(_vm._s(_vm.infoTextForNoOption)),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("form-field-validatior", {
+          attrs: {
+            "section-id": _vm.sectionId,
+            "field-id": _vm.fieldId,
+            root: _vm.root,
+            value: _vm.value,
+            rules: _vm.rules,
+          },
+          on: {
+            validate: function ($event) {
+              return _vm.$emit("validate", $event)
+            },
+          },
+          model: {
+            value: _vm.validationLog,
+            callback: function ($$v) {
+              _vm.validationLog = $$v
+            },
+            expression: "validationLog",
+          },
         }),
-        0
-      ),
-      _vm._v(" "),
-      !_vm.theOptions.length
-        ? _c("p", { staticClass: "cptm-info-text" }, [
-            _vm._v(_vm._s(_vm.infoTextForNoOption)),
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("form-field-validatior", {
-        attrs: {
-          "section-id": _vm.sectionId,
-          "field-id": _vm.fieldId,
-          root: _vm.root,
-          value: _vm.value,
-          rules: _vm.rules,
-        },
-        on: {
-          validate: function ($event) {
-            return _vm.$emit("validate", $event)
-          },
-        },
-        model: {
-          value: _vm.validationLog,
-          callback: function ($$v) {
-            _vm.validationLog = $$v
-          },
-          expression: "validationLog",
-        },
-      }),
-    ],
-    1
-  )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _vm.preview
+      ? _c(
+          "div",
+          { staticClass: "cptm-preview-area-archive" },
+          _vm._l(Object.keys(_vm.preview), function (previewKey) {
+            return _vm.local_value === previewKey
+              ? _c("img", { attrs: { src: _vm.preview[previewKey] } })
+              : _vm._e()
+          }),
+          0
+        )
+      : _vm._e(),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -7,7 +7,7 @@
     @dragenter="placeholderOnDragEnter()"
     @dragleave="placeholderOnDragLeave()"
   >
-    <p class="cptm-placeholder-label" :class="{ hide: selectedWidgets.length }">
+    <p class="cptm-placeholder-label" :class="{ hide: selectedWidgets && selectedWidgets.length }">
       {{ label }}
     </p>
 
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <div class="cptm-widget-preview-area" v-if="selectedWidgets.length">
+    <div class="cptm-widget-preview-area" v-if="selectedWidgets && selectedWidgets.length">
       <template v-for="(widget, widget_index) in selectedWidgets">
         <template v-if="hasValidWidget(widget)">
           <component

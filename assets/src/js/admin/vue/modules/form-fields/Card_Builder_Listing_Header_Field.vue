@@ -315,24 +315,6 @@ export default {
       return output;
     },
 
-    canShowAddImageSliderButton() {
-      if (!this.placeholders.length) {
-        return true;
-      }
-
-      for (const item of this.placeholders) {
-        if ("placeholder_item" !== item.type) {
-          continue;
-        }
-
-        if (item.selectedWidgets.includes("slider")) {
-          return false;
-        }
-      }
-
-      return true;
-    },
-
     theAvailableWidgets() {
       let available_widgets = JSON.parse(
         JSON.stringify(this.available_widgets)
@@ -538,9 +520,13 @@ export default {
     },
 
     addPlaceholder(placeholderKey) {
-      const placeholder = JSON.parse( JSON.stringify( this.placeholdersMap[placeholderKey] ) );
+      let placeholder = JSON.parse( JSON.stringify( this.placeholdersMap[placeholderKey] ) );
 
-      if (placeholder.selectedWidgets && placeholder.selectedWidgets.length) {
+      if ( ! Array.isArray( placeholder.selectedWidgets ) ) {
+        placeholder.selectedWidgets = [];
+      }
+
+      if (placeholder.selectedWidgets.length) {
         for (const widgetKey of placeholder.selectedWidgets) {
 
           if (!this.isTruthyObject(this.theAvailableWidgets[widgetKey])) {
@@ -693,10 +679,6 @@ export default {
             return;
           }
 
-          if (!placeholder.selectedWidgets.length) {
-            return;
-          }
-
           importWidgets(placeholder, newPlaceholders);
           return;
         }
@@ -718,10 +700,6 @@ export default {
 
           placeholder.placeholders.forEach((subPlaceholder) => {
             if (!Array.isArray(subPlaceholder.selectedWidgets)) {
-              return;
-            }
-
-            if (!subPlaceholder.selectedWidgets.length) {
               return;
             }
 

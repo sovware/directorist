@@ -26536,34 +26536,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       return output;
     },
-    canShowAddImageSliderButton: function canShowAddImageSliderButton() {
-      if (!this.placeholders.length) {
-        return true;
-      }
-
-      var _iterator3 = _createForOfIteratorHelper(this.placeholders),
-          _step3;
-
-      try {
-        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-          var item = _step3.value;
-
-          if ("placeholder_item" !== item.type) {
-            continue;
-          }
-
-          if (item.selectedWidgets.includes("slider")) {
-            return false;
-          }
-        }
-      } catch (err) {
-        _iterator3.e(err);
-      } finally {
-        _iterator3.f();
-      }
-
-      return true;
-    },
     theAvailableWidgets: function theAvailableWidgets() {
       var available_widgets = JSON.parse(JSON.stringify(this.available_widgets));
 
@@ -26583,12 +26555,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           if (show_if_cond_state.status) {
             var widget_keys = [];
 
-            var _iterator4 = _createForOfIteratorHelper(show_if_cond_state.matched_data),
-                _step4;
+            var _iterator3 = _createForOfIteratorHelper(show_if_cond_state.matched_data),
+                _step3;
 
             try {
-              for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-                var matched_field = _step4.value;
+              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                var matched_field = _step3.value;
 
                 // console.log( {matched_field} );
                 var _main_widget = JSON.parse(JSON.stringify(main_widget));
@@ -26608,9 +26580,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 widget_keys.push(current_key);
               }
             } catch (err) {
-              _iterator4.e(err);
+              _iterator3.e(err);
             } finally {
-              _iterator4.f();
+              _iterator3.f();
             }
           }
         }
@@ -26717,12 +26689,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       var findPlaceholder = function findPlaceholder(placeholderKey, placeholders) {
-        var _iterator5 = _createForOfIteratorHelper(placeholders),
-            _step5;
+        var _iterator4 = _createForOfIteratorHelper(placeholders),
+            _step4;
 
         try {
-          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-            var _placeholder = _step5.value;
+          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+            var _placeholder = _step4.value;
 
             if ("placeholder_item" === _placeholder.type) {
               if (placeholderKey === _placeholder.placeholderKey) {
@@ -26743,9 +26715,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
           }
         } catch (err) {
-          _iterator5.e(err);
+          _iterator4.e(err);
         } finally {
-          _iterator5.f();
+          _iterator4.f();
         }
 
         return null;
@@ -26757,13 +26729,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     addPlaceholder: function addPlaceholder(placeholderKey) {
       var placeholder = JSON.parse(JSON.stringify(this.placeholdersMap[placeholderKey]));
 
-      if (placeholder.selectedWidgets && placeholder.selectedWidgets.length) {
-        var _iterator6 = _createForOfIteratorHelper(placeholder.selectedWidgets),
-            _step6;
+      if (!Array.isArray(placeholder.selectedWidgets)) {
+        placeholder.selectedWidgets = [];
+      }
+
+      if (placeholder.selectedWidgets.length) {
+        var _iterator5 = _createForOfIteratorHelper(placeholder.selectedWidgets),
+            _step5;
 
         try {
-          for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-            var widgetKey = _step6.value;
+          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+            var widgetKey = _step5.value;
 
             if (!this.isTruthyObject(this.theAvailableWidgets[widgetKey])) {
               continue;
@@ -26772,9 +26748,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, widgetKey, _objectSpread({}, this.theAvailableWidgets[widgetKey]));
           }
         } catch (err) {
-          _iterator6.e(err);
+          _iterator5.e(err);
         } finally {
-          _iterator6.f();
+          _iterator5.f();
         }
       }
 
@@ -26868,12 +26844,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         destination.splice(targetPlaceholderIndex, 0, newPlaceholder);
         var widgetIndex = 0;
 
-        var _iterator7 = _createForOfIteratorHelper(placeholder.selectedWidgets),
-            _step7;
+        var _iterator6 = _createForOfIteratorHelper(placeholder.selectedWidgets),
+            _step6;
 
         try {
-          for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-            var _widget2 = _step7.value;
+          for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+            var _widget2 = _step6.value;
 
             if (typeof _widget2.widget_key === "undefined") {
               continue;
@@ -26892,9 +26868,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             widgetIndex++;
           }
         } catch (err) {
-          _iterator7.e(err);
+          _iterator6.e(err);
         } finally {
-          _iterator7.f();
+          _iterator6.f();
         }
       };
 
@@ -26905,10 +26881,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
         if ("placeholder_item" === placeholder.type) {
           if (!Array.isArray(placeholder.selectedWidgets)) {
-            return;
-          }
-
-          if (!placeholder.selectedWidgets.length) {
             return;
           }
 
@@ -26927,10 +26899,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           newPlaceholders.splice(targetPlaceholderIndex, 0, newPlaceholder);
           placeholder.placeholders.forEach(function (subPlaceholder) {
             if (!Array.isArray(subPlaceholder.selectedWidgets)) {
-              return;
-            }
-
-            if (!subPlaceholder.selectedWidgets.length) {
               return;
             }
 
@@ -26991,12 +26959,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       var sanitizedPlaceholders = [];
 
-      var _iterator8 = _createForOfIteratorHelper(this.layout),
-          _step8;
+      var _iterator7 = _createForOfIteratorHelper(this.layout),
+          _step7;
 
       try {
         var _loop = function _loop() {
-          var placeholder = _step8.value;
+          var placeholder = _step7.value;
 
           if (!_this3.isTruthyObject(placeholder)) {
             return "continue";
@@ -27061,15 +27029,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         };
 
-        for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+        for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
           var _ret = _loop();
 
           if (_ret === "continue") continue;
         }
       } catch (err) {
-        _iterator8.e(err);
+        _iterator7.e(err);
       } finally {
-        _iterator8.f();
+        _iterator7.f();
       }
 
       this.placeholders = sanitizedPlaceholders;
@@ -36391,7 +36359,7 @@ var render = function () {
         "p",
         {
           staticClass: "cptm-placeholder-label",
-          class: { hide: _vm.selectedWidgets.length },
+          class: { hide: _vm.selectedWidgets && _vm.selectedWidgets.length },
         },
         [_vm._v("\n    " + _vm._s(_vm.label) + "\n  ")]
       ),
@@ -36447,7 +36415,7 @@ var render = function () {
         ]),
       ]),
       _vm._v(" "),
-      _vm.selectedWidgets.length
+      _vm.selectedWidgets && _vm.selectedWidgets.length
         ? _c(
             "div",
             { staticClass: "cptm-widget-preview-area" },

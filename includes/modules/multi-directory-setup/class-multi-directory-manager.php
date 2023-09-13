@@ -4547,12 +4547,17 @@ class Multi_Directory_Manager
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
                         'rejectedWidgets'   => ['slider'],
+                        'insertByButton'  => true,
+                        'canDelete'       => true,
+                        'insertButton'    => [
+                            'label' => 'Add More'
+                        ],
                     ],
                     [
                         'type'            => 'placeholder_item',
                         'label'           => 'Slider Widget',
                         'placeholderKey'  => 'slider-placeholder',
-                        'selectedWidgets' => ['slider'],
+                        // 'selectedWidgets' => ['slider'],
                         'acceptedWidgets' => ['slider'],
                         'maxWidget'       => 1,
                         'canDelete'       => true,

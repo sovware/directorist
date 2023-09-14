@@ -10,7 +10,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 
 		public function __construct() {
 			// Add the listing post type and taxonomies
-			add_action( 'init', array( $this, 'register_new_post_types' ) );
+			add_action( 'init', array( $this, 'register_new_post_types' ), 5 );
 
 			// add new columns for ATBDP_SHORT_CODE_POST_TYPE
 			add_filter( 'manage_' . ATBDP_POST_TYPE . '_posts_columns', array( $this, 'add_new_listing_columns' ) );

@@ -33,7 +33,7 @@ class Multi_Directory_Manager
 
     // run
     public function run() {
-        add_action( 'init', [$this, 'register_directory_taxonomy'], 15 );
+        add_action( 'init', [$this, 'register_directory_taxonomy'] );
         add_action( 'init', [$this, 'setup_migration'] );
 
         if ( ! is_admin() ) {

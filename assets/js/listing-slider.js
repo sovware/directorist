@@ -101,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // All Listing Slider
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  function allListingSlider() {
     /* Check Slider Data */
     var checkData = function checkData(data, value) {
       return typeof data === 'undefined' ? value : data;
@@ -280,6 +280,15 @@ __webpack_require__.r(__webpack_exports__);
       thumbs: {
         swiper: swiperSingleListingThumb
       }
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', function () {
+    allListingSlider();
+    $(".directorist-viewas__item").click(function () {
+      setTimeout(function () {
+        allListingSlider();
+      }, 1000);
     });
   });
 })(jQuery);

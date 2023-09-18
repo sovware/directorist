@@ -1402,6 +1402,12 @@
     outline: none;
     cursor: pointer;
     background-color: var(--directorist-color-light);
+    &.directorist-btn {
+      color: var(--directorist-color-body);
+      i:after {
+        background-color: var(--directorist-color-body);
+      }
+    }
     &:hover {
       color: var(--directorist-color-white);
       background-color: var(--directorist-color-primary);
@@ -1477,6 +1483,9 @@
       flex-wrap: wrap;
       padding: 35px 0;
       justify-content: space-between;
+      .directorist-form-submit__btn {
+        width: 100%;
+      }
     }
   }
 }

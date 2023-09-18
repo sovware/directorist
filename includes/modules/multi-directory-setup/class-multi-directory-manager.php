@@ -4270,9 +4270,9 @@ class Multi_Directory_Manager
                     ],
                 ],
                 'preview' => [
-                    'left_sidebar'  => esc_url( DIRECTORIST_ASSETS . 'images/left_sidebar.jpg' ),
-                    'right_sidebar' => esc_url( DIRECTORIST_ASSETS . 'images/right_sidebar.jpg' ),
-                    'no_sidebar'    => esc_url( DIRECTORIST_ASSETS . 'images/no_sidebar.jpg' ),
+                    'left_sidebar'  => esc_url( DIRECTORIST_ASSETS . 'images/left_sidebar.png' ),
+                    'right_sidebar' => esc_url( DIRECTORIST_ASSETS . 'images/right_sidebar.png' ),
+                    'no_sidebar'    => esc_url( DIRECTORIST_ASSETS . 'images/no_sidebar.png' ),
                 ]
             ],
 
@@ -4397,6 +4397,22 @@ class Multi_Directory_Manager
                     'contents_area' => ['title_and_tagline', 'description'],
                 ],
                 'widgets' => [
+                    'back' => [
+                        'type' => "button",
+                        'label' => __( "Back", "directorist" ),
+                        'icon' => 'las la-arrow-left',
+                    ],
+                    'title' => [
+                        'type' => "title",
+                        'label' => __( "Listing Title", "directorist" ),
+                        'icon' => 'las la-heading',
+                    ],
+                    'slider' => [
+                        'type' => "thumbnail",
+                        'label' => __( "Listing Image/Slider", "directorist" ),
+                        'icon' => 'las la-image',
+                    ],
+                    
                     'bookmark' => [
                         'type' => "button",
                         'label' => __( "Bookmark", "directorist" ),
@@ -4463,10 +4479,9 @@ class Multi_Directory_Manager
                             ],
                         ],
                     ],
-
                     'reviews' => [
                         'type' => "reviews",
-                        'label' => __( "Listings Reviews", "directorist" ),
+                        'label' => __( "Reviews", "directorist" ),
                         'icon' => 'uil uil-text-fields',
                     ],
                     'ratings_count' => [
@@ -4499,24 +4514,56 @@ class Multi_Directory_Manager
                 ],
 
                 'layout' => [
-                    'listings_header' => [
-                        'quick_actions' => [
-                            'label' => __( 'Top Right', 'directorist' ),
-                            'maxWidget' => 0,
-                            'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                            'acceptedWidgets' => [ 'bookmark', 'share', 'report' ],
+                    [
+                        'type' => 'placeholder_group',
+                        'placeholderKey' => 'quick-widgets-placeholder',
+                        'placeholders' => [
+                            [
+                                'type'              => 'placeholder_item',
+                                'placeholderKey'    => 'quick-info-placeholder',
+                                'label'             => __( 'Quick info', 'directorist' ),
+                                'maxWidget'         => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets'   => ['back'],
+                            ],
+                            [
+                                'type'              => 'placeholder_item',
+                                'placeholderKey'    => 'quick-action-placeholder',
+                                'label'             => __( 'Quick Action', 'directorist' ),
+                                'maxWidget'         => 0,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets'   => [ 'bookmark', 'reviews', 'share', 'report' ],
+                            ],
                         ],
-                        'thumbnail' => [
-                            'label' => __( 'Thumbnail', 'directorist' ),
-                            'maxWidget' => 1,
-                            'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                            'acceptedWidgets' => [ 'listing_slider' ],
-                        ],
-                        'quick_info' => [
-                            'label' => __( 'Quick info', 'directorist' ),
-                            'maxWidget' => 0,
-                            'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                            'acceptedWidgets' => [ 'badges', 'price', 'reviews', 'ratings_count', 'category', 'location' ],
+                    ],
+                    [
+                        'type'              => 'placeholder_item',
+                        'placeholderKey'    => 'listing-title-placeholder',
+                        'label'             => __( 'Listing Title', 'directorist' ),
+                        'maxWidget'         => 1,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets'   => ['title'],
+                    ],
+                    [
+                        'type'              => 'placeholder_item',
+                        'placeholderKey'    => 'more-widgets-placeholder',
+                        'label'             => __( 'More Widgets', 'directorist' ),
+                        'maxWidget'         => 0,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
+                        'rejectedWidgets'   => ['slider'],
+                    ],
+                    [
+                        'type'            => 'placeholder_item',
+                        'label'           => 'Slider Widget',
+                        'placeholderKey'  => 'slider-placeholder',
+                        'selectedWidgets' => ['slider'],
+                        'acceptedWidgets' => ['slider'],
+                        'maxWidget'       => 1,
+                        'canDelete'       => true,
+                        'insertByButton'  => true,
+                        'insertButton'    => [
+                            'label' => 'Add Image/Slider'
                         ],
                     ],
                 ],

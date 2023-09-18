@@ -217,43 +217,6 @@
                 }
             }, 1000)
         });
-
-        // let observerPaused = false;
-
-        // function initObserver() {
-        //     console.log('Observed')
-        //     const targetNode = document.querySelector('.directorist-archive-contents .directorist-archive-items');
-        //     if(targetNode){
-        //         const observer = new MutationObserver((mutationList) => {
-        //             console.log('Mutation List:', mutationList)
-        //             for (const mutation of mutationList) {
-        //                 console.log('Mutation:', mutation)
-        //                 if(mutation.target.classList.contains('directorist-archive-items')) {
-        //                     console.log('Found Target:', mutation.target)
-        //                     allListingSlider();
-                            
-        //                     if (observerPaused) {
-        //                         // Disconnect the observer, but only for this specific click
-        //                         observer.disconnect();
-        //                     }
-        //                 }
-        //             }
-        //         });
-        //         observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
-        //     }
-        // }
-    
-        // $('body').on("click", ".directorist-instant-search .directorist-search-form-box, .directorist-listings-header .directorist-viewas__item", function (e) {
-        //     console.log('Clicked')
-        //     setTimeout(() => {
-        //         observerPaused = true;
-        //         initObserver();
-        //         // Reset observerPaused after a delay to allow re-observation for the next click
-        //         setTimeout(() => {
-        //             observerPaused = false;
-        //         }, 1000);
-        //     }, 1000)
-        // })
         
     });
 })(jQuery);

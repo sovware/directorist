@@ -8155,8 +8155,8 @@ body.stop-scrolling {
 .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:before {
   left: 0;
   top: 0;
-  width: 18px;
-  height: 18px;
+  width: 8px;
+  height: 8px;
   -webkit-mask-image: none;
           mask-image: none;
   background: #fff;

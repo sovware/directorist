@@ -74,6 +74,8 @@ class Directorist_Single_Listing {
 		$single_fields          = get_term_meta( $this->type, 'single_listings_contents', true );
 		$submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
 
+		// e_var_dump(get_term_meta( $this->type, 'single_listing_header', true ) );
+
 		if( !empty( $single_fields['fields'] ) ) {
 
 			foreach ( $single_fields['fields'] as $key => $value ) {

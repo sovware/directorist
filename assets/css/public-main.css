@@ -416,6 +416,9 @@
 .directorist-content-module__contents .directorist-form-social-info-field select {
   color: var(--directorist-color-primary);
 }
+.directorist-content-module__contents .directorist-checkbox .directorist-checkbox__label {
+  margin-left: 0;
+}
 
 .directorist-content-active #directorist.atbd_wrapper {
   max-width: 100%;
@@ -3151,8 +3154,8 @@ body.stop-scrolling {
   border-radius: 16px;
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  -webkit-transition: background 0.3s ease-out;
+  transition: background 0.3s ease-out;
   /* Legacy Icon */
 }
 .directorist-add-listing-types__single__link .directorist-icon-mask {
@@ -3173,8 +3176,8 @@ body.stop-scrolling {
   background-color: var(--directorist-color-primary);
   border-radius: 100%;
   margin-bottom: 20px;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  -webkit-transition: color 0.3s ease-out;
+  transition: color 0.3s ease-out;
 }
 .directorist-add-listing-types__single__link .directorist-icon-mask:after {
   width: 23px;
@@ -4515,7 +4518,7 @@ body.stop-scrolling {
 }
 
 .directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__rendered {
-  height: 40px;
+  height: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -6000,7 +6003,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   height: 100%;
-  width: 100px;
+  width: auto;
+  min-width: 100px;
+  padding: 0 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -6015,6 +6020,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
           justify-content: center;
   line-height: 1;
   font-size: 14px;
+  text-transform: capitalize;
   background: #f7f7f7;
   color: #222;
 }
@@ -6130,8 +6136,9 @@ button[type=submit] {
   width: 100% !important;
 }
 .select2.select2-container.select2-container--default .select2-selection {
-  height: 40px;
+  min-height: 40px;
   border: none;
+  padding: 5px 0;
   border-radius: 0;
   background: transparent;
   border-bottom: 1px solid var(--directorist-color-border-gray);
@@ -6182,7 +6189,7 @@ button[type=submit] {
   display: -ms-flexbox;
   display: flex;
   gap: 5px;
-  height: 40px;
+  height: auto;
   line-height: 1;
   font-size: 14px;
   overflow-y: auto;
@@ -6216,6 +6223,8 @@ button[type=submit] {
 }
 
 .select2-container .directorist-select2-addons-area {
+  top: unset;
+  bottom: 20px;
   right: 0;
 }
 .select2-container .directorist-select2-addons-area .directorist-select2-dropdown-toggle {
@@ -6665,6 +6674,7 @@ button[type=submit] {
   font-size: 15px;
   font-weight: 500;
   vertical-align: middle;
+  text-transform: capitalize;
   text-align: center;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -9158,6 +9168,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           align-items: center;
   gap: 15px;
   padding: 18px;
+  margin: 0;
   padding-right: 75px;
   border-radius: 12px;
   background-color: var(--directorist-color-bg-gray);
@@ -10621,8 +10632,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-radius: 10px;
   padding: 0 32px;
   height: 46px;
-  text-transform: capitalize;
-  text-decoration: none;
   letter-spacing: 0;
   font-weight: 400;
 }
@@ -12834,10 +12843,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-bottom-color: var(--directorist-color-primary);
 }
 .directorist-content-active .directorist-authors__card {
-  border: 1px solid #eee;
-  border-radius: 10px;
   padding: 20px;
-  background: #fff;
+  border-radius: 12px;
+  background: var(--directorist-color-white);
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
 }
 .directorist-content-active .directorist-authors__card__img {
   margin-bottom: 15px;

@@ -24,7 +24,7 @@
       padding: 40px 25px;
       border-radius: 16px;
       box-shadow: var(--directorist-box-shadow);
-      transition: all 0.3s ease-in-out;
+      transition: background 0.3s ease-out;
       .directorist-icon-mask {
         display: flex;
         align-items: center;
@@ -34,7 +34,7 @@
         background-color: var(--directorist-color-primary);
         border-radius: 100%;
         margin-bottom: 20px;
-        transition: all 0.3s ease-in-out;
+        transition: color 0.3s ease-out;
         &:after {
           width: 23px;
           height: 23px;
@@ -1223,20 +1223,20 @@
   .select2-container--default
   .select2-selection
   .select2-selection__rendered {
-    height: 40px;
+    height: auto;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 5px;
-  li {
-    margin: 0;
-    input {
-      margin-top: 0;
+    li {
+      margin: 0;
+      input {
+        margin-top: 0;
+      }
+      &.select2-search--inline {
+        width: auto;
+      }
     }
-    &.select2-search--inline {
-      width: auto;
-    }
-  }
 }
 
 // Multistep Wizard

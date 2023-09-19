@@ -19,12 +19,15 @@
       top: 50%;
       transform: translateY(-50%);
       height: 100%;
-      width: 100px;
+      width: auto;
+      min-width: 100px;
+      padding: 0 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       line-height: 1;
       font-size: 14px;
+      text-transform: capitalize;
       background: #f7f7f7;
       color: #222;
     }
@@ -150,8 +153,9 @@ button[type="submit"] {
   }
 
   &.select2-container--default .select2-selection {
-    height: 40px;
+    min-height: 40px;
     border: none;
+    padding: 5px 0;
     border-radius: 0;
     background: transparent;
     border-bottom: 1px solid var(--directorist-color-border-gray);
@@ -194,7 +198,7 @@ button[type="submit"] {
     @include e('rendered') {
       display: flex;
       gap: 5px;
-      height: 40px;
+      height: auto;
       line-height: 1;
       font-size: 14px;
       overflow-y: auto;
@@ -231,6 +235,8 @@ button[type="submit"] {
 }
 
 .select2-container .directorist-select2-addons-area {
+  top: unset;
+  bottom: 20px;
   right: 0;
   .directorist-select2-dropdown-toggle {
     position: absolute;

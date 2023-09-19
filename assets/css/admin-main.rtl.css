@@ -5617,10 +5617,10 @@ img.atbdp-file-info {
 
 .select2.select2-container .select2-selection--single {
   border: 1px solid #8c8f94;
-  height: 40px;
+  min-height: 40px;
 }
 .select2.select2-container .select2-selection--single .select2-selection__rendered {
-  height: 40px;
+  height: auto;
   line-height: 38px;
   padding: 0 15px;
 }
@@ -5839,6 +5839,9 @@ img.atbdp-file-info {
 }
 .directorist-content-module__contents .directorist-form-social-info-field select {
   color: var(--directorist-color-primary);
+}
+.directorist-content-module__contents .directorist-checkbox .directorist-checkbox__label {
+  margin-right: 0;
 }
 
 .directorist-content-active #directorist.atbd_wrapper {
@@ -7593,8 +7596,8 @@ body.stop-scrolling {
   border-radius: 16px;
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  -webkit-transition: background 0.3s ease-out;
+  transition: background 0.3s ease-out;
   /* Legacy Icon */
 }
 .directorist-add-listing-types__single__link .directorist-icon-mask {
@@ -7615,8 +7618,8 @@ body.stop-scrolling {
   background-color: var(--directorist-color-primary);
   border-radius: 100%;
   margin-bottom: 20px;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  -webkit-transition: color 0.3s ease-out;
+  transition: color 0.3s ease-out;
 }
 .directorist-add-listing-types__single__link .directorist-icon-mask:after {
   width: 23px;
@@ -8957,7 +8960,7 @@ body.stop-scrolling {
 }
 
 .directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__rendered {
-  height: 40px;
+  height: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -10753,6 +10756,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 15px;
   font-weight: 500;
   vertical-align: middle;
+  text-transform: capitalize;
   text-align: center;
   -webkit-user-select: none;
      -moz-user-select: none;

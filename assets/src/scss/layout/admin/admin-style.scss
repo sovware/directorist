@@ -5507,10 +5507,10 @@ img.atbdp-file-info {
 .select2.select2-container {
   .select2-selection--single {
     border: 1px solid #8c8f94;
-    height: 40px;
+    min-height: 40px;
 
     .select2-selection__rendered {
-      height: 40px;
+      height: auto;
       line-height: 38px;
       padding: 0 15px;
     }

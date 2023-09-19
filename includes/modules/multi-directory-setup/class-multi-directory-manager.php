@@ -77,6 +77,34 @@ class Multi_Directory_Manager
                 continue;
             }
 
+            $description = ! empty( $header_contents['options']['content_settings']['listing_description']['enable'] ) ? $header_contents['options']['content_settings']['listing_description']['enable'] : false;
+
+            if ( $description ) {
+                $contents = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
+
+                $contents['fields']['description'] = [
+                    "icon" => "las la-tag",
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "description",
+                    "original_widget_key" => "description",
+                    "widget_key" => "description"
+                ];
+
+                $details = [
+                    "type" => "general_group",
+                    "label" => "Section",
+                    "fields" => [
+                        "description"
+                    ],
+                    "section_id" => "1627188303658"
+                ];
+
+                array_unshift( $contents['groups'], $details );
+
+                update_term_meta( $directory_type->term_id, 'single_listings_contents', $contents );
+
+            }
+
             foreach ( $header_contents['listings_header'] as $section_name => $widgets ) {
 
                 if ( 'quick_actions' === $section_name ) {

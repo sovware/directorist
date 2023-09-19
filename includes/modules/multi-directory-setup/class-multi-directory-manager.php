@@ -92,7 +92,7 @@ class Multi_Directory_Manager
 
                 $details = [
                     "type" => "general_group",
-                    "label" => "Section",
+                    "label" => "Description",
                     "fields" => [
                         "description"
                     ],

@@ -898,8 +898,6 @@ class Directorist_Single_Listing {
 
 	public function listing_header( $key = '', $group = '', $subgroup = '' ) {
 
-		// e_var_dump(  $this->header_data );
-
 		foreach( $this->header_data as $data ) {
 
 			if ( $data['placeholderKey'] !== $group ) {

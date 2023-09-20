@@ -77,7 +77,7 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 				$listing_id = (int) get_post_meta( $order_id, '_listing_id', true );
 			}
 			if ( empty( $user ) ) {
-				$post_author_id = get_post_field( 'post_author', $listing_id );
+				$post_author_id = get_post_field( 'post_author', $listing_id ? $listing_id : $order_id );
 				$user = get_userdata( $post_author_id );
 			} else {
 				if ( ! $user instanceof WP_User ) {

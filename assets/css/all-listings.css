@@ -4210,6 +4210,9 @@ body.stop-scrolling {
   font-weight: 600;
   color: var(--directorist-color-danger);
 }
+.directorist-add-listing-form__action #listing_notifier:empty {
+  margin: 30px 0 0;
+}
 .directorist-add-listing-form__action #listing_notifier .atbdp_success {
   color: var(--directorist-color-success);
 }

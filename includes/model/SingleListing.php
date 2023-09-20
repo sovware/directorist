@@ -488,8 +488,8 @@ class Directorist_Single_Listing {
 	}
 
 	public function quick_actions_template() {
-		$actions = ! empty( $this->header_data['listings_header']['quick_actions'] ) ? $this->header_data['listings_header']['quick_actions'] : '';
 		
+		$actions = $this->listing_header( '', 'quick-widgets-placeholder', 'quick-action-placeholder' );
 		$args = array(
 			'listing'  => $this,
 			'actions'  => $actions,
@@ -501,7 +501,8 @@ class Directorist_Single_Listing {
 	}
 
 	public function quick_info_template() {
-		$quick_info = ! empty( $this->header_data['listings_header']['quick_info'] ) ? $this->header_data['listings_header']['quick_info'] : '';
+
+		$quick_info = $this->listing_header( '', 'more-widgets-placeholder' );
 
 		$args = array(
 			'listing' => $this,
@@ -586,10 +587,17 @@ class Directorist_Single_Listing {
 		return $data;
 	}
 
-	public function slider_template( $data ) {
+	public function slider_template() {
+
+		$slider = $this->listing_header( 'slider', 'slider-placeholder' );
+
+		if ( ! $slider ) {
+			return;
+		}
+
 		$args = array(
 			'listing'    => $this,
-			'data'       => $this->get_slider_data( $data ),
+			'data'       => $this->get_slider_data(),
 		);
 
 		Helper::get_template('single/slider', $args );
@@ -890,7 +898,7 @@ class Directorist_Single_Listing {
 
 	public function listing_header( $key = '', $group = '', $subgroup = '' ) {
 
-		// return $this->header_data;
+		// e_var_dump(  $this->header_data );
 
 		foreach( $this->header_data as $data ) {
 
@@ -904,12 +912,21 @@ class Directorist_Single_Listing {
 						continue;
 					}
 
+					if ( ! $key ) {
+						return $placeholder['selectedWidgets'];
+					}
+
 					foreach( $placeholder['selectedWidgets'] as $index => $widget ) {
 						if ( $widget['widget_key'] === $key ) {
 							return $widget;
 						}
 					}
+
 				}
+			}
+
+			if ( ! $key ) {
+				return $data['selectedWidgets'];
 			}
 
 			foreach( $data['selectedWidgets'] as $index => $widget ) {
@@ -917,7 +934,6 @@ class Directorist_Single_Listing {
 					return $widget;
 				}
 			}
-
 
 		}
 

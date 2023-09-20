@@ -4958,7 +4958,8 @@ body.stop-scrolling {
   height: 5px;
 }
 
-#custom-filedropbox {
+#custom-filedropbox,
+.directorist-custom-field-file-upload__wrapper > div {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -5020,6 +5021,12 @@ body.stop-scrolling {
   font-weight: 400;
   color: var(--directorist-color-body);
 }
+@media (max-width: 575px) {
+  .plupload-upload-uic {
+    width: 100%;
+    height: 200px;
+  }
+}
 
 .plupload-thumbs {
   clear: both;
@@ -5042,6 +5049,12 @@ body.stop-scrolling {
 .plupload-thumbs .thumb:hover .atbdp-thumb-actions::before {
   opacity: 1;
   visibility: visible;
+}
+@media (max-width: 575px) {
+  .plupload-thumbs .thumb {
+    width: 100%;
+    height: 200px;
+  }
 }
 .plupload-thumbs .atbdp-thumb-actions {
   position: absolute;
@@ -9774,10 +9787,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 /* All listing archive page styles */
 .directorist-archive-contents .directorist-archive-items .directorist-pagination {
   margin-top: 35px;
+}
+.directorist-archive-contents .listing-with-sidebar .directorist-pagination {
   -webkit-box-pack: end;
-  -webkit-justify-content: end;
+  -webkit-justify-content: flex-end;
       -ms-flex-pack: end;
-          justify-content: end;
+          justify-content: flex-end;
 }
 .directorist-archive-contents .gm-style-iw-t {
   bottom: 48px !important;

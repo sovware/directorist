@@ -3,7 +3,9 @@
 
 	.directorist-archive-items .directorist-pagination {
 		margin-top: 35px;
-		justify-content: end;
+	}
+	.listing-with-sidebar .directorist-pagination {
+		justify-content: flex-end;
 	}
 	.gm-style-iw-t {
 		bottom: 48px !important;

@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.3
 Requires PHP: 7.0
-Stable tag: 7.7.1
+Stable tag: 7.7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -409,6 +409,10 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.7.2 - Sep 12, 2023
+
+* Fix - Security issue Appsero client
 
 7.7.1 - Sep 06, 2023
 

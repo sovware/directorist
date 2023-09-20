@@ -588,18 +588,20 @@ import { directorist_range_slider } from './range-slider';
         $('body').on('click', '.directorist-modal-btn', function (e) {
             e.preventDefault();
 
+            var parentElement = this.closest('.directorist-contents-wrap');
+
             if(this.classList.contains('directorist-modal-btn--basic')) {
-                var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--basic');
+                var searchModalElement = parentElement.querySelector('.directorist-search-modal--basic');
 
                 searchModalOpen(searchModalElement)
             }
             if(this.classList.contains('directorist-modal-btn--advanced')) {
-                var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
+                var searchModalElement = parentElement.querySelector('.directorist-search-modal--advanced');
 
                 searchModalOpen(searchModalElement)
             }
             if(this.classList.contains('directorist-modal-btn--full')) {
-                var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--full');
+                var searchModalElement = parentElement.querySelector('.directorist-search-modal--full');
 
                 searchModalOpen(searchModalElement)
             }
@@ -625,7 +627,7 @@ import { directorist_range_slider } from './range-slider';
         });
 
         // Basic Modal Input Field Check
-        $('body').on('input keyup', '.directorist-search-modal--basic .directorist-search-modal__input', function(e) {
+        $('body').on('input keyup change', '.directorist-search-modal--basic .directorist-search-modal__input', function(e) {
             var inputBox = this.querySelector('input, select');
             
             if (inputBox.value !='') {

@@ -25,6 +25,38 @@
 
 /* Directory type nav */
 .directorist-type-nav {
+	@include e(link) {
+		position: relative;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		font-size: 15px;
+		font-weight: 500;
+		text-decoration: none;
+		white-space: nowrap;
+		padding: 0 0 8px;
+		border-bottom: 2px solid transparent;
+		color: var(--directorist-color-body);
+		&:hover {
+			color: var(--directorist-color-primary);
+			.directorist-icon-mask::after {
+				background-color: var(--directorist-color-primary);
+			}
+		}
+		&:focus {
+			background-color: transparent;
+		}
+		.directorist-icon-mask{
+			display: inline-block;
+			margin: 0 0 7px;
+			&::after{
+				width: 20px;
+				height: 20px;
+				background-color: var(--directorist-color-body);
+			}
+		}
+	}
+
 	@include e(list) {
 		display: flex;
 		justify-content: center;
@@ -61,7 +93,6 @@
 
 		@include e(current) {
 			.directorist-type-nav__link {
-				font-weight: 600;
 				color: var(--directorist-color-primary);
 				border-color: var(--directorist-color-primary);
 			}
@@ -70,35 +101,6 @@
 			}
 		}
 
-	}
-
-	@include e(link) {
-		position: relative;
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-		font-size: 15px;
-		font-weight: 500;
-		text-decoration: none;
-		white-space: nowrap;
-		padding: 0 0 8px;
-		border-bottom: 2px solid transparent;
-		color: var(--directorist-color-body);
-		&:hover {
-			color: var(--directorist-color-primary);
-		}
-		&:focus {
-			background-color: transparent;
-		}
-		.directorist-icon-mask{
-			display: inline-block;
-			margin: 0 0 7px;
-			&::after{
-				width: 20px;
-				height: 20px;
-				background-color: var(--directorist-color-body);
-			}
-		}
 	}
 }
 
@@ -398,7 +400,9 @@
 			width: 100%;
 			height: 46px;
 			line-height: 46px;
+			padding: 0 32px;
 			text-align: center;
+			text-transform: none;
 			text-decoration: none;
 			background-color: var(--directorist-color-light);
 		}

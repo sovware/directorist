@@ -9,7 +9,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   vertical-align: middle;
   text-transform: capitalize;
@@ -21,14 +21,15 @@
   line-height: 1.5;
   border-radius: 10px;
   border: 1px solid transparent;
-  text-decoration: none;
   box-sizing: border-box;
+  text-decoration: none;
   color: var(--directorist-color-primary);
   transition: all ease 0.3s;
   &.directorist-btn--add-listing,
   &.directorist-btn--logout {
       line-height: 43px;
   }
+  &:hover,
   &:focus {
     outline: 0 !important;
     text-decoration: none !important;

@@ -81,6 +81,9 @@
         .directorist-search-modal__input__btn {
           display: none;
         }
+        .directorist-select2-dropdown-close {
+          display: block;
+        }
         .directorist-form-group .directorist-form-element:focus {
           border-bottom: 2px solid var(--directorist-color-primary);
         }

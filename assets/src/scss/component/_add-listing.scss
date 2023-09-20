@@ -24,7 +24,7 @@
       padding: 40px 25px;
       border-radius: 16px;
       box-shadow: var(--directorist-box-shadow);
-      transition: background 0.3s ease-out;
+      transition: background 0.2s ease;
       .directorist-icon-mask {
         display: flex;
         align-items: center;
@@ -34,7 +34,7 @@
         background-color: var(--directorist-color-primary);
         border-radius: 100%;
         margin-bottom: 20px;
-        transition: color 0.3s ease-out;
+        transition: color 0.2s ease, background 0.2s ease;
         &:after {
           width: 23px;
           height: 23px;

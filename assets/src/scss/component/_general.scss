@@ -6,7 +6,7 @@
     border: 0 none;
     width: 140px;
     transition: 0.3s ease;
-    border-radius: 3px;
+    border-radius: 8px;
     cursor: pointer;
     &:hover {
       color: #fff;
@@ -51,6 +51,7 @@
   }
   .wp-picker-open + .wp-picker-input-wrap {
     display: block;
+    margin-bottom: 10px;
   }
   .wp-picker-container .wp-picker-input-wrap {
     padding: 15px 0;
@@ -199,7 +200,7 @@ button[type="submit"] {
       display: flex;
       gap: 5px;
       height: auto;
-      line-height: 1;
+      line-height: 30px;
       font-size: 14px;
       overflow-y: auto;
       align-items: center;
@@ -242,7 +243,6 @@ button[type="submit"] {
     position: absolute;
     right: 0;
     padding: 0;
-    width: auto;
     pointer-events: none;
   }
   .directorist-select2-dropdown-close {

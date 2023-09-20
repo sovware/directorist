@@ -211,6 +211,15 @@
                     padding: 15px 30px;
                 }
             }
+            .directorist-advanced-filter__action .directorist-btn {
+                font-size: 15px;
+            }
+            .directorist-btn-reset-js { 
+                order: -1;
+                padding: 0;
+                text-transform: none;
+                background-color: transparent;
+            }
         }
         @include e(title) {
             font-size: 20px;
@@ -250,10 +259,6 @@
                     height: 12px;
                 }
             }
-        }
-
-        .select2-container--default .select2-selection--single .select2-selection__placeholder {
-            line-height: 40px;
         }
     }
     .directorist-advanced-filter {
@@ -385,9 +390,6 @@
             label {
                 display: none;
             }
-        }
-        .directorist-select2-dropdown-close {
-            display: none;
         }
         .select2.select2-container .select2-selection,
         .directorist-form-group .directorist-form-element,

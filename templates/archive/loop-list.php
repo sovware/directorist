@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -25,7 +25,10 @@ $loop_fields = $listings->loop['list_fields']['template_data']['list_view_with_t
 				<div class="directorist-listing-single__info--right"><?php $listings->render_loop_fields($loop_fields['body']['right']); ?></div>
 			</div>
 			<div class="directorist-listing-single__info--list"><ul><?php $listings->render_loop_fields($loop_fields['body']['bottom'], '<li>', '</li>'); ?></ul></div>
-			<div class="directorist-listing-single__info--excerpt"><?php $listings->render_loop_fields($loop_fields['body']['excerpt']); ?></div>
+			
+			<?php if ( ! empty( $listings->render_loop_fields( $loop_fields['body']['excerpt'] ) ) ) : ?>
+				<div class="directorist-listing-single__info--excerpt"><?php $listings->render_loop_fields( $loop_fields['body']['excerpt'] ); ?></div>
+			<?php endif; ?>	
 		</div>
 
 		<div class="directorist-listing-single__meta">

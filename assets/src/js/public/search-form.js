@@ -17,7 +17,7 @@ import { directorist_range_slider } from './range-slider';
         function defaultTags() {
             $('.directorist-btn-ml').each((index, element) => {
                 let item = $(element).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
-                var item_checkbox = $(item).find('.directorist-checkbox');
+                let item_checkbox = $(item).find('.directorist-checkbox');
                 $(item_checkbox).slice(4, item_checkbox.length).fadeOut();
                 if(item_checkbox.length <= 4){
                     $(element).css('display', 'none');
@@ -29,8 +29,8 @@ import { directorist_range_slider } from './range-slider';
 
         $('body').on('click', '.directorist-btn-ml', function (event) {
             event.preventDefault();
-            var item = $(this).siblings('.directorist-search-tags');
-            var item_checkbox = $(item).find('.directorist-checkbox');
+            let item = $(this).siblings('.directorist-search-tags');
+            let item_checkbox = $(item).find('.directorist-checkbox');
             $(item_checkbox).slice(4, item_checkbox.length).fadeOut();
 
             $(this).toggleClass('active');
@@ -100,7 +100,7 @@ import { directorist_range_slider } from './range-slider';
             }
             handleRadiusVisibility();
 
-            var searchModalElement = document.querySelectorAll('.directorist-search-modal');
+            let searchModalElement = document.querySelectorAll('.directorist-search-modal');
             searchModalElement.forEach((searchModal)=>{
                 searchModalClose(searchModal);
             })
@@ -216,12 +216,12 @@ import { directorist_range_slider } from './range-slider';
 
         if( $( '.directorist-search-contents' ).length ) {
             $('body').on('change', '.directorist-category-select', function (event) {
-                var $this            = $(this);
-                var $container       = $this.parents('form');
-                var cat_id           = $this.val();
-                var directory_type   = $container.find('.listing_type').val();
-                var $search_form_box = $container.find('.directorist-search-form-box-wrap');
-                var form_data        = new FormData();
+                let $this            = $(this);
+                let $container       = $this.parents('form');
+                let cat_id           = $this.val();
+                let directory_type   = $container.find('.listing_type').val();
+                let $search_form_box = $container.find('.directorist-search-form-box-wrap');
+                let form_data        = new FormData();
 
                 form_data.append('action', 'directorist_category_custom_field_search');
                 form_data.append('nonce', directorist.directorist_nonce);
@@ -267,10 +267,10 @@ import { directorist_range_slider } from './range-slider';
 
         // Check Empty Search Fields on Search Modal
         function checkEmptySearchFields(){
-            var inputFields = document.querySelectorAll('.directorist-search-modal__input');
+            let inputFields = document.querySelectorAll('.directorist-search-modal__input');
         
             inputFields.forEach((inputField)=>{
-                var searchField = inputField.querySelector('.directorist-search-field');
+                let searchField = inputField.querySelector('.directorist-search-field');
                 if(!searchField){
                     inputField.style.display = 'none';
                 }
@@ -288,7 +288,7 @@ import { directorist_range_slider } from './range-slider';
 
         $('body').on('click', '.directorist-country ul li a', function (event) {
             event.preventDefault();
-            var zipcode_search  = $(this).closest('.directorist-zipcode-search');
+            let zipcode_search  = $(this).closest('.directorist-zipcode-search');
 
             const lat = $(this).data('lat');
             const lon = $(this).data('lon');
@@ -331,7 +331,7 @@ import { directorist_range_slider } from './range-slider';
                         },
                     ];
 
-                    var setupAutocomplete = function (field) {
+                    let setupAutocomplete = function (field) {
                         const input = document.querySelectorAll(field.input_class);
                         input.forEach(elm => {
                             if (!elm) {
@@ -424,25 +424,25 @@ import { directorist_range_slider } from './range-slider';
                                 success: function success(data) {
                                     let res = '';
 
-                                    var currentIconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/paper-plane.svg';
-                                    var currentIconHTML = directorist.icon_markup.replace('##URL##', currentIconURL).replace('##CLASS##', '');
-                                    var currentLocationIconHTML = "<span class='location-icon'>" + currentIconHTML + "</span>";
-                                    var currentLocationAddressHTML = "<span class='location-address'></span>";
+                                    let currentIconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/paper-plane.svg';
+                                    let currentIconHTML = directorist.icon_markup.replace('##URL##', currentIconURL).replace('##CLASS##', '');
+                                    let currentLocationIconHTML = "<span class='location-icon'>" + currentIconHTML + "</span>";
+                                    let currentLocationAddressHTML = "<span class='location-address'></span>";
 
-                                    var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/map-marker-alt.svg';
-                                    var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
-                                    var locationIconHTML = "<span class='location-icon'>"+ iconHTML +"</span>";
+                                    let iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/map-marker-alt.svg';
+                                    let iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+                                    let locationIconHTML = "<span class='location-icon'>"+ iconHTML +"</span>";
 
                                     for (let i = 0, len = data.length; i < len; i++) {
                                         res += "<li><a href=\"#\" data-lat=" + data[i].lat +" data-lon=" + data[i].lon + ">" + locationIconHTML + "<span class='location-address'>" + data[i].display_name, + "</span></a></li>";
                                     }
 
                                     function displayLocation(position, event) {
-                                        var lat = position.coords.latitude;
-                                        var lng = position.coords.longitude;
+                                        let lat = position.coords.latitude;
+                                        let lng = position.coords.longitude;
                                         $.ajax({
-                                          url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
-                                          type: 'POST',
+                                          url: "https://nominatim.openstreetmap.org/reverse?format=json&lon="+lng+"&lat="+lat,
+                                          type: 'GET',
                                           data: {},
                                           success: function success(data) {
                                             $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
@@ -712,14 +712,14 @@ import { directorist_range_slider } from './range-slider';
         // N milliseconds. If `immediate` is passed, trigger the function on the
         // leading edge, instead of the trailing.
         function directorist_debounce(func, wait, immediate) {
-            var timeout;
+            let timeout;
             return function() {
-                var context = this, args = arguments;
-                var later = function() {
+                let context = this, args = arguments;
+                let later = function() {
                     timeout = null;
                     if (!immediate) func.apply(context, args);
                 };
-                var callNow = immediate && !timeout;
+                let callNow = immediate && !timeout;
                 clearTimeout(timeout);
                 timeout = setTimeout(later, wait);
                 if (callNow) func.apply(context, args);
@@ -727,9 +727,9 @@ import { directorist_range_slider } from './range-slider';
         };
 
         $('body').on("keyup", '.zip-radius-search', directorist_debounce( function(){
-            var zipcode         = $(this).val();
-            var zipcode_search  = $(this).closest('.directorist-zipcode-search');
-            var country_suggest = zipcode_search.find('.directorist-country');
+            let zipcode         = $(this).val();
+            let zipcode_search  = $(this).closest('.directorist-zipcode-search');
+            let country_suggest = zipcode_search.find('.directorist-country');
 
             $('.directorist-country').css({
                 display: 'block'
@@ -747,8 +747,8 @@ import { directorist_range_slider } from './range-slider';
                 data: {},
                 success: function( data ) {
                     if( data.length === 1 ) {
-                        var lat = data[0].lat;
-                        var lon = data[0].lon;
+                        let lat = data[0].lat;
+                        let lon = data[0].lon;
                         zipcode_search.find('.zip-cityLat').val(lat);
                         zipcode_search.find('.zip-cityLng').val(lon);
                     } else {

@@ -6248,6 +6248,7 @@ button[type=submit] {
   position: absolute;
   left: 0;
   padding: 0;
+  width: auto;
   pointer-events: none;
 }
 .select2-container .directorist-select2-addons-area .directorist-select2-dropdown-close {
@@ -11221,6 +11222,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
             flex: 44%;
   }
 }
+.directorist-search-form__top .directorist-select2-dropdown-close {
+  display: none;
+}
 .directorist-search-form__top .directorist-select,
 .directorist-search-form__top .directorist-search-category {
   width: calc(100% + 15px);
@@ -11795,6 +11799,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-field .directorist-location-js + .address_result ul a .location-icon i:after {
   width: 16px;
   height: 16px;
+}
+.directorist-search-field .directorist-location-js + .address_result ul a .location-address {
+  position: relative;
+  top: 5px;
 }
 .directorist-search-field .directorist-location-js + .address_result ul a.current-location {
   height: 50px;
@@ -17426,7 +17434,7 @@ Review: New Style
 .directorist-favourite-items-wrap .directorist-favourirte-items {
   background-color: #fff;
   padding: 20px 10px;
-  border-radius: 4px;
+  border-radius: 16px;
 }
 .directorist-favourite-items-wrap .directorist-dashboard-items-list {
   font-size: 15px;
@@ -17539,7 +17547,7 @@ Review: New Style
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 0px 14px;
   color: #fff !important;
   line-height: 2.65;
@@ -17581,7 +17589,7 @@ Review: New Style
 .directorist-user-dashboard__toggle__link {
   border: 1px solid #e3e6ef;
   padding: 6.5px 8px 6.5px;
-  border-radius: 4px;
+  border-radius: 8px;
   display: inline-block;
   outline: 0;
   background: #fff;
@@ -17659,11 +17667,11 @@ Review: New Style
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  background-color: #fff;
-  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-          box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-  border-radius: 4px;
   padding: 0 20px;
+  border-radius: 16px;
+  background-color: #fff;
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
 }
 @media screen and (max-width: 480px) {
   .directorist-user-dashboard-tab__nav {
@@ -17732,7 +17740,7 @@ Review: New Style
 }
 .directorist-user-dashboard-tab .directorist-user-dashboard-search {
   position: relative;
-  border-radius: 18px;
+  border-radius: 16px;
   margin: 16px 16px 16px 0;
 }
 .directorist-user-dashboard-tab .directorist-user-dashboard-search__icon {
@@ -17746,6 +17754,10 @@ Review: New Style
 .directorist-user-dashboard-tab .directorist-user-dashboard-search__icon i,
 .directorist-user-dashboard-tab .directorist-user-dashboard-search__icon span {
   font-size: 16px;
+}
+.directorist-user-dashboard-tab .directorist-user-dashboard-search__icon .directorist-icon-mask::after {
+  width: 16px;
+  height: 16px;
 }
 .directorist-user-dashboard-tab .directorist-user-dashboard-search input {
   border: 0 none;
@@ -17771,14 +17783,14 @@ Review: New Style
 }
 
 .directorist-user-dashboard-tabcontent {
-  background-color: #fff;
-  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-          box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-  border-radius: 4px;
+  background-color: var(--directorist-color-white);
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
+  border-radius: 16px;
   margin-top: 15px;
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table {
-  border-radius: 6px;
+  border-radius: 12px;
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-table {
   display: table;
@@ -18001,6 +18013,10 @@ Review: New Style
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-actions a.directorist-link-btn i span {
   background-color: #2c99ff;
 }
+.directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-actions a.directorist-link-btn .directorist-icon-mask::after {
+  width: 16px;
+  height: 16px;
+}
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-actions .directorist-btn-more {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -18159,10 +18175,10 @@ Review: New Style
   margin: 4px;
   padding: 0;
   line-height: normal;
-  height: 36px;
-  min-height: 36px;
-  width: 36px;
-  min-width: 36px;
+  height: 40px;
+  min-height: 40px;
+  width: 40px;
+  min-width: 40px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -18175,12 +18191,12 @@ Review: New Style
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  border: 1px solid #e1e4ec;
-  border-radius: 6px;
-  background: #fff;
+  border: 2px solid var(--directorist-color-border);
+  border-radius: 10px;
+  background: var(--directorist-color-white);
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  color: #7a82a6;
+  color: var(--directorist-color-body);
   text-align: center;
   margin: 4px;
   left: auto;
@@ -18188,14 +18204,14 @@ Review: New Style
   font-size: 15px;
   text-decoration: none;
 }
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .page-numbers.current {
-  background-color: #fff !important;
-  color: #0a0b1e;
-  border: 0 none;
+.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .page-numbers:hover, .directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .page-numbers.current {
+  border-color: var(--directorist-color-primary);
+  color: var(--directorist-color-primary);
 }
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .page-numbers i.la,
-.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .page-numbers svg {
-  color: #0a0b1e;
+.directorist-user-dashboard-tabcontent .directorist-dashboard-pagination .page-numbers .directorist-icon-mask:after {
+  width: 14px;
+  height: 14px;
+  background-color: var(--directorist-color-body);
 }
 
 .directorist-user-dashboard__contents.directorist-tab-content-grid-fix .directorist-user-dashboard-tabcontent .directorist-listing-table tr th.directorist-table-listing {
@@ -18403,7 +18419,7 @@ Review: New Style
   text-decoration: none;
   font-size: 14px;
   padding: 8px 15px;
-  border-radius: 4px;
+  border-radius: 8px;
   display: inline-block;
 }
 
@@ -18415,11 +18431,11 @@ Review: New Style
   transition: 0.3s ease;
   position: relative;
   right: 0;
-  border-radius: 4px;
+  border-radius: 16px;
   overflow: hidden;
   background-color: #fff;
-  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-          box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
   /* user dashboard sidebar nav action */
 }
 @media only screen and (max-width: 1199px) {
@@ -18493,7 +18509,7 @@ Review: New Style
 }
 .directorist-user-dashboard__nav .directorist-tab__nav__link {
   font-size: 14px;
-  border-radius: 4px;
+  border-radius: 10px;
   padding: 10px;
   outline: 0;
   display: -webkit-box;
@@ -18567,11 +18583,11 @@ Review: New Style
 .directorist-image-profile-wrap {
   padding: 25px;
   background-color: #fff;
-  border-radius: 4px;
+  border-radius: 16px;
   border: 1px solid #ececec;
 }
 .directorist-image-profile-wrap .ezmu__upload-button-wrap .ezmu__btn {
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 10.5px 30px;
   background-color: #F6F7F9;
   -webkit-box-shadow: 0 0;
@@ -18579,6 +18595,16 @@ Review: New Style
   font-size: 14px;
   font-weight: 500;
   color: var(--directorist-color-primary);
+}
+.directorist-image-profile-wrap .directorist-profile-uploader {
+  border-radius: 16px;
+}
+.directorist-image-profile-wrap .directorist-profile-uploader .ezmu__front-item__close-icon {
+  background-image: none;
+}
+.directorist-image-profile-wrap .directorist-profile-uploader .ezmu__front-item__close-icon .directorist-icon-mask::after {
+  width: 16px;
+  height: 16px;
 }
 
 .directorist-user-profile-box .directorist-card__header {
@@ -18651,7 +18677,7 @@ Review: New Style
 
 .directorist-announcement-wrapper {
   background-color: #fff;
-  border-radius: 4px;
+  border-radius: 16px;
   padding: 25px 20px;
   -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);

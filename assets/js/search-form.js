@@ -1390,8 +1390,8 @@ __webpack_require__.r(__webpack_exports__);
                     var lat = position.coords.latitude;
                     var lng = position.coords.longitude;
                     $.ajax({
-                      url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
-                      type: 'POST',
+                      url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=" + lng + "&lat=" + lat,
+                      type: 'GET',
                       data: {},
                       success: function success(data) {
                         $('.directorist-location-js, .atbdp-search-address').val(data.display_name);

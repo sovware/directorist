@@ -143,6 +143,9 @@
         flex: 44%;
       }
     }
+    .directorist-select2-dropdown-close {
+      display: none;
+    }
 
     .directorist-select,
     .directorist-search-category {
@@ -591,6 +594,10 @@
           width: 16px;
           height: 16px;
         }
+      }
+      .location-address {
+        position: relative;
+        top: 5px;
       }
       &.current-location {
         height: 50px;

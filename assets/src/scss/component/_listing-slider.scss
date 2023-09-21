@@ -175,9 +175,8 @@
         }
       }
   }
-  &.slider-has-less-items,
   &.slider-has-less-items {
-    .directorist-swiper__navigation {
+    > .directorist-swiper__navigation {
       display: none;
     }
   }

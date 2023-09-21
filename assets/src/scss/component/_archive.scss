@@ -189,12 +189,10 @@
 }
 
 .directorist-viewas {
-	@include e(wrap) {
-		display: flex;
-		align-items: center;
-		flex-wrap: wrap;
-		gap: 8px;
-	}
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
 	@include e(item) {
 		display: flex;
 		justify-content: center;

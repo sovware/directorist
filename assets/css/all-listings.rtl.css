@@ -6038,7 +6038,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   font-size: 14px;
   text-transform: capitalize;
   background: #f7f7f7;
-  color: #222;
+  color: var(--directorist-color-body);
 }
 .directorist-form-group .wp-picker-container .wp-picker-input-wrap label {
   width: 90px;
@@ -7261,7 +7261,7 @@ p.atbd-min {
   width: 14px;
   height: 14px;
 }
-.directorist-swiper-related.slider-has-less-items .directorist-swiper__navigation, .directorist-swiper-related.slider-has-less-items .directorist-swiper__navigation {
+.directorist-swiper-related.slider-has-less-items > .directorist-swiper__navigation {
   display: none;
 }
 
@@ -10032,7 +10032,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 15px 0;
 }
 
-.directorist-viewas__wrap {
+.directorist-viewas {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

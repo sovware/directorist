@@ -11803,17 +11803,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: transparent;
 }
 @media only screen and (max-width: 575px) {
-  .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label, .directorist-checkbox input[type=checkbox] + .directorist-radio__label,
-.directorist-checkbox input[type=radio] + .directorist-checkbox__label,
-.directorist-checkbox input[type=radio] + .directorist-radio__label,
-.directorist-radio input[type=checkbox] + .directorist-checkbox__label,
-.directorist-radio input[type=checkbox] + .directorist-radio__label,
-.directorist-radio input[type=radio] + .directorist-checkbox__label,
-.directorist-radio input[type=radio] + .directorist-radio__label {
-    width: 100%;
-    font-weight: 400;
-    padding: 0 0 0 30px;
-  }
   .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox] + .directorist-radio__label:after,
 .directorist-checkbox input[type=radio] + .directorist-checkbox__label:after,
 .directorist-checkbox input[type=radio] + .directorist-radio__label:after,
@@ -11821,8 +11810,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-radio input[type=checkbox] + .directorist-radio__label:after,
 .directorist-radio input[type=radio] + .directorist-checkbox__label:after,
 .directorist-radio input[type=radio] + .directorist-radio__label:after {
-    right: unset;
-    left: 0;
     top: 1px;
     width: 16px;
     height: 16px;
@@ -11869,9 +11856,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media only screen and (max-width: 575px) {
   .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
-    right: unset;
     top: 4px;
-    left: 3px;
+    right: 3px;
   }
 }
 
@@ -11893,9 +11879,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media only screen and (max-width: 575px) {
   .directorist-radio input[type=radio] + .directorist-radio__label:before {
-    right: unset;
+    right: 3px;
     top: 4px;
-    left: 3px;
   }
 }
 .directorist-radio input[type=radio]:checked + .directorist-radio__label:after {

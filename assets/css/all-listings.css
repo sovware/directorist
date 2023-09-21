@@ -8813,17 +8813,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: transparent;
 }
 @media only screen and (max-width: 575px) {
-  .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label, .directorist-checkbox input[type=checkbox] + .directorist-radio__label,
-.directorist-checkbox input[type=radio] + .directorist-checkbox__label,
-.directorist-checkbox input[type=radio] + .directorist-radio__label,
-.directorist-radio input[type=checkbox] + .directorist-checkbox__label,
-.directorist-radio input[type=checkbox] + .directorist-radio__label,
-.directorist-radio input[type=radio] + .directorist-checkbox__label,
-.directorist-radio input[type=radio] + .directorist-radio__label {
-    width: 100%;
-    font-weight: 400;
-    padding: 0 30px 0 0;
-  }
   .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox] + .directorist-radio__label:after,
 .directorist-checkbox input[type=radio] + .directorist-checkbox__label:after,
 .directorist-checkbox input[type=radio] + .directorist-radio__label:after,
@@ -8831,8 +8820,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-radio input[type=checkbox] + .directorist-radio__label:after,
 .directorist-radio input[type=radio] + .directorist-checkbox__label:after,
 .directorist-radio input[type=radio] + .directorist-radio__label:after {
-    left: unset;
-    right: 0;
     top: 1px;
     width: 16px;
     height: 16px;
@@ -8879,9 +8866,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media only screen and (max-width: 575px) {
   .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
-    left: unset;
     top: 4px;
-    right: 3px;
+    left: 3px;
   }
 }
 
@@ -8903,9 +8889,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media only screen and (max-width: 575px) {
   .directorist-radio input[type=radio] + .directorist-radio__label:before {
-    left: unset;
+    left: 3px;
     top: 4px;
-    right: 3px;
   }
 }
 .directorist-radio input[type=radio]:checked + .directorist-radio__label:after {
@@ -10662,12 +10647,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-decoration: none;
 }
 .directorist-advanced-filter__action .directorist-btn {
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 500;
   border-radius: 10px;
   padding: 0 32px;
   height: 46px;
   letter-spacing: 0;
-  font-weight: 400;
 }
 @media only screen and (max-width: 375px) {
   .directorist-advanced-filter__action .directorist-btn {

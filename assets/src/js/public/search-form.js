@@ -544,8 +544,8 @@ import { directorist_range_slider } from './range-slider';
 
         // Search Modal Open
         function searchModalOpen(searchModalParent) {
-            var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
-            var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
+            let modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
+            let modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
 
             // Overlay Style
             modalOverlay.style.cssText = "opacity: 1; visibility: visible; transition: 0.3s ease;";
@@ -556,8 +556,8 @@ import { directorist_range_slider } from './range-slider';
 
         // Search Modal Close
         function searchModalClose(searchModalParent) {
-            var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
-            var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
+            let modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
+            let modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
 
             // Overlay Style
             if(modalOverlay) {
@@ -572,8 +572,8 @@ import { directorist_range_slider } from './range-slider';
 
         // Modal Minimizer
         function searchModalMinimize(searchModalParent) {
-            var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
-            var modalMinimizer = searchModalParent.querySelector('.directorist-search-modal__minimizer');
+            let modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
+            let modalMinimizer = searchModalParent.querySelector('.directorist-search-modal__minimizer');
 
             if(modalMinimizer.classList.contains('minimized')) {
                 modalMinimizer.classList.remove('minimized');
@@ -588,20 +588,20 @@ import { directorist_range_slider } from './range-slider';
         $('body').on('click', '.directorist-modal-btn', function (e) {
             e.preventDefault();
 
-            var parentElement = this.closest('.directorist-contents-wrap');
+            let parentElement = this.closest('.directorist-contents-wrap');
 
             if(this.classList.contains('directorist-modal-btn--basic')) {
-                var searchModalElement = parentElement.querySelector('.directorist-search-modal--basic');
+                let searchModalElement = parentElement.querySelector('.directorist-search-modal--basic');
 
                 searchModalOpen(searchModalElement)
             }
             if(this.classList.contains('directorist-modal-btn--advanced')) {
-                var searchModalElement = parentElement.querySelector('.directorist-search-modal--advanced');
+                let searchModalElement = parentElement.querySelector('.directorist-search-modal--advanced');
 
                 searchModalOpen(searchModalElement)
             }
             if(this.classList.contains('directorist-modal-btn--full')) {
-                var searchModalElement = parentElement.querySelector('.directorist-search-modal--full');
+                let searchModalElement = parentElement.querySelector('.directorist-search-modal--full');
 
                 searchModalOpen(searchModalElement)
             }
@@ -612,7 +612,7 @@ import { directorist_range_slider } from './range-slider';
         $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
             e.preventDefault();
 
-            var searchModalElement = this.closest('.directorist-search-modal');
+            let searchModalElement = this.closest('.directorist-search-modal');
 
             searchModalClose(searchModalElement)
         });
@@ -621,14 +621,14 @@ import { directorist_range_slider } from './range-slider';
         $('body').on('click', '.directorist-search-modal__minimizer', function (e) {
             e.preventDefault();
 
-            var searchModalElement = this.closest('.directorist-search-modal');
+            let searchModalElement = this.closest('.directorist-search-modal');
 
             searchModalMinimize(searchModalElement)
         });
 
         // Basic Modal Input Field Check
         $('body').on('input keyup change', '.directorist-search-modal--basic .directorist-search-modal__input', function(e) {
-            var inputBox = this.querySelector('input, select');
+            let inputBox = this.querySelector('input, select');
             
             if (inputBox.value !='') {
                 this.classList.add('input-has-value');
@@ -641,10 +641,10 @@ import { directorist_range_slider } from './range-slider';
 
         // Search Modal Input Clear Button
         $('body').on('click', '.directorist-search-modal__input__btn--clear', function(e) {
-            var inputFields = this.parentElement.querySelectorAll('.directorist-search-field .directorist-form-element');
-            var selectboxField = this.parentElement.querySelector('.directorist-search-field .directorist-select select');
-            var radioFields = this.parentElement.querySelectorAll('.directorist-search-field input[type="radio"]');
-            var checkboxFields = this.parentElement.querySelectorAll('.directorist-search-field input[type="checkbox"]');
+            let inputFields = this.parentElement.querySelectorAll('.directorist-search-field .directorist-form-element');
+            let selectboxField = this.parentElement.querySelector('.directorist-search-field .directorist-select select');
+            let radioFields = this.parentElement.querySelectorAll('.directorist-search-field input[type="radio"]');
+            let checkboxFields = this.parentElement.querySelectorAll('.directorist-search-field input[type="checkbox"]');
 
             if (selectboxField) {
                 selectboxField.selectedIndex = -1;

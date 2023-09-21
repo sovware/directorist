@@ -11108,6 +11108,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     -webkit-box-shadow: unset;
             box-shadow: unset;
   }
+  .directorist-search-form__box .directorist-search-form-action {
+    display: none;
+  }
 }
 .directorist-search-form__top {
   display: -webkit-box;

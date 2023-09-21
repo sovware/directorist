@@ -1524,13 +1524,15 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (this.classList.contains('directorist-modal-btn--advanced')) {
-        var searchModalElement = parentElement.querySelector('.directorist-search-modal--advanced');
-        searchModalOpen(searchModalElement);
+        var _searchModalElement = parentElement.querySelector('.directorist-search-modal--advanced');
+
+        searchModalOpen(_searchModalElement);
       }
 
       if (this.classList.contains('directorist-modal-btn--full')) {
-        var searchModalElement = parentElement.querySelector('.directorist-search-modal--full');
-        searchModalOpen(searchModalElement);
+        var _searchModalElement2 = parentElement.querySelector('.directorist-search-modal--full');
+
+        searchModalOpen(_searchModalElement2);
       }
     }); // Search Modal Close
 

@@ -54,7 +54,6 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                 $counter = 1;
                                 foreach ( $form_data as $section ) {
                                     echo '<div class="multistep-wizard__single" id="add-listing-content-'. esc_attr( $counter ) . '">';
-                                    echo '<div class="multistep-wizard__single" id="add-listing-content-'. esc_attr( $counter ) . '">';
                                         $listing_form->section_template( $section );
                                     echo '</div>';
                                     $counter++; 

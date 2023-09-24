@@ -18451,6 +18451,7 @@ Review: New Style
   right: 0;
   border-radius: 16px;
   overflow: hidden;
+  overflow-y: auto;
   background-color: #fff;
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);

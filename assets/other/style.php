@@ -53,7 +53,7 @@ $open_badge_color                 = get_directorist_option('open_back_color', '#
 $closed_badge_color               = get_directorist_option('closed_back_color', '#e23636');
 $featured_badge_color             = get_directorist_option('featured_back_color', '#fa8b0c');
 $popular_badge_color              = get_directorist_option('popular_back_color', '#f51957');
-$new_badge_color                  = get_directorist_option('new_back_color', '#122069');
+$new_badge_color                  = get_directorist_option('new_back_color', '#2C99FF');
 
 $primary_dark_border_color        = get_directorist_option('primary_dark_border_color', '#000000');
 

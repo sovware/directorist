@@ -1,7 +1,12 @@
 <template>
     <div class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap">
-        <div class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap">
-            {{ label }}
+        <div class="cptm-widget-card cptm-widget-thumb cptm-has-widget-control cptm-widget-actions-tools-wrap">
+            <div class="cptm-widget-thumb-icon">
+                <i class="uil uil-image-v"></i>
+            </div>
+            <div class="cptm-widget-label">
+                {{ label }}
+            </div>
             
             <widget-action-tools
                 :canEdit="canEdit"

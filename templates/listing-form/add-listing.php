@@ -54,6 +54,7 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                 $counter = 1;
                                 foreach ( $form_data as $section ) {
                                     echo '<div class="multistep-wizard__single" id="add-listing-content-'. esc_attr( $counter ) . '">';
+                                    echo '<div class="multistep-wizard__single" id="add-listing-content-'. esc_attr( $counter ) . '">';
                                         $listing_form->section_template( $section );
                                     echo '</div>';
                                     $counter++; 
@@ -82,21 +83,15 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                 <span class="multistep-wizard__count__current"></span> / <span class="multistep-wizard__count__total"></span>
                             </div>
 
-                            <a type="submit" class="directorist-btn multistep-wizard__btn multistep-wizard__btn--next">
-                                <?php 
-                                    esc_html_e( 'Save & Next', 'directorist' );
-                                    directorist_icon( 'fas fa-arrow-right' ); 
-                                ?>
-                            </a>
+                            <a type="submit" class="directorist-btn multistep-wizard__btn multistep-wizard__btn--next">Save & Next<?php directorist_icon( 'fas fa-arrow-right' ); ?></a>
 
-                            <button type="submit" class="directorist-btn directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--save-preview"><?php esc_html_e( 'Save & Preview', 'directorist' ); ?></button>
+                            <button type="submit" class="directorist-btn directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--save-preview">Save & Preview</button>
 
-                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--skip-preview"><?php esc_html_e( 'Skip preview and submit listing', 'directorist' ); ?></button>
+                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--skip-preview">Skip preview and submit listing</button>
                         </div>
-
+                        
                         <div class="default-add-listing-bottom">
-                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn"><?php esc_html_e( 'Skip Preview', 'directorist' ); ?></button>
-                            <button type="submit" class="directorist-btn directorist-form-submit__btn"><?php esc_html_e( 'Save & Preview', 'directorist'); ?></button>
+                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn">Save & Preview</button>
                         </div>
                     </div>
                 </div>

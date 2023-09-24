@@ -23,6 +23,7 @@
     "lodash": "^4.17.20",
     "node-sass": "^7.0.1",
     "vue": "^2.6.11",
+    "vue-dndrop": "^1.3.0",
     "vue-multiselect": "^2.1.6",
     "vue-native-color-picker": "^1.1.3",
     "vue-slide-up-down": "^2.0.1",

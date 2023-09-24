@@ -83,6 +83,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 		}
 
 		public function save_quick_edit_custom_box( $post_id ) {
+			file_put_contents( __DIR__ . '/data.txt', print_r( $_REQUEST, 1 ), FILE_APPEND );
 
 			if ( ! is_admin() ) {
 				return;

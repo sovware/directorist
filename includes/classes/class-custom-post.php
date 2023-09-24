@@ -96,18 +96,16 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 				return;
 			}
 
-			$directory_id   = ! empty( $_REQUEST['directory_type'] ) ? absint( wp_unslash( $_REQUEST['directory_type'] ) ) : 0;
-			$directory_term = get_term( $directory_id, ATBDP_DIRECTORY_TYPE );
+			$directory_id = ! empty( $_REQUEST['directory_type'] ) ? absint( wp_unslash( $_REQUEST['directory_type'] ) ) : 0;
 
-			if ( is_wp_error( $directory_term ) || empty( $directory_term ) ) {
+			if ( ! directorist_is_directory( $directory_id ) ) {
 				return;
 			}
 
 			$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', (bool) $directory_id );
 
 			if ( $should_update_directory_type ) {
-				update_post_meta( $listing_id, '_directory_type', $directory_id );
-				wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
+				directorist_set_listing_directory( $listing_id, $directory_id );
 			}
 		}
 

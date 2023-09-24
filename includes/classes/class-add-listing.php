@@ -135,9 +135,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				$error         = new \WP_Error();
 				$taxonomy_data = array();
-				$meta_data     = array(
-					'_directory_type' => $directory_id,
-				);
+				$meta_data     = array();
 				$listing_data  = array(
 					'post_type' => ATBDP_POST_TYPE,
 				);
@@ -277,7 +275,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 
 					self::reset_listing_taxonomy( $listing_id, $taxonomy_data );
-					self::set_listing_directory( $listing_id, $directory_id );
+					directorist_set_listing_directory( $listing_id, $directory_id );
 
 					// Clean empty meta data.
 					$deletable_meta_fields = array_keys( array_diff_key( $meta_data, $meta_input ) );
@@ -301,7 +299,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						throw new Exception( $listing_id->get_error_message() );
 					}
 
-					self::set_listing_directory( $listing_id, $directory_id );
+					directorist_set_listing_directory( $listing_id, $directory_id );
 
 					do_action( 'atbdp_listing_inserted', $listing_id ); // for sending email notification
 
@@ -409,10 +407,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					wp_set_object_terms( $listing_id, '', $taxonomy );
 				}
 			}
-		}
-
-		public static function set_listing_directory( $listing_id, $directory_id ) {
-			wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
 		}
 
 		public static function current_user_can_create() {

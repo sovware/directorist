@@ -28,7 +28,7 @@ function directorist_get_listing_form_fields( int $directory_id ) {
 	$form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
 	$_fields   = directorist_get_var( $form_data['fields'], array() );
 	$_groups   = directorist_get_var( $form_data['groups'], array() );
-	
+
 	$fields_keys = array();
 	$fields      = array();
 
@@ -125,4 +125,25 @@ function directorist_get_edit_listing_status( int $directory_id ) {
 
 function directorist_get_default_expiration( int $directory_id ) {
 	return directorist_get_directory_meta( $directory_id, 'default_expiration' );
+}
+
+function directorist_is_directory( $directory_id ) {
+	$directory = term_exists( absint( $directory_id ), ATBDP_DIRECTORY_TYPE );
+
+	return ( ! empty( $directory ) );
+}
+
+function directorist_set_listing_directory( $listing_id, $directory_id ) {
+	if ( ! directorist_is_listing_post_type( $listing_id ) ) {
+		return new WP_Error( 'invalid_listing', __( 'Invalid listing id.', 'directorist' ) );
+	}
+
+	if ( ! directorist_is_directory( $directory_id ) ) {
+		return new WP_Error( 'invalid_directory', __( 'Invalid directory id.', 'directorist' ) );
+	}
+
+	update_post_meta( $listing_id, '_directory_type', $directory_id );
+	wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
+
+	return true;
 }

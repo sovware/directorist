@@ -9,6 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="directorist-viewas">
+	<!-- Archive sidebar offcanvas toggle -->
+	<?php if( $listings->options['all_listing_layout'] != 'no_sidebar' ) : ?>
+		<a class="directorist-archive-sidebar-toggle">
+			<?php directorist_icon( 'fas fa-filter' ); ?>
+			Filter
+		</a>
+	<?php endif; ?>
 	<?php foreach ( array_unique($listings->get_view_as_link_list(), SORT_REGULAR) as $key => $value ): ?>
 
 		<a class="directorist-viewas__item directorist-viewas__item--<?php echo esc_attr( strtolower( $value['label'] ) ) ?> <?php echo esc_attr( $value['active_class'] ); ?>" href="<?php echo esc_attr( $value['link'] ); ?>">

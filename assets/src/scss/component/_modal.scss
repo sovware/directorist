@@ -218,7 +218,8 @@
                 order: -1;
                 padding: 0;
                 text-transform: none;
-                background-color: transparent;
+                border: none;
+                background: transparent;
             }
         }
         @include e(title) {

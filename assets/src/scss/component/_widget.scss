@@ -2,7 +2,7 @@
 .directorist-widget {
   margin-bottom: 25px;
   .directorist-card__header.directorist-widget__header {
-    padding: 15px 25px;
+    padding: 20px 25px;
 
     .directorist-widget__header--title {
       flex-wrap: wrap;
@@ -340,6 +340,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     &:focus {
       outline: none;
     }

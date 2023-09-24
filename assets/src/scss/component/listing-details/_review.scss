@@ -295,16 +295,16 @@ Review: New Style
         }
         .directorist-btn{
             font-size: 13px;
-            font-weight: 500;
             align-items: center;
-            padding: 0 18px;
+            padding: 0 20px;
             min-height: 40px;
+            border-radius: 8px;
             .directorist-icon-mask{
                 display: inline-block;
                 margin-right: 4px;
                 &::after{
-                    width: 12px;
-                    height: 12px;
+                    width: 13px;
+                    height: 13px;
                     background-color: var(--directorist-color-white);
                 }
             }
@@ -933,9 +933,7 @@ Review: New Style
     }
 
     .directorist-btn{
-        padding: 0 22px;
-        border-radius: 6px;
-        font-weight: 500;
+        padding: 0 20px;
     }
 }
 

@@ -210,13 +210,14 @@
                 align-items: center;
                 font-size: 14px;
                 font-weight: 500;
+                line-height: 1;
                 color: var(--directorist-color-body);
                 .directorist-icon-mask{
                     margin-right: 4px;
                 }
                 .directorist-icon-mask:after{
-                    width: 15px;
-                    height: 15px;
+                    width: 12px;
+                    height: 12px;
                 }
             }
             &.directorist-badge {
@@ -257,7 +258,7 @@
         }
         .directorist-listing-tagline {
             flex: 0 0 100%;
-            margin: 0 4px 15px 4px;
+            margin: 0 0 15px;
         }
 
         .directorist-listing-title {
@@ -552,9 +553,6 @@
 
     // Single Listing Card
     &.directorist-listing-card {
-        .directorist-listing-title {
-            margin-top: 4px;
-        }
         .directorist-listing-single__thumb {
             margin: 0;
             position: relative;

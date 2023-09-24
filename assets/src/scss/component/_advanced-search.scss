@@ -152,6 +152,7 @@
             font-weight: 500;
             color: var(--directorist-color-primary);
             text-decoration: none;
+            cursor: pointer;
         }
         .directorist-btn {
             font-size: 14px;
@@ -194,15 +195,15 @@
         }
         &:before {
             top: 3px;
-            @media only screen and (max-width: 575px) {
-                top: 1px;
-            }
         }
         &:after {
             top: -2px;
+            @media only screen and (max-width: 575px) {
+                top: 0;
+            }
         }
         @media only screen and (max-width: 575px) {
-            padding: 0;
+            padding-left: 30px;
         }
         .directorist-icon-mask{
             &:after {
@@ -294,6 +295,9 @@
                 text-align: center;
                 border-radius: 8px;
                 border: 1px solid var(--directorist-color-border);
+                &:focus {
+                    border: 2px solid var(--directorist-color-primary);
+                }
             }
         }
     }

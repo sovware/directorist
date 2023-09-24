@@ -4135,3 +4135,7 @@ function directorist_validate_youtube_vimeo_url( $url ) {
 
     return false;
 }
+
+function directorist_is_listing_post_type( int $post_id = 0 ) {
+	return ( get_post_type( $post_id ) === ATBDP_POST_TYPE );
+}

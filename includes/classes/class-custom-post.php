@@ -82,33 +82,32 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			return $post_link;
 		}
 
-		public function save_quick_edit_custom_box( $post_id ) {
-			file_put_contents( __DIR__ . '/data.txt', print_r( $_REQUEST, 1 ), FILE_APPEND );
-
-			if ( ! is_admin() ) {
+		public function save_quick_edit_custom_box( $listing_id ) {
+			if ( ! directorist_verify_nonce() || ! directorist_is_listing_post_type( $listing_id ) ) {
 				return;
 			}
 
-			if ( ! directorist_verify_nonce() ) {
+			$action = isset( $_REQUEST['action'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) : '';
+			if ( $action !== 'inline-save' ) {
 				return;
 			}
 
-			if ( get_post_type( $post_id ) !== ATBDP_POST_TYPE ) {
+			if ( ! current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_posts ) ) {
 				return;
 			}
 
-			// if our current user can't edit this post, bail
-			if ( ! current_user_can( 'edit_posts' ) ) {
+			$directory_id   = ! empty( $_REQUEST['directory_type'] ) ? absint( wp_unslash( $_REQUEST['directory_type'] ) ) : 0;
+			$directory_term = get_term( $directory_id, ATBDP_DIRECTORY_TYPE );
+
+			if ( is_wp_error( $directory_term ) || empty( $directory_term ) ) {
 				return;
 			}
 
-			$directory_type = ! empty( $_REQUEST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) ) : '';
-			$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', (bool) $directory_type );
+			$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', (bool) $directory_id );
 
-			// Make sure that it is set.
 			if ( $should_update_directory_type ) {
-				update_post_meta( $post_id, '_directory_type', $directory_type );
-				wp_set_object_terms( $post_id, (int) $directory_type, ATBDP_TYPE );
+				update_post_meta( $listing_id, '_directory_type', $directory_id );
+				wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
 			}
 		}
 

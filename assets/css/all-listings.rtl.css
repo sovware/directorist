@@ -10188,6 +10188,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .listing-with-sidebar__header .directorist-archive-sidebar-toggle .directorist-icon-mask {
   margin-left: 5px;
 }
+.listing-with-sidebar__header .directorist-archive-sidebar-toggle .directorist-icon-mask::after {
+  width: 16px;
+  height: 16px;
+}
 @media only screen and (max-width: 991px) {
   .listing-with-sidebar__header .directorist-archive-sidebar-toggle .directorist-icon-mask {
     display: inline-block;
@@ -10418,8 +10422,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   gap: 30px;
 }
 
-.logged-in .listing-with-sidebar__sidebar {
-  top: 30px;
+@media only screen and (max-width: 991px) {
+  .logged-in .listing-with-sidebar__sidebar .directorist-search-form-box {
+    padding-top: 30px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .logged-in .listing-with-sidebar__sidebar .directorist-search-form-box {
+    padding-top: 46px;
+  }
 }
 
 .directorist-advanced-filter__basic {
@@ -11077,17 +11088,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   z-index: 2;
 }
 
-.directorist-search-form__box-wrap {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: start;
-  -webkit-align-items: flex-start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-}
 .directorist-search-form__box {
   display: -webkit-box;
   display: -webkit-flex;
@@ -11145,7 +11145,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex: 1;
           flex: 1;
   gap: 18px;
-  margin-top: 5px;
 }
 @media screen and (max-width: 767px) {
   .directorist-search-form__top {
@@ -11153,6 +11152,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
 }
 @media screen and (min-width: 576px) {
+  .directorist-search-form__top {
+    margin-top: 5px;
+  }
   .directorist-search-form__top .directorist-search-modal__minimizer {
     display: none;
   }

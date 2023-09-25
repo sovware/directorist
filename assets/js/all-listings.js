@@ -633,57 +633,46 @@ function convertToSelect2(field) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+// Archive Sidebar
 window.addEventListener('DOMContentLoaded', function () {
-  /* Archive sidebar toggle */
-  var archiveSidebar = document.querySelector('.listing-with-sidebar__sidebar');
-  var archiveSidebarToggle = document.querySelector('.directorist-archive-sidebar-toggle');
-  var archiveSidebarClose = document.querySelector('.directorist-advanced-filter__close');
   var body = document.body; // Toggle sidebar and update toggle button's active state
 
-  function toggleSidebar() {
+  function toggleSidebar(toggleBtn, archiveSidebar) {
     archiveSidebar.classList.toggle('listing-with-sidebar__sidebar--open');
-    archiveSidebarToggle.classList.toggle('directorist-archive-sidebar-toggle--active');
+    toggleBtn.classList.toggle('directorist-archive-sidebar-toggle--active');
   } // Close sidebar and reset toggle button's active state
 
 
-  function closeSidebar() {
-    if (archiveSidebar) {
-      archiveSidebar.classList.remove('listing-with-sidebar__sidebar--open');
+  function closeSidebar(toggleBtn, archiveSidebar) {
+    archiveSidebar.classList.remove('listing-with-sidebar__sidebar--open');
+    toggleBtn.classList.remove('directorist-archive-sidebar-toggle--active');
+  } // Toggle, Close sidebar when toggle/close button is clicked
+
+
+  body.addEventListener('click', function (e) {
+    var targetElement = e.target;
+
+    if (targetElement.classList.contains('directorist-archive-sidebar-toggle')) {
+      var btn = targetElement;
+      var sidebar = targetElement.closest('.listing-with-sidebar').querySelector('.listing-with-sidebar__sidebar');
+      toggleSidebar(btn, sidebar);
+    } else if (targetElement.classList.contains('directorist-advanced-filter__close') || targetElement.parentElement.classList.contains('directorist-advanced-filter__close')) {
+      var _btn = targetElement.closest('.listing-with-sidebar').querySelector('.directorist-archive-sidebar-toggle');
+
+      var _sidebar = targetElement.closest('.listing-with-sidebar').querySelector('.listing-with-sidebar__sidebar');
+
+      closeSidebar(_btn, _sidebar);
+    } else {
+      var archiveSidebar = document.querySelectorAll('.listing-with-sidebar__sidebar');
+      archiveSidebar && archiveSidebar.forEach(function (sidebar) {
+        if (sidebar.classList.contains('listing-with-sidebar__sidebar--open')) {
+          var _btn2 = sidebar.closest('.listing-with-sidebar').querySelector('.directorist-archive-sidebar-toggle');
+
+          closeSidebar(_btn2, sidebar);
+        }
+      });
     }
-
-    if (archiveSidebarToggle) {
-      archiveSidebarToggle.classList.remove('directorist-archive-sidebar-toggle--active');
-    }
-  } // Event delegation for sidebar toggle and close buttons
-
-
-  function handleSidebarToggleClick(e) {
-    e.preventDefault();
-    toggleSidebar();
-  }
-
-  function handleSidebarCloseClick(e) {
-    e.preventDefault();
-    closeSidebar();
-  } // Event delegation for outside click to close sidebar
-
-
-  function handleOutsideClick(e) {
-    if (!e.target.closest('.listing-with-sidebar__sidebar') && e.target !== archiveSidebarToggle) {
-      closeSidebar();
-    }
-  } // Attach event listeners
-
-
-  if (archiveSidebarToggle) {
-    archiveSidebarToggle.addEventListener('click', handleSidebarToggleClick);
-  }
-
-  if (archiveSidebarClose) {
-    archiveSidebarClose.addEventListener('click', handleSidebarCloseClick);
-  }
-
-  body.addEventListener('click', handleOutsideClick);
+  });
 });
 
 /***/ }),

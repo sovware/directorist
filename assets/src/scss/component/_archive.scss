@@ -298,8 +298,12 @@
 			display: none;
 			.directorist-icon-mask{
 				margin-right: 5px;
+				&::after{
+					width: 16px;
+					height: 16px;
+				}
 				@media only screen and (max-width: 991px) {
-					display: inline-block
+					display: inline-block;
 				}
 			}
 			@media only screen and (max-width: 991px) {
@@ -443,7 +447,6 @@
 		&.right-sidebar-contents {
 			order: 2;
 		}
-
 	}
 	@include e(listing) {
 		display: inline-flex;
@@ -470,6 +473,11 @@
 		gap: 30px;
 	}
 }
-.logged-in .listing-with-sidebar__sidebar{
-	top: 30px;
+.logged-in .listing-with-sidebar__sidebar .directorist-search-form-box {
+	@media only screen and (max-width: 991px) {
+		padding-top: 30px;
+	}
+	@media only screen and (max-width: 767px) {
+		padding-top: 46px;
+	}
 }

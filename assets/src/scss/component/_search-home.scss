@@ -26,11 +26,6 @@
 
 // Search Form
 .directorist-search-form {
-  @include e('box-wrap') {
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-  }
   @include e('box') {
     display: flex;
     align-items: flex-start;
@@ -59,11 +54,11 @@
     flex-wrap: wrap;
     flex: 1;
     gap: 18px;
-    margin-top: 5px;
     @media screen and (max-width: 767px) {
       width: 100%;
     }
     @media screen and (min-width: 576px) {
+      margin-top: 5px;
       .directorist-search-modal__minimizer {
         display: none;
       }

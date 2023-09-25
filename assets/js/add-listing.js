@@ -1082,17 +1082,16 @@ function defaultAddListing() {
 function addListingAccordion() {
   $('body').on('click', '.multistep-wizard__single .directorist-content-module__title', function (e) {
     e.preventDefault();
-    $(this).toggleClass('opened');
-    $(this).next('.directorist-content-module__contents').toggleClass('active');
+    var windowScreen = window.innerWidth;
+
+    if (windowScreen <= 480) {
+      $(this).toggleClass('opened');
+      $(this).next('.directorist-content-module__contents').toggleClass('active');
+    }
   });
 }
 
-var windowScreen = window.innerWidth;
-windowScreen <= 480 && addListingAccordion();
-window.addEventListener("resize", function () {
-  windowScreen = window.innerWidth;
-  windowScreen <= 480 && addListingAccordion();
-});
+addListingAccordion();
 /* Elementor Edit Mode */
 
 $(window).on('elementor/frontend/init', function () {

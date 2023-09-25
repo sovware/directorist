@@ -117,6 +117,9 @@
     border: none;
     margin-bottom: 35px;
     border-radius: 16px;
+    @media (max-width: 480px) {
+      margin-bottom: 20px;
+    }
     @include e(title) {
       gap: 15px;
       justify-content: flex-start;
@@ -957,8 +960,9 @@
 
     .directorist-form-group,
     .directorist-checkbox {
-      padding: 30px 40px 0;
       margin: 0;
+      padding: 30px 40px 0;
+      align-items: flex-start;
       label {
         font-size: 14px;
         font-weight: 500;
@@ -1257,11 +1261,6 @@
       position: fixed;
       top: 0;
     }
-    @media only screen and (max-width: 991px) {
-      gap: 10px;
-      flex-wrap: wrap;
-      flex-direction: row;
-    }
     @include e(btn) {
       position: relative;
       display: flex;
@@ -1280,6 +1279,9 @@
       background-color: transparent;
       box-sizing: border-box;
       transition: all 0.3s ease-in-out;
+      @media only screen and (max-width: 991px) {
+        width: 100%;
+      }
       i {
         width: 36px;
         height: 36px;
@@ -1337,6 +1339,10 @@
         }
       }
     }
+
+    @media only screen and (max-width: 480px) {
+      display: none;
+    }
   }
   @include e(content) {
     flex: 1;
@@ -1347,6 +1353,45 @@
     }
     span.required {
       color: var(--directorist-color-danger);
+    }
+
+    @media only screen and (max-width: 480px) {
+      .directorist-content-module {
+        @include e(title) {
+          position: relative;
+          cursor: pointer;
+          &:before {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            content: "";
+            mask-image: url("../../../icons/font-awesome/svgs/solid/chevron-down.svg");
+            mask-repeat: no-repeat;
+            width: 12px;
+            height: 12px;
+            background-color: #000;
+          }
+          &.opened {
+            &:before {
+              mask-image: url("../../../icons/font-awesome/svgs/solid/chevron-up.svg");
+            }
+          }
+        }
+        @include e(contents) {
+          height: 0;
+          opacity: 0;
+          padding: 0;
+          visibility: hidden;
+          transition: padding-top 0.3s ease;
+          &.active {
+            height: auto;
+            opacity: 1;
+            padding: 20px;
+            visibility: visible;
+          }
+        }
+      }
     }
   }
   @include e(progressbar) {

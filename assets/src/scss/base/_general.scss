@@ -70,7 +70,6 @@
     border: 1px solid var(--directorist-color-border);
 
     @include e(title) {
-        border-bottom: 1px solid var(--directorist-color-border);
         display: flex;
         justify-content: space-between;
         padding: 15px 40px;
@@ -91,6 +90,7 @@
 
     @include e(contents) {
         padding: 30px 40px;
+        border-top: 1px solid var(--directorist-color-border);
         @media (max-width: 480px) {
             padding: 20px;
         }

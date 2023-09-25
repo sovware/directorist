@@ -965,6 +965,24 @@ function defaultAddListing() {
     }
 }
 
+// Add Listing Accordion
+function addListingAccordion() {
+    $('body').on('click', '.multistep-wizard__single .directorist-content-module__title', function (e) {
+        e.preventDefault();
+        $(this).toggleClass('opened');
+        $(this).next('.directorist-content-module__contents').toggleClass('active');
+    })
+}
+
+let windowScreen = window.innerWidth;
+windowScreen <= 480 && addListingAccordion();
+
+window.addEventListener("resize", function() {
+    windowScreen = window.innerWidth ;
+    
+    windowScreen <= 480 && addListingAccordion();
+});
+
 
 /* Elementor Edit Mode */
 $(window).on('elementor/frontend/init', function () {

@@ -5726,7 +5726,6 @@ img.atbdp-file-info {
   border: 1px solid var(--directorist-color-border);
 }
 .directorist-content-module__title {
-  border-bottom: 1px solid var(--directorist-color-border);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -5758,6 +5757,7 @@ img.atbdp-file-info {
 }
 .directorist-content-module__contents {
   padding: 30px 40px;
+  border-top: 1px solid var(--directorist-color-border);
 }
 @media (max-width: 480px) {
   .directorist-content-module__contents {
@@ -7719,6 +7719,12 @@ body.stop-scrolling {
   border-radius: 16px;
   /* social info */
 }
+@media (max-width: 480px) {
+  .directorist-add-listing-form .directorist-content-module,
+#directiost-listing-fields_wrapper .directorist-content-module {
+    margin-bottom: 20px;
+  }
+}
 .directorist-add-listing-form .directorist-content-module__title,
 #directiost-listing-fields_wrapper .directorist-content-module__title {
   gap: 15px;
@@ -8660,8 +8666,12 @@ body.stop-scrolling {
 }
 .directorist-add-listing-form__action .directorist-form-group,
 .directorist-add-listing-form__action .directorist-checkbox {
-  padding: 30px 40px 0;
   margin: 0;
+  padding: 30px 40px 0;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 .directorist-add-listing-form__action .directorist-form-group label,
 .directorist-add-listing-form__action .directorist-checkbox label {
@@ -9021,19 +9031,6 @@ body.stop-scrolling {
   position: fixed;
   top: 0;
 }
-@media only screen and (max-width: 991px) {
-  .multistep-wizard__nav {
-    gap: 10px;
-    -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-            flex-direction: row;
-  }
-}
 .multistep-wizard__nav__btn {
   position: relative;
   display: -webkit-box;
@@ -9060,6 +9057,11 @@ body.stop-scrolling {
           box-sizing: border-box;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+}
+@media only screen and (max-width: 991px) {
+  .multistep-wizard__nav__btn {
+    width: 100%;
+  }
 }
 .multistep-wizard__nav__btn i {
   width: 36px;
@@ -9131,6 +9133,11 @@ body.stop-scrolling {
 .multistep-wizard__nav__btn.completed i::after {
   background-color: var(--directorist-color-primary);
 }
+@media only screen and (max-width: 480px) {
+  .multistep-wizard__nav {
+    display: none;
+  }
+}
 .multistep-wizard__content {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
@@ -9142,6 +9149,45 @@ body.stop-scrolling {
 }
 .multistep-wizard__single span.required {
   color: var(--directorist-color-danger);
+}
+@media only screen and (max-width: 480px) {
+  .multistep-wizard__single .directorist-content-module__title {
+    position: relative;
+    cursor: pointer;
+  }
+  .multistep-wizard__single .directorist-content-module__title:before {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    content: "";
+    -webkit-mask-image: url(../images/20cfd7ae7ffa8fca3b8d48d7ab39da28.svg);
+            mask-image: url(../images/20cfd7ae7ffa8fca3b8d48d7ab39da28.svg);
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    width: 12px;
+    height: 12px;
+    background-color: #000;
+  }
+  .multistep-wizard__single .directorist-content-module__title.opened:before {
+    -webkit-mask-image: url(../images/e9f5f62f416fee88e3f2d027b8b705da.svg);
+            mask-image: url(../images/e9f5f62f416fee88e3f2d027b8b705da.svg);
+  }
+  .multistep-wizard__single .directorist-content-module__contents {
+    height: 0;
+    opacity: 0;
+    padding: 0;
+    visibility: hidden;
+    -webkit-transition: padding-top 0.3s ease;
+    transition: padding-top 0.3s ease;
+  }
+  .multistep-wizard__single .directorist-content-module__contents.active {
+    height: auto;
+    opacity: 1;
+    padding: 20px;
+    visibility: visible;
+  }
 }
 .multistep-wizard__progressbar {
   position: relative;

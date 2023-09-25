@@ -555,15 +555,15 @@ $(document).ready(function () {
     var err_log = {};
     var error_count = 0;
 
-    // if (on_processing) {
-    //   $submitButton.attr('disabled', true);
-    //   return;
-    // }
+    if (on_processing) {
+      $submitButton.attr('disabled', true);
+      return;
+    }
 
     var form_data = new FormData();
     form_data.append('action', 'add_listing_action');
     form_data.append('directorist_nonce', directorist.directorist_nonce);
-    // $submitButton.addClass('atbd_loading');
+    $submitButton.addClass('atbd_loading');
     var fieldValuePairs = $form.serializeArray(); // Append Form Fields Values
 
     var _iterator2 = _createForOfIteratorHelper(fieldValuePairs),
@@ -1076,9 +1076,24 @@ function defaultAddListing() {
     updateActiveNav();
     window.addEventListener("scroll", updateActiveNav);
   }
-}
-/* Elementor Edit Mode */
+} // Add Listing Accordion
 
+
+function addListingAccordion() {
+  $('body').on('click', '.multistep-wizard__single .directorist-content-module__title', function (e) {
+    e.preventDefault();
+    $(this).toggleClass('opened');
+    $(this).next('.directorist-content-module__contents').toggleClass('active');
+  });
+}
+
+var windowScreen = window.innerWidth;
+windowScreen <= 480 && addListingAccordion();
+window.addEventListener("resize", function () {
+  windowScreen = window.innerWidth;
+  windowScreen <= 480 && addListingAccordion();
+});
+/* Elementor Edit Mode */
 
 $(window).on('elementor/frontend/init', function () {
   setTimeout(function () {

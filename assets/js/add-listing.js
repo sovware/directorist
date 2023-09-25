@@ -1080,7 +1080,7 @@ function defaultAddListing() {
 
 
 function addListingAccordion() {
-  $('body').on('click', '.multistep-wizard__single .directorist-content-module__title', function (e) {
+  $('body').on('click', '.directorist-add-listing-form .directorist-content-module__title', function (e) {
     e.preventDefault();
     var windowScreen = window.innerWidth;
 

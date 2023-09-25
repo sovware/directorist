@@ -555,15 +555,15 @@ $(document).ready(function () {
     var err_log = {};
     var error_count = 0;
 
-    if (on_processing) {
-      $submitButton.attr('disabled', true);
-      return;
-    }
+    // if (on_processing) {
+    //   $submitButton.attr('disabled', true);
+    //   return;
+    // }
 
     var form_data = new FormData();
     form_data.append('action', 'add_listing_action');
     form_data.append('directorist_nonce', directorist.directorist_nonce);
-    $submitButton.addClass('atbd_loading');
+    // $submitButton.addClass('atbd_loading');
     var fieldValuePairs = $form.serializeArray(); // Append Form Fields Values
 
     var _iterator2 = _createForOfIteratorHelper(fieldValuePairs),

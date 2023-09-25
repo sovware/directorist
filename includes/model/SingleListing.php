@@ -518,7 +518,7 @@ class Directorist_Single_Listing {
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 
-		$type          = get_post_meta( get_the_ID(), '_directory_type', true );
+		$type          = get_post_meta( $this->id, '_directory_type', true );
 		$default_image = Helper::default_preview_image_src( $type );
 
 		// Get the preview images
@@ -798,7 +798,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function submit_link() {
-		$id = get_the_ID();
+		$id = $this->id;
 		$payment   = isset($_GET['payment']) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
 		$redirect  = isset($_GET['redirect']) ? sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) : '';
 		$display_preview = get_directorist_option('preview_enable', 1);
@@ -831,7 +831,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function edit_link() {
-		$id = get_the_ID();
+		$id = $this->id;
 		$redirect  = isset($_GET['redirect']) ? sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) : '';
 		$edit_link = !empty($payment) ? add_query_arg('redirect', $redirect, ATBDP_Permalink::get_edit_listing_page_link($id)) : ATBDP_Permalink::get_edit_listing_page_link($id);
 		return $edit_link;
@@ -842,7 +842,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function current_user_is_author() {
-		$id = get_the_ID();
+		$id = $this->id;
 		$author_id = get_post_field( 'post_author', $id );
 
 		if ( is_user_logged_in() && $author_id == get_current_user_id() ) {
@@ -1182,7 +1182,7 @@ class Directorist_Single_Listing {
 		$info_content .= "</div></div></div>";
 
 
-		$cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+		$cats = get_the_terms($this->id, ATBDP_CATEGORY);
 		$cat_icon = '';
 		// if (!empty($cats)) {
 		// 	$cat_icon = get_cat_icon($cats[0]->term_id);
@@ -1209,8 +1209,8 @@ class Directorist_Single_Listing {
 
 	public function get_review_template() {
 		// Review
-		$average           = directorist_get_listing_rating( get_the_ID() );
-		$reviews_count     = directorist_get_listing_review_count( get_the_ID() );
+		$average           = directorist_get_listing_rating( $this->id );
+		$reviews_count     = directorist_get_listing_review_count( $this->id );
 
 		// Icons
 		$icon_empty_star = directorist_icon( 'fas fa-star', false, 'star-empty' );
@@ -1267,7 +1267,7 @@ class Directorist_Single_Listing {
 
 	public function loop_is_favourite() {
 		$favourites = directorist_get_user_favorites( get_current_user_id() );
-		return in_array( get_the_id() , $favourites );
+		return in_array( $this->id , $favourites );
 	}
 	
 	/**
@@ -1308,7 +1308,7 @@ class Directorist_Single_Listing {
 		$logic        = get_directorist_type_option( $this->type, 'similar_listings_logics', 'OR' );
 		$relationship = ( $logic == 'AND' ) ? 'AND' : 'OR';
 
-		$id = get_the_ID();
+		$id = $this->id;
 		$atbd_cats = get_the_terms($id, ATBDP_CATEGORY);
 		$atbd_tags = get_the_terms($id, ATBDP_TAGS);
 		$atbd_cats_ids = array();

@@ -8,11 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Directorist\Fields\Fields;
-
 if ( ! trait_exists( 'Directorist\Multi_Directory_Helper' ) ) {
 	require_once __DIR__ . '/trait-multi-directory-helper.php';
 }
+
 class Multi_Directory_Manager
 {
     use Multi_Directory_Helper;
@@ -557,7 +556,7 @@ class Multi_Directory_Manager
 
         $single_listings_contents_widgets = [
             'preset_widgets' => [
-                'title' => __( 'Preset add_menu_pages', 'directorist' ),
+                'title' => __( 'Preset Fields', 'directorist' ),
                 'description' => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
                 'template' => 'submission_form_fields',
@@ -773,7 +772,7 @@ class Multi_Directory_Manager
                 ] ),
             ],
             'other_widgets' => [
-                'title' => __( 'Other add_menu_pages', 'directorist' ),
+                'title' => __( 'Other Fields', 'directorist' ),
                 'description' => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
                 'widgets' => apply_filters( 'atbdp_single_listing_other_fields_widget', [
@@ -895,7 +894,7 @@ class Multi_Directory_Manager
 
         $search_form_widgets = apply_filters( 'directorist_search_form_widgets', [
             'available_widgets' => [
-                'title' => __( 'Preset add_menu_pages', 'directorist' ),
+                'title' => __( 'Preset Fields', 'directorist' ),
                 'description' => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
                 'template' => 'submission_form_fields',
@@ -1329,7 +1328,7 @@ class Multi_Directory_Manager
                 ],
             ],
             'other_widgets' => [
-                'title' => __( 'Other add_menu_pages', 'directorist' ),
+                'title' => __( 'Other Fields', 'directorist' ),
                 'description' => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
                 'widgets' => [
@@ -1804,7 +1803,7 @@ class Multi_Directory_Manager
                 ],
             ],
 
-            // Custom add_menu_pages
+            // Custom Fields
             'text' => [
                 'type' => "list-item",
                 'label' => __( "Text", "directorist" ),
@@ -2369,7 +2368,7 @@ class Multi_Directory_Manager
                         [ 'widget_name' => 'title', 'widget_group' => 'preset' ]
                     ],
                 ],
-                'groupadd_menu_pages' => [
+                'groupFields' => [
                     'label' => [
                         'type'  => 'text',
                         'label' => 'Group Name',
@@ -2461,7 +2460,7 @@ class Multi_Directory_Manager
                 'generalSettings' => [
                     'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
                 ],
-                'groupadd_menu_pages' => [
+                'groupFields' => [
                     'section_id' => [
                         'type'    => 'text',
                         'disable' => true,
@@ -3114,7 +3113,7 @@ class Multi_Directory_Manager
 
 		self::$layouts = apply_filters( 'directorist/builder/layouts', self::$layouts );
 
-        // Conditional add_menu_pages
+        // Conditional Fields
         // -----------------------------
         // Guest Submission
         if ( get_directorist_option( 'guest_listings', 1 ) == '1' ) {
@@ -3417,7 +3416,7 @@ class Multi_Directory_Manager
 	 *
 	 * @return array
 	 */
-	public static function get_file_upload_field_options() {
+	private static function get_file_upload_field_options() {
 		$options = [
 			[
 				'label' => __( 'All types', 'directorist' ),

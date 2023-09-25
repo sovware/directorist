@@ -2371,8 +2371,8 @@ class Multi_Directory_Manager
                 'groupFields' => [
                     'label' => [
                         'type'  => 'text',
-                        'label' => 'Group Name',
-                        'value' => 'Section',
+                        'label' => __( 'Group Name', 'directorist' ),
+                        'value' => __( 'Section', 'directorist' ),
                     ],
                 ],
                 'value' => [
@@ -2383,13 +2383,13 @@ class Multi_Directory_Manager
                             'type'        => 'text',
                             'field_key'   => 'listing_title',
                             'required'    => true,
-                            'label'       => 'Title',
+                            'label'       => __( 'Title', 'directorist' ),
                             'placeholder' => '',
                         ],
                     ],
                     'groups' => [
                         [
-                            'label' => 'General Section',
+                            'label' => __( 'General Section', 'directorist' ),
                             'lock' => true,
                             'fields' => ['title'],
                             'plans' => []

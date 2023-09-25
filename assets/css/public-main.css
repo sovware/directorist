@@ -12161,6 +12161,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-align: center;
           align-items: center;
   gap: 12px;
+  font-size: 15px;
+  font-weight: 500;
   text-decoration: none;
   position: relative;
   min-height: 40px;
@@ -12204,6 +12206,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-pack: center;
           justify-content: center;
 }
+.directorist-taxonomy-list-one .directorist-taxonomy-list__icon .directorist-icon-mask::after {
+  width: 15px;
+  height: 15px;
+}
 .directorist-taxonomy-list-one .directorist-taxonomy-list__name {
   color: var(--directorist-color-dark);
 }
@@ -12233,7 +12239,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  font-size: 16px;
+  font-size: 15px;
   text-decoration: none;
   color: var(--directorist-color-dark);
 }
@@ -12244,8 +12250,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-taxonomy-list-one .directorist-taxonomy-list__card + .directorist-taxonomy-list__sub-item {
   background: var(--directorist-color-light);
   border-radius: 16px;
-  -webkit-padding-start: 20px;
-          padding-inline-start: 20px;
+  -webkit-padding-start: 35px;
+          padding-inline-start: 35px;
   -webkit-padding-end: 20px;
           padding-inline-end: 20px;
   height: 0;
@@ -12257,9 +12263,20 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
+.directorist-taxonomy-list-one .directorist-taxonomy-list__card + .directorist-taxonomy-list__sub-item li {
+  margin: 0;
+}
+.directorist-taxonomy-list-one .directorist-taxonomy-list__card + .directorist-taxonomy-list__sub-item li > .directorist-taxonomy-list__sub-item {
+  -webkit-padding-start: 15px;
+          padding-inline-start: 15px;
+}
 .directorist-taxonomy-list-one .directorist-taxonomy-list__card--icon + .directorist-taxonomy-list__sub-item {
   -webkit-padding-start: 64px;
           padding-inline-start: 64px;
+}
+.directorist-taxonomy-list-one .directorist-taxonomy-list__card--icon + .directorist-taxonomy-list__sub-item li > .directorist-taxonomy-list__sub-item {
+  -webkit-padding-start: 15px;
+          padding-inline-start: 15px;
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item {
   border-radius: 0 0 16px 16px;

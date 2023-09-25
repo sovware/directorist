@@ -190,6 +190,8 @@
         padding: 8px 20px;
         align-items: center;
         gap: 12px;
+        font-size: 15px;
+        font-weight: 500;
         text-decoration: none;
         position: relative;
         min-height: 40px;
@@ -225,6 +227,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            &::after {
+                width: 15px;
+                height: 15px;
+            }
         }
     }
     @include e('name'){
@@ -252,7 +258,7 @@
         a{
             flex-wrap: wrap;
             display: flex;
-            font-size: 16px;
+            font-size: 15px;
             text-decoration: none;
             color: var(--directorist-color-dark);
         }
@@ -261,10 +267,10 @@
         }
     }
     @include e('card'){
-        + .directorist-taxonomy-list__sub-item{
+        + .directorist-taxonomy-list__sub-item {
             background: var(--directorist-color-light);
             border-radius: 16px;
-            padding-inline-start: 20px;
+            padding-inline-start: 35px;
             padding-inline-end: 20px;
             height: 0;
             overflow: hidden;
@@ -273,10 +279,19 @@
             padding-bottom: 20px;
             margin-top: -20px;
             transition: 0.3s ease;
+            li{
+                margin: 0;
+                > .directorist-taxonomy-list__sub-item {
+                    padding-inline-start: 15px;
+                }
+            }
         }
         @include m('icon'){
             + .directorist-taxonomy-list__sub-item{
                 padding-inline-start: 64px;
+                li > .directorist-taxonomy-list__sub-item {
+                    padding-inline-start: 15px;
+                }
             }
         }
     }

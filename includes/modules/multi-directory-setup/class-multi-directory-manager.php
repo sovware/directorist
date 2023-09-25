@@ -55,7 +55,7 @@ class Multi_Directory_Manager
         $need_migration = ( empty( $migrated ) && self::has_old_listings_data() ) ? true : false;
 
         if ( ! $need_migration ) {
-            // return;
+            return;
         }
 
         $directory_types = get_terms([
@@ -66,21 +66,19 @@ class Multi_Directory_Manager
         if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
             return;
         }
-
-        $new_structure = [];
-
         
         foreach ( $directory_types as $directory_type ) {
+
+            $new_structure = [];
 
             $header_contents = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
 
             if ( empty( $header_contents['listings_header'] ) ) {
-                e_var_dump( $header_contents['listings_header'] );
-                // die;
                 continue;
             }
 
             $description = ! empty( $header_contents['options']['content_settings']['listing_description']['enable'] ) ? $header_contents['options']['content_settings']['listing_description']['enable'] : false;
+            $tagline     = ! empty( $header_contents['options']['content_settings']['listing_title']['enable_tagline'] ) ? $header_contents['options']['content_settings']['listing_title']['enable_tagline'] : false;
 
             if ( $description ) {
                 $contents = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
@@ -104,7 +102,7 @@ class Multi_Directory_Manager
 
                 array_unshift( $contents['groups'], $details );
 
-                // update_term_meta( $directory_type->term_id, 'single_listings_contents', $contents );
+                update_term_meta( $directory_type->term_id, 'single_listings_contents', $contents );
 
             }
 
@@ -166,7 +164,17 @@ class Multi_Directory_Manager
                                 "type" => "title",
                                 "label" => "Listing Title",
                                 "widget_name" => "title",
-                                "widget_key" => "title"
+                                "widget_key" => "title",
+                                'options' => [
+                                    'title' => __( "Listing Title Settings", "directorist" ),
+                                    'fields' => [
+                                        'enable_tagline' => [
+                                            'type' => "toggle",
+                                            'label' => __( "Show Tagline", "directorist" ),
+                                            'value' => $tagline,
+                                        ],
+                                    ],
+                                ],
                             ]
                         ]
                     ];
@@ -184,7 +192,7 @@ class Multi_Directory_Manager
 
             }
 
-            // update_term_meta( $directory_type->term_id, 'single_listing_header', $new_structure );
+            update_term_meta( $directory_type->term_id, 'single_listing_header', $new_structure );
         }
 
         update_option( 'directorist_builder_header_migrated', true );
@@ -4552,6 +4560,16 @@ class Multi_Directory_Manager
                         'type' => "title",
                         'label' => __( "Listing Title", "directorist" ),
                         'icon' => 'las la-heading',
+                        'options' => [
+                            'title' => __( "Listing Title Settings", "directorist" ),
+                            'fields' => [
+                                'enable_tagline' => [
+                                    'type' => "toggle",
+                                    'label' => __( "Show Tagline", "directorist" ),
+                                    'value' => true,
+                                ],
+                            ],
+                        ],
                     ],
                     'slider' => [
                         'type' => "thumbnail",

@@ -946,7 +946,7 @@ class Directorist_Single_Listing {
 			'section_title'     => '',
 			'section_icon'      => '',
 			'display_title'     => $display_title,
-			'display_tagline'   => false,
+			'display_tagline'   => ! empty( $display_title['enable_tagline'] ) ? $display_title['enable_tagline'] : false,
 			'display_content'   => false,
 		);
 

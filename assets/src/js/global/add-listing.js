@@ -968,7 +968,7 @@ function defaultAddListing() {
 // Add Listing Accordion
 
 function addListingAccordion() {
-    $('body').on('click', '.multistep-wizard__single .directorist-content-module__title', function (e) {
+    $('body').on('click', '.directorist-add-listing-form .directorist-content-module__title', function (e) {
         e.preventDefault();
 
         let windowScreen = window.innerWidth ;

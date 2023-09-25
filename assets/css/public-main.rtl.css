@@ -4713,6 +4713,10 @@ body.stop-scrolling {
     position: relative;
     cursor: pointer;
   }
+  .multistep-wizard__single .directorist-content-module__title h4 {
+    -webkit-padding-end: 20px;
+            padding-inline-end: 20px;
+  }
   .multistep-wizard__single .directorist-content-module__title:before {
     position: absolute;
     left: 20px;

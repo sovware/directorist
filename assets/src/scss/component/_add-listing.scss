@@ -1360,6 +1360,9 @@
         @include e(title) {
           position: relative;
           cursor: pointer;
+          h4 {
+            padding-inline-end: 20px;
+          }
           &:before {
             position: absolute;
             right: 20px;

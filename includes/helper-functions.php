@@ -4121,3 +4121,23 @@ function directorist_maybe_number( $item ) {
 
 	return ( float ) $item;
 }
+
+function directorist_validate_youtube_vimeo_url( $url ) {
+    if ( preg_match( '/^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)/i', $url ) ) {
+        return true;
+    }
+
+    if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/i', $url ) ) {
+        return true;
+    }
+
+	if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]+)(\S+)?$/i', $url ) ) {
+        return true;
+    }
+
+    return false;
+}
+
+function directorist_is_listing_post_type( $listing_id ) {
+	return ( get_post_type( absint( $listing_id ) ) === ATBDP_POST_TYPE );
+}

@@ -55,7 +55,7 @@ class Multi_Directory_Manager
         $need_migration = ( empty( $migrated ) && self::has_old_listings_data() ) ? true : false;
 
         if ( ! $need_migration ) {
-            return;
+            // return;
         }
 
         $directory_types = get_terms([
@@ -69,11 +69,14 @@ class Multi_Directory_Manager
 
         $new_structure = [];
 
+        
         foreach ( $directory_types as $directory_type ) {
 
             $header_contents = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
 
             if ( empty( $header_contents['listings_header'] ) ) {
+                e_var_dump( $header_contents['listings_header'] );
+                // die;
                 continue;
             }
 
@@ -101,7 +104,7 @@ class Multi_Directory_Manager
 
                 array_unshift( $contents['groups'], $details );
 
-                update_term_meta( $directory_type->term_id, 'single_listings_contents', $contents );
+                // update_term_meta( $directory_type->term_id, 'single_listings_contents', $contents );
 
             }
 
@@ -179,11 +182,9 @@ class Multi_Directory_Manager
                     array_push( $new_structure, $more_widget );
                 }
 
-
-               
             }
 
-            update_term_meta( $directory_type->term_id, 'single_listing_header', $new_structure );
+            // update_term_meta( $directory_type->term_id, 'single_listing_header', $new_structure );
         }
 
         update_option( 'directorist_builder_header_migrated', true );

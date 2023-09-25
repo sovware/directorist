@@ -500,10 +500,9 @@ class Multi_Directory_Manager
         /**
          * @since 7.7.0
          * It fires before directory data updated
-         * @param @
          */
 
-         do_action( 'directorist_before_directory_type_updated', $_POST );
+         do_action( 'directorist_before_directory_type_updated' );
 
         $this->prepare_settings();
 

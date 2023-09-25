@@ -55,7 +55,7 @@ class Multi_Directory_Manager
         $need_migration = ( empty( $migrated ) && self::has_old_listings_data() ) ? true : false;
 
         if ( ! $need_migration ) {
-            return;
+            // return;
         }
 
         $directory_types = get_terms([
@@ -73,7 +73,7 @@ class Multi_Directory_Manager
 
             $header_contents = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
 
-            if ( empty( $header_contents['listings_header'] ) ) {
+            if ( empty( $header_contents ) ) {
                 continue;
             }
 
@@ -97,7 +97,7 @@ class Multi_Directory_Manager
                     "fields" => [
                         "description"
                     ],
-                    "section_id" => "1627188303658"
+                    // "section_id" => "1627188303658"
                 ];
 
                 array_unshift( $contents['groups'], $details );
@@ -106,6 +106,10 @@ class Multi_Directory_Manager
 
             }
 
+            if ( empty( $header_contents['listings_header'] ) ) {
+                continue;
+            }
+            
             foreach ( $header_contents['listings_header'] as $section_name => $widgets ) {
 
                 if ( 'quick_actions' === $section_name ) {

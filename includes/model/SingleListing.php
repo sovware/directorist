@@ -923,6 +923,10 @@ class Directorist_Single_Listing {
 				}
 			}
 
+			if ( empty( $data['selectedWidgets'] ) ) {
+				return [];
+			}
+
 			if ( ! $key ) {
 				return $data['selectedWidgets'];
 			}

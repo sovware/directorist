@@ -320,6 +320,9 @@ Review: New Style
         border-top: 0 none;
 
         @include e(rating) {
+            display: flex;
+            gap: 20px;
+            align-items: center;
             text-align: center;
             @media (max-width: 480px){
                 flex: 0 0 100%;
@@ -502,6 +505,7 @@ Review: New Style
 
 .directorist-review-single {
     padding: 40px 30px;
+    margin: 0;
     @media screen and (max-width: 575px){
         padding: 30px 20px;
     }

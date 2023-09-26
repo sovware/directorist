@@ -16720,6 +16720,15 @@ Review: New Style
   border-top: 0 none;
 }
 .directorist-review-content__overview__rating {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   text-align: center;
 }
 @media (max-width: 480px) {
@@ -16922,6 +16931,7 @@ Review: New Style
 
 .directorist-review-single {
   padding: 40px 30px;
+  margin: 0;
 }
 @media screen and (max-width: 575px) {
   .directorist-review-single {

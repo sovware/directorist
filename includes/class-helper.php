@@ -498,7 +498,7 @@ class Helper {
 	}
 
 	public static function default_preview_image_src( $type ) {
-		if ( self::multi_directory_enabled() ) {
+		if ( directorist_is_multi_directory_enabled() ) {
 			$type_general = get_term_meta( $type, 'general_config', true );
 
 			if ( ! empty( $type_general['preview_image'] ) ) {

@@ -120,12 +120,12 @@ class Multi_Directory_Manager
     }
 
     public function conditional_layouts( $layouts ) {
-
         $updated_layouts = $layouts;
 
-        if( ! directorist_multi_directory() ) {
+        if ( ! directorist_is_multi_directory_enabled() ) {
             unset( $updated_layouts['general']['sections']['default_preview'] );
         }
+
         return $updated_layouts;
     }
 

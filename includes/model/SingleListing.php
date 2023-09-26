@@ -718,7 +718,7 @@ class Directorist_Single_Listing {
 	public function price_html() {
 		$id            = $this->id;
 		$allow_decimal = get_directorist_option('allow_decimal', 1);
-		$c_position    = get_directorist_option('g_currency_position');
+		$c_position    = directorist_get_currency_position();
 		$currency      = directorist_get_currency();
 		$symbol        = atbdp_currency_symbol($currency);
 

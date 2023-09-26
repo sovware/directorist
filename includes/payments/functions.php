@@ -171,7 +171,7 @@ function atbdp_get_payment_currency_settings()
         'currency' => get_directorist_option('payment_currency', directorist_get_currency() ),
         'thousands_separator' => get_directorist_option('payment_thousand_separator', get_directorist_option('g_thousand_separator', ',')),
         'decimal_separator' => get_directorist_option('payment_decimal_separator', get_directorist_option('g_decimal_separator', '.')),
-        'position' => get_directorist_option('payment_currency_position', get_directorist_option('g_currency_position', 'before')),
+        'position' => get_directorist_option('payment_currency_position', directorist_get_currency_position() ),
     );
 
     return apply_filters('atbdp_payment_currency_settings', $currency_settings); // return the currency settings array
@@ -237,7 +237,7 @@ function atbdp_currency_filter($price = '', $currency_settings = array())
 
     !is_array($currency_settings) || extract($currency_settings); // @codingStandardsIgnoreLine. if it is an array then extract it. Using the magic of OR CONDITION's FLOW
     $currency = !empty($currency) ? $currency : directorist_get_currency();
-    $position = !empty($position) ? $position : get_directorist_option('g_currency_position', 'before');
+    $position = !empty($position) ? $position : directorist_get_currency_position();
 
     $negative = $price < 0;
 

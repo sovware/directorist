@@ -1120,7 +1120,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
     $before = '';
     $after = '';
     if (empty($c_position)) {
-        $c_position = get_directorist_option('g_currency_position');
+        $c_position = directorist_get_currency_position();
     }
     if (empty($currency)) {
         $currency = directorist_get_currency();

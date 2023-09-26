@@ -29,3 +29,7 @@ function directorist_is_monetization_enabled() {
 function directorist_get_currency() {
 	return get_directorist_option( 'g_currency', 'USD' );
 }
+
+function directorist_get_currency_position() {
+	return get_directorist_option( 'g_currency_position' );
+}

@@ -277,7 +277,7 @@ class Helper {
 
 	public static function price_range_template( $listing_id ) {
 		$price_range = get_post_meta( $listing_id, '_price_range', true );
-		$currency = get_directorist_option( 'g_currency', 'USD' );
+		$currency = directorist_get_currency();
 		$currency = atbdp_currency_symbol( $currency );
 
 		switch ( $price_range ) {
@@ -313,7 +313,7 @@ class Helper {
 	public static function formatted_price( $price ) {
 		$allow_decimal = get_directorist_option('allow_decimal', 1);
 		$c_position    = get_directorist_option('g_currency_position');
-		$currency      = get_directorist_option('g_currency', 'USD');
+		$currency      = directorist_get_currency();
 		$symbol        = atbdp_currency_symbol($currency);
 		$before        = '';
 		$after         = '';

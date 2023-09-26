@@ -1123,7 +1123,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
         $c_position = get_directorist_option('g_currency_position');
     }
     if (empty($currency)) {
-        $currency = get_directorist_option('g_currency', 'USD');
+        $currency = directorist_get_currency();
     }
     if (empty($symbol)) {
         $symbol = atbdp_currency_symbol($currency);
@@ -1148,7 +1148,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
  */
 function atbdp_display_price_range($price_range)
 {
-    $currency = get_directorist_option('g_currency', 'USD');
+    $currency = directorist_get_currency();
     $c_symbol = atbdp_currency_symbol($currency);
     if (empty($price_range)) return null;
     $output = '';

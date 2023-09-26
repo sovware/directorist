@@ -25,3 +25,7 @@ function directorist_is_featured_listing_enabled() {
 function directorist_is_monetization_enabled() {
 	return (bool) get_directorist_option( 'enable_monetization' );
 }
+
+function directorist_get_currency() {
+	return get_directorist_option( 'g_currency', 'USD' );
+}

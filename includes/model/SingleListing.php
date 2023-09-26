@@ -604,7 +604,7 @@ class Directorist_Single_Listing {
 
 	public function price_range_html() {
 		$id = $this->id;
-		$currency = get_directorist_option('g_currency', 'USD');
+		$currency = directorist_get_currency();
 		$c_symbol = atbdp_currency_symbol($currency);
 		$active   = '<span class="atbd_active">' . $c_symbol . '</span>';
 		$inactive = '<span>' . $c_symbol . '</span>';
@@ -719,7 +719,7 @@ class Directorist_Single_Listing {
 		$id            = $this->id;
 		$allow_decimal = get_directorist_option('allow_decimal', 1);
 		$c_position    = get_directorist_option('g_currency_position');
-		$currency      = get_directorist_option('g_currency', 'USD');
+		$currency      = directorist_get_currency();
 		$symbol        = atbdp_currency_symbol($currency);
 
 		$before = $after = '';

@@ -3114,7 +3114,7 @@ class Multi_Directory_Manager
         // Conditional Fields
         // -----------------------------
         // Guest Submission
-        if ( get_directorist_option( 'guest_listings', 1 ) == '1' ) {
+        if ( directorist_is_guest_submission_enabled() ) {
             self::$fields['guest_email_label'] = [
                 'label' => __('Guest Email Label', 'directorist'),
                 'type'  => 'text',

@@ -80,7 +80,7 @@ function directorist_is_multi_directory_enabled() {
 }
 
 function directorist_is_guest_submission_enabled() {
-	return (bool) get_directorist_option( 'guest_listings', 0 );
+	return (bool) get_directorist_option( 'guest_listings', false );
 }
 
 function directorist_is_featured_listing_enabled() {

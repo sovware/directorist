@@ -297,13 +297,12 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 		}
 
 		public function add_new_listing_columns( $columns ) {
-			$featured_active        = get_directorist_option( 'enable_featured_listing' );
-			$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+			$featured_active = get_directorist_option( 'enable_featured_listing' );
 
 			$columns          = array();
 			$columns['cb']    = '<input type="checkbox" />';
 			$columns['title'] = __( 'Name', 'directorist' );
-			if ( atbdp_is_truthy( $enable_multi_directory ) ) {
+			if ( directorist_is_multi_directory_enabled() ) {
 				$columns['directory_type'] = __( 'Directory', 'directorist' );
 			}
 			$columns['atbdp_location'] = __( 'Location', 'directorist' );

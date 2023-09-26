@@ -227,10 +227,8 @@ class ATBDP_Metabox {
 		$current_type   =  get_post_meta( $post->ID, '_directory_type', true );
 		$value 			= $current_type ? $current_type : $default;
 		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
-		$multi_directory = get_directorist_option( 'enable_multi_directory', false );
 
-
-		$show_directory_type_nav = ! empty ( $multi_directory ) && ( count( $all_types ) > 1 );
+		$show_directory_type_nav = directorist_is_multi_directory_enabled() && ( count( $all_types ) > 1 );
 		$show_directory_type_nav = apply_filters( 'directorist_show_admin_edit_listing_directory_type_nav', $show_directory_type_nav, $post->ID );
 
 		if ( $show_directory_type_nav ) { ?>

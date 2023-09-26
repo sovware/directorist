@@ -3046,7 +3046,7 @@ if( !function_exists('directorist_legacy_mode') ){
 
 if( !function_exists('directorist_multi_directory') ){
     function directorist_multi_directory() {
-        return get_directorist_option( 'enable_multi_directory', false );
+        return directorist_is_multi_directory_enabled();
     }
 }
 

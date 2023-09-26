@@ -494,7 +494,7 @@ class Helper {
 	}
 
 	public static function multi_directory_enabled() {
-		return get_directorist_option( 'enable_multi_directory', false );
+		return directorist_is_multi_directory_enabled();
 	}
 
 	public static function default_preview_image_src( $type ) {

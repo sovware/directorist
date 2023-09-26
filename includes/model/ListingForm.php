@@ -688,7 +688,7 @@ class Directorist_Listing_Form {
 
 	public function get_listing_types() {
 		// @cache @kowsar
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory' );
+		$enable_multi_directory = directorist_is_multi_directory_enabled();
 		$listing_types = array();
 		$args = array(
 			'taxonomy'   => ATBDP_TYPE,

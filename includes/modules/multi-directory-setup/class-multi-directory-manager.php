@@ -508,9 +508,7 @@ class Multi_Directory_Manager
             wp_send_json( $add_directory );
         }
 
-        $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-
-        if (  $enable_multi_directory && empty( $term_id ) ) {
+        if ( directorist_is_multi_directory_enabled() && empty( $term_id ) ) {
             $redirect_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $add_directory['term_id'] );
             $add_directory['redirect_url'] = $redirect_url;
         }
@@ -3187,11 +3185,10 @@ class Multi_Directory_Manager
     // add_menu_pages
     public function add_menu_pages()
     {
-        $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
         $page_title = __( 'Directory Builder', 'directorist' );
         $page_slug  = 'atbdp-layout-builder';
 
-        if ( atbdp_is_truthy( $enable_multi_directory ) ) {
+        if ( directorist_is_multi_directory_enabled() ) {
             $page_title = __( 'Directory Builder', 'directorist' );
             $page_slug  = 'atbdp-directory-types';
         }
@@ -3221,8 +3218,7 @@ class Multi_Directory_Manager
     // menu_page_callback__directory_types
     public function menu_page_callback__directory_types()
     {
-        $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-        $enable_multi_directory = atbdp_is_truthy( $enable_multi_directory );
+        $enable_multi_directory = directorist_is_multi_directory_enabled();
 
         $action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
         $listing_type_id = 0;

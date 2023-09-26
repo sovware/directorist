@@ -80,12 +80,11 @@ if (!class_exists('ATBDP_Listing')):
             if (isset($_GET['post_type'])) {
                 $type = ! empty( $_GET['post_type'] ) ? directorist_clean( wp_unslash( $_GET['post_type'] ) ) : '';
             }
-            $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 
             //only add filter to post type you want
-            if ( ( 'at_biz_dir' == $type ) && ( atbdp_is_truthy( $enable_multi_directory ) ) ) { ?>
+            if ( ( 'at_biz_dir' == $type ) && directorist_is_multi_directory_enabled() ) { ?>
                 <select name="directory_type">
-                    <option value=""><?php esc_html_e('Filter by directory ', 'directorist'); ?></option>
+                    <option value=""><?php esc_html_e( 'Filter by directory ', 'directorist' ); ?></option>
                     <?php
                     $current_v = ! empty( $_GET['directory_type'] ) ? directorist_clean( wp_unslash( $_GET['directory_type'] ) ) : '';
 

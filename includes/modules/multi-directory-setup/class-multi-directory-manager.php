@@ -55,7 +55,7 @@ class Multi_Directory_Manager
         $need_migration = ( empty( $migrated ) && self::has_old_listings_data() ) ? true : false;
 
         if ( ! $need_migration ) {
-            // return;
+            return;
         }
 
         $directory_types = get_terms([
@@ -79,9 +79,9 @@ class Multi_Directory_Manager
 
             $description = ! empty( $header_contents['options']['content_settings']['listing_description']['enable'] ) ? $header_contents['options']['content_settings']['listing_description']['enable'] : false;
             $tagline     = ! empty( $header_contents['options']['content_settings']['listing_title']['enable_tagline'] ) ? $header_contents['options']['content_settings']['listing_title']['enable_tagline'] : false;
+            $contents    = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
 
             if ( $description ) {
-                $contents = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
 
                 $contents['fields']['description'] = [
                     "icon" => "las la-tag",
@@ -97,7 +97,7 @@ class Multi_Directory_Manager
                     "fields" => [
                         "description"
                     ],
-                    // "section_id" => "1627188303658"
+                    "section_id" => "1627188303" . $directory_type->term_id
                 ];
 
                 array_unshift( $contents['groups'], $details );

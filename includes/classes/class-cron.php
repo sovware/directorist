@@ -94,9 +94,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		  */
 
 		private function featured_listing_followup() {
-			$monitization    = get_directorist_option( 'enable_monetization' );
-
-			if ( $monitization && directorist_is_featured_listing_enabled() ) {
+			if ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ) {
 				$featured_days = get_directorist_option( 'featured_listing_time', 30 );
 				// Define the query
 				$args = array(

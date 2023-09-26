@@ -56,7 +56,7 @@ class ATBDP_Checkout
         if (!atbdp_is_user_logged_in()) return null;
 
         ob_start();
-        $enable_monetization = apply_filters('atbdp_enable_monetization_checkout',get_directorist_option('enable_monetization'));
+        $enable_monetization = apply_filters('atbdp_enable_monetization_checkout', directorist_is_monetization_enabled() );
         // vail if monetization is not active.
         if (!$enable_monetization) {
             return __('Monetization is not active on this site. if you are an admin, you can enable it from the settings panel.', 'directorist');

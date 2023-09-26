@@ -297,7 +297,7 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $edited         = $args['edited'];
     $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 
-    $monitization          = get_directorist_option('enable_monetization', 0);
+    $monitization          = directorist_is_monetization_enabled();
     $featured_enabled      = directorist_is_featured_listing_enabled();
     $pricing_plans_enabled = is_fee_manager_active();
 
@@ -3064,7 +3064,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
         $checkout_page			 	= get_directorist_option( 'checkout_page' );
         $payment_receipt_page	 	= get_directorist_option( 'payment_receipt_page' );
         $transaction_failure_page	= get_directorist_option( 'transaction_failure_page' );
-        $enable_monetization	 	= get_directorist_option( 'enable_monetization' );
+        $enable_monetization	 	= directorist_is_monetization_enabled();
         $enable_featured_listing	= directorist_is_featured_listing_enabled();
         $select_listing_map			= get_directorist_option( 'select_listing_map' );
         $map_api_key				= get_directorist_option( 'map_api_key' );

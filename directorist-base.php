@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.6.1
+ * Version: 7.7.2
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -447,6 +447,10 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
+			ATBDP_INC_DIR . 'directorist-directory-functions',
+			ATBDP_INC_DIR . 'fields/init',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-manager',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-migration'
 		]);
 
 		$this->autoload( ATBDP_INC_DIR . 'database/' );
@@ -455,7 +459,6 @@ final class Directorist_Base
 		load_dependencies('all', ATBDP_INC_DIR . 'model/');
 		load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
 		load_dependencies('all', ATBDP_INC_DIR . 'modules/');
-		load_dependencies('all', ATBDP_INC_DIR . 'modules/multi-directory-setup/');
 
 		load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
 
@@ -547,7 +550,7 @@ final class Directorist_Base
 	{
 
 		load_plugin_textdomain('directorist', false, ATBDP_LANG_DIR);
-		if ( get_transient( '_directorist_setup_page_redirect' ) ) {
+		if ( is_admin() && get_transient( '_directorist_setup_page_redirect' ) ) {
 			directorist_redirect_to_admin_setup_wizard();
 		}
 	}
@@ -705,13 +708,14 @@ final class Directorist_Base
 	 * @return void
 	 */
 	public function init_appsero() {
-		if ( ! class_exists( '\Appsero\Client' ) ) {
+		if ( ! class_exists( '\Directorist\Appsero\Client' ) ) {
 			require_once ATBDP_INC_DIR . 'modules/appsero/src/Client.php';
 		}
 
-		$client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist – Business Directory & Classified Listings WordPress Plugin', __FILE__ );
+		$client = new \Directorist\Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist', __FILE__ );
 
 		// Active insights
+		$client->set_textdomain( 'directorist' );
 		$client->insights()->init();
 	}
 

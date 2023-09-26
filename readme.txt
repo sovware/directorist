@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 7.0
-Stable tag: 7.6.1
+Stable tag: 7.7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -409,6 +409,37 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.7.2 - Sep 12, 2023
+
+* Fix - Security issue Appsero client
+
+7.7.1 - Sep 06, 2023
+
+* Fix - Security issue in CSV exporter
+
+7.7.0 - Aug 23, 2023
+
+* Add - Email verification (#1539)
+* Add - Youtube shorts support to the video in listing (#1169)
+* Add - Hooks in REST API (#1419)
+* Add - Directorist_get_supported_file_types_groups filter hook (#1551)
+* Improve - Query performance(#1543)
+* Improve - Compatibility with PHP 8.1 (#1404)
+* Fix - Canonical issue with RankMath activated (#1546)
+* Fix - Issue with pricing plan and featured listing checkbox (#1529)
+* Fix - Listing import issue with child term (#1548)
+* Fix -  Email header issue on contact listing owner (#1549)
+* Fix - Custom files can't be deleted in edit listing (#1232)
+* Fix - Sanitized settings json data for invalid UTF-8 characters (#1448)
+* Fix - Instant search conflicting issue (#1541)
+* Fix - Featured listing issue in admin listing form (#1557)
+* Check - Compatibility with WP v6.3
+
+7.6.2 - Aug 10, 2023
+
+* Fix – Location, Category and Tag fields are not saving in listing form
+* Fix – Random tag creation in listing submission
 
 7.6.1 - Jul 26, 2023
 

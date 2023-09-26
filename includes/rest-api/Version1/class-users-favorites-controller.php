@@ -139,7 +139,10 @@ class User_Favorites_Controller extends Abstract_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function create_item( $request ) {
-		$user_id   = (int) $request['user_id'];
+		$user_id = (int) $request['user_id'];
+
+		do_action( 'directorist_rest_before_query', 'create_user_favorites_item', $request, $user_id );
+
 		$user_data = get_userdata( $user_id );
 
 		if ( empty( $user_data ) ) {
@@ -176,6 +179,10 @@ class User_Favorites_Controller extends Abstract_Controller {
 		$response = rest_ensure_response( $response );
 		$response->set_status( 201 );
 
+		do_action( 'directorist_rest_after_query', 'create_user_favorites_item', $request, $user_id );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'create_user_favorites_item', $request, $data );
+
 		return $response;
 	}
 
@@ -186,14 +193,17 @@ class User_Favorites_Controller extends Abstract_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function delete_item( $request ) {
-		$user_id   = (int) $request['user_id'];
+		$user_id    = (int) $request['user_id'];
+		$listing_id = (int) $request['id'];
+
+		do_action( 'directorist_rest_before_query', 'delete_user_favorites_item', $request, $user_id, $listing_id );
+
 		$user_data = get_userdata( $user_id );
 
 		if ( empty( $user_data ) ) {
 			return new WP_Error( 'directorist_rest_invalid_user_id', __( 'Invalid user ID.', 'directorist' ), 400 );
 		}
 
-		$listing_id   = (int) $request['id'];
 		$listing_data = get_post( $listing_id );
 
 		if ( empty( $listing_data ) || get_post_type( $listing_data ) != ATBDP_POST_TYPE ) {
@@ -223,6 +233,10 @@ class User_Favorites_Controller extends Abstract_Controller {
 		 * @param WP_REST_Request  $request   The request sent to the API.
 		 */
 		do_action( 'directorist_rest_delete_user_favorite', $new_favorites, $response, $request );
+
+		do_action( 'directorist_rest_after_query', 'delete_user_favorites_item', $request, $user_id, $listing_id );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'create_user_favorites_item', $request, $data );
 
 		return $response;
 	}

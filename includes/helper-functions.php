@@ -399,7 +399,9 @@ if (!function_exists('load_some_file')):
             }, $files);// add '.php' to the end of all files
             $found_files = scandir($dir); // get the list of all the files in the given $dir
             foreach ($files_to_loads as $file_to_load) {
-                in_array($file_to_load, $found_files) ? require_once $dir . $file_to_load : null;
+                if(is_array($found_files)) {
+                    in_array($file_to_load, $found_files) ? require_once $dir . $file_to_load : null;
+                }
             }
         }
 
@@ -1526,66 +1528,68 @@ function atbdp_get_listings_current_order($default_order = '')
  * @since    1.0.0
  *
  */
-function atbdp_get_listings_orderby_options($sort_by_items)
-{
-    $options = array(
-        'title-asc' => __("A to Z (title)", 'directorist'),
-        'title-desc' => __("Z to A (title)", 'directorist'),
-        'date-desc' => __("Latest listings", 'directorist'),
-        'date-asc' => __("Oldest listings", 'directorist'),
-        'views-desc' => __("Popular listings", 'directorist'),
-        'price-asc' => __("Price (low to high)", 'directorist'),
-        'price-desc' => __("Price (high to low)", 'directorist'),
-        'rand' => __("Random listings", 'directorist'),
-    );
-    $sort_by_items 	= is_array( $sort_by_items ) ? $sort_by_items : [];
-    if (!in_array('a_z', $sort_by_items)) {
-        unset($options['title-asc']);
-    }
-    if (!in_array('z_a', $sort_by_items)) {
-        unset($options['title-desc']);
-    }
-    if (!in_array('latest', $sort_by_items)) {
-        unset($options['date-desc']);
-    }
-    if (!in_array('oldest', $sort_by_items)) {
-        unset($options['date-asc']);
-    }
-    if (!in_array('popular', $sort_by_items)) {
-        unset($options['views-desc']);
-    }
-    if (!in_array('price_low_high', $sort_by_items)) {
-        unset($options['price-asc']);
-    }
-    if (!in_array('price_high_low', $sort_by_items)) {
-        unset($options['price-desc']);
-    }
-    if (!in_array('random', $sort_by_items)) {
-        unset($options['rand']);
-    }
-    $args = array(
-        'post_type'   => ATBDP_POST_TYPE,
-        'post_status' => 'publish',
-        'meta_key'    => '_price'
+function atbdp_get_listings_orderby_options( $orderby = array() ) {
+    $orderby_options = array(
+        'title-asc'  => __( 'A to Z (title)', 'directorist' ),
+        'title-desc' => __( 'Z to A (title)', 'directorist' ),
+        'date-desc'  => __( 'Latest listings', 'directorist' ),
+        'date-asc'   => __( 'Oldest listings', 'directorist' ),
+        'views-desc' => __( 'Popular listings', 'directorist' ),
+        'price-asc'  => __( 'Price (low to high)', 'directorist' ),
+        'price-desc' => __( 'Price (high to low)', 'directorist' ),
+        'rand'       => __( 'Random listings', 'directorist' ),
     );
 
-    $values = new WP_Query($args);
-    $prices = array();
-    if ($values->have_posts()) {
-        while ($values->have_posts()) {
-            $values->the_post();
-            $prices[] = get_post_meta(get_the_ID(), '_price', true);
-        }
-        wp_reset_postdata();
-        $has_price = join($prices);
+    if ( ! is_array( $orderby ) ) {
+		$orderby = (array) $orderby;
+	}
+
+    if ( ! in_array( 'a_z', $orderby, true ) ) {
+        unset( $orderby_options['title-asc'] );
     }
-    $disabled_price_by_admin = get_directorist_option('disable_list_price', 0);
-    if ($disabled_price_by_admin || empty($has_price)) {
-        unset($options['price-asc'], $options['price-desc']);
+    if ( ! in_array( 'z_a', $orderby, true ) ) {
+        unset( $orderby_options['title-desc'] );
+    }
+    if ( ! in_array( 'latest', $orderby, true ) ) {
+        unset( $orderby_options['date-desc'] );
+    }
+    if ( ! in_array( 'oldest', $orderby, true ) ) {
+        unset( $orderby_options['date-asc'] );
+    }
+    if ( ! in_array( 'popular', $orderby, true ) ) {
+        unset( $orderby_options['views-desc'] );
+    }
+    if ( ! in_array( 'price_low_high', $orderby, true ) ) {
+        unset( $orderby_options['price-asc'] );
+    }
+    if ( ! in_array( 'price_high_low', $orderby, true ) ) {
+        unset( $orderby_options['price-desc'] );
+    }
+    if ( ! in_array( 'random', $orderby, true ) ) {
+        unset( $orderby_options['rand'] );
     }
 
-    return apply_filters('atbdp_get_listings_orderby_options', $options);
+    $listings_price_disabled = (bool) get_directorist_option( 'disable_list_price', 0 );
+	if ( $listings_price_disabled || ! directorist_have_listings_with_price() ) {
+        unset( $orderby_options['price-asc'], $orderby_options['price-desc'] );
+    }
 
+    return apply_filters( 'atbdp_get_listings_orderby_options', $orderby_options );
+}
+
+function directorist_have_listings_with_price() {
+	$args = array(
+		'post_type'              => ATBDP_POST_TYPE,
+		'post_status'            => 'publish',
+		'meta_key'               => '_price',
+		'no_found_rows'          => true,
+		'posts_per_page'         => 1,
+		'update_post_meta_cache' => false,
+		'update_post_term_cache' => false,
+    );
+
+	$listings_with_price = new WP_Query( $args );
+	return $listings_with_price->have_posts();
 }
 
 /**
@@ -2144,7 +2148,7 @@ function atbdp_can_use_yoast()
 {
 
     $can_use_yoast  = false;
-    $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+    $active_plugins = apply_filters('active_plugins', get_option('active_plugins', []));
 
     $yoast_free_is_active    = ( in_array('wordpress-seo/wp-seo.php', $active_plugins) ) ? true : false;
     $yoast_premium_is_active = ( in_array('wordpress-seo-premium/wp-seo-premium.php', $active_plugins) ) ? true : false;
@@ -2321,7 +2325,13 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                     if (!empty($settings['hide_empty']) && 0 == $count) continue;
                 }
                 $selected = ($term_id == $term->term_id) ? "selected" : '';
-                $custom_field    = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
+
+                $custom_field = '';
+
+                if(is_array($settings['assign_to_category']['assign_to_cat'])) {
+                    $custom_field = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
+                }
+
                 $html .= '<option data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
                 $html .= $prefix . $term->name;
                 if (!empty($settings['show_count'])) {
@@ -2348,8 +2358,6 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
 
     }
 
-    $term_slug = get_query_var($taxonomy_id);
-
     $args = array(
         'orderby' => $settings['orderby'],
         'order' => $settings['order'],
@@ -2359,9 +2367,8 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
         'hierarchical' => !empty($settings['hide_empty']) ? true : false
     );
 
-    $terms             = get_terms($taxonomy_id, $args);
-
-    $html = '';
+    $terms = get_terms($taxonomy_id, $args);
+    $html  = '';
 
     if (count($terms) > 0) {
 
@@ -2921,18 +2928,7 @@ function directorist_redirect_to_admin_setup_wizard() {
 }
 
 function directorist_default_directory(){
-    $id = '';
-    $all_types     = get_terms(array(
-        'taxonomy'   => ATBDP_TYPE,
-        'hide_empty' => false,
-    ));
-    foreach( $all_types as $type ) {
-        $default = get_term_meta( $type->term_id, '_default', true );
-        if( $default ){
-            $id = $type->term_id;
-        }
-    }
-    return $id;
+	return directorist_get_default_directory();
 }
 
 
@@ -3335,6 +3331,8 @@ function directorist_get_supported_file_types_groups( $group = null ) {
 		]
 	];
 
+    $groups = apply_filters( 'directorist_supported_file_types_groups', $groups );
+
 	if ( is_null( $group ) ) {
 		return $groups;
 	}
@@ -3668,7 +3666,7 @@ function directorist_set_listing_views_count( $listing_id = 0 ) {
  */
 function directorist_translate_to_listing_field_key( $header_key = '' ) {
 	//
-    $fields_map = array(
+    $fields_map = apply_filters( 'directorist_listings_field_label_to_key_map', array(
 		'date'                     => 'publish_date',
 		'publish_date'             => 'publish_date',
 		'Published'                => 'publish_date',
@@ -3727,7 +3725,7 @@ function directorist_translate_to_listing_field_key( $header_key = '' ) {
 		'Tagline'                  => 'tagline',
 		'address'                  => 'address',
 		'Address'                  => 'address',
-    );
+    ) );
 
     return isset( $fields_map[ $header_key ] ) ? $fields_map[ $header_key ] : '';
 }
@@ -4073,4 +4071,71 @@ function directorist_get_mime_types( $filter_type = '', $return_type = '' ) {
  */
 function directorist_is_email_verification_enabled() {
 	return (bool) get_directorist_option( 'enable_email_verification' );
+}
+
+/**
+ * @param int $term_id
+ * @param string $taxonomy
+ *
+ * @return string Term Label
+ */
+function directorist_get_term_label( $term_id, $taxonomy ) {
+	$term = get_term_by( 'term_id', $term_id, $taxonomy );
+
+	if ( false === $term ) {
+		return '';
+	}
+
+	return $term->name;
+}
+
+/**
+ * @param mixed $item
+ * @return mixed Item
+ */
+function directorist_sanitize_term_item( $item ) {
+	$item = trim( $item );
+	return directorist_maybe_number( $item );
+}
+
+/**
+ * @param mixed $item
+ * @return mixed item
+ */
+function directorist_maybe_number( $item ) {
+	if ( ! is_string( $item ) && ! is_numeric( $item )  ) {
+		return $item;
+	}
+
+	if ( preg_match( "/[^0-9.]/", $item ) ) {
+		return $item;
+	}
+
+	$item = trim( $item, '. ' );
+
+	if ( false === strpos( $item, '.' ) ) {
+		return absint( $item );
+	}
+
+	return ( float ) $item;
+}
+
+function directorist_validate_youtube_vimeo_url( $url ) {
+    if ( preg_match( '/^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)/i', $url ) ) {
+        return true;
+    }
+
+    if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/i', $url ) ) {
+        return true;
+    }
+
+	if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]+)(\S+)?$/i', $url ) ) {
+        return true;
+    }
+
+    return false;
+}
+
+function directorist_is_listing_post_type( $listing_id ) {
+	return ( get_post_type( absint( $listing_id ) ) === ATBDP_POST_TYPE );
 }

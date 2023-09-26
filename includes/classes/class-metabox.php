@@ -97,7 +97,7 @@ class ATBDP_Metabox {
 			}
 		}
 		$terms = get_terms( $taxonomy_id, $args);
-	
+
 		if( $terms ) {
 			foreach( $terms as $term ) {
 				$directory_type     = get_term_meta( $term->term_id, '_directory_type', true );
@@ -235,9 +235,9 @@ class ATBDP_Metabox {
 
 		if ( $show_directory_type_nav ) { ?>
 
-		<label><?php esc_html_e( 'Listing Type', 'directorist' ); ?></label>
+		<label><?php esc_html_e( 'Directory', 'directorist' ); ?></label>
 		<select name="directory_type">
-			<option value=""><?php esc_attr_e( 'Select Listing Type', 'directorist' ); ?></option>
+			<option value=""><?php esc_attr_e( 'Select a directory...', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ):
 				?>
 				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo selected( $type->term_id, $value ); ; ?> ><?php echo esc_attr( $type->name ); ?></option>

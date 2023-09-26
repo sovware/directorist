@@ -1,0 +1,39 @@
+<?php
+/**
+ * Directorist Radio Field class.
+ *
+ */
+namespace Directorist\Fields;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+class Radio_Field extends Base_Field {
+
+	public $type = 'radio';
+
+	public function get_options() {
+		$options = $this->options;
+
+		if ( ! is_array( $options ) ) {
+			return array();
+		}
+
+		return wp_list_pluck( $options, 'option_value' );
+	}
+
+	public function validate( $posted_data ) {
+		$value = $this->get_value( $posted_data );
+
+		if ( ! in_array( $value, $this->get_options(), true ) ) {
+			$this->add_error( sprintf( __( '[%s] Invalid value.', 'directorist' ), $value ) );
+
+			return false;
+		}
+
+		return true;
+	}
+}
+
+Fields::register( new Radio_Field() );

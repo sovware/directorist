@@ -183,7 +183,7 @@ class Directorist_Listings {
 		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 3 );
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '';
 		$this->options['listings_map_height']             = get_directorist_option( 'listings_map_height', 350 );
-		$this->options['enable_featured_listing']         = get_directorist_option( 'enable_featured_listing' );
+		$this->options['enable_featured_listing']         = directorist_is_featured_listing_enabled();
 		$this->options['listing_popular_by']              = get_directorist_option( 'listing_popular_by' );
 		$this->options['views_for_popular']               = get_directorist_option( 'views_for_popular', 4 );
 		$this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );

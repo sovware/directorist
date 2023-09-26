@@ -853,9 +853,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			// for listing package extensions...
 			$active_monetization     = get_directorist_option( 'enable_monetization' );
-			$enable_featured_listing = get_directorist_option( 'enable_featured_listing' );
 
-			if ( $active_monetization && $enable_featured_listing ) {
+			if ( $active_monetization && directorist_is_featured_listing_enabled() ) {
 				// if paid submission enabled/triggered by an extension, redirect to the checkout page and let that handle it, and vail out.
 				update_post_meta( $listing_id, '_refresh_renewal_token', 1 );
 				wp_safe_redirect( ATBDP_Permalink::get_checkout_page_link( $listing_id ) );

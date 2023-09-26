@@ -170,7 +170,7 @@ class ATBDP_Metabox {
 		$directory_type         = isset( $term_id ) ? $term_id : default_directory_type();
 		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
 		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
-		$f_active               = get_directorist_option('enable_featured_listing');
+		$f_active               = directorist_is_featured_listing_enabled();
 		$never_expire           = get_post_meta( $listing_id, '_never_expire', true );
 		$never_expire           = !empty( $never_expire ) ? (int) $never_expire : '';
 
@@ -305,7 +305,7 @@ class ATBDP_Metabox {
 		$directory_type         = default_directory_type();
 		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
 		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
-		$f_active               = get_directorist_option('enable_featured_listing');
+		$f_active               = directorist_is_featured_listing_enabled();
 		$never_expire           = get_post_meta($post->ID, '_never_expire', true);
 		$never_expire           = !empty($never_expire) ? (int) $never_expire : '';
 

@@ -151,11 +151,15 @@ if (!class_exists('ATBDP_Listing')):
 
         // update_listing_status
         public function update_listing_status( $order_id, $listing_id ) {
-            $featured_enabled = get_directorist_option('enable_featured_listing');
             $pricing_plan_enabled = is_fee_manager_active();
 
-            if ( $pricing_plan_enabled ) { return; };
-            if ( ! $featured_enabled ) { return; };
+            if ( $pricing_plan_enabled ) {
+				return;
+			};
+
+            if ( ! directorist_is_featured_listing_enabled() ) {
+				return;
+			};
 
             $directory_type = get_post_meta( $listing_id, '_directory_type', true );
             $post_status = get_term_meta( $directory_type, 'new_listing_status', true );

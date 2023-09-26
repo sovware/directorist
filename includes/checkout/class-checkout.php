@@ -81,7 +81,7 @@ class ATBDP_Checkout
             // Checkout form is not submitted, so show the content of the checkout items here
             $form_data = apply_filters('atbdp_checkout_form_data', array(), $listing_id); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
             // let's add featured listing data
-            $featured_active = apply_filters('atbdp_featured_active_checkout',get_directorist_option('enable_featured_listing'));
+            $featured_active = apply_filters('atbdp_featured_active_checkout', directorist_is_featured_listing_enabled() );
             if ($featured_active && !is_fee_manager_active()) {
                 $title = get_directorist_option('featured_listing_title', __('Featured', 'directorist'));
                 $desc = get_directorist_option('featured_listing_desc');
@@ -177,8 +177,7 @@ class ATBDP_Checkout
         // we need to provide payment receipt shortcode with the order details array as we passed in the order checkout form page.
         $order_items = apply_filters('atbdp_order_items', array(), $order_id, $listing_id, $data); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
         // let's add featured listing data if the order has featured listing in it
-        $featured_active = get_directorist_option('enable_featured_listing');
-        if ($featured_active && !empty($meta['_featured'])) {
+        if ( directorist_is_featured_listing_enabled() && !empty($meta['_featured'])) {
             $title = get_directorist_option('featured_listing_title', __('Featured', 'directorist'));
             $desc = get_directorist_option('featured_listing_desc');
             $price = get_directorist_option('featured_listing_price');

@@ -77,31 +77,6 @@
       }
     }
 
-    /* social info */
-    .directorist-form-social-fields {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin: 0 0 25px;
-      &:last-child {
-        margin: 0 0 40px;
-      }
-      @media screen and (max-width: 575px) {
-        flex-direction: column;
-      }
-
-      .directorist-form-group {
-        flex: 1;
-        margin: 0;
-        @media screen and (max-width: 575px) {
-          width: 100%;
-        }
-        &.directorist-form-social-fields__action {
-          flex: unset;
-        }
-      }
-    }
   }
   .directorist-alert-required {
     display: block;
@@ -122,6 +97,7 @@
     }
     @include e(title) {
       gap: 15px;
+      min-height: 66px;
       justify-content: flex-start;
       i {
         display: flex;
@@ -168,21 +144,18 @@
       &:last-child {
         margin: 0 0 40px;
       }
-      @media screen and (max-width: 575px) {
-        flex-direction: column;
-      }
-
       .directorist-form-group {
         flex: 1;
         margin: 0;
-        @media screen and (max-width: 575px) {
-          width: 100%;
-        }
-        &.directorist-form-social-fields__action {
-          flex: unset;
+      }
+      @include e(input) {
+        display: flex;
+        gap: 20px;
+        flex: 1;
+        @media screen and (max-width: 480px) {
+          flex-direction: column;
         }
       }
-
       @include e("remove") {
         display: flex;
         align-items: center;
@@ -378,7 +351,7 @@
   display: block;
   color: var(--directorist-color-primary);
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
 
 }
@@ -432,8 +405,8 @@
         color: var(--directorist-color-success);
       }
       &:before {
-        left: 31px;
-        top: 31px;
+        left: 30px;
+        top: 30px;
       }
       &:after {
         left: 25px;
@@ -459,15 +432,23 @@
 
     .directorist-checkbox
       input[type="checkbox"]
-      + .directorist-checkbox__label {
-      font-size: 15px;
-      font-weight: 700;
-      min-height: 18px;
-      padding-left: 27px;
-      @media screen and (max-width: 575px) {
-        padding: 0 27px 0 0;
+        + .directorist-checkbox__label {
+        font-size: 14px;
+        font-weight: 400;
+        min-height: 18px;
+        padding-left: 27px;
+        color: var(--directorist-color-body);
+        @media screen and (max-width: 575px) {
+          padding: 0 27px 0 0;
+        }
       }
-    }
+        
+    .directorist-checkbox
+    input[type="checkbox"]:checked 
+      + .directorist-checkbox__label {
+        font-weight: 500;
+        color: var(--directorist-color-primary);
+      }
 
     .directorist_pricing_options {
       input[type="checkbox"] {
@@ -1518,13 +1499,16 @@
     }
   }
 
+  .default-add-listing-bottom {
+    display: none;
+  }
+
   &.default-add-listing {
     .multistep-wizard__single {
       display: block !important;
     }
     .multistep-wizard__bottom,
-    .multistep-wizard__progressbar,
-    .multistep-wizard__nav__btn--finish {
+    .multistep-wizard__progressbar {
       display: none !important;
     }
 

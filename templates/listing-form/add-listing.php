@@ -17,12 +17,14 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
         <div class="directorist-add-listing-form">
             <input type="hidden" name="add_listing_form" value="1">
             <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
+            
             <!-- MultiStep Wizard Start -->
             <div class="multistep-wizard default-add-listing"> 
 
                 <?php if( ! empty( $enable_sidebar ) ) : ?>
-
                     <div class="multistep-wizard__nav">
+
+                        <!-- Add Listing Nav Buttons -->
                         <?php 
                             $counter = 1;
                             foreach ( $form_data as $key => $section ) {   
@@ -35,8 +37,10 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                 }
                             }
                         ?>
+
+                        <!-- Add Listing Last Nav Button -->
                         <div class="multistep-wizard__nav__item">
-                            <a href="#" class="multistep-wizard__nav__btn multistep-wizard__nav__btn--finish  add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>
+                            <a href="#add-listing-content-finish" id="add-listing-nav-finish" class="multistep-wizard__nav__btn multistep-wizard__nav__btn--finish  add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>
                         </div>
                     </div>
                     
@@ -46,6 +50,8 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                     <form action="<?php echo esc_url( $action_url ); ?>" method="post" id="directorist-add-listing-form">
                         <?php do_action('directorist_before_add_listing_from_frontend');?>
                         <div class="multistep-wizard__wrapper">
+
+                            <!-- Add Listing Sections -->
                             <?php
                                 ATBDP()->listing->add_listing->show_nonce_field();
                                 if ( !empty( $is_edit_mode ) || !empty( $single_directory )) {
@@ -53,23 +59,27 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                 }
                                 $counter = 1;
                                 foreach ( $form_data as $section ) {
-                                    echo '<div class="multistep-wizard__single" id="add-listing-content-'. esc_attr( $counter ) . '">';
+                                    echo '<div class="directorist-form-section directorist-content-module multistep-wizard__single" id="add-listing-content-'. esc_attr( $counter ) . '">';
                                         $listing_form->section_template( $section );
                                     echo '</div>';
                                     $counter++; 
                                 }
                             ?>
-                            <div class="multistep-wizard__single add-listing-content-999">
+
+                            <!-- Add Listing Last Section -->
+                            <div class="multistep-wizard__single add-listing-content-999" id="add-listing-content-finish">
                                 <?php 
                                     $listing_form->submit_template();
                                 ?>
                             </div>
                         </div>
-
+                        
+                        <!-- MultiStep Add Listing Progressbar -->
                         <div class="multistep-wizard__progressbar">
                             <span class="multistep-wizard__progressbar__width"></span>
                         </div>
-
+                        
+                        <!-- MultiStep Add Listing Bottom -->
                         <div class="multistep-wizard__bottom">
                             <a class="directorist-btn multistep-wizard__btn multistep-wizard__btn--prev" disabled="true">
                                 <?php 
@@ -88,7 +98,8 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
 
                             <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--skip-preview">Skip preview and submit listing</button>
                         </div>
-                        
+
+                        <!-- Default Add Listing Bottom -->
                         <div class="default-add-listing-bottom">
                             <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn">Save & Preview</button>
                         </div>

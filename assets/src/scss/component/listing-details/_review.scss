@@ -707,7 +707,12 @@ Review: New Style
             padding: 25px;
         }
 
-        .directorist-review-single &.directorist-card__body {
+        &.directorist-form-comment-edit .directorist-form-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .directorist-review-single .directorist-card__body {
             padding-left: 0;
             padding-right: 0;
         }

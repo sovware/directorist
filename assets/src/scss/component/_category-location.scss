@@ -45,7 +45,7 @@
         @include e('name'){
             text-decoration: none;
             font-weight: 500;
-            font-size: 20px;
+            font-size: 16px;
             color: var(--directorist-color-primary);
             &::before{
                 content: '';
@@ -83,6 +83,8 @@
                     }
                 }
                 .directorist-categories__single__total{
+                    font-size: 14px;
+                    font-weight: 400;
                     color: var(--directorist-color-deep-gray);
                 }
             }
@@ -496,10 +498,11 @@
             padding: 22px;
             h3{
                 margin: 0;
-                font-size: 20px;
-                font-weight: var(--directorist-fw-medium);
+                font-size: 16px;
+                font-weight: 500;
             }
             a{
+                color: var(--directorist-color-title);
                 text-decoration: none;
                 &::after{
                     position: absolute;
@@ -513,6 +516,8 @@
         }
         .directorist-location__count{
             display: block;
+            font-size: 14px;
+            font-weight: 400;
         }
     }
 

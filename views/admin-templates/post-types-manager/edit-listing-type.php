@@ -11,10 +11,14 @@
          */
         do_action( 'directorist_before_directory_type_edited' );
 
-        if ( $enable_multi_directory ) : ?>
-            <h1 class="wp-heading-inline"><?php esc_html_e( 'Add/Edit Listing Types', 'directorist' ) ?></h1>
-            <hr class="wp-header-end">
-        <?php endif;?>
+		if ( isset( $_GET['action'] ) && $_GET['action'] === 'add_new' ) {
+			$label = __( 'Add New Directory', 'directorist' );
+		} else {
+			$label = __( 'Edit Directory', 'directorist' );
+		}
+		?>
+		<h1 class="wp-heading-inline"><?php echo esc_html( $label ); ?></h1>
+		<hr class="wp-header-end">
     <br>
 
     <div id="atbdp-cpt-manager" data-builder-data="<?php echo esc_attr( $builder_data ); ?>">

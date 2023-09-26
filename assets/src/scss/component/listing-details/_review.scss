@@ -320,6 +320,9 @@ Review: New Style
         border-top: 0 none;
 
         @include e(rating) {
+            display: flex;
+            gap: 20px;
+            align-items: center;
             text-align: center;
             @media (max-width: 480px){
                 flex: 0 0 100%;
@@ -346,6 +349,18 @@ Review: New Style
                     width: 16px;
                     height: 16px;
                     background-color: var(--directorist-color-warning);
+                }
+                &.directorist_fraction_star {
+                    position: relative;
+                    &:before {
+                        content: '';
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        left: 0;
+                        mask-image: url("../../../../icons/font-awesome/svgs/solid/star-half.svg");
+                        background-color: var(--directorist-color-warning);
+                    }
                 }
             }
 
@@ -502,6 +517,7 @@ Review: New Style
 
 .directorist-review-single {
     padding: 40px 30px;
+    margin: 0;
     @media screen and (max-width: 575px){
         padding: 30px 20px;
     }

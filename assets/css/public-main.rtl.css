@@ -16719,6 +16719,15 @@ Review: New Style
   border-top: 0 none;
 }
 .directorist-review-content__overview__rating {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   text-align: center;
 }
 @media (max-width: 480px) {
@@ -16757,6 +16766,19 @@ Review: New Style
 .directorist-review-content__overview__rating .directorist-icon-mask::after {
   width: 16px;
   height: 16px;
+  background-color: var(--directorist-color-warning);
+}
+.directorist-review-content__overview__rating .directorist-icon-mask.directorist_fraction_star {
+  position: relative;
+}
+.directorist-review-content__overview__rating .directorist-icon-mask.directorist_fraction_star:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  -webkit-mask-image: url(../images/b6ad67158aa2d6258e619021127e704f.svg);
+          mask-image: url(../images/b6ad67158aa2d6258e619021127e704f.svg);
   background-color: var(--directorist-color-warning);
 }
 .directorist-review-content__overview__rating .directorist-rating-overall {
@@ -16921,6 +16943,7 @@ Review: New Style
 
 .directorist-review-single {
   padding: 40px 30px;
+  margin: 0;
 }
 @media screen and (max-width: 575px) {
   .directorist-review-single {

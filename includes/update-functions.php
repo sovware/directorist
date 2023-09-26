@@ -137,7 +137,7 @@ function directorist_710_update_db_version() {
 	\ATBDP_Installation::update_db_version( '7.1.0' );
 }
 
-function directorist_770_migrate_expired_meta_to_expired_status( $updater ) {
+function directorist_780_migrate_expired_meta_to_expired_status( $updater ) {
 	$listings = new \WP_Query( array(
 		'post_status'    => 'private',
 		'post_type'      => ATBDP_POST_TYPE,
@@ -161,7 +161,7 @@ function directorist_770_migrate_expired_meta_to_expired_status( $updater ) {
 	return $listings->have_posts();
 }
 
-function directorist_770_migrate_renewal_meta_to_renewal_status( $updater ) {
+function directorist_780_migrate_renewal_meta_to_renewal_status( $updater ) {
 	$listings = new \WP_Query( array(
 		'post_status'    => array( 'private', 'publish', 'draft', 'auto-draft', 'pending' ),
 		'post_type'      => ATBDP_POST_TYPE,
@@ -185,7 +185,7 @@ function directorist_770_migrate_renewal_meta_to_renewal_status( $updater ) {
 	return $listings->have_posts();
 }
 
-function directorist_770_clean_listing_status_expired_meta() {
+function directorist_780_clean_listing_status_expired_meta() {
 	global $wpdb;
 
 	$table_name = $wpdb->prefix . 'postmeta';
@@ -201,7 +201,7 @@ function directorist_770_clean_listing_status_expired_meta() {
 	);
 }
 
-function directorist_770_clean_listing_status_renewal_meta() {
+function directorist_780_clean_listing_status_renewal_meta() {
 	global $wpdb;
 
 	$table_name = $wpdb->prefix . 'postmeta';
@@ -217,6 +217,6 @@ function directorist_770_clean_listing_status_renewal_meta() {
 	);
 }
 
-function directorist_770_update_db_version() {
-	\ATBDP_Installation::update_db_version( '7.7.0' );
+function directorist_780_update_db_version() {
+	\ATBDP_Installation::update_db_version( '7.8.0' );
 }

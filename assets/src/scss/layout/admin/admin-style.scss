@@ -1,6 +1,6 @@
 @import "../../vendor/bootstrap/config.bs";
 
-#directorist.atbd_wrapper {
+#directiost-listing-fields_wrapper {
   .diectorist-show {
     display: block !important;
   }
@@ -144,7 +144,7 @@
     }
 
     .single_attachment {
-      width: 208px;
+      width: auto;
       display: inline-block;
       position: relative;
 
@@ -640,6 +640,7 @@ a {
 .plupload-thumbs .thumb {
   float: none !important;
   max-width: 200px;
+  display: flex;
 }
 
 #atbdp-categories-image-wrapper {
@@ -2488,6 +2489,7 @@ span.atbdp-tick-cross {
 
     img {
       max-width: 100px;
+      height: 65px !important;
     }
 
     p {

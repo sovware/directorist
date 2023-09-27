@@ -80,6 +80,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
+    flex-direction: column;
     gap: 20px;
 }
 
@@ -168,7 +169,7 @@
             .directorist-icon-mask:after{
                 width: 14px;
                 height: 14px;
-                background-color: var(--directorist-color-white);
+                background-color: #fff;
             }
             &:hover {
                 opacity: 0.8;

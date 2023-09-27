@@ -1238,6 +1238,10 @@
     display: flex;
     flex-direction: column;
     height: fit-content;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 10px;
+    margin: -10px;
     &.sticky {
       position: fixed;
       top: 0;

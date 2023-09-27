@@ -12198,8 +12198,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-decoration: none;
   position: relative;
   min-height: 40px;
-  -webkit-transition: 0.6s ease;
-  transition: 0.6s ease;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  z-index: 1;
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__card span {
   font-weight: var(--directorist-fw-medium);

@@ -51,6 +51,164 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
 
         add_filter( 'directorist_builder_layouts', [ $this, 'conditional_layouts' ] );
+        add_action( 'admin_init', [ $this, 'migrate_header' ] );
+    }
+
+    public function migrate_header() {
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        $migrated = get_option( 'directorist_builder_header_migrated', false );
+        $need_migration = ( empty( $migrated ) && self::has_old_listings_data() ) ? true : false;
+
+        if ( ! $need_migration ) {
+            return;
+        }
+
+        $directory_types = get_terms([
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+        ]);
+
+        if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
+            return;
+        }
+        
+        foreach ( $directory_types as $directory_type ) {
+
+            $new_structure = [];
+
+            $header_contents = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
+
+            if ( empty( $header_contents ) ) {
+                continue;
+            }
+
+            $description = ! empty( $header_contents['options']['content_settings']['listing_description']['enable'] ) ? $header_contents['options']['content_settings']['listing_description']['enable'] : false;
+            $tagline     = ! empty( $header_contents['options']['content_settings']['listing_title']['enable_tagline'] ) ? $header_contents['options']['content_settings']['listing_title']['enable_tagline'] : false;
+            $contents    = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
+
+            if ( $description ) {
+
+                $contents['fields']['description'] = [
+                    "icon" => "las la-tag",
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "description",
+                    "original_widget_key" => "description",
+                    "widget_key" => "description"
+                ];
+
+                $details = [
+                    "type" => "general_group",
+                    "label" => "Description",
+                    "fields" => [
+                        "description"
+                    ],
+                    "section_id" => "1627188303" . $directory_type->term_id
+                ];
+
+                array_unshift( $contents['groups'], $details );
+
+                update_term_meta( $directory_type->term_id, 'single_listings_contents', $contents );
+
+            }
+
+            if ( empty( $header_contents['listings_header'] ) ) {
+                continue;
+            }
+            
+            foreach ( $header_contents['listings_header'] as $section_name => $widgets ) {
+
+                if ( 'quick_actions' === $section_name ) {
+                    $quick_widget = [
+                        "type" => "placeholder_group",
+                        "placeholderKey" => "quick-widgets-placeholder",
+                        "placeholders" => [
+                            [
+                                "type" => "placeholder_group",
+                                "placeholderKey" => "quick-info-placeholder",
+                                "selectedWidgets" => [
+                                    [
+                                        "type" => "button",
+                                        "label" => "Back",
+                                        "widget_name" => "back",
+                                        "widget_key" => "back"
+                                    ]
+                                ]
+                            ],
+                            [
+                                "type" => "placeholder_group",
+                                "placeholderKey" => "quick-action-placeholder",
+                                "selectedWidgets" => $widgets,
+                            ]
+                        ]
+                    ];
+    
+                    array_push( $new_structure, $quick_widget );
+                }
+
+
+                if ( 'thumbnail' === $section_name ) {
+                    $slider_widget = [
+                        "type" => "placeholder_item",
+                        "placeholderKey" => "slider-placeholder",
+                        "selectedWidgets" => [
+                            [
+                                "type" => "thumbnail",
+                                "label" => "Listing Image/Slider",
+                                "widget_name" => "slider",
+                                "widget_key" => "slider"
+                            ]
+                        ]
+                    ];
+    
+                    array_push( $new_structure, $slider_widget );
+                }
+
+                if ( 'quick_info' === $section_name ) {
+
+                    $title_widget = [
+                        "type" => "placeholder_item",
+                        "placeholderKey" => "listing-title-placeholder",
+                        "selectedWidgets" => [
+                            [
+                                "type" => "title",
+                                "label" => "Listing Title",
+                                "widget_name" => "title",
+                                "widget_key" => "title",
+                                'options' => [
+                                    'title' => __( "Listing Title Settings", "directorist" ),
+                                    'fields' => [
+                                        'enable_tagline' => [
+                                            'type' => "toggle",
+                                            'label' => __( "Show Tagline", "directorist" ),
+                                            'value' => $tagline,
+                                        ],
+                                    ],
+                                ],
+                            ]
+                        ]
+                    ];
+    
+                    array_push( $new_structure, $title_widget );
+
+                    $more_widget = [
+                        "type" => "placeholder_item",
+                        "placeholderKey" => "more-widgets-placeholder",
+                        "selectedWidgets" => $widgets,
+                    ];
+    
+                    array_push( $new_structure, $more_widget );
+                }
+
+            }
+
+            update_term_meta( $directory_type->term_id, 'single_listing_header', $new_structure );
+        }
+
+        update_option( 'directorist_builder_header_migrated', true );
     }
 
     // add_missing_single_listing_section_id
@@ -2801,6 +2959,16 @@ class Multi_Directory_Manager
                         'type' => "title",
                         'label' => __( "Listing Title", "directorist" ),
                         'icon' => 'las la-heading',
+                        'options' => [
+                            'title' => __( "Listing Title Settings", "directorist" ),
+                            'fields' => [
+                                'enable_tagline' => [
+                                    'type' => "toggle",
+                                    'label' => __( "Show Tagline", "directorist" ),
+                                    'value' => true,
+                                ],
+                            ],
+                        ],
                     ],
                     'slider' => [
                         'type' => "thumbnail",

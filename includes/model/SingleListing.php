@@ -73,7 +73,7 @@ class Directorist_Single_Listing {
 		$content_data           = array();
 		$single_fields          = get_term_meta( $this->type, 'single_listings_contents', true );
 		$submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
-
+		
 		if( !empty( $single_fields['fields'] ) ) {
 
 			foreach ( $single_fields['fields'] as $key => $value ) {
@@ -488,8 +488,8 @@ class Directorist_Single_Listing {
 	}
 
 	public function quick_actions_template() {
-		$actions = ! empty( $this->header_data['listings_header']['quick_actions'] ) ? $this->header_data['listings_header']['quick_actions'] : '';
-
+		
+		$actions = $this->listing_header( '', 'quick-widgets-placeholder', 'quick-action-placeholder' );
 		$args = array(
 			'listing'  => $this,
 			'actions'  => $actions,
@@ -501,7 +501,8 @@ class Directorist_Single_Listing {
 	}
 
 	public function quick_info_template() {
-		$quick_info = ! empty( $this->header_data['listings_header']['quick_info'] ) ? $this->header_data['listings_header']['quick_info'] : '';
+
+		$quick_info = $this->listing_header( '', 'more-widgets-placeholder' );
 
 		$args = array(
 			'listing' => $this,
@@ -586,10 +587,17 @@ class Directorist_Single_Listing {
 		return $data;
 	}
 
-	public function slider_template( $data ) {
+	public function slider_template() {
+
+		$slider = $this->listing_header( 'slider', 'slider-placeholder' );
+
+		if ( ! $slider ) {
+			return;
+		}
+
 		$args = array(
 			'listing'    => $this,
-			'data'       => $this->get_slider_data( $data ),
+			'data'       => $this->get_slider_data(),
 		);
 
 		Helper::get_template('single/slider', $args );
@@ -846,10 +854,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function display_back_link() {
-		$id = $this->id;
-		$type = get_post_meta( $id, '_directory_type', true );
-		$header = get_term_meta( $type, 'single_listing_header', true );
-		return !empty( $header['options']['general']['back']['label'] ) ? true : false;
+		return $this->listing_header( 'back', 'quick-widgets-placeholder', 'quick-info-placeholder' );
 	}
 
 	public function has_sidebar() {
@@ -891,22 +896,58 @@ class Directorist_Single_Listing {
 		return $notice_text;
 	}
 
-	public function header_template() {
-		$use_listing_title = !empty($this->header_data['options']['general']['section_title']['use_listing_title']) ? $this->header_data['options']['general']['section_title']['use_listing_title'] : '';
-		$section_title     = !empty($this->header_data['options']['general']['section_title']['label']) ? $this->header_data['options']['general']['section_title']['label'] : '';
-		$section_icon      = !empty($this->header_data['options']['general']['section_title']['icon']) ? $this->header_data['options']['general']['section_title']['icon'] : '';
-		$display_title     = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_title'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_title'] : '';
-		$display_tagline   = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] : '';
-		$display_content   = !empty( $this->header_data['options']['content_settings']['listing_description']['enable'] ) ? $this->header_data['options']['content_settings']['listing_description']['enable'] : '';
+	public function listing_header( $key = '', $group = '', $subgroup = '' ) {
 
+		foreach( $this->header_data as $data ) {
+
+			if ( $data['placeholderKey'] !== $group ) {
+				continue;
+			}
+
+			if ( $subgroup and ! empty( $data['placeholders'] ) ) {
+				foreach ( $data['placeholders'] as $placeholder )  {
+					if ( $placeholder['placeholderKey'] !== $subgroup ) {
+						continue;
+					}
+
+					if ( ! $key ) {
+						return $placeholder['selectedWidgets'];
+					}
+
+					foreach( $placeholder['selectedWidgets'] as $index => $widget ) {
+						if ( $widget['widget_key'] === $key ) {
+							return $widget;
+						}
+					}
+
+				}
+			}
+
+			if ( ! $key ) {
+				return $data['selectedWidgets'];
+			}
+
+			foreach( $data['selectedWidgets'] as $index => $widget ) {
+				if ( $widget['widget_key'] === $key ) {
+					return $widget;
+				}
+			}
+
+		}
+
+	}
+
+	public function header_template() {
+
+		$display_title     = $this->listing_header( 'title', 'listing-title-placeholder' );
 		$args = array(
 			'listing'           => $this,
-			'use_listing_title' => $use_listing_title,
-			'section_title'     => $section_title,
-			'section_icon'      => $section_icon,
+			'use_listing_title' => true,
+			'section_title'     => '',
+			'section_icon'      => '',
 			'display_title'     => $display_title,
-			'display_tagline'   => $display_tagline,
-			'display_content'   => $display_content,
+			'display_tagline'   => ! empty( $display_title['enable_tagline'] ) ? $display_title['enable_tagline'] : false,
+			'display_content'   => false,
 		);
 
 		return Helper::get_template('single/header', $args);

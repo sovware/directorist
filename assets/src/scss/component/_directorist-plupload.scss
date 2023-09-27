@@ -70,8 +70,8 @@
 
 .filelist .fileprogress {
     width: 0%;
+    height: 5px;
     background: #3385ff;
-    height: 5px
 }
 
 #custom-filedropbox,
@@ -80,7 +80,6 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    flex-direction: column;
     gap: 20px;
 }
 

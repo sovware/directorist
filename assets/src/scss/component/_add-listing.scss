@@ -153,6 +153,7 @@
         gap: 20px;
         flex: 1;
         @media screen and (max-width: 480px) {
+          gap: 10px;
           flex-direction: column;
         }
       }
@@ -200,7 +201,7 @@
   }
 
   .directorist-form-social-fields {
-    margin: 0 0 15px;
+    margin: 0 0 25px;
     @include e("remove") {
       background: #ededed !important;
       i::after {
@@ -215,8 +216,21 @@
     }
   }
 
+  .directorist-content-module__title {
+    cursor: auto;
+    &:before {
+      display: none;
+    }
+  }
+
   .directorist-content-module__contents {
-    padding: 30px;
+    padding: 30px 40px;
+    @media (max-width: 480px) {
+      height: auto;
+      opacity: 1;
+      padding: 20px;
+      visibility: visible;
+    }
   }
 
   .directorist-form-group {
@@ -314,11 +328,10 @@
   }
 
   .plupload-upload-uic {
-    width: 420px;
-    margin: 0 auto !important;
-    border: 1px dashed #dbdee9;
     padding: 30px;
     text-align: center;
+    border-radius: 5px;
+    border: 1px dashed #dbdee9;
     .plupload-browse-button-label i::after {
       width: 50px;
       height: 45px;
@@ -438,9 +451,6 @@
         min-height: 18px;
         padding-left: 27px;
         color: var(--directorist-color-body);
-        @media screen and (max-width: 575px) {
-          padding: 0 27px 0 0;
-        }
       }
         
     .directorist-checkbox
@@ -460,10 +470,6 @@
             height: 14px;
             border-radius: 100%;
             border: 2px solid #c6d0dc;
-            @media screen and (max-width: 575px) {
-              left: unset;
-              right: 3px;
-            }
           }
           &:before {
             left: 0;
@@ -474,10 +480,6 @@
             background: #fff;
             border-radius: 100%;
             border: 5px solid #000;
-            @media screen and (max-width: 575px) {
-              left: unset;
-              right: 0;
-            }
           }
           &:checked {
             &:after {
@@ -1140,6 +1142,8 @@
 ================================*/
 .add_listing_form_wrapper .hide-if-no-js {
   display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
   justify-content: center;
 }
 

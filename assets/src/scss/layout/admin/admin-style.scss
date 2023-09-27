@@ -127,6 +127,12 @@
     }
   }
 
+  .price-type-both {
+    select.directory_pricing_field {
+      display: none;
+    }
+  }
+
   .listing-img-container {
     text-align: center;
     padding: 10px 0 15px;
@@ -671,14 +677,15 @@ a {
 .plupload-thumbs {
   .thumb {
     position: relative;
-    height: auto !important;
 
     &:hover {
       .atbdp-thumb-actions {
         display: flex !important;
       }
     }
-
+    .atbdp-file-info {
+      border-radius: 5px;
+    }
     .atbdp-thumb-actions {
       position: absolute;
       width: 100%;
@@ -703,6 +710,9 @@ a {
         &:hover {
           background: #e23636;
         }
+      }
+      &:before {
+        border-radius: 5px;
       }
     }
   }
@@ -5498,6 +5508,10 @@ img.atbdp-file-info {
 
 .add_listing_form_wrapper {
   &#gallery_upload {
+    padding: 30px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px dashed #dbdee9;
     .listing-prv-img-container {
       text-align: center;
     }

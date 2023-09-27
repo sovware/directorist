@@ -27,8 +27,6 @@ $listing = Directorist_Single_Listing::instance();
 
 				if( !$disable_single_listing ){ ?>
 
-					<?php Helper::get_template( 'single/top-actions' ); ?>
-
 					<?php if ( $listing->single_page_enabled() ): ?>
 
 						<div class="directorist-single-wrapper">

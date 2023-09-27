@@ -225,61 +225,70 @@ __webpack_require__.r(__webpack_exports__);
     });
     /* Swiper Slider Single Listing */
 
-    var swiperSingleListingThumb = new Swiper('.directorist-single-listing-slider-thumb', {
-      slidesPerView: 6,
-      spaceBetween: 10,
-      loop: false,
-      freeMode: true,
-      navigation: {
-        nextEl: ".directorist-swiper__nav--next-single-listing-thumb",
-        prevEl: ".directorist-swiper__nav--prev-single-listing-thumb"
-      },
-      pagination: {
-        el: ".directorist-swiper__pagination--single-listing-thumb",
-        type: 'bullets',
-        clickable: true
-      },
-      breakpoints: {
-        0: {
-          slidesPerView: 1,
-          spaceBetween: 0
+    var swiperCarouselSingleListingThumb = document.querySelectorAll('.directorist-single-listing-slider-thumb');
+    var swiperCarouselSingleListing = document.querySelectorAll('.directorist-single-listing-slider');
+    var swiperSingleListingThumbs = [];
+    swiperCarouselSingleListingThumb.forEach(function (el, i) {
+      var swiperSingleListingThumb = new Swiper(el, {
+        slidesPerView: 6,
+        spaceBetween: 10,
+        loop: false,
+        freeMode: true,
+        navigation: {
+          nextEl: ".directorist-swiper__nav--next-single-listing-thumb",
+          prevEl: ".directorist-swiper__nav--prev-single-listing-thumb"
         },
-        480: {
-          slidesPerView: 2
+        pagination: {
+          el: ".directorist-swiper__pagination--single-listing-thumb",
+          type: 'bullets',
+          clickable: true
         },
-        767: {
-          slidesPerView: 3
-        },
-        1200: {
-          slidesPerView: 4
-        },
-        1440: {
-          slidesPerView: 5
-        },
-        1600: {
-          slidesPerView: 6
+        breakpoints: {
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 0
+          },
+          480: {
+            slidesPerView: 2
+          },
+          767: {
+            slidesPerView: 3
+          },
+          1200: {
+            slidesPerView: 4
+          },
+          1440: {
+            slidesPerView: 5
+          },
+          1600: {
+            slidesPerView: 6
+          }
         }
-      }
+      }); // Push each instance into swiperSingleListingThumbs
+
+      swiperSingleListingThumbs.push(swiperSingleListingThumb);
     });
-    var swiperSingleListing = new Swiper('.directorist-single-listing-slider', {
-      slidesPerView: 1,
-      spaceBetween: 0,
-      loop: true,
-      slidesPerGroup: 1,
-      observer: true,
-      observeParents: true,
-      navigation: {
-        nextEl: ".directorist-swiper__nav--next-single-listing",
-        prevEl: ".directorist-swiper__nav--prev-single-listing"
-      },
-      pagination: {
-        el: ".directorist-swiper__pagination--single-listing",
-        type: 'bullets',
-        clickable: true
-      },
-      thumbs: {
-        swiper: swiperSingleListingThumb
-      }
+    swiperCarouselSingleListing.forEach(function (el, i) {
+      var swiperSingleListing = new Swiper(el, {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        loop: true,
+        slidesPerGroup: 1,
+        observer: true,
+        observeParents: true,
+        navigation: {
+          nextEl: ".directorist-swiper__nav--next-single-listing",
+          prevEl: ".directorist-swiper__nav--prev-single-listing"
+        },
+        pagination: {
+          el: ".directorist-swiper__pagination--single-listing",
+          type: 'bullets',
+          clickable: true
+        },
+        thumbs: {
+          swiper: swiperSingleListingThumbs[i]
+        }
+      });
     });
   }
 

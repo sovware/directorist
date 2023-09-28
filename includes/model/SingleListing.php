@@ -595,6 +595,11 @@ class Directorist_Single_Listing {
 			return;
 		}
 
+		$this->slider_field_template();
+	}
+
+	public function slider_field_template() {
+
 		$args = array(
 			'listing'    => $this,
 			'data'       => $this->get_slider_data(),
@@ -921,6 +926,10 @@ class Directorist_Single_Listing {
 					}
 
 				}
+			}
+
+			if ( empty( $data['selectedWidgets'] ) ) {
+				return [];
 			}
 
 			if ( ! $key ) {

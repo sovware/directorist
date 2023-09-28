@@ -17,9 +17,10 @@ $id    = str_replace(' ', '-', strtolower( $label ) );
 
 	<div class="directorist-content-module__contents">
 
-		<?php foreach ( $section_data['fields'] as $field ) {
-			$listing_form->field_template( $field );
-		}
+		<?php 
+			foreach ( $section_data['fields'] as $field ) {
+				$listing_form->field_template( $field );
+			}
 		?>
 
 	</div>

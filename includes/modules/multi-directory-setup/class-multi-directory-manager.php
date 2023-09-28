@@ -3,6 +3,7 @@
  * Multi directory manager class.
  */
 namespace Directorist;
+use \ATBDP_Permalink;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -50,6 +51,164 @@ class Multi_Directory_Manager
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
 
         add_filter( 'directorist_builder_layouts', [ $this, 'conditional_layouts' ] );
+        add_action( 'admin_init', [ $this, 'migrate_header' ] );
+    }
+
+    public function migrate_header() {
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        $migrated = get_option( 'directorist_builder_header_migrated', false );
+        $need_migration = ( empty( $migrated ) && self::has_old_listings_data() ) ? true : false;
+
+        if ( ! $need_migration ) {
+            return;
+        }
+
+        $directory_types = get_terms([
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+        ]);
+
+        if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
+            return;
+        }
+        
+        foreach ( $directory_types as $directory_type ) {
+
+            $new_structure = [];
+
+            $header_contents = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
+
+            if ( empty( $header_contents ) ) {
+                continue;
+            }
+
+            $description = ! empty( $header_contents['options']['content_settings']['listing_description']['enable'] ) ? $header_contents['options']['content_settings']['listing_description']['enable'] : false;
+            $tagline     = ! empty( $header_contents['options']['content_settings']['listing_title']['enable_tagline'] ) ? $header_contents['options']['content_settings']['listing_title']['enable_tagline'] : false;
+            $contents    = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
+
+            if ( $description ) {
+
+                $contents['fields']['description'] = [
+                    "icon" => "las la-tag",
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "description",
+                    "original_widget_key" => "description",
+                    "widget_key" => "description"
+                ];
+
+                $details = [
+                    "type" => "general_group",
+                    "label" => "Description",
+                    "fields" => [
+                        "description"
+                    ],
+                    "section_id" => "1627188303" . $directory_type->term_id
+                ];
+
+                array_unshift( $contents['groups'], $details );
+
+                update_term_meta( $directory_type->term_id, 'single_listings_contents', $contents );
+
+            }
+
+            if ( empty( $header_contents['listings_header'] ) ) {
+                continue;
+            }
+            
+            foreach ( $header_contents['listings_header'] as $section_name => $widgets ) {
+
+                if ( 'quick_actions' === $section_name ) {
+                    $quick_widget = [
+                        "type" => "placeholder_group",
+                        "placeholderKey" => "quick-widgets-placeholder",
+                        "placeholders" => [
+                            [
+                                "type" => "placeholder_group",
+                                "placeholderKey" => "quick-info-placeholder",
+                                "selectedWidgets" => [
+                                    [
+                                        "type" => "button",
+                                        "label" => "Back",
+                                        "widget_name" => "back",
+                                        "widget_key" => "back"
+                                    ]
+                                ]
+                            ],
+                            [
+                                "type" => "placeholder_group",
+                                "placeholderKey" => "quick-action-placeholder",
+                                "selectedWidgets" => $widgets,
+                            ]
+                        ]
+                    ];
+    
+                    array_push( $new_structure, $quick_widget );
+                }
+
+
+                if ( 'thumbnail' === $section_name ) {
+                    $slider_widget = [
+                        "type" => "placeholder_item",
+                        "placeholderKey" => "slider-placeholder",
+                        "selectedWidgets" => [
+                            [
+                                "type" => "thumbnail",
+                                "label" => "Listing Image/Slider",
+                                "widget_name" => "slider",
+                                "widget_key" => "slider"
+                            ]
+                        ]
+                    ];
+    
+                    array_push( $new_structure, $slider_widget );
+                }
+
+                if ( 'quick_info' === $section_name ) {
+
+                    $title_widget = [
+                        "type" => "placeholder_item",
+                        "placeholderKey" => "listing-title-placeholder",
+                        "selectedWidgets" => [
+                            [
+                                "type" => "title",
+                                "label" => "Listing Title",
+                                "widget_name" => "title",
+                                "widget_key" => "title",
+                                'options' => [
+                                    'title' => __( "Listing Title Settings", "directorist" ),
+                                    'fields' => [
+                                        'enable_tagline' => [
+                                            'type' => "toggle",
+                                            'label' => __( "Show Tagline", "directorist" ),
+                                            'value' => $tagline,
+                                        ],
+                                    ],
+                                ],
+                            ]
+                        ]
+                    ];
+    
+                    array_push( $new_structure, $title_widget );
+
+                    $more_widget = [
+                        "type" => "placeholder_item",
+                        "placeholderKey" => "more-widgets-placeholder",
+                        "selectedWidgets" => $widgets,
+                    ];
+    
+                    array_push( $new_structure, $more_widget );
+                }
+
+            }
+
+            update_term_meta( $directory_type->term_id, 'single_listing_header', $new_structure );
+        }
+
+        update_option( 'directorist_builder_header_migrated', true );
     }
 
     // add_missing_single_listing_section_id
@@ -561,6 +720,30 @@ class Multi_Directory_Manager
                 'allowMultiple' => false,
                 'template' => 'submission_form_fields',
                 'widgets' => apply_filters( 'atbdp_single_listing_content_widgets', [
+                    'image_upload' => [
+                        'options' => [
+                            'icon' => [
+                                'type'  => 'icon',
+                                'label' => __( 'Icon', 'directorist' ),
+                                'value' => 'las la-tag',
+                            ],
+                            'footer_thumbnail' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Footer Thumbnail', 'directorist' ),
+                                'value' => true,
+                            ],
+                        ]
+                    ],
+                    'description' => [
+                        'options' => [
+                            'icon' => [
+                                'type'  => 'icon',
+                                'label' => __( 'Icon', 'directorist' ),
+                                'value' => 'las la-tag',
+                            ],
+                        ]
+                    ],
+
                     'tag' => [
                         'options' => [
                             'icon' => [
@@ -900,7 +1083,7 @@ class Multi_Directory_Manager
                 'template' => 'submission_form_fields',
                 'widgets' => [
                     'title' => [
-                        'label' => __( 'Search Bar', 'directorist' ),
+                        'label' => __( 'Search Box', 'directorist' ),
                         'options' => [
                             'required' => [
                                 'type'  => 'toggle',
@@ -2094,7 +2277,7 @@ class Multi_Directory_Manager
                 'top' => [
                     'maxWidget' => 0,
                     'acceptedWidgets' => [
-                        "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing",
+                        "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing", "posted_date",
                     ],
                 ],
                 'bottom' => [
@@ -2133,9 +2316,9 @@ class Multi_Directory_Manager
             'body' => [
                 'avatar' => [
                     'label' => __( 'Avatar', 'directorist' ),
-                    'maxWidget' => 1,
+                    'maxWidget' => 0,
                     'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                    'acceptedWidgets' => ["user_avatar"],
+                    'acceptedWidgets' => [ "popular_badge", "featured_badge", "new_badge" ],
                 ],
                 'title' => [
                     'maxWidget' => 1,
@@ -2146,7 +2329,7 @@ class Multi_Directory_Manager
                     'acceptedWidgets' => ["favorite_badge"],
                 ],
                 'quick_info' => [
-                    'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing"],
+                    'acceptedWidgets' => [ "rating", "pricing", "posted_date" ],
                 ],
                 'bottom' => [
                     'maxWidget' => 0,
@@ -2195,7 +2378,7 @@ class Multi_Directory_Manager
                     'label' => __( 'Body Top', 'directorist' ),
                     'maxWidget' => 0,
                     'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                    'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
+                    'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing", "posted_date"],
                 ],
                 'right' => [
                     'label' => __( 'Body Right', 'directorist' ),
@@ -2374,6 +2557,11 @@ class Multi_Directory_Manager
                         'label' => __( 'Group Name', 'directorist' ),
                         'value' => __( 'Section', 'directorist' ),
                     ],
+                    'icon' => [
+                        'type'  => 'icon',
+                        'label'  => __( 'Block/Section Icon', 'directorist' ),
+                        'value' => '',
+                    ],
                 ],
                 'value' => [
                     'fields' => [
@@ -2400,6 +2588,11 @@ class Multi_Directory_Manager
             ] ),
 
             // Submission Settings
+            'enable_sidebar' => [
+                'label' => __('Enable Sidebar', 'directorist'),
+                'type'  => 'toggle',
+                'value' => true,
+            ],
             'preview_mode' => [
                 'label' => __('Enable Listing Preview', 'directorist'),
                 'type'  => 'toggle',
@@ -2419,24 +2612,6 @@ class Multi_Directory_Manager
             ],
 
             // TERMS AND CONDITIONS
-            'listing_terms_condition' => [
-                'label' => __('Enable', 'directorist'),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
-            'require_terms_conditions' => [
-                'label' => __('Required', 'directorist'),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
-            'terms_label' => [
-                'label'       => __('Label', 'directorist'),
-                'type'        => 'text',
-                'description' => __( 'Place the linking text between two <code>%</code> mark. Ex: %link% ', 'directorist' ),
-                'value'       => 'I agree with all %terms & conditions%',
-            ],
-
-            // PRIVACY AND POLICY
             'listing_privacy' => [
                 'label' => __('Enable', 'directorist'),
                 'type'  => 'toggle',
@@ -2447,11 +2622,30 @@ class Multi_Directory_Manager
                 'type'  => 'toggle',
                 'value' => true,
             ],
-            'privacy_label' => [
-                'label' => __('Label', 'directorist'),
-                'type'  => 'text',
-                'description' => __( 'Place the linking text between two <code>%</code> mark. Ex: %link% ', 'directorist' ),
-                'value' => 'I agree to the %Privacy & Policy%',
+            'terms_name' => [
+                'label'       => __('Terms Name', 'directorist'),
+                'type'        => 'text',
+                'value'       => __( 'Terms & Conditions', 'directorist' ),
+            ],
+            'terms_link' => [
+                'label'       => __('Terms Link', 'directorist'),
+                'type'        => 'text',
+                'value'       => ATBDP_Permalink::get_terms_and_conditions_page_url(),
+            ],
+            'privacy_name' => [
+                'label'       => __('Privacy name', 'directorist'),
+                'type'        => 'text',
+                'value'       => __( 'Privacy & Policy', 'directorist' ),
+            ],
+            'privacy_link' => [
+                'label'       => __('Terms Link', 'directorist'),
+                'type'        => 'text',
+                'value'       => ATBDP_Permalink::get_privacy_policy_page_url(),
+            ],
+            'terms_privacy_label' => [
+                'label'       => __('Label', 'directorist'),
+                'type'        => 'text',
+                'value'       => __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ),
             ],
 
             'single_listings_contents' => [
@@ -2610,6 +2804,45 @@ class Multi_Directory_Manager
                 'value' => 3,
             ],
 
+            'all_listing_layout' => [
+                'type'  => 'radio',
+                'value' => 'no_sidebar',
+                'label' => __( 'All Listing Layout', 'directorist' ),
+                'options' => [
+                    [
+                        'label' => __('Listing with Left Sidebar', 'directorist'),
+                        'value' => 'left_sidebar',
+                    ],
+                    [
+                        'label' => __('Listing with Right Sidebar', 'directorist'),
+                        'value' => 'right_sidebar',
+                    ],
+                    [
+                        'label' => __('Listing with No Sidebar', 'directorist'),
+                        'value' => 'no_sidebar',
+                    ],
+                ],
+                'preview' => [
+                    'left_sidebar'  => esc_url( DIRECTORIST_ASSETS . 'images/left_sidebar.png' ),
+                    'right_sidebar' => esc_url( DIRECTORIST_ASSETS . 'images/right_sidebar.png' ),
+                    'no_sidebar'    => esc_url( DIRECTORIST_ASSETS . 'images/no_sidebar.png' ),
+                ]
+            ],
+
+            'listing_sidebar_top_search_bar' => [
+                'type'  => 'toggle',
+                'label' => __( 'Hide The Top Search Bar', 'directorist' ),
+                'value' => false,
+                'show_if' => [
+                    'where' => "self.all_listing_layout",
+                    'compare' => 'or',
+                    'conditions' => [
+                        ['key' => 'value', 'compare' => '=', 'value' => 'left_sidebar'],
+                        ['key' => 'value', 'compare' => '=', 'value' => 'right_sidebar'],
+                    ],
+                ],
+            ],
+
             'search_form_fields' => [
                 'type'     => 'form-builder',
                 'generalSettings' => [
@@ -2624,13 +2857,13 @@ class Multi_Directory_Manager
                 'value' => [
                     'groups' => [
                         [
-                            'label'     => __( 'Basic', 'directorist' ),
+                            'label'     => __( 'Search Bar', 'directorist' ),
                             'lock'      => true,
                             'draggable' => false,
                             'fields'    => [],
                         ],
                         [
-                            'label'     => __( 'Advanced', 'directorist' ),
+                            'label'     => __( 'Search Filter', 'directorist' ),
                             'lock'      => true,
                             'draggable' => false,
                             'fields'    => [],
@@ -2710,20 +2943,6 @@ class Multi_Directory_Manager
                                 ],
                             ],
                         ],
-                        'listing_description' => [
-                            'type' => "title",
-                            'label' => __( "Description", "directorist" ),
-                            'options' => [
-                                'title' => __( "Description Settings", "directorist" ),
-                                'fields' => [
-                                'enable' => [
-                                    'type' => "toggle",
-                                    'label' => __( "Show Description", "directorist" ),
-                                    'value' => true,
-                                ],
-                                ],
-                            ],
-                        ],
                     ],
                 ],
                 'options_layout' => [
@@ -2731,6 +2950,32 @@ class Multi_Directory_Manager
                     'contents_area' => ['title_and_tagline', 'description'],
                 ],
                 'widgets' => [
+                    'back' => [
+                        'type' => "button",
+                        'label' => __( "Back", "directorist" ),
+                        'icon' => 'las la-arrow-left',
+                    ],
+                    'title' => [
+                        'type' => "title",
+                        'label' => __( "Listing Title", "directorist" ),
+                        'icon' => 'las la-heading',
+                        'options' => [
+                            'title' => __( "Listing Title Settings", "directorist" ),
+                            'fields' => [
+                                'enable_tagline' => [
+                                    'type' => "toggle",
+                                    'label' => __( "Show Tagline", "directorist" ),
+                                    'value' => true,
+                                ],
+                            ],
+                        ],
+                    ],
+                    'slider' => [
+                        'type' => "thumbnail",
+                        'label' => __( "Listing Image/Slider", "directorist" ),
+                        'icon' => 'las la-image',
+                    ],
+                    
                     'bookmark' => [
                         'type' => "button",
                         'label' => __( "Bookmark", "directorist" ),
@@ -2767,22 +3012,6 @@ class Multi_Directory_Manager
                         ],
                     ],
 
-                    'listing_slider' => [
-                        'type' => "thumbnail",
-                        'label' => __( "Listings Slider", "directorist" ),
-                        'icon' => 'uil uil-text-fields',
-                        'can_move' => false,
-                        'options' => [
-                            'title' => __( "Listings Slider Settings", "directorist" ),
-                            'fields' => [
-                                'footer_thumbail' => [
-                                    'type' => "toggle",
-                                    'label' => __( "Enable Footer Thumbnail", "directorist" ),
-                                    'value' => true,
-                                ],
-                            ],
-                        ],
-                    ],
                     'price' => [
                         'type' => "badge",
                         'label' => __( "Listings Price", "directorist" ),
@@ -2813,10 +3042,9 @@ class Multi_Directory_Manager
                             ],
                         ],
                     ],
-
                     'reviews' => [
                         'type' => "reviews",
-                        'label' => __( "Listings Reviews", "directorist" ),
+                        'label' => __( "Reviews", "directorist" ),
                         'icon' => 'uil uil-text-fields',
                     ],
                     'ratings_count' => [
@@ -2849,24 +3077,56 @@ class Multi_Directory_Manager
                 ],
 
                 'layout' => [
-                    'listings_header' => [
-                        'quick_actions' => [
-                            'label' => __( 'Top Right', 'directorist' ),
-                            'maxWidget' => 0,
-                            'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                            'acceptedWidgets' => [ 'bookmark', 'share', 'report' ],
+                    [
+                        'type' => 'placeholder_group',
+                        'placeholderKey' => 'quick-widgets-placeholder',
+                        'placeholders' => [
+                            [
+                                'type'              => 'placeholder_item',
+                                'placeholderKey'    => 'quick-info-placeholder',
+                                'label'             => __( 'Quick info', 'directorist' ),
+                                'maxWidget'         => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets'   => ['back'],
+                            ],
+                            [
+                                'type'              => 'placeholder_item',
+                                'placeholderKey'    => 'quick-action-placeholder',
+                                'label'             => __( 'Quick Action', 'directorist' ),
+                                'maxWidget'         => 0,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets'   => [ 'bookmark', 'reviews', 'share', 'report' ],
+                            ],
                         ],
-                        'thumbnail' => [
-                            'label' => __( 'Thumbnail', 'directorist' ),
-                            'maxWidget' => 1,
-                            'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                            'acceptedWidgets' => [ 'listing_slider' ],
-                        ],
-                        'quick_info' => [
-                            'label' => __( 'Quick info', 'directorist' ),
-                            'maxWidget' => 0,
-                            'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                            'acceptedWidgets' => [ 'badges', 'price', 'reviews', 'ratings_count', 'category', 'location' ],
+                    ],
+                    [
+                        'type'              => 'placeholder_item',
+                        'placeholderKey'    => 'listing-title-placeholder',
+                        'label'             => __( 'Listing Title', 'directorist' ),
+                        'maxWidget'         => 1,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets'   => ['title'],
+                    ],
+                    [
+                        'type'              => 'placeholder_item',
+                        'placeholderKey'    => 'more-widgets-placeholder',
+                        'label'             => __( 'More Widgets', 'directorist' ),
+                        'maxWidget'         => 0,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
+                        'rejectedWidgets'   => ['slider'],
+                    ],
+                    [
+                        'type'            => 'placeholder_item',
+                        'label'           => 'Slider Widget',
+                        'placeholderKey'  => 'slider-placeholder',
+                        'selectedWidgets' => ['slider'],
+                        'acceptedWidgets' => ['slider'],
+                        'maxWidget'       => 1,
+                        'canDelete'       => true,
+                        'insertByButton'  => true,
+                        'insertButton'    => [
+                            'label' => 'Add Image/Slider'
                         ],
                     ],
                 ],
@@ -2978,24 +3238,19 @@ class Multi_Directory_Manager
                                 'title' => __('Terms and Conditions', 'directorist'),
                                 'container' => 'short-width',
                                 'fields' => [
-                                    'listing_terms_condition',
-                                    'require_terms_conditions',
-                                    'terms_label',
-                                ],
-                            ],
-                            'privacy_and_policy' => [
-                                'title' => __('Privacy and Policy', 'directorist'),
-                                'container' => 'short-width',
-                                'fields' => [
                                     'listing_privacy',
-                                    'require_privacy',
-                                    'privacy_label',
+                                    'terms_name',
+                                    'terms_link',
+                                    'privacy_name',
+                                    'privacy_link',
+                                    'terms_privacy_label'
                                 ],
                             ],
                             'submittion_settings' => [
                                 'title' => __('Submission Settings', 'directorist'),
                                 'container' => 'short-width',
                                 'fields' => [
+                                    'enable_sidebar',
                                     'preview_mode',
                                     'submit_button_label',
                                 ],
@@ -3059,7 +3314,7 @@ class Multi_Directory_Manager
                 ]
             ],
             'listings_card_layout' => [
-                'label' => __( 'All Listing Layout', 'directorist' ),
+                'label' => __( 'All Listing', 'directorist' ),
                 'icon' => '<span class="uil uil-list-ul"></span>',
                 'submenu' => [
                     'grid_view' => [
@@ -3086,6 +3341,18 @@ class Multi_Directory_Manager
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> '. __( 'Need help?', 'directorist' ) .' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields' => [
                                     'listings_card_list_view'
+                                ],
+                            ],
+                        ],
+                    ],
+                    'settings' => [
+                        'label' => __( 'Settings', 'directorist' ),
+                        'sections' => [
+                            'listings_settings' => [
+                                'title' => __( 'Settings', 'directorist'),
+                                'title_align' => 'left',
+                                'fields' => [
+                                    'all_listing_layout', 'listing_sidebar_top_search_bar'
                                 ],
                             ],
                         ],
@@ -3120,13 +3387,13 @@ class Multi_Directory_Manager
             self::$fields['guest_email_label'] = [
                 'label' => __('Guest Email Label', 'directorist'),
                 'type'  => 'text',
-                'value' => 'Your Email',
+                'value' => 'Email Address',
             ];
 
             self::$fields['guest_email_placeholder'] = [
                 'label' => __('Guest Email Placeholder', 'directorist'),
                 'type'  => 'text',
-                'value' => 'example@email.com',
+                'value' => 'Enter email address',
             ];
 
             self::$layouts['submission_form']['submenu']['settings']['sections']['guest_submission'] = [

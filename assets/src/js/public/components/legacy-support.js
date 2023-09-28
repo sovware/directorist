@@ -10,13 +10,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 clickCount++;
                 if (clickCount % 2 === 1) {
-                    document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-                        elem.classList.remove('atbd-show');
+                    document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
+                        el.classList.remove('atbd-show');
                     });
                     el.querySelector('.atbd-dropdown-items').classList.add('atbd-show');
                 } else {
-                    document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-                        elem.classList.remove('atbd-show');
+                    document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
+                        el.classList.remove('atbd-show');
                     });
                 }
             });

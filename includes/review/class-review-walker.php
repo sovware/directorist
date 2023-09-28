@@ -3,7 +3,7 @@
  * Reviews walker class.
  *
  * @package Directorist\Review
- * @since 7.1.0
+ * @since 7.7.0
  */
 namespace Directorist\Review;
 
@@ -113,7 +113,7 @@ class Walker extends Walker_Comment {
 				$args,
 				array(
 					/* translators: 1: is the reply icon */
-					'reply_text' => sprintf( esc_html__( '%1$s Reply', 'directorist' ), '<i class="far fa-comment-alt"></i>' ),
+					'reply_text' => sprintf( esc_html__( '%1$s Reply', 'directorist' ), directorist_icon( 'fas fa-reply', false ) ),
 					'depth'      => $depth,
 					'max_depth'  => $args['max_depth'],
 					'add_below'  => 'div-comment',
@@ -123,8 +123,8 @@ class Walker extends Walker_Comment {
 		?>
 		<li id="comment-<?php comment_ID(); ?>" <?php comment_class( $comment_class ); ?>>
 			<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
-				<div class="directorist-review-single__contents-wrap">
-					<header class="directorist-review-single__header">
+				<div class="directorist-review-single__info">
+					<div class="directorist-review-single__header">
 						<div class="directorist-review-single__author">
 							<div class="directorist-review-single__author__img comment-author vcard">
 								<?php
@@ -134,16 +134,20 @@ class Walker extends Walker_Comment {
 								?>
 							</div>
 							<div class="directorist-review-single__author__details">
-								<h2 class="fn"><?php comment_author_link(); ?> <time datetime="<?php echo esc_attr( get_comment_date( 'Y-m-d H:i:s' ) ); ?>"><?php comment_date( apply_filters( 'directorist_review_date_format', 'j F, Y' ) ); ?></time></h2>
+								<h2 class="fn"><?php comment_author_link(); ?> </h2>
 
 								<?php if ( $is_review && $rating ) : ?>
-									<span class="directorist-rating-stars">
-										<?php Markup::show_rating_stars( $rating ); ?>
-									</span>
+									<div class="directorist-review-meta directorist-flex">
+										<span class="directorist-rating-stars">
+											<?php Markup::show_rating_stars( $rating ); ?>
+										</span>
+										<span class="directorist-review-date"><time datetime="<?php echo esc_attr( get_comment_date( 'Y-m-d H:i:s' ) ); ?>"><?php comment_date( apply_filters( 'directorist_review_date_format', 'j F, Y' ) ); ?></time></span>
+									</div>
 								<?php endif; ?>
 							</div>
 						</div>
-					</header>
+					</div>
+
 					<div class="directorist-review-single__content">
 						<?php do_action( 'directorist_review_content_before' ); ?>
 
@@ -152,12 +156,13 @@ class Walker extends Walker_Comment {
 						<?php do_action( 'directorist_review_content_after' ); ?>
 					</div>
 				</div>
+				
 				<?php if ( $comment->comment_approved == '0' ) : ?>
 					<p><em class="comment-awaiting-moderation"><?php echo esc_html( $moderation_note ); ?></em></p>
 				<?php endif; ?>
 
 				<?php if ( $comment_reply_link || current_user_can( 'edit_comment', $comment->comment_ID ) ) : ?>
-				<div class="directorist-review-single__reply">
+				<div class="directorist-review-single__actions">
 					<?php
 					echo wp_kses_post( $comment_reply_link );
 

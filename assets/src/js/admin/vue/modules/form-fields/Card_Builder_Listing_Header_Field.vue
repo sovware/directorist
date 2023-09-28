@@ -1,6 +1,11 @@
 <template>
   <div class="cptm-builder-section">
-    <div class="cptm-options-area" v-if="widgetCardOptionsWindowActiveStatus || widgetOptionsWindowActiveStatus">
+    <div
+      class="cptm-options-area"
+      v-if="
+        widgetCardOptionsWindowActiveStatus || widgetOptionsWindowActiveStatus
+      "
+    >
       <options-window
         :active="widgetCardOptionsWindowActiveStatus"
         v-bind="widgetCardOptionsWindow"
@@ -16,131 +21,121 @@
     </div>
 
     <!-- cptm-preview-area -->
-    <div class="cptm-preview-area">
-      <div class="cptm-card-preview-area-wrap">
-        <div class="cptm-card-preview-widget">
-          <div class="cptm-title-bar">
-            <div class="cptm-title-bar-headings cptm-card-light">
-              <div class="cptm-card-options-widgets-area" v-if="Object.keys( card_options.general ).length">
-                <template v-for="( widget, widget_key ) in card_options.general">
-                  <component
-                    :is="widget.type + '-card-widget'"
-                    :label="getWidgetLabel( widget )"
-                    :key="widget_key"
-                    :canMove="false"
-                    :canTrash="false"
-                    @edit="editOption( card_options.general, widget_key )"
-                  />
-                </template>
-              </div>
-            </div>
-
-            <div class="cptm-title-bar-actions">
-              <div class="cptm-card-preview-quick-action">
-                <!-- cptm-card-preview-quick-action -->
+    <div class="cptm-preview-placeholder">
+      <div class="cptm-preview-placeholder__card">
+        <!-- Draggable Bottom Widgets -->
+        <Container @drop="onDrop" drag-handle-selector=".cptm-drag-element">
+          <Draggable
+            v-for="(placeholderItem, index) in placeholders"
+            :key="index"
+          >
+            <div
+              v-if="placeholderItem.type == 'placeholder_group'"
+              class="draggable-item"
+            >
+              <div
+                class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--top"
+              >
                 <card-widget-placeholder
-                  id="listings_header_quick_actions"
-                  containerClass="cptm-card-preview-quick-action-placeholder cptm-card-light"
-                  :label="local_layout.listings_header.quick_actions.label"
+                  v-for="(
+                    placeholderSubItem, subIndex
+                  ) in placeholderItem.placeholders"
+                  :key="`${index}_${subIndex}`"
+                  :placeholderKey="placeholderSubItem.placeholderKey"
+                  :id="`listings_header_${index}_${subIndex}`"
+                  containerClass="cptm-preview-placeholder__card__box cptm-card-light"
+                  :label="placeholderSubItem.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="local_layout.listings_header.quick_actions.acceptedWidgets"
-                  :selectedWidgets="local_layout.listings_header.quick_actions.selectedWidgets"
-                  :maxWidget="local_layout.listings_header.quick_actions.maxWidget"
-                  :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'listings_header_quick_actions' )"
-                  :widgetDropable="widgetIsDropable( local_layout.listings_header.quick_actions )"
-                  @insert-widget="insertWidget( $event, local_layout.listings_header.quick_actions )"
-                  @drag-widget="onDragStartWidget( $event, local_layout.listings_header.quick_actions )"
-                  @drop-widget="appendWidget( $event, local_layout.listings_header.quick_actions )"
+                  :acceptedWidgets="placeholderSubItem.acceptedWidgets"
+                  :rejectedWidgets="placeholderSubItem.rejectedWidgets"
+                  :selectedWidgets="placeholderSubItem.selectedWidgets"
+                  :maxWidget="placeholderSubItem.maxWidget"
+                  :showWidgetsPickerWindow="
+                    getActiveInsertWindowStatus(
+                      `listings_header_${index}_${subIndex}`
+                    )
+                  "
+                  :widgetDropable="widgetIsDropable(placeholderSubItem)"
+                  @insert-widget="insertWidget($event, placeholderSubItem)"
+                  @drag-widget="onDragStartWidget($event, placeholderSubItem)"
+                  @drop-widget="appendWidget($event, placeholderSubItem)"
                   @dragend-widget="onDragEndWidget()"
-                  @edit-widget="editWidget( $event )"
-                  @trash-widget="trashWidget( $event, local_layout.listings_header.quick_actions )"
-                  @placeholder-on-drop="handleDropOnPlaceholder( local_layout.listings_header.quick_actions )"
-                  @placeholder-on-dragover="handleDragOverOnPlaceholder( local_layout.listings_header.quick_actions )"
-                  @placeholder-on-dragenter="handleDragEnterOnPlaceholder( local_layout.listings_header.quick_actions )"
-                  @placeholder-on-dragleave="handleDragleaveOnPlaceholder( local_layout.listings_header.quick_actions )"
-                  @open-widgets-picker-window="activeInsertWindow( 'listings_header_quick_actions' )"
+                  @edit-widget="editWidget($event)"
+                  @trash-widget="trashWidget($event, placeholderSubItem, index)"
+                  @placeholder-on-drop="
+                    handleDropOnPlaceholder(placeholderSubItem)
+                  "
+                  @open-widgets-picker-window="
+                    activeInsertWindow(`listings_header_${index}_${subIndex}`)
+                  "
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
               </div>
+
+              <div class="cptm-drag-element las la-arrows-alt"></div>
             </div>
-          </div>
 
-          <!-- cptm-listing-card-preview-header -->
-          <div class="cptm-listing-card-preview-header">
-            <div class="cptm-card-preview-thumbnail">
-              <div class="cptm-card-preview-thumbnail-overlay">
-                <!-- cptm-card-preview-thumbnail -->
-                <div class="cptm-card-preview-thumbnail-placeholer">
-                  <card-widget-placeholder
-                    id="listings_header_thumbnail"
-                    containerClass="cptm-card-preview-thumbnail-placeholder cptm-card-dark"
-                    :label="local_layout.listings_header.thumbnail.label"
-                    :availableWidgets="theAvailableWidgets"
-                    :activeWidgets="active_widgets"
-                    :acceptedWidgets="local_layout.listings_header.thumbnail.acceptedWidgets"
-                    :selectedWidgets="local_layout.listings_header.thumbnail.selectedWidgets"
-                    :maxWidget="local_layout.listings_header.thumbnail.maxWidget"
-                    :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'listings_header_thumbnail' )"
-                    :widgetDropable="widgetIsDropable( local_layout.listings_header.thumbnail )"
-                    @insert-widget="insertWidget( $event, local_layout.listings_header.thumbnail )"
-                    @drag-widget="onDragStartWidget( $event, local_layout.listings_header.thumbnail )"
-                    @drop-widget="appendWidget( $event, local_layout.listings_header.thumbnail )"
-                    @dragend-widget="onDragEndWidget()"
-                    @edit-widget="editWidget( $event )"
-                    @trash-widget="trashWidget( $event, local_layout.listings_header.thumbnail )"
-                    @placeholder-on-drop="handleDropOnPlaceholder( local_layout.listings_header.thumbnail )"
-                    @placeholder-on-dragover="handleDragOverOnPlaceholder( local_layout.listings_header.thumbnail )"
-                    @placeholder-on-dragenter="handleDragEnterOnPlaceholder( local_layout.listings_header.thumbnail )"
-                    @open-widgets-picker-window="activeInsertWindow( 'listings_header_thumbnail' )"
-                    @close-widgets-picker-window="closeInsertWindow()"
-                  />
-                </div>
-
-                <div class="cptm-card-preview-thumbnail-bg">
-                    <span class="uil uil-scenery"></span>
-                </div>
+            <div
+              v-if="placeholderItem.type == 'placeholder_item'"
+              class="draggable-item"
+            >
+              <div
+                class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom"
+              >
+                <card-widget-placeholder
+                  :placeholderKey="placeholderItem.placeholderKey"
+                  :id="'listings_header_' + index"
+                  containerClass="cptm-preview-placeholder__card__box cptm-card-light"
+                  :label="placeholderItem.label"
+                  :availableWidgets="theAvailableWidgets"
+                  :activeWidgets="active_widgets"
+                  :acceptedWidgets="placeholderItem.acceptedWidgets"
+                  :rejectedWidgets="placeholderItem.rejectedWidgets"
+                  :selectedWidgets="placeholderItem.selectedWidgets"
+                  :maxWidget="placeholderItem.maxWidget"
+                  :showWidgetsPickerWindow="
+                    getActiveInsertWindowStatus('listings_header_' + index)
+                  "
+                  :widgetDropable="widgetIsDropable(placeholderItem)"
+                  @insert-widget="insertWidget($event, placeholderItem)"
+                  @drag-widget="onDragStartWidget($event, placeholderItem)"
+                  @drop-widget="appendWidget($event, placeholderItem)"
+                  @dragend-widget="onDragEndWidget()"
+                  @edit-widget="editWidget($event)"
+                  @trash-widget="trashWidget($event, placeholderItem, index)"
+                  @placeholder-on-drop="
+                    handleDropOnPlaceholder(placeholderItem)
+                  "
+                  @open-widgets-picker-window="
+                    activeInsertWindow('listings_header_' + index)
+                  "
+                  @close-widgets-picker-window="closeInsertWindow()"
+                />
               </div>
+
+              <div class="cptm-drag-element las la-arrows-alt"></div>
             </div>
-          </div>
+          </Draggable>
+        </Container>
 
-          <!-- cptm-listing-card-preview-quick-info -->
-          <div class="cptm-listing-card-preview-footer">
-            <card-widget-placeholder
-              id="listings_header_quick_info"
-              containerClass="cptm-listing-card-preview-quick-info-placeholder cptm-card-light"
-              :label="local_layout.listings_header.quick_info.label"
-              :availableWidgets="theAvailableWidgets"
-              :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.listings_header.quick_info.acceptedWidgets"
-              :selectedWidgets="local_layout.listings_header.quick_info.selectedWidgets"
-              :maxWidget="local_layout.listings_header.quick_info.maxWidget"
-              :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'listings_header_quick_info' )"
-              :widgetDropable="widgetIsDropable( local_layout.listings_header.quick_info )"
-              @insert-widget="insertWidget( $event, local_layout.listings_header.quick_info )"
-              @drag-widget="onDragStartWidget( $event, local_layout.listings_header.quick_info )"
-              @drop-widget="appendWidget( $event, local_layout.listings_header.quick_info )"
-              @dragend-widget="onDragEndWidget()"
-              @edit-widget="editWidget( $event )"
-              @trash-widget="trashWidget( $event, local_layout.listings_header.quick_info )"
-              @placeholder-on-drop="handleDropOnPlaceholder( local_layout.listings_header.quick_info )"
-              @open-widgets-picker-window="activeInsertWindow( 'listings_header_quick_info' )"
-              @close-widgets-picker-window="closeInsertWindow()"
-            />
-          </div>
-
-          <div class="cptm-card-options-widgets-area" v-if="Object.keys( card_options.content_settings ).length">
-            <template v-for="( widget, widget_key ) in card_options.content_settings">
-              <component
-                :is="widget.type + '-card-widget'"
-                :label="getWidgetLabel( widget )"
-                :key="widget_key"
-                :canMove="false"
-                :canTrash="false"
-                @edit="editOption( card_options.content_settings, widget_key )"
-              />
-            </template>
-          </div>
+        <div class="cptm-placeholder-buttons">
+          <template v-for="placeholderKey in Object.keys(placeholdersMap)">
+            <div
+              :key="placeholderKey"
+              class="cptm-preview-placeholder__card__action"
+              v-if="canShowAddPlaceholderButton(placeholderKey)"
+            >
+              <button
+                type="button"
+                class="cptm-preview-placeholder__card__btn"
+                @click="addPlaceholder(placeholderKey)"
+              >
+                <span class="icon fa fa-plus"></span>
+                {{ getAddPlaceholderButtonLabel(placeholderKey) }}
+              </button>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -148,17 +143,23 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import card_builder from './../../mixins/form-fields/card-builder';
-import helpers from '../../mixins/helpers';
+import Vue from "vue";
+import { Container, Draggable } from "vue-dndrop";
+import { applyDrag } from "../../helpers/vue-dndrop";
+import card_builder from "./../../mixins/form-fields/card-builder";
+import helpers from "../../mixins/helpers";
 
 export default {
   name: "card-builder-listing-header-field",
-  mixins: [ card_builder, helpers ],
+  components: {
+    Container,
+    Draggable,
+  },
+  mixins: [card_builder, helpers],
   props: {
     fieldId: {
       required: false,
-      default: '',
+      default: "",
     },
     value: {
       required: false,
@@ -180,192 +181,239 @@ export default {
 
   mounted() {
     const self = this;
-    document.addEventListener('click', function( e ) {
+    document.addEventListener("click", function (e) {
       self.closeInsertWindow();
     });
   },
 
   created() {
     this.init();
-    this.$emit( 'update', this.output_data );
+    this.$emit("update", this.output_data);
   },
 
   watch: {
     output_data() {
-      this.$emit( 'update', this.output_data );
-    }
+      this.$emit("update", this.output_data);
+    },
   },
 
   computed: {
     output_data() {
-      let output = {};
-      let layout = this.local_layout;
+      let output = [];
+      let placeholders = this.placeholders;
+
+      const getWidgetData = (placeholderData) => {
+        if (typeof placeholderData !== "object") {
+          return null;
+        }
+
+        if (typeof placeholderData.selectedWidgets !== "object") {
+          return null;
+        }
+
+        let data = [];
+
+        for (let widgetIndex in placeholderData.selectedWidgets) {
+          const widget_name = placeholderData.selectedWidgets[widgetIndex];
+
+          if (
+            !this.active_widgets[widget_name] &&
+            typeof this.active_widgets[widget_name] !== "object"
+          ) {
+            continue;
+          }
+
+          let widget_data = {};
+
+          for (let root_option in this.active_widgets[widget_name]) {
+            if ("options" === root_option) {
+              continue;
+            }
+            if ("icon" === root_option) {
+              continue;
+            }
+            if ("show_if" === root_option) {
+              continue;
+            }
+            if ("fields" === root_option) {
+              continue;
+            }
+
+            widget_data[root_option] = this.active_widgets[widget_name][
+              root_option
+            ];
+          }
+
+          if (typeof this.active_widgets[widget_name].options !== "object") {
+            data.push(widget_data);
+            continue;
+          }
+
+          if (
+            typeof this.active_widgets[widget_name].options.fields !== "object"
+          ) {
+            data.push(widget_data);
+            continue;
+          }
+
+          let widget_options = this.active_widgets[widget_name].options.fields;
+
+          for (let option in widget_options) {
+            widget_data[option] = widget_options[option].value;
+          }
+
+          data.push(widget_data);
+        }
+
+        return data;
+      };
 
       // Parse Layout
-      for ( let section in layout ) {
-        output[section] = {};
+      for (const placeholder of placeholders) {
+        if ("placeholder_item" === placeholder.type) {
+          const data = getWidgetData(placeholder);
 
-        if (typeof layout[section] !== "object") {
+          if (!data) {
+            continue;
+          }
+
+          output.push({
+            type: placeholder.type,
+            placeholderKey: placeholder.placeholderKey,
+            selectedWidgets: data,
+          });
           continue;
         }
 
-        for (let section_area in layout[section]) {
-          output[section][section_area] = [];
+        if ("placeholder_group" === placeholder.type) {
+          let subGroupsData = [];
 
-          if (typeof layout[section][section_area] !== "object") {
+          for (const subPlaceholder of placeholder.placeholders) {
+            const data = getWidgetData(subPlaceholder);
+            if (!data) {
+              continue;
+            }
+
+            subGroupsData.push({
+              type: placeholder.type ? placeholder.type : "placeholder_item",
+              placeholderKey: subPlaceholder.placeholderKey,
+              selectedWidgets: data,
+            });
             continue;
           }
-          if (typeof layout[section][section_area].selectedWidgets !== "object") {
-            continue;
-          }
 
-          for ( let widget in layout[section][section_area].selectedWidgets ) {
-            const widget_name = layout[section][section_area].selectedWidgets[widget];
+          output.push({
+            type: placeholder.type,
+            placeholderKey: placeholder.placeholderKey,
+            placeholders: subGroupsData,
+          });
 
-            if ( ! this.active_widgets[widget_name] && typeof this.active_widgets[widget_name] !== "object") {
-              continue;
-            }
-
-            let widget_data = {};
-            for ( let root_option in this.active_widgets[widget_name] ) {
-              if ( 'options' === root_option ) { continue; }
-              if ( 'icon' === root_option ) { continue; }
-              if ( 'show_if' === root_option ) { continue; }
-              if ( 'fields' === root_option ) { continue; }
-
-              widget_data[ root_option ] = this.active_widgets[ widget_name ][ root_option ];
-            }
-
-            if ( typeof this.active_widgets[widget_name].options !== "object" ) {
-              output[section][section_area].push(widget_data);
-              continue;
-            }
-
-            if ( typeof this.active_widgets[widget_name].options.fields !== "object" ) {
-              output[section][section_area].push(widget_data);
-              continue;
-            }
-
-            let widget_options = this.active_widgets[widget_name].options.fields;
-
-            for ( let option in widget_options ) {
-              widget_data[option] = widget_options[ option ].value;
-            }
-
-            output[section][section_area].push(widget_data);
-          }
+          continue;
         }
       }
-
-
-      // Parse Card Options
-      let options = {};
-      for ( let section in this.card_options ) {
-
-        if ( ! this.isObject( this.card_options[ section ] ) ) { continue; }
-        options[ section ] = {};
-
-        for ( let option in this.card_options[ section ] ) {
-          if ( ! this.isObject( this.card_options[ section ][ option ] ) ) { continue; }
-          if ( ! this.isObject( this.card_options[ section ][ option ].options ) ) { continue; }
-          if ( ! this.isObject( this.card_options[ section ][ option ].options.fields ) ) { continue; }
-
-          options[ section ][ option ] = {};
-
-          for ( let field in this.card_options[ section ][ option ].options.fields ) {
-            if ( typeof this.card_options[ section ][ option ].options.fields[ field ].value === 'undefined' ) { continue; }
-            options[ section ][ option ][ field ] = this.card_options[ section ][ option ].options.fields[ field ].value;
-          }
-        }
-      }
-
-      output.options = options;
 
       return output;
     },
 
     theAvailableWidgets() {
-      let available_widgets = JSON.parse( JSON.stringify( this.available_widgets ) );
+      let available_widgets = JSON.parse(
+        JSON.stringify(this.available_widgets)
+      );
 
-      for ( let widget in available_widgets ) {
-        available_widgets[ widget ].widget_name = widget;
-        available_widgets[ widget ].widget_key = widget;
+      for (let widget in available_widgets) {
+        available_widgets[widget].widget_name = widget;
+        available_widgets[widget].widget_key = widget;
 
         // Check show if condition
         let show_if_cond_state = null;
 
-        if ( this.isObject( available_widgets[ widget ].show_if ) ) {
-          show_if_cond_state = this.checkShowIfCondition( { condition: available_widgets[ widget ].show_if } );
-          let main_widget = available_widgets[ widget ];
+        if (this.isObject(available_widgets[widget].show_if)) {
+          show_if_cond_state = this.checkShowIfCondition({
+            condition: available_widgets[widget].show_if,
+          });
+          let main_widget = available_widgets[widget];
 
-          delete available_widgets[ widget ];
+          delete available_widgets[widget];
 
-          if ( show_if_cond_state.status ) {
+          if (show_if_cond_state.status) {
             let widget_keys = [];
-            for ( let matched_field of show_if_cond_state.matched_data ) {
+            for (let matched_field of show_if_cond_state.matched_data) {
               // console.log( {matched_field} );
-              let _main_widget = JSON.parse( JSON.stringify( main_widget ) );
-              let current_key = ( widget_keys.includes( widget ) ) ? widget + '_' + (widget_keys.length + 1) : widget;
+              let _main_widget = JSON.parse(JSON.stringify(main_widget));
+              let current_key = widget_keys.includes(widget)
+                ? widget + "_" + (widget_keys.length + 1)
+                : widget;
               _main_widget.widget_key = current_key;
 
-              if ( matched_field.widget_key ) {
+              if (matched_field.widget_key) {
                 _main_widget.widget_key = matched_field.widget_key;
               }
 
-              if ( typeof matched_field.label === 'string' && matched_field.label.length ) {
+              if (
+                typeof matched_field.label === "string" &&
+                matched_field.label.length
+              ) {
                 _main_widget.label = matched_field.label;
               }
 
-              available_widgets[ current_key ] = _main_widget;
-              widget_keys.push( current_key );
+              available_widgets[current_key] = _main_widget;
+              widget_keys.push(current_key);
             }
           }
         }
-
       }
 
       return available_widgets;
     },
 
     widgetOptionsWindowActiveStatus() {
-      if ( ! this.widgetOptionsWindow.widget.length ) { return false; }
-      if ( typeof this.active_widgets[ this.widgetOptionsWindow.widget ] === 'undedined'  ) { return false; }
+      if (!this.widgetOptionsWindow.widget.length) {
+        return false;
+      }
+      if (
+        typeof this.active_widgets[this.widgetOptionsWindow.widget] ===
+        "undedined"
+      ) {
+        return false;
+      }
 
       return true;
     },
 
     widgetCardOptionsWindowActiveStatus() {
-      if ( ! this.isObject( this.widgetCardOptionsWindow.widget ) ) { return false; }
+      if (!this.isObject(this.widgetCardOptionsWindow.widget)) {
+        return false;
+      }
 
       return true;
     },
 
     _currentDraggingWidget() {
       return this.currentDraggingWidget;
-    }
+    },
   },
 
   data() {
     return {
-      active_insert_widget_key: '',
+      active_insert_widget_key: "",
 
       // Widget Options Window
       widgetOptionsWindowDefault: {
-        animation: 'cptm-animation-flip',
-        widget: ''
+        animation: "cptm-animation-flip",
+        widget: "",
       },
 
       widgetCardOptionsWindow: {
-        animation: 'cptm-animation-flip',
-        widget: ''
+        animation: "cptm-animation-flip",
+        widget: "",
       },
 
       widgetOptionsWindow: {
-        animation: 'cptm-animation-flip',
-        widget: ''
+        animation: "cptm-animation-flip",
+        widget: "",
       },
 
-      currentDraggingWidget: { origin: {}, key: '' },
+      currentDraggingWidget: { origin: {}, key: "" },
 
       // Available Widgets
       available_widgets: {},
@@ -379,23 +427,36 @@ export default {
         content_settings: {},
       },
 
-      // Layout
-      local_layout: {
-        listings_header: {
-          quick_actions: {
-            label: 'Quick Actions',
-            selectedWidgets: [],
-          },
-          thumbnail: {
-            label: 'Thumbnail',
-            selectedWidgets: [],
-          },
-          quick_info: {
-            label: 'Quick Info',
-            selectedWidgets: [],
-          },
+      placeholdersMap: {},
+
+      placeholders: [
+        {
+          type: "placeholder_group",
+          placeholders: [
+            {
+              label: "Quick Info",
+              selectedWidgets: [],
+            },
+            {
+              label: "Quick Action",
+              selectedWidgets: [],
+            },
+          ],
         },
-      },
+        {
+          type: "placeholder_item",
+          label: "Listing Title",
+          acceptedWidgets: ["title"],
+          rejectedWidgets: ["slider"],
+          selectedWidgets: [],
+        },
+        {
+          type: "placeholder_item",
+          label: "More Widgets",
+          rejectedWidgets: ["slider"],
+          selectedWidgets: [],
+        },
+      ],
     };
   },
 
@@ -403,21 +464,110 @@ export default {
     init() {
       this.importWidgets();
       this.importCardOptions();
-      this.importLayout();
+      this.importPlaceholders();
       this.importOldData();
     },
 
-    isTruthyObject( obj ) {
-      if ( ! obj && typeof obj !== 'object' ) {
+    onDrop(dropResult) {
+      this.placeholders = applyDrag(this.placeholders, dropResult);
+    },
+
+    getGhostParent() {
+      return document.body;
+    },
+    getChildPayload(index) {
+      return this.items[index];
+    },
+
+    canShowAddPlaceholderButton(placeholderKey) {
+      const placeholder = this.placeholdersMap[placeholderKey];
+
+      if (!placeholder.insertByButton) {
+        return false;
+      }
+
+      const findPlaceholder = (placeholderKey, placeholders) => {
+        for (const placeholder of placeholders) {
+          if ("placeholder_item" === placeholder.type) {
+            if (placeholderKey === placeholder.placeholderKey) {
+              return placeholder;
+            }
+            continue;
+          }
+
+          if ("placeholder_group" === placeholder.type) {
+            const targetPlaceholder = findPlaceholder(
+              placeholderKey,
+              placeholder.placeholders
+            );
+
+            if (targetPlaceholder) {
+              return targetPlaceholder;
+            }
+
+            continue;
+          }
+        }
+
+        return null;
+      };
+
+      const targetPlaceholder = findPlaceholder(
+        placeholderKey,
+        this.placeholders
+      );
+      return targetPlaceholder ? false : true;
+    },
+
+    addPlaceholder(placeholderKey) {
+      let placeholder = JSON.parse( JSON.stringify( this.placeholdersMap[placeholderKey] ) );
+
+      if ( ! Array.isArray( placeholder.selectedWidgets ) ) {
+        placeholder.selectedWidgets = [];
+      }
+
+      if (placeholder.selectedWidgets.length) {
+        for (const widgetKey of placeholder.selectedWidgets) {
+
+          if (!this.isTruthyObject(this.theAvailableWidgets[widgetKey])) {
+            continue;
+          }
+
+          Vue.set(this.active_widgets, widgetKey, {
+            ...this.theAvailableWidgets[widgetKey],
+          });
+        }
+      }
+
+      this.placeholders.splice(this.placeholders.length, 0, placeholder);
+    },
+
+    getAddPlaceholderButtonLabel(placeholderKey) {
+      const placeholder = this.placeholdersMap[placeholderKey];
+      const defaultLabel = "Add new placeholder";
+
+      if (!this.isTruthyObject(placeholder.insertButton)) {
+        return defaultLabel;
+      }
+
+      if (!placeholder.insertButton.label) {
+        return defaultLabel;
+      }
+
+      return placeholder.insertButton.label;
+    },
+
+    isTruthyObject(obj) {
+      if (!obj && typeof obj !== "object" && !Array.isArray(obj)) {
         return false;
       }
 
       return true;
     },
 
-    isJSON( string ) {
+    isJSON(string) {
       try {
-        JSON.parse( string );
+        JSON.parse(string);
       } catch (e) {
         return false;
       }
@@ -426,259 +576,454 @@ export default {
     },
 
     importOldData() {
-      let value = JSON.parse( JSON.stringify( this.value ) );
-      if ( ! this.isTruthyObject( value ) ) { return; }
+      let value = JSON.parse(JSON.stringify(this.value));
+
+      if (!Array.isArray(value)) {
+        return;
+      }
+
+      let newPlaceholders = [];
 
       // Import Layout
       // -------------------------
-      let selectedWidgets = [];
-
-      // Get Active Widgets Data
-      let active_widgets_data = {};
-      for ( let section in value ) {
-        if ( 'options' === section ) { continue; }
-        if ( ! value[ section ] && typeof value[ section ] !== 'object' ) { continue; }
-
-        for ( let area in value[ section ] ) {
-          if ( ! value[ section ][ area ] && typeof value[ section ][ area ] !== 'object' ) { continue; }
-
-          for ( let widget of value[ section ][ area ] ) {
-            if ( typeof widget.widget_key === 'undefined' ) { continue }
-            if ( typeof widget.widget_name === 'undefined' ) { continue }
-            if ( typeof this.available_widgets[ widget.widget_name ] === 'undefined' ) { continue; }
-            if ( typeof this.local_layout[ section ] === 'undefined' ) { continue; }
-            if ( typeof this.local_layout[ section ][ area ] === 'undefined' ) { continue; }
-
-            active_widgets_data[ widget.widget_key ] = widget;
-            selectedWidgets.push( { section: section, area: area, widget: widget.widget_key } );
-          }
-        }
-      }
-
-
-      // Load Active Widgets
-      for (let widget_key in active_widgets_data) {
-        if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
-          continue;
-        }
-
-        let widgets_template = { ...this.theAvailableWidgets[widget_key] };
-        let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
+      const addActiveWidget = (widget) => {
+        let widgets_template = {
+          ...this.theAvailableWidgets[widget.widget_key],
+        };
 
         let has_widget_options = false;
-        if ( widgets_template.options && widgets_template.options.fields ) {
+
+        if (widgets_template.options && widgets_template.options.fields) {
           has_widget_options = true;
         }
 
-        for ( let root_option in widgets_template ) {
-          if ( 'options' === root_option ) { continue; }
-          if ( active_widgets_data[widget_key][root_option] === "undefined" ) { continue; }
+        for (let root_option in widgets_template) {
+          if ("options" === root_option) {
+            continue;
+          }
 
-          widgets_template[ root_option ] = active_widgets_data[widget_key][root_option];
+          if (widget[root_option] === "undefined") {
+            continue;
+          }
+
+          widgets_template[root_option] = widget[root_option];
         }
 
-        if ( has_widget_options ) {
-          for ( let option_key in widgets_template.options.fields ) {
-            if ( typeof active_widgets_data[widget_key][option_key] === "undefined" ) {
+        if (has_widget_options) {
+          for (let option_key in widgets_template.options.fields) {
+            if (typeof widget[option_key] === "undefined") {
               continue;
             }
-            widgets_template.options.fields[ option_key ].value = active_widgets_data[widget_key][option_key];
+
+            widgets_template.options.fields[option_key].value =
+              widget[option_key];
           }
         }
 
-        Vue.set(this.active_widgets, widget_key, widgets_template);
-      }
+        Vue.set(this.active_widgets, widget.widget_key, widgets_template);
+      };
 
-      // Load Selected Widgets Data
-      for ( let item of selectedWidgets ) {
-        let length = this.local_layout[ item.section ][ item.area ].selectedWidgets.length;
-        this.local_layout[ item.section ][ item.area ].selectedWidgets.splice( length, 0, item.widget );
-      }
-
-
-      // Import Options
-      // -------------------------
-
-      if ( ! this.isTruthyObject( value.options ) ) { return; }
-
-      for ( let section in value.options ) {
-        if ( ! this.isTruthyObject( this.card_options[ section ] ) ) { continue; }
-        if ( ! this.isTruthyObject( value.options[ section ] ) ) { continue; }
-
-        for ( let option in value.options[ section ] ) {
-          if ( ! this.isTruthyObject( this.card_options[ section ][ option ] ) ) { continue; }
-          if ( ! this.isTruthyObject( this.card_options[ section ][ option ].options ) ) { continue; }
-          if ( ! this.isTruthyObject( this.card_options[ section ][ option ].options.fields ) ) { continue; }
-          if ( ! this.isTruthyObject( value.options[ section ][ option ] ) ) { continue; }
-
-          for ( let field in value.options[ section ][ option ] ) {
-            if ( ! this.isTruthyObject( this.card_options[ section ][ option ].options.fields[ field ] ) ) { continue; }
-            Vue.set( this.card_options[ section ][ option ].options.fields[ field ], 'value', value.options[ section ][ option ][ field ] );
-          }
+      const importWidgets = (placeholder, destination) => {
+        if (!this.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
+          return;
         }
-      }
 
+        let newPlaceholder = JSON.parse(
+          JSON.stringify(this.placeholdersMap[placeholder.placeholderKey])
+        );
+
+        newPlaceholder.selectedWidgets = [];
+        newPlaceholder.maxWidget =
+          typeof newPlaceholder.maxWidget !== "undefined"
+            ? parseInt(newPlaceholder.maxWidget)
+            : 0;
+
+        let targetPlaceholderIndex = destination.length;
+
+        destination.splice(targetPlaceholderIndex, 0, newPlaceholder);
+
+        let widgetIndex = 0;
+
+        for (let widget of placeholder.selectedWidgets) {
+          if (typeof widget.widget_key === "undefined") {
+            continue;
+          }
+          if (typeof widget.widget_name === "undefined") {
+            continue;
+          }
+
+          if (
+            typeof this.available_widgets[widget.widget_name] === "undefined"
+          ) {
+            continue;
+          }
+
+          addActiveWidget(widget);
+
+          destination[targetPlaceholderIndex].selectedWidgets.splice(
+            widgetIndex,
+            0,
+            widget.widget_key
+          );
+          widgetIndex++;
+        }
+      };
+
+      value.forEach((placeholder, index) => {
+        if (!this.isTruthyObject(placeholder)) {
+          return;
+        }
+
+        if ("placeholder_item" === placeholder.type) {
+          if (!Array.isArray(placeholder.selectedWidgets)) {
+            return;
+          }
+
+          importWidgets(placeholder, newPlaceholders);
+          return;
+        }
+
+        if ("placeholder_group" === placeholder.type) {
+          if (
+            !this.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)
+          ) {
+            return;
+          }
+
+          let newPlaceholder = JSON.parse(
+            JSON.stringify(this.placeholdersMap[placeholder.placeholderKey])
+          );
+          newPlaceholder.placeholders = [];
+          let targetPlaceholderIndex = this.placeholders.length;
+
+          newPlaceholders.splice(targetPlaceholderIndex, 0, newPlaceholder);
+
+          placeholder.placeholders.forEach((subPlaceholder) => {
+            if (!Array.isArray(subPlaceholder.selectedWidgets)) {
+              return;
+            }
+
+            importWidgets(subPlaceholder, newPlaceholders[index].placeholders);
+          });
+        }
+      });
+
+      this.placeholders = newPlaceholders;
     },
 
     importWidgets() {
-      if ( ! this.isTruthyObject( this.widgets ) ) { return; }
+      if (!this.isTruthyObject(this.widgets)) {
+        return;
+      }
 
       this.available_widgets = this.widgets;
     },
 
     importCardOptions() {
-      if ( ! this.isTruthyObject( this.cardOptions ) ) { return; }
-
-      for ( let section in this.card_options ) {
-        if ( ! this.isTruthyObject( this.cardOptions[ section ] ) ) { return; }
-        Vue.set( this.card_options, section, JSON.parse( JSON.stringify( this.cardOptions[ section ] ) ) );
-      }
-    },
-
-    importLayout() {
-      if ( ! this.isTruthyObject( this.layout ) ) {
+      if (!this.isTruthyObject(this.cardOptions)) {
         return;
       }
 
-      for ( let section in this.local_layout ) {
-
-        if ( ! this.isTruthyObject( this.layout[ section ] ) ) {
-          continue;
+      for (let section in this.card_options) {
+        if (!this.isTruthyObject(this.cardOptions[section])) {
+          return;
         }
-
-        for ( let area in this.local_layout[ section ] ) {
-          if ( ! this.isTruthyObject( this.layout[ section ][ area ] ) ) {
-            continue;
-          }
-
-          Object.assign( this.local_layout[ section ][ area ], this.layout[ section ][ area ] );
-        }
+        Vue.set(
+          this.card_options,
+          section,
+          JSON.parse(JSON.stringify(this.cardOptions[section]))
+        );
       }
     },
 
-    onDragStartWidget( key, origin ) {
+    importPlaceholders() {
+      if (!Array.isArray(this.layout)) {
+        return;
+      }
+
+      if (!this.layout.length) {
+        return;
+      }
+
+      const sanitizePlaceholderData = (placeholder) => {
+        if (!this.isTruthyObject(placeholder)) {
+          placeholder = {};
+        }
+
+        if (placeholder.insertByButton) {
+          return null;
+        }
+
+        placeholder.selectedWidgets = [];
+
+        if (typeof placeholder.label === "undefined") {
+          placeholder.label = "Widgets";
+        }
+
+        return placeholder;
+      };
+
+      let sanitizedPlaceholders = [];
+
+      for (const placeholder of this.layout) {
+        if (!this.isTruthyObject(placeholder)) {
+          continue;
+        }
+
+        let placeholderItem = placeholder;
+
+        if (typeof placeholderItem.type === "undefined") {
+          placeholderItem.type = "placeholder_item";
+        }
+
+        if (typeof placeholderItem.placeholderKey === "undefined") {
+          continue;
+        }
+
+        if (
+          this.placeholdersMap.hasOwnProperty(placeholderItem.placeholderKey)
+        ) {
+          continue;
+        }
+
+        Vue.set(
+          this.placeholdersMap,
+          placeholderItem.placeholderKey,
+          placeholderItem
+        );
+
+        if (placeholderItem.type === "placeholder_item") {
+          const placeholderItemData = sanitizePlaceholderData(placeholderItem);
+          if (placeholderItemData) {
+            sanitizedPlaceholders.push(placeholderItemData);
+          }
+
+          continue;
+        }
+
+        if (placeholderItem.type === "placeholder_group") {
+          if (typeof placeholderItem.placeholders === "undefined") {
+            continue;
+          }
+
+          if (!Array.isArray(placeholderItem.placeholders)) {
+            continue;
+          }
+
+          if (!placeholderItem.placeholders.length) {
+            continue;
+          }
+
+          placeholderItem.placeholders.forEach(
+            (placeholderSubItem, subPlaceholderIndex) => {
+              if (
+                this.placeholdersMap.hasOwnProperty(
+                  placeholderSubItem.placeholderKey
+                )
+              ) {
+                placeholderItem.placeholders.splice(subPlaceholderIndex, 1);
+                return;
+              }
+
+              Vue.set(
+                this.placeholdersMap,
+                placeholderSubItem.placeholderKey,
+                placeholderSubItem
+              );
+
+              const placeholderItemData = sanitizePlaceholderData(
+                placeholderSubItem
+              );
+
+              if (placeholderItemData) {
+                placeholderItem.placeholders.splice(
+                  subPlaceholderIndex,
+                  1,
+                  placeholderItemData
+                );
+              }
+            }
+          );
+
+          if (placeholderItem.placeholders.length) {
+            sanitizedPlaceholders.push(placeholderItem);
+          }
+        }
+      }
+
+      this.placeholders = sanitizedPlaceholders;
+    },
+
+    onDragStartWidget(key, origin) {
       this.currentDraggingWidget.key = key;
       this.currentDraggingWidget.origin = origin;
     },
 
     onDragEndWidget() {
-      this.currentDraggingWidget.key = '';
-      this.currentDraggingWidget.origin = '';
+      this.currentDraggingWidget.key = "";
+      this.currentDraggingWidget.origin = "";
     },
 
-    maxWidgetLimitIsReached( path ) {
-      if ( ! path.maxWidget  ) { return false; }
-      if ( path.selectedWidgets.length >= path.maxWidget  ) { return true; }
-
-      return false;
-    },
-
-    widgetIsAccepted( path, key ) {
-
-      if ( ! path.acceptedWidgets  ) { return true; }
-      if ( ! this.isTruthyObject( path.acceptedWidgets )  ) { return true; }
-
-      if ( path.acceptedWidgets.includes( this.theAvailableWidgets[ key ].widget_name ) ) { return true; }
-
-      return false;
-    },
-
-    widgetIsDropable( path ) {
-
-      if ( ! this._currentDraggingWidget.key.length ) {
+    maxWidgetLimitIsReached(path) {
+      if (!path.maxWidget) {
         return false;
       }
-
-      if ( ! this.isTruthyObject( this._currentDraggingWidget.origin ) ) {
-        return false;
-      }
-
-       if ( path.selectedWidgets.includes( this._currentDraggingWidget.key ) ) {
+      if (path.selectedWidgets.length >= path.maxWidget) {
         return true;
       }
 
-      if ( this.maxWidgetLimitIsReached( path ) ) {
+      return false;
+    },
+
+    widgetIsAccepted(path, key) {
+      if (!path.acceptedWidgets) {
+        return true;
+      }
+      if (!this.isTruthyObject(path.acceptedWidgets)) {
+        return true;
+      }
+
+      if (
+        path.acceptedWidgets.includes(this.theAvailableWidgets[key].widget_name)
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+
+    widgetIsNotAccepted(path, key) {
+      if (!path.rejectedWidgets) {
         return false;
       }
 
-      if ( ! this.widgetIsAccepted( path, this._currentDraggingWidget.key ) ) {
+      if (!this.isTruthyObject(path.rejectedWidgets)) {
+        return false;
+      }
+
+      if (
+        path.rejectedWidgets.includes(this.theAvailableWidgets[key].widget_name)
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+
+    widgetIsDropable(path) {
+      if (!this._currentDraggingWidget.key.length) {
+        return false;
+      }
+
+      if (!this.isTruthyObject(this._currentDraggingWidget.origin)) {
+        return false;
+      }
+
+      if (path.selectedWidgets.includes(this._currentDraggingWidget.key)) {
+        return true;
+      }
+
+      if (this.maxWidgetLimitIsReached(path)) {
+        return false;
+      }
+
+      if (this.widgetIsNotAccepted(path, this._currentDraggingWidget.key)) {
+        return false;
+      }
+
+      if (!this.widgetIsAccepted(path, this._currentDraggingWidget.key)) {
         return false;
       }
 
       return true;
     },
 
-    appendWidget( dest_key, dest_path ) {
-      const key         = this.currentDraggingWidget.key;
-      const from        = this.currentDraggingWidget.origin.selectedWidgets;
-      const orign_index = from.indexOf( key );
-      let dest_index    = dest_path.selectedWidgets.indexOf( dest_key ) + 1;
+    appendWidget(dest_key, dest_path) {
+      const key = this.currentDraggingWidget.key;
+      const from = this.currentDraggingWidget.origin.selectedWidgets;
+      const origin_index = from.indexOf(key);
+      let dest_index = dest_path.selectedWidgets.indexOf(dest_key) + 1;
 
-      if ( dest_path.selectedWidgets.includes( key ) && 0 === orign_index ) {
+      if (dest_path.selectedWidgets.includes(key) && 0 === origin_index) {
         dest_index--;
       }
 
-      Vue.delete( from , from.indexOf( key ) );
-      dest_path.selectedWidgets.splice( dest_index, 0, this.currentDraggingWidget.key );
+      Vue.delete(from, from.indexOf(key));
+      dest_path.selectedWidgets.splice(
+        dest_index,
+        0,
+        this.currentDraggingWidget.key
+      );
 
       this.onDragEndWidget();
     },
 
-
-    handleDropOnPlaceholder( dest ) {
+    handleDropOnPlaceholder(dest) {
       // return;
-      const key  = this.currentDraggingWidget.key;
+      const key = this.currentDraggingWidget.key;
       const from = this.currentDraggingWidget.origin.selectedWidgets;
-      const to   = dest.selectedWidgets;
+      const to = dest.selectedWidgets;
 
-      if ( ! this.isTruthyObject( from ) ) { return; }
-      if ( ! this.isTruthyObject( to ) ) { return; }
-      if ( this.maxWidgetLimitIsReached( dest ) ) { return; }
-      if ( ! this.widgetIsAccepted( dest, key ) ) { return; }
+      if (!this.isTruthyObject(from)) {
+        return;
+      }
+      if (!this.isTruthyObject(to)) {
+        return;
+      }
+      if (this.maxWidgetLimitIsReached(dest)) {
+        return;
+      }
+      if (!this.widgetIsAccepted(dest, key)) {
+        return;
+      }
 
-      if ( ! to.includes( key ) ) {
-        Vue.delete( from, from.indexOf( key ) );
-        Vue.set( to, to.length, key );
+      if (!to.includes(key)) {
+        Vue.delete(from, from.indexOf(key));
+        Vue.set(to, to.length, key);
       }
 
       this.onDragEndWidget();
     },
 
-    handleDragEnterOnPlaceholder( where ) {
+    handleDragEnterOnPlaceholder(where) {
       // console.log( 'handleDragEnterOnPlaceholder', where );
     },
 
-    handleDragOverOnPlaceholder( where ) {
+    handleDragOverOnPlaceholder(where) {
       // console.log( 'handleDragOverOnPlaceholder', where );
     },
 
-    handleDragleaveOnPlaceholder( where ) {
+    handleDragleaveOnPlaceholder(where) {
       // console.log( 'handleDragleaveOnPlaceholder', where );
     },
 
-    editWidget( key ) {
-
-      if ( typeof this.active_widgets[ key ] === 'undefined' ) {
+    editWidget(key) {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
 
-      if ( ! this.active_widgets[ key ].options && typeof this.active_widgets[ key ].options !== 'object' ) {
+      if (
+        !this.active_widgets[key].options &&
+        typeof this.active_widgets[key].options !== "object"
+      ) {
         return;
       }
 
-      this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...this.active_widgets[ key ].options };
+      this.widgetOptionsWindow = {
+        ...this.widgetOptionsWindowDefault,
+        ...this.active_widgets[key].options,
+      };
       this.widgetOptionsWindow.widget = key;
 
-      this.active_insert_widget_key = '';
+      this.active_insert_widget_key = "";
     },
 
-    editOption( widget_path, widget_key ) {
-
-      if ( ! this.isObject( widget_path[ widget_key ].options ) ) {
+    editOption(widget_path, widget_key) {
+      if (!this.isObject(widget_path[widget_key].options)) {
         return;
       }
 
-      let widget_options = widget_path[ widget_key ].options;
+      let widget_options = widget_path[widget_key].options;
       // let window_default = JSON.parse( JSON.stringify( this.widgetOptionsWindowDefault ) );
       let window_default = this.widgetOptionsWindowDefault;
 
@@ -686,32 +1031,41 @@ export default {
       this.widgetCardOptionsWindow.widget = { path: widget_path, widget_key };
     },
 
-    updateCardWidgetOptionsData( data, options_window ) {
+    updateCardWidgetOptionsData(data, options_window) {
       return;
 
-      if ( typeof this.card_option_widgets[ options_window.widget ] === 'undefined' ) {
+      if (
+        typeof this.card_option_widgets[options_window.widget] === "undefined"
+      ) {
         return;
       }
 
-      if ( typeof this.card_option_widgets[ options_window.widget ].options === 'undefined' ) {
+      if (
+        typeof this.card_option_widgets[options_window.widget].options ===
+        "undefined"
+      ) {
         return;
       }
 
-      Vue.set( this.card_option_widgets[ options_window.widget ].options, 'fields', data );
+      Vue.set(
+        this.card_option_widgets[options_window.widget].options,
+        "fields",
+        data
+      );
     },
 
-    updateWidgetOptionsData( data, options_window ) {
+    updateWidgetOptionsData(data, options_window) {
       return;
 
-      if ( typeof this.active_widgets[ widget.widget ] === 'undefined' ) {
+      if (typeof this.active_widgets[widget.widget] === "undefined") {
         return;
       }
 
-      if ( typeof this.active_widgets[ widget.widget ].options === 'undefined' ) {
+      if (typeof this.active_widgets[widget.widget].options === "undefined") {
         return;
       }
 
-      Vue.set( this.active_widgets[ widget.widget ].options, 'fields', data );
+      Vue.set(this.active_widgets[widget.widget].options, "fields", data);
     },
 
     closeCardWidgetOptionsWindow() {
@@ -722,26 +1076,45 @@ export default {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
     },
 
-    trashWidget( key, where ) {
-      if ( ! where.selectedWidgets.includes( key ) ) { return; }
+    trashWidget(key, where, placeholderIndex) {
+      if (!where.selectedWidgets.includes(key)) {
+        return;
+      }
 
-      let index = where.selectedWidgets.indexOf( key );
-      Vue.delete( where.selectedWidgets, index);
+      let widgetIndex = where.selectedWidgets.indexOf(key);
+      Vue.delete(where.selectedWidgets, widgetIndex);
 
-      if ( typeof this.active_widgets[ key ] === 'undefined' ) { return; }
-      Vue.delete( this.active_widgets, key);
+      if (typeof this.active_widgets[key] === "undefined") {
+        return;
+      }
 
-      if ( key === this.widgetOptionsWindow.widget ) {
+      Vue.delete(this.active_widgets, key);
+
+      if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
       }
+
+      if (!where.canDelete) {
+        return;
+      }
+
+      if (where.selectedWidgets.length) {
+        return;
+      }
+
+      if (typeof this.placeholders[placeholderIndex] === "undefined") {
+        return;
+      }
+
+      Vue.delete(this.placeholders, placeholderIndex);
     },
 
-    activeInsertWindow( current_item_key ) {
+    activeInsertWindow(current_item_key) {
       let self = this;
 
-      setTimeout( function() {
-        if ( self.active_insert_widget_key === current_item_key ) {
-          self.active_insert_widget_key = '';
+      setTimeout(function () {
+        if (self.active_insert_widget_key === current_item_key) {
+          self.active_insert_widget_key = "";
           return;
         }
 
@@ -749,34 +1122,36 @@ export default {
       }, 0);
     },
 
-    insertWidget( payload, where ) {
-
-      if ( ! this.isTruthyObject( this.theAvailableWidgets[ payload.key ] ) ) {
+    insertWidget(payload, where) {
+      if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }
 
-      Vue.set( this.active_widgets, payload.key, { ...this.theAvailableWidgets[ payload.key ] } );
-      Vue.set( where, 'selectedWidgets', payload.selected_widgets );
+      Vue.set(this.active_widgets, payload.key, {
+        ...this.theAvailableWidgets[payload.key],
+      });
 
-      this.editWidget( payload.key );
+      Vue.set(where, "selectedWidgets", payload.selected_widgets);
+
+      this.editWidget(payload.key);
     },
 
-    closeInsertWindow( widget_insert_window ) {
-      this.active_insert_widget_key = '';
+    closeInsertWindow(widget_insert_window) {
+      this.active_insert_widget_key = "";
     },
 
-    getWidgetLabel( widget ) {
-      let label = '';
+    getWidgetLabel(widget) {
+      let label = "";
 
-      if ( typeof widget.label === 'string' ) {
+      if (typeof widget.label === "string") {
         label = widget.label;
       }
 
       if (
-        this.isObject( widget.options ) &&
+        this.isObject(widget.options) &&
         widget.options.fields &&
         widget.options.fields.label &&
-        widget.options.fields.type === 'text' &&
+        widget.options.fields.type === "text" &&
         widget.options.fields.label.value &&
         widget.options.fields.label.value.length
       ) {
@@ -786,14 +1161,13 @@ export default {
       return label;
     },
 
-    getActiveInsertWindowStatus( current_item_key ) {
-
-      if ( current_item_key === this.active_insert_widget_key ) {
+    getActiveInsertWindowStatus(current_item_key) {
+      if (current_item_key === this.active_insert_widget_key) {
         return true;
       }
 
       return false;
-    }
+    },
   },
 };
 </script>

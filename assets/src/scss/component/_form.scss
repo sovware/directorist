@@ -5,27 +5,44 @@
     textarea,
     textarea.directorist-form-element {
         min-height: 120px;
+        max-width: 100%;
+        width: 100%;
     }
 }
 
 // Form Element
 .directorist-form-group {
+    label {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--directorist-color-dark);
+    }
     .directorist-form-element {
         position: relative;
-        height: 42px;
-        padding: 15px 20px;
+        padding: 0;
+        width: 100%;
+        max-width: unset;
+        height: 40px;
         font-size: 14px;
         font-weight: 400;
-        border-radius: 5px;
-        width: 100%;
-        border: 1px solid $border-color-normal;
+        color: var(--directorist-color-deep-gray);
+        border: none;
+        border-radius: 0;
+        background: transparent;
         box-sizing: border-box;
-        margin-bottom: 0;
-
+        border-bottom: 1px solid var(--directorist-color-border-gray);
         &:focus {
             outline: none;
             box-shadow: 0 0;
+            border: none;
+            border-bottom: 2px solid var(--directorist-color-primary);
         }
+    }
+    .directorist-form-description {
+        font-size: 14px;
+        margin-top: 10px;
+        color: var(--directorist-color-deep-gray)
     }
 }
 
@@ -43,23 +60,22 @@
 // Directorist Input With Icon
 .directorist-form-group {
     &.directorist-icon-left {
-        .directorist-form-element {
-            padding-left: 35px;
-        }
-
         .directorist-input-icon {
-            left: 15px;
-            margin-top: 0;
+            left: 0;
+        }
+        .location-name {
+            padding-left: 25px;
+            box-sizing: border-box;
         }
     }
 
     &.directorist-icon-right {
-        .directorist-form-element {
-            padding-right: 35px;
-        }
-
         .directorist-input-icon {
             right: 15px;
+        }
+        .location-name {
+            padding-right: 25px;
+            box-sizing: border-box;
         }
     }
 
@@ -74,6 +90,11 @@
         span,
         svg {
             font-size: 14px;
+        }
+        .directorist-icon-mask:after {
+            width: 16px;
+            height: 16px;
+            background-color: var(--directorist-color-body);
         }
     }
 }

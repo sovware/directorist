@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -119,7 +119,7 @@
 
         function mapLeaflet(lat, lon) {
           var fontAwesomeIcon = L.divIcon({
-            html: "<div class=\"atbd_map_shape\"><span class=\"\">".concat(cat_icon, "</span></div>"),
+            html: "<div class=\"atbd_map_shape\">".concat(cat_icon, "</div>"),
             iconSize: [20, 20],
             className: 'myDivIcon'
           });
@@ -150,7 +150,7 @@
 
 /***/ }),
 
-/***/ 19:
+/***/ 20:
 /*!*********************************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js ***!
   \*********************************************************************************/

@@ -26,10 +26,10 @@ window.addEventListener('DOMContentLoaded', () => {
     const atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
     atbdSelectData.forEach(function (el) {
         el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
-            let ds = el.querySelector('.atbd-dropdown-toggle');
-            let itemds = item.getAttribute('data-status');
+            let atbd_dropdown = el.querySelector('.atbd-dropdown-toggle');
+            let dropdown_item = item.getAttribute('data-status');
             item.addEventListener('click', function (e) {
-                ds.setAttribute('data-status', `${itemds}`);
+                atbd_dropdown.setAttribute('data-status', `${dropdown_item}`);
             });
         });
     });

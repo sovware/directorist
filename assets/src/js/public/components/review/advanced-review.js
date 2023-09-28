@@ -354,9 +354,10 @@ window.addEventListener('DOMContentLoaded', () => {
                         method: 'GET',
                         reload: 'strict',
                         success: function (response) {
+                            $target.prop('disabled', true);
                             $target
                                 .parents('#div-comment-' + $target.data('commentid'))
-                                .find('.directorist-review-single__contents-wrap').append(response.data.html);
+                                .find('.directorist-review-single__info').append(response.data.html);
 
                             $wrap
                                 .removeClass('directorist-comment-edit-request')
@@ -381,6 +382,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         .removeClass(['directorist-comment-edit-request', 'directorist-comment-editing'])
                         .find('form')
                         .remove();
+                    $wrap.find('.directorist-js-edit-comment').prop('disabled', false);
                 });
             }
 

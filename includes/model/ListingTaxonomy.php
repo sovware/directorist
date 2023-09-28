@@ -117,7 +117,7 @@ class Directorist_Listing_Taxonomy {
 
 		if ( $this->type == 'category' ) {
 			if ($this->show_count) {
-				$html = "<span>(" . $total . ")</span>";
+				$html = "<span class='directorist-category-count'>" . $total . "</span>";
 			}
             /**
              * @since 5.0.0
@@ -127,7 +127,7 @@ class Directorist_Listing_Taxonomy {
 
         else {
         	if ($this->show_count) {
-        		$html = "<p>(" . $total . ")</p>";
+        		$html = $total;
         	}
             /**
              * @since 5.0.0
@@ -165,12 +165,13 @@ class Directorist_Listing_Taxonomy {
 
     		--$this->depth;
 
-    		$html .= '<ul class="list-unstyled atbdp_child_category">';
+    		$html .= '<ul class="directorist-taxonomy-list__sub-item">';
 
     		foreach ($terms as $term) {
 
     			$child_category = get_term_children($term->term_id, $this->tax);
-    			$plus_icon = !empty($child_category) ? '<span class="expander">+</span>' : '';
+    			$toggle_class = !empty($child_category) ? 'directorist-taxonomy-list__sub-item-toggle' : '';
+				$plus_icon = !empty($child_category) ? '<span class="directorist-taxonomy-list__sub-item-toggler"></span>' : '';
     			$count = 0;
     			if ($this->hide_empty || $this->show_count) {
     				$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category( $term->term_id, $this->current_listing_type ) : atbdp_listings_count_by_location( $term->term_id, $this->current_listing_type );
@@ -186,12 +187,12 @@ class Directorist_Listing_Taxonomy {
     			$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $directory_type );
 
     			$html .= '<li>';
-    			$html .= '<a href=" ' . $permalink . ' ">';
-    			$html .= $term->name;
+    			$html .= '<a href=" ' . $permalink . ' " class=" ' . $toggle_class . '">';
+    			$html .= '<span class="directorist-taxonomy-list__name">' . $term->name . '</span>';
     			if ($this->show_count) {
-    				$html .= ' (' . $count . ')';
+    				$html .= ' (' . $count . ')' . $plus_icon;
     			}
-    			$html .= "</a>$plus_icon";
+    			$html .= "</a>";
     			$html .= $this->subterms_html($term);
     			$html .= '</li>';
     		}

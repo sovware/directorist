@@ -7,7 +7,7 @@
     @dragenter="placeholderOnDragEnter()"
     @dragleave="placeholderOnDragLeave()"
   >
-    <p class="cptm-placeholder-label" :class="{ hide: selectedWidgets.length }">
+    <p class="cptm-placeholder-label" :class="{ hide: selectedWidgets && selectedWidgets.length }">
       {{ label }}
     </p>
 
@@ -18,6 +18,7 @@
             :id="id"
             :availableWidgets="availableWidgets"
             :acceptedWidgets="acceptedWidgets"
+            :rejectedWidgets="rejectedWidgets"
             :activeWidgets="activeWidgets"
             :selectedWidgets="selectedWidgets"
             :active="showWidgetsPickerWindow"
@@ -30,6 +31,7 @@
         </div>
 
         <a
+          v-if="canAddMore"
           href="#"
           class="cptm-widget-insert-link"
           @click.prevent="$emit('open-widgets-picker-window')"
@@ -39,7 +41,7 @@
       </div>
     </div>
 
-    <div class="cptm-widget-preview-area" v-if="selectedWidgets.length">
+    <div class="cptm-widget-preview-area" v-if="selectedWidgets && selectedWidgets.length">
       <template v-for="(widget, widget_index) in selectedWidgets">
         <template v-if="hasValidWidget(widget)">
           <component
@@ -76,6 +78,9 @@ export default {
       // type: String,
       default: "",
     },
+    placeholderKey: {
+      default: "",
+    },
     label: {
       type: String,
       default: "",
@@ -87,6 +92,9 @@ export default {
       type: Object,
     },
     acceptedWidgets: {
+      type: Array,
+    },
+    rejectedWidgets: {
       type: Array,
     },
     selectedWidgets: {
@@ -110,25 +118,41 @@ export default {
     },
   },
   created() {
-    
+
   },
   computed: {
+    canAddMore() {
+      if ( this.maxWidget < 1 ) {
+        return true;
+      }
+
+      return this.selectedWidgets.length < this.maxWidget;
+    },
     getContainerClass() {
+      let classNames = {
+        'drag-enter': this.placeholderDragEnter,
+      };
+
+      if ( this.placeholderKey ) {
+        classNames[ this.placeholderKey ] = true;
+      }
+
       if ( typeof this.containerClass === 'string' ) {
-        return {
-          [ this.containerClass ]: true,
-          'drag-enter': this.placeholderDragEnter,
-        }
+        classNames[ this.containerClass ] = true;
       }
-      if ( this.containerClass &&
-          typeof this.containerClass === 'object' &&
-        ! Array.isArray( this.containerClass )
+
+      if ( 
+        this.containerClass 
+        && typeof this.containerClass === 'object' 
+        && ! Array.isArray( this.containerClass )
       ) {
-        return {
-          ...this.containerClass,
-          'drag-enter': this.placeholderDragEnter,
-        }
+        classNames = {
+          ...classNames,
+          ...this.containerClass
+        };
       }
+
+      return classNames;
       
     }
   },

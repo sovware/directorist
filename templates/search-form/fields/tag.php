@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -10,7 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $source     = !empty( $data['tags_filter_source'] ) ? $data['tags_filter_source'] : '';
 $tag_source = ( $source == 'category_based_tags' ) ? 'cat_based' : 'all_tags';
 $tag_terms  = $searchform->listing_tag_terms( $tag_source );
-$in_tag     = ! empty( $_REQUEST['in_tag'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['in_tag'] ) ) : array();
+$in_tag     = ! empty( $_REQUEST['in_tag'] ) ? $_REQUEST['in_tag'] : '';
+
+if ( is_array( $in_tag ) ) {
+	$in_tag		= array_map( 'sanitize_text_field', wp_unslash( $in_tag) );
+} else {
+	$in_tag 	= array_map( 'sanitize_text_field', explode( ',', wp_unslash( $in_tag ) ) );
+}
 
 if ( !$tag_terms ) {
 	return;

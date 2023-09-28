@@ -28,6 +28,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	</div>
 
-	<button type="button" class="directorist-btn directorist-btn-primary directorist-btn-sm" id="addNewSocial"> <span class="plus-sign">+</span><?php esc_html_e('Add New', 'directorist'); ?></button>
+	<button type="button" class="directorist-btn directorist-btn-light" id="addNewSocial"><?php directorist_icon( 'las la-plus' ); ?><?php esc_html_e('Add Social', 'directorist'); ?></button>
 
 </div>

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -144,8 +144,7 @@
           alphabetValue = $(_this).attr('data-alphabet');
           authorsMasonry();
         },
-        error: function error(_error) {
-          console.log(_error);
+        error: function error(_error) {//console.log(error);
         }
       });
     });
@@ -153,10 +152,16 @@
 
     $('body').on('click', '.directorist-authors-pagination a', function (e) {
       e.preventDefault();
-      var paged = $(this).attr('href');
-      paged = paged.split('/page/')[1];
-      paged = parseInt(paged);
-      paged = paged !== undefined ? paged : 1;
+      var paged = $(this).text();
+
+      if ($(this).hasClass('prev')) {
+        paged = parseInt($('.directorist-authors-pagination .current').text()) - 1;
+      }
+
+      if ($(this).hasClass('next')) {
+        paged = parseInt($('.directorist-authors-pagination .current').text()) + 1;
+      }
+
       $('body').addClass('atbdp-form-fade');
       var getAlphabetValue = alphabetValue;
       $.ajax({
@@ -179,8 +184,7 @@
 
           ;
         },
-        error: function error(_error2) {
-          console.log(_error2);
+        error: function error(_error2) {//console.log(error);
         }
       });
     });
@@ -205,7 +209,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 5:
+/***/ 6:
 /*!***********************************************************!*\
   !*** multi ./assets/src/js/public/modules/all-authors.js ***!
   \***********************************************************/

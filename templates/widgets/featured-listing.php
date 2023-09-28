@@ -2,10 +2,12 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.4.3
+ * @version 7.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+use Directorist\Review\Markup;
 
 $f_listing_num = !empty($instance['f_listing_num']) ? $instance['f_listing_num'] : 5;
 
@@ -33,22 +35,26 @@ apply_filters( "directorist_widget_featured_listings_query_arguments", $featured
 $featured_listings = new WP_Query($featured_args);
 $default_icon = 'las la-tags';
 ?>
-<div class="atbd_categorized_listings">
-    <ul class="listings">
+<div class="directorist-card__body">
+    <div class="directorist-widget-listing">
         <?php
         if ($featured_listings->have_posts()) {
             while ($featured_listings->have_posts()) {
                 $featured_listings->the_post();
+                $review_rating = directorist_get_listing_rating( get_the_ID() );
+                $review_count  = directorist_get_listing_review_count( get_the_ID() );
+                $review_text   = sprintf( _n( '%s review', $review_count > 0 ?  '%s reviews' : '%s review', $review_count, 'directorist' ), number_format_i18n( $review_count ) );
                 // get only one parent or high level term object
                 $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
                 $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+                $listing_reviews = get_post_meta( get_the_ID(), '_directorist_reviews', true );
                 $price = get_post_meta(get_the_ID(), '_price', true);
                 $price_range = get_post_meta(get_the_ID(), '_price_range', true);
                 $listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
                 $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
         ?>
-                <li>
-                    <div class="atbd_left_img">
+                <div class="directorist-widget-listing__single">
+                    <div class="directorist-widget-listing__image">
                         <?php
                         $default_image = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
                         if (!empty($listing_prv_img)) {
@@ -61,11 +67,16 @@ $default_icon = 'las la-tags';
 
                         ?>
                     </div>
-                    <div class="atbd_right_content">
-                        <div class="cate_title">
-                            <h4>
-                                <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
-                            </h4>
+                    <div class="directorist-widget-listing__content">
+                        <h4 class="directorist-widget-listing__title"><a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a></h4>
+                        <div class="directorist-widget-listing__meta">
+                            <span class="directorist-widget-listing__rating">
+                                <?php Markup::show_rating_stars( $review_rating );?>
+                            </span>
+                            <span class="directorist-widget-listing__rating-point"><?php echo esc_html( $review_rating ); ?></span>
+                            <span class="directorist-widget-listing__reviews">(<?php echo $review_text ?>)</span>
+                        </div>
+                        <span class="directorist-widget-listing__price">
                             <?php if (!empty($price) && ('price' === $listing_pricing)) { ?>
                                 <span><?php atbdp_display_price($price); ?></span>
 
@@ -73,54 +84,13 @@ $default_icon = 'las la-tags';
                                 $output = atbdp_display_price_range($price_range);
                                 echo wp_kses_post( $output );
                             } ?>
-                        </div>
-
-                        <div class="directorist-listing-category">
-                            <?php if (!empty($cats)) {
-                                $term_icon  = get_term_meta($cats[0]->term_id, 'category_icon', true);
-                                $term_icon  = $term_icon ? $term_icon : $default_icon;
-                                $term_link  = esc_url(get_term_link($cats[0]->term_id, ATBDP_CATEGORY));
-                                $term_label = $cats[0]->name;
-                            ?>
-                                <a href="<?php echo esc_url($term_link); ?>"><?php directorist_icon($term_icon); ?><?php echo esc_html($term_label); ?></a>
-                                <?php
-                                $totalTerm = count($cats);
-                                if ($totalTerm > 1) {
-                                    $totalTerm = $totalTerm - 1; ?>
-                                    <div class="directorist-listing-category__popup">
-                                        <span class="directorist-listing-category__extran-count">+<?php echo esc_html($totalTerm); ?></span>
-                                        <div class="directorist-listing-category__popup__content">
-                                            <?php
-                                            foreach (array_slice($cats, 1) as $cat) {
-                                                $term_icon  = get_term_meta($cat->term_id, 'category_icon', true);
-                                                $term_icon  = $term_icon ? $term_icon : $default_icon;
-                                                $term_link  = esc_url(ATBDP_Permalink::atbdp_get_category_page($cat));
-                                                $term_link  = esc_url(get_term_link($cat->term_id, ATBDP_CATEGORY));
-                                                $term_label = $cat->name;
-                                            ?>
-
-                                                <a href="<?php echo esc_url($term_link); ?>"><?php directorist_icon($term_icon); ?> <?php echo esc_html($term_label); ?></a>
-
-                                            <?php
-                                            }
-                                            ?>
-                                        </div>
-
-                                    </div>
-                                <?php
-                                }
-                            } else { ?>
-                                <a href="#"><?php directorist_icon($default_icon); ?><?php esc_html_e('Uncategorized', 'directorist'); ?></a>
-                            <?php
-                            }
-                            ?>
-                        </div>
+                        </span>
                     </div>
-                </li>
+                </div>
         <?php
             }
             wp_reset_postdata();
         }; ?>
-    </ul>
+    </div>
 </div>
 <!--ends featured listing-->

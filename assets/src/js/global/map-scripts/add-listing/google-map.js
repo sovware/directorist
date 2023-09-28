@@ -28,6 +28,11 @@ import {
             let loc_manual_lng = parseFloat(localized_data.manual_lng);
             const loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
 
+            const searchIcon = {
+                url: '', // replace with your marker icon URL
+                scaledSize: new google.maps.Size(40, 40), // set the size of the icon
+            };
+
             loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
             loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
 
@@ -104,6 +109,9 @@ import {
                 const marker = new google.maps.Marker({
                     map,
                     position: place.geometry.location,
+                    draggable: true,
+                    title: localized_data.marker_title,
+                    icon: searchIcon, 
                 });
 
                 // marker.addListener('click', function () {
@@ -122,16 +130,15 @@ import {
                     zoom: loc_map_zoom_level,
                     center: saved_lat_lng,
                 });
+
                 const marker = new google.maps.Marker({
                     map,
                     position: saved_lat_lng,
                     draggable: true,
                     title: localized_data.marker_title,
+                    icon: searchIcon, 
                 });
-                // marker.addListener('click', function () {
-                //     info_window.open(map, marker);
-                // });
-                // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+                
                 markers.push(marker);
 
                 // create a Geocode instance
@@ -148,6 +155,7 @@ import {
                     // set the value of input field to save them to the database
                     $manual_lat.val(event.latLng.lat());
                     $manual_lng.val(event.latLng.lng());
+
                     // add the marker to the given map.
                     addMarker(event.latLng, map);
                 });
@@ -204,14 +212,16 @@ import {
 
             // Adds a marker to the map.
             function addMarker(location, map) {
-                // Add the marker at the clicked location, and add the next-available label
+                // Add the marker at the clicked location, and add the next-available label;
+
                 // from the array of alphabetical characters.
                 const marker = new google.maps.Marker({
+                    map,
                     position: location,
                     /* label: labels[labelIndex++ % labels.length], */
                     draggable: true,
                     title: localized_data.marker_title,
-                    map,
+                    icon: searchIcon, 
                 });
                 // marker.addListener('click', function () {
                 //     info_window.open(map, marker);

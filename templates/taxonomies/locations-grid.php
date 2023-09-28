@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.7.0
  */
 
 use \Directorist\Helper;
@@ -17,29 +17,30 @@ $columns = floor( 12 / $taxonomy->columns );
 		 */
 		do_action( 'atbdp_before_all_locations_loop', $taxonomy );
 		?>
-		<div class="atbd_location_grid_wrap atbdp-no-margin">
+		<div class="directorist-location directorist-location--grid directorist-location--grid-one">
 			<div class="<?php Helper::directorist_row(); ?>">
 				<?php
 				if( $locations ) {
 					foreach ($locations as $location) {
-						$loc_class = $location['img'] ? '' : ' atbd_location_grid-default';
+						$loc_class = $location['img'] ? ' directorist-location__single--img' : '';
 						?>
 						<div class="<?php Helper::directorist_column( $columns ); ?>">
 
-							<a class="atbd_location_grid<?php echo esc_attr( $loc_class ); ?>" href="<?php echo esc_url($location['permalink']); ?>">
-								<figure>
-									<?php if ($location['img']) { ?>
-										<img src="<?php echo esc_url( $location['img'] ); ?>" title="<?php echo esc_attr($location['name']); ?>" alt="<?php echo esc_attr($location['name']); ?>">
-										<?php
-									}
-									?>
-									<figcaption>
-										<h3><?php echo esc_html($location['name']); ?></h3>
-										<?php echo wp_kses_post( $location['grid_count_html'] );?>
-									</figcaption>
-								</figure>
-							</a>
-
+							<div class="directorist-location__single<?php echo esc_attr( $loc_class ); ?>">
+								<?php if ($location['img']) { ?>
+									<div class="directorist-location__single__img"><img src="<?php echo esc_url( $location['img'] ); ?>" title="<?php echo esc_attr($location['name']); ?>" alt="<?php echo esc_attr($location['name']); ?>"></div>
+									<?php
+								}
+								?>
+								<div class="directorist-location__content">
+									<h3>
+										<a href="<?php echo esc_url($location['permalink']); ?>">
+											<?php echo esc_html($location['name']); ?>
+										</a>
+									</h3>
+									<span class="directorist-location__count"><?php echo wp_kses_post( $location['grid_count_html'] );?></span>
+								</div>
+							</div>
 						</div>
 						<?php
 					}

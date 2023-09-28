@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -22,8 +22,12 @@ $min_placeholder = !empty( $data['price_range_min_placeholder'] ) ? $data['price
 
 		<?php if ( $ptype == 'both' || $ptype == 'price_unit' ): ?>
 
-			<div class="directorist-price-ranges__item directorist-form-group"><input type="text" name="price[0]" class="directorist-form-element" placeholder="<?php echo esc_attr( $min_placeholder ); ?>" value="<?php echo esc_attr( $searchform->price_value('min') ); ?>"></div>
-			<div class="directorist-price-ranges__item directorist-form-group"><input type="text" name="price[1]" class="directorist-form-element" placeholder="<?php echo esc_attr( $max_placeholder ); ?>" value="<?php echo esc_attr( $searchform->price_value('max') ); ?>"></div>
+			<div class="directorist-price-ranges__item directorist-form-group">
+				<input type="text" name="price[0]" class="directorist-form-element pricing-slider-range__input-values__min" placeholder="<?php echo esc_attr( $min_placeholder ); ?>" value="<?php echo esc_attr( $searchform->price_value('min') ); ?>">
+			</div>
+			<div class="directorist-price-ranges__item directorist-form-group">
+				<input type="text" name="price[1]" class="directorist-form-element pricing-slider-range__input-values__max" placeholder="<?php echo esc_attr( $max_placeholder ); ?>" value="<?php echo esc_attr( $searchform->price_value('max') ); ?>">
+			</div>
 
 		<?php endif; ?>
 

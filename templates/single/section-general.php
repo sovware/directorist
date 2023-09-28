@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 6.7
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -12,7 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<div class="directorist-card__header">
 
-		<h4 class="directorist-card__header--title"><?php directorist_icon( $icon );?><?php echo esc_html( $label );?></h4>
+		<h4 class="directorist-card__header--title">
+			<?php if ( ! empty( $icon ) ) : ?>
+				<span class="directorist-card__header-icon"><?php directorist_icon( $icon ); ?></span>
+			<?php endif; ?>
+			<span class="directorist-card__header-text"><?php echo esc_html( $label ); ?></span>
+		</h4>
 
 	</div>
 

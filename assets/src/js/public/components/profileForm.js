@@ -83,7 +83,7 @@
 
                     if (response.success) {
                         
-                        $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
+                        $('#directorist-profile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
                         
                         // Reload if password updated
                         let newPass = form_data.get('user[new_pass]');
@@ -93,7 +93,7 @@
                         }
 
                     } else {
-                        $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
+                        $('#directorist-profile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
                     }
                 },
                 error: function (response) {
@@ -103,7 +103,7 @@
             });
             // remove notice after five second
             setTimeout(() => {
-                $("#directorist-prifile-notice .directorist-alert").remove();
+                $("#directorist-profile-notice .directorist-alert").remove();
             }, 5000);
 
             // prevent the from submitting

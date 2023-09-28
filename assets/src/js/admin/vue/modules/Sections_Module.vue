@@ -74,7 +74,7 @@ export default {
 
   watch: {
     fields() {
-      console.log("updated");
+      // console.log("updated");
     },
   },
 

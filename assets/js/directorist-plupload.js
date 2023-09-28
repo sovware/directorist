@@ -428,7 +428,7 @@ function plu_show_thumbs(imgId) {
         file_display = '<i title="' + file_name + '" class="la ' + file_type_class + ' atbdp-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" aria-hidden="true"></i>';
       }
 
-      var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/trash.svg';
+      var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/trash-alt.svg';
       var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
       var thumb = $('<div class="thumb ' + file_display_class + '" id="thumb' + imgId + i + '">' + image_title_html + file_display + image_caption_html + '<div class="atbdp-thumb-actions">' + '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '">' + iconHTML + '</span>' + '</div>' + '</div>');
       thumbsC.append(thumb);
@@ -586,16 +586,16 @@ function convertToSelect2(field) {
       allowClear: true,
       width: '100%',
       templateResult: function templateResult(data) {
-        // We only really care if there is an field to pull classes from
-        if (!data.field) {
+        if (!data.id) {
           return data.text;
         }
 
-        var $field = $(data.field);
-        var $wrapper = $('<span></span>');
-        $wrapper.addClass($field[0].className);
-        $wrapper.text(data.text);
-        return $wrapper;
+        var iconURI = $(data.element).data('icon');
+        var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+        var originalText = data.text;
+        var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+        var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+        return $state;
       }
     };
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;

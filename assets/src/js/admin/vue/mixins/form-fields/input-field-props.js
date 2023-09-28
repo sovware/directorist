@@ -193,5 +193,8 @@ export default {
         nonce: {
             required: false,
         },
+        preview: {
+            required: false,
+        },
     },
 }

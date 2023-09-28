@@ -491,6 +491,31 @@ Please remember that your order may be canceled if you do not make your payment 
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
 
+                // 'all_listing_layout' => [
+                //     'type'  => 'radio',
+                //     'value' => 'no_sidebar',
+                //     'label' => __( 'All Listing Layout', 'directorist' ),
+                //     'options' => [
+                //         [
+                //             'label' => __('Listing with Left Sidebar', 'directorist'),
+                //             'value' => 'left_sidebar',
+                //         ],
+                //         [
+                //             'label' => __('Listing with Right Sidebar', 'directorist'),
+                //             'value' => 'right_sidebar',
+                //         ],
+                //         [
+                //             'label' => __('Listing with No Sidebar', 'directorist'),
+                //             'value' => 'no_sidebar',
+                //         ],
+                //     ],
+                //     'preview' => [
+                //         'left_sidebar'  => esc_url( DIRECTORIST_ASSETS . 'images/left_sidebar.png' ),
+                //         'right_sidebar' => esc_url( DIRECTORIST_ASSETS . 'images/right_sidebar.png' ),
+                //         'no_sidebar'    => esc_url( DIRECTORIST_ASSETS . 'images/no_sidebar.png' ),
+                //     ]
+                // ],
+
                 'enable_monetization' => [
                     'label' => __('Enable Monetization Feature', 'directorist'),
                     'type'  => 'toggle',
@@ -1422,7 +1447,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'new_back_color' => [
                     'type' => 'color',
                     'label' => __('New Background Color', 'directorist'),
-                    'value' => '#122069',
+                    'value' => '#2C99FF',
                 ],
 
                 'marker_shape_color' => [
@@ -2465,9 +2490,53 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
+                'display_favorite_badge_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Favorite Badge', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_user_avatar_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display User Avatar', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
                 'display_title_map' => [
                     'type' => 'toggle',
                     'label' => __('Display Title', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_review_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Review', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_price_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Price', 'directorist'),
                     'value' => true,
                     'show-if' => [
                         'where' => "display_map_info",
@@ -2490,6 +2559,17 @@ Please remember that your order may be canceled if you do not make your payment 
                 'display_direction_map' => [
                     'type' => 'toggle',
                     'label' => __('Display Get Direction', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_phone_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Phone', 'directorist'),
                     'value' => true,
                     'show-if' => [
                         'where' => "display_map_info",
@@ -3601,11 +3681,30 @@ Please remember that your order may be canceled if you do not make your payment 
                 'categories_column_number' => [
                     'label' => __('Number of  Columns', 'directorist'),
                     'description' => __('Set how many columns to display on categories page.', 'directorist'),
-                    'type'  => 'number',
-                    'value' => '4',
-                    'min' => '1',
-                    'max' => '5',
-                    'step' => '1',
+                    'type'        => 'select',
+                    'value'       => '4',
+                    'options' => [
+                        [
+                            'value' => 1,
+                            'label' => 1,
+                        ],
+                        [
+                            'value' => 2,
+                            'label' => 2,
+                        ],
+                        [
+                            'value' => 3,
+                            'label' => 3,
+                        ],
+                        [
+                            'value' => 4,
+                            'label' => 4,
+                        ],
+                        [
+                            'value' => 6,
+                            'label' => 6,
+                        ],
+                    ],
                 ],
                 'categories_depth_number' => [
                     'label' => __('Sub-category Depth', 'directorist'),
@@ -3687,13 +3786,32 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'locations_column_number' => [
-                    'label'       => __('Number of  Columns', 'directorist'),
+                    'label' => __('Number of  Columns', 'directorist'),
                     'description' => __('Set how many columns to display on locations page.', 'directorist'),
-                    'type'        => 'number',
+                    'type'        => 'select',
                     'value'       => '4',
-                    'min'         => '1',
-                    'max'         => '5',
-                    'step'        => '1',
+                    'options' => [
+                        [
+                            'value' => 1,
+                            'label' => 1,
+                        ],
+                        [
+                            'value' => 2,
+                            'label' => 2,
+                        ],
+                        [
+                            'value' => 3,
+                            'label' => 3,
+                        ],
+                        [
+                            'value' => 4,
+                            'label' => 4,
+                        ],
+                        [
+                            'value' => 6,
+                            'label' => 6,
+                        ],
+                    ],
                 ],
                 'locations_depth_number' => [
                     'label' => __('Sub-location Depth', 'directorist'),
@@ -3987,7 +4105,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'login_text'    => [
                     'type'          => 'text',
                     'label'         => __('Text', 'directorist'),
-                    'value'         => __('Already have an account? Please login', 'directorist'),
+                    'value'         => __('Already have an account?', 'directorist'),
                     'show-if' => [
                         'where' => "display_login",
                         'conditions' => [
@@ -3998,7 +4116,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'log_linkingmsg'    => [
                     'type'          => 'text',
                     'label'         => __('Linking Text', 'directorist'),
-                    'value'         => __('Here', 'directorist'),
+                    'value'         => __('Login', 'directorist'),
                     'show-if' => [
                         'where' => "display_login",
                         'conditions' => [
@@ -4571,6 +4689,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
                                 'general_settings' => [
                                     'fields'      => [
+                                        // 'all_listing_layout',
                                         'enable_multi_directory',
                                         'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 'lazy_load_taxonomy_fields'
                                     ],
@@ -4660,7 +4779,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Map Info Window Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'display_map_info', 'display_image_map', 'display_title_map', 'display_address_map', 'display_direction_map'
+                                        'display_map_info', 'display_image_map', 'display_favorite_badge_map', 'display_user_avatar_map', 'display_title_map', 'display_review_map', 'display_price_map', 'display_address_map', 'display_direction_map', 'display_phone_map'
                                     ],
                                 ],
                             ] ),

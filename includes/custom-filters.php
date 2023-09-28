@@ -14,7 +14,7 @@ function atbdp_directorist_button_classes($type='primary'){
       * @param $type string the type of the button eg. default, primary etc. Default value is default.
       *
       */
-     return apply_filters('atbdp_button_class', "btn btn-{$type}", $type);
+     return apply_filters('atbdp_button_class', "directorist-btn directorist-btn-{$type} directorist-btn-lg", $type);
  }
 /**
  * @since 6.3.4

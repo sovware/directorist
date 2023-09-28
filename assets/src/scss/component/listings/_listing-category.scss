@@ -4,9 +4,9 @@
 
     @include e(popup) {
         position: relative;
-        margin-left: 5px;
+        margin-left: 10px;
         cursor: pointer;
-
+        display: flex;
         @include e(content) {
             display: block;
             position: absolute;
@@ -15,52 +15,44 @@
             opacity: 0;
             pointer-events: none;
             bottom: 25px;
-            left: -5px;
-            transition: 0.3s ease;
-            background: #000000;
+            left: -30px;
+            padding: 10px;
+            border: none;
+            border-radius: 12px;
+            background-color: var(--directorist-color-white);
+            box-shadow: var(--directorist-box-shadow);
             line-break: auto;
             word-break: break-all;
-            padding: 7px 10px;
-            border-radius: 3px;
+            transition: 0.3s ease;
             z-index: 1;
-            &:before {
-                position: absolute;
-                content: '';
-                border-top: 8px solid #000;
-                border-right: 6px solid transparent;
-                border-left: 6px solid transparent;
-                bottom: -8px;
-                left: 10px;
-            }
 
             a {
-                color: rgba(255, 255, 255, 0.8) !important;
-                display: flex !important;
-                line-height: normal;
+                color: var(--directorist-color-body);
+                display: flex;
+                gap: 12px;
                 align-items: flex-start;
-                margin-bottom: 10px;
-                width: 100%;
+                line-height: normal;
+                padding: 10px;
+                border-radius: 8px;
                 &:last-child {
                   margin-bottom: 0;
                 }
                 i {
+                    height: unset;
                     width: unset;
                     min-width: unset;
-                    height: unset;
-                    margin: 0 10px 0 0;
-                    &:after {
-                        background-color: #fff !important;
-                    }
+                }
+                i::after {
+                    height: 14px;
+                    width: 14px;
+                    background-color: var(--directorist-color-body);
                 }
 
                 &:hover {
-                    color: #fff !important;
-                }
-
-                .directorist-icon-mask {
-                    margin-right: 5px;
-                    &::after{
-                        background-color: rgba(255, 255, 255, 0.8);
+                    color: var(--directorist-color-primary);
+                    background-color: var(--directorist-color-light);
+                    i::after {
+                        background-color: var(--directorist-color-primary);
                     }
                 }
             }

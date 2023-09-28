@@ -150,7 +150,7 @@
     -moz-appearance: none;
     appearance: none;
     height: 0;
-    font-size: 1em;
+    font-size: 15px;
     left: 0;
     line-height: 0;
     outline: none;
@@ -163,16 +163,16 @@
 .w-toggle-switch .w-switch:before,
 .w-toggle-switch .w-switch:after {
     content: '';
-    font-size: 1em;
+    font-size: 15px;
     position: absolute;
 }
 
 .w-toggle-switch .w-switch:before {
-    border-radius: 1.25em;
+    border-radius: 19px;
     background: #C8CADF;
     height: 26px;
-    left: -0.25em;
-    top: -0.1875em;
+    left: -4px;
+    top: -3px;
     -webkit-transition: background-color 0.25s ease-out 0.1s;
     transition: background-color 0.25s ease-out 0.1s;
     width: 48px;
@@ -447,6 +447,7 @@
     position: absolute;
     right: 0;
     top: 0;
+    background: transparent;
     border-right-color: #4353FF;
     animation: swRotate 2s linear infinite;
 }

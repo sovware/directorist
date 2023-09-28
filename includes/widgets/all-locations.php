@@ -15,7 +15,7 @@ class All_Locations extends \WP_Widget {
 		$id_base        = 'bdlw_widget';
         $name           = esc_html__( 'Directorist - Locations', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show Locations by this widget', 'directorist' ),
         ];
 
@@ -118,9 +118,7 @@ class All_Locations extends \WP_Widget {
 
 		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Locations', 'directorist');
 		$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
-		echo '<div class="atbd_widget_title">';
 		echo wp_kses_post( $widget_title );
-		echo '</div>';
 
         $query_args = array(
             'template'       => !empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
@@ -187,15 +185,15 @@ class All_Locations extends \WP_Widget {
 
         $terms = get_terms( $args );
         $parent = $args['parent'];
-        $child_class = !empty($parent) ? 'atbdp_child_location' : 'atbdp_parent_location';
+        $child_class = !empty($parent) ? 'directorist-taxonomy-list__sub-item' : 'directorist-widget-taxonomy directorist-widget-location';
         $html = '';
 
         if( count( $terms ) > 0 ) {
             $i = 1;
-            $html .= '<ul class="' .$child_class. '">';
+            $html .= '<div class="' .$child_class. '">';
             foreach( $terms as $term ) {
                 $child_category = get_term_children($term->term_id,ATBDP_LOCATION);
-                $plus_icon = (!empty($child_category) && empty($parent) ) ? directorist_icon( 'las la-plus', false ) : '';
+                $plus_icon = (!empty($child_category) && empty($parent) ) ? directorist_icon( 'las la-angle-down', false ) : '';
                 $settings['term_id'] = $term->term_id;
 
                 $count = 0;
@@ -205,18 +203,94 @@ class All_Locations extends \WP_Widget {
                     if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
                 }
 
-                $html .= '<li>';
-                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_location_page( $term ) . '">';
-                $html .= $term->name;
+                $html .= '<div class="directorist-taxonomy-list-one">';
+                $html .= '<div class="directorist-taxonomy-list">';
+                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_location_page( $term ) . '" class="directorist-taxonomy-list__card directorist-taxonomy-list__toggle">';
+                $html .= '<span class="directorist-taxonomy-list__name">'. $term->name .'</span>';
                 if( ! empty( $settings['show_count'] ) ) {
                     $expired_listings = atbdp_get_expired_listings(ATBDP_LOCATION, $term->term_id);
                     $number_of_expired = $expired_listings->post_count;
                     $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
-                    $totat = ($count)?($count-$number_of_expired):$count;
-                    $html .= ' (' . $totat . ')';
+                    $total = ($count)?($count-$number_of_expired):$count;
+                    $html .= '<span class="directorist-taxonomy-list__count">(' . $total . ')</span>';
                 }
-                $html .= '</a>'. $plus_icon . '';
-                $html .= $this->list_locations( $settings );
+                $html .= $plus_icon ? '<span class="directorist-taxonomy-list__toggler">'. $plus_icon . '</span>' : '';
+                $html .= '</a>';
+                $html .= $this->sub_locations_list( $settings );
+                $html .= '</div>';
+                $html .= '</div>';
+                if(!empty($args['number'])) {
+                    if( $i++ == $args['number'] ) break;
+                }
+            }
+            $html .= '</div>';
+
+        }
+
+        return $html;
+
+    }
+
+    public function sub_locations_list( $settings ) {
+        if( $settings['immediate_category'] ) {
+            if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+                return;
+            }
+        }
+
+        $args = array(
+            'taxonomy'     => ATBDP_LOCATION,
+            'orderby'      => $settings['orderby'],
+            'order'        => $settings['order'],
+            'hide_empty'   => $settings['hide_empty'],
+            'parent'       => $settings['term_id'],
+            'hierarchical' => !empty( $settings['hide_empty'] ) ? true : false,
+            'child_of'     => 0,
+            'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
+        );
+
+        $terms = get_terms( $args );
+        $parent = $args['parent'];
+        $child_class = !empty($parent) ? 'directorist-taxonomy-list__sub-item' : '';
+        $html = '';
+        if( count( $terms ) > 0 ) {
+            $i = 1;
+            $html .= '<ul class="' .$child_class. '">';
+            foreach( $terms as $term ) {
+                $settings['term_id'] = $term->term_id;
+                $child_category      = get_term_children( $term->term_id, ATBDP_LOCATION );
+                $plus_icon           = (!empty($child_category) )? directorist_icon( 'las la-plus', false ) : '';
+                $icon                = get_term_meta($term->term_id,'category_icon',true);
+                $child_icon          = empty($parent)  ? directorist_icon( $icon, false ) : '';
+
+                $has_child_class = '';
+                if ( empty( $child_category ) ) {
+                    $has_child_class = '';
+                } else {
+                    $has_child_class = 'directorist-taxonomy-list__sub-item-toggle';
+                }
+
+                $count = 0;
+                if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
+                    $count = atbdp_listings_count_by_location( $term->term_id );
+
+                    if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
+                }
+
+                $html .= '<li>';
+                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_location_page( $term ) . '" class="' . $has_child_class . ' ' . $child_icon . '">';
+                $html .= '<span class="directorist-taxonomy-list__name">' . $term->name . '</span>';
+                if( ! empty( $settings['show_count'] ) ) {
+                    $expired_listings = atbdp_get_expired_listings(ATBDP_LOCATION, $term->term_id);
+                    $number_of_expired = $expired_listings->post_count;
+                    $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
+                    $total = ($count)?($count-$number_of_expired):$count;
+                    $html .= '<span class="directorist-taxonomy-list__count"> (' .
+                    $total . ') </span>';
+                }
+                $html .= $plus_icon ? '<span class="directorist-taxonomy-list__sub-item-toggler"></span>' : '';
+                $html .= '</a>';
+                $html .= $this->sub_locations_list( $settings );
                 $html .= '</li>';
                 if(!empty($args['number'])) {
                     if( $i++ == $args['number'] ) break;
@@ -227,7 +301,6 @@ class All_Locations extends \WP_Widget {
         }
 
         return $html;
-
     }
 
     public function dropdown_locations( $settings, $prefix = '' ) {

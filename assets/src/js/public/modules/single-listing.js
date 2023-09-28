@@ -7,6 +7,3 @@ import '../components/directoristDropdown';
 import '../components/directoristSelect';
 import '../components/login';
 import '../../global/components/modal';
-
-// Single Listing Page
-import '../components/single-listing-page/slider';

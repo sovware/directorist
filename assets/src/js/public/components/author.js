@@ -45,7 +45,7 @@
                     authorsMasonry();
                 },
                 error(error) {
-                    console.log(error);
+                    //console.log(error);
                 },
             });
         });
@@ -53,10 +53,13 @@
         /* authors pagination */
         $('body').on('click', '.directorist-authors-pagination a', function (e) {
             e.preventDefault();
-            var paged = $(this).attr('href');
-            paged = paged.split('/page/')[1];
-            paged = parseInt(paged);
-            paged = paged !== undefined ? paged : 1;
+            var paged = $(this).text();
+            if($(this).hasClass('prev')){
+                paged = parseInt($('.directorist-authors-pagination .current').text()) - 1;
+            }
+            if($(this).hasClass('next')){
+                paged = parseInt($('.directorist-authors-pagination .current').text()) + 1;
+            }
             $('body').addClass('atbdp-form-fade');
             var getAlphabetValue = alphabetValue;
             $.ajax({
@@ -78,7 +81,7 @@
 
                 },
                 error(error) {
-                    console.log(error);
+                    //console.log(error);
                 },
             });
         });

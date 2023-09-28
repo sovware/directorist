@@ -262,7 +262,7 @@ class Directorist_Listing_Author {
 
 	public function review_count_html() {
 		$review_count = $this->total_review;
-		$review_count_html = sprintf( _nx( '<span>%s</span> Review', '<span>%s</span> Reviews', $review_count, 'author review count', 'directorist' ), $review_count );
+		$review_count_html = sprintf( _nx( '%s Review', '%s Reviews', $review_count, 'author review count', 'directorist' ), $review_count );
 		return $review_count_html;
 	}
 
@@ -277,7 +277,9 @@ class Directorist_Listing_Author {
 	}
 
 	public function rating_count() {
-		return $this->rating;
+		$rating = $this->rating;
+		$rating_count = sprintf( '<span>%s</span>', $rating, 'directorist' );
+		return $rating_count;
 	}
 
 	public function display_name() {

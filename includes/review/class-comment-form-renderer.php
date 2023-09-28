@@ -3,7 +3,7 @@
  * Review form renderer.
  *
  * @package Directorist\Review
- * @since 7.1.0
+ * @since 7.7.0
  */
 namespace Directorist\Review;
 
@@ -145,11 +145,7 @@ class Comment_Form_Renderer {
 		}
 
 		$fields['content'] =  sprintf(
-			'<div class="directorist-form-group form-group-comment">%s %s</div>',
-			sprintf(
-				'<label for="comment">%s</label>',
-				$builder->get_comment_label( _x( 'Comment', 'noun', 'directorist' ) )
-			),
+			'<div class="directorist-form-group form-group-comment">%s</div>',
 			sprintf(
 				'<textarea id="comment" class="directorist-form-element" placeholder="%s" name="comment" cols="30" rows="10" maxlength="65525" required="required">%s</textarea>',
 				sprintf( __( 'Leave your update %s', 'directorist' ), $comment_type ),

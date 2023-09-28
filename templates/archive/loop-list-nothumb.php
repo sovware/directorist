@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $loop_fields = $listings->loop['list_fields']['template_data']['list_view_without_thumbnail'];
 ?>
 
-<div class="directorist-listing-single directorist-listing-card directorist-listing-card--list directorist-listing-no-thumb <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
+<div class="directorist-listing-single directorist-listing-single--bg directorist-listing-list directorist-listing-no-thumb <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
 
 	<div class="directorist-listing-single__header">
 
@@ -28,7 +28,10 @@ $loop_fields = $listings->loop['list_fields']['template_data']['list_view_withou
 
 		<div class="directorist-listing-single__content__body">
 			<div class="directorist-listing-single__info--list"><ul><?php $listings->render_loop_fields($loop_fields['body']['bottom'], '<li>', '</li>'); ?></ul></div>
-			<div class="directorist-listing-single__info--excerpt"><?php $listings->render_loop_fields($loop_fields['body']['excerpt']); ?></div>
+			
+			<?php if ( ! empty( $listings->render_loop_fields( $loop_fields['body']['excerpt'] ) ) ) : ?>
+				<div class="directorist-listing-single__info--excerpt"><?php $listings->render_loop_fields( $loop_fields['body']['excerpt'] ); ?></div>
+			<?php endif; ?>	
 		</div>
 
 		<div class="directorist-listing-single__meta">

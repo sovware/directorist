@@ -15,7 +15,7 @@ class Author_Info extends \WP_Widget {
 		$id_base        = 'bdsi_widget';
         $name           = esc_html__( 'Directorist - Author Info', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show author info by this widget', 'directorist' ),
         ];
 
@@ -53,9 +53,7 @@ class Author_Info extends \WP_Widget {
 
 			$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Author Info', 'directorist');
 			$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
-			echo '<div class="atbd_widget_title">';
 			echo wp_kses_post( $widget_title );
-			echo '</div>';
 
 			Helper::get_template( 'widgets/author-info', compact( 'args', 'instance' ) );
 

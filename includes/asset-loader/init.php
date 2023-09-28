@@ -53,8 +53,7 @@ class Asset_Loader {
 		wp_enqueue_style( 'directorist-main-style' );
 		wp_enqueue_style( 'directorist-select2-style' );
 		wp_enqueue_style( 'directorist-ez-media-uploader-style' );
-		wp_enqueue_style( 'directorist-plasma-slider' );
-		wp_enqueue_style( 'directorist-slick-style' );
+		wp_enqueue_style( 'directorist-swiper-style' );
 		wp_enqueue_style( 'directorist-sweetalert-style' );
 
 		// Inline styles
@@ -99,7 +98,10 @@ class Asset_Loader {
 		switch ( $template ) {
 			// All Listings
 			case 'archive-contents':
+			case 'sidebar-archive-contents':
 				wp_enqueue_script( 'directorist-all-listings' );
+				wp_enqueue_script( 'directorist-listing-slider' );
+				wp_enqueue_script( 'directorist-swiper' );
 				wp_enqueue_script( 'directorist-select2-script' );
 
 				if ( Helper::instant_search_enabled() ) {
@@ -110,11 +112,15 @@ class Asset_Loader {
 
 			// Search Form
 			case 'archive/search-form':
+			case 'archive/advanced-search-form':
+			case 'archive/basic-search-form':
 			case 'search-form-contents':
 			case 'search-form/adv-search':
 			case 'widgets/search-form':
 				wp_enqueue_script( 'directorist-search-form' );
 				wp_enqueue_script( 'directorist-select2-script' );
+				wp_enqueue_script( 'directorist-listing-slider' );
+				wp_enqueue_script( 'directorist-swiper' );
 				break;
 
 			// Add Listing Form
@@ -136,6 +142,8 @@ class Asset_Loader {
 
 			// Author Profile
 			case 'author-contents':
+				wp_enqueue_script( 'directorist-swiper' );
+				wp_enqueue_script( 'directorist-listing-slider' );
 				wp_enqueue_script( 'directorist-author-profile' );
 				break;
 
@@ -151,6 +159,8 @@ class Asset_Loader {
 				/**
 				 * @todo load based on Listings::has_masonry() condition.
 				 */
+				wp_enqueue_script( 'directorist-listing-slider' );
+				wp_enqueue_script( 'directorist-swiper' );
 				wp_enqueue_script( 'jquery-masonry' );
 				break;
 
@@ -201,11 +211,13 @@ class Asset_Loader {
 				break;
 
 			case 'single/slider':
-				wp_enqueue_script( 'directorist-plasma-slider' );
+				wp_enqueue_script( 'directorist-swiper' );
+				wp_enqueue_script( 'directorist-listing-slider' );
 				break;
 
 			case 'single/section-related_listings':
-				wp_enqueue_script( 'directorist-slick' );
+				wp_enqueue_script( 'directorist-swiper' );
+				wp_enqueue_script( 'directorist-listing-slider' );
 				break;
 
 			case 'account/login':

@@ -8,4 +8,4 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-view-count"><?php directorist_icon( 'las la-eye' ); ?><?php echo ! empty($listings->loop['post_view']) ? esc_html( $listings->loop['post_view'] ) : 0;?></div>
+<div class="directorist-view-count"><?php directorist_icon( 'fas fa-eye' ); ?><?php echo ! empty($listings->loop['post_view']) ? esc_html( $listings->loop['post_view'] ) : 0;?></div>

@@ -125,12 +125,10 @@ $multiple           = false;
 			}
 			?>
 			" id="<?php echo esc_attr( $id ); ?>plupload-upload-ui">
-				<div class="directorist-dropbox-title"><?php echo wp_kses_post( __( 'Drop files here <small>or</small>', 'directorist' ) ); ?></div>
 				<input id="<?php echo esc_attr( $id ); ?>plupload-browse-button" type="button"
 					   value="<?php esc_attr_e( 'Select Files', 'directorist' ); ?>" class="directorist-btn directorist-btn-primary"/>
-				<div class="directorist-dropbox-file-types"><?php echo !empty( $display_file_types ) ? sprintf( esc_html__( 'Allowed file types: %s', 'directorist' ), esc_html( $display_file_types ) ) : ''; ?></div>
-				<span class="ajaxnonceplu" id="ajaxnonceplu<?php echo esc_attr( wp_create_nonce( $id . 'pluploadan' ) ); ?>"></span>
-				<div class="filelist"></div>
+				<label for="<?php echo esc_attr( $id ); ?>plupload-browse-button" class="plupload-browse-button-label"><?php directorist_icon( 'far fa-image' ); ?></label>
+				<span class="plupload-browse-img-size">1600×1200 or larger</span>
 			</div>
 
 			<div class="plupload-thumbs

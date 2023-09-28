@@ -898,14 +898,14 @@ $(document).ready(function () {
 }); // MultiStep Wizard
 
 function multiStepWizard() {
-  var defaultAddListing = document.querySelector('.default-add-listing');
+  var defaultAddListing = document.querySelector('.multistep-wizard.default-add-listing');
 
   if (!defaultAddListing) {
-    var totalStep = document.querySelectorAll('.multistep-wizard__nav__btn');
-    var totalWizard = document.querySelectorAll('.multistep-wizard__single');
-    var totalWizardCount = document.querySelector('.multistep-wizard__count__total');
-    var currentWizardCount = document.querySelector('.multistep-wizard__count__current');
-    var progressWidth = document.querySelector('.multistep-wizard__progressbar__width');
+    var totalStep = document.querySelectorAll('.multistep-wizard .multistep-wizard__nav__btn');
+    var totalWizard = document.querySelectorAll('.multistep-wizard .multistep-wizard__single');
+    var totalWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__total');
+    var currentWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__current');
+    var progressWidth = document.querySelector('.multistep-wizard .multistep-wizard__progressbar__width');
     var stepCount = 1;
     var progressPerStep = 100 / totalWizard.length; // Initialize Wizard Count & Progressbar
 

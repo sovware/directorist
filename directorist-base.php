@@ -457,6 +457,12 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
+			ATBDP_INC_DIR . 'directorist-directory-functions',
+			ATBDP_INC_DIR . 'fields/init',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/data/builder-data',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/trait-multi-directory-helper',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-migration',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-manager',
 		]);
 
 		$this->autoload( ATBDP_INC_DIR . 'database/' );
@@ -465,7 +471,6 @@ final class Directorist_Base
 		load_dependencies('all', ATBDP_INC_DIR . 'model/');
 		load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
 		load_dependencies('all', ATBDP_INC_DIR . 'modules/');
-		load_dependencies('all', ATBDP_INC_DIR . 'modules/multi-directory-setup/');
 
 		load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
 

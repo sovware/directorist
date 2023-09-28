@@ -20,8 +20,8 @@ function register_controllers() {
 	require_once $dir . 'Version1/class-abstract-posts-controller.php';
 	require_once $dir . 'Version1/class-listings-controller.php';
 
-	$listings = new \Directorist\Rest_Api\Controllers\Version1\Listings_Controller();
-	$listings->register_routes();
+	$listings_v1 = new \Directorist\Rest_Api\Controllers\Version1\Listings_Controller();
+	$listings_v1->register_routes();
 
 	// Listings actions
 	require_once $dir . 'Version1/class-listings-actions-controller.php';

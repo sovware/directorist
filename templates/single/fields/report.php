@@ -1,23 +1,22 @@
 <?php
-
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.5.0
+ * @version 7.8.0
  */
 
-if (!defined('ABSPATH')) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-single-listing-action directorist-action-report directorist-tooltip directorist-btn-modal directorist-btn-modal-js" data-directorist_target="directorist-report-abuse-modal" data-label="<?php esc_html_e('Report', 'directorist'); ?>">
+<div class="directorist-single-listing-action directorist-action-report directorist-tooltip directorist-btn-modal directorist-btn-modal-js" data-directorist_target="directorist-report-abuse-modal" data-label="<?php esc_html_e( 'Report', 'directorist' ); ?>">
 
-	<?php if (is_user_logged_in()) : ?>
-		<a class="directorist-action-report-loggedin" href="#"><?php directorist_icon($icon); ?></a>
-	<?php else : ?>
-		<a class="directorist-action-report-not-loggedin" href="#"><?php directorist_icon($icon); ?></a>
+	<?php if ( is_user_logged_in() ): ?>
+		<a class="directorist-action-report-loggedin" href="#"><?php directorist_icon( $icon );?></a>
+	<?php else: ?>
+		<a class="directorist-action-report-not-loggedin" href="#"><?php directorist_icon( $icon );?></a>
 	<?php endif; ?>
 
-	<input type="hidden" id="atbdp-post-id" value="<?php echo esc_attr($listing->id); ?>" />
+	<input type="hidden" id="atbdp-post-id" value="<?php echo esc_attr( $listing->id ); ?>"/>
 
 </div>
 
@@ -41,9 +40,9 @@ if (!defined('ABSPATH')) exit;
 
 					<div class="directorist-form-group">
 
-						<label for="directorist-report-message"><?php esc_html_e('Your Complaint', 'directorist'); ?><span class="directorist-report-star">*</span></label>
+						<label for="directorist-report-message"><?php esc_html_e( 'Your Complaint', 'directorist' ); ?><span class="directorist-report-star">*</span></label>
 
-						<textarea class="directorist-form-element" id="directorist-report-message" rows="3" placeholder="<?php esc_attr_e('Message...', 'directorist'); ?>" required></textarea>
+						<textarea class="directorist-form-element" id="directorist-report-message" rows="3" placeholder="<?php esc_attr_e( 'Message...', 'directorist' ); ?>" required></textarea>
 
 					</div>
 
@@ -55,7 +54,7 @@ if (!defined('ABSPATH')) exit;
 
 				<div class="directorist-modal__footer">
 
-					<button type="submit" class="directorist-btn directorist-btn-primary directorist-btn-sm"><?php esc_html_e('Submit', 'directorist'); ?></button>
+					<button type="submit" class="directorist-btn directorist-btn-primary directorist-btn-sm"><?php esc_html_e( 'Submit', 'directorist' ); ?></button>
 
 				</div>
 

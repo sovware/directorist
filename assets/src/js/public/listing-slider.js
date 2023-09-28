@@ -135,13 +135,26 @@
             destroySwiperSlider();
         });
 
-        /* Swiper Slider Single Listing */
-        let swiperCarouselSingleListingThumb = document.querySelectorAll('.directorist-single-listing-slider-thumb');
-        let swiperCarouselSingleListing = document.querySelectorAll('.directorist-single-listing-slider');
-        let swiperSingleListingThumbs = [];
 
-        swiperCarouselSingleListingThumb.forEach(function (el, i) {
-            let swiperSingleListingThumb = new Swiper(el, {
+        /* Swiper Slider Single Listing */
+        let singleListingSlider = document.querySelectorAll('.directorist-single-listing-slider-wrap');
+        
+        singleListingSlider.forEach(function (el, i) {
+            // Get Data Attribute
+            let dataWidth = el.getAttribute('data-width');
+            let dataHeight = el.getAttribute('data-height');
+            let dataRTL = el.getAttribute('data-rtl');
+            let dataBackgroundColor = el.getAttribute('data-background-color');
+            let dataBackgroundSize = el.getAttribute('data-background-size');
+            let dataBackgroundBlur = el.getAttribute('data-blur-background');
+            let dataShowThumbnails = el.getAttribute('data-show-thumbnails');
+            let dataThumbnailsBackground = el.getAttribute('data-thumbnail-background-color');
+            
+            // Find Sliders
+            let swiperCarouselSingleListingThumb = el.querySelector('.directorist-single-listing-slider-thumb');
+            let swiperCarouselSingleListing = el.querySelector('.directorist-single-listing-slider');
+
+            let swiperSingleListingThumb = new Swiper(swiperCarouselSingleListingThumb, {
                 slidesPerView: 6,
                 spaceBetween: 10,
                 loop: false,
@@ -177,13 +190,8 @@
                     }
                 }
             });
-
-            // Push each instance into swiperSingleListingThumbs
-            swiperSingleListingThumbs.push(swiperSingleListingThumb);
-        });
-
-        swiperCarouselSingleListing.forEach(function (el, i) {
-            let swiperSingleListing = new Swiper(el, {
+            
+            let swiperSingleListing = new Swiper(swiperCarouselSingleListing, {
                 slidesPerView: 1,
                 spaceBetween: 0,
                 loop: true,
@@ -200,9 +208,28 @@
                     clickable: true,
                 },
                 thumbs: {
-                    swiper: swiperSingleListingThumbs[i]
+                    swiper: swiperSingleListingThumb
                 },
             });
+
+            // Loop Destroy on Single Slider Item
+            let sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
+
+            if(sliderItemsCount.length <= '1') {
+                swiperSingleListing.loopDestroy();
+                swiperCarouselSingleListing.classList.add('slider-has-one-item');
+                swiperCarouselSingleListing.parentElement.querySelector('.directorist-single-listing-slider-thumb').style.display = 'none';
+            }
+
+            // Add Styles
+            swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
+            swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
+            swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
+            swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
+            swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
+
+            // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
+            swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
         });
     }
 

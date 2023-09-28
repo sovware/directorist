@@ -20,7 +20,7 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                 <input type="hidden" name="add_listing_form" value="1">
                 <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
                 <!-- MultiStep Wizard Start -->
-                <div class="multistep-wizard default-add-listing"> 
+                <div class="multistep-wizard"> 
 
                     <?php if( ! empty( $enable_sidebar ) ) : ?>
 

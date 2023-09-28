@@ -784,7 +784,9 @@ $(document).ready(function () {
 // MultiStep Wizard
 function multiStepWizard() {
     var defaultAddListing = document.querySelector('.multistep-wizard.default-add-listing');
+    console.log('Default Add Listing', defaultAddListing)
     if(!defaultAddListing) {
+        console.log('Its Multistep Wizard')
         var totalStep = document.querySelectorAll('.multistep-wizard .multistep-wizard__nav__btn');
         var totalWizard = document.querySelectorAll('.multistep-wizard .multistep-wizard__single');
         var totalWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__total');

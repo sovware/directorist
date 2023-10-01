@@ -10,11 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-search-field">
 
-	<?php if ( !empty($data['label']) ): ?>
-		<label><?php echo esc_html( $data['label'] ); ?></label>
-	<?php endif; ?>
-
-	<div class="directorist-select">
+	<div class="directorist-select directorist-search-field__input">
+		<label class="directorist-search-field__label"><?php echo esc_attr( $data['placeholder'] ); ?></label>
 
 		<select name='custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]' <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
 
@@ -28,6 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		</select>
 
+	</div>
+
+	<div class="directorist-search-field__btn directorist-search-field__btn--clear">
+		<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url(https://revamp.local/wp-content/plugins/directorist/assets/icons/font-awesome/svgs/solid/times-circle.svg)"></i>	
 	</div>
 
 </div>

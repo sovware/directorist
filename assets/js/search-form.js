@@ -1546,25 +1546,41 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
       var searchModalElement = this.closest('.directorist-search-modal');
       searchModalMinimize(searchModalElement);
-    }); // Basic Modal Input Field Check
+    }); // Search Form Input Field Check
 
-    $('body').on('input keyup change', '.directorist-search-modal--basic .directorist-search-modal__input', function (e) {
-      var inputBox = this.querySelector('input, select');
+    $('body').on('input keyup change focus blur', '.directorist-search-field__input', function (e) {
+      if (e.type === 'focusin') {
+        this.parentElement.classList.add('input-is-focused');
+      } else if (e.type === 'blur') {
+        if (this.parentElement.classList.contains('input-is-focused')) {
+          this.parentElement.classList.remove('input-is-focused');
+        }
+      } else {
+        if (this.parentElement.classList.contains('input-is-focused')) {
+          this.parentElement.classList.remove('input-is-focused');
+        }
+      }
+
+      var inputBox = this;
 
       if (inputBox.value != '') {
-        this.classList.add('input-has-value');
+        this.parentElement.classList.add('input-has-value');
+
+        if (!this.parentElement.classList.contains('input-is-focused')) {
+          this.parentElement.classList.add('input-is-focused');
+        }
       } else {
-        if (this.classList.contains('input-has-value')) {
-          this.classList.remove('input-has-value');
+        if (this.parentElement.classList.contains('input-has-value')) {
+          this.parentElement.classList.remove('input-has-value');
         }
       }
     }); // Search Modal Input Clear Button
 
-    $('body').on('click', '.directorist-search-modal__input__btn--clear', function (e) {
-      var inputFields = this.parentElement.querySelectorAll('.directorist-search-field .directorist-form-element');
-      var selectboxField = this.parentElement.querySelector('.directorist-search-field .directorist-select select');
-      var radioFields = this.parentElement.querySelectorAll('.directorist-search-field input[type="radio"]');
-      var checkboxFields = this.parentElement.querySelectorAll('.directorist-search-field input[type="checkbox"]');
+    $('body').on('click', '.directorist-search-field__btn--clear', function (e) {
+      var inputFields = this.parentElement.querySelectorAll('.directorist-form-element');
+      var selectboxField = this.parentElement.querySelector('.directorist-select select');
+      var radioFields = this.parentElement.querySelectorAll('input[type="radio"]');
+      var checkboxFields = this.parentElement.querySelectorAll('input[type="checkbox"]');
 
       if (selectboxField) {
         selectboxField.selectedIndex = -1;
@@ -1589,8 +1605,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      if (this.parentElement.classList.contains('input-has-value')) {
-        this.parentElement.classList.remove('input-has-value');
+      if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
+        this.parentElement.classList.remove('input-has-value', 'input-is-focused');
       }
     }); // Back Button
 

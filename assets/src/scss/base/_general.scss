@@ -542,10 +542,12 @@ body.logged-in .select2-container--open .select2-dropdown--above {
     .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
         display: flex;
         align-items: center;
-        color: var(--directorist-color-deep-gray);
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--directorist-color-body);
     }
     .directorist-select2-addons-area .directorist-icon-mask:after {
-        background-color: var(--directorist-color-deep-gray);
+        background-color: var(--directorist-color-body);
     }
 }
 

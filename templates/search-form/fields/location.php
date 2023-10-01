@@ -14,7 +14,8 @@ if ( $location_source == 'listing' ) {
 	?>
 
 	<div class="directorist-search-field">
-		<div class="directorist-select directorist-search-location">
+		<div class="directorist-select directorist-search-location directorist-search-field__input">
+			<label class="directorist-search-field__label"><?php echo esc_attr( $data['placeholder'] ); ?></label>
 			<select name="in_loc" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true" data-selected-id="<?php echo esc_attr( $selected_item['id'] ); ?>" data-selected-label="<?php echo esc_attr( $selected_item['label'] ); ?>">
 				<?php
 				echo '<option value="">' . esc_html__( 'Select Location', 'directorist' ) . '</option>';
@@ -25,6 +26,9 @@ if ( $location_source == 'listing' ) {
 
 				?>
 			</select>
+		</div>
+		<div class="directorist-search-field__btn directorist-search-field__btn--clear">
+			<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url(https://revamp.local/wp-content/plugins/directorist/assets/icons/font-awesome/svgs/solid/times-circle.svg)"></i>	
 		</div>
 	</div>
 
@@ -38,12 +42,17 @@ elseif ( $location_source == 'map' ) {
 	?>
 
 	<div class="directorist-search-field directorist-form-group directorist-icon-right">
+		<label class="directorist-search-field__label"><?php echo esc_attr( $data['placeholder'] ); ?></label>
 		<span class="directorist-input-icon directorist-filter-location-icon"><?php directorist_icon( 'fas fa-crosshairs' ); ?></span>
-		<input type="text" name="address" id="addressId" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr($data['placeholder']); ?>" autocomplete="off" class="directorist-form-element directorist-location-js location-name" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
+		<input type="text" name="address" id="addressId" value="<?php echo esc_attr( $value ); ?>" placeholder="" autocomplete="off" class="directorist-form-element directorist-location-js location-name directorist-search-field__input" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 
 		<div class="address_result location-names" style="display: none"></div>
 		<input type="hidden" id="cityLat" name="cityLat" value="<?php echo esc_attr($cityLat); ?>" />
 		<input type="hidden" id="cityLng" name="cityLng" value="<?php echo esc_attr($cityLng); ?>" />
+
+		<div class="directorist-search-field__btn directorist-search-field__btn--clear">
+			<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url(https://revamp.local/wp-content/plugins/directorist/assets/icons/font-awesome/svgs/solid/times-circle.svg)"></i>	
+		</div>
 	</div>
 
 	<?php

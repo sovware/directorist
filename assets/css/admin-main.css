@@ -6232,10 +6232,12 @@ body.logged-in .select2-container--open .select2-dropdown--above {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  color: var(--directorist-color-deep-gray);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--directorist-color-body);
 }
 .select2-container--default .directorist-select2-addons-area .directorist-icon-mask:after {
-  background-color: var(--directorist-color-deep-gray);
+  background-color: var(--directorist-color-body);
 }
 
 .custom-checkbox input {
@@ -11406,7 +11408,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
 }
-.directorist-search-modal__input .directorist-search-field,
 .directorist-search-modal__input .directorist-select {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -11419,10 +11420,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-}
-.directorist-search-modal__input .directorist-search-field label,
-.directorist-search-modal__input .directorist-select label {
-  display: none;
 }
 .directorist-search-modal__input .select2.select2-container .select2-selection,
 .directorist-search-modal__input .directorist-form-group .directorist-form-element,

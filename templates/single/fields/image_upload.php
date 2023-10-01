@@ -7,4 +7,4 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$listing->slider_template( $data );
+$listing->slider_field_template();

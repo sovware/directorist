@@ -52,6 +52,11 @@ trait Icon_Helper {
 	 */
 	private static function get_font_awesome_file( $icon ) {
 		list( $prefix, $name ) = array_pad( explode( ' ', $icon ), 2, '' );
+
+		if ( ! $name ) { 
+			return '';
+		}
+
 		$filename              = str_replace( 'fa-', '', $name );
 		$filename              = $filename . '.svg';
 
@@ -92,6 +97,11 @@ trait Icon_Helper {
 	 */
 	private static function get_line_awesome_file( $icon ) {
 		list( $prefix, $name ) = array_pad( explode( ' ', $icon ), 2, '' );
+		
+		if ( ! $name ) { 
+			return '';
+		}
+
 		$filename              = str_replace( 'la-', '', $name );
 
 		$lar_file = 'line-awesome/svgs/' . $filename . '.svg';
@@ -160,6 +170,11 @@ trait Icon_Helper {
 	 */
 	private static function get_unicons_file( $icon ) {
 		list( $prefix, $name ) = array_pad( explode( ' ', $icon ), 2, '' );
+		
+		if ( ! $name ) { 
+			return '';
+		}
+
 		if ( $prefix == 'uil' ) {
 			$filename = str_replace( 'uil-', '', $name );
 			$dir      = 'unicons/svgs/line/';

@@ -33,7 +33,7 @@
                 spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
                 loop: checkData(el.dataset.swLoop, true),
                 slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
-                speed: checkData(parseInt(el.dataset.swSpeed), 3000),
+                speed: checkData(parseInt(el.dataset.swSpeed), 300),
                 autoplay: checkData(el.dataset.swAutoplay, {}),
                 navigation: {
                     nextEl: `.directorist-swiper__nav--next-listing-${i}`,
@@ -74,7 +74,7 @@
                 spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
                 loop: checkData(el.dataset.swLoop, false),
                 slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
-                speed: checkData(parseInt(el.dataset.swSpeed), 3000),
+                speed: checkData(parseInt(el.dataset.swSpeed), 300),
                 autoplay: checkData(el.dataset.swAutoplay, {}),
                 navigation: {
                     nextEl: `.directorist-swiper__nav--next-related-${i}`,

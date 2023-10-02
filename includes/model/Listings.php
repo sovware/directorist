@@ -1639,7 +1639,7 @@ class Directorist_Listings {
 
 			} else {
 				ob_start();
-				echo "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='1500' data-sw-autoplay='false' data-sw-responsive='{}' >
+				echo "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='300' data-sw-autoplay='false' data-sw-responsive='{}' >
 				<div class='swiper-wrapper'>";
 				foreach ( $thumbnail_img_id as $img_id  ) {
 					$image_src = atbdp_get_image_source( $img_id, $image_quality );

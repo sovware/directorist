@@ -1,9 +1,31 @@
 // Swiper Slider
 .directorist-swiper {
   height: 100%;
-  max-width: 100%;
   overflow: hidden;
   position: relative;
+  max-width: calc(100vw - 92px);
+
+  @media (min-width: 576px) {
+    max-width: 500px;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 600px;
+  }
+
+  @media (min-width: 992px) {
+    max-width: 680px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 760px;
+  }
+
+  @media (min-width: 1400px) {
+    max-width: 870px;
+  }
+
+
   .swiper-slide {
     display: flex;
     >div {

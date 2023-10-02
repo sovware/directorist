@@ -7101,9 +7101,34 @@ p.atbd-min {
 
 .directorist-swiper {
   height: 100%;
-  max-width: 100%;
   overflow: hidden;
   position: relative;
+  max-width: calc(100vw - 92px);
+}
+@media (min-width: 576px) {
+  .directorist-swiper {
+    max-width: 500px;
+  }
+}
+@media (min-width: 768px) {
+  .directorist-swiper {
+    max-width: 600px;
+  }
+}
+@media (min-width: 992px) {
+  .directorist-swiper {
+    max-width: 680px;
+  }
+}
+@media (min-width: 1200px) {
+  .directorist-swiper {
+    max-width: 760px;
+  }
+}
+@media (min-width: 1400px) {
+  .directorist-swiper {
+    max-width: 870px;
+  }
 }
 .directorist-swiper .swiper-slide {
   display: -webkit-box;
@@ -7345,7 +7370,6 @@ p.atbd-min {
   position: absolute;
   width: 100%;
   min-width: 190px;
-  max-height: 250px;
   overflow-y: auto;
   left: 0;
   top: 30px;
@@ -14065,7 +14089,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-listing-single__thumb .directorist-thumnail-card {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: auto !important;
   border-radius: 12px;
   overflow: hidden;
   z-index: 0;
@@ -14076,18 +14100,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-listing-single__thumb .directorist-thumnail-card.directorist-card-full .directorist-thumnail-card-front-wrap {
   position: static;
-}
-.directorist-listing-single__thumb .directorist-thumnail-card-front-wrap,
-.directorist-listing-single__thumb .directorist-thumnail-card-back-wrap {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  z-index: 2;
 }
 .directorist-listing-single__thumb .directorist-thumnail-card-back-wrap {
   z-index: 1;

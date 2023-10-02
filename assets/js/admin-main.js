@@ -1658,6 +1658,32 @@ window.addEventListener('DOMContentLoaded', function () {
       $(data_target).slideToggle();
     }
   });
+  $('body').on('click', '.directorist-view-count-change', function (e) {
+    e.preventDefault();
+
+    var _this = $(this);
+
+    var listing_id = _this.data('listing-id');
+
+    var view_count = _this.data('view-count');
+
+    $.ajax({
+      type: 'post',
+      url: directorist_admin.ajaxurl,
+      data: {
+        action: 'directorist_view_count_change',
+        directorist_nonce: directorist_admin.directorist_nonce,
+        listing_id: listing_id,
+        view_count: view_count
+      },
+      success: function success(response) {
+        if (response.data) {
+          $('.directorist-view-count span').empty().html(response.data.view_count);
+          console.log(response.data.success);
+        }
+      }
+    });
+  });
 });
 
 /***/ }),

@@ -157,12 +157,9 @@ class SetupWizard
 			'hide_map',
 			'zip',
 			'phone',
-			'phone2',
-			'fax',
 			'email',
 			'website',
 			'videourl',
-			'excerpt'
 		);
 
         foreach ( $posts as $index => $post ) {

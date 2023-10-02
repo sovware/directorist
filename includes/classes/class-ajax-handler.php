@@ -70,6 +70,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			add_action( 'wp_ajax_atbdp_listing_default_type', array( $this, 'atbdp_listing_default_type' ) );
 			// listing type slug edit
 			add_action( 'wp_ajax_directorist_type_slug_change', array( $this, 'directorist_type_slug_change' ) );
+			// view type count edit
+			add_action( 'wp_ajax_directorist_view_count_change', array( $this, 'directorist_view_count_change' ) );
 
 			// Guset Reception
 			add_action( 'wp_ajax_atbdp_guest_reception', array( $this, 'guest_reception' ) );
@@ -520,6 +522,31 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 						)
 					);
 				}
+			}
+		}
+
+		public function directorist_view_count_change() {
+
+			if ( ! directorist_verify_nonce() ) {
+				wp_send_json(
+					array(
+						'error'=> __( 'Session expired, please reload the window and try again.', 'directorist' ),
+					),
+				);
+			}
+
+			$listing_id = isset( $_POST['listing_id'] ) ? absint( $_POST['listing_id'] ) : 0;
+			$view_count = isset( $_POST['view_count'] ) ? absint( $_POST['view_count'] ) : 0;
+
+			$update_view_count = update_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), $view_count );
+			
+			if ( $update_view_count ) {
+				wp_send_json_success(
+					array(
+						'success'    => __( 'View Count Changes Successfully.', 'directorist' ),
+						'view_count' => $update_view_count,
+					)
+				);
 			}
 		}
 

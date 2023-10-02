@@ -40,7 +40,6 @@ use \Directorist\Helper;
                                         <?php
                                         if( !empty( $o_metas['_amount'] ) ) {
                                             $amount =  $o_metas['_amount'][0] ;
-                                            $amount = atbdp_format_payment_amount( $amount );
                                             $before = '';
                                             $after = '';
                                             ('after' == $c_position) ? $after = $symbol : $before = $symbol;
@@ -138,6 +137,7 @@ use \Directorist\Helper;
                                     </td>
                                 </tr>
                             <?php }
+                            $discount = ! empty( $o_metas['_discount'] ) ? $o_metas['_discount'][0] : 0;
                             if( !empty( $discount ) ) { ?>
                             <tr>
                                 <td class="text-right atbdp-vertical-middle"><strong><?php esc_html_e( 'Subtotal', 'directorist' ); ?></strong></td>
@@ -162,7 +162,7 @@ use \Directorist\Helper;
                                 <td class="text-right atbdp-vertical-middle"><strong><?php esc_html_e( 'Total amount', 'directorist' ); ?></strong></td>
                                 <td class="atbd_tottal">
 									<?php
-                                    $grand_total = !empty( $discount ) ? atbdp_format_payment_amount( $total - $discount ) : atbdp_format_payment_amount( $total );
+                                    $grand_total = !empty( $discount ) ? $total - $discount : $total;
                                     $output = $before . atbdp_format_payment_amount( $grand_total ) . $after ;
 									?>
                                     <strong><?php echo wp_kses_post( $output ); ?></strong>

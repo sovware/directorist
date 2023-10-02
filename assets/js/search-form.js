@@ -1382,7 +1382,7 @@ __webpack_require__.r(__webpack_exports__);
                   var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
                   var locationIconHTML = "<span class='location-icon'>" + iconHTML + "</span>";
 
-                  for (var i = 0, len = data.length; i < len; i++) {
+                  for (var i = 0, len = data.length > 5 ? 5 : data.length; i < len; i++) {
                     res += "<li><a href=\"#\" data-lat=" + data[i].lat + " data-lon=" + data[i].lon + ">" + locationIconHTML + "<span class='location-address'>" + data[i].display_name, +"</span></a></li>";
                   }
 
@@ -1570,6 +1570,8 @@ __webpack_require__.r(__webpack_exports__);
           this.parentElement.classList.add('input-is-focused');
         }
       } else {
+        inputBox.value = '';
+
         if (this.parentElement.classList.contains('input-has-value')) {
           this.parentElement.classList.remove('input-has-value');
         }
@@ -1608,7 +1610,18 @@ __webpack_require__.r(__webpack_exports__);
       if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
         this.parentElement.classList.remove('input-has-value', 'input-is-focused');
       }
-    }); // Back Button
+    }); // Search Form Input Field Back Button
+
+    $('body').on('click', '.directorist-search-field__label', function (e) {
+      var windowScreen = window.innerWidth;
+      var parentField = this.closest('.directorist-search-field');
+
+      if (windowScreen <= 575) {
+        if (parentField.classList.contains('input-is-focused')) {
+          parentField.classList.remove('input-is-focused');
+        }
+      }
+    }); // Back Button to go back to the previous page
 
     $('body').on('click', '.directorist-btn__back', function (e) {
       e.preventDefault();

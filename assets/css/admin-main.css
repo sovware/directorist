@@ -10513,8 +10513,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
   max-width: unset;
   height: 40px;
   font-size: 14px;
-  font-weight: 400;
-  color: var(--directorist-color-deep-gray);
+  font-weight: 500;
+  color: var(--directorist-color-primary);
   border: none;
   border-radius: 0;
   background: transparent;
@@ -11187,6 +11187,85 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     height: calc(100vh - 220px);
   }
 }
+.directorist-search-modal__contents__body .directorist-search-field__label {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--directorist-color-body);
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+.directorist-search-modal__contents__body .directorist-search-field__btn {
+  position: absolute;
+  bottom: 10px;
+  cursor: pointer;
+}
+.directorist-search-modal__contents__body .directorist-search-field__btn--clear {
+  right: 0;
+}
+.directorist-search-modal__contents__body .directorist-search-field__btn--clear i::after {
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  visibility: hidden;
+  background-color: #BCBCBC;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+.directorist-search-modal__contents__body .directorist-search-field__btn--clear:hover i::after {
+  background-color: var(--directorist-color-primary);
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input[type=number] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__label {
+  top: 0;
+  font-size: 13px;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__btn i::after {
+  opacity: 1;
+  visibility: visible;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-select,
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input {
+  position: relative;
+  bottom: -5px;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-select .directorist-search-field__label {
+  opacity: 1;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-location-js {
+  padding-right: 45px;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .select2-selection--single .select2-selection__rendered,
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
+  color: var(--directorist-color-primary);
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-select2-addons-area .directorist-icon-mask:after {
+  background-color: var(--directorist-color-primary);
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused.atbdp-form-fade:after,
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-filter-location-icon {
+  margin-top: 3px;
+}
+.directorist-search-modal__contents__body .directorist-search-field .directorist-select .directorist-search-field__label {
+  opacity: 0;
+}
+.directorist-search-modal__contents__body .directorist-search-field .directorist-select ~ .directorist-search-field__btn--clear,
+.directorist-search-modal__contents__body .directorist-search-field .directorist-filter-location-icon ~ .directorist-search-field__btn--clear {
+  right: 25px;
+  bottom: 8px;
+}
+.directorist-search-modal__contents__body .directorist-search-field .directorist-select .directorist-icon-mask:after,
+.directorist-search-modal__contents__body .directorist-search-field .directorist-filter-location-icon .directorist-icon-mask:after {
+  background-color: #808080;
+}
 .directorist-search-modal__contents__footer {
   position: fixed;
   bottom: 0;
@@ -11385,13 +11464,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal--basic .directorist-select .select2-container.select2-container--default .select2-selection--single {
   height: auto;
 }
-.directorist-search-modal--basic .directorist-checkbox-rating {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
 .directorist-search-modal__input {
   display: -webkit-box;
   display: -webkit-flex;
@@ -11441,32 +11513,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   transition: all ease 0.3s;
   background-color: var(--directorist-color-body);
 }
-.directorist-search-modal__input:focus .directorist-search-modal__input__btn, .directorist-search-modal__input:focus-within .directorist-search-modal__input__btn {
-  width: auto;
-  padding: 0 20px;
-}
-.directorist-search-modal__input:focus .directorist-search-modal__input__btn .directorist-icon-mask::after, .directorist-search-modal__input:focus-within .directorist-search-modal__input__btn .directorist-icon-mask::after {
-  opacity: 1;
-  visibility: visible;
-}
-.directorist-search-modal__input:focus .directorist-search-query::after,
-.directorist-search-modal__input:focus .directorist-select2-dropdown-toggle,
-.directorist-search-modal__input:focus .directorist-search-field .directorist-input-icon, .directorist-search-modal__input:focus-within .directorist-search-query::after,
-.directorist-search-modal__input:focus-within .directorist-select2-dropdown-toggle,
-.directorist-search-modal__input:focus-within .directorist-search-field .directorist-input-icon {
-  display: none;
-}
-.directorist-search-modal__input.input-has-value .directorist-search-modal__input__btn--clear {
-  width: auto;
-  padding: 0 20px;
-}
-.directorist-search-modal__input.input-has-value .directorist-search-modal__input__btn--clear .directorist-icon-mask::after {
-  opacity: 1;
-  visibility: visible;
-}
-.directorist-search-modal__input.input-has-value .directorist-search-query::after,
-.directorist-search-modal__input.input-has-value .directorist-select2-dropdown-toggle,
-.directorist-search-modal__input.input-has-value .directorist-search-field .directorist-input-icon {
+.directorist-search-modal__input .input-is-focused.directorist-search-query::after {
   display: none;
 }
 .directorist-search-modal .directorist-checkbox-wrapper,
@@ -11987,7 +12034,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 .directorist-checkbox-rating {
-  gap: 10px;
+  gap: 20px;
   width: 100%;
   padding: 10px 0;
   -webkit-flex-wrap: wrap;
@@ -12017,7 +12064,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-checkbox-rating .directorist-icon-mask:after {
   width: 14px;
   height: 14px;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .directorist-radio.directorist-radio-theme-admin input[type=radio] + .directorist-radio__label:before {

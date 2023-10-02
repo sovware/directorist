@@ -259,9 +259,11 @@
 		@media only screen and (max-width: 767px) {
 			.directorist-search-form__box {
 				padding: 15px;
-				.directorist-form-group.directorist-icon-right .directorist-input-icon {
-					inset-inline-end: 0;
-				}
+			}
+		}
+		@media only screen and (max-width: 575px) {
+			.directorist-search-form__box {
+				box-shadow: var(--directorist-box-shadow);
 			}
 		}
 		.directorist-advanced-filter__form {
@@ -363,8 +365,9 @@
 		}
 
 		.directorist-form-group label {
-			font-size: 16px;
+			font-size: 15px;
 			font-weight: 500;
+			color: var(--directorist-color-dark);
 		}
 		.directorist-search-contents {
 			padding: 0;
@@ -383,15 +386,17 @@
 		}
 		.directorist-advanced-filter__title {
 			margin: 0;
-			font-size: 18px;
+			font-size: 20px;
 			font-weight: 500;
-			color: var(--directorist-color-body);
+			color: var(--directorist-color-dark);
 		}
 		.directorist-advanced-filter__advanced {
 			padding: 25px 30px;
 		}
 		.directorist-advanced-filter__advanced--element .directorist-search-field {
 			> label {
+				font-size: 15px;
+				font-weight: 500;
 				margin: 0;
 			}
 			&.directorist-search-field-radius_search {
@@ -451,6 +456,26 @@
 		&.right-sidebar-contents {
 			order: 2;
 		}
+
+		.directorist-form-group {
+			&.directorist-search-field {
+				.directorist-search-field__label {
+					font-size: 14px;
+					font-weight: 400;
+					color: var(--directorist-color-body);
+				}
+				.directorist-search-field__btn--clear {
+					right: 0;
+				}
+				&.input-is-focused {
+					.directorist-search-field__label {
+						font-size: 15px;
+						font-weight: 500;
+						color: var(--directorist-color-dark);
+					}
+				}
+			}
+		}
 	}
 	@include e(listing) {
 		display: inline-flex;
@@ -475,6 +500,109 @@
 	@include e(contents) {
 		display: flex;
 		gap: 30px;
+	}
+
+	.directorist-search-field {
+		@include e(label) {
+			position: absolute;
+			left: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 14px;
+			font-weight: 400;
+			color: var(--directorist-color-body);
+			transition: opacity 0.3s ease, top 0.3s ease;
+		}
+		@include e(btn) {
+			position: absolute;
+			bottom: 10px;
+			cursor: pointer;
+			@include m(clear) {
+				right: 15px;
+				i::after {
+					width: 16px;
+					height: 16px;
+					opacity: 0;
+					visibility: hidden;
+					background-color: #BCBCBC;
+					transition: background-color 0.3s ease;
+				}
+				&:hover {
+					i::after {
+						background-color: var(--directorist-color-primary);
+					}
+				}
+			}
+		}
+
+		@media screen and (max-width: 575px) {
+			.directorist-filter-location-icon {
+				right: 0;
+			}
+		}
+
+		&.input-is-focused {
+			.directorist-search-field__input {
+				&[type="number"] {
+					appearance: none !important;
+					-webkit-appearance: none !important;
+					-moz-appearance: none !important;
+				}
+			}
+			.directorist-search-field__label {
+				top: 0;
+				font-size: 13px;
+				font-weight: 400;
+				color: var(--directorist-color-body);
+			}
+			.directorist-search-field__btn i::after {
+				opacity: 1;
+				visibility: visible;
+			}
+	
+			.directorist-select,
+			.directorist-search-field__input {
+				position: relative;
+				bottom: -5px;
+			}
+			.directorist-select {
+				.directorist-search-field__label {
+					opacity: 1;
+				}
+			}
+			.directorist-location-js {
+				padding-right: 45px;
+			}
+
+			.select2-selection--single .select2-selection__rendered,
+			.select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
+				color: var(--directorist-color-primary);
+			}
+			.directorist-select2-addons-area .directorist-icon-mask:after {
+				background-color: var(--directorist-color-primary);
+			}
+	
+			&.atbdp-form-fade:after,
+			.directorist-filter-location-icon {
+				margin-top: 3px;
+			}
+		}
+	
+		.directorist-select {
+			.directorist-search-field__label {
+				opacity: 0;
+			}
+		}
+		.directorist-select,
+		.directorist-filter-location-icon {
+			~ .directorist-search-field__btn--clear {
+				right: 25px;
+				bottom: 8px;
+			}
+			.directorist-icon-mask:after {
+				background-color: #808080;
+			}
+		}
 	}
 }
 .logged-in .listing-with-sidebar__sidebar .directorist-search-form-box {

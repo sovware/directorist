@@ -207,7 +207,7 @@
                     font-size: 14px;
                     font-weight: 400;
                     color: var(--directorist-color-body);
-                    transition: opacity 0.3s ease;
+                    transition: opacity 0.3s ease, top 0.3s ease;
                 }
                 @include e(btn) {
                     position: absolute;

@@ -6273,6 +6273,7 @@ button[type=submit] {
   position: absolute;
   right: 15px;
   padding: 0;
+  display: none;
 }
 
 /* Login/Signup Form CSS */
@@ -8096,8 +8097,8 @@ p.atbd-min {
   font-size: 14px;
   font-weight: 400;
   color: var(--directorist-color-body);
-  -webkit-transition: opacity 0.3s ease;
-  transition: opacity 0.3s ease;
+  -webkit-transition: opacity 0.3s ease, top 0.3s ease;
+  transition: opacity 0.3s ease, top 0.3s ease;
 }
 .directorist-search-modal__contents__body .directorist-search-field__btn {
   position: absolute;
@@ -8552,8 +8553,8 @@ p.atbd-min {
 .directorist-form-group label {
   margin: 0;
   font-size: 14px;
-  font-weight: 500;
-  color: var(--directorist-color-dark);
+  font-weight: 400;
+  color: var(--directorist-color-body);
 }
 .directorist-form-group .directorist-form-element {
   position: relative;
@@ -8625,6 +8626,11 @@ p.atbd-min {
   width: 16px;
   height: 16px;
   background-color: var(--directorist-color-body);
+}
+@media screen and (max-width: 575px) {
+  .directorist-form-group .directorist-input-icon {
+    margin-top: 0;
+  }
 }
 
 .directorist-label {
@@ -10210,8 +10216,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .listing-with-sidebar__searchform .directorist-search-form__box {
     padding: 15px;
   }
-  .listing-with-sidebar__searchform .directorist-search-form__box .directorist-form-group.directorist-icon-right .directorist-input-icon {
-    inset-inline-end: 0;
+}
+@media only screen and (max-width: 575px) {
+  .listing-with-sidebar__searchform .directorist-search-form__box {
+    -webkit-box-shadow: var(--directorist-box-shadow);
+            box-shadow: var(--directorist-box-shadow);
   }
 }
 .listing-with-sidebar__searchform .directorist-advanced-filter__form {
@@ -10344,8 +10353,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   opacity: 1;
 }
 .listing-with-sidebar__sidebar .directorist-form-group label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
+  color: var(--directorist-color-dark);
 }
 .listing-with-sidebar__sidebar .directorist-search-contents {
   padding: 0;
@@ -10374,14 +10384,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__title {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
-  color: var(--directorist-color-body);
+  color: var(--directorist-color-dark);
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced {
   padding: 25px 30px;
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced--element .directorist-search-field > label {
+  font-size: 15px;
+  font-weight: 500;
   margin: 0;
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced--element .directorist-search-field.directorist-search-field-radius_search > label {
@@ -10452,6 +10464,19 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-order: 2;
           order: 2;
 }
+.listing-with-sidebar__sidebar .directorist-form-group.directorist-search-field .directorist-search-field__label {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--directorist-color-body);
+}
+.listing-with-sidebar__sidebar .directorist-form-group.directorist-search-field .directorist-search-field__btn--clear {
+  right: 0;
+}
+.listing-with-sidebar__sidebar .directorist-form-group.directorist-search-field.input-is-focused .directorist-search-field__label {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--directorist-color-dark);
+}
 .listing-with-sidebar__listing {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -10499,6 +10524,92 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: flex;
   gap: 30px;
 }
+.listing-with-sidebar .directorist-search-field__label {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--directorist-color-body);
+  -webkit-transition: opacity 0.3s ease, top 0.3s ease;
+  transition: opacity 0.3s ease, top 0.3s ease;
+}
+.listing-with-sidebar .directorist-search-field__btn {
+  position: absolute;
+  bottom: 10px;
+  cursor: pointer;
+}
+.listing-with-sidebar .directorist-search-field__btn--clear {
+  right: 15px;
+}
+.listing-with-sidebar .directorist-search-field__btn--clear i::after {
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  visibility: hidden;
+  background-color: #BCBCBC;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+.listing-with-sidebar .directorist-search-field__btn--clear:hover i::after {
+  background-color: var(--directorist-color-primary);
+}
+@media screen and (max-width: 575px) {
+  .listing-with-sidebar .directorist-search-field .directorist-filter-location-icon {
+    right: 0;
+  }
+}
+.listing-with-sidebar .directorist-search-field.input-is-focused .directorist-search-field__input[type=number] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+}
+.listing-with-sidebar .directorist-search-field.input-is-focused .directorist-search-field__label {
+  top: 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--directorist-color-body);
+}
+.listing-with-sidebar .directorist-search-field.input-is-focused .directorist-search-field__btn i::after {
+  opacity: 1;
+  visibility: visible;
+}
+.listing-with-sidebar .directorist-search-field.input-is-focused .directorist-select,
+.listing-with-sidebar .directorist-search-field.input-is-focused .directorist-search-field__input {
+  position: relative;
+  bottom: -5px;
+}
+.listing-with-sidebar .directorist-search-field.input-is-focused .directorist-select .directorist-search-field__label {
+  opacity: 1;
+}
+.listing-with-sidebar .directorist-search-field.input-is-focused .directorist-location-js {
+  padding-right: 45px;
+}
+.listing-with-sidebar .directorist-search-field.input-is-focused .select2-selection--single .select2-selection__rendered,
+.listing-with-sidebar .directorist-search-field.input-is-focused .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
+  color: var(--directorist-color-primary);
+}
+.listing-with-sidebar .directorist-search-field.input-is-focused .directorist-select2-addons-area .directorist-icon-mask:after {
+  background-color: var(--directorist-color-primary);
+}
+.listing-with-sidebar .directorist-search-field.input-is-focused.atbdp-form-fade:after,
+.listing-with-sidebar .directorist-search-field.input-is-focused .directorist-filter-location-icon {
+  margin-top: 3px;
+}
+.listing-with-sidebar .directorist-search-field .directorist-select .directorist-search-field__label {
+  opacity: 0;
+}
+.listing-with-sidebar .directorist-search-field .directorist-select ~ .directorist-search-field__btn--clear,
+.listing-with-sidebar .directorist-search-field .directorist-filter-location-icon ~ .directorist-search-field__btn--clear {
+  right: 25px;
+  bottom: 8px;
+}
+.listing-with-sidebar .directorist-search-field .directorist-select .directorist-icon-mask:after,
+.listing-with-sidebar .directorist-search-field .directorist-filter-location-icon .directorist-icon-mask:after {
+  background-color: #808080;
+}
 
 @media only screen and (max-width: 991px) {
   .logged-in .listing-with-sidebar__sidebar .directorist-search-form-box {
@@ -10542,16 +10653,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .directorist-advanced-filter__basic--element .directorist-search-field {
     margin: 0 0 20px;
   }
-}
-.directorist-advanced-filter__basic--element .directorist-search-field > label {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-size: 16px;
-  font-weight: 500;
-  margin: 0 0 15px;
-  color: var(--directorist-color-primary);
 }
 .directorist-advanced-filter__basic--element .directorist-search-field .directorist-btn-ml {
   display: inline-block;
@@ -10780,6 +10881,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-advanced-filter .directorist-form-group.directorist-icon-left .directorist-input-icon {
   left: 0;
+}
+
+.directorist-search-field-radius_search {
+  position: relative;
 }
 
 .directorist-search-field-review .directorist-checkbox {

@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-field">
+<div class="directorist-search-field directorist-form-group">
 
 	<div class="directorist-select directorist-search-field__input">
 		<label class="directorist-search-field__label"><?php echo esc_attr( $data['placeholder'] ); ?></label>

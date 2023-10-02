@@ -10503,8 +10503,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .directorist-form-group label {
   margin: 0;
   font-size: 14px;
-  font-weight: 500;
-  color: var(--directorist-color-dark);
+  font-weight: 400;
+  color: var(--directorist-color-body);
 }
 .directorist-form-group .directorist-form-element {
   position: relative;
@@ -10576,6 +10576,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
   width: 16px;
   height: 16px;
   background-color: var(--directorist-color-body);
+}
+@media screen and (max-width: 575px) {
+  .directorist-form-group .directorist-input-icon {
+    margin-top: 0;
+  }
 }
 
 .directorist-label {
@@ -11196,8 +11201,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 14px;
   font-weight: 400;
   color: var(--directorist-color-body);
-  -webkit-transition: opacity 0.3s ease;
-  transition: opacity 0.3s ease;
+  -webkit-transition: opacity 0.3s ease, top 0.3s ease;
+  transition: opacity 0.3s ease, top 0.3s ease;
 }
 .directorist-search-modal__contents__body .directorist-search-field__btn {
   position: absolute;

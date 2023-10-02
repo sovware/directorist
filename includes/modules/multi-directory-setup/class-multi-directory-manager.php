@@ -458,12 +458,14 @@ class Multi_Directory_Manager {
     }
 
     public function prepare_settings() {
-        $data = Builder_Data::get();
+        if ( empty( self::$fields ) ) {
+            $builder_data = new Builder_Data();
 
-        self::$fields  = $data['fields'];
-        self::$layouts = $data['layouts'];
-        self::$config  = $data['config'];
-        self::$options = $data['options'];
+            self::$fields  = $builder_data->get_fields();
+            self::$layouts = $builder_data->get_layouts();
+            self::$config  = $builder_data->get_config();
+            self::$options = $builder_data->get_options();
+        }
     }
 
     // add_menu_pages

@@ -8,20 +8,24 @@ class Builder_Data {
     protected static $config           = [];
     protected static $options          = [];
 
+    public function __construct() {
+        self::prepare_data();
+    }
+
     protected static function prepare_data() {
         $form_field_widgets = [
             'preset' => [
                 'title'         => __( 'Preset Fields', 'directorist' ),
                 'description'   => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
-                'widgets'       => apply_filters( 'atbdp_form_preset_widgets', self::get_data_content( 'builder-preset-fields' ) ),
+                'widgets'       => apply_filters( 'atbdp_form_preset_widgets', require_once __DIR__ .  '/builder-preset-fields.php' ),
             ],
 
             'custom' => [
                 'title'         => __( 'Custom Fields', 'directorist' ),
                 'description'   => __( 'Click on a field type you want to create.', 'directorist' ),
                 'allowMultiple' => true,
-                'widgets'       => apply_filters( 'atbdp_form_custom_widgets', self::get_data_content( 'builder-custom-fields' ) ),
+                'widgets'       => apply_filters( 'atbdp_form_custom_widgets', require_once __DIR__ .  '/builder-custom-fields.php' ),
 
             ],
         ];
@@ -2685,14 +2689,20 @@ class Builder_Data {
 		return $options;
 	}
 
-    public static function get_data_content( $path ) {
-        $path = __DIR__ . '/' . $path . '.php';
+    public function get_fields() {
+        return self::$fields;
+    }
 
-        if ( is_file( $path ) ) {
-            return require_once $path;
-        }
+    public function get_layouts() {
+        return self::$layouts;
+    }
 
-        return '';
+    public function get_config() {
+        return self::$config;
+    }
+
+    public function get_options() {
+        return self::$options;
     }
 
     public static function get() {

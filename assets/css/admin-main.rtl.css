@@ -5770,7 +5770,7 @@ img.atbdp-file-info {
 }
 .directorist-content-module__title h4 {
   margin: 0 !important;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.2;
 }
@@ -8024,7 +8024,7 @@ body.stop-scrolling {
   display: block;
   color: var(--directorist-color-primary);
   margin-bottom: 5px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -8058,7 +8058,7 @@ body.stop-scrolling {
   }
 }
 .directorist-form-listing-type .directorist-form-label {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 500;
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 100%;
@@ -9042,6 +9042,7 @@ body.stop-scrolling {
   outline: none;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 400;
   border-radius: 12px;
   text-decoration: unset;
   color: var(--directorist-color-light-gray);

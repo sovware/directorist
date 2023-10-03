@@ -364,7 +364,7 @@
   display: block;
   color: var(--directorist-color-primary);
   margin-bottom: 5px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
 
 }
@@ -388,7 +388,7 @@
     flex-direction: column;
   }
   .directorist-form-label {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
     flex: 0 0 100%;
     margin: 0;
@@ -1270,6 +1270,7 @@
       outline: none;
       cursor: pointer;
       font-size: 14px;
+      font-weight: 400;
       border-radius: 12px;
       text-decoration: unset;
       color: var(--directorist-color-light-gray);

@@ -640,19 +640,21 @@ window.addEventListener('DOMContentLoaded', function () {
   function toggleSidebar(toggleBtn, archiveSidebar) {
     archiveSidebar.classList.toggle('listing-with-sidebar__sidebar--open');
     toggleBtn.classList.toggle('directorist-archive-sidebar-toggle--active');
+    body.classList.toggle('modal-overlay-enabled');
   } // Close sidebar and reset toggle button's active state
 
 
   function closeSidebar(toggleBtn, archiveSidebar) {
     archiveSidebar.classList.remove('listing-with-sidebar__sidebar--open');
     toggleBtn.classList.remove('directorist-archive-sidebar-toggle--active');
+    body.classList.remove('modal-overlay-enabled');
   } // Toggle, Close sidebar when toggle/close button is clicked
 
 
   body.addEventListener('click', function (e) {
     var targetElement = e.target;
 
-    if (targetElement.classList.contains('directorist-archive-sidebar-toggle')) {
+    if (targetElement.classList.contains('directorist-archive-sidebar-toggle') || targetElement.parentElement.classList.contains('directorist-archive-sidebar-toggle')) {
       var btn = targetElement;
       var sidebar = targetElement.closest('.listing-with-sidebar').querySelector('.listing-with-sidebar__sidebar');
       toggleSidebar(btn, sidebar);
@@ -662,7 +664,7 @@ window.addEventListener('DOMContentLoaded', function () {
       var _sidebar = targetElement.closest('.listing-with-sidebar').querySelector('.listing-with-sidebar__sidebar');
 
       closeSidebar(_btn, _sidebar);
-    } else {
+    } else if (targetElement.classList.contains('modal-overlay-enabled')) {
       var archiveSidebar = document.querySelectorAll('.listing-with-sidebar__sidebar');
       archiveSidebar && archiveSidebar.forEach(function (sidebar) {
         if (sidebar.classList.contains('listing-with-sidebar__sidebar--open')) {

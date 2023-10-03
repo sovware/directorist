@@ -22,7 +22,7 @@
         flex-wrap: wrap;
         gap: 8px;
         position: relative;
-        padding: 40px 20px 20px;
+        padding: 33px 20px 24px;
         @include m(top) {
             display: flex;
             align-items: center;
@@ -62,31 +62,31 @@
             }
         }
         @include m(list) {
-            margin-top: 16px;
+            margin-top: 10px;
             ul {
                 list-style-type: none;
                 padding: 0;
                 margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
             }
             li {
                 color: var(--directorist-color-body);
                 margin: 0;
                 list-style: none;
 
-                &:not(:last-child) {
-                    margin: 0 0 7px;
-                }
-
                 > div {
-                    margin-bottom: 2px;
                     font-size: 14px;
+                    line-height: 18px;
                     display: flex;
                     gap: 10px;
                     .directorist-icon-mask{
                         position: relative;
                         top: 2px;
                         &:after {
-                            width: 20px;
+                            width: 16px;
+                            height: 16px;
                             background-color: var(--directorist-color-light-gray);
                         }
                     }
@@ -136,14 +136,16 @@
                 display: none;
             }
             &:not(:empty) {
-                margin-top: 15px;
+                margin-top: 10px;
 
                 p {
                     font-size: 15px;
                     color: var(--directorist-color-body);
-                    line-height: 24px;
+                    line-height: 20px;
                     text-align: left;
                     margin: 0;
+                    display: flex;
+                    gap: 5px;
                     a {
                         color: var(--directorist-color-primary);
                         text-decoration: underline;
@@ -178,7 +180,7 @@
 
         .directorist-info-item {
             font-size: 14px;
-            line-height: 1.45;
+            line-height: 18px;
             position: relative;
             display: inline-block;
             &:not(:last-of-type) {
@@ -258,16 +260,19 @@
         }
         .directorist-listing-tagline {
             flex: 0 0 100%;
-            margin: 0 0 15px;
+            margin: 0;
+            font-size: 14px;
+            line-height: 18px;
+            color: var(--directorist-color-light-gray);
         }
 
         .directorist-listing-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 500;
             padding: 0;
             text-transform: none;
-            line-height: 1.2;
-            margin: 0 0 8px;
+            line-height: 20px;
+            margin: 0;
             flex: 0 0 100%;
 
             a {
@@ -279,7 +284,7 @@
         .directorist-pricing-meta {
             .directorist-listing-price {
                 font-size: 14px;
-                font-weight: 400;
+                font-weight: 700;
                 color: var(--directorist-color-body);
                 padding: 0;
                 @media screen and (max-width: 575px) {
@@ -294,7 +299,7 @@
         flex-wrap: wrap;
         gap: 10px;
         position: relative;
-        padding: 15px 22px 10px;
+        padding: 14px 20px;
         justify-content: space-between;
         border-top: 1px solid var(--directorist-color-border);
         @include m(left) {

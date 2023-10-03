@@ -11431,6 +11431,87 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     min-height: 42px;
     border-radius: 8px;
   }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field {
+    width: 100%;
+    margin: 0 20px;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-search-field__label:before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    background-color: var(--directorist-color-body);
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+            mask-position: center;
+    -webkit-mask-image: url(../images/447c512963a6e865700c065e70bb46b7.svg);
+            mask-image: url(../images/447c512963a6e865700c065e70bb46b7.svg);
+    opacity: 0;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-search-field__btn {
+    bottom: unset;
+    left: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-filter-location-icon {
+    margin-top: 0;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-select,
+.directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-search-field__input {
+    width: 100%;
+    padding-left: 0;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused {
+    margin: 0 40px;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__label {
+    font-size: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    right: -25px;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__label:before {
+    opacity: 1;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__input {
+    bottom: 0;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__btn {
+    left: -20px;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-select ~ .directorist-search-field__btn--clear,
+.directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-filter-location-icon ~ .directorist-search-field__btn--clear {
+    left: 5px;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-select,
+.directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__input {
+    padding-left: 0;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-location-js {
+    padding-left: 30px;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused.atbdp-form-fade:after,
+.directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-filter-location-icon {
+    margin-top: 0;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused.directorist-icon-right .directorist-input-icon,
+.directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .select2-container .directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+    left: -20px;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-has-value:not(.input-is-focused) .directorist-search-field__label {
+    opacity: 0;
+    font-size: 0;
+  }
 }
 .directorist-search-modal--basic .open_now > label {
   display: none;

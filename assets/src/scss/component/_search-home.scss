@@ -37,6 +37,7 @@
     padding: 22px 22px 22px 25px;
     background-color: var(--directorist-color-white);
     box-shadow: var(--directorist-box-shadow);
+    box-sizing: border-box;
     @media screen and (max-width: 767px) {
       gap: 15px;
       flex-direction: column;
@@ -88,7 +89,7 @@
         border: 0 none;
       }
       
-      .directorist-search-modal__input:not(:nth-last-child(2)) .directorist-search-field {
+      .directorist-search-modal__input:not(:nth-last-child(1)) .directorist-search-field {
         border-right: 1px solid var(--directorist-color-border);
       }
       
@@ -163,13 +164,18 @@
       }
 
       &.input-is-focused {
-        .directorist-select,
         .directorist-search-field__input {
           padding-right: 25px;
+          &.directorist-select {
+            padding-right: 0;
+          }
+        }
+        .directorist-location-js {
+          padding-right: 45px;
         }
 
         .select2-container .directorist-select2-addons-area .directorist-select2-dropdown-toggle {
-          right: -10px;
+          right: 15px;
         }
 
         .directorist-select,

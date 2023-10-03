@@ -31,6 +31,7 @@
   }
   &:hover,
   &:focus {
+    color: var(--directorist-color-primary);
     outline: 0 !important;
     text-decoration: none !important;
   }

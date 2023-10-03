@@ -9,20 +9,12 @@
     max-width: 500px;
   }
 
-  @media (min-width: 768px) {
-    max-width: 600px;
-  }
-
   @media (min-width: 992px) {
-    max-width: 680px;
+    max-width: 600px;
   }
 
   @media (min-width: 1200px) {
     max-width: 760px;
-  }
-
-  @media (min-width: 1400px) {
-    max-width: 870px;
   }
 
 

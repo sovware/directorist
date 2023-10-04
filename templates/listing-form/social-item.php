@@ -13,7 +13,7 @@ $id = (array_key_exists('id', $args)) ? $args['id'] : $index; ?>
     <div class="directorist-form-social-fields__input"> 
         <div class="directorist-form-group">
             <select name="social[<?php echo esc_attr( $id ); ?>][id]" class="directorist-form-element placeholder-item">
-                <option value=""><?php esc_html_e( 'Select Social Info', 'directorist' ); ?></option>
+                <option value=""><?php esc_html_e( 'Select Network', 'directorist' ); ?></option>
                 <?php foreach ( ATBDP()->helper->social_links() as $nameID => $socialName ) { ?>
                     <option value="<?php echo esc_attr($nameID); ?>" <?php selected($nameID, $social_info['id']); ?>><?php echo esc_html($socialName); ?></option>
                 <?php } ?>

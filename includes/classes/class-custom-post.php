@@ -321,7 +321,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			if ( is_fee_manager_active() && $featured_available_in_plan > 1 || $num_featured_unl ) {
 				$columns['atbdp_featured'] = __( 'Featured', 'directorist' );
 			}
-			$columns['atbdp_view_count'] = __( 'View Count', 'directorist' );
+			$columns['atbdp_view_count']  = __( 'View Count', 'directorist' );
 			$columns['atbdp_expiry_date'] = __( 'Expires on', 'directorist' );
 			$columns['atbdp_date']        = __( 'Created on', 'directorist' );
 
@@ -401,7 +401,6 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					printf(
 						'<div class="directorist-view-count">
 							<span>%s</span>
-							<div class="directorist-view-count-change" data-listing-id="%s" data-view-count="%s">Change</div>
 						</div>',
 						absint( $view_count ),
 						absint( $post_id ),

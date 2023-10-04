@@ -25,6 +25,7 @@
   text-decoration: none;
   color: var(--directorist-color-primary);
   transition: all ease 0.3s;
+  text-decoration: none !important;
   &.directorist-btn--add-listing,
   &.directorist-btn--logout {
       line-height: 43px;
@@ -33,7 +34,6 @@
   &:focus {
     color: var(--directorist-color-primary);
     outline: 0 !important;
-    text-decoration: none !important;
   }
 }
 

@@ -5775,7 +5775,7 @@ img.atbdp-file-info {
   line-height: 1.2;
 }
 .directorist-content-module__contents {
-  padding: 30px 40px;
+  padding: 30px 40px 40px;
   border-top: 1px solid var(--directorist-color-border);
 }
 @media (max-width: 480px) {
@@ -5784,8 +5784,7 @@ img.atbdp-file-info {
   }
 }
 .directorist-content-module__contents .directorist-form-description-field .wp-editor-wrap {
-  position: relative;
-  top: -23px;
+  margin-top: -30px;
 }
 .directorist-content-module__contents .directorist-form-description-field .wp-editor-tabs {
   position: relative;
@@ -7883,7 +7882,7 @@ body.stop-scrolling {
   display: none;
 }
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-content-module__contents {
-  padding: 30px 40px;
+  padding: 30px 40px 40px;
 }
 @media (max-width: 480px) {
   #directiost-listing-fields_wrapper .directorist-content-module .directorist-content-module__contents {
@@ -8082,7 +8081,7 @@ body.stop-scrolling {
   width: 100%;
   height: 100%;
   padding: 25px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   padding-right: 55px;
   border-radius: 16px;
@@ -8639,12 +8638,12 @@ body.stop-scrolling {
 }
 .directorist-add-listing-form__action #listing_notifier {
   padding: 0 40px;
-  margin: 30px 0 20px;
+  margin: 18px 0 33px;
   font-weight: 600;
   color: var(--directorist-color-danger);
 }
 .directorist-add-listing-form__action #listing_notifier:empty {
-  margin: 30px 0 0;
+  margin: 35px 0 0;
 }
 .directorist-add-listing-form__action #listing_notifier .atbdp_success {
   color: var(--directorist-color-success);
@@ -8667,6 +8666,10 @@ body.stop-scrolling {
 .directorist-add-listing-form__action .directorist-form-group label a,
 .directorist-add-listing-form__action .directorist-checkbox label a {
   color: var(--directorist-color-info);
+}
+.directorist-add-listing-form__action .directorist-form-group #guest_user_email,
+.directorist-add-listing-form__action .directorist-checkbox #guest_user_email {
+  margin: 0 0 10px;
 }
 .directorist-add-listing-form__action .directorist-form-required {
   padding-right: 5px;
@@ -8713,6 +8716,7 @@ body.stop-scrolling {
 }
 .directorist-add-listing-form .directorist-form-group textarea {
   padding: 10px 0;
+  background: transparent;
 }
 .directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape {
   width: 50px;
@@ -9044,7 +9048,7 @@ body.stop-scrolling {
   font-size: 14px;
   font-weight: 400;
   border-radius: 12px;
-  text-decoration: unset;
+  text-decoration: none !important;
   color: var(--directorist-color-light-gray);
   background-color: transparent;
   -webkit-box-sizing: border-box;
@@ -9100,21 +9104,20 @@ body.stop-scrolling {
   transition: all 0.3s ease 0s;
   z-index: 2;
 }
-.multistep-wizard__nav__btn.active, .multistep-wizard__nav__btn:hover {
+.multistep-wizard__nav__btn.active, .multistep-wizard__nav__btn:hover, .multistep-wizard__nav__btn:focus {
   font-weight: 600;
   color: var(--directorist-color-dark);
   background: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow-sm);
           box-shadow: var(--directorist-box-shadow-sm);
+  border: 0 none;
+  outline: none;
 }
-.multistep-wizard__nav__btn.active:before, .multistep-wizard__nav__btn:hover:before {
+.multistep-wizard__nav__btn.active:before, .multistep-wizard__nav__btn:hover:before, .multistep-wizard__nav__btn:focus:before {
   opacity: 1;
 }
-.multistep-wizard__nav__btn.active i::after, .multistep-wizard__nav__btn:hover i::after {
+.multistep-wizard__nav__btn.active i::after, .multistep-wizard__nav__btn:hover i::after, .multistep-wizard__nav__btn:focus i::after {
   background-color: var(--directorist-color-primary);
-}
-.multistep-wizard__nav__btn:focus {
-  text-decoration: unset;
 }
 .multistep-wizard__nav__btn.completed {
   color: var(--directorist-color-dark);
@@ -9270,11 +9273,11 @@ body.stop-scrolling {
 .multistep-wizard__btn.directorist-btn i:after {
   background-color: var(--directorist-color-body);
 }
-.multistep-wizard__btn:hover {
+.multistep-wizard__btn.directorist-btn:hover, .multistep-wizard__btn.directorist-btn:focus {
   color: var(--directorist-color-white);
   background-color: var(--directorist-color-primary);
 }
-.multistep-wizard__btn:hover i:after {
+.multistep-wizard__btn.directorist-btn:hover i:after, .multistep-wizard__btn.directorist-btn:focus i:after {
   background-color: var(--directorist-color-white);
 }
 .multistep-wizard__btn[disabled=true], .multistep-wizard__btn[disabled=disabled] {
@@ -10842,6 +10845,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-primary);
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
+  text-decoration: none !important;
 }
 .directorist-btn.directorist-btn--add-listing, .directorist-btn.directorist-btn--logout {
   line-height: 43px;
@@ -10849,7 +10853,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-btn:hover, .directorist-btn:focus {
   color: var(--directorist-color-primary);
   outline: 0 !important;
-  text-decoration: none !important;
 }
 
 .directorist-btn.directorist-btn-primary {

@@ -89,15 +89,14 @@
     }
 
     @include e(contents) {
-        padding: 30px 40px;
+        padding: 30px 40px 40px;
         border-top: 1px solid var(--directorist-color-border);
         @media (max-width: 480px) {
             padding: 20px;
         }
         .directorist-form-description-field {
             .wp-editor-wrap {
-                position: relative;
-                top: -23px;
+                margin-top: -30px;
             }
             .wp-editor-tabs {
                 position: relative;

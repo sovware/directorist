@@ -8533,6 +8533,7 @@ p.atbd-min {
 .directorist-search-modal--full .directorist-search-field.input-is-focused .directorist-search-field__label {
   font-size: 16px;
   font-weight: 500;
+  z-index: 1;
 }
 .directorist-search-modal__input {
   display: -webkit-box;

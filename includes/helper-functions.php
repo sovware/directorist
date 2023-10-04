@@ -4145,19 +4145,53 @@ function directorist_generate_password_reset_code_transient_key( $data ) {
 }
 
 function directorist_set_password_reset_code_transient( $user, $code ) {
-	set_transient( directorist_generate_password_reset_code_transient_key( $user->user_email ), $code, MINUTE_IN_SECONDS * 15 );
+	set_transient( directorist_generate_password_reset_code_transient_key( $user->user_email ), $code, MINUTE_IN_SECONDS * 5 );
 }
 
 function directorist_get_password_reset_code_transient( $user ) {
 	return get_transient( directorist_generate_password_reset_code_transient_key( $user->user_email ) );
 }
 
-function directorist_get_password_reset_pin_code( $user ) {
-	$password_reset_key = get_password_reset_key( $user );
+function directorist_delete_password_reset_code_transient( $user ) {
+	delete_transient( directorist_generate_password_reset_code_transient_key( $user->user_email ) );
+}
+
+function directorist_generate_password_reset_pin_code( $user ) {
+	$password_reset_key = wp_generate_password( 12, false, false );
 	$pin_code           = substr( $password_reset_key, 0, 4 );
 	$tail_code          = substr( $password_reset_key, 4 );
 
 	directorist_set_password_reset_code_transient( $user, $tail_code );
+	update_user_meta( $user->ID, 'directorist_pasword_reset_key', wp_hash_password( $password_reset_key ) );
 
 	return $pin_code;
+}
+
+function directorist_check_password_reset_pin_code( $user, $pin_code ) {
+	global $wp_hasher;
+
+	$tail_code = directorist_get_password_reset_code_transient( $user );
+
+	if ( empty( $tail_code ) ) {
+		return false;
+	}
+
+	$reset_key      = $pin_code . $tail_code;
+	$reset_key_hash = get_user_meta( $user->ID, 'directorist_pasword_reset_key', true );
+
+	if ( empty( $reset_key_hash ) ) {
+		return false;
+	}
+
+	/*
+	 * If the stored hash is longer than an MD5,
+	 * presume the new style phpass portable hash.
+	 */
+	if ( empty( $wp_hasher ) ) {
+		require_once ABSPATH . WPINC . '/class-phpass.php';
+		// By default, use the portable hash from phpass.
+		$wp_hasher = new PasswordHash( 8, true );
+	}
+
+	return $wp_hasher->CheckPassword( $reset_key, $reset_key_hash );
 }

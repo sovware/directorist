@@ -1182,6 +1182,11 @@ class Multi_Directory_Manager
 
                     'pricing' => [
                         'options' => [
+                            'label' => [
+                                'type'  => 'text',
+                                'label'  => __( 'Label', 'directorist' ),
+                                'value' => 'Pricing',
+                            ],
                             'price_range_min_placeholder' => [
                                 'type'  => 'text',
                                 'label'  => __( 'Price Range Min Placeholder', 'directorist' ),
@@ -1619,7 +1624,7 @@ class Multi_Directory_Manager
                         'show_readmore_text' => [
                             'type' => "text",
                             'label' => __( "Read More Text", "directorist" ),
-                            'value' => 'Read More',
+                            'value' => '...',
                         ],
                     ],
                 ],

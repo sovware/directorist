@@ -147,6 +147,16 @@
       .directorist-form-group {
         flex: 1;
         margin: 0;
+        select {
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--directorist-color-dark);
+          &.placeholder-item { 
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--directorist-color-light-gray);
+          }
+        }
       }
       @include e(input) {
         display: flex;
@@ -155,6 +165,10 @@
         @media screen and (max-width: 480px) {
           gap: 10px;
           flex-direction: column;
+        }
+
+        .atbdp_social_input::placeholder {
+          font-weight: 400;
         }
       }
       @include e("remove") {

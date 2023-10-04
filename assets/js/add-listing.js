@@ -163,6 +163,8 @@ $(document).ready(function () {
   // Rearrange the IDS and Add new social field
 
   $('body').on('click', '#addNewSocial', function (e) {
+    var _this = this;
+
     var social_wrap = $('#social_info_sortable_container'); // cache it
 
     var currentItems = $('.directorist-form-social-fields').length;
@@ -171,6 +173,7 @@ $(document).ready(function () {
     var iconBindingElement = jQuery('#addNewSocial'); // arrange names ID in order before adding new elements
 
     $('.directorist-form-social-fields').each(function (index, element) {
+      console.log(index, element);
       var e = $(element);
       e.attr('id', "socialID-".concat(index));
       e.find('select').attr('name', "social[".concat(index, "][id]"));
@@ -181,6 +184,23 @@ $(document).ready(function () {
     atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
       social_wrap.append(data);
     });
+    setTimeout(function () {
+      var socialSelect = _this.parentElement.querySelectorAll('.directorist-form-social-fields select');
+
+      socialSelect.forEach(function (item) {
+        if (item.value !== '') {
+          item.classList.remove('placeholder-item');
+        }
+
+        item.addEventListener('change', function () {
+          if (this.value !== '' && this.classList.contains('placeholder-item')) {
+            this.classList.remove('placeholder-item');
+          } else if (this.value === '') {
+            this.classList.add('placeholder-item');
+          }
+        });
+      });
+    }, 300);
   });
   document.addEventListener('directorist-reload-plupload', function () {
     if ($('.directorist-color-field-js').length) {

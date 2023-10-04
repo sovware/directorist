@@ -7784,6 +7784,18 @@ body.stop-scrolling {
           flex: 1;
   margin: 0;
 }
+.directorist-add-listing-form .directorist-content-module .directorist-form-social-fields .directorist-form-group select,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields .directorist-form-group select {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--directorist-color-dark);
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-social-fields .directorist-form-group select.placeholder-item,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields .directorist-form-group select.placeholder-item {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--directorist-color-light-gray);
+}
 .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields__input,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__input {
   display: -webkit-box;
@@ -7806,6 +7818,22 @@ body.stop-scrolling {
         -ms-flex-direction: column;
             flex-direction: column;
   }
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-social-fields__input .atbdp_social_input::-webkit-input-placeholder, #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__input .atbdp_social_input::-webkit-input-placeholder {
+  font-weight: 400;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-social-fields__input .atbdp_social_input::-moz-placeholder, #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__input .atbdp_social_input::-moz-placeholder {
+  font-weight: 400;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-social-fields__input .atbdp_social_input:-ms-input-placeholder, #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__input .atbdp_social_input:-ms-input-placeholder {
+  font-weight: 400;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-social-fields__input .atbdp_social_input::-ms-input-placeholder, #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__input .atbdp_social_input::-ms-input-placeholder {
+  font-weight: 400;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-social-fields__input .atbdp_social_input::placeholder,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__input .atbdp_social_input::placeholder {
+  font-weight: 400;
 }
 .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields__remove,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields__remove {

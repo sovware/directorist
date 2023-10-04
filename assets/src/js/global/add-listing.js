@@ -58,6 +58,7 @@ $(document).ready(function () {
 
         // arrange names ID in order before adding new elements
         $('.directorist-form-social-fields').each(function (index, element) {
+            console.log(index, element)
             const e = $(element);
             e.attr('id', `socialID-${index}`);
             e.find('select').attr('name', `social[${index}][id]`);
@@ -69,6 +70,24 @@ $(document).ready(function () {
         atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
             social_wrap.append(data);
         });
+
+        setTimeout(() => {
+            let socialSelect = this.parentElement.querySelectorAll('.directorist-form-social-fields select');
+            socialSelect.forEach(item => {
+                if (item.value !== '') {
+                    item.classList.remove('placeholder-item');
+                }
+                item.addEventListener('change', function () {
+                    if (this.value !== '' && this.classList.contains('placeholder-item')) {
+                        this.classList.remove('placeholder-item');
+                    } else if (this.value === '') {
+                        this.classList.add('placeholder-item');
+                    }
+                })
+            })
+        }, 300);
+
+        
     });
     document.addEventListener('directorist-reload-plupload', function(){
         if($('.directorist-color-field-js').length){

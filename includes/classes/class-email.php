@@ -1087,21 +1087,14 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the email was sent successfully or not.
 		 */
 		public function send_password_reset_pin_email( $user ) {
-			$subject = __( '[==SITE_NAME==] Password Reset PIN', 'directorist' );
-			$sub = str_replace( '==SITE_NAME==', get_option( 'blogname' ), $subject );
-			$pin = random_int( 1000, 9999 );
+			$subject    = esc_html( sprintf( __( '[%s] Password Reset PIN', 'directorist' ), get_option( 'blogname' ) ) );
 			$user_email = $user->user_email;
+			$pin_code   = directorist_get_password_reset_pin_code( $user );
+			$body       = $this->get_password_reset_pin_email_template();
+			$message    = $this->replace_in_content( $body, 0, 0, $user, null, $pin_code );
+			$body       = atbdp_email_html( $subject, $message );
 
-			$min = 15;
-			$expiration = 60 * $min; // In seconds
-
-			set_transient( "directorist_reset_pin_{$user_email}", $pin, $expiration );
-
-			$body    = $this->get_password_reset_pin_email_template();
-			$message = $this->replace_in_content( $body, $order_id = 0, $listing_id = 0, $user, $renewal = null, $pin );
-			$body    = atbdp_email_html( $sub, $message );
-
-			return $this->send_mail( $user_email, $sub, $body, $this->get_email_headers() );
+			return $this->send_mail( $user_email, $subject, $body, $this->get_email_headers() );
 		}
 
 		private function disable_notification() {

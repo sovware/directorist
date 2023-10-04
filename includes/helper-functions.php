@@ -4139,3 +4139,25 @@ function directorist_validate_youtube_vimeo_url( $url ) {
 function directorist_is_listing_post_type( $listing_id ) {
 	return ( get_post_type( absint( $listing_id ) ) === ATBDP_POST_TYPE );
 }
+
+function directorist_generate_password_reset_code_transient_key( $data ) {
+	return 'directorist_' . wp_hash( $data );
+}
+
+function directorist_set_password_reset_code_transient( $user, $code ) {
+	set_transient( directorist_generate_password_reset_code_transient_key( $user->user_email ), $code, MINUTE_IN_SECONDS * 15 );
+}
+
+function directorist_get_password_reset_code_transient( $user ) {
+	return get_transient( directorist_generate_password_reset_code_transient_key( $user->user_email ) );
+}
+
+function directorist_get_password_reset_pin_code( $user ) {
+	$password_reset_key = get_password_reset_key( $user );
+	$pin_code           = substr( $password_reset_key, 0, 4 );
+	$tail_code          = substr( $password_reset_key, 4 );
+
+	directorist_set_password_reset_code_transient( $user, $tail_code );
+
+	return $pin_code;
+}

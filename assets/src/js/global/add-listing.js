@@ -58,7 +58,6 @@ $(document).ready(function () {
 
         // arrange names ID in order before adding new elements
         $('.directorist-form-social-fields').each(function (index, element) {
-            console.log(index, element)
             const e = $(element);
             e.attr('id', `socialID-${index}`);
             e.find('select').attr('name', `social[${index}][id]`);

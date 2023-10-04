@@ -173,7 +173,6 @@ $(document).ready(function () {
     var iconBindingElement = jQuery('#addNewSocial'); // arrange names ID in order before adding new elements
 
     $('.directorist-form-social-fields').each(function (index, element) {
-      console.log(index, element);
       var e = $(element);
       e.attr('id', "socialID-".concat(index));
       e.find('select').attr('name', "social[".concat(index, "][id]"));

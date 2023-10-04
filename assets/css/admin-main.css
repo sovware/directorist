@@ -11564,6 +11564,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal--basic .directorist-select .select2-container.select2-container--default .select2-selection--single {
   height: auto;
 }
+.directorist-search-modal--full .directorist-search-field .directorist-search-field__label {
+  font-size: 14px;
+  font-weight: 400;
+}
+.directorist-search-modal--full .directorist-search-field.input-is-focused .directorist-search-field__label {
+  font-size: 16px;
+  font-weight: 500;
+}
 .directorist-search-modal__input {
   display: -webkit-box;
   display: -webkit-flex;

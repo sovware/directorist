@@ -547,6 +547,20 @@
             height: auto;
         }
     }
+    
+    @include m(full) {
+        .directorist-search-field {
+            .directorist-search-field__label {
+                font-size: 14px;
+                font-weight: 400;
+            }
+            
+            &.input-is-focused .directorist-search-field__label {
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+    }
 
     @include e(input) {
         display: flex;

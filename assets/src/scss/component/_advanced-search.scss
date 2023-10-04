@@ -81,7 +81,18 @@
                 > label {
                     display: inline-flex;
                     margin: 0 0 15px;
+                    font-size: 16px;
+                    font-weight: 500;
                     color: var(--directorist-color-primary);
+                }
+                .directorist-search-field__label {
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+                
+                &.input-is-focused .directorist-search-field__label {
+                    font-size: 16px;
+                    font-weight: 500;
                 }
                 .directorist-btn-ml{
                     display: inline-block;

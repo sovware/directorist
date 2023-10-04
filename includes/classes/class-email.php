@@ -953,7 +953,7 @@ This email is sent automatically for information purpose only. Please do not res
 			$gateway = get_post_meta( $order_id, '_payment_gateway', true );
 
 			if ( 'bank_transfer' !== $gateway ) {
-				return false;	
+				return false;
 			}
 
 			/*@todo; think if it is better to assign disabled_email_notification to the class prop*/
@@ -1086,22 +1086,22 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @param int $listing_email
 		 * @return bool Whether the email was sent successfully or not.
 		 */
-		public function send_password_reset_pin_email( $listing_email ) {
-			$s = __( '[==SITE_NAME==] Password Reset PIN', 'directorist' );
-			$sub = str_replace( '==SITE_NAME==', get_option( 'blogname' ), $s );
+		public function send_password_reset_pin_email( $user ) {
+			$subject = __( '[==SITE_NAME==] Password Reset PIN', 'directorist' );
+			$sub = str_replace( '==SITE_NAME==', get_option( 'blogname' ), $subject );
 			$pin = random_int( 1000, 9999 );
+			$user_email = $user->user_email;
 
 			$min = 15;
 			$expiration = 60 * $min; // In seconds
 
-			set_transient( "directorist_reset_pin_${listing_email}", $pin, $expiration );
+			set_transient( "directorist_reset_pin_{$user_email}", $pin, $expiration );
 
 			$body    = $this->get_password_reset_pin_email_template();
-			$message = $this->replace_in_content( $body, $order_id = 0, $listing_id = 0, $user = null, $renewal = null, $pin );
+			$message = $this->replace_in_content( $body, $order_id = 0, $listing_id = 0, $user, $renewal = null, $pin );
 			$body    = atbdp_email_html( $sub, $message );
 
-			return $this->send_mail( $listing_email, $sub, $body, $this->get_email_headers() );
-
+			return $this->send_mail( $user_email, $sub, $body, $this->get_email_headers() );
 		}
 
 		private function disable_notification() {

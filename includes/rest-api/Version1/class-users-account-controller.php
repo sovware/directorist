@@ -167,11 +167,13 @@ class Users_Account_Controller extends Abstract_Controller {
 	}
 
 	public function send_password_reset_pin( $request ) {
-		ATBDP()->email->send_password_reset_pin_email( $request['email'] );
+		$user = $this->get_user_by_email( $request['email'] );
+
+		ATBDP()->email->send_password_reset_pin_email( $user );
 
 		$data = [
 			'success' => true,
-			'message' => __( 'Password reset code has been sent to given email.', 'directorist' ),
+			'message' => __( 'Password reset code has been sent to your email.', 'directorist' ),
 			'email'   => $request['email'],
 		];
 

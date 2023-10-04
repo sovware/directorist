@@ -3,20 +3,6 @@
   height: 100%;
   overflow: hidden;
   position: relative;
-  max-width: calc(100vw - 92px);
-
-  @media (min-width: 576px) {
-    max-width: 500px;
-  }
-
-  @media (min-width: 992px) {
-    max-width: 600px;
-  }
-
-  @media (min-width: 1200px) {
-    max-width: 760px;
-  }
-
 
   .swiper-slide {
     display: flex;
@@ -106,7 +92,17 @@
 }
 
 .directorist-single-listing-slider {
+  max-width: 100%;
   border-radius: 16px;
+  @media screen and (max-width: 991px) {
+    max-height: 450px !important;
+  }
+  @media screen and (max-width: 575px) {
+    max-height: 400px !important;
+  }
+  @media screen and (max-width: 375px) {
+    max-height: 350px !important;
+  }
   .directorist-swiper {
     @include e(nav) {
       i {

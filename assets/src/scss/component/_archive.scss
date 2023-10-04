@@ -294,12 +294,12 @@
 		.directorist-archive-sidebar-toggle{
 			width: auto;
 			padding: 0 20px;
-			text-decoration: none;
 			font-size: 14px;
 			font-weight: 400;
 			min-height: 40px;
 			padding: 0 20px;
 			border-radius: 8px;
+			text-decoration: none !important;
 			color: var(--directorist-color-primary);
 			background: var(--directorist-color-light);
 			display: none;
@@ -359,6 +359,10 @@
 			}
 			.directorist-advanced-filter__close{
 				display: flex;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				background-color: var(--directorist-color-light);
 			}
 
 		}

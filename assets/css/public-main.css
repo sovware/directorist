@@ -3149,10 +3149,10 @@ body.stop-scrolling {
   color: var(--directorist-color-primary);
   font-size: 16px;
   font-weight: 500;
-  text-decoration: none;
   text-align: center;
   padding: 40px 25px;
   border-radius: 16px;
+  text-decoration: none !important;
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
   -webkit-transition: background 0.2s ease;
@@ -6322,6 +6322,7 @@ body.modal-overlay-enabled:before {
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.05);
+  z-index: 1;
 }
 
 .directorist-widget {
@@ -7140,22 +7141,6 @@ p.atbd-min {
   height: 100%;
   overflow: hidden;
   position: relative;
-  max-width: calc(100vw - 92px);
-}
-@media (min-width: 576px) {
-  .directorist-swiper {
-    max-width: 500px;
-  }
-}
-@media (min-width: 992px) {
-  .directorist-swiper {
-    max-width: 600px;
-  }
-}
-@media (min-width: 1200px) {
-  .directorist-swiper {
-    max-width: 760px;
-  }
 }
 .directorist-swiper .swiper-slide {
   display: -webkit-box;
@@ -7263,7 +7248,23 @@ p.atbd-min {
 }
 
 .directorist-single-listing-slider {
+  max-width: 100%;
   border-radius: 16px;
+}
+@media screen and (max-width: 991px) {
+  .directorist-single-listing-slider {
+    max-height: 450px !important;
+  }
+}
+@media screen and (max-width: 575px) {
+  .directorist-single-listing-slider {
+    max-height: 400px !important;
+  }
+}
+@media screen and (max-width: 375px) {
+  .directorist-single-listing-slider {
+    max-height: 350px !important;
+  }
 }
 .directorist-single-listing-slider .directorist-swiper__nav i {
   height: 40px;
@@ -7408,18 +7409,14 @@ p.atbd-min {
           box-shadow: var(--directorist-box-shadow);
   z-index: 99999;
 }
-.directorist-dropdown__links--right {
-  left: auto;
-  right: 0;
-}
 .directorist-dropdown__links a {
   display: block;
   font-size: 14px;
   font-weight: 400;
-  text-decoration: none;
   display: block;
   padding: 10px;
   border-radius: 8px;
+  text-decoration: none !important;
   color: var(--directorist-color-body);
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
@@ -7433,6 +7430,10 @@ p.atbd-min {
   .directorist-dropdown__links a {
     padding: 5px 10px;
   }
+}
+.directorist-dropdown__links--right {
+  left: auto;
+  right: 0;
 }
 @media (max-width: 767px) {
   .directorist-dropdown__links {
@@ -10397,12 +10398,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .listing-with-sidebar__header .directorist-archive-sidebar-toggle {
   width: auto;
   padding: 0 20px;
-  text-decoration: none;
   font-size: 14px;
   font-weight: 400;
   min-height: 40px;
   padding: 0 20px;
   border-radius: 8px;
+  text-decoration: none !important;
   color: var(--directorist-color-primary);
   background: var(--directorist-color-light);
   display: none;
@@ -10484,6 +10485,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-color: var(--directorist-color-light);
   }
 }
 .listing-with-sidebar__sidebar--open {
@@ -14227,10 +14232,22 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-listing-single__thumb .directorist-thumnail-card {
   position: relative;
   width: 100%;
-  height: auto !important;
+  height: 100%;
   border-radius: 12px;
   overflow: hidden;
   z-index: 0;
+}
+.directorist-listing-single__thumb .directorist-thumnail-card .directorist-thumnail-card-front-wrap,
+.directorist-listing-single__thumb .directorist-thumnail-card .directorist-thumnail-card-back-wrap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  z-index: 2;
 }
 .directorist-listing-single__thumb .directorist-thumnail-card.directorist-card-contain .directorist-thumnail-card-front-img {
   -o-object-fit: contain;
@@ -16822,6 +16839,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-google-map,
 .directorist-single-map {
   height: 400px;
+}
+@media screen and (max-width: 480px) {
+  .directorist-google-map,
+.directorist-single-map {
+    height: 320px;
+  }
 }
 
 .directorist-rating-review-block {

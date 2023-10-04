@@ -151,6 +151,7 @@ class Multi_Directory_Manager
 
 
                 if ( 'thumbnail' === $section_name ) {
+                    $footer_thumbnail = ! empty( $widgets[0]['footer_thumbail'] ) ? $widgets[0]['footer_thumbail'] : true;
                     $slider_widget = [
                         "type" => "placeholder_item",
                         "placeholderKey" => "slider-placeholder",
@@ -159,7 +160,17 @@ class Multi_Directory_Manager
                                 "type" => "thumbnail",
                                 "label" => "Listing Image/Slider",
                                 "widget_name" => "slider",
-                                "widget_key" => "slider"
+                                "widget_key" => "slider",
+                                'options'  => [
+                                    'title'  => __( 'Listings Slider Settings', 'directorist' ),
+                                    'fields' => [
+                                        'footer_thumbail' => [
+                                            'type'  => 'toggle',
+                                            'label' => __( 'Enable Footer Thumbnail', 'directorist' ),
+                                            'value' => $footer_thumbnail,
+                                        ],
+                                    ],
+                                ],
                             ]
                         ]
                     ];
@@ -2979,6 +2990,16 @@ class Multi_Directory_Manager
                         'type' => "thumbnail",
                         'label' => __( "Listing Image/Slider", "directorist" ),
                         'icon' => 'las la-image',
+                        'options' => [
+                            'title' => __( "Image/Slider Settings", "directorist" ),
+                            'fields' => [
+                                'footer_thumbnail' => [
+                                    'type' => "toggle",
+                                    'label' => __( "Show Thumbnail", "directorist" ),
+                                    'value' => true,
+                                ],
+                            ],
+                        ],
                     ],
                     
                     'bookmark' => [

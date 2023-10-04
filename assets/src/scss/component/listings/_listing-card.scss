@@ -682,7 +682,6 @@
                 @media only screen and (max-width: 575px) {
                     flex: unset;
                     width: 100px;
-                    height: 100px;
                     .directorist-badge {
                         width: 20px;
                         height: 20px;
@@ -722,6 +721,7 @@
                 padding: 18px 20px 15px;
 
                 @media only screen and (max-width: 575px) {
+                    padding-top: 10px;
                     .directorist-listing-title {
                         margin: 0;
                         font-size: 14px;

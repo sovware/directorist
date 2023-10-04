@@ -84,8 +84,8 @@
         top: 50%;
         transform: translateY(-50%);
         line-height: 1.45;
-        margin-top: -2px;
         z-index: 99;
+        transition: margin 0.3s ease;
         i,
         span,
         svg {

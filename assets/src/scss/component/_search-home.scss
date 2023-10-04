@@ -156,6 +156,11 @@
       &:not(:last-child) {
         border-right: 1px solid var(--directorist-color-border);
       }
+      @media screen and (max-width: 575px) {
+        .select2-container .directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+          right: -15px;
+        }
+      }
       
       @include e(btn) {
         @include m(clear) {

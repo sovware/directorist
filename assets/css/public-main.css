@@ -7278,6 +7278,7 @@ p.atbd-min {
 .directorist-single-listing-slider {
   max-width: 100%;
   border-radius: 16px;
+  margin: 0 auto;
 }
 @media screen and (max-width: 991px) {
   .directorist-single-listing-slider {
@@ -7338,7 +7339,7 @@ p.atbd-min {
 }
 
 .directorist-single-listing-slider-thumb {
-  margin-top: 10px;
+  margin: 10px auto 0;
   border-radius: 16px;
 }
 .directorist-single-listing-slider-thumb .directorist-swiper__navigation {

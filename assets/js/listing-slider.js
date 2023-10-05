@@ -311,6 +311,7 @@ __webpack_require__.r(__webpack_exports__);
       swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
       swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : ''; // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
 
+      swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
       swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
     });
   }

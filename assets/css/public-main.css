@@ -7350,6 +7350,7 @@ p.atbd-min {
   display: none;
 }
 .directorist-single-listing-slider-thumb .swiper-slide {
+  position: relative;
   min-width: 100px;
   height: 90px;
   cursor: pointer;
@@ -7360,6 +7361,25 @@ p.atbd-min {
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 14px;
+}
+.directorist-single-listing-slider-thumb .swiper-slide:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 14px;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+.directorist-single-listing-slider-thumb .swiper-slide:hover:before, .directorist-single-listing-slider-thumb .swiper-slide.swiper-slide-thumb-active:before {
+  opacity: 1;
+  visibility: visible;
 }
 @media screen and (max-width: 575px) {
   .directorist-single-listing-slider-thumb {

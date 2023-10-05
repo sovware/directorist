@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.7.0
+ * @version 7.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -16,7 +16,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<a class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-action-report directorist-action-report-not-loggedin directorist-btn-modal directorist-btn-modal-js" href="javascript:void(0)"><?php directorist_icon( $icon );?> <span class="directorist-single-listing-action__text"> <?php esc_html_e( 'Report', 'directorist'); ?></span></a>
 <?php endif; ?>
 
-<input type="hidden" id="atbdp-post-id" value="<?php echo esc_attr( $listing->id ); ?>"/>
+	<?php if ( is_user_logged_in() ): ?>
+		<a class="directorist-action-report-loggedin" href="#"><?php directorist_icon( $icon );?></a>
+	<?php else: ?>
+		<a class="directorist-action-report-not-loggedin" href="#"><?php directorist_icon( $icon );?></a>
+	<?php endif; ?>
+
+	<input type="hidden" id="atbdp-post-id" value="<?php echo esc_attr( $listing->id ); ?>"/>
+
+</div>
 
 <div class="directorist-modal directorist-modal-js directorist-fade directorist-report-abuse-modal">
 

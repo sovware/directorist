@@ -7339,6 +7339,7 @@ p.atbd-min {
 }
 
 .directorist-single-listing-slider-thumb {
+  max-width: 100%;
   margin: 10px auto 0;
   border-radius: 16px;
 }

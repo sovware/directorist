@@ -30,7 +30,7 @@ class Users_Account_Controller extends Abstract_Controller {
 	 */
 	public function register_routes() {
 		// Send Password Reset PIN
-        register_rest_route( $this->namespace, '/' . $this->rest_base . '/send-password-reset-pin', array(
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/send-password-reset-pin', array(
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => array( $this, 'send_password_reset_pin' ),
 			'permission_callback' => array( $this, 'check_send_password_permission' ),
@@ -45,7 +45,7 @@ class Users_Account_Controller extends Abstract_Controller {
 		) );
 
 		// Verify Password Reset PIN
-        register_rest_route( $this->namespace, '/' . $this->rest_base . '/verify-password-reset-pin', array(
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/verify-password-reset-pin', array(
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => array( $this, 'verify_password_reset_pin' ),
 			'permission_callback' => array( $this, 'check_verify_reset_pin_permission' ),
@@ -65,7 +65,7 @@ class Users_Account_Controller extends Abstract_Controller {
 		) );
 
 		// Rest user password.
-        register_rest_route( $this->namespace, '/' . $this->rest_base . '/reset-user-password', array(
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/reset-user-password', array(
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => array( $this, 'reset_user_password' ),
 			'permission_callback' => array( $this, 'check_reset_password_permission' ),
@@ -91,7 +91,7 @@ class Users_Account_Controller extends Abstract_Controller {
 		) );
 
 		// Change password.
-        register_rest_route( $this->namespace, '/' . $this->rest_base . '/change-password', array(
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/change-password', array(
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => array( $this, 'change_password' ),
 			'permission_callback' => array( $this, 'check_change_password_permission' ),
@@ -167,11 +167,13 @@ class Users_Account_Controller extends Abstract_Controller {
 	}
 
 	public function send_password_reset_pin( $request ) {
-		ATBDP()->email->send_password_reset_pin_email( $request['email'] );
+		$user = $this->get_user_by_email( $request['email'] );
+
+		ATBDP()->email->send_password_reset_pin_email( $user );
 
 		$data = [
 			'success' => true,
-			'message' => __( 'Password reset code has been sent to given email.', 'directorist' ),
+			'message' => __( 'Password reset code has been sent to your email.', 'directorist' ),
 			'email'   => $request['email'],
 		];
 
@@ -181,16 +183,11 @@ class Users_Account_Controller extends Abstract_Controller {
 	}
 
 	public function verify_password_reset_pin( $request ) {
-		$email        = $request['email'];
-		$password_pin = get_transient( "directorist_reset_pin_$email" );
+		$is_valid = $this->validate_reset_pin_code( $request );
 
-		if ( empty( $password_pin ) ) {
-			return new WP_Error( 'directorist_rest_password_rest_pin_expired', __( 'Given password reset pin has expired.', 'directorist' ), array( 'status' => 400 ) );
-        }
-
-		if ( $password_pin != $request['pin'] ) {
-			return new WP_Error( 'directorist_rest_password_rest_pin_invalid', __( 'Invalid password rest pin.', 'directorist' ), array( 'status' => 400 ) );
-        }
+		if ( is_wp_error( $is_valid ) ) {
+			return $is_valid;
+		}
 
 		$data = [
 			'success' => true,
@@ -203,23 +200,18 @@ class Users_Account_Controller extends Abstract_Controller {
 	}
 
 	public function reset_user_password( $request ) {
-		$email        = $request['email'];
-		$user         = get_user_by( 'email', $email );
-		$password_pin = get_transient( "directorist_reset_pin_$email" );
+		$is_valid = $this->validate_reset_pin_code( $request );
 
-		if ( empty( $password_pin ) ) {
-			return new WP_Error( 'directorist_rest_password_rest_pin_expired', __( 'Your password reset pin has expired.', 'directorist' ), array( 'status' => 400 ) );
-        }
+		if ( is_wp_error( $is_valid ) ) {
+			return $is_valid;
+		}
 
-		if ( $password_pin != $request['pin'] ) {
-			return new WP_Error( 'directorist_rest_password_rest_pin_invalid', __( 'Invalid password rest pin.', 'directorist' ), array( 'status' => 400 ) );
-        }
+		$user = $this->get_user_by_email( $request['email'] );
 
-		// Change Password
-        wp_set_password( $request['password'], $user->ID );
+		wp_set_password( $request['password'], $user->ID );
 
-        // Delete The PIN
-        delete_transient( "directorist_reset_pin_$email" );
+		directorist_delete_password_reset_code_transient( $user );
+		delete_user_meta( $user->ID, 'directorist_pasword_reset_key' );
 
 		$data = [
 			'success' => true,
@@ -240,7 +232,7 @@ class Users_Account_Controller extends Abstract_Controller {
 		}
 
 		// Change Password
-        wp_set_password( $request['new_password'], $user->ID );
+		wp_set_password( $request['new_password'], $user->ID );
 
 		$data = [
 			'success' => true,
@@ -250,5 +242,19 @@ class Users_Account_Controller extends Abstract_Controller {
 		$response = rest_ensure_response( $data );
 
 		return $response;
+	}
+
+	protected function validate_reset_pin_code( $request ) {
+		if ( strlen( $request['pin'] ) < 4 ) {
+			return new WP_Error( 'directorist_rest_password_reset_pin_invalid', __( 'Invalid pin code.', 'directorist' ), array( 'status' => 400 ) );
+		}
+
+		$user = $this->get_user_by_email( $request['email'] );
+
+		if ( ! directorist_check_password_reset_pin_code( $user, $request['pin'] ) ) {
+			return new WP_Error( 'directorist_rest_password_reset_pin_invalid', __( 'Invalid pin code.', 'directorist' ), array( 'status' => 400 ) );
+		}
+
+		return true;
 	}
 }

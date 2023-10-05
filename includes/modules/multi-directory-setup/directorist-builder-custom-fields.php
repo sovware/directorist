@@ -154,12 +154,38 @@ return array(
 				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => false,
 			],
-			'assign_to' => $this->get_assign_to_field(),
+			'min_value' => [
+				'type'  => 'number',
+				'label' => __( 'Min Value', 'directorist' ),
+				'value' => 0,
+			],
+			'max_value' => [
+				'type'  => 'number',
+				'label' => __( 'Max Value', 'directorist' ),
+				'value' => 100,
+			],
+			'prepend' => [
+				'type'        => 'text',
+				'label'       => __( 'Prepend', 'directorist' ),
+				'description' => __( 'Appears before The Input', 'directorist' ),
+				'value'       => "",
+			],
+			'append' => [
+				'type'        => 'text',
+				'label'       => __( 'Append', 'directorist' ),
+				'description' => __( 'Appears after The Input', 'directorist' ),
+				'value'       => "",
+			],
+			'assign_to' => [
+				'type'  => 'toggle',
+				'label' => __('Assign to Category', 'directorist'),
+				'value' => false,
+			],
 			'category'  => $this->get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => 'category'],
+						['key' => 'value', 'compare' => '=', 'value' => true],
 					],
 				],
 			]),

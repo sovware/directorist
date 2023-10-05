@@ -3,6 +3,7 @@
   height: 100%;
   overflow: hidden;
   position: relative;
+
   .swiper-slide {
     display: flex;
     >div {
@@ -91,6 +92,17 @@
 }
 
 .directorist-single-listing-slider {
+  max-width: 100%;
+  border-radius: 16px;
+  @media screen and (max-width: 991px) {
+    max-height: 450px !important;
+  }
+  @media screen and (max-width: 575px) {
+    max-height: 400px !important;
+  }
+  @media screen and (max-width: 375px) {
+    max-height: 350px !important;
+  }
   .directorist-swiper {
     @include e(nav) {
       i {
@@ -134,10 +146,18 @@
       border-radius: 16px;
     }
   }
+
+  &.slider-has-one-item {
+    .directorist-swiper__navigation,
+    .directorist-swiper__pagination {
+      display: none;
+    }
+  }
 }
 
 .directorist-single-listing-slider-thumb {
   margin-top: 10px;
+  border-radius: 16px;
   .directorist-swiper {
     @include e(navigation) {
       display: none;
@@ -175,9 +195,8 @@
         }
       }
   }
-  &.slider-has-less-items,
   &.slider-has-less-items {
-    .directorist-swiper__navigation {
+    > .directorist-swiper__navigation {
       display: none;
     }
   }

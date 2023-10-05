@@ -2,7 +2,7 @@
     <div class="cptm-form-builder-group-title-area">
         <h3 class="cptm-form-builder-group-title">
             {{ label }}
-            <a href="#" class="cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light"
+            <a href="#" class="cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light" 
                 v-if="groupFields && typeof groupFields === 'object'"
                 @click.prevent="$emit('toggle-expand-group')"
             >

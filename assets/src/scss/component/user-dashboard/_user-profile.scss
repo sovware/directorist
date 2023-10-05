@@ -14,11 +14,11 @@
 .directorist-image-profile-wrap {
     padding: 25px;
     background-color: #fff;
-    border-radius: 4px;
+    border-radius: 16px;
     border: 1px solid #ececec;
 
     .ezmu__upload-button-wrap .ezmu__btn {
-        border-radius: 4px;
+        border-radius: 8px;
         padding: 10.5px 30px;
         background-color: #F6F7F9;
         box-shadow: 0 0;
@@ -26,6 +26,18 @@
         font-weight: 500;
         color: var(--directorist-color-primary);
     }
+
+    .directorist-profile-uploader {
+        border-radius: 16px;
+        .ezmu__front-item__close-icon {
+            background-image: none;
+            .directorist-icon-mask::after {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+
 }
 
 // Userdashboard Profile Info

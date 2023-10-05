@@ -25,6 +25,27 @@ function init() {
             return;
         }
         selec2_add_custom_close_button($(this));
+
+        let selectItems = this.parentElement.querySelectorAll('.select2-selection__choice');
+        selectItems.forEach(item => { 
+            item.childNodes && item.childNodes.forEach(node => {
+                if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+                    let originalString = node.textContent;
+                    let modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+                    node.textContent = modifiedString;
+                    item.title = modifiedString;
+                }
+            });
+        })
+
+        let customSelectItem = this.parentElement.querySelector('.select2-selection__rendered');
+        customSelectItem.childNodes && customSelectItem.childNodes.forEach(node => {
+            if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+                let originalString = node.textContent;
+                let modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+                node.textContent = modifiedString;
+            }
+        });
     });
 }
 

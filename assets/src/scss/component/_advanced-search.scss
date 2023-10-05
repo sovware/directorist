@@ -14,13 +14,7 @@
                 @media screen and (max-width: 575px) {
                     margin: 0 0 20px;
                 }
-                > label {
-                    display: inline-flex;
-                    font-size: 16px;
-                    font-weight: 500;
-                    margin: 0 0 15px;
-                    color: var(--directorist-color-primary);
-                }
+                
                 .directorist-btn-ml{
                     display: inline-block;
                     margin-top: 20px;
@@ -87,7 +81,18 @@
                 > label {
                     display: inline-flex;
                     margin: 0 0 15px;
+                    font-size: 16px;
+                    font-weight: 500;
                     color: var(--directorist-color-primary);
+                }
+                .directorist-search-field__label {
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+                
+                &.input-is-focused .directorist-search-field__label {
+                    font-size: 16px;
+                    font-weight: 500;
                 }
                 .directorist-btn-ml{
                     display: inline-block;
@@ -152,16 +157,15 @@
             font-weight: 500;
             color: var(--directorist-color-primary);
             text-decoration: none;
+            cursor: pointer;
         }
         .directorist-btn {
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 700;
             border-radius: 10px;
             padding: 0 32px;
-            height: 46px;
-            text-transform: capitalize;
-            text-decoration: none;
+            height: 50px;
             letter-spacing: 0;
-            font-weight: 400;
             @media only screen and (max-width: 375px){
                 padding: 0 14.5px;
             }
@@ -176,6 +180,10 @@
             left: 0;
         }
     }
+}
+
+.directorist-search-field-radius_search {
+    position: relative;
 }
 
 .directorist-search-field-review .directorist-checkbox {
@@ -196,15 +204,15 @@
         }
         &:before {
             top: 3px;
-            @media only screen and (max-width: 575px) {
-                top: 1px;
-            }
         }
         &:after {
             top: -2px;
+            @media only screen and (max-width: 575px) {
+                top: 0;
+            }
         }
         @media only screen and (max-width: 575px) {
-            padding: 0;
+            padding-left: 30px;
         }
         .directorist-icon-mask{
             &:after {
@@ -296,6 +304,9 @@
                 text-align: center;
                 border-radius: 8px;
                 border: 1px solid var(--directorist-color-border);
+                &:focus {
+                    border: 2px solid var(--directorist-color-primary);
+                }
             }
         }
     }

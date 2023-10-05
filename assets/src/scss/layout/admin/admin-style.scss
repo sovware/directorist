@@ -1,6 +1,6 @@
 @import "../../vendor/bootstrap/config.bs";
 
-#directorist.atbd_wrapper {
+#directiost-listing-fields_wrapper {
   .diectorist-show {
     display: block !important;
   }
@@ -127,6 +127,12 @@
     }
   }
 
+  .price-type-both {
+    select.directory_pricing_field {
+      display: none;
+    }
+  }
+
   .listing-img-container {
     text-align: center;
     padding: 10px 0 15px;
@@ -144,7 +150,7 @@
     }
 
     .single_attachment {
-      width: 208px;
+      width: auto;
       display: inline-block;
       position: relative;
 
@@ -640,6 +646,7 @@ a {
 .plupload-thumbs .thumb {
   float: none !important;
   max-width: 200px;
+  display: flex;
 }
 
 #atbdp-categories-image-wrapper {
@@ -670,14 +677,15 @@ a {
 .plupload-thumbs {
   .thumb {
     position: relative;
-    height: auto !important;
 
     &:hover {
       .atbdp-thumb-actions {
         display: flex !important;
       }
     }
-
+    .atbdp-file-info {
+      border-radius: 5px;
+    }
     .atbdp-thumb-actions {
       position: absolute;
       width: 100%;
@@ -702,6 +710,9 @@ a {
         &:hover {
           background: #e23636;
         }
+      }
+      &:before {
+        border-radius: 5px;
       }
     }
   }
@@ -2488,6 +2499,7 @@ span.atbdp-tick-cross {
 
     img {
       max-width: 100px;
+      height: 65px !important;
     }
 
     p {
@@ -5496,6 +5508,10 @@ img.atbdp-file-info {
 
 .add_listing_form_wrapper {
   &#gallery_upload {
+    padding: 30px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px dashed #dbdee9;
     .listing-prv-img-container {
       text-align: center;
     }
@@ -5507,10 +5523,10 @@ img.atbdp-file-info {
 .select2.select2-container {
   .select2-selection--single {
     border: 1px solid #8c8f94;
-    height: 40px;
+    min-height: 40px;
 
     .select2-selection__rendered {
-      height: 40px;
+      height: auto;
       line-height: 38px;
       padding: 0 15px;
     }

@@ -163,6 +163,8 @@ $(document).ready(function () {
   // Rearrange the IDS and Add new social field
 
   $('body').on('click', '#addNewSocial', function (e) {
+    var _this = this;
+
     var social_wrap = $('#social_info_sortable_container'); // cache it
 
     var currentItems = $('.directorist-form-social-fields').length;
@@ -181,6 +183,23 @@ $(document).ready(function () {
     atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
       social_wrap.append(data);
     });
+    setTimeout(function () {
+      var socialSelect = _this.parentElement.querySelectorAll('.directorist-form-social-fields select');
+
+      socialSelect.forEach(function (item) {
+        if (item.value !== '') {
+          item.classList.remove('placeholder-item');
+        }
+
+        item.addEventListener('change', function () {
+          if (this.value !== '' && this.classList.contains('placeholder-item')) {
+            this.classList.remove('placeholder-item');
+          } else if (this.value === '') {
+            this.classList.add('placeholder-item');
+          }
+        });
+      });
+    }, 300);
   });
   document.addEventListener('directorist-reload-plupload', function () {
     if ($('.directorist-color-field-js').length) {
@@ -555,15 +574,15 @@ $(document).ready(function () {
     var err_log = {};
     var error_count = 0;
 
-    // if (on_processing) {
-    //   $submitButton.attr('disabled', true);
-    //   return;
-    // }
+    if (on_processing) {
+      $submitButton.attr('disabled', true);
+      return;
+    }
 
     var form_data = new FormData();
     form_data.append('action', 'add_listing_action');
     form_data.append('directorist_nonce', directorist.directorist_nonce);
-    // $submitButton.addClass('atbd_loading');
+    $submitButton.addClass('atbd_loading');
     var fieldValuePairs = $form.serializeArray(); // Append Form Fields Values
 
     var _iterator2 = _createForOfIteratorHelper(fieldValuePairs),
@@ -864,7 +883,7 @@ $(document).ready(function () {
       var windowWidth = $(window).width();
       var sidebarWidth = $(".multistep-wizard__nav").width();
       var sidebarHeight = $(".multistep-wizard__nav").height();
-      var multiStepWizardOffset = $(".multistep-wizard").offset().top;
+      var multiStepWizardOffset = $(".multistep-wizard").offset() && $(".multistep-wizard").offset().top;
       var multiStepWizardHeight = $(".multistep-wizard").outerHeight();
 
       if (windowWidth > 991) {
@@ -898,14 +917,14 @@ $(document).ready(function () {
 }); // MultiStep Wizard
 
 function multiStepWizard() {
-  var defaultAddListing = document.querySelector('.default-add-listing');
+  var defaultAddListing = document.querySelector('.multistep-wizard.default-add-listing');
 
   if (!defaultAddListing) {
-    var totalStep = document.querySelectorAll('.multistep-wizard__nav__btn');
-    var totalWizard = document.querySelectorAll('.multistep-wizard__single');
-    var totalWizardCount = document.querySelector('.multistep-wizard__count__total');
-    var currentWizardCount = document.querySelector('.multistep-wizard__count__current');
-    var progressWidth = document.querySelector('.multistep-wizard__progressbar__width');
+    var totalStep = document.querySelectorAll('.multistep-wizard .multistep-wizard__nav__btn');
+    var totalWizard = document.querySelectorAll('.multistep-wizard .multistep-wizard__single');
+    var totalWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__total');
+    var currentWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__current');
+    var progressWidth = document.querySelector('.multistep-wizard .multistep-wizard__progressbar__width');
     var stepCount = 1;
     var progressPerStep = 100 / totalWizard.length; // Initialize Wizard Count & Progressbar
 
@@ -1076,9 +1095,23 @@ function defaultAddListing() {
     updateActiveNav();
     window.addEventListener("scroll", updateActiveNav);
   }
-}
-/* Elementor Edit Mode */
+} // Add Listing Accordion
 
+
+function addListingAccordion() {
+  $('body').on('click', '.directorist-add-listing-form .directorist-content-module__title', function (e) {
+    e.preventDefault();
+    var windowScreen = window.innerWidth;
+
+    if (windowScreen <= 480) {
+      $(this).toggleClass('opened');
+      $(this).next('.directorist-content-module__contents').toggleClass('active');
+    }
+  });
+}
+
+addListingAccordion();
+/* Elementor Edit Mode */
 
 $(window).on('elementor/frontend/init', function () {
   setTimeout(function () {
@@ -1144,6 +1177,25 @@ function init() {
     }
 
     selec2_add_custom_close_button($(this));
+    var selectItems = this.parentElement.querySelectorAll('.select2-selection__choice');
+    selectItems.forEach(function (item) {
+      item.childNodes && item.childNodes.forEach(function (node) {
+        if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+          var originalString = node.textContent;
+          var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+          node.textContent = modifiedString;
+          item.title = modifiedString;
+        }
+      });
+    });
+    var customSelectItem = this.parentElement.querySelector('.select2-selection__rendered');
+    customSelectItem.childNodes && customSelectItem.childNodes.forEach(function (node) {
+      if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+        var originalString = node.textContent;
+        var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+        node.textContent = modifiedString;
+      }
+    });
   });
 }
 

@@ -106,21 +106,21 @@ window.addEventListener('DOMContentLoaded', () => {
             }
 
             // Un-hide the remove image link
-            delImgLink.removeClass('hidden');
+            $('#delete-custom-img').removeClass('hidden');
         });
         // Finally, open the modal on click
         frame.open();
     });
 
     // DELETE ALL IMAGES LINK
-    delImgLink.on('click', function (event) {
+    $('body').on('click', '#delete-custom-img', function (event) {
         event.preventDefault();
         // Clear out the preview image and set no image as placeholder
         $('.listing-img-container').html(
             `<img src="${directorist_admin.assets_path}images/no-image.png" alt="Listing Image" />`
         );
         // Hide the delete image link
-        delImgLink.addClass('hidden');
+        $(this).addClass('hidden');
     });
 
     /* REMOVE SINGLE IMAGE */
@@ -136,7 +136,7 @@ window.addEventListener('DOMContentLoaded', () => {
             }images/no-image.png" alt="Listing Image" /><p>No images</p> ` +
                 `<small>(allowed formats jpeg. png. gif)</small>`
             );
-            delImgLink.addClass('hidden');
+            $('#delete-custom-img').addClass('hidden');
         }
     });
 

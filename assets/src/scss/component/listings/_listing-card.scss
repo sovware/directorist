@@ -22,7 +22,7 @@
         flex-wrap: wrap;
         gap: 8px;
         position: relative;
-        padding: 40px 20px 20px;
+        padding: 33px 20px 24px;
         @include m(top) {
             display: flex;
             align-items: center;
@@ -62,31 +62,31 @@
             }
         }
         @include m(list) {
-            margin-top: 16px;
+            margin-top: 10px;
             ul {
                 list-style-type: none;
                 padding: 0;
                 margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
             }
             li {
                 color: var(--directorist-color-body);
                 margin: 0;
                 list-style: none;
 
-                &:not(:last-child) {
-                    margin: 0 0 7px;
-                }
-
                 > div {
-                    margin-bottom: 2px;
                     font-size: 14px;
+                    line-height: 18px;
                     display: flex;
                     gap: 10px;
                     .directorist-icon-mask{
                         position: relative;
                         top: 2px;
                         &:after {
-                            width: 20px;
+                            width: 16px;
+                            height: 16px;
                             background-color: var(--directorist-color-light-gray);
                         }
                     }
@@ -136,14 +136,16 @@
                 display: none;
             }
             &:not(:empty) {
-                margin-top: 15px;
+                margin-top: 10px;
 
                 p {
                     font-size: 15px;
                     color: var(--directorist-color-body);
-                    line-height: 24px;
+                    line-height: 20px;
                     text-align: left;
                     margin: 0;
+                    display: flex;
+                    gap: 5px;
                     a {
                         color: var(--directorist-color-primary);
                         text-decoration: underline;
@@ -178,7 +180,7 @@
 
         .directorist-info-item {
             font-size: 14px;
-            line-height: 1.45;
+            line-height: 18px;
             position: relative;
             display: inline-block;
             &:not(:last-of-type) {
@@ -210,13 +212,14 @@
                 align-items: center;
                 font-size: 14px;
                 font-weight: 500;
+                line-height: 1;
                 color: var(--directorist-color-body);
                 .directorist-icon-mask{
                     margin-right: 4px;
                 }
                 .directorist-icon-mask:after{
-                    width: 15px;
-                    height: 15px;
+                    width: 12px;
+                    height: 12px;
                 }
             }
             &.directorist-badge {
@@ -257,16 +260,19 @@
         }
         .directorist-listing-tagline {
             flex: 0 0 100%;
-            margin: 0 4px 15px 4px;
+            margin: 0;
+            font-size: 14px;
+            line-height: 18px;
+            color: var(--directorist-color-light-gray);
         }
 
         .directorist-listing-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 500;
             padding: 0;
             text-transform: none;
-            line-height: 1.2;
-            margin: 0 0 8px;
+            line-height: 20px;
+            margin: 0;
             flex: 0 0 100%;
 
             a {
@@ -278,7 +284,7 @@
         .directorist-pricing-meta {
             .directorist-listing-price {
                 font-size: 14px;
-                font-weight: 400;
+                font-weight: 700;
                 color: var(--directorist-color-body);
                 padding: 0;
                 @media screen and (max-width: 575px) {
@@ -293,7 +299,7 @@
         flex-wrap: wrap;
         gap: 10px;
         position: relative;
-        padding: 15px 22px 10px;
+        padding: 14px 20px;
         justify-content: space-between;
         border-top: 1px solid var(--directorist-color-border);
         @include m(left) {
@@ -423,6 +429,19 @@
             overflow: hidden;
             z-index: 0;
 
+            .directorist-thumnail-card-front-wrap,
+            .directorist-thumnail-card-back-wrap {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+                z-index: 2;
+            }
+
             &.directorist-card-contain {
                 .directorist-thumnail-card-front-img {
                     object-fit: contain;
@@ -434,18 +453,6 @@
                     position: static;
                 }
             }
-        }
-        .directorist-thumnail-card-front-wrap,
-        .directorist-thumnail-card-back-wrap {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            z-index: 2;
         }
 
         .directorist-thumnail-card-back-wrap {
@@ -552,9 +559,6 @@
 
     // Single Listing Card
     &.directorist-listing-card {
-        .directorist-listing-title {
-            margin-top: 4px;
-        }
         .directorist-listing-single__thumb {
             margin: 0;
             position: relative;
@@ -678,7 +682,6 @@
                 @media only screen and (max-width: 575px) {
                     flex: unset;
                     width: 100px;
-                    height: 100px;
                     .directorist-badge {
                         width: 20px;
                         height: 20px;
@@ -718,6 +721,7 @@
                 padding: 18px 20px 15px;
 
                 @media only screen and (max-width: 575px) {
+                    padding-top: 10px;
                     .directorist-listing-title {
                         margin: 0;
                         font-size: 14px;

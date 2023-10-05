@@ -132,6 +132,12 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
                 $('body').on("click", ".directorist-filter-location-icon", function (e) {
                     navigator.geolocation.getCurrentPosition((position) => displayLocation(position, e));
+                    
+                    let parentField = e.target.closest('.directorist-search-field');
+
+                    if (!parentField.classList.contains('input-is-focused')) {
+                        parentField.classList.add('input-is-focused');
+                    }
                 });
             }
 

@@ -70,7 +70,6 @@
     border: 1px solid var(--directorist-color-border);
 
     @include e(title) {
-        border-bottom: 1px solid var(--directorist-color-border);
         display: flex;
         justify-content: space-between;
         padding: 15px 40px;
@@ -83,21 +82,21 @@
 
         h4 {
             margin: 0 !important;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 500;
             line-height: 1.2;
         }
     }
 
     @include e(contents) {
-        padding: 30px 40px;
+        padding: 30px 40px 40px;
+        border-top: 1px solid var(--directorist-color-border);
         @media (max-width: 480px) {
             padding: 20px;
         }
         .directorist-form-description-field {
             .wp-editor-wrap {
-                position: relative;
-                top: -23px;
+                margin-top: -30px;
             }
             .wp-editor-tabs {
                 position: relative;
@@ -166,6 +165,11 @@
             }
             select {
                 color: var(--directorist-color-primary);
+            }
+        }
+        .directorist-checkbox {
+            .directorist-checkbox__label {
+                margin-left: 0;
             }
         }
     }
@@ -537,10 +541,12 @@ body.logged-in .select2-container--open .select2-dropdown--above {
     .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
         display: flex;
         align-items: center;
-        color: var(--directorist-color-deep-gray);
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--directorist-color-body);
     }
     .directorist-select2-addons-area .directorist-icon-mask:after {
-        background-color: var(--directorist-color-deep-gray);
+        background-color: var(--directorist-color-body);
     }
 }
 

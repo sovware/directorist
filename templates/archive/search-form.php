@@ -34,7 +34,7 @@ if (is_numeric($searchform->listing_type)) {
 
 				<div class="directorist-advanced-filter__advanced">
 					<?php foreach ($searchform->form_data[1]['fields'] as $field) : ?>
-						<div class="directorist-form-group directorist-advanced-filter__advanced--element directorist-search-field-<?php echo esc_attr($field['widget_name']) ?>"><?php $searchform->field_template($field); ?></div>
+						<div class="directorist-advanced-filter__advanced--element directorist-search-field-<?php echo esc_attr($field['widget_name']) ?>"><?php $searchform->field_template($field); ?></div>
 					<?php endforeach; ?>
 				</div>
 			</div>

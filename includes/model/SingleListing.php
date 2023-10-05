@@ -73,7 +73,7 @@ class Directorist_Single_Listing {
 		$content_data           = array();
 		$single_fields          = get_term_meta( $this->type, 'single_listings_contents', true );
 		$submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
-
+		
 		if( !empty( $single_fields['fields'] ) ) {
 
 			foreach ( $single_fields['fields'] as $key => $value ) {
@@ -488,8 +488,8 @@ class Directorist_Single_Listing {
 	}
 
 	public function quick_actions_template() {
-		$actions = ! empty( $this->header_data['listings_header']['quick_actions'] ) ? $this->header_data['listings_header']['quick_actions'] : '';
-
+		
+		$actions = $this->listing_header( '', 'quick-widgets-placeholder', 'quick-action-placeholder' );
 		$args = array(
 			'listing'  => $this,
 			'actions'  => $actions,
@@ -501,7 +501,8 @@ class Directorist_Single_Listing {
 	}
 
 	public function quick_info_template() {
-		$quick_info = ! empty( $this->header_data['listings_header']['quick_info'] ) ? $this->header_data['listings_header']['quick_info'] : '';
+
+		$quick_info = $this->listing_header( '', 'more-widgets-placeholder' );
 
 		$args = array(
 			'listing' => $this,
@@ -517,7 +518,7 @@ class Directorist_Single_Listing {
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 
-		$type          = get_post_meta( get_the_ID(), '_directory_type', true );
+		$type          = get_post_meta( $this->id, '_directory_type', true );
 		$default_image = Helper::default_preview_image_src( $type );
 
 		// Get the preview images
@@ -586,10 +587,22 @@ class Directorist_Single_Listing {
 		return $data;
 	}
 
-	public function slider_template( $data ) {
+	public function slider_template() {
+
+		$slider = $this->listing_header( 'slider', 'slider-placeholder' );
+
+		if ( ! $slider ) {
+			return;
+		}
+
+		$this->slider_field_template();
+	}
+
+	public function slider_field_template() {
+
 		$args = array(
 			'listing'    => $this,
-			'data'       => $this->get_slider_data( $data ),
+			'data'       => $this->get_slider_data(),
 		);
 
 		Helper::get_template('single/slider', $args );
@@ -790,7 +803,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function submit_link() {
-		$id = get_the_ID();
+		$id = $this->id;
 		$payment   = isset($_GET['payment']) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
 		$redirect  = isset($_GET['redirect']) ? sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) : '';
 		$display_preview = get_directorist_option('preview_enable', 1);
@@ -823,7 +836,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function edit_link() {
-		$id = get_the_ID();
+		$id = $this->id;
 		$redirect  = isset($_GET['redirect']) ? sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) : '';
 		$edit_link = !empty($payment) ? add_query_arg('redirect', $redirect, ATBDP_Permalink::get_edit_listing_page_link($id)) : ATBDP_Permalink::get_edit_listing_page_link($id);
 		return $edit_link;
@@ -834,7 +847,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function current_user_is_author() {
-		$id = get_the_ID();
+		$id = $this->id;
 		$author_id = get_post_field( 'post_author', $id );
 
 		if ( is_user_logged_in() && $author_id == get_current_user_id() ) {
@@ -846,10 +859,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function display_back_link() {
-		$id = get_the_ID();
-		$type = get_post_meta( $id, '_directory_type', true );
-		$header = get_term_meta( $type, 'single_listing_header', true );
-		return !empty( $header['options']['general']['back']['label'] ) ? true : false;
+		return $this->listing_header( 'back', 'quick-widgets-placeholder', 'quick-info-placeholder' );
 	}
 
 	public function has_sidebar() {
@@ -891,22 +901,62 @@ class Directorist_Single_Listing {
 		return $notice_text;
 	}
 
-	public function header_template() {
-		$use_listing_title = !empty($this->header_data['options']['general']['section_title']['use_listing_title']) ? $this->header_data['options']['general']['section_title']['use_listing_title'] : '';
-		$section_title     = !empty($this->header_data['options']['general']['section_title']['label']) ? $this->header_data['options']['general']['section_title']['label'] : '';
-		$section_icon      = !empty($this->header_data['options']['general']['section_title']['icon']) ? $this->header_data['options']['general']['section_title']['icon'] : '';
-		$display_title     = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_title'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_title'] : '';
-		$display_tagline   = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] : '';
-		$display_content   = !empty( $this->header_data['options']['content_settings']['listing_description']['enable'] ) ? $this->header_data['options']['content_settings']['listing_description']['enable'] : '';
+	public function listing_header( $key = '', $group = '', $subgroup = '' ) {
 
+		foreach( $this->header_data as $data ) {
+
+			if ( $data['placeholderKey'] !== $group ) {
+				continue;
+			}
+
+			if ( $subgroup and ! empty( $data['placeholders'] ) ) {
+				foreach ( $data['placeholders'] as $placeholder )  {
+					if ( $placeholder['placeholderKey'] !== $subgroup ) {
+						continue;
+					}
+
+					if ( ! $key ) {
+						return $placeholder['selectedWidgets'];
+					}
+
+					foreach( $placeholder['selectedWidgets'] as $index => $widget ) {
+						if ( $widget['widget_key'] === $key ) {
+							return $widget;
+						}
+					}
+
+				}
+			}
+
+			if ( empty( $data['selectedWidgets'] ) ) {
+				return [];
+			}
+
+			if ( ! $key ) {
+				return $data['selectedWidgets'];
+			}
+
+			foreach( $data['selectedWidgets'] as $index => $widget ) {
+				if ( $widget['widget_key'] === $key ) {
+					return $widget;
+				}
+			}
+
+		}
+
+	}
+
+	public function header_template() {
+
+		$display_title     = $this->listing_header( 'title', 'listing-title-placeholder' );
 		$args = array(
 			'listing'           => $this,
-			'use_listing_title' => $use_listing_title,
-			'section_title'     => $section_title,
-			'section_icon'      => $section_icon,
+			'use_listing_title' => true,
+			'section_title'     => '',
+			'section_icon'      => '',
 			'display_title'     => $display_title,
-			'display_tagline'   => $display_tagline,
-			'display_content'   => $display_content,
+			'display_tagline'   => ! empty( $display_title['enable_tagline'] ) ? $display_title['enable_tagline'] : false,
+			'display_content'   => false,
 		);
 
 		return Helper::get_template('single/header', $args);
@@ -1141,7 +1191,7 @@ class Directorist_Single_Listing {
 		$info_content .= "</div></div></div>";
 
 
-		$cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+		$cats = get_the_terms($this->id, ATBDP_CATEGORY);
 		$cat_icon = '';
 		// if (!empty($cats)) {
 		// 	$cat_icon = get_cat_icon($cats[0]->term_id);
@@ -1168,8 +1218,8 @@ class Directorist_Single_Listing {
 
 	public function get_review_template() {
 		// Review
-		$average           = directorist_get_listing_rating( get_the_ID() );
-		$reviews_count     = directorist_get_listing_review_count( get_the_ID() );
+		$average           = directorist_get_listing_rating( $this->id );
+		$reviews_count     = directorist_get_listing_review_count( $this->id );
 
 		// Icons
 		$icon_empty_star = directorist_icon( 'fas fa-star', false, 'star-empty' );
@@ -1226,7 +1276,7 @@ class Directorist_Single_Listing {
 
 	public function loop_is_favourite() {
 		$favourites = directorist_get_user_favorites( get_current_user_id() );
-		return in_array( get_the_id() , $favourites );
+		return in_array( $this->id , $favourites );
 	}
 	
 	/**
@@ -1267,7 +1317,7 @@ class Directorist_Single_Listing {
 		$logic        = get_directorist_type_option( $this->type, 'similar_listings_logics', 'OR' );
 		$relationship = ( $logic == 'AND' ) ? 'AND' : 'OR';
 
-		$id = get_the_ID();
+		$id = $this->id;
 		$atbd_cats = get_the_terms($id, ATBDP_CATEGORY);
 		$atbd_tags = get_the_terms($id, ATBDP_TAGS);
 		$atbd_cats_ids = array();

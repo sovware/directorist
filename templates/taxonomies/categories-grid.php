@@ -21,8 +21,26 @@ $columns = floor( 12 / $taxonomy->columns );
 				<?php
 				if( $categories ) {
 					foreach ($categories as $category) {
-						$cat_class = $category['img'] ? ' directorist-categories__single--image' : '';
-						$img_src = esc_url( $category['img'] );
+						$cat_class      = $category['img'] ? ' directorist-categories__single--image' : '';
+						$img_src        = esc_url( $category['img'] );
+						$category_count = $category['term']->count ?? 0;
+						
+						if ( $category_count === 0 ) {
+							$listing_count_text = esc_html( 'listing', 'directorist' );
+						} else {
+							$listing_count_text = sprintf( 
+								_nx( 
+									'listing',
+									'listings',
+									$category_count,
+									'number of listings',
+									'directorist',
+								),
+								number_format_i18n( $category_count )
+							);
+						}
+						
+						$listing_count_text = sprintf( '%s <span class="directorist-category-term">%s</span>', $category['grid_count_html'], $listing_count_text );
 						?>
 						<div class="<?php Helper::directorist_column( $columns ); ?>">
 							<div class="directorist-categories__single<?php echo esc_attr( $cat_class ); ?> directorist-categories__single--style-one" style="background-image: url('<?php echo $category['img'] ? esc_attr($img_src) : 'none'; ?>')"
@@ -36,16 +54,15 @@ $columns = floor( 12 / $taxonomy->columns );
 									?>
 
 									<a href="<?php echo esc_url($category['permalink']); ?>" class="directorist-categories__single__name"><?php echo esc_html($category['name']); ?></a>
-									<?php if( $taxonomy->show_count ){ ?>
-									<div class="directorist-categories__single__total">
-										<?php
-										$listing_count_text = sprintf( _nx( 'listing', 'listings', $category['term']->count, 'number of listings', 'directorist' ), number_format_i18n( $category['term']->count ) );
 
-										$output = sprintf( '%s <span class="directorist-category-term">%s</span>', $category['grid_count_html'], $listing_count_text );
-										echo wp_kses_post( $output );
-										?>
-									</div>
+									<?php if ( $taxonomy->show_count ) { ?>
+										<div class="directorist-categories__single__total">
+											<?php
+												echo wp_kses_post( $listing_count_text );
+											?>
+										</div>
 									<?php } ?>
+
 								</div>
 							</div>
 						</div>

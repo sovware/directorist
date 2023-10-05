@@ -26,19 +26,19 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
 
                         <div class="multistep-wizard__nav">
                             <?php 
-                                $counter = 1;
-                                foreach ( $form_data as $key => $section ) {   
+                                foreach ( $form_data as $key => $section ) {
+                                    $label        = $section['label'] ?? '';
+                                    $id           = str_replace(' ', '-', strtolower( $label ) );
                                     $listing_type = isset( $section['fields']['listing_type'] ) ? $section['fields']['listing_type']['widget_name'] : '';
 
                                     if ( empty( $listing_type ) ) {
-                                        printf( '<div class="multistep-wizard__nav__item"><a href="#add-listing-content-%s" id="add-listing-nav-%s" class="multistep-wizard__nav__btn">%s %s</a></div>', esc_attr( $counter ), esc_attr( $counter ), ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : directorist_icon( 'fas fa-circle', false ) ), $section['label'] );
-
-                                        $counter++; 
+                                        printf( '<div class="multistep-wizard__nav__item"><a href="#add-listing-content-%s" id="add-listing-nav-%s" class="multistep-wizard__nav__btn">%s %s</a></div>', esc_attr( $id ), esc_attr( $id ), ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : directorist_icon( 'fas fa-circle', false ) ), $section['label'] );
                                     }
+
                                 }
                             ?>
                             <div class="multistep-wizard__nav__item">
-                                <a href="#" class="multistep-wizard__nav__btn multistep-wizard__nav__btn--finish  add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>
+                                <a href="#add-listing-last-content" id="add-listing-last-nav" class="multistep-wizard__nav__btn multistep-wizard__nav__btn--finish  add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>
                             </div>
                         </div>
                         
@@ -48,19 +48,14 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                         <div class="multistep-wizard__wrapper">
                             <?php
                                 ATBDP()->listing->add_listing->show_nonce_field();
-                                if ( !empty( $is_edit_mode ) || !empty( $single_directory )) {
+                                if ( !empty( $is_edit_mode ) || !empty( $single_directory ) ) {
                                     $listing_form->type_hidden_field();
                                 }
-                                $counter = 1;
                                 foreach ( $form_data as $section ) {
-                                    echo '<div class="multistep-wizard__single" id="add-listing-content-'. esc_attr( $counter ) . '">';
-                                    echo '<div class="multistep-wizard__single" id="add-listing-content-'. esc_attr( $counter ) . '">';
                                         $listing_form->section_template( $section );
-                                    echo '</div>';
-                                    $counter++; 
                                 }
                             ?>
-                            <div class="multistep-wizard__single add-listing-content-999">
+                            <div id="add-listing-last-content" class="multistep-wizard__single add-listing-content-999">
                                 <?php 
                                     $listing_form->submit_template();
                                 ?>
@@ -85,13 +80,13 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
 
                             <a type="submit" class="directorist-btn multistep-wizard__btn multistep-wizard__btn--next">Save & Next<?php directorist_icon( 'fas fa-arrow-right' ); ?></a>
 
-                            <button type="submit" class="directorist-btn directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--save-preview">Save & Preview</button>
+                            <button type="submit" class="directorist-btn directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--save-preview"><?php esc_html_e( 'Save & Preview', 'directorist' ); ?></button>
 
-                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--skip-preview">Skip preview and submit listing</button>
+                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--skip-preview"><?php esc_html_e( 'Skip preview and submit listing', 'directorist' ); ?></button>
                         </div>
                         
                         <div class="default-add-listing-bottom">
-                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn">Save & Preview</button>
+                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn"><?php esc_html_e( 'Save & Preview', 'directorist' ); ?></button>
                         </div>
                     </div>
                 </div>

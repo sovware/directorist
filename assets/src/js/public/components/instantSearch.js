@@ -583,7 +583,7 @@ import {
         let sort_by        = (sort_href && sort_href.length) ? sort_href.match(/sort=.+/) : '';
         let sort           = (sort_by && sort_by.length) ? sort_by[0].replace(/sort=/, '') : '';
         let view_href      = $(this).closest(this).attr('href');
-        let view           = view_href.match(/view=.+/);
+        let view           = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
         let type_href      = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
         let type           = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
         let directory_type = getURLParameter(type_href, 'directory_type');
@@ -1109,7 +1109,7 @@ import {
             const observer = new MutationObserver((mutationList, observer) => {
                 for (const mutation of mutationList) {
                     if(mutation.attributeName == 'value') {
-                        var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
+                        let sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
                         filterListing(sidebarElm);
                     }
                 }

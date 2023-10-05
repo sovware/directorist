@@ -158,8 +158,8 @@ class Directorist_Listing_Dashboard {
 			'format'    => '?paged=%#%',
 			'current'   => max(1, $paged),
 			'total'     => $query->max_num_pages,
-			'prev_text' => directorist_icon( 'las la-arrow-left', false ),
-			'next_text' => directorist_icon( 'las la-arrow-right', false ),
+			'prev_text' => directorist_icon( 'fas fa-chevron-left', false ),
+			'next_text' => directorist_icon( 'fas fa-chevron-right', false ),
 		));
 
 		return $links;

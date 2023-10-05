@@ -2,7 +2,7 @@
 .directorist-widget {
   margin-bottom: 25px;
   .directorist-card__header.directorist-widget__header {
-    padding: 15px 25px;
+    padding: 20px 25px;
 
     .directorist-widget__header--title {
       flex-wrap: wrap;
@@ -296,13 +296,19 @@
     margin: 0;
   }
   a{
-    text-decoration: none;
-    border: 1px solid var(--directorist-color-border);
-    padding: 5px 15px;
-    border-radius: var(--directorist-border-radius-xs);
     display: block;
     font-size: 15px;
-    font-weight: var(--directorist-fw-normal);
+    font-weight: 400;
+    padding: 5px 15px;
+    text-decoration: none;
+    color: var(--directorist-color-body);
+    border: 1px solid var(--directorist-color-border);
+    border-radius: var(--directorist-border-radius-xs);
+    transition: border-color 0.3s ease;
+    &:hover {
+      color: var(--directorist-color-primary);
+      border-color: var(--directorist-color-primary);
+    }
   }
 }
 
@@ -340,6 +346,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     &:focus {
       outline: none;
     }

@@ -1754,7 +1754,7 @@ function the_atbdp_favourites_link( $post_id = 0 ) {
     if ( in_array( $post_id, $favourites ) ) {
         return '' . directorist_icon('las la-heart', false, 'directorist-added-to-favorite') . '<span class="directorist-single-listing-action__text" data-post_id="' . $post_id . '">Bookmark</span>';
     } else {
-        return '' . directorist_icon('las la-heart', false) . '<span class="directorist-single-listing-action__text" data-post_id="' . $post_id . '">Bookmark</span>';
+        return '' . directorist_icon('lar la-heart', false) . '<span class="directorist-single-listing-action__text" data-post_id="' . $post_id . '">Bookmark</span>';
     }
 
 }
@@ -2338,7 +2338,7 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                 if (!empty($settings['show_count'])) {
                     $html .= ' (' . $count . ')';
                 }
-                $html .= search_category_location_filter($settings, $taxonomy_id, $prefix . '&nbsp;&nbsp;&nbsp;');
+                $html .= search_category_location_filter($settings, $taxonomy_id, $prefix . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
                 $html .= '</option>';
             }
         }
@@ -4120,4 +4120,24 @@ function directorist_maybe_number( $item ) {
 	}
 
 	return ( float ) $item;
+}
+
+function directorist_validate_youtube_vimeo_url( $url ) {
+    if ( preg_match( '/^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)/i', $url ) ) {
+        return true;
+    }
+
+    if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/i', $url ) ) {
+        return true;
+    }
+
+	if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]+)(\S+)?$/i', $url ) ) {
+        return true;
+    }
+
+    return false;
+}
+
+function directorist_is_listing_post_type( $listing_id ) {
+	return ( get_post_type( absint( $listing_id ) ) === ATBDP_POST_TYPE );
 }

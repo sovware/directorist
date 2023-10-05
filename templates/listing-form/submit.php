@@ -10,19 +10,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-add-listing-form__action">
 
-	<?php if ( $display_guest_listings && !is_user_logged_in() ): ?>
-		<div class="directorist-add-listing-form__publish">
-			<div class="directorist-add-listing-form__publish__icon">
-				<?php directorist_icon( 'fas fa-paper-plane' ); ?>
-			</div>
-			<h2 class="directorist-add-listing-form__publish__title">
-				<?php esc_html_e( 'You are about to publish', 'directorist' ); ?>
-			</h2>
-			<p class="directorist-add-listing-form__publish__subtitle">
-				<?php esc_html_e( 'Are you sure you want to publish this listing?', 'directorist' ); ?>
-			</p>
+	<div class="directorist-add-listing-form__publish">
+		<div class="directorist-add-listing-form__publish__icon">
+			<?php directorist_icon( 'fas fa-paper-plane' ); ?>
 		</div>
+		<h2 class="directorist-add-listing-form__publish__title">
+			<?php esc_html_e( 'You are about to publish', 'directorist' ); ?>
+		</h2>
+		<p class="directorist-add-listing-form__publish__subtitle">
+			<?php esc_html_e( 'Are you sure you want to publish this listing?', 'directorist' ); ?>
+		</p>
+	</div>
 
+	<?php if ( $display_guest_listings && !is_user_logged_in() ): ?>
 		<div class="directorist-form-group">
 
 			<label for="guest_user_email"><?php echo esc_html( $guest_email_label ); ?>:<span class="directorist-form-required"> *</span></label>

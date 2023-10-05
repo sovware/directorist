@@ -7278,7 +7278,10 @@ p.atbd-min {
 .directorist-single-listing-slider {
   max-width: 100%;
   border-radius: 16px;
+<<<<<<< HEAD
   margin: 0 auto;
+=======
+>>>>>>> eb929355797e5d12a76a83d3cd375c35bef2d732
 }
 @media screen and (max-width: 991px) {
   .directorist-single-listing-slider {
@@ -7339,8 +7342,12 @@ p.atbd-min {
 }
 
 .directorist-single-listing-slider-thumb {
+<<<<<<< HEAD
   max-width: 100%;
   margin: 10px auto 0;
+=======
+  margin-top: 10px;
+>>>>>>> eb929355797e5d12a76a83d3cd375c35bef2d732
   border-radius: 16px;
 }
 .directorist-single-listing-slider-thumb .directorist-swiper__navigation {

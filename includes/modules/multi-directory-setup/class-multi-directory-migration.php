@@ -1,6 +1,7 @@
 <?php
 
-namespace Directorist;
+namespace Directorist\Multi_Directory;
+
 class Multi_Directory_Migration {
 
     public $multi_directory_manager = null;

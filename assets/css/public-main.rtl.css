@@ -16185,43 +16185,79 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-signle-listing-top .directorist-return-back .directorist-single-listing-action__text {
   display: block;
 }
+.directorist-signle-listing-top__btn-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  bottom: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 999;
+}
+.directorist-signle-listing-top__btn-continue.directorist-btn {
+  height: 46px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 0 25px;
+  background-color: #394DFF !important;
+  color: var(--directorist-color-white);
+}
+.directorist-signle-listing-top__btn-continue.directorist-btn:hover {
+  background-color: var(--directorist-color-primary) !important;
+}
+.directorist-signle-listing-top__btn-continue.directorist-btn .directorist-single-listing-action__text {
+  display: block;
+}
 
-.directorist-single-wrapper .directorist-card {
+.directorist-single-contents-area .directorist-card {
   margin-bottom: 35px;
   -webkit-filter: none;
           filter: none;
   -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
           box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
 }
-.directorist-single-wrapper .directorist-card .directorist-card__body {
+.directorist-single-contents-area .directorist-card .directorist-card__body {
   padding: 30px;
 }
 @media screen and (max-width: 575px) {
-  .directorist-single-wrapper .directorist-card .directorist-card__body {
+  .directorist-single-contents-area .directorist-card .directorist-card__body {
     padding: 20px;
   }
 }
-.directorist-single-wrapper .directorist-card .directorist-card__header {
+.directorist-single-contents-area .directorist-card .directorist-card__header {
   padding: 20px 25px;
 }
 @media screen and (max-width: 575px) {
-  .directorist-single-wrapper .directorist-card .directorist-card__header {
+  .directorist-single-contents-area .directorist-card .directorist-card__header {
     padding: 15px 20px;
   }
 }
-.directorist-single-wrapper .directorist-card .directorist-single-author-name h4 {
+.directorist-single-contents-area .directorist-card .directorist-single-author-name h4 {
   margin: 0;
 }
-.directorist-single-wrapper .directorist-card__header--title {
+.directorist-single-contents-area .directorist-card__header--title {
   font-size: 18px;
   font-weight: 500;
   color: var(--directorist-color-primary);
   margin: 0 -6px;
 }
-.directorist-single-wrapper .directorist-card__header--title #directorist-review-counter {
+.directorist-single-contents-area .directorist-card__header--title #directorist-review-counter {
   margin-left: 10px;
 }
-.directorist-single-wrapper .directorist-card__header-icon {
+.directorist-single-contents-area .directorist-card__header-icon {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -16239,25 +16275,25 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-radius: 50%;
   background-color: var(--directorist-color-bg-light);
 }
-.directorist-single-wrapper .directorist-card__header-icon .directorist-icon-mask {
+.directorist-single-contents-area .directorist-card__header-icon .directorist-icon-mask {
   color: var(--directorist-color-dark);
 }
-.directorist-single-wrapper .directorist-card__header-icon .directorist-icon-mask:after {
+.directorist-single-contents-area .directorist-card__header-icon .directorist-icon-mask:after {
   width: 14px;
   height: 14px;
 }
-.directorist-single-wrapper .directorist-card__header-icon,
-.directorist-single-wrapper .directorist-card__header-text {
+.directorist-single-contents-area .directorist-card__header-icon,
+.directorist-single-contents-area .directorist-card__header-text {
   margin: 0 6px;
 }
-.directorist-single-wrapper .directorist-details-info-wrap a {
+.directorist-single-contents-area .directorist-details-info-wrap a {
   font-size: 15px;
   text-decoration: none;
   -webkit-box-shadow: none;
           box-shadow: none;
   color: var(--directorist-color-body);
 }
-.directorist-single-wrapper .directorist-details-info-wrap ul {
+.directorist-single-contents-area .directorist-details-info-wrap ul {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -16270,19 +16306,19 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   list-style-type: none;
   padding: 0;
 }
-.directorist-single-wrapper .directorist-details-info-wrap li {
+.directorist-single-contents-area .directorist-details-info-wrap li {
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 49%;
       -ms-flex: 0 0 49%;
           flex: 0 0 49%;
 }
-.directorist-single-wrapper .directorist-details-info-wrap .directorist-social-links a:hover {
+.directorist-single-contents-area .directorist-details-info-wrap .directorist-social-links a:hover {
   background-color: var(--directorist-color-primary);
 }
-.directorist-single-wrapper .directorist-single-info__label-icon .directorist-icon-mask:after {
+.directorist-single-contents-area .directorist-single-info__label-icon .directorist-icon-mask:after {
   background-color: #808080;
 }
-.directorist-single-wrapper .directorist-single-listing-slider .directorist-swiper__nav i:after {
+.directorist-single-contents-area .directorist-single-listing-slider .directorist-swiper__nav i:after {
   background-color: var(--directorist-color-white);
 }
 
@@ -16303,6 +16339,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-single-contents-area .directorist-single-wrapper .directorist-details-info-wrap .directorist-single-info {
   margin: 0;
+}
+.directorist-single-contents-area .directorist-card {
+  margin-bottom: 25px;
 }
 
 .directorist-single-map__location {

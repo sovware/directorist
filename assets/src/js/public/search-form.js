@@ -8,6 +8,7 @@ import { directorist_range_slider } from './range-slider';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
+        console.log('search-form.js');
         /* ----------------
         Search Listings
         ------------------ */
@@ -715,6 +716,7 @@ import { directorist_range_slider } from './range-slider';
 
         // Back Button to go back to the previous page
         $('body').on('click', '.directorist-btn__back', function(e) {
+            console.log('clicked');
             e.preventDefault();
             
             window.history.back();

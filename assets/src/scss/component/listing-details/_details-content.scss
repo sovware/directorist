@@ -13,10 +13,41 @@
             display: block;
         }
     }
+
+    @include e('btn-wrapper') {
+        position: fixed;
+        width: 100%;
+        height: 80px;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0,0,0,.8);
+        z-index: 999;
+    }
+
+    @include e('btn-continue') {
+        &.directorist-btn {
+            height: 46px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 0 25px;
+            background-color: #394DFF !important;
+            color: var(--directorist-color-white);
+            &:hover {
+                background-color: var(--directorist-color-primary) !important;
+            }
+            .directorist-single-listing-action__text {
+                display: block;
+            }
+        }
+    }
 }
 
 // Directorist Single Listing Style
-.directorist-single-wrapper {
+.directorist-single-contents-area {
     .directorist-card {
         margin-bottom: 35px;
         filter: none;
@@ -112,6 +143,9 @@
         .directorist-single-info {
             margin: 0;
         }
+    }
+    .directorist-card {
+        margin-bottom: 25px;
     }
 }
 

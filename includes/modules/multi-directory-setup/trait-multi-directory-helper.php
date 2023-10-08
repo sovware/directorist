@@ -1,9 +1,11 @@
 <?php
 
-namespace Directorist;
+namespace Directorist\Multi_Directory;
+
+use Directorist\Helper;
 
 trait Multi_Directory_Helper {
-    // add_directory
+
     public static function add_directory( array $args = [] ) {
         $default = [
             'term_id'        => 0,

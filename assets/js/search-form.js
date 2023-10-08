@@ -1073,6 +1073,10 @@ __webpack_require__.r(__webpack_exports__);
     function adsFormReset(searchForm) {
       searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
         el.value = "";
+
+        if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+          el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+        }
       });
       searchForm.querySelectorAll("input[type='date']").forEach(function (el) {
         el.value = "";
@@ -1082,9 +1086,17 @@ __webpack_require__.r(__webpack_exports__);
       });
       searchForm.querySelectorAll("input[type='url']").forEach(function (el) {
         el.value = "";
+
+        if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+          el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+        }
       });
       searchForm.querySelectorAll("input[type='number']").forEach(function (el) {
         el.value = "";
+
+        if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+          el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+        }
       });
       searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
         if (el.getAttribute('name') === "directory_type") return;
@@ -1107,6 +1119,10 @@ __webpack_require__.r(__webpack_exports__);
         el.selectedIndex = 0;
         $('.directorist-select2-dropdown-close').click();
         $(el).val(null).trigger('change');
+
+        if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+          el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+        }
       });
       var irisPicker = searchForm.querySelector("input.wp-picker-clear");
 
@@ -1121,10 +1137,6 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       handleRadiusVisibility();
-      var searchModalElement = document.querySelectorAll('.directorist-search-modal');
-      searchModalElement.forEach(function (searchModal) {
-        searchModalClose(searchModal);
-      });
     }
     /* Advance Search Filter For Search Home Short Code */
 

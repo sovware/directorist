@@ -55,6 +55,10 @@ import { directorist_range_slider } from './range-slider';
         function adsFormReset(searchForm) {
             searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
                 el.value = "";
+                
+                if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+                    el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+                }
             });
             searchForm.querySelectorAll("input[type='date']").forEach(function (el) {
                 el.value = "";
@@ -64,9 +68,17 @@ import { directorist_range_slider } from './range-slider';
             });
             searchForm.querySelectorAll("input[type='url']").forEach(function (el) {
                 el.value = "";
+                
+                if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+                    el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+                }
             });
             searchForm.querySelectorAll("input[type='number']").forEach(function (el) {
                 el.value = "";
+                
+                if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+                    el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+                }
             });
             searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
                 if(el.getAttribute('name') === "directory_type") return;
@@ -87,6 +99,10 @@ import { directorist_range_slider } from './range-slider';
                 el.selectedIndex = 0;
                 $('.directorist-select2-dropdown-close').click();
                 $(el).val(null).trigger('change');
+
+                if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+                    el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+                }
             });
 
             const irisPicker = searchForm.querySelector("input.wp-picker-clear");
@@ -99,11 +115,6 @@ import { directorist_range_slider } from './range-slider';
                 rangeValue.innerHTML = "0";
             }
             handleRadiusVisibility();
-
-            let searchModalElement = document.querySelectorAll('.directorist-search-modal');
-            searchModalElement.forEach((searchModal)=>{
-                searchModalClose(searchModal);
-            })
             
         }
 

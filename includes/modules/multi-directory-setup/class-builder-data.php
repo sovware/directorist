@@ -1860,11 +1860,11 @@ class Builder_Data {
                         'label' => 'Group Name',
                         'value' => 'Section',
                     ],
-                ],
-                'icon' => [
-                    'type'  => 'icon',
-                    'label'  => __( 'Block/Section Icon', 'directorist' ),
-                    'value' => '',
+                    'icon' => [
+                        'type'  => 'icon',
+                        'label'  => __( 'Block/Section Icon', 'directorist' ),
+                        'value' => '',
+                    ],
                 ],
                 'value'           => [
                     'fields' => [

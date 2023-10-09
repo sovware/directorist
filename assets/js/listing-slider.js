@@ -275,7 +275,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       });
-      var swiperSingleListing = new Swiper(swiperCarouselSingleListing, {
+      var swiperSingleListingConfig = {
         slidesPerView: 1,
         spaceBetween: 0,
         loop: true,
@@ -290,11 +290,16 @@ __webpack_require__.r(__webpack_exports__);
           el: ".directorist-swiper__pagination--single-listing",
           type: 'bullets',
           clickable: true
-        },
-        thumbs: {
-          swiper: swiperSingleListingThumb
         }
-      }); // Loop Destroy on Single Slider Item
+      };
+
+      if (swiperCarouselSingleListingThumb) {
+        swiperSingleListingConfig.thumbs = {
+          swiper: swiperSingleListingThumb
+        };
+      }
+
+      var swiperSingleListing = new Swiper(swiperCarouselSingleListing, swiperSingleListingConfig); // Loop Destroy on Single Slider Item
 
       var sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
 
@@ -305,14 +310,19 @@ __webpack_require__.r(__webpack_exports__);
       } // Add Styles
 
 
-      swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
-      swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
-      swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
-      swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
-      swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : ''; // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
+      if (swiperCarouselSingleListing) {
+        swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
+        swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
+        swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
+        swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
+        swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
+      }
 
-      swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
-      swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
+      if (swiperCarouselSingleListingThumb) {
+        // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
+        swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
+        swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
+      }
     });
   }
 

@@ -191,7 +191,7 @@
                 }
             });
             
-            let swiperSingleListing = new Swiper(swiperCarouselSingleListing, {
+            let swiperSingleListingConfig =  {
                 slidesPerView: 1,
                 spaceBetween: 0,
                 loop: true,
@@ -207,10 +207,15 @@
                     type: 'bullets',
                     clickable: true,
                 },
-                thumbs: {
+            };
+
+            if (swiperCarouselSingleListingThumb) {
+                swiperSingleListingConfig.thumbs = {
                     swiper: swiperSingleListingThumb
-                },
-            });
+                };
+            }
+            
+            let swiperSingleListing = new Swiper(swiperCarouselSingleListing, swiperSingleListingConfig);
 
             // Loop Destroy on Single Slider Item
             let sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
@@ -222,15 +227,22 @@
             }
 
             // Add Styles
-            swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
-            swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
-            swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
-            swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
-            swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
+            if (swiperCarouselSingleListing) {
 
-            // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
-            swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
-            swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
+                swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
+                swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
+                swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
+                swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
+                swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
+            }
+
+            if(swiperCarouselSingleListingThumb) {
+
+                // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
+                swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
+                swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
+            }
+
         });
     }
 

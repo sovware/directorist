@@ -133,6 +133,10 @@ import { directorist_range_slider } from './range-slider';
                     if (advanceSearchForm) {
                         adsFormReset(advanceSearchForm);
                     }
+                    const advanceSearchFilter = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__advanced');
+                    if (advanceSearchFilter) {
+                        adsFormReset(advanceSearchFilter);
+                    }
                 }
                 if($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
@@ -269,7 +273,7 @@ import { directorist_range_slider } from './range-slider';
                     }
 
                     $search_form_box.removeClass('atbdp-form-fade');
-                    checkEmptySearchFields();
+                    initSearchFields();
                   },
                   error: function error(_error) {
                     //console.log(_error);
@@ -279,7 +283,7 @@ import { directorist_range_slider } from './range-slider';
         }
 
         // Check Empty Search Fields on Search Modal
-        function checkEmptySearchFields(){
+        function initSearchFields(){
             let inputFields = document.querySelectorAll('.directorist-search-modal__input');
         
             inputFields.forEach((inputField)=>{
@@ -288,9 +292,30 @@ import { directorist_range_slider } from './range-slider';
                     inputField.style.display = 'none';
                 }
             });
+
+            let searchFields = document.querySelectorAll('.directorist-search-field__input');
+
+            searchFields.forEach((searchField)=>{
+                let inputFieldValue = searchField.value;
+                if(searchField.classList.contains('directorist-select')) {
+                    inputFieldValue = searchField.querySelector('select').dataset.selectedId;
+                }
+                
+                if (inputFieldValue !='') {
+                    searchField.parentElement.classList.add('input-has-value');
+                    if(!searchField.parentElement.classList.contains('input-is-focused')) {
+                        searchField.parentElement.classList.add('input-is-focused');
+                    }
+                } else {
+                    inputFieldValue = ''
+                    if(searchField.parentElement.classList.contains('input-has-value')) {
+                        searchField.parentElement.classList.remove('input-has-value');
+                    }
+                }
+            });
         }
 
-        checkEmptySearchFields();
+        initSearchFields();
 
         // hide country result when click outside the zipcode field
         $(document).on('click', function (e) {

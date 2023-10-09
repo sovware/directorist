@@ -10670,6 +10670,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .listing-with-sidebar__sidebar .directorist-price-ranges__price-frequency--btn:last-child {
   border: 0 none;
 }
+.listing-with-sidebar__sidebar .directorist-price-ranges__item .directorist-form-element {
+  padding-bottom: 0;
+}
 .listing-with-sidebar__sidebar .directorist-checkbox-wrapper,
 .listing-with-sidebar__sidebar .directorist-radio-wrapper,
 .listing-with-sidebar__sidebar .directorist-search-tags {

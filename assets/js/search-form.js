@@ -1158,6 +1158,12 @@ __webpack_require__.r(__webpack_exports__);
           if (advanceSearchForm) {
             adsFormReset(advanceSearchForm);
           }
+
+          var advanceSearchFilter = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__advanced');
+
+          if (advanceSearchFilter) {
+            adsFormReset(advanceSearchFilter);
+          }
         }
 
         if ($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length) {
@@ -1264,7 +1270,7 @@ __webpack_require__.r(__webpack_exports__);
             }
 
             $search_form_box.removeClass('atbdp-form-fade');
-            checkEmptySearchFields();
+            initSearchFields();
           },
           error: function error(_error) {//console.log(_error);
           }
@@ -1273,7 +1279,7 @@ __webpack_require__.r(__webpack_exports__);
     } // Check Empty Search Fields on Search Modal
 
 
-    function checkEmptySearchFields() {
+    function initSearchFields() {
       var inputFields = document.querySelectorAll('.directorist-search-modal__input');
       inputFields.forEach(function (inputField) {
         var searchField = inputField.querySelector('.directorist-search-field');
@@ -1282,9 +1288,31 @@ __webpack_require__.r(__webpack_exports__);
           inputField.style.display = 'none';
         }
       });
+      var searchFields = document.querySelectorAll('.directorist-search-field__input');
+      searchFields.forEach(function (searchField) {
+        var inputFieldValue = searchField.value;
+
+        if (searchField.classList.contains('directorist-select')) {
+          inputFieldValue = searchField.querySelector('select').dataset.selectedId;
+        }
+
+        if (inputFieldValue != '') {
+          searchField.parentElement.classList.add('input-has-value');
+
+          if (!searchField.parentElement.classList.contains('input-is-focused')) {
+            searchField.parentElement.classList.add('input-is-focused');
+          }
+        } else {
+          inputFieldValue = '';
+
+          if (searchField.parentElement.classList.contains('input-has-value')) {
+            searchField.parentElement.classList.remove('input-has-value');
+          }
+        }
+      });
     }
 
-    checkEmptySearchFields(); // hide country result when click outside the zipcode field
+    initSearchFields(); // hide country result when click outside the zipcode field
 
     $(document).on('click', function (e) {
       if (!$(e.target).closest('.directorist-zip-code').length) {

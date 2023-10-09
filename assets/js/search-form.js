@@ -1030,10 +1030,12 @@ __webpack_require__.r(__webpack_exports__);
 
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
+    console.log('search-form.js');
     /* ----------------
     Search Listings
     ------------------ */
     //ad search js
+
     function defaultTags() {
       $('.directorist-btn-ml').each(function (index, element) {
         var item = $(element).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
@@ -1655,6 +1657,7 @@ __webpack_require__.r(__webpack_exports__);
     }); // Back Button to go back to the previous page
 
     $('body').on('click', '.directorist-btn__back', function (e) {
+      console.log('clicked');
       e.preventDefault();
       window.history.back();
     });

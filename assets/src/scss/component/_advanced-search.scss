@@ -299,12 +299,14 @@
         }
         .directorist-form-element {
             background: transparent;
-            padding-bottom: 1px;
             border-bottom: 1px solid var(--directorist-color-border);
+            padding-bottom: 1px;
+            padding-inline-start: 42px;
+            padding-inline-end: 15px;
+            
             @media screen and (max-width: 575px) {
-                height: 34px;
-                text-align: center;
                 border-radius: 8px;
+                padding-inline-start: 53px;
                 border: 1px solid var(--directorist-color-border);
                 &:focus {
                     padding-bottom: 0;
@@ -321,6 +323,10 @@
         font-weight: 400 !important;
         color: var(--directorist-color-light-gray) !important;
         z-index: 1;
+        @media screen and (max-width: 575px) {
+            top: 13px;
+            left: 15px;
+        }
     }
     @include e(currency) {
         position: absolute;
@@ -331,6 +337,10 @@
         font-weight: 500;
         color: var(--directorist-color-primary);
         z-index: 1;
+        @media screen and (max-width: 575px) {
+            top: 13px;
+            left: 45px;
+        }
     }
 
     @include e('price-frequency'){
@@ -383,10 +393,6 @@
             border-radius: 0;
             background-color: var(--directorist-color-white);
         }
-    }
-
-    .directorist-form-element {
-        padding-inline-start: 42px;
     }
 }
 

@@ -267,4 +267,26 @@
         });
         
     });
+    
+
+    /* Elementor Edit Mode */
+    $(window).on('elementor/frontend/init', function () {
+        setTimeout(function() {
+            if ($('body').hasClass('elementor-editor-active')) {
+                allListingSlider();
+            }
+            if ($('body').hasClass('elementor-editor-active')) {
+                allListingSlider();
+            }
+        }, 3000);
+
+    });
+
+    // Elementor EditMode
+    $('body').on('click', function (e) {
+        if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
+            allListingSlider();
+        }
+    });
+
 })(jQuery);

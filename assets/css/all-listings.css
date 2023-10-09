@@ -9099,6 +9099,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     width: 16px;
     height: 16px;
   }
+  .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label .directorist-icon-mask:after, .directorist-checkbox input[type=checkbox] + .directorist-radio__label .directorist-icon-mask:after,
+.directorist-checkbox input[type=radio] + .directorist-checkbox__label .directorist-icon-mask:after,
+.directorist-checkbox input[type=radio] + .directorist-radio__label .directorist-icon-mask:after,
+.directorist-radio input[type=checkbox] + .directorist-checkbox__label .directorist-icon-mask:after,
+.directorist-radio input[type=checkbox] + .directorist-radio__label .directorist-icon-mask:after,
+.directorist-radio input[type=radio] + .directorist-checkbox__label .directorist-icon-mask:after,
+.directorist-radio input[type=radio] + .directorist-radio__label .directorist-icon-mask:after {
+    width: 12px;
+    height: 12px;
+  }
 }
 .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox input[type=radio]:checked + .directorist-checkbox__label:after,
@@ -9269,7 +9279,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-checkbox-rating .directorist-icon-mask:after {
   width: 14px;
   height: 14px;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .directorist-radio.directorist-radio-theme-admin input[type=radio] + .directorist-radio__label:before {
@@ -11151,7 +11161,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media only screen and (max-width: 575px) {
   .directorist-search-field-review .directorist-checkbox input[type=checkbox] + label {
-    padding-left: 30px;
+    padding-left: 28px;
   }
 }
 .directorist-search-field-review .directorist-checkbox input[type=checkbox] + label .directorist-icon-mask:after {

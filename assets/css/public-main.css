@@ -16245,7 +16245,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-white);
 }
 .directorist-signle-listing-top__btn-continue.directorist-btn:hover {
-  background-color: var(--directorist-color-primary) !important;
+  background-color: #2a3cd9 !important;
 }
 .directorist-signle-listing-top__btn-continue.directorist-btn .directorist-single-listing-action__text {
   display: block;

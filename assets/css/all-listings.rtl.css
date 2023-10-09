@@ -10523,7 +10523,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media screen and (max-width: 1199px) {
   .listing-with-sidebar__sidebar {
-    max-width: 275px;
+    max-width: 300px;
   }
 }
 @media only screen and (max-width: 991px) {
@@ -10655,7 +10655,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 100%;
 }
 .listing-with-sidebar__sidebar .directorist-price-ranges__price-frequency--btn .directorist-pf-range {
-  width: 68px;
+  width: 54px;
+}
+.listing-with-sidebar__sidebar .directorist-price-ranges__price-frequency--btn:last-child {
+  border: 0 none;
 }
 .listing-with-sidebar__sidebar .directorist-checkbox-wrapper,
 .listing-with-sidebar__sidebar .directorist-radio-wrapper,
@@ -11220,14 +11223,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media (max-width: 575px) {
   .directorist-price-ranges__item {
-    -webkit-box-flex: 1;
-    -webkit-flex: auto;
-        -ms-flex: auto;
-            flex: auto;
-  }
-}
-@media (max-width: 480px) {
-  .directorist-price-ranges__item {
     -webkit-box-flex: 0;
     -webkit-flex: 0 0 42%;
         -ms-flex: 0 0 42%;
@@ -11238,8 +11233,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background: transparent;
   border-bottom: 1px solid var(--directorist-color-border);
   padding-bottom: 1px;
-  -webkit-padding-start: 42px;
-          padding-inline-start: 42px;
+  -webkit-padding-start: 41px;
+          padding-inline-start: 41px;
   -webkit-padding-end: 15px;
           padding-inline-end: 15px;
 }
@@ -11352,7 +11347,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 @media screen and (max-width: 575px) {
   .directorist-price-ranges .directorist-pf-range {
     width: 100%;
-    border-radius: 0;
     background-color: var(--directorist-color-white);
   }
 }
@@ -11888,6 +11882,18 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .directorist-search-form__top .directorist-search-field.input-has-value:not(.input-is-focused) .directorist-search-field__label {
     opacity: 0;
     font-size: 0;
+  }
+  .directorist-search-form__top .directorist-search-field .directorist-price-ranges__label {
+    top: 12px;
+    right: 0;
+  }
+  .directorist-search-form__top .directorist-search-field .directorist-price-ranges__currency {
+    top: 12px;
+    right: 32px;
+  }
+  .directorist-search-form__top .directorist-search-field .directorist-price-ranges__item .directorist-form-element {
+    -webkit-padding-start: 41px;
+            padding-inline-start: 41px;
   }
 }
 .directorist-search-form__top .select2-container {

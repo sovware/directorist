@@ -339,7 +339,7 @@
 		}
 
 		@media screen and (max-width: 1199px) {
-			max-width: 275px;
+			max-width: 300px;
 		}
 		
 		@media only screen and (max-width: 991px) {
@@ -454,7 +454,10 @@
 			width: 100%;
 		}
 		.directorist-price-ranges__price-frequency--btn .directorist-pf-range {
-			width: 68px;
+			width: 54px;
+		}
+		.directorist-price-ranges__price-frequency--btn:last-child {
+			border: 0 none;
 		}
 		.directorist-checkbox-wrapper,
         .directorist-radio-wrapper,

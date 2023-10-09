@@ -15,7 +15,7 @@ $listing = Directorist_Single_Listing::instance();
 <div class="directorist-signle-listing-top directorist-flex directorist-align-center directorist-justify-content-between">
 	<?php if( $listing->display_back_link() ): ?>
 
-	<a href="#" class="directorist-single-listing-action directorist-return-back directorist-btn__back directorist-btn directorist-btn-sm directorist-btn-light"><?php directorist_icon( 'las la-arrow-left' ); ?> <span class="directorist-single-listing-action__text"><?php esc_html_e( 'Go Back', 'directorist'); ?></span> </a>
+	<a href="javascript:history.back()" class="directorist-single-listing-action directorist-return-back directorist-btn__back directorist-btn directorist-btn-sm directorist-btn-light"><?php directorist_icon( 'las la-arrow-left' ); ?> <span class="directorist-single-listing-action__text"><?php esc_html_e( 'Go Back', 'directorist'); ?></span> </a>
 
 	<?php endif; ?>
 

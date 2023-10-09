@@ -1030,12 +1030,10 @@ __webpack_require__.r(__webpack_exports__);
 
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
-    console.log('search-form.js');
     /* ----------------
     Search Listings
     ------------------ */
     //ad search js
-
     function defaultTags() {
       $('.directorist-btn-ml').each(function (index, element) {
         var item = $(element).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
@@ -1121,9 +1119,10 @@ __webpack_require__.r(__webpack_exports__);
         el.selectedIndex = 0;
         $('.directorist-select2-dropdown-close').click();
         $(el).val(null).trigger('change');
+        var parentElem = el.closest('.directorist-search-field');
 
-        if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
-          el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+        if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
+          parentElem.classList.remove('input-has-value', 'input-is-focused');
         }
       });
       var irisPicker = searchForm.querySelector("input.wp-picker-clear");

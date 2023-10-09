@@ -8,7 +8,6 @@ import { directorist_range_slider } from './range-slider';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
-        console.log('search-form.js');
         /* ----------------
         Search Listings
         ------------------ */
@@ -101,8 +100,10 @@ import { directorist_range_slider } from './range-slider';
                 $('.directorist-select2-dropdown-close').click();
                 $(el).val(null).trigger('change');
 
-                if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
-                    el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+                let parentElem = el.closest('.directorist-search-field');
+
+                if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
+                    parentElem.classList.remove('input-has-value', 'input-is-focused');
                 }
             });
 

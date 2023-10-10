@@ -12618,6 +12618,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
+  z-index: 10;
 }
 .directorist-search-field .directorist-location-js + .address_result ul {
   display: -webkit-box;

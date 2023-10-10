@@ -709,6 +709,7 @@
   border-radius: 10px;
   background-color: var(--directorist-color-white);
   box-shadow: var(--directorist-box-shadow);
+  z-index: 10;
   ul {
     display: flex;
     flex-direction: column;

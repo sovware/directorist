@@ -103,7 +103,9 @@ import { directorist_range_slider } from './range-slider';
                 let parentElem = el.closest('.directorist-search-field');
 
                 if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
-                    parentElem.classList.remove('input-has-value', 'input-is-focused');
+                    setTimeout(function(){
+                        parentElem.classList.remove('input-has-value', 'input-is-focused');
+                    }, 100)
                 }
             });
 
@@ -136,6 +138,13 @@ import { directorist_range_slider } from './range-slider';
                     const advanceSearchFilter = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__advanced');
                     if (advanceSearchFilter) {
                         adsFormReset(advanceSearchFilter);
+                    }
+                }
+                if ($(this).closest('.directorist-map-wrapper')) {
+
+                    const lwmSearchFilter = this.closest('.directorist-map-wrapper').querySelector('#directorist-search-area-form');
+                    if (lwmSearchFilter) {
+                        adsFormReset(lwmSearchFilter);
                     }
                 }
                 if($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length){

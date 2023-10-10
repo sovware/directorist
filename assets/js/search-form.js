@@ -1122,7 +1122,9 @@ __webpack_require__.r(__webpack_exports__);
         var parentElem = el.closest('.directorist-search-field');
 
         if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
-          parentElem.classList.remove('input-has-value', 'input-is-focused');
+          setTimeout(function () {
+            parentElem.classList.remove('input-has-value', 'input-is-focused');
+          }, 100);
         }
       });
       var irisPicker = searchForm.querySelector("input.wp-picker-clear");
@@ -1163,6 +1165,14 @@ __webpack_require__.r(__webpack_exports__);
 
           if (advanceSearchFilter) {
             adsFormReset(advanceSearchFilter);
+          }
+        }
+
+        if ($(this).closest('.directorist-map-wrapper')) {
+          var lwmSearchFilter = this.closest('.directorist-map-wrapper').querySelector('#directorist-search-area-form');
+
+          if (lwmSearchFilter) {
+            adsFormReset(lwmSearchFilter);
           }
         }
 

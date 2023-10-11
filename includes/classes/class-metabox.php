@@ -414,8 +414,14 @@ class ATBDP_Metabox {
 			$metas['_featured'] = !empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
 		}
 
-	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
-		$metas['_never_expire']      = !empty($_POST['never_expire']) ? (int) directorist_clean( wp_unslash( $_POST['never_expire'] ) ) : $expiration_to_forever;
+	   	$expiration_to_forever = ! $expiration ? 1 : '';
+
+		if ( ! empty( $_POST['never_expire'] ) || ! empty( $expiration_to_forever ) ) {
+			$metas['_never_expire'] = true;
+		}
+
+		// TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
+		// $metas['_never_expire']      = !empty($_POST['never_expire']) ? (int) directorist_clean( wp_unslash( $_POST['never_expire'] ) ) : $expiration_to_forever;
 		$exp_dt 					 = !empty($_POST['exp_date']) ? directorist_clean( wp_unslash( $_POST['exp_date'] ) ) : array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){

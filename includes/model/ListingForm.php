@@ -554,8 +554,12 @@ class Directorist_Listing_Form {
 		if ( ! empty( $listing_id ) ) {
 
 			$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
-
 		}
+
+		if ( $field_data['field_key'] === 'hide_contact_owner' && $value == 1 ) {
+			$value = 'on';
+		}
+
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
 
@@ -619,6 +623,9 @@ class Directorist_Listing_Form {
 			}
 		}
 
+		if ( $field_data['field_key'] === 'hide_contact_owner' && $value == 1 ) {
+			$value = 'on';
+		}
 
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;

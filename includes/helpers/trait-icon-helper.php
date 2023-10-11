@@ -51,7 +51,12 @@ trait Icon_Helper {
 	 * @return string
 	 */
 	private static function get_font_awesome_file( $icon ) {
-		list( $prefix, $name ) = explode( ' ', $icon );
+		list( $prefix, $name ) = array_pad( explode( ' ', $icon ), 2, '' );
+
+		if ( ! $name ) { 
+			return '';
+		}
+
 		$filename              = str_replace( 'fa-', '', $name );
 		$filename              = $filename . '.svg';
 
@@ -91,7 +96,12 @@ trait Icon_Helper {
 	 * @return string
 	 */
 	private static function get_line_awesome_file( $icon ) {
-		list( $prefix, $name ) = explode( ' ', $icon );
+		list( $prefix, $name ) = array_pad( explode( ' ', $icon ), 2, '' );
+		
+		if ( ! $name ) { 
+			return '';
+		}
+
 		$filename              = str_replace( 'la-', '', $name );
 
 		$lar_file = 'line-awesome/svgs/' . $filename . '.svg';
@@ -159,13 +169,17 @@ trait Icon_Helper {
 	 * @return string
 	 */
 	private static function get_unicons_file( $icon ) {
-		$slice = explode( ' ', $icon );
+		list( $prefix, $name ) = array_pad( explode( ' ', $icon ), 2, '' );
+		
+		if ( ! $name ) { 
+			return '';
+		}
 
-		if ( $slice[0] == 'uil' ) {
-			$filename = str_replace( 'uil-', '', $slice[1] );
+		if ( $prefix == 'uil' ) {
+			$filename = str_replace( 'uil-', '', $name );
 			$dir      = 'unicons/svgs/line/';
-		} elseif ( $slice[0] == 'uis' ) {
-			$filename = str_replace( 'uis-', '', $slice[1] );
+		} elseif ( $prefix == 'uis' ) {
+			$filename = str_replace( 'uis-', '', $name );
 			$dir      = 'unicons/svgs/solid/';
 		} else {
 			return '';

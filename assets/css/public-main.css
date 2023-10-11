@@ -17116,6 +17116,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-box-shadow: none;
           box-shadow: none;
 }
+.directorist-details-info-wrap .directorist-single-info.directorist-single-info-picker .directorist-field-type-color {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+}
 .directorist-details-info-wrap .directorist-single-info__label {
   display: -webkit-box;
   display: -webkit-flex;
@@ -17183,16 +17188,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  margin-top: 6px;
+  margin-top: 4px;
   color: var(--directorist-color-body);
 }
 .directorist-details-info-wrap .directorist-single-info__value a {
   color: var(--directorist-color-body);
-}
-.directorist-details-info-wrap.directorist-single-info-picker .directorist-field-type-color {
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
 }
 @media screen and (max-width: 575px) {
   .directorist-details-info-wrap .directorist-single-info-socials .directorist-single-info__label {

@@ -1118,10 +1118,6 @@ $(window).on('elementor/frontend/init', function () {
     if ($('body').hasClass('elementor-editor-active')) {
       multiStepWizard();
     }
-
-    if ($('body').hasClass('elementor-editor-active')) {
-      multiStepWizard();
-    }
   }, 3000);
 }); // Elementor EditMode
 

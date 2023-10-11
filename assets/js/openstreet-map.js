@@ -340,8 +340,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _single_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_single_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./single-listing/openstreet-map-widget */ "./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js");
 /* harmony import */ var _single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2__);
-;
-
 (function () {
   // DOM Mutation observer
   var targetNode = document.querySelector('.directorist-archive-contents');
@@ -432,6 +430,23 @@ __webpack_require__.r(__webpack_exports__);
 
     setup_map();
   }
+
+  var $ = jQuery;
+  /* Elementor Edit Mode */
+
+  $(window).on('elementor/frontend/init', function () {
+    setTimeout(function () {
+      if ($('body').hasClass('elementor-editor-active')) {
+        initMap();
+      }
+    }, 3000);
+  }); // Elementor EditMode
+
+  $('body').on('click', function (e) {
+    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+      initMap();
+    }
+  });
 })();
 /* Add listing OSMap */
 

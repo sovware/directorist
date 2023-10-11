@@ -340,7 +340,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _single_listing_google_map_widget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./single-listing/google-map-widget */ "./assets/src/js/global/map-scripts/single-listing/google-map-widget.js");
 /* harmony import */ var _single_listing_google_map_widget__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_single_listing_google_map_widget__WEBPACK_IMPORTED_MODULE_3__);
 
-;
 
 (function () {
   window.addEventListener('DOMContentLoaded', initMap);
@@ -619,6 +618,23 @@ __webpack_require__.r(__webpack_exports__);
       });
     })(jQuery);
   }
+
+  var $ = jQuery;
+  /* Elementor Edit Mode */
+
+  $(window).on('elementor/frontend/init', function () {
+    setTimeout(function () {
+      if ($('body').hasClass('elementor-editor-active')) {
+        initMap();
+      }
+    }, 3000);
+  }); // Elementor EditMode
+
+  $('body').on('click', function (e) {
+    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+      initMap();
+    }
+  });
 })();
 /* Add listing google map */
 

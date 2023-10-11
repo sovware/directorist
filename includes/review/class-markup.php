@@ -53,7 +53,7 @@ class Markup {
 		$rating = self::convert_to_num( $rating );
 		$rounded_rating = floor( $rating );
 
-		$full_star = str_repeat( directorist_icon( 'far fa-star', false, 'star-full' ), $rounded_rating );
+		$full_star = str_repeat( directorist_icon( 'fas fa-star', false, 'star-full' ), $rounded_rating );
 
 		while( $counter <= $base_rating - ( $rounded_rating + 1 ) ) {
 			$empty_star .= directorist_icon( 'far fa-star', false, ( ( $counter === 0 ) && ( is_float( $rating  ) ) ) ? 'star-empty directorist_fraction_star' : 'star-empty' );

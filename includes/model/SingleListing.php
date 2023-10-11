@@ -906,6 +906,10 @@ class Directorist_Single_Listing {
 
 		foreach( $this->header_data as $data ) {
 
+			if ( empty( $data['placeholderKey'] ) ) {
+				continue;
+			}
+
 			if ( $data['placeholderKey'] !== $group ) {
 				continue;
 			}

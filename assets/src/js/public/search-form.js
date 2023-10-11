@@ -140,14 +140,6 @@ import { directorist_range_slider } from './range-slider';
                         adsFormReset(advanceSearchFilter);
                     }
                 }
-                if ($(this).closest('.directorist-map-wrapper')) {
-
-                    let lwmWrapper = this.closest('.directorist-map-wrapper');
-                    let lwmSearchFilter = lwmWrapper && lwmWrapper.querySelector('#directorist-search-area-form');
-                    if (lwmSearchFilter) {
-                        adsFormReset(lwmSearchFilter);
-                    }
-                }
                 if($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
                 }

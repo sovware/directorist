@@ -1168,15 +1168,6 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
 
-        if ($(this).closest('.directorist-map-wrapper')) {
-          var lwmWrapper = this.closest('.directorist-map-wrapper');
-          var lwmSearchFilter = lwmWrapper && lwmWrapper.querySelector('#directorist-search-area-form');
-
-          if (lwmSearchFilter) {
-            adsFormReset(lwmSearchFilter);
-          }
-        }
-
         if ($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length) {
           Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])(0);
         }

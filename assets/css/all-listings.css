@@ -6389,6 +6389,32 @@ body.modal-overlay-enabled:before {
 .directorist-sidebar .directorist-card a {
   text-decoration: none;
 }
+.directorist-sidebar .directorist-card .directorist-search-form-box {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.directorist-sidebar .directorist-card .directorist-search-form-box .directorist-search-form-action {
+  margin-top: 25px;
+}
+.directorist-sidebar .directorist-card .directorist-search-form-top {
+  width: 100%;
+}
+.directorist-sidebar .directorist-card .directorist-search-form-top .directorist-search-modal__contents__body {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.directorist-sidebar .directorist-card .directorist-search-form-top .directorist-search-modal__contents__body .directorist-search-modal__input {
+  width: 100%;
+}
+.directorist-sidebar .directorist-card .directorist-search-form-top .directorist-search-modal__contents__body .directorist-search-modal__input .directorist-search-field {
+  border: 0 none;
+}
 
 .directorist-widget__listing-contact .directorist-form-group {
   display: -webkit-box;

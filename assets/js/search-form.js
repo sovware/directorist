@@ -1169,7 +1169,8 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         if ($(this).closest('.directorist-map-wrapper')) {
-          var lwmSearchFilter = this.closest('.directorist-map-wrapper').querySelector('#directorist-search-area-form');
+          var lwmWrapper = this.closest('.directorist-map-wrapper');
+          var lwmSearchFilter = lwmWrapper && lwmWrapper.querySelector('#directorist-search-area-form');
 
           if (lwmSearchFilter) {
             adsFormReset(lwmSearchFilter);

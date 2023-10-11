@@ -127,22 +127,23 @@ import { directorist_range_slider } from './range-slider';
             $("body").on("click", ".directorist-btn-reset-js", function (e) {
                 e.preventDefault();
                 if (this.closest('.directorist-contents-wrap')) {
-                    const searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
+                    let searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
                     if (searchForm) {
                         adsFormReset(searchForm);
                     }
-                    const advanceSearchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__form');
+                    let advanceSearchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__form');
                     if (advanceSearchForm) {
                         adsFormReset(advanceSearchForm);
                     }
-                    const advanceSearchFilter = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__advanced');
+                    let advanceSearchFilter = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__advanced');
                     if (advanceSearchFilter) {
                         adsFormReset(advanceSearchFilter);
                     }
                 }
                 if ($(this).closest('.directorist-map-wrapper')) {
 
-                    const lwmSearchFilter = this.closest('.directorist-map-wrapper').querySelector('#directorist-search-area-form');
+                    let lwmWrapper = this.closest('.directorist-map-wrapper');
+                    let lwmSearchFilter = lwmWrapper && lwmWrapper.querySelector('#directorist-search-area-form');
                     if (lwmSearchFilter) {
                         adsFormReset(lwmSearchFilter);
                     }

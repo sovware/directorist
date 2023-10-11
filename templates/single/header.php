@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.7.0
+ * @version 8.0
  */
 
  use \Directorist\Helper;
@@ -18,6 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		'display_tagline' => $display_tagline,
 	];
 	foreach ( $listing->header_data as $data ) {
+		if ( empty( $data['placeholderKey'] ) ) {
+			continue;
+		}
 		$template = str_replace( "-placeholder", "", $data['placeholderKey'] );
 		Helper::get_template( 'single/header-parts/'. $template, $args );
 	} ?>

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.3.3
+ * @version 7.8.0
  */
 
 $placeholder = $data['placeholder'] ?? '';

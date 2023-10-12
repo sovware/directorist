@@ -400,9 +400,24 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 
 					printf(
 						'<div class="directorist-view-count">
-							<span>%s</span>
-						</div>',
+							<div class="directorist-view-count-content">
+								<span class="directorist_listing-count-text directorist-count-text-%s" data-value="%s" contenteditable="false">%s</span>
+								<div class="directorist-listing-count-edit-wrap">
+									<a href="#" class="directorist-listing-count__edit" data-type-id="%s"><i class="fas fa-edit"></i></a>
+									<a href="#" class="directorist_listing-count-formText-add" data-type-id="%s"><i class="fas fa-arrow-right"></i></a>
+									<a href="#" class="directorist_listing-count-formText-remove"><i class="fas fa-times"></i></a>
+								</div>
+
+								<p class="directorist-count-notice directorist-count-notice directorist-count-notice-%s"></p>
+							</div>
+						</div>'
+						,
+						absint( $post_id ),
 						absint( $view_count ),
+						absint( $view_count ),
+						absint( $post_id ),
+						absint( $post_id ),
+						absint( $post_id ),
 						absint( $post_id ),
 						absint( $view_count ),
 					);

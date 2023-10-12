@@ -4671,6 +4671,7 @@ input.atbdp-form-control {
 
               &.directorist_listing-count {
                 min-width: 150px;
+                text-align: right;
 
                 @media only screen and (max-width: 1599px) {
                   min-width: 110px;
@@ -4892,8 +4893,7 @@ input.atbdp-form-control {
 }
 
 // Slug Text Edit
-.directorist_listing-slug-text,
-.directorist_listing-count-text {
+.directorist_listing-slug-text {
   min-width: 120px;
   display: inline-block;
   max-width: 120px;
@@ -4917,28 +4917,23 @@ input.atbdp-form-control {
     min-width: 90px;
   }
 }
-.directorist-type-slug, 
-.directorist-type-count {
+.directorist-type-slug {
   .directorist-slug-notice, 
-  .directorist-count-notice{
+  .directorist-count-notice {
     margin: 6px 0 0;
-    &.directorist-slug-notice-error, 
-    &.directorist-count-notice-error {
+    &.directorist-slug-notice-error {
       color: $danger;
     }
-    &.directorist-slug-notice-success, 
-    &.directorist-count-notice-success {
+    &.directorist-slug-notice-success {
       color: $success;
     }
   }
 }
-.directorist-type-slug-content,
-.directorist-type-count-content {
+.directorist-type-slug-content {
   display: flex;
   align-items: center;
 }
-.directorist-listing-slug-edit-wrap,
-.directorist-listing-count-edit-wrap {
+.directorist-listing-slug-edit-wrap {
   display: inline-block;
   position: relative;
   margin: -3px;
@@ -4948,9 +4943,7 @@ input.atbdp-form-control {
   }
 
   .directorist-listing-slug__edit,
-  .directorist_listing-slug-formText-add,
-  .directorist-listing-count__edit,
-  .directorist_listing-count-formText-add {
+  .directorist_listing-slug-formText-add {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -4985,8 +4978,7 @@ input.atbdp-form-control {
       }
     }
   }
-  .directorist_listing-slug-formText-add,
-  .directorist_listing-count-formText-add {
+  .directorist_listing-slug-formText-add {
     background: #08bf9c;
     box-shadow: none;
     display: none;
@@ -5005,8 +4997,7 @@ input.atbdp-form-control {
     }
   }
 
-  .directorist_listing-slug-formText-remove,
-  .directorist_listing-count-formText-remove {
+  .directorist_listing-slug-formText-remove {
     display: inline-flex;
     align-items: center;
     justify-content: center;

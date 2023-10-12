@@ -1566,22 +1566,22 @@ window.addEventListener('DOMContentLoaded', function () {
   });
 
   // View Count Changes
-  $('.directorist-type-count-content').each(function (id, element) {
-    var findElmSlug = $(element).find('.directorist_listing-count-text');
+  $('.type-at_biz_dir').each(function (id, element) {
+    var findElmCount = $(element).find('.directorist_listing-count-text');
 
     // Store old count value
-    var slugWrapper = $(element).children('.directorist_listing-count-text');
-    var oldSlugVal = slugWrapper.attr('data-value');
+    var countWrapper = $(element).find('.directorist_listing-count-text');
+    var oldCountVal = countWrapper.attr('data-value');
 
-    // Slug Edit
-    slugWrapper.on('input keypress', function (e) {
-      var slugText = $(this).text();
-      $(this).attr('data-value', slugText);
-      var setSlugBtn = $(this).siblings('.directorist-listing-count-edit-wrap').children('.directorist_listing-count-formText-add');
-      $(this).attr('data-value') === '' ? setSlugBtn.addClass('disabled') : setSlugBtn.removeClass('disabled');
+    // Count Edit
+    countWrapper.on('input keypress', function (e) {
+      var countText = $(this).text();
+      $(this).attr('data-value', countText);
+      var setCountBtn = $(this).siblings('.directorist-listing-count-edit-wrap').children('.directorist_listing-count-formText-add');
+      $(this).attr('data-value') === '' ? setCountBtn.addClass('disabled') : setCountBtn.removeClass('disabled');
       if (e.key === 'Enter' && $(this).attr('data-value') !== '') {
         e.preventDefault();
-        setSlugBtn.click();
+        setCountBtn.click();
       }
       if ($(this).attr('data-value') === '' && e.key === 'Enter') {
         e.preventDefault();
@@ -1592,64 +1592,64 @@ window.addEventListener('DOMContentLoaded', function () {
     $('body').on('click', '.directorist-listing-count__edit', function (e) {
       e.preventDefault();
       $('.directorist_listing-count-formText-remove').click();
-      var editableSlug = $(this).closest('.directorist-listing-count-edit-wrap').siblings('.directorist_listing-count-text');
-      editableSlug.attr('contenteditable', true);
-      editableSlug.addClass('directorist_listing-count-text--editable');
+      var editableCount = $(this).closest('.directorist-listing-count-edit-wrap').siblings('.directorist_listing-count-text');
+      editableCount.attr('contenteditable', true);
+      editableCount.addClass('directorist_listing-count-text--editable');
       $(this).hide();
       $(this).siblings('.directorist_listing-count-formText-add').addClass('active');
-      $(this).siblings('.directorist_listing-count-formText-remove').removeClass('directorist_listing-count-formText-remove--hidden');
-      editableSlug.focus();
+      $(this).siblings('.directorist_listing-count-formText-remove').addClass('active');
+      editableCount.focus();
     });
 
     // edit directory type count
     $(element).find('.directorist_listing-count-formText-add').on('click', function (e) {
       e.preventDefault();
       var _this = $(this);
-      var type_id = $(this).data('type-id');
-      var update_slug = $('.directorist-count-text-' + type_id).attr('data-value');
-      oldSlugVal = slugWrapper.attr('data-value'); /* Update the slug values */
-      var addSlug = $(this);
-      var slugId = $('.directorist-count-notice-' + type_id);
+      var count_id = $(this).data('type-id');
+      var update_count = $('.directorist-count-text-' + count_id).attr('data-value');
+      oldCountVal = countWrapper.attr('data-value'); /* Update the slug values */
+      var addCount = $(this);
+      var countId = $('.directorist-count-notice-' + count_id);
       var thisSiblings = $(_this).closest('.directorist-listing-count-edit-wrap').siblings('.directorist_listing-count-text');
-      addSlug.closest('.directorist-listing-count-edit-wrap').append("<span class=\"directorist_loader\"></span>");
+      addCount.closest('.directorist-listing-count-edit-wrap').append("<span class=\"directorist_loader\"></span>");
       $.ajax({
         type: 'post',
         url: directorist_admin.ajaxurl,
         data: {
           action: 'directorist_view_count_change',
           directorist_nonce: directorist_admin.directorist_nonce,
-          listing_id: type_id,
-          view_count: update_slug
+          listing_id: count_id,
+          view_count: update_count
         },
         success: function success(response) {
-          addSlug.closest('.directorist-listing-count-edit-wrap').children('.directorist_loader').remove();
+          addCount.closest('.directorist-listing-count-edit-wrap').children('.directorist_loader').remove();
           if (response) {
             if (response.error) {
-              slugId.removeClass('directorist-count-notice-success');
-              slugId.addClass('directorist-count-notice-error');
-              slugId.empty().html(response.error);
+              countId.removeClass('directorist-count-notice-success');
+              countId.addClass('directorist-count-notice-error');
+              countId.empty().html(response.error);
               if (response.old_slug) {
                 $('.directorist-count-text-' + listing_id).text(response.old_slug);
               }
               _this.siblings('.directorist-listing-count__edit').show();
               setTimeout(function () {
-                slugId.empty().html("");
+                countId.empty().html("");
               }, 3000);
             } else {
-              slugId.empty().html(response.success ? response.data.success : '');
-              slugId.removeClass('directorist-count-notice-error');
-              slugId.addClass('directorist-count-notice-success');
+              countId.empty().html(response.success ? response.data.success : '');
+              countId.removeClass('directorist-count-notice-error');
+              countId.addClass('directorist-count-notice-success');
               _this.siblings('.directorist-listing-count__edit').show();
               setTimeout(function () {
-                addSlug.closest('.directorist-listing-count__form').css({
+                addCount.closest('.directorist-listing-count__form').css({
                   "display": "none"
                 });
-                slugId.html("");
+                countId.html("");
               }, 1500);
             }
           }
           $(_this).removeClass('active');
-          $(_this).siblings('.directorist_listing-count-formText-remove').addClass('directorist_listing-count-formText-remove--hidden');
+          $(_this).siblings('.directorist_listing-count-formText-remove').removeClass('active');
           thisSiblings.removeClass('directorist_listing-count-text--editable');
           thisSiblings.attr('contenteditable', 'false');
         }
@@ -1664,21 +1664,21 @@ window.addEventListener('DOMContentLoaded', function () {
       $(this).siblings('.directorist_listing-count-formText-add').removeClass('active disabled');
       thisClosestSibling.removeClass('directorist_listing-count-text--editable');
       thisClosestSibling.attr('contenteditable', 'false');
-      $(this).addClass('directorist_listing-count-formText-remove--hidden');
-      thisClosestSibling.attr('data-value', oldSlugVal);
-      thisClosestSibling.text(oldSlugVal);
+      $(this).removeClass('active');
+      thisClosestSibling.attr('data-value', oldCountVal);
+      thisClosestSibling.text(oldCountVal);
     });
 
     // Hide Slug Form outside click
     $(document).on('click', function (e) {
-      if (!e.target.closest('.directorist-type-count')) {
-        findElmSlug.attr('data-value', oldSlugVal);
-        findElmSlug.text(oldSlugVal);
-        findElmSlug.attr('contenteditable', 'false');
-        findElmSlug.removeClass('directorist_listing-count-text--editable');
+      if (!e.target.closest('.directorist-view-count')) {
+        findElmCount.attr('data-value', oldCountVal);
+        findElmCount.text(oldCountVal);
+        findElmCount.attr('contenteditable', 'false');
+        findElmCount.removeClass('directorist_listing-count-text--editable');
         $(element).find('.directorist-listing-count__edit').show();
-        findElmSlug.siblings('.directorist-listing-count-edit-wrap').children('.directorist_listing-count-formText-add').removeClass('active disabled');
-        findElmSlug.siblings('.directorist-listing-count-edit-wrap').children('.directorist_listing-count-formText-remove').addClass('directorist_listing-count-formText-remove--hidden');
+        findElmCount.siblings('.directorist-listing-count-edit-wrap').children('.directorist_listing-count-formText-add').removeClass('active disabled');
+        findElmCount.siblings('.directorist-listing-count-edit-wrap').children('.directorist_listing-count-formText-remove').removeClass('active');
       }
     });
   });

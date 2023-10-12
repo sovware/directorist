@@ -102,6 +102,9 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			if ( empty( $_POST['directorist_user_email_verified'] ) ) {
 				update_user_meta( $user_id, 'directorist_user_email_unverified', true );
+
+				$sessions = WP_Session_Tokens::get_instance( $user_id );
+				$sessions->destroy_all();
 			} else {
 				delete_user_meta( $user_id, 'directorist_user_email_unverified' );
 			}

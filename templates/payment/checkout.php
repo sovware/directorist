@@ -115,7 +115,7 @@ use \Directorist\Helper;
                         <h4 class="atbdp_ch_total_text"><?php printf( esc_html__( 'Total amount [%s]', 'directorist' ), esc_html( $currency ) ); ?></h4>
                     </td>
                     <td class="text-right vertical-middle">
-                        <div id="atbdp_checkout_total_amount"><?php echo number_format( $subtotal, 2 ) ?></div>
+                        <div id="atbdp_checkout_total_amount"><?php echo atbdp_format_payment_amount( $subtotal ) ?></div>
                         <input type="hidden" name="price" id="atbdp_checkout_total_amount_hidden" value="<?php echo esc_attr( $subtotal ) ?>">
                     </td>
                 </tr>

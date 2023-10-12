@@ -84,7 +84,7 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 					$user = get_userdata( (int) $user );
 				}
 			}
-			$user_password = get_user_meta( $user->ID, '_atbdp_generated_password', true );
+			$user_password = $user ? get_user_meta( $user->ID, '_atbdp_generated_password', true ) :  '';
 			$site_name = get_option( 'blogname' );
 			$site_url = site_url();
 			$l_title = get_the_title( $listing_id );
@@ -131,8 +131,8 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 				'==USER_PASSWORD=='                              => $user_password,
 				'==USER_DASHBOARD=='                             => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
 				'==PIN=='                                        => $pin,
-				'==CONFIRM_EMAIL_ADDRESS_URL=='                  => sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw(directorist_password_reset_url($user, false, true)), __( 'Confirm Email Address', 'directorist' ) ),
-				'==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw(directorist_password_reset_url($user, true, true)), __( 'Set Password And Confirm Email Address', 'directorist' ) )
+				'==CONFIRM_EMAIL_ADDRESS_URL=='                  => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw(directorist_password_reset_url($user, false, true)), __( 'Confirm Email Address', 'directorist' ) ) : '',
+				'==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw(directorist_password_reset_url($user, true, true)), __( 'Set Password And Confirm Email Address', 'directorist' ) ) : ''
 			);
 			$c = nl2br( strtr( $content, $find_replace ) );
 			// we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.

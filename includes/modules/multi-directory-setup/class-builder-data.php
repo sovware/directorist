@@ -1946,9 +1946,9 @@ class Builder_Data {
                 'value'       => __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ),
             ],
             'terms_privacy_label2' => [
-                'label'       => __('Label 2', 'directorist'),
+                'label'       => __('Terms Label', 'directorist'),
                 'type'        => 'textarea',
-                'wp-editor'   => true,
+                'editor'      => 'wp_editor',
                 'value'       => __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ),
             ],
 

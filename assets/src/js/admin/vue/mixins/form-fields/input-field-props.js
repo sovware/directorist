@@ -196,5 +196,8 @@ export default {
         preview: {
             required: false,
         },
+        editor: {
+            required: false,
+        },
     },
 }

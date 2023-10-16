@@ -15,6 +15,7 @@
         <div
           v-for="(field, field_key) in sectionFields(section)"
           :class="fieldWrapperClass(field, fields[field])"
+          :id="fieldWrapperID(fields[field])"
           :key="field_key"
         >
           <component
@@ -27,6 +28,7 @@
             :class="{ ['highlight-field']: getHighlightState(field) }"
             :key="field_key"
             :cached-data="cached_fields[field]"
+            :test="fieldWrapperID(fields[field])"
             v-bind="fields[field]"
             @update="updateFieldValue(field, $event)"
             @validate="updateFieldValidationState(field, $event)"
@@ -115,6 +117,16 @@ export default {
         [key_class]: true,
       };
     },
+
+    fieldWrapperID(field) {
+      let type_id = "";
+      if(field && field.editor !== undefined) {
+        type_id = field.editor === "wp_editor" ? "cptm-field_wp_editor" : "";
+        
+      }
+
+      return type_id;
+    }
   },
 };
 </script>

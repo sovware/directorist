@@ -1945,6 +1945,12 @@ class Builder_Data {
                 'type'        => 'text',
                 'value'       => __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ),
             ],
+            'terms_privacy_label2' => [
+                'label'       => __('Label 2', 'directorist'),
+                'type'        => 'textarea',
+                'wp-editor'   => true,
+                'value'       => __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ),
+            ],
 
             'single_listings_contents'                    => [
                 'type'            => 'form-builder',
@@ -2560,7 +2566,8 @@ class Builder_Data {
                                     'terms_link',
                                     'privacy_name',
                                     'privacy_link',
-                                    'terms_privacy_label'
+                                    'terms_privacy_label',
+                                    'terms_privacy_label2',
                                 ],
                             ],
                             'submittion_settings'  => [

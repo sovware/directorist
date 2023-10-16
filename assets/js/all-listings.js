@@ -2820,7 +2820,8 @@ window.addEventListener('DOMContentLoaded', function () {
               }, 600);
             }
           });
-          updateComment.fail(function (data) {// console.log(data)
+          updateComment.fail(function (data) {
+            CommentEditHandler.showError($form, data.responseText);
           });
           updateComment.always(function () {
             $form.find('#comment').prop('disabled', false);
@@ -2862,6 +2863,8 @@ window.addEventListener('DOMContentLoaded', function () {
       }, {
         key: "onSubmit",
         value: function onSubmit(event) {
+          var _this2 = this;
+
           event.preventDefault();
           var form = $('.directorist-review-container #commentform');
           var originalButtonLabel = form.find('[type="submit"]').val();
@@ -2911,7 +2914,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
             if (newCommentId) {
-              $("body, html").animate({
+              $('body, html').animate({
                 scrollTop: commentTop
               }, 600);
             }
@@ -2919,8 +2922,15 @@ window.addEventListener('DOMContentLoaded', function () {
           do_comment.fail(function (data) {
             var body = $('<div></div>');
             body.append(data.responseText);
+            console.log(data);
             CommentAddReplyHandler.showError(form, body.find('.wp-die-message'));
             $(document).trigger('directorist_review_update_failed');
+
+            if (data.status === 403 || data.status === 401) {
+              $(document).off('submit', '.directorist-review-container #commentform', _this2.onSubmit);
+              $('#comment').prop('disabled', false);
+              form.find('[type="submit"]').prop('disabled', false).click();
+            }
           });
           do_comment.always(function () {
             $('#comment').prop('disabled', false);
@@ -2996,20 +3006,20 @@ window.addEventListener('DOMContentLoaded', function () {
       }, {
         key: "addEventListeners",
         value: function addEventListeners() {
-          var _this2 = this;
+          var _this3 = this;
 
           var self = this;
           this.$doc.on('directorist_review_updated', function (event) {
-            _this2.initStarRating();
+            _this3.initStarRating();
           });
           this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
-            _this2.initStarRating();
+            _this3.initStarRating();
           });
           this.$doc.on('click', 'a[href="#respond"]', function (event) {
             // First cancle the reply form then scroll to review form. Order matters.
-            _this2.cancelReplyMode();
+            _this3.cancelReplyMode();
 
-            _this2.onWriteReivewClick(event);
+            _this3.onWriteReivewClick(event);
           });
           this.$doc.on('click', '.directorist-js-edit-comment', function (event) {
             event.preventDefault();

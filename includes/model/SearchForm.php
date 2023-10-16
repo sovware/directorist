@@ -385,7 +385,7 @@ class Directorist_Listing_Search_Form {
 
 		if( $submission_form_fields['fields'] ) {
 			foreach( $submission_form_fields['fields'] as $field ) {
-				if( ! empty( $field['assign_to'] ) && $field['assign_to'] == 'category' && $category_id != $field['category'] ) {
+				if( ! empty( $field['assign_to'] ) && $category_id != $field['category'] ) {
 					$custom_field_key[] = $field['field_key'];
 					$assign_to_cat[]	= $field['category'];
 				}

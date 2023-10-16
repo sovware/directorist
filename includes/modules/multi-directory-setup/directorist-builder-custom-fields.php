@@ -53,12 +53,16 @@ return array(
 				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => false,
 			],
-			'assign_to' => $this->get_assign_to_field(),
+			'assign_to' => [
+				'type'  => 'toggle',
+				'label' => __('Assign to Category', 'directorist'),
+				'value' => false,
+			],
 			'category'  => $this->get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => 'category'],
+						['key' => 'value', 'compare' => '=', 'value' => true],
 					],
 				],
 			]),
@@ -106,12 +110,16 @@ return array(
 				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => false,
 			],
-			'assign_to' => $this->get_assign_to_field(),
+			'assign_to' => [
+				'type'  => 'toggle',
+				'label' => __('Assign to Category', 'directorist'),
+				'value' => false,
+			],
 			'category'  => $this->get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => 'category'],
+						['key' => 'value', 'compare' => '=', 'value' => true],
 					],
 				],
 			]),
@@ -233,12 +241,16 @@ return array(
 				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => false,
 			],
-			'assign_to' => $this->get_assign_to_field(),
+			'assign_to' => [
+				'type'  => 'toggle',
+				'label' => __('Assign to Category', 'directorist'),
+				'value' => false,
+			],
 			'category'  => $this->get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => 'category'],
+						['key' => 'value', 'compare' => '=', 'value' => true],
 					],
 				],
 			]),
@@ -281,12 +293,16 @@ return array(
 				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => false,
 			],
-			'assign_to' => $this->get_assign_to_field(),
+			'assign_to' => [
+				'type'  => 'toggle',
+				'label' => __('Assign to Category', 'directorist'),
+				'value' => false,
+			],
 			'category'  => $this->get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => 'category'],
+						['key' => 'value', 'compare' => '=', 'value' => true],
 					],
 				],
 			]),
@@ -329,12 +345,16 @@ return array(
 				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => false,
 			],
-			'assign_to' => $this->get_assign_to_field(),
+			'assign_to' => [
+				'type'  => 'toggle',
+				'label' => __('Assign to Category', 'directorist'),
+				'value' => false,
+			],
 			'category'  => $this->get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => 'category'],
+						['key' => 'value', 'compare' => '=', 'value' => true],
 					],
 				],
 			]),
@@ -372,12 +392,16 @@ return array(
 				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => false,
 			],
-			'assign_to' => $this->get_assign_to_field(),
+			'assign_to' => [
+				'type'  => 'toggle',
+				'label' => __('Assign to Category', 'directorist'),
+				'value' => false,
+			],
 			'category'  => $this->get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => 'category'],
+						['key' => 'value', 'compare' => '=', 'value' => true],
 					],
 				],
 			]),
@@ -432,12 +456,16 @@ return array(
 				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => false,
 			],
-			'assign_to' => $this->get_assign_to_field(),
+			'assign_to' => [
+				'type'  => 'toggle',
+				'label' => __('Assign to Category', 'directorist'),
+				'value' => false,
+			],
 			'category'  => $this->get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => 'category'],
+						['key' => 'value', 'compare' => '=', 'value' => true],
 					],
 				],
 			]),
@@ -492,12 +520,16 @@ return array(
 				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => false,
 			],
-			'assign_to' => $this->get_assign_to_field(),
+			'assign_to' => [
+				'type'  => 'toggle',
+				'label' => __('Assign to Category', 'directorist'),
+				'value' => false,
+			],
 			'category'  => $this->get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => 'category'],
+						['key' => 'value', 'compare' => '=', 'value' => true],
 					],
 				],
 			]),
@@ -552,12 +584,16 @@ return array(
 				'label' => __( 'Administrative Only', 'directorist' ),
 				'value' => false,
 			],
-			'assign_to' => $this->get_assign_to_field(),
+			'assign_to' => [
+				'type'  => 'toggle',
+				'label' => __('Assign to Category', 'directorist'),
+				'value' => false,
+			],
 			'category'  => $this->get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => 'category'],
+						['key' => 'value', 'compare' => '=', 'value' => true],
 					],
 				],
 			]),

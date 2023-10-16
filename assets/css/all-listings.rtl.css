@@ -13225,9 +13225,22 @@ Review: New Style
           align-items: center;
   margin-bottom: 3px;
 }
-.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask::after {
+.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask:after {
   width: 15px;
   height: 15px;
+  background-color: #EF8000;
+}
+.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask.directorist_fraction_star {
+  position: relative;
+}
+.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask.directorist_fraction_star:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  -webkit-mask-image: url(../images/b6ad67158aa2d6258e619021127e704f.svg);
+          mask-image: url(../images/b6ad67158aa2d6258e619021127e704f.svg);
   background-color: #EF8000;
 }
 .directorist-review-content .directorist-review-content__overview__rating .directorist-rating-overall {

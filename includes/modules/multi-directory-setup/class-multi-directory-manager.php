@@ -421,6 +421,13 @@ class Multi_Directory_Manager {
             }
         }
 
+        /**
+         * @since 7.7.0
+         * It fires before directory data updated
+         */
+
+         do_action( 'directorist_before_directory_type_updated' );
+
         $this->prepare_settings();
 
         $add_directory = self::add_directory([

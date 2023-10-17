@@ -18,14 +18,14 @@ class Builder_Data {
                 'title'         => __( 'Preset Fields', 'directorist' ),
                 'description'   => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
-                'widgets'       => apply_filters( 'atbdp_form_preset_widgets', require_once __DIR__ .  '/builder-preset-fields.php' ),
+                'widgets'       => require_once __DIR__ .  '/builder-preset-fields.php',
             ],
 
             'custom' => [
                 'title'         => __( 'Custom Fields', 'directorist' ),
                 'description'   => __( 'Click on a field type you want to create.', 'directorist' ),
                 'allowMultiple' => true,
-                'widgets'       => apply_filters( 'atbdp_form_custom_widgets', require_once __DIR__ .  '/builder-custom-fields.php' ),
+                'widgets'       => require_once __DIR__ .  '/builder-custom-fields.php',
 
             ],
         ];

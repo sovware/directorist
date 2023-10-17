@@ -54,10 +54,10 @@
     }
 
     @include e(card) {
-        border: 1px solid #eee;
-        border-radius: 10px;
         padding: 20px;
-        background: #fff;
+        border-radius: 12px;
+        background: var(--directorist-color-white);
+        box-shadow: var(--directorist-box-shadow);
 
         @include e(img) {
             margin-bottom: 15px;

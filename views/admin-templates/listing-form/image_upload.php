@@ -22,7 +22,7 @@ if( !empty( $listing_imgs ) ) {
 $active_mi_ext = is_multiple_images_active(); // default is no
 ?>
 
-<div class="add_listing_form_wrapper" id="gallery_upload">
+<div class="directorist-form-group add_listing_form_wrapper" id="gallery_upload">
     <?php if (!empty($display_prv_field)) { ?>
         <div class="form-group">
             <!-- image container, which can be manipulated with js -->

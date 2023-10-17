@@ -39,6 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<div class='directorist-swiper__pagination directorist-swiper__pagination--single-listing'></div>
 	</div>
 
+	<?php if( ! empty( $data['show-thumbnails'] ) ) : ?>
 	<div class="directorist-swiper directorist-single-listing-slider-thumb">
 		<div class="swiper-wrapper">
 			<?php
@@ -59,5 +60,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<div class='directorist-swiper__pagination directorist-swiper__pagination--single-listing-thumb'></div>
 	</div>
+	<?php endif; ?>
 
 </div>

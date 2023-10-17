@@ -129,7 +129,7 @@ __webpack_require__.r(__webpack_exports__);
         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
         loop: checkData(el.dataset.swLoop, true),
         slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
-        speed: checkData(parseInt(el.dataset.swSpeed), 3000),
+        speed: checkData(parseInt(el.dataset.swSpeed), 300),
         autoplay: checkData(el.dataset.swAutoplay, {}),
         navigation: {
           nextEl: ".directorist-swiper__nav--next-listing-".concat(i),
@@ -165,7 +165,7 @@ __webpack_require__.r(__webpack_exports__);
         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
         loop: checkData(el.dataset.swLoop, false),
         slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
-        speed: checkData(parseInt(el.dataset.swSpeed), 3000),
+        speed: checkData(parseInt(el.dataset.swSpeed), 300),
         autoplay: checkData(el.dataset.swAutoplay, {}),
         navigation: {
           nextEl: ".directorist-swiper__nav--next-related-".concat(i),
@@ -225,61 +225,94 @@ __webpack_require__.r(__webpack_exports__);
     });
     /* Swiper Slider Single Listing */
 
-    var swiperSingleListingThumb = new Swiper('.directorist-single-listing-slider-thumb', {
-      slidesPerView: 6,
-      spaceBetween: 10,
-      loop: false,
-      freeMode: true,
-      navigation: {
-        nextEl: ".directorist-swiper__nav--next-single-listing-thumb",
-        prevEl: ".directorist-swiper__nav--prev-single-listing-thumb"
-      },
-      pagination: {
-        el: ".directorist-swiper__pagination--single-listing-thumb",
-        type: 'bullets',
-        clickable: true
-      },
-      breakpoints: {
-        0: {
-          slidesPerView: 1,
-          spaceBetween: 0
+    var singleListingSlider = document.querySelectorAll('.directorist-single-listing-slider-wrap');
+    singleListingSlider.forEach(function (el, i) {
+      // Get Data Attribute
+      var dataWidth = el.getAttribute('data-width');
+      var dataHeight = el.getAttribute('data-height');
+      var dataRTL = el.getAttribute('data-rtl');
+      var dataBackgroundColor = el.getAttribute('data-background-color');
+      var dataBackgroundSize = el.getAttribute('data-background-size');
+      var dataBackgroundBlur = el.getAttribute('data-blur-background');
+      var dataShowThumbnails = el.getAttribute('data-show-thumbnails');
+      var dataThumbnailsBackground = el.getAttribute('data-thumbnail-background-color'); // Find Sliders
+
+      var swiperCarouselSingleListingThumb = el.querySelector('.directorist-single-listing-slider-thumb');
+      var swiperCarouselSingleListing = el.querySelector('.directorist-single-listing-slider');
+      var swiperSingleListingThumb = new Swiper(swiperCarouselSingleListingThumb, {
+        slidesPerView: 6,
+        spaceBetween: 10,
+        loop: false,
+        freeMode: true,
+        navigation: {
+          nextEl: ".directorist-swiper__nav--next-single-listing-thumb",
+          prevEl: ".directorist-swiper__nav--prev-single-listing-thumb"
         },
-        480: {
-          slidesPerView: 2
+        pagination: {
+          el: ".directorist-swiper__pagination--single-listing-thumb",
+          type: 'bullets',
+          clickable: true
         },
-        767: {
-          slidesPerView: 3
-        },
-        1200: {
-          slidesPerView: 4
-        },
-        1440: {
-          slidesPerView: 5
-        },
-        1600: {
-          slidesPerView: 6
+        breakpoints: {
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 0
+          },
+          480: {
+            slidesPerView: 2
+          },
+          767: {
+            slidesPerView: 3
+          },
+          1200: {
+            slidesPerView: 4
+          },
+          1440: {
+            slidesPerView: 5
+          },
+          1600: {
+            slidesPerView: 6
+          }
         }
-      }
-    });
-    var swiperSingleListing = new Swiper('.directorist-single-listing-slider', {
-      slidesPerView: 1,
-      spaceBetween: 0,
-      loop: true,
-      slidesPerGroup: 1,
-      observer: true,
-      observeParents: true,
-      navigation: {
-        nextEl: ".directorist-swiper__nav--next-single-listing",
-        prevEl: ".directorist-swiper__nav--prev-single-listing"
-      },
-      pagination: {
-        el: ".directorist-swiper__pagination--single-listing",
-        type: 'bullets',
-        clickable: true
-      },
-      thumbs: {
-        swiper: swiperSingleListingThumb
-      }
+      });
+      var swiperSingleListing = new Swiper(swiperCarouselSingleListing, {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        loop: true,
+        slidesPerGroup: 1,
+        observer: true,
+        observeParents: true,
+        navigation: {
+          nextEl: ".directorist-swiper__nav--next-single-listing",
+          prevEl: ".directorist-swiper__nav--prev-single-listing"
+        },
+        pagination: {
+          el: ".directorist-swiper__pagination--single-listing",
+          type: 'bullets',
+          clickable: true
+        },
+        thumbs: {
+          swiper: swiperSingleListingThumb
+        }
+      }); // Loop Destroy on Single Slider Item
+
+      var sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
+
+      if (sliderItemsCount.length <= '1') {
+        swiperSingleListing.loopDestroy();
+        swiperCarouselSingleListing.classList.add('slider-has-one-item');
+        swiperCarouselSingleListing.parentElement.querySelector('.directorist-single-listing-slider-thumb').style.display = 'none';
+      } // Add Styles
+
+
+      swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
+      swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
+      swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
+      swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
+      swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : ''; // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
+
+      swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
+      swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
     });
   }
 

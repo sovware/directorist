@@ -124,6 +124,25 @@ function init() {
     }
 
     selec2_add_custom_close_button($(this));
+    var selectItems = this.parentElement.querySelectorAll('.select2-selection__choice');
+    selectItems.forEach(function (item) {
+      item.childNodes && item.childNodes.forEach(function (node) {
+        if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+          var originalString = node.textContent;
+          var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+          node.textContent = modifiedString;
+          item.title = modifiedString;
+        }
+      });
+    });
+    var customSelectItem = this.parentElement.querySelector('.select2-selection__rendered');
+    customSelectItem.childNodes && customSelectItem.childNodes.forEach(function (node) {
+      if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+        var originalString = node.textContent;
+        var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+        node.textContent = modifiedString;
+      }
+    });
   });
 }
 
@@ -1382,7 +1401,7 @@ __webpack_require__.r(__webpack_exports__);
                   var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
                   var locationIconHTML = "<span class='location-icon'>" + iconHTML + "</span>";
 
-                  for (var i = 0, len = data.length; i < len; i++) {
+                  for (var i = 0, len = data.length > 5 ? 5 : data.length; i < len; i++) {
                     res += "<li><a href=\"#\" data-lat=" + data[i].lat + " data-lon=" + data[i].lon + ">" + locationIconHTML + "<span class='location-address'>" + data[i].display_name, +"</span></a></li>";
                   }
 
@@ -1390,8 +1409,8 @@ __webpack_require__.r(__webpack_exports__);
                     var lat = position.coords.latitude;
                     var lng = position.coords.longitude;
                     $.ajax({
-                      url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
-                      type: 'POST',
+                      url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=" + lng + "&lat=" + lat,
+                      type: 'GET',
                       data: {},
                       success: function success(data) {
                         $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
@@ -1516,20 +1535,23 @@ __webpack_require__.r(__webpack_exports__);
 
     $('body').on('click', '.directorist-modal-btn', function (e) {
       e.preventDefault();
+      var parentElement = this.closest('.directorist-contents-wrap');
 
       if (this.classList.contains('directorist-modal-btn--basic')) {
-        var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--basic');
+        var searchModalElement = parentElement.querySelector('.directorist-search-modal--basic');
         searchModalOpen(searchModalElement);
       }
 
       if (this.classList.contains('directorist-modal-btn--advanced')) {
-        var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
-        searchModalOpen(searchModalElement);
+        var _searchModalElement = parentElement.querySelector('.directorist-search-modal--advanced');
+
+        searchModalOpen(_searchModalElement);
       }
 
       if (this.classList.contains('directorist-modal-btn--full')) {
-        var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--full');
-        searchModalOpen(searchModalElement);
+        var _searchModalElement2 = parentElement.querySelector('.directorist-search-modal--full');
+
+        searchModalOpen(_searchModalElement2);
       }
     }); // Search Modal Close
 
@@ -1543,25 +1565,43 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
       var searchModalElement = this.closest('.directorist-search-modal');
       searchModalMinimize(searchModalElement);
-    }); // Basic Modal Input Field Check
+    }); // Search Form Input Field Check
 
-    $('body').on('input keyup', '.directorist-search-modal--basic .directorist-search-modal__input', function (e) {
-      var inputBox = this.querySelector('input, select');
+    $('body').on('input keyup change focus blur', '.directorist-search-field__input', function (e) {
+      if (e.type === 'focusin') {
+        this.parentElement.classList.add('input-is-focused');
+      } else if (e.type === 'blur') {
+        if (this.parentElement.classList.contains('input-is-focused')) {
+          this.parentElement.classList.remove('input-is-focused');
+        }
+      } else {
+        if (this.parentElement.classList.contains('input-is-focused')) {
+          this.parentElement.classList.remove('input-is-focused');
+        }
+      }
+
+      var inputBox = this;
 
       if (inputBox.value != '') {
-        this.classList.add('input-has-value');
+        this.parentElement.classList.add('input-has-value');
+
+        if (!this.parentElement.classList.contains('input-is-focused')) {
+          this.parentElement.classList.add('input-is-focused');
+        }
       } else {
-        if (this.classList.contains('input-has-value')) {
-          this.classList.remove('input-has-value');
+        inputBox.value = '';
+
+        if (this.parentElement.classList.contains('input-has-value')) {
+          this.parentElement.classList.remove('input-has-value');
         }
       }
     }); // Search Modal Input Clear Button
 
-    $('body').on('click', '.directorist-search-modal__input__btn--clear', function (e) {
-      var inputFields = this.parentElement.querySelectorAll('.directorist-search-field .directorist-form-element');
-      var selectboxField = this.parentElement.querySelector('.directorist-search-field .directorist-select select');
-      var radioFields = this.parentElement.querySelectorAll('.directorist-search-field input[type="radio"]');
-      var checkboxFields = this.parentElement.querySelectorAll('.directorist-search-field input[type="checkbox"]');
+    $('body').on('click', '.directorist-search-field__btn--clear', function (e) {
+      var inputFields = this.parentElement.querySelectorAll('.directorist-form-element');
+      var selectboxField = this.parentElement.querySelector('.directorist-select select');
+      var radioFields = this.parentElement.querySelectorAll('input[type="radio"]');
+      var checkboxFields = this.parentElement.querySelectorAll('input[type="checkbox"]');
 
       if (selectboxField) {
         selectboxField.selectedIndex = -1;
@@ -1586,10 +1626,21 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      if (this.parentElement.classList.contains('input-has-value')) {
-        this.parentElement.classList.remove('input-has-value');
+      if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
+        this.parentElement.classList.remove('input-has-value', 'input-is-focused');
       }
-    }); // Back Button
+    }); // Search Form Input Field Back Button
+
+    $('body').on('click', '.directorist-search-field__label', function (e) {
+      var windowScreen = window.innerWidth;
+      var parentField = this.closest('.directorist-search-field');
+
+      if (windowScreen <= 575) {
+        if (parentField.classList.contains('input-is-focused')) {
+          parentField.classList.remove('input-is-focused');
+        }
+      }
+    }); // Back Button to go back to the previous page
 
     $('body').on('click', '.directorist-btn__back', function (e) {
       e.preventDefault();

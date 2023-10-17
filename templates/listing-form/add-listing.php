@@ -38,7 +38,7 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                 }
                             ?>
                             <div class="multistep-wizard__nav__item">
-                                <a href="#" class="multistep-wizard__nav__btn multistep-wizard__nav__btn--finish  add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>
+                                <a href="#add-listing-last-content" id="add-listing-last-nav" class="multistep-wizard__nav__btn multistep-wizard__nav__btn--finish  add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>
                             </div>
                         </div>
                         
@@ -55,7 +55,7 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                         $listing_form->section_template( $section );
                                 }
                             ?>
-                            <div class="multistep-wizard__single add-listing-content-999">
+                            <div id="add-listing-last-content" class="multistep-wizard__single add-listing-content-999">
                                 <?php 
                                     $listing_form->submit_template();
                                 ?>

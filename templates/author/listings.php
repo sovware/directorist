@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<div class="directorist-dropdown directorist-dropdown-js directorist-author-listing-top__dropdown directorist-dropdown-update-js">
 
-			<a class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-toggle-has-icon directorist-btn" href="#" id="directorist-dropdown-menu-link"><?php esc_html_e( 'Filter by category', 'directorist'); ?> <span class="atbd_drop-caret"></span></a>
+			<button class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-toggle-has-icon directorist-btn" id="directorist-dropdown-menu-link"><?php esc_html_e( 'Filter by category', 'directorist'); ?> <span class="atbd_drop-caret"></span></button>
 
 			<div class="directorist-dropdown__links directorist-dropdown__links-js">
 

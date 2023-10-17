@@ -45,7 +45,7 @@
         @include e('name'){
             text-decoration: none;
             font-weight: 500;
-            font-size: 20px;
+            font-size: 16px;
             color: var(--directorist-color-primary);
             &::before{
                 content: '';
@@ -83,6 +83,8 @@
                     }
                 }
                 .directorist-categories__single__total{
+                    font-size: 14px;
+                    font-weight: 400;
                     color: var(--directorist-color-deep-gray);
                 }
             }
@@ -190,10 +192,13 @@
         padding: 8px 20px;
         align-items: center;
         gap: 12px;
+        font-size: 15px;
+        font-weight: 500;
         text-decoration: none;
         position: relative;
         min-height: 40px;
-        transition: 0.6s ease;
+        transition: 0.3s ease;
+        z-index: 1;
         span{
             font-weight: var(--directorist-fw-medium);
         }
@@ -225,6 +230,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            &::after {
+                width: 15px;
+                height: 15px;
+            }
         }
     }
     @include e('name'){
@@ -252,7 +261,7 @@
         a{
             flex-wrap: wrap;
             display: flex;
-            font-size: 16px;
+            font-size: 15px;
             text-decoration: none;
             color: var(--directorist-color-dark);
         }
@@ -261,10 +270,10 @@
         }
     }
     @include e('card'){
-        + .directorist-taxonomy-list__sub-item{
+        + .directorist-taxonomy-list__sub-item {
             background: var(--directorist-color-light);
             border-radius: 16px;
-            padding-inline-start: 20px;
+            padding-inline-start: 35px;
             padding-inline-end: 20px;
             height: 0;
             overflow: hidden;
@@ -273,10 +282,19 @@
             padding-bottom: 20px;
             margin-top: -20px;
             transition: 0.3s ease;
+            li{
+                margin: 0;
+                > .directorist-taxonomy-list__sub-item {
+                    padding-inline-start: 15px;
+                }
+            }
         }
         @include m('icon'){
             + .directorist-taxonomy-list__sub-item{
                 padding-inline-start: 64px;
+                li > .directorist-taxonomy-list__sub-item {
+                    padding-inline-start: 15px;
+                }
             }
         }
     }
@@ -481,10 +499,11 @@
             padding: 22px;
             h3{
                 margin: 0;
-                font-size: 20px;
-                font-weight: var(--directorist-fw-medium);
+                font-size: 16px;
+                font-weight: 500;
             }
             a{
+                color: var(--directorist-color-title);
                 text-decoration: none;
                 &::after{
                     position: absolute;
@@ -498,6 +517,8 @@
         }
         .directorist-location__count{
             display: block;
+            font-size: 14px;
+            font-weight: 400;
         }
     }
 

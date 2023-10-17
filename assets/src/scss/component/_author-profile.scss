@@ -5,7 +5,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 15px;
-        padding: 25px 50px 25px 30px;
+        padding: 25px 30px;
         margin: 0 0 40px;
         @include e(body) {
             padding: 0;
@@ -75,6 +75,7 @@
             align-items: center;
             gap: 15px;
             padding: 18px;
+            margin: 0;
             padding-right: 75px;
             border-radius: 12px;
             background-color: var(--directorist-color-bg-gray);
@@ -353,6 +354,10 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 30px;
+        .directorist-dropdown__links {
+            max-height: 300px;
+            overflow-y: auto;
+        }
     }
 
 

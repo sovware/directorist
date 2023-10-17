@@ -8614,7 +8614,14 @@ p.atbd-min {
   border-radius: 6px;
   border: 1px solid #d9d9d9;
 }
-.directorist-form-group__with-prefix .directorist-form-element {
+.directorist-form-group__with-prefix .directorist-form-element,
+.directorist-form-group__with-prefix .directorist-single-info__value {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  width: auto !important;
+  margin: 0 !important;
   padding: 0 10px !important;
   border: none !important;
 }

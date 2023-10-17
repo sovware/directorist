@@ -120,9 +120,27 @@ function init() {
       return;
     }
     selec2_add_custom_close_button($(this));
+    var selectItems = this.parentElement.querySelectorAll('.select2-selection__choice');
+    selectItems.forEach(function (item) {
+      item.childNodes && item.childNodes.forEach(function (node) {
+        if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+          var originalString = node.textContent;
+          var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+          node.textContent = modifiedString;
+          item.title = modifiedString;
+        }
+      });
+    });
+    var customSelectItem = this.parentElement.querySelector('.select2-selection__rendered');
+    customSelectItem.childNodes && customSelectItem.childNodes.forEach(function (node) {
+      if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+        var originalString = node.textContent;
+        var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+        node.textContent = modifiedString;
+      }
+    });
   });
 }
-
 function selec2_add_custom_dropdown_toggle_button() {
   // Remove Default
   $('.select2-selection__arrow').css({
@@ -1436,12 +1454,12 @@ __webpack_require__.r(__webpack_exports__);
         searchModalOpen(searchModalElement);
       }
       if (this.classList.contains('directorist-modal-btn--advanced')) {
-        var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--advanced');
-        searchModalOpen(searchModalElement);
+        var _searchModalElement = parentElement.querySelector('.directorist-search-modal--advanced');
+        searchModalOpen(_searchModalElement);
       }
       if (this.classList.contains('directorist-modal-btn--full')) {
-        var searchModalElement = document.querySelector('.directorist-contents-wrap .directorist-search-modal--full');
-        searchModalOpen(searchModalElement);
+        var _searchModalElement2 = parentElement.querySelector('.directorist-search-modal--full');
+        searchModalOpen(_searchModalElement2);
       }
     });
 
@@ -1457,8 +1475,9 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
       var searchModalElement = this.closest('.directorist-search-modal');
       searchModalMinimize(searchModalElement);
-    }); // Basic Modal Input Field Check
+    });
 
+    // Search Form Input Field Check
     $('body').on('input keyup change focus blur', '.directorist-search-field__input', function (e) {
       if (e.type === 'focusin') {
         this.parentElement.classList.add('input-is-focused');
@@ -1471,24 +1490,26 @@ __webpack_require__.r(__webpack_exports__);
           this.parentElement.classList.remove('input-is-focused');
         }
       }
-
       var inputBox = this;
-
       if (inputBox.value != '') {
-        this.classList.add('input-has-value');
+        this.parentElement.classList.add('input-has-value');
+        if (!this.parentElement.classList.contains('input-is-focused')) {
+          this.parentElement.classList.add('input-is-focused');
+        }
       } else {
-        if (this.classList.contains('input-has-value')) {
-          this.classList.remove('input-has-value');
+        inputBox.value = '';
+        if (this.parentElement.classList.contains('input-has-value')) {
+          this.parentElement.classList.remove('input-has-value');
         }
       }
-    }); // Search Modal Input Clear Button
+    });
 
+    // Search Modal Input Clear Button
     $('body').on('click', '.directorist-search-field__btn--clear', function (e) {
       var inputFields = this.parentElement.querySelectorAll('.directorist-form-element');
       var selectboxField = this.parentElement.querySelector('.directorist-select select');
       var radioFields = this.parentElement.querySelectorAll('input[type="radio"]');
       var checkboxFields = this.parentElement.querySelectorAll('input[type="checkbox"]');
-
       if (selectboxField) {
         selectboxField.selectedIndex = -1;
         selectboxField.dispatchEvent(new Event('change'));
@@ -1508,12 +1529,23 @@ __webpack_require__.r(__webpack_exports__);
           element.checked = false;
         });
       }
-
       if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
         this.parentElement.classList.remove('input-has-value', 'input-is-focused');
       }
-    }); // Back Button
+    });
 
+    // Search Form Input Field Back Button
+    $('body').on('click', '.directorist-search-field__label', function (e) {
+      var windowScreen = window.innerWidth;
+      var parentField = this.closest('.directorist-search-field');
+      if (windowScreen <= 575) {
+        if (parentField.classList.contains('input-is-focused')) {
+          parentField.classList.remove('input-is-focused');
+        }
+      }
+    });
+
+    // Back Button to go back to the previous page
     $('body').on('click', '.directorist-btn__back', function (e) {
       e.preventDefault();
       window.history.back();

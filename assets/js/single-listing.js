@@ -852,6 +852,7 @@ window.addEventListener('DOMContentLoaded', function () {
       }, {
         key: "onSubmit",
         value: function onSubmit(event) {
+          var _this2 = this;
           event.preventDefault();
           var form = $('.directorist-review-container #commentform');
           var originalButtonLabel = form.find('[type="submit"]').val();
@@ -912,6 +913,11 @@ window.addEventListener('DOMContentLoaded', function () {
             console.log(data);
             CommentAddReplyHandler.showError(form, body.find('.wp-die-message'));
             $(document).trigger('directorist_review_update_failed');
+            if (data.status === 403 || data.status === 401) {
+              $(document).off('submit', '.directorist-review-container #commentform', _this2.onSubmit);
+              $('#comment').prop('disabled', false);
+              form.find('[type="submit"]').prop('disabled', false).click();
+            }
           });
           do_comment.always(function () {
             $('#comment').prop('disabled', false);

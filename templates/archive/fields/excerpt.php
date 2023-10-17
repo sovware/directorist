@@ -15,7 +15,7 @@ if ( !$value ) {
 <p>
 	<?php echo esc_html( wp_trim_words( $value, (int) $data['words_limit'] ) );
 	if ( $data['show_readmore'] ) {
-		printf( '<a> %s</a>', esc_html( $data['show_readmore_text'] ) );
+		printf( '<span> %s</span>', esc_html( $data['show_readmore_text'] ) );
 	}
 	?>
 </p>

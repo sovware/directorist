@@ -737,19 +737,19 @@ window.addEventListener('DOMContentLoaded', function () {
       }
 
       // Un-hide the remove image link
-      delImgLink.removeClass('hidden');
+      $('#delete-custom-img').removeClass('hidden');
     });
     // Finally, open the modal on click
     frame.open();
   });
 
   // DELETE ALL IMAGES LINK
-  delImgLink.on('click', function (event) {
+  $('body').on('click', '#delete-custom-img', function (event) {
     event.preventDefault();
     // Clear out the preview image and set no image as placeholder
     $('.listing-img-container').html("<img src=\"".concat(directorist_admin.assets_path, "images/no-image.png\" alt=\"Listing Image\" />"));
     // Hide the delete image link
-    delImgLink.addClass('hidden');
+    $(this).addClass('hidden');
   });
 
   /* REMOVE SINGLE IMAGE */
@@ -759,7 +759,7 @@ window.addEventListener('DOMContentLoaded', function () {
     // if no image exist then add placeholder and hide remove image button
     if ($('.single_attachment').length === 0) {
       $('.listing-img-container').html("<img src=\"".concat(directorist_admin.assets_path, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
-      delImgLink.addClass('hidden');
+      $('#delete-custom-img').addClass('hidden');
     }
   });
   var has_tagline = $('#has_tagline').val();
@@ -2819,6 +2819,25 @@ function init() {
       return;
     }
     selec2_add_custom_close_button($(this));
+    var selectItems = this.parentElement.querySelectorAll('.select2-selection__choice');
+    selectItems.forEach(function (item) {
+      item.childNodes && item.childNodes.forEach(function (node) {
+        if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+          var originalString = node.textContent;
+          var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+          node.textContent = modifiedString;
+          item.title = modifiedString;
+        }
+      });
+    });
+    var customSelectItem = this.parentElement.querySelector('.select2-selection__rendered');
+    customSelectItem.childNodes && customSelectItem.childNodes.forEach(function (node) {
+      if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+        var originalString = node.textContent;
+        var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+        node.textContent = modifiedString;
+      }
+    });
   });
 }
 function selec2_add_custom_dropdown_toggle_button() {

@@ -69,6 +69,24 @@ $(document).ready(function () {
         atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
             social_wrap.append(data);
         });
+
+        setTimeout(() => {
+            let socialSelect = this.parentElement.querySelectorAll('.directorist-form-social-fields select');
+            socialSelect.forEach(item => {
+                if (item.value !== '') {
+                    item.classList.remove('placeholder-item');
+                }
+                item.addEventListener('change', function () {
+                    if (this.value !== '' && this.classList.contains('placeholder-item')) {
+                        this.classList.remove('placeholder-item');
+                    } else if (this.value === '') {
+                        this.classList.add('placeholder-item');
+                    }
+                })
+            })
+        }, 300);
+
+        
     });
     document.addEventListener('directorist-reload-plupload', function(){
         if($('.directorist-color-field-js').length){
@@ -743,7 +761,7 @@ $(document).ready(function () {
             var windowWidth = $(window).width();
             var sidebarWidth = $(".multistep-wizard__nav").width();
             var sidebarHeight = $(".multistep-wizard__nav").height();
-            var multiStepWizardOffset = $(".multistep-wizard").offset().top;
+            var multiStepWizardOffset = $(".multistep-wizard").offset() && $(".multistep-wizard").offset().top;
             var multiStepWizardHeight = $(".multistep-wizard").outerHeight();
             
             if (windowWidth > 991) {
@@ -783,13 +801,13 @@ $(document).ready(function () {
 
 // MultiStep Wizard
 function multiStepWizard() {
-    var defaultAddListing = document.querySelector('.default-add-listing');
+    var defaultAddListing = document.querySelector('.multistep-wizard.default-add-listing');
     if(!defaultAddListing) {
-        var totalStep = document.querySelectorAll('.multistep-wizard__nav__btn');
-        var totalWizard = document.querySelectorAll('.multistep-wizard__single');
-        var totalWizardCount = document.querySelector('.multistep-wizard__count__total');
-        var currentWizardCount = document.querySelector('.multistep-wizard__count__current');
-        var progressWidth = document.querySelector('.multistep-wizard__progressbar__width');
+        var totalStep = document.querySelectorAll('.multistep-wizard .multistep-wizard__nav__btn');
+        var totalWizard = document.querySelectorAll('.multistep-wizard .multistep-wizard__single');
+        var totalWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__total');
+        var currentWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__current');
+        var progressWidth = document.querySelector('.multistep-wizard .multistep-wizard__progressbar__width');
 
         var stepCount = 1;
 
@@ -964,6 +982,24 @@ function defaultAddListing() {
         window.addEventListener("scroll", updateActiveNav);
     }
 }
+
+// Add Listing Accordion
+
+function addListingAccordion() {
+    $('body').on('click', '.directorist-add-listing-form .directorist-content-module__title', function (e) {
+        e.preventDefault();
+
+        let windowScreen = window.innerWidth ;
+
+        if(windowScreen <= 480) {
+            $(this).toggleClass('opened');
+            $(this).next('.directorist-content-module__contents').toggleClass('active');
+        }
+        
+    })
+}
+
+addListingAccordion()
 
 
 /* Elementor Edit Mode */

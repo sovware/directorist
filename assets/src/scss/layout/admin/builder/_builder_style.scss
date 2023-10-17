@@ -2984,7 +2984,7 @@ input[type=radio] {
     align-items: center;
     flex-wrap: wrap;
     .directorist_listing-count-text {
-      min-width: 80px;
+      min-width: 40px;
       display: inline-block;
       max-width: 80px;
       overflow: hidden;
@@ -2994,8 +2994,16 @@ input[type=radio] {
       border-bottom: 1px solid transparent;
       transition: 0.3s ease;
       &.directorist_listing-count-text--editable {
+        min-width: 80px;
         border-color: #c6d0dc;
       }
+    }
+
+    .directorist-count-notice-success {
+      color: #08bf9c;
+    }
+    .directorist-count-notice-error {
+      color: #ff006e;
     }
   }
 

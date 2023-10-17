@@ -219,6 +219,10 @@ window.addEventListener('DOMContentLoaded', function () {
           navigator.geolocation.getCurrentPosition(function (position) {
             return displayLocation(position, e);
           });
+          var parentField = e.target.closest('.directorist-search-field');
+          if (!parentField.classList.contains('input-is-focused')) {
+            parentField.classList.add('input-is-focused');
+          }
         });
       }
     }, 1000);

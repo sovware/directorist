@@ -592,53 +592,57 @@ function convertToSelect2(field) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+// Archive Sidebar
 window.addEventListener('DOMContentLoaded', function () {
   /* Archive sidebar toggle */
   var archiveSidebar = document.querySelector('.listing-with-sidebar__sidebar');
   var archiveSidebarToggle = document.querySelector('.directorist-archive-sidebar-toggle');
   var archiveSidebarClose = document.querySelector('.directorist-advanced-filter__close');
-  var body = document.body;
+  var body = document.body; // Toggle sidebar and update toggle button's active state
 
-  // Toggle sidebar and update toggle button's active state
-  function toggleSidebar() {
+  function toggleSidebar(toggleBtn, archiveSidebar) {
     archiveSidebar.classList.toggle('listing-with-sidebar__sidebar--open');
     archiveSidebarToggle.classList.toggle('directorist-archive-sidebar-toggle--active');
-  }
+  } // Close sidebar and reset toggle button's active state
 
-  // Close sidebar and reset toggle button's active state
+
   function closeSidebar() {
     if (archiveSidebar) {
       archiveSidebar.classList.remove('listing-with-sidebar__sidebar--open');
     }
+
     if (archiveSidebarToggle) {
       archiveSidebarToggle.classList.remove('directorist-archive-sidebar-toggle--active');
     }
-  }
+  } // Event delegation for sidebar toggle and close buttons
 
-  // Event delegation for sidebar toggle and close buttons
+
   function handleSidebarToggleClick(e) {
     e.preventDefault();
     toggleSidebar();
   }
+
   function handleSidebarCloseClick(e) {
     e.preventDefault();
     closeSidebar();
-  }
+  } // Event delegation for outside click to close sidebar
 
-  // Event delegation for outside click to close sidebar
+
   function handleOutsideClick(e) {
     if (!e.target.closest('.listing-with-sidebar__sidebar') && e.target !== archiveSidebarToggle) {
       closeSidebar();
     }
-  }
+  } // Attach event listeners
 
-  // Attach event listeners
+
   if (archiveSidebarToggle) {
     archiveSidebarToggle.addEventListener('click', handleSidebarToggleClick);
   }
+
   if (archiveSidebarClose) {
     archiveSidebarClose.addEventListener('click', handleSidebarCloseClick);
   }
+
   body.addEventListener('click', handleOutsideClick);
 });
 
@@ -1805,7 +1809,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
     var view_href = $(this).closest(this).attr('href');
-    var view = view_href.match(/view=.+/);
+    var view = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
@@ -2605,7 +2609,7 @@ window.addEventListener('DOMContentLoaded', function () {
             }
           });
           updateComment.fail(function (data) {
-            // console.log(data)
+            CommentEditHandler.showError($form, data.responseText);
           });
           updateComment.always(function () {
             $form.find('#comment').prop('disabled', false);
@@ -2691,7 +2695,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
             // scroll to comment
             if (newCommentId) {
-              $("body, html").animate({
+              $('body, html').animate({
                 scrollTop: commentTop
               }, 600);
             }
@@ -2699,6 +2703,7 @@ window.addEventListener('DOMContentLoaded', function () {
           do_comment.fail(function (data) {
             var body = $('<div></div>');
             body.append(data.responseText);
+            console.log(data);
             CommentAddReplyHandler.showError(form, body.find('.wp-die-message'));
             $(document).trigger('directorist_review_update_failed');
           });
@@ -2767,18 +2772,18 @@ window.addEventListener('DOMContentLoaded', function () {
       }, {
         key: "addEventListeners",
         value: function addEventListeners() {
-          var _this2 = this;
+          var _this3 = this;
           var self = this;
           this.$doc.on('directorist_review_updated', function (event) {
-            _this2.initStarRating();
+            _this3.initStarRating();
           });
           this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
-            _this2.initStarRating();
+            _this3.initStarRating();
           });
           this.$doc.on('click', 'a[href="#respond"]', function (event) {
             // First cancle the reply form then scroll to review form. Order matters.
-            _this2.cancelReplyMode();
-            _this2.onWriteReivewClick(event);
+            _this3.cancelReplyMode();
+            _this3.onWriteReivewClick(event);
           });
           this.$doc.on('click', '.directorist-js-edit-comment', function (event) {
             event.preventDefault();

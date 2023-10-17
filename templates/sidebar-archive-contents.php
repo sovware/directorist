@@ -20,11 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php if( ! $listings->hide_top_search_bar_on_sidebar_layout() ) : ?>
 
 				<div class="listing-with-sidebar__searchform">
-					<div class="directorist-search-contents directorist-contents-wrap">
-						<?php
-							$listings->basic_search_form_template();
-						?>
-					</div>
+					<?php
+						$listings->basic_search_form_template();
+					?>
 				</div>
 
 			<?php endif; ?>
@@ -36,11 +34,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			</div>
 			<div class="listing-with-sidebar__contents">
 				<div class="listing-with-sidebar__sidebar <?php echo esc_attr( $listings->sidebar_class() ); ?>">
-					<div class="directorist-search-contents directorist-contents-wrap">
-						<?php
-							$listings->advance_search_form_template();
-						?>
-					</div>
+					<?php
+						$listings->advance_search_form_template();
+					?>
 				</div>
 				<div class="listing-with-sidebar__listing">
 					<?php

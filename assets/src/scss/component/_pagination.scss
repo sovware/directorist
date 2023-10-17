@@ -5,18 +5,18 @@
   justify-content: center;
   gap: 8px;
   .page-numbers {
-    font-size: 14px;
-    font-weight: 400;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    height: 38px;
-    width: 38px;
-    background-color: var(--directorist-color-white);
-    color: var(--directorist-color-body);
-    border: 1px solid var(--directorist-color-border);
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 400;
     border-radius: 10px;
+    color: var(--directorist-color-body);
+    background-color: var(--directorist-color-white);
+    border: 2px solid var(--directorist-color-border);
     .directorist-icon-mask{
       &:after{
         width: 14px;
@@ -24,19 +24,17 @@
         background-color: var(--directorist-color-body);
       }
     }
-    &.current {
-      height: 36px;
-      width: 36px;
-      border-width: 2px;
-      border-color: var(--directorist-color-primary);
-      color: var(--directorist-color-primary);
-    }
-  }
-  a.page-numbers {
+  
     span{
       border: 0 none;
       min-width: auto;
       margin: 0;
+    }
+
+    &:hover,
+    &.current {
+      border-color: var(--directorist-color-primary);
+      color: var(--directorist-color-primary);
     }
   }
 }

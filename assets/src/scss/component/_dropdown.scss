@@ -34,16 +34,10 @@
     }
 
     @include e('links') {
-        @include m(right) {
-            left: auto;
-            right: 0;
-        }
-
         display: none;
         position: absolute;
         width: 100%;
         min-width: 190px;
-        max-height: 250px;
         overflow-y: auto;
         left: 0;
         top: 30px;
@@ -58,10 +52,10 @@
             display: block;
             font-size: 14px;
             font-weight: 400;
-            text-decoration: none;
             display: block;
             padding: 10px;
             border-radius: 8px;
+            text-decoration: none !important;
             color: var(--directorist-color-body);
             transition: all ease 0.3s;
             &.active,
@@ -75,6 +69,12 @@
                 padding: 5px 10px;
             }
         }
+
+        @include m(right) {
+            left: auto;
+            right: 0;
+        }
+
         @media (max-width: 767px) {
             left: unset;
             right: 0;

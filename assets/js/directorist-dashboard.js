@@ -551,7 +551,7 @@ __webpack_require__.r(__webpack_exports__);
       $(this).siblings("ul").slideToggle();
     });
     if ($(window).innerWidth() < 1199) {
-      $(".directorist-tab__nav__link").on("click", function () {
+      $(".directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)").on("click", function () {
         $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
         $(".directorist-shade").removeClass("directorist-active");
       });
@@ -1107,7 +1107,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     this.navLinksSetup = function (selector) {
       var selector = document.querySelectorAll(selector);
       selector.forEach(function (el) {
-        a = el.querySelectorAll('.directorist-tab__nav__link');
+        a = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
         a.forEach(function (element) {
           element.style.cursor = 'pointer';
           element.addEventListener('click', function (event) {

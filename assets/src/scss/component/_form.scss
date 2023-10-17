@@ -15,8 +15,8 @@
     label {
         margin: 0;
         font-size: 14px;
-        font-weight: 500;
-        color: var(--directorist-color-dark);
+        font-weight: 400;
+        color: var(--directorist-color-body);
     }
     .directorist-form-element {
         position: relative;
@@ -25,8 +25,8 @@
         max-width: unset;
         height: 40px;
         font-size: 14px;
-        font-weight: 400;
-        color: var(--directorist-color-deep-gray);
+        font-weight: 500;
+        color: var(--directorist-color-primary);
         border: none;
         border-radius: 0;
         background: transparent;
@@ -84,8 +84,8 @@
         top: 50%;
         transform: translateY(-50%);
         line-height: 1.45;
-        margin-top: -2px;
         z-index: 99;
+        transition: margin 0.3s ease;
         i,
         span,
         svg {
@@ -95,6 +95,10 @@
             width: 16px;
             height: 16px;
             background-color: var(--directorist-color-body);
+        }
+
+        @media screen  and (max-width: 575px) {
+            margin-top: 0;
         }
     }
 }

@@ -166,6 +166,25 @@ function init() {
       return;
     }
     selec2_add_custom_close_button($(this));
+    var selectItems = this.parentElement.querySelectorAll('.select2-selection__choice');
+    selectItems.forEach(function (item) {
+      item.childNodes && item.childNodes.forEach(function (node) {
+        if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+          var originalString = node.textContent;
+          var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+          node.textContent = modifiedString;
+          item.title = modifiedString;
+        }
+      });
+    });
+    var customSelectItem = this.parentElement.querySelector('.select2-selection__rendered');
+    customSelectItem.childNodes && customSelectItem.childNodes.forEach(function (node) {
+      if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+        var originalString = node.textContent;
+        var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+        node.textContent = modifiedString;
+      }
+    });
   });
 }
 function selec2_add_custom_dropdown_toggle_button() {

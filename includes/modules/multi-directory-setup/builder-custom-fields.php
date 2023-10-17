@@ -156,7 +156,7 @@ return array(
 				'label' => __('Assign to Category', 'directorist'),
 				'value' => false,
 			],
-			'category'  => $this->get_category_select_field([
+			'category'  => get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
@@ -213,7 +213,7 @@ return array(
 				'label' => __('Assign to Category', 'directorist'),
 				'value' => false,
 			],
-			'category'  => $this->get_category_select_field([
+			'category'  => get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
@@ -287,7 +287,7 @@ return array(
 				'label' => __('Assign to Category', 'directorist'),
 				'value' => false,
 			],
-			'category'  => $this->get_category_select_field([
+			'category'  => get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
@@ -344,7 +344,7 @@ return array(
 				'label' => __('Assign to Category', 'directorist'),
 				'value' => false,
 			],
-			'category'  => $this->get_category_select_field([
+			'category'  => get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
@@ -396,7 +396,7 @@ return array(
 				'label' => __('Assign to Category', 'directorist'),
 				'value' => false,
 			],
-			'category'  => $this->get_category_select_field([
+			'category'  => get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
@@ -448,7 +448,7 @@ return array(
 				'label' => __('Assign to Category', 'directorist'),
 				'value' => false,
 			],
-			'category'  => $this->get_category_select_field([
+			'category'  => get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
@@ -495,7 +495,7 @@ return array(
 				'label' => __('Assign to Category', 'directorist'),
 				'value' => false,
 			],
-			'category'  => $this->get_category_select_field([
+			'category'  => get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
@@ -559,7 +559,7 @@ return array(
 				'label' => __('Assign to Category', 'directorist'),
 				'value' => false,
 			],
-			'category'  => $this->get_category_select_field([
+			'category'  => get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
@@ -623,7 +623,7 @@ return array(
 				'label' => __('Assign to Category', 'directorist'),
 				'value' => false,
 			],
-			'category'  => $this->get_category_select_field([
+			'category'  => get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [
@@ -687,7 +687,7 @@ return array(
 				'label' => __('Assign to Category', 'directorist'),
 				'value' => false,
 			],
-			'category'  => $this->get_category_select_field([
+			'category'  => get_category_select_field([
 				'show_if' => [
 					'where'      => "self.assign_to",
 					'conditions' => [

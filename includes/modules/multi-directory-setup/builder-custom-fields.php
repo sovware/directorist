@@ -114,7 +114,7 @@ function get_file_upload_field_options() {
 	return $options;
 }
 
-return array(
+return apply_filters( 'atbdp_form_custom_widgets', array(
 	'text' => [
 		'label'   => __( 'Text', 'directorist' ),
 		'icon'    => 'uil uil-text',
@@ -682,4 +682,4 @@ return array(
 			],
 		]
 	],
-);
+));

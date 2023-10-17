@@ -28,7 +28,6 @@
             :class="{ ['highlight-field']: getHighlightState(field) }"
             :key="field_key"
             :cached-data="cached_fields[field]"
-            :test="fieldWrapperID(fields[field])"
             v-bind="fields[field]"
             @update="updateFieldValue(field, $event)"
             @validate="updateFieldValidationState(field, $event)"

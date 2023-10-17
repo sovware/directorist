@@ -199,5 +199,8 @@ export default {
         editor: {
             required: false,
         },
+        editorID: {
+            required: false,
+        },
     },
 }

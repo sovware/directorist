@@ -1611,6 +1611,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     editor: {
       required: false
+    },
+    editorID: {
+      required: false
     }
   }
 });
@@ -16120,7 +16123,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
-//
 //
 //
 //
@@ -31462,8 +31464,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'textarea-field-theme-default',
@@ -31473,19 +31473,35 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       default: ''
     },
+    editorID: {
+      required: false,
+      default: ''
+    },
     fieldId: {
+      required: false,
+      default: ''
+    },
+    value: {
       required: false,
       default: ''
     }
   },
   mounted: function mounted() {
+    var editorID = this.editorID;
+    var value = this.value;
     tinymce.init({
-      selector: "#".concat(this.editor, "_").concat(this.fieldId),
+      selector: "#".concat(editorID),
       plugins: 'lists link media',
       toolbar: 'undo redo | formatselect | bold italic | bullist numlist | link | media',
       menubar: false,
-      branding: false
-    });
+      branding: false,
+      init_instance_callback: function init_instance_callback(editor) {
+        // Set the initial content using the init_instance_callback
+        editor.setContent(value);
+      }
+    }); // Save the editor instance for later use
+
+    this.editorInstance = tinymce.get(editorID);
   }
 });
 
@@ -37295,7 +37311,6 @@ var render = function () {
                                     "__" +
                                     field,
                                   "cached-data": _vm.cached_fields[field],
-                                  test: _vm.fieldWrapperID(_vm.fields[field]),
                                 },
                                 on: {
                                   update: function ($event) {
@@ -49730,10 +49745,8 @@ var render = function () {
           })
         : _vm._e(),
       _vm._v(" "),
-      _vm.editor === "wp_editor"
-        ? _c("div", [
-            _c("div", { attrs: { id: _vm.editor + "_" + _vm.fieldId } }),
-          ])
+      _vm.editor
+        ? _c("div", { attrs: { id: _vm.editorID } })
         : _c("textarea", {
             directives: [
               {

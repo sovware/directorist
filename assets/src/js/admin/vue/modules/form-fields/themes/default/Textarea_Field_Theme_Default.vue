@@ -6,9 +6,7 @@
         
         <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 
-        <div v-if="editor === 'wp_editor'">
-            <div :id="editor + '_' + fieldId"></div>
-        </div>
+        <div v-if="editor" :id="editorID"></div>
         
         <textarea v-else name="" :cols="cols" :rows="rows" :placeholder="placeholder" class="cptm-form-control" v-model="local_value"></textarea>
 
@@ -35,20 +33,38 @@ export default {
             required: false,
             default: '',
         },
+        editorID: {
+            required: false,
+            default: '',
+        },
         fieldId: {
+            required: false,
+            default: '',
+        },
+        value: {
             required: false,
             default: '',
         },
     },
 
     mounted() {
+        let editorID = this.editorID;
+        let value = this.value;
+        
         tinymce.init({
-            selector: `#${this.editor}_${this.fieldId}`,
+            selector: `#${editorID}`,
             plugins: 'lists link media',
             toolbar: 'undo redo | formatselect | bold italic | bullist numlist | link | media',
             menubar: false,
             branding: false,
+            init_instance_callback: (editor) => {
+                // Set the initial content using the init_instance_callback
+                editor.setContent(value);
+            },
         });
+
+        // Save the editor instance for later use
+        this.editorInstance = tinymce.get(editorID);
     },
 
 }

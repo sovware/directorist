@@ -307,6 +307,10 @@
                 &:focus {
                     border: 2px solid var(--directorist-color-primary);
                 }
+                @include e('prefix') {
+                    height: 34px;
+                    line-height: 34px;
+                }
             }
         }
     }

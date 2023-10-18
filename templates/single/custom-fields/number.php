@@ -16,14 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	</div>
 
 	<div class="directorist-form-group__with-prefix">
-		<?php if( ! empty( $data['prepend'] ) ) : ?>
-			<span class="directorist-form-group__prefix directorist-form-group__prefix--start"><?php echo esc_html( $data['prepend'] ); ?></span>
+		<?php if( ! empty( $data['form_data']['prepend'] ) ) : ?>
+			<span class="directorist-form-group__prefix directorist-form-group__prefix--start"><?php echo esc_html( $data['form_data']['prepend'] ); ?></span>
 		<?php endif; ?>
 
 		<div class="directorist-single-info__value"><?php echo esc_html( $value ); ?></div>
 
-		<?php if( ! empty( $data['append'] ) ) : ?>
-			<span class="directorist-form-group__prefix directorist-form-group__prefix--start"><?php echo esc_html( $data['append'] ); ?></span>
+		<?php if( ! empty( $data['form_data']['append'] ) ) : ?>
+			<span class="directorist-form-group__prefix directorist-form-group__prefix--start"><?php echo esc_html( $data['form_data']['append'] ); ?></span>
 		<?php endif; ?>
 	</div>
 

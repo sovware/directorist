@@ -13,14 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<!-- <label class="directorist-search-field__label"><?php echo esc_attr( $data['placeholder'] ); ?></label> -->
 
 	<div class="directorist-form-group__with-prefix">
-		<?php if( ! empty( $data['prepend'] ) ) : ?>
-			<span class="directorist-form-group__prefix directorist-form-group__prefix--start"><?php echo esc_html( $data['prepend'] ); ?></span>
+		<?php if( ! empty( $data['options']['prepend'] ) ) : ?>
+			<span class="directorist-form-group__prefix directorist-form-group__prefix--start"><?php echo esc_html( $data['options']['prepend'] ); ?></span>
 		<?php endif; ?>
 
 		<input class="directorist-form-element directorist-search-field__input" type="number" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" step="any" min="0" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 
-		<?php if( ! empty( $data['append'] ) ) : ?>
-			<span class="directorist-form-group__prefix directorist-form-group__prefix--start"><?php echo esc_html( $data['append'] ); ?></span>
+		<?php if( ! empty( $data['options']['append'] ) ) : ?>
+			<span class="directorist-form-group__prefix directorist-form-group__prefix--start"><?php echo esc_html( $data['options']['append'] ); ?></span>
 		<?php endif; ?>
 	</div>
 

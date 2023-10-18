@@ -1910,11 +1910,6 @@ class Builder_Data {
             ],
 
             // TERMS AND CONDITIONS
-            'listing_privacy' => [
-                'label' => __('Enable', 'directorist'),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
             'terms_privacy_label' => [
                 'label'       => __('Terms Label', 'directorist'),
                 'type'        => 'textarea',
@@ -2519,20 +2514,10 @@ class Builder_Data {
                     'settings'    => [
                         'label'    => __( 'Settings', 'directorist' ),
                         'sections' => apply_filters( 'atbdp_submission_form_settings', [
-                            'terms_and_conditions' => [
-                                'title'     => __( 'Terms and Conditions', 'directorist' ),
-                                'container' => 'short-width',
-                                'fields'    => [
-                                    'listing_terms_condition',
-                                    'require_terms_conditions',
-                                    'terms_label',
-                                ],
-                            ],
                             'privacy_and_policy'   => [
-                                'title'     => __( 'Privacy and Policy', 'directorist' ),
+                                'title'     => __( 'Privacy Policy and Terms & Conditions', 'directorist' ),
                                 'container' => 'short-width',
                                 'fields'    => [
-                                    'listing_privacy',
                                     'terms_privacy_label',
                                 ],
                             ],

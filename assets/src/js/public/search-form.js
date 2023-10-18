@@ -125,7 +125,7 @@ import { directorist_range_slider } from './range-slider';
         /* Advance Search Filter For Search Home Short Code */
         if ($(".directorist-btn-reset-js") !== null) {
             $("body").on("click", ".directorist-btn-reset-js", function (e) {
-                e.preventDefault();
+                // e.preventDefault();
                 if (this.closest('.directorist-contents-wrap')) {
                     let searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
                     if (searchForm) {
@@ -142,6 +142,14 @@ import { directorist_range_slider } from './range-slider';
                 }
                 if($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
+                }
+
+                if ($(this).closest('.directorist-instant-search').length){
+                    e.preventDefault();
+                    let searchModalElement = this.closest('.directorist-search-modal');
+                    if(searchModalElement) {
+                        searchModalClose(searchModalElement)
+                    }
                 }
             });
         }

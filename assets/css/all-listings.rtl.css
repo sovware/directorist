@@ -4673,7 +4673,6 @@ body.stop-scrolling {
 .multistep-wizard__nav__btn.active, .multistep-wizard__nav__btn:hover, .multistep-wizard__nav__btn:focus {
   font-weight: 600;
   color: var(--directorist-color-dark);
-  background: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow-sm);
           box-shadow: var(--directorist-box-shadow-sm);
   border: 0 none;

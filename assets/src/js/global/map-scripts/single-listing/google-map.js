@@ -1,11 +1,12 @@
 /* Single listing google map */
 
-(function ($) {
-    function initSingleMap() {
+window.addEventListener('DOMContentLoaded', () => {
+    ;
+    (function ($) {
         if ($('.directorist-single-map').length) {
             document.querySelectorAll('.directorist-single-map').forEach(mapElm => {
                 var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
-    
+
                 var inherits = function (childCtor, parentCtor) {
                     /** @constructor */
                     function tempCtor() {}
@@ -14,7 +15,7 @@
                     childCtor.prototype = new tempCtor();
                     childCtor.prototype.constructor = childCtor;
                 };
-    
+
                 function Marker(options) {
                     google.maps.Marker.apply(this, arguments);
                     if (options.map_icon_label) {
@@ -26,35 +27,35 @@
                         this.MarkerLabel.bindTo('position', this, 'position');
                     }
                 }
-    
+
                 // Apply the inheritance
                 inherits(Marker, google.maps.Marker);
-    
+
                 // Custom Marker SetMap
                 Marker.prototype.setMap = function () {
                     google.maps.Marker.prototype.setMap.apply(this, arguments);
                     (this.MarkerLabel) && this.MarkerLabel.setMap.apply(this.MarkerLabel, arguments);
                 };
-    
+
                 // Marker Label Overlay
                 var MarkerLabel = function (options) {
                     var self = this;
                     this.setValues(options);
-    
+
                     // Create the label container
                     this.div = document.createElement('div');
                     this.div.className = 'map-icon-label';
-    
+
                     // Trigger the marker click handler if clicking on the label
                     google.maps.event.addDomListener(this.div, 'click', function (e) {
                         (e.stopPropagation) && e.stopPropagation();
                         google.maps.event.trigger(self.marker, 'click');
                     });
                 };
-    
+
                 // Create MarkerLabel Object
                 MarkerLabel.prototype = new google.maps.OverlayView;
-    
+
                 // Marker Label onAdd
                 MarkerLabel.prototype.onAdd = function () {
                     var pane = this.getPanes().overlayImage.appendChild(this.div);
@@ -71,7 +72,7 @@
                         })
                     ];
                 };
-    
+
                 // Marker Label onRemove
                 MarkerLabel.prototype.onRemove = function () {
                     this.div.parentNode.removeChild(this.div);
@@ -79,7 +80,7 @@
                         google.maps.event.removeListener(this.listeners[i]);
                     }
                 };
-    
+
                 // Implement draw
                 MarkerLabel.prototype.draw = function () {
                     var projection = this.getProjection();
@@ -92,106 +93,86 @@
                     div.style.left = (position.x - (div.offsetWidth / 2)) + 'px';
                     div.style.top = (position.y - div.offsetHeight) + 'px';
                 };
-                
-                // initialize all vars here to avoid hoisting related misunderstanding.
-                var map, info_window, saved_lat_lng, info_content;
 
-                // Localized Data
-                let mapData = JSON.parse(mapElm.getAttribute('data-map'));
-                var loc_default_latitude = parseFloat(mapData.default_latitude);
-                var loc_default_longitude = parseFloat(mapData.default_longitude);
-                var loc_manual_lat = parseFloat(mapData.manual_lat);
-                var loc_manual_lng = parseFloat(mapData.manual_lng);
-                var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
-                var display_map_info = mapData.display_map_info;
-                var cat_icon = mapData.cat_icon;
-                var info_content = mapData.info_content;
 
-                loc_manual_lat = (isNaN(loc_manual_lat)) ? loc_default_latitude : loc_manual_lat;
-                loc_manual_lng = (isNaN(loc_manual_lng)) ? loc_default_longitude : loc_manual_lng;
+                $(document).ready(function () {
+                    // initialize all vars here to avoid hoisting related misunderstanding.
+                    var map, info_window, saved_lat_lng, info_content;
 
-                $manual_lat = $('#manual_lat');
-                $manual_lng = $('#manual_lng');
+                    // Localized Data
+                    let mapData = JSON.parse(mapElm.getAttribute('data-map'));
+                    var loc_default_latitude = parseFloat(mapData.default_latitude);
+                    var loc_default_longitude = parseFloat(mapData.default_longitude);
+                    var loc_manual_lat = parseFloat(mapData.manual_lat);
+                    var loc_manual_lng = parseFloat(mapData.manual_lng);
+                    var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
+                    var display_map_info = mapData.display_map_info;
+                    var cat_icon = mapData.cat_icon;
+                    var info_content = mapData.info_content;
 
-                saved_lat_lng = {
-                    lat: loc_manual_lat,
-                    lng: loc_manual_lng,
-                };
+                    loc_manual_lat = (isNaN(loc_manual_lat)) ? loc_default_latitude : loc_manual_lat;
+                    loc_manual_lng = (isNaN(loc_manual_lng)) ? loc_default_longitude : loc_manual_lng;
 
-                // create an info window for map
-                if (display_map_info) {
-                    info_window = new google.maps.InfoWindow({
-                        content: info_content,
-                        maxWidth: 400 /*Add configuration for max width*/
-                    });
-                }
+                    $manual_lat = $('#manual_lat');
+                    $manual_lng = $('#manual_lng');
 
-                function initMap() {
-                    /* Create new map instance*/
-                    map = new google.maps.Map(mapElm, {
-                        zoom: loc_map_zoom_level,
-                        center: saved_lat_lng
-                    });
-                    /*var marker = new google.maps.Marker({
-                        map: map,
-                        position: saved_lat_lng
-                    });*/
-                    var marker = new Marker({
-                        position: saved_lat_lng,
-                        map: map,
-                        icon: {
-                            path: MAP_PIN,
-                            fillColor: 'transparent',
-                            fillOpacity: 1,
-                            strokeColor: '',
-                            strokeWeight: 0
-                        },
-                        map_icon_label: `<div class="atbd_map_shape">${cat_icon}</div>`
-                    });
+                    saved_lat_lng = {
+                        lat: loc_manual_lat,
+                        lng: loc_manual_lng,
+                    };
 
+                    // create an info window for map
                     if (display_map_info) {
-                        marker.addListener('click', function () {
-                            info_window.open(map, marker);
-                        });
-                        google.maps.event.addListener(info_window, 'domready', function () {
-                            var closeBtn = $('.iw-close-btn').get();
-                            google.maps.event.addDomListener(closeBtn[0], 'click', function () {
-                                info_window.close();
-                            });
+                        info_window = new google.maps.InfoWindow({
+                            content: info_content,
+                            maxWidth: 400 /*Add configuration for max width*/
                         });
                     }
-                }
 
-                initMap();
-                //Convert address tags to google map links -
-                $('address').each(function () {
-                    var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
-                    $(this).html(link);
+                    function initMap() {
+                        /* Create new map instance*/
+                        map = new google.maps.Map(mapElm, {
+                            zoom: loc_map_zoom_level,
+                            center: saved_lat_lng
+                        });
+                        /*var marker = new google.maps.Marker({
+                            map: map,
+                            position: saved_lat_lng
+                        });*/
+                        var marker = new Marker({
+                            position: saved_lat_lng,
+                            map: map,
+                            icon: {
+                                path: MAP_PIN,
+                                fillColor: 'transparent',
+                                fillOpacity: 1,
+                                strokeColor: '',
+                                strokeWeight: 0
+                            },
+                            map_icon_label: `<div class="atbd_map_shape">${cat_icon}</div>`
+                        });
+
+                        if (display_map_info) {
+                            marker.addListener('click', function () {
+                                info_window.open(map, marker);
+                            });
+                            google.maps.event.addListener(info_window, 'domready', function () {
+                                var closeBtn = $('.iw-close-btn').get();
+                                google.maps.event.addDomListener(closeBtn[0], 'click', function () {
+                                    info_window.close();
+                                });
+                            });
+                        }
+                    }
+
+                    initMap();
+                    //Convert address tags to google map links -
+                    $('address').each(function () {
+                        var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
+                        $(this).html(link);
+                    });
                 });
-                
             })
         }
-    }
-
-    $(document).ready(function () {
-        initSingleMap()
-    })
-
-
-    /* Elementor Edit Mode */
-    $(window).on('elementor/frontend/init', function () {
-        setTimeout(function() {
-            if ($('body').hasClass('elementor-editor-active')) {
-                initSingleMap()
-            }
-        }, 3000);
-
-    });
-
-    // Elementor EditMode
-    $('body').on('click', function (e) {
-        if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
-            initSingleMap()
-        }
-    });
-})(jQuery);
+    })(jQuery);
+})

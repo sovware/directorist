@@ -98,9 +98,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../lib/helper */ "./assets/src/js/lib/helper.js");
 /* Add listing OSMap */
 
+;
 
 (function ($) {
-  function initAddListingMap() {
+  $(document).ready(function () {
     var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
 
     var loc_default_latitude = parseFloat(mapData.default_latitude);
@@ -316,26 +317,10 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       ;
-    });
-  }
-
-  $(document).ready(function () {
-    initAddListingMap();
-  });
-  /* Elementor Edit Mode */
-
-  $(window).on('elementor/frontend/init', function () {
-    setTimeout(function () {
-      if ($('body').hasClass('elementor-editor-active')) {
-        initAddListingMap();
-      }
-    }, 3000);
-  }); // Elementor EditMode
-
-  $('body').on('click', function (e) {
-    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
-      initAddListingMap();
-    }
+    }); // $('#post').on('submit', function (event) {
+    //     event.preventDefault();
+    //     return false;
+    // });
   });
 })(jQuery);
 

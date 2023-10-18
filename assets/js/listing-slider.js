@@ -275,7 +275,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       });
-      var swiperSingleListingConfig = {
+      var swiperSingleListing = new Swiper(swiperCarouselSingleListing, {
         slidesPerView: 1,
         spaceBetween: 0,
         loop: true,
@@ -290,16 +290,11 @@ __webpack_require__.r(__webpack_exports__);
           el: ".directorist-swiper__pagination--single-listing",
           type: 'bullets',
           clickable: true
-        }
-      };
-
-      if (swiperCarouselSingleListingThumb) {
-        swiperSingleListingConfig.thumbs = {
+        },
+        thumbs: {
           swiper: swiperSingleListingThumb
-        };
-      }
-
-      var swiperSingleListing = new Swiper(swiperCarouselSingleListing, swiperSingleListingConfig); // Loop Destroy on Single Slider Item
+        }
+      }); // Loop Destroy on Single Slider Item
 
       var sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
 
@@ -310,19 +305,14 @@ __webpack_require__.r(__webpack_exports__);
       } // Add Styles
 
 
-      if (swiperCarouselSingleListing) {
-        swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
-        swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
-        swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
-        swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
-        swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
-      }
+      swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
+      swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
+      swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
+      swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
+      swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : ''; // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
 
-      if (swiperCarouselSingleListingThumb) {
-        // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
-        swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
-        swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
-      }
+      swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
+      swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
     });
   }
 
@@ -342,25 +332,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       }, 1000);
     });
-  });
-  /* Elementor Edit Mode */
-
-  $(window).on('elementor/frontend/init', function () {
-    setTimeout(function () {
-      if ($('body').hasClass('elementor-editor-active')) {
-        allListingSlider();
-      }
-
-      if ($('body').hasClass('elementor-editor-active')) {
-        allListingSlider();
-      }
-    }, 3000);
-  }); // Elementor EditMode
-
-  $('body').on('click', function (e) {
-    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
-      allListingSlider();
-    }
   });
 })(jQuery);
 

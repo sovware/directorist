@@ -205,8 +205,7 @@
         }
       }
 
-      .directorist-year-ranges__item,
-      .directorist-price-ranges__item {
+      .directorist-year-ranges__item {
         .directorist-form-element {
           border-bottom: 2px solid var(--directorist-color-border);
           &:focus {
@@ -355,9 +354,6 @@
         .directorist-price-ranges__currency {
           top: 12px;
           left: 32px;
-        }
-        .directorist-price-ranges__item .directorist-form-element {
-          padding-inline-start: 41px;
         }
       }
     }

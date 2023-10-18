@@ -11407,9 +11407,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     height: calc(100vh - 200px);
   }
 }
-.directorist-search-modal .directorist-advanced-filter__form .directorist-price-ranges__item .directorist-form-element {
-  padding-bottom: 1px;
-}
 .directorist-search-modal__minimizer {
   content: "";
   position: absolute;
@@ -11561,6 +11558,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-has-value:not(.input-is-focused) .directorist-search-field__label {
     opacity: 0;
     font-size: 0;
+  }
+  .directorist-search-modal--basic .directorist-price-ranges:after {
+    top: 30px;
   }
 }
 .directorist-search-modal--basic .open_now > label {

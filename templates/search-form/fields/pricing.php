@@ -23,12 +23,16 @@ $min_placeholder = !empty( $data['price_range_min_placeholder'] ) ? $data['price
 		<?php if ( $ptype == 'both' || $ptype == 'price_unit' ): ?>
 
 			<div class="directorist-price-ranges__item directorist-form-group">
-				<label class="directorist-price-ranges__label"><?php echo esc_attr( $min_placeholder ); ?></label>
+				<?php if ( !empty($min_placeholder) ): ?>
+					<label class="directorist-price-ranges__label"><?php echo esc_attr( $min_placeholder ); ?></label>
+				<?php endif; ?>
 				<span class="directorist-price-ranges__currency">$</span>
 				<input type="text" name="price[0]" class="directorist-form-element pricing-slider-range__input-values__min" placeholder="" value="<?php echo esc_attr( $searchform->price_value('min') ); ?>">
 			</div>
 			<div class="directorist-price-ranges__item directorist-form-group">
-				<label class="directorist-price-ranges__label"><?php echo esc_attr( $max_placeholder ); ?></label>
+				<?php if ( !empty($max_placeholder) ): ?>
+					<label class="directorist-price-ranges__label"><?php echo esc_attr( $max_placeholder ); ?></label>
+				<?php endif; ?>
 				<span class="directorist-price-ranges__currency">$</span>
 				<input type="text" name="price[1]" class="directorist-form-element pricing-slider-range__input-values__max" placeholder="" value="<?php echo esc_attr( $searchform->price_value('max') ); ?>">
 			</div>

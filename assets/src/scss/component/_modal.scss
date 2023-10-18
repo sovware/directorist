@@ -366,9 +366,6 @@
                     height: calc(100vh - 200px);
                 }
             }
-            .directorist-price-ranges__item .directorist-form-element {
-                padding-bottom: 1px;
-            }
         }
     }
 
@@ -516,6 +513,9 @@
                         font-size: 0;
                     }
                 }
+            }
+            .directorist-price-ranges:after {
+                top: 30px;
             }
         }
         .open_now > label {

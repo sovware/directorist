@@ -401,7 +401,8 @@
 			color: var(--directorist-color-dark);
 		}
 		.directorist-advanced-filter__advanced {
-			width: 100%;
+			flex: 1;
+			box-sizing: border-box;
 			padding: 25px 30px;
 		}
 		.directorist-advanced-filter__advanced--element .directorist-search-field {

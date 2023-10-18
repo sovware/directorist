@@ -543,7 +543,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if ( $update_view_count ) {
 				wp_send_json_success(
 					array(
-						'success'    => __( 'View Count Changes Successfully.', 'directorist' ),
+						'success'    => __( 'Changes Successfully', 'directorist' ),
 						'view_count' => $update_view_count,
 					)
 				);

@@ -402,7 +402,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 							<div class="directorist-view-count-content">
 								<span class="directorist_listing-count-text directorist-count-text-%s" data-value="%s" contenteditable="false">%s</span>
 								<div class="directorist-listing-count-edit-wrap">
-									<a href="#" class="directorist-listing-count__edit" data-type-id="%s"><i class="far fa-edit"></i></a>
+									<a href="#" class="directorist-listing-count__edit" data-type-id="%s"><i class="fas fa-pen"></i></a>
 									<a href="#" class="directorist_listing-count-formText-add" data-type-id="%s"><i class="fas fa-check"></i></a>
 									<a href="#" class="directorist_listing-count-formText-remove"><i class="fas fa-times"></i></a>
 								</div>

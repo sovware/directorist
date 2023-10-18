@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -15,7 +15,11 @@ if ( $location_source == 'listing' ) {
 
 	<div class="directorist-search-field">
 		<div class="directorist-select directorist-search-location directorist-search-field__input">
-			<label class="directorist-search-field__label"><?php echo esc_attr( $data['placeholder'] ); ?></label>
+
+			<?php if ( ! empty( $data['label'] ) ) : ?>
+				<label class="directorist-search-field__label"><?php echo esc_attr( $data['label'] ); ?></label>
+			<?php endif; ?>
+
 			<select name="in_loc" class="<?php echo esc_attr($searchform->location_class); ?>" data-placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true" data-selected-id="<?php echo esc_attr( $selected_item['id'] ); ?>" data-selected-label="<?php echo esc_attr( $selected_item['label'] ); ?>">
 				<?php
 				echo '<option value="">' . esc_html__( 'Select Location', 'directorist' ) . '</option>';

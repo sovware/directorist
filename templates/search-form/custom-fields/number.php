@@ -10,8 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-search-field directorist-form-group">
 
-	<!-- <label class="directorist-search-field__label"><?php echo esc_attr( $data['placeholder'] ); ?></label> -->
-
 	<div class="directorist-form-group__with-prefix">
 		<?php if( ! empty( $data['options']['prepend'] ) ) : ?>
 			<span class="directorist-form-group__prefix directorist-form-group__prefix--start"><?php echo esc_html( $data['options']['prepend'] ); ?></span>

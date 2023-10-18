@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.5.5
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -12,7 +12,10 @@ $lng = ! empty( $_REQUEST['zip_cityLng'] ) ? sanitize_text_field( wp_unslash( $_
 
 <div class="directorist-search-field directorist-form-group directorist-zipcode-search">
 
-	<label class="directorist-search-field__label"><?php echo esc_attr( $data['placeholder'] ); ?></label>
+	<?php if ( ! empty( $data['label'] ) ) : ?>
+		<label class="directorist-search-field__label"><?php echo esc_attr( $data['label'] ); ?></label>
+	<?php endif; ?>
+
 	<input class="<?php echo esc_attr( $searchform->zip_code_class() ); ?> directorist-search-field__input" type="text" name="<?php echo esc_attr( $data['field_key'] ); ?>" value="<?php echo esc_attr( $value ); ?>" autocomplete="off" placeholder="" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 
 	<div class="directorist-country directorist-search-country" style="display: none"></div>

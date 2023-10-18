@@ -7666,7 +7666,6 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background-color: var(--directorist-color-white);
 }
 
 .directorist-add-listing-form .directorist-content-module {

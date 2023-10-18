@@ -3205,7 +3205,6 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background-color: var(--directorist-color-white);
 }
 
 .directorist-add-listing-form .directorist-content-module {
@@ -9416,6 +9415,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-author-profile__avatar img {
   max-width: 100px;
   border-radius: 50%;
+  background-color: var(--directorist-color-bg-gray);
 }
 @media only screen and (max-width: 575px) {
   .directorist-author-profile__avatar img {

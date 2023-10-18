@@ -94,10 +94,8 @@
 /***/ (function(module, exports) {
 
 /* Single listing google map */
-window.addEventListener('DOMContentLoaded', function () {
-  ;
-
-  (function ($) {
+(function ($) {
+  function initSingleMap() {
     if ($('.directorist-single-map').length) {
       document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
         var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
@@ -183,87 +181,104 @@ window.addEventListener('DOMContentLoaded', function () {
           div.style.display = 'block';
           div.style.left = position.x - div.offsetWidth / 2 + 'px';
           div.style.top = position.y - div.offsetHeight + 'px';
-        };
+        }; // initialize all vars here to avoid hoisting related misunderstanding.
 
-        $(document).ready(function () {
-          // initialize all vars here to avoid hoisting related misunderstanding.
-          var map, info_window, saved_lat_lng, info_content; // Localized Data
 
-          var mapData = JSON.parse(mapElm.getAttribute('data-map'));
-          var loc_default_latitude = parseFloat(mapData.default_latitude);
-          var loc_default_longitude = parseFloat(mapData.default_longitude);
-          var loc_manual_lat = parseFloat(mapData.manual_lat);
-          var loc_manual_lng = parseFloat(mapData.manual_lng);
-          var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
-          var display_map_info = mapData.display_map_info;
-          var cat_icon = mapData.cat_icon;
-          var info_content = mapData.info_content;
-          loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
-          loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
-          $manual_lat = $('#manual_lat');
-          $manual_lng = $('#manual_lng');
-          saved_lat_lng = {
-            lat: loc_manual_lat,
-            lng: loc_manual_lng
-          }; // create an info window for map
+        var map, info_window, saved_lat_lng, info_content; // Localized Data
+
+        var mapData = JSON.parse(mapElm.getAttribute('data-map'));
+        var loc_default_latitude = parseFloat(mapData.default_latitude);
+        var loc_default_longitude = parseFloat(mapData.default_longitude);
+        var loc_manual_lat = parseFloat(mapData.manual_lat);
+        var loc_manual_lng = parseFloat(mapData.manual_lng);
+        var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
+        var display_map_info = mapData.display_map_info;
+        var cat_icon = mapData.cat_icon;
+        var info_content = mapData.info_content;
+        loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+        loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+        $manual_lat = $('#manual_lat');
+        $manual_lng = $('#manual_lng');
+        saved_lat_lng = {
+          lat: loc_manual_lat,
+          lng: loc_manual_lng
+        }; // create an info window for map
+
+        if (display_map_info) {
+          info_window = new google.maps.InfoWindow({
+            content: info_content,
+            maxWidth: 400
+            /*Add configuration for max width*/
+
+          });
+        }
+
+        function initMap() {
+          /* Create new map instance*/
+          map = new google.maps.Map(mapElm, {
+            zoom: loc_map_zoom_level,
+            center: saved_lat_lng
+          });
+          /*var marker = new google.maps.Marker({
+              map: map,
+              position: saved_lat_lng
+          });*/
+
+          var marker = new Marker({
+            position: saved_lat_lng,
+            map: map,
+            icon: {
+              path: MAP_PIN,
+              fillColor: 'transparent',
+              fillOpacity: 1,
+              strokeColor: '',
+              strokeWeight: 0
+            },
+            map_icon_label: "<div class=\"atbd_map_shape\">".concat(cat_icon, "</div>")
+          });
 
           if (display_map_info) {
-            info_window = new google.maps.InfoWindow({
-              content: info_content,
-              maxWidth: 400
-              /*Add configuration for max width*/
-
+            marker.addListener('click', function () {
+              info_window.open(map, marker);
+            });
+            google.maps.event.addListener(info_window, 'domready', function () {
+              var closeBtn = $('.iw-close-btn').get();
+              google.maps.event.addDomListener(closeBtn[0], 'click', function () {
+                info_window.close();
+              });
             });
           }
+        }
 
-          function initMap() {
-            /* Create new map instance*/
-            map = new google.maps.Map(mapElm, {
-              zoom: loc_map_zoom_level,
-              center: saved_lat_lng
-            });
-            /*var marker = new google.maps.Marker({
-                map: map,
-                position: saved_lat_lng
-            });*/
+        initMap(); //Convert address tags to google map links -
 
-            var marker = new Marker({
-              position: saved_lat_lng,
-              map: map,
-              icon: {
-                path: MAP_PIN,
-                fillColor: 'transparent',
-                fillOpacity: 1,
-                strokeColor: '',
-                strokeWeight: 0
-              },
-              map_icon_label: "<div class=\"atbd_map_shape\">".concat(cat_icon, "</div>")
-            });
-
-            if (display_map_info) {
-              marker.addListener('click', function () {
-                info_window.open(map, marker);
-              });
-              google.maps.event.addListener(info_window, 'domready', function () {
-                var closeBtn = $('.iw-close-btn').get();
-                google.maps.event.addDomListener(closeBtn[0], 'click', function () {
-                  info_window.close();
-                });
-              });
-            }
-          }
-
-          initMap(); //Convert address tags to google map links -
-
-          $('address').each(function () {
-            var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
-            $(this).html(link);
-          });
+        $('address').each(function () {
+          var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
+          $(this).html(link);
         });
       });
     }
-  })(jQuery);
-});
+  }
+
+  $(document).ready(function () {
+    initSingleMap();
+  });
+  /* Elementor Edit Mode */
+
+  $(window).on('elementor/frontend/init', function () {
+    setTimeout(function () {
+      if ($('body').hasClass('elementor-editor-active')) {
+        initSingleMap();
+      }
+    }, 3000);
+  }); // Elementor EditMode
+
+  $('body').on('click', function (e) {
+    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+      initSingleMap();
+    }
+  });
+})(jQuery);
 
 /***/ }),
 

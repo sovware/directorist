@@ -212,7 +212,7 @@
             }
         }
         @media only screen and (max-width: 575px) {
-            padding-left: 30px;
+            padding-left: 28px;
         }
         .directorist-icon-mask{
             &:after {
@@ -290,26 +290,56 @@
     }
     @include e(item){
         flex: 0 0 45%;
+        position: relative;
         @media (max-width: 575px) {
-            flex: auto;
-        }
-        @media (max-width: 480px) {
             flex: 0 0 42%;
         }
         .directorist-form-element {
             background: transparent;
             border-bottom: 1px solid var(--directorist-color-border);
+            padding-bottom: 1px;
+            padding-inline-start: 41px;
+            padding-inline-end: 15px;
+            
             @media screen and (max-width: 575px) {
-                height: 34px;
-                text-align: center;
                 border-radius: 8px;
+                padding-inline-start: 53px;
                 border: 1px solid var(--directorist-color-border);
                 &:focus {
+                    padding-bottom: 0;
                     border: 2px solid var(--directorist-color-primary);
                 }
             }
         }
     }
+    @include e(label) {
+        position: absolute;
+        top: 12px;
+        line-height: 1;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        color: var(--directorist-color-light-gray) !important;
+        z-index: 1;
+        @media screen and (max-width: 575px) {
+            top: 13px;
+            left: 15px;
+        }
+    }
+    @include e(currency) {
+        position: absolute;
+        top: 12px;
+        left: 32px;
+        line-height: 1;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--directorist-color-primary);
+        z-index: 1;
+        @media screen and (max-width: 575px) {
+            top: 13px;
+            left: 45px;
+        }
+    }
+
     @include e('price-frequency'){
         display: flex;
         flex-wrap: wrap;
@@ -357,7 +387,6 @@
         height: 36px;
         @media screen and (max-width: 575px) {
             width: 100%;
-            border-radius: 0;
             background-color: var(--directorist-color-white);
         }
     }

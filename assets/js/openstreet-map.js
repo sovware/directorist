@@ -98,10 +98,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../lib/helper */ "./assets/src/js/lib/helper.js");
 /* Add listing OSMap */
 
-;
 
 (function ($) {
-  $(document).ready(function () {
+  function initAddListingMap() {
     var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
 
     var loc_default_latitude = parseFloat(mapData.default_latitude);
@@ -317,10 +316,26 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       ;
-    }); // $('#post').on('submit', function (event) {
-    //     event.preventDefault();
-    //     return false;
-    // });
+    });
+  }
+
+  $(document).ready(function () {
+    initAddListingMap();
+  });
+  /* Elementor Edit Mode */
+
+  $(window).on('elementor/frontend/init', function () {
+    setTimeout(function () {
+      if ($('body').hasClass('elementor-editor-active')) {
+        initAddListingMap();
+      }
+    }, 3000);
+  }); // Elementor EditMode
+
+  $('body').on('click', function (e) {
+    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+      initAddListingMap();
+    }
   });
 })(jQuery);
 
@@ -340,8 +355,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _single_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_single_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./single-listing/openstreet-map-widget */ "./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js");
 /* harmony import */ var _single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2__);
-;
-
 (function () {
   // DOM Mutation observer
   var targetNode = document.querySelector('.directorist-archive-contents');
@@ -432,6 +445,23 @@ __webpack_require__.r(__webpack_exports__);
 
     setup_map();
   }
+
+  var $ = jQuery;
+  /* Elementor Edit Mode */
+
+  $(window).on('elementor/frontend/init', function () {
+    setTimeout(function () {
+      if ($('body').hasClass('elementor-editor-active')) {
+        initMap();
+      }
+    }, 3000);
+  }); // Elementor EditMode
+
+  $('body').on('click', function (e) {
+    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+      initMap();
+    }
+  });
 })();
 /* Add listing OSMap */
 
@@ -454,10 +484,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 /* Widget OSMap */
-;
-
 (function ($) {
-  jQuery(document).ready(function () {
+  function initSingleMap() {
     // Localized Data
     if ($('#gmap-widget').length) {
       var map_container = localized_data_widget.map_container_id ? localized_data_widget.map_container_id : 'gmap';
@@ -506,6 +534,25 @@ __webpack_require__.r(__webpack_exports__);
 
       mapLeaflet(loc_manual_lat, loc_manual_lng);
     }
+  }
+
+  jQuery(document).ready(function () {
+    initSingleMap();
+  });
+  /* Elementor Edit Mode */
+
+  $(window).on('elementor/frontend/init', function () {
+    setTimeout(function () {
+      if ($('body').hasClass('elementor-editor-active')) {
+        initSingleMap();
+      }
+    }, 3000);
+  }); // Elementor EditMode
+
+  $('body').on('click', function (e) {
+    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+      initSingleMap();
+    }
   });
 })(jQuery);
 
@@ -520,7 +567,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* Single listing OSMap */
 (function ($) {
-  jQuery(document).ready(function () {
+  function initSingleMap() {
     // Localized Data
     if ($('.directorist-single-map').length) {
       document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
@@ -569,6 +616,25 @@ __webpack_require__.r(__webpack_exports__);
 
         mapLeaflet(loc_manual_lat, loc_manual_lng);
       });
+    }
+  }
+
+  jQuery(document).ready(function () {
+    initSingleMap();
+  });
+  /* Elementor Edit Mode */
+
+  $(window).on('elementor/frontend/init', function () {
+    setTimeout(function () {
+      if ($('body').hasClass('elementor-editor-active')) {
+        initSingleMap();
+      }
+    }, 3000);
+  }); // Elementor EditMode
+
+  $('body').on('click', function (e) {
+    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+      initSingleMap();
     }
   });
 })(jQuery);

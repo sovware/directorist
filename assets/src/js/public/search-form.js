@@ -55,6 +55,10 @@ import { directorist_range_slider } from './range-slider';
         function adsFormReset(searchForm) {
             searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
                 el.value = "";
+                
+                if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+                    el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+                }
             });
             searchForm.querySelectorAll("input[type='date']").forEach(function (el) {
                 el.value = "";
@@ -64,9 +68,17 @@ import { directorist_range_slider } from './range-slider';
             });
             searchForm.querySelectorAll("input[type='url']").forEach(function (el) {
                 el.value = "";
+                
+                if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+                    el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+                }
             });
             searchForm.querySelectorAll("input[type='number']").forEach(function (el) {
                 el.value = "";
+                
+                if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+                    el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+                }
             });
             searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
                 if(el.getAttribute('name') === "directory_type") return;
@@ -87,6 +99,14 @@ import { directorist_range_slider } from './range-slider';
                 el.selectedIndex = 0;
                 $('.directorist-select2-dropdown-close').click();
                 $(el).val(null).trigger('change');
+
+                let parentElem = el.closest('.directorist-search-field');
+
+                if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
+                    setTimeout(function(){
+                        parentElem.classList.remove('input-has-value', 'input-is-focused');
+                    }, 100)
+                }
             });
 
             const irisPicker = searchForm.querySelector("input.wp-picker-clear");
@@ -99,11 +119,6 @@ import { directorist_range_slider } from './range-slider';
                 rangeValue.innerHTML = "0";
             }
             handleRadiusVisibility();
-
-            let searchModalElement = document.querySelectorAll('.directorist-search-modal');
-            searchModalElement.forEach((searchModal)=>{
-                searchModalClose(searchModal);
-            })
             
         }
 
@@ -112,13 +127,17 @@ import { directorist_range_slider } from './range-slider';
             $("body").on("click", ".directorist-btn-reset-js", function (e) {
                 e.preventDefault();
                 if (this.closest('.directorist-contents-wrap')) {
-                    const searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
+                    let searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
                     if (searchForm) {
                         adsFormReset(searchForm);
                     }
-                    const advanceSearchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__form');
+                    let advanceSearchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__form');
                     if (advanceSearchForm) {
                         adsFormReset(advanceSearchForm);
+                    }
+                    let advanceSearchFilter = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__advanced');
+                    if (advanceSearchFilter) {
+                        adsFormReset(advanceSearchFilter);
                     }
                 }
                 if($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length){
@@ -256,7 +275,7 @@ import { directorist_range_slider } from './range-slider';
                     }
 
                     $search_form_box.removeClass('atbdp-form-fade');
-                    checkEmptySearchFields();
+                    initSearchFields();
                   },
                   error: function error(_error) {
                     //console.log(_error);
@@ -266,7 +285,7 @@ import { directorist_range_slider } from './range-slider';
         }
 
         // Check Empty Search Fields on Search Modal
-        function checkEmptySearchFields(){
+        function initSearchFields(){
             let inputFields = document.querySelectorAll('.directorist-search-modal__input');
         
             inputFields.forEach((inputField)=>{
@@ -275,9 +294,30 @@ import { directorist_range_slider } from './range-slider';
                     inputField.style.display = 'none';
                 }
             });
+
+            let searchFields = document.querySelectorAll('.directorist-search-field__input');
+
+            searchFields.forEach((searchField)=>{
+                let inputFieldValue = searchField.value;
+                if(searchField.classList.contains('directorist-select')) {
+                    inputFieldValue = searchField.querySelector('select').dataset.selectedId;
+                }
+                
+                if (inputFieldValue !='') {
+                    searchField.parentElement.classList.add('input-has-value');
+                    if(!searchField.parentElement.classList.contains('input-is-focused')) {
+                        searchField.parentElement.classList.add('input-is-focused');
+                    }
+                } else {
+                    inputFieldValue = ''
+                    if(searchField.parentElement.classList.contains('input-has-value')) {
+                        searchField.parentElement.classList.remove('input-has-value');
+                    }
+                }
+            });
         }
 
-        checkEmptySearchFields();
+        initSearchFields();
 
         // hide country result when click outside the zipcode field
         $(document).on('click', function (e) {
@@ -704,6 +744,7 @@ import { directorist_range_slider } from './range-slider';
 
         // Back Button to go back to the previous page
         $('body').on('click', '.directorist-btn__back', function(e) {
+            console.log('clicked');
             e.preventDefault();
             
             window.history.back();

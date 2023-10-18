@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<input class="directorist-form-element directorist-search-field__input" type="number" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" step="any" min="0" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 
 		<?php if( ! empty( $data['options']['append'] ) ) : ?>
-			<span class="directorist-form-group__prefix directorist-form-group__prefix--start"><?php echo esc_html( $data['options']['append'] ); ?></span>
+			<span class="directorist-form-group__prefix directorist-form-group__prefix--end"><?php echo esc_html( $data['options']['append'] ); ?></span>
 		<?php endif; ?>
 	</div>
 

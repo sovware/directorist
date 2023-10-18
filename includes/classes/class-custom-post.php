@@ -322,8 +322,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 				$columns['atbdp_featured'] = __( 'Featured', 'directorist' );
 			}
 			$columns['atbdp_view_count']  = __( 'View Count', 'directorist' );
-			$columns['atbdp_expiry_date'] = __( 'Expires on', 'directorist' );
-			$columns['atbdp_date']        = __( 'Created on', 'directorist' );
+			$columns['atbdp_date']        = __( 'Date', 'directorist' );
 
 			return apply_filters( 'atbdp_add_new_listing_column', $columns );
 		}
@@ -424,22 +423,33 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 
 					break;
 
-				case 'atbdp_expiry_date':
-					$never_exp = get_post_meta( $post_id, '_never_expire', true );
-					if ( ! empty( $never_exp ) ) {
-						esc_html_e( 'Never Expires', 'directorist' );
-					} else {
-						$expiry_date = get_post_meta( $post_id, '_expiry_date', true );
-						echo esc_html( date_i18n( "$date_format @ $time_format", strtotime( $expiry_date ) ) );
-					}
-					break;
 				case 'atbdp_date':
-					$time = get_the_time( 'U' );
+					$creation_time = get_the_time( 'U' );
+					$created_date = date_i18n( $date_format, $creation_time );
+
+					$never_expire = get_post_meta( $post_id, '_never_expire', true );
+					$expiry_date  = '';
+					if ( ! empty( $never_expire ) ) {
+						$expiry_date = esc_html( 'Never Expires', 'directorist' );
+					} else {
+						$get_expire = get_post_meta( $post_id, '_expiry_date', true );
+
+						if ( ! empty( $get_expire ) ) {
+							$expiry_date = date_i18n( $date_format, strtotime( $get_expire ) );
+						}
+					}
+
 					printf(
-						/* translators: 1: Creation date. 2: Human diff time */
-						esc_html__( '%1$s (%2$s ago)', 'directorist' ),
-						date_i18n( $date_format, $time ), // @codingStandardsIgnoreLine.
-						human_time_diff( $time ) // @codingStandardsIgnoreLine.
+						'<div class="directorist-date-column">
+							<div class="directorist-created-date">
+								<strong>Created:</strong> %1$s
+							</div>
+							<div class="directorist-expire-date">
+								<strong>Expire:</strong> %1$s
+							</div>
+						</div>',
+						esc_html( $created_date ),
+						esc_html( $expiry_date ),
 					);
 					break;
 			}

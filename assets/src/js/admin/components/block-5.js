@@ -266,22 +266,21 @@ window.addEventListener('DOMContentLoaded', () => {
         // edit directory type count
         $(element).find('.directorist_listing-count-formText-add').on('click', function (e) {
             e.preventDefault();
-            let _this = $(this);
-            let count_id = $(this).data('type-id');
+            let addCount     = $(this);
+            let count_id     = addCount.data('type-id');
             let update_count = $('.directorist-count-text-' + count_id).attr('data-value');
-            oldCountVal = countWrapper.attr('data-value'); /* Update the slug values */
-            let addCount = $(this);
-            let countId = $('.directorist-count-notice-' + count_id);
-            let thisSiblings = $(_this).closest('.directorist-listing-count-edit-wrap').siblings('.directorist_listing-count-text');
+                oldCountVal  = countWrapper.attr('data-value');                                                                          /* Update the slug values */
+            let countId      = $('.directorist-count-notice-' + count_id);
+            let thisSiblings = addCount.closest('.directorist-listing-count-edit-wrap').siblings('.directorist_listing-count-text');
             addCount.closest('.directorist-listing-count-edit-wrap').append(`<span class="directorist_loader"></span>`);
             $.ajax({
                 type: 'post',
-                url: directorist_admin.ajaxurl,
+                url : directorist_admin.ajaxurl,
                 data: {
-                    action: 'directorist_view_count_change',
+                    action           : 'directorist_view_count_change',
                     directorist_nonce: directorist_admin.directorist_nonce,
-                    listing_id: count_id,
-                    view_count: update_count
+                    listing_id       : count_id,
+                    view_count       : update_count
                 },
                 success(response) {
                     addCount.closest('.directorist-listing-count-edit-wrap')
@@ -297,7 +296,7 @@ window.addEventListener('DOMContentLoaded', () => {
                                 $('.directorist-count-text-' + listing_id).text(response.old_slug);
                             }
 
-                            _this.siblings('.directorist-listing-count__edit').show();
+                            addCount.siblings('.directorist-listing-count__edit').show();
                             setTimeout(function () {
                                 countId.empty().html("");
                             }, 3000);
@@ -305,7 +304,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             countId.empty().html(response.success ? response.data.success : '');
                             countId.removeClass('directorist-count-notice-error');
                             countId.addClass('directorist-count-notice-success');
-                            _this.siblings('.directorist-listing-count__edit').show();
+                            addCount.siblings('.directorist-listing-count__edit').show();
                             setTimeout(function () {
                                 addCount
                                     .closest('.directorist-listing-count__form')
@@ -317,8 +316,8 @@ window.addEventListener('DOMContentLoaded', () => {
                         }
                     }
 
-                    $(_this).removeClass('active');
-                    $(_this).siblings('.directorist_listing-count-formText-remove').removeClass('active');
+                    $(addCount).removeClass('active');
+                    $(addCount).siblings('.directorist_listing-count-formText-remove').removeClass('active');
                     thisSiblings.removeClass('directorist_listing-count-text--editable');
                     thisSiblings.attr('contenteditable', 'false');
                 },

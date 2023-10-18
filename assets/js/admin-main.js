@@ -1648,17 +1648,14 @@ window.addEventListener('DOMContentLoaded', function () {
 
     $(element).find('.directorist_listing-count-formText-add').on('click', function (e) {
       e.preventDefault();
-
-      var _this = $(this);
-
-      var count_id = $(this).data('type-id');
+      var addCount = $(this);
+      var count_id = addCount.data('type-id');
       var update_count = $('.directorist-count-text-' + count_id).attr('data-value');
       oldCountVal = countWrapper.attr('data-value');
       /* Update the slug values */
 
-      var addCount = $(this);
       var countId = $('.directorist-count-notice-' + count_id);
-      var thisSiblings = $(_this).closest('.directorist-listing-count-edit-wrap').siblings('.directorist_listing-count-text');
+      var thisSiblings = addCount.closest('.directorist-listing-count-edit-wrap').siblings('.directorist_listing-count-text');
       addCount.closest('.directorist-listing-count-edit-wrap').append("<span class=\"directorist_loader\"></span>");
       $.ajax({
         type: 'post',
@@ -1682,8 +1679,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 $('.directorist-count-text-' + listing_id).text(response.old_slug);
               }
 
-              _this.siblings('.directorist-listing-count__edit').show();
-
+              addCount.siblings('.directorist-listing-count__edit').show();
               setTimeout(function () {
                 countId.empty().html("");
               }, 3000);
@@ -1691,9 +1687,7 @@ window.addEventListener('DOMContentLoaded', function () {
               countId.empty().html(response.success ? response.data.success : '');
               countId.removeClass('directorist-count-notice-error');
               countId.addClass('directorist-count-notice-success');
-
-              _this.siblings('.directorist-listing-count__edit').show();
-
+              addCount.siblings('.directorist-listing-count__edit').show();
               setTimeout(function () {
                 addCount.closest('.directorist-listing-count__form').css({
                   "display": "none"
@@ -1703,8 +1697,8 @@ window.addEventListener('DOMContentLoaded', function () {
             }
           }
 
-          $(_this).removeClass('active');
-          $(_this).siblings('.directorist_listing-count-formText-remove').removeClass('active');
+          $(addCount).removeClass('active');
+          $(addCount).siblings('.directorist_listing-count-formText-remove').removeClass('active');
           thisSiblings.removeClass('directorist_listing-count-text--editable');
           thisSiblings.attr('contenteditable', 'false');
         }

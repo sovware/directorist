@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<div class="directorist-single-info__value"><?php echo esc_html( $value ); ?></div>
 
 		<?php if( ! empty( $data['form_data']['append'] ) ) : ?>
-			<span class="directorist-form-group__prefix directorist-form-group__prefix--start"><?php echo esc_html( $data['form_data']['append'] ); ?></span>
+			<span class="directorist-form-group__prefix directorist-form-group__prefix--end"><?php echo esc_html( $data['form_data']['append'] ); ?></span>
 		<?php endif; ?>
 	</div>
 

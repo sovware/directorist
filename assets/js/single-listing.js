@@ -520,39 +520,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/general.js":
-/*!****************************************************!*\
-  !*** ./assets/src/js/public/components/general.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Fix listing with no thumb if card width is less than 220px
-(function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
-    if ($('.directorist-listing-no-thumb').innerWidth() <= 220) {
-      $('.directorist-listing-no-thumb').addClass('directorist-listing-no-thumb--fix');
-    } // Auhtor Profile Listing responsive fix
-
-
-    if ($('.directorist-author-listing-content').innerWidth() <= 750) {
-      $('.directorist-author-listing-content').addClass('directorist-author-listing-grid--fix');
-    } // Directorist Archive responsive fix
-
-
-    if ($('.directorist-archive-grid-view').innerWidth() <= 500) {
-      $('.directorist-archive-grid-view').addClass('directorist-archive-grid--fix');
-    } // Back Button to go back to the previous page
-
-
-    $('body').on('click', '.directorist-btn__back', function (e) {
-      window.history.back();
-    });
-  });
-})(jQuery);
-
-/***/ }),
-
 /***/ "./assets/src/js/public/components/login.js":
 /*!**************************************************!*\
   !*** ./assets/src/js/public/components/login.js ***!
@@ -894,8 +861,7 @@ window.addEventListener('DOMContentLoaded', function () {
               }, 600);
             }
           });
-          updateComment.fail(function (data) {
-            CommentEditHandler.showError($form, data.responseText);
+          updateComment.fail(function (data) {// console.log(data)
           });
           updateComment.always(function () {
             $form.find('#comment').prop('disabled', false);
@@ -937,8 +903,6 @@ window.addEventListener('DOMContentLoaded', function () {
       }, {
         key: "onSubmit",
         value: function onSubmit(event) {
-          var _this2 = this;
-
           event.preventDefault();
           var form = $('.directorist-review-container #commentform');
           var originalButtonLabel = form.find('[type="submit"]').val();
@@ -988,7 +952,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
             if (newCommentId) {
-              $('body, html').animate({
+              $("body, html").animate({
                 scrollTop: commentTop
               }, 600);
             }
@@ -996,15 +960,8 @@ window.addEventListener('DOMContentLoaded', function () {
           do_comment.fail(function (data) {
             var body = $('<div></div>');
             body.append(data.responseText);
-            console.log(data);
             CommentAddReplyHandler.showError(form, body.find('.wp-die-message'));
             $(document).trigger('directorist_review_update_failed');
-
-            if (data.status === 403 || data.status === 401) {
-              $(document).off('submit', '.directorist-review-container #commentform', _this2.onSubmit);
-              $('#comment').prop('disabled', false);
-              form.find('[type="submit"]').prop('disabled', false).click();
-            }
           });
           do_comment.always(function () {
             $('#comment').prop('disabled', false);
@@ -1080,20 +1037,20 @@ window.addEventListener('DOMContentLoaded', function () {
       }, {
         key: "addEventListeners",
         value: function addEventListeners() {
-          var _this3 = this;
+          var _this2 = this;
 
           var self = this;
           this.$doc.on('directorist_review_updated', function (event) {
-            _this3.initStarRating();
+            _this2.initStarRating();
           });
           this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
-            _this3.initStarRating();
+            _this2.initStarRating();
           });
           this.$doc.on('click', 'a[href="#respond"]', function (event) {
             // First cancle the reply form then scroll to review form. Order matters.
-            _this3.cancelReplyMode();
+            _this2.cancelReplyMode();
 
-            _this3.onWriteReivewClick(event);
+            _this2.onWriteReivewClick(event);
           });
           this.$doc.on('click', '.directorist-js-edit-comment', function (event) {
             event.preventDefault();
@@ -1192,25 +1149,22 @@ window.addEventListener('DOMContentLoaded', function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/general */ "./assets/src/js/public/components/general.js");
-/* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_general__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_review__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/review */ "./assets/src/js/public/components/review.js");
-/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
-/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/formValidation */ "./assets/src/js/public/components/formValidation.js");
-/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/directoristFavorite */ "./assets/src/js/public/components/directoristFavorite.js");
-/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
-/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
-/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/login */ "./assets/src/js/public/components/login.js");
-/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
-/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_review__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/review */ "./assets/src/js/public/components/review.js");
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/formValidation */ "./assets/src/js/public/components/formValidation.js");
+/* harmony import */ var _components_formValidation__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_formValidation__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/directoristFavorite */ "./assets/src/js/public/components/directoristFavorite.js");
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/login */ "./assets/src/js/public/components/login.js");
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_7__);
 // General Components
-
 
 
 

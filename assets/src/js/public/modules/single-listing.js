@@ -1,5 +1,4 @@
 // General Components
-import '../components/general';
 import '../components/review';
 import '../components/directoristAlert';
 import '../components/formValidation';

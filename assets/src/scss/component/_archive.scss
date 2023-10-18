@@ -339,7 +339,7 @@
 		}
 
 		@media screen and (max-width: 1199px) {
-			max-width: 300px;
+			max-width: 275px;
 		}
 		
 		@media only screen and (max-width: 991px) {
@@ -454,13 +454,7 @@
 			width: 100%;
 		}
 		.directorist-price-ranges__price-frequency--btn .directorist-pf-range {
-			width: 54px;
-		}
-		.directorist-price-ranges__price-frequency--btn:last-child {
-			border: 0 none;
-		}
-		.directorist-price-ranges__item .directorist-form-element {
-			padding-bottom: 0;
+			width: 68px;
 		}
 		.directorist-checkbox-wrapper,
         .directorist-radio-wrapper,
@@ -484,8 +478,9 @@
 				}
 				&.input-is-focused {
 					.directorist-search-field__label {
-						font-size: 13px;
+						font-size: 15px;
 						font-weight: 500;
+						color: var(--directorist-color-dark);
 					}
 				}
 			}

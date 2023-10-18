@@ -191,7 +191,7 @@
                 }
             });
             
-            let swiperSingleListingConfig =  {
+            let swiperSingleListing = new Swiper(swiperCarouselSingleListing, {
                 slidesPerView: 1,
                 spaceBetween: 0,
                 loop: true,
@@ -207,15 +207,10 @@
                     type: 'bullets',
                     clickable: true,
                 },
-            };
-
-            if (swiperCarouselSingleListingThumb) {
-                swiperSingleListingConfig.thumbs = {
+                thumbs: {
                     swiper: swiperSingleListingThumb
-                };
-            }
-            
-            let swiperSingleListing = new Swiper(swiperCarouselSingleListing, swiperSingleListingConfig);
+                },
+            });
 
             // Loop Destroy on Single Slider Item
             let sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
@@ -227,22 +222,15 @@
             }
 
             // Add Styles
-            if (swiperCarouselSingleListing) {
+            swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
+            swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
+            swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
+            swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
+            swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
 
-                swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
-                swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
-                swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
-                swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
-                swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
-            }
-
-            if(swiperCarouselSingleListingThumb) {
-
-                // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
-                swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
-                swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
-            }
-
+            // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
+            swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
+            swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
         });
     }
 
@@ -267,26 +255,4 @@
         });
         
     });
-    
-
-    /* Elementor Edit Mode */
-    $(window).on('elementor/frontend/init', function () {
-        setTimeout(function() {
-            if ($('body').hasClass('elementor-editor-active')) {
-                allListingSlider();
-            }
-            if ($('body').hasClass('elementor-editor-active')) {
-                allListingSlider();
-            }
-        }, 3000);
-
-    });
-
-    // Elementor EditMode
-    $('body').on('click', function (e) {
-        if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
-            allListingSlider();
-        }
-    });
-
 })(jQuery);

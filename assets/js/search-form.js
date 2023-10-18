@@ -1073,10 +1073,6 @@ __webpack_require__.r(__webpack_exports__);
     function adsFormReset(searchForm) {
       searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
         el.value = "";
-
-        if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
-          el.parentElement.classList.remove('input-has-value', 'input-is-focused');
-        }
       });
       searchForm.querySelectorAll("input[type='date']").forEach(function (el) {
         el.value = "";
@@ -1086,17 +1082,9 @@ __webpack_require__.r(__webpack_exports__);
       });
       searchForm.querySelectorAll("input[type='url']").forEach(function (el) {
         el.value = "";
-
-        if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
-          el.parentElement.classList.remove('input-has-value', 'input-is-focused');
-        }
       });
       searchForm.querySelectorAll("input[type='number']").forEach(function (el) {
         el.value = "";
-
-        if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
-          el.parentElement.classList.remove('input-has-value', 'input-is-focused');
-        }
       });
       searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
         if (el.getAttribute('name') === "directory_type") return;
@@ -1119,13 +1107,6 @@ __webpack_require__.r(__webpack_exports__);
         el.selectedIndex = 0;
         $('.directorist-select2-dropdown-close').click();
         $(el).val(null).trigger('change');
-        var parentElem = el.closest('.directorist-search-field');
-
-        if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
-          setTimeout(function () {
-            parentElem.classList.remove('input-has-value', 'input-is-focused');
-          }, 100);
-        }
       });
       var irisPicker = searchForm.querySelector("input.wp-picker-clear");
 
@@ -1140,6 +1121,10 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       handleRadiusVisibility();
+      var searchModalElement = document.querySelectorAll('.directorist-search-modal');
+      searchModalElement.forEach(function (searchModal) {
+        searchModalClose(searchModal);
+      });
     }
     /* Advance Search Filter For Search Home Short Code */
 
@@ -1159,12 +1144,6 @@ __webpack_require__.r(__webpack_exports__);
 
           if (advanceSearchForm) {
             adsFormReset(advanceSearchForm);
-          }
-
-          var advanceSearchFilter = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__advanced');
-
-          if (advanceSearchFilter) {
-            adsFormReset(advanceSearchFilter);
           }
         }
 
@@ -1272,7 +1251,7 @@ __webpack_require__.r(__webpack_exports__);
             }
 
             $search_form_box.removeClass('atbdp-form-fade');
-            initSearchFields();
+            checkEmptySearchFields();
           },
           error: function error(_error) {//console.log(_error);
           }
@@ -1281,7 +1260,7 @@ __webpack_require__.r(__webpack_exports__);
     } // Check Empty Search Fields on Search Modal
 
 
-    function initSearchFields() {
+    function checkEmptySearchFields() {
       var inputFields = document.querySelectorAll('.directorist-search-modal__input');
       inputFields.forEach(function (inputField) {
         var searchField = inputField.querySelector('.directorist-search-field');
@@ -1290,31 +1269,9 @@ __webpack_require__.r(__webpack_exports__);
           inputField.style.display = 'none';
         }
       });
-      var searchFields = document.querySelectorAll('.directorist-search-field__input');
-      searchFields.forEach(function (searchField) {
-        var inputFieldValue = searchField.value;
-
-        if (searchField.classList.contains('directorist-select')) {
-          inputFieldValue = searchField.querySelector('select').dataset.selectedId;
-        }
-
-        if (inputFieldValue != '') {
-          searchField.parentElement.classList.add('input-has-value');
-
-          if (!searchField.parentElement.classList.contains('input-is-focused')) {
-            searchField.parentElement.classList.add('input-is-focused');
-          }
-        } else {
-          inputFieldValue = '';
-
-          if (searchField.parentElement.classList.contains('input-has-value')) {
-            searchField.parentElement.classList.remove('input-has-value');
-          }
-        }
-      });
     }
 
-    initSearchFields(); // hide country result when click outside the zipcode field
+    checkEmptySearchFields(); // hide country result when click outside the zipcode field
 
     $(document).on('click', function (e) {
       if (!$(e.target).closest('.directorist-zip-code').length) {
@@ -1686,7 +1643,6 @@ __webpack_require__.r(__webpack_exports__);
     }); // Back Button to go back to the previous page
 
     $('body').on('click', '.directorist-btn__back', function (e) {
-      console.log('clicked');
       e.preventDefault();
       window.history.back();
     });

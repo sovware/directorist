@@ -108,14 +108,6 @@ class Comment_Form_Processor {
 			}
 			$redirect_to .= '#' . $comment_id;
 
-			/**
-			* @since 7.7.0
-			* 
-			*/
-
-			do_action( 'directorist_review_updated', $comment_id, $comment_data );
-
-
 			wp_safe_redirect( $redirect_to );
 			exit;
 		} catch ( Exception $e ) {

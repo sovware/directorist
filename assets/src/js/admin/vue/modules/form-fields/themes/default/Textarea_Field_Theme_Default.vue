@@ -53,8 +53,8 @@ export default {
         
         tinymce.init({
             selector: `#${editorID}`,
-            plugins: 'lists link media',
-            toolbar: 'undo redo | formatselect | bold italic | bullist numlist | link | media',
+            plugins: 'link',
+            toolbar: 'undo redo | formatselect | bold italic | link',
             menubar: false,
             branding: false,
             init_instance_callback: (editor) => {

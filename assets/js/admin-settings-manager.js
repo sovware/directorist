@@ -31491,8 +31491,8 @@ __webpack_require__.r(__webpack_exports__);
     var value = this.value;
     tinymce.init({
       selector: "#".concat(editorID),
-      plugins: 'lists link media',
-      toolbar: 'undo redo | formatselect | bold italic | bullist numlist | link | media',
+      plugins: 'link',
+      toolbar: 'undo redo | formatselect | bold italic | link',
       menubar: false,
       branding: false,
       init_instance_callback: function init_instance_callback(editor) {

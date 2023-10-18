@@ -1915,37 +1915,7 @@ class Builder_Data {
                 'type'  => 'toggle',
                 'value' => true,
             ],
-            'require_privacy' => [
-                'label' => __('Required', 'directorist'),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
-            'terms_name' => [
-                'label'       => __('Terms Name', 'directorist'),
-                'type'        => 'text',
-                'value'       => __( 'Terms & Conditions', 'directorist' ),
-            ],
-            'terms_link' => [
-                'label'       => __('Terms Link', 'directorist'),
-                'type'        => 'text',
-                'value'       => ATBDP_Permalink::get_terms_and_conditions_page_url(),
-            ],
-            'privacy_name' => [
-                'label'       => __('Privacy name', 'directorist'),
-                'type'        => 'text',
-                'value'       => __( 'Privacy & Policy', 'directorist' ),
-            ],
-            'privacy_link' => [
-                'label'       => __('Terms Link', 'directorist'),
-                'type'        => 'text',
-                'value'       => ATBDP_Permalink::get_privacy_policy_page_url(),
-            ],
             'terms_privacy_label' => [
-                'label'       => __('Label', 'directorist'),
-                'type'        => 'text',
-                'value'       => __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ),
-            ],
-            'terms_privacy_label2' => [
                 'label'       => __('Terms Label', 'directorist'),
                 'type'        => 'textarea',
                 'editor'      => 'wp_editor',
@@ -2563,12 +2533,7 @@ class Builder_Data {
                                 'container' => 'short-width',
                                 'fields'    => [
                                     'listing_privacy',
-                                    'terms_name',
-                                    'terms_link',
-                                    'privacy_name',
-                                    'privacy_link',
                                     'terms_privacy_label',
-                                    'terms_privacy_label2',
                                 ],
                             ],
                             'submittion_settings'  => [

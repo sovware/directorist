@@ -598,6 +598,8 @@ class Multi_Directory_Manager {
             'fields_value'   => $fields,
         ]);
 
+        update_term_meta( $term_id, 'terms_privacy_label', $_POST['terms_privacy_label'] );
+
         if ( ! $add_directory['status']['success'] ) {
             wp_send_json( $add_directory );
         }

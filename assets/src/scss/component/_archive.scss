@@ -400,7 +400,11 @@
 			color: var(--directorist-color-dark);
 		}
 		.directorist-advanced-filter__advanced {
+			width: 100%;
 			padding: 25px 30px;
+			.directorist-price-ranges__item .directorist-form-element {
+				padding-bottom: 1px;
+			}
 		}
 		.directorist-advanced-filter__advanced--element .directorist-search-field {
 			> label {
@@ -458,9 +462,6 @@
 		}
 		.directorist-price-ranges__price-frequency--btn:last-child {
 			border: 0 none;
-		}
-		.directorist-price-ranges__item .directorist-form-element {
-			padding-bottom: 0;
 		}
 		.directorist-checkbox-wrapper,
         .directorist-radio-wrapper,

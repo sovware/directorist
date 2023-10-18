@@ -156,6 +156,7 @@
             font-size: 14px;
             font-weight: 500;
             color: var(--directorist-color-primary);
+            justify-content: center;
             text-decoration: none;
             cursor: pointer;
         }
@@ -297,7 +298,6 @@
         .directorist-form-element {
             background: transparent;
             border-bottom: 1px solid var(--directorist-color-border);
-            padding-bottom: 1px;
             padding-inline-start: 41px;
             padding-inline-end: 15px;
             

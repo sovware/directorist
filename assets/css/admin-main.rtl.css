@@ -11402,6 +11402,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     height: calc(100vh - 200px);
   }
 }
+.directorist-search-modal .directorist-advanced-filter__form .directorist-price-ranges__item .directorist-form-element {
+  padding-bottom: 1px;
+}
 .directorist-search-modal__minimizer {
   content: "";
   position: absolute;

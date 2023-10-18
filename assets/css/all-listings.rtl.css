@@ -8383,6 +8383,9 @@ p.atbd-min {
     height: calc(100vh - 200px);
   }
 }
+.directorist-search-modal .directorist-advanced-filter__form .directorist-price-ranges__item .directorist-form-element {
+  padding-bottom: 1px;
+}
 .directorist-search-modal__minimizer {
   content: "";
   position: absolute;
@@ -10633,7 +10636,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-dark);
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced {
+  width: 100%;
   padding: 25px 30px;
+}
+.listing-with-sidebar__sidebar .directorist-advanced-filter__advanced .directorist-price-ranges__item .directorist-form-element {
+  padding-bottom: 1px;
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced--element .directorist-search-field > label {
   font-size: 15px;
@@ -10695,9 +10702,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .listing-with-sidebar__sidebar .directorist-price-ranges__price-frequency--btn:last-child {
   border: 0 none;
-}
-.listing-with-sidebar__sidebar .directorist-price-ranges__item .directorist-form-element {
-  padding-bottom: 0;
 }
 .listing-with-sidebar__sidebar .directorist-checkbox-wrapper,
 .listing-with-sidebar__sidebar .directorist-radio-wrapper,
@@ -11119,6 +11123,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 14px;
   font-weight: 500;
   color: var(--directorist-color-primary);
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   text-decoration: none;
   cursor: pointer;
 }
@@ -11270,7 +11278,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-price-ranges__item .directorist-form-element {
   background: transparent;
   border-bottom: 1px solid var(--directorist-color-border);
-  padding-bottom: 1px;
   -webkit-padding-start: 41px;
           padding-inline-start: 41px;
   -webkit-padding-end: 15px;

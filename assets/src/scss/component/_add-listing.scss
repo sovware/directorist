@@ -1265,6 +1265,7 @@
   }
   @include e(nav) {
     display: flex;
+    gap: 6px;
     flex-direction: column;
     height: fit-content;
     max-height: 100vh;
@@ -1333,6 +1334,7 @@
         font-weight: 600;
         color: var(--directorist-color-dark);
         box-shadow: var(--directorist-box-shadow-sm);
+        background-color: var(--directorist-color-white);
         border: 0 none;
         outline: none;
         &:before {
@@ -1362,6 +1364,8 @@
     flex: 1;
   }
   @include e(single) {
+    border-radius: 16px;
+    background-color: var(--directorist-color-white);
     label {
       display: block;
     }

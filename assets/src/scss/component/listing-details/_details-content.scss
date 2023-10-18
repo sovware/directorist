@@ -9,6 +9,7 @@
         min-width: 120px;
         text-decoration: none;
         justify-content: flex-start;
+        border: 2px solid var(--directorist-color-white);
         .directorist-single-listing-action__text {
             display: block;
         }
@@ -286,6 +287,7 @@
     cursor: pointer;
     text-decoration: none;
     color: var(--directorist-color-body);
+    border: 2px solid var(--directorist-color-white);
     transition: .2s background-color ease-in-out;
     @media screen and (max-width: 575px) {
         gap: 0;

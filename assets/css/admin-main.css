@@ -9038,6 +9038,7 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 6px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -9136,6 +9137,7 @@ body.stop-scrolling {
   color: var(--directorist-color-dark);
   -webkit-box-shadow: var(--directorist-box-shadow-sm);
           box-shadow: var(--directorist-box-shadow-sm);
+  background-color: var(--directorist-color-white);
   border: 0 none;
   outline: none;
 }
@@ -9166,6 +9168,10 @@ body.stop-scrolling {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
+}
+.multistep-wizard__single {
+  border-radius: 16px;
+  background-color: var(--directorist-color-white);
 }
 .multistep-wizard__single label {
   display: block;

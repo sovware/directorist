@@ -465,6 +465,7 @@
             height: 100%;
             object-fit: cover;
             margin: 0;
+            background-color: var(--directorist-color-bg-gray);
         }
 
         .directorist-thumnail-card-back-img {
@@ -596,6 +597,7 @@
                 width: 100%;
                 border-radius: 50%;
                 height: auto;
+                background-color: var(--directorist-color-bg-gray);
             }
             a {
                 display: inline-flex;

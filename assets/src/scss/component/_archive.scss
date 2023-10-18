@@ -153,6 +153,7 @@
 				font-weight: 400;
 				color: var(--directorist-color-body);
 				background-color: var(--directorist-color-light);
+				border: 2px solid var(--directorist-color-white);
 				padding: 0 20px;
 				border-radius: 8px;
 				cursor: pointer;
@@ -204,6 +205,7 @@
 		width: 40px;
 		height: 40px;
 		border-radius: 8px;
+		border: 2px solid var(--directorist-color-white);
 		background-color: var(--directorist-color-light);
 		i::after {
 			width: 16px;
@@ -211,6 +213,7 @@
 			background-color: var(--directorist-color-body);
 		}
 		&.active {
+			border-color: var(--directorist-color-primary);
 			background-color: var(--directorist-color-primary);
 			i::after {
 				background-color: var(--directorist-color-white);
@@ -302,15 +305,13 @@
 			text-decoration: none !important;
 			color: var(--directorist-color-primary);
 			background: var(--directorist-color-light);
+			border: 2px solid var(--directorist-color-white);
 			display: none;
 			.directorist-icon-mask{
 				margin-right: 5px;
 				&::after{
-					width: 16px;
-					height: 16px;
-				}
-				@media only screen and (max-width: 991px) {
-					display: inline-block;
+					width: 14px;
+					height: 14px;
 				}
 			}
 			@media only screen and (max-width: 991px) {
@@ -402,9 +403,6 @@
 		.directorist-advanced-filter__advanced {
 			width: 100%;
 			padding: 25px 30px;
-			.directorist-price-ranges__item .directorist-form-element {
-				padding-bottom: 1px;
-			}
 		}
 		.directorist-advanced-filter__advanced--element .directorist-search-field {
 			> label {

@@ -3995,7 +3995,11 @@ function directorist_get_page_id( string $page_name = '' ) : int {
     return (int) apply_filters( 'directorist_page_id', $page_id, $page_name );
 }
 
-function directorist_password_reset_url(\Wp_User $user, $password_reset = true, $confirm_mail = false) {
+function directorist_password_reset_url( $user, $password_reset = true, $confirm_mail = false) {
+
+    if ( ! $user instanceof \Wp_User ) {
+        return;
+    }
 
     $args = array(
         'user' => $user->user_email

@@ -12002,7 +12002,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding-right: 30px;
   margin-bottom: 0;
   margin-right: 0;
-  line-height: 1.4;
+  line-height: 1.3;
   color: var(--directorist-color-body);
   -webkit-box-sizing: content-box;
           box-sizing: content-box;

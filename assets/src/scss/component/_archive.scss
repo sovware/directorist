@@ -458,6 +458,9 @@
 		}
 		.directorist-price-ranges__price-frequency--btn .directorist-pf-range {
 			width: 54px;
+			@media screen and (max-width: 575px) {
+				width: 100%;
+			}
 		}
 		.directorist-price-ranges__price-frequency--btn:last-child {
 			border: 0 none;

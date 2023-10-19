@@ -375,6 +375,7 @@
         height: 36px;
         @media screen and (max-width: 575px) {
             width: 100%;
+            border-radius: 0;
             background-color: var(--directorist-color-white);
         }
     }

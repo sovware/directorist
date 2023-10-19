@@ -99,6 +99,7 @@
         Author: Sovware
         Author URI: https://sovware.com/
 */
+
 /* disable-eslint */
 var aazztechModal1 = function aazztechModal1(selector) {
   var element = document.querySelectorAll(selector);
@@ -108,6 +109,7 @@ var aazztechModal1 = function aazztechModal1(selector) {
       var current_elm = event.target;
       var target_id = current_elm.getAttribute('data-target');
       var el_id = el.getAttribute('id');
+
       if (target_id === el_id) {
         event.preventDefault();
         el.style.display = 'block';
@@ -138,9 +140,11 @@ var aazztechModal1 = function aazztechModal1(selector) {
     });
   });
 };
+
 function initModal() {
   aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
 }
+
 window.addEventListener('load', function () {
   setTimeout(function () {
     initModal();

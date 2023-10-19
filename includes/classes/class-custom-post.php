@@ -442,13 +442,15 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					printf(
 						'<div class="directorist-date-column">
 							<div class="directorist-created-date">
-								<strong>Created:</strong> %1$s
+								<strong>%s</strong> %s
 							</div>
 							<div class="directorist-expire-date">
-								<strong>Expire:</strong> %1$s
+								<strong>%s</strong> %s
 							</div>
 						</div>',
+						esc_html__( 'Created:', 'directorist' ),
 						esc_html( $created_date ),
+						esc_html__( 'Expires:', 'directorist' ),
 						esc_html( $expiry_date ),
 					);
 					break;

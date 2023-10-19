@@ -6869,7 +6869,6 @@ body.modal-overlay-enabled:before {
 }
 .directorist-btn.directorist-btn-light:hover {
   background: var(--directorist-color-light-hover);
-  border-color: transparent;
 }
 .directorist-btn.directorist-btn-lighter {
   background-color: #F6F7F9;
@@ -9322,8 +9321,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 .directorist-radio.directorist-radio-theme-admin input[type=radio] + .directorist-radio__label:before {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   top: 5px;
   right: 5px;
   background-color: #fff !important;

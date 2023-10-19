@@ -287,8 +287,8 @@
     input[type="radio"]{
         & +.directorist-radio__label{
             &:before{
-                width: 8px;
-                height: 8px;
+                width: 10px;
+                height: 10px;
                 top: 5px;
                 left: 5px;
                 background-color: #fff !important;

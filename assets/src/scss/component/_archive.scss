@@ -528,6 +528,7 @@
 			transition: opacity 0.3s ease, top 0.3s ease;
 		}
 		@include e(btn) {
+			display: flex;
 			position: absolute;
 			bottom: 10px;
 			cursor: pointer;

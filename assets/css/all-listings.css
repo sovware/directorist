@@ -7109,6 +7109,8 @@ body.modal-overlay-enabled:before {
           transform: translateY(-50%);
   cursor: pointer;
   border-radius: 50%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   z-index: 2;
 }
 
@@ -10800,6 +10802,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   transition: opacity 0.3s ease, top 0.3s ease;
 }
 .listing-with-sidebar .directorist-search-field__btn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   position: absolute;
   bottom: 10px;
   cursor: pointer;

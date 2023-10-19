@@ -28,7 +28,7 @@ if ( $location_source == 'listing' ) {
 			</select>
 		</div>
 		<div class="directorist-search-field__btn directorist-search-field__btn--clear">
-			<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url(https://revamp.local/wp-content/plugins/directorist/assets/icons/font-awesome/svgs/solid/times-circle.svg)"></i>	
+			<?php directorist_icon( 'fas fa-times-circle' ); ?>	
 		</div>
 	</div>
 
@@ -51,7 +51,7 @@ elseif ( $location_source == 'map' ) {
 		<input type="hidden" id="cityLng" name="cityLng" value="<?php echo esc_attr($cityLng); ?>" />
 
 		<div class="directorist-search-field__btn directorist-search-field__btn--clear">
-			<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url(https://revamp.local/wp-content/plugins/directorist/assets/icons/font-awesome/svgs/solid/times-circle.svg)"></i>	
+			<?php directorist_icon( 'fas fa-times-circle' ); ?>	
 		</div>
 	</div>
 

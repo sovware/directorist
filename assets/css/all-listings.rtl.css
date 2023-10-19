@@ -14428,8 +14428,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -o-object-fit: contain;
      object-fit: contain;
 }
-.directorist-listing-single__thumb .directorist-thumnail-card.directorist-card-full .directorist-thumnail-card-front-wrap {
-  position: static;
+.directorist-listing-single__thumb .directorist-thumnail-card.directorist-card-full {
+  min-height: 300px;
 }
 .directorist-listing-single__thumb .directorist-thumnail-card-back-wrap {
   z-index: 1;

@@ -449,9 +449,7 @@
             }
 
             &.directorist-card-full {
-                .directorist-thumnail-card-front-wrap {
-                    position: static;
-                }
+                min-height: 300px;
             }
         }
 

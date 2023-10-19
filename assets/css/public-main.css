@@ -7100,8 +7100,8 @@ body.modal-overlay-enabled:before {
 }
 
 .directorist-range-slider1 {
-  width: 18px;
-  height: 18px;
+  width: 19px;
+  height: 19px;
   position: absolute;
   top: 50%;
   left: 0;
@@ -11318,6 +11318,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
 }
 .directorist-price-ranges__label {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   line-height: 1;
   font-size: 14px !important;
   font-weight: 400 !important;
@@ -13413,6 +13417,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 /* Authentication style */
 .directorist-author__form {
+  max-width: 540px;
+  margin: 0 auto;
   padding: 50px 40px;
   border-radius: 16px;
   background-color: var(--directorist-color-white);

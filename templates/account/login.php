@@ -13,8 +13,8 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 <div class="directorist-login-wrapper directorist-w-100 directorist-author">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
-            <div class="directorist-col-md-6 directorist-offset-md-3">
-                <div class="atbdp_login_form_shortcode  directorist-author__form">
+            <div class="directorist-col-md-4 directorist-offset-md-4">
+                <div class="atbdp_login_form_shortcode directorist-author__form">
 					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['verification'] ) && is_email( $user_email ) ) : ?>
 						<p class="directorist-alert directorist-alert-success"><span>
 							<?php

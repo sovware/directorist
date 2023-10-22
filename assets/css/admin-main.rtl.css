@@ -10551,8 +10551,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   border-radius: 6px;
   border: 1px solid #d9d9d9;
 }
-.directorist-form-group__with-prefix .directorist-form-element,
-.directorist-form-group__with-prefix .directorist-single-info__value {
+.directorist-form-group__with-prefix .directorist-form-element {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
@@ -10560,6 +10559,12 @@ svg.leaflet-image-layer.leaflet-interactive path {
   margin: 0 !important;
   padding: 0 10px !important;
   border: none !important;
+}
+.directorist-form-group__with-prefix .directorist-single-info__value {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 10px;
+  margin: 0 !important;
 }
 .directorist-form-group__prefix {
   height: 40px;

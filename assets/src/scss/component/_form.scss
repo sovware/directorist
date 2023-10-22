@@ -14,12 +14,17 @@
         align-items: center;
         border-radius: 6px;
         border: 1px solid #d9d9d9;
-        .directorist-form-element,
-        .directorist-single-info__value {
+        .directorist-form-element {
             flex: 1;
             margin: 0 !important;
             padding: 0 10px !important;
             border: none !important;
+        }
+        .directorist-single-info__value {
+            font-size: 14px;
+            font-weight: 500;
+            padding: 0 10px;
+            margin: 0 !important;
         }
     }
     @include e('prefix') {

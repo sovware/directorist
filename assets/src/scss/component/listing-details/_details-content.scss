@@ -111,6 +111,18 @@
         flex-direction: column;
         .directorist-single-info {
             margin: 0;
+            .directorist-form-group__with-prefix {
+                border: none;
+                margin-top: 4px;
+            }
+            .directorist-form-group__prefix {
+                padding: 0;
+                border: none;
+                height: auto;
+                line-height: unset;
+                background: transparent;
+                color: var(--directorist-color-body);
+            }
         }
     }
 }

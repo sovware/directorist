@@ -452,7 +452,7 @@ class Builder_Data {
                             'label'           => [
                                 'type'  => 'text',
                                 'label' => __( 'Label', 'directorist' ),
-                                'value' => '',
+                                'value' => 'Location',
                                 'sync'  => false,
                             ],
                             'placeholder'     => [

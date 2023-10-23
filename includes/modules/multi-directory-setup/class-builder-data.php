@@ -408,6 +408,11 @@ class Builder_Data {
                                 'label' => __( 'Required', 'directorist' ),
                                 'value' => false,
                             ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => __( 'label', 'directorist' ),
+                                'value' => 'Title',
+                            ],
                             'placeholder' => [
                                 'type'  => 'text',
                                 'label' => __( 'Placeholder', 'directorist' ),
@@ -447,7 +452,7 @@ class Builder_Data {
                             'label'           => [
                                 'type'  => 'text',
                                 'label' => __( 'Label', 'directorist' ),
-                                'value' => '',
+                                'value' => 'Location',
                                 'sync'  => false,
                             ],
                             'placeholder'     => [

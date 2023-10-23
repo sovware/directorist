@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.7.0
  */
 
 use \Directorist\Helper;
@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-contents" data-atts='<?php echo esc_attr( $searchform->get_atts_data() ); ?>' style="<?php echo esc_attr( $searchform->background_img_style() ); ?>">
+<div class="directorist-search-contents directorist-contents-wrap" data-atts='<?php echo esc_attr( $searchform->get_atts_data() ); ?>' style="<?php echo esc_attr( $searchform->background_img_style() ); ?>">
 
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
@@ -34,17 +34,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>" class="directorist-search-form" data-atts="<?php echo esc_attr( $searchform->get_atts_data() ); ?>">
 
-			<div class="directorist-search-form-wrap <?php echo esc_attr( $searchform->border_class() ); ?>">
+			<div class="directorist-search-form-wrap directorist-search-form__wrap <?php echo esc_attr( $searchform->border_class() ); ?>">
 
 				<?php $searchform->directory_type_nav_template(); ?>
 
 				<input type="hidden" name="directory_type" class="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
 
-				<div class="directorist-search-form-box-wrap">
-
-					<?php Helper::get_template( 'search-form/form-box', ['searchform' =>  $searchform] ); ?>
-
-				</div>
+				<?php Helper::get_template( 'search-form/form-box', ['searchform' =>  $searchform] ); ?>
 
 			</div>
 

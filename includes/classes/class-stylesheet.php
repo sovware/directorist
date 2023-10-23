@@ -136,7 +136,7 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
             $closed_back_color              = get_directorist_option( 'closed_back_color', '#e23636' );
             $featured_back_color            = get_directorist_option( 'featured_back_color', '#fa8b0c' );
             $popular_back_color             = get_directorist_option( 'popular_back_color', '#f51957' );
-            $new_back_color                 = get_directorist_option( 'new_back_color', '#122069' );
+            $new_back_color                 = get_directorist_option( 'new_back_color', '#2C99FF' );
             $primary_dark_back_color        = get_directorist_option( 'primary_dark_back_color', '#444752' );
             $primary_dark_border_color      = get_directorist_option( 'primary_dark_border_color', '#444752' );
             $marker_shape_color             = get_directorist_option( 'marker_shape_color', '#444752' );
@@ -488,13 +488,13 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
 
                 /* Badge New */
                 .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new {
-                    background: <?php echo ! empty( $new_back_color ) ? esc_attr( $new_back_color ) : esc_attr( '#122069' ); ?> !important;
+                    background: <?php echo ! empty( $new_back_color ) ? esc_attr( $new_back_color ) : esc_attr( '#2C99FF' ); ?> !important;
                 }
 
                 /*
                     Change default primary dark background
                 */
-                .ads-advanced .price-frequency .pf-btn input:checked + span, .btn-checkbox label input:checked + span, .atbdpr-range .ui-slider-horizontal .ui-slider-range, .custom-control .custom-control-input:checked ~ .check--select, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_rating, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, #directorist.atbd_wrapper .pagination .nav-links .current, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.directorist-parent-category > li:hover > a span, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover{
+                .ads-advanced .price-frequency .pf-btn input:checked + span, .btn-checkbox label input:checked + span, .atbdpr-range .ui-slider-horizontal .ui-slider-range, .custom-control .custom-control-input:checked ~ .check--select, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_rating, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, #directorist.atbd_wrapper .pagination .nav-links .current, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.directorist-parent-category > li:hover > a span{
                     background: <?php echo ! empty( $primary_dark_back_color ) ? esc_attr( $primary_dark_back_color ) : esc_attr( '#444752' ); ?> !important;
                 }
 

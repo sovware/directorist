@@ -10,13 +10,6 @@
                     </a>
                 </div>
             </div>
-
-            <!-- <div class="cptm-option-card-header-nav-section">
-                <ul class="cptm-option-card-header-nav">
-                    <li class="cptm-option-card-header-nav-item active">Preset Field</li>
-                    <li class="cptm-option-card-header-nav-item">Custom Field</li>
-                </ul>
-            </div> -->
         </div>
 
         <div class="cptm-option-card-body">
@@ -77,6 +70,9 @@ export default {
         acceptedWidgets: {
             type: Array,
         },
+        rejectedWidgets: {
+            type: Array,
+        },
         activeWidgets: {
             type: Object,
         },
@@ -114,6 +110,16 @@ export default {
             }
 
             let availableWidgets = JSON.parse( JSON.stringify( this.availableWidgets ) );
+
+            if ( this.rejectedWidgets && this.rejectedWidgets.length ) {
+                availableWidgets = Object.keys( availableWidgets )
+                    .filter( key => ! this.rejectedWidgets.includes( availableWidgets[ key ].widget_name ) )
+                    .reduce(( obj, key ) => {
+                        obj[ key ] = availableWidgets[ key ];
+                        return obj;
+                    }, {});
+            }
+
             let accepted_widgets = this.acceptedWidgets;
 
             if ( ! accepted_widgets && typeof accepted_widgets !== 'object' ) {

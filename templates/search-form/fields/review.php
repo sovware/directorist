@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.1
+ * @version 7.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -12,13 +12,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php if ( !empty($data['label']) ): ?>
 		<label><?php echo esc_html( $data['label'] ); ?></label>
 	<?php endif; ?>
-	<div class="directorist-select">
-		<select name='search_by_rating' <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-placeholder="<?php echo esc_attr( sprintf( _x( 'Select %s', 'Rating search select placeholder', 'directorist' ), $data['label'] ) ); ?> " data-isSearch="true">
-			<?php
-				foreach ( $searchform->rating_field_data() as $option ) {
-					printf( '<option value="%s" %s>%s</option>', esc_attr( $option['value'] ), esc_attr( $option['selected'] ), esc_html( $option['label'] ) );
-				}
-			?>
-		</select>
+	
+
+	<div class="directorist-checkbox directorist-checkbox-rating">
+		<?php foreach ( $searchform->rating_field_data() as $option ) { 
+			$uniqid = $option['value'] . '_' .wp_rand();
+		?>
+			<input type="checkbox" name="search_by_rating[]" value="<?php echo esc_attr( $option['value'] ); ?>" id="<?php echo esc_attr( $uniqid ); ?>" <?php echo esc_attr( $option['checked'] ); ?>>
+			<label for="<?php echo esc_attr( $uniqid ); ?>" class="directorist-checkbox__label">
+				<?php 
+					directorist_icon( 'fas fa-star', true, 'star-empty' );
+					directorist_icon( 'fas fa-star', true, 'star-empty' );
+					directorist_icon( 'fas fa-star', true, 'star-empty' );
+					directorist_icon( 'fas fa-star', true, 'star-empty' );
+					directorist_icon( 'fas fa-star', true, 'star-empty' );
+				?>
+			</label>
+		<?php } ?>
 	</div>
 </div>

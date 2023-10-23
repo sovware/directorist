@@ -1,13 +1,11 @@
 // Profile Responsive
-#dashboard_profile{
-    #user_profile_form{
-        &.directorist-profile-responsive{
-            .directorist-col-lg-3{
-                width: 100%;
-            }
-            .directorist-col-lg-9{
-                width: 100%;
-            }
+#dashboard_profile #user_profile_form{
+    &.directorist-profile-responsive{
+        .directorist-col-lg-3{
+            width: 100%;
+        }
+        .directorist-col-lg-9{
+            width: 100%;
         }
     }
 }
@@ -16,20 +14,30 @@
 .directorist-image-profile-wrap {
     padding: 25px;
     background-color: #fff;
-    border-radius: 4px;
+    border-radius: 16px;
     border: 1px solid #ececec;
 
-    .ezmu__upload-button-wrap {
-        .ezmu__btn {
-            border-radius: 4px;
-            padding: 10.5px 30px;
-            background-color: #F6F7F9;
-            box-shadow: 0 0;
-            font-size: 14px;
-            font-weight: 500;
-            color: $dark;
+    .ezmu__upload-button-wrap .ezmu__btn {
+        border-radius: 8px;
+        padding: 10.5px 30px;
+        background-color: #F6F7F9;
+        box-shadow: 0 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--directorist-color-primary);
+    }
+
+    .directorist-profile-uploader {
+        border-radius: 16px;
+        .ezmu__front-item__close-icon {
+            background-image: none;
+            .directorist-icon-mask::after {
+                width: 16px;
+                height: 16px;
+            }
         }
     }
+
 }
 
 // Userdashboard Profile Info
@@ -51,7 +59,7 @@
             margin-bottom: 5px;
         }
         .directorist-input-extra-info {
-            color: $light-gray;
+            color: var(--directorist-color-light-gray);
             display: inline-block;
             font-size: 14px;
             font-weight: 400;
@@ -64,6 +72,10 @@
         text-align: center;
         text-transform: capitalize;
         text-decoration: none;
+    }
+
+    #directorist-profile-notice .directorist-alert {
+        margin-top: 15px;
     }
 }
 
@@ -82,12 +94,10 @@
         align-items: center;
         .directorist-social-icon {
             margin-right: 6px;
-            .directorist-icon-mask{
-                &:after{
-                    width: 16px;
-                    height: 16px;
-                    background-color: #0A0B1E;
-                }
+            .directorist-icon-mask::after{
+                width: 16px;
+                height: 16px;
+                background-color: #0A0B1E;
             }
         }
     }

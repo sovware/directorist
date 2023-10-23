@@ -3,32 +3,32 @@
     display: inline-block;
     font-size: 10px;
     font-weight: 700;
-    line-height: 1.7;
-    padding: 0 3px;
+    line-height: 1.9;
+    padding: 0 5px;
     color: #fff;
     text-transform: uppercase;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 // Badge Type
 .directorist-badge{
     &.directorist-badge-primary{
-        background-color: $primary;
+        background-color: var(--directorist-color-primary);
     }
     &.directorist-badge-warning{
-        background-color: $warning;
+        background-color: var(--directorist-color-warning);
     }
     &.directorist-badge-info{
-        background-color: $info;
+        background-color: var(--directorist-color-info);
     }
     &.directorist-badge-success{
-        background-color: $success;
+        background-color: var(--directorist-color-success);
     }
     &.directorist-badge-danger{
-        background-color: $danger;
+        background-color: var(--directorist-color-danger);
     }
     &.directorist-badge-light{
-        background-color: $light;
+        background-color: var(--directorist-color-white);
     }
     &.directorist-badge-gray{
         background-color: $gray;
@@ -38,31 +38,70 @@
 // Badge Transparent
 .directorist-badge{
     &.directorist-badge-primary-transparent{
-        color: $primary;
-        background-color: rgba($primary,.15);
+        color: var(--directorist-color-primary);
+        background-color: rgba(var(--directorist-color-primary-rgb),.15);
     }
     &.directorist-badge-warning-transparent{
-        color: $warning;
-        background-color: rgba($warning,.15);
+        color: var(--directorist-color-warning);
+        background-color: rgba(var(--directorist-color-warning-rgb),.15);
     }
     &.directorist-badge-info-transparent{
-        color: $info;
-        background-color: rgba($info,.15);
+        color: var(--directorist-color-info);
+        background-color: rgba(var(--directorist-color-info-rgb),.15);
     }
     &.directorist-badge-success-transparent{
-        color: $success;
-        background-color: rgba($success,.15);
+        color: var(--directorist-color-success);
+        background-color: rgba(var(--directorist-color-success-rgb),.15);
     }
     &.directorist-badge-danger-transparent{
-        color: $danger;
-        background-color: rgba($danger,.15);
+        color: var(--directorist-color-danger);
+        background-color: rgba(var(--directorist-color-danger-rgb),.15);
     }
     &.directorist-badge-light-transparent{
-        color: $light;
-        background-color: rgba($light,.15);
+        color: var(--directorist-color-white);
+        background-color: rgba(var(--directorist-color-white-rgb),.15);
     }
     &.directorist-badge-gray-transparent{
-        color: $gray;
-        background-color: rgba($gray,.15);
+        color: var(--directorist-color-gray);
+        background-color: rgba(var(--directorist-color-gray-rgb),.15);
+    }
+}
+
+// Badge Tooltip
+.directorist-badge {
+    .directorist-badge-tooltip {
+        position: absolute;
+        top: -35px;
+        height: 30px;
+        line-height: 30px;
+        width: max-content;
+        padding: 0 20px;
+        font-size: 12px;
+        border-radius: 15px;
+        color: var(--directorist-color-white);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease-in-out;
+        @include e(featured) {
+            background: var(--directorist-color-featured-badge);
+        }
+        @include e(new) {
+            background: var(--directorist-color-new-badge);
+        }
+        @include e(popular) {
+            background: var(--directorist-color-popular-badge);
+        }
+        @media screen and (max-width: 480px) {
+            height: 25px;
+            line-height: 25px;
+            font-size: 10px;
+            padding: 0 15px;
+        }
+    }
+    &:hover {
+        .directorist-badge-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
     }
 }

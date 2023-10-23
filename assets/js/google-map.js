@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -120,6 +120,12 @@ __webpack_require__.r(__webpack_exports__);
       var loc_manual_lat = parseFloat(localized_data.manual_lat);
       var loc_manual_lng = parseFloat(localized_data.manual_lng);
       var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
+      var searchIcon = {
+        url: '',
+        // replace with your marker icon URL
+        scaledSize: new google.maps.Size(40, 40) // set the size of the icon
+
+      };
       loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
       loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
       $manual_lat = $('#manual_lat');
@@ -187,7 +193,10 @@ __webpack_require__.r(__webpack_exports__);
         map.setCenter(place.geometry.location);
         var marker = new google.maps.Marker({
           map: map,
-          position: place.geometry.location
+          position: place.geometry.location,
+          draggable: true,
+          title: localized_data.marker_title,
+          icon: searchIcon
         }); // marker.addListener('click', function () {
         //     info_window.open(map, marker);
         // });
@@ -208,12 +217,9 @@ __webpack_require__.r(__webpack_exports__);
           map: map,
           position: saved_lat_lng,
           draggable: true,
-          title: localized_data.marker_title
-        }); // marker.addListener('click', function () {
-        //     info_window.open(map, marker);
-        // });
-        // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-
+          title: localized_data.marker_title,
+          icon: searchIcon
+        });
         markers.push(marker); // create a Geocode instance
 
         var geocoder = new google.maps.Geocoder();
@@ -281,15 +287,16 @@ __webpack_require__.r(__webpack_exports__);
       // Adds a marker to the map.
 
       function addMarker(location, map) {
-        // Add the marker at the clicked location, and add the next-available label
+        // Add the marker at the clicked location, and add the next-available label;
         // from the array of alphabetical characters.
         var marker = new google.maps.Marker({
+          map: map,
           position: location,
 
           /* label: labels[labelIndex++ % labels.length], */
           draggable: true,
           title: localized_data.marker_title,
-          map: map
+          icon: searchIcon
         }); // marker.addListener('click', function () {
         //     info_window.open(map, marker);
         // });
@@ -1051,16 +1058,16 @@ function convertToSelect2(field) {
       allowClear: true,
       width: '100%',
       templateResult: function templateResult(data) {
-        // We only really care if there is an field to pull classes from
-        if (!data.field) {
+        if (!data.id) {
           return data.text;
         }
 
-        var $field = $(data.field);
-        var $wrapper = $('<span></span>');
-        $wrapper.addClass($field[0].className);
-        $wrapper.text(data.text);
-        return $wrapper;
+        var iconURI = $(data.element).data('icon');
+        var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+        var originalText = data.text;
+        var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+        var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+        return $state;
       }
     };
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
@@ -1213,7 +1220,7 @@ module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, 
 
 /***/ }),
 
-/***/ 25:
+/***/ 26:
 /*!************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/map-view.js ***!
   \************************************************************/

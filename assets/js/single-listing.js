@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -93,40 +93,41 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
+var $ = jQuery;
+$(document).ready(function () {
+  modalToggle();
+});
 
-(function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
-    // Recovery Password Modal
-    $("#recover-pass-modal").hide();
-    $(".atbdp_recovery_pass").on("click", function (e) {
-      e.preventDefault();
-      $("#recover-pass-modal").slideToggle().show();
-    }); // Contact form [on modal closed]
+function modalToggle() {
+  // Recovery Password Modal
+  $("#recover-pass-modal").hide();
+  $(".atbdp_recovery_pass").on("click", function (e) {
+    e.preventDefault();
+    $("#recover-pass-modal").slideToggle().show();
+  }); // Contact form [on modal closed]
 
-    $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
-      $('#atbdp-contact-message').val('');
-      $('#atbdp-contact-message-display').html('');
-    }); // Template Restructured
-    // Modal
+  $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
+    $('#atbdp-contact-message').val('');
+    $('#atbdp-contact-message-display').html('');
+  }); // Template Restructured
+  // Modal
 
-    var directoristModal = document.querySelector('.directorist-modal-js');
-    $('body').on('click', '.directorist-btn-modal-js', function (e) {
-      e.preventDefault();
-      var data_target = $(this).attr("data-directorist_target");
-      document.querySelector(".".concat(data_target)).classList.add('directorist-show');
-    });
-    $('body').on('click', '.directorist-modal-close-js', function (e) {
-      e.preventDefault();
-      $(this).closest('.directorist-modal-js').removeClass('directorist-show');
-    });
-    $(document).bind('click', function (e) {
-      if (e.target == directoristModal) {
-        directoristModal.classList.remove('directorist-show');
-      }
-    });
+  var directoristModal = document.querySelector('.directorist-modal-js');
+  $('body').on('click', '.directorist-btn-modal-js', function (e) {
+    e.preventDefault();
+    var data_target = $(this).attr("data-directorist_target");
+    document.querySelector(".".concat(data_target)).classList.add('directorist-show');
   });
-})(jQuery);
+  $('body').on('click', '.directorist-modal-close-js', function (e) {
+    e.preventDefault();
+    $(this).closest('.directorist-modal-js').removeClass('directorist-show');
+  });
+  $(document).bind('click', function (e) {
+    if (e.target == directoristModal) {
+      directoristModal.classList.remove('directorist-show');
+    }
+  });
+}
 
 /***/ }),
 
@@ -251,8 +252,8 @@
     }); // Hide Clicked Anywhere
 
     $(document).bind('click', function (e) {
-      var clickedDom = $(e.target);
-      if (!clickedDom.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
+      var clickedDOM = $(e.target);
+      if (!clickedDOM.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
     }); //atbd_dropdown
 
     $(document).on("click", '.atbd_dropdown', function (e) {
@@ -310,20 +311,16 @@
 
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
-    $('#atbdp-favourites').on('click', function (e) {
+    $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
         'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $("a.atbdp-favourites").data('post_id')
+        'post_id': $(this).find('.directorist-single-listing-action__text').data('post_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
-        console.log('added');
-        console.log(response);
-        console.log(directorist.ajaxurl);
-
         if (response) {
-          $('#atbdp-favourites').html(response);
+          $('.directorist-action-bookmark').html(response);
         }
       });
     });
@@ -424,10 +421,10 @@ window.addEventListener('DOMContentLoaded', function () {
   var atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
   atbdSelectData.forEach(function (el) {
     el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
-      var ds = el.querySelector('.atbd-dropdown-toggle');
-      var itemds = item.getAttribute('data-status');
+      var atbd_dropdown = el.querySelector('.atbd-dropdown-toggle');
+      var dropdown_item = item.getAttribute('data-status');
       item.addEventListener('click', function (e) {
-        ds.setAttribute('data-status', "".concat(itemds));
+        atbd_dropdown.setAttribute('data-status', "".concat(dropdown_item));
       });
     });
   });
@@ -517,7 +514,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }, 5000);
       }, 'json');
     });
-    $('#atbdp-contact-form,#atbdp-contact-form-widget').removeAttr('novalidate');
+    $('#atbdp-contact-form,#directorist-contact-owner-form').removeAttr('novalidate');
   });
 })(jQuery);
 
@@ -1080,7 +1077,8 @@ window.addEventListener('DOMContentLoaded', function () {
               method: 'GET',
               reload: 'strict',
               success: function success(response) {
-                $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__contents-wrap').append(response.data.html);
+                $target.prop('disabled', true);
+                $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__info').append(response.data.html);
                 $wrap.removeClass('directorist-comment-edit-request').addClass('directorist-comment-editing');
                 self.cancelOthersEditMode($target.data('commentid'));
                 self.cancelReplyMode();
@@ -1095,6 +1093,7 @@ window.addEventListener('DOMContentLoaded', function () {
             var $target = $(event.target);
             var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
             $wrap.removeClass(['directorist-comment-edit-request', 'directorist-comment-editing']).find('form').remove();
+            $wrap.find('.directorist-js-edit-comment').prop('disabled', false);
           });
         }
       }, {
@@ -1151,82 +1150,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/single-listing-page/slider.js":
-/*!***********************************************************************!*\
-  !*** ./assets/src/js/public/components/single-listing-page/slider.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-document.addEventListener('DOMContentLoaded', function () {
-  var $ = jQuery; // Plasma Slider Initialization
-
-  if ($('.plasmaSlider').length !== 0) {
-    var single_listing_slider = new PlasmaSlider({
-      containerID: "directorist-single-listing-slider"
-    });
-    single_listing_slider.init();
-    var singleListingSlider = document.getElementById("directorist-single-listing-slider");
-    var width = singleListingSlider.getAttribute("data-width");
-    var height = singleListingSlider.getAttribute("data-height");
-
-    if (width) {
-      singleListingSlider.style.setProperty('width', width + "px");
-    }
-
-    if (height) {
-      singleListingSlider.style.setProperty('height', height + "px");
-    }
-  }
-  /* Related listings slider */
-
-
-  var rtl = directorist.rtl === 'true';
-  var relLis = $('.directorist-related-carousel');
-
-  if (relLis.length !== 0) {
-    var relLisData = relLis.data('attr');
-    var prevArrow = typeof relLisData !== 'undefined' ? relLisData.prevArrow : '';
-    var nextArrow = typeof relLisData !== 'undefined' ? relLisData.nextArrow : '';
-    var relLisCol = typeof relLisData !== 'undefined' ? relLisData.columns : 3;
-    $('.directorist-related-carousel').slick({
-      dots: false,
-      arrows: true,
-      prevArrow: prevArrow,
-      nextArrow: nextArrow,
-      infinite: true,
-      speed: 300,
-      slidesToShow: relLisCol,
-      slidesToScroll: 1,
-      autoplay: false,
-      rtl: rtl,
-      responsive: [{
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: relLisCol,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: false
-        }
-      }, {
-        breakpoint: 991,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1
-        }
-      }, {
-        breakpoint: 575,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }]
-    });
-  }
-});
-
-/***/ }),
-
 /***/ "./assets/src/js/public/modules/single-listing.js":
 /*!********************************************************!*\
   !*** ./assets/src/js/public/modules/single-listing.js ***!
@@ -1251,8 +1174,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
 /* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/single-listing-page/slider */ "./assets/src/js/public/components/single-listing-page/slider.js");
-/* harmony import */ var _components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_single_listing_page_slider__WEBPACK_IMPORTED_MODULE_8__);
 // General Components
 
 
@@ -1260,8 +1181,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
- // Single Listing Page
 
 
 
@@ -1314,7 +1233,7 @@ module.exports = _createClass, module.exports.__esModule = true, module.exports[
 
 /***/ }),
 
-/***/ 11:
+/***/ 12:
 /*!**************************************************************!*\
   !*** multi ./assets/src/js/public/modules/single-listing.js ***!
   \**************************************************************/

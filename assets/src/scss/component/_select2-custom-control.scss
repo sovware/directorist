@@ -24,20 +24,20 @@
 }
 
 .directorist-select2-dropdown-toggle {
-    height: 30px;
+    height: auto;
     width: 25px;
 }
 
 .directorist-select2-dropdown-close {
-    height: 30px;
+    height: auto;
     width: 25px;
-    .directorist-icon-mask:after{
+    .directorist-icon-mask::after{
         width: 15px;
         height: 15px;
     }
 }
 
-.directorist-select2-addon .directorist-icon-mask:after{
+.directorist-select2-addon .directorist-icon-mask::after{
     width: 13px;
     height: 13px;
 }

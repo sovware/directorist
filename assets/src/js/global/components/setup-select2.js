@@ -82,8 +82,6 @@ function initSelect2() {
     }
 }
 
-
-
 // Init Select2 Ajax Fields
 function initSelect2AjaxFields() {
     const rest_base_url = `${directorist.rest_url}directorist/v1`;
@@ -91,11 +89,6 @@ function initSelect2AjaxFields() {
     // Init Select2 Ajax Category Field
     initSelect2AjaxTaxonomy({
         selector: $('.directorist-search-category').find('select'),
-        url: `${rest_base_url}/listings/categories`,
-    });
-
-    initSelect2AjaxTaxonomy({
-        selector: $('.directorist-form-categories-field').find('select'),
         url: `${rest_base_url}/listings/categories`,
     });
 

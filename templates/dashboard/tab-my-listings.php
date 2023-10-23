@@ -58,7 +58,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<div class="directorist-user-dashboard-tabcontent">
 				<div class="directorist-listing-table directorist-table-responsive">
-
 					<table class="directorist-table">
 
 						<thead>
@@ -93,11 +92,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</table>
 
 					<?php do_action( 'directorist_dashboard_after_loop' ); ?>
+				</div>
 
-					<div class="directorist-dashboard-pagination">
-						<?php echo wp_kses_post( $dashboard->listing_pagination() ); ?>
-					</div>
-
+				<div class="directorist-dashboard-pagination">
+					<?php echo wp_kses_post( $dashboard->listing_pagination() ); ?>
 				</div>
 			</div>
 

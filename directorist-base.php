@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.7.3
+ * Version: 8.0
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -541,9 +541,9 @@ final class Directorist_Base
 				'name' => apply_filters('atbdp_right_sidebar_name', __('Directorist - Listing Right Sidebar', 'directorist')),
 				'id' => 'right-sidebar-listing',
 				'description' => __('Add widgets for the right sidebar on single listing page', 'directorist'),
-				'before_widget' => '<div class="widget atbd_widget %2$s">',
+				'before_widget' => '<div class="directorist-card %2$s">',
 				'after_widget' => '</div>',
-				'before_title' => '<div class="atbd_widget_title"><h4>',
+				'before_title' => '<div class="directorist-card__header directorist-widget__header"><h4 class="directorist-card__header--title directorist-widget__header--title">',
 				'after_title' => '</h4></div>',
 			));
 		}

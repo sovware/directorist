@@ -26,15 +26,12 @@ Directorist\Helper::add_hidden_data_to_dom( 'map_data', $map_data );
 
 	<div class="directorist-form-map-field__wrapper">
 
-		<?php if ( 'google' == $select_listing_map ): ?>
-
-			<div id="directorist-map-floating-panel">
-				<button class="directorist-btn directorist-btn-xs directorist-btn-danger" id="delete_marker"><?php esc_html_e( 'Delete Marker', 'directorist' ); ?></button>
+		<div class="directorist-form-map-field__maps"><div id="osm"><div id="gmap">
+			<div id="gmap_full_screen_button">
+				<span class="fullscreen-enable"><?php directorist_icon( 'fas fa-expand' ); ?></span>
+				<span class="fullscreen-disable"><?php directorist_icon( 'fas fa-compress' ); ?></span>
 			</div>
-
-		<?php endif; ?>
-
-		<div class="directorist-form-map-field__maps"><div id="osm"><div id="gmap"></div></div></div>
+		</div></div></div>
 
 		<?php if ('google' == $select_listing_map): ?>
 

@@ -15,7 +15,7 @@ class Single_Map extends \WP_Widget {
 		$id_base        = 'bdmw_widget';
         $name           = esc_html__( 'Directorist - Map (Single Listing)', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show single listing map by this widget', 'directorist' ),
         ];
 
@@ -61,9 +61,7 @@ class Single_Map extends \WP_Widget {
 
 		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Popular Listings', 'directorist');
 		$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
-		echo '<div class="atbd_widget_title">';
 		echo wp_kses_post( $widget_title );
-		echo '</div>';
 
 		$map_zoom_level = !empty( $instance['zoom'] ) ? (int) $instance['zoom'] : get_directorist_option('map_zoom_level', 16 );
 
@@ -81,7 +79,7 @@ class Single_Map extends \WP_Widget {
 		$listing = \Directorist\Directorist_Single_Listing::instance();
 		$map_data = json_decode( $listing->map_data() );
 		$map_data->map_zoom_level = $map_zoom_level;
-		$map_data->info_content = $info_content;
+		//$map_data->info_content = $info_content;
 		$map_data = json_encode( $map_data );
 
 		Helper::get_template( 'widgets/single-map', compact( 'args', 'instance', 'map_data' ) );

@@ -10,7 +10,6 @@
             var target = $(this).attr('target');
 
             if ('dashboard_announcement' === target) {
-                // console.log( target, 'clear seen announcements' );
 
                 $.ajax({
                     type: "post",
@@ -19,7 +18,6 @@
                         action: 'atbdp_clear_seen_announcements'
                     },
                     success: function (response) {
-                        // console.log( response );
 
                         if (response.success) {
                             cleared_seen_announcements = true;
@@ -28,9 +26,9 @@
                         }
                     },
                     error: function (error) {
-                        console.log({
-                            error
-                        });
+                        // console.log({
+                        //     error
+                        // });
                     },
                 })
             }
@@ -43,7 +41,6 @@
             e.preventDefault();
 
             if (closing_announcement) {
-                // console.log('Please wait...');
                 return;
             }
 

@@ -15,7 +15,7 @@ class Contact_Form extends \WP_Widget {
 		$id_base        = 'bdco_widget';
         $name           = esc_html__( 'Directorist - Contact Listing Owner', 'directorist' );
         $widget_options =             [
-            'classname' => 'atbd_widget',
+            'classname' => 'directorist-widget',
             'description' => esc_html__( 'You can show a form to contact the listing owners by this widget', 'directorist' ),
         ];
 
@@ -63,9 +63,7 @@ class Contact_Form extends \WP_Widget {
 
 				$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact the listing owner', 'directorist');
 				$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
-				echo '<div class="atbd_widget_title">';
 				echo wp_kses_post( $widget_title );
-				echo '</div>';
 
 				Helper::get_template( 'widgets/contact-form', compact( 'args', 'instance', 'email' ) );
 

@@ -45,6 +45,7 @@ $mobile-width-3: 375px;
 
 // XX. Medium Devices (less than 768px)
 @media only screen and (max-width: #{$tablet-width-2}) {
+
     .directorist-all-listing-col {
         width: 50% !important;
     }
@@ -58,9 +59,6 @@ $mobile-width-3: 375px;
 
 // XX. Medium Devices (less than 576px)
 @media only screen and (max-width: #{$mobile-width-1}) {
-    .directorist-search-contents .directorist-search-form-top .directorist-search-field {
-        flex: 0 0 100%;
-    }
 
     .directorist-all-listing-col {
         width: 100% !important;
@@ -73,16 +71,8 @@ $mobile-width-3: 375px;
         width: 100% !important;
     }
 
-    .directorist-author-profile-wrap .directorist-author-meta-list {
-        margin-top: 30px;
-    }
-
     .directorist-modal__dialog {
         width: calc(100% - 30px) !important;
-    }
-
-    .directorist-form-social-fields {
-        display: block !important;
     }
 
     .directorist-advanced-filter__basic--element {
@@ -97,23 +87,6 @@ $mobile-width-3: 375px;
 
 // XX. Small Devices (less than 480px)
 @media only screen and (max-width: #{$mobile-width-2}) {
-    .directorist-content-active .directorist-type-nav__list li {
-        a {
-            padding: 0 0 15px 0;
-        }
-    }
-
-    .directorist-user-dashboard-tab ul {
-        flex-wrap: wrap;
-        padding-left: 0;
-
-        li {
-            a {
-                padding-bottom: 5px;
-            }
-        }
-    }
-
     .directorist-user-dashboard-tab .directorist-user-dashboard-search {
         margin-left: 0;
         margin-top: 30px;
@@ -164,21 +137,6 @@ $mobile-width-3: 375px;
         display: inline-block;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // XX. Custom Devices

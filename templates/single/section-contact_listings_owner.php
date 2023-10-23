@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -16,7 +16,12 @@ if( $listing->contact_owner_form_disabled() ) {
 
 	<div class="directorist-card__header">
 
-		<h4 class="directorist-card__header--title"><?php directorist_icon( $icon );?><?php echo esc_html( $label );?></h4>
+		<h4 class="directorist-card__header--title">
+			<?php if ( ! empty( $icon ) ) : ?>
+				<span class="directorist-card__header-icon"><?php directorist_icon( $icon );?></span>
+			<?php endif; ?>
+			<span class="directorist-card__header-text"><?php echo esc_html( $label );?></span>
+		</h4>
 
 	</div>
 
@@ -43,7 +48,7 @@ if( $listing->contact_owner_form_disabled() ) {
 
 				<p class="directorist-contact-message-display"></p>
 
-				<button type="submit" class="directorist-btn directorist-btn-primary directorist-btn-sm directorist-btn-submit"><?php esc_html_e( 'Submit', 'directorist' ); ?></button>
+				<button type="submit" class="directorist-btn directorist-btn-light directorist-btn-md directorist-btn-submit"><?php esc_html_e( 'Submit now', 'directorist' ); ?></button>
 
 			</div>
 

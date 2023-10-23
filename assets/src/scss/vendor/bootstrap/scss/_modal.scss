@@ -130,8 +130,8 @@
   border-top: $modal-footer-border-width solid $modal-footer-border-color;
 
   // Easily place margin between footer elements
-  > :not(:first-child) { margin-left: .25rem; }
-  > :not(:last-child) { margin-right: .25rem; }
+  > :not(:first-child) { margin-left: 4px; }
+  > :not(:last-child) { margin-right: 4px; }
 }
 
 // Measure scrollbar width for padding body during modal show/hide

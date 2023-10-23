@@ -1,7 +1,7 @@
 <?php
 
 namespace Directorist\Multi_Directory;
-
+use ATBDP_Permalink;
 class Builder_Data {
     protected static $fields           = [];
     protected static $layouts          = [];
@@ -18,14 +18,14 @@ class Builder_Data {
                 'title'         => __( 'Preset Fields', 'directorist' ),
                 'description'   => __( 'Click on a field to use it', 'directorist' ),
                 'allowMultiple' => false,
-                'widgets'       => apply_filters( 'atbdp_form_preset_widgets', require_once __DIR__ .  '/builder-preset-fields.php' ),
+                'widgets'       => require_once __DIR__ .  '/builder-preset-fields.php',
             ],
 
             'custom' => [
                 'title'         => __( 'Custom Fields', 'directorist' ),
                 'description'   => __( 'Click on a field type you want to create.', 'directorist' ),
                 'allowMultiple' => true,
-                'widgets'       => apply_filters( 'atbdp_form_custom_widgets', require_once __DIR__ .  '/builder-custom-fields.php' ),
+                'widgets'       => require_once __DIR__ .  '/builder-custom-fields.php',
 
             ],
         ];
@@ -37,6 +37,31 @@ class Builder_Data {
                 'allowMultiple' => false,
                 'template'      => 'submission_form_fields',
                 'widgets'       => apply_filters( 'atbdp_single_listing_content_widgets', [
+                    
+                    'image_upload' => [
+                        'options' => [
+                            'icon' => [
+                                'type'  => 'icon',
+                                'label' => __( 'Icon', 'directorist' ),
+                                'value' => 'las la-tag',
+                            ],
+                            'footer_thumbnail' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Footer Thumbnail', 'directorist' ),
+                                'value' => true,
+                            ],
+                        ]
+                    ],
+                    'description' => [
+                        'options' => [
+                            'icon' => [
+                                'type'  => 'icon',
+                                'label' => __( 'Icon', 'directorist' ),
+                                'value' => 'las la-tag',
+                            ],
+                        ]
+                    ],
+
                     'tag'          => [
                         'options' => [
                             'icon' => [
@@ -376,7 +401,7 @@ class Builder_Data {
                 'template'      => 'submission_form_fields',
                 'widgets'       => [
                     'title'        => [
-                        'label'   => __( 'Search Bar', 'directorist' ),
+                        'label'   => __( 'Search Box', 'directorist' ),
                         'options' => [
                             'required'    => [
                                 'type'  => 'toggle',
@@ -475,6 +500,11 @@ class Builder_Data {
 
                     'pricing'      => [
                         'options' => [
+                            'label' => [
+                                'type'  => 'text',
+                                'label'  => __( 'Label', 'directorist' ),
+                                'value' => 'Pricing',
+                            ],
                             'price_range_min_placeholder' => [
                                 'type'  => 'text',
                                 'label' => __( 'Price Range Min Placeholder', 'directorist' ),
@@ -892,7 +922,7 @@ class Builder_Data {
                         'show_readmore_text' => [
                             'type'  => 'text',
                             'label' => __( 'Read More Text', 'directorist' ),
-                            'value' => 'Read More',
+                            'value' => '...',
                         ],
                     ],
                 ],
@@ -1550,7 +1580,7 @@ class Builder_Data {
                 'top'     => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
-                        'listing_title', 'favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing',
+                        "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing", "posted_date",
                     ],
                 ],
                 'bottom'  => [
@@ -1589,9 +1619,9 @@ class Builder_Data {
             'body'   => [
                 'avatar'        => [
                     'label'             => __( 'Avatar', 'directorist' ),
-                    'maxWidget'         => 1,
+                    'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets'   => ['user_avatar'],
+                    'acceptedWidgets' => [ "popular_badge", "featured_badge", "new_badge" ],
                 ],
                 'title'         => [
                     'maxWidget'       => 1,
@@ -1602,7 +1632,7 @@ class Builder_Data {
                     'acceptedWidgets' => ['favorite_badge'],
                 ],
                 'quick_info'    => [
-                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing'],
+                    'acceptedWidgets' => [ "rating", "pricing", "posted_date" ],
                 ],
                 'bottom'        => [
                     'maxWidget'       => 0,
@@ -1651,7 +1681,7 @@ class Builder_Data {
                     'label'             => __( 'Body Top', 'directorist' ),
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets'   => ['listing_title', 'favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing'],
+                    'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing", "posted_date"],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),
@@ -1830,6 +1860,11 @@ class Builder_Data {
                         'label' => 'Group Name',
                         'value' => 'Section',
                     ],
+                    'icon' => [
+                        'type'  => 'icon',
+                        'label'  => __( 'Block/Section Icon', 'directorist' ),
+                        'value' => '',
+                    ],
                 ],
                 'value'           => [
                     'fields' => [
@@ -1856,6 +1891,11 @@ class Builder_Data {
             ] ),
 
             // Submission Settings
+            'enable_sidebar' => [
+                'label' => __('Enable Sidebar', 'directorist'),
+                'type'  => 'toggle',
+                'value' => true,
+            ],
             'preview_mode'                                => [
                 'label' => __( 'Enable Listing Preview', 'directorist' ),
                 'type'  => 'toggle',
@@ -1870,39 +1910,40 @@ class Builder_Data {
             ],
 
             // TERMS AND CONDITIONS
-            'listing_terms_condition'                     => [
-                'label' => __( 'Enable', 'directorist' ),
+            'listing_privacy' => [
+                'label' => __('Enable', 'directorist'),
                 'type'  => 'toggle',
                 'value' => true,
             ],
-            'require_terms_conditions'                    => [
-                'label' => __( 'Required', 'directorist' ),
+            'require_privacy' => [
+                'label' => __('Required', 'directorist'),
                 'type'  => 'toggle',
                 'value' => true,
             ],
-            'terms_label'                                 => [
-                'label'       => __( 'Label', 'directorist' ),
+            'terms_name' => [
+                'label'       => __('Terms Name', 'directorist'),
                 'type'        => 'text',
-                'description' => __( 'Place the linking text between two <code>%</code> mark. Ex: %link% ', 'directorist' ),
-                'value'       => 'I agree with all %terms & conditions%',
+                'value'       => __( 'Terms & Conditions', 'directorist' ),
             ],
-
-            // PRIVACY AND POLICY
-            'listing_privacy'                             => [
-                'label' => __( 'Enable', 'directorist' ),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
-            'require_privacy'                             => [
-                'label' => __( 'Required', 'directorist' ),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
-            'privacy_label'                               => [
-                'label'       => __( 'Label', 'directorist' ),
+            'terms_link' => [
+                'label'       => __('Terms Link', 'directorist'),
                 'type'        => 'text',
-                'description' => __( 'Place the linking text between two <code>%</code> mark. Ex: %link% ', 'directorist' ),
-                'value'       => 'I agree to the %Privacy & Policy%',
+                'value'       => ATBDP_Permalink::get_terms_and_conditions_page_url(),
+            ],
+            'privacy_name' => [
+                'label'       => __('Privacy name', 'directorist'),
+                'type'        => 'text',
+                'value'       => __( 'Privacy & Policy', 'directorist' ),
+            ],
+            'privacy_link' => [
+                'label'       => __('Terms Link', 'directorist'),
+                'type'        => 'text',
+                'value'       => ATBDP_Permalink::get_privacy_policy_page_url(),
+            ],
+            'terms_privacy_label' => [
+                'label'       => __('Label', 'directorist'),
+                'type'        => 'text',
+                'value'       => __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ),
             ],
 
             'single_listings_contents'                    => [
@@ -2061,6 +2102,45 @@ class Builder_Data {
                 'value' => 3,
             ],
 
+            'all_listing_layout' => [
+                'type'  => 'radio',
+                'value' => 'no_sidebar',
+                'label' => __( 'All Listing Layout', 'directorist' ),
+                'options' => [
+                    [
+                        'label' => __('Listing with Left Sidebar', 'directorist'),
+                        'value' => 'left_sidebar',
+                    ],
+                    [
+                        'label' => __('Listing with Right Sidebar', 'directorist'),
+                        'value' => 'right_sidebar',
+                    ],
+                    [
+                        'label' => __('Listing with No Sidebar', 'directorist'),
+                        'value' => 'no_sidebar',
+                    ],
+                ],
+                'preview' => [
+                    'left_sidebar'  => esc_url( DIRECTORIST_ASSETS . 'images/left_sidebar.png' ),
+                    'right_sidebar' => esc_url( DIRECTORIST_ASSETS . 'images/right_sidebar.png' ),
+                    'no_sidebar'    => esc_url( DIRECTORIST_ASSETS . 'images/no_sidebar.png' ),
+                ]
+            ],
+
+            'listing_sidebar_top_search_bar' => [
+                'type'  => 'toggle',
+                'label' => __( 'Hide The Top Search Bar', 'directorist' ),
+                'value' => false,
+                'show_if' => [
+                    'where' => "self.all_listing_layout",
+                    'compare' => 'or',
+                    'conditions' => [
+                        ['key' => 'value', 'compare' => '=', 'value' => 'left_sidebar'],
+                        ['key' => 'value', 'compare' => '=', 'value' => 'right_sidebar'],
+                    ],
+                ],
+            ],
+
             'search_form_fields'                          => [
                 'type'            => 'form-builder',
                 'generalSettings' => [
@@ -2075,13 +2155,13 @@ class Builder_Data {
                 'value'           => [
                     'groups' => [
                         [
-                            'label'     => __( 'Basic', 'directorist' ),
+                            'label'     => __( 'Search Bar', 'directorist' ),
                             'lock'      => true,
                             'draggable' => false,
                             'fields'    => [],
                         ],
                         [
-                            'label'     => __( 'Advanced', 'directorist' ),
+                            'label'     => __( 'Search Filter', 'directorist' ),
                             'lock'      => true,
                             'draggable' => false,
                             'fields'    => [],
@@ -2091,85 +2171,71 @@ class Builder_Data {
             ],
 
             'single_listing_header' => apply_filters( 'directorist_listing_header_layout', [
-                'type'           => 'card-builder',
-                'template'       => 'listing-header',
-                'value'          => '',
-                'card-options'   => [
-                    'general'          => [
-                        'back'          => [
-                            'type'    => 'badge',
-                            'label'   => __( 'Back', 'directorist' ),
+                'type' => 'card-builder',
+                'template' => 'listing-header',
+                'value' => '',
+                'card-options' => [
+                    'general' => [
+                        'back' => [
+                            'type' => "badge",
+                            'label' => __( "Back", 'directorist' ),
                             'options' => [
-                                'title'  => __( 'Back Button Settings', 'directorist' ),
+                                'title' => __( "Back Button Settings", "directorist" ),
                                 'fields' => [
                                     'label' => [
-                                        'type'  => 'toggle',
-                                        'label' => __( 'Enable', 'directorist' ),
+                                        'type' => "toggle",
+                                        'label' => __( "Enable", "directorist" ),
                                         'value' => true,
                                     ],
                                 ],
                             ],
                         ],
                         'section_title' => [
-                            'type'    => 'title',
-                            'label'   => __( 'Section Title', 'directorist' ),
+                            'type' => "title",
+                            'label' => __( "Section Title", "directorist" ),
                             'options' => [
-                                'title'  => __( 'Section Title Options', 'directorist' ),
+                                'title' => __( "Section Title Options", "directorist" ),
                                 'fields' => [
                                     'use_listing_title' => [
-                                        'type'  => 'toggle',
-                                        'label' => __( 'Use Listing Title', 'directorist' ),
+                                        'type' => "toggle",
+                                        'label' => __( "Use Listing Title", "directorist" ),
                                         'value' => false,
                                     ],
-                                    'label'             => [
-                                        'type'    => 'text',
-                                        'label'   => __( 'Label', 'directorist' ),
-                                        'value'   => 'Section Title',
+                                    'label' => [
+                                        'type' => "text",
+                                        'label' => __( "Label", "directorist" ),
+                                        'value' => "Section Title",
                                         'show_if' => [
-                                            'where'      => 'single_listing_header.value.options.general.section_title',
+                                            'where' => "single_listing_header.value.options.general.section_title",
                                             'conditions' => [
                                                 ['key' => 'use_listing_title', 'compare' => '=', 'value' => false],
                                             ],
                                         ],
                                     ],
-                                    'icon'              => [
-                                        'type'  => 'icon',
-                                        'label' => __( 'Icon', 'directorist' ),
-                                        'value' => '',
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => __( "Icon", "directorist" ),
+                                        'value' => "",
                                     ],
                                 ],
                             ],
                         ],
                     ],
                     'content_settings' => [
-                        'listing_title'       => [
-                            'type'    => 'title',
-                            'label'   => __( 'Listing Title', 'directorist' ),
+                        'listing_title' => [
+                            'type' => "title",
+                            'label' => __( "Listing Title", "directorist" ),
                             'options' => [
-                                'title'  => __( 'Listing Title Settings', 'directorist' ),
+                                'title' => __( "Listing Title Settings", "directorist" ),
                                 'fields' => [
-                                    'enable_title'   => [
-                                        'type'  => 'toggle',
-                                        'label' => __( 'Show Title', 'directorist' ),
+                                    'enable_title' => [
+                                        'type' => "toggle",
+                                        'label' => __( "Show Title", "directorist" ),
                                         'value' => true,
                                     ],
                                     'enable_tagline' => [
-                                        'type'  => 'toggle',
-                                        'label' => __( 'Show Tagline', 'directorist' ),
-                                        'value' => true,
-                                    ],
-                                ],
-                            ],
-                        ],
-                        'listing_description' => [
-                            'type'    => 'title',
-                            'label'   => __( 'Description', 'directorist' ),
-                            'options' => [
-                                'title'  => __( 'Description Settings', 'directorist' ),
-                                'fields' => [
-                                    'enable' => [
-                                        'type'  => 'toggle',
-                                        'label' => __( 'Show Description', 'directorist' ),
+                                        'type' => "toggle",
+                                        'label' => __( "Show Tagline", "directorist" ),
                                         'value' => true,
                                     ],
                                 ],
@@ -2178,120 +2244,139 @@ class Builder_Data {
                     ],
                 ],
                 'options_layout' => [
-                    'header'        => ['back', 'section_title'],
+                    'header' => ['back', 'section_title'],
                     'contents_area' => ['title_and_tagline', 'description'],
                 ],
-                'widgets'        => [
-                    'bookmark'       => [
-                        'type'  => 'button',
-                        'label' => __( 'Bookmark', 'directorist' ),
-                        'icon'  => 'las la-bookmark',
+                'widgets' => [
+                    'back' => [
+                        'type' => "button",
+                        'label' => __( "Back", "directorist" ),
+                        'icon' => 'las la-arrow-left',
                     ],
-                    'share'          => [
-                        'type'    => 'badge',
-                        'label'   => __( 'Share', 'directorist' ),
-                        'icon'    => 'las la-share',
+                    'title' => [
+                        'type' => "title",
+                        'label' => __( "Listing Title", "directorist" ),
+                        'icon' => 'las la-heading',
                         'options' => [
-                            'title'  => __( 'Share Settings', 'directorist' ),
+                            'title' => __( "Listing Title Settings", "directorist" ),
+                            'fields' => [
+                                'enable_tagline' => [
+                                    'type' => "toggle",
+                                    'label' => __( "Show Tagline", "directorist" ),
+                                    'value' => true,
+                                ],
+                            ],
+                        ],
+                    ],
+                    'slider' => [
+                        'type' => "thumbnail",
+                        'label' => __( "Listing Image/Slider", "directorist" ),
+                        'icon' => 'las la-image',
+                        'options' => [
+                            'title' => __( "Image/Slider Settings", "directorist" ),
+                            'fields' => [
+                                'footer_thumbnail' => [
+                                    'type' => "toggle",
+                                    'label' => __( "Show Thumbnail", "directorist" ),
+                                    'value' => true,
+                                ],
+                            ],
+                        ],
+                    ],
+                    
+                    'bookmark' => [
+                        'type' => "button",
+                        'label' => __( "Bookmark", "directorist" ),
+                        'icon' => 'las la-bookmark',
+                    ],
+                    'share' => [
+                        'type' => "badge",
+                        'label' => __( "Share", "directorist" ),
+                        'icon' => 'las la-share',
+                        'options' => [
+                            'title' => __( "Share Settings", "directorist" ),
                             'fields' => [
                                 'icon' => [
-                                    'type'  => 'icon',
-                                    'label' => __( 'Icon', 'directorist' ),
+                                    'type' => "icon",
+                                    'label' => __( "Icon", "directorist" ),
                                     'value' => 'las la-share',
                                 ],
                             ],
                         ],
                     ],
-                    'report'         => [
-                        'type'    => 'badge',
-                        'label'   => __( 'Report', 'directorist' ),
-                        'icon'    => 'las la-flag',
+                    'report' => [
+                        'type' => "badge",
+                        'label' => __( "Report", "directorist" ),
+                        'icon' => 'las la-flag',
                         'options' => [
-                            'title'  => __( 'Report Settings', 'directorist' ),
+                            'title' => __( "Report Settings", "directorist" ),
                             'fields' => [
                                 'icon' => [
-                                    'type'  => 'icon',
-                                    'label' => __( 'Icon', 'directorist' ),
+                                    'type' => "icon",
+                                    'label' => __( "Icon", "directorist" ),
                                     'value' => 'las la-flag',
                                 ],
                             ],
                         ],
                     ],
 
-                    'listing_slider' => [
-                        'type'     => 'thumbnail',
-                        'label'    => __( 'Listings Slider', 'directorist' ),
-                        'icon'     => 'uil uil-text-fields',
-                        'can_move' => false,
-                        'options'  => [
-                            'title'  => __( 'Listings Slider Settings', 'directorist' ),
-                            'fields' => [
-                                'footer_thumbail' => [
-                                    'type'  => 'toggle',
-                                    'label' => __( 'Enable Footer Thumbnail', 'directorist' ),
-                                    'value' => true,
-                                ],
-                            ],
-                        ],
+                    'price' => [
+                        'type' => "badge",
+                        'label' => __( "Listings Price", "directorist" ),
+                        'icon' => 'uil uil-text-fields',
                     ],
-                    'price'          => [
-                        'type'  => 'badge',
-                        'label' => __( 'Listings Price', 'directorist' ),
-                        'icon'  => 'uil uil-text-fields',
-                    ],
-                    'badges'         => [
-                        'type'    => 'badge',
-                        'label'   => __( 'Badges', 'directorist' ),
-                        'icon'    => 'uil uil-text-fields',
+                    'badges' => [
+                        'type' => "badge",
+                        'label' => __( "Badges", "directorist" ),
+                        'icon' => 'uil uil-text-fields',
                         'options' => [
-                            'title'  => __( 'Badge Settings', 'directorist' ),
+                            'title' => __( "Badge Settings", "directorist" ),
                             'fields' => [
-                                'new_badge'      => [
-                                    'type'  => 'toggle',
-                                    'label' => __( 'Display New Badge', 'directorist' ),
+                                'new_badge' => [
+                                    'type' => "toggle",
+                                    'label' => __( "Display New Badge", "directorist" ),
                                     'value' => true,
                                 ],
-                                'popular_badge'  => [
-                                    'type'  => 'toggle',
-                                    'label' => __( 'Display Popular Badge', 'directorist' ),
+                                'popular_badge' => [
+                                    'type' => "toggle",
+                                    'label' => __( "Display Popular Badge", "directorist" ),
                                     'value' => true,
                                 ],
                                 'featured_badge' => [
-                                    'type'  => 'toggle',
-                                    'label' => __( 'Display Featured Badge', 'directorist' ),
+                                    'type' => "toggle",
+                                    'label' => __( "Display Featured Badge", "directorist" ),
                                     'value' => true,
                                 ],
                             ],
                         ],
                     ],
-
-                    'reviews'        => [
-                        'type'  => 'reviews',
-                        'label' => __( 'Listings Reviews', 'directorist' ),
-                        'icon'  => 'uil uil-text-fields',
+                    'reviews' => [
+                        'type' => "reviews",
+                        'label' => __( "Reviews", "directorist" ),
+                        'icon' => 'uil uil-text-fields',
                     ],
-                    'ratings_count'  => [
-                        'type'  => 'ratings-count',
-                        'label' => __( 'Listings Ratings', 'directorist' ),
-                        'icon'  => 'uil uil-text-fields',
+                    'ratings_count' => [
+                        'type' => "ratings-count",
+                        'label' => __( "Listings Ratings", "directorist" ),
+                        'icon' => 'uil uil-text-fields',
                     ],
-                    'category'       => [
-                        'type'    => 'badge',
-                        'label'   => __( 'Listings Category', 'directorist' ),
-                        'icon'    => 'uil uil-text-fields',
+                    'category' => [
+                        'type' => "badge",
+                        'label' => __( "Listings Category", "directorist" ),
+                        'icon' => 'uil uil-text-fields',
                         'show_if' => [
-                            'where'      => 'submission_form_fields.value.fields',
+                            'where' => "submission_form_fields.value.fields",
                             'conditions' => [
                                 ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'category'],
                             ],
                         ],
                     ],
-                    'location'       => [
-                        'type'    => 'badge',
-                        'label'   => __( 'Listings Location', 'directorist' ),
-                        'icon'    => 'uil uil-text-fields',
+                    'location' => [
+                        'type' => "badge",
+                        'label' => __( "Listings Location", "directorist" ),
+                        'icon' => 'uil uil-text-fields',
                         'show_if' => [
-                            'where'      => 'submission_form_fields.value.fields',
+                            'where' => "submission_form_fields.value.fields",
                             'conditions' => [
                                 ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'location'],
                             ],
@@ -2299,25 +2384,57 @@ class Builder_Data {
                     ],
                 ],
 
-                'layout'         => [
-                    'listings_header' => [
-                        'quick_actions' => [
-                            'label'             => __( 'Top Right', 'directorist' ),
-                            'maxWidget'         => 0,
-                            'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                            'acceptedWidgets'   => ['bookmark', 'share', 'report'],
+                'layout' => [
+                    [
+                        'type' => 'placeholder_group',
+                        'placeholderKey' => 'quick-widgets-placeholder',
+                        'placeholders' => [
+                            [
+                                'type'              => 'placeholder_item',
+                                'placeholderKey'    => 'quick-info-placeholder',
+                                'label'             => __( 'Quick info', 'directorist' ),
+                                'maxWidget'         => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets'   => ['back'],
+                            ],
+                            [
+                                'type'              => 'placeholder_item',
+                                'placeholderKey'    => 'quick-action-placeholder',
+                                'label'             => __( 'Quick Action', 'directorist' ),
+                                'maxWidget'         => 0,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets'   => [ 'bookmark', 'reviews', 'share', 'report' ],
+                            ],
                         ],
-                        'thumbnail'     => [
-                            'label'             => __( 'Thumbnail', 'directorist' ),
-                            'maxWidget'         => 1,
-                            'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                            'acceptedWidgets'   => ['listing_slider'],
-                        ],
-                        'quick_info'    => [
-                            'label'             => __( 'Quick info', 'directorist' ),
-                            'maxWidget'         => 0,
-                            'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                            'acceptedWidgets'   => ['badges', 'price', 'reviews', 'ratings_count', 'category', 'location'],
+                    ],
+                    [
+                        'type'              => 'placeholder_item',
+                        'placeholderKey'    => 'listing-title-placeholder',
+                        'label'             => __( 'Listing Title', 'directorist' ),
+                        'maxWidget'         => 1,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets'   => ['title'],
+                    ],
+                    [
+                        'type'              => 'placeholder_item',
+                        'placeholderKey'    => 'more-widgets-placeholder',
+                        'label'             => __( 'More Widgets', 'directorist' ),
+                        'maxWidget'         => 0,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
+                        'rejectedWidgets'   => ['slider'],
+                    ],
+                    [
+                        'type'            => 'placeholder_item',
+                        'label'           => 'Slider Widget',
+                        'placeholderKey'  => 'slider-placeholder',
+                        'selectedWidgets' => ['slider'],
+                        'acceptedWidgets' => ['slider'],
+                        'maxWidget'       => 1,
+                        'canDelete'       => true,
+                        'insertByButton'  => true,
+                        'insertButton'    => [
+                            'label' => 'Add Image/Slider'
                         ],
                     ],
                 ],
@@ -2439,14 +2556,18 @@ class Builder_Data {
                                 'container' => 'short-width',
                                 'fields'    => [
                                     'listing_privacy',
-                                    'require_privacy',
-                                    'privacy_label',
+                                    'terms_name',
+                                    'terms_link',
+                                    'privacy_name',
+                                    'privacy_link',
+                                    'terms_privacy_label'
                                 ],
                             ],
                             'submittion_settings'  => [
                                 'title'     => __( 'Submission Settings', 'directorist' ),
                                 'container' => 'short-width',
                                 'fields'    => [
+                                    'enable_sidebar',
                                     'preview_mode',
                                     'submit_button_label',
                                 ],
@@ -2510,7 +2631,7 @@ class Builder_Data {
                 ],
             ],
             'listings_card_layout' => [
-                'label'   => __( 'All Listing Layout', 'directorist' ),
+                'label'   => __( 'All Listing', 'directorist' ),
                 'icon'    => '<span class="uil uil-list-ul"></span>',
                 'submenu' => [
                     'grid_view' => [
@@ -2537,6 +2658,18 @@ class Builder_Data {
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> ' . __( 'Need help?', 'directorist' ) . ' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields'      => [
                                     'listings_card_list_view',
+                                ],
+                            ],
+                        ],
+                    ],
+                    'settings' => [
+                        'label' => __( 'Settings', 'directorist' ),
+                        'sections' => [
+                            'listings_settings' => [
+                                'title' => __( 'Settings', 'directorist'),
+                                'title_align' => 'left',
+                                'fields' => [
+                                    'all_listing_layout', 'listing_sidebar_top_search_bar'
                                 ],
                             ],
                         ],
@@ -2571,13 +2704,13 @@ class Builder_Data {
             self::$fields['guest_email_label'] = [
                 'label' => __( 'Guest Email Label', 'directorist' ),
                 'type'  => 'text',
-                'value' => 'Your Email',
+                'value' => 'Email Address',
             ];
 
             self::$fields['guest_email_placeholder'] = [
                 'label' => __( 'Guest Email Placeholder', 'directorist' ),
                 'type'  => 'text',
-                'value' => 'example@email.com',
+                'value' => 'Enter email address',
             ];
 
             self::$layouts['submission_form']['submenu']['settings']['sections']['guest_submission'] = [

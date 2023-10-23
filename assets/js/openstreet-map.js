@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+/******/ 	return __webpack_require__(__webpack_require__.s = 25);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -119,9 +119,10 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      var fontAwesomeIcon = L.icon({
-        iconUrl: loc_map_icon,
-        iconSize: [20, 25]
+      var fontAwesomeIcon = L.divIcon({
+        html: "<div class=\"atbd_map_shape\">".concat(loc_map_icon, "</div>"),
+        iconSize: [20, 20],
+        className: 'myDivIcon'
       });
       var mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
       L.marker([lat, lon], {
@@ -144,6 +145,35 @@ __webpack_require__.r(__webpack_exports__);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(mymap);
+
+      function toggleFullscreen() {
+        var mapContainer = document.getElementById('gmap');
+        var fullScreenEnable = document.querySelector('#gmap_full_screen_button .fullscreen-enable');
+        var fullScreenDisable = document.querySelector('#gmap_full_screen_button .fullscreen-disable');
+
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+          if (mapContainer.requestFullscreen) {
+            mapContainer.requestFullscreen();
+            fullScreenEnable.style.display = "none";
+            fullScreenDisable.style.display = "block";
+          } else if (mapContainer.webkitRequestFullscreen) {
+            mapContainer.webkitRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+            fullScreenDisable.style.display = "none";
+            fullScreenEnable.style.display = "block";
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+        }
+      }
+
+      $('body').on('click', '#gmap_full_screen_button', function (event) {
+        event.preventDefault();
+        toggleFullscreen();
+      });
     }
 
     function directorist_debounce(func, wait, immediate) {
@@ -214,7 +244,14 @@ __webpack_require__.r(__webpack_exports__);
     });
     var lat = loc_manual_lat,
         lon = loc_manual_lng;
-    mapLeaflet(lat, lon);
+    mapLeaflet(lat, lon); // Add Map on Add Listing Multistep
+
+    $('body').on('click', '.multistep-wizard__btn', function (event) {
+      if (document.getElementById('osm')) {
+        document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+        mapLeaflet(lat, lon);
+      }
+    });
     $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
       if (document.getElementById('osm')) {
         document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
@@ -362,6 +399,35 @@ __webpack_require__.r(__webpack_exports__);
         delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
 
       });
+
+      function toggleFullscreen() {
+        var mapContainer = document.getElementById('map');
+        var fullScreenEnable = document.querySelector('#gmap_full_screen_button .fullscreen-enable');
+        var fullScreenDisable = document.querySelector('#gmap_full_screen_button .fullscreen-disable');
+
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+          if (mapContainer.requestFullscreen) {
+            mapContainer.requestFullscreen();
+            fullScreenEnable.style.display = "none";
+            fullScreenDisable.style.display = "block";
+          } else if (mapContainer.webkitRequestFullscreen) {
+            mapContainer.webkitRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+            fullScreenDisable.style.display = "none";
+            fullScreenEnable.style.display = "block";
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+        }
+      }
+
+      $('body').on('click', '#gmap_full_screen_button', function (event) {
+        event.preventDefault();
+        toggleFullscreen();
+      });
     }
 
     setup_map();
@@ -478,7 +544,7 @@ __webpack_require__.r(__webpack_exports__);
 
         function mapLeaflet(lat, lon) {
           var fontAwesomeIcon = L.divIcon({
-            html: "<div class=\"atbd_map_shape\"><span class=\"\">".concat(cat_icon, "</span></div>"),
+            html: "<div class=\"atbd_map_shape\">".concat(cat_icon, "</div>"),
             iconSize: [20, 20],
             className: 'myDivIcon'
           });
@@ -574,16 +640,16 @@ function convertToSelect2(field) {
       allowClear: true,
       width: '100%',
       templateResult: function templateResult(data) {
-        // We only really care if there is an field to pull classes from
-        if (!data.field) {
+        if (!data.id) {
           return data.text;
         }
 
-        var $field = $(data.field);
-        var $wrapper = $('<span></span>');
-        $wrapper.addClass($field[0].className);
-        $wrapper.text(data.text);
-        return $wrapper;
+        var iconURI = $(data.element).data('icon');
+        var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+        var originalText = data.text;
+        var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+        var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+        return $state;
       }
     };
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
@@ -736,7 +802,7 @@ module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, 
 
 /***/ }),
 
-/***/ 24:
+/***/ 25:
 /*!******************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/openstreet-map.js ***!
   \******************************************************************/

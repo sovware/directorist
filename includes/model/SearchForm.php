@@ -216,7 +216,7 @@ class Directorist_Listing_Search_Form {
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 
 		$this->category_id             = '';
-		$this->category_class          = 'search_fields directorist-category-select';
+		$this->category_class          = 'search_fields bdas-category-search';
 		$this->location_id             = '';
 		$this->location_class          = 'search_fields directorist-location-select';
 		$this->connectors_title        = get_directorist_option('connectors_title', __('Or', 'directorist'));
@@ -483,7 +483,11 @@ class Directorist_Listing_Search_Form {
 		Helper::get_template( 'search-form/more-buttons', [ 'searchform' => $this ] );
 	}
 
-	public function advanced_search_form_fields_template() {
+	public function advanced_search_form_basic_fields_template() {
+		Helper::get_template( 'search-form/basic-search', array('searchform' => $this) );
+	}
+
+	public function advanced_search_form_advanced_fields_template() {
 		Helper::get_template( 'search-form/adv-search', array('searchform' => $this) );
 	}
 
@@ -620,34 +624,31 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function rating_field_data() {
+		$search_by_rating = ! empty( $_REQUEST['search_by_rating'] ) ? $_REQUEST['search_by_rating'] : array();
+		
 		$rating_options = array(
 			array(
-				'selected' => '',
-				'value'    => '',
-				'label'    => __( 'Select Ratings', 'directorist' ),
-			),
-			array(
-				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '5' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
+				'checked' => ( is_array( $search_by_rating ) && in_array( '5', $search_by_rating, true ) ) ? ' checked' : '',
 				'value'    => '5',
 				'label'    => __( '5 Star', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '4' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
+				'checked' => ( is_array( $search_by_rating ) && in_array( '4', $search_by_rating, true ) ) ? ' checked' : '',
 				'value'    => '4',
 				'label'    => __( '4 Star & Up', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '3' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
+				'checked' => ( is_array( $search_by_rating ) && in_array( '3', $search_by_rating, true )  ) ? ' checked' : '',
 				'value'    => '3',
 				'label'    => __( '3 Star & Up', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '2' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
+				'checked' => ( is_array( $search_by_rating ) && in_array( '2', $search_by_rating, true )  ) ? ' checked' : '',
 				'value'    => '2',
 				'label'    => __( '2 Star & Up', 'directorist' ),
 			),
 			array(
-				'selected' => ( ! empty( $_REQUEST['search_by_rating'] ) && '1' == $_REQUEST['search_by_rating'] ) ? ' selected' : '',
+				'checked' => ( is_array( $search_by_rating ) && in_array( '1', $search_by_rating, true )  ) ? ' checked' : '',
 				'value'    => '1',
 				'label'    => __( '1 Star & Up', 'directorist' ),
 			),

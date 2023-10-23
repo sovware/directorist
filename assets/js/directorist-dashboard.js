@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -209,7 +209,6 @@ __webpack_require__.r(__webpack_exports__);
       var target = $(this).attr('target');
 
       if ('dashboard_announcement' === target) {
-        // console.log( target, 'clear seen announcements' );
         $.ajax({
           type: "post",
           url: directorist.ajaxurl,
@@ -217,17 +216,15 @@ __webpack_require__.r(__webpack_exports__);
             action: 'atbdp_clear_seen_announcements'
           },
           success: function success(response) {
-            // console.log( response );
             if (response.success) {
               cleared_seen_announcements = true;
               $('.directorist-announcement-count').removeClass('show');
               $('.directorist-announcement-count').html('');
             }
           },
-          error: function error(_error) {
-            console.log({
-              error: _error
-            });
+          error: function error(_error) {// console.log({
+            //     error
+            // });
           }
         });
       }
@@ -238,7 +235,6 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
 
       if (closing_announcement) {
-        // console.log('Please wait...');
         return;
       }
 
@@ -568,7 +564,7 @@ __webpack_require__.r(__webpack_exports__);
     });
 
     if ($(window).innerWidth() < 1199) {
-      $(".directorist-tab__nav__link").on("click", function () {
+      $(".directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)").on("click", function () {
         $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
         $(".directorist-shade").removeClass("directorist-active");
       });
@@ -718,8 +714,8 @@ __webpack_require__.r(__webpack_exports__);
     }); // Hide Clicked Anywhere
 
     $(document).bind('click', function (e) {
-      var clickedDom = $(e.target);
-      if (!clickedDom.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
+      var clickedDOM = $(e.target);
+      if (!clickedDOM.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
     }); //atbd_dropdown
 
     $(document).on("click", '.atbd_dropdown', function (e) {
@@ -777,20 +773,16 @@ __webpack_require__.r(__webpack_exports__);
 
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
-    $('#atbdp-favourites').on('click', function (e) {
+    $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
         'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $("a.atbdp-favourites").data('post_id')
+        'post_id': $(this).find('.directorist-single-listing-action__text').data('post_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
-        console.log('added');
-        console.log(response);
-        console.log(directorist.ajaxurl);
-
         if (response) {
-          $('#atbdp-favourites').html(response);
+          $('.directorist-action-bookmark').html(response);
         }
       });
     });
@@ -891,10 +883,10 @@ window.addEventListener('DOMContentLoaded', function () {
   var atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
   atbdSelectData.forEach(function (el) {
     el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
-      var ds = el.querySelector('.atbd-dropdown-toggle');
-      var itemds = item.getAttribute('data-status');
+      var atbd_dropdown = el.querySelector('.atbd-dropdown-toggle');
+      var dropdown_item = item.getAttribute('data-status');
       item.addEventListener('click', function (e) {
-        ds.setAttribute('data-status', "".concat(itemds));
+        atbd_dropdown.setAttribute('data-status', "".concat(dropdown_item));
       });
     });
   });
@@ -922,13 +914,13 @@ window.addEventListener('DOMContentLoaded', function () {
         clickCount++;
 
         if (clickCount % 2 === 1) {
-          document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-            elem.classList.remove('atbd-show');
+          document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
+            el.classList.remove('atbd-show');
           });
           el.querySelector('.atbd-dropdown-items').classList.add('atbd-show');
         } else {
-          document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
-            elem.classList.remove('atbd-show');
+          document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
+            el.classList.remove('atbd-show');
           });
         }
       });
@@ -1038,7 +1030,7 @@ window.addEventListener('DOMContentLoaded', function () {
           submit_button.removeClass("directorist-loader"); // console.log(response);
 
           if (response.success) {
-            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>'); // Reload if password updated
+            $('#directorist-profile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>'); // Reload if password updated
 
             var newPass = form_data.get('user[new_pass]');
 
@@ -1047,7 +1039,7 @@ window.addEventListener('DOMContentLoaded', function () {
               return false;
             }
           } else {
-            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
+            $('#directorist-profile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
           }
         },
         error: function error(response) {
@@ -1057,7 +1049,7 @@ window.addEventListener('DOMContentLoaded', function () {
       }); // remove notice after five second
 
       setTimeout(function () {
-        $("#directorist-prifile-notice .directorist-alert").remove();
+        $("#directorist-profile-notice .directorist-alert").remove();
       }, 5000); // prevent the from submitting
 
       return false;
@@ -1157,7 +1149,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     this.navLinksSetup = function (selector) {
       var selector = document.querySelectorAll(selector);
       selector.forEach(function (el) {
-        a = el.querySelectorAll('.directorist-tab__nav__link');
+        a = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
         a.forEach(function (element) {
           element.style.cursor = 'pointer';
           element.addEventListener('click', function (event) {
@@ -1262,7 +1254,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 7:
+/***/ 8:
 /*!*********************************************************!*\
   !*** multi ./assets/src/js/public/modules/dashboard.js ***!
   \*********************************************************/

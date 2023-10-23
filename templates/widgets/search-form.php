@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.1
+ * @version 7.7.0
  */
 
 if (!defined('ABSPATH')) exit;
@@ -17,20 +17,22 @@ if (is_numeric($searchform->listing_type)) {
 	$listing_type = $term->slug;
 }
 ?>
-<div class="atbdp search-area default-ad-search <?php echo is_singular(ATBDP_POST_TYPE) ? esc_html('directorist_single') : ''; ?>">
-	<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
-		<input type="hidden" name='directory_type' value='<?php echo !empty($listing_type) ? esc_attr( $listing_type ) : esc_attr(  $searchform->listing_type ); ?>'>
-		<div class="directorist-advanced-filter__basic">
-			<?php foreach ($searchform->form_data[0]['fields'] as $field) : ?>
-				<div class="directorist-advanced-filter__basic--element"><?php $searchform->field_template($field); ?></div>
-			<?php endforeach; ?>
-		</div>
+<div class="directorist-card__body">
+	<div class="directorist-widget-advanced-search directorist-contents-wrap <?php echo is_singular(ATBDP_POST_TYPE) ? esc_html('directorist_single') : ''; ?>">
+		<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-search-form directorist-advanced-filter__form">
+			<input type="hidden" name='directory_type' value='<?php echo !empty($listing_type) ? esc_attr( $listing_type ) : esc_attr(  $searchform->listing_type ); ?>'>
+			<div class="directorist-advanced-filter__basic">
+				<?php foreach ($searchform->form_data[0]['fields'] as $field) : ?>
+					<div class="directorist-advanced-filter__basic--element"><?php $searchform->field_template($field); ?></div>
+				<?php endforeach; ?>
+			</div>
 
-		<div class="directorist-advanced-filter__advanced">
-			<?php foreach ($searchform->form_data[1]['fields'] as $field) : ?>
-				<div class="directorist-form-group directorist-advanced-filter__advanced--element direcorist-search-field-<?php echo esc_attr($field['widget_name']) ?>"><?php $searchform->field_template($field); ?></div>
-			<?php endforeach; ?>
-		</div>
-		<?php $searchform->buttons_template(); ?>
-	</form>
-</div><!-- ends: .default-ad-search -->
+			<div class="directorist-advanced-filter__advanced">
+				<?php foreach ($searchform->form_data[1]['fields'] as $field) : ?>
+					<div class="directorist-advanced-filter__advanced--element directorist-search-field-<?php echo esc_attr($field['widget_name']) ?>"><?php $searchform->field_template($field); ?></div>
+				<?php endforeach; ?>
+			</div>
+			<?php $searchform->buttons_template(); ?>
+		</form>
+	</div><!-- ends: .default-ad-search -->
+</div>

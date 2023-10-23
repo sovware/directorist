@@ -405,30 +405,7 @@ window.addEventListener('DOMContentLoaded', function () {
       logged_count.show();
     }
   });
-  /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-  (function ($) {
-  "use strict";
-  var content = "";
-  // Category icon selection
-  function selecWithIcon(selected) {
-  if (!selected.id) {
-  return selected.text;
-  }
-  var $elem = $(
-  "<span><span class='la " +
-  selected.element.value +
-  "'></span> " +
-  selected.text +
-  "</span>"
-  );
-  return $elem;
-  }
-   $("#category_icon").select2({
-  placeholder: directorist_admin.i18n_text.icon_choose_text,
-  allowClear: true,
-  templateResult: selecWithIcon,
-  });
-   /* Show and hide manual coordinate input field */
+  /* Show and hide manual coordinate input field */
 
   if (!$('input#manual_coordinate').is(':checked')) {
     $('.directorist-map-coordinates').hide();
@@ -466,27 +443,7 @@ window.addEventListener('DOMContentLoaded', function () {
         opacity: '0.7'
       });
     }
-  } // SOCIAL SECTION
-  // Rearrange the IDS and Add new social field
-
-  /* $('body').on('click', '#addNewSocial', function () {
-      const currentItems = $('.directorist-form-social-fields').length;
-      const ID = `id=${currentItems}`; // eg. 'id=3'
-      const iconBindingElement = jQuery('#addNewSocial');
-      // arrange names ID in order before adding new elements
-      $('.directorist-form-social-fields').each(function (index, element) {
-          const e = $(element);
-          e.attr('id', `socialID-${index}`);
-          e.find('select').attr('name', `social[${index}][id]`);
-          e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
-          e.find('.directorist-form-social-fields__remove').attr('data-id', index);
-      });
-      // now add the new elements. we could do it here without using ajax but it would require more markup here.
-      atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
-          //$s_wrap.append(data);
-      });
-  }); */
-  // remove the social field and then reset the ids while maintaining position
+  } // remove the social field and then reset the ids while maintaining position
 
 
   $(document).on('click', '.directorist-form-social-fields__remove', function (e) {
@@ -784,18 +741,18 @@ window.addEventListener('DOMContentLoaded', function () {
       } // Un-hide the remove image link
 
 
-      delImgLink.removeClass('hidden');
+      $('#delete-custom-img').removeClass('hidden');
     }); // Finally, open the modal on click
 
     frame.open();
   }); // DELETE ALL IMAGES LINK
 
-  delImgLink.on('click', function (event) {
+  $('body').on('click', '#delete-custom-img', function (event) {
     event.preventDefault(); // Clear out the preview image and set no image as placeholder
 
     $('.listing-img-container').html("<img src=\"".concat(directorist_admin.assets_path, "images/no-image.png\" alt=\"Listing Image\" />")); // Hide the delete image link
 
-    delImgLink.addClass('hidden');
+    $(this).addClass('hidden');
   });
   /* REMOVE SINGLE IMAGE */
 
@@ -805,7 +762,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     if ($('.single_attachment').length === 0) {
       $('.listing-img-container').html("<img src=\"".concat(directorist_admin.assets_path, "images/no-image.png\" alt=\"Listing Image\" /><p>No images</p> ") + "<small>(allowed formats jpeg. png. gif)</small>");
-      delImgLink.addClass('hidden');
+      $('#delete-custom-img').addClass('hidden');
     }
   });
   var has_tagline = $('#has_tagline').val();
@@ -2743,40 +2700,41 @@ window.addEventListener('DOMContentLoaded', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
+var $ = jQuery;
+$(document).ready(function () {
+  modalToggle();
+});
 
-(function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
-    // Recovery Password Modal
-    $("#recover-pass-modal").hide();
-    $(".atbdp_recovery_pass").on("click", function (e) {
-      e.preventDefault();
-      $("#recover-pass-modal").slideToggle().show();
-    }); // Contact form [on modal closed]
+function modalToggle() {
+  // Recovery Password Modal
+  $("#recover-pass-modal").hide();
+  $(".atbdp_recovery_pass").on("click", function (e) {
+    e.preventDefault();
+    $("#recover-pass-modal").slideToggle().show();
+  }); // Contact form [on modal closed]
 
-    $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
-      $('#atbdp-contact-message').val('');
-      $('#atbdp-contact-message-display').html('');
-    }); // Template Restructured
-    // Modal
+  $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
+    $('#atbdp-contact-message').val('');
+    $('#atbdp-contact-message-display').html('');
+  }); // Template Restructured
+  // Modal
 
-    var directoristModal = document.querySelector('.directorist-modal-js');
-    $('body').on('click', '.directorist-btn-modal-js', function (e) {
-      e.preventDefault();
-      var data_target = $(this).attr("data-directorist_target");
-      document.querySelector(".".concat(data_target)).classList.add('directorist-show');
-    });
-    $('body').on('click', '.directorist-modal-close-js', function (e) {
-      e.preventDefault();
-      $(this).closest('.directorist-modal-js').removeClass('directorist-show');
-    });
-    $(document).bind('click', function (e) {
-      if (e.target == directoristModal) {
-        directoristModal.classList.remove('directorist-show');
-      }
-    });
+  var directoristModal = document.querySelector('.directorist-modal-js');
+  $('body').on('click', '.directorist-btn-modal-js', function (e) {
+    e.preventDefault();
+    var data_target = $(this).attr("data-directorist_target");
+    document.querySelector(".".concat(data_target)).classList.add('directorist-show');
   });
-})(jQuery);
+  $('body').on('click', '.directorist-modal-close-js', function (e) {
+    e.preventDefault();
+    $(this).closest('.directorist-modal-js').removeClass('directorist-show');
+  });
+  $(document).bind('click', function (e) {
+    if (e.target == directoristModal) {
+      directoristModal.classList.remove('directorist-show');
+    }
+  });
+}
 
 /***/ }),
 
@@ -2818,6 +2776,25 @@ function init() {
     }
 
     selec2_add_custom_close_button($(this));
+    var selectItems = this.parentElement.querySelectorAll('.select2-selection__choice');
+    selectItems.forEach(function (item) {
+      item.childNodes && item.childNodes.forEach(function (node) {
+        if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+          var originalString = node.textContent;
+          var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+          node.textContent = modifiedString;
+          item.title = modifiedString;
+        }
+      });
+    });
+    var customSelectItem = this.parentElement.querySelector('.select2-selection__rendered');
+    customSelectItem.childNodes && customSelectItem.childNodes.forEach(function (node) {
+      if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+        var originalString = node.textContent;
+        var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+        node.textContent = modifiedString;
+      }
+    });
   });
 }
 
@@ -3065,10 +3042,6 @@ function initSelect2AjaxFields() {
 
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
-  });
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-categories-field').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
   }); // Init Select2 Ajax Location Field
 
@@ -3455,16 +3428,16 @@ function convertToSelect2(field) {
       allowClear: true,
       width: '100%',
       templateResult: function templateResult(data) {
-        // We only really care if there is an field to pull classes from
-        if (!data.field) {
+        if (!data.id) {
           return data.text;
         }
 
-        var $field = $(data.field);
-        var $wrapper = $('<span></span>');
-        $wrapper.addClass($field[0].className);
-        $wrapper.text(data.text);
-        return $wrapper;
+        var iconURI = $(data.element).data('icon');
+        var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+        var originalText = data.text;
+        var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+        var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+        return $state;
       }
     };
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;

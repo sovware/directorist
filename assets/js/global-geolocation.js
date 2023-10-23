@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 18);
+/******/ 	return __webpack_require__(__webpack_require__.s = 19);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -230,6 +230,11 @@ window.addEventListener('DOMContentLoaded', function () {
           navigator.geolocation.getCurrentPosition(function (position) {
             return displayLocation(position, e);
           });
+          var parentField = e.target.closest('.directorist-search-field');
+
+          if (!parentField.classList.contains('input-is-focused')) {
+            parentField.classList.add('input-is-focused');
+          }
         });
       }
     }, 1000);
@@ -238,7 +243,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ 18:
+/***/ 19:
 /*!***************************************************************!*\
   !*** multi ./assets/src/js/global/map-scripts/geolocation.js ***!
   \***************************************************************/

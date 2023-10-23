@@ -104,7 +104,7 @@ export var directorist_range_slider = (selector, obj) => {
                 id.querySelector('.directorist-range-slider-minimum').value = slid1_val;
                 id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value = slid1_val;
                 id.querySelector('.directorist-rs-active').style[direction] = count +'px';
-                id.querySelector('.directorist-range-slider-child').style.width = count+'px';
+                id.querySelector('.directorist-range-slider-child').style.width = count +'px';
             }
         });
     });
@@ -116,10 +116,10 @@ export function directorist_callingSlider() {
         maxValue: 1000,
         minValue: parseInt(minValueWrapper && minValueWrapper.value),
         maxWidth: '100%',
-        barColor: '#d4d5d9',
+        barColor: '#d9d9d9',
         barBorder: 'none',
         pointerColor: '#fff',
-        pointerBorder: '4px solid #444752',
+        pointerBorder: '4px solid #404040',
     };
 
     var config = ( directorist.slider_config && typeof directorist.slider_config === 'object' ) ? Object.assign( default_args, directorist.slider_config ) : default_args;

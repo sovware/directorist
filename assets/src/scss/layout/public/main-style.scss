@@ -14,13 +14,12 @@
 @import "./../../component/openstreet-map/index.scss";
 
 // Public Styles
-@import "./../../component/plasma-slider";
-@import "./../../component/plasma-slider-custom";
 @import "./../../component/general";
 @import "./../../component/widget";
 @import "./../../component/button";
 @import "./../../component/badge";
 @import "./../../component/range-slider";
+@import "./../../component/listing-slider";
 @import "./../../component/dropdown";
 @import "./../../component/switch";
 @import "./../../component/tooltip";
@@ -41,6 +40,7 @@
 @import "./../../component/pagination";
 @import "./../../component/category-location";
 @import "./../../component/atmodal";
+@import "./../../component/authentication";
 @import "./../../component/all-authors";
 @import "./../../component/select2-custom-control";
 
@@ -48,13 +48,13 @@
 @import "../../module/listings";
 @import "../../module/listing-details";
 @import "../../module/user-dashboard";
-@import "../../module/home";
 
-// Layouts
-@import "./search-home";
+// OLD Styles
+// @import "./old-style";
 
 // Payments
 @import "./../../component/payment/checkout-receipt";
+@import "./../../component/payment/checkout";
 
 
 .directorist-iframe {
@@ -70,17 +70,6 @@
 
   .atbd_content_active .widget.atbd_widget,
   .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget {
-    .atbd_categorized_listings {
-      .cate_title {
-        h4 {
-          overflow: hidden;
-          -ms-text-overflow: ellipsis;
-          text-overflow: ellipsis;
-        }
-      }
-
-      padding: 0 20px;
-    }
 
     .atbdp,
     .directorist {
@@ -170,10 +159,6 @@
     .atbd_author_meta {
       margin-top: 30px;
     }
-  }
-
-  .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-6 .atbd_category_single {
-    height: 200px;
   }
 
   .ads-advanced .bottom-inputs>div {
@@ -391,16 +376,6 @@
     }
   }
 
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
-    width: 100%;
-  }
-
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
-    padding-left: 45px;
-    word-break: break-all;
-  }
-
   .atbd_content_active #directorist.atbd_wrapper .atbd_embeded_video {
     margin-bottom: 0;
   }
@@ -498,20 +473,11 @@
 .atbdp-icon-large {
   display: block;
   margin-bottom: 20px;
-  font-size: 3rem;
+  font-size: 45px;
   text-align: center;
 }
 
 @media (max-width: 400px) {
-
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
-    width: 100%;
-  }
-
-  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
-    padding-left: 45px;
-  }
 
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title .more-filter,
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 {

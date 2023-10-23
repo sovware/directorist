@@ -27,10 +27,12 @@ import {
                 return;
             }
 
-            const fontAwesomeIcon = L.icon({
-                iconUrl: loc_map_icon,
-                iconSize: [20, 25],
+            const fontAwesomeIcon = L.divIcon({
+                html: `<div class="atbd_map_shape">${loc_map_icon}</div>`,
+                iconSize: [20, 20],
+                className: 'myDivIcon',
             });
+
             var mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
 
             L.marker([lat, lon], {
@@ -54,6 +56,37 @@ import {
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(mymap);
+
+            function toggleFullscreen() {
+                var mapContainer = document.getElementById('gmap');
+                var fullScreenEnable = document.querySelector('#gmap_full_screen_button .fullscreen-enable');
+                var fullScreenDisable = document.querySelector('#gmap_full_screen_button .fullscreen-disable');
+
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    if (mapContainer.requestFullscreen) {
+                        mapContainer.requestFullscreen();
+                        
+                        fullScreenEnable.style.display="none";
+                        fullScreenDisable.style.display="block";
+                    } else if (mapContainer.webkitRequestFullscreen) {
+                        mapContainer.webkitRequestFullscreen();
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                        
+                        fullScreenDisable.style.display="none";
+                        fullScreenEnable.style.display="block";
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                }
+            }
+
+            $('body').on('click', '#gmap_full_screen_button', function (event) {
+                event.preventDefault();
+                toggleFullscreen();
+            });
         }
 
         function directorist_debounce(func, wait, immediate) {
@@ -124,6 +157,15 @@ import {
             lon = loc_manual_lng;
 
         mapLeaflet(lat, lon);
+
+        // Add Map on Add Listing Multistep
+        $('body').on('click', '.multistep-wizard__btn', function (event) {
+            if (document.getElementById('osm')) {
+                document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+
+                mapLeaflet(lat, lon);
+            }
+        });
 
         $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
             if (document.getElementById('osm')) {

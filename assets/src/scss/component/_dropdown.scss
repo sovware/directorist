@@ -1,15 +1,22 @@
 // Directorist Dropdown Style
 .directorist-dropdown {
     position: relative;
-
-    .directorist-dropdown__toggle {
-        text-decoration: none;
-        color: $body-color;
+    @include e('toggle') {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        gap: 5px;
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--directorist-color-body);
+        background-color: var(--directorist-color-light);
+        padding: 0 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all ease 0.3s;
         position: relative;
-
+        &:hover {
+            background-color: var(--directorist-color-gray);
+        }
         &:focus {
             outline: 0 !important;
         }
@@ -21,45 +28,56 @@
                 mask-repeat: no-repeat;
                 width: 12px;
                 height: 12px;
-                background-color: #444752;
-                margin-left: 5px;
+                background-color: var(--directorist-color-body);
             }
         }
     }
 
-    .directorist-dropdown__links {
-        @include m(right) {
-            left: auto;
-            right: 0;
-        }
-
+    @include e('links') {
         display: none;
         position: absolute;
         width: 100%;
-        min-width: 180px;
-        max-height: 250px;
+        min-width: 190px;
         overflow-y: auto;
         left: 0;
         top: 30px;
-        padding: 10px 0;
-        background-color: #fff;
-        box-shadow: 0 10px 40px rgba(134, 142, 174, .18823529411764706);
-        border-radius: 5px;
+        padding: 10px;
+        border: none;
+        border-radius: 12px;
+        background-color: var(--directorist-color-white);
+        box-shadow: var(--directorist-box-shadow);
         z-index: 99999;
 
         a {
             display: block;
             font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
+            font-weight: 400;
             display: block;
-            padding: 5px 20px;
-            border-radius: 4px;
-            color: #5a5f7d;
-
-            &.active {
-                background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none !important;
+            color: var(--directorist-color-body);
+            transition: all ease 0.3s;
+            &.active,
+            &:hover {
+                border-radius: 8px;
+                color: var(--directorist-color-dark);
+                background-color: var(--directorist-color-light);
             }
+
+            @media screen and (max-width: 575px) {
+                padding: 5px 10px;
+            }
+        }
+
+        @include m(right) {
+            left: auto;
+            right: 0;
+        }
+
+        @media (max-width: 767px) {
+            left: unset;
+            right: 0;
         }
     }
 }
@@ -94,8 +112,6 @@
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
-    -webkit-transition: 0.3s ease;
-    -o-transition: 0.3s ease;
     transition: 0.3s ease;
     background: #fff;
     z-index: 10;

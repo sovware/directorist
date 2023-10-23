@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -10,14 +10,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_without_thumbnail'];
 ?>
 
-<div class="directorist-listing-single directorist-listing-card directorist-listing-no-thumb <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
+<div class="directorist-listing-single directorist-listing-single--bg directorist-listing-card directorist-listing-no-thumb <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
 
 	<div class="directorist-listing-single__header">
 
 		<div class="directorist-listing-single__header__left">
-			<?php $listings->render_loop_fields($loop_fields['body']['avatar']); ?>
+			<div class="directorist-listing-single__badge">
+				<?php $listings->render_loop_fields($loop_fields['body']['avatar']); ?>
+			</div>
+		</div>
 
-			<div class="directorist-listing-single__title"><?php $listings->render_loop_fields($loop_fields['body']['title']); ?></div>
+		<div class="directorist-listing-single__header__title">
+			<?php $listings->render_loop_fields($loop_fields['body']['title']); ?>
 		</div>
 
 		<div class="directorist-listing-single__header__right">
@@ -32,7 +36,10 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_withou
 
 		<div class="directorist-listing-single__content__body">
 			<div class="directorist-listing-single__info--list"><ul><?php $listings->render_loop_fields($loop_fields['body']['bottom'], '<li>', '</li>'); ?></ul></div>
-			<div class="directorist-listing-single__info--excerpt"><?php $listings->render_loop_fields($loop_fields['body']['excerpt']); ?></div>
+
+			<?php if ( ! empty( $listings->render_loop_fields( $loop_fields['body']['excerpt'] ) ) ) : ?>
+				<div class="directorist-listing-single__info--excerpt"><?php $listings->render_loop_fields( $loop_fields['body']['excerpt'] ); ?></div>
+			<?php endif; ?>	
 		</div>
 
 		<div class="directorist-listing-single__meta">

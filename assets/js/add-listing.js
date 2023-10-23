@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -163,6 +163,8 @@ $(document).ready(function () {
   // Rearrange the IDS and Add new social field
 
   $('body').on('click', '#addNewSocial', function (e) {
+    var _this = this;
+
     var social_wrap = $('#social_info_sortable_container'); // cache it
 
     var currentItems = $('.directorist-form-social-fields').length;
@@ -181,6 +183,23 @@ $(document).ready(function () {
     atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
       social_wrap.append(data);
     });
+    setTimeout(function () {
+      var socialSelect = _this.parentElement.querySelectorAll('.directorist-form-social-fields select');
+
+      socialSelect.forEach(function (item) {
+        if (item.value !== '') {
+          item.classList.remove('placeholder-item');
+        }
+
+        item.addEventListener('change', function () {
+          if (this.value !== '' && this.classList.contains('placeholder-item')) {
+            this.classList.remove('placeholder-item');
+          } else if (this.value === '') {
+            this.classList.add('placeholder-item');
+          }
+        });
+      });
+    }, 300);
   });
   document.addEventListener('directorist-reload-plupload', function () {
     if ($('.directorist-color-field-js').length) {
@@ -668,8 +687,8 @@ $(document).ready(function () {
 
     if (error_count) {
       on_processing = false;
-      $submitButton.attr('disabled', false);
-      console.log('Form has invalid data');
+      $submitButton.attr('disabled', false); // console.log('Form has invalid data');
+
       console.log(error_count, err_log);
       return;
     }
@@ -750,7 +769,6 @@ $(document).ready(function () {
         $submitButton.attr('disabled', false);
         $submitButton.removeClass('atbd_loading');
         console.log(_error);
-        "";
       }
     });
   }); // Custom Field Checkbox Button More
@@ -859,6 +877,264 @@ $(document).ready(function () {
       }
     });
   });
+
+  function addSticky() {
+    $(window).scroll(function () {
+      var windowWidth = $(window).width();
+      var sidebarWidth = $(".multistep-wizard__nav").width();
+      var sidebarHeight = $(".multistep-wizard__nav").height();
+      var multiStepWizardOffset = $(".multistep-wizard").offset() && $(".multistep-wizard").offset().top;
+      var multiStepWizardHeight = $(".multistep-wizard").outerHeight();
+
+      if (windowWidth > 991) {
+        var scrollPos = $(window).scrollTop(); // Check if the user has scrolled down to the container position
+
+        if (scrollPos >= multiStepWizardOffset) {
+          $(".multistep-wizard__nav").addClass("sticky");
+          $(".multistep-wizard__content").css("padding-left", sidebarWidth + 30 + 'px'); // Check if the user has fully scrolled the container
+
+          if (scrollPos >= multiStepWizardOffset + multiStepWizardHeight - sidebarHeight) {
+            $(".multistep-wizard__nav").removeClass("sticky");
+            $(".multistep-wizard__content").css("padding-left", '0px');
+          } else {
+            $(".multistep-wizard__nav").addClass("sticky");
+            $(".multistep-wizard__content").css("padding-left", sidebarWidth + 30 + 'px');
+          }
+        } else {
+          $(".multistep-wizard__nav").removeClass("sticky");
+          $(".multistep-wizard__content").css("padding-left", '0px');
+        }
+      } else {
+        $(".multistep-wizard__nav").removeClass("sticky");
+        $(".multistep-wizard__content").css("padding-left", '0px');
+      }
+    });
+  }
+
+  addSticky();
+  multiStepWizard();
+  defaultAddListing();
+}); // MultiStep Wizard
+
+function multiStepWizard() {
+  var defaultAddListing = document.querySelector('.multistep-wizard.default-add-listing');
+
+  if (!defaultAddListing) {
+    var totalStep = document.querySelectorAll('.multistep-wizard .multistep-wizard__nav__btn');
+    var totalWizard = document.querySelectorAll('.multistep-wizard .multistep-wizard__single');
+    var totalWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__total');
+    var currentWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__current');
+    var progressWidth = document.querySelector('.multistep-wizard .multistep-wizard__progressbar__width');
+    var stepCount = 1;
+    var progressPerStep = 100 / totalWizard.length; // Initialize Wizard Count & Progressbar
+
+    if (currentWizardCount) {
+      currentWizardCount.innerHTML = stepCount;
+    }
+
+    if (totalWizardCount) {
+      totalWizardCount.innerHTML = totalWizard.length;
+    }
+
+    if (progressWidth) {
+      progressWidth.style.width = progressPerStep + '%';
+    } // Set data-id on Wizards
+
+
+    totalWizard.forEach(function (item, index) {
+      item.setAttribute('data-id', index);
+      item.style.display = 'none';
+
+      if (index === 0) {
+        item.style.display = 'block';
+        item.classList.add('active');
+      }
+    }); // Set data-step on Nav Items
+
+    totalStep.forEach(function (item, index) {
+      item.setAttribute('data-step', index);
+
+      if (index === 0) {
+        item.classList.add('active');
+      }
+    }); // Previous Step
+
+    $('.multistep-wizard__btn--prev').on('click', function (e) {
+      e.preventDefault();
+
+      if (stepCount > 1) {
+        stepCount--;
+        activeWizard(stepCount);
+
+        if (stepCount <= 1) {
+          this.setAttribute('disabled', true);
+        }
+      }
+    }); // Next Step
+
+    $('.multistep-wizard__btn--next').on('click', function (e) {
+      e.preventDefault();
+
+      if (stepCount < totalWizard.length) {
+        stepCount++;
+        activeWizard(stepCount);
+      }
+    }); // Random Step
+
+    $('.multistep-wizard__nav__btn').on('click', function (e) {
+      e.preventDefault();
+
+      if (this.classList.contains('completed')) {
+        var currentStep = Number(this.attributes[3].value) + 1;
+        stepCount = currentStep;
+        activeWizard(stepCount);
+      }
+
+      if (stepCount <= 1) {
+        $('.multistep-wizard__btn--prev').attr('disabled', true);
+      }
+    }); // Active Wizard
+
+    function activeWizard(value) {
+      // Add Active Class
+      totalWizard.forEach(function (item, index) {
+        if (item.classList.contains('active')) {
+          item.classList.remove('active');
+          item.style.display = 'none';
+        } else if (value - 1 === index) {
+          item.classList.add('active');
+          item.style.display = 'block';
+        }
+      }); // Add Completed Class
+
+      totalStep.forEach(function (item, index) {
+        if (index + 1 < value) {
+          item.classList.add('completed');
+        } else {
+          item.classList.remove('completed');
+        }
+
+        if (item.classList.contains('active')) {
+          item.classList.remove('active');
+        } else if (value - 1 === index) {
+          item.classList.add('active');
+        }
+      }); // Enable Button
+
+      if (value > 1) {
+        $('.multistep-wizard__btn--prev').removeAttr('disabled');
+      } // Change Button Text on Last Step
+
+
+      var nextBtn = document.querySelector('.multistep-wizard__btn--next');
+      var previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
+      var submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
+
+      if (value === totalWizard.length) {
+        nextBtn.style.cssText = "display:none; width: 0; height: 0; opacity: 0; visibility: hidden;";
+        previewBtn.style.cssText = "height: 54px; flex: unset; opacity: 1; visibility: visible;";
+        submitBtn.style.cssText = "height: 54px; opacity: 1; visibility: visible;";
+      } else {
+        nextBtn.style.cssText = "display:inline-flex; width: 200px; height: 54px; opacity: 1; visibility: visible;";
+        previewBtn.style.cssText = "height: 0; flex: 0 0 100%; opacity: 0; visibility: hidden;";
+        submitBtn.style.cssText = "height: 0; opacity: 0; visibility: hidden;";
+      } // Update Wizard Count & Progressbar
+
+
+      currentWizardCount.innerHTML = value;
+      progressWidth.style.width = progressPerStep * value + '%';
+      progressWidth.style.transition = "0.5s ease";
+    }
+  }
+} // Default Add Listing
+
+
+function defaultAddListing() {
+  var navLinks = document.querySelectorAll(".default-add-listing .multistep-wizard__nav .multistep-wizard__nav__btn"); // Function to determine which section is currently in view
+
+  function getCurrentSectionInView() {
+    var currentSection = null;
+    var sections = document.querySelectorAll(".default-add-listing .multistep-wizard__content .multistep-wizard__single");
+
+    if (sections) {
+      sections.forEach(function (section) {
+        var rect = section.getBoundingClientRect();
+
+        if (rect.top <= 50 && rect.bottom >= 50) {
+          currentSection = section.getAttribute("id");
+        }
+      });
+    }
+
+    return currentSection;
+  } // Function to update active class on navigation items
+
+
+  function updateActiveNav() {
+    var currentSection = getCurrentSectionInView();
+
+    if (currentSection == null) {
+      navLinks[0].classList.add("active");
+    } else {
+      if (navLinks[0].classList.contains("active")) {
+        navLinks[0].classList.remove("active");
+      }
+
+      navLinks.forEach(function (link) {
+        if (link.getAttribute("href") === "#".concat(currentSection)) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    }
+  } // Initial update and update on scroll
+
+
+  if (navLinks.length > 0) {
+    updateActiveNav();
+    window.addEventListener("scroll", updateActiveNav);
+  }
+} // Add Listing Accordion
+
+
+function addListingAccordion() {
+  $('body').on('click', '.directorist-add-listing-form .directorist-content-module__title', function (e) {
+    e.preventDefault();
+    var windowScreen = window.innerWidth;
+
+    if (windowScreen <= 480) {
+      $(this).toggleClass('opened');
+      $(this).next('.directorist-content-module__contents').toggleClass('active');
+    }
+  });
+}
+
+addListingAccordion();
+/* Elementor Edit Mode */
+
+$(window).on('elementor/frontend/init', function () {
+  setTimeout(function () {
+    if ($('body').hasClass('elementor-editor-active')) {
+      multiStepWizard();
+    }
+
+    if ($('body').hasClass('elementor-editor-active')) {
+      multiStepWizard();
+    }
+  }, 3000);
+}); // Elementor EditMode
+
+$('body').on('click', function (e) {
+  if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+    multiStepWizard();
+  }
+}); // Elementor EditMode
+
+$('body').on('click', function (e) {
+  if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+    multiStepWizard();
+  }
 });
 
 /***/ }),
@@ -901,6 +1177,25 @@ function init() {
     }
 
     selec2_add_custom_close_button($(this));
+    var selectItems = this.parentElement.querySelectorAll('.select2-selection__choice');
+    selectItems.forEach(function (item) {
+      item.childNodes && item.childNodes.forEach(function (node) {
+        if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+          var originalString = node.textContent;
+          var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+          node.textContent = modifiedString;
+          item.title = modifiedString;
+        }
+      });
+    });
+    var customSelectItem = this.parentElement.querySelector('.select2-selection__rendered');
+    customSelectItem.childNodes && customSelectItem.childNodes.forEach(function (node) {
+      if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+        var originalString = node.textContent;
+        var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+        node.textContent = modifiedString;
+      }
+    });
   });
 }
 
@@ -1149,10 +1444,6 @@ function initSelect2AjaxFields() {
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
-  });
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-categories-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
   }); // Init Select2 Ajax Location Field
 
   initSelect2AjaxTaxonomy({
@@ -1379,16 +1670,16 @@ function convertToSelect2(field) {
       allowClear: true,
       width: '100%',
       templateResult: function templateResult(data) {
-        // We only really care if there is an field to pull classes from
-        if (!data.field) {
+        if (!data.id) {
           return data.text;
         }
 
-        var $field = $(data.field);
-        var $wrapper = $('<span></span>');
-        $wrapper.addClass($field[0].className);
-        $wrapper.text(data.text);
-        return $wrapper;
+        var iconURI = $(data.element).data('icon');
+        var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+        var originalText = data.text;
+        var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+        var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+        return $state;
       }
     };
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
@@ -1529,8 +1820,8 @@ function convertToSelect2(field) {
     }); // Hide Clicked Anywhere
 
     $(document).bind('click', function (e) {
-      var clickedDom = $(e.target);
-      if (!clickedDom.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
+      var clickedDOM = $(e.target);
+      if (!clickedDOM.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
     }); //atbd_dropdown
 
     $(document).on("click", '.atbd_dropdown', function (e) {
@@ -1606,10 +1897,10 @@ window.addEventListener('DOMContentLoaded', function () {
   var atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
   atbdSelectData.forEach(function (el) {
     el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
-      var ds = el.querySelector('.atbd-dropdown-toggle');
-      var itemds = item.getAttribute('data-status');
+      var atbd_dropdown = el.querySelector('.atbd-dropdown-toggle');
+      var dropdown_item = item.getAttribute('data-status');
       item.addEventListener('click', function (e) {
-        ds.setAttribute('data-status', "".concat(itemds));
+        atbd_dropdown.setAttribute('data-status', "".concat(dropdown_item));
       });
     });
   });
@@ -1777,7 +2068,7 @@ module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, 
 
 /***/ }),
 
-/***/ 15:
+/***/ 16:
 /*!***************************************************!*\
   !*** multi ./assets/src/js/global/add-listing.js ***!
   \***************************************************/

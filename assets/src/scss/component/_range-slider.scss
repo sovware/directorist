@@ -1,22 +1,17 @@
 /* Range Slider */
-.directorist-range-slider-wrap {
-  display: flex;
-  width: 100%;
-  align-items: center;
-}
-
 .directorist-range-slider-wrap>span {
-  color: $dark;
-}
-
-.directorist-range-slider-wrap>div {
-  flex: 1;
-  padding: 0 15px;
+  color: var(--directorist-color-primary);
 }
 
 .directorist-range-slider-wrap .directorist-range-slider-current-value {
-  flex: 1;
-  padding: 0 15px !important;
+  min-width: 100px;
+  text-align: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .directorist-range-slider-wrap.atbdprs-widget {
@@ -29,8 +24,8 @@
 }
 
 .directorist-range-slider-wrap.atbdprs-widget .directorist-range-slider-current-value {
-  margin-bottom: 15px !important;
-  padding: 0 !important;
+  margin-bottom: 15px;
+  padding: 0;
 }
 
 .directorist-range-slider-wrap.directorist-range-slider-widget {
@@ -49,14 +44,15 @@
 }
 
 .directorist-range-slider1 {
-  width: 1.2em;
-  height: 1.2em;
+  width: 18px;
+  height: 18px;
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
   cursor: pointer;
   border-radius: 50%;
+  z-index: 2;
 }
 
 .atbd-slide2 {
@@ -89,7 +85,7 @@ p.atbd-min {
 .directorist-range-slider-child {
   height: 4px;
   border-radius: 2px;
-  background: #444752;
+  background: var(--directorist-color-body);
   position: absolute;
   top: 0;
   left: 0;
@@ -121,7 +117,6 @@ p.atbd-min {
   .directorist_slider-input {
     position: relative;
     z-index: 2;
-    -webkit-appearance: none;
     width: 100%;
     height: 4px;
     border-radius: 12px;
@@ -129,7 +124,6 @@ p.atbd-min {
     background-color: transparent;
 
     &::-webkit-slider-thumb {
-      -webkit-appearance: none;
       width: 20px;
       height: 20px;
       background-color: #ffffff;
@@ -145,10 +139,3 @@ p.atbd-min {
   }
 }
 
-.directorist-search-contents .directorist-search-form-top .directorist-search-field .directorist-range-slider-wrap {
-  padding: 0 15px !important;
-}
-
-.directorist-search-contents .directorist-search-form-top .directorist-search-field.direcorist-search-field-radius_search {
-  margin: 0;
-}

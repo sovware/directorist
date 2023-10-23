@@ -93,40 +93,41 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
+var $ = jQuery;
+$(document).ready(function () {
+  modalToggle();
+});
 
-(function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
-    // Recovery Password Modal
-    $("#recover-pass-modal").hide();
-    $(".atbdp_recovery_pass").on("click", function (e) {
-      e.preventDefault();
-      $("#recover-pass-modal").slideToggle().show();
-    }); // Contact form [on modal closed]
+function modalToggle() {
+  // Recovery Password Modal
+  $("#recover-pass-modal").hide();
+  $(".atbdp_recovery_pass").on("click", function (e) {
+    e.preventDefault();
+    $("#recover-pass-modal").slideToggle().show();
+  }); // Contact form [on modal closed]
 
-    $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
-      $('#atbdp-contact-message').val('');
-      $('#atbdp-contact-message-display').html('');
-    }); // Template Restructured
-    // Modal
+  $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
+    $('#atbdp-contact-message').val('');
+    $('#atbdp-contact-message-display').html('');
+  }); // Template Restructured
+  // Modal
 
-    var directoristModal = document.querySelector('.directorist-modal-js');
-    $('body').on('click', '.directorist-btn-modal-js', function (e) {
-      e.preventDefault();
-      var data_target = $(this).attr("data-directorist_target");
-      document.querySelector(".".concat(data_target)).classList.add('directorist-show');
-    });
-    $('body').on('click', '.directorist-modal-close-js', function (e) {
-      e.preventDefault();
-      $(this).closest('.directorist-modal-js').removeClass('directorist-show');
-    });
-    $(document).bind('click', function (e) {
-      if (e.target == directoristModal) {
-        directoristModal.classList.remove('directorist-show');
-      }
-    });
+  var directoristModal = document.querySelector('.directorist-modal-js');
+  $('body').on('click', '.directorist-btn-modal-js', function (e) {
+    e.preventDefault();
+    var data_target = $(this).attr("data-directorist_target");
+    document.querySelector(".".concat(data_target)).classList.add('directorist-show');
   });
-})(jQuery);
+  $('body').on('click', '.directorist-modal-close-js', function (e) {
+    e.preventDefault();
+    $(this).closest('.directorist-modal-js').removeClass('directorist-show');
+  });
+  $(document).bind('click', function (e) {
+    if (e.target == directoristModal) {
+      directoristModal.classList.remove('directorist-show');
+    }
+  });
+}
 
 /***/ }),
 
@@ -168,6 +169,25 @@ function init() {
     }
 
     selec2_add_custom_close_button($(this));
+    var selectItems = this.parentElement.querySelectorAll('.select2-selection__choice');
+    selectItems.forEach(function (item) {
+      item.childNodes && item.childNodes.forEach(function (node) {
+        if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+          var originalString = node.textContent;
+          var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+          node.textContent = modifiedString;
+          item.title = modifiedString;
+        }
+      });
+    });
+    var customSelectItem = this.parentElement.querySelector('.select2-selection__rendered');
+    customSelectItem.childNodes && customSelectItem.childNodes.forEach(function (node) {
+      if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
+        var originalString = node.textContent;
+        var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+        node.textContent = modifiedString;
+      }
+    });
   });
 }
 
@@ -415,10 +435,6 @@ function initSelect2AjaxFields() {
 
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
-  });
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-categories-field').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
   }); // Init Select2 Ajax Location Field
 
@@ -805,16 +821,16 @@ function convertToSelect2(field) {
       allowClear: true,
       width: '100%',
       templateResult: function templateResult(data) {
-        // We only really care if there is an field to pull classes from
-        if (!data.field) {
+        if (!data.id) {
           return data.text;
         }
 
-        var $field = $(data.field);
-        var $wrapper = $('<span></span>');
-        $wrapper.addClass($field[0].className);
-        $wrapper.text(data.text);
-        return $wrapper;
+        var iconURI = $(data.element).data('icon');
+        var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+        var originalText = data.text;
+        var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+        var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+        return $state;
       }
     };
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
@@ -884,9 +900,9 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./assets/src/scss/layout/public/main-style.scss ***!
   \*******************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-// extracted by mini-css-extract-plugin
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: expected selector.\n    ╷\n274 │ <<<<<<< HEAD\n    │ ^\n    ╵\n  assets/src/scss/component/listing-details/_review.scss 274:1  @import\n  assets/src/scss/module/_listing-details.scss 7:9              @import\n  assets/src/scss/layout/public/main-style.scss 49:9            root stylesheet\n    at /Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/webpack/lib/NormalModule.js:316:20\n    at /Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:367:11\n    at /Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:233:18\n    at context.callback (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\n    at /Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass-loader/dist/index.js:55:7\n    at Function.call$2 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:99516:16)\n    at render_closure1.call$2 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:84989:12)\n    at _RootZone.runBinary$3$3 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:29637:18)\n    at _FutureListener.handleError$1 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:28157:21)\n    at _Future__propagateToListeners_handleError.call$0 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:28464:49)\n    at Object._Future__propagateToListeners (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:3899:77)\n    at _Future._completeError$2 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:28310:9)\n    at _AsyncAwaitCompleter.completeError$2 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:27958:12)\n    at Object._asyncRethrow (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:3701:17)\n    at /Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:19851:20\n    at _wrapJsFunctionForAsync_closure.$protected (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:3726:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:27977:12)\n    at _awaitOnObject_closure0.call$2 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:27971:25)\n    at _RootZone.runBinary$3$3 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:29637:18)\n    at _FutureListener.handleError$1 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:28157:21)\n    at _Future__propagateToListeners_handleError.call$0 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:28464:49)\n    at Object._Future__propagateToListeners (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:3899:77)\n    at _Future._completeError$2 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:28310:9)\n    at _AsyncAwaitCompleter.completeError$2 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:27958:12)\n    at Object._asyncRethrow (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:3701:17)\n    at /Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:15319:20\n    at _wrapJsFunctionForAsync_closure.$protected (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:3726:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:27977:12)\n    at _awaitOnObject_closure0.call$2 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:27971:25)\n    at _RootZone.runBinary$3$3 (/Users/mac/Local Sites/directorist-settings/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:29637:18)");
 
 /***/ }),
 

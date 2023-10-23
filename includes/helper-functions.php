@@ -1154,20 +1154,20 @@ function atbdp_display_price_range($price_range)
     $output = '';
     if ('skimming' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Skimming"><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span>
+            '<span class="directorist-listing-price-range directorist-tooltip" data-label="Skimming"><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span>
         </span>';
     } elseif ('moderate' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Moderate"><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span>' . $c_symbol . '</span>
+            '<span class="directorist-listing-price-range directorist-tooltip" data-label="Moderate"><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span><span>' . $c_symbol . '</span>
             </span>';
     } elseif ('economy' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Economy"><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span>
+            '<span class="directorist-listing-price-range directorist-tooltip" data-label="Economy"><span class="directorist-price-active">' . $c_symbol . '</span><span class="directorist-price-active">' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span>
         </span>';
     } elseif ('bellow_economy' == $price_range) {
 
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Cheap"><span class="atbd_active">' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span>
+            '<span class="directorist-listing-price-range directorist-tooltip" data-label="Cheap"><span class="directorist-price-active">' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span>
         </span>';
 
     }
@@ -1744,12 +1744,10 @@ function directorist_clean($var)
  *
  */
 function the_atbdp_favourites_link( $post_id = 0 ) {
-    if ( is_user_logged_in() ) {
-        if ( $post_id == 0 ) {
-            global $post;
-            $post_id = $post->ID;
-        }
 
+    if ( $post_id == 0 ) {
+        global $post;
+        $post_id = $post->ID;
         $favourites = directorist_get_user_favorites( get_current_user_id() );
         if ( in_array( $post_id, $favourites ) ) {
             return directorist_icon( 'las la-heart', false, 'directorist-added-to-favorite') . '<a href="#" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
@@ -1759,6 +1757,14 @@ function the_atbdp_favourites_link( $post_id = 0 ) {
     } else {
         return '<a href="#" class="atbdp-require-login">'.directorist_icon( 'las la-heart', false ).'</a>';
     }
+
+    $favourites = directorist_get_user_favorites( get_current_user_id() );
+    if ( in_array( $post_id, $favourites ) ) {
+        return '' . directorist_icon('las la-heart', false, 'directorist-added-to-favorite') . '<span class="directorist-single-listing-action__text" data-post_id="' . $post_id . '">Bookmark</span>';
+    } else {
+        return '' . directorist_icon('lar la-heart', false) . '<span class="directorist-single-listing-action__text" data-post_id="' . $post_id . '">Bookmark</span>';
+    }
+
 }
 
 
@@ -2314,6 +2320,8 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 
         foreach ($terms as $term) {
             $directory_type = get_term_meta( $term->term_id, '_directory_type', true );
+            $icon           = get_cat_icon( $term->term_id );
+            $icon_src       = \Directorist\Helper::get_icon_src( $icon );
             $directory_type = ! empty( $directory_type ) ? $directory_type : array();
             if( in_array( $settings['listing_type'], $directory_type ) ) {
                 $settings['term_id'] = $term->term_id;
@@ -2332,12 +2340,13 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                     $custom_field = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
                 }
 
-                $html .= '<option data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
+                $html .= '<option data-icon = "' . esc_attr( $icon_src ). '" data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
+
                 $html .= $prefix . $term->name;
                 if (!empty($settings['show_count'])) {
                     $html .= ' (' . $count . ')';
                 }
-                $html .= search_category_location_filter($settings, $taxonomy_id, $prefix . '&nbsp;&nbsp;&nbsp;');
+                $html .= search_category_location_filter($settings, $taxonomy_id, $prefix . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
                 $html .= '</option>';
             }
         }
@@ -3795,6 +3804,7 @@ function directorist_get_allowed_attributes() {
         'd'       => array(),
 
 		'data-custom-field' => array(),
+		'data-icon' => array(),
     );
 
     return apply_filters( 'directorist_get_allowed_attributes', $allowed_attributes );

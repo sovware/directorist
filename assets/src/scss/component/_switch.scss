@@ -11,19 +11,17 @@
         position: absolute;
         left: 0;
         z-index: -1;
-        width: 1.6rem;
-        height: 1.65rem;
+        width: 24px;
+        height: 25px;
         opacity: 0;
-        &:checked{
-            &+.directorist-switch-label{
-                color: #1A1B29;
-                font-weight: 500;
-                &:before{
-                    background-color: $dark;
-                }
-                &:after{
-                    transform: translateX(20px);
-                }
+        &:checked+.directorist-switch-label{
+            color: #1A1B29;
+            font-weight: 500;
+            &:before{
+                background-color: var(--directorist-color-primary);
+            }
+            &:after{
+                transform: translateX(20px);
             }
         }
     }
@@ -38,15 +36,15 @@
         margin-left: 0;
         color: #51526E;
         &:before{
+            content: "";
             position: absolute;
-            top: 0.05rem;
+            top: 0.75px;
             left: 4px;
             display: block;
             width: 44px;
             height: 24px;
             border-radius: 15px;
             pointer-events: all;
-            content: "";
             background-color: #ECECEC;
         }
         &:after{
@@ -54,7 +52,7 @@
             display: block;
             content: "";
             background: no-repeat 50% / 50% 50%;
-            top: calc(0.05rem + 4px);
+            top: calc(0.75px + 4px);
             left: calc(0px + 8px);
             background-color: #fff !important;
             width: calc(24px - 8px);
@@ -62,7 +60,6 @@
             background-color: #fff;
             box-shadow: 0 0 4px rgba(#8F8E9F,.15);
             border-radius: 15px;
-            transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
         }
     }
@@ -70,71 +67,23 @@
 
 // Switch Type
 .directorist-switch{
-    &.directorist-switch-primary{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: $primary
-                    }
-                }
-            }
-        }
+    &.directorist-switch-primary .directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-primary)
     }
-    &.directorist-switch-success{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: $success
-                    }
-                }
-            }
-        }
+    &.directorist-switch-success.directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-success)
     }
-    &.directorist-switch-secondary{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: $secondary
-                    }
-                }
-            }
-        }
+    &.directorist-switch-secondary.directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-secondary)
     }
-    &.directorist-switch-danger{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: $danger
-                    }
-                }
-            }
-        }
+    &.directorist-switch-danger.directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-danger)
     }
-    &.directorist-switch-warning{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: $warning
-                    }
-                }
-            }
-        }
+    &.directorist-switch-warning.directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-warning)
     }
-    &.directorist-switch-info{
-        .directorist-switch-input{
-            &:checked{
-                &+.directorist-switch-label{
-                    &:before{
-                        background-color: $info;
-                    }
-                }
-            }
-        }
+    &.directorist-switch-info.directorist-switch-input:checked+.directorist-switch-label::before{
+        background-color: var(--directorist-color-info)
     }
 }
 
@@ -168,7 +117,7 @@
                 }
             }
         }
-        
+
         .directorist-switch-yes{
             background-color: transparent;
             color: #9b9eaf;

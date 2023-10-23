@@ -1,4 +1,7 @@
 .directorist-google-map,
 .directorist-single-map {
     height: 400px;
+    @media screen and (max-width: 480px) {
+      height: 320px;
+    }
 }

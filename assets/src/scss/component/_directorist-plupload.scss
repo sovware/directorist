@@ -70,58 +70,128 @@
 
 .filelist .fileprogress {
     width: 0%;
+    height: 5px;
     background: #3385ff;
-    height: 5px
 }
 
+#custom-filedropbox,
+.directorist-custom-field-file-upload__wrapper > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
 
 .plupload-upload-uic{
-    .directorist-btn{
-        padding: 0 1.44em;
-        line-height: 2.65;
-        font-size: 14px;
+    width: 200px;
+    height: 150px;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 16px;
+    margin: 0 !important;
+    background: var(--directorist-color-bg-gray);
+    border: 2px dashed var(--directorist-color-border-gray);
+    > input {
+        display: none;
+    }
+    .plupload-browse-button-label {
+        cursor: pointer;
+        i::after {
+            width: 50px;
+            height: 45px;
+            background-color: var(--directorist-color-border-gray);
+        }
+    }
+    .plupload-browse-img-size {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--directorist-color-body);
+    }
+    @media (max-width: 575px) {
+        width: 100%;
+        height: 200px;
     }
 }
 
 .plupload-thumbs {
     clear: both;
-    margin: 20px 0px;
     overflow: hidden;
 }
 
-.plupload-thumbs .thumb {
-    border: 1px solid #ebebeb;
-    float: left;
-    height: 100px !important;
-    width: 100px !important;
-    position: relative;
-    padding: 3px;
-    margin: 2px;
-    box-sizing: content-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.plupload-thumbs {
+    .thumb {
+        position: relative;
+        height: 150px;
+        width: 200px;
+        border-radius: 16px;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        &:hover {
+            .atbdp-thumb-actions::before {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+        @media (max-width: 575px) {
+            width: 100%;
+            height: 200px;
+        }
+    }
+    .atbdp-thumb-actions {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        .thumbremovelink {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #FF385C;
+            height: 32px;
+            width: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: .3s ease;
+            .directorist-icon-mask:after{
+                width: 14px;
+                height: 14px;
+                background-color: #fff;
+            }
+            &:hover {
+                opacity: 0.8;
+            }
 
-.plupload-thumbs .thumb:hover .atbdp-thumb-actions {
-    display: block
-}
-
-.plupload-thumbs .atbdp-thumb-actions {
-    background-color: rgba(0, 0, 0, .5);
-    margin-top: -25px;
-    position: relative;
-    color: #fff;
-    font-size: 20px;
-    display: none;
-    z-index: 3;
-    line-height: 0
-}
-
-.plupload-thumbs .atbdp-thumb-actions .thumbeditlink, .plupload-thumbs .atbdp-thumb-actions .thumbremovelink {
-    width: 50%;
-    display: inline-block;
-    cursor: pointer
+            i {
+                font-size: 14px;
+            }
+        }
+        &:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            visibility: hidden;
+            border-radius: 16px;
+            transition: all ease 0.3s;
+            background-color: rgba(0, 0, 0, .5);
+        }
+    }
 }
 
 .plupload-thumbs .thumb.atbdp_file {
@@ -152,12 +222,12 @@
 }
 
 .plupload-thumbs .thumb .thumbi a {
-    // background: url(../../../images/delete.png) no-repeat 0px 0px;
     text-indent: -8000px;
     display: block
 }
 
-.plupload-thumbs .atbdp-title-preview, .plupload-thumbs .atbdp-caption-preview {
+.plupload-thumbs .atbdp-title-preview,
+.plupload-thumbs .atbdp-caption-preview {
     position: absolute;
     top: 10px;
     left: 5px;

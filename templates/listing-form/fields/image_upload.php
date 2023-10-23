@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.0
+ * @version 7.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -33,6 +33,7 @@ $img_upload_data = json_encode( $img_upload_data );
 ?>
 
 <div class="directorist-form-group directorist-form-image-upload-field">
+	<?php $listing_form->field_label_template( $data );?>
 
 	<div class="ez-media-uploader directorist-image-upload" data-uploader="<?php echo esc_attr( $img_upload_data ); ?>">
 
@@ -59,9 +60,10 @@ $img_upload_data = json_encode( $img_upload_data );
 		<div class="ezmu-dictionary">
 			<span class="ezmu-dictionary-label-drop-here"><?php esc_html_e( 'Drop Here', 'directorist' ); ?></span>
 			<span class="ezmu-dictionary-label-featured"><?php esc_html_e( 'Preview', 'directorist' ); ?></span>
-			<span class="ezmu-dictionary-label-drag-n-drop"><?php esc_html_e( 'Drag & Drop', 'directorist' ); ?></span>
+			<span class="ezmu-dictionary-label-drag-n-drop"><?php esc_html_e( 'Drag and drop an image', 'directorist' ); ?></span>
 			<span class="ezmu-dictionary-label-or"><?php esc_html_e( 'or', 'directorist' ); ?></span>
-			<span class="ezmu-dictionary-label-select-files"><?php echo esc_html( $data['select_files_label'] ); ?></span>
+			<span class="ezmu-dictionary-label-select-files"><?php echo esc_html( 'Browse', 'directorist' ); ?></span>
+			<span class="ezmu-dictionary-label-to"><?php esc_html_e( 'to choose a file', 'directorist' ); ?></span>
 			<span class="ezmu-dictionary-label-add-more"><?php esc_html_e( 'Add More', 'directorist' ); ?></span>
 			<span class="ezmu-dictionary-alert-max-file-size"><?php esc_html_e( 'Maximum limit for a file is  __DT__', 'directorist' ); ?></span>
 			<span class="ezmu-dictionary-alert-max-total-file-size"><?php esc_html_e( 'Maximum limit for total file size is __DT__', 'directorist' ); ?></span>

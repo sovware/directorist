@@ -344,7 +344,7 @@ window.addEventListener('DOMContentLoaded', () => {
             thisClosestSibling.text(oldCountVal ? oldCountVal : '0');
         });
 
-        // Hide Slug Form outside click
+        // Hide Form outside click
         $(document).on('click', function (e) {
             if (!e.target.closest('.directorist-view-count')) {
                 findElmCount.attr('data-value', oldCountVal);

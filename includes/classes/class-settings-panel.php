@@ -4687,14 +4687,30 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('General', 'directorist'),
                             'icon' => '<i class="fa fa-sliders-h"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
-                                'general_settings' => [
+                                'general_top_settings' => [
                                     'fields'      => [
                                         // 'all_listing_layout',
                                         'enable_multi_directory',
-                                        'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'guest_listings', 'lazy_load_taxonomy_fields'
+                                        'guest_listings',
                                     ],
                                 ],
-
+                                'listings_renewal' => [
+                                    'title'       => __( 'Listings Renewal', 'directorist' ),
+                                    'fields'      => [
+                                        'can_renew_listing', 'email_to_expire_day', 'email_renewal_day',
+                                     ],
+                                ],
+                                'expired_listings_actions' => [
+                                    'title'       => __( 'Expired Listings Actions', 'directorist' ),
+                                    'fields'      => [
+                                        'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode',
+                                     ],
+                                ],
+                                'general_bottom_settings' => [
+                                    'fields'      => [
+                                        'display_author_email',
+                                    ],
+                                ],
                             ] ),
                         ],
                         'listings_page' => [

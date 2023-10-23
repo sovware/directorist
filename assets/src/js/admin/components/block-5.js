@@ -234,14 +234,18 @@ window.addEventListener('DOMContentLoaded', () => {
         // Store old count value
         let countWrapper = $(element).find('.directorist_listing-count-text');
         let oldCountVal = countWrapper.attr('data-value');
+        let validCount = !isNaN(countWrapper.attr('data-value')) ? countWrapper.attr('data-value') : '';
 
         // Count Edit
-        countWrapper.on('input keypress', function (e) {
+        countWrapper.on('input keypress keydown', function (e) {
             let countText = $(this).text();
-            $(this).attr('data-value', countText);
+            validCount = !isNaN(countText) ? countText : '';
+
+            validCount && $(this).attr('data-value', countText);
+            
             let setCountBtn = $(this).siblings('.directorist-listing-count-edit-wrap').children('.directorist_listing-count-formText-add');
             $(this).attr('data-value') === '' ? setCountBtn.addClass('disabled') : setCountBtn.removeClass('disabled');
-            if (e.key === 'Enter' && $(this).attr('data-value') !== '') {
+            if (e.key === 'Enter' && $(this).attr('data-value') !== '' && validCount) {
                 e.preventDefault();
                 setCountBtn.click();
             }
@@ -268,12 +272,15 @@ window.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             let addCount     = $(this);
             let count_id     = addCount.data('type-id');
-            let update_count = $('.directorist-count-text-' + count_id).attr('data-value');
-                oldCountVal  = countWrapper.attr('data-value');                                                                          /* Update the slug values */
+            let update_count = $('.directorist-count-text-' + count_id).text();
+                oldCountVal  = countWrapper.attr('data-value'); /* Update the slug values */
+                validCount = !isNaN(update_count) ? update_count : '';
+
             let countId      = $('.directorist-count-notice-' + count_id);
             let thisSiblings = addCount.closest('.directorist-listing-count-edit-wrap').siblings('.directorist_listing-count-text');
-            addCount.closest('.directorist-listing-count-edit-wrap').append(`<span class="directorist_loader"></span>`);
-            $.ajax({
+
+            validCount && addCount.closest('.directorist-listing-count-edit-wrap').append(`<span class="directorist_loader"></span>`);
+            validCount && $.ajax({
                 type: 'post',
                 url : directorist_admin.ajaxurl,
                 data: {
@@ -333,8 +340,8 @@ window.addEventListener('DOMContentLoaded', () => {
             thisClosestSibling.removeClass('directorist_listing-count-text--editable');
             thisClosestSibling.attr('contenteditable', 'false');
             $(this).removeClass('active');
-            thisClosestSibling.attr('data-value', oldCountVal);
-            thisClosestSibling.text(oldCountVal);
+            thisClosestSibling.attr('data-value', oldCountVal ? oldCountVal : '0');
+            thisClosestSibling.text(oldCountVal ? oldCountVal : '0');
         });
 
         // Hide Slug Form outside click

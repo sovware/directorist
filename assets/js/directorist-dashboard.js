@@ -646,7 +646,7 @@ __webpack_require__.r(__webpack_exports__);
     return;
   }
 
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
 
@@ -950,7 +950,7 @@ window.addEventListener('DOMContentLoaded', function () {
 ;
 
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     var profileMediaUploader = null;
 
     if ($(".directorist-profile-uploader").length) {

@@ -184,7 +184,7 @@ function modalToggle() {
     return;
   }
 
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
 
@@ -442,7 +442,7 @@ window.addEventListener('DOMContentLoaded', function () {
 ;
 
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     $('#directorist-report-abuse-form').on('submit', function (e) {
       $('.directorist-report-abuse-modal button[type=submit]').addClass('directorist-btn-loading'); // Check for errors
 
@@ -570,7 +570,7 @@ window.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {
       e.preventDefault();

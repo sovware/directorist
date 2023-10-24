@@ -8,7 +8,7 @@
         return;
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         // Perform AJAX login on form submit
         $('form#login').on('submit', function (e) {
             e.preventDefault();

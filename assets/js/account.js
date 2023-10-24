@@ -184,7 +184,7 @@ function modalToggle() {
     return;
   }
 
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {
       e.preventDefault();

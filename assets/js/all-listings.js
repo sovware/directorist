@@ -653,7 +653,7 @@ function convertToSelect2(field) {
 /***/ (function(module, exports) {
 
 // Archive Sidebar
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   var body = document.body; // Toggle sidebar and update toggle button's active state
 
   function toggleSidebar(toggleBtn, archiveSidebar) {
@@ -836,7 +836,7 @@ window.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
 

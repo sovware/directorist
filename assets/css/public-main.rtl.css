@@ -8238,8 +8238,8 @@ p.atbd-min {
   font-size: 14px;
   font-weight: 400;
   color: var(--directorist-color-body);
-  -webkit-transition: opacity 0.3s ease, top 0.3s ease;
-  transition: opacity 0.3s ease, top 0.3s ease;
+  -webkit-transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
+  transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
 }
 .directorist-search-modal__contents__body .directorist-search-field__btn {
   position: absolute;
@@ -10806,8 +10806,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 14px;
   font-weight: 400;
   color: var(--directorist-color-body);
-  -webkit-transition: opacity 0.3s ease, top 0.3s ease;
-  transition: opacity 0.3s ease, top 0.3s ease;
+  -webkit-transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
+  transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
 }
 .listing-with-sidebar .directorist-search-field__btn {
   display: -webkit-box;

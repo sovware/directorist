@@ -2350,11 +2350,6 @@ class Builder_Data {
                             ],
                         ],
                     ],
-                    'reviews' => [
-                        'type' => "reviews",
-                        'label' => __( "Reviews", "directorist" ),
-                        'icon' => 'uil uil-text-fields',
-                    ],
                     'ratings_count' => [
                         'type' => "ratings-count",
                         'label' => __( "Listings Ratings", "directorist" ),
@@ -2403,7 +2398,7 @@ class Builder_Data {
                                 'label'             => __( 'Quick Action', 'directorist' ),
                                 'maxWidget'         => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets'   => [ 'bookmark', 'reviews', 'share', 'report' ],
+                                'acceptedWidgets'   => [ 'bookmark', 'share', 'report' ],
                             ],
                         ],
                     ],

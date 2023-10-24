@@ -6758,7 +6758,6 @@ body.modal-overlay-enabled:before {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  cursor: pointer;
 }
 .directorist-widget-advanced-search .directorist-btn-reset-js:focus {
   outline: none;
@@ -10707,7 +10706,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-transform: none;
   text-decoration: none;
   background-color: var(--directorist-color-light);
-  cursor: pointer;
 }
 .listing-with-sidebar__sidebar .directorist-btn-submit {
   width: 100%;
@@ -11152,7 +11150,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-pack: center;
           justify-content: center;
   text-decoration: none;
-  cursor: pointer;
 }
 .directorist-advanced-filter__action .directorist-btn {
   font-size: 15px;

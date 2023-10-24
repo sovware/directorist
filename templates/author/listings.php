@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.0
  */
 
 use \Directorist\Helper;
@@ -16,8 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<div class="directorist-author-listing-type">
 			<?php $author->archive_type( $author ); ?>
 		</div>
-
-		<?php if ( $author->cat_filter_enabled() ): ?>
 
 		<div class="directorist-dropdown directorist-dropdown-js directorist-author-listing-top__dropdown directorist-dropdown-update-js">
 
@@ -37,7 +35,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		</div>
 
-		<?php endif; ?>
 	</div>
 
 </div>

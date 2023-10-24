@@ -343,7 +343,8 @@ class Directorist_Listing_Author {
 	}
 
 	public function cat_filter_enabled() {
-		return get_directorist_option( 'author_cat_filter', 1 );
+		_deprecated_function( __METHOD__, '8.0' );
+		return true;
 	}
 
 	public function get_listing_categories() {

@@ -64,10 +64,9 @@ class Multi_Directory_Manager {
         
         foreach ( $directory_types as $directory_type ) {
 
-            $new_structure = [];
-
-            $header_contents        = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
-            $submission_form_fields = get_term_meta( $directory_type->term_id , 'submission_form_fields', true );
+            $this->migrate_custom_field( $directory_type->term_id );
+            $new_structure   = [];
+            $header_contents = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
             
             if ( empty( $header_contents ) ) {
                 continue;
@@ -205,29 +204,34 @@ class Multi_Directory_Manager {
 
             update_term_meta( $directory_type->term_id, 'single_listing_header', $new_structure );
 
-            // custom field assign to category migration
-            if ( empty( $submission_form_fields['fields'] ) ) {
-                continue;
-            }
-
-            // Modify the 'assign_to' value based on your criteria (e.g., change 'category' to 1)
-            foreach ( $submission_form_fields['fields'] as $field_type => $options ) {
-                if( empty( $options['assign_to'] ) ) {
-                    continue;
-                }
-
-                if ( $options['assign_to'] === 'category' ) {
-                    $submission_form_fields['fields'][ $field_type ]['assign_to'] = 1;
-                } else {
-                    $submission_form_fields['fields'][ $field_type ]['assign_to'] = false;
-                }
-                
-            }
-
-            update_term_meta( $directory_type->term_id, 'submission_form_fields', $submission_form_fields );
         }
 
         update_option( 'directorist_builder_header_migrated', true );
+    }
+
+    // custom field assign to category migration
+    public function migrate_custom_field( $term_id ) {
+
+        $submission_form_fields = get_term_meta( $term_id , 'submission_form_fields', true );
+        // custom field assign to category migration
+        if ( empty( $submission_form_fields['fields'] ) ) {
+            return;
+        }
+        
+        // Modify the 'assign_to' value based on your criteria (e.g., change 'category' to 1)
+        foreach ( $submission_form_fields['fields'] as $field_type => $options ) {
+            if( empty( $options['assign_to'] ) ) {
+                continue;
+            }
+            
+            if ( $options['assign_to'] === 'category' ) {
+                $submission_form_fields['fields'][ $field_type ]['assign_to'] = 1;
+            } else {
+                $submission_form_fields['fields'][ $field_type ]['assign_to'] = false;
+            }
+        }
+        
+        update_term_meta( $term_id, 'submission_form_fields', $submission_form_fields );
     }
 
     // add_missing_single_listing_section_id

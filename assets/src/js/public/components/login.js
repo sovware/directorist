@@ -12,13 +12,14 @@
         // Perform AJAX login on form submit
         $('form#login').on('submit', function (e) {
             e.preventDefault();
+            let $this = $(this);
             $('p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
             let form_data = {
                 'action': 'ajaxlogin',
-                'username': $(this).find('#username').val(),
-                'password': $(this).find('#password').val(),
-                'rememberme': $(this).find( '#keep_signed_in' ).is(':checked') ? 1 : 0,
-                'security': $('#security').val()
+                'username': $this.find('#username').val(),
+                'password': $this.find('#password').val(),
+                'rememberme': $this.find( '#keep_signed_in' ).is(':checked') ? 1 : 0,
+                'security': $this.find('#security').val()
               };
             $.ajax({
                 type: 'POST',

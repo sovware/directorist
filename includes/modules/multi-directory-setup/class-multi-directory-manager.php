@@ -221,7 +221,7 @@ class Multi_Directory_Manager {
         // Modify the 'assign_to' value based on your criteria (e.g., change 'category' to 1)
         foreach ( $submission_form_fields['fields'] as $field_type => $options ) {
             if( empty( $options['assign_to'] ) ) {
-                continue;
+                break;
             }
             
             if ( $options['assign_to'] === 'category' ) {

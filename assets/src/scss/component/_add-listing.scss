@@ -1294,7 +1294,7 @@
       color: var(--directorist-color-light-gray);
       background-color: transparent;
       box-sizing: border-box;
-      transition: all 0.3s ease-in-out;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
       @media only screen and (max-width: 991px) {
         width: 100%;
       }

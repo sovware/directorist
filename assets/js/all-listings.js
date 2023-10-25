@@ -2431,7 +2431,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   } // sidebar on click searching
 
 
-  $('body').on("change", ".directorist-instant-search .listing-with-sidebar", function (e) {
+  $('body').on("change keyup", ".directorist-instant-search .listing-with-sidebar", function (e) {
     e.preventDefault();
     var sidebarElm = $(this);
     filterListing(sidebarElm);

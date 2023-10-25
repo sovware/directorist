@@ -14557,6 +14557,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-listing-single.directorist-listing-card .directorist-thumb-listing-author {
   position: absolute;
   bottom: 0;
+  top: unset;
   -webkit-transform: translateY(50%);
           transform: translateY(50%);
   display: -webkit-box;
@@ -14564,11 +14565,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -ms-flexbox;
   display: flex;
   z-index: 1;
-}
-.directorist-listing-single.directorist-listing-card .directorist-thumb-listing-author.directorist-alignment-center {
-  right: 50%;
-  -webkit-transform: translate(50%, 50%);
-          transform: translate(50%, 50%);
 }
 .directorist-listing-single.directorist-listing-card .directorist-thumb-listing-author.directorist-alignment-left {
   right: 20px;
@@ -14578,8 +14574,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-listing-single.directorist-listing-card .directorist-thumb-listing-author.directorist-alignment-center {
   right: 50%;
-  -webkit-transform: translate(50%, 50%);
-          transform: translate(50%, 50%);
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
 }
 .directorist-listing-single.directorist-listing-card .directorist-thumb-listing-author img {
   width: 100%;
@@ -14981,6 +14977,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+  position: relative;
   -webkit-box-align: start;
   -webkit-align-items: flex-start;
       -ms-flex-align: start;
@@ -15040,9 +15037,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: flex;
 }
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__header .directorist-thumb-listing-author img {
-  width: 45px;
+  height: 42px;
+  width: 42px;
   max-width: none;
-  height: 45px;
   border-radius: 50%;
 }
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__header .directorist-listing-title {

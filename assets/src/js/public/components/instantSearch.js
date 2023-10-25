@@ -1083,7 +1083,7 @@ import {
     }
 
     // sidebar on click searching
-    $('body').on("change", ".directorist-instant-search .listing-with-sidebar", function (e) {
+    $('body').on("change keyup", ".directorist-instant-search .listing-with-sidebar", function (e) {
         e.preventDefault();
         var sidebarElm = $(this);
         filterListing(sidebarElm);

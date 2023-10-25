@@ -571,14 +571,10 @@
         .directorist-thumb-listing-author {
             position: absolute;
             bottom: 0;
+            top: unset;
             transform: translateY(50%);
             display: flex;
             z-index: 1;
-
-            &.directorist-alignment-center {
-                left: 50%;
-                transform: translate(-50%, 50%);
-            }
 
             &.directorist-alignment-left {
                 left: 20px;
@@ -590,7 +586,7 @@
 
             &.directorist-alignment-center {
                 left: 50%;
-                transform: translate(-50%, 50%);
+                transform: translateX(-50%);
             }
 
             img {
@@ -954,6 +950,7 @@
         display: flex;
         gap: 15px;
         flex-wrap: wrap;
+        position: relative;
         align-items: flex-start;
         padding: 20px 22px 0 22px;
 
@@ -985,9 +982,9 @@
             }
 
             img {
-                width: 45px;
+                height: 42px;
+                width: 42px;
                 max-width: none;
-                height: 45px;
                 border-radius: 50%;
             }
         }

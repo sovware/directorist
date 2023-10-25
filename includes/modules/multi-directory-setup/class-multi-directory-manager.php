@@ -37,7 +37,7 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
 
         add_filter( 'directorist_builder_layouts', [ $this, 'conditional_layouts' ] );
-        add_action( 'admin_init', [ $this, 'migrate_header' ] );
+        //add_action( 'admin_init', [ $this, 'migrate_header' ] );
     }
 
     public function migrate_header() {
@@ -210,7 +210,7 @@ class Multi_Directory_Manager {
     }
 
     // custom field assign to category migration
-    public function migrate_custom_field( $term_id ) {
+    public static function migrate_custom_field( $term_id ) {
 
         $submission_form_fields = get_term_meta( $term_id , 'submission_form_fields', true );
         // custom field assign to category migration

@@ -319,6 +319,8 @@
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   min-height: 36px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 @media (max-width: 480px) {
   .directorist-content-module__title {
@@ -4620,8 +4622,10 @@ body.stop-scrolling {
   background-color: transparent;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  -webkit-transition: background 0.2s ease, color 0.2s ease, -webkit-box-shadow 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, -webkit-box-shadow 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, -webkit-box-shadow 0.2s ease;
 }
 @media only screen and (max-width: 991px) {
   .multistep-wizard__nav__btn {
@@ -6754,7 +6758,6 @@ body.modal-overlay-enabled:before {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  cursor: pointer;
 }
 .directorist-widget-advanced-search .directorist-btn-reset-js:focus {
   outline: none;
@@ -8234,8 +8237,8 @@ p.atbd-min {
   font-size: 14px;
   font-weight: 400;
   color: var(--directorist-color-body);
-  -webkit-transition: opacity 0.3s ease, top 0.3s ease;
-  transition: opacity 0.3s ease, top 0.3s ease;
+  -webkit-transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
+  transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
 }
 .directorist-search-modal__contents__body .directorist-search-field__btn {
   position: absolute;
@@ -10703,7 +10706,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-transform: none;
   text-decoration: none;
   background-color: var(--directorist-color-light);
-  cursor: pointer;
 }
 .listing-with-sidebar__sidebar .directorist-btn-submit {
   width: 100%;
@@ -10802,8 +10804,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 14px;
   font-weight: 400;
   color: var(--directorist-color-body);
-  -webkit-transition: opacity 0.3s ease, top 0.3s ease;
-  transition: opacity 0.3s ease, top 0.3s ease;
+  -webkit-transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
+  transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
 }
 .listing-with-sidebar .directorist-search-field__btn {
   display: -webkit-box;
@@ -11148,7 +11150,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-pack: center;
           justify-content: center;
   text-decoration: none;
-  cursor: pointer;
 }
 .directorist-advanced-filter__action .directorist-btn {
   font-size: 15px;

@@ -52,6 +52,67 @@ import { directorist_range_slider } from './range-slider';
         });
 
         /* advanced search form reset */
+        function initForm(searchForm) {
+            console.log('InitForm: ', searchForm)
+            let value = false;
+            searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
+                console.log('Input: ', el.value)
+                if(el.value !== "") {
+                    console.log('Input Text Value Not Empty')
+                    console.log('Value: ', el.value)
+                    value = true;
+                }
+                
+            });
+
+            if (!value) {
+                var resetButton = searchForm.querySelector('.directorist-btn-reset-js');
+                resetButton.disabled = true;
+
+                console.log('Reset Button Disabled: ', resetButton)
+            }
+
+            console.log('Value: ', value);
+
+            searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
+                el.checked = false;
+            });
+            searchForm.querySelectorAll("input[type='checkbox']").forEach(function (el) {
+                el.checked = false;
+            });
+            searchForm.querySelectorAll("select").forEach(function (el) {
+                el.selectedIndex = 0;
+                $('.directorist-select2-dropdown-close').click();
+                $(el).val(null).trigger('change');
+
+                let parentElem = el.closest('.directorist-search-field');
+
+                if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
+                    setTimeout(function(){
+                        parentElem.classList.remove('input-has-value', 'input-is-focused');
+                    }, 100)
+                }
+            });
+
+            const irisPicker = searchForm.querySelector("input.wp-picker-clear");
+            if (irisPicker !== null) {
+                irisPicker.click();
+            }
+
+            const rangeValue = searchForm.querySelector(".directorist-range-slider-current-value span");
+            if (rangeValue !== null) {
+                rangeValue.innerHTML = "0";
+            }
+            handleRadiusVisibility();
+            
+        }
+
+        let searchForm = document.querySelector('.directorist-search-form');
+        initForm(searchForm);
+
+        console.log('Search Form: ', searchForm)
+
+        /* advanced search form reset */
         function adsFormReset(searchForm) {
             searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
                 el.value = "";

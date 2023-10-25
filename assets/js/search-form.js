@@ -1070,6 +1070,64 @@ __webpack_require__.r(__webpack_exports__);
     });
     /* advanced search form reset */
 
+    function initForm(searchForm) {
+      console.log('InitForm: ', searchForm);
+      var value = false;
+      searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
+        console.log('Input: ', el.value);
+
+        if (el.value !== "") {
+          console.log('Input Text Value Not Empty');
+          console.log('Value: ', el.value);
+          value = true;
+        }
+      });
+
+      if (!value) {
+        var resetButton = searchForm.querySelector('.directorist-btn-reset-js');
+        resetButton.disabled = true;
+        console.log('Reset Button Disabled: ', resetButton);
+      }
+
+      console.log('Value: ', value);
+      searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
+        el.checked = false;
+      });
+      searchForm.querySelectorAll("input[type='checkbox']").forEach(function (el) {
+        el.checked = false;
+      });
+      searchForm.querySelectorAll("select").forEach(function (el) {
+        el.selectedIndex = 0;
+        $('.directorist-select2-dropdown-close').click();
+        $(el).val(null).trigger('change');
+        var parentElem = el.closest('.directorist-search-field');
+
+        if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
+          setTimeout(function () {
+            parentElem.classList.remove('input-has-value', 'input-is-focused');
+          }, 100);
+        }
+      });
+      var irisPicker = searchForm.querySelector("input.wp-picker-clear");
+
+      if (irisPicker !== null) {
+        irisPicker.click();
+      }
+
+      var rangeValue = searchForm.querySelector(".directorist-range-slider-current-value span");
+
+      if (rangeValue !== null) {
+        rangeValue.innerHTML = "0";
+      }
+
+      handleRadiusVisibility();
+    }
+
+    var searchForm = document.querySelector('.directorist-search-form');
+    initForm(searchForm);
+    console.log('Search Form: ', searchForm);
+    /* advanced search form reset */
+
     function adsFormReset(searchForm) {
       searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
         el.value = "";
@@ -1148,10 +1206,10 @@ __webpack_require__.r(__webpack_exports__);
       $("body").on("click", ".directorist-btn-reset-js", function (e) {
         // e.preventDefault();
         if (this.closest('.directorist-contents-wrap')) {
-          var searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
+          var _searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
 
-          if (searchForm) {
-            adsFormReset(searchForm);
+          if (_searchForm) {
+            adsFormReset(_searchForm);
           }
 
           var advanceSearchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__form');

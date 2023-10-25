@@ -369,8 +369,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     &:focus {
       outline: none;
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
   .directorist-advanced-filter__action{

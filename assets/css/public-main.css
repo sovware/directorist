@@ -6758,9 +6758,14 @@ body.modal-overlay-enabled:before {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
+  cursor: pointer;
 }
 .directorist-widget-advanced-search .directorist-btn-reset-js:focus {
   outline: none;
+}
+.directorist-widget-advanced-search .directorist-btn-reset-js:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .directorist-widget-advanced-search .directorist-advanced-filter__action {
   padding: 0 0;
@@ -8336,6 +8341,11 @@ p.atbd-min {
   text-transform: none;
   border: none;
   background: transparent;
+  cursor: pointer;
+}
+.directorist-search-modal__contents__footer .directorist-btn-reset-js:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .directorist-search-modal__contents__title {
   font-size: 20px;
@@ -10705,7 +10715,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-align: center;
   text-transform: none;
   text-decoration: none;
+  cursor: pointer;
   background-color: var(--directorist-color-light);
+}
+.listing-with-sidebar__sidebar .directorist-btn-reset-js:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .listing-with-sidebar__sidebar .directorist-btn-submit {
   width: 100%;
@@ -11150,6 +11165,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-pack: center;
           justify-content: center;
   text-decoration: none;
+  cursor: pointer;
+}
+.directorist-advanced-filter__action .directorist-btn-reset-js:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .directorist-advanced-filter__action .directorist-btn {
   font-size: 15px;

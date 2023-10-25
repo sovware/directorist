@@ -158,6 +158,11 @@
             color: var(--directorist-color-primary);
             justify-content: center;
             text-decoration: none;
+            cursor: pointer;
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
         }
         .directorist-btn {
             font-size: 15px;

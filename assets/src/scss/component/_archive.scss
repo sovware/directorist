@@ -450,7 +450,12 @@
 			text-align: center;
 			text-transform: none;
 			text-decoration: none;
+			cursor: pointer;
 			background-color: var(--directorist-color-light);
+			&:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
 		}
 		.directorist-btn-submit {
 			width: 100%;

@@ -11350,6 +11350,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-transform: none;
   border: none;
   background: transparent;
+  cursor: pointer;
+}
+.directorist-search-modal__contents__footer .directorist-btn-reset-js:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .directorist-search-modal__contents__title {
   font-size: 20px;

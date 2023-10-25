@@ -316,6 +316,11 @@
                 text-transform: none;
                 border: none;
                 background: transparent;
+                cursor: pointer;
+                &:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
             }
         }
         @include e(title) {

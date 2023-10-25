@@ -1180,7 +1180,7 @@ class Builder_Data {
 
             'pricing'           => [
                 'type'    => 'price',
-                'label'   => __( 'Listings Price', 'directorist' ),
+                'label'   => __( 'Pricing', 'directorist' ),
                 'icon'    => 'uil uil-text-fields',
                 'hook'    => 'atbdp_single_listings_price',
                 'show_if' => [
@@ -2322,7 +2322,7 @@ class Builder_Data {
 
                     'price' => [
                         'type' => "badge",
-                        'label' => __( "Listings Price", "directorist" ),
+                        'label' => __( "Pricing", "directorist" ),
                         'icon' => 'uil uil-text-fields',
                     ],
                     'badges' => [
@@ -2357,7 +2357,7 @@ class Builder_Data {
                     ],
                     'ratings_count' => [
                         'type' => "ratings-count",
-                        'label' => __( "Listings Ratings", "directorist" ),
+                        'label' => __( "Rating", "directorist" ),
                         'icon' => 'uil uil-text-fields',
                     ],
                     'category' => [

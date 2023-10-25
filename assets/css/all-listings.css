@@ -11321,6 +11321,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-bottom: 1px solid var(--directorist-color-border);
 }
 .directorist-price-ranges__item.directorist-form-group .directorist-form-element {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   border: 0 none !important;
 }
 .directorist-price-ranges__item.directorist-form-group:focus-within {
@@ -11338,10 +11342,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
 }
 .directorist-price-ranges__label {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
   line-height: 1;
   font-size: 14px !important;
   font-weight: 400 !important;

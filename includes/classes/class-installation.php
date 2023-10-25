@@ -33,6 +33,7 @@ class ATBDP_Installation {
 		],
 		'8.0.0' => [
 			'directorist_800_migrate_builder_data',
+			'directorist_800_update_db_version',
 		]
 	);
 

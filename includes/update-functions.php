@@ -306,3 +306,7 @@ function directorist_800_migrate_builder_data() {
 
 	update_option( 'directorist_builder_header_migrated', true );
 }
+
+function directorist_800_update_db_version() {
+    \ATBDP_Installation::update_db_version( '8.0.0' );
+}

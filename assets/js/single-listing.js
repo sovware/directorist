@@ -530,23 +530,29 @@ window.addEventListener('DOMContentLoaded', function () {
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     if ($('.directorist-single-contents-area').length > 0) {
-      var postID = $('.directorist-single-contents-area').data('id');
-      var cookieName = 'directorist_listing_view_' + postID; // Check if the user has a cookie for this post.
+      var listing_id = $('.directorist-single-contents-area').data('id'); // listing id
 
-      if (document.cookie.indexOf(cookieName) === -1) {
-        // Send an AJAX request to track the view.
+      var storage_key = 'directorist_listing_views'; // Key for session storage
+      // Check if the user has already viewed this listing during the session.
+
+      var viewed_listings = JSON.parse(sessionStorage.getItem(storage_key)) || {};
+
+      if (!viewed_listings[listing_id]) {
+        // Send an AJAX request to track the view for this specific listing.
         $.ajax({
           type: 'POST',
           url: directorist.ajaxurl,
           data: {
-            action: 'track_post_views',
-            post_id: postID,
+            action: 'directorist_track_listing_views',
+            listing_id: listing_id,
             directorist_nonce: directorist.directorist_nonce
           },
           success: function success(response) {
             if (response.success) {
-              // Set a non-expiring cookie to indicate that the user's view has been counted.
-              document.cookie = cookieName + '=1;path=/';
+              // Mark this listing as viewed in the session storage.
+              viewed_listings[listing_id] = true; // Update the session storage.
+
+              sessionStorage.setItem(storage_key, JSON.stringify(viewed_listings));
             }
           }
         });

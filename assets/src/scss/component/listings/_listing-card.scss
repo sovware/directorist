@@ -977,13 +977,15 @@
         }
 
         .directorist-thumb-listing-author {
+            position: unset;
+            transform: unset;
             a {
                 display: flex;
             }
 
             img {
-                height: 42px;
-                width: 42px;
+                height: 100%;
+                width: 100%;
                 max-width: none;
                 border-radius: 50%;
             }

@@ -15030,6 +15030,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
 }
+.directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__header .directorist-thumb-listing-author {
+  position: unset;
+  -webkit-transform: unset;
+          transform: unset;
+}
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__header .directorist-thumb-listing-author a {
   display: -webkit-box;
   display: -webkit-flex;
@@ -15037,8 +15042,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: flex;
 }
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__header .directorist-thumb-listing-author img {
-  height: 42px;
-  width: 42px;
+  height: 100%;
+  width: 100%;
   max-width: none;
   border-radius: 50%;
 }

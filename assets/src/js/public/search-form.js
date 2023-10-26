@@ -663,14 +663,17 @@ import { directorist_range_slider } from './range-slider';
                             if (!elm) {
                                 return;
                             }
+                            $('body').on('input', elm, function (e) {
+                                if (elm.value.length > 2) {
+                                    const autocomplete = new google.maps.places.Autocomplete(elm, field.options);
 
-                            const autocomplete = new google.maps.places.Autocomplete(elm, field.options);
-
-                            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                                const place = autocomplete.getPlace();
-                                elm.closest('.directorist-search-field').querySelector(`#${field.lat_id}`).value = place.geometry.location.lat();
-                                elm.closest('.directorist-search-field').querySelector(`#${field.lng_id}`).value = place.geometry.location.lng();
-                            });
+                                    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                                        const place = autocomplete.getPlace();
+                                        elm.closest('.directorist-search-field').querySelector(`#${field.lat_id}`).value = place.geometry.location.lat();
+                                        elm.closest('.directorist-search-field').querySelector(`#${field.lng_id}`).value = place.geometry.location.lng();
+                                    });
+                                }
+                            })
                         })
                     };
 

@@ -1637,11 +1637,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 return;
               }
 
-              var autocomplete = new google.maps.places.Autocomplete(elm, field.options);
-              google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                elm.closest('.directorist-search-field').querySelector("#".concat(field.lat_id)).value = place.geometry.location.lat();
-                elm.closest('.directorist-search-field').querySelector("#".concat(field.lng_id)).value = place.geometry.location.lng();
+              $('body').on('input', elm, function (e) {
+                if (elm.value.length > 2) {
+                  var autocomplete = new google.maps.places.Autocomplete(elm, field.options);
+                  google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                    var place = autocomplete.getPlace();
+                    elm.closest('.directorist-search-field').querySelector("#".concat(field.lat_id)).value = place.geometry.location.lat();
+                    elm.closest('.directorist-search-field').querySelector("#".concat(field.lng_id)).value = place.geometry.location.lng();
+                  });
+                }
               });
             });
           };

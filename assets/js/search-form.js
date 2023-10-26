@@ -475,6 +475,7 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
         url: args.url,
         dataType: 'json',
         cache: true,
+        delay: 250,
         data: function data(params) {
           currentPage = params.page || 1;
           var search_term = params.term ? params.term : '';

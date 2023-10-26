@@ -1182,6 +1182,11 @@ __webpack_require__.r(__webpack_exports__);
         }, 100);
       }
     });
+    setTimeout(function () {
+      $('body').on('click change', '.directorist-range-slider-value', function (e) {
+        console.log('Changed Slider Value');
+      });
+    }, 250);
     /* advanced search form reset */
 
     function adsFormReset(searchForm) {

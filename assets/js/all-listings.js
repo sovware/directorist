@@ -2429,12 +2429,73 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         }
       }
     });
-  } // sidebar on click searching
+  }
 
+  function initObserver() {
+    var targetNode = document.querySelector('.directorist-range-slider-value');
+    var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
 
-  $('body').on("change keyup", ".directorist-instant-search .listing-with-sidebar", function (e) {
+    if (targetNode) {
+      var timeout;
+
+      var observerCallback = function observerCallback(mutationList, observer) {
+        var _iterator = _createForOfIteratorHelper(mutationList),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var mutation = _step.value;
+
+            if (mutation.attributeName == 'value') {
+              clearTimeout(timeout);
+              timeout = setTimeout(function () {
+                filterListing(sidebarElm);
+              }, 250);
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      };
+
+      var observer = new MutationObserver(observerCallback);
+      observer.observe(targetNode, {
+        attributes: true,
+        childList: true,
+        subtree: true
+      });
+    }
+  }
+
+  function directorist_debounce(func, wait, immediate) {
+    var timeout;
+    return function () {
+      var context = this,
+          args = arguments;
+
+      var later = function later() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+
+  ; // sidebar on click searching
+
+  $('body').on("change keyup", ".directorist-instant-search .listing-with-sidebar", directorist_debounce(function (e) {
     e.preventDefault();
     var sidebarElm = $(this);
+    filterListing(sidebarElm);
+  }, 250));
+  $('body').on("click", ".directorist-search-field__btn--clear", function (e) {
+    var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
     filterListing(sidebarElm);
   });
 
@@ -2449,39 +2510,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     });
   }
 
-  function initObserver() {
-    var targetNode = document.querySelector('.directorist-range-slider-wrap .directorist-range-slider');
-
-    if (targetNode) {
-      var observer = new MutationObserver(function (mutationList, observer) {
-        var _iterator = _createForOfIteratorHelper(mutationList),
-            _step;
-
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var mutation = _step.value;
-
-            if (mutation.attributeName == 'value') {
-              var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
-              filterListing(sidebarElm);
-            }
-          }
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
-        }
-      });
-      observer.observe(targetNode, {
-        attributes: true,
-        childList: true,
-        subtree: true
-      });
-    }
-  }
-
-  $('body').on("click", ".directorist-instant-search .listing-with-sidebar .directorist-search-form-box", function (e) {
-    initObserver();
+  window.addEventListener('load', function () {
+    directorist_debounce(initObserver(), 250);
   });
 })(jQuery);
 

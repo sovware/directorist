@@ -1082,12 +1082,55 @@ import {
         
     }
 
+    function initObserver() {
+        let targetNode = document.querySelector('.directorist-range-slider-value');
+        let sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
+        if (targetNode) {
+            let timeout;
+    
+            const observerCallback = (mutationList, observer) => {
+                for (const mutation of mutationList) {
+                    if (mutation.attributeName == 'value') {
+                        clearTimeout(timeout);
+                        timeout = setTimeout(() => {
+                            filterListing(sidebarElm);
+                        }, 250);
+                    }
+                }
+            };
+    
+            const observer = new MutationObserver(observerCallback);
+            observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
+        }
+    }
+
+    function directorist_debounce(func, wait, immediate) {
+        let timeout;
+        return function() {
+            let context = this, args = arguments;
+            let later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            let callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+
     // sidebar on click searching
-    $('body').on("change keyup", ".directorist-instant-search .listing-with-sidebar", function (e) {
+    $('body').on("change keyup", ".directorist-instant-search .listing-with-sidebar", directorist_debounce( function(e) { 
         e.preventDefault();
         var sidebarElm = $(this);
         filterListing(sidebarElm);
-    });
+
+    }, 250));
+    
+    $('body').on("click", ".directorist-search-field__btn--clear", function(e) {
+        let sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
+        filterListing(sidebarElm);
+    })
     
     if( $('.directorist-instant-search').length === 0 ) {
 
@@ -1103,24 +1146,9 @@ import {
 
     }
 
-    function initObserver() {
-        const targetNode = document.querySelector('.directorist-range-slider-wrap .directorist-range-slider');
-        if(targetNode){
-            const observer = new MutationObserver((mutationList, observer) => {
-                for (const mutation of mutationList) {
-                    if(mutation.attributeName == 'value') {
-                        let sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
-                        filterListing(sidebarElm);
-                    }
-                }
-            });
-            observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
-        }
-    }
-
-    $('body').on("click", ".directorist-instant-search .listing-with-sidebar .directorist-search-form-box", function (e) {
-        initObserver();
-    })
+    window.addEventListener('load', function() {
+        directorist_debounce (initObserver(), 250);
+    });
 
     
 })(jQuery);

@@ -172,6 +172,12 @@ import { directorist_range_slider } from './range-slider';
             }
         })
 
+        setTimeout(() => {
+            $('body').on('click change', '.directorist-range-slider-value', function (e) {
+                console.log('Changed Slider Value');
+            })
+        }, 250);
+
 
         /* advanced search form reset */
         function adsFormReset(searchForm) {

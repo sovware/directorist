@@ -2432,7 +2432,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   }
 
   function initObserver() {
-    var targetNode = document.querySelector('.directorist-range-slider-value');
+    var targetNode = document.querySelector('.directorist-instant-search .directorist-range-slider-value');
     var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
 
     if (targetNode) {
@@ -2494,7 +2494,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var sidebarElm = $(this);
     filterListing(sidebarElm);
   }, 250));
-  $('body').on("click", ".directorist-search-field__btn--clear", function (e) {
+  $('body').on("click", ".directorist-instant-search .directorist-search-field__btn--clear", function (e) {
     var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
     filterListing(sidebarElm);
   });

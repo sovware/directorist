@@ -1021,6 +1021,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _range_slider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./range-slider */ "./assets/src/js/public/range-slider.js");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -1124,21 +1130,22 @@ __webpack_require__.r(__webpack_exports__);
           value = true;
         }
       });
+      searchForm.querySelectorAll(".directorist-range-slider-value").forEach(function (el) {
+        if (el.value > 0) {
+          value = true;
+        }
+      });
 
       if (!value) {
-        var resetButton = searchForm.querySelectorAll('.directorist-btn-reset-js');
-        resetButton.forEach(function (button) {
-          button.disabled = true;
-        });
+        var resetButtonWrapper = searchForm.querySelector('.directorist-advanced-filter__action');
+        resetButtonWrapper && resetButtonWrapper.classList.add('reset-btn-disabled');
       }
     } // Enable Reset Button
 
 
-    function enableResetButton(searchform) {
-      var resetButton = searchform.querySelectorAll('.directorist-btn-reset-js');
-      resetButton.forEach(function (button) {
-        button.disabled = false;
-      });
+    function enableResetButton(searchForm) {
+      var resetButtonWrapper = searchForm.querySelector('.directorist-advanced-filter__action');
+      resetButtonWrapper && resetButtonWrapper.classList.remove('reset-btn-disabled');
     } // Initialize Form Reset Button
 
 
@@ -1150,13 +1157,13 @@ __webpack_require__.r(__webpack_exports__);
     }); // Input Field Check
 
     $('body').on('keyup', '.directorist-contents-wrap form input:not([type="checkbox"]):not([type="radio"])', function (e) {
-      var searchform = this.closest('form');
+      var searchForm = this.closest('form');
 
       if (this.value && this.value !== 0 && this.value !== undefined) {
-        enableResetButton(searchform);
+        enableResetButton(searchForm);
       } else {
         setTimeout(function () {
-          initForm(searchform);
+          initForm(searchForm);
         }, 100);
       }
     });
@@ -1182,11 +1189,6 @@ __webpack_require__.r(__webpack_exports__);
         }, 100);
       }
     });
-    setTimeout(function () {
-      $('body').on('click change', '.directorist-range-slider-value', function (e) {
-        console.log('Changed Slider Value');
-      });
-    }, 250);
     /* advanced search form reset */
 
     function adsFormReset(searchForm) {
@@ -1288,15 +1290,6 @@ __webpack_require__.r(__webpack_exports__);
 
         if ($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length) {
           Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])(0);
-        }
-
-        if ($(this).closest('.directorist-instant-search').length) {
-          e.preventDefault();
-          var searchModalElement = this.closest('.directorist-search-modal');
-
-          if (searchModalElement) {
-            searchModalClose(searchModalElement);
-          }
         }
       });
     } // Search Modal Open
@@ -1571,7 +1564,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
     $('body').on('click', '.directorist-btn__back', function (e) {
-      console.log('clicked');
       e.preventDefault();
       window.history.back();
     });
@@ -1892,6 +1884,48 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }, 250));
+
+    function sliderValueCheck(targetNode, value) {
+      var searchform = targetNode.closest('form');
+
+      if (value > 0) {
+        enableResetButton(searchform);
+      } else {
+        initForm(searchform);
+      }
+    }
+
+    function rangeSliderObserver() {
+      var targetNode = document.querySelector('.directorist-range-slider-value');
+
+      if (targetNode) {
+        var observerCallback = function observerCallback(mutationList, observer) {
+          var _iterator = _createForOfIteratorHelper(mutationList),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var mutation = _step.value;
+
+              if (mutation.attributeName == 'value') {
+                sliderValueCheck(targetNode, parseInt(targetNode.value));
+              }
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        };
+
+        var sliderObserver = new MutationObserver(observerCallback);
+        sliderObserver.observe(targetNode, {
+          attributes: true
+        });
+      }
+    }
+
+    rangeSliderObserver();
   });
 })(jQuery);
 

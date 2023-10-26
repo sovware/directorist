@@ -175,6 +175,12 @@
                 padding: 0 14.5px;
             }
         }
+        &.reset-btn-disabled {
+            .directorist-btn-reset-js {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+        }
     }
 
     .directorist-form-group {

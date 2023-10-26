@@ -11184,6 +11184,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     padding: 0 14.5px;
   }
 }
+.directorist-advanced-filter__action.reset-btn-disabled .directorist-btn-reset-js {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .directorist-advanced-filter .directorist-form-group.directorist-icon-right .directorist-input-icon {
   left: 0;
 }

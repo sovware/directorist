@@ -110,21 +110,23 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
 
+            searchForm.querySelectorAll(".directorist-range-slider-value").forEach(function (el) {
+                if (el.value > 0 ) {
+                    value = true;
+                }
+            });
+
             if (!value) {
-                let resetButton = searchForm.querySelectorAll('.directorist-btn-reset-js');
-                resetButton.forEach((button) => {
-                    button.disabled = true;
-                })
+                let resetButtonWrapper = searchForm.querySelector('.directorist-advanced-filter__action');
+                resetButtonWrapper && resetButtonWrapper.classList.add('reset-btn-disabled');
             }
             
         }
 
         // Enable Reset Button
-        function enableResetButton(searchform) {
-            let resetButton = searchform.querySelectorAll('.directorist-btn-reset-js');
-            resetButton.forEach((button) => {
-                button.disabled = false;
-            })
+        function enableResetButton(searchForm) {
+            let resetButtonWrapper = searchForm.querySelector('.directorist-advanced-filter__action');
+            resetButtonWrapper && resetButtonWrapper.classList.remove('reset-btn-disabled');
         }
 
         // Initialize Form Reset Button
@@ -137,13 +139,13 @@ import { directorist_range_slider } from './range-slider';
 
         // Input Field Check
         $('body').on('keyup', '.directorist-contents-wrap form input:not([type="checkbox"]):not([type="radio"])', function (e) {
-            let searchform = this.closest('form');
+            let searchForm = this.closest('form');
 
             if(this.value && this.value !== 0 && this.value !== undefined) {
-                enableResetButton(searchform);
+                enableResetButton(searchForm);
             } else {
                 setTimeout(function(){
-                    initForm(searchform)
+                    initForm(searchForm)
                 }, 100)
             }
         })
@@ -171,13 +173,6 @@ import { directorist_range_slider } from './range-slider';
                 }, 100)
             }
         })
-
-        setTimeout(() => {
-            $('body').on('click change', '.directorist-range-slider-value', function (e) {
-                console.log('Changed Slider Value');
-            })
-        }, 250);
-
 
         /* advanced search form reset */
         function adsFormReset(searchForm) {
@@ -270,14 +265,6 @@ import { directorist_range_slider } from './range-slider';
                 }
                 if($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length){
                     directorist_callingSlider(0);
-                }
-
-                if ($(this).closest('.directorist-instant-search').length){
-                    e.preventDefault();
-                    let searchModalElement = this.closest('.directorist-search-modal');
-                    if(searchModalElement) {
-                        searchModalClose(searchModalElement)
-                    }
                 }
             });
         }
@@ -595,7 +582,6 @@ import { directorist_range_slider } from './range-slider';
 
         // Back Button to go back to the previous page
         $('body').on('click', '.directorist-btn__back', function(e) {
-            console.log('clicked');
             e.preventDefault();
             
             window.history.back();
@@ -949,6 +935,35 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
         }, 250 ));
+
+        function sliderValueCheck(targetNode, value) {
+            let searchform = targetNode.closest('form');
+            if (value > 0) {
+                enableResetButton(searchform);
+            } else {
+                initForm(searchform);
+            }
+        }
+        
+        function rangeSliderObserver() {
+            let targetNode = document.querySelector('.directorist-range-slider-value');
+
+            if(targetNode){
+                const observerCallback = (mutationList, observer) => {
+                    for (const mutation of mutationList) {
+                        if (mutation.attributeName == 'value') {
+                            sliderValueCheck(targetNode, parseInt(targetNode.value));
+                        }
+                    }
+                };
+
+                const sliderObserver = new MutationObserver( observerCallback );
+                sliderObserver.observe( targetNode, { attributes: true } );
+            }
+        }
+
+        rangeSliderObserver();
+
 
     });
 })(jQuery);

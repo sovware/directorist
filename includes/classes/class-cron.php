@@ -168,9 +168,8 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		 * @access   private
 		 */
 		private function update_renewal_status() {
-			$can_renew             = get_directorist_option( 'can_renew_listing' );
 			$renew_email_threshold = get_directorist_option( 'email_to_expire_day' ); // before how many days of expiration, a renewal message should be sent
-			if ( $can_renew && $renew_email_threshold > 0 ) {
+			if ( $renew_email_threshold > 0 ) {
 				$renew_email_threshold_date = date( 'Y-m-d H:i:s', strtotime( "+{$renew_email_threshold} days" ) );
 
 				// Define the query
@@ -225,12 +224,10 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		 */
 		private function update_expired_status() {
 
-			$can_renew         = get_directorist_option( 'can_renew_listing' );
 			$email_renewal_day = get_directorist_option( 'email_renewal_day' );
 			$delete_in_days    = get_directorist_option( 'delete_expired_listings_after' );
-			$del_exp_l         = get_directorist_option( 'delete_expired_listing', 1 );
 			// add renewal reminder days to deletion thresholds
-			$delete_threshold = $can_renew ? (int) $email_renewal_day + (int) $delete_in_days : $delete_in_days;
+			$delete_threshold = (int) $email_renewal_day + (int) $delete_in_days;
 
 			// Define the query
 			$args = array(
@@ -269,15 +266,14 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 						'_featured'              => 0,
 						'_renewal_reminder_sent' => 0,
 					);
-					// delete expired listings?
-					if ( $del_exp_l ) {
-						// if deletion threshold is set then add deletion date
-						if ( $delete_threshold > 0 ) {
-							$metas['_deletion_date'] = date( 'Y-m-d H:i:s', strtotime( '+' . $delete_threshold . ' days' ) );
-						} else {
-							$metas['_deletion_date'] = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
-						}
+					
+					// if deletion threshold is set then add deletion date
+					if ( $delete_threshold > 0 ) {
+						$metas['_deletion_date'] = date( 'Y-m-d H:i:s', strtotime( '+' . $delete_threshold . ' days' ) );
+					} else {
+						$metas['_deletion_date'] = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
 					}
+
 					wp_update_post(
 						array(
 							'ID'          => $listing->ID,
@@ -351,10 +347,9 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		 * @access   private
 		 */
 		private function send_renewal_reminders() {
-			$can_renew         = get_directorist_option( 'can_renew_listing' );
 			$email_renewal_day = get_directorist_option( 'email_renewal_day' );
 
-			if ( $can_renew && $email_renewal_day > 0 ) {
+			if ( $email_renewal_day > 0 ) {
 				// Define the query
 				$args = array(
 					'post_type'      => ATBDP_POST_TYPE,
@@ -413,12 +408,8 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		 */
 		private function delete_expired_listings() {
 
-			$del_exp_l = get_directorist_option( 'delete_expired_listing', 1 );
-			if ( ! $del_exp_l ) {
-				return; // vail if admin does not want to delete expired listing
-			}
-			$del_mode = get_directorist_option( 'deletion_mode', 'trash' ); // force_delete | trash
-			$force    = 'force_delete' == $del_mode ? true : false; // for now we are just focusing on Force Delete or Not. later we may consider more
+			$del_mode = get_directorist_option( 'delete_expired_listing_permanently', false ); // force_delete | trash
+			$force    = ! empty( $del_mode ) ? true : false; // for now we are just focusing on Force Delete or Not. later we may consider more
 			// Define the query
 			$args = array(
 				'post_type'      => ATBDP_POST_TYPE,

@@ -1473,12 +1473,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __('Border Color', 'directorist'),
                     'value' => '#444752',
                 ],
-                'can_renew_listing' => [
-                    'label' => __('Can User Renew Listing?', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                    'description' => __('Here YES means users can renew their listings.', 'directorist'),
-                ],
                 'email_to_expire_day' => [
                     'label' => __('When to send expire notice', 'directorist'),
                     'type'  => 'number',
@@ -1499,47 +1493,19 @@ Please remember that your order may be canceled if you do not make your payment 
                         'required' => true,
                     ],
                 ],
-                'delete_expired_listing' => [
-                    'label' => __('Delete/Trash Expired Listings', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
+                'delete_expired_listing_permanently' => [
+                    'label'       => __('Permanently Delete Expired Listings', 'directorist'),
+                    'type'        => 'toggle',
+                    'description' => __( 'Automatically delete trashed listings permanently after the defined duration', 'directorist' ),
+                    'value'       => true,
                 ],
                 'delete_expired_listings_after' => [
-                    'label' => __('Delete/Trash Expired Listings After (days) of Expiration', 'directorist'),
+                    'label' => __( 'Permanently Delete After (days) of Expiration', 'directorist' ),
                     'type'  => 'number',
-                    'description' => __('Select the days before a listing expires to send an expiration reminder email', 'directorist'),
                     'value' => 15,
                     'placeholder' => '15',
                     'rules' => [
                         'required' => true,
-                    ],
-                    'show-if' => [
-                        'where' => "delete_expired_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'deletion_mode' => [
-                    'label' => __('Delete or Trash Expired Listings', 'directorist'),
-                    'type'  => 'select',
-                    'description' => __('Choose the Default actions after a listing reaches its deletion threshold.', 'directorist'),
-                    'value' => 'trash',
-                    'options' => [
-                        [
-                            'value' => 'force_delete',
-                            'label' => __('Delete Permanently', 'directorist'),
-                        ],
-                        [
-                            'value' => 'trash',
-                            'label' => __('Move to Trash', 'directorist'),
-                        ],
-                    ],
-                    'show-if' => [
-                        'where' => "delete_expired_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
                     ],
                 ],
                 'paginate_author_listings' => [
@@ -4697,13 +4663,13 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'listings_renewal' => [
                                     'title'       => __( 'Listings Renewal', 'directorist' ),
                                     'fields'      => [
-                                        'can_renew_listing', 'email_to_expire_day', 'email_renewal_day',
+                                        'email_to_expire_day', 'email_renewal_day',
                                      ],
                                 ],
                                 'expired_listings_actions' => [
                                     'title'       => __( 'Expired Listings Actions', 'directorist' ),
                                     'fields'      => [
-                                        'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode',
+                                        'delete_expired_listing_permanently', 'delete_expired_listings_after',
                                      ],
                                 ],
                                 'general_bottom_settings' => [

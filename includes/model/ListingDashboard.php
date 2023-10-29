@@ -521,10 +521,7 @@ class Directorist_Listing_Dashboard {
 		$status  = get_post_meta( $post_id, '_listing_status', true );
 
 		if ( 'renewal' == $status || 'expired' == $status ) {
-			$can_renew = get_directorist_option( 'can_renew_listing' );
-			if ( $can_renew ) {
-				return true;
-			}
+			return true;
 		}
 
 		return false;

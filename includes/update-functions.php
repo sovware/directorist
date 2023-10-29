@@ -248,7 +248,7 @@ function directorist_800_migrate_builder_data() {
 							'options'  => [
 								'title'  => __( 'Listings Slider Settings', 'directorist' ),
 								'fields' => [
-									'footer_thumbail' => [
+									'footer_thumbnail' => [
 										'type'  => 'toggle',
 										'label' => __( 'Enable Footer Thumbnail', 'directorist' ),
 										'value' => $footer_thumbnail,

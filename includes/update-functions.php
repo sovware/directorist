@@ -145,9 +145,8 @@ function directorist_800_migrate_builder_data() {
 	}
 
 	$migrated = get_option( 'directorist_builder_header_migrated', false );
-	$need_migration = ( empty( $migrated ) && Multi_Directory_Manager::has_old_listings_data() ) ? true : false;
 
-	if ( ! $need_migration ) {
+	if ( $migrated ) {
 		return;
 	}
 

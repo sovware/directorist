@@ -304,7 +304,7 @@ if (!class_exists('ATBDP_Listing')):
                 $listing_id         = absint( $_POST['listing_id'] );
                 $this->set_post_views( $listing_id );
                 // Return 'success' to the AJAX request to indicate that the view has been counted.
-                wp_send_json_success( array( 'success' => true ) );
+                wp_send_json_success();
             }
         
             die();

@@ -11570,6 +11570,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   content: "";
   border: 2px solid #d9d9d9;
   background-color: #fff;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
 
 /* google map location suggestion container */

@@ -206,7 +206,7 @@ import { directorist_range_slider } from './range-slider';
             searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
                 if(el.getAttribute('name') === "directory_type") return;
                 if(el.getAttribute('name') === "miles"){
-                    const radiusDefaultValue = searchForm.querySelector('.directorist-range-slider').dataset.defaultRadius;
+                    let radiusDefaultValue = searchForm.querySelector('.directorist-range-slider').dataset.defaultRadius;
                     el.value = radiusDefaultValue;
                     return;
                 }
@@ -232,12 +232,12 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
 
-            const irisPicker = searchForm.querySelector("input.wp-picker-clear");
+            let irisPicker = searchForm.querySelector("input.wp-picker-clear");
             if (irisPicker !== null) {
                 irisPicker.click();
             }
 
-            const rangeValue = searchForm.querySelector(".directorist-range-slider-current-value span");
+            let rangeValue = searchForm.querySelector(".directorist-range-slider-current-value span");
             if (rangeValue !== null) {
                 rangeValue.innerHTML = "0";
             }
@@ -448,9 +448,9 @@ import { directorist_range_slider } from './range-slider';
         ------------------- */
         $('body').on('click', '.search_listing_types', function (event) {
             event.preventDefault();
-            const parent = $(this).closest('.directorist-search-contents');
-            const listing_type = $(this).attr('data-listing_type');
-            const type_current = parent.find('.directorist-listing-type-selection__link--current');
+            let parent = $(this).closest('.directorist-search-contents');
+            let listing_type = $(this).attr('data-listing_type');
+            let type_current = parent.find('.directorist-listing-type-selection__link--current');
 
             if (type_current.length) {
                 type_current.removeClass('directorist-listing-type-selection__link--current');
@@ -459,12 +459,12 @@ import { directorist_range_slider } from './range-slider';
 
             parent.find('.listing_type').val(listing_type);
 
-            const form_data = new FormData();
+            let form_data = new FormData();
             form_data.append('action', 'atbdp_listing_types_form');
             form_data.append('nonce', directorist.directorist_nonce);
             form_data.append('listing_type', listing_type);
 
-            const atts = parent.attr('data-atts');
+            let atts = parent.attr('data-atts');
             let atts_decoded = btoa(atts);
 
             form_data.append('atts', atts_decoded);
@@ -513,7 +513,7 @@ import { directorist_range_slider } from './range-slider';
                         handleRadiusVisibility();
                     }
 
-                    const parentAfterAjax = $(this).closest('.directorist-search-contents');
+                    let parentAfterAjax = $(this).closest('.directorist-search-contents');
 
                     parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
                     if(parentAfterAjax.find('.directorist-search-form-box').find('.directorist-search-field-radius_search').length){
@@ -615,8 +615,8 @@ import { directorist_range_slider } from './range-slider';
             event.preventDefault();
             let zipcode_search  = $(this).closest('.directorist-zipcode-search');
 
-            const lat = $(this).data('lat');
-            const lon = $(this).data('lon');
+            let lat = $(this).data('lat');
+            let lon = $(this).data('lon');
 
             zipcode_search.find('.zip-cityLat').val(lat);
             zipcode_search.find('.zip-cityLng').val(lon);
@@ -641,7 +641,7 @@ import { directorist_range_slider } from './range-slider';
                             country: directorist.restricted_countries
                         },
                     };
-                    const options = directorist.countryRestriction ? opt : '';
+                    let options = directorist.countryRestriction ? opt : '';
 
                     let input_fields = [{
                             input_class: '.directorist-location-js',
@@ -658,22 +658,18 @@ import { directorist_range_slider } from './range-slider';
                     ];
 
                     let setupAutocomplete = function (field) {
-                        const input = document.querySelectorAll(field.input_class);
+                        let input = document.querySelectorAll(field.input_class);
                         input.forEach(elm => {
                             if (!elm) {
                                 return;
                             }
-                            $('body').on('input', elm, function (e) {
-                                if (elm.value.length > 2) {
-                                    const autocomplete = new google.maps.places.Autocomplete(elm, field.options);
+                            let autocomplete = new google.maps.places.Autocomplete(elm, field.options);
 
-                                    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                                        const place = autocomplete.getPlace();
-                                        elm.closest('.directorist-search-field').querySelector(`#${field.lat_id}`).value = place.geometry.location.lat();
-                                        elm.closest('.directorist-search-field').querySelector(`#${field.lng_id}`).value = place.geometry.location.lng();
-                                    });
-                                }
-                            })
+                            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                                let place = autocomplete.getPlace();
+                                elm.closest('.directorist-search-field').querySelector(`#${field.lat_id}`).value = place.geometry.location.lat();
+                                elm.closest('.directorist-search-field').querySelector(`#${field.lng_id}`).value = place.geometry.location.lng();
+                            });
                         })
                     };
 
@@ -686,11 +682,11 @@ import { directorist_range_slider } from './range-slider';
 
             } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
 
-                const getResultContainer = function (context, field) {
+                let getResultContainer = function (context, field) {
                     return $(context).next(field.search_result_elm);
                 };
 
-                const getWidgetResultContainer = function (context, field) {
+                let getWidgetResultContainer = function (context, field) {
                     return $(context).parent().next(field.search_result_elm);
                 };
 
@@ -725,16 +721,16 @@ import { directorist_range_slider } from './range-slider';
                     $(field.input_elm).on('keyup', directorist_debounce(function (event) {
                         event.preventDefault();
 
-                        const blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
+                        let blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
 
                         // Return early when blocked key is pressed.
                         if (blockedKeyCodes.includes(event.keyCode)) {
                             return;
                         }
 
-                        const locationAddressField = $(this).parent('.directorist-search-field');
-                        const result_container = field.getResultContainer(this, field);
-                        const search = $(this).val();
+                        let locationAddressField = $(this).parent('.directorist-search-field');
+                        let result_container = field.getResultContainer(this, field);
+                        let search = $(this).val();
 
                         if (search.length < 3) {
                             result_container.css({
@@ -819,15 +815,15 @@ import { directorist_range_slider } from './range-slider';
                     }
                 });
 
-                const syncLatLngData = function (context, event, args) {
+                let syncLatLngData = function (context, event, args) {
                     event.preventDefault();
-                    const text = $(context).text();
-                    const lat = $(context).data('lat');
-                    const lon = $(context).data('lon');
-                    const _this = event.target;
+                    let text = $(context).text();
+                    let lat = $(context).data('lat');
+                    let lon = $(context).data('lon');
+                    let _this = event.target;
                     $(_this).closest('.address_result').siblings('input[name="cityLat"]').val(lat);
                     $(_this).closest('.address_result').siblings('input[name="cityLng"]').val(lon);
-                    const inp = $(context)
+                    let inp = $(context)
                         .closest(args.result_list_container)
                         .parent()
                         .find('.directorist-location-js, #address_widget, #q_addressss, .atbdp-search-address');
@@ -850,7 +846,7 @@ import { directorist_range_slider } from './range-slider';
             }
 
 
-            if ($('.directorist-location-js, #q_addressss,.atbdp-search-address').val() === '') {
+            if ($('.directorist-location-js, #q_addressss, .atbdp-search-address').val() === '') {
                 $(this)
                     .parent()
                     .next('.address_result')
@@ -869,9 +865,9 @@ import { directorist_range_slider } from './range-slider';
 
         // DOM Mutation observer
         function initObserver() {
-            const targetNode = document.querySelector('.directorist-location-js');
+            let targetNode = document.querySelector('.directorist-location-js');
             if(targetNode){
-                const observer = new MutationObserver( handleRadiusVisibility );
+                let observer = new MutationObserver( handleRadiusVisibility );
                 observer.observe( targetNode, { attributes: true } );
             }
         }
@@ -952,15 +948,15 @@ import { directorist_range_slider } from './range-slider';
             let targetNode = document.querySelector('.directorist-range-slider-value');
 
             if(targetNode){
-                const observerCallback = (mutationList, observer) => {
-                    for (const mutation of mutationList) {
+                let observerCallback = (mutationList, observer) => {
+                    for (let mutation of mutationList) {
                         if (mutation.attributeName == 'value') {
                             sliderValueCheck(targetNode, parseInt(targetNode.value));
                         }
                     }
                 };
 
-                const sliderObserver = new MutationObserver( observerCallback );
+                let sliderObserver = new MutationObserver( observerCallback );
                 sliderObserver.observe( targetNode, { attributes: true } );
             }
         }

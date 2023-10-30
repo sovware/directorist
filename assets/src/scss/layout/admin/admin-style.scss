@@ -4930,7 +4930,8 @@ input.atbdp-form-control {
   }
 }
 .directorist-type-slug {
-  .directorist-slug-notice {
+  .directorist-slug-notice, 
+  .directorist-count-notice {
     margin: 6px 0 0;
     &.directorist-slug-notice-error {
       color: $danger;

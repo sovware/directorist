@@ -262,6 +262,10 @@
       border: 1px solid #ececec;
       box-sizing: border-box;
       margin-bottom: 0;
+      @include e('prefix') {
+        height: 42px;
+        line-height: 42px;
+      }
     }
   }
   .directorist-form-social-fields select.directorist-form-element,

@@ -281,4 +281,5 @@ window.addEventListener('DOMContentLoaded', () => {
             $(data_target).slideToggle();
         }
     });
+    
 });

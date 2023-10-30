@@ -98,7 +98,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
 
-
 // All Listing Slider
 (function ($) {
   function allListingSlider() {
@@ -106,9 +105,8 @@ __webpack_require__.r(__webpack_exports__);
     var checkData = function checkData(data, value) {
       return typeof data === 'undefined' ? value : data;
     };
+
     /* Swiper Slider Listing */
-
-
     var swiperCarouselListing = document.querySelectorAll('.directorist-swiper-listing');
     swiperCarouselListing.forEach(function (el, i) {
       var navBtnPrev = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__nav--prev-listing');
@@ -143,8 +141,8 @@ __webpack_require__.r(__webpack_exports__);
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
       });
     });
-    /* Swiper Slider Related Listing */
 
+    /* Swiper Slider Related Listing */
     var swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related');
     swiperCarouselRelated.forEach(function (el, i) {
       var navBtnPrev = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--prev-related');
@@ -177,8 +175,9 @@ __webpack_require__.r(__webpack_exports__);
           clickable: true
         },
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-      }); // Destroy Swiper Slider When Slider Image Are Less Than Minimum Required Image
+      });
 
+      // Destroy Swiper Slider When Slider Image Are Less Than Minimum Required Image
       function destroySwiperSlider() {
         var windowScreen = screen.width;
         var breakpoints = JSON.parse(el.dataset.swResponsive);
@@ -192,21 +191,17 @@ __webpack_require__.r(__webpack_exports__);
         var breakpointValues = Object.entries(breakpoints);
         var currentBreakpoint = breakpointValues.filter(function (_ref) {
           var _ref2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_ref, 1),
-              key = _ref2[0];
-
+            key = _ref2[0];
           return key == currentBreakpointKey;
         });
         var sliderItemsCount = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination .swiper-pagination-bullet');
-
         if (sliderItemsCount.length == '1') {
           swiper.loopDestroy();
           var relatedListingSlider = document.querySelector('.directorist-swiper-related');
           relatedListingSlider.classList.add('slider-has-one-item');
         }
-
         currentBreakpoint[0].forEach(function (elm, ind) {
           var relatedListingSlider = document.querySelector('.directorist-swiper-related');
-
           if (swiper.loopedSlides < elm.slidesPerView) {
             swiper.loopDestroy();
             relatedListingSlider.classList.add('slider-has-less-items');
@@ -217,14 +212,13 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       }
-
       window.addEventListener('resize', function () {
         destroySwiperSlider();
       });
       destroySwiperSlider();
     });
-    /* Swiper Slider Single Listing */
 
+    /* Swiper Slider Single Listing */
     var singleListingSlider = document.querySelectorAll('.directorist-single-listing-slider-wrap');
     singleListingSlider.forEach(function (el, i) {
       // Get Data Attribute
@@ -235,8 +229,9 @@ __webpack_require__.r(__webpack_exports__);
       var dataBackgroundSize = el.getAttribute('data-background-size');
       var dataBackgroundBlur = el.getAttribute('data-blur-background');
       var dataShowThumbnails = el.getAttribute('data-show-thumbnails');
-      var dataThumbnailsBackground = el.getAttribute('data-thumbnail-background-color'); // Find Sliders
+      var dataThumbnailsBackground = el.getAttribute('data-thumbnail-background-color');
 
+      // Find Sliders
       var swiperCarouselSingleListingThumb = el.querySelector('.directorist-single-listing-slider-thumb');
       var swiperCarouselSingleListing = el.querySelector('.directorist-single-listing-slider');
       var swiperSingleListingThumb = new Swiper(swiperCarouselSingleListingThumb, {
@@ -294,28 +289,28 @@ __webpack_require__.r(__webpack_exports__);
         thumbs: {
           swiper: swiperSingleListingThumb
         }
-      }); // Loop Destroy on Single Slider Item
+      });
 
+      // Loop Destroy on Single Slider Item
       var sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
-
       if (sliderItemsCount.length <= '1') {
         swiperSingleListing.loopDestroy();
         swiperCarouselSingleListing.classList.add('slider-has-one-item');
         swiperCarouselSingleListing.parentElement.querySelector('.directorist-single-listing-slider-thumb').style.display = 'none';
-      } // Add Styles
+      }
 
-
+      // Add Styles
       swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
       swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
       swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
       swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
-      swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : ''; // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
+      swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
 
+      // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
       swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
       swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
     });
   }
-
   window.addEventListener('DOMContentLoaded', function () {
     allListingSlider();
     $(".directorist-viewas__item").click(function () {
@@ -346,14 +341,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
 }
-
 module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -368,7 +358,6 @@ module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exp
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
-
 module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -381,35 +370,32 @@ module.exports = _arrayWithHoles, module.exports.__esModule = true, module.expor
 /***/ (function(module, exports) {
 
 function _iterableToArrayLimit(arr, i) {
-  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
-
-  if (_i == null) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-
-  var _s, _e;
-
-  try {
-    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
+  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
+  if (null != _i) {
+    var _s,
+      _e,
+      _x,
+      _r,
+      _arr = [],
+      _n = !0,
+      _d = !1;
     try {
-      if (!_n && _i["return"] != null) _i["return"]();
+      if (_x = (_i = _i.call(arr)).next, 0 === i) {
+        if (Object(_i) !== _i) return;
+        _n = !1;
+      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
+    } catch (err) {
+      _d = !0, _e = err;
     } finally {
-      if (_d) throw _e;
+      try {
+        if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return;
+      } finally {
+        if (_d) throw _e;
+      }
     }
+    return _arr;
   }
-
-  return _arr;
 }
-
 module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -424,7 +410,6 @@ module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-
 module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -437,17 +422,12 @@ module.exports = _nonIterableRest, module.exports.__esModule = true, module.expo
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js");
-
 var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
-
 var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
-
 var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ "./node_modules/@babel/runtime/helpers/nonIterableRest.js");
-
 function _slicedToArray(arr, i) {
   return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
 }
-
 module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -460,7 +440,6 @@ module.exports = _slicedToArray, module.exports.__esModule = true, module.export
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === "string") return arrayLikeToArray(o, minLen);
@@ -469,7 +448,6 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 }
-
 module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),

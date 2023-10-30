@@ -59,16 +59,23 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					}
 
 					// add rows to variables
-					var $edit_row = $( '#edit-' + post_id );
-					var $post_row = $( '#post-' + post_id );
-					var directory_type = $( '.column-directory_type', $post_row ).text().trim();
+					var $edit_row         = $( '#edit-' + post_id );
+					var $post_row         = $( '#post-' + post_id );
+					var directory_type    = $( '.column-directory_type', $post_row ).text().trim();
+					var view_count        = $('.column-atbdp_view_count', $post_row).text().trim();
 					var $directory_select = $( 'select[name="directory_type"]', $edit_row );
-					var $selected_option = $directory_select.find('option').filter(function(index, element) {
+					var $view_count_input = $('input[name="atbdp_view_count"]', $edit_row);
+					var $selected_option  = $directory_select.find('option').filter(function(index, element) {
 						return element.textContent.trim() === directory_type;
 					});
 
 					if ($selected_option.length > 0) {
 						$directory_select.val($selected_option[0].value);
+					}
+
+    				// Set the value of the "View Count" input field
+					if ( view_count !== '' ) {
+						$view_count_input.val( view_count );
 					}
 				}
 			});
@@ -97,40 +104,52 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			}
 
 			$directory_id = ! empty( $_REQUEST['directory_type'] ) ? absint( wp_unslash( $_REQUEST['directory_type'] ) ) : 0;
-
-			if ( ! directorist_is_directory( $directory_id ) ) {
-				return;
-			}
+			$view_count   = ! empty( $_REQUEST['atbdp_view_count'] ) ? absint( wp_unslash( $_REQUEST['atbdp_view_count'] ) ) : 0;
 
 			$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', (bool) $directory_id );
 
-			if ( $should_update_directory_type ) {
+			if ( $should_update_directory_type && directorist_is_directory( $directory_id ) ) {
 				directorist_set_listing_directory( $listing_id, $directory_id );
+			}
+
+			if( $view_count ) {
+				update_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), $view_count );
 			}
 		}
 
 		public function on_quick_edit_custom_box( $column_name, $post_type ) {
-			if ( ATBDP_POST_TYPE !== $post_type || 'directory_type' !== $column_name ) {
+			if ( ATBDP_POST_TYPE !== $post_type ) {
 				return;
 			}
 			?>
 			<fieldset class="inline-edit-col-right" style="margin-top: 0;">
 				<div class="inline-edit-group wp-clearfix">
 					<?php wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' ); ?>
-					<label class="inline-edit-directory-type alignleft">
-						<span class="title"><?php esc_html_e( 'Directory', 'directorist' ); ?></span>
-						<select name="directory_type">
-							<option value="">— <?php esc_html_e( 'Select type', 'directorist' ); ?> —</option>
-							<?php
-							$listing_types = get_terms( array(
-								'taxonomy'   => ATBDP_TYPE,
-								'hide_empty' => false,
-							) );
-							foreach ( $listing_types as $listing_type ) { ?>
-								<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
-							<?php } ?>
-						</select>
-					</label>
+
+					<?php if( 'directory_type' === $column_name ) : ?>
+						<label class="inline-edit-directory-type alignleft">
+							<span class="title"><?php esc_html_e( 'Directory', 'directorist' ); ?></span>
+							<select name="directory_type">
+								<option value="">— <?php esc_html_e( 'Select type', 'directorist' ); ?> —</option>
+								<?php
+								$listing_types = get_terms( array(
+									'taxonomy'   => ATBDP_TYPE,
+									'hide_empty' => false,
+								) );
+								foreach ( $listing_types as $listing_type ) { ?>
+									<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
+								<?php } ?>
+							</select>
+						</label>
+					<?php endif; ?>
+					
+					<?php if( 'atbdp_view_count' === $column_name ) : ?>
+						<label class="inline-edit-atbdp-view-count alignleft">
+							<span class="title"><?php esc_html_e( 'View Count', 'directorist' ); ?></span>
+							<input type="number" name="atbdp_view_count" value="">
+						</label>
+					<?php endif; ?>
+
 				</div>
 			</fieldset>
 			<?php
@@ -396,31 +415,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 
 				case 'atbdp_view_count':
 					$view_count = directorist_get_listing_views_count( $post_id );
-
-					printf(
-						'<div class="directorist-view-count">
-							<div class="directorist-view-count-content">
-								<span class="directorist_listing-count-text directorist-count-text-%s" data-value="%s" contenteditable="false">%s</span>
-								<div class="directorist-listing-count-edit-wrap">
-									<a href="#" class="directorist-listing-count__edit" data-type-id="%s"><i class="fas fa-pen"></i></a>
-									<a href="#" class="directorist_listing-count-formText-add" data-type-id="%s"><i class="fas fa-check"></i></a>
-									<a href="#" class="directorist_listing-count-formText-remove"><i class="fas fa-times"></i></a>
-								</div>
-
-								<p class="directorist-count-notice directorist-count-notice directorist-count-notice-%s"></p>
-							</div>
-						</div>'
-						,
-						absint( $post_id ),
-						absint( $view_count ),
-						absint( $view_count ),
-						absint( $post_id ),
-						absint( $post_id ),
-						absint( $post_id ),
-						absint( $post_id ),
-						absint( $view_count ),
-					);
-
+					printf( '<span>%s</span>', absint( $view_count ) );
 					break;
 
 				case 'atbdp_date':

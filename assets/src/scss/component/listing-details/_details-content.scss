@@ -13,6 +13,9 @@
         .directorist-single-listing-action__text {
             display: block;
         }
+        @media screen and (max-width: 575px) {
+            border: none;
+        }
     }
 
     @include e('btn-wrapper') {
@@ -292,6 +295,7 @@
     @media screen and (max-width: 575px) {
         gap: 0;
         padding: 0;
+        border: none;
         &.directorist-btn.directorist-btn-light {
             background-color: transparent;
         }

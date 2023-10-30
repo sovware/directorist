@@ -16257,6 +16257,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-signle-listing-top .directorist-return-back .directorist-single-listing-action__text {
   display: block;
 }
+@media screen and (max-width: 575px) {
+  .directorist-signle-listing-top .directorist-return-back {
+    border: none;
+  }
+}
 .directorist-signle-listing-top__btn-wrapper {
   position: fixed;
   width: 100%;
@@ -16597,6 +16602,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .directorist-single-listing-action {
     gap: 0;
     padding: 0;
+    border: none;
   }
   .directorist-single-listing-action.directorist-btn.directorist-btn-light {
     background-color: transparent;

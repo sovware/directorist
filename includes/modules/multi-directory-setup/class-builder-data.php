@@ -1632,7 +1632,7 @@ class Builder_Data {
                     'acceptedWidgets' => ['favorite_badge'],
                 ],
                 'quick_info'    => [
-                    'acceptedWidgets' => [ "rating", "pricing", "posted_date" ],
+                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing'],
                 ],
                 'bottom'        => [
                     'maxWidget'       => 0,

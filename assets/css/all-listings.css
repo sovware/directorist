@@ -17349,7 +17349,6 @@ Review: New Style
       -ms-flex-align: center;
           align-items: center;
   gap: 15px;
-  background: var(--directorist-color-white);
 }
 .directorist-review-content__header h3 {
   font-size: 16px;

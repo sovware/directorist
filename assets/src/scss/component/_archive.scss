@@ -503,6 +503,12 @@
                     }
 				}
 			}
+			&.directorist-icon-right .directorist-input-icon {
+				right: 0;
+			}
+			&.directorist-icon-left .directorist-input-icon {
+				left: 0;
+			}
 		}
 	}
 	@include e(listing) {

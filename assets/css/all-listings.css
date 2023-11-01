@@ -11008,6 +11008,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .listing-with-sidebar__sidebar .directorist-form-group.directorist-search-field.input-is-focused .directorist-search-field__input::placeholder {
   opacity: 1;
 }
+.listing-with-sidebar__sidebar .directorist-form-group.directorist-icon-right .directorist-input-icon {
+  right: 0;
+}
+.listing-with-sidebar__sidebar .directorist-form-group.directorist-icon-left .directorist-input-icon {
+  left: 0;
+}
 .listing-with-sidebar__listing {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -11512,6 +11518,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-advanced-filter__action.reset-btn-disabled .directorist-btn-reset-js {
   opacity: 0.5;
   cursor: not-allowed;
+  pointer-events: none;
 }
 .directorist-advanced-filter .directorist-form-group.directorist-icon-right .directorist-input-icon {
   right: 0;

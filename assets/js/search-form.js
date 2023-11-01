@@ -1168,24 +1168,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     });
     $('body').on('change', '.directorist-contents-wrap form input[type="checkbox"], .directorist-contents-wrap form input[type="radio"]', function (e) {
-      var searchform = this.closest('form');
+      var searchForm = this.closest('form');
 
       if (this.checked) {
-        enableResetButton(searchform);
+        enableResetButton(searchForm);
       } else {
         setTimeout(function () {
-          initForm(searchform);
+          initForm(searchForm);
         }, 100);
       }
     });
     $('body').on('change', '.directorist-contents-wrap form select', function (e) {
-      var searchform = this.closest('form');
+      var searchForm = this.closest('form');
 
       if (this.value !== undefined) {
-        enableResetButton(searchform);
+        enableResetButton(searchForm);
       } else {
         setTimeout(function () {
-          initForm(searchform);
+          initForm(searchForm);
         }, 100);
       }
     });
@@ -1238,8 +1238,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
       searchForm.querySelectorAll("select").forEach(function (el) {
         el.selectedIndex = 0;
-        $('.directorist-select2-dropdown-close').click();
-        $(el).val(null).trigger('change');
+        $('.directorist-select2-dropdown-close').click(); // $(el).val(null).trigger('change');
+
         var parentElem = el.closest('.directorist-search-field');
 
         if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
@@ -1261,13 +1261,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       handleRadiusVisibility();
+      initForm(searchForm);
     }
     /* Advance Search Filter For Search Home Short Code */
 
 
     if ($('.directorist-btn-reset-js') !== null) {
       $('body').on('click', '.directorist-btn-reset-js', function (e) {
-        // e.preventDefault();
+        e.preventDefault();
+
         if (this.closest('.directorist-contents-wrap')) {
           var _searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
 

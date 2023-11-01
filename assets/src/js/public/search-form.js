@@ -151,25 +151,25 @@ import { directorist_range_slider } from './range-slider';
         })
 
         $('body').on('change', '.directorist-contents-wrap form input[type="checkbox"], .directorist-contents-wrap form input[type="radio"]', function (e) {
-            let searchform = this.closest('form');
+            let searchForm = this.closest('form');
 
             if(this.checked) {
-                enableResetButton(searchform);
+                enableResetButton(searchForm);
             } else {
                 setTimeout(function(){
-                    initForm(searchform)
+                    initForm(searchForm)
                 }, 100)
             }
         })
 
         $('body').on('change', '.directorist-contents-wrap form select', function (e) {
-            let searchform = this.closest('form');
+            let searchForm = this.closest('form');
 
             if(this.value !== undefined) {
-                enableResetButton(searchform);
+                enableResetButton(searchForm);
             } else {
                 setTimeout(function(){
-                    initForm(searchform)
+                    initForm(searchForm)
                 }, 100)
             }
         })
@@ -221,7 +221,7 @@ import { directorist_range_slider } from './range-slider';
             searchForm.querySelectorAll("select").forEach(function (el) {
                 el.selectedIndex = 0;
                 $('.directorist-select2-dropdown-close').click();
-                $(el).val(null).trigger('change');
+                // $(el).val(null).trigger('change');
 
                 let parentElem = el.closest('.directorist-search-field');
 
@@ -242,13 +242,15 @@ import { directorist_range_slider } from './range-slider';
                 rangeValue.innerHTML = "0";
             }
             handleRadiusVisibility();
+
+            initForm(searchForm);
             
         }
 
         /* Advance Search Filter For Search Home Short Code */
         if ($('.directorist-btn-reset-js') !== null) {
             $('body').on('click', '.directorist-btn-reset-js', function (e) {
-                // e.preventDefault();
+                e.preventDefault();
                 if (this.closest('.directorist-contents-wrap')) {
                     let searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
                     if (searchForm) {

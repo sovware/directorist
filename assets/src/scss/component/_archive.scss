@@ -486,6 +486,10 @@
 					font-weight: 400;
 					color: var(--directorist-color-body);
 				}
+				.directorist-search-field__input::placeholder {
+					opacity: 0;
+					transition: opacity 0.3s ease;
+				}
 				.directorist-search-field__btn--clear {
 					right: 0;
 				}
@@ -494,6 +498,9 @@
 						font-size: 13px;
 						font-weight: 500;
 					}
+					.directorist-search-field__input::placeholder {
+                        opacity: 1;
+                    }
 				}
 			}
 		}
@@ -534,6 +541,12 @@
 			color: var(--directorist-color-body);
 			transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
 		}
+		@include e(input) {
+			&::placeholder {
+			  opacity: 0;
+			  transition: opacity 0.3s ease;
+			}
+		}
 		@include e(btn) {
 			display: flex;
 			position: absolute;
@@ -569,6 +582,9 @@
 					appearance: none !important;
 					-webkit-appearance: none !important;
 					-moz-appearance: none !important;
+				}
+				&::placeholder {
+					opacity: 1;
 				}
 			}
 			.directorist-search-field__label {

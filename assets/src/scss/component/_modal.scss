@@ -209,6 +209,10 @@
                     color: var(--directorist-color-body);
                     transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
                 }
+                .directorist-search-field__input::placeholder {
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                }
                 @include e(btn) {
                     position: absolute;
                     bottom: 10px;
@@ -237,6 +241,10 @@
                             appearance: none !important;
                             -webkit-appearance: none !important;
                             -moz-appearance: none !important;
+                        }
+                        
+                        &::placeholder {
+                            opacity: 1;
                         }
                     }
                     .directorist-search-field__label {
@@ -453,6 +461,10 @@
                         mask-image: url("../../../icons/font-awesome/svgs/solid/long-arrow-alt-left.svg");
                         opacity: 0;
                     }
+                    .directorist-search-field__input::placeholder {
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                    }
                     .directorist-search-field__btn {
                         bottom: unset;
                         right: 0;
@@ -482,6 +494,9 @@
                         }
                         .directorist-search-field__input {
                             bottom: 0;
+                            &::placeholder {
+                                opacity: 1;
+                            }
                         }
                         .directorist-search-field__btn {
                             right: -20px;
@@ -513,9 +528,15 @@
 
                     }
                     
-                    &.input-has-value:not(.input-is-focused) .directorist-search-field__label {
-                        opacity: 0;
-                        font-size: 0;
+                    &.input-has-value:not(.input-is-focused) {
+                        .directorist-search-field__label {
+                            opacity: 0;
+                            font-size: 0;
+                        }
+                        .directorist-search-field__input::placeholder {
+                            opacity: 0;
+                            transition: opacity 0.3s ease;
+                        }
                     }
                 }
             }
@@ -563,10 +584,15 @@
                 font-weight: 400;
             }
             
-            &.input-is-focused .directorist-search-field__label {
-                font-size: 16px;
-                font-weight: 500;
-                z-index: 1;
+            &.input-is-focused {
+                .directorist-search-field__label {
+                    font-size: 16px;
+                    font-weight: 500;
+                    z-index: 1;
+                }
+                .directorist-search-field__input::placeholder {
+                    opacity: 1;
+                }
             }
         }
     }
@@ -606,6 +632,9 @@
         .input-is-focused {
             &.directorist-search-query::after {
                 display: none;
+            }
+            .directorist-search-field__input::placeholder {
+                opacity: 1;
             }
         }
     }

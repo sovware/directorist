@@ -408,6 +408,11 @@ class Builder_Data {
                                 'label' => __( 'Required', 'directorist' ),
                                 'value' => false,
                             ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => __( 'label', 'directorist' ),
+                                'value' => 'Title',
+                            ],
                             'placeholder' => [
                                 'type'  => 'text',
                                 'label' => __( 'Placeholder', 'directorist' ),
@@ -447,7 +452,7 @@ class Builder_Data {
                             'label'           => [
                                 'type'  => 'text',
                                 'label' => __( 'Label', 'directorist' ),
-                                'value' => '',
+                                'value' => 'Location',
                                 'sync'  => false,
                             ],
                             'placeholder'     => [
@@ -1632,7 +1637,7 @@ class Builder_Data {
                     'acceptedWidgets' => ['favorite_badge'],
                 ],
                 'quick_info'    => [
-                    'acceptedWidgets' => [ "rating", "pricing", "posted_date" ],
+                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing'],
                 ],
                 'bottom'        => [
                     'maxWidget'       => 0,
@@ -2350,11 +2355,6 @@ class Builder_Data {
                             ],
                         ],
                     ],
-                    'reviews' => [
-                        'type' => "reviews",
-                        'label' => __( "Reviews", "directorist" ),
-                        'icon' => 'uil uil-text-fields',
-                    ],
                     'ratings_count' => [
                         'type' => "ratings-count",
                         'label' => __( "Rating", "directorist" ),
@@ -2403,7 +2403,7 @@ class Builder_Data {
                                 'label'             => __( 'Quick Action', 'directorist' ),
                                 'maxWidget'         => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets'   => [ 'bookmark', 'reviews', 'share', 'report' ],
+                                'acceptedWidgets'   => [ 'bookmark', 'share', 'report' ],
                             ],
                         ],
                     ],

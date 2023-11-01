@@ -5021,13 +5021,16 @@ input.atbdp-form-control {
   }
 }
 
-.directorist-type-slug .directorist-slug-notice {
+.directorist-type-slug .directorist-slug-notice,
+.directorist-type-slug .directorist-count-notice {
   margin: 6px 0 0;
 }
-.directorist-type-slug .directorist-slug-notice.directorist-slug-notice-error {
+.directorist-type-slug .directorist-slug-notice.directorist-slug-notice-error,
+.directorist-type-slug .directorist-count-notice.directorist-slug-notice-error {
   color: #EF0000;
 }
-.directorist-type-slug .directorist-slug-notice.directorist-slug-notice-success {
+.directorist-type-slug .directorist-slug-notice.directorist-slug-notice-success,
+.directorist-type-slug .directorist-count-notice.directorist-slug-notice-success {
   color: #00AC17;
 }
 
@@ -7937,6 +7940,10 @@ body.stop-scrolling {
           box-sizing: border-box;
   margin-bottom: 0;
 }
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group .directorist-form-element__prefix {
+  height: 42px;
+  line-height: 42px;
+}
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields select.directorist-form-element,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-custom-field-select select.directorist-form-element,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group .directorist-form-element.directory_pricing_field {
@@ -10548,6 +10555,60 @@ svg.leaflet-image-layer.leaflet-interactive path {
   max-width: 100%;
   width: 100%;
 }
+.directorist-form-group__with-prefix {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 6px;
+  border: 1px solid #d9d9d9;
+}
+.directorist-form-group__with-prefix .directorist-form-element {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: 0 !important;
+  padding: 0 10px !important;
+  border: none !important;
+}
+.directorist-form-group__with-prefix .directorist-single-info__value {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 10px;
+  margin: 0 !important;
+}
+.directorist-form-group__prefix {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #828282;
+  background-color: #eeeeee;
+}
+.directorist-form-group__prefix--start {
+  -webkit-box-ordinal-group: 0;
+  -webkit-order: -1;
+      -ms-flex-order: -1;
+          order: -1;
+  border-radius: 6px 0 0 6px;
+  -webkit-border-end: 1px solid #d9d9d9;
+          border-inline-end: 1px solid #d9d9d9;
+}
+.directorist-form-group__prefix--end {
+  -webkit-box-ordinal-group: 3;
+  -webkit-order: 2;
+      -ms-flex-order: 2;
+          order: 2;
+  border-radius: 0 6px 6px 0;
+  -webkit-border-start: 1px solid #d9d9d9;
+          border-inline-start: 1px solid #d9d9d9;
+}
 
 .directorist-form-group label {
   margin: 0;
@@ -10587,8 +10648,16 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .directorist-form-element.directorist-form-element-lg {
   height: 50px;
 }
+.directorist-form-element.directorist-form-element-lg__prefix {
+  height: 50px;
+  line-height: 50px;
+}
 .directorist-form-element.directorist-form-element-sm {
   height: 30px;
+}
+.directorist-form-element.directorist-form-element-sm__prefix {
+  height: 30px;
+  line-height: 30px;
 }
 
 .directorist-form-group.directorist-icon-left .directorist-input-icon {
@@ -11254,6 +11323,31 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
   transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
 }
+.directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input::-webkit-input-placeholder {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+.directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input::-moz-placeholder {
+  opacity: 0;
+  -moz-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+.directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input:-ms-input-placeholder {
+  opacity: 0;
+  -ms-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+.directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input::-ms-input-placeholder {
+  opacity: 0;
+  -ms-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+.directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input::placeholder {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
 .directorist-search-modal__contents__body .directorist-search-field__btn {
   position: absolute;
   bottom: 10px;
@@ -11278,6 +11372,21 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input::-webkit-input-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input::-moz-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input:-ms-input-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input::-ms-input-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input::placeholder {
+  opacity: 1;
 }
 .directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__label {
   top: 0;
@@ -11508,6 +11617,31 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
             mask-image: url(../images/447c512963a6e865700c065e70bb46b7.svg);
     opacity: 0;
   }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-search-field__input::-webkit-input-placeholder {
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-search-field__input::-moz-placeholder {
+    opacity: 0;
+    -moz-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-search-field__input:-ms-input-placeholder {
+    opacity: 0;
+    -ms-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-search-field__input::-ms-input-placeholder {
+    opacity: 0;
+    -ms-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-search-field__input::placeholder {
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+  }
   .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-search-field__btn {
     bottom: unset;
     right: 0;
@@ -11541,6 +11675,21 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__input {
     bottom: 0;
   }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__input::-webkit-input-placeholder {
+    opacity: 1;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__input::-moz-placeholder {
+    opacity: 1;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__input:-ms-input-placeholder {
+    opacity: 1;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__input::-ms-input-placeholder {
+    opacity: 1;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__input::placeholder {
+    opacity: 1;
+  }
   .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused .directorist-search-field__btn {
     right: -20px;
   }
@@ -11566,6 +11715,31 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-has-value:not(.input-is-focused) .directorist-search-field__label {
     opacity: 0;
     font-size: 0;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-has-value:not(.input-is-focused) .directorist-search-field__input::-webkit-input-placeholder {
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-has-value:not(.input-is-focused) .directorist-search-field__input::-moz-placeholder {
+    opacity: 0;
+    -moz-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-has-value:not(.input-is-focused) .directorist-search-field__input:-ms-input-placeholder {
+    opacity: 0;
+    -ms-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-has-value:not(.input-is-focused) .directorist-search-field__input::-ms-input-placeholder {
+    opacity: 0;
+    -ms-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-has-value:not(.input-is-focused) .directorist-search-field__input::placeholder {
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
   }
   .directorist-search-modal--basic .directorist-price-ranges:after {
     top: 30px;
@@ -11616,6 +11790,21 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 16px;
   font-weight: 500;
   z-index: 1;
+}
+.directorist-search-modal--full .directorist-search-field.input-is-focused .directorist-search-field__input::-webkit-input-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal--full .directorist-search-field.input-is-focused .directorist-search-field__input::-moz-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal--full .directorist-search-field.input-is-focused .directorist-search-field__input:-ms-input-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal--full .directorist-search-field.input-is-focused .directorist-search-field__input::-ms-input-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal--full .directorist-search-field.input-is-focused .directorist-search-field__input::placeholder {
+  opacity: 1;
 }
 .directorist-search-modal__input {
   display: -webkit-box;
@@ -11668,6 +11857,21 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-modal__input .input-is-focused.directorist-search-query::after {
   display: none;
+}
+.directorist-search-modal__input .input-is-focused .directorist-search-field__input::-webkit-input-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal__input .input-is-focused .directorist-search-field__input::-moz-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal__input .input-is-focused .directorist-search-field__input:-ms-input-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal__input .input-is-focused .directorist-search-field__input::-ms-input-placeholder {
+  opacity: 1;
+}
+.directorist-search-modal__input .input-is-focused .directorist-search-field__input::placeholder {
+  opacity: 1;
 }
 .directorist-search-modal .directorist-checkbox-wrapper,
 .directorist-search-modal .directorist-radio-wrapper,

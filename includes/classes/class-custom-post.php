@@ -24,9 +24,11 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			add_filter( 'load-edit.php', array( $this, 'work_row_actions_for_quick_view' ), 10, 2 );
 
 			// bulk directory type assign
-			add_action( 'quick_edit_custom_box', array( $this, 'on_quick_edit_custom_box' ), 10, 2 );
-			add_action( 'bulk_edit_custom_box', array( $this, 'on_quick_edit_custom_box' ), 10, 2 );
-			add_action( 'save_post', array( $this, 'save_quick_edit_custom_box' ) );
+			add_action( 'quick_edit_custom_box', array( __CLASS__, 'on_quick_or_bulk_edit_custom_box' ), 10, 2 );
+			add_action( 'save_post', array( __CLASS__, 'on_save_post' ) );
+
+			add_action( 'bulk_edit_custom_box', array( __CLASS__, 'on_quick_or_bulk_edit_custom_box' ), 10, 2 );
+			add_action( 'bulk_edit_posts', array( __CLASS__, 'on_bulk_edit_posts' ), 10, 2 );
 
 			// Customize listing slug
 			if ( get_directorist_option( 'single_listing_slug_with_directory_type', false ) ) {
@@ -34,10 +36,10 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 				// add_filter( 'post_link', array( $this, 'customize_listing_slug' ), 20, 2 );
 			}
 
-			add_action( 'admin_footer', array( $this, 'quick_edit_scripts' ) );
+			add_action( 'admin_footer', array( __CLASS__, 'enqueue_quick_edit_scripts' ) );
 		}
 
-		public function quick_edit_scripts() {
+		public static function enqueue_quick_edit_scripts() {
 			global $current_screen;
 
 			if ( ! isset( $current_screen ) || 'edit-at_biz_dir' !== $current_screen->id ) {
@@ -59,16 +61,23 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					}
 
 					// add rows to variables
-					var $edit_row = $( '#edit-' + post_id );
-					var $post_row = $( '#post-' + post_id );
-					var directory_type = $( '.column-directory_type', $post_row ).text().trim();
-					var $directory_select = $( 'select[name="directory_type"]', $edit_row );
-					var $selected_option = $directory_select.find('option').filter(function(index, element) {
+					var $edit_row         = $( '#edit-' + post_id );
+					var $post_row         = $( '#post-' + post_id );
+					var directory_type    = $( '.column-directory_type', $post_row ).text().trim();
+					var view_count        = $( '.column-directorist_listing_view_count', $post_row ).text().trim();
+					var $directory_select = $( 'select[name="directorist_directory_type"]', $edit_row );
+					var $view_count_input = $( 'input[name="directorist_listing_view_count"]', $edit_row );
+					var $selected_option  = $directory_select.find('option').filter(function(index, element) {
 						return element.textContent.trim() === directory_type;
 					});
 
-					if ($selected_option.length > 0) {
-						$directory_select.val($selected_option[0].value);
+					if ( $selected_option.length > 0 ) {
+						$directory_select.val( $selected_option[0].value );
+					}
+
+    				// Set the value of the "View Count" input field
+					if ( view_count !== '' ) {
+						$view_count_input.val( view_count );
 					}
 				}
 			});
@@ -82,58 +91,91 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			return $post_link;
 		}
 
-		public function save_quick_edit_custom_box( $listing_id ) {
-			if ( ! directorist_verify_nonce() || ! directorist_is_listing_post_type( $listing_id ) ) {
+		protected static function save_quick_or_bulk_edit( $listing_id ) {
+			if ( ! directorist_is_listing_post_type( $listing_id ) ) {
 				return;
 			}
 
+			$directory_id                 = ! empty( $_REQUEST['directorist_directory_type'] ) ? absint( wp_unslash( $_REQUEST['directorist_directory_type'] ) ) : 0;
+			$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', (bool) $directory_id );
+
+			if ( $should_update_directory_type && directorist_is_directory( $directory_id ) ) {
+				directorist_set_listing_directory( $listing_id, $directory_id );
+			}
+
+			if ( ! empty( $_REQUEST['directorist_listing_view_count'] ) ) {
+				update_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), absint( wp_unslash( $_REQUEST['directorist_listing_view_count'] ) ) );
+			}
+		}
+
+		public static function on_save_post( $listing_id ) {
 			$action = isset( $_REQUEST['action'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) : '';
 			if ( $action !== 'inline-save' ) {
 				return;
 			}
 
+			check_ajax_referer( 'inlineeditnonce', '_inline_edit' );
+
+			if ( ! current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_post, $listing_id ) ) {
+				return;
+			}
+
+			self::save_quick_or_bulk_edit( $listing_id );
+		}
+
+		public static function on_bulk_edit_posts( $updated_listings, $shared_post_data ) {
+			$action = isset( $_REQUEST['action'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) : '';
+			if ( $action !== 'edit' ) {
+				return;
+			}
+
+			check_admin_referer( 'bulk-posts' );
+
 			if ( ! current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_posts ) ) {
 				return;
 			}
 
-			$directory_id = ! empty( $_REQUEST['directory_type'] ) ? absint( wp_unslash( $_REQUEST['directory_type'] ) ) : 0;
-
-			if ( ! directorist_is_directory( $directory_id ) ) {
-				return;
-			}
-
-			$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', (bool) $directory_id );
-
-			if ( $should_update_directory_type ) {
-				directorist_set_listing_directory( $listing_id, $directory_id );
+			foreach ( $updated_listings as $listing_id ) {
+				self::save_quick_or_bulk_edit( $listing_id );
 			}
 		}
 
-		public function on_quick_edit_custom_box( $column_name, $post_type ) {
-			if ( ATBDP_POST_TYPE !== $post_type || 'directory_type' !== $column_name ) {
+		public static function on_quick_or_bulk_edit_custom_box( $column_name, $post_type ) {
+			if ( ATBDP_POST_TYPE !== $post_type ) {
 				return;
 			}
-			?>
-			<fieldset class="inline-edit-col-right" style="margin-top: 0;">
-				<div class="inline-edit-group wp-clearfix">
-					<?php wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' ); ?>
-					<label class="inline-edit-directory-type alignleft">
-						<span class="title"><?php esc_html_e( 'Directory', 'directorist' ); ?></span>
-						<select name="directory_type">
-							<option value="">— <?php esc_html_e( 'Select type', 'directorist' ); ?> —</option>
-							<?php
-							$listing_types = get_terms( array(
-								'taxonomy'   => ATBDP_TYPE,
-								'hide_empty' => false,
-							) );
-							foreach ( $listing_types as $listing_type ) { ?>
-								<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
-							<?php } ?>
-						</select>
-					</label>
-				</div>
-			</fieldset>
-			<?php
+
+			if ( 'directory_type' === $column_name ) : ?>
+				<fieldset class="inline-edit-col-right">
+					<div class="inline-edit-group wp-clearfix">
+						<label class="inline-edit-directory-type alignleft">
+							<span class="title"><?php esc_html_e( 'Directory', 'directorist' ); ?></span>
+							<select name="directorist_directory_type">
+								<option value="">— <?php esc_html_e( 'Select directory', 'directorist' ); ?> —</option>
+								<?php
+								$listing_types = get_terms( array(
+									'taxonomy'   => ATBDP_TYPE,
+									'hide_empty' => false,
+								) );
+								foreach ( $listing_types as $listing_type ) { ?>
+									<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
+								<?php } ?>
+							</select>
+						</label>
+					</div>
+				</fieldset>
+			<?php endif;
+
+			if ( 'directorist_listing_view_count' === $column_name ) : ?>
+				<fieldset class="inline-edit-col-right">
+					<div class="inline-edit-group wp-clearfix">
+						<label class="inline-edit-directorist-listing-view-count alignleft">
+							<span class="title"><?php esc_html_e( 'View Count', 'directorist' ); ?></span>
+							<input type="number" name="directorist_listing_view_count" min="0" step="1" value="">
+						</label>
+					</div>
+				</fieldset>
+			<?php endif;
 		}
 
 		public function add_cpt_to_pll( $post_types, $hide ) {
@@ -321,8 +363,10 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			if ( is_fee_manager_active() && $featured_available_in_plan > 1 || $num_featured_unl ) {
 				$columns['atbdp_featured'] = __( 'Featured', 'directorist' );
 			}
-			$columns['atbdp_expiry_date'] = __( 'Expires on', 'directorist' );
-			$columns['atbdp_date']        = __( 'Created on', 'directorist' );
+
+			$columns['directorist_listing_view_count']  = '<span class="screen-reader-text">' . esc_html__( 'Listing views', 'directorist' ) .'</span><span aria-hidden="true" class="dashicons dashicons-visibility"></span>';
+
+			$columns['atbdp_date']        = __( 'Date', 'directorist' );
 
 			return apply_filters( 'atbdp_add_new_listing_column', $columns );
 		}
@@ -394,22 +438,39 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					}
 					break;
 
-				case 'atbdp_expiry_date':
-					$never_exp = get_post_meta( $post_id, '_never_expire', true );
-					if ( ! empty( $never_exp ) ) {
-						esc_html_e( 'Never Expires', 'directorist' );
-					} else {
-						$expiry_date = get_post_meta( $post_id, '_expiry_date', true );
-						echo esc_html( date_i18n( "$date_format @ $time_format", strtotime( $expiry_date ) ) );
-					}
+				case 'directorist_listing_view_count':
+					printf( '<span>%s</span>', directorist_get_listing_views_count( $post_id ) );
 					break;
+
 				case 'atbdp_date':
-					$time = get_the_time( 'U' );
+					$creation_time = get_the_time( 'U' );
+					$created_date = date_i18n( $date_format, $creation_time );
+
+					$never_expire = get_post_meta( $post_id, '_never_expire', true );
+					$expiry_date  = '';
+					if ( ! empty( $never_expire ) ) {
+						$expiry_date = esc_html( 'Never Expires', 'directorist' );
+					} else {
+						$get_expire = get_post_meta( $post_id, '_expiry_date', true );
+
+						if ( ! empty( $get_expire ) ) {
+							$expiry_date = date_i18n( $date_format, strtotime( $get_expire ) );
+						}
+					}
+
 					printf(
-						/* translators: 1: Creation date. 2: Human diff time */
-						esc_html__( '%1$s (%2$s ago)', 'directorist' ),
-						date_i18n( $date_format, $time ), // @codingStandardsIgnoreLine.
-						human_time_diff( $time ) // @codingStandardsIgnoreLine.
+						'<div class="directorist-date-column">
+							<div class="directorist-created-date">
+								<strong>%s</strong> %s
+							</div>
+							<div class="directorist-expire-date">
+								<strong>%s</strong> %s
+							</div>
+						</div>',
+						esc_html__( 'Created:', 'directorist' ),
+						esc_html( $created_date ),
+						esc_html__( 'Expires:', 'directorist' ),
+						esc_html( $expiry_date ),
 					);
 					break;
 			}

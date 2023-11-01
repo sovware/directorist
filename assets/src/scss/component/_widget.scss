@@ -72,6 +72,10 @@
       &:focus{
         border: 1px solid var(--directorist-color-dark);
       }
+      @include e('prefix') {
+        height: 46px;
+        line-height: 46px;
+      }
     }
   }
   textarea{

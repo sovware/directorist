@@ -8,6 +8,44 @@
         max-width: 100%;
         width: 100%;
     }
+
+    @include e('with-prefix') {
+        display: flex;
+        align-items: center;
+        border-radius: 6px;
+        border: 1px solid #d9d9d9;
+        .directorist-form-element {
+            flex: 1;
+            margin: 0 !important;
+            padding: 0 10px !important;
+            border: none !important;
+        }
+        .directorist-single-info__value {
+            font-size: 14px;
+            font-weight: 500;
+            padding: 0 10px;
+            margin: 0 !important;
+        }
+    }
+    @include e('prefix') {
+        height: 40px;
+        line-height: 40px;
+        padding: 0 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #828282;
+        background-color: #eeeeee;
+        @include m('start') {
+            order: -1;
+            border-radius: 6px 0 0 6px;
+            border-inline-end: 1px solid #d9d9d9;
+        }
+        @include m('end') {
+            order: 2;
+            border-radius: 0 6px 6px 0;
+            border-inline-start: 1px solid #d9d9d9;
+        }
+    }
 }
 
 // Form Element
@@ -50,10 +88,18 @@
 .directorist-form-element {
     &.directorist-form-element-lg {
         height: 50px;
+        @include e('prefix') {
+            height: 50px;
+            line-height: 50px;
+        }
     }
 
     &.directorist-form-element-sm {
         height: 30px;
+        @include e('prefix') {
+            height: 30px;
+            line-height: 30px;
+        }
     }
 }
 

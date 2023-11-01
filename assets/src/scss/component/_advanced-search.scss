@@ -89,10 +89,19 @@
                     font-size: 14px;
                     font-weight: 400;
                 }
+                .directorist-search-field__input::placeholder {
+                    opacity: 0;
+                    transition: opacity 0.3s all;
+                }
                 
-                &.input-is-focused .directorist-search-field__label {
-                    font-size: 16px;
-                    font-weight: 500;
+                &.input-is-focused {
+                    .directorist-search-field__label {
+                        font-size: 16px;
+                        font-weight: 500;
+                    }
+                    .directorist-search-field__input::placeholder {
+                        opacity: 1;
+                    }
                 }
                 .directorist-btn-ml{
                     display: inline-block;
@@ -321,6 +330,10 @@
                 &:focus {
                     padding-bottom: 0;
                     border: 2px solid var(--directorist-color-primary);
+                }
+                @include e('prefix') {
+                    height: 34px;
+                    line-height: 34px;
                 }
             }
         }

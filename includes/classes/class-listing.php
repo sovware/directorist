@@ -45,7 +45,6 @@ if (!class_exists('ATBDP_Listing')):
             // remove adjacent_posts_rel_link_wp_head for accurate post views
             remove_action('wp_head', array($this, 'adjacent_posts_rel_link_wp_head', 10));
             add_action('plugins_loaded', array($this, 'manage_listings_status'));
-            add_action('wp_head', array($this, 'track_post_views'));
 
             add_filter('post_thumbnail_html', array($this, 'post_thumbnail_html'), 10, 3);
             add_action('wp_head', array($this, 'og_metatags'));
@@ -53,6 +52,9 @@ if (!class_exists('ATBDP_Listing')):
             // listing filter
             add_action('restrict_manage_posts', array($this, 'atbdp_listings_filter'));
             add_filter('parse_query', array($this, 'listing_type_search_query'));
+
+            add_action('wp_ajax_directorist_track_listing_views', array( $this, 'directorist_track_listing_views' ) );
+            add_action('wp_ajax_nopriv_directorist_track_listing_views', array( $this, 'directorist_track_listing_views' ) );
         }
 
         public function listing_type_search_query( $query )
@@ -278,30 +280,34 @@ if (!class_exists('ATBDP_Listing')):
             load_some_file(array('class-listing-db'), ATBDP_CLASS_DIR);
         }
 
-
         public function set_post_views($postID)
         {
             /*@todo; add option to verify the user using his/her IP address so that reloading the page multiple times by the same user does not increase his post view of the same post on the same day.*/
             directorist_set_listing_views_count( $postID );
         }
 
+        public function directorist_track_listing_views() {
+            if ( ! directorist_verify_nonce() ) {
+				wp_send_json_error(
+					array(
+						'error'=> __( 'Session expired, please reload the window and try again.', 'directorist' ),
+					),
+				);
+			}
 
-        /**
-         * Track the posts view to show popular posts based on number of views
-         * @param $postID
-         */
-        public function track_post_views($postID)
-        {
-            // vail if user is logged in or if the post is not single..
-
-            $count_loggedin = get_directorist_option('count_loggedin_user');
-            if (!is_single() || is_user_logged_in() && empty($count_loggedin)) return;
-
-            if (empty ($postID)) {
-                global $post;
-                $postID = $post->ID;
+            $count_loggedin = get_directorist_option( 'count_loggedin_user' );
+            if ( is_user_logged_in() && empty( $count_loggedin ) ) {
+                return;
             }
-            $this->set_post_views($postID);
+            
+            if ( isset( $_POST['listing_id'] ) ) {
+                $listing_id         = absint( $_POST['listing_id'] );
+                $this->set_post_views( $listing_id );
+                // Return 'success' to the AJAX request to indicate that the view has been counted.
+                wp_send_json_success();
+            }
+        
+            die();
         }
     }
 

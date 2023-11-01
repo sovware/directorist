@@ -316,7 +316,7 @@ function modalToggle() {
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
         'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).find('.directorist-single-listing-action__text').data('post_id')
+        'post_id': $(this).data('listing_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -548,6 +548,49 @@ window.addEventListener('DOMContentLoaded', function () {
     $('body').on('click', '.directorist-btn__back', function (e) {
       window.history.back();
     });
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/listing-track.js":
+/*!**********************************************************!*\
+  !*** ./assets/src/js/public/components/listing-track.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function ($) {
+  window.addEventListener('DOMContentLoaded', function () {
+    if ($('.directorist-single-contents-area').length > 0) {
+      var listing_id = $('.directorist-single-contents-area').data('id'); // listing id
+
+      var storage_key = 'directorist_listing_views'; // Key for session storage
+      // Check if the user has already viewed this listing during the session.
+
+      var viewed_listings = JSON.parse(sessionStorage.getItem(storage_key)) || {};
+
+      if (!viewed_listings[listing_id]) {
+        // Send an AJAX request to track the view for this specific listing.
+        $.ajax({
+          type: 'POST',
+          url: directorist.ajaxurl,
+          data: {
+            action: 'directorist_track_listing_views',
+            listing_id: listing_id,
+            directorist_nonce: directorist.directorist_nonce
+          },
+          success: function success(response) {
+            if (response.success) {
+              // Mark this listing as viewed in the session storage.
+              viewed_listings[listing_id] = true; // Update the session storage.
+
+              sessionStorage.setItem(storage_key, JSON.stringify(viewed_listings));
+            }
+          }
+        });
+      }
+    }
   });
 })(jQuery);
 
@@ -1208,9 +1251,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/login */ "./assets/src/js/public/components/login.js");
 /* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
-/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_listing_track__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/listing-track */ "./assets/src/js/public/components/listing-track.js");
+/* harmony import */ var _components_listing_track__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_listing_track__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_9__);
 // General Components
+
 
 
 

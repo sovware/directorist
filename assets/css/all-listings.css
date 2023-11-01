@@ -13692,7 +13692,7 @@ Review: New Style
   font-size: 16px;
   font-weight: 500;
   color: #1A1B29;
-  margin-bottom: 0;
+  margin: 0;
 }
 .directorist-review-submit__form {
   margin: 0 !important;

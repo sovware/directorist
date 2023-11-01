@@ -73,5 +73,11 @@ function register_controllers() {
 
 	$directories = new \Directorist\Rest_Api\Controllers\Version1\Directories_Controller();
 	$directories->register_routes();
+
+	// Directory builder
+	require_once $dir . 'Version1/class-builder-controller.php';
+
+	$builder = new \Directorist\Rest_Api\Controllers\Version1\Builder_Controller();
+	$builder->register_routes();
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\register_controllers' );

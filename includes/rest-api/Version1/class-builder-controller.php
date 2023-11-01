@@ -25,7 +25,7 @@ class Builder_Controller extends Abstract_Controller {
 	 *
 	 * @var string
 	 */
-	protected $rest_base = 'directories';
+	protected $rest_base = 'directories/(?P<directory_id>[\d]+)/builder/(?P<builder_tab>[\w-]+)';
 
 	/**
 	 * Register the routes for builder settings.
@@ -35,24 +35,20 @@ class Builder_Controller extends Abstract_Controller {
 			$this->namespace,
 			'/' . $this->rest_base,
 			array(
-				array(
-					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_items' ),
-					'permission_callback' => array( $this, 'get_items_permissions_check' ),
-					'args'                => $this->get_collection_params(),
-				),
-				'schema' => array( $this, 'get_public_item_schema' ),
-			)
-		);
-
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->rest_base . '/(?P<id>[\d]+)',
-			array(
 				'args'   => array(
-					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'directorist' ),
+					'directory_id' => array(
+						'description' => __( 'Directory id.', 'directorist' ),
 						'type'        => 'integer',
+					),
+					'builder_tab' => array(
+						'description' => __( 'Directory builder tab id.', 'directorist' ),
+						'type'        => 'string',
+						'enum'        => array(
+							'add-form',
+							'all-listings',
+							'search-form',
+							'single-listing',
+						),
 					),
 				),
 				array(
@@ -63,27 +59,43 @@ class Builder_Controller extends Abstract_Controller {
 						'context' => $this->get_context_param( array( 'default' => 'view' ) ),
 					),
 				),
-				array(
-					'methods'             => WP_REST_Server::EDITABLE,
-					'callback'            => array( $this, 'update_item' ),
-					'permission_callback' => array( $this, 'update_item_permissions_check' ),
-					'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE ),
-				),
-				array(
-					'methods'             => WP_REST_Server::DELETABLE,
-					'callback'            => array( $this, 'delete_item' ),
-					'permission_callback' => array( $this, 'delete_item_permissions_check' ),
-					'args'                => array(
-						'force' => array(
-							'default'     => false,
-							'type'        => 'boolean',
-							'description' => __( 'Required to be true, as resource does not support trashing.', 'directorist' ),
-						),
-					),
-				),
 				'schema' => array( $this, 'get_public_item_schema' ),
 			)
 		);
+	}
+
+	/**
+	 * Get a single term from a taxonomy.
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @return WP_REST_Request|WP_Error
+	 */
+	public function get_item( $request ) {
+		$directory_id = (int) $request['directory_id'];
+
+		if ( ! directorist_is_directory( $directory_id ) ) {
+			return new WP_Error( 'directorist_rest_invalid_directory', __( 'Invalid directory id.', 'directorist' ), array( 'status' => 400 ) );
+		}
+
+		$builder_tab = $request['builder_tab'];
+
+		$data = array();
+		$data['groups'] = directorist_get_listing_form_groups( $directory_id );
+		$data['fields'] = directorist_get_listing_form_fields( $directory_id );
+
+
+
+		// $response = $this->prepare_item_for_response( $term, $request );
+
+		// do_action( 'directorist_rest_after_query', 'get_term_item', $request, $id, $taxonomy );
+
+		// $response = apply_filters( 'directorist_rest_response', $response, 'get_term_item', $request, $id, $taxonomy );
+
+		return rest_ensure_response( $data );
+	}
+
+	public function get_item_permissions_check( $request ) {
+		return true;
 	}
 
 	/**
@@ -94,47 +106,12 @@ class Builder_Controller extends Abstract_Controller {
 	 * @return WP_REST_Response
 	 */
 	public function prepare_item_for_response( $item, $request ) {
-		// Created date.
-		$date_created = get_term_meta( $item->term_id, '_created_date', true );
 
-		$expiration = get_term_meta( $item->term_id, 'default_expiration', true );
-
-		$new_status = get_term_meta( $item->term_id, 'new_listing_status', true );
-
-		$edit_status = get_term_meta( $item->term_id, 'edit_listing_status', true );
-
-		$is_default = get_term_meta( $item->term_id, '_default', true );
-
-		$config = get_term_meta( $item->term_id, 'general_config', true );
-
-		$data = array(
-			'id'              => (int) $item->term_id,
-			'name'            => $item->name,
-			'slug'            => $item->slug,
-			'icon'            => null,
-			'image_url'       => null,
-			'count'           => (int) $item->count,
-			'is_default'      => (bool) $is_default,
-			'new_status'      => $new_status,
-			'edit_status'     => $edit_status,
-			'expiration_days' => (int) $expiration,
-			'date_created'    => directorist_rest_prepare_date_response( $date_created ),
-		);
-
-		if ( ! empty( $config['icon'] ) ) {
-			$data['icon'] = $config['icon'];
-		}
-
-		if ( ! empty( $config['preview_image'] ) ) {
-			$data['image_url'] = $config['preview_image'];
-		}
-
-		$context  = ! empty( $request['context'] ) ? $request['context'] : 'view';
-		$data     = $this->add_additional_fields_to_object( $data, $request );
-		$data     = $this->filter_response_by_context( $data, $context );
+		// $data     = $this->add_additional_fields_to_object( $data, $request );
+		// $data     = $this->filter_response_by_context( $data, $context );
 		$response = rest_ensure_response( $data );
 
-		$response->add_links( $this->prepare_links( $item, $request ) );
+		// $response->add_links( $this->prepare_links( $item, $request ) );
 
 		/**
 		 * Filter a term item returned from the API.
@@ -145,7 +122,7 @@ class Builder_Controller extends Abstract_Controller {
 		 * @param object            $item      The original term object.
 		 * @param WP_REST_Request   $request   Request used to generate the response.
 		 */
-		return apply_filters( "directorist_rest_prepare_{$this->taxonomy}", $response, $item, $request );
+		return $response; //apply_filters( "directorist_rest_prepare_{$this->taxonomy}", $response, $item, $request );
 	}
 
 	/**
@@ -154,24 +131,38 @@ class Builder_Controller extends Abstract_Controller {
 	 * @return array
 	 */
 	public function get_item_schema() {
+		file_put_contents( __DIR__ . '/data.txt', print_r( $this, 1 ) );
+
 		$schema = array(
 			'$schema'    => 'http://json-schema.org/draft-04/schema#',
-			'title'      => $this->taxonomy,
+			'title'      => __( 'Directory Builder.', 'directorist' ),
 			'type'       => 'object',
 			'properties' => array(
-				'id'          => array(
-					'description' => __( 'Unique identifier for the resource.', 'directorist' ),
-					'type'        => 'integer',
+				'groups'        => array(
+					'description' => __( 'Groups.', 'directorist' ),
+					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
-					'readonly'    => true,
-				),
-				'name'        => array(
-					'description' => __( 'Category name.', 'directorist' ),
-					'type'        => 'string',
-					'context'     => array( 'view', 'edit' ),
-					'arg_options' => array(
-						'sanitize_callback' => 'sanitize_text_field',
+					'items'       => array(
+						'type'       => 'object',
+						'properties' => array(
+							'label'  => array(
+								'description' => __( 'Group label.', 'directorist' ),
+								'type'        => 'string',
+							),
+							'fields'  => array(
+								'description' => __( 'Group fields key.', 'directorist' ),
+								'type'        => 'array',
+								'items'       => array(
+									'type' => 'string',
+								)
+							),
+						),
 					),
+				),
+				'fields'        => array(
+					'description' => __( 'Fields.', 'directorist' ),
+					'type'        => 'object',
+					'context'     => array( 'view', 'edit' ),
 				),
 				'slug'        => array(
 					'description' => __( 'An alphanumeric identifier for the resource unique to its type.', 'directorist' ),
@@ -241,17 +232,5 @@ class Builder_Controller extends Abstract_Controller {
 		);
 
 		return $this->add_additional_fields_schema( $schema );
-	}
-
-	/**
-	 * Update term meta fields.
-	 *
-	 * @param WP_Term         $term    Term object.
-	 * @param WP_REST_Request $request Request instance.
-	 * @return bool|WP_Error
-	 *
-	 */
-	protected function update_term_meta_fields( $term, $request ) {
-		return true;
 	}
 }

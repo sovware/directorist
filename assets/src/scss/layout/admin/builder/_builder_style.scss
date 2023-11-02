@@ -78,6 +78,19 @@ $light-gray: #f4f5f7;
   display: block;
 }
 
+.cptm-field-wraper-key-preview_image {
+  .cptm-btn {
+    margin: 0 10px;
+    height: 40px;
+    color: #23282d !important;
+    background: #DADCE0 !important;
+    border-radius: 4px !important;
+    border: 0 none;
+    font-weight: 500;
+    padding: 0 30px;
+  }
+}
+
 .atbdp-cptm-footer {
   display: block;
   padding: 20px 10px;
@@ -95,6 +108,7 @@ $light-gray: #f4f5f7;
     font-size: 15px;
     height: 50px;
     padding: 0 30px;
+    min-width: 300px;
   }
 }
 

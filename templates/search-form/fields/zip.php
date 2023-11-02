@@ -23,7 +23,7 @@ $lng = ! empty( $_REQUEST['zip_cityLng'] ) ? sanitize_text_field( wp_unslash( $_
 	<input type="hidden" class="zip-cityLng" name="zip_cityLng" value="<?php echo esc_attr( $lng ) ?>" />
 
 	<div class="directorist-search-field__btn directorist-search-field__btn--clear">
-		<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url(https://revamp.local/wp-content/plugins/directorist/assets/icons/font-awesome/svgs/solid/times-circle.svg)"></i>	
+		<?php directorist_icon( 'fas fa-times-circle' ); ?>	
 	</div>
 	
 </div>

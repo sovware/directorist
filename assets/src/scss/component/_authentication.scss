@@ -1,6 +1,8 @@
 /* Authentication style */
 .directorist-author {
     @include e(form) {
+        max-width: 540px;
+        margin: 0 auto;
         padding: 50px 40px;
         border-radius: 16px;
         background-color: var(--directorist-color-white);

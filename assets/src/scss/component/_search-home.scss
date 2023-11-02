@@ -208,8 +208,7 @@
         }
       }
 
-      .directorist-year-ranges__item,
-      .directorist-price-ranges__item {
+      .directorist-year-ranges__item {
         .directorist-form-element {
           border-bottom: 2px solid var(--directorist-color-border);
           &:focus {
@@ -356,6 +355,15 @@
               transition: opacity 0.3s ease;
             }
           }
+        }
+        
+        .directorist-price-ranges__label {
+          top: 12px;
+          left: 0;
+        }
+        .directorist-price-ranges__currency {
+          top: 12px;
+          left: 32px;
         }
       }
     }
@@ -707,6 +715,7 @@
   border-radius: 10px;
   background-color: var(--directorist-color-white);
   box-shadow: var(--directorist-box-shadow);
+  z-index: 10;
   ul {
     display: flex;
     flex-direction: column;

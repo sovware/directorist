@@ -20,7 +20,7 @@
             padding-left: 30px;
             margin-bottom: 0;
             margin-left: 0;
-            line-height: 1.4;
+            line-height: 1.3;
             color: var(--directorist-color-body);
             box-sizing: content-box;
 
@@ -43,6 +43,10 @@
                     top: 1px;
                     width: 16px;
                     height: 16px;
+                }
+                .directorist-icon-mask:after {
+                    width: 12px;
+                    height: 12px;
                 }
             }
         }
@@ -274,7 +278,7 @@
     .directorist-icon-mask:after {
         width: 14px;
         height: 14px;
-        margin-top: 2px;
+        margin-top: 1px;
     }
 }
 
@@ -283,8 +287,8 @@
     input[type="radio"]{
         & +.directorist-radio__label{
             &:before{
-                width: 8px;
-                height: 8px;
+                width: 10px;
+                height: 10px;
                 top: 5px;
                 left: 5px;
                 background-color: #fff !important;

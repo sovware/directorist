@@ -32,14 +32,12 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                     $listing_type = isset( $section['fields']['listing_type'] ) ? $section['fields']['listing_type']['widget_name'] : '';
 
                                     if ( empty( $listing_type ) ) {
-                                        printf( '<div class="multistep-wizard__nav__item"><a href="#add-listing-content-%s" id="add-listing-nav-%s" class="multistep-wizard__nav__btn">%s %s</a></div>', esc_attr( $id ), esc_attr( $id ), ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : directorist_icon( 'fas fa-circle', false ) ), $section['label'] );
+                                        printf( '<a href="#add-listing-content-%s" id="add-listing-nav-%s" class="multistep-wizard__nav__btn">%s %s</a>', esc_attr( $id ), esc_attr( $id ), ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : directorist_icon( 'fas fa-circle', false ) ), $section['label'] );
                                     }
 
                                 }
                             ?>
-                            <div class="multistep-wizard__nav__item">
-                                <a href="#add-listing-last-content" id="add-listing-last-nav" class="multistep-wizard__nav__btn multistep-wizard__nav__btn--finish  add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>
-                            </div>
+                            <a href="#add-listing-last-content" id="add-listing-last-nav" class="multistep-wizard__nav__btn multistep-wizard__nav__btn--finish  add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>
                         </div>
                         
                     <?php endif; ?>

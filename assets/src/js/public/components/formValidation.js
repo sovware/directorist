@@ -1,6 +1,6 @@
 ;
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         $('#directorist-report-abuse-form').on('submit', function (e) {
             $('.directorist-report-abuse-modal button[type=submit]').addClass('directorist-btn-loading');
             // Check for errors

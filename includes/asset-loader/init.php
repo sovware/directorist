@@ -103,6 +103,7 @@ class Asset_Loader {
 				wp_enqueue_script( 'directorist-listing-slider' );
 				wp_enqueue_script( 'directorist-swiper' );
 				wp_enqueue_script( 'directorist-select2-script' );
+				wp_enqueue_script( 'directorist-search-form' );
 
 				if ( Helper::instant_search_enabled() ) {
 					wp_enqueue_script( 'jquery-masonry' );

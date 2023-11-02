@@ -2,7 +2,7 @@ import {
     get_dom_data
 } from './../../lib/helper';
 
-;(function () {
+(function () {
 
     window.addEventListener('DOMContentLoaded', initMap );
     window.addEventListener('directorist-reload-listings-map-archive', initMap);
@@ -301,6 +301,25 @@ import {
 
         })(jQuery);
     }
+
+    const $ = jQuery;
+
+    /* Elementor Edit Mode */
+    $(window).on('elementor/frontend/init', function () {
+        setTimeout(function() {
+            if ($('body').hasClass('elementor-editor-active')) {
+                initMap();
+            }
+        }, 3000);
+
+    });
+
+    // Elementor EditMode
+    $('body').on('click', function (e) {
+        if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
+            initMap();
+        }
+    });
 
 })(); 
 

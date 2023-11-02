@@ -165,8 +165,13 @@
             font-size: 14px;
             font-weight: 500;
             color: var(--directorist-color-primary);
+            justify-content: center;
             text-decoration: none;
             cursor: pointer;
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
         }
         .directorist-btn {
             font-size: 15px;
@@ -177,6 +182,13 @@
             letter-spacing: 0;
             @media only screen and (max-width: 375px){
                 padding: 0 14.5px;
+            }
+        }
+        &.reset-btn-disabled {
+            .directorist-btn-reset-js {
+                opacity: 0.5;
+                cursor: not-allowed;
+                pointer-events: none;
             }
         }
     }
@@ -221,7 +233,7 @@
             }
         }
         @media only screen and (max-width: 575px) {
-            padding-left: 30px;
+            padding-left: 28px;
         }
         .directorist-icon-mask{
             &:after {
@@ -298,22 +310,26 @@
         gap: 20px;
     }
     @include e(item){
-        flex: 0 0 45%;
-        @media (max-width: 575px) {
-            flex: auto;
-        }
-        @media (max-width: 480px) {
-            flex: 0 0 42%;
-        }
-        .directorist-form-element {
+        flex: 1;
+        position: relative;
+        &.directorist-form-group {
+            display: flex;
+            align-items: center;
             background: transparent;
             border-bottom: 1px solid var(--directorist-color-border);
+            .directorist-form-element  {
+                flex: 1;
+                border: 0 none !important;
+            }
+            &:focus-within {
+                border-bottom: 2px solid var(--directorist-color-primary);
+            }
             @media screen and (max-width: 575px) {
-                height: 34px;
-                text-align: center;
+                padding: 0 15px;
                 border-radius: 8px;
                 border: 1px solid var(--directorist-color-border);
                 &:focus {
+                    padding-bottom: 0;
                     border: 2px solid var(--directorist-color-primary);
                 }
                 @include e('prefix') {
@@ -323,6 +339,20 @@
             }
         }
     }
+    @include e(label) {
+        line-height: 1;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        margin-inline-end: 6px !important;
+        color: var(--directorist-color-light-gray) !important;
+    }
+    @include e(currency) {
+        line-height: 1;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--directorist-color-primary);
+    }
+
     @include e('price-frequency'){
         display: flex;
         flex-wrap: wrap;
@@ -485,6 +515,7 @@
                 content: "";
                 border: 2px solid #d9d9d9;
                 background-color: #fff;
+                box-sizing: content-box;
             }
         }
     }

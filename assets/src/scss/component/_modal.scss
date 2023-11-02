@@ -207,7 +207,7 @@
                     font-size: 14px;
                     font-weight: 400;
                     color: var(--directorist-color-body);
-                    transition: opacity 0.3s ease, top 0.3s ease;
+                    transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
                 }
                 .directorist-search-field__input::placeholder {
                     opacity: 0;
@@ -324,6 +324,11 @@
                 text-transform: none;
                 border: none;
                 background: transparent;
+                cursor: pointer;
+                &:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
             }
         }
         @include e(title) {
@@ -534,6 +539,9 @@
                         }
                     }
                 }
+            }
+            .directorist-price-ranges:after {
+                top: 30px;
             }
         }
         .open_now > label {

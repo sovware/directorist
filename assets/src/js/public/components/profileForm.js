@@ -1,6 +1,6 @@
 ;
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         var profileMediaUploader = null;
         if ($(".directorist-profile-uploader").length) {
             profileMediaUploader = new EzMediaUploader({

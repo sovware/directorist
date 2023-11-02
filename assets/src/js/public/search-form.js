@@ -356,10 +356,17 @@ import { directorist_range_slider } from './range-slider';
         });
 
         // Search Form Input Field Check
-        $('body').on('input keyup change focus blur', '.directorist-search-field__input', function(e) {
+        $('body').on('input keyup change', '.directorist-search-field__input', function(e) {
             let searchField = $(this).closest('.directorist-search-field');
 
             inputValueCheck(e, searchField);
+
+        });
+
+        $('body').on('focus blur', '.directorist-search-field__input', function(e) {
+            let searchField = $(this).closest('.directorist-search-field');
+
+            inputEventCheck(e, searchField);
 
         });
 
@@ -369,40 +376,6 @@ import { directorist_range_slider } from './range-slider';
 
             let inputBox = searchField.querySelector('.directorist-search-field__input');
             let inputFieldValue = inputBox.value;
-
-            if(inputBox.classList.contains('directorist-select')) {
-                searchField.classList.add('input-is-focused');
-
-                inputFieldValue = inputBox.querySelector('select').value;
-
-                if (e.type === 'focusin') {
-                    searchField.classList.add('input-is-focused');
-                } else if (e.type === 'focusout') {
-                    selectFocusOutCheck(searchField, inputBox);
-                } else {
-                    if(searchField.classList.contains('input-is-focused')) {
-                        searchField.classList.remove('input-is-focused');
-                    }
-                }
-            } else {
-                if (e.type === 'focusin') {
-                    searchField.classList.add('input-is-focused');
-                } else if (e.type === 'focusout') {
-                    if(inputFieldValue) {
-                        searchField.classList.add('input-has-value');
-                        if (!searchField.classList.contains('input-is-focused')) {
-                            searchField.classList.add('input-is-focused');
-                        }
-                    } else {
-                        searchField.classList.remove('input-is-focused');
-                    }
-                } else {
-                    if(searchField.classList.contains('input-is-focused')) {
-                        searchField.classList.remove('input-is-focused');
-                    }
-                }
-            }
-            
             
             if (inputFieldValue) {
                 searchField.classList.add('input-has-value');
@@ -415,28 +388,55 @@ import { directorist_range_slider } from './range-slider';
                     searchField.classList.remove('input-has-value');
                 }
             }
+        }
 
-            function selectFocusOutCheck(searchField, inputBox) {
-                $('body').on('click', function(e) {
-                    let inputFieldValue = inputBox.querySelector('select').value;
+        // Search Field Input Event Check
+        function inputEventCheck(e, searchField) {
+            searchField = searchField[0];
 
-                    let parentWithClass = e.target.closest('.directorist-search-field__input');
-        
-                    if (parentWithClass) {
-                        
-                    } else {
-                        if(inputFieldValue) {
-                            searchField.classList.add('input-has-value');
-                            if (!searchField.classList.contains('input-is-focused')) {
-                                searchField.classList.add('input-is-focused');
-                            }
-                        } else {
-                            searchField.classList.remove('input-is-focused');
+            let inputBox = searchField.querySelector('.directorist-search-field__input');
+            let inputFieldValue = inputBox.value;
+
+            if (e.type === 'focusin') {
+                searchField.classList.add('input-is-focused');
+            } else if (e.type === 'focusout') {
+                if(inputBox.classList.contains('directorist-select')) {
+                    selectFocusOutCheck(searchField, inputBox);
+                } else {
+                    if(inputFieldValue) {
+                        searchField.classList.add('input-has-value');
+                        if (!searchField.classList.contains('input-is-focused')) {
+                            searchField.classList.add('input-is-focused');
                         }
+                    } else {
+                        searchField.classList.remove('input-is-focused');
                     }
-        
-                });
+                } 
             }
+                
+        }
+
+        // Search Field Input Focusout Event Check
+        function selectFocusOutCheck(searchField, inputBox) {
+            searchField.classList.add('input-is-focused');
+            let inputFieldValue = inputBox.querySelector('select').value;
+
+            $('body').one('click', function(e) {
+                inputFieldValue = inputBox.querySelector('select').value;
+                let parentWithClass = e.target.closest('.directorist-search-field__input');
+    
+                if (!parentWithClass) {
+                    if(inputFieldValue) {
+                        searchField.classList.add('input-has-value');
+                        if (!searchField.classList.contains('input-is-focused')) {
+                            searchField.classList.add('input-is-focused');
+                        }
+                    } else {
+                        searchField.classList.remove('input-is-focused');
+                    }
+                } 
+    
+            });
         }
 
         // Search Form Input Clear Button

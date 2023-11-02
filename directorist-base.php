@@ -681,9 +681,8 @@ final class Directorist_Base
 	public function atbdp_parse_videos( $url ) {	
 		$helper = new \Directorist\Helper();
 		_deprecated_function( __METHOD__, '7.8.0', $helper->parse_video( $url ) );
-		// Return
+		
 		return $helper->parse_video( $url );
-
 	}
 
 	public function atbdp_body_class($c_classes)

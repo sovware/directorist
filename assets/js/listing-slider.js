@@ -328,16 +328,16 @@ __webpack_require__.r(__webpack_exports__);
 
   window.addEventListener('DOMContentLoaded', function () {
     allListingSlider();
-    $(".directorist-viewas__item").click(function () {
+    $('body').on('click', '.directorist-viewas__item, .directorist-instant-search .directorist-search-field__btn--clear', function (e) {
       setTimeout(function () {
         if ($('directorist-archive-items .directorist-swiper-listing')) {
           allListingSlider();
         }
       }, 1000);
     });
-    $(".directorist-search-form-box").change(function () {
+    $('body').on('input keyup change', '.directorist-archive-contents form', function (e) {
       setTimeout(function () {
-        if ($('directorist-archive-items .directorist-swiper-listing')) {
+        if ($('.directorist-archive-items .directorist-swiper-listing')) {
           allListingSlider();
         }
       }, 1000);

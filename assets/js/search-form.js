@@ -1622,7 +1622,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
       $('.directorist-location-js').each(function (index, locationDOM) {
         if ($(locationDOM).val() === '') {
-          $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').first().css({
+          $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({
             display: "none"
           });
         } else {
@@ -1856,7 +1856,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     }); // DOM Mutation observer
 
-    function initObserver() {
+    function locationObserver() {
       var targetNode = document.querySelector('.directorist-location-js');
 
       if (targetNode) {
@@ -1867,7 +1867,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     }
 
-    initObserver();
+    locationObserver();
     handleRadiusVisibility(); // Returns a function, that, as long as it continues to be invoked, will not
     // be triggered. The function will be called after it stops being called for
     // N milliseconds. If `immediate` is passed, trigger the function on the
@@ -1935,12 +1935,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }, 250));
 
     function sliderValueCheck(targetNode, value) {
-      var searchform = targetNode.closest('form');
+      var searchForm = targetNode.closest('form');
 
       if (value > 0) {
-        enableResetButton(searchform);
+        enableResetButton(searchForm);
       } else {
-        initForm(searchform);
+        initForm(searchForm);
       }
     }
 

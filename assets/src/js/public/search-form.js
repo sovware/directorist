@@ -648,7 +648,7 @@ import { directorist_range_slider } from './range-slider';
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
             $('.directorist-location-js').each((index,locationDOM)=>{
                 if($(locationDOM).val() === ''){
-                    $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').first().css({display: "none"});
+                    $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({display: "none"});
                 } else{
                     $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({display: "block"});
                     directorist_callingSlider();
@@ -920,14 +920,15 @@ import { directorist_range_slider } from './range-slider';
         });
 
         // DOM Mutation observer
-        function initObserver() {
+        function locationObserver() {
             let targetNode = document.querySelector('.directorist-location-js');
             if(targetNode){
                 let observer = new MutationObserver( handleRadiusVisibility );
                 observer.observe( targetNode, { attributes: true } );
             }
         }
-        initObserver();
+        
+        locationObserver();
         handleRadiusVisibility();
 
         // Returns a function, that, as long as it continues to be invoked, will not
@@ -992,11 +993,11 @@ import { directorist_range_slider } from './range-slider';
         }, 250 ));
 
         function sliderValueCheck(targetNode, value) {
-            let searchform = targetNode.closest('form');
+            let searchForm = targetNode.closest('form');
             if (value > 0) {
-                enableResetButton(searchform);
+                enableResetButton(searchForm);
             } else {
-                initForm(searchform);
+                initForm(searchForm);
             }
         }
         

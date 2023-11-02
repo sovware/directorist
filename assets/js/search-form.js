@@ -1371,34 +1371,82 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }); // Search Form Input Field Check
 
     $('body').on('input keyup change focus blur', '.directorist-search-field__input', function (e) {
-      if (e.type === 'focusin') {
-        this.parentElement.classList.add('input-is-focused');
-      } else if (e.type === 'blur') {
-        if (this.parentElement.classList.contains('input-is-focused')) {
-          this.parentElement.classList.remove('input-is-focused');
+      var searchField = $(this).closest('.directorist-search-field');
+      inputValueCheck(e, searchField);
+    }); // Search Field Input Value Check
+
+    function inputValueCheck(e, searchField) {
+      searchField = searchField[0];
+      var inputBox = searchField.querySelector('.directorist-search-field__input');
+      var inputFieldValue = inputBox.value;
+
+      if (inputBox.classList.contains('directorist-select')) {
+        searchField.classList.add('input-is-focused');
+        inputFieldValue = inputBox.querySelector('select').value;
+
+        if (e.type === 'focusin') {
+          searchField.classList.add('input-is-focused');
+        } else if (e.type === 'focusout') {
+          selectFocusOutCheck(searchField, inputBox);
+        } else {
+          if (searchField.classList.contains('input-is-focused')) {
+            searchField.classList.remove('input-is-focused');
+          }
         }
       } else {
-        if (this.parentElement.classList.contains('input-is-focused')) {
-          this.parentElement.classList.remove('input-is-focused');
+        if (e.type === 'focusin') {
+          searchField.classList.add('input-is-focused');
+        } else if (e.type === 'focusout') {
+          if (inputFieldValue) {
+            searchField.classList.add('input-has-value');
+
+            if (!searchField.classList.contains('input-is-focused')) {
+              searchField.classList.add('input-is-focused');
+            }
+          } else {
+            searchField.classList.remove('input-is-focused');
+          }
+        } else {
+          if (searchField.classList.contains('input-is-focused')) {
+            searchField.classList.remove('input-is-focused');
+          }
         }
       }
 
-      var inputBox = this;
+      if (inputFieldValue) {
+        searchField.classList.add('input-has-value');
 
-      if (inputBox.value != '') {
-        this.parentElement.classList.add('input-has-value');
-
-        if (!this.parentElement.classList.contains('input-is-focused')) {
-          this.parentElement.classList.add('input-is-focused');
+        if (!searchField.classList.contains('input-is-focused')) {
+          searchField.classList.add('input-is-focused');
         }
       } else {
-        inputBox.value = '';
+        inputFieldValue = '';
 
-        if (this.parentElement.classList.contains('input-has-value')) {
-          this.parentElement.classList.remove('input-has-value');
+        if (searchField.classList.contains('input-has-value')) {
+          searchField.classList.remove('input-has-value');
         }
       }
-    }); // Search Form Input Clear Button
+
+      function selectFocusOutCheck(searchField, inputBox) {
+        $('body').on('click', function (e) {
+          var inputFieldValue = inputBox.querySelector('select').value;
+          var parentWithClass = e.target.closest('.directorist-search-field__input');
+
+          if (parentWithClass) {} else {
+            if (inputFieldValue) {
+              searchField.classList.add('input-has-value');
+
+              if (!searchField.classList.contains('input-is-focused')) {
+                searchField.classList.add('input-is-focused');
+              }
+            } else {
+              searchField.classList.remove('input-is-focused');
+            }
+          }
+        });
+      }
+    } // Search Form Input Clear Button
+
 
     $('body').on('click', '.directorist-search-field__btn--clear', function (e) {
       var inputFields = this.parentElement.querySelectorAll('.directorist-form-element');

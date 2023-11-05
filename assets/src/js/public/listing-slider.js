@@ -259,7 +259,11 @@
         });
 
 
-        $('body').on('input keyup change', '.directorist-archive-contents form', function(e) {
+        $('body').on('input keyup change', '.directorist-instant-search .directorist-archive-contents form', function(e) {
+            if(e.target.classList.contains('directorist-location-js')) {
+                sliderObserver();
+            }
+            
             setTimeout(() => {
                 if($('.directorist-archive-items .directorist-swiper-listing')) {
                     allListingSlider();
@@ -269,7 +273,31 @@
         });
         
     });
-    
+
+    // Function to set up the Mutation Observer on Range Slider
+    function sliderObserver() {
+        let targetNodes = document.querySelectorAll('.directorist-range-slider-value');
+
+        targetNodes.forEach((targetNode) => {
+
+            if (targetNode) {
+                let timeout;
+                const observerCallback = (mutationList, observer) => {
+                    for (const mutation of mutationList) {
+                        if (mutation.attributeName == 'value') {
+                            clearTimeout(timeout);
+                            timeout = setTimeout(() => {
+                                allListingSlider();
+                            }, 1000);
+                        }
+                    }
+                };
+        
+                const observer = new MutationObserver(observerCallback);
+                observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
+            }
+        })
+    }
 
     /* Elementor Edit Mode */
     $(window).on('elementor/frontend/init', function () {

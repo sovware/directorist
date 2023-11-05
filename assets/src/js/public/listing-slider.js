@@ -1,7 +1,6 @@
 // All Listing Slider
 (function ($) {
     function allListingSlider() {
-
         /* Check Slider Data */
         let checkData = function (data, value) {
             return typeof data === 'undefined' ? value : data;
@@ -250,24 +249,54 @@
 
         allListingSlider();
 
-        $(".directorist-viewas__item").click(function(){
+        $('body').on('click', '.directorist-viewas__item, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function(e) {
             setTimeout(() => {
-                if($('directorist-archive-items .directorist-swiper-listing')) {
+                if($('.directorist-archive-items .directorist-swiper-listing')) {
                     allListingSlider();
                 }
             }, 1000)
         });
 
-        $(".directorist-search-form-box").change(function(){
+
+        $('body').on('input keyup change', '.directorist-archive-contents form', function(e) {
+            if(e.target.classList.contains('directorist-location-js')) {
+                sliderObserver();
+            }
+            
             setTimeout(() => {
-                if($('directorist-archive-items .directorist-swiper-listing')) {
+                if($('.directorist-archive-items .directorist-swiper-listing')) {
                     allListingSlider();
                 }
             }, 1000)
+
         });
         
     });
-    
+
+    // Function to set up the Mutation Observer on Range Slider
+    function sliderObserver() {
+        let rangeSliders = document.querySelectorAll('.directorist-range-slider-value');
+
+        rangeSliders.forEach((rangeSlider) => {
+
+            if (rangeSlider) {
+                let timeout;
+                const observerCallback = (mutationList, observer) => {
+                    for (const mutation of mutationList) {
+                        if (mutation.attributeName == 'value') {
+                            clearTimeout(timeout);
+                            timeout = setTimeout(() => {
+                                allListingSlider();
+                            }, 1000);
+                        }
+                    }
+                };
+        
+                const observer = new MutationObserver(observerCallback);
+                observer.observe(rangeSlider, { attributes: true, childList: true, subtree: true });
+            }
+        })
+    }
 
     /* Elementor Edit Mode */
     $(window).on('elementor/frontend/init', function () {

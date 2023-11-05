@@ -909,9 +909,10 @@ var directorist_range_slider = function directorist_range_slider(selector, obj) 
     slide1.style.background = obj.pointerColor;
     slide1.style.border = obj.pointerBorder;
     id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = "<span>".concat(min, "</span> ").concat(sliderDataUnit);
+    var sliderValue = id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value;
     var x = null,
         count = 0,
-        slid1_val = 0,
+        slid1_val = sliderValue,
         slid1_val2 = sliderDataMin,
         count2 = width;
 
@@ -1370,35 +1371,82 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       searchModalMinimize(searchModalElement);
     }); // Search Form Input Field Check
 
-    $('body').on('input keyup change focus blur', '.directorist-search-field__input', function (e) {
+    $('body').on('input keyup change', '.directorist-search-field__input', function (e) {
+      var searchField = $(this).closest('.directorist-search-field');
+      inputValueCheck(e, searchField);
+    });
+    $('body').on('focus blur', '.directorist-search-field__input', function (e) {
+      var searchField = $(this).closest('.directorist-search-field');
+      inputEventCheck(e, searchField);
+    }); // Search Field Input Value Check
+
+    function inputValueCheck(e, searchField) {
+      searchField = searchField[0];
+      var inputBox = searchField.querySelector('.directorist-search-field__input');
+      var inputFieldValue = inputBox.value;
+
+      if (inputFieldValue) {
+        searchField.classList.add('input-has-value');
+
+        if (!searchField.classList.contains('input-is-focused')) {
+          searchField.classList.add('input-is-focused');
+        }
+      } else {
+        inputFieldValue = '';
+
+        if (searchField.classList.contains('input-has-value')) {
+          searchField.classList.remove('input-has-value');
+        }
+      }
+    } // Search Field Input Event Check
+
+
+    function inputEventCheck(e, searchField) {
+      searchField = searchField[0];
+      var inputBox = searchField.querySelector('.directorist-search-field__input');
+      var inputFieldValue = inputBox.value;
+
       if (e.type === 'focusin') {
-        this.parentElement.classList.add('input-is-focused');
-      } else if (e.type === 'blur') {
-        if (this.parentElement.classList.contains('input-is-focused')) {
-          this.parentElement.classList.remove('input-is-focused');
-        }
-      } else {
-        if (this.parentElement.classList.contains('input-is-focused')) {
-          this.parentElement.classList.remove('input-is-focused');
-        }
-      }
+        searchField.classList.add('input-is-focused');
+      } else if (e.type === 'focusout') {
+        if (inputBox.classList.contains('directorist-select')) {
+          selectFocusOutCheck(searchField, inputBox);
+        } else {
+          if (inputFieldValue) {
+            searchField.classList.add('input-has-value');
 
-      var inputBox = this;
-
-      if (inputBox.value != '') {
-        this.parentElement.classList.add('input-has-value');
-
-        if (!this.parentElement.classList.contains('input-is-focused')) {
-          this.parentElement.classList.add('input-is-focused');
-        }
-      } else {
-        inputBox.value = '';
-
-        if (this.parentElement.classList.contains('input-has-value')) {
-          this.parentElement.classList.remove('input-has-value');
+            if (!searchField.classList.contains('input-is-focused')) {
+              searchField.classList.add('input-is-focused');
+            }
+          } else {
+            searchField.classList.remove('input-is-focused');
+          }
         }
       }
-    }); // Search Form Input Clear Button
+    } // Search Field Input Focusout Event Check
+
+
+    function selectFocusOutCheck(searchField, inputBox) {
+      searchField.classList.add('input-is-focused');
+      var inputFieldValue = inputBox.querySelector('select').value;
+      $('body').one('click', function (e) {
+        inputFieldValue = inputBox.querySelector('select').value;
+        var parentWithClass = e.target.closest('.directorist-search-field__input');
+
+        if (!parentWithClass) {
+          if (inputFieldValue) {
+            searchField.classList.add('input-has-value');
+
+            if (!searchField.classList.contains('input-is-focused')) {
+              searchField.classList.add('input-is-focused');
+            }
+          } else {
+            searchField.classList.remove('input-is-focused');
+          }
+        }
+      });
+    } // Search Form Input Clear Button
+
 
     $('body').on('click', '.directorist-search-field__btn--clear', function (e) {
       var inputFields = this.parentElement.querySelectorAll('.directorist-form-element');
@@ -1557,6 +1605,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
             $search_form_box.removeClass('atbdp-form-fade');
             initSearchFields();
+            initSearchFields();
           },
           error: function error(_error) {//console.log(_error);
           }
@@ -1575,7 +1624,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
       $('.directorist-location-js').each(function (index, locationDOM) {
         if ($(locationDOM).val() === '') {
-          $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').first().css({
+          $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({
             display: "none"
           });
         } else {
@@ -1809,7 +1858,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     }); // DOM Mutation observer
 
-    function initObserver() {
+    function locationObserver() {
       var targetNode = document.querySelector('.directorist-location-js');
 
       if (targetNode) {
@@ -1820,7 +1869,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     }
 
-    initObserver();
+    locationObserver();
     handleRadiusVisibility(); // Returns a function, that, as long as it continues to be invoked, will not
     // be triggered. The function will be called after it stops being called for
     // N milliseconds. If `immediate` is passed, trigger the function on the
@@ -1888,43 +1937,44 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }, 250));
 
     function sliderValueCheck(targetNode, value) {
-      var searchform = targetNode.closest('form');
+      var searchForm = targetNode.closest('form');
 
       if (value > 0) {
-        enableResetButton(searchform);
+        enableResetButton(searchForm);
       } else {
-        initForm(searchform);
+        initForm(searchForm);
       }
     }
 
     function rangeSliderObserver() {
-      var targetNode = document.querySelector('.directorist-range-slider-value');
+      var targetNodes = document.querySelectorAll('.directorist-range-slider-value');
+      targetNodes.forEach(function (targetNode) {
+        if (targetNode) {
+          var observerCallback = function observerCallback(mutationList, observer) {
+            var _iterator = _createForOfIteratorHelper(mutationList),
+                _step;
 
-      if (targetNode) {
-        var observerCallback = function observerCallback(mutationList, observer) {
-          var _iterator = _createForOfIteratorHelper(mutationList),
-              _step;
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var mutation = _step.value;
 
-          try {
-            for (_iterator.s(); !(_step = _iterator.n()).done;) {
-              var mutation = _step.value;
-
-              if (mutation.attributeName == 'value') {
-                sliderValueCheck(targetNode, parseInt(targetNode.value));
+                if (mutation.attributeName == 'value') {
+                  sliderValueCheck(targetNode, parseInt(targetNode.value));
+                }
               }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
             }
-          } catch (err) {
-            _iterator.e(err);
-          } finally {
-            _iterator.f();
-          }
-        };
+          };
 
-        var sliderObserver = new MutationObserver(observerCallback);
-        sliderObserver.observe(targetNode, {
-          attributes: true
-        });
-      }
+          var sliderObserver = new MutationObserver(observerCallback);
+          sliderObserver.observe(targetNode, {
+            attributes: true
+          });
+        }
+      });
     }
 
     rangeSliderObserver();

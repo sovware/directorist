@@ -515,6 +515,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function get_slider_data( $data = null ) {
+
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 
@@ -595,14 +596,14 @@ class Directorist_Single_Listing {
 			return;
 		}
 
-		$this->slider_field_template();
+		$this->slider_field_template( $slider );
 	}
 
-	public function slider_field_template() {
+	public function slider_field_template( $slider = null ) {
 
 		$args = array(
 			'listing'    => $this,
-			'data'       => $this->get_slider_data(),
+			'data'       => $this->get_slider_data( $slider ),
 		);
 
 		Helper::get_template('single/slider', $args );
@@ -904,6 +905,10 @@ class Directorist_Single_Listing {
 	public function listing_header( $key = '', $group = '', $subgroup = '' ) {
 
 		foreach( $this->header_data as $data ) {
+
+			if ( empty( $data['placeholderKey'] ) ) {
+				continue;
+			}
 
 			if ( $data['placeholderKey'] !== $group ) {
 				continue;

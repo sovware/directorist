@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<h4 class="directorist-listing-title"><?php echo wp_kses_post( $listings->loop_get_title() );?></h4>
+<h2 class="directorist-listing-title"><?php echo wp_kses_post( $listings->loop_get_title() );?></h2>
 
 <?php if( !empty( $data['show_tagline'] ) && !empty( $listings->loop_get_tagline() ) ){ ?>
     

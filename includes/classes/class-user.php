@@ -102,6 +102,9 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			if ( empty( $_POST['directorist_user_email_verified'] ) ) {
 				update_user_meta( $user_id, 'directorist_user_email_unverified', true );
+
+				$sessions = WP_Session_Tokens::get_instance( $user_id );
+				$sessions->destroy_all();
 			} else {
 				delete_user_meta( $user_id, 'directorist_user_email_unverified' );
 			}
@@ -740,7 +743,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				if ( ! empty( $redirection_after_reg ) ) {
 					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ) );
 				} else {
-					file_put_contents( __DIR__ . '/data.txt', 'status' );
 					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link( array( 'registration_status' => true ) ) ) );
 				}
 				exit();

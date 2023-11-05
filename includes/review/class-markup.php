@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Markup {
 
-	public static function get_rating( $selected = 0 ) {
+	public static function get_rating( $selected = 0, $comment = null ) {
 		ob_start();
 		?>
 		<div class="directorist-review-criteria__single">
@@ -30,17 +30,37 @@ class Markup {
 		<?php
 		$html = ob_get_clean();
 
-		return apply_filters( 'directorist/review/rating_html', $html );
+		return apply_filters( 'directorist/review/rating_html', $html, $comment );
+	}
+
+	private static function convert_to_num( $input ) {
+		
+		$numericValue = 0;
+		if ( strpos( $input, '.' ) !== false ) {
+			$numericValue = floatval( $input );
+		} else {
+			$numericValue = intval( $input );
+		}
+		return $numericValue;
 	}
 
 	public static function get_rating_stars( $rating = 0, $base_rating = 5 ) {
 		$rating = max( 0, min( $base_rating, $rating ) );
 
-		if ( is_float( $rating ) ) {
-			$rating = floor( $rating );
-		}
+		$empty_star = '';
+		$full_star = '';
+		$counter = 0;
+		$rating = self::convert_to_num( $rating );
+		$rounded_rating = floor( $rating );
 
-		return str_repeat( directorist_icon( 'fas fa-star', false, 'star-full' ), $rating ) . str_repeat( directorist_icon( 'far fa-star', false, 'star-empty' ), ( $base_rating - $rating ) );
+		$full_star = str_repeat( directorist_icon( 'fas fa-star', false, 'star-full' ), $rounded_rating );
+
+		while( $counter <= $base_rating - ( $rounded_rating + 1 ) ) {
+			$empty_star .= directorist_icon( 'far fa-star', false, ( ( $counter === 0 ) && ( is_float( $rating  ) ) ) ? 'star-empty directorist_fraction_star' : 'star-empty' );
+			$counter++;
+		}
+		
+		return $full_star . $empty_star;
 	}
 
 	public static function show_rating_stars( $rating = 0, $base_rating = 5 ) {

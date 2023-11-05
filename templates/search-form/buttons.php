@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php endif; ?>
 
 	<?php if ( $searchform->has_reset_filters_button ): ?>
-		<button class="directorist-btn-reset-js"><?php echo esc_html( $searchform->reset_filters_text ); ?></button>
+		<button type="submit" class="directorist-btn-reset-js"><?php echo esc_html( $searchform->reset_filters_text ); ?></button>
 	<?php endif; ?>
 
 </div>

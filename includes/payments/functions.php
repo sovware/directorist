@@ -100,42 +100,8 @@ function atbdp_get_payment_bulk_actions()
  * @return   string     $amount               Newly formatted amount or Price Not Available
  */
 function atbdp_format_amount( $amount, $decimals = true, $currency_settings = array() ) {
-    !is_array($currency_settings) || extract($currency_settings);  // @codingStandardsIgnoreLine. if it is array then extract it. Using the magic of OR CONDITION's FLOW
 
-    $currency       = ! empty( $currency )              ? $currency : get_directorist_option('g_currency', 'USD') ;
-    $thousands_sep  = ! empty( $thousands_separator )   ? $thousands_separator:  get_directorist_option('g_thousand_separator', ',');
-    $decimal_sep    = ! empty( $decimal_separator )     ? $decimal_separator:  get_directorist_option('g_decimal_separator', '.');
-
-    // Format the amount
-    if( $decimal_sep == ',' && false !== ( $sep_found = strpos( $amount, $decimal_sep ) ) ) {
-        $whole = substr( $amount, 0, $sep_found );
-        $part = substr( $amount, $sep_found + 1, ( strlen( $amount ) - 1 ) );
-        $amount = $whole . '.' . $part;
-    }
-
-    // Strip , from the amount (if set as the thousands separator)
-    if( $thousands_sep == ',' && false !== ( $found = strpos( $amount, $thousands_sep ) ) ) {
-        $amount = str_replace( ',', '', $amount );
-    }
-
-    // Strip ' ' from the amount (if set as the thousands separator)
-    if( $thousands_sep == ' ' && false !== ( $found = strpos( $amount, $thousands_sep ) ) ) {
-        $amount = str_replace( ' ', '', $amount );
-    }
-
-    if( empty( $amount ) ) {
-        $amount = 0;
-    }
-
-    if( $decimals ) {
-        $decimals  = atbdp_currency_decimal_count( 2, $currency );
-    } else {
-        $decimals = 0;
-    }
-
-    $formatted = number_format( (float)$amount, $decimals, $decimal_sep, $thousands_sep );
-
-    return apply_filters( 'atbdp_format_amount', $formatted, $amount, $decimals, $decimal_sep, $thousands_sep );
+    return number_format_i18n( apply_filters( 'atbdp_format_amount', (float) $amount, (float) $amount, $decimals, $currency_settings ), 2 );
 
 }
 

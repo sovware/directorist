@@ -475,6 +475,7 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
         url: args.url,
         dataType: 'json',
         cache: true,
+        delay: 250,
         data: function data(params) {
           currentPage = params.page || 1;
           var search_term = params.term ? params.term : '';
@@ -699,7 +700,7 @@ function convertToSelect2(field) {
     return;
   }
 
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
 
@@ -908,9 +909,10 @@ var directorist_range_slider = function directorist_range_slider(selector, obj) 
     slide1.style.background = obj.pointerColor;
     slide1.style.border = obj.pointerBorder;
     id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = "<span>".concat(min, "</span> ").concat(sliderDataUnit);
+    var sliderValue = id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value;
     var x = null,
         count = 0,
-        slid1_val = 0,
+        slid1_val = sliderValue,
         slid1_val2 = sliderDataMin,
         count2 = width;
 
@@ -1020,6 +1022,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _range_slider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./range-slider */ "./assets/src/js/public/range-slider.js");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -1067,12 +1075,130 @@ __webpack_require__.r(__webpack_exports__);
     $(window).on('load', function () {
       $("body").removeClass("directorist-preload");
       $('.button.wp-color-result').attr('style', ' ');
+    }); // Search Form
+    // Check Empty Search Fields on Search Modal
+
+    function initSearchFields() {
+      var inputFields = document.querySelectorAll('.directorist-search-modal__input');
+      inputFields.forEach(function (inputField) {
+        var searchField = inputField.querySelector('.directorist-search-field');
+
+        if (!searchField) {
+          inputField.style.display = 'none';
+        }
+      });
+      var searchFields = document.querySelectorAll('.directorist-search-field__input');
+      searchFields.forEach(function (searchField) {
+        var inputFieldValue = searchField.value;
+
+        if (searchField.classList.contains('directorist-select')) {
+          inputFieldValue = searchField.querySelector('select').dataset.selectedId;
+        }
+
+        if (inputFieldValue != '') {
+          searchField.parentElement.classList.add('input-has-value');
+
+          if (!searchField.parentElement.classList.contains('input-is-focused')) {
+            searchField.parentElement.classList.add('input-is-focused');
+          }
+        } else {
+          inputFieldValue = '';
+
+          if (searchField.parentElement.classList.contains('input-has-value')) {
+            searchField.parentElement.classList.remove('input-has-value');
+          }
+        }
+      });
+    }
+
+    initSearchFields();
+    /* Search Form Reset Button Initialize */
+
+    function initForm(searchForm) {
+      var value = false;
+      searchForm.querySelectorAll("input:not([type='checkbox']):not([type='radio']):not([type='hidden'])").forEach(function (el) {
+        if (el.value !== "") {
+          value = true;
+        }
+      });
+      searchForm.querySelectorAll("input[type='checkbox'], input[type='radio']").forEach(function (el) {
+        if (el.checked) {
+          value = true;
+        }
+      });
+      searchForm.querySelectorAll("select").forEach(function (el) {
+        if (el.value || el.selectedIndex !== 0) {
+          value = true;
+        }
+      });
+      searchForm.querySelectorAll(".directorist-range-slider-value").forEach(function (el) {
+        if (el.value > 0) {
+          value = true;
+        }
+      });
+
+      if (!value) {
+        var resetButtonWrapper = searchForm.querySelector('.directorist-advanced-filter__action');
+        resetButtonWrapper && resetButtonWrapper.classList.add('reset-btn-disabled');
+      }
+    } // Enable Reset Button
+
+
+    function enableResetButton(searchForm) {
+      var resetButtonWrapper = searchForm.querySelector('.directorist-advanced-filter__action');
+      resetButtonWrapper && resetButtonWrapper.classList.remove('reset-btn-disabled');
+    } // Initialize Form Reset Button
+
+
+    var searchForm = document.querySelectorAll('.directorist-contents-wrap form');
+    searchForm.forEach(function (form) {
+      setTimeout(function () {
+        initForm(form);
+      }, 100);
+    }); // Input Field Check
+
+    $('body').on('keyup', '.directorist-contents-wrap form input:not([type="checkbox"]):not([type="radio"])', function (e) {
+      var searchForm = this.closest('form');
+
+      if (this.value && this.value !== 0 && this.value !== undefined) {
+        enableResetButton(searchForm);
+      } else {
+        setTimeout(function () {
+          initForm(searchForm);
+        }, 100);
+      }
+    });
+    $('body').on('change', '.directorist-contents-wrap form input[type="checkbox"], .directorist-contents-wrap form input[type="radio"]', function (e) {
+      var searchForm = this.closest('form');
+
+      if (this.checked) {
+        enableResetButton(searchForm);
+      } else {
+        setTimeout(function () {
+          initForm(searchForm);
+        }, 100);
+      }
+    });
+    $('body').on('change', '.directorist-contents-wrap form select', function (e) {
+      var searchForm = this.closest('form');
+
+      if (this.value !== undefined) {
+        enableResetButton(searchForm);
+      } else {
+        setTimeout(function () {
+          initForm(searchForm);
+        }, 100);
+      }
     });
     /* advanced search form reset */
 
     function adsFormReset(searchForm) {
       searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
         el.value = "";
+
+        if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+          el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+        }
       });
       searchForm.querySelectorAll("input[type='date']").forEach(function (el) {
         el.value = "";
@@ -1082,9 +1208,17 @@ __webpack_require__.r(__webpack_exports__);
       });
       searchForm.querySelectorAll("input[type='url']").forEach(function (el) {
         el.value = "";
+
+        if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+          el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+        }
       });
       searchForm.querySelectorAll("input[type='number']").forEach(function (el) {
         el.value = "";
+
+        if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
+          el.parentElement.classList.remove('input-has-value', 'input-is-focused');
+        }
       });
       searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
         if (el.getAttribute('name') === "directory_type") return;
@@ -1105,8 +1239,15 @@ __webpack_require__.r(__webpack_exports__);
       });
       searchForm.querySelectorAll("select").forEach(function (el) {
         el.selectedIndex = 0;
-        $('.directorist-select2-dropdown-close').click();
-        $(el).val(null).trigger('change');
+        $('.directorist-select2-dropdown-close').click(); // $(el).val(null).trigger('change');
+
+        var parentElem = el.closest('.directorist-search-field');
+
+        if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
+          setTimeout(function () {
+            parentElem.classList.remove('input-has-value', 'input-is-focused');
+          }, 100);
+        }
       });
       var irisPicker = searchForm.querySelector("input.wp-picker-clear");
 
@@ -1121,23 +1262,20 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       handleRadiusVisibility();
-      var searchModalElement = document.querySelectorAll('.directorist-search-modal');
-      searchModalElement.forEach(function (searchModal) {
-        searchModalClose(searchModal);
-      });
+      initForm(searchForm);
     }
     /* Advance Search Filter For Search Home Short Code */
 
 
-    if ($(".directorist-btn-reset-js") !== null) {
-      $("body").on("click", ".directorist-btn-reset-js", function (e) {
+    if ($('.directorist-btn-reset-js') !== null) {
+      $('body').on('click', '.directorist-btn-reset-js', function (e) {
         e.preventDefault();
 
         if (this.closest('.directorist-contents-wrap')) {
-          var searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
+          var _searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
 
-          if (searchForm) {
-            adsFormReset(searchForm);
+          if (_searchForm) {
+            adsFormReset(_searchForm);
           }
 
           var advanceSearchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__form');
@@ -1145,17 +1283,232 @@ __webpack_require__.r(__webpack_exports__);
           if (advanceSearchForm) {
             adsFormReset(advanceSearchForm);
           }
+
+          var advanceSearchFilter = this.closest('.directorist-contents-wrap').querySelector('.directorist-advanced-filter__advanced');
+
+          if (advanceSearchFilter) {
+            adsFormReset(advanceSearchFilter);
+          }
         }
 
         if ($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length) {
           Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])(0);
         }
       });
-    }
+    } // Search Modal Open
+
+
+    function searchModalOpen(searchModalParent) {
+      var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
+      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
+
+      modalOverlay.style.cssText = "opacity: 1; visibility: visible; transition: 0.3s ease;"; // Modal Content Style
+
+      modalContent.style.cssText = "opacity: 1; visibility: visible; bottom:0;";
+    } // Search Modal Close
+
+
+    function searchModalClose(searchModalParent) {
+      var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
+      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
+
+      if (modalOverlay) {
+        modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease";
+      } // Modal Content Style
+
+
+      if (modalContent) {
+        modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
+      }
+    } // Modal Minimizer
+
+
+    function searchModalMinimize(searchModalParent) {
+      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
+      var modalMinimizer = searchModalParent.querySelector('.directorist-search-modal__minimizer');
+
+      if (modalMinimizer.classList.contains('minimized')) {
+        modalMinimizer.classList.remove('minimized');
+        modalContent.style.bottom = '0';
+      } else {
+        modalMinimizer.classList.add('minimized');
+        modalContent.style.bottom = '-50%';
+      }
+    } // Search Modal Open
+
+
+    $('body').on('click', '.directorist-modal-btn', function (e) {
+      e.preventDefault();
+      var parentElement = this.closest('.directorist-contents-wrap');
+
+      if (this.classList.contains('directorist-modal-btn--basic')) {
+        var searchModalElement = parentElement.querySelector('.directorist-search-modal--basic');
+        searchModalOpen(searchModalElement);
+      }
+
+      if (this.classList.contains('directorist-modal-btn--advanced')) {
+        var _searchModalElement = parentElement.querySelector('.directorist-search-modal--advanced');
+
+        searchModalOpen(_searchModalElement);
+      }
+
+      if (this.classList.contains('directorist-modal-btn--full')) {
+        var _searchModalElement2 = parentElement.querySelector('.directorist-search-modal--full');
+
+        searchModalOpen(_searchModalElement2);
+      }
+    }); // Search Modal Close
+
+    $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
+      e.preventDefault();
+      var searchModalElement = this.closest('.directorist-search-modal');
+      searchModalClose(searchModalElement);
+    }); // Search Modal Minimizer
+
+    $('body').on('click', '.directorist-search-modal__minimizer', function (e) {
+      e.preventDefault();
+      var searchModalElement = this.closest('.directorist-search-modal');
+      searchModalMinimize(searchModalElement);
+    }); // Search Form Input Field Check
+
+    $('body').on('input keyup change', '.directorist-search-field__input', function (e) {
+      var searchField = $(this).closest('.directorist-search-field');
+      inputValueCheck(e, searchField);
+    });
+    $('body').on('focus blur', '.directorist-search-field__input', function (e) {
+      var searchField = $(this).closest('.directorist-search-field');
+      inputEventCheck(e, searchField);
+    }); // Search Field Input Value Check
+
+    function inputValueCheck(e, searchField) {
+      searchField = searchField[0];
+      var inputBox = searchField.querySelector('.directorist-search-field__input');
+      var inputFieldValue = inputBox.value;
+
+      if (inputFieldValue) {
+        searchField.classList.add('input-has-value');
+
+        if (!searchField.classList.contains('input-is-focused')) {
+          searchField.classList.add('input-is-focused');
+        }
+      } else {
+        inputFieldValue = '';
+
+        if (searchField.classList.contains('input-has-value')) {
+          searchField.classList.remove('input-has-value');
+        }
+      }
+    } // Search Field Input Event Check
+
+
+    function inputEventCheck(e, searchField) {
+      searchField = searchField[0];
+      var inputBox = searchField.querySelector('.directorist-search-field__input');
+      var inputFieldValue = inputBox.value;
+
+      if (e.type === 'focusin') {
+        searchField.classList.add('input-is-focused');
+      } else if (e.type === 'focusout') {
+        if (inputBox.classList.contains('directorist-select')) {
+          selectFocusOutCheck(searchField, inputBox);
+        } else {
+          if (inputFieldValue) {
+            searchField.classList.add('input-has-value');
+
+            if (!searchField.classList.contains('input-is-focused')) {
+              searchField.classList.add('input-is-focused');
+            }
+          } else {
+            searchField.classList.remove('input-is-focused');
+          }
+        }
+      }
+    } // Search Field Input Focusout Event Check
+
+
+    function selectFocusOutCheck(searchField, inputBox) {
+      searchField.classList.add('input-is-focused');
+      var inputFieldValue = inputBox.querySelector('select').value;
+      $('body').one('click', function (e) {
+        inputFieldValue = inputBox.querySelector('select').value;
+        var parentWithClass = e.target.closest('.directorist-search-field__input');
+
+        if (!parentWithClass) {
+          if (inputFieldValue) {
+            searchField.classList.add('input-has-value');
+
+            if (!searchField.classList.contains('input-is-focused')) {
+              searchField.classList.add('input-is-focused');
+            }
+          } else {
+            searchField.classList.remove('input-is-focused');
+          }
+        }
+      });
+    } // Search Form Input Clear Button
+
+
+    $('body').on('click', '.directorist-search-field__btn--clear', function (e) {
+      var inputFields = this.parentElement.querySelectorAll('.directorist-form-element');
+      var selectboxField = this.parentElement.querySelector('.directorist-select select');
+      var radioFields = this.parentElement.querySelectorAll('input[type="radio"]');
+      var checkboxFields = this.parentElement.querySelectorAll('input[type="checkbox"]');
+
+      if (selectboxField) {
+        selectboxField.selectedIndex = 0;
+        selectboxField.dispatchEvent(new Event('change'));
+      }
+
+      if (inputFields) {
+        inputFields.forEach(function (inputField) {
+          inputField.value = '';
+        });
+      }
+
+      if (radioFields) {
+        radioFields.forEach(function (element) {
+          element.checked = false;
+        });
+      }
+
+      if (checkboxFields) {
+        checkboxFields.forEach(function (element) {
+          element.checked = false;
+        });
+      }
+
+      if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
+        this.parentElement.classList.remove('input-has-value', 'input-is-focused');
+      }
+
+      handleRadiusVisibility(); // Reset Button Disable
+
+      var searchform = this.closest('form');
+      var inputValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input').val();
+      var selectValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input select').val();
+
+      if (inputValue && inputValue !== 0 && inputValue !== undefined || selectValue && selectValue.selectedIndex === 0 || selectValue && selectValue.selectedIndex !== undefined) {
+        enableResetButton(searchform);
+      } else {
+        setTimeout(function () {
+          initForm(searchform);
+        }, 100);
+      }
+    }); // Search Form Input Field Back Button
+
+    $('body').on('click', '.directorist-search-field__label', function (e) {
+      var windowScreen = window.innerWidth;
+      var parentField = this.closest('.directorist-search-field');
+
+      if (windowScreen <= 575) {
+        if (parentField.classList.contains('input-is-focused')) {
+          parentField.classList.remove('input-is-focused');
+        }
+      }
+    });
     /* ----------------
     Search-form-listing
     ------------------- */
-
 
     $('body').on('click', '.search_listing_types', function (event) {
       event.preventDefault();
@@ -1251,27 +1604,41 @@ __webpack_require__.r(__webpack_exports__);
             }
 
             $search_form_box.removeClass('atbdp-form-fade');
-            checkEmptySearchFields();
+            initSearchFields();
+            initSearchFields();
           },
           error: function error(_error) {//console.log(_error);
           }
         });
       });
-    } // Check Empty Search Fields on Search Modal
+    } // Back Button to go back to the previous page
 
 
-    function checkEmptySearchFields() {
-      var inputFields = document.querySelectorAll('.directorist-search-modal__input');
-      inputFields.forEach(function (inputField) {
-        var searchField = inputField.querySelector('.directorist-search-field');
+    $('body').on('click', '.directorist-btn__back', function (e) {
+      e.preventDefault();
+      window.history.back();
+    });
+    /* When location field is empty we need to hide Radius Search */
 
-        if (!searchField) {
-          inputField.style.display = 'none';
+    function handleRadiusVisibility() {
+      $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
+      $('.directorist-location-js').each(function (index, locationDOM) {
+        if ($(locationDOM).val() === '') {
+          $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({
+            display: "none"
+          });
+        } else {
+          $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({
+            display: "block"
+          });
+          Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])();
         }
       });
     }
 
-    checkEmptySearchFields(); // hide country result when click outside the zipcode field
+    $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
+      handleRadiusVisibility();
+    }); // hide country result when click outside the zipcode field
 
     $(document).on('click', function (e) {
       if (!$(e.target).closest('.directorist-zip-code').length) {
@@ -1287,7 +1654,8 @@ __webpack_require__.r(__webpack_exports__);
       zipcode_search.find('.zip-cityLng').val(lon);
       $('.directorist-country').hide();
     });
-    $('.address_result').hide();
+    $('.address_result').hide(); // Init Location
+
     window.addEventListener('load', init_map_api_field);
     document.body.addEventListener('directorist-reload-map-api-field', init_map_api_field);
 
@@ -1476,7 +1844,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      if ($('.directorist-location-js, #q_addressss,.atbdp-search-address').val() === '') {
+      if ($('.directorist-location-js, #q_addressss, .atbdp-search-address').val() === '') {
         $(this).parent().next('.address_result').css({
           display: 'none'
         });
@@ -1488,187 +1856,9 @@ __webpack_require__.r(__webpack_exports__);
         $(this).find(".directorist-search-country").css("max-height", "175px");
         $(this).find(".directorist-search-field .address_result").css("max-height", "175px");
       }
-    });
-    /*****
-        Search Form Modal 
-    *****/
-    // Search Modal Open
-
-    function searchModalOpen(searchModalParent) {
-      var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
-      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
-
-      modalOverlay.style.cssText = "opacity: 1; visibility: visible; transition: 0.3s ease;"; // Modal Content Style
-
-      modalContent.style.cssText = "opacity: 1; visibility: visible; bottom:0;";
-    } // Search Modal Close
-
-
-    function searchModalClose(searchModalParent) {
-      var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
-      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents'); // Overlay Style
-
-      if (modalOverlay) {
-        modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease";
-      } // Modal Content Style
-
-
-      if (modalContent) {
-        modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
-      }
-    } // Modal Minimizer
-
-
-    function searchModalMinimize(searchModalParent) {
-      var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
-      var modalMinimizer = searchModalParent.querySelector('.directorist-search-modal__minimizer');
-
-      if (modalMinimizer.classList.contains('minimized')) {
-        modalMinimizer.classList.remove('minimized');
-        modalContent.style.bottom = '0';
-      } else {
-        modalMinimizer.classList.add('minimized');
-        modalContent.style.bottom = '-50%';
-      }
-    } // Search Modal Open
-
-
-    $('body').on('click', '.directorist-modal-btn', function (e) {
-      e.preventDefault();
-      var parentElement = this.closest('.directorist-contents-wrap');
-
-      if (this.classList.contains('directorist-modal-btn--basic')) {
-        var searchModalElement = parentElement.querySelector('.directorist-search-modal--basic');
-        searchModalOpen(searchModalElement);
-      }
-
-      if (this.classList.contains('directorist-modal-btn--advanced')) {
-        var _searchModalElement = parentElement.querySelector('.directorist-search-modal--advanced');
-
-        searchModalOpen(_searchModalElement);
-      }
-
-      if (this.classList.contains('directorist-modal-btn--full')) {
-        var _searchModalElement2 = parentElement.querySelector('.directorist-search-modal--full');
-
-        searchModalOpen(_searchModalElement2);
-      }
-    }); // Search Modal Close
-
-    $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
-      e.preventDefault();
-      var searchModalElement = this.closest('.directorist-search-modal');
-      searchModalClose(searchModalElement);
-    }); // Search Modal Minimizer
-
-    $('body').on('click', '.directorist-search-modal__minimizer', function (e) {
-      e.preventDefault();
-      var searchModalElement = this.closest('.directorist-search-modal');
-      searchModalMinimize(searchModalElement);
-    }); // Search Form Input Field Check
-
-    $('body').on('input keyup change focus blur', '.directorist-search-field__input', function (e) {
-      if (e.type === 'focusin') {
-        this.parentElement.classList.add('input-is-focused');
-      } else if (e.type === 'blur') {
-        if (this.parentElement.classList.contains('input-is-focused')) {
-          this.parentElement.classList.remove('input-is-focused');
-        }
-      } else {
-        if (this.parentElement.classList.contains('input-is-focused')) {
-          this.parentElement.classList.remove('input-is-focused');
-        }
-      }
-
-      var inputBox = this;
-
-      if (inputBox.value != '') {
-        this.parentElement.classList.add('input-has-value');
-
-        if (!this.parentElement.classList.contains('input-is-focused')) {
-          this.parentElement.classList.add('input-is-focused');
-        }
-      } else {
-        inputBox.value = '';
-
-        if (this.parentElement.classList.contains('input-has-value')) {
-          this.parentElement.classList.remove('input-has-value');
-        }
-      }
-    }); // Search Modal Input Clear Button
-
-    $('body').on('click', '.directorist-search-field__btn--clear', function (e) {
-      var inputFields = this.parentElement.querySelectorAll('.directorist-form-element');
-      var selectboxField = this.parentElement.querySelector('.directorist-select select');
-      var radioFields = this.parentElement.querySelectorAll('input[type="radio"]');
-      var checkboxFields = this.parentElement.querySelectorAll('input[type="checkbox"]');
-
-      if (selectboxField) {
-        selectboxField.selectedIndex = -1;
-        selectboxField.dispatchEvent(new Event('change'));
-      }
-
-      if (inputFields) {
-        inputFields.forEach(function (inputField) {
-          inputField.value = '';
-        });
-      }
-
-      if (radioFields) {
-        radioFields.forEach(function (element) {
-          element.checked = false;
-        });
-      }
-
-      if (checkboxFields) {
-        checkboxFields.forEach(function (element) {
-          element.checked = false;
-        });
-      }
-
-      if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
-        this.parentElement.classList.remove('input-has-value', 'input-is-focused');
-      }
-    }); // Search Form Input Field Back Button
-
-    $('body').on('click', '.directorist-search-field__label', function (e) {
-      var windowScreen = window.innerWidth;
-      var parentField = this.closest('.directorist-search-field');
-
-      if (windowScreen <= 575) {
-        if (parentField.classList.contains('input-is-focused')) {
-          parentField.classList.remove('input-is-focused');
-        }
-      }
-    }); // Back Button to go back to the previous page
-
-    $('body').on('click', '.directorist-btn__back', function (e) {
-      e.preventDefault();
-      window.history.back();
-    });
-    /* When location field is empty we need to hide Radius Search */
-
-    function handleRadiusVisibility() {
-      $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
-      $('.directorist-location-js').each(function (index, locationDOM) {
-        if ($(locationDOM).val() === '') {
-          $(locationDOM).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').first().css({
-            display: "none"
-          });
-        } else {
-          $(locationDOM).closest('.directorist-search-form-top, .directorist-search-modal').find('.directorist-search-field-radius_search').css({
-            display: "block"
-          });
-          Object(_range_slider__WEBPACK_IMPORTED_MODULE_5__["directorist_callingSlider"])();
-        }
-      });
-    }
-
-    $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
-      handleRadiusVisibility();
     }); // DOM Mutation observer
 
-    function initObserver() {
+    function locationObserver() {
       var targetNode = document.querySelector('.directorist-location-js');
 
       if (targetNode) {
@@ -1679,7 +1869,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
 
-    initObserver();
+    locationObserver();
     handleRadiusVisibility(); // Returns a function, that, as long as it continues to be invoked, will not
     // be triggered. The function will be called after it stops being called for
     // N milliseconds. If `immediate` is passed, trigger the function on the
@@ -1745,6 +1935,49 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }, 250));
+
+    function sliderValueCheck(targetNode, value) {
+      var searchForm = targetNode.closest('form');
+
+      if (value > 0) {
+        enableResetButton(searchForm);
+      } else {
+        initForm(searchForm);
+      }
+    }
+
+    function rangeSliderObserver() {
+      var targetNodes = document.querySelectorAll('.directorist-range-slider-value');
+      targetNodes.forEach(function (targetNode) {
+        if (targetNode) {
+          var observerCallback = function observerCallback(mutationList, observer) {
+            var _iterator = _createForOfIteratorHelper(mutationList),
+                _step;
+
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var mutation = _step.value;
+
+                if (mutation.attributeName == 'value') {
+                  sliderValueCheck(targetNode, parseInt(targetNode.value));
+                }
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+          };
+
+          var sliderObserver = new MutationObserver(observerCallback);
+          sliderObserver.observe(targetNode, {
+            attributes: true
+          });
+        }
+      });
+    }
+
+    rangeSliderObserver();
   });
 })(jQuery);
 

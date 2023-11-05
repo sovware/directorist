@@ -6,7 +6,7 @@
     } else {
         return;
     }
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         /* custom dropdown */
         const atbdDropdown = document.querySelectorAll('.directorist-dropdown-select');
 

@@ -139,9 +139,10 @@ var directorist_range_slider = function directorist_range_slider(selector, obj) 
     slide1.style.background = obj.pointerColor;
     slide1.style.border = obj.pointerBorder;
     id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = "<span>".concat(min, "</span> ").concat(sliderDataUnit);
+    var sliderValue = id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value;
     var x = null,
         count = 0,
-        slid1_val = 0,
+        slid1_val = sliderValue,
         slid1_val2 = sliderDataMin,
         count2 = width;
 

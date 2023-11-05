@@ -44,14 +44,15 @@
 }
 
 .directorist-range-slider1 {
-  width: 18px;
-  height: 18px;
+  width: 19px;
+  height: 19px;
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
   cursor: pointer;
   border-radius: 50%;
+  box-sizing: border-box;
   z-index: 2;
 }
 

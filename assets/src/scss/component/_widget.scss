@@ -14,26 +14,49 @@
   }
 }
 
-.directorist-sidebar .directorist-card {
-  margin-bottom: 25px;
-  ul{
-    padding: 25px;
-    margin: 0;
-    list-style: none;
+.directorist-sidebar {
+  .directorist-card {
+    margin-bottom: 25px;
+    ul{
+      padding: 25px;
+      margin: 0;
+      list-style: none;
+    }
+    .directorist-author-social {
+      padding: 22px 0 0;
+    }
+    .directorist-single-author-contact-info ul {
+      padding: 0;
+    }
+    .tagcloud {
+      margin: 0;
+      padding: 25px;
+    }
+    a {
+      text-decoration: none;
+    }
+    .directorist-search-form-box {
+      flex-direction: column;
+      .directorist-search-form-action {
+        margin-top: 25px;
+      }
+      
+    }
+    .directorist-search-form-top {
+      width: 100%;
+      .directorist-search-modal__contents__body {
+        flex-direction: column;
+        .directorist-search-modal__input {
+          width: 100%;
+          .directorist-search-field {
+            border: 0 none;
+          }
+        }
+      }
+    }
   }
-  .directorist-author-social {
-    padding: 22px 0 0;
-  }
-  .directorist-single-author-contact-info ul {
-    padding: 0;
-  }
-  .tagcloud {
-    margin: 0;
-    padding: 25px;
-  }
-  a {
-    text-decoration: none;
-  }
+
+
 }
 
 // Owner Contact Widget
@@ -48,6 +71,10 @@
       border: 1px solid var(--directorist-color-border);
       &:focus{
         border: 1px solid var(--directorist-color-dark);
+      }
+      @include e('prefix') {
+        height: 46px;
+        line-height: 46px;
       }
     }
   }
@@ -349,6 +376,10 @@
     cursor: pointer;
     &:focus {
       outline: none;
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
   .directorist-advanced-filter__action{

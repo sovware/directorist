@@ -1,6 +1,7 @@
 <?php
 
-namespace Directorist;
+namespace Directorist\Multi_Directory;
+
 class Multi_Directory_Migration {
 
     public $multi_directory_manager = null;
@@ -1041,7 +1042,7 @@ class Multi_Directory_Migration {
         if ( '0' == get_directorist_option( 'disable_list_price', true ) ) {
             $quick_info[] = [
                 "type"        => "badge",
-                "label"       => "Listings Price",
+                "label"       => "Pricing",
                 "hook"        => "atbdp_single_listings_price",
                 "widget_name" => "price",
                 "widget_key"  => "price"

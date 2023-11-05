@@ -6,7 +6,7 @@
     } else {
         return;
     }
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         /* Directorist alert dismiss */
         let getUrl = window.location.href;
         let newUrl = getUrl.replace('notice=1', '')

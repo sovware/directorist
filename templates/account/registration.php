@@ -142,7 +142,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( directorist_get_nonce_key() ) ); ?>" name="directorist_nonce">
 						</div>
 						<?php if ( ! empty( $display_login ) ) { ?>
-							<div class="directory_regi_btn">
+							<div class="directory_regi_btn directorist-author__form__toggle-area">
 								<p><?php echo esc_html( $login_text ); ?> <a href="<?php echo esc_url( $login_url ); ?>"><?php echo esc_html( $log_linkingmsg ); ?></a></p>
 							</div>
 						<?php } ?>

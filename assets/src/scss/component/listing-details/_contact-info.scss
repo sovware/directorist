@@ -10,6 +10,13 @@
         a {
             box-shadow: none;
         }
+        &.directorist-single-info-picker {
+            .directorist-field-type-color{
+                width: 30px;
+                height: 30px;
+                border-radius: 5px;
+            }
+        }
     }
     .directorist-single-info__label {
         display: flex;
@@ -59,17 +66,11 @@
 
     .directorist-single-info__value {
         flex: 1;
-        margin-top: 6px;
+        margin-top: 4px;
         color: var(--directorist-color-body);
         a{
             color: var(--directorist-color-body);
         }
-    }
-
-    &.directorist-single-info-picker .directorist-field-type-color{
-        width: 30px;
-        height: 30px;
-        border-radius: 5px;
     }
     
     @media screen and (max-width: 575px) {

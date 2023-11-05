@@ -308,8 +308,8 @@ class Directorist_Listing_Search_Form {
 						$search_form_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
 					}
 
-					if ( !empty( $submission_form_fields['fields'][$form_key]['options'] ) ) {
-						$search_form_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key]['options'];
+					if ( !empty( $submission_form_fields['fields'][$form_key] ) ) {
+						$search_form_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key];
 					}
 				}
 
@@ -385,7 +385,7 @@ class Directorist_Listing_Search_Form {
 
 		if( $submission_form_fields['fields'] ) {
 			foreach( $submission_form_fields['fields'] as $field ) {
-				if( ! empty( $field['assign_to'] ) && $field['assign_to'] == 'category' && $category_id != $field['category'] ) {
+				if( ! empty( $field['assign_to'] ) && $category_id != $field['category'] ) {
 					$custom_field_key[] = $field['field_key'];
 					$assign_to_cat[]	= $field['category'];
 				}

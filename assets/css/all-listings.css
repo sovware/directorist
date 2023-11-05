@@ -17760,14 +17760,6 @@ Review: New Style
   color: #1A1B29;
   margin: 0;
 }
-.directorist-review-content__header h3 span {
-  color: var(--directorist-color-body);
-}
-.directorist-review-content__header h3 span:before {
-  content: "-";
-  color: #8F8E9F;
-  padding-right: 5px;
-}
 .directorist-review-content__header .directorist-btn {
   font-size: 13px;
   -webkit-box-align: center;

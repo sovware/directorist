@@ -282,15 +282,6 @@ Review: New Style
             font-weight: 500;
             color: #1A1B29;
             margin: 0;
-            span {
-                color: var(--directorist-color-body);
-
-                &:before {
-                    content: "-";
-                    color: #8F8E9F;
-                    padding-right: 5px;
-                }
-            }
         }
         .directorist-btn{
             font-size: 13px;

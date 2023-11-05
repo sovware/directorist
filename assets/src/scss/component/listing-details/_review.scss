@@ -392,10 +392,22 @@ Review: New Style
                     align-items: center;
                     margin-bottom: 3px;
                     .directorist-icon-mask{
-                        &::after{
+                        &:after{
                             width: 15px;
                             height: 15px;
                             background-color: #EF8000;
+                        }
+                        &.directorist_fraction_star {
+                            position: relative;
+                            &:before {
+                                content: '';
+                                width: 100%;
+                                height: 100%;
+                                position: absolute;
+                                left: 0;
+                                mask-image: url("../../../../icons/font-awesome/svgs/solid/star-half.svg");
+                                background-color: #EF8000;
+                            }
                         }
                     }
                 }
@@ -783,7 +795,7 @@ Review: New Style
             font-size: 16px;
             font-weight: 500;
             color: #1A1B29;
-            margin-bottom: 0;
+            margin: 0;
         }
     }
 

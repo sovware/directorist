@@ -91,9 +91,24 @@ class ATBDP_Order
                 </td>
                 <td>
                     <?php
-                    $amount = get_post_meta($order_id, '_amount', true);
-                    echo esc_html( $before . $amount . $after );
-                    do_action('atbdp_email_receipt_after_total_price', $listing_id);
+                    $amount = get_post_meta( $order_id, '_amount', true );
+
+                    /**
+                     * Filter the order amount for email receipt.
+                     *
+                     * Allows developers to modify the order amount before it is used in email receipts.
+                     *
+                     * @since 7.8.0
+                     *
+                     * @param float $amount   The order amount.
+                     * @param int   $order_id The order ID.
+                     *
+                     * @return float The filtered order amount.
+                     */
+                    $total_amount = apply_filters( 'directorist_email_receipt_order_amount', $amount, $order_id );
+
+                    echo esc_html( $before . $total_amount . $after );
+                    do_action( 'atbdp_email_receipt_after_total_price', $listing_id );
                     ?>
                 </td>
             </tr>

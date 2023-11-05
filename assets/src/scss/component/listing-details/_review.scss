@@ -271,6 +271,490 @@ Review: New Style
         }
     }
 
+    .directorist-review-content {
+        @include e(header) {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 20px;
+            border: 1px solid #EFF1F6;
+            border-bottom-color: #f2f2f2;
+            background: #fff;
+            border-radius: 4px 4px 0 0;
+            h3 {
+                font-size: 16px;
+                font-weight: 500;
+                color: #1A1B29;
+                margin: 10px 0;
+
+                span {
+                    color: #525768;
+
+                    &:before {
+                        content: "-";
+                        color: #8F8E9F;
+                        padding-right: 5px;
+                    }
+                }
+            }
+            .directorist-btn{
+                align-items: center;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                .directorist-icon-mask{
+                    display: inline-block;
+                    margin-right: 4px;
+                    &::after{
+                        background-color: #fff;
+                    }
+                }
+            }
+            @include m(noreviews){
+                padding: 6px 0;
+                display: block;
+                >div{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    padding: 0 20px 6px;
+                    border-bottom: 1px solid #EFF1F6;
+                }
+            }
+            .directorist-noreviews{
+                font-size: 16px;
+                margin-bottom: 0;
+                padding: 19px 20px 15px;
+                a{
+                    color: $info;
+                }
+            }
+        }
+
+        @include e(overview) {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 30px 50px;
+            background: #fff;
+            border-radius: 0 0 4px 4px;
+            border: 1px solid #EFF1F6;
+            border-top: 0 none;
+
+            @include e(rating) {
+                flex: 0 0 50%;
+                text-align: center;
+                display: flex;
+                align-items: center;
+
+                .directorist-rating-point {
+                    font-size: 34px;
+                    font-weight: 600;
+                    color: #1A1B29;
+                    display: block;
+                    margin-right: 15px;
+                }
+
+                .directorist-rating-stars {
+                    font-size: 15px;
+                    color: #EF8000;
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 3px;
+                    .directorist-icon-mask{
+                        &:after{
+                            width: 15px;
+                            height: 15px;
+                            background-color: #EF8000;
+                        }
+                        &.directorist_fraction_star {
+                            position: relative;
+                            &:before {
+                                content: '';
+                                width: 100%;
+                                height: 100%;
+                                position: absolute;
+                                left: 0;
+                                mask-image: url("../../../../icons/font-awesome/svgs/solid/star-half.svg");
+                                background-color: #EF8000;
+                            }
+                        }
+                    }
+                }
+
+                .directorist-rating-overall {
+                    font-size: 14px;
+                    color: #8C90A4;
+                    display: block;
+                }
+            }
+
+            @include e(benchmarks) {
+                flex: 0 0 50%;
+                padding: 25px;
+
+                .directorist-benchmark-single {
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    margin: -6px;
+
+                    &>* {
+                        margin: 6px !important;
+                    }
+
+                    label {
+                        flex: .1;
+                        min-width: 70px;
+                        display: inline-block;
+                        word-wrap: break-word;
+                        word-break: break-all;
+                        margin-bottom: 0;
+                        font-size: 15px;
+                        color: #525768;
+                    }
+
+                    progress {
+                        flex: 1.5;
+                        border-radius: 2px;
+                        height: 5px;
+                        box-shadow: none;
+                    }
+
+                    progress::-webkit-progress-bar {
+                        background-color: #F2F3F5;
+                        border-radius: 2px;
+                    }
+
+                    progress::-webkit-progress-value {
+                        background-color: #EF8000;
+                        border-radius: 2px;
+                        box-shadow: none;
+                    }
+
+                    progress::-moz-progress-bar {
+                        background-color: #F2F3F5;
+                        border-radius: 2px;
+                    }
+
+                    progress::-moz-progress-value {
+                        background-color: #EF8000;
+                        border-radius: 2px;
+                        box-shadow: none;
+                    }
+
+                    strong {
+                        flex: .1;
+                        font-size: 15px;
+                        font-weight: 500;
+                        color: #090E30;
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+        @include e(reviews) {
+            &, ul {
+                padding: 0;
+                margin: 10px 0 0 0;
+                list-style-type: none;
+                li{
+                    list-style-type: none;
+                    margin-left: 0;
+                }
+            }
+
+            & > li{
+                border: 1px solid #EFF1F6;
+                &:not(:last-child) {
+                    margin-bottom: 10px;
+                }
+            }
+
+            .directorist-comment-edit-request {
+                position: relative;
+                &::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 100%;
+                    z-index: 99;
+                    background-color: rgba(255, 255, 255, .8);
+                    border-radius: 4px;
+                }
+
+                &::before {
+                    position: absolute;
+                    z-index: 100;
+                    left: 50%;
+                    top: 50%;
+                    display: block;
+                    content: "";
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    border: 2px solid rgba(0, 0, 0, 0.2);
+                    border-top-color: rgba(0, 0, 0, 0.8);
+                    animation: directoristCommentEditLoading .6s linear infinite;
+                }
+            }
+
+            .directorist-comment-editing {
+                .directorist-review-single__report,
+                .directorist-review-single__content,
+                .directorist-review-single__reply {
+                    display: none;
+                }
+            }
+
+            .directorist-review-single {
+                padding: 25px;
+                background: #fff;
+                border-radius: 4px;
+
+                a{
+                    text-decoration: none;
+                }
+
+                .comment-body{
+                    margin-bottom: 0;
+                    padding: 0;
+                }
+
+                .directorist-review-single__contents-wrap {
+                    margin: 0;
+                    .directorist-review-single__header {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        margin-bottom: 20px;
+
+                        .directorist-review-single__author {
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: center;
+                            margin: -8px;
+
+                            @include e(img) {
+                                padding: 8px;
+
+                                img {
+                                    width: 50px;
+                                    object-fit: cover;
+                                    border-radius: 50%;
+                                    position: static;
+                                }
+                            }
+
+                            @include e(details) {
+                                padding: 8px;
+                                flex: 1;
+
+                                h2 {
+                                    font-size: 15px;
+                                    font-weight: 500;
+                                    color: #090E30;
+                                    margin: 0 0 5px;
+                                    &:before,
+                                    &:after{
+                                        content: none;
+                                    }
+
+                                    time {
+                                        display: inline-block;
+                                        font-size: 14px;
+                                        color: #8C90A4;
+
+                                        &::before {
+                                            content: '-';
+                                            padding-right: 8px;
+                                            padding-left: 3px;
+                                        }
+                                    }
+                                }
+
+                                .directorist-rating-stars {
+                                    font-size: 11px;
+                                    color: #EF8000;
+                                    display: flex;
+                                    align-items: center;
+                                    margin-bottom: 3px;
+                                    .directorist-icon-mask{
+                                        &::after{
+                                            width: 11px;
+                                            height: 11px;
+                                            background-color: #EF8000;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .directorist-review-single__report {
+                            a {
+                                font-size: 13px;
+                                color: #8C90A4;
+                                display: block;
+                            }
+                        }
+                    }
+
+                    .directorist-review-single__content {
+                        font-size: 16px;
+                        @include e(img) {
+                            display: flex;
+                            flex-wrap: wrap;
+                            margin: 15px -5px 0;
+
+                            img {
+                                max-width: 100px;
+                                object-fit: cover;
+                                margin: 5px;
+                                border-radius: 6px;
+                            }
+                        }
+                    }
+                }
+
+                @include e(feedback) {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    margin: 15px -5px 0;
+
+                    a {
+                        margin: 5px;
+                        font-size: 13px;
+                    }
+                }
+
+                @include e(reply) {
+                    margin: 20px -8px 0;
+                    display: flex;
+                    align-items: center;
+
+                    a {
+                        color: #8C90A4;
+                        font-size: 13px;
+                        display: block;
+                        margin: 0 8px;
+                        background: none;
+                        &.directorist-comment-edit-link{
+                            display: inline-flex;
+                            align-items: center;
+                            .directorist-icon-mask{
+                                margin-right: 3px;
+                                &::after{
+                                    width: 0.9em;
+                                    height: 0.9em;
+                                    background-color: #8C90A4;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @include e(comments) {
+
+                    .directorist-review-single--comment {
+                        padding-left: 40px;
+
+                        /* &:last-child {
+                            padding-bottom: 0;
+                        } */
+
+                        .directorist-review-single__contents-wrap {
+                            position: relative;
+
+                            &::before {
+                                content: '';
+                                height: 100%;
+                                background: #F2F2F2;
+                                width: 2px;
+                                left: -20px;
+                                position: absolute;
+                                top: 0;
+                            }
+                        }
+                    }
+                }
+                .directorist-review-submit {
+                    margin-top: 0 !important;
+                    margin-bottom: 0 !important;
+                    border: 0 none !important;
+                    @include e(header){
+                        padding-left: 0;
+                        padding-right: 0;
+
+                        h3 {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            max-width: 100%;
+                            width: 100%;
+                            margin: 0 !important;
+                        }
+                    }
+                    // @include e(form){
+                    // }
+                }
+            }
+        }
+
+        @include e(pagination) {
+            padding: 0;
+            margin: 25px 0 0;
+            ul {
+                border: 0 none;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                margin: -4px;
+                padding-top: 0;
+                list-style-type: none;
+                height: auto;
+                background: none;
+                li {
+                    padding: 4px;
+                    list-style-type: none;
+
+                    .page-numbers {
+                        width: 40px;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 6px;
+                        border: 1px solid #E1E4EC;
+                        color: #090E30;
+                        font-weight: 500;
+                        font-size: 14px;
+                        background: #fff;
+                    }
+
+                    .page-numbers.current {
+                        border-color: #090E30;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.directorist-review-submit {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #EFF1F6;
+
     @include e(header) {
         display: flex;
         flex-wrap: wrap;

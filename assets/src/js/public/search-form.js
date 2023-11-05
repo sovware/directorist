@@ -628,6 +628,7 @@ import { directorist_range_slider } from './range-slider';
 
                     $search_form_box.removeClass('atbdp-form-fade');
                     initSearchFields();
+                    initSearchFields();
                   },
                   error: function error(_error) {
                     //console.log(_error);

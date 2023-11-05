@@ -259,7 +259,7 @@
         });
 
 
-        $('body').on('input keyup change', '.directorist-instant-search .directorist-archive-contents form', function(e) {
+        $('body').on('input keyup change', '.directorist-archive-contents form', function(e) {
             if(e.target.classList.contains('directorist-location-js')) {
                 sliderObserver();
             }
@@ -285,6 +285,7 @@
                 const observerCallback = (mutationList, observer) => {
                     for (const mutation of mutationList) {
                         if (mutation.attributeName == 'value') {
+                            console.log('Mutation detected');
                             clearTimeout(timeout);
                             timeout = setTimeout(() => {
                                 allListingSlider();

@@ -341,7 +341,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       }, 1000);
     });
-    $('body').on('input keyup change', '.directorist-instant-search .directorist-archive-contents form', function (e) {
+    $('body').on('input keyup change', '.directorist-archive-contents form', function (e) {
       if (e.target.classList.contains('directorist-location-js')) {
         sliderObserver();
       }
@@ -369,6 +369,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               var mutation = _step.value;
 
               if (mutation.attributeName == 'value') {
+                console.log('Mutation detected');
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
                   allListingSlider();

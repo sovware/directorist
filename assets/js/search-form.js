@@ -1605,6 +1605,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
             $search_form_box.removeClass('atbdp-form-fade');
             initSearchFields();
+            initSearchFields();
           },
           error: function error(_error) {//console.log(_error);
           }

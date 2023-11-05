@@ -11124,7 +11124,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media screen and (max-width: 575px) {
   .listing-with-sidebar .directorist-search-field .directorist-filter-location-icon {
-    left: 0;
+    left: -15px;
   }
 }
 .listing-with-sidebar .directorist-search-field.input-is-focused .directorist-search-field__input[type=number] {

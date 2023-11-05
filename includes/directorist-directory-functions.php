@@ -147,3 +147,37 @@ function directorist_set_listing_directory( $listing_id, $directory_id ) {
 
 	return true;
 }
+
+function directorist_get_single_listing_fields( int $directory_id ) {
+	$single_listing_data = directorist_get_directory_meta( $directory_id, 'single_listings_contents' );
+	$_fields             = directorist_get_var( $single_listing_data['fields'], array() );
+	$_groups             = directorist_get_var( $single_listing_data['groups'], array() );
+	$form_fields         = directorist_get_listing_form_fields( $directory_id );
+
+	$fields_keys = array();
+	$fields      = array();
+
+	foreach ( $_groups as $group ) {
+		$fields_keys = array_merge( $fields_keys, $group['fields'] );
+	}
+
+	foreach ( $fields_keys as $field_key ) {
+		if ( ! is_array( $_fields[ $field_key ] ) ) {
+			continue;
+		}
+
+		if ( ! isset( $_fields[ $field_key ]['original_widget_key'] ) || ! isset( $form_fields[ $_fields[ $field_key ]['original_widget_key'] ] ) ) {
+			continue;
+		}
+
+		$fields[ $field_key ] = $_fields[ $field_key ];
+	}
+
+	return $fields;
+}
+
+function directorist_get_single_listing_groups( int $directory_id ) {
+	$form_data = directorist_get_directory_meta( $directory_id, 'single_listings_contents' );
+
+	return directorist_get_var( $form_data['groups'], array() );
+}

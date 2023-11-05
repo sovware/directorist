@@ -1,7 +1,6 @@
 // All Listing Slider
 (function ($) {
     function allListingSlider() {
-
         /* Check Slider Data */
         let checkData = function (data, value) {
             return typeof data === 'undefined' ? value : data;
@@ -250,9 +249,9 @@
 
         allListingSlider();
 
-        $('body').on('click', '.directorist-viewas__item, .directorist-instant-search .directorist-search-field__btn--clear', function(e) {
+        $('body').on('click', '.directorist-viewas__item, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function(e) {
             setTimeout(() => {
-                if($('directorist-archive-items .directorist-swiper-listing')) {
+                if($('.directorist-archive-items .directorist-swiper-listing')) {
                     allListingSlider();
                 }
             }, 1000)
@@ -276,16 +275,15 @@
 
     // Function to set up the Mutation Observer on Range Slider
     function sliderObserver() {
-        let targetNodes = document.querySelectorAll('.directorist-range-slider-value');
+        let rangeSliders = document.querySelectorAll('.directorist-range-slider-value');
 
-        targetNodes.forEach((targetNode) => {
+        rangeSliders.forEach((rangeSlider) => {
 
-            if (targetNode) {
+            if (rangeSlider) {
                 let timeout;
                 const observerCallback = (mutationList, observer) => {
                     for (const mutation of mutationList) {
                         if (mutation.attributeName == 'value') {
-                            console.log('Mutation detected');
                             clearTimeout(timeout);
                             timeout = setTimeout(() => {
                                 allListingSlider();
@@ -295,7 +293,7 @@
                 };
         
                 const observer = new MutationObserver(observerCallback);
-                observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
+                observer.observe(rangeSlider, { attributes: true, childList: true, subtree: true });
             }
         })
     }

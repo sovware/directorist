@@ -334,9 +334,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
   window.addEventListener('DOMContentLoaded', function () {
     allListingSlider();
-    $('body').on('click', '.directorist-viewas__item, .directorist-instant-search .directorist-search-field__btn--clear', function (e) {
+    $('body').on('click', '.directorist-viewas__item, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function (e) {
       setTimeout(function () {
-        if ($('directorist-archive-items .directorist-swiper-listing')) {
+        if ($('.directorist-archive-items .directorist-swiper-listing')) {
           allListingSlider();
         }
       }, 1000);
@@ -355,9 +355,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   }); // Function to set up the Mutation Observer on Range Slider
 
   function sliderObserver() {
-    var targetNodes = document.querySelectorAll('.directorist-range-slider-value');
-    targetNodes.forEach(function (targetNode) {
-      if (targetNode) {
+    var rangeSliders = document.querySelectorAll('.directorist-range-slider-value');
+    rangeSliders.forEach(function (rangeSlider) {
+      if (rangeSlider) {
         var timeout;
 
         var observerCallback = function observerCallback(mutationList, observer) {
@@ -369,7 +369,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               var mutation = _step.value;
 
               if (mutation.attributeName == 'value') {
-                console.log('Mutation detected');
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
                   allListingSlider();
@@ -384,7 +383,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         };
 
         var observer = new MutationObserver(observerCallback);
-        observer.observe(targetNode, {
+        observer.observe(rangeSlider, {
           attributes: true,
           childList: true,
           subtree: true

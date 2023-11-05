@@ -2,11 +2,13 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.3.1
+ * @version 7.8.0
  */
 
+use \Directorist\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
-$videourl   = ! empty( $videourl ) ? esc_attr( ATBDP()->atbdp_parse_videos( $videourl ) ) : '';
+$videourl   = ! empty( $videourl ) ? Helper::parse_video( $videourl ) : '';
 ?>
 
 <div class="atbdp">

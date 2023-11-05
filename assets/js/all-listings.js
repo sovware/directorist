@@ -2432,41 +2432,43 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   }
 
   function initObserver() {
-    var targetNode = document.querySelector('.directorist-instant-search .directorist-range-slider-value');
-    var searchElm = $(document.querySelector('.directorist-instant-search form'));
+    var targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-range-slider-value');
+    targetNodes.forEach(function (targetNode) {
+      var searchElm = $(targetNode.closest('form'));
 
-    if (targetNode) {
-      var timeout;
+      if (targetNode) {
+        var timeout;
 
-      var observerCallback = function observerCallback(mutationList, observer) {
-        var _iterator = _createForOfIteratorHelper(mutationList),
-            _step;
+        var observerCallback = function observerCallback(mutationList, observer) {
+          var _iterator = _createForOfIteratorHelper(mutationList),
+              _step;
 
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var mutation = _step.value;
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var mutation = _step.value;
 
-            if (mutation.attributeName == 'value') {
-              clearTimeout(timeout);
-              timeout = setTimeout(function () {
-                filterListing(searchElm);
-              }, 250);
+              if (mutation.attributeName == 'value') {
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                  filterListing(searchElm);
+                }, 250);
+              }
             }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
           }
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
-        }
-      };
+        };
 
-      var observer = new MutationObserver(observerCallback);
-      observer.observe(targetNode, {
-        attributes: true,
-        childList: true,
-        subtree: true
-      });
-    }
+        var observer = new MutationObserver(observerCallback);
+        observer.observe(targetNode, {
+          attributes: true,
+          childList: true,
+          subtree: true
+        });
+      }
+    });
   }
 
   function directorist_debounce(func, wait, immediate) {

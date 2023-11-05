@@ -1002,20 +1002,25 @@ import { directorist_range_slider } from './range-slider';
         }
         
         function rangeSliderObserver() {
-            let targetNode = document.querySelector('.directorist-range-slider-value');
+            let targetNodes = document.querySelectorAll('.directorist-range-slider-value');
 
-            if(targetNode){
-                let observerCallback = (mutationList, observer) => {
-                    for (let mutation of mutationList) {
-                        if (mutation.attributeName == 'value') {
-                            sliderValueCheck(targetNode, parseInt(targetNode.value));
+            targetNodes.forEach((targetNode) => {
+                if(targetNode){
+                    let observerCallback = (mutationList, observer) => {
+                        for (let mutation of mutationList) {
+                            if (mutation.attributeName == 'value') {
+                                sliderValueCheck(targetNode, parseInt(targetNode.value));
+                            }
                         }
-                    }
-                };
+                    };
+    
+                    let sliderObserver = new MutationObserver( observerCallback );
+                    sliderObserver.observe( targetNode, { attributes: true } );
+                }
+                   
+            
+            })
 
-                let sliderObserver = new MutationObserver( observerCallback );
-                sliderObserver.observe( targetNode, { attributes: true } );
-            }
         }
 
         rangeSliderObserver();

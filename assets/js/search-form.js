@@ -909,9 +909,10 @@ var directorist_range_slider = function directorist_range_slider(selector, obj) 
     slide1.style.background = obj.pointerColor;
     slide1.style.border = obj.pointerBorder;
     id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = "<span>".concat(min, "</span> ").concat(sliderDataUnit);
+    var sliderValue = id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value;
     var x = null,
         count = 0,
-        slid1_val = 0,
+        slid1_val = sliderValue,
         slid1_val2 = sliderDataMin,
         count2 = width;
 
@@ -1945,33 +1946,34 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
 
     function rangeSliderObserver() {
-      var targetNode = document.querySelector('.directorist-range-slider-value');
+      var targetNodes = document.querySelectorAll('.directorist-range-slider-value');
+      targetNodes.forEach(function (targetNode) {
+        if (targetNode) {
+          var observerCallback = function observerCallback(mutationList, observer) {
+            var _iterator = _createForOfIteratorHelper(mutationList),
+                _step;
 
-      if (targetNode) {
-        var observerCallback = function observerCallback(mutationList, observer) {
-          var _iterator = _createForOfIteratorHelper(mutationList),
-              _step;
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var mutation = _step.value;
 
-          try {
-            for (_iterator.s(); !(_step = _iterator.n()).done;) {
-              var mutation = _step.value;
-
-              if (mutation.attributeName == 'value') {
-                sliderValueCheck(targetNode, parseInt(targetNode.value));
+                if (mutation.attributeName == 'value') {
+                  sliderValueCheck(targetNode, parseInt(targetNode.value));
+                }
               }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
             }
-          } catch (err) {
-            _iterator.e(err);
-          } finally {
-            _iterator.f();
-          }
-        };
+          };
 
-        var sliderObserver = new MutationObserver(observerCallback);
-        sliderObserver.observe(targetNode, {
-          attributes: true
-        });
-      }
+          var sliderObserver = new MutationObserver(observerCallback);
+          sliderObserver.observe(targetNode, {
+            attributes: true
+          });
+        }
+      });
     }
 
     rangeSliderObserver();

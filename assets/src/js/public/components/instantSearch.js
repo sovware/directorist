@@ -1083,25 +1083,29 @@ import {
     }
 
     function initObserver() {
-        let targetNode = document.querySelector('.directorist-instant-search .directorist-range-slider-value');
-        let searchElm = $(document.querySelector('.directorist-instant-search form'));
-        if (targetNode) {
-            let timeout;
-    
-            const observerCallback = (mutationList, observer) => {
-                for (const mutation of mutationList) {
-                    if (mutation.attributeName == 'value') {
-                        clearTimeout(timeout);
-                        timeout = setTimeout(() => {
-                            filterListing(searchElm);
-                        }, 250);
+        let targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-range-slider-value');
+
+        targetNodes.forEach((targetNode) => {
+
+            let searchElm = $(targetNode.closest('form'));
+
+            if (targetNode) {
+                let timeout;
+                const observerCallback = (mutationList, observer) => {
+                    for (const mutation of mutationList) {
+                        if (mutation.attributeName == 'value') {
+                            clearTimeout(timeout);
+                            timeout = setTimeout(() => {
+                                filterListing(searchElm);
+                            }, 250);
+                        }
                     }
-                }
-            };
-    
-            const observer = new MutationObserver(observerCallback);
-            observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
-        }
+                };
+        
+                const observer = new MutationObserver(observerCallback);
+                observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
+            }
+        })
     }
 
     function directorist_debounce(func, wait, immediate) {

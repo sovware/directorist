@@ -1752,12 +1752,12 @@ function the_atbdp_favourites_link( $post_id = 0 ) {
 
         $favourites = directorist_get_user_favorites( get_current_user_id() );
         if ( in_array( $post_id, $favourites ) ) {
-            return directorist_icon( 'las la-heart', false, 'directorist-added-to-favorite') . '<a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
+            return directorist_icon( 'las la-heart', false, 'directorist-added-to-favorite') . '<a href="#" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         } else {
-            return directorist_icon( 'las la-heart', false ) . '<a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
+            return directorist_icon( 'las la-heart', false ) . '<a href="#" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         }
     } else {
-        return '<a href="javascript:void(0)" class="atbdp-require-login">'.directorist_icon( 'las la-heart', false ).'</a>';
+        return '<a href="#" class="atbdp-require-login">'.directorist_icon( 'las la-heart', false ).'</a>';
     }
 }
 
@@ -3995,7 +3995,11 @@ function directorist_get_page_id( string $page_name = '' ) : int {
     return (int) apply_filters( 'directorist_page_id', $page_id, $page_name );
 }
 
-function directorist_password_reset_url(\Wp_User $user, $password_reset = true, $confirm_mail = false) {
+function directorist_password_reset_url( $user, $password_reset = true, $confirm_mail = false) {
+
+    if ( ! $user instanceof \Wp_User ) {
+        return;
+    }
 
     $args = array(
         'user' => $user->user_email
@@ -4118,4 +4122,79 @@ function directorist_maybe_number( $item ) {
 	}
 
 	return ( float ) $item;
+}
+
+function directorist_generate_password_reset_code_transient_key( $data ) {
+	return 'directorist_' . wp_hash( $data );
+}
+
+function directorist_set_password_reset_code_transient( $user, $code ) {
+	set_transient( directorist_generate_password_reset_code_transient_key( $user->user_email ), $code, MINUTE_IN_SECONDS * 5 );
+}
+
+function directorist_get_password_reset_code_transient( $user ) {
+	return get_transient( directorist_generate_password_reset_code_transient_key( $user->user_email ) );
+}
+
+function directorist_delete_password_reset_code_transient( $user ) {
+	delete_transient( directorist_generate_password_reset_code_transient_key( $user->user_email ) );
+}
+
+function directorist_generate_password_reset_pin_code( $user ) {
+	$password_reset_key = wp_generate_password( 12, false, false );
+	$pin_code           = substr( $password_reset_key, 0, 4 );
+	$tail_code          = substr( $password_reset_key, 4 );
+
+	directorist_set_password_reset_code_transient( $user, $tail_code );
+	update_user_meta( $user->ID, 'directorist_pasword_reset_key', wp_hash_password( $password_reset_key ) );
+
+	return $pin_code;
+}
+
+function directorist_check_password_reset_pin_code( $user, $pin_code ) {
+	global $wp_hasher;
+
+	$tail_code = directorist_get_password_reset_code_transient( $user );
+
+	if ( empty( $tail_code ) ) {
+		return false;
+	}
+
+	$reset_key      = $pin_code . $tail_code;
+	$reset_key_hash = get_user_meta( $user->ID, 'directorist_pasword_reset_key', true );
+
+	if ( empty( $reset_key_hash ) ) {
+		return false;
+	}
+
+	/*
+	 * If the stored hash is longer than an MD5,
+	 * presume the new style phpass portable hash.
+	 */
+	if ( empty( $wp_hasher ) ) {
+		require_once ABSPATH . WPINC . '/class-phpass.php';
+		// By default, use the portable hash from phpass.
+		$wp_hasher = new PasswordHash( 8, true );
+	}
+
+	return $wp_hasher->CheckPassword( $reset_key, $reset_key_hash );
+}
+function directorist_validate_youtube_vimeo_url( $url ) {
+    if ( preg_match( '/^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)/i', $url ) ) {
+        return true;
+    }
+
+    if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/i', $url ) ) {
+        return true;
+    }
+
+	if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]+)(\S+)?$/i', $url ) ) {
+        return true;
+    }
+
+    return false;
+}
+
+function directorist_is_listing_post_type( $listing_id ) {
+	return ( get_post_type( absint( $listing_id ) ) === ATBDP_POST_TYPE );
 }

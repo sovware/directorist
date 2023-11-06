@@ -309,7 +309,7 @@ class Directorist_Single_Listing {
 				foreach( $data['options'] as $option ) {
 					$key = $option['option_value'];
 					if( $key === $value ) {
-						$result = $option['option_label'];
+						$result = $value;
 						break;
 					}
 				}

@@ -7900,7 +7900,8 @@ p.atbd-min {
 }
 .directorist-form-group textarea,
 .directorist-form-group textarea.directorist-form-element {
-  min-height: 120px;
+  min-height: unset;
+  height: auto;
 }
 
 .directorist-form-group .directorist-form-element {

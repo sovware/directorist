@@ -436,6 +436,10 @@ function initSelect2AjaxFields() {
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
+  });
+  initSelect2AjaxTaxonomy({
+    selector: $('.directorist-form-categories-field').find('select'),
+    url: "".concat(rest_base_url, "/listings/categories")
   }); // Init Select2 Ajax Location Field
 
   initSelect2AjaxTaxonomy({

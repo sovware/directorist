@@ -3,7 +3,7 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.0
 Stable tag: 7.8.0
 License: GPLv3
@@ -410,9 +410,9 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.8.0 - Nov 09, 2023
+7.8.0 - Nov 12, 2023
 
-* Fix - Review submission captcha issue (#1619)
+* Fix - Review submission captcha and guest user issues (#1619)
 * Fix - javascript:void(0) issue creating trouble for SEO (#1607)
 * Fix - Fatal error when no listings reference in an order (#1595)
 * Fix - Translate issue (#1575)

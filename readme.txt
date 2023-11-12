@@ -412,7 +412,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 7.8.0 - Nov 12, 2023
 
-* Fix - Review submission captcha and guest issues (#1619)
+* Fix - Review submission captcha and guest user issues (#1619)
 * Fix - javascript:void(0) issue creating trouble for SEO (#1607)
 * Fix - Fatal error when no listings reference in an order (#1595)
 * Fix - Translate issue (#1575)

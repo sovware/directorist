@@ -3,6 +3,7 @@
 import {
     get_dom_data
 } from './../../../lib/helper';
+import debounce from '../../components/debounce';
 
 (function ($) {
     function initAddListingMap() {
@@ -64,7 +65,7 @@ import {
                 if (!document.fullscreenElement && !document.webkitFullscreenElement) {
                     if (mapContainer.requestFullscreen) {
                         mapContainer.requestFullscreen();
-                        
+
                         fullScreenEnable.style.display="none";
                         fullScreenDisable.style.display="block";
                     } else if (mapContainer.webkitRequestFullscreen) {
@@ -73,7 +74,7 @@ import {
                 } else {
                     if (document.exitFullscreen) {
                         document.exitFullscreen();
-                        
+
                         fullScreenDisable.style.display="none";
                         fullScreenEnable.style.display="block";
                     } else if (document.webkitExitFullscreen) {
@@ -88,25 +89,10 @@ import {
             });
         }
 
-        function directorist_debounce(func, wait, immediate) {
-            var timeout;
-            return function() {
-                var context = this, args = arguments;
-                var later = function() {
-                    timeout = null;
-                    if (!immediate) func.apply(context, args);
-                };
-                var callNow = immediate && !timeout;
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-                if (callNow) func.apply(context, args);
-            };
-        };
-
         $('.directorist-location-js').each(function (id, elm) {
             const result_container = $(elm).siblings('.address_result');
 
-            $(elm).on('keyup', directorist_debounce(function (event) {
+            $(elm).on('keyup', debounce(function (event) {
                 event.preventDefault();
 
                 const blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];

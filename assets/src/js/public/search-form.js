@@ -5,6 +5,7 @@ import './../global/components/setup-select2';
 import './../global/components/select2-custom-control';
 import { directorist_callingSlider } from './range-slider';
 import { directorist_range_slider } from './range-slider';
+import debounce from '../global/components/debounce';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
@@ -56,7 +57,7 @@ import { directorist_range_slider } from './range-slider';
         // Check Empty Search Fields on Search Modal
         function initSearchFields(){
             let inputFields = document.querySelectorAll('.directorist-search-modal__input');
-        
+
             inputFields.forEach((inputField)=>{
                 let searchField = inputField.querySelector('.directorist-search-field');
                 if(!searchField){
@@ -71,7 +72,7 @@ import { directorist_range_slider } from './range-slider';
                 if(searchField.classList.contains('directorist-select')) {
                     inputFieldValue = searchField.querySelector('select').dataset.selectedId;
                 }
-                
+
                 if (inputFieldValue !='') {
                     searchField.parentElement.classList.add('input-has-value');
                     if(!searchField.parentElement.classList.contains('input-is-focused')) {
@@ -120,7 +121,7 @@ import { directorist_range_slider } from './range-slider';
                 let resetButtonWrapper = searchForm.querySelector('.directorist-advanced-filter__action');
                 resetButtonWrapper && resetButtonWrapper.classList.add('reset-btn-disabled');
             }
-            
+
         }
 
         // Enable Reset Button
@@ -178,7 +179,7 @@ import { directorist_range_slider } from './range-slider';
         function adsFormReset(searchForm) {
             searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
                 el.value = "";
-                
+
                 if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
                     el.parentElement.classList.remove('input-has-value', 'input-is-focused');
                 }
@@ -191,14 +192,14 @@ import { directorist_range_slider } from './range-slider';
             });
             searchForm.querySelectorAll("input[type='url']").forEach(function (el) {
                 el.value = "";
-                
+
                 if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
                     el.parentElement.classList.remove('input-has-value', 'input-is-focused');
                 }
             });
             searchForm.querySelectorAll("input[type='number']").forEach(function (el) {
                 el.value = "";
-                
+
                 if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
                     el.parentElement.classList.remove('input-has-value', 'input-is-focused');
                 }
@@ -244,7 +245,7 @@ import { directorist_range_slider } from './range-slider';
             handleRadiusVisibility();
 
             initForm(searchForm);
-            
+
         }
 
         /* Advance Search Filter For Search Home Short Code */
@@ -294,7 +295,7 @@ import { directorist_range_slider } from './range-slider';
             }
 
             // Modal Content Style
-            if(modalContent) { 
+            if(modalContent) {
                 modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
             }
         }
@@ -334,7 +335,7 @@ import { directorist_range_slider } from './range-slider';
 
                 searchModalOpen(searchModalElement)
             }
-            
+
         });
 
         // Search Modal Close
@@ -376,7 +377,7 @@ import { directorist_range_slider } from './range-slider';
 
             let inputBox = searchField.querySelector('.directorist-search-field__input');
             let inputFieldValue = inputBox.value;
-            
+
             if (inputFieldValue) {
                 searchField.classList.add('input-has-value');
                 if(!searchField.classList.contains('input-is-focused')) {
@@ -411,9 +412,9 @@ import { directorist_range_slider } from './range-slider';
                     } else {
                         searchField.classList.remove('input-is-focused');
                     }
-                } 
+                }
             }
-                
+
         }
 
         // Search Field Input Focusout Event Check
@@ -424,7 +425,7 @@ import { directorist_range_slider } from './range-slider';
             $('body').one('click', function(e) {
                 inputFieldValue = inputBox.querySelector('select').value;
                 let parentWithClass = e.target.closest('.directorist-search-field__input');
-    
+
                 if (!parentWithClass) {
                     if(inputFieldValue) {
                         searchField.classList.add('input-has-value');
@@ -434,8 +435,8 @@ import { directorist_range_slider } from './range-slider';
                     } else {
                         searchField.classList.remove('input-is-focused');
                     }
-                } 
-    
+                }
+
             });
         }
 
@@ -476,7 +477,7 @@ import { directorist_range_slider } from './range-slider';
             let searchform = this.closest('form');
             let inputValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input').val();
             let selectValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input select').val();
-            
+
             if(inputValue && inputValue !== 0 && inputValue !== undefined || selectValue && selectValue.selectedIndex === 0 ||  selectValue && selectValue.selectedIndex !== undefined) {
                 enableResetButton(searchform);
             } else {
@@ -640,7 +641,7 @@ import { directorist_range_slider } from './range-slider';
         // Back Button to go back to the previous page
         $('body').on('click', '.directorist-btn__back', function(e) {
             e.preventDefault();
-            
+
             window.history.back();
         });
 
@@ -656,7 +657,7 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
         }
-        
+
         $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
             handleRadiusVisibility();
         });
@@ -775,7 +776,7 @@ import { directorist_range_slider } from './range-slider';
                         return;
                     }
 
-                    $(field.input_elm).on('keyup', directorist_debounce(function (event) {
+                    $(field.input_elm).on('keyup', debounce(function (event) {
                         event.preventDefault();
 
                         let blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
@@ -928,30 +929,11 @@ import { directorist_range_slider } from './range-slider';
                 observer.observe( targetNode, { attributes: true } );
             }
         }
-        
+
         locationObserver();
         handleRadiusVisibility();
 
-        // Returns a function, that, as long as it continues to be invoked, will not
-        // be triggered. The function will be called after it stops being called for
-        // N milliseconds. If `immediate` is passed, trigger the function on the
-        // leading edge, instead of the trailing.
-        function directorist_debounce(func, wait, immediate) {
-            let timeout;
-            return function() {
-                let context = this, args = arguments;
-                let later = function() {
-                    timeout = null;
-                    if (!immediate) func.apply(context, args);
-                };
-                let callNow = immediate && !timeout;
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-                if (callNow) func.apply(context, args);
-            };
-        };
-
-        $('body').on("keyup", '.zip-radius-search', directorist_debounce( function(){
+        $('body').on("keyup", '.zip-radius-search', debounce( function(){
             let zipcode         = $(this).val();
             let zipcode_search  = $(this).closest('.directorist-zipcode-search');
             let country_suggest = zipcode_search.find('.directorist-country');
@@ -1001,7 +983,7 @@ import { directorist_range_slider } from './range-slider';
                 initForm(searchForm);
             }
         }
-        
+
         function rangeSliderObserver() {
             let targetNodes = document.querySelectorAll('.directorist-range-slider-value');
 
@@ -1014,12 +996,12 @@ import { directorist_range_slider } from './range-slider';
                             }
                         }
                     };
-    
+
                     let sliderObserver = new MutationObserver( observerCallback );
                     sliderObserver.observe( targetNode, { attributes: true } );
                 }
-                   
-            
+
+
             })
 
         }

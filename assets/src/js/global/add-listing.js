@@ -5,6 +5,7 @@ import '../public/components/colorPicker';
 import '../global/components/setup-select2';
 import loadCategoryCustomFields from '../global/components/load-category-custom-fields';
 import { getCategoryCustomFieldsCache, cacheCategoryCustomFields } from '../global/components/cache-category-custom-fields';
+import debounce from './components/debounce';
 
 /* eslint-disable */
 const $ = jQuery;
@@ -245,7 +246,6 @@ $(function() {
                 allowClear: true,
             });
         }
-
     }
 
     // price range
@@ -253,7 +253,7 @@ $(function() {
         $('#price').show();
         $('#price_range').hide();
     }
-    
+
     $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
         const $this = $(this);
         if ($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true) {
@@ -392,23 +392,28 @@ $(function() {
     // Create container div after category (in frontend)
     $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>');
 
-    // Render category based fields in first load
-    renderCategoryCustomFields();
+    if ( ! directorist.is_admin ) {
+        $( '#at_biz_dir-categories' ).on( 'select2:select', () => {
+            $( '#at_biz_dir-categories' ).trigger( 'change' );
+        } );
+    }
 
-    // Cache category custom fields.
-    cacheCategoryCustomFields();
-
-    // Render category based fields on category change (frontend)
-    $('#at_biz_dir-categories').on( 'change', function() {
+    window.addEventListener( 'directorist-type-change', function() {
         renderCategoryCustomFields();
         cacheCategoryCustomFields();
     } );
 
-    // Render category based fields on category change (backend)
-    $('#at_biz_dir-categorychecklist').on('change', function (event) {
+    // Render category based fields on category change (frontend)
+    $( '#at_biz_dir-categories' ).on( 'change', debounce( () => {
         renderCategoryCustomFields();
         cacheCategoryCustomFields();
-    });
+    }, 270 ) );
+
+    // Render category based fields on category change (backend)
+    $( '#at_biz_dir-categorychecklist' ).on( 'change', debounce( () => {
+        renderCategoryCustomFields();
+        cacheCategoryCustomFields();
+    }, 270 ) );
 
     const uploaders = localized_data.media_uploader;
     let mediaUploaders = [];
@@ -751,8 +756,8 @@ $(function() {
         });
     });
 
-    function addSticky () {
-        $(window).scroll(function() {
+    function addSticky() {
+        $(window).scroll( debounce( function() {
             var windowWidth = $(window).width();
             var sidebarWidth = $(".multistep-wizard__nav").width();
             var sidebarHeight = $(".multistep-wizard__nav").height();
@@ -782,17 +787,13 @@ $(function() {
                 $(".multistep-wizard__nav").removeClass("sticky");
                 $(".multistep-wizard__content").css("padding-left", '0px')
             }
-        });
-
+        }, 100 ) );
     }
 
     addSticky ();
-
     multiStepWizard();
-
     defaultAddListing()
-
-})
+} );
 
 // MultiStep Wizard
 function multiStepWizard() {

@@ -106,11 +106,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
 /* harmony import */ var _global_components_load_category_custom_fields__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../global/components/load-category-custom-fields */ "./assets/src/js/global/components/load-category-custom-fields.js");
 /* harmony import */ var _global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../global/components/cache-category-custom-fields */ "./assets/src/js/global/components/cache-category-custom-fields.js");
+/* harmony import */ var _components_debounce__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/debounce */ "./assets/src/js/global/components/debounce.js");
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 // General Components
+
 
 
 
@@ -463,24 +465,27 @@ $(function () {
 
   // Create container div after category (in frontend)
   $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>');
-
-  // Render category based fields in first load
-  renderCategoryCustomFields();
-
-  // Cache category custom fields.
-  Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_6__["cacheCategoryCustomFields"])();
+  if (!directorist.is_admin) {
+    $('#at_biz_dir-categories').on('select2:select', function () {
+      $('#at_biz_dir-categories').trigger('change');
+    });
+  }
+  window.addEventListener('directorist-type-change', function () {
+    renderCategoryCustomFields();
+    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_6__["cacheCategoryCustomFields"])();
+  });
 
   // Render category based fields on category change (frontend)
-  $('#at_biz_dir-categories').on('change', function () {
+  $('#at_biz_dir-categories').on('change', Object(_components_debounce__WEBPACK_IMPORTED_MODULE_7__["default"])(function () {
     renderCategoryCustomFields();
     Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_6__["cacheCategoryCustomFields"])();
-  });
+  }, 270));
 
   // Render category based fields on category change (backend)
-  $('#at_biz_dir-categorychecklist').on('change', function (event) {
+  $('#at_biz_dir-categorychecklist').on('change', Object(_components_debounce__WEBPACK_IMPORTED_MODULE_7__["default"])(function () {
     renderCategoryCustomFields();
     Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_6__["cacheCategoryCustomFields"])();
-  });
+  }, 270));
   var uploaders = localized_data.media_uploader;
   var mediaUploaders = [];
   if (uploaders) {
@@ -796,7 +801,7 @@ $(function () {
     });
   });
   function addSticky() {
-    $(window).scroll(function () {
+    $(window).scroll(Object(_components_debounce__WEBPACK_IMPORTED_MODULE_7__["default"])(function () {
       var windowWidth = $(window).width();
       var sidebarWidth = $(".multistep-wizard__nav").width();
       var sidebarHeight = $(".multistep-wizard__nav").height();
@@ -825,7 +830,7 @@ $(function () {
         $(".multistep-wizard__nav").removeClass("sticky");
         $(".multistep-wizard__content").css("padding-left", '0px');
       }
-    });
+    }, 100));
   }
   addSticky();
   multiStepWizard();
@@ -1067,6 +1072,35 @@ function cacheCategoryCustomFields() {
 function getCategoryCustomFieldsCache() {
   return cache;
 }
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/debounce.js":
+/*!*****************************************************!*\
+  !*** ./assets/src/js/global/components/debounce.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return debounce; });
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function () {
+    var context = this,
+      args = arguments;
+    var later = function later() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+;
 
 /***/ }),
 

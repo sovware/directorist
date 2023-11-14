@@ -103,7 +103,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_block_2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/block-2 */ "./assets/src/js/admin/components/block-2.js");
 /* harmony import */ var _components_block_2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_block_2__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_block_3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/block-3 */ "./assets/src/js/admin/components/block-3.js");
-/* harmony import */ var _components_block_3__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_block_3__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _components_block_4__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/block-4 */ "./assets/src/js/admin/components/block-4.js");
 /* harmony import */ var _components_block_4__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_block_4__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _components_block_5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/block-5 */ "./assets/src/js/admin/components/block-5.js");
@@ -637,8 +636,12 @@ window.addEventListener('DOMContentLoaded', function () {
 /*!***************************************************!*\
   !*** ./assets/src/js/admin/components/block-3.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _global_components_debounce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../global/components/debounce */ "./assets/src/js/global/components/debounce.js");
 
 window.addEventListener('DOMContentLoaded', function () {
   var $ = jQuery;
@@ -1089,8 +1092,8 @@ window.addEventListener('DOMContentLoaded', function () {
     admin_listing_form(directory_type);
   }
   var localized_data = directorist_admin.add_listing_data;
-  $('body').on('change', 'select[name="directory_type"]', function () {
-    $(this).parent('.inside').append("<span class=\"directorist_loader\"></span>");
+  $('body').on('change', 'select[name="directory_type"]', Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_0__["default"])(function () {
+    $(this).parent('.inside').append('<span class="directorist_loader"></span>');
     admin_listing_form($(this).val());
     $(this).closest('#poststuff').find('#publishing-action').addClass('directorist_disable');
     if (!localized_data.is_admin) {
@@ -1137,7 +1140,7 @@ window.addEventListener('DOMContentLoaded', function () {
         pureScriptSelect('#directorist-select-fr-e-js');
       }
     }
-  });
+  }, 270));
 
   // Custom Field Checkbox Button More
   function customFieldSeeMore() {
@@ -2596,6 +2599,35 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/debounce.js":
+/*!*****************************************************!*\
+  !*** ./assets/src/js/global/components/debounce.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return debounce; });
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function () {
+    var context = this,
+      args = arguments;
+    var later = function later() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+;
 
 /***/ }),
 

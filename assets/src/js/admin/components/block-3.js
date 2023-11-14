@@ -640,7 +640,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
                     return;
                 }
 
-                $('#directiost-listing-fields_wrapper')
+                $('#directiost-listing-fields_wrapper .directorist-listing-fields')
                     .empty()
                     .append(response.data['listing_meta_fields']);
                 assetsNeedToWorkInVirtualDom();

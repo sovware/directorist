@@ -76,8 +76,12 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			add_action( 'wp_ajax_nopriv_atbdp_guest_reception', array( $this, 'guest_reception' ) );
 
 			// custom field
-			add_action( 'wp_ajax_atbdp_custom_fields_listings', array( $this, 'ajax_callback_custom_fields' ), 10, 2 );
-			add_action( 'wp_ajax_nopriv_atbdp_custom_fields_listings', array( $this, 'ajax_callback_custom_fields' ), 10, 2 );
+			// add_action( 'wp_ajax_atbdp_custom_fields_listings', array( $this, 'ajax_callback_custom_fields' ), 10, 2 );
+			// add_action( 'wp_ajax_nopriv_atbdp_custom_fields_listings', array( $this, 'ajax_callback_custom_fields' ), 10, 2 );
+
+			add_action( 'wp_ajax_directorist_load_category_custom_fields', array( $this, 'ajax_callback_custom_fields' ), 10, 2 );
+			add_action( 'wp_ajax_nopriv_directorist_load_category_custom_fields', array( $this, 'ajax_callback_custom_fields' ), 10, 2 );
+
 			// add_action('wp_ajax_atbdp_custom_fields_listings_front_selected',        array($this, 'ajax_callback_custom_fields'), 10, 2);
 			// add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
 			// add_action('wp_ajax_atbdp_custom_fields_listings',                       array($this, 'ajax_callback_custom_fields'), 10, 2 );
@@ -524,44 +528,54 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		}
 
 		public function ajax_callback_custom_fields() {
-
 			if ( ! directorist_verify_nonce() ) {
-				wp_send_json( '' );
+				wp_send_json_error( __( 'Invalid request!', 'directorist'), 400 );
 			}
 
-			$listing_type = ! empty( $_POST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_type'] ) ) : '';
-			$categories   = ! empty( $_POST['term_id'] ) ? directorist_clean( wp_unslash( $_POST['term_id'] ) ) : array();
-			$post_id      = ! empty( $_POST['post_id'] ) ? sanitize_text_field( wp_unslash( $_POST['post_id'] ) ) : '';
+			$directory_id = ! empty( $_POST['directory_id'] ) ? sanitize_text_field( wp_unslash( $_POST['directory_id'] ) ) : 0;
+			$category_ids = ! empty( $_POST['category_ids'] ) ? wp_parse_id_list( (array) wp_unslash( $_POST['category_ids'] ) ) : array();
+			$listing_id   = ! empty( $_POST['listing_id'] ) ? absint( wp_unslash( $_POST['listing_id'] ) ) : 0;
 
-			// wp_send_json($post_id);
-			$result               = array();
-			$submission_form_fields = array();
-
-			if ( is_string( $listing_type ) && ! is_numeric( $listing_type ) ) {
-				$listing_term = get_term_by( 'slug', $listing_type, ATBDP_DIRECTORY_TYPE );
-				$listing_type = ( $listing_term ) ? $listing_term->term_id : $listing_type;
+			if ( ! $category_ids ) {
+				wp_send_json_error( __( 'No category selected.', 'directorist' ) );
 			}
 
-			if ( $listing_type ) {
-				$submission_form        = get_term_meta( $listing_type, 'submission_form_fields', true );
-				$submission_form_fields = $submission_form['fields'];
+			if ( $listing_id && ! directorist_is_listing_post_type( $listing_id ) ) {
+				wp_send_json_error( __( 'Invalid listing.', 'directorist' ), 400 );
 			}
 
-			foreach ( $submission_form_fields as $key => $value ) {
-				// $value['request_from_no_admin'] = true;
-				$category = ! empty( $value['category'] ) ? $value['category'] : '';
-				if ( $category ) {
-					if ( in_array( $category, $categories ) ) {
-						ob_start();
-						\Directorist\Directorist_Listing_Form::instance()->add_listing_category_custom_field_template( $value, $post_id );
-						$result[$key]= ob_get_clean();
-					}
+			// If directory_id is slug of the directory then check by slug.
+			if ( ! directorist_is_directory( $directory_id ) ) {
+				$directory_term = get_term_by( 'slug', $directory_id, ATBDP_DIRECTORY_TYPE );
+
+				if ( ! $directory_term ) {
+					wp_send_json_error( __( 'Invalid directory.', 'directorist' ), 400 );
+				}
+
+				$directory_id = $directory_term->term_id;
+			}
+
+			$directory_id = (int) $directory_id;
+			$form_fields  = directorist_get_listing_form_fields( $directory_id );
+			$result       = array();
+
+			foreach ( $form_fields as $field_key => $field_properties ) {
+				$field = directorist_get_field( $field_properties );
+
+				if ( ! $field->is_category_only() || ! $field->get_assigned_category() ) {
+					continue;
+				}
+
+				if ( in_array( $field->get_assigned_category(), $category_ids, true ) ) {
+					ob_start();
+					
+					\Directorist\Directorist_Listing_Form::instance()->add_listing_category_custom_field_template( $field_properties, $listing_id );
+					
+					$result[ $field_key ]= ob_get_clean();
 				}
 			}
 
-			$result = !empty( $result ) ? $result : '';
-
-			wp_send_json( $result );
+			wp_send_json_success( $result );
 		}
 
 		// guest_reception

@@ -390,9 +390,9 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: end;
-  -webkit-justify-content: end;
+  -webkit-justify-content: flex-end;
       -ms-flex-pack: end;
-          justify-content: end;
+          justify-content: flex-end;
 }
 .directorist-content-module__contents .directorist-form-description-field iframe {
   max-width: 100%;
@@ -10324,9 +10324,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-archive-contents .directorist-archive-items .directorist-pagination {
   margin-top: 35px;
   -webkit-box-pack: end;
-  -webkit-justify-content: end;
+  -webkit-justify-content: flex-end;
       -ms-flex-pack: end;
-          justify-content: end;
+          justify-content: flex-end;
 }
 .directorist-archive-contents .listing-with-sidebar .directorist-pagination {
   -webkit-box-pack: end;

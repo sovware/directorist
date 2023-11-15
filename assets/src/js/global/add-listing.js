@@ -189,64 +189,64 @@ $(function() {
     }
 
     // Select2 js code
-    if (!localized_data.is_admin) {
+    // if (!localized_data.is_admin) {
         // Location
-        const createLoc = $('#at_biz_dir-location').attr("data-allow_new");
-        let maxLocationLength = $('#at_biz_dir-location').attr("data-max");
-        if (createLoc) {
-            $("#at_biz_dir-location").select2({
-                tags: true,
-                maximumSelectionLength: maxLocationLength,
-                language: {
-                    maximumSelected: function () {
-                        return localized_data.i18n_text.max_location_msg;
-                    }
-                },
-                tokenSeparators: [","],
-            });
-        } else {
-            $("#at_biz_dir-location").select2({
-                allowClear: true,
-                tags: false,
-                maximumSelectionLength: maxLocationLength,
-                tokenSeparators: [","],
-            });
-        }
+        // const createLoc = $('#at_biz_dir-location').attr("data-allow_new");
+        // let maxLocationLength = $('#at_biz_dir-location').attr("data-max");
+        // if (createLoc) {
+        //     $("#at_biz_dir-location").select2({
+        //         tags: true,
+        //         maximumSelectionLength: maxLocationLength,
+        //         language: {
+        //             maximumSelected: function () {
+        //                 return localized_data.i18n_text.max_location_msg;
+        //             }
+        //         },
+        //         tokenSeparators: [","],
+        //     });
+        // } else {
+        //     $("#at_biz_dir-location").select2({
+        //         allowClear: true,
+        //         tags: false,
+        //         maximumSelectionLength: maxLocationLength,
+        //         tokenSeparators: [","],
+        //     });
+        // }
 
-        // Tags
-        const createTag = $('#at_biz_dir-tags').attr("data-allow_new");
-        let maxTagLength = $('#at_biz_dir-tags').attr("data-max");
-        if (createTag) {
-            $('#at_biz_dir-tags').select2({
-                tags: true,
-                maximumSelectionLength: maxTagLength,
-                tokenSeparators: [','],
-            });
-        } else {
-            $('#at_biz_dir-tags').select2({
-                allowClear: true,
-                maximumSelectionLength: maxTagLength,
-                tokenSeparators: [','],
-            });
-        }
+        // // Tags
+        // const createTag = $('#at_biz_dir-tags').attr("data-allow_new");
+        // let maxTagLength = $('#at_biz_dir-tags').attr("data-max");
+        // if (createTag) {
+        //     $('#at_biz_dir-tags').select2({
+        //         tags: true,
+        //         maximumSelectionLength: maxTagLength,
+        //         tokenSeparators: [','],
+        //     });
+        // } else {
+        //     $('#at_biz_dir-tags').select2({
+        //         allowClear: true,
+        //         maximumSelectionLength: maxTagLength,
+        //         tokenSeparators: [','],
+        //     });
+        // }
 
-        //Category
-        const createCat = $('#at_biz_dir-categories').attr("data-allow_new");
-        let maxCatLength = $('#at_biz_dir-categories').attr("data-max");
-        if (createCat) {
-            $('#at_biz_dir-categories').select2({
-                allowClear: true,
-                tags: true,
-                maximumSelectionLength: maxCatLength,
-                tokenSeparators: [','],
-            });
-        } else {
-            $('#at_biz_dir-categories').select2({
-                maximumSelectionLength: maxCatLength,
-                allowClear: true,
-            });
-        }
-    }
+        // //Category
+        // const createCat = $('#at_biz_dir-categories').attr("data-allow_new");
+        // let maxCatLength = $('#at_biz_dir-categories').attr("data-max");
+        // if (createCat) {
+        //     $('#at_biz_dir-categories').select2({
+        //         allowClear: true,
+        //         tags: true,
+        //         maximumSelectionLength: maxCatLength,
+        //         tokenSeparators: [','],
+        //     });
+        // } else {
+        //     $('#at_biz_dir-categories').select2({
+        //         maximumSelectionLength: maxCatLength,
+        //         allowClear: true,
+        //     });
+        // }
+    // }
 
     // price range
     if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
@@ -392,12 +392,6 @@ $(function() {
     // Create container div after category (in frontend)
     $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>');
 
-    if ( ! directorist.is_admin ) {
-        $( '#at_biz_dir-categories' ).on( 'select2:select', () => {
-            $( '#at_biz_dir-categories' ).trigger( 'change' );
-        } );
-    }
-
     window.addEventListener( 'directorist-type-change', function() {
         renderCategoryCustomFields();
         cacheCategoryCustomFields();
@@ -414,6 +408,17 @@ $(function() {
         renderCategoryCustomFields();
         cacheCategoryCustomFields();
     }, 270 ) );
+
+    // Make sure to place the following event trigger after the event bindings.
+    if ( ! directorist.is_admin ) {
+        if ( directorist.lazy_load_taxonomy_fields ) {
+            $( '#at_biz_dir-categories' ).on( 'select2:select', () => {
+                $( '#at_biz_dir-categories' ).trigger( 'change' );
+            } );
+        } else {
+            $( '#at_biz_dir-categories' ).trigger( 'change' );
+        }
+    }
 
     const uploaders = localized_data.media_uploader;
     let mediaUploaders = [];

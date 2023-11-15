@@ -8931,7 +8931,8 @@ p.atbd-min {
 }
 .directorist-form-group textarea,
 .directorist-form-group textarea.directorist-form-element {
-  min-height: 120px;
+  min-height: unset;
+  height: auto;
   max-width: 100%;
   width: 100%;
 }

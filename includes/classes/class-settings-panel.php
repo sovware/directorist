@@ -3617,51 +3617,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'         => __('Search Result Page Meta Description', 'directorist'),
                     'value'         => '',
                 ],
-                //currency settings
-                'g_currency_note'    => [
-                    'type'          => 'note',
-                    'title'         => __('Note About This Currency Settings:', 'directorist'),
-                    'description' => __('This currency settings lets you customize how you would like to display price amount in your website. However, you can accept currency in a different currency. Therefore, for accepting currency in a different currency, Go to Gateway Settings Tab.', 'directorist'),
-                ],
-                'g_currency'    => [
-                    'type'          => 'text',
-                    'label'         => __('Currency Name', 'directorist'),
-                    'description'   => __('Enter the Name of the currency eg. USD or GBP etc.', 'directorist'),
-                    'value'         => 'USD',
-                ],
-                'g_thousand_separator'    => [
-                    'type'          => 'text',
-                    'label'         => __('Thousand Separator', 'directorist'),
-                    'description'   => __('Enter the currency thousand separator. Eg. , or . etc.', 'directorist'),
-                    'value'         => ',',
-                ],
-                'allow_decimal' => [
-                    'label'         => __('Allow Decimal', 'directorist'),
-                    'type'          => 'toggle',
-                    'value'         => true,
-                ],
-                'g_decimal_separator'    => [
-                    'type'          => 'text',
-                    'label'         => __('Decimal Separator', 'directorist'),
-                    'description'   => __('Enter the currency decimal separator. Eg. "." or ",". Default is "."', 'directorist'),
-                    'value'         => '.',
-                ],
-                'g_currency_position' => [
-                    'label'        => __('Currency Position', 'directorist'),
-                    'type'        => 'select',
-                    'value'       => 'before',
-                    'description' => __('Select where you would like to show the currency symbol. Default is before. Eg. $5', 'directorist'),
-                    'options' => [
-                        [
-                            'value' => 'before',
-                            'label' => __('$5 - Before', 'directorist'),
-                        ],
-                        [
-                            'value' => 'after',
-                            'label' => __('After - 5$', 'directorist'),
-                        ],
-                    ],
-                ],
                 // categories settings
                 'display_categories_as' => [
                     'label'        => __('Default View', 'directorist'),
@@ -4738,32 +4693,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ],
                             ] ),
                         ],
-
-
-                        // 'review' => [
-                        //     'label' => __('Review', 'directorist'),
-                        //     'icon' => '<i class="fa fa-star"></i>',
-                        //     'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
-                        //         'labels' => [
-                        //             'fields'      => [
-                        //                 'enable_review', 'enable_owner_review', 'approve_immediately', 'review_approval_text', 'enable_reviewer_img', 'enable_reviewer_content', 'required_reviewer_content', 'review_num', 'guest_review'
-                        //             ],
-                        //         ],
-                        //     ] ),
-                        // ],
-
-                        'currency_settings' => [
-                            'label' => __( 'Listing Currency', 'directorist' ),
-                            'icon' => '<i class="fa fa-money-bill"></i>',
-                            'sections' => apply_filters( 'atbdp_currency_settings_sections', [
-                                'title_metas' => [
-                                    'fields'      => [
-                                        'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
-                                     ],
-                                ],
-                            ] ),
-                        ],
-
                         'map' => [
                             'label' => __('Map', 'directorist'),
                             'icon' => '<i class="fa fa-map"></i>',

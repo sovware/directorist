@@ -412,7 +412,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 7.8.1 - Nov 16, 2023
 
-* Fix - Inporter issue in assigning directory type in category, locaiton and tag
+* Fix - Importer issue in assigning directory type in category, location and tag
 
 7.8.0 - Nov 12, 2023
 

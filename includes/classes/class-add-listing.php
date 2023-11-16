@@ -214,11 +214,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 				}
 
-				if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) ) {
-					$error->add( 'privacy_policy_required', __( 'Privacy Policy is required.', 'directorist' ) );
-				}
-
-				if ( directorist_should_check_terms_and_condition( $directory_id ) && empty( $posted_data['t_c_check'] ) ) {
+				// Terms & conditions and privacy policy have been merged in v8.
+				if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) && directorist_should_check_terms_and_condition( $directory_id ) && empty( $posted_data['t_c_check'] ) ) {
 					$error->add( 'terms_and_condition_required', __( 'Terms and condition is required.', 'directorist' ) );
 				}
 
@@ -229,12 +226,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					) ) );
 				}
 
-				if ( ! empty( $posted_data['privacy_policy'] ) ) {
-					$meta_data['_privacy_policy'] = (bool) $posted_data['privacy_policy'];
-				}
-
-				if ( ! empty( $posted_data['t_c_check'] ) ) {
-					$meta_data['_t_c_check'] = (bool) $posted_data['t_c_check'];
+				// Terms & conditions and privacy policy have been merged in v8.
+				if ( ! empty( $posted_data['t_c_check'] ) || ! empty( $posted_data['privacy_policy'] ) ) {
+					$meta_data['_t_c_check'] = true;
+					$meta_data['_privacy_policy'] = true;
 				}
 
 				$new_listing_status  = get_term_meta( $directory_id, 'new_listing_status', true );

@@ -3549,23 +3549,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'description'   => __('Enter the Name of the currency eg. USD or GBP etc.', 'directorist'),
                     'value'         => 'USD',
                 ],
-                'g_thousand_separator'    => [
-                    'type'          => 'text',
-                    'label'         => __('Thousand Separator', 'directorist'),
-                    'description'   => __('Enter the currency thousand separator. Eg. , or . etc.', 'directorist'),
-                    'value'         => ',',
-                ],
-                'allow_decimal' => [
-                    'label'         => __('Allow Decimal', 'directorist'),
-                    'type'          => 'toggle',
-                    'value'         => true,
-                ],
-                'g_decimal_separator'    => [
-                    'type'          => 'text',
-                    'label'         => __('Decimal Separator', 'directorist'),
-                    'description'   => __('Enter the currency decimal separator. Eg. "." or ",". Default is "."', 'directorist'),
-                    'value'         => '.',
-                ],
                 'g_currency_position' => [
                     'label'        => __('Currency Position', 'directorist'),
                     'type'        => 'select',

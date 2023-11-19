@@ -4856,6 +4856,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
                             ] ),
                         ],
+                        
                         'user_dashboard' => [
                             'label' => __('Dashboard', 'directorist'),
                             'icon' => '<i class="fa fa-chart-bar"></i>',

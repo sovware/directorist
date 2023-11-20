@@ -1157,7 +1157,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     this.navLinksSetup = function (selector) {
       var selector = document.querySelectorAll(selector);
       selector.forEach(function (el) {
-        a = el.querySelectorAll('.directorist-tab__nav__link');
+        a = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
         a.forEach(function (element) {
           element.style.cursor = 'pointer';
           element.addEventListener('click', function (event) {

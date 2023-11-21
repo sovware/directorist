@@ -121,6 +121,7 @@ class Asset_Loader {
 			case 'listing-form/add-listing':
 				wp_enqueue_script( 'directorist-select2-script' );
 				wp_enqueue_script( 'directorist-add-listing' );
+				wp_enqueue_script( 'jquery-ui-autocomplete' );
 				break;
 
 			// Dashboard
@@ -159,6 +160,7 @@ class Asset_Loader {
 			case 'single/fields/map':
 			case 'widgets/single-map':
 				self::enqueue_map_scripts();
+				wp_enqueue_script( 'directorist-openstreet-all-map' );
 				break;
 
 			case 'search-form/fields/radius_search':
@@ -307,7 +309,9 @@ class Asset_Loader {
 
 	public static function enqueue_map_styles() {
 		if ( Helper::map_type() == 'openstreet' ) {
+			wp_enqueue_script('jquery-ui-autocomplete');
 			wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
+			wp_enqueue_style( 'directorist-openstreet-map-markercluster' );
 			wp_enqueue_style( 'directorist-openstreet-map-openstreet' );
 		}
 	}

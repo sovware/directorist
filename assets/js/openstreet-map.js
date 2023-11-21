@@ -102,100 +102,102 @@ __webpack_require__.r(__webpack_exports__);
 
 (function ($) {
   $(document).ready(function () {
-    var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
+    if ($('#gmap').length) {
+      var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
 
-    var loc_default_latitude = parseFloat(mapData.default_latitude);
-    var loc_default_longitude = parseFloat(mapData.default_longitude);
-    var loc_manual_lat = parseFloat(mapData.manual_lat);
-    var loc_manual_lng = parseFloat(mapData.manual_lng);
-    var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
-    var loc_map_icon = mapData.map_icon;
-    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
-    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
-    var map = L.map('gmap').setView([loc_manual_lat, loc_manual_lng], loc_map_zoom_level);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    var customIcon = L.icon({
-      iconUrl: loc_map_icon,
-      // Adjust the path to your icon file
-      iconSize: [20, 25] // Adjust the size of your icon
+      var loc_default_latitude = parseFloat(mapData.default_latitude);
+      var loc_default_longitude = parseFloat(mapData.default_longitude);
+      var loc_manual_lat = parseFloat(mapData.manual_lat);
+      var loc_manual_lng = parseFloat(mapData.manual_lng);
+      var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
+      var loc_map_icon = mapData.map_icon;
+      loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+      loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+      var map = L.map('gmap').setView([loc_manual_lat, loc_manual_lng], loc_map_zoom_level);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+      var customIcon = L.icon({
+        iconUrl: loc_map_icon,
+        // Adjust the path to your icon file
+        iconSize: [20, 25] // Adjust the size of your icon
 
-    });
-    var marker = L.marker([loc_manual_lat, loc_manual_lng], {
-      icon: customIcon,
-      draggable: true
-    }).addTo(map); // Autocomplete for the address input field
+      });
+      var marker = L.marker([loc_manual_lat, loc_manual_lng], {
+        icon: customIcon,
+        draggable: true
+      }).addTo(map); // Autocomplete for the address input field
 
-    $('#address').autocomplete({
-      source: function source(request, response) {
+      $('#address').autocomplete({
+        source: function source(request, response) {
+          $.ajax({
+            url: 'https://nominatim.openstreetmap.org/',
+            method: 'GET',
+            dataType: 'json',
+            data: {
+              q: request.term,
+              format: 'json',
+              limit: 5
+            },
+            success: function success(data) {
+              // Extract and format suggestions from the geocoding service response
+              var suggestions = $.map(data, function (item) {
+                return {
+                  label: item.display_name,
+                  latitude: item.lat,
+                  longitude: item.lon
+                };
+              }); // Call the response callback with the suggestions
+
+              response(suggestions);
+            },
+            error: function error(xhr, status, _error) {
+              console.error('Error fetching address suggestions:', status, _error);
+              response([]); // Return an empty array in case of an error
+            }
+          });
+        },
+        select: function select(event, ui) {
+          // Update the map when the user selects an address
+          map.setView([ui.item.latitude, ui.item.longitude], 15);
+          marker.setLatLng([ui.item.latitude, ui.item.longitude]);
+          $('#manual_lat').val(ui.item.latitude);
+          $('#manual_lng').val(ui.item.longitude);
+        }
+      }); // Handle marker dragend event
+
+      marker.on('dragend', function (event) {
+        var markerLatLng = marker.getLatLng();
+        $('#manual_lat').val(markerLatLng.lat);
+        $('#manual_lng').val(markerLatLng.lng); // Reverse geocode to get the address based on the marker's new position
+
+        reverseGeocode(markerLatLng.lat, markerLatLng.lng, function (address) {
+          $('#address').val(address);
+        });
+      }); // Function to reverse geocode and get the address based on latitude and longitude
+
+      function reverseGeocode(latitude, longitude, callback) {
         $.ajax({
-          url: 'https://nominatim.openstreetmap.org/',
+          url: 'https://nominatim.openstreetmap.org/reverse',
           method: 'GET',
           dataType: 'json',
           data: {
-            q: request.term,
-            format: 'json',
-            limit: 5
+            lat: latitude,
+            lon: longitude,
+            format: 'json'
           },
           success: function success(data) {
-            // Extract and format suggestions from the geocoding service response
-            var suggestions = $.map(data, function (item) {
-              return {
-                label: item.display_name,
-                latitude: item.lat,
-                longitude: item.lon
-              };
-            }); // Call the response callback with the suggestions
-
-            response(suggestions);
+            if (data.display_name) {
+              callback(data.display_name);
+            } else {
+              console.error('Reverse geocoding failed');
+            }
           },
-          error: function error(xhr, status, _error) {
-            console.error('Error fetching address suggestions:', status, _error);
-            response([]); // Return an empty array in case of an error
+          error: function error(xhr, status, _error2) {
+            console.error('Error fetching reverse geocoding data:', status, _error2);
           }
         });
-      },
-      select: function select(event, ui) {
-        // Update the map when the user selects an address
-        map.setView([ui.item.latitude, ui.item.longitude], 15);
-        marker.setLatLng([ui.item.latitude, ui.item.longitude]);
-        $('#manual_lat').val(ui.item.latitude);
-        $('#manual_lng').val(ui.item.longitude);
       }
-    }); // Handle marker dragend event
-
-    marker.on('dragend', function (event) {
-      var markerLatLng = marker.getLatLng();
-      $('#manual_lat').val(markerLatLng.lat);
-      $('#manual_lng').val(markerLatLng.lng); // Reverse geocode to get the address based on the marker's new position
-
-      reverseGeocode(markerLatLng.lat, markerLatLng.lng, function (address) {
-        $('#address').val(address);
-      });
-    }); // Function to reverse geocode and get the address based on latitude and longitude
-
-    function reverseGeocode(latitude, longitude, callback) {
-      $.ajax({
-        url: 'https://nominatim.openstreetmap.org/reverse',
-        method: 'GET',
-        dataType: 'json',
-        data: {
-          lat: latitude,
-          lon: longitude,
-          format: 'json'
-        },
-        success: function success(data) {
-          if (data.display_name) {
-            callback(data.display_name);
-          } else {
-            console.error('Reverse geocoding failed');
-          }
-        },
-        error: function error(xhr, status, _error2) {
-          console.error('Error fetching reverse geocoding data:', status, _error2);
-        }
-      });
     }
   });
 })(jQuery);
@@ -212,66 +214,149 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _add_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./add-listing/openstreet-map */ "./assets/src/js/global/map-scripts/add-listing/openstreet-map.js");
-; // (function () {
-//     // DOM Mutation observer
-//     const targetNode = document.querySelector('.directorist-archive-contents');
-//     if(targetNode){
-//         function initObserver() {
-//             const observer = new MutationObserver( initMap );
-//             targetNode && observer.observe( targetNode, { childList: true } );
-//         }
-//         window.addEventListener('DOMContentLoaded', initObserver );
-//     }
-//     window.addEventListener('DOMContentLoaded', initMap);
-//     window.addEventListener('directorist-reload-listings-map-archive', initMap);
-//     function initMap() {
-//         var $ = jQuery;
-//         let mapData;
-//         $('#map').length ? mapData = JSON.parse($('#map').attr('data-options')) : '';
-//         function setup_map() {
-//             bundle1.fillPlaceholders();
-//             var localVersion = bundle1.getLibVersion('leaflet.featuregroup.subgroup', 'local');
-//             if (localVersion) {
-//                 localVersion.checkAssetsAvailability(true)
-//                     .then(function () {
-//                         mapData !== undefined ? load() : '';
-//                     })
-//                     .catch(function () {
-//                         var version102 = bundle1.getLibVersion('leaflet.featuregroup.subgroup', '1.0.2');
-//                         if (version102) {
-//                             version102.defaultVersion = true;
-//                         }
-//                         mapData !== undefined ? load() : '';
-//                     });
-//             } else {
-//                 mapData !== undefined ? load() : '';
-//             }
-//         }
-//         function load() {
-//             var url = window.location.href;
-//             var urlParts = URI.parse(url);
-//             var queryStringParts = URI.parseQuery(urlParts.query);
-//             var list = bundle1.getAndSelectVersionsAssetsList(queryStringParts);
-//             list.push({
-//                 type: 'script',
-//                 path: mapData.openstreet_script,
-//             });
-//             loadJsCss.list(list, {
-//                 delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
-//             });
-//         }
-//         setup_map();
-//     }
-// })();
-
+/* harmony import */ var _single_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./single-listing/openstreet-map */ "./assets/src/js/global/map-scripts/single-listing/openstreet-map.js");
+/* harmony import */ var _single_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_single_listing_openstreet_map__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./single-listing/openstreet-map-widget */ "./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js");
+/* harmony import */ var _single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_single_listing_openstreet_map_widget__WEBPACK_IMPORTED_MODULE_2__);
+;
 /* Add listing OSMap */
 
 
 /* Single listing OSMap */
-//import './single-listing/openstreet-map';
+
 
 /* Widget OSMap */
-//import './single-listing/openstreet-map-widget';
+
+
+
+/***/ }),
+
+/***/ "./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js":
+/*!**********************************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/single-listing/openstreet-map-widget.js ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* Widget OSMap */
+;
+
+(function ($) {
+  jQuery(document).ready(function () {
+    // Localized Data
+    if ($('#gmap-widget').length) {
+      var map_container = localized_data_widget.map_container_id ? localized_data_widget.map_container_id : 'gmap';
+      var loc_default_latitude = parseFloat(localized_data_widget.default_latitude);
+      var loc_default_longitude = parseFloat(localized_data_widget.default_longitude);
+      var loc_manual_lat = parseFloat(localized_data_widget.manual_lat);
+      var loc_manual_lng = parseFloat(localized_data_widget.manual_lng);
+      var loc_map_zoom_level = parseInt(localized_data_widget.map_zoom_level);
+      var _localized_data_widge = localized_data_widget,
+          display_map_info = _localized_data_widge.display_map_info;
+      var _localized_data_widge2 = localized_data_widget,
+          cat_icon = _localized_data_widge2.cat_icon;
+      var _localized_data_widge3 = localized_data_widget,
+          info_content = _localized_data_widge3.info_content;
+      loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+      loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+      $manual_lat = $('#manual_lat');
+      $manual_lng = $('#manual_lng');
+      saved_lat_lng = {
+        lat: loc_manual_lat,
+        lng: loc_manual_lng
+      };
+
+      function mapLeaflet(lat, lon) {
+        var fontAwesomeIcon = L.divIcon({
+          html: "<div class=\"atbd_map_shape\"><span class=\"\">".concat(cat_icon, "</span></div>"),
+          iconSize: [20, 20],
+          className: 'myDivIcon'
+        });
+        var mymap = L.map(map_container).setView([lat, lon], loc_map_zoom_level);
+
+        if (display_map_info) {
+          L.marker([lat, lon], {
+            icon: fontAwesomeIcon
+          }).addTo(mymap).bindPopup(info_content);
+        } else {
+          L.marker([lat, lon], {
+            icon: fontAwesomeIcon
+          }).addTo(mymap);
+        }
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+      }
+
+      mapLeaflet(loc_manual_lat, loc_manual_lng);
+    }
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/global/map-scripts/single-listing/openstreet-map.js":
+/*!***************************************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/single-listing/openstreet-map.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* Single listing OSMap */
+(function ($) {
+  jQuery(document).ready(function () {
+    // Localized Data
+    if ($('.directorist-single-map').length) {
+      document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
+        var mapData = JSON.parse(mapElm.getAttribute('data-map'));
+        var loc_default_latitude = parseFloat(mapData.default_latitude);
+        var loc_default_longitude = parseFloat(mapData.default_longitude);
+        var loc_manual_lat = parseFloat(mapData.manual_lat);
+        var loc_manual_lng = parseFloat(mapData.manual_lng);
+        var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
+        var display_map_info = mapData.display_map_info;
+        var cat_icon = mapData.cat_icon;
+        var info_content = mapData.info_content;
+        loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+        loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+        $manual_lat = $('#manual_lat');
+        $manual_lng = $('#manual_lng');
+        saved_lat_lng = {
+          lat: loc_manual_lat,
+          lng: loc_manual_lng
+        };
+
+        function mapLeaflet(lat, lon) {
+          var fontAwesomeIcon = L.divIcon({
+            html: "<div class=\"atbd_map_shape\"><span class=\"\">".concat(cat_icon, "</span></div>"),
+            iconSize: [20, 20],
+            className: 'myDivIcon'
+          });
+          var mymap = L.map(mapElm, {
+            scrollWheelZoom: false
+          }).setView([lat, lon], loc_map_zoom_level);
+
+          if (display_map_info) {
+            L.marker([lat, lon], {
+              icon: fontAwesomeIcon
+            }).addTo(mymap).bindPopup(info_content);
+          } else {
+            L.marker([lat, lon], {
+              icon: fontAwesomeIcon
+            }).addTo(mymap);
+          }
+
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(mymap);
+        }
+
+        mapLeaflet(loc_manual_lat, loc_manual_lng);
+      });
+    }
+  });
+})(jQuery);
 
 /***/ }),
 

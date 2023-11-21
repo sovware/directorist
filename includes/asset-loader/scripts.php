@@ -146,16 +146,8 @@ class Scripts {
 				'path' => DIRECTORIST_JS . 'openstreet-map',
 				'dep' => [
 					'jquery',
-					// 'directorist-openstreet-layers',
-					// 'directorist-openstreet-unpkg',
-					// 'directorist-openstreet-unpkg-index',
-					// 'directorist-openstreet-unpkg-libs',
 					'directorist-openstreet-leaflet-versions',
 					'jquery-ui-autocomplete',
-					'directorist-openstreet-leaflet-markercluster-versions',
-					// 'directorist-openstreet-libs-setup',
-					// 'directorist-openstreet-open-layers',
-					// 'directorist-openstreet-crosshairs',
 				],
 			],
 			'directorist-openstreet-all-map' => [

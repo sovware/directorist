@@ -155,11 +155,14 @@ class Asset_Loader {
 				wp_enqueue_script( 'jquery-masonry' );
 				break;
 
-			case 'archive/map-view':
 			case 'listing-form/fields/map':
 			case 'single/fields/map':
 			case 'widgets/single-map':
 				self::enqueue_map_scripts();
+				wp_enqueue_script('jquery-ui-autocomplete');
+				break;
+
+			case 'archive/map-view':
 				wp_enqueue_script( 'directorist-openstreet-all-map' );
 				break;
 
@@ -309,7 +312,6 @@ class Asset_Loader {
 
 	public static function enqueue_map_styles() {
 		if ( Helper::map_type() == 'openstreet' ) {
-			wp_enqueue_script('jquery-ui-autocomplete');
 			wp_enqueue_style( 'directorist-openstreet-map-leaflet' );
 			wp_enqueue_style( 'directorist-openstreet-map-markercluster' );
 			wp_enqueue_style( 'directorist-openstreet-map-openstreet' );

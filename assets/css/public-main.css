@@ -17757,7 +17757,7 @@ Review: New Style
   border: 1px solid #EFF1F6;
   border-bottom-color: #f2f2f2;
   background: #fff;
-  border-radius: 4px 4px 0 0;
+  border-radius: 16px 16px 0 0;
 }
 .directorist-review-content .directorist-review-content__header h3 {
   font-size: 16px;
@@ -17788,29 +17788,6 @@ Review: New Style
 .directorist-review-content .directorist-review-content__header .directorist-btn .directorist-icon-mask::after {
   background-color: #fff;
 }
-.directorist-review-content .directorist-review-content__header--noreviews {
-  padding: 6px 0;
-  display: block;
-}
-.directorist-review-content .directorist-review-content__header--noreviews > div {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-  padding: 0 20px 6px;
-  border-bottom: 1px solid #EFF1F6;
-}
 .directorist-review-content .directorist-review-content__header .directorist-noreviews {
   font-size: 16px;
   margin-bottom: 0;
@@ -17837,7 +17814,7 @@ Review: New Style
           justify-content: space-between;
   padding: 30px 50px;
   background: #fff;
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 16px 16px;
   border: 1px solid #EFF1F6;
   border-top: 0 none;
 }

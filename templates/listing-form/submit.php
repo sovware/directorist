@@ -41,9 +41,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<div class="directorist-form-privacy directorist-form-terms directorist-checkbox">
 
-		<input id="privacy_policy" type="checkbox" name="privacy_policy" <?php checked( $privacy_checked ); ?> <?php echo $privacy_is_required ? 'required="required"' : ''; ?>>
+		<input id="directorist_submit_privacy_policy" type="checkbox" name="privacy_policy" <?php checked( $privacy_checked ); ?> <?php echo $privacy_is_required ? 'required="required"' : ''; ?>>
 
-		<label for="privacy_policy" class="directorist-checkbox__label"><?php echo wp_kses_post( $listing_form->privacy_label() ); ?></label>
+		<label for="directorist_submit_privacy_policy" class="directorist-checkbox__label"><?php echo wp_kses_post( $listing_form->privacy_label() ); ?></label>
 
 		<?php if ( $privacy_is_required ): ?>
 			<span class="directorist-form-required"> *</span>

@@ -1758,7 +1758,7 @@ function the_atbdp_favourites_link( $post_id = 0 ) {
             return directorist_icon( 'las la-heart', false );
         }
     } else {
-        return '<a href="#" class="atbdp-require-login">'.directorist_icon( 'las la-heart', false ).'</a>';
+        return '<a href="#" class="atbdp-require-login directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light">'.directorist_icon( 'las la-heart', false ).'</a>';
     }
 
 }

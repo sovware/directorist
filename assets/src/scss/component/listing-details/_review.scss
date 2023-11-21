@@ -281,7 +281,7 @@ Review: New Style
             border: 1px solid #EFF1F6;
             border-bottom-color: #f2f2f2;
             background: #fff;
-            border-radius: 4px 4px 0 0;
+            border-radius: 16px 16px 0 0;
             h3 {
                 font-size: 16px;
                 font-weight: 500;
@@ -310,18 +310,6 @@ Review: New Style
                     }
                 }
             }
-            @include m(noreviews){
-                padding: 6px 0;
-                display: block;
-                >div{
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    flex-wrap: wrap;
-                    padding: 0 20px 6px;
-                    border-bottom: 1px solid #EFF1F6;
-                }
-            }
             .directorist-noreviews{
                 font-size: 16px;
                 margin-bottom: 0;
@@ -339,7 +327,7 @@ Review: New Style
             justify-content: space-between;
             padding: 30px 50px;
             background: #fff;
-            border-radius: 0 0 4px 4px;
+            border-radius: 0 0 16px 16px;
             border: 1px solid #EFF1F6;
             border-top: 0 none;
 

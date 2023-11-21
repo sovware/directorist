@@ -1120,12 +1120,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           var href = link.getAttribute('href');
           var target = link.getAttribute('target');
 
-          if (href === hash || "#".concat(target) === hash) {
+          if (href === hash || "#".concat(target) === hash || window.location.hash.match(new RegExp("^".concat(href, "$")))) {
             var parent = link.closest('.atbdp_tab_nav--has-child');
 
             if (parent) {
               var dropdownMenu = parent.querySelector('.atbd-dashboard-nav');
-              dropdownMenu.style.display = 'block';
+
+              if (dropdownMenu) {
+                dropdownMenu.style.display = 'block';
+              }
             }
 
             link.click();
@@ -1163,7 +1166,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             item_link.forEach(function (link) {
               link.classList.remove('directorist-tab__nav__active');
             });
-            event.target.classList.add('directorist-tab__nav__active'); // Activate Content Panel
+            var parentNavRef = event.target.getAttribute('data-parent-nav');
+
+            if (parentNavRef) {
+              var parentNav = document.querySelector(parentNavRef);
+
+              if (parentNav) {
+                parentNav.classList.add('directorist-tab__nav__active');
+              }
+            } else {
+              event.target.classList.add('directorist-tab__nav__active');
+            } // Activate Content Panel
+
 
             section.forEach(function (sectionItem) {
               sectionItem.classList.remove('directorist-tab__pane--active');
@@ -1179,7 +1193,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               hashID = matchLink ? matchLink[1] : hashID;
             }
 
-            window.location.hash = "#" + hashID;
+            var hasMatch = window.location.hash.match(new RegExp("^".concat(link, "$")));
+            window.location.hash = hasMatch ? hasMatch[0] : "#" + hashID;
             var newHash = window.location.hash;
             var newUrl = window.location.pathname + newHash;
             window.history.replaceState(null, null, newUrl);

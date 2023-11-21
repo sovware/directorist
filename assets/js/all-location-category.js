@@ -100,6 +100,7 @@ window.addEventListener('DOMContentLoaded', function () {
   } else {
     return;
   }
+<<<<<<< HEAD
   /* Category card grid three width/height adjustment */
 
 
@@ -109,6 +110,24 @@ window.addEventListener('DOMContentLoaded', function () {
     categoryCard.forEach(function (elm) {
       var categoryCardWidth = elm.offsetWidth;
       elm.style.setProperty('--directorist-category-box-width', "".concat(categoryCardWidth, "px"));
+=======
+  (function ($) {
+    /* Multi level hierarchy content */
+    /* Category */
+    $('.atbdp_child_category').hide();
+    $('.atbd_category_wrapper > .expander').on('click', function () {
+      $(this).siblings('.atbdp_child_category').slideToggle();
+    });
+    $('.atbdp_child_category li .expander').on('click', function () {
+      $(this).siblings('.atbdp_child_category').slideToggle();
+      $(this).parent('li').siblings('li').children('.atbdp_child_category').slideUp();
+    });
+
+    /* Location */
+    $('.atbdp_child_location').hide();
+    $('.atbd_location_wrapper > .expander').on('click', function () {
+      $(this).siblings('.atbdp_child_location').slideToggle();
+>>>>>>> 8e0be4ce75e6c593ea3c8d950155db2cb44f0db2
     });
   }
   /* Taxonomy list dropdown */

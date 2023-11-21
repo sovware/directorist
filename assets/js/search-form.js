@@ -1074,10 +1074,47 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         $(this).text(directorist.i18n_text.show_more);
         $(item_checkbox).slice(4, item_checkbox.length).fadeOut();
       }
+    });
+
+    function selectedItemCount(item) {
+      var dropdownParent = $(item).closest('.directorist-search-field');
+      var dropdownContent = $(item).closest('.directorist-search-basic-dropdown-content');
+      var selectedItemCount = dropdownContent.find('.directorist-checkbox input[type="checkbox"]:checked');
+      var selectedCounter = dropdownContent.siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-count');
+
+      if (selectedItemCount.length > 0) {
+        selectedCounter.text(selectedItemCount.length);
+        dropdownParent.addClass('input-has-value');
+      } else {
+        // If no items are checked, clear the text
+        selectedCounter.text('');
+        dropdownParent.removeClass('input-has-value');
+      }
+    } // Basic Search Tag Dropdown
+
+
+    $('body').on('click', '.directorist-search-basic-dropdown-label', function (e) {
+      e.preventDefault();
+      var dropDownParent = $(this).closest('.directorist-search-field');
+      var dropdownContent = $(this).siblings('.directorist-search-basic-dropdown-content');
+      dropdownContent.toggleClass('dropdown-content-show');
+      dropdownContent.slideToggle().show();
+
+      if (dropdownContent.hasClass('dropdown-content-show')) {
+        dropDownParent.addClass('input-is-focused');
+      } else {
+        dropDownParent.removeClass('input-is-focused');
+      }
+    }); // Basic Search Tag Dropdown
+
+    $('body').on('change', '.directorist-search-basic-dropdown input[type="checkbox"]', function (e) {
+      e.preventDefault();
+      $(this).siblings('.directorist-search-basic-dropdown-content').slideToggle().show();
+      selectedItemCount(this);
     }); //remove preload after window load
 
     $(window).on('load', function () {
-      $("body").removeClass("directorist-preload");
+      $('body').removeClass("directorist-preload");
       $('.button.wp-color-result').attr('style', ' ');
     }); // Search Form
     // Check Empty Search Fields on Search Modal
@@ -1091,7 +1128,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           inputField.style.display = 'none';
         }
       });
-      var searchFields = document.querySelectorAll('.directorist-search-field__input');
+      var searchFields = document.querySelectorAll('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
       searchFields.forEach(function (searchField) {
         var inputFieldValue = searchField.value;
 
@@ -1375,19 +1412,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       searchModalMinimize(searchModalElement);
     }); // Search Form Input Field Check
 
-    $('body').on('input keyup change', '.directorist-search-field__input', function (e) {
+    $('body').on('input keyup change', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function (e) {
       var searchField = $(this).closest('.directorist-search-field');
       inputValueCheck(e, searchField);
     });
-    $('body').on('focus blur', '.directorist-search-field__input', function (e) {
+    $('body').on('focus blur', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function (e) {
       var searchField = $(this).closest('.directorist-search-field');
       inputEventCheck(e, searchField);
     }); // Search Field Input Value Check
 
     function inputValueCheck(e, searchField) {
       searchField = searchField[0];
-      var inputBox = searchField.querySelector('.directorist-search-field__input');
-      var inputFieldValue = inputBox.value;
+      var inputBox = searchField.querySelector('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
+      var inputFieldValue = inputBox && inputBox.value;
 
       if (inputFieldValue) {
         searchField.classList.add('input-has-value');
@@ -1407,7 +1444,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     function inputEventCheck(e, searchField) {
       searchField = searchField[0];
-      var inputBox = searchField.querySelector('.directorist-search-field__input');
+      var inputBox = searchField.querySelector('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
       var inputFieldValue = inputBox.value;
 
       if (e.type === 'focusin') {
@@ -1435,7 +1472,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var inputFieldValue = inputBox.querySelector('select').value;
       $('body').one('click', function (e) {
         inputFieldValue = inputBox.querySelector('select').value;
-        var parentWithClass = e.target.closest('.directorist-search-field__input');
+        var parentWithClass = e.target.closest('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
 
         if (!parentWithClass) {
           if (inputFieldValue) {
@@ -1455,6 +1492,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     $('body').on('click', '.directorist-search-field__btn--clear', function (e) {
       var inputFields = this.parentElement.querySelectorAll('.directorist-form-element');
       var selectboxField = this.parentElement.querySelector('.directorist-select select');
+      var basicDropdown = this.parentElement.querySelectorAll('.directorist-search-basic-dropdown-content');
       var radioFields = this.parentElement.querySelectorAll('input[type="radio"]');
       var checkboxFields = this.parentElement.querySelectorAll('input[type="checkbox"]');
 
@@ -1481,6 +1519,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         });
       }
 
+      if (basicDropdown) {
+        basicDropdown.forEach(function (dropdown) {
+          $(dropdown).slideToggle().hide();
+          $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-count').text('');
+        });
+      }
+
       if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
         this.parentElement.classList.remove('input-has-value', 'input-is-focused');
       }
@@ -1488,8 +1533,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       handleRadiusVisibility(); // Reset Button Disable
 
       var searchform = this.closest('form');
-      var inputValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input').val();
-      var selectValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input select').val();
+      var inputValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input:not(.directorist-search-basic-dropdown)').val();
+      var selectValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input select:not(.directorist-search-basic-dropdown)').val();
 
       if (inputValue && inputValue !== 0 && inputValue !== undefined || selectValue && selectValue.selectedIndex === 0 || selectValue && selectValue.selectedIndex !== undefined) {
         enableResetButton(searchform);

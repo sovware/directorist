@@ -485,6 +485,15 @@
 					font-size: 14px;
 					font-weight: 400;
 					color: var(--directorist-color-body);
+					&.directorist-search-basic-dropdown-label {
+						position: unset;
+						font-size: 15px;
+						font-weight: 500;
+						i,
+						span {
+							display: none;
+						}
+					}
 				}
 				.directorist-search-field__input::placeholder {
 					opacity: 0;

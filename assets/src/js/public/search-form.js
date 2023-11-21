@@ -45,9 +45,48 @@ import { directorist_range_slider } from './range-slider';
 
         });
 
+        function selectedItemCount(item) {
+            let dropdownParent = $(item).closest('.directorist-search-field');
+            let dropdownContent = $(item).closest('.directorist-search-basic-dropdown-content');
+            let selectedItemCount = dropdownContent.find('.directorist-checkbox input[type="checkbox"]:checked');
+            let selectedCounter = dropdownContent.siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-count');
+
+            if (selectedItemCount.length > 0) {
+                selectedCounter.text(selectedItemCount.length);
+                dropdownParent.addClass('input-has-value');
+            } else {
+                // If no items are checked, clear the text
+                selectedCounter.text('');
+                dropdownParent.removeClass('input-has-value');
+            }
+        }
+
+        // Basic Search Tag Dropdown
+        $('body').on('click', '.directorist-search-basic-dropdown-label', function (e) {
+            e.preventDefault();
+            let dropDownParent = $(this).closest('.directorist-search-field');
+            let dropdownContent = $(this).siblings('.directorist-search-basic-dropdown-content');
+            dropdownContent.toggleClass('dropdown-content-show');
+            dropdownContent.slideToggle().show();
+
+            if (dropdownContent.hasClass('dropdown-content-show')) {
+                dropDownParent.addClass('input-is-focused');
+            } else {
+                dropDownParent.removeClass('input-is-focused');
+            }
+        }); 
+
+        // Basic Search Tag Dropdown
+        $('body').on('change', '.directorist-search-basic-dropdown input[type="checkbox"]', function (e) {
+            e.preventDefault();
+            $(this).siblings('.directorist-search-basic-dropdown-content').slideToggle().show();
+
+            selectedItemCount(this);
+        }); 
+
         //remove preload after window load
         $(window).on('load', function () {
-            $("body").removeClass("directorist-preload");
+            $('body').removeClass("directorist-preload");
             $('.button.wp-color-result').attr('style', ' ');
         });
 
@@ -64,7 +103,7 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
 
-            let searchFields = document.querySelectorAll('.directorist-search-field__input');
+            let searchFields = document.querySelectorAll('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
 
             searchFields.forEach((searchField)=>{
                 let inputFieldValue = searchField.value;
@@ -356,14 +395,14 @@ import { directorist_range_slider } from './range-slider';
         });
 
         // Search Form Input Field Check
-        $('body').on('input keyup change', '.directorist-search-field__input', function(e) {
+        $('body').on('input keyup change', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function(e) {
             let searchField = $(this).closest('.directorist-search-field');
 
             inputValueCheck(e, searchField);
 
         });
 
-        $('body').on('focus blur', '.directorist-search-field__input', function(e) {
+        $('body').on('focus blur', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function(e) {
             let searchField = $(this).closest('.directorist-search-field');
 
             inputEventCheck(e, searchField);
@@ -374,8 +413,8 @@ import { directorist_range_slider } from './range-slider';
         function inputValueCheck(e, searchField) {
             searchField = searchField[0];
 
-            let inputBox = searchField.querySelector('.directorist-search-field__input');
-            let inputFieldValue = inputBox.value;
+            let inputBox = searchField.querySelector('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
+            let inputFieldValue = inputBox && inputBox.value;
             
             if (inputFieldValue) {
                 searchField.classList.add('input-has-value');
@@ -394,7 +433,7 @@ import { directorist_range_slider } from './range-slider';
         function inputEventCheck(e, searchField) {
             searchField = searchField[0];
 
-            let inputBox = searchField.querySelector('.directorist-search-field__input');
+            let inputBox = searchField.querySelector('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
             let inputFieldValue = inputBox.value;
 
             if (e.type === 'focusin') {
@@ -423,7 +462,7 @@ import { directorist_range_slider } from './range-slider';
 
             $('body').one('click', function(e) {
                 inputFieldValue = inputBox.querySelector('select').value;
-                let parentWithClass = e.target.closest('.directorist-search-field__input');
+                let parentWithClass = e.target.closest('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
     
                 if (!parentWithClass) {
                     if(inputFieldValue) {
@@ -443,6 +482,7 @@ import { directorist_range_slider } from './range-slider';
         $('body').on('click', '.directorist-search-field__btn--clear', function(e) {
             let inputFields = this.parentElement.querySelectorAll('.directorist-form-element');
             let selectboxField = this.parentElement.querySelector('.directorist-select select');
+            let basicDropdown = this.parentElement.querySelectorAll('.directorist-search-basic-dropdown-content');
             let radioFields = this.parentElement.querySelectorAll('input[type="radio"]');
             let checkboxFields = this.parentElement.querySelectorAll('input[type="checkbox"]');
 
@@ -466,6 +506,13 @@ import { directorist_range_slider } from './range-slider';
                 })
             }
 
+            if (basicDropdown) {
+                basicDropdown.forEach((dropdown) => {
+                    $(dropdown).slideToggle().hide();
+                    $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-count').text('');
+                })
+            }
+
             if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
                 this.parentElement.classList.remove('input-has-value', 'input-is-focused');
             }
@@ -474,8 +521,8 @@ import { directorist_range_slider } from './range-slider';
 
             // Reset Button Disable
             let searchform = this.closest('form');
-            let inputValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input').val();
-            let selectValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input select').val();
+            let inputValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input:not(.directorist-search-basic-dropdown)').val();
+            let selectValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input select:not(.directorist-search-basic-dropdown)').val();
             
             if(inputValue && inputValue !== 0 && inputValue !== undefined || selectValue && selectValue.selectedIndex === 0 ||  selectValue && selectValue.selectedIndex !== undefined) {
                 enableResetButton(searchform);

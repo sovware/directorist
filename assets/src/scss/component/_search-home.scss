@@ -232,6 +232,7 @@
         padding: 0;
         gap: 20px;
         flex-wrap: wrap;
+        flex-direction: column;
       }
 
       .select2.select2-container.select2-container--default .select2-selection__rendered {
@@ -380,6 +381,84 @@
     input[type=number]::-webkit-inner-spin-button{
       appearance: none;
       margin: 0;
+    }
+
+    .directorist-search-form-dropdown {
+      @media screen and (max-width: 575px) {
+        padding: 0 !important;
+      }
+      &.input-has-value {
+        .directorist-search-field__input {
+          padding-right: 25px;
+        }      
+        .directorist-search-field__btn i::after {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+    .directorist-search-basic-dropdown {
+      position: relative;
+      @media screen and (min-width: 575px) {
+        bottom: -3px !important;
+      }
+      .directorist-search-basic-dropdown-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; 
+        position: relative;
+        padding: 0;
+        width: 100%;
+        max-width: unset;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        transform: unset;
+        color: var(--directorist-color-primary);
+        span:not(:empty) {
+          width: 20px;
+          height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--directorist-color-white);
+          background: var(--directorist-color-primary);
+          border-radius: 100%;
+          margin-inline-start: 10px;
+        }
+        i {
+          display: flex;
+          flex: 1;
+          justify-content: flex-end;
+          &:after {
+            width: 12px;
+            height: 12px;
+            background: #808080;
+          }
+        }
+      }
+      .directorist-search-basic-dropdown-content {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        min-width: 150px;
+        padding: 15px 20px;
+        border-radius: 10px;
+        background: var(--directorist-color-white);
+        box-shadow: var(--directorist-box-shadow);
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 100;
+        display: none;
+        .directorist-search-tags {
+          gap: 12px;
+        }
+      }
     }
   }
 }

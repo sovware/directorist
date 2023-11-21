@@ -102,8 +102,9 @@ __webpack_require__.r(__webpack_exports__);
 (function ($) {
   $(document).ready(function () {
     if ($('#gmap').length) {
-      var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // initialize all vars here to avoid hoisting related misunderstanding.
+      var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data');
 
+      // initialize all vars here to avoid hoisting related misunderstanding.
       var placeSearch;
       var map;
       var autocomplete;
@@ -113,8 +114,9 @@ __webpack_require__.r(__webpack_exports__);
       var $manual_lat;
       var $manual_lng;
       var saved_lat_lng;
-      var info_content; // Localized Data
+      var info_content;
 
+      // Localized Data
       var loc_default_latitude = parseFloat(localized_data.default_latitude);
       var loc_default_longitude = parseFloat(localized_data.default_longitude);
       var loc_manual_lat = parseFloat(localized_data.manual_lat);
@@ -127,24 +129,27 @@ __webpack_require__.r(__webpack_exports__);
       saved_lat_lng = {
         lat: loc_manual_lat,
         lng: loc_manual_lng
-      }; // default is London city
+      };
 
-      info_content = localized_data.info_content, markers = [], // initialize the array to keep track all the marker
+      // default is London city
+      info_content = localized_data.info_content, markers = [],
+      // initialize the array to keep track all the marker
       info_window = new google.maps.InfoWindow({
         content: info_content,
         maxWidth: 400
-      }); // if(address_input){
+      });
+
+      // if(address_input){
       //         address_input = document.getElementById('address');
       //         address_input.addEventListener('focus', geolocate);
       // }
 
       address_input = document.getElementById('address');
-
       if (address_input !== null) {
         address_input.addEventListener('focus', geolocate);
-      } // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
+      }
 
-
+      // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
       function geolocate() {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function (position) {
@@ -160,7 +165,6 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       }
-
       function initAutocomplete() {
         // Create the autocomplete object, restricting the search to geographical
         var opt = {
@@ -171,31 +175,34 @@ __webpack_require__.r(__webpack_exports__);
         };
         var options = directorist.countryRestriction ? opt : {
           types: []
-        }; // location types.
+        };
 
-        autocomplete = new google.maps.places.Autocomplete(address_input, options); // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(address_input, options);
 
+        // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
         autocomplete.addListener('place_changed', fillInAddress);
       }
-
       function fillInAddress() {
         // Get the place details from the autocomplete object.
-        var place = autocomplete.getPlace(); // set the value of input field to save them to the database
+        var place = autocomplete.getPlace();
 
+        // set the value of input field to save them to the database
         $manual_lat.val(place.geometry.location.lat());
         $manual_lng.val(place.geometry.location.lng());
         map.setCenter(place.geometry.location);
         var marker = new google.maps.Marker({
           map: map,
           position: place.geometry.location
-        }); // marker.addListener('click', function () {
+        });
+
+        // marker.addListener('click', function () {
         //     info_window.open(map, marker);
         // });
-        // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
 
+        // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
         markers.push(marker);
       }
-
       initAutocomplete(); // start google map place auto complete API call
 
       function initMap() {
@@ -209,39 +216,40 @@ __webpack_require__.r(__webpack_exports__);
           position: saved_lat_lng,
           draggable: true,
           title: localized_data.marker_title
-        }); // marker.addListener('click', function () {
+        });
+        // marker.addListener('click', function () {
         //     info_window.open(map, marker);
         // });
         // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+        markers.push(marker);
 
-        markers.push(marker); // create a Geocode instance
-
+        // create a Geocode instance
         var geocoder = new google.maps.Geocoder();
         document.getElementById('generate_admin_map').addEventListener('click', function (e) {
           e.preventDefault();
           geocodeAddress(geocoder, map);
-        }); // This event listener calls addMarker() when the map is clicked.
+        });
 
+        // This event listener calls addMarker() when the map is clicked.
         google.maps.event.addListener(map, 'click', function (event) {
           deleteMarker(); // at first remove previous marker and then set new marker;
           // set the value of input field to save them to the database
-
           $manual_lat.val(event.latLng.lat());
-          $manual_lng.val(event.latLng.lng()); // add the marker to the given map.
-
+          $manual_lng.val(event.latLng.lng());
+          // add the marker to the given map.
           addMarker(event.latLng, map);
-        }); // This event listener update the lat long field of the form so that we can add the lat long to the database when the MARKER is drag.
-
+        });
+        // This event listener update the lat long field of the form so that we can add the lat long to the database when the MARKER is drag.
         google.maps.event.addListener(marker, 'dragend', function (event) {
           // set the value of input field to save them to the database
           $manual_lat.val(event.latLng.lat());
           $manual_lng.val(event.latLng.lng());
         });
       }
+
       /*
        * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
        * */
-
 
       function geocodeAddress(geocoder, resultsMap) {
         var address = address_input.value;
@@ -261,54 +269,53 @@ __webpack_require__.r(__webpack_exports__);
             var marker = new google.maps.Marker({
               map: resultsMap,
               position: results[0].geometry.location
-            }); // marker.addListener('click', function () {
+            });
+
+            // marker.addListener('click', function () {
             //     info_window.open(map, marker);
             // });
 
-            deleteMarker(); // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-
+            deleteMarker();
+            // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
             markers.push(marker);
           } else {
             alert(localized_data.geocode_error_msg + status);
           }
         });
       }
+      initMap();
 
-      initMap(); // adding features of creating marker manually on the map on add listing page.
-
+      // adding features of creating marker manually on the map on add listing page.
       /* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       var labelIndex = 0; */
-      // Adds a marker to the map.
 
+      // Adds a marker to the map.
       function addMarker(location, map) {
         // Add the marker at the clicked location, and add the next-available label
         // from the array of alphabetical characters.
         var marker = new google.maps.Marker({
           position: location,
-
           /* label: labels[labelIndex++ % labels.length], */
           draggable: true,
           title: localized_data.marker_title,
           map: map
-        }); // marker.addListener('click', function () {
+        });
+        // marker.addListener('click', function () {
         //     info_window.open(map, marker);
         // });
         // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-
         markers.push(marker);
-      } // Delete Marker
+      }
 
-
+      // Delete Marker
       $('#delete_marker').on('click', function (e) {
         e.preventDefault();
         deleteMarker();
       });
-
       function deleteMarker() {
         for (var i = 0; i < markers.length; i++) {
           markers[i].setMap(null);
         }
-
         markers = [];
       }
     }
@@ -335,18 +342,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var $ = jQuery;
-
 function get_dom_data(key, parent) {
   // var elmKey = 'directorist-dom-data-' + key;
   var elmKey = 'directorist-dom-data-' + key;
   var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
-
   if (!dataElm) {
     return '';
   }
-
   var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
-
   try {
     var dataValue = atob(dataElm[0].dataset.value);
     dataValue = JSON.parse(dataValue);
@@ -359,24 +362,19 @@ function get_dom_data(key, parent) {
         error: error
       });
     }
-
     return '';
   }
 }
-
 function convertToSelect2(field) {
   if (!field) {
     return;
   }
-
   if (!field.elm) {
     return;
   }
-
   if (!field.elm.length) {
     return;
   }
-
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(field.elm).forEach(function (item) {
     var default_args = {
       allowClear: true,
@@ -386,7 +384,6 @@ function convertToSelect2(field) {
         if (!data.field) {
           return data.text;
         }
-
         var $field = $(data.field);
         var $wrapper = $('<span></span>');
         $wrapper.addClass($field[0].className);
@@ -397,15 +394,12 @@ function convertToSelect2(field) {
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
     var options = $(item).find('option');
     var placeholder = options.length ? options[0].innerHTML : '';
-
     if (placeholder.length) {
       args.placeholder = placeholder;
     }
-
     $(item).select2(args);
   });
 }
-
 
 
 /***/ }),
@@ -419,14 +413,9 @@ function convertToSelect2(field) {
 
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
 }
-
 module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -439,11 +428,9 @@ module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exp
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
 }
-
 module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -458,7 +445,6 @@ module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.ex
 function _iterableToArray(iter) {
   if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
-
 module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -473,7 +459,6 @@ module.exports = _iterableToArray, module.exports.__esModule = true, module.expo
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-
 module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -486,17 +471,12 @@ module.exports = _nonIterableSpread, module.exports.__esModule = true, module.ex
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
-
 var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
-
 var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
-
 var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
-
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
 }
-
 module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -508,16 +488,15 @@ module.exports = _toConsumableArray, module.exports.__esModule = true, module.ex
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _typeof(obj) {
+function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
 }
-
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -530,7 +509,6 @@ module.exports = _typeof, module.exports.__esModule = true, module.exports["defa
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === "string") return arrayLikeToArray(o, minLen);
@@ -539,7 +517,6 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 }
-
 module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),

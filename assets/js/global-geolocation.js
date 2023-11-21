@@ -108,13 +108,11 @@ window.addEventListener('DOMContentLoaded', function () {
             });
           });
         }
-
         (function () {
           eventDelegation('click', '.directorist-filter-location-icon > i, .directorist-filter-location-icon > span', function (e) {
             var locationInput = e.target.closest('.directorist-search-field').querySelector('.location-name');
             var get_lat = e.target.closest('.directorist-search-field').querySelector("#cityLat");
             var get_lng = e.target.closest('.directorist-search-field').querySelector("#cityLng");
-
             function getLocation() {
               if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -122,9 +120,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 locationInput.value = 'Geolocation is not supported by this browser.';
               }
             }
-
             getLocation();
-
             function showPosition(position) {
               lat = position.coords.latitude;
               lon = position.coords.longitude;
@@ -132,27 +128,22 @@ window.addEventListener('DOMContentLoaded', function () {
               get_lat.value = lat;
               get_lng.value = lon;
             }
-
             function showError(error) {
               switch (error.code) {
                 case error.PERMISSION_DENIED:
                   locationInput.value = 'User denied the request for Geolocation.';
                   break;
-
                 case error.POSITION_UNAVAILABLE:
                   locationInput.value = 'Location information is unavailable.';
                   break;
-
                 case error.TIMEOUT:
                   locationInput.value = 'The request to get user location timed out.';
                   break;
-
                 case error.UNKNOWN_ERROR:
                   locationInput.value = 'An unknown error occurred.';
                   break;
               }
             }
-
             function displayLocation(latitude, longitude) {
               var geocoder;
               geocoder = new google.maps.Geocoder();
@@ -180,7 +171,6 @@ window.addEventListener('DOMContentLoaded', function () {
                 }
               });
             }
-
             function displayCurrentLocation(latitude, longitude) {
               var geocoder;
               geocoder = new google.maps.Geocoder();
@@ -225,7 +215,6 @@ window.addEventListener('DOMContentLoaded', function () {
             }
           });
         }
-
         $('body').on("click", ".directorist-filter-location-icon", function (e) {
           navigator.geolocation.getCurrentPosition(function (position) {
             return displayLocation(position, e);

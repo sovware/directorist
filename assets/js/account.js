@@ -93,7 +93,6 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-<<<<<<< HEAD
 var $ = jQuery;
 $(document).ready(function () {
   modalToggle();
@@ -118,41 +117,6 @@ function modalToggle() {
     e.preventDefault();
     var data_target = $(this).attr("data-directorist_target");
     document.querySelector(".".concat(data_target)).classList.add('directorist-show');
-=======
-;
-(function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
-    // Recovery Password Modal
-    $("#recover-pass-modal").hide();
-    $(".atbdp_recovery_pass").on("click", function (e) {
-      e.preventDefault();
-      $("#recover-pass-modal").slideToggle().show();
-    });
-
-    // Contact form [on modal closed]
-    $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
-      $('#atbdp-contact-message').val('');
-      $('#atbdp-contact-message-display').html('');
-    });
-
-    // Template Restructured
-    // Modal
-    var directoristModal = document.querySelector('.directorist-modal-js');
-    $('body').on('click', '.directorist-btn-modal-js', function (e) {
-      e.preventDefault();
-      var data_target = $(this).attr("data-directorist_target");
-      document.querySelector(".".concat(data_target)).classList.add('directorist-show');
-    });
-    $('body').on('click', '.directorist-modal-close-js', function (e) {
-      e.preventDefault();
-      $(this).closest('.directorist-modal-js').removeClass('directorist-show');
-    });
-    $(document).bind('click', function (e) {
-      if (e.target == directoristModal) {
-        directoristModal.classList.remove('directorist-show');
-      }
-    });
->>>>>>> 8e0be4ce75e6c593ea3c8d950155db2cb44f0db2
   });
   $('body').on('click', '.directorist-modal-close-js', function (e) {
     e.preventDefault();
@@ -175,6 +139,7 @@ function modalToggle() {
 /***/ (function(module, exports) {
 
 ;
+
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_alert_executed === 'undefined') {
@@ -182,15 +147,12 @@ function modalToggle() {
   } else {
     return;
   }
-<<<<<<< HEAD
 
   window.addEventListener('load', function () {
-=======
-  window.addEventListener('DOMContentLoaded', function () {
->>>>>>> 8e0be4ce75e6c593ea3c8d950155db2cb44f0db2
     /* Directorist alert dismiss */
     var getUrl = window.location.href;
     var newUrl = getUrl.replace('notice=1', '');
+
     if ($('.directorist-alert__close') !== null) {
       $('.directorist-alert__close').each(function (i, e) {
         $(e).on('click', function (e) {
@@ -213,6 +175,7 @@ function modalToggle() {
 /***/ (function(module, exports) {
 
 ;
+
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_loginjs_executed === 'undefined') {
@@ -220,12 +183,8 @@ function modalToggle() {
   } else {
     return;
   }
-<<<<<<< HEAD
 
   window.addEventListener('load', function () {
-=======
-  window.addEventListener('DOMContentLoaded', function () {
->>>>>>> 8e0be4ce75e6c593ea3c8d950155db2cb44f0db2
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {
       e.preventDefault();
@@ -247,6 +206,7 @@ function modalToggle() {
           if ('nonce_faild' in data && data.nonce_faild) {
             $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
+
           if (data.loggedin == true) {
             $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
             document.location.href = directorist.redirect_url;
@@ -258,6 +218,7 @@ function modalToggle() {
           if ('nonce_faild' in data && data.nonce_faild) {
             $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
+
           $('p.status').show().html('<div class="directorist-alert directorist-alert-danger"><span>' + directorist.login_error_message + '</span></div>');
         }
       });
@@ -265,6 +226,7 @@ function modalToggle() {
     });
     $('form#login .status').on('click', 'a', function (e) {
       e.preventDefault();
+
       if ($(this).attr('href') === '#atbdp_recovery_pass') {
         $("#recover-pass-modal").slideDown().show();
         window.scrollTo({
@@ -274,24 +236,22 @@ function modalToggle() {
       } else {
         location.href = href;
       }
-    });
+    }); // Alert users to login (only if applicable)
 
-    // Alert users to login (only if applicable)
     $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
       e.preventDefault();
       alert(directorist.login_alert_message);
       return false;
-    });
+    }); // Remove URL params to avoid show message again and again
 
-    // Remove URL params to avoid show message again and again
     var current_url = location.href;
     var url = new URL(current_url);
     url.searchParams.delete('registration_status');
-    url.searchParams.delete('errors');
-    // url.searchParams.delete('key');
+    url.searchParams.delete('errors'); // url.searchParams.delete('key');
+
     url.searchParams.delete('password_reset');
-    url.searchParams.delete('confirm_mail');
-    // url.searchParams.delete('user');
+    url.searchParams.delete('confirm_mail'); // url.searchParams.delete('user');
+
     url.searchParams.delete('verification');
     url.searchParams.delete('send_verification_email');
     window.history.pushState(null, null, url.toString());
@@ -310,10 +270,12 @@ function modalToggle() {
 jQuery(function ($) {
   $('.directorist-ResetPassword').on('submit', function () {
     var form = $(this);
+
     if (form.find('#password_1').val() != form.find('#password_2').val()) {
       form.find('.password-not-match').show();
       return false;
     }
+
     form.find('.password-not-match').hide();
     return true;
   });

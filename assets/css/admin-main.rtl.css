@@ -8134,8 +8134,8 @@ body.stop-scrolling {
   color: var(--directorist-color-success);
 }
 .directorist-form-listing-type .directorist-radio input[type=radio] + .directorist-radio__label:before {
-  right: 30px;
-  top: 30px;
+  right: 29px;
+  top: 29px;
 }
 .directorist-form-listing-type .directorist-radio input[type=radio] + .directorist-radio__label:after {
   right: 25px;
@@ -11496,12 +11496,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-radius: 100%;
   border: none;
   cursor: pointer;
-  -webkit-transition: all ease 0.3s;
-  transition: all ease 0.3s;
 }
 .directorist-search-modal__contents__btn i::after {
   width: 10px;
   height: 10px;
+  -webkit-transition: background-color ease 0.3s;
+  transition: background-color ease 0.3s;
 }
 .directorist-search-modal__contents__btn:hover i::after {
   background-color: var(--directorist-color-danger);
@@ -12215,7 +12215,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding-right: 30px;
   margin-bottom: 0;
   margin-right: 0;
-  line-height: 1.3;
+  line-height: 1.4;
   color: var(--directorist-color-body);
   -webkit-box-sizing: content-box;
           box-sizing: content-box;

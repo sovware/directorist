@@ -6376,7 +6376,7 @@ body.modal-overlay-enabled:before {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
-.directorist-widget .directorist-card__body.directorist-weidget__body {
+.directorist-widget .directorist-card__body.directorist-widget__body {
   padding: 20px 30px;
 }
 
@@ -6426,6 +6426,19 @@ body.modal-overlay-enabled:before {
 }
 .directorist-sidebar .directorist-card .directorist-search-form-top .directorist-search-modal__contents__body .directorist-search-modal__input .directorist-search-field {
   border: 0 none;
+}
+.directorist-sidebar .directorist-card select {
+  width: 100%;
+  height: 40px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 400;
+  outline: none;
+  border: 1px solid var(--directorist-color-border);
+}
+.directorist-sidebar .directorist-card select:focus {
+  border: 1px solid var(--directorist-color-dark);
 }
 
 .directorist-widget__listing-contact .directorist-form-group {

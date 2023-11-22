@@ -754,7 +754,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		public static function validate_field( $field, $posted_data ) {
 			$should_validate = (bool) apply_filters( 'atbdp_add_listing_form_validation_logic', true, $field->get_props(), $posted_data );
 
-			if ( $field->is_category_only() && ! in_array( $field->get_assigned_category(), self::$selected_categories, true ) ) {
+			if ( is_null( self::$selected_categories ) || ( $field->is_category_only() && ! in_array( $field->get_assigned_category(), self::$selected_categories, true ) ) ) {
 				$should_validate = false;
 			}
 

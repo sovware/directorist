@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.7.3
+ * Version: 7.8.1
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -669,36 +669,19 @@ final class Directorist_Base
 	}
 
 	/**
-	 * Parse the video URL and determine it's valid embeddable URL for usage.
+	 * Deprecated: 7.8.0
+	 * 
+	 * This function is deprecated since version 7.8.0. Please use parse_video() instead.
+	 *
+	 * @param string $url The URL to parse for videos.
+	 * @return mixed The parsed video URL.
+	 *
+	 * @deprecated Use parse_video() for video parsing.
 	 */
-	public function atbdp_parse_videos($url)
-	{
-		$embeddable_url = '';
-		// Check for YouTube
-		$is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url);
+	public function atbdp_parse_videos( $url ) {	
+		_deprecated_function( __METHOD__, '7.8.0', 'Directorist\Helper::parse_video()' );
 
-		if ($is_youtube) {
-			$pattern = '/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/';
-			preg_match($pattern, $url, $matches);
-			if (count($matches) && strlen($matches[7]) == 11) {
-				$embeddable_url = 'https://www.youtube.com/embed/' . $matches[7];
-			}
-		}
-
-		// Check for Vimeo
-		$is_vimeo = preg_match('/vimeo\.com/i', $url);
-
-		if ($is_vimeo) {
-			$pattern = '/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/';
-			preg_match($pattern, $url, $matches);
-			if (count($matches)) {
-				$embeddable_url = 'https://player.vimeo.com/video/' . $matches[2];
-			}
-		}
-
-		// Return
-		return $embeddable_url;
-
+		return \Directorist\Helper::parse_video( $url );
 	}
 
 	public function atbdp_body_class($c_classes)

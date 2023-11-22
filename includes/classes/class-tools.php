@@ -166,25 +166,28 @@
                                 continue;
                             }
 
-                            if ('category' == $taxonomy) {
+                            if ( 'category' === $taxonomy ) {
                                 $taxonomy = ATBDP_CATEGORY;
-                            }elseif ('location' == $taxonomy) {
+                            } elseif ( 'location' === $taxonomy ) {
                                 $taxonomy = ATBDP_LOCATION;
-                            }else{
+                            } else {
                                 $taxonomy = ATBDP_TAGS;
                             }
 
                             $term_ids = array();
                             $multiple = $terms > 0;
 
-                            foreach( $terms as $term ) {
+                            foreach ( $terms as $term ) {
 								$term_id = $this->get_or_create_term_id( $term, $taxonomy );
 
 								if ( empty( $term_id ) ) {
 									continue;
 								}
 
-                                update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
+								if ( $taxonomy === ATBDP_CATEGORY || $taxonomy === ATBDP_LOCATION ) {
+									directorist_update_term_directory( $term_id, array( $directory_type ), true );
+								}
+
                                 $term_ids[] = $term_id;
                             }
 

@@ -350,10 +350,10 @@
             border-radius: 100%;
             border: none;
             cursor: pointer;
-            transition: all ease 0.3s;
             i::after {
                 width: 10px;
                 height: 10px;
+                transition: background-color ease 0.3s;
             }
             &:hover {
                 i::after {

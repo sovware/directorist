@@ -135,8 +135,8 @@ function atbdp_get_payment_currency_settings()
     // Get the payment currency settings, and use the general currency settings if the payment currency setting is empty.
     $currency_settings = array(
         'currency' => get_directorist_option('payment_currency', get_directorist_option('g_currency', 'USD')),
-        'thousands_separator' => get_directorist_option('payment_thousand_separator', get_directorist_option('g_thousand_separator', ',')),
-        'decimal_separator' => get_directorist_option('payment_decimal_separator', get_directorist_option('g_decimal_separator', '.')),
+        'thousands_separator' => get_directorist_option('payment_thousand_separator', ',' ),
+        'decimal_separator' => get_directorist_option('payment_decimal_separator', '.' ),
         'position' => get_directorist_option('payment_currency_position', get_directorist_option('g_currency_position', 'before')),
     );
 

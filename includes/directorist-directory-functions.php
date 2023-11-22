@@ -63,7 +63,9 @@ function directorist_get_listing_form_field( $directory_id, $field_key = '' ) {
 		return array();
 	}
 
-	return directorist_get_listing_form_fields( $directory_id )[ $field_key ] ?: array();
+	$form_fields = directorist_get_listing_form_fields( $directory_id );
+
+	return empty( $form_fields[ $field_key ] ) ? array() : $form_fields[ $field_key ];
 }
 
 function directorist_get_listing_form_category_field( int $directory_id ) {

@@ -93,38 +93,10 @@ class Scripts {
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'slick',
 			],
-			// 'directorist-openstreet-layers' => [
-			// 	'type' => 'js',
-			// 	'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/openstreetlayers',
-			// ],
-			// 'directorist-openstreet-unpkg' => [
-			// 	'type' => 'js',
-			// 	'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/unpkg-min',
-			// ],
-			// 'directorist-openstreet-unpkg-index' => [
-			// 	'type' => 'js',
-			// 	'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/unpkg-index',
-			// ],
-			// 'directorist-openstreet-unpkg-libs' => [
-			// 	'type' => 'js',
-			// 	'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/unpkg-libs',
-			// ],
 			'directorist-openstreet-leaflet-versions' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/leaflet',
 			],
-			// 'directorist-openstreet-libs-setup' => [
-			// 	'type' => 'js',
-			// 	'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/libs-setup',
-			// ],
-			// 'directorist-openstreet-open-layers' => [
-			// 	'type' => 'js',
-			// 	'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/openlayers/openlayers',
-			// ],
-			// 'directorist-openstreet-crosshairs' => [
-			// 	'type' => 'js',
-			// 	'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/openlayers4jgsi/crosshairs',
-			// ],
 			'directorist-openstreet-leaflet-markercluster-versions' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_VENDOR_JS . 'openstreet-map/leaflet.markercluster-versions',

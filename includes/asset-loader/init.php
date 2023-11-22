@@ -159,10 +159,10 @@ class Asset_Loader {
 			case 'single/fields/map':
 			case 'widgets/single-map':
 				self::enqueue_map_scripts();
-				wp_enqueue_script('jquery-ui-autocomplete');
 				break;
 
 			case 'archive/map-view':
+				self::enqueue_map_scripts();
 				wp_enqueue_script( 'directorist-openstreet-all-map' );
 				break;
 

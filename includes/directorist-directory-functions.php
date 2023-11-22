@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function directorist_get_directory_meta( int $directory_id, string $meta_key ) {
-	if ( ! term_exists( $directory_id, ATBDP_DIRECTORY_TYPE ) ) {
+	if ( ! directorist_is_directory( $directory_id ) ) {
 		return false;
 	}
 
@@ -34,6 +34,10 @@ function directorist_get_listing_form_data( int $directory_id ) {
 		$allowed_fields_key = array();
 
 		foreach ( $group['fields'] as $field_key ) {
+			if ( empty( $_fields[ $field_key ] ) || ! is_array( $_fields[ $field_key ] ) ) {
+				continue;
+			}
+
 			if ( (bool) apply_filters( 'directorist_listing_form_field_is_allowed', true, $_fields[ $field_key ], $directory_id ) ) {
 				$allowed_fields_key[] = $field_key;
 				$fields[ $field_key ] = apply_filters( 'directorist_listing_form_field', $_fields[ $field_key ], $directory_id );
@@ -165,36 +169,46 @@ function directorist_set_listing_directory( $listing_id, $directory_id ) {
 	return true;
 }
 
-function directorist_get_single_listing_fields( int $directory_id ) {
+function directorist_get_single_listing_data( int $directory_id ) {
 	$single_listing_data = directorist_get_directory_meta( $directory_id, 'single_listings_contents' );
 	$_fields             = directorist_get_var( $single_listing_data['fields'], array() );
-	$_groups             = directorist_get_var( $single_listing_data['groups'], array() );
-	$form_fields         = directorist_get_listing_form_fields( $directory_id );
+	$groups              = directorist_get_var( $single_listing_data['groups'], array() );
+	$listing_form_fields = directorist_get_listing_form_fields( $directory_id );
+	$fields              = array();
 
-	$fields_keys = array();
-	$fields      = array();
+	foreach ( $groups as &$group ) {
+		$allowed_fields_key = array();
 
-	foreach ( $_groups as $group ) {
-		$fields_keys = array_merge( $fields_keys, $group['fields'] );
-	}
+		foreach ( $group['fields'] as $field_key ) {
+			if ( empty( $_fields[ $field_key ] ) || ! is_array( $_fields[ $field_key ] ) ) {
+				continue;
+			}
 
-	foreach ( $fields_keys as $field_key ) {
-		if ( ! is_array( $_fields[ $field_key ] ) ) {
-			continue;
+			if ( ! isset( $_fields[ $field_key ]['original_widget_key'] ) || ! isset( $listing_form_fields[ $_fields[ $field_key ]['original_widget_key'] ] ) ) {
+				continue;
+			}
+
+			$fields[ $field_key ] = $_fields[ $field_key ];
+			$allowed_fields_key[] = $field_key;
 		}
 
-		if ( ! isset( $_fields[ $field_key ]['original_widget_key'] ) || ! isset( $form_fields[ $_fields[ $field_key ]['original_widget_key'] ] ) ) {
-			continue;
-		}
-
-		$fields[ $field_key ] = $_fields[ $field_key ];
+		$group['fields'] = $allowed_fields_key;
 	}
 
-	return $fields;
+	return array(
+		'fields' => $fields,
+		'groups' => $groups,
+	);
+}
+
+function directorist_get_single_listing_fields( int $directory_id ) {
+	return directorist_get_single_listing_data( $directory_id )['fields'];
 }
 
 function directorist_get_single_listing_groups( int $directory_id ) {
-	$form_data = directorist_get_directory_meta( $directory_id, 'single_listings_contents' );
+	$groups = directorist_get_single_listing_data( $directory_id )['groups'];
 
-	return directorist_get_var( $form_data['groups'], array() );
+	return array_filter( $groups, static function( $group ) {
+		return ! empty( $group['fields'] );
+	} );
 }

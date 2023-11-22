@@ -656,7 +656,7 @@ class Listings_Controller extends Posts_Controller {
 	 * @param WP_Post   $listing WP_Post instance.
 	 * @param WP_REST_Request $request Request object.
 	 * @param string    $context Request context. Options: 'view' and 'edit'.
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function get_listing_data( $listing, $request, $context = 'view' ) {
@@ -805,6 +805,9 @@ class Listings_Controller extends Posts_Controller {
 				case 'author':
 					$base_data['author'] = (int) $listing->post_author;
 					break;
+				case 'plan':
+					$base_data['plan'] = (int) get_post_meta( $listing->ID, '_fm_plans', true );
+					break;
 			}
 		}
 
@@ -906,6 +909,13 @@ class Listings_Controller extends Posts_Controller {
 				'href' => rest_url( sprintf( '/%s/%s', $this->namespace, $this->rest_base ) ),  // @codingStandardsIgnoreLine.
 			),
 		);
+
+		$plan_id = (int) get_post_meta( $object->ID, '_fm_plans', true );
+		if ( $plan_id ) {
+			$links['plan'] = array(
+				'href' => rest_url( sprintf( '/%s/%s/%d', $this->namespace, 'plans', $plan_id ) ),  // @codingStandardsIgnoreLine.
+			);
+		}
 
 		if ( $object->post_parent ) {
 			$links['up'] = array(
@@ -1317,6 +1327,11 @@ class Listings_Controller extends Posts_Controller {
 				),
 				'author'            => array(
 					'description' => __( 'Listing author id.', 'directorist' ),
+					'type'        => 'integer',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'plan' => array(
+					'description' => __( 'Listing plan id.', 'directorist' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),

@@ -58,7 +58,7 @@ class Plans_Controller extends Posts_Controller {
 			array(
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'directorist' ),
+						'description' => __( 'Plan id.', 'directorist' ),
 						'type'        => 'integer',
 					),
 				),
@@ -341,13 +341,16 @@ class Plans_Controller extends Posts_Controller {
 					$base_data['description'] = 'view' === $context ? wpautop( do_shortcode( $plan->post_content ) ): $plan->post_content;
 					break;
 				case 'directory':
-					$base_data['directory'] = (int) get_post_meta( $plan->ID, '_directory_type', true );
+					$base_data['directory'] = (int) get_post_meta( $plan->ID, '_assign_to_directory', true );
 					break;
 				case 'status':
 					$base_data['status'] = $plan->post_status;
 					break;
 				case 'type':
-					$base_data['type'] = $plan->post_status;
+					$base_data['type'] = get_post_meta( $plan->ID, 'plan_type', true );
+					break;
+				case 'price':
+					$base_data['price'] = get_post_meta( $plan->ID, 'fm_price', true );
 					break;
 			}
 		}

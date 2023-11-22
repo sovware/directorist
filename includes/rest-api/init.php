@@ -79,5 +79,11 @@ function register_controllers() {
 
 	$builder = new \Directorist\Rest_Api\Controllers\Version1\Builder_Controller();
 	$builder->register_routes();
+
+	// Plans controller
+	require_once $dir . 'Version1/class-plans-controller.php';
+
+	$plans = new \Directorist\Rest_Api\Controllers\Version1\Plans_Controller();
+	$plans->register_routes();
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\register_controllers' );

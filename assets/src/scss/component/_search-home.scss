@@ -386,14 +386,34 @@
     .directorist-search-form-dropdown {
       @media screen and (max-width: 575px) {
         padding: 0 !important;
+        margin-right: 5px !important;
+
+        .directorist-search-field__btn {
+          right: 0;
+        }
       }
-      &.input-has-value {
+      &.input-has-value,
+      &.input-is-focused {
         .directorist-search-field__input {
           padding-right: 25px;
-        }      
+          .directorist-search-basic-dropdown-label {
+            opacity: 1 !important;
+            visibility: visible;
+          }
+        }
         .directorist-search-field__btn i::after {
           opacity: 1;
           visibility: visible;
+        }
+
+        @media screen and (max-width: 575px) {
+          margin-right: 20px !important;
+          .directorist-search-field__input {
+            padding-right: 0 !important;
+          }
+          .directorist-search-field__btn {
+            right: -20px;
+          }
         }
       }
     }
@@ -404,6 +424,7 @@
       }
       .directorist-search-basic-dropdown-label {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-between; 
         position: relative;
@@ -412,14 +433,16 @@
         max-width: unset;
         height: 40px;
         line-height: 40px;
-        font-size: 14px;
+        font-size: 14px !important;
         font-weight: 500;
         cursor: pointer;
-        top: 0;
-        left: 0;
-        transform: unset;
+        position: unset !important;
+        transform: unset !important;
         color: var(--directorist-color-primary);
-        span:not(:empty) {
+        .directorist-search-basic-dropdown-selected-prefix:not(:empty)  {
+          margin-inline-end: 5px;
+        }
+        .directorist-search-basic-dropdown-selected-count:not(:empty) {
           width: 20px;
           height: 20px;
           display: flex;
@@ -440,6 +463,11 @@
             background: #808080;
           }
         }
+        &:before {
+          @media screen and (max-width: 575px) {
+            left: -20px !important;
+          }
+        }
       }
       .directorist-search-basic-dropdown-content {
         position: absolute;
@@ -457,6 +485,9 @@
         display: none;
         .directorist-search-tags {
           gap: 12px;
+        }
+        .directorist-checkbox__label {
+          width: 100%;
         }
       }
     }

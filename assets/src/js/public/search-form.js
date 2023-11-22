@@ -45,44 +45,58 @@ import { directorist_range_slider } from './range-slider';
 
         });
 
+        // Basic Search Tag Dropdown
         function selectedItemCount(item) {
             let dropdownParent = $(item).closest('.directorist-search-field');
-            let dropdownContent = $(item).closest('.directorist-search-basic-dropdown-content');
-            let selectedItemCount = dropdownContent.find('.directorist-checkbox input[type="checkbox"]:checked');
-            let selectedCounter = dropdownContent.siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-count');
+            let dropDownContent = $(item).closest('.directorist-search-basic-dropdown-content');
+            let selectedItemCount = dropDownContent.find('.directorist-checkbox input[type="checkbox"]:checked');
+            let selectedPrefix = dropDownContent.siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-prefix');
+            let selectedCounter = dropDownContent.siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-count');
 
             if (selectedItemCount.length > 0) {
                 selectedCounter.text(selectedItemCount.length);
+                selectedPrefix.text('Selected');
                 dropdownParent.addClass('input-has-value');
             } else {
                 // If no items are checked, clear the text
                 selectedCounter.text('');
+                selectedPrefix.text('');
                 dropdownParent.removeClass('input-has-value');
             }
-        }
+        } // Count Selected Values
 
-        // Basic Search Tag Dropdown
-        $('body').on('click', '.directorist-search-basic-dropdown-label', function (e) {
+        $('body').on('change', '.directorist-search-form__top .directorist-search-basic-dropdown input[type="checkbox"]', function (e) {
+            e.preventDefault();
+
+            selectedItemCount(this);
+        }); // Input Field Check
+
+        $('body').on('click', '.directorist-search-form__top .directorist-search-basic-dropdown-label', function (e) {
             e.preventDefault();
             let dropDownParent = $(this).closest('.directorist-search-field');
-            let dropdownContent = $(this).siblings('.directorist-search-basic-dropdown-content');
-            dropdownContent.toggleClass('dropdown-content-show');
-            dropdownContent.slideToggle().show();
+            let dropDownContent = $(this).siblings('.directorist-search-basic-dropdown-content');
 
-            if (dropdownContent.hasClass('dropdown-content-show')) {
+            dropDownContent.toggleClass('dropdown-content-show');
+            dropDownContent.slideToggle().show();
+
+            if (dropDownContent.hasClass('dropdown-content-show')) {
                 dropDownParent.addClass('input-is-focused');
             } else {
                 dropDownParent.removeClass('input-is-focused');
             }
-        }); 
+        }); // Dropdown Toggle
+        
+        $('body').on('click', function (e) {
+            let dropDownRoot = $(e.target).closest('.directorist-search-form-dropdown');
+            let dropDownParent = $('.directorist-search-form-dropdown');
+            let dropDownContent = $('.directorist-search-basic-dropdown-content');
 
-        // Basic Search Tag Dropdown
-        $('body').on('change', '.directorist-search-basic-dropdown input[type="checkbox"]', function (e) {
-            e.preventDefault();
-            $(this).siblings('.directorist-search-basic-dropdown-content').slideToggle().show();
-
-            selectedItemCount(this);
-        }); 
+            if (!dropDownRoot.length) {
+                dropDownParent.removeClass('input-is-focused');
+                dropDownContent.removeClass('dropdown-content-show');
+                dropDownContent.slideUp();
+            }
+        }); // Click outside the dropdown content to hide it
 
         //remove preload after window load
         $(window).on('load', function () {
@@ -508,8 +522,9 @@ import { directorist_range_slider } from './range-slider';
 
             if (basicDropdown) {
                 basicDropdown.forEach((dropdown) => {
-                    $(dropdown).slideToggle().hide();
+                    $(dropdown).slideUp();
                     $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-count').text('');
+                    $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-prefix').text('');
                 })
             }
 
@@ -535,7 +550,7 @@ import { directorist_range_slider } from './range-slider';
         });
 
         // Search Form Input Field Back Button
-        $('body').on('click', '.directorist-search-field__label', function(e) {
+        $('body').on('click', '.directorist-search-field__label:not(.directorist-search-basic-dropdown-label)', function(e) {
             let windowScreen = window.innerWidth;
             let parentField = this.closest('.directorist-search-field');
 

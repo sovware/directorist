@@ -27,6 +27,7 @@ if ( !$tag_terms ) {
 
 		<?php if ( !empty($data['label']) ): ?>
 			<label class="directorist-search-field__label directorist-search-basic-dropdown-label">
+				<span class="directorist-search-basic-dropdown-selected-prefix"></span>
 				<?php echo esc_html( $data['label'] ); ?>
 				<span class="directorist-search-basic-dropdown-selected-count"></span>
 				<?php directorist_icon( 'fas fa-chevron-down' ); ?>	

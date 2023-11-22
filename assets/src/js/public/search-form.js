@@ -65,13 +65,13 @@ import { directorist_range_slider } from './range-slider';
             }
         } // Count Selected Values
 
-        $('body').on('change', '.directorist-search-form__top .directorist-search-basic-dropdown input[type="checkbox"]', function (e) {
+        $('body').on('change', '.directorist-search-form__top .directorist-search-basic-dropdown input[type="checkbox"], .directorist-search-modal .directorist-search-basic-dropdown input[type="checkbox"]', function (e) {
             e.preventDefault();
 
             selectedItemCount(this);
         }); // Input Field Check
 
-        $('body').on('click', '.directorist-search-form__top .directorist-search-basic-dropdown-label', function (e) {
+        $('body').on('click', '.directorist-search-form__top .directorist-search-basic-dropdown-label, .directorist-search-modal .directorist-search-basic-dropdown-label', function (e) {
             e.preventDefault();
             let dropDownParent = $(this).closest('.directorist-search-field');
             let dropDownContent = $(this).siblings('.directorist-search-basic-dropdown-content');

@@ -325,8 +325,8 @@
         max-height: 345px !important;
         overflow-y: scroll;
         border-radius: 10px;
-        background-color: var(--directorist-color-white);
-        box-shadow: var(--directorist-box-shadow);
+        background-color: #fff;
+        box-shadow: 0 5px 20px rgba(0,0,0,.1);
         z-index: 10;
         ul {
             list-style: none;
@@ -339,23 +339,31 @@
             align-items: center;
             gap: 15px;
             margin: 0;
-            border: none;
+            padding: 10px 20px;
+            border-bottom: 1px solid #eee;
             a {
-                color: var(--directorist-color-body);
-                padding: 8px 10px;
+                color: #404040;
                 display: flex;
                 align-items: flex-start;
                 gap: 15px;
                 font-size: 14px;
                 line-height: 18px;
-                margin: 0 13px;
+                padding: 0;
+                margin: 0;
                 color: #767792;
-                background-color: var(--directorist-color-white);
-                border-radius: 10px;
+                background-color: #fff;
+                border-bottom: 1px solid #d9d9d9;
                 text-decoration: none;  
-                transition: color 0.3s ease;
+                transition: color 0.3s ease, border 0.3s ease;
                 &:hover {
-                    color: var(--directorist-color-body);
+                    color: #404040;
+                    border-bottom: 1px dashed #e9e9e9;
+                }
+            }
+            &:last-child {
+                border: none;
+                a {
+                    border: none;
                 }
             }
         }

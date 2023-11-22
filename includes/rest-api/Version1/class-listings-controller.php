@@ -507,9 +507,9 @@ class Listings_Controller extends Posts_Controller {
 		$data = $this->prepare_item_for_response( $post, $request );
 		$response = rest_ensure_response( $data );
 
-		if ( $this->public ) {
-			$response->link_header( 'alternate', get_permalink( $id ), array( 'type' => 'text/html' ) );
-		}
+		// if ( $this->public ) {
+		// 	$response->link_header( 'alternate', get_permalink( $id ), array( 'type' => 'text/html' ) );
+		// }
 
 		do_action( 'directorist_rest_after_query', 'get_listing_item', $request, $id );
 
@@ -689,68 +689,68 @@ class Listings_Controller extends Posts_Controller {
 				case 'date_modified_gmt':
 					$base_data['date_modified_gmt'] = directorist_rest_prepare_date_response( $listing->post_date_modified_gmt );
 					break;
-				case 'description':
-					$base_data['description'] = 'view' === $context ? wpautop( do_shortcode( $listing->post_content ) ): $listing->post_content;
-					break;
-				case 'short_description':
-					$base_data['short_description'] = 'view' === $context ? $listing->post_excerpt : $listing->post_excerpt;
-					break;
-				case 'zip':
-					$base_data['zip'] = get_post_meta( $listing->ID, '_zip', true );
-					break;
-				case 'phone':
-					$base_data['phone'] = get_post_meta( $listing->ID, '_phone', true );
-					break;
-				case 'phone_2':
-					$base_data['phone_2'] = get_post_meta( $listing->ID, '_phone2', true );
-					break;
-				case 'fax':
-					$base_data['fax'] = get_post_meta( $listing->ID, '_fax', true );
-					break;
-				case 'email':
-					$base_data['email'] = get_post_meta( $listing->ID, '_email', true );
-					break;
-				case 'website':
-					$base_data['website'] = get_post_meta( $listing->ID, '_website', true );
-					break;
-				case 'social_links':
-					$base_data['social_links'] = $this->get_listing_social_links( $listing->ID );
-					break;
+				// case 'description':
+				// 	$base_data['description'] = 'view' === $context ? wpautop( do_shortcode( $listing->post_content ) ) : $listing->post_content;
+				// 	break;
+				// case 'short_description':
+				// 	$base_data['short_description'] = 'view' === $context ? $listing->post_excerpt : $listing->post_excerpt;
+				// 	break;
+				// case 'zip':
+				// 	$base_data['zip'] = get_post_meta( $listing->ID, '_zip', true );
+				// 	break;
+				// case 'phone':
+				// 	$base_data['phone'] = get_post_meta( $listing->ID, '_phone', true );
+				// 	break;
+				// case 'phone_2':
+				// 	$base_data['phone_2'] = get_post_meta( $listing->ID, '_phone2', true );
+				// 	break;
+				// case 'fax':
+				// 	$base_data['fax'] = get_post_meta( $listing->ID, '_fax', true );
+				// 	break;
+				// case 'email':
+				// 	$base_data['email'] = get_post_meta( $listing->ID, '_email', true );
+				// 	break;
+				// case 'website':
+				// 	$base_data['website'] = get_post_meta( $listing->ID, '_website', true );
+				// 	break;
+				// case 'social_links':
+				// 	$base_data['social_links'] = $this->get_listing_social_links( $listing->ID );
+				// 	break;
 				case 'views_count':
 					$base_data['views_count'] = directorist_get_listing_views_count( $listing->ID );
 					break;
-				case 'map_hidden':
-					$base_data['map_hidden'] = (bool) get_post_meta( $listing->ID, '_hide_map', true );
-					break;
-				case 'address':
-					$base_data['address'] = get_post_meta( $listing->ID, '_address', true );
-					break;
-				case 'latitude':
-					$base_data['latitude'] = get_post_meta( $listing->ID, '_manual_lat', true );
-					break;
-				case 'longitude':
-					$base_data['longitude'] = get_post_meta( $listing->ID, '_manual_lng', true );
-					break;
-				case 'pricing_type':
-					$base_data['pricing_type'] = get_post_meta( $listing->ID, '_atbd_listing_pricing', true );
-					break;
-				case 'price':
-					$base_data['price'] = (float) get_post_meta( $listing->ID, '_price', true );
-					break;
-				case 'price_range':
-					$base_data['price_range'] = get_post_meta( $listing->ID, '_price_range', true );
-					break;
-				case 'owner_contact_hidden':
-					$base_data['owner_contact_hidden'] = (bool) get_post_meta( $listing->ID, '_hide_contact_owner', true );
-					break;
-				case 'video_url':
-					$base_data['video_url'] = get_post_meta( $listing->ID, '_videourl', true );
-					break;
-				case 'tagline':
-					$base_data['tagline'] = get_post_meta( $listing->ID, '_tagline', true );
-					break;
+				// case 'map_hidden':
+				// 	$base_data['map_hidden'] = (bool) get_post_meta( $listing->ID, '_hide_map', true );
+				// 	break;
+				// case 'address':
+				// 	$base_data['address'] = get_post_meta( $listing->ID, '_address', true );
+				// 	break;
+				// case 'latitude':
+				// 	$base_data['latitude'] = get_post_meta( $listing->ID, '_manual_lat', true );
+				// 	break;
+				// case 'longitude':
+				// 	$base_data['longitude'] = get_post_meta( $listing->ID, '_manual_lng', true );
+				// 	break;
+				// case 'pricing_type':
+				// 	$base_data['pricing_type'] = get_post_meta( $listing->ID, '_atbd_listing_pricing', true );
+				// 	break;
+				// case 'price':
+				// 	$base_data['price'] = (float) get_post_meta( $listing->ID, '_price', true );
+				// 	break;
+				// case 'price_range':
+				// 	$base_data['price_range'] = get_post_meta( $listing->ID, '_price_range', true );
+				// 	break;
+				// case 'owner_contact_hidden':
+				// 	$base_data['owner_contact_hidden'] = (bool) get_post_meta( $listing->ID, '_hide_contact_owner', true );
+				// 	break;
+				// case 'video_url':
+				// 	$base_data['video_url'] = get_post_meta( $listing->ID, '_videourl', true );
+				// 	break;
+				// case 'tagline':
+				// 	$base_data['tagline'] = get_post_meta( $listing->ID, '_tagline', true );
+				// 	break;
 				case 'directory':
-					$base_data['directory'] = (int) get_post_meta( $listing->ID, '_directory_type', true );
+					$base_data['directory'] = $this->get_directory_id( $listing );
 					break;
 				case 'date_expired':
 					$base_data['date_expired'] = directorist_rest_prepare_date_response( get_post_meta( $listing->ID, '_expiry_date', true ) );
@@ -787,18 +787,18 @@ class Listings_Controller extends Posts_Controller {
 				case 'related_ids':
 					$base_data['related_ids'] = $this->get_related_listings_ids( $listing->ID );
 					break;
-				case 'categories':
-					$base_data['categories'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_CATEGORY );
-					break;
-				case 'tags':
-					$base_data['tags'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_TAGS );
-					break;
-				case 'locations':
-					$base_data['locations'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_LOCATION );
-					break;
-				case 'images':
-					$base_data['images'] = $this->get_images( $listing );
-					break;
+				// case 'categories':
+				// 	$base_data['categories'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_CATEGORY );
+				// 	break;
+				// case 'tags':
+				// 	$base_data['tags'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_TAGS );
+				// 	break;
+				// case 'locations':
+				// 	$base_data['locations'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_LOCATION );
+				// 	break;
+				// case 'images':
+				// 	$base_data['images'] = $this->get_images( $listing );
+				// 	break;
 				case 'menu_order':
 					$base_data['menu_order'] = (int) $listing->menu_order;
 					break;
@@ -806,7 +806,10 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['author'] = (int) $listing->post_author;
 					break;
 				case 'plan':
-					$base_data['plan'] = (int) get_post_meta( $listing->ID, '_fm_plans', true );
+					$base_data['plan'] = $this->get_plan_id( $listing );
+					break;
+				case 'meta_data':
+					$base_data['meta_data'] = $this->get_meta_data( $listing, $context );
 					break;
 			}
 		}
@@ -833,6 +836,91 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		return $data;
+	}
+
+	protected function get_meta_data( $listing, $context ) {
+		$directory_id     = $this->get_directory_id( $listing );
+		$form_fields      = directorist_get_listing_form_fields( $directory_id, $this->get_plan_id( $listing ) );
+		$ignorable_fields = array(
+			'title',
+			'tag',
+			'location',
+			'category',
+			'image_upload',
+			'hide_contact_owner'
+		);
+		$data = array();
+
+		foreach ( $form_fields as $form_field ) {
+			if ( empty( $form_field['widget_name'] ) ) {
+				continue;
+			}
+
+			$field_internal_key = $form_field['widget_name'];
+
+			if ( in_array( $field_internal_key, $ignorable_fields, true ) ) {
+				continue;
+			}
+
+			if ( $field_internal_key === 'description' ) {
+				$data['description'] = ( 'view' === $context ? wpautop( do_shortcode( $listing->post_content ) ) : $listing->post_content );
+				continue;
+			}
+
+			if ( $field_internal_key === 'excerpt' ) {
+				$data['excerpt'] = empty( $listing->post_excerpt ) ? get_post_meta( $listing->ID, '_excerpt', true ) : $listing->post_excerpt;
+				continue;
+			}
+
+			if ( empty( $form_field['field_key'] ) ) {
+				continue;
+			}
+
+			$meta_key = $form_field['field_key'];
+
+			if ( $field_internal_key === 'url' ) {
+
+				$field_value       = get_post_meta( $listing->ID, '_'. $meta_key, true );
+				$data[ $meta_key ] = ( 'view' === $context ? esc_url( $field_value ) : esc_url_raw( $field_value ) );
+
+			} elseif ( $field_internal_key === 'textarea' ) {
+
+				$field_value       = get_post_meta( $listing->ID, '_'. $meta_key, true );
+				$data[ $meta_key ] = esc_textarea( $field_value );
+
+			} elseif ( $field_internal_key === 'price' ) {
+
+				$data['price']       = directorist_clean( get_post_meta( $listing->ID, '_price', true ) );
+				$data['price_type']  = directorist_clean( get_post_meta( $listing->ID, '_atbd_listing_pricing', true ) );
+				$data['price_range'] = directorist_clean( get_post_meta( $listing->ID, '_price_range', true ) );
+
+			} elseif ( $field_internal_key === 'map') {
+
+				$data['hide_map']  = directorist_clean( get_post_meta( $listing->ID, '_hide_map', true ) );
+				$data['latitude']  = directorist_clean( get_post_meta( $listing->ID, '_manual_lat', true ) );
+				$data['longitude'] = directorist_clean( get_post_meta( $listing->ID, '_manual_lng', true ) );
+
+			} else {
+
+				$field_value       = get_post_meta( $listing->ID, '_'. $meta_key, true );
+				$data[ $meta_key ] = directorist_clean( $field_value );
+
+			}
+		}
+
+		return $data;
+	}
+
+	protected function get_directory_id( $listing ) {
+		$directory_id = (int) get_post_meta( $listing->ID, '_directory_type', true );
+
+		return $directory_id;
+	}
+
+	protected function get_plan_id( $listing ) {
+		$plan_id = (int) get_post_meta( $listing->ID, '_fm_plans', true );
+
+		return $plan_id;
 	}
 
 	protected function get_related_listings_ids( $listing_id ) {
@@ -1075,8 +1163,8 @@ class Listings_Controller extends Posts_Controller {
 				'pricing_type'              => array(
 					'description' => __( 'Pricing type.', 'directorist' ),
 					'type'        => 'string',
-					// 'enum'        => array( 'price', 'range' ),
-					'context'     => array( 'view', 'edit' ),
+					  // 'enum'        => array( 'price', 'range' ),
+					'context' => array( 'view', 'edit' ),
 				),
 				'price'              => array(
 					'description' => __( 'Listing price.', 'directorist' ),
@@ -1337,27 +1425,13 @@ class Listings_Controller extends Posts_Controller {
 				),
 				'meta_data'             => array(
 					'description' => __( 'Meta data.', 'directorist' ),
-					'type'        => 'array',
+					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
-					'items'       => array(
-						'type'       => 'object',
-						'properties' => array(
-							'id'    => array(
-								'description' => __( 'Meta ID.', 'directorist' ),
-								'type'        => 'integer',
-								'context'     => array( 'view', 'edit' ),
-								'readonly'    => true,
-							),
-							'key'   => array(
-								'description' => __( 'Meta key.', 'directorist' ),
-								'type'        => 'string',
-								'context'     => array( 'view', 'edit' ),
-							),
-							'value' => array(
-								'description' => __( 'Meta value.', 'directorist' ),
-								'type'        => 'mixed',
-								'context'     => array( 'view', 'edit' ),
-							),
+					'properties'  => array(
+						'[field_key]'   => array(
+							'description' => __( 'Meta key: value.', 'directorist' ),
+							'type'        => array( 'string', 'array', 'int' ),
+							'context'     => array( 'view', 'edit' ),
 						),
 					),
 				),

@@ -24,7 +24,7 @@ function directorist_get_directory_meta( int $directory_id, string $meta_key ) {
     return get_term_meta( $directory_id, $meta_key, true );
 }
 
-function directorist_get_listing_form_data( int $directory_id ) {
+function directorist_get_listing_form_data( int $directory_id, $plan_id = 0 ) {
 	$form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
 	$_fields   = directorist_get_var( $form_data['fields'], array() );
 	$groups    = directorist_get_var( $form_data['groups'], array() );
@@ -38,9 +38,9 @@ function directorist_get_listing_form_data( int $directory_id ) {
 				continue;
 			}
 
-			if ( (bool) apply_filters( 'directorist_listing_form_field_is_allowed', true, $_fields[ $field_key ], $directory_id ) ) {
+			if ( (bool) apply_filters( 'directorist_listing_form_field_is_allowed', true, $_fields[ $field_key ], $directory_id, $plan_id ) ) {
 				$allowed_fields_key[] = $field_key;
-				$fields[ $field_key ] = apply_filters( 'directorist_listing_form_field', $_fields[ $field_key ], $directory_id );
+				$fields[ $field_key ] = apply_filters( 'directorist_listing_form_field', $_fields[ $field_key ], $directory_id, $plan_id );
 			}
 		}
 
@@ -53,14 +53,14 @@ function directorist_get_listing_form_data( int $directory_id ) {
 	);
 }
 
-function directorist_get_listing_form_fields( int $directory_id ) {
-	$fields = directorist_get_listing_form_data( $directory_id )['fields'];
+function directorist_get_listing_form_fields( int $directory_id, $plan_id = 0 ) {
+	$fields = directorist_get_listing_form_data( $directory_id, $plan_id )['fields'];
 
-	return apply_filters( 'directorist_listing_form_fields', $fields, $directory_id );
+	return apply_filters( 'directorist_listing_form_fields', $fields, $directory_id, $plan_id );
 }
 
-function directorist_get_listing_form_groups( int $directory_id ) {
-	$_groups = directorist_get_listing_form_data( $directory_id )['groups'];
+function directorist_get_listing_form_groups( int $directory_id, $plan_id = 0 ) {
+	$_groups = directorist_get_listing_form_data( $directory_id, $plan_id )['groups'];
 	$groups  = array();
 
     foreach ( $_groups as $group ) {
@@ -74,7 +74,7 @@ function directorist_get_listing_form_groups( int $directory_id ) {
 		);
 	}
 
-	return apply_filters( 'directorist_listing_form_field_groups', $groups, $directory_id );
+	return apply_filters( 'directorist_listing_form_field_groups', $groups, $directory_id, $plan_id );
 }
 
 function directorist_get_listing_form_field( $directory_id, $field_key = '' ) {
@@ -169,11 +169,11 @@ function directorist_set_listing_directory( $listing_id, $directory_id ) {
 	return true;
 }
 
-function directorist_get_single_listing_data( int $directory_id ) {
+function directorist_get_single_listing_data( int $directory_id, $plan_id = 0 ) {
 	$single_listing_data = directorist_get_directory_meta( $directory_id, 'single_listings_contents' );
 	$_fields             = directorist_get_var( $single_listing_data['fields'], array() );
 	$groups              = directorist_get_var( $single_listing_data['groups'], array() );
-	$listing_form_fields = directorist_get_listing_form_fields( $directory_id );
+	$listing_form_fields = directorist_get_listing_form_fields( $directory_id, $plan_id );
 	$fields              = array();
 
 	foreach ( $groups as &$group ) {
@@ -201,12 +201,12 @@ function directorist_get_single_listing_data( int $directory_id ) {
 	);
 }
 
-function directorist_get_single_listing_fields( int $directory_id ) {
-	return directorist_get_single_listing_data( $directory_id )['fields'];
+function directorist_get_single_listing_fields( int $directory_id, $plan_id = 0 ) {
+	return directorist_get_single_listing_data( $directory_id, $plan_id )['fields'];
 }
 
-function directorist_get_single_listing_groups( int $directory_id ) {
-	$groups = directorist_get_single_listing_data( $directory_id )['groups'];
+function directorist_get_single_listing_groups( int $directory_id, $plan_id = 0 ) {
+	$groups = directorist_get_single_listing_data( $directory_id, $plan_id )['groups'];
 
 	return array_filter( $groups, static function( $group ) {
 		return ! empty( $group['fields'] );

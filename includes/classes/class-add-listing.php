@@ -751,10 +751,18 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			return $field->is_value_empty( $posted_data );
 		}
 
+		public static function should_validate_category_field( $field ) {
+			return (
+				$field->is_category_only() &&
+				! empty( self::$selected_categories ) &&
+				in_array( $field->get_assigned_category(), self::$selected_categories, true )
+			);
+		}
+
 		public static function validate_field( $field, $posted_data ) {
 			$should_validate = (bool) apply_filters( 'atbdp_add_listing_form_validation_logic', true, $field->get_props(), $posted_data );
 
-			if ( is_null( self::$selected_categories ) || ( $field->is_category_only() && ! in_array( $field->get_assigned_category(), self::$selected_categories, true ) ) ) {
+			if ( ! self::should_validate_category_field( $field ) ) {
 				$should_validate = false;
 			}
 

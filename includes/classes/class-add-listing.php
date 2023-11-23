@@ -144,10 +144,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$category_field = directorist_get_listing_form_category_field( $directory_id );
 
 				if ( ! empty( $category_field ) ) {
-					$category_field = Fields::create( $category_field );
+					$category_field      = Fields::create( $category_field );
+					$selected_categories = $category_field->get_value( $posted_data );
 
-					if ( is_null( self::$selected_categories ) ) {
-						self::$selected_categories = array_filter( wp_parse_id_list( $category_field->get_value( $posted_data ) ) );
+					if ( is_null( self::$selected_categories ) && ! empty( $selected_categories ) ) {
+						self::$selected_categories = array_filter( wp_parse_id_list( $selected_categories ) );
 					}
 				}
 
@@ -754,7 +755,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		public static function validate_field( $field, $posted_data ) {
 			$should_validate = (bool) apply_filters( 'atbdp_add_listing_form_validation_logic', true, $field->get_props(), $posted_data );
 
-			if ( is_null( self::$selected_categories ) || ( $field->is_category_only() && ! in_array( $field->get_assigned_category(), self::$selected_categories, true ) ) ) {
+			if ( $field->is_category_only() && ( empty( self::$selected_categories ) || ! in_array( $field->get_assigned_category(), self::$selected_categories, true ) ) ) {
 				$should_validate = false;
 			}
 

@@ -748,26 +748,29 @@ class Directorist_Listing_Form {
 		return (int) $type;
 	}
 
-	public function build_form_data( $type ) {
-		$form_data = [];
+	public function build_form_data( $directory_id ) {
+		$form_data = array();
 
-		if ( !$type ) {
+		if ( ! $directory_id ) {
 			return $form_data;
 		}
 
-		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
+		// $submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
 
-		if( ! empty( $submission_form_fields['groups'] ) ) {
-			foreach ( $submission_form_fields['groups'] as $group ) {
-				$section           = $group;
-				$section['fields'] = array();
-				foreach ( $group['fields'] as $field ) {
-					$section['fields'][ $field ] = $submission_form_fields['fields'][ $field ];
-				}
-				$form_data[] = $section;
+		$form_fields = directorist_get_listing_form_fields( $directory_id );
+		$field_groups = directorist_get_listing_form_groups( $directory_id );
 
+		foreach ( $field_groups as $group ) {
+			$section           = $group;
+			$section['fields'] = array();
+
+			foreach ( $group['fields'] as $field ) {
+				$section['fields'][ $field ] = $form_fields[ $field ];
 			}
+
+			$form_data[] = $section;
 		}
+
 		return $form_data;
 	}
 

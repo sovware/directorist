@@ -190,3 +190,38 @@
 .select2-container.select2-container--open{
   z-index: 99999;
 }
+
+
+.select2-container {
+  .directorist-select2-addons-area {
+    .directorist-select2-dropdown-toggle {
+      position: absolute;
+      right: 0;
+      pointer-events: none;
+    }
+    .directorist-select2-dropdown-close {
+      position: absolute;
+      right: 25px;
+    }
+  }
+
+}
+
+// Loading CSS
+.dir_loading {
+  position: relative;
+
+  &:after {
+    content: "";
+    border: 2px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 2px solid #656a7a;
+    width: 20px;
+    height: 20px;
+    animation: rotate360 2s linear infinite;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+    right: 10px;
+  }
+}

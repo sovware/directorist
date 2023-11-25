@@ -140,12 +140,23 @@
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_alert_executed === 'undefined') {
+    window.directorist_alert_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     /* Directorist alert dismiss */
+    var getUrl = window.location.href;
+    var newUrl = getUrl.replace('notice=1', '');
+
     if ($('.directorist-alert__close') !== null) {
       $('.directorist-alert__close').each(function (i, e) {
         $(e).on('click', function (e) {
           e.preventDefault();
+          history.pushState({}, null, newUrl);
           $(this).closest('.directorist-alert').remove();
         });
       });
@@ -165,6 +176,13 @@
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_dropdown_executed === 'undefined') {
+    window.directorist_dropdown_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
@@ -283,6 +301,13 @@
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_favorite_executed === 'undefined') {
+    window.directorist_favorite_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
     $('#atbdp-favourites').on('click', function (e) {
@@ -370,7 +395,14 @@
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  //custom select
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_select_executed === 'undefined') {
+    window.directorist_select_executed = true;
+  } else {
+    return;
+  } //custom select
+
+
   var atbdSelect = document.querySelectorAll('.atbd-drop-select');
 
   if (atbdSelect !== null) {
@@ -501,51 +533,84 @@ window.addEventListener('DOMContentLoaded', function () {
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_loginjs_executed === 'undefined') {
+    window.directorist_loginjs_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {
       e.preventDefault();
-      $('p.status').show().html(directorist.loading_message);
+      var $this = $(this);
+      $('p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
+      var form_data = {
+        'action': 'ajaxlogin',
+        'username': $this.find('#username').val(),
+        'password': $this.find('#password').val(),
+        'rememberme': $this.find('#keep_signed_in').is(':checked') ? 1 : 0,
+        'security': $this.find('#security').val()
+      };
       $.ajax({
         type: 'POST',
         dataType: 'json',
         url: directorist.ajax_url,
-        data: {
-          'action': 'ajaxlogin',
-          //calls wp_ajax_nopriv_ajaxlogin
-          'username': $('form#login #username').val(),
-          'password': $('form#login #password').val(),
-          'rememberme': $('form#login #keep_signed_in').is(':checked') ? 1 : 0,
-          'security': $('#security').val()
-        },
+        data: form_data,
         success: function success(data) {
           if ('nonce_faild' in data && data.nonce_faild) {
-            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
 
           if (data.loggedin == true) {
-            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
             document.location.href = directorist.redirect_url;
           } else {
-            $('p.status').html('<span class="status-failed">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-danger"><span>' + data.message + '</span></div>');
           }
         },
         error: function error(data) {
           if ('nonce_faild' in data && data.nonce_faild) {
-            $('p.status').html('<span class="status-success">' + data.message + '</span>');
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
 
-          $('p.status').show().html('<span class="status-failed">' + directorist.login_error_message + '</span>');
+          $('p.status').show().html('<div class="directorist-alert directorist-alert-danger"><span>' + directorist.login_error_message + '</span></div>');
         }
       });
       e.preventDefault();
+    });
+    $('form#login .status').on('click', 'a', function (e) {
+      e.preventDefault();
+
+      if ($(this).attr('href') === '#atbdp_recovery_pass') {
+        $("#recover-pass-modal").slideDown().show();
+        window.scrollTo({
+          top: $("#recover-pass-modal").offset().top - 100,
+          behavior: 'smooth'
+        });
+      } else {
+        location.href = href;
+      }
     }); // Alert users to login (only if applicable)
 
     $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
       e.preventDefault();
       alert(directorist.login_alert_message);
       return false;
-    });
+    }); // Remove URL params to avoid show message again and again
+
+    var current_url = location.href;
+    var url = new URL(current_url);
+    url.searchParams.delete('registration_status');
+    url.searchParams.delete('errors'); // url.searchParams.delete('key');
+
+    url.searchParams.delete('password_reset');
+    url.searchParams.delete('confirm_mail'); // url.searchParams.delete('user');
+
+    url.searchParams.delete('verification');
+    url.searchParams.delete('send_verification_email');
+    window.history.pushState(null, null, url.toString());
   });
 })(jQuery);
 
@@ -800,7 +865,8 @@ window.addEventListener('DOMContentLoaded', function () {
               }, 600);
             }
           });
-          updateComment.fail(function (data) {// console.log(data)
+          updateComment.fail(function (data) {
+            CommentEditHandler.showError($form, data.responseText);
           });
           updateComment.always(function () {
             $form.find('#comment').prop('disabled', false);
@@ -842,6 +908,8 @@ window.addEventListener('DOMContentLoaded', function () {
       }, {
         key: "onSubmit",
         value: function onSubmit(event) {
+          var _this2 = this;
+
           event.preventDefault();
           var form = $('.directorist-review-container #commentform');
           var originalButtonLabel = form.find('[type="submit"]').val();
@@ -891,7 +959,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
             if (newCommentId) {
-              $("body, html").animate({
+              $('body, html').animate({
                 scrollTop: commentTop
               }, 600);
             }
@@ -899,8 +967,15 @@ window.addEventListener('DOMContentLoaded', function () {
           do_comment.fail(function (data) {
             var body = $('<div></div>');
             body.append(data.responseText);
+            console.log(data);
             CommentAddReplyHandler.showError(form, body.find('.wp-die-message'));
             $(document).trigger('directorist_review_update_failed');
+
+            if (data.status === 403 || data.status === 401) {
+              $(document).off('submit', '.directorist-review-container #commentform', _this2.onSubmit);
+              $('#comment').prop('disabled', false);
+              form.find('[type="submit"]').prop('disabled', false).click();
+            }
           });
           do_comment.always(function () {
             $('#comment').prop('disabled', false);
@@ -976,20 +1051,20 @@ window.addEventListener('DOMContentLoaded', function () {
       }, {
         key: "addEventListeners",
         value: function addEventListeners() {
-          var _this2 = this;
+          var _this3 = this;
 
           var self = this;
           this.$doc.on('directorist_review_updated', function (event) {
-            _this2.initStarRating();
+            _this3.initStarRating();
           });
           this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
-            _this2.initStarRating();
+            _this3.initStarRating();
           });
           this.$doc.on('click', 'a[href="#respond"]', function (event) {
             // First cancle the reply form then scroll to review form. Order matters.
-            _this2.cancelReplyMode();
+            _this3.cancelReplyMode();
 
-            _this2.onWriteReivewClick(event);
+            _this3.onWriteReivewClick(event);
           });
           this.$doc.on('click', '.directorist-js-edit-comment', function (event) {
             event.preventDefault();
@@ -1092,6 +1167,17 @@ document.addEventListener('DOMContentLoaded', function () {
       containerID: "directorist-single-listing-slider"
     });
     single_listing_slider.init();
+    var singleListingSlider = document.getElementById("directorist-single-listing-slider");
+    var width = singleListingSlider.getAttribute("data-width");
+    var height = singleListingSlider.getAttribute("data-height");
+
+    if (width) {
+      singleListingSlider.style.setProperty('width', width + "px");
+    }
+
+    if (height) {
+      singleListingSlider.style.setProperty('height', height + "px");
+    }
   }
   /* Related listings slider */
 

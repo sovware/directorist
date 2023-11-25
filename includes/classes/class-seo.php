@@ -59,8 +59,8 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
 			add_filter('wpseo_title', array($this, 'wpseo_title'));
 			add_filter('wpseo_metadesc', array($this, 'wpseo_metadesc'));
-			add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
-			add_filter('wpseo_opengraph_url', array($this, 'wpseo_canonical'));
+			add_filter('wpseo_canonical', array($this, 'directorist_canonical'));
+			add_filter('wpseo_opengraph_url', array($this, 'directorist_canonical'));
 			add_filter('wpseo_opengraph_title', array($this, 'wpseo_opengraph_title'));
 			//add_filter('wpseo_opengraph_image', array($this, 'wpseo_opengraph_image'));
 
@@ -77,6 +77,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
             add_filter( 'rank_math/frontend/title', [ $this, 'optimize_rankmath_frontend_meta_title' ], 20, 1 );
             add_filter( 'rank_math/frontend/description', [ $this, 'optimize_rankmath_frontend_meta_description' ], 20, 1);
+            add_filter( 'rank_math/frontend/canonical', [ $this, 'directorist_canonical' ], 20, 1);
         }
 
 		// Optimize rankmath frontend meta title
@@ -123,9 +124,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             $taxonomy = null;
 
             if ($post instanceof WP_Post && ($post->post_type == 'post' || $post->post_type == 'page')) {
-                $CAT_page_ID = get_directorist_option('single_category_page');
-                $LOC_page_ID = get_directorist_option('single_location_page');
-                $Tag_page_ID = get_directorist_option('single_tag_page');
+                $CAT_page_ID = directorist_get_page_id( 'category' );
+                $LOC_page_ID = directorist_get_page_id( 'location' );
+                $Tag_page_ID = directorist_get_page_id( 'tag' );
                 // Change Location page title
                 if ($post->ID == $LOC_page_ID) {
                     if ($slug = get_query_var('atbdp_location')) {
@@ -180,9 +181,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             if ( is_admin() ) { return $default_title; }
             if ( ! is_int( $page_id ) ) { return $default_title; }
 
-            $category_page_id = get_directorist_option( 'single_category_page', 0 );
-            $location_page_id = get_directorist_option( 'single_location_page', 0 );
-            $tag_page_id      = get_directorist_option( 'single_tag_page', 0 );
+            $category_page_id = directorist_get_page_id( 'category' );
+            $location_page_id = directorist_get_page_id( 'location' );
+            $tag_page_id      = directorist_get_page_id( 'tag' );
 
             if ( ! in_array( $page_id, [ $category_page_id, $location_page_id, $tag_page_id ] ) ) {
                 return $default_title;
@@ -195,9 +196,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
         }
 
         public function get_taxonomy_page_term_data( $page_id ) {
-            $category_page_id = get_directorist_option( 'single_category_page', 0 );
-            $location_page_id = get_directorist_option( 'single_location_page', 0 );
-            $tag_page_id      = get_directorist_option( 'single_tag_page', 0 );
+            $category_page_id = directorist_get_page_id( 'category' );
+            $location_page_id = directorist_get_page_id( 'location' );
+            $tag_page_id      = directorist_get_page_id( 'tag' );
 
 			$term_pages = [ $category_page_id, $location_page_id, $tag_page_id ];
 
@@ -223,9 +224,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             if (!isset($post)) return $desc;
 
 
-            $CAT_page_ID = get_directorist_option('single_category_page');
-            $LOC_page_ID = get_directorist_option('single_location_page');
-            $Tag_page_ID = get_directorist_option('single_tag_page');
+            $CAT_page_ID = directorist_get_page_id( 'category' );
+            $LOC_page_ID = directorist_get_page_id( 'location' );
+            $Tag_page_ID = directorist_get_page_id( 'tag' );
 
             if (($post->ID != $CAT_page_ID) && ($post->ID != $LOC_page_ID) && ($post->ID != $Tag_page_ID) && (!is_singular('at_biz_dir'))) {
                 return $desc;
@@ -363,9 +364,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 return $title;
             }
 
-            $CAT_page_ID = get_directorist_option('single_category_page');
-            $LOC_page_ID = get_directorist_option('single_location_page');
-            $Tag_page_ID = get_directorist_option('single_tag_page');
+            $CAT_page_ID = directorist_get_page_id( 'category' );
+            $LOC_page_ID = directorist_get_page_id( 'location' );
+            $Tag_page_ID = directorist_get_page_id( 'tag' );
 
             if (($post->ID != $CAT_page_ID) && ($post->ID != $LOC_page_ID) && ($post->ID != $Tag_page_ID) && (!is_singular('at_biz_dir'))) {
                 return $title;
@@ -485,9 +486,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 return;
             }
 
-            $CAT_page_ID = get_directorist_option('single_category_page');
-            $LOC_page_ID = get_directorist_option('single_location_page');
-            $Tag_page_ID = get_directorist_option('single_tag_page');
+            $CAT_page_ID = directorist_get_page_id( 'category' );
+            $LOC_page_ID = directorist_get_page_id( 'location' );
+            $Tag_page_ID = directorist_get_page_id( 'tag' );
 
             $targeted_pages = [ $CAT_page_ID, $LOC_page_ID, $Tag_page_ID ];
             if ( ! in_array( $post->ID, $targeted_pages ) ) return;
@@ -503,9 +504,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 return;
             }
 
-            $CAT_page_ID = get_directorist_option('single_category_page');
-            $LOC_page_ID = get_directorist_option('single_location_page');
-            $Tag_page_ID = get_directorist_option('single_tag_page');
+            $CAT_page_ID = directorist_get_page_id( 'category' );
+            $LOC_page_ID = directorist_get_page_id( 'location' );
+            $Tag_page_ID = directorist_get_page_id( 'tag' );
 
             $targeted_pages = [ $CAT_page_ID, $LOC_page_ID, $Tag_page_ID ];
             if ( ! in_array( $post->ID, $targeted_pages ) ) return;
@@ -549,7 +550,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
          * @param     array    $url    The Yoast canonical URL.
          * @return                     Modified canonical URL.
          */
-        public function wpseo_canonical($url)
+        public function directorist_canonical($url)
         {
             global $post;
 
@@ -557,9 +558,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 return $url;
             }
 
-            $CAT_page_ID = get_directorist_option('single_category_page');
-            $LOC_page_ID = get_directorist_option('single_location_page');
-            $Tag_page_ID = get_directorist_option('single_tag_page');
+            $CAT_page_ID = directorist_get_page_id( 'category' );
+            $LOC_page_ID = directorist_get_page_id( 'location' );
+            $Tag_page_ID = directorist_get_page_id( 'tag' );
 
             // Location page
             if ($post->ID == $LOC_page_ID) {
@@ -648,7 +649,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
              * @param string $atbdp_page The atbdpectory page type if any.
              * @param string $sep The title separator symbol.
              */
-            return apply_filters('atbdp_seo_meta_title', __($title, 'directorist'), $page, $sep);
+            return apply_filters( 'atbdp_seo_meta_title', $title, $page, $sep );
         }
 
         // add_opengraph_meta
@@ -777,7 +778,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 $seo_meta = call_user_func_array( [ $this, $callback ], [ $seo_meta ] );
             }
 
-            $title = $seo_meta['title'] . ' | ' . get_bloginfo('name');
+            $title = $seo_meta['title'] . ' | ' . get_bloginfo( 'name' );
             $seo_meta['title'] = apply_filters( 'directorist_seo_meta_title', $title, $seo_meta['title'] );
 
             if ( ! empty( $seo_meta['description'] ) ) {
@@ -790,7 +791,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                  * @param string $meta_desc   The page description including variables.
                  * @param string $gd_page The atbdpectory page type if any.
                  */
-                $seo_meta['description'] = apply_filters('atbdp_seo_meta_description_pre', __($seo_meta['description'], 'directorist'), $seo_meta['page'], '');
+                $seo_meta['description'] = apply_filters( 'atbdp_seo_meta_description_pre', $seo_meta['description'], $seo_meta['page'] );
             }
 
             return $seo_meta;
@@ -830,10 +831,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             $category = get_term_by( 'id', $category, ATBDP_CATEGORY );
             $location = get_term_by( 'id', $location, ATBDP_LOCATION );
 
-            $in_s_string_text = ! empty($query) ? sprintf(__( '%s', 'directorist' ), $query ) : '';
-            $in_cat_text      = ! empty($category) ? ( ! empty( $query ) ? __('from', 'directorist') : '' ) . $category->name : '';
-            $in_loc_text      = ! empty($location) ? ( ! empty( $query ) ? __('from', 'directorist') : '' ) . $location->name : '';
-            
+            $in_s_string_text = ! empty( $query ) ? $query : '';
+            $in_cat_text      = ! empty( $category ) ? ( ! empty( $query ) ? __( 'from', 'directorist ') : '' ) . $category->name : '';
+            $in_loc_text      = ! empty( $location ) ? ( ! empty( $query ) ? __( 'from', 'directorist ') : '' ) . $location->name : '';
+
             $how_to = get_directorist_option('meta_title_for_search_result', 'searched_value');
 
             if ( 'searched_value' === $how_to ) {
@@ -1018,7 +1019,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 $seo_meta['url'] = $url;
             }
 
-            $CAT_page_ID = get_directorist_option('single_category_page');
+            $CAT_page_ID = directorist_get_page_id( 'category' );
 
             // show term description as meta description first
             if ( $post->ID == $CAT_page_ID && $slug && ! empty( $term ) ) {
@@ -1063,7 +1064,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             $settings_description = get_directorist_option('single_locations_meta_desc');
             if ( ! empty( $settings_description ) ) $seo_meta['description'] = $settings_description;
 
-            $LOC_page_ID = get_directorist_option('single_location_page');
+            $LOC_page_ID = directorist_get_page_id( 'location' );
 
             // show term description as meta description first
             if ( $post->ID == $LOC_page_ID && $slug && ! empty( $term ) ) {
@@ -1103,7 +1104,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             $term = get_term_by('slug', $slug, ATBDP_TAGS);
             $seo_meta['title'] = !empty($term) ? $term->name : '';
 
-            $TAG_page_ID = get_directorist_option('single_tag_page');
+            $TAG_page_ID = directorist_get_page_id( 'tag' );
 
             // show term description as meta description first
             if ( $post->ID == $TAG_page_ID && $slug && ! empty( $term ) ) {

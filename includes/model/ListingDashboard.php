@@ -5,7 +5,8 @@
 
 namespace Directorist;
 
-use \ATBDP_Permalink;
+use ATBDP_Permalink;
+use Directorist\database\DB;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -70,11 +71,12 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function listing_task( $task, $taskdata ){
-		if ( $task == 'delete' ) {
-
-			do_action( 'directorist_listing_deleted', $taskdata );
-
-			wp_delete_post( $taskdata );
+		if ( $task === 'delete' ) {
+			if ( current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->delete_post, $taskdata ) )  {
+				wp_delete_post( $taskdata );
+	
+				do_action( 'directorist_listing_deleted', $taskdata );
+			}
 		}
 	}
 
@@ -217,7 +219,7 @@ class Directorist_Listing_Dashboard {
 	public function fav_listing_items() {
 		$fav_listing_items = array();
 
-		$fav_listings = ATBDP()->user->current_user_fav_listings(); //@cache @kowsar
+		$fav_listings = DB::favorite_listings_query();
 
 		if ( $fav_listings->have_posts() ){
 			foreach ( $fav_listings->posts as $post ) {

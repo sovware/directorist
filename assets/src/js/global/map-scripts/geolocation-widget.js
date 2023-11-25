@@ -130,7 +130,7 @@
                 var res = "";
                 $.ajax({
                     url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
-                    type: 'POST',
+                    type: 'GET',
                     data: {},
                     success: function (data) {
                         //console.log(data);
@@ -160,7 +160,7 @@
 
                 $.ajax({
                     url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${lng}&lat=${lat}`,
-                    type: 'POST',
+                    type: 'GET',
                     data: {},
                     success: function (data) {
                         $('#address_widget').val(data.display_name);
@@ -181,4 +181,4 @@
             });
         }
     });
-})(jQuery);
+})(jQuery); 

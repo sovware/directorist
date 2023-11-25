@@ -208,7 +208,7 @@ class Listings_Exporter {
         $content = call_user_func( $field_data_map[ $field_key ] ) ;
         // $content = str_replace( '"', '""', $content );
 
-        $row[ $field_key ] = $content;
+        $row[ $field_key ] = self::escape_data( $content );
 
         return $row;
     }
@@ -298,8 +298,8 @@ class Listings_Exporter {
     // updateMetaKeyFieldData
     public static function updateMetaKeyFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
         $value = get_post_meta( get_the_id(), '_' . $field_args['field_key'], true );
-        // $row[ $field_args['field_key'] ] = ( is_string( $value ) ) ? str_replace( '"', '""', $value ) : $value;
-        $row[ $field_args['field_key'] ] = $value;
+        $row[ 'publish_date' ] = get_the_date( 'Y-m-d H:i:s', get_the_ID() );
+        $row[ $field_args['field_key'] ] = self::escape_data( $value );
 
         return $row;
     }
@@ -316,9 +316,9 @@ class Listings_Exporter {
 
     // updatePriceModuleFieldData
     public static function updatePriceModuleFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
-        $row[ 'price' ] = get_post_meta( get_the_id(), '_price', true );
-        $row[ 'price_range' ] = get_post_meta( get_the_id(), '_price_range', true );
-        $row[ 'atbd_listing_pricing' ] = get_post_meta( get_the_id(), '_atbd_listing_pricing', true );
+        $row[ 'price' ] = self::escape_data( get_post_meta( get_the_id(), '_price', true ) );
+        $row[ 'price_range' ] = self::escape_data( get_post_meta( get_the_id(), '_price_range', true ) );
+        $row[ 'atbd_listing_pricing' ] = self::escape_data( get_post_meta( get_the_id(), '_atbd_listing_pricing', true ) );
 
         return $row;
     }
@@ -337,8 +337,8 @@ class Listings_Exporter {
     // updateMapModuleFieldData
     public static function updateMapModuleFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
         $row[ 'hide_map' ] = get_post_meta( get_the_id(), '_hide_map', true );
-        $row[ 'manual_lat' ] = get_post_meta( get_the_id(), '_manual_lat', true );
-        $row[ 'manual_lng' ] = get_post_meta( get_the_id(), '_manual_lng', true );
+        $row[ 'manual_lat' ] = self::escape_data( get_post_meta( get_the_id(), '_manual_lat', true ) );
+        $row[ 'manual_lng' ] = self::escape_data( get_post_meta( get_the_id(), '_manual_lng', true ) );
 
         return $row;
     }
@@ -356,20 +356,43 @@ class Listings_Exporter {
 
     // get_term_names
     public static function get_term_names( $post_id = 0, $taxonomy = '' ) {
-        // $term_names = [];
-        $term_name = '';
         $terms = get_the_terms( $post_id, $taxonomy );
-
-        if ( ! empty( $terms ) ) {
-            $term_name = $terms[0]->name;
-            // foreach ( $terms as $term ) {
-            //     array_push( $term_names, $term->name );
-            // }
+    
+        if ( is_wp_error( $terms ) || empty( $terms ) ) {
+            return '';
         }
-
-        // $term_names = ( ! empty( $term_names ) ) ? join( ',', $term_names ) : '';
-
-        return $term_name;
+        
+        return join( ',', wp_list_pluck( $terms, 'name' ) );
     }
 
+	/**
+	 * Escape a string to be used in a CSV context
+	 *
+	 * Malicious input can inject formulas into CSV files, opening up the possibility
+	 * for phishing attacks and disclosure of sensitive information.
+	 *
+	 * Additionally, Excel exposes the ability to launch arbitrary commands through
+	 * the DDE protocol.
+	 *
+	 * @see http://www.contextis.com/resources/blog/comma-separated-vulnerabilities/
+	 * @see https://hackerone.com/reports/72785
+	 *
+	 * @since 7.7.1
+	 * @param string $data CSV field to escape.
+	 * @return string
+	 */
+	public static function escape_data( $data ) {
+
+        if( ! is_string( $data ) ) {
+            return $data;
+        }
+
+		$active_content_triggers = array( '=', '+', '-', '@' );
+
+		if ( in_array( mb_substr( $data, 0, 1 ), $active_content_triggers, true ) ) {
+			$data = "'" . $data;
+		}
+
+		return $data;
+	}
 }

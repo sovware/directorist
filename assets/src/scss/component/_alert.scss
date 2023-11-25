@@ -117,3 +117,28 @@
 .alert-danger {
     background: rgba(#E80000, 0.3);
 }
+
+/* Add listing notice alert */
+.directorist-single-listing-notice{
+    .directorist-alert__content{
+        justify-content: space-between;
+        width: 100%;
+        button{
+            cursor: pointer;
+            span{
+                font-size: 20px;
+            }
+        }
+    }
+}
+.directorist-user-dashboard{
+    .directorist-container-fluid{
+        box-sizing: border-box;
+    }
+    .directorist-alert-info{
+        .directorist-alert__close{
+            cursor: pointer;
+            padding-right: 0;
+        }
+    }
+}

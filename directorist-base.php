@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.4.2.1
+ * Version: 7.8.1
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -156,6 +156,12 @@ final class Directorist_Base
 	 */
 	public $ATBDP_Single_Templates;
 
+	public $multi_directory_manager;
+	public $settings_panel;
+	public $hooks;
+	public $announcement;
+	public $review;
+
 	/**
 	 * Main Directorist_Base Instance.
 	 *
@@ -195,7 +201,7 @@ final class Directorist_Base
 			Directorist\Asset_Loader\Asset_Loader::init();
 
 			// ATBDP_Listing_Type_Manager
-			self::$instance->multi_directory_manager = new Directorist\Multi_Directory_Manager();
+			self::$instance->multi_directory_manager = new Directorist\Multi_Directory\Multi_Directory_Manager();
 			self::$instance->multi_directory_manager->run();
 
 			self::$instance->settings_panel = new ATBDP_Settings_Panel();
@@ -254,11 +260,6 @@ final class Directorist_Base
 			if (get_option('atbdp_pages_version') < 1) {
 				add_action('wp_loaded', array(self::$instance, 'add_custom_directorist_pages'));
 			}
-			//fire up one time compatibility increasing function.
-			if (get_option('atbdp_meta_version') < 1) {
-				add_action('init', array(self::$instance, 'add_custom_meta_keys_for_old_listings'));
-			}
-
 
 			// init offline gateway
 			new ATBDP_Offline_Gateway();
@@ -366,6 +367,10 @@ final class Directorist_Base
 
 	// get_polylang_swicher_link_for_term
 	public function get_polylang_swicher_link_for_term( $args ) {
+		if ( ! function_exists( 'pll_get_post_language' ) ) {
+			return;
+		}
+
 		$default = [
 			'term_type'            => '',
 			'term_query_var'       => '',
@@ -452,13 +457,20 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
+			ATBDP_INC_DIR . 'directorist-directory-functions',
+			ATBDP_INC_DIR . 'fields/init',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-builder-data',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/trait-multi-directory-helper',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-migration',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-manager',
 		]);
+
+		$this->autoload( ATBDP_INC_DIR . 'database/' );
 
 		load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
 		load_dependencies('all', ATBDP_INC_DIR . 'model/');
 		load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
 		load_dependencies('all', ATBDP_INC_DIR . 'modules/');
-		load_dependencies('all', ATBDP_INC_DIR . 'modules/multi-directory-setup/');
 
 		load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
 
@@ -550,7 +562,7 @@ final class Directorist_Base
 	{
 
 		load_plugin_textdomain('directorist', false, ATBDP_LANG_DIR);
-		if ( get_transient( '_directorist_setup_page_redirect' ) ) {
+		if ( is_admin() && get_transient( '_directorist_setup_page_redirect' ) ) {
 			directorist_redirect_to_admin_setup_wizard();
 		}
 	}
@@ -634,173 +646,42 @@ final class Directorist_Base
 	}
 
 	/**
-	 * It gets the related listings of the given listing/post
-	 * @param object|WP_Post $post The WP Post Object of whose related listing we would like to show
-	 * @return object|WP_Query It returns the related listings if found.
+	 * Unused method
+	 *
+	 * @return object WP_Query
 	 */
-	public function get_related_listings($post)
-	{
-		$rel_listing_num = get_directorist_option('rel_listing_num', 2);
-		$atbd_cats = get_the_terms($post, ATBDP_CATEGORY);
-		$atbd_tags = get_the_terms($post, ATBDP_TAGS);
-		// get the tag ids of the listing post type
-		$atbd_cats_ids = array();
-		$atbd_tags_ids = array();
-
-		if (!empty($atbd_cats)) {
-			foreach ($atbd_cats as $atbd_cat) {
-				$atbd_cats_ids[] = $atbd_cat->term_id;
-			}
-		}
-		if (!empty($atbd_tags)) {
-			foreach ($atbd_tags as $atbd_tag) {
-				$atbd_tags_ids[] = $atbd_tag->term_id;
-			}
-		}
-		$relationship = get_directorist_option('rel_listings_logic','OR');
-		$args = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'tax_query' => array(
-				'relation' => $relationship,
-				array(
-					'taxonomy' => ATBDP_CATEGORY,
-					'field' => 'term_id',
-					'terms' => $atbd_cats_ids,
-				),
-				array(
-					'taxonomy' => ATBDP_TAGS,
-					'field' => 'term_id',
-					'terms' => $atbd_tags_ids,
-				),
-			),
-			'posts_per_page' => (int)$rel_listing_num,
-			'post__not_in' => array($post->ID),
-		);
-
-		$meta_queries = array();
-		$meta_queries[] = array(
-			'relation' => 'OR',
-			array(
-				'key' => '_expiry_date',
-				'value' => current_time('mysql'),
-				'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
-				'type' => 'DATETIME'
-			),
-			array(
-				'key' => '_never_expire',
-				'value' => 1,
-			)
-		);
-
-		$meta_queries = apply_filters('atbdp_related_listings_meta_queries', $meta_queries);
-		$count_meta_queries = count($meta_queries);
-		if ($count_meta_queries) {
-			$args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
-		}
-
-		//return new WP_Query(apply_filters('atbdp_related_listing_args', $args));
-
+	public function get_related_listings($post) {
+		_deprecated_function( __METHOD__, '7.4.3' );
+		return new WP_Query();
 	}
 
 	public function get_related_listings_widget( $post, $count ) {
 		_deprecated_function( __METHOD__, '7.3.1' );
 	}
 
-	public function add_custom_meta_keys_for_old_listings()
-	{
-		// get all the listings that does not have any of the following meta key missing
-		// loop through then and find which one does not contain a meta key
-		// if they return false then add new meta keys to them
-		$args = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'post_status' => 'any',
-			'posts_per_page' => -1,
-			'meta_query' => array(
-				'relation' => 'OR',
-				array(
-					'key' => '_featured',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key' => '_expiry_date',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key' => '_never_expire',
-					'compare' => 'NOT EXISTS',
-				),
-				array(
-					'key' => '_listing_status',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key' => '_price',
-					'compare' => 'NOT EXISTS',
-				),
-			)
-
-		);
-		$listings = new WP_Query($args);
-
-		foreach ($listings->posts as $l) {
-			$ft = get_post_meta($l->ID, '_featured', true);
-			$ep = get_post_meta($l->ID, '_expiry_date', true);
-			$np = get_post_meta($l->ID, '_never_expire', true);
-			$ls = get_post_meta($l->ID, '_listing_status', true);
-			$pr = get_post_meta($l->ID, '_price', true);
-			$exp_d = calc_listing_expiry_date();
-			if (empty($ft)) {
-				update_post_meta($l->ID, '_featured', 0);
-			}
-			if (empty($ep)) {
-				update_post_meta($l->ID, '_expiry_date', $exp_d);
-			}
-			if (empty($np)) {
-				update_post_meta($l->ID, '_never_expire', 0);
-			}
-			if (empty($ls)) {
-				update_post_meta($l->ID, '_listing_status', 'post_status');
-			}
-			if (empty($pr)) {
-				update_post_meta($l->ID, '_price', 0);
-			}
-		}
-		// update db version to avoid duplication
-		update_option('atbdp_meta_version', 1);
-
+	/**
+	 * Unused method
+	 *
+	 * @return object WP_Query
+	 */
+	public function add_custom_meta_keys_for_old_listings() {
+		_deprecated_function( __METHOD__, '7.4.3' );
 	}
 
 	/**
-	 * Parse the video URL and determine it's valid embeddable URL for usage.
+	 * Deprecated: 7.8.0
+	 * 
+	 * This function is deprecated since version 7.8.0. Please use parse_video() instead.
+	 *
+	 * @param string $url The URL to parse for videos.
+	 * @return mixed The parsed video URL.
+	 *
+	 * @deprecated Use parse_video() for video parsing.
 	 */
-	public function atbdp_parse_videos($url)
-	{
-		$embeddable_url = '';
-		// Check for YouTube
-		$is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url);
+	public function atbdp_parse_videos( $url ) {	
+		_deprecated_function( __METHOD__, '7.8.0', 'Directorist\Helper::parse_video()' );
 
-		if ($is_youtube) {
-			$pattern = '/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/';
-			preg_match($pattern, $url, $matches);
-			if (count($matches) && strlen($matches[7]) == 11) {
-				$embeddable_url = 'https://www.youtube.com/embed/' . $matches[7];
-			}
-		}
-
-		// Check for Vimeo
-		$is_vimeo = preg_match('/vimeo\.com/i', $url);
-
-		if ($is_vimeo) {
-			$pattern = '/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/';
-			preg_match($pattern, $url, $matches);
-			if (count($matches)) {
-				$embeddable_url = 'https://player.vimeo.com/video/' . $matches[2];
-			}
-		}
-
-		// Return
-		return $embeddable_url;
-
+		return \Directorist\Helper::parse_video( $url );
 	}
 
 	public function atbdp_body_class($c_classes)
@@ -822,13 +703,14 @@ final class Directorist_Base
 	 * @return void
 	 */
 	public function init_appsero() {
-		if ( ! class_exists( '\Appsero\Client' ) ) {
+		if ( ! class_exists( '\Directorist\Appsero\Client' ) ) {
 			require_once ATBDP_INC_DIR . 'modules/appsero/src/Client.php';
 		}
 
-		$client = new \Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist – Business Directory & Classified Listings WordPress Plugin', __FILE__ );
+		$client = new \Directorist\Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist', __FILE__ );
 
 		// Active insights
+		$client->set_textdomain( 'directorist' );
 		$client->insights()->init();
 	}
 

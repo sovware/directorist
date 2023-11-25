@@ -591,21 +591,9 @@ __webpack_require__.r(__webpack_exports__);
 
 ;
 
-(function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
-    // User Dashboard Tab
-    $(function () {
-      var hash = window.location.hash;
-      var selectedTab = $('.navbar .menu li a [target= "' + hash + '"]');
-    }); // store the currently selected tab in the hash value
-
-    $("ul.directorist-tab__nav__items > li > a.directorist-tab__nav__link").on("click", function (e) {
-      var id = $(e.target).attr("target").substr();
-      window.location.hash = "#active_" + id;
-      e.stopPropagation();
-    });
-  });
-})(jQuery);
+(function () {
+  new DashTab('.directorist-tab');
+})();
 
 /***/ }),
 
@@ -619,12 +607,23 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_alert_executed === 'undefined') {
+    window.directorist_alert_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     /* Directorist alert dismiss */
+    var getUrl = window.location.href;
+    var newUrl = getUrl.replace('notice=1', '');
+
     if ($('.directorist-alert__close') !== null) {
       $('.directorist-alert__close').each(function (i, e) {
         $(e).on('click', function (e) {
           e.preventDefault();
+          history.pushState({}, null, newUrl);
           $(this).closest('.directorist-alert').remove();
         });
       });
@@ -644,6 +643,13 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_dropdown_executed === 'undefined') {
+    window.directorist_dropdown_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
@@ -762,6 +768,13 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 (function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_favorite_executed === 'undefined') {
+    window.directorist_favorite_executed = true;
+  } else {
+    return;
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     // Add or Remove from favourites
     $('#atbdp-favourites').on('click', function (e) {
@@ -849,7 +862,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 window.addEventListener('DOMContentLoaded', function () {
-  //custom select
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_select_executed === 'undefined') {
+    window.directorist_select_executed = true;
+  } else {
+    return;
+  } //custom select
+
+
   var atbdSelect = document.querySelectorAll('.atbd-drop-select');
 
   if (atbdSelect !== null) {
@@ -1018,7 +1038,14 @@ window.addEventListener('DOMContentLoaded', function () {
           submit_button.removeClass("directorist-loader"); // console.log(response);
 
           if (response.success) {
-            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>');
+            $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data + '</span>'); // Reload if password updated
+
+            var newPass = form_data.get('user[new_pass]');
+
+            if (typeof newPass == 'string' && newPass.length > 0) {
+              location.reload();
+              return false;
+            }
           } else {
             $('#directorist-prifile-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data + '</span>');
           }
@@ -1040,146 +1067,156 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/pureScriptTab.js":
-/*!**********************************************************!*\
-  !*** ./assets/src/js/public/components/pureScriptTab.js ***!
-  \**********************************************************/
+/***/ "./assets/src/js/public/lib/dashTab.js":
+/*!*********************************************!*\
+  !*** ./assets/src/js/public/lib/dashTab.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 /*
-    Plugin: PureScriptTab
+    Plugin: Dash Tab
     Version: 1.0.0
     License: MIT
 */
-var $ = jQuery;
+(function () {
+  this.DashTab = function (selector) {
+    this.globalSetup = function () {
+      if (window.isInitializedDashTab) {
+        return;
+      }
 
-pureScriptTab = function pureScriptTab(selector1) {
-  var selector = document.querySelectorAll(selector1);
-  selector.forEach(function (el, index) {
-    a = el.querySelectorAll('.directorist-tab__nav__link');
-    a.forEach(function (element, index) {
-      element.style.cursor = 'pointer';
-      element.addEventListener('click', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        var ul = event.target.closest('.directorist-tab__nav'),
-            main = ul.nextElementSibling,
-            item_a = ul.querySelectorAll('.directorist-tab__nav__link'),
-            section = main.querySelectorAll('.directorist-tab__pane');
-        item_a.forEach(function (ela, ind) {
-          ela.classList.remove('directorist-tab__nav__active');
+      window.isInitializedDashTab = true;
+      this.activateNavLinkByURL();
+    };
+
+    this.activateNavLinkByURL = function () {
+      var hash = window.location.hash;
+      var queryStrings = null; // Split the URL into its components
+
+      var urlParts = hash.split(/[?|&]/);
+
+      if (urlParts.length > 1) {
+        // Get Hash Link
+        var hashLink = urlParts[0]; // Get the search parameters
+
+        queryStrings = JSON.parse(JSON.stringify(urlParts));
+        queryStrings.splice(0, 1);
+        queryStrings = queryStrings.filter(function (item) {
+          return "".concat(item).length;
         });
-        event.target.classList.add('directorist-tab__nav__active');
-        section.forEach(function (element1, index) {
-          //console.log(element1);
-          element1.classList.remove('directorist-tab__pane--active');
+        queryStrings = queryStrings.join('&');
+        window.location.hash = hashLink;
+        hash = window.location.hash;
+      } // Activate Current Navigation Item
+
+
+      var navLinks = document.querySelectorAll('.directorist-tab__nav__link');
+
+      var _iterator = _createForOfIteratorHelper(navLinks),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var link = _step.value;
+          var href = link.getAttribute('href');
+          var target = link.getAttribute('target');
+
+          if (href === hash || "#".concat(target) === hash || window.location.hash.match(new RegExp("^".concat(href, "$")))) {
+            var parent = link.closest('.atbdp_tab_nav--has-child');
+
+            if (parent) {
+              var dropdownMenu = parent.querySelector('.atbd-dashboard-nav');
+
+              if (dropdownMenu) {
+                dropdownMenu.style.display = 'block';
+              }
+            }
+
+            link.click();
+            break;
+          }
+        } // Update Window History
+
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      if (queryStrings) {
+        // Reconstruct the URL with the updated search parameters
+        var newUrl = window.location.pathname + window.location.hash + "?" + queryStrings;
+        window.history.replaceState(null, null, newUrl);
+      }
+    };
+
+    this.navLinksSetup = function (selector) {
+      var selector = document.querySelectorAll(selector);
+      selector.forEach(function (el) {
+        a = el.querySelectorAll('.directorist-tab__nav__link');
+        a.forEach(function (element) {
+          element.style.cursor = 'pointer';
+          element.addEventListener('click', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var ul = event.target.closest('.directorist-tab__nav'),
+                main = ul.nextElementSibling,
+                item_link = ul.querySelectorAll('.directorist-tab__nav__link'),
+                section = main.querySelectorAll('.directorist-tab__pane'); // Activate Navigation Panel
+
+            item_link.forEach(function (link) {
+              link.classList.remove('directorist-tab__nav__active');
+            });
+            var parentNavRef = event.target.getAttribute('data-parent-nav');
+
+            if (parentNavRef) {
+              var parentNav = document.querySelector(parentNavRef);
+
+              if (parentNav) {
+                parentNav.classList.add('directorist-tab__nav__active');
+              }
+            } else {
+              event.target.classList.add('directorist-tab__nav__active');
+            } // Activate Content Panel
+
+
+            section.forEach(function (sectionItem) {
+              sectionItem.classList.remove('directorist-tab__pane--active');
+            });
+            var content_id = event.target.getAttribute('target');
+            document.getElementById(content_id).classList.add('directorist-tab__pane--active'); // Add Hash To Window Location
+
+            var hashID = content_id;
+            var link = event.target.getAttribute('href');
+
+            if (link) {
+              var matchLink = link.match(/#(.+)/);
+              hashID = matchLink ? matchLink[1] : hashID;
+            }
+
+            var hasMatch = window.location.hash.match(new RegExp("^".concat(link, "$")));
+            window.location.hash = hasMatch ? hasMatch[0] : "#" + hashID;
+            var newHash = window.location.hash;
+            var newUrl = window.location.pathname + newHash;
+            window.history.replaceState(null, null, newUrl);
+          });
         });
-        var target = event.target.target;
-        document.getElementById(target).classList.add('directorist-tab__pane--active');
       });
-    });
-  });
-};
-/* pureScriptTabChild = (selector1) => {
-    var selector = document.querySelectorAll(selector1);
-    selector.forEach((el, index) => {
-        a = el.querySelectorAll('.pst_tn_link');
+    };
 
-
-        a.forEach((element, index) => {
-
-            element.style.cursor = 'pointer';
-            element.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-
-                var ul = event.target.closest('.pst_tab_nav'),
-                    main = ul.nextElementSibling,
-                    item_a = ul.querySelectorAll('.pst_tn_link'),
-                    section = main.querySelectorAll('.pst_tab_inner');
-
-                item_a.forEach((ela, ind) => {
-                    ela.classList.remove('pstItemActive');
-                });
-                event.target.classList.add('pstItemActive');
-
-
-                section.forEach((element1, index) => {
-                    //console.log(element1);
-                    element1.classList.remove('pstContentActive');
-                });
-                var target = event.target.target;
-                document.getElementById(target).classList.add('pstContentActive');
-            });
-        });
-    });
-};
-
-pureScriptTabChild2 = (selector1) => {
-    var selector = document.querySelectorAll(selector1);
-    selector.forEach((el, index) => {
-        a = el.querySelectorAll('.pst_tn_link-2');
-
-
-        a.forEach((element, index) => {
-
-            element.style.cursor = 'pointer';
-            element.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-
-                var ul = event.target.closest('.pst_tab_nav-2'),
-                    main = ul.nextElementSibling,
-                    item_a = ul.querySelectorAll('.pst_tn_link-2'),
-                    section = main.querySelectorAll('.pst_tab_inner-2');
-
-                item_a.forEach((ela, ind) => {
-                    ela.classList.remove('pstItemActive2');
-                });
-                event.target.classList.add('pstItemActive2');
-
-
-                section.forEach((element1, index) => {
-                    //console.log(element1);
-                    element1.classList.remove('pstContentActive2');
-                });
-                var target = event.target.target;
-                document.getElementById(target).classList.add('pstContentActive2');
-            });
-        });
-    });
-}; */
-
-
-if ($('.directorist-tab')) {
-  pureScriptTab('.directorist-tab');
-}
-/* pureScriptTab('.directorist-user-dashboard-tab');
-pureScriptTabChild('.atbdp-bookings-tab');
-pureScriptTabChild2('.atbdp-bookings-tab-inner'); */
-
-/***/ }),
-
-/***/ "./assets/src/js/public/components/tab.js":
-/*!************************************************!*\
-  !*** ./assets/src/js/public/components/tab.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-window.addEventListener('DOMContentLoaded', function () {
-  // on load of the page: switch to the currently selected tab
-  var tab_url = window.location.href.split("/").pop();
-
-  if (tab_url.startsWith("#active_")) {
-    var urlId = tab_url.split("#").pop().split("active_").pop();
-
-    if (urlId !== 'my_listings') {
-      document.querySelector("a[target=".concat(urlId, "]")).click();
+    if (document.querySelector(selector)) {
+      this.navLinksSetup(selector);
+      this.globalSetup();
     }
-  }
-});
+  };
+})();
 
 /***/ }),
 
@@ -1192,36 +1229,36 @@ window.addEventListener('DOMContentLoaded', function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/dashboard/dashboardSidebar */ "./assets/src/js/public/components/dashboard/dashboardSidebar.js");
-/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/dashboard/dashboardTab */ "./assets/src/js/public/components/dashboard/dashboardTab.js");
-/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/dashboard/dashboardListing */ "./assets/src/js/public/components/dashboard/dashboardListing.js");
-/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/dashboard/dashBoardMoreBtn */ "./assets/src/js/public/components/dashboard/dashBoardMoreBtn.js");
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/dashboard/dashboardResponsive */ "./assets/src/js/public/components/dashboard/dashboardResponsive.js");
-/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/dashboard/dashboardAnnouncement */ "./assets/src/js/public/components/dashboard/dashboardAnnouncement.js");
-/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/public/components/dashboard/dashboardBecomeAuthor.js");
-/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/pureScriptTab */ "./assets/src/js/public/components/pureScriptTab.js");
-/* harmony import */ var _components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_pureScriptTab__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _lib_dashTab__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/dashTab */ "./assets/src/js/public/lib/dashTab.js");
+/* harmony import */ var _lib_dashTab__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_lib_dashTab__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/dashboard/dashboardSidebar */ "./assets/src/js/public/components/dashboard/dashboardSidebar.js");
+/* harmony import */ var _components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardSidebar__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/dashboard/dashboardTab */ "./assets/src/js/public/components/dashboard/dashboardTab.js");
+/* harmony import */ var _components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardTab__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/dashboard/dashboardListing */ "./assets/src/js/public/components/dashboard/dashboardListing.js");
+/* harmony import */ var _components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardListing__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_dashboard_dashBoardMoreBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/dashboard/dashBoardMoreBtn */ "./assets/src/js/public/components/dashboard/dashBoardMoreBtn.js");
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/dashboard/dashboardResponsive */ "./assets/src/js/public/components/dashboard/dashboardResponsive.js");
+/* harmony import */ var _components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardResponsive__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/dashboard/dashboardAnnouncement */ "./assets/src/js/public/components/dashboard/dashboardAnnouncement.js");
+/* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/public/components/dashboard/dashboardBecomeAuthor.js");
+/* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/profileForm */ "./assets/src/js/public/components/profileForm.js");
 /* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/tab */ "./assets/src/js/public/components/tab.js");
-/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_tab__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
-/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
-/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
-/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/directoristFavorite */ "./assets/src/js/public/components/directoristFavorite.js");
-/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
-/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_14__);
-// Dashboard Js
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
+/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/directoristFavorite */ "./assets/src/js/public/components/directoristFavorite.js");
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_13__);
+// Lib
+ // Dashboard Js
+
 
 
 
@@ -1229,8 +1266,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // General Components
-
-
+// import '../components/tab';
 
 
 

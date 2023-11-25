@@ -5785,17 +5785,29 @@ img.atbdp-file-info {
 
 .atbd_login_btn_wrapper .directorist-btn {
   line-height: 2.55;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .atbd_login_btn_wrapper .keep_signed.directorist-checkbox .directorist-checkbox__label {
   color: #202428;
 }
 
+.atbdp_login_form_shortcode .directorist-form-group label {
+  display: inline-block;
+  margin-bottom: 5px;
+}
 .atbdp_login_form_shortcode a {
   text-decoration: none;
 }
 
+.directory_register_form_wrap .directorist-form-group label {
+  display: inline-block;
+  margin-bottom: 5px;
+}
 .directory_register_form_wrap .directorist-btn {
   line-height: 2.55;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .directorist-loader {
@@ -5947,8 +5959,12 @@ p.status:empty {
 }
 
 .select2-container--open .select2-dropdown--above {
-  top: 32px;
+  top: 0;
   border-color: #ececec;
+}
+
+body.logged-in .select2-container--open .select2-dropdown--above {
+  top: 32px;
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field:focus {
@@ -7338,6 +7354,23 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group:not(:last-child) {
   margin-bottom: 15px;
 }
+.directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade {
+  padding: 0;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade:before,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade:before {
+  width: 15px;
+  height: 15px;
+  right: unset;
+  left: 0;
+  top: 54px;
+}
+.directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade:after,
+#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade:after {
+  height: 42px;
+  top: 34px;
+}
 .directorist-add-listing-form .directorist-alert-required,
 #directiost-listing-fields_wrapper .directorist-alert-required {
   display: block;
@@ -7604,6 +7637,37 @@ body.stop-scrolling {
   margin-bottom: 25px;
   background-color: #202428;
   color: #fff;
+}
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached .ezmu__upload-button-wrap .ezmu__btn {
+  pointer-events: none;
+  opacity: 0.7;
+}
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached.highlight {
+  position: relative;
+}
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached.highlight:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #ddd;
+  cursor: no-drop;
+  z-index: 9999;
+}
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached.highlight:after {
+  content: "Maximum Files Uploaded";
+  font-size: 18px;
+  font-weight: 700;
+  color: #EF0000;
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  -webkit-transform: translate(50%, -50%);
+          transform: translate(50%, -50%);
+  cursor: no-drop;
+  z-index: 9999;
 }
 .directorist-add-listing-wrapper .ezmu__info-list .ezmu__info-list-item:not(:last-child) {
   margin-left: 30px;
@@ -7934,6 +7998,32 @@ body.stop-scrolling {
 }
 .directorist-add-listing-form .select2-container--default .select2-selection--multiple .select2-selection__rendered li input {
   margin-top: 0;
+}
+
+.directorist-zipcode-search {
+  position: relative;
+}
+.directorist-zipcode-search .error_message {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  right: 0;
+  bottom: -22px;
+  margin: 0;
+}
+.directorist-zipcode-search .error_message p {
+  margin: 0;
+  color: #f00;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+.directorist-zipcode-search .error_message i {
+  display: none;
 }
 
 .upload-error {
@@ -8916,7 +9006,8 @@ for shortable field*/
 }
 .directorist-form-group textarea,
 .directorist-form-group textarea.directorist-form-element {
-  min-height: 120px;
+  min-height: unset;
+  height: auto;
 }
 
 .directorist-form-group .directorist-form-element {
@@ -9594,6 +9685,30 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background: rgba(232, 0, 0, 0.3);
 }
 
+/* Add listing notice alert */
+.directorist-single-listing-notice .directorist-alert__content {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+.directorist-single-listing-notice .directorist-alert__content button {
+  cursor: pointer;
+}
+.directorist-single-listing-notice .directorist-alert__content button span {
+  font-size: 20px;
+}
+
+.directorist-user-dashboard .directorist-container-fluid {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.directorist-user-dashboard .directorist-alert-info .directorist-alert__close {
+  cursor: pointer;
+  padding-left: 0;
+}
+
 .directorist-badge {
   display: inline-block;
   font-size: 10px;
@@ -9701,6 +9816,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   line-height: 1.3;
   font-weight: 400;
   color: #767792;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
 .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox] + .directorist-radio__label:after,
 .directorist-checkbox input[type=radio] + .directorist-checkbox__label:after,
@@ -9742,8 +9859,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:before {
   position: absolute;
-  right: 4px;
-  top: 3px;
+  right: 5px;
+  top: 5px;
   content: "";
   -webkit-mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);
           mask-image: url(../images/e986e970b493125f349fc279b4b3d57b.svg);
@@ -9761,8 +9878,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-radio input[type=radio] + .directorist-radio__label:before {
   position: absolute;
-  right: 6px;
-  top: 6px;
+  right: 7px;
+  top: 7px;
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -16678,6 +16795,15 @@ input[type=radio] {
 }
 .icon-picker-selector__icon .cptm-form-control {
   pointer-events: none;
+}
+.icon-picker-selector__icon__reset {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  cursor: pointer;
+  padding: 5px 15px;
 }
 .icon-picker-selector__btn {
   margin: 0 10px;

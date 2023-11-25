@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.0
+Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 7.4.2.1
+Stable tag: 7.8.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -303,11 +303,17 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 🔥 **[WPML Integration](https://directorist.com/product/directorist-wpml-integration/)** - Directorist WPML Integration allows you to create multilingual directory with few steps.
 
+🔥 **[Digital Marketplace](https://directorist.com/product/digital-marketplace/)** - If you want to create a marketplace of fixed-price services or digital downloads, then the Digital Marketplace Extension will be a worth-investment to kickstart.
+
 🔥 **[Connections to Directorist Migrator](https://wordpress.org/plugins/connections-to-directorist-migrator/)** - Directorist offers a user-friendly tool to simplify the migration process by letting you import thousands of Connections listings data to Directorist without the need to import/export CSV.
+
+🔥 **[Helpgent Integration](https://directorist.com/product/directorist-helpgent-integration/)** - Connect your audience through video & audio messaging, screen recording, and text messaging asynchronously. Which helps to connect listing owners to their visitors.
 
 == Themes ==
 
 Directorist Business Directory offers free and cost-effective premium [Directorist Themes](https://directorist.com/theme/) to extend the look & functionalities of your directory listing website.
+
+🔥 **[dJobs](https://directorist.com/product/djobs/)** - dJobs is a WordPress directory theme enabling you to create a job directory website where you can turn the employers to submit their job listings.
 
 🔥 **[dHotels](https://directorist.com/product/dhotels/)** - dHotels is mapped out with the aim to allow you to create a hotel directory website exactly the same way you have in your imagination.This hotel theme for WordPress is 100 % mobile responsive. Meaning, it fits any screen from mobile phones to desktops.
 
@@ -335,10 +341,8 @@ Directorist Business Directory offers free and cost-effective premium [Directori
 
 == 🔔🔔🔔 Coming soon... ==
 
-* Digital Marketplace
 * Advanced Review System
 * dEvent (Theme)
-* dJobs (Theme)
 * dCourse (Theme)
 
 Apart from purchasing above mentioned individual extensions or themes, you can get all of the **Directorist Business Directory** extensions and themes in membership as a bonus at a discounted price from the [Directorist Membership](https://directorist.com/pricing/) plan.
@@ -358,6 +362,12 @@ We use WordPress REST API to confirm the authenticity of a user attempting to ga
 Directorist – Business Directory Plugin uses Appsero SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
 
 Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
+
+**OTHER AMAZING PRODUCTS FROM WPWAX**
+
+👉  [HelpGent](https://wordpress.org/plugins/helpgent/) – Your Ultimate Help Agent for Video, Voice, and Text Messaging with Screen Record Facility
+
+👉  [Legal Pages](https://wordpress.org/plugins/legal-pages/) – Privacy Policy, Terms & Conditions, GDPR, CCPA, and Cookie Notice Generator
 
 == Installation ==
 
@@ -399,6 +409,173 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.8.1 - Nov 16, 2023
+
+* Fix - Importer issue in assigning directory type in category, location and tag
+
+7.8.0 - Nov 12, 2023
+
+* Fix - Review submission captcha and guest user issues (#1619)
+* Fix - javascript:void(0) issue creating trouble for SEO (#1607)
+* Fix - Fatal error when no listings reference in an order (#1595)
+* Fix - Translate issue (#1575)
+* Fix - Thousand separator (#1553)
+* Improve - Builder data (#1594)
+* Improve - Refactored add listings (#1586)
+* Improve - Refactor review system (#1564)
+* Improve - Query optimization (#1547)
+* Deprecate - atbdp_parse_videos method (#1637)
+
+7.7.3 - Oct 04, 2023
+
+* Improve - Password reset rest API security
+
+7.7.2 - Sep 12, 2023
+
+* Fix - Security issue Appsero client
+
+7.7.1 - Sep 06, 2023
+
+* Fix - Security issue in CSV exporter
+
+7.7.0 - Aug 23, 2023
+
+* Add - Email verification (#1539)
+* Add - Youtube shorts support to the video in listing (#1169)
+* Add - Hooks in REST API (#1419)
+* Add - Directorist_get_supported_file_types_groups filter hook (#1551)
+* Improve - Query performance(#1543)
+* Improve - Compatibility with PHP 8.1 (#1404)
+* Fix - Canonical issue with RankMath activated (#1546)
+* Fix - Issue with pricing plan and featured listing checkbox (#1529)
+* Fix - Listing import issue with child term (#1548)
+* Fix -  Email header issue on contact listing owner (#1549)
+* Fix - Custom files can't be deleted in edit listing (#1232)
+* Fix - Sanitized settings json data for invalid UTF-8 characters (#1448)
+* Fix - Instant search conflicting issue (#1541)
+* Fix - Featured listing issue in admin listing form (#1557)
+* Check - Compatibility with WP v6.3
+
+7.6.2 - Aug 10, 2023
+
+* Fix – Location, Category and Tag fields are not saving in listing form
+* Fix – Random tag creation in listing submission
+
+7.6.1 - Jul 26, 2023
+
+* Fix - Can't update user profile image from dashboard
+
+7.6.0 - Jul 12, 2023
+
+* Add - Lazy load on Add Listing Form
+* Add - Google API Support on Zip code Search
+* Add - ‘directorist_listings_query_results’ Filter Hook
+* Add - Placeholder on Custom Select Field in Search Form
+* Improve - Image Validation on Add Listing
+* Remove  - Search Bar Label Option from Search Form
+* Fix - Translation Issue
+* Fix - Category Custom Field Checkbox Issue in Listing Form
+* Fix -  Column Issue in All Categories & Locations Page
+* Fix - Publish Date Issue when Importing Listings
+* Fix - Typo Issue in Users REST API
+* Fix - Image Size Issue in Single Listing Slider 
+* Fix - Listing Count Issue in All Categories & Locations Page
+* Fix - PHP 8 Deprecated Notices
+* Fix - inlineEditPost JS Console Error 
+
+7.5.5 - Jun 01, 2023
+
+* Fix - Security issues ( Password recovery and listing deletion )
+
+7.5.4 - Apr 29, 2023
+
+* Improve - Security of listing importer
+
+7.5.3 - Apr 06, 2023
+
+* Fix - Category, location & tag validation issue in add listing
+* Fix - Textarea new line issue
+
+7.5.2 - Apr 04, 2023
+
+* Add - WordPress 6.2 compatibility
+* Add - Icon reset button to icon picker
+* Fix - Directory builder widget label issue
+* Fix - Warning in single listing review section when no review found
+* Fix - Dashboard Tab Sub Menu Hash Link add on Click Issue
+* FIx - Sub location & category segmentation on admin add listing
+* Fix - Video thumbnail issue on mobile view
+* Fix - Apply & reset filter disappears issue on all listing search form.
+* Fix - Data overriding issue from frontend edit listing
+* Fix - Markup issue of Similar listing
+* Improve -  Update existing listings on listing importer, by specifying ID
+
+7.5.1 - Mar 02, 2023
+
+* Fix - Single listing image height issue
+
+7.5.0 - Feb 28, 2023
+
+* Add - Builder option to set the listing  title as the single listing header title
+* Add - New filters hook directorist_page_id
+* Add - Action hook directorist_password_changed
+* Fix - Select2 automatic selected when clicking on the input box
+* Fix - Compatibility issue with PHP 8
+* Fix - Country restriction issue on add listing page
+* Fix - Theme and Extension installation issue in wordpress.com hosted sites
+* Fix - The tag Icon can not be changed in a single listing (Issue #1270)
+* Fix - Creating more than one tag from add listing page
+* Fix - Search issue with default radius (PR #1315)
+* Fix - Select2 toggle icon issue (dropdown icon in the search form).
+* Fix - Compatibility issue with Elementor Plugin - (PR #1344)
+* Fix - PHP warning issue in listing REST controller
+* Fix - Location detector click issue after category selection in the search form
+* Fix - Listing quick edit directory type select
+* Fix - CSV importer misses assigning multiple taxonomies per listing
+* Fix - Map issue in the single listing when address is not set but manual latitude and longitude are present
+* Improve - Password changing experience from user dashboard (add redirection after changing password)
+* Improve - Wheel scrolling experience for OpenStreetMap map in single listing
+* Improve - Too many requests to map autosuggest API (PR #1320)
+* Improve - Asset loader
+* Improve - Announcement query
+* Improve - Js loading multiple times
+* Improve - Codebase
+
+7.4.6 - Dec 8, 2022
+
+* Fix - Category based custom fields now work properly when adding/editing listings from the backend
+
+7.4.5 - Dec 5, 2022
+
+* Improve - Filter hook added in user query used for announcement
+* Fix - Category based custom fields now work properly in add listing form
+* Fix - Fixed wrong permalink issue in listing categories
+* Fix - Fixed browser compatibility issue in the search form
+* Fix - Fixed browser autofill issue in listing form
+* Fix - Fixed theme compatibility issue in the login script
+* Fix - Fixed theme compatibility issue in the single listing page
+* Fix - Fixed label missing warning on the single listing page
+* Fix - Added a few missing translations
+
+7.4.4 - Nov 21, 2022
+
+* Fix - Security issues
+
+7.4.3 - Nov 20, 2022
+
+* New - Twenty Twenty-Three theme support added
+* Improve - Some queries optimized
+* Improve - Instant search now use options from all-listings settings instead of search-result settings
+* Fix - Search result wasn't working properly if there were multiple custom fields in the search query
+* Fix - In all authors page, active indicator was missing when using pagination
+* Fix - Closing of listing submission notification works better now
+* Fix - Fixed some PHP warnings on the single listing page
+* Fix - Fixed some styling issues for popular, featured and similar listing widget
+
+7.4.2.2 - Nov 13, 2022
+
+* Fix - Security issues
 
 7.4.2.1 - Oct 24, 2022
 

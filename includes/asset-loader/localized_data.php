@@ -70,6 +70,7 @@ class Localized_Data {
 			'nonce'                       => wp_create_nonce( 'atbdp_nonce_action_js' ),
 			'directorist_nonce'           => wp_create_nonce( directorist_get_nonce_key() ),
 			'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
+			'is_admin'		              => is_admin(),
 			'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
 			'assets_url'                  => DIRECTORIST_ASSETS,
 			'home_url'                    => home_url(),
@@ -140,6 +141,8 @@ class Localized_Data {
 		// Internationalization text for javascript file especially add-listing.js
 
 		$i18n_text = array(
+			'see_more_text'			  => __( 'See More', 'directorist' ),
+			'see_less_text'			  => __( 'See Less', 'directorist' ),
 			'confirmation_text'       => __( 'Are you sure', 'directorist' ),
 			'ask_conf_sl_lnk_del_txt' => __( 'Do you really want to remove this Social Link!', 'directorist' ),
 			'ask_conf_faqs_del_txt'   => __( 'Do you really want to remove this FAQ!', 'directorist' ),

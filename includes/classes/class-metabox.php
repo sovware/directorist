@@ -33,7 +33,7 @@ class ATBDP_Metabox {
 			) );
 		}
 
-		$term_id 		= ! empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
+		$term_id 		= ! empty( $_POST['directory_type'] ) ? (int) directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
 		$listing_id    	= ! empty( $_POST['listing_id'] ) ? directorist_clean( wp_unslash( $_POST['listing_id'] ) ) : '';
 
 		// listing meta fields
@@ -83,13 +83,14 @@ class ATBDP_Metabox {
 
 	}
 
-	public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id ) {
+	public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id, $parent_id = 0 ) {
 		$args = array(
-			'hide_empty' => 0,
-			'hierarchical' => false
+			'hide_empty'   => 0,
+			'hierarchical' => true,
+			'parent'       => $parent_id
 		);
-		$saving_terms   = get_the_terms( $listing_id, $taxonomy_id );
-		$saving_values    = array();
+		$saving_terms  = get_the_terms( $listing_id, $taxonomy_id );
+		$saving_values = array();
 		if( $saving_terms ) {
 			foreach( $saving_terms as $saving_term ) {
 				$saving_values[] = $saving_term->term_id;
@@ -99,11 +100,25 @@ class ATBDP_Metabox {
 
 		if( $terms ) {
 			foreach( $terms as $term ) {
-				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
-				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
-				$checked		= in_array( $term->term_id, $saving_values ) ? 'checked' : '';
-				if( in_array( $term_id, $directory_type) ) { ?>
-					<li id="<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>"><label class="selectit"><input value="<?php echo esc_attr( $term->term_id ); ?>" type="checkbox" name="tax_input[<?php echo esc_attr( $taxonomy_id ); ?>][]" id="in-<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>" <?php echo ! empty( $checked ) ? esc_attr( $checked ) : ''; ?>> <?php echo esc_html( $term->name ); ?></label></li>
+				$directory_type     = get_term_meta( $term->term_id, '_directory_type', true );
+				$directory_type     = ! empty ( $directory_type ) ? $directory_type : array();
+				$directory_type_int = array_map( 'intval', $directory_type );
+				$checked            = in_array( $term->term_id, $saving_values, true ) ? 'checked' : '';
+				if ( in_array( $term_id, $directory_type_int, true ) ) { ?>
+					<li id="<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>">
+						<label class="selectit">
+							<input value="<?php echo esc_attr( $term->term_id ); ?>" type="checkbox" name="tax_input[<?php echo esc_attr( $taxonomy_id ); ?>][]" id="in-<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>" <?php echo ! empty( $checked ) ? esc_attr( $checked ) : ''; ?>>
+							<?php echo esc_html( $term->name ); ?>
+						</label>
+						<?php
+						$child_terms = get_term_children( $term->term_id, $taxonomy_id );
+						if ( $child_terms ) {
+							echo '<ul>';
+								$this->render_listing_taxonomies( $listing_id, (int) $term_id, $taxonomy_id, $term->term_id );
+							echo '</ul>';
+						}
+						?>
+					</li>
 				<?php
 				}
 			}
@@ -220,9 +235,9 @@ class ATBDP_Metabox {
 
 		if ( $show_directory_type_nav ) { ?>
 
-		<label><?php esc_html_e( 'Listing Type', 'directorist' ); ?></label>
+		<label><?php esc_html_e( 'Directory', 'directorist' ); ?></label>
 		<select name="directory_type">
-			<option value=""><?php esc_attr_e( 'Select Listing Type', 'directorist' ); ?></option>
+			<option value=""><?php esc_attr_e( 'Select a directory...', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ):
 				?>
 				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo selected( $type->term_id, $value ); ; ?> ><?php echo esc_attr( $type->name ); ?></option>
@@ -232,7 +247,13 @@ class ATBDP_Metabox {
 		<?php } else {?>
 			<input type="hidden" name="directory_type" value="<?php echo esc_attr( $default ); ?>">
 		<?php } ?>
-		<div class="form-group atbdp_category_custom_fields"></div>
+
+		<div class="form-group atbd_content_module atbdp_category_custom_fields-wrapper diectorist-hide">
+			<div class="atbdb_content_module_contents">
+				<div class="form-group atbdp_category_custom_fields"></div>
+			</div>
+		</div>
+
 		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"><?php $this->render_listing_meta_fields( $value, $post->ID ); ?></div>
 		<?php
 	}
@@ -387,7 +408,11 @@ class ATBDP_Metabox {
 			wp_set_object_terms( $post_id, (int) $listing_type, ATBDP_TYPE );
 		}
 
-		$metas['_featured'] = !empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
+        $admin_plan = isset( $_POST['admin_plan'] ) ? directorist_clean( wp_unslash( $_POST['admin_plan'] ) ) : '';
+
+		if ( ! is_fee_manager_active() || ( 'null' === $admin_plan ) ) {
+			$metas['_featured'] = !empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
+		}
 
 	   	$expiration_to_forever		 = ! $expiration ? 1 : '';
 		$metas['_never_expire']      = !empty($_POST['never_expire']) ? (int) directorist_clean( wp_unslash( $_POST['never_expire'] ) ) : $expiration_to_forever;

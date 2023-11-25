@@ -24,10 +24,19 @@ function directorist_get_directory_meta( int $directory_id, string $meta_key ) {
     return get_term_meta( $directory_id, $meta_key, true );
 }
 
-function directorist_get_listing_form_data( int $directory_id, $plan_id = 0 ) {
+function directorist_get_listing_form_fields_data( $directory_id ) {
 	$form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
-	$_fields   = directorist_get_var( $form_data['fields'], array() );
-	$groups    = directorist_get_var( $form_data['groups'], array() );
+	return directorist_get_var( $form_data['fields'], array() );
+}
+
+function directorist_get_listing_form_groups_data( $directory_id ) {
+	$form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
+	return directorist_get_var( $form_data['groups'], array() );
+}
+
+function directorist_get_listing_form_data( int $directory_id, $plan_id = 0 ) {
+	$_fields   = directorist_get_listing_form_fields_data( $directory_id );
+	$groups    = directorist_get_listing_form_groups_data( $directory_id );
 	$fields    = array();
 
 	foreach ( $groups as &$group ) {

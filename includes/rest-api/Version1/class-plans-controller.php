@@ -258,10 +258,6 @@ class Plans_Controller extends Posts_Controller {
 		$data = $this->prepare_item_for_response( $post, $request );
 		$response = rest_ensure_response( $data );
 
-		if ( $this->public ) {
-			$response->link_header( 'alternate', get_permalink( $id ), array( 'type' => 'text/html' ) );
-		}
-
 		do_action( 'directorist_rest_after_query', 'get_plan_item', $request, $id );
 
 		$response = apply_filters( 'directorist_rest_response', $response, 'get_plan_item', $request, $id );
@@ -299,6 +295,10 @@ class Plans_Controller extends Posts_Controller {
 		 * @param WP_REST_Request  $request  Request object.
 		 */
 		return apply_filters( "directorist_rest_prepare_{$this->post_type}_object", $response, $object, $request );
+	}
+
+	protected function get_directory_id( $plan ) {
+		return (int) get_post_meta( $plan->ID, '_assign_to_directory', true );
 	}
 
 	/**
@@ -341,7 +341,7 @@ class Plans_Controller extends Posts_Controller {
 					$base_data['description'] = 'view' === $context ? wpautop( do_shortcode( $plan->post_content ) ): $plan->post_content;
 					break;
 				case 'directory':
-					$base_data['directory'] = (int) get_post_meta( $plan->ID, '_assign_to_directory', true );
+					$base_data['directory'] = $this->get_directory_id( $plan );
 					break;
 				case 'status':
 					$base_data['status'] = $plan->post_status;
@@ -352,10 +352,59 @@ class Plans_Controller extends Posts_Controller {
 				case 'price':
 					$base_data['price'] = get_post_meta( $plan->ID, 'fm_price', true );
 					break;
+				case 'fields':
+					$base_data['fields'] = $this->get_fields_data( $plan );
+					break;
 			}
 		}
 
 		return $base_data;
+	}
+
+	protected function get_fields_data( $plan ) {
+		$form_fields     = directorist_get_listing_form_fields_data( $this->get_directory_id( $plan ) );
+		$limitable_fields = array( 'location', 'category', 'tag', 'number', 'textarea', 'description', 'excerpt', 'image_upload' );
+		$field_data      = array();
+
+		foreach ( $form_fields as $form_field ) {
+			$field_key = $form_field['field_key'];
+
+			if ( 'tax_input[at_biz_dir-location][]' === $field_key ) {
+				$field_key = 'location';
+			}
+
+			if ( 'admin_category_select[]' === $field_key ) {
+				$field_key = 'category';
+			}
+
+			if ( 'tax_input[at_biz_dir-tags][]' === $field_key ) {
+				$field_key = 'tag';
+			}
+
+			if ( empty( $field_key ) ) {
+				continue;
+			}
+
+			$data = array(
+				'key'            => $field_key,
+				'label'          => $form_field['label'],
+				'is_preset'      => ( $form_field['widget_group'] === 'preset' ),
+				'is_active'      => (bool) get_post_meta( $plan->ID, '_' . $field_key, true ),
+				'hide_from_plan' => (bool) get_post_meta( $plan->ID, '_hide_' . $field_key, true ),
+			);
+
+			if ( isset( $form_field['widget_name'] ) && in_array( $form_field['widget_name'], $limitable_fields, true ) ) {
+				if ( (bool) get_post_meta( $plan->ID, '_unlimited_'. $field_key, true ) ) {
+					$data['unlimited'] = true;
+				} else {
+					$data['max'] = (int) get_post_meta( $plan->ID, '_max_'. $field_key, true );
+				}
+			}
+
+			$field_data[] = $data;
+		}
+
+		return $field_data;
 	}
 
 	/**
@@ -407,38 +456,14 @@ class Plans_Controller extends Posts_Controller {
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'slug'                  => array(
-					'description' => __( 'plan slug.', 'directorist' ),
-					'type'        => 'string',
-					'context'     => array( 'view', 'edit' ),
-				),
-				'permalink'             => array(
-					'description' => __( 'plan URL.', 'directorist' ),
-					'type'        => 'string',
-					'format'      => 'uri',
-					'context'     => array( 'view', 'edit' ),
-					'readonly'    => true,
-				),
 				'date_created'          => array(
 					'description' => __( "The date the plan was created, in the site's timezone.", 'directorist' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
-				'date_created_gmt'      => array(
-					'description' => __( 'The date the plan was created, as GMT.', 'directorist' ),
-					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
-					'readonly'    => true,
-				),
 				'date_modified'         => array(
 					'description' => __( "The date the plan was last modified, in the site's timezone.", 'directorist' ),
-					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
-					'readonly'    => true,
-				),
-				'date_modified_gmt'     => array(
-					'description' => __( 'The date the plan was last modified, as GMT.', 'directorist' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -458,27 +483,47 @@ class Plans_Controller extends Posts_Controller {
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'meta_data'             => array(
-					'description' => __( 'Meta data.', 'directorist' ),
+				'fields'             => array(
+					'description' => __( 'Fields data.', 'directorist' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
-							'id'    => array(
-								'description' => __( 'Meta ID.', 'directorist' ),
-								'type'        => 'integer',
+							'key'    => array(
+								'description' => __( 'Field key.', 'directorist' ),
+								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
-							'key'   => array(
-								'description' => __( 'Meta key.', 'directorist' ),
+							'label' => array(
+								'description' => __( 'Field label.', 'directorist' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
-							'value' => array(
-								'description' => __( 'Meta value.', 'directorist' ),
-								'type'        => 'mixed',
+							'is_preset' => array(
+								'description' => __( 'Preset or custom field status.', 'directorist' ),
+								'type'        => 'bool',
+								'context'     => array( 'view', 'edit' ),
+							),
+							'is_active' => array(
+								'description' => __( 'Field active status.', 'directorist' ),
+								'type'        => 'bool',
+								'context'     => array( 'view', 'edit' ),
+							),
+							'hide_from_plan' => array(
+								'description' => __( 'Field visibility status from plan package.', 'directorist' ),
+								'type'        => 'bool',
+								'context'     => array( 'view', 'edit' ),
+							),
+							'max' => array(
+								'description' => __( 'Maximum limit.', 'directorist' ),
+								'type'        => 'integer',
+								'context'     => array( 'view', 'edit' ),
+							),
+							'unlimited' => array(
+								'description' => __( 'Maximum limit.', 'directorist' ),
+								'type'        => 'bool',
 								'context'     => array( 'view', 'edit' ),
 							),
 						),

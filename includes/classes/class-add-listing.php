@@ -539,6 +539,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$temp_dir        = $upload_dir['basedir'] . '/directorist_temp_uploads/';
 				$target_dir      = trailingslashit( $upload_dir['path'] );
 				$uploaded_images = $old_images;
+				$lazy_resize_images = array();
 	
 				foreach ( $new_images as $image ) {
 					if ( empty( $image ) ) {
@@ -576,6 +577,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						continue;
 					}
 
+					$lazy_resize_images[ $attachment_id ] = $target_dir . $image;
+
 					/*
 					* The image sub-sizes are created during wp_generate_attachment_metadata().
 					* This is generally slow and may cause timeouts or out of memory errors.
@@ -594,6 +597,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					if ( count( $uploaded_images ) ) {
 						update_post_meta( $listing_id, '_listing_img', $uploaded_images );
 					}
+
+					directorist_background_process_image_sizes( $lazy_resize_images );
 				}
 
 			} catch ( Exception $e ) {

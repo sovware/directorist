@@ -4198,3 +4198,12 @@ function directorist_validate_youtube_vimeo_url( $url ) {
 function directorist_is_listing_post_type( $listing_id ) {
 	return ( get_post_type( absint( $listing_id ) ) === ATBDP_POST_TYPE );
 }
+
+function directorist_background_process_image_sizes( $attachments ) {
+	if ( empty( $attachments ) ) {
+		return;
+	}
+
+	ATBDP()->background_image_cutter->push_to_queue( $attachments );
+	ATBDP()->background_image_cutter->save()->dispatch();
+}

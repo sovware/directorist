@@ -49,42 +49,73 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			add_action( 'wp_ajax_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
 			add_action( 'wp_ajax_nopriv_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
 			
-			add_action( 'wp_ajax_directorist_process_listing_image', array( $this, 'directorist_process_listing_image' ) );
-			add_action( 'wp_ajax_nopriv_directorist_process_listing_image', array( $this, 'directorist_process_listing_image' ) );
+			add_action( 'wp_ajax_directorist_upload_listing_image', array( __CLASS__, 'upload_listing_image' ) );
+			add_action( 'wp_ajax_nopriv_directorist_upload_listing_image', array( __CLASS__, 'upload_listing_image' ) );
 		}
 
-		public function directorist_process_listing_image() {
+		public static function upload_listing_image() {
+			try {
+				if ( ! directorist_verify_nonce() ) {
+					throw new Exception( __( 'Invalid request.', 'directorist' ), 400 );
+				}
+	
+				$image = ! empty( $_FILES['image'] ) ? directorist_clean( $_FILES['image'] ) : array();
+				
+				if ( empty( $image ) ) {
+					return;
+				}
 
-			if ( ! directorist_verify_nonce() ) {
-				$data['error']     = true;
-				$data['error_msg'] = __( 'Something is wrong! Please refresh and retry.', 'directorist' );
+				$image_exts      = directorist_get_supported_file_types_groups( 'image' );
+				$supported_mimes = array();
 
-				return wp_send_json( $data );
+				foreach ( get_allowed_mime_types() as $ext => $mime ) {
+					$_exts = explode( '|', $ext );
+					$match = array_intersect( $image_exts, $_exts );
+					if ( count( $match ) ) {
+						$supported_mimes[ $ext ] = $mime;
+					}
+				}
+	
+				// Set temporary upload directory.
+				add_filter( 'upload_dir', array( __CLASS__, 'set_temporary_upload_dir' ) );
+	
+				// handle file upload
+				$status = wp_handle_upload(
+					$image,
+					array(
+						'test_form' => true,
+						'test_type' => true,
+						'action'    => 'directorist_upload_listing_image',
+						'mimes'     => $supported_mimes,
+					)
+				);
+	
+				// Restore to default upload directory.
+				remove_filter( 'upload_dir', array( __CLASS__, 'set_temporary_upload_dir' ) );
+	
+				if ( ! empty( $status['error'] ) ) {
+					throw new Exception( sprintf( '%s - (%s)', $status['error'], $image['name'] ), 400 );
+				}
+	
+				if ( empty( $status['url'] ) ) {
+					throw new Exception( sprintf( __( 'Could not upload (%s), please try again.', 'directorist' ), $image['name'] ), 400 );
+				}
+
+				wp_send_json_success( explode( 'directorist_temp_uploads/', $status['url'] )[1] );
+
+			} catch ( Exception $e ) {
+
+				wp_send_json_error( $e->getMessage(), $e->getCode() );
+
 			}
+		}
 
-			$files 		= ! empty( $_FILES['images'] ) ? directorist_clean( wp_unslash(  $_FILES['images'] ) ) : array();
-			$filetype 	= wp_check_filetype( $files['name'] );
+		public static function set_temporary_upload_dir( $upload ) {
+			$upload['subdir'] = '/directorist_temp_uploads';
+			$upload['path']   = $upload['basedir'] . $upload['subdir'];
+			$upload['url']    = $upload['baseurl'] . $upload['subdir'];
 
-			if ( empty( $filetype['ext'] ) ) {
-				wp_send_json_error( 'Error uploading fiele ' );
-			}
-
-			if ( ! $files['name'] ) {
-				wp_send_json_error( 'Error uploading fiele ' );
-
-			}
-			$file                     = array(
-				'name'     => $files['name'],
-				'type'     => $files['type'],
-				'tmp_name' => $files['tmp_name'],
-				'error'    => $files['error'],
-				'size'     => $files['size'],
-			);
-			$_FILES['my_file_upload'] = $file;
-			$meta_data                = array();
-			$meta_data['name']        = $files['name'];
-			$meta_data['id']          = atbdp_handle_attachment( 'my_file_upload', 0 );			
-			wp_send_json_success( $meta_data );
+			return $upload;
 		}
 
 		/**
@@ -248,6 +279,9 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 						case 'map':
 							self::process_map( $field, $posted_data, $meta_data, $error );
+							break;
+						
+						case 'image_upload':
 							break;
 
 						default:
@@ -432,7 +466,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
-			} catch ( Exception $e ) {
+			} catch (Exception $e ) {
 				return wp_send_json( array(
 					'error'     => true,
 					'error_msg' => $e->getMessage(),
@@ -486,91 +520,87 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		}
 
 		public static function upload_images( $listing_id, $posted_data ) {
-			$listing_images = atbdp_get_listing_attachment_ids( $listing_id );
-			$files          = ! empty( $_FILES['listing_img'] ) ? directorist_clean( wp_unslash( $_FILES['listing_img'] ) ) : array();
-			$files_meta     = directorist_get_var( $posted_data['files_meta'], array() );
+			$image_upload_field = directorist_get_listing_form_field( $posted_data['directory_id'], 'image_upload' );
 
-			if ( ! empty( $listing_images ) ) {
-				foreach ( $listing_images as $__old_id ) {
-					$match_found = false;
-
-					if ( ! empty( $files_meta ) ) {
-						foreach ( $files_meta as $__new_id ) {
-							$new_id = isset( $__new_id['attachmentID'] ) ? (int) $__new_id['attachmentID'] : '';
-							if ( $new_id === (int) $__old_id ) {
-								$match_found = true;
-								break;
-							}
-						}
-					}
-
-					if ( ! $match_found ) {
-						wp_delete_attachment( (int) $__old_id, true );
-					}
-				}
+			if ( empty( $image_upload_field ) ) {
+				return;	
 			}
 
-			$attach_data = array();
+			$selected_images = Fields::create( $image_upload_field )->get_value( $posted_data );
+			$old_images = $selected_images['old'];
+			$new_images = $selected_images['new'];
 
-			if ( $files ) {
-				foreach ( $files['name'] as $key => $value ) {
+			if ( empty( $old_images ) && empty( $new_images ) ) {
+				return;
+			}
 
-					$filetype = wp_check_filetype( $files['name'][ $key ] );
-
-					if ( empty( $filetype['ext'] ) ) {
+			try {
+				$upload_dir      = wp_get_upload_dir();
+				$temp_dir        = $upload_dir['basedir'] . '/directorist_temp_uploads/';
+				$target_dir      = trailingslashit( $upload_dir['path'] );
+				$uploaded_images = $old_images;
+	
+				foreach ( $new_images as $image ) {
+					if ( empty( $image ) ) {
 						continue;
 					}
 
-					if ( $files['name'][ $key ] ) {
-						$file = array(
-							'name'     => $files['name'][ $key ],
-							'type'     => $files['type'][ $key ],
-							'tmp_name' => $files['tmp_name'][ $key ],
-							'error'    => $files['error'][ $key ],
-							'size'     => $files['size'][ $key ],
-						);
+					$filepath = $temp_dir . $image;
+	
+					if ( is_dir( $filepath ) || ! file_exists( $filepath ) ) {
+						continue;
+					}
 
-						$_FILES['my_file_upload'] = $file;
-						$meta_data                = array();
-						$meta_data['name']        = $files['name'][ $key ];
-						$meta_data['id']          = atbdp_handle_attachment( 'my_file_upload', $listing_id );
+					if ( file_exists( $target_dir . $image ) ) {
+						$image = wp_unique_filename( $target_dir, $image );
+					}
+					
+					rename( $filepath, $target_dir . $image );
 
-						array_push( $attach_data, $meta_data );
+					$mime = wp_check_filetype( $image );
+					$name = wp_basename( $image, ".{$mime['ext']}" );
+
+					// Construct the attachment array.
+					$attachment = array(
+						'post_mime_type' => $mime['type'],
+						'guid'           => trailingslashit( $upload_dir['url'] ) . $image,
+						'post_parent'    => $listing_id,
+						'post_title'     => sanitize_text_field( $name ),
+					);
+
+					$attachment_id = wp_insert_attachment( $attachment, $target_dir . $image, $listing_id, false );
+
+					if ( is_wp_error( $attachment_id ) ) {
+						throw new Exception( $attachment_id->get_error_message() );
+
+						continue;
+					}
+
+					/*
+					* The image sub-sizes are created during wp_generate_attachment_metadata().
+					* This is generally slow and may cause timeouts or out of memory errors.
+					*/
+					// wp_update_attachment_metadata( $attachment_id, wp_generate_attachment_metadata( $attachment_id, $target_dir . $image ) );
+
+					$uploaded_images[] = $attachment_id;
+				}
+
+				if ( ! empty( $uploaded_images ) ) {
+					update_post_meta( $listing_id, '_listing_prv_img', $uploaded_images[0] );
+					set_post_thumbnail( $listing_id, $uploaded_images[0] );
+
+					unset( $uploaded_images[0] );
+
+					if ( count( $uploaded_images ) ) {
+						update_post_meta( $listing_id, '_listing_img', $uploaded_images );
 					}
 				}
+
+			} catch ( Exception $e ) {
+
+				error_log( $e->getMessage() );
+
 			}
-
-			$new_files_meta = array();
-
-			foreach ( $files_meta as $key => $value ) {
-				if ( $key === 0 && $value['oldFile'] === 'true' ) {
-					update_post_meta( $listing_id, '_listing_prv_img', $value['attachmentID'] );
-					set_post_thumbnail( $listing_id, $value['attachmentID'] );
-				}
-
-				if ( $key === 0 && $value['oldFile'] !== 'true' ) {
-					foreach ( $attach_data as $item ) {
-						if ( $item['name'] === $value['name'] ) {
-							update_post_meta( $listing_id, '_listing_prv_img', $item['id'] );
-							set_post_thumbnail( $listing_id, $item['id'] );
-						}
-					}
-				}
-
-				if ( $key !== 0 && $value['oldFile'] === 'true' ) {
-					$new_files_meta[] = $value['attachmentID'];
-				}
-
-				if ( $key !== 0 && $value['oldFile'] !== 'true' ) {
-					foreach ( $attach_data as $item ) {
-						if ( $item['name'] === $value['name'] ) {
-							$new_files_meta[] = $item['id'];
-						}
-					}
-				}
-			}
-
-			update_post_meta( $listing_id, '_listing_img', $new_files_meta );
 		}
 
 		public static function process_map( $field, $posted_data, &$data, $error ) {

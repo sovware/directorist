@@ -150,6 +150,7 @@ class Localized_Data {
 			'deleted'                 => __( 'Deleted!', 'directorist' ),
 			'max_location_creation'   => esc_attr( $max_loc_creation ),
 			'max_location_msg'        => sprintf( __('You can only use %s', 'directorist'), $max_loc_creation ),
+			'submission_wait_msg'     => esc_html__( 'Please wait, your submission is being processed.', 'directorist' )
 		);
 
 		//get listing is if the screen in edit listing

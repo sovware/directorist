@@ -27,7 +27,7 @@ class Image_Upload_Field extends Base_Field {
 		$old_images = $files['old'];
 		$new_images = $files['new'];
 
-		if ( empty( $old_images ) && empty( $new_images ) ) {
+		if ( $this->is_required() && empty( $old_images ) && empty( $new_images ) ) {
 			$this->add_error( __( 'This field is required.', 'directorist' ) );
 
 			return false;
@@ -42,14 +42,16 @@ class Image_Upload_Field extends Base_Field {
 			return false;
 		}
 
+		// TODO: use get_attached_file to calculate the old images file size.
+
 		$upload_dir = wp_get_upload_dir();
 		$temp_dir   = $upload_dir['basedir'] . '/directorist_temp_uploads/';
 		$total_size = 0;
 
 		foreach ( $new_images as $file ) {
-			$filepath  = $temp_dir . $file;
+			$filepath  = realpath( $temp_dir . $file );
 
-			if ( is_dir( $filepath ) || ! file_exists( $filepath ) ) {
+			if ( empty( $file ) || ! $filepath ) {
 				continue;
 			}
 

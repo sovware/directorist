@@ -4199,11 +4199,11 @@ function directorist_is_listing_post_type( $listing_id ) {
 	return ( get_post_type( absint( $listing_id ) ) === ATBDP_POST_TYPE );
 }
 
-function directorist_background_process_image_sizes( $attachments ) {
-	if ( empty( $attachments ) ) {
+function directorist_background_image_process( $images ) {
+	if ( empty( $images ) || ! is_array( $images ) ) {
 		return;
 	}
 
-	ATBDP()->background_image_cutter->push_to_queue( $attachments );
-	ATBDP()->background_image_cutter->save()->dispatch();
+	ATBDP()->background_image_process->push_to_queue( $images );
+	ATBDP()->background_image_process->save()->dispatch();
 }

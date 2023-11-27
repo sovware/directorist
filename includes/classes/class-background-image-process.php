@@ -1,6 +1,6 @@
 <?php
 /**
- * Background Image Cutter.
+ * Background Process Image
  *
  * @since 7.8
  * @package Directorist
@@ -16,9 +16,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Background_Process', false ) ) {
 }
 
 /**
- * Background_Image_Cutter Class.
+ * Background_Image_Process Class.
  */
-class Background_Image_Cutter extends Background_Process {
+class Background_Image_Process extends Background_Process {
 
 	/**
 	 * Initiate new background process.
@@ -26,7 +26,7 @@ class Background_Image_Cutter extends Background_Process {
 	public function __construct() {
 		// Uses unique prefix per blog so each blog has separate queue.
 		$this->prefix = 'wp_' . get_current_blog_id();
-		$this->action = 'directorist_image_cutter';
+		$this->action = 'directorist_background_image_process';
 
 		parent::__construct();
 	}
@@ -79,7 +79,9 @@ class Background_Image_Cutter extends Background_Process {
 		}
 
 		foreach ( $attachments as $attachment_id => $attachment_path ) {
-			wp_update_attachment_metadata( $attachment_id, wp_generate_attachment_metadata( $attachment_id, $attachment_path ) );
+			if ( empty( $attachment_path ) || empty( $attachment_id ) ) {
+				wp_update_attachment_metadata( $attachment_id, wp_generate_attachment_metadata( $attachment_id, $attachment_path ) );
+			}
 		}
 	}
 

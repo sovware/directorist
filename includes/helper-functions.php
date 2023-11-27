@@ -2447,13 +2447,30 @@ function atbdp_guest_submission($guest_email)
     }
 }
 
-function atbdp_get_listing_attachment_ids($post_id){
+function atbdp_get_listing_attachment_ids( $listing_id ) {
+	$featured_image = (int) get_post_meta( $listing_id, '_listing_prv_img', true );
+	$attachment_ids = array();
 
-    $listing_img = get_post_meta($post_id, '_listing_img', true);
-    $listing_img = !empty($listing_img) ? $listing_img : array();
-    $listing_prv_img = get_post_meta($post_id, '_listing_prv_img', true);
-    array_unshift($listing_img, $listing_prv_img);
-    return $listing_img;
+	if ( $featured_image ) {
+		$attachment_ids[] = $featured_image;
+	}
+
+    $gallery_images = (array) get_post_meta( $listing_id, '_listing_img', true );
+
+	if ( empty( $gallery_images ) ) {
+		return $attachment_ids;
+	}
+
+	$gallery_images = wp_parse_id_list( $gallery_images );
+	$gallery_images = array_filter( $gallery_images );
+
+	if ( empty( $gallery_images ) ) {
+		return $attachment_ids;
+	}
+	
+    $attachment_ids = array_merge( $attachment_ids, $gallery_images );
+
+    return $attachment_ids;
 }
 
 

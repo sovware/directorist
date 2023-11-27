@@ -578,15 +578,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 
 					$background_processable_images[ $attachment_id ] = $target_dir . $image;
-
-					/*
-					* The image sub-sizes are created during wp_generate_attachment_metadata().
-					* This is generally slow and may cause timeouts or out of memory errors.
-					*/
-					// wp_update_attachment_metadata( $attachment_id, wp_generate_attachment_metadata( $attachment_id, $target_dir . $image ) );
-
+					
 					$uploaded_images[] = $attachment_id;
 				}
+
+				self::clean_unselected_images( $listing_id, $old_images );
 
 				if ( ! empty( $uploaded_images ) ) {
 					update_post_meta( $listing_id, '_listing_prv_img', $uploaded_images[0] );
@@ -605,6 +601,26 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				error_log( $e->getMessage() );
 
+			}
+		}
+
+		protected static function clean_unselected_images( $listing_id, $selected_images ) {
+			if ( empty( $selected_images ) ) {
+				return;
+			}
+
+			$saved_images = atbdp_get_listing_attachment_ids( $listing_id );
+			if ( empty( $saved_images ) ) {
+				return;
+			}
+
+			$deletable_images = array_diff( $saved_images, $selected_images );
+			if ( empty( $deletable_images ) ) {
+				return;
+			}
+
+			foreach ( $deletable_images as $deletable_image ) {
+				wp_delete_attachment( $deletable_image, true );
 			}
 		}
 

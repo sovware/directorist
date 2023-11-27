@@ -73,16 +73,10 @@ class Background_Image_Process extends Background_Process {
 	 * @param array $attachments { attachment_id => attachment_path }
 	 * @return string|bool
 	 */
-	protected function task( $attachments ) {
-		if ( empty( $attachments ) ) {
-			return false;
-		}
+	protected function task( $image ) {
+		$image_id = key( $image );
 
-		foreach ( $attachments as $attachment_id => $attachment_path ) {
-			if ( empty( $attachment_path ) || empty( $attachment_id ) ) {
-				wp_update_attachment_metadata( $attachment_id, wp_generate_attachment_metadata( $attachment_id, $attachment_path ) );
-			}
-		}
+		\wp_update_attachment_metadata( $image_id, \wp_generate_attachment_metadata( $image_id, $image[ $image_id ] ) );
 	}
 
 	/**

@@ -4204,6 +4204,19 @@ function directorist_background_image_process( $images ) {
 		return;
 	}
 
-	ATBDP()->background_image_process->push_to_queue( $images );
-	ATBDP()->background_image_process->save()->dispatch();
+	$should_dispatch = false;
+
+	foreach ( $images as $image_id => $image_path ) {
+		if ( empty( $image_id ) || empty( $image_path ) ) {
+			continue;
+		}
+
+		$should_dispatch = true;
+		
+		ATBDP()->background_image_process->push_to_queue( array( $image_id => $image_path ) );
+	}
+
+	if ( $should_dispatch ) {
+		ATBDP()->background_image_process->save()->dispatch();
+	}
 }

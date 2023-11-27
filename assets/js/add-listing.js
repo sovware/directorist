@@ -522,7 +522,6 @@ $(document).ready(function () {
       $('.directorist-form-submit__btn').attr('disabled', true);
       return;
     }
-    $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.submission_wait_msg, "</span>"));
 
     // images
     var selectedImages = [];
@@ -564,7 +563,7 @@ $(document).ready(function () {
             }
             uploadedImages.push(response.data);
             counter++;
-            $notification.show().html("<span class=\"atbdp_success\">".concat('Uploading ' + counter + ' image out of ' + selectedImages.length, "</span>"));
+            $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.image_uploading_msg, " (").concat(counter, "/").concat(selectedImages.length, ")</span>"));
             if (counter < selectedImages.length) {
               uploadImage();
             } else {
@@ -603,7 +602,7 @@ $(document).ready(function () {
         form_data.append(field.name, field.value);
       }
 
-      // //images
+      //images
     } catch (err) {
       _iterator2.e(err);
     } finally {
@@ -680,6 +679,9 @@ $(document).ready(function () {
       contentType: false,
       url: localized_data.ajaxurl,
       data: form_data,
+      beforeSend: function beforeSend() {
+        $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.submission_wait_msg, "</span>"));
+      },
       success: function success(response) {
         //console.log(response);
         // return;

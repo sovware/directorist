@@ -438,10 +438,6 @@ $(document).ready(function () {
             return;
         }
 
-        $notification
-            .show()
-            .html(`<span class="atbdp_success">${localized_data.i18n_text.submission_wait_msg}</span>`);
-
         // images
         let selectedImages = [];
 
@@ -496,7 +492,7 @@ $(document).ready(function () {
 
                         $notification
                             .show()
-                            .html(`<span class="atbdp_success">${'Uploading ' + counter + ' image out of ' + selectedImages.length }</span>`);
+                            .html(`<span class="atbdp_success">${localized_data.i18n_text.image_uploading_msg} (${counter}/${selectedImages.length})</span>`);
                         
                         if ( counter < selectedImages.length ) {
                             uploadImage();
@@ -536,7 +532,7 @@ $(document).ready(function () {
             form_data.append( field.name, field.value );
         }
 
-        // //images
+        //images
         if (mediaUploaders.length) {
             for (var uploader of mediaUploaders) {
                 if (uploader.media_uploader) {
@@ -618,6 +614,11 @@ $(document).ready(function () {
             contentType: false,
             url: localized_data.ajaxurl,
             data: form_data,
+            beforeSend() {
+                $notification
+                .show()
+                .html(`<span class="atbdp_success">${localized_data.i18n_text.submission_wait_msg}</span>`);
+            },
             success(response) {
                 //console.log(response);
                 // return;

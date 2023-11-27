@@ -535,31 +535,28 @@ $(document).ready(function () {
         //images
         if (mediaUploaders.length) {
             for (var uploader of mediaUploaders) {
-                if (uploader.media_uploader) {
-                    if (uploader.media_uploader.hasValidFiles()) {
-                        // var files = uploader.media_uploader.getTheFiles();
-                        // if (files) {
-                        //     for (var i = 0; i < files.length; i++) {
-                        //         form_data.append(uploader.uploaders_data['meta_name'] + '[]', files[i]);
-                        //     }
-                        // }
-                        var files_meta = uploader.media_uploader.getFilesMeta();
-                        if (files_meta) {
-                            for (var i = 0; i < files_meta.length; i++) {
-                                form_data.append(`listing_img_old[${i}]`, files_meta[i].attachmentID);
-                            }
-                        }
-                    } else {
-                        $submitButton.removeClass('atbd_loading');
+                if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
+                    continue;
+                }
 
-                        err_log.listing_gallery = {
-                            msg: uploader.uploaders_data['error_msg']
-                        };
-                        error_count++;
-
-                        if ($('.' + uploader.uploaders_data['element_id']).length) {
-                            scrollTo('.' + uploader.uploaders_data['element_id']);
+                if (uploader.media_uploader.hasValidFiles()) {
+                    var files_meta = uploader.media_uploader.getFilesMeta();
+                    if (files_meta) {
+                        for (var i = 0; i < files_meta.length; i++) {
+                            form_data.append(`listing_img_old[${i}]`, files_meta[i].attachmentID);
                         }
+                    }
+                } else {
+                    $submitButton.removeClass('atbd_loading');
+
+                    err_log.listing_gallery = {
+                        msg: uploader.uploaders_data['error_msg']
+                    };
+
+                    error_count++;
+
+                    if ($('.' + uploader.uploaders_data.element_id).length) {
+                        scrollTo('.' + uploader.uploaders_data.element_id);
                     }
                 }
             }

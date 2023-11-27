@@ -611,29 +611,24 @@ $(document).ready(function () {
     if (mediaUploaders.length) {
       for (var _i2 = 0, _mediaUploaders2 = mediaUploaders; _i2 < _mediaUploaders2.length; _i2++) {
         var uploader = _mediaUploaders2[_i2];
-        if (uploader.media_uploader) {
-          if (uploader.media_uploader.hasValidFiles()) {
-            // var files = uploader.media_uploader.getTheFiles();
-            // if (files) {
-            //     for (var i = 0; i < files.length; i++) {
-            //         form_data.append(uploader.uploaders_data['meta_name'] + '[]', files[i]);
-            //     }
-            // }
-            var files_meta = uploader.media_uploader.getFilesMeta();
-            if (files_meta) {
-              for (var i = 0; i < files_meta.length; i++) {
-                form_data.append("listing_img_old[".concat(i, "]"), files_meta[i].attachmentID);
-              }
+        if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
+          continue;
+        }
+        if (uploader.media_uploader.hasValidFiles()) {
+          var files_meta = uploader.media_uploader.getFilesMeta();
+          if (files_meta) {
+            for (var i = 0; i < files_meta.length; i++) {
+              form_data.append("listing_img_old[".concat(i, "]"), files_meta[i].attachmentID);
             }
-          } else {
-            $submitButton.removeClass('atbd_loading');
-            err_log.listing_gallery = {
-              msg: uploader.uploaders_data['error_msg']
-            };
-            error_count++;
-            if ($('.' + uploader.uploaders_data['element_id']).length) {
-              scrollTo('.' + uploader.uploaders_data['element_id']);
-            }
+          }
+        } else {
+          $submitButton.removeClass('atbd_loading');
+          err_log.listing_gallery = {
+            msg: uploader.uploaders_data['error_msg']
+          };
+          error_count++;
+          if ($('.' + uploader.uploaders_data.element_id).length) {
+            scrollTo('.' + uploader.uploaders_data.element_id);
           }
         }
       }

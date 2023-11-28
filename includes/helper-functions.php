@@ -4045,44 +4045,36 @@ function directorist_password_reset_url( $user, $password_reset = true, $confirm
     return apply_filters( 'directorist_password_reset_url', $reset_password_url );
 }
 
-function directorist_get_mime_types( $filter_type = '', $return_type = '' ) {
-	$supported_mime_types = wp_get_mime_types();
+/**
+ * Get allowed mime types.
+ * 
+ * @param string $filterby Filter allowed mime types by group. eg. image, audio, video, document etc.
+ * @param string $return_type Get the full mime types map or only extensions. Valid args are extension and .extension.
+ * 
+ * @return array
+ */
+function directorist_get_mime_types( $filterby = '', $return_type = '' ) {
+	$allowed_mime_types = get_allowed_mime_types();
 
-	// Filter
-	if ( ! empty( $filter_type ) ) {
-		$filtered_supported_mime_types = [];
-
-		foreach ($supported_mime_types as $key => $value) {
-			$_type = preg_replace( "/\/\w+$/", '', $value );
-
-			if ( $_type !== $filter_type ) {
-				continue;
-			}
-
-			$filtered_supported_mime_types[ $key ] = $value;
-		}
-
-		$supported_mime_types = $filtered_supported_mime_types;
+	if ( ! empty( $filterby ) ) {
+		$allowed_mime_types = array_filter( $allowed_mime_types, static function( $mime_type, $extensions ) use ( $filterby ) {
+			return stripos( $mime_type, $filterby ) !== false;
+		}, ARRAY_FILTER_USE_BOTH );
 	}
 
-	// Convert to extension
 	if ( $return_type === 'extension' || $return_type === '.extension' ) {
-		$extensions = array_keys( $supported_mime_types );
+		$allowed_mime_types = array_reduce( array_keys( $allowed_mime_types ), static function( $carry, $extension ) {
+			return array_merge( $carry, explode( '|',  $extension ) );
+		}, array() );
 
-		$extended_extensions = [];
-
-		foreach ( $extensions as $extension ) {
-			$_sub_extensions = explode( '|',  $extension );
-
-			foreach ( $_sub_extensions as $sub_extension ) {
-				$extended_extensions[] = ( $return_type === '.extension' ) ? '.' . $sub_extension : $sub_extension;
-			}
+		if ( $return_type === '.extension' ) {
+			$allowed_mime_types = array_map( static function( $extension ) {
+				return '.' . $extension;
+			}, $allowed_mime_types );
 		}
-
-		$supported_mime_types = array_values( $extended_extensions );
 	}
 
-	return $supported_mime_types;
+	return $allowed_mime_types;
 }
 
 /**

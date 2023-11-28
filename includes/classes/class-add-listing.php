@@ -64,18 +64,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				if ( empty( $image ) ) {
 					return;
 				}
-
-				$image_exts      = directorist_get_supported_file_types_groups( 'image' );
-				$supported_mimes = array();
-
-				foreach ( get_allowed_mime_types() as $ext => $mime ) {
-					$_exts = explode( '|', $ext );
-					$match = array_intersect( $image_exts, $_exts );
-					if ( count( $match ) ) {
-						$supported_mimes[ $ext ] = $mime;
-					}
-				}
-	
+				
 				// Set temporary upload directory.
 				add_filter( 'upload_dir', array( __CLASS__, 'set_temporary_upload_dir' ) );
 	
@@ -86,7 +75,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						'test_form' => true,
 						'test_type' => true,
 						'action'    => 'directorist_upload_listing_image',
-						'mimes'     => $supported_mimes,
+						'mimes'     => directorist_get_mime_types( 'image' ),
 					)
 				);
 	

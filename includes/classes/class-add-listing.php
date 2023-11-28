@@ -83,11 +83,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				remove_filter( 'upload_dir', array( __CLASS__, 'set_temporary_upload_dir' ) );
 	
 				if ( ! empty( $status['error'] ) ) {
-					throw new Exception( sprintf( '%s - (%s)', $status['error'], $image['name'] ), 400 );
+					throw new Exception( sprintf( '%s - (%s)', $status['error'], $image['name'] ), 500 );
 				}
 	
 				if ( empty( $status['url'] ) ) {
-					throw new Exception( sprintf( __( 'Could not upload (%s), please try again.', 'directorist' ), $image['name'] ), 400 );
+					throw new Exception( sprintf( __( 'Could not upload (%s), please try again.', 'directorist' ), $image['name'] ), 500 );
 				}
 
 				wp_send_json_success( explode( 'directorist_temp_uploads/', $status['url'] )[1] );

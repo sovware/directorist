@@ -494,7 +494,7 @@ $(document).ready(function () {
 
                         $notification
                             .show()
-                            .html(`<span class="atbdp_success">${localized_data.i18n_text.image_uploading_msg} (${counter}/${selectedImages.length})</span>`);
+                            .html(`<span class="atbdp_success">${localized_data.i18n_text.image_uploading_msg} (${(counter + 1)}/${selectedImages.length})</span>`);
                     },
                     success( response ) {
                         if ( ! response.success ) {

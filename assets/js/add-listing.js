@@ -566,7 +566,7 @@ $(document).ready(function () {
           data: formData,
           beforeSend: function beforeSend() {
             disableSubmitButton();
-            $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.image_uploading_msg, " (").concat(counter, "/").concat(selectedImages.length, ")</span>"));
+            $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.image_uploading_msg, " (").concat(counter + 1, "/").concat(selectedImages.length, ")</span>"));
           },
           success: function success(response) {
             if (!response.success) {

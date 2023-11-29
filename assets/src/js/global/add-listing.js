@@ -492,9 +492,17 @@ $(document).ready(function () {
                     beforeSend() {
                         disableSubmitButton();
 
-                        $notification
-                            .show()
-                            .html(`<span class="atbdp_success">${localized_data.i18n_text.image_uploading_msg} (${(counter + 1)}/${selectedImages.length})</span>`);
+                        const totalImages = selectedImages.length;
+                        if ( totalImages === 1 ) {
+                            $notification
+                                .show()
+                                .html(`<span class="atbdp_success">${localized_data.i18n_text.image_uploading_msg}</span>`);
+                        } else {
+                            const completedPercent = Math.ceil( ( ( counter === 0 ? 1 : counter ) * 100 ) / totalImages );
+                            $notification
+                                .show()
+                                .html(`<span class="atbdp_success">${localized_data.i18n_text.image_uploading_msg} (${completedPercent}%)</span>`);
+                        }
                     },
                     success( response ) {
                         if ( ! response.success ) {

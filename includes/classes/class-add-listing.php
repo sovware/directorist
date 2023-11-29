@@ -519,6 +519,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$old_images = $selected_images['old'];
 			$new_images = $selected_images['new'];
 
+			self::clean_unselected_images( $listing_id, $old_images );
+
 			if ( empty( $old_images ) && empty( $new_images ) ) {
 				return;
 			}
@@ -571,8 +573,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$uploaded_images[] = $attachment_id;
 				}
 
-				self::clean_unselected_images( $listing_id, $old_images );
-
 				if ( ! empty( $uploaded_images ) ) {
 					update_post_meta( $listing_id, '_listing_prv_img', $uploaded_images[0] );
 					set_post_thumbnail( $listing_id, $uploaded_images[0] );
@@ -594,22 +594,18 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		}
 
 		protected static function clean_unselected_images( $listing_id, $selected_images ) {
-			if ( empty( $selected_images ) ) {
-				return;
-			}
-
 			$saved_images = atbdp_get_listing_attachment_ids( $listing_id );
 			if ( empty( $saved_images ) ) {
 				return;
 			}
 
-			$deletable_images = array_diff( $saved_images, $selected_images );
-			if ( empty( $deletable_images ) ) {
+			$unselected_images = array_diff( $saved_images, $selected_images );
+			if ( empty( $unselected_images ) ) {
 				return;
 			}
 
-			foreach ( $deletable_images as $deletable_image ) {
-				wp_delete_attachment( $deletable_image, true );
+			foreach ( $unselected_images as $unselected_image ) {
+				wp_delete_attachment( $unselected_image, true );
 			}
 		}
 

@@ -76,6 +76,10 @@ class Background_Image_Process extends Background_Process {
 	protected function task( $image ) {
 		$image_id = key( $image );
 
+		if ( ! headers_sent() ) {
+			header( 'X-WP-Upload-Attachment-ID: ' . $image_id );
+		}
+
 		\wp_update_attachment_metadata( $image_id, \wp_generate_attachment_metadata( $image_id, $image[ $image_id ] ) );
 	}
 

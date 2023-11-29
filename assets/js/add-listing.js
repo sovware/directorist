@@ -566,7 +566,13 @@ $(document).ready(function () {
           data: formData,
           beforeSend: function beforeSend() {
             disableSubmitButton();
-            $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.image_uploading_msg, " (").concat(counter + 1, "/").concat(selectedImages.length, ")</span>"));
+            var totalImages = selectedImages.length;
+            if (totalImages === 1) {
+              $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.image_uploading_msg, "</span>"));
+            } else {
+              var completedPercent = Math.ceil((counter === 0 ? 1 : counter) * 100 / totalImages);
+              $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.image_uploading_msg, " (").concat(completedPercent, "%)</span>"));
+            }
           },
           success: function success(response) {
             if (!response.success) {

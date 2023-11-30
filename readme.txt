@@ -412,10 +412,11 @@ Directorist is a complete directory solution and in combination with its advance
 
 7.8.2 - Nov 29, 2023
 
-* Improve - Listing submission and progress bar on listing media uploading
-* Fix - Validation issue of category custom fields in listing form
-* Revert - Listing currency settings
+* Improve - Large image upload and bulk image upload during listing submission
+* Improve - Listing submission status messages
 * Improve - User dashboard navigation
+* Fix - Validation issue of category custom fields in listing form
+* Fix- Listing currency issues
 
 7.8.1 - Nov 16, 2023
 

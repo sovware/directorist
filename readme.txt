@@ -410,7 +410,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.8.2 - Nov 29, 2023
+7.8.2 - Dec 03, 2023
 
 * Improve - Large image upload and bulk image upload during listing submission
 * Improve - Listing submission status messages

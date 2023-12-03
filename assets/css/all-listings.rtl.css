@@ -508,13 +508,11 @@
   display: inline-block;
   padding: 0;
   cursor: pointer;
-  border-bottom: 1px solid #eee;
   -webkit-transition: color 0.3s ease, border 0.3s ease;
   transition: color 0.3s ease, border 0.3s ease;
 }
 .ui-widget-content .ui-menu-item-wrapper:hover {
   color: #444752;
-  border-bottom: 1px dashed #444752;
 }
 
 p.status:empty {

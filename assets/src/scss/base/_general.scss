@@ -336,11 +336,9 @@
         display: inline-block;
         padding: 0;
         cursor: pointer;
-        border-bottom: 1px solid #eee;
         transition: color 0.3s ease, border 0.3s ease;
         &:hover {
             color: #444752;
-            border-bottom: 1px dashed #444752;
         }
     }
 }

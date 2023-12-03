@@ -162,6 +162,8 @@ final class Directorist_Base
 	public $announcement;
 	public $review;
 
+	public $background_image_process = null;
+
 	/**
 	 * Main Directorist_Base Instance.
 	 *
@@ -225,6 +227,8 @@ final class Directorist_Base
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools();
 			self::$instance->announcement = new ATBDP_Announcement();
+
+			self::$instance->background_image_process = new \Directorist\Background_Image_Process();
 
 			// Load widgets
 			Directorist\Widgets\Init::instance();

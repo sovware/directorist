@@ -8647,6 +8647,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 100%;
   max-width: 100% !important;
 }
+.directorist-content-active .directorist-archive-contents .directorist-container-fluid {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
 
 /* Directory type nav */
 .directorist-content-active .directorist-type-nav__list {

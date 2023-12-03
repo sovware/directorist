@@ -3,6 +3,9 @@
 	.directorist-archive-contents {
 		width: 100%;
 		max-width: 100% !important;
+		.directorist-container-fluid {
+			box-sizing: border-box;
+		}
 	}
 }
 

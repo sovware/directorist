@@ -104,6 +104,7 @@ class Asset_Loader {
 
 				if ( Helper::instant_search_enabled() ) {
 					wp_enqueue_script( 'jquery-masonry' );
+					wp_enqueue_script( 'directorist-openstreet-all-map' );
 					self::enqueue_map_scripts();
 				}
 				break;

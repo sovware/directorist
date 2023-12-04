@@ -408,6 +408,11 @@ class Builder_Data {
                                 'label' => __( 'Required', 'directorist' ),
                                 'value' => false,
                             ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => __( 'label', 'directorist' ),
+                                'value' => 'Title',
+                            ],
                             'placeholder' => [
                                 'type'  => 'text',
                                 'label' => __( 'Placeholder', 'directorist' ),
@@ -447,7 +452,7 @@ class Builder_Data {
                             'label'           => [
                                 'type'  => 'text',
                                 'label' => __( 'Label', 'directorist' ),
-                                'value' => '',
+                                'value' => 'Location',
                                 'sync'  => false,
                             ],
                             'placeholder'     => [
@@ -1180,7 +1185,7 @@ class Builder_Data {
 
             'pricing'           => [
                 'type'    => 'price',
-                'label'   => __( 'Listings Price', 'directorist' ),
+                'label'   => __( 'Pricing', 'directorist' ),
                 'icon'    => 'uil uil-text-fields',
                 'hook'    => 'atbdp_single_listings_price',
                 'show_if' => [
@@ -1538,13 +1543,13 @@ class Builder_Data {
             ],
         ] );
 
-        $listing_card_list_view_widget = $listing_card_widget;
+        $listing_card_conditional_widget = $listing_card_widget;
 
-        if (  ! empty( $listing_card_list_view_widget['user_avatar'] ) ) {
-            $listing_card_list_view_widget['user_avatar']['can_move'] = true;
+        if (  ! empty( $listing_card_conditional_widget['user_avatar'] ) ) {
+            $listing_card_conditional_widget['user_avatar']['can_move'] = true;
 
-            if (  ! empty( $listing_card_list_view_widget['user_avatar']['options'] ) ) {
-                unset( $listing_card_list_view_widget['user_avatar']['options'] );
+            if (  ! empty( $listing_card_conditional_widget['user_avatar']['options'] ) ) {
+                unset( $listing_card_conditional_widget['user_avatar']['options'] );
             }
 
         }
@@ -1632,7 +1637,7 @@ class Builder_Data {
                     'acceptedWidgets' => ['favorite_badge'],
                 ],
                 'quick_info'    => [
-                    'acceptedWidgets' => [ "rating", "pricing", "posted_date" ],
+                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing'],
                 ],
                 'bottom'        => [
                     'maxWidget'       => 0,
@@ -2322,7 +2327,7 @@ class Builder_Data {
 
                     'price' => [
                         'type' => "badge",
-                        'label' => __( "Listings Price", "directorist" ),
+                        'label' => __( "Pricing", "directorist" ),
                         'icon' => 'uil uil-text-fields',
                     ],
                     'badges' => [
@@ -2352,7 +2357,7 @@ class Builder_Data {
                     ],
                     'ratings_count' => [
                         'type' => "ratings-count",
-                        'label' => __( "Listings Ratings", "directorist" ),
+                        'label' => __( "Rating", "directorist" ),
                         'icon' => 'uil uil-text-fields',
                     ],
                     'category' => [
@@ -2447,7 +2452,7 @@ class Builder_Data {
                     'grid_view_without_thumbnail' => [
                         'label'    => __( 'Without Preview Image', 'directorist' ),
                         'template' => 'grid-view-without-thumbnail',
-                        'widgets'  => $listing_card_widget,
+                        'widgets'  => $listing_card_conditional_widget,
                         'layout'   => $listing_card_grid_view_without_thumbnail_layout,
                     ],
                 ],
@@ -2459,13 +2464,13 @@ class Builder_Data {
                     'list_view_with_thumbnail'    => [
                         'label'    => __( 'With Preview Image', 'directorist' ),
                         'template' => 'list-view-with-thumbnail',
-                        'widgets'  => $listing_card_widget,
+                        'widgets'  => $listing_card_conditional_widget,
                         'layout'   => $listing_card_list_view_with_thumbnail_layout,
                     ],
                     'list_view_without_thumbnail' => [
                         'label'    => __( 'Without Preview Image', 'directorist' ),
                         'template' => 'list-view-without-thumbnail',
-                        'widgets'  => $listing_card_widget,
+                        'widgets'  => $listing_card_conditional_widget,
                         'layout'   => $listing_card_list_view_without_thumbnail_layout,
                     ],
                 ],

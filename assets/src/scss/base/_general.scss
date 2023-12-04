@@ -76,6 +76,7 @@
         align-items: center;
         flex-wrap: wrap;
         min-height: 36px;
+        box-sizing: border-box;
         @media (max-width: 480px) {
             padding: 20px;
         }
@@ -139,7 +140,7 @@
             }
             #wp-listing_content-editor-tools {
                 display: flex;
-                justify-content: end;
+                justify-content: flex-end;
             }
             iframe {
                 max-width: 100%;

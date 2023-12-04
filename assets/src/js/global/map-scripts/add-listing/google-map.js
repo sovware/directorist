@@ -5,7 +5,7 @@ import {
 } from './../../../lib/helper';
 
 (function ($) {
-    $(document).ready(function () {
+    function initAddListingMap() {
         if ($('#gmap').length) {
             var localized_data = get_dom_data('map_data');
 
@@ -242,6 +242,27 @@ import {
                 }
                 markers = [];
             }
+        }
+    }
+    $(document).ready(function () {
+        initAddListingMap()
+    });
+
+
+    /* Elementor Edit Mode */
+    $(window).on('elementor/frontend/init', function () {
+        setTimeout(function() {
+            if ($('body').hasClass('elementor-editor-active')) {
+                initAddListingMap()
+            }
+        }, 3000);
+
+    });
+
+    // Elementor EditMode
+    $('body').on('click', function (e) {
+        if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
+            initAddListingMap()
         }
     });
 })(jQuery);

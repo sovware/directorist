@@ -272,6 +272,9 @@ Review: New Style
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 18c8f46a94a5fbf567c6b044b78499b93c72cf46
     .directorist-review-content {
         @include e(header) {
             display: flex;
@@ -282,7 +285,7 @@ Review: New Style
             border: 1px solid #EFF1F6;
             border-bottom-color: #f2f2f2;
             background: #fff;
-            border-radius: 4px 4px 0 0;
+            border-radius: 16px 16px 0 0;
             h3 {
                 font-size: 16px;
                 font-weight: 500;
@@ -311,18 +314,6 @@ Review: New Style
                     }
                 }
             }
-            @include m(noreviews){
-                padding: 6px 0;
-                display: block;
-                >div{
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    flex-wrap: wrap;
-                    padding: 0 20px 6px;
-                    border-bottom: 1px solid #EFF1F6;
-                }
-            }
             .directorist-noreviews{
                 font-size: 16px;
                 margin-bottom: 0;
@@ -339,10 +330,6 @@ Review: New Style
             flex-wrap: wrap;
             justify-content: space-between;
             padding: 30px 50px;
-            background: #fff;
-            border-radius: 0 0 4px 4px;
-            border: 1px solid #EFF1F6;
-            border-top: 0 none;
 
             @include e(rating) {
                 flex: 0 0 50%;
@@ -469,7 +456,7 @@ Review: New Style
             }
 
             & > li{
-                border: 1px solid #EFF1F6;
+                border-top: 1px solid #EFF1F6;
                 &:not(:last-child) {
                     margin-bottom: 10px;
                 }
@@ -516,8 +503,7 @@ Review: New Style
 
             .directorist-review-single {
                 padding: 25px;
-                background: #fff;
-                border-radius: 4px;
+                border-radius: 0;
 
                 a{
                     text-decoration: none;
@@ -667,10 +653,6 @@ Review: New Style
                     .directorist-review-single--comment {
                         padding-left: 40px;
 
-                        /* &:last-child {
-                            padding-bottom: 0;
-                        } */
-
                         .directorist-review-single__contents-wrap {
                             position: relative;
 
@@ -756,15 +738,17 @@ Review: New Style
     border-radius: 4px;
     border: 1px solid #EFF1F6;
 
+<<<<<<< HEAD
 =======
 >>>>>>> 6fa8d8c3338aa3923b1e0cf9da884619a70879fa
+=======
+>>>>>>> 18c8f46a94a5fbf567c6b044b78499b93c72cf46
     @include e(header) {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
         gap: 15px;
-        background: var(--directorist-color-white);
         h3 {
             font-size: 16px;
             font-weight: 500;

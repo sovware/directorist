@@ -13,8 +13,8 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 <div class="directorist-login-wrapper directorist-w-100 directorist-author">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
-            <div class="directorist-col-md-6 directorist-offset-md-3">
-                <div class="atbdp_login_form_shortcode">
+            <div class="directorist-col-md-4 directorist-offset-md-4">
+                <div class="atbdp_login_form_shortcode directorist-author__form">
 					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['verification'] ) && is_email( $user_email ) ) : ?>
 						<p class="directorist-alert directorist-alert-success"><span>
 							<?php
@@ -127,8 +127,8 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							<div class="directorist-author__form__actions">
 								<div class="keep_signed directorist-checkbox">
 									<?php if ( $display_rememberMe ) : ?>
-										<input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked>
-										<label for="keep_signed_in" class="directorist-checkbox__label not_empty">
+										<input type="checkbox" id="directorist_login_keep_signed_in" value="1" name="keep_signed_in" checked>
+										<label for="directorist_login_keep_signed_in" class="directorist-checkbox__label not_empty">
 											<?php echo esc_html( $log_rememberMe ); ?>
 										</label>
 									<?php endif; ?>

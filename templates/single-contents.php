@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.7.0
+ * @version 8.0
  */
 
 use \Directorist\Directorist_Single_Listing;
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $listing = Directorist_Single_Listing::instance();
 ?>
 
-<div class="directorist-single-contents-area directorist-w-100">
+<div class="directorist-single-contents-area directorist-w-100" data-id="<?php echo esc_attr( $listing->id ?? ''); ?>">
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 		<?php $listing->notice_template(); ?>
 

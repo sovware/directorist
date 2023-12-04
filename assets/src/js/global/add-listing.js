@@ -1008,9 +1008,6 @@ $(window).on('elementor/frontend/init', function () {
         if ($('body').hasClass('elementor-editor-active')) {
             multiStepWizard();
         }
-        if ($('body').hasClass('elementor-editor-active')) {
-            multiStepWizard();
-        }
     }, 3000);
 
 });
@@ -1022,10 +1019,4 @@ $('body').on('click', function (e) {
     }
 });
 
-// Elementor EditMode
-$('body').on('click', function (e) {
-    if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
-        multiStepWizard();
-    }
-});
 

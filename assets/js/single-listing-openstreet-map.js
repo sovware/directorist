@@ -94,8 +94,9 @@
 /***/ (function(module, exports) {
 
 /* Single listing OSMap */
+
 (function ($) {
-  jQuery(document).ready(function () {
+  function initSingleMap() {
     // Localized Data
     if ($('.directorist-single-map').length) {
       document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
@@ -116,7 +117,6 @@
           lat: loc_manual_lat,
           lng: loc_manual_lng
         };
-
         function mapLeaflet(lat, lon) {
           var fontAwesomeIcon = L.divIcon({
             html: "<div class=\"atbd_map_shape\">".concat(cat_icon, "</div>"),
@@ -126,7 +126,6 @@
           var mymap = L.map(mapElm, {
             scrollWheelZoom: false
           }).setView([lat, lon], loc_map_zoom_level);
-
           if (display_map_info) {
             L.marker([lat, lon], {
               icon: fontAwesomeIcon
@@ -136,14 +135,31 @@
               icon: fontAwesomeIcon
             }).addTo(mymap);
           }
-
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           }).addTo(mymap);
         }
-
         mapLeaflet(loc_manual_lat, loc_manual_lng);
       });
+    }
+  }
+  jQuery(document).ready(function () {
+    initSingleMap();
+  });
+
+  /* Elementor Edit Mode */
+  $(window).on('elementor/frontend/init', function () {
+    setTimeout(function () {
+      if ($('body').hasClass('elementor-editor-active')) {
+        initSingleMap();
+      }
+    }, 3000);
+  });
+
+  // Elementor EditMode
+  $('body').on('click', function (e) {
+    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+      initSingleMap();
     }
   });
 })(jQuery);

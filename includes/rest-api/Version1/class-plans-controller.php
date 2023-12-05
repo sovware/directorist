@@ -160,55 +160,8 @@ class Plans_Controller extends Posts_Controller {
 	 */
 	protected function prepare_objects_query( $request ) {
 		$args                   = [];
-		$args['offset']         = $request['offset'];
 		$args['order']          = $request['order'];
 		$args['orderby']        = $request['orderby'];
-		$args['paged']          = $request['page'];
-		$args['post__in']       = $request['include'];
-		$args['post__not_in']   = $request['exclude'];
-		$args['posts_per_page'] = $request['per_page'];
-		$args['name']           = $request['slug'];
-		$args['s']              = $request['search'];
-		$args['post_status']    = $request['status'];
-		$args['fields']         = $this->get_fields_for_response( $request );
-
-		// Taxonomy query.
-		$tax_query = [];
-		// Meta query.
-		$meta_query = [];
-		// Date query.
-		$args['date_query'] = [];
-
-		// Set before into date query. Date query must be specified as an array of an array.
-		if ( isset( $request['before'] ) ) {
-			$args['date_query'][0]['before'] = $request['before'];
-		}
-
-		// Set after into date query. Date query must be specified as an array of an array.
-		if ( isset( $request['after'] ) ) {
-			$args['date_query'][0]['after'] = $request['after'];
-		}
-
-		// Check flag to use post_date vs post_date_gmt.
-		if ( true === $request['dates_are_gmt'] ) {
-			if ( isset( $request['before'] ) || isset( $request['after'] ) ) {
-				$args['date_query'][0]['column'] = 'post_date_gmt';
-			}
-		}
-
-		// Set author query.
-		if ( isset( $request['author'] ) ) {
-			$args['author'] = $request['author'];
-		}
-
-		// Set directory type query.
-		if ( isset( $request['directory'] ) ) {
-			$meta_query['_directory_type'] = [
-				'key'     => '_directory_type',
-				'value'   => $request['directory'],
-				'compare' => '=',
-			];
-		}
 
 		/**
 		 * Filter the query arguments for a request.
@@ -316,43 +269,88 @@ class Plans_Controller extends Posts_Controller {
 		$base_data = array();
 		foreach ( $fields as $field ) {
 			switch ( $field ) {
-				case 'id':
+				case 'id': 
 					$base_data['id'] = $plan->ID;
 					break;
-				case 'name':
+				case 'name': 
 					$base_data['name'] = get_the_title( $plan );
 					break;
-				case 'slug':
+				case 'slug': 
 					$base_data['slug'] = $plan->post_name;
 					break;
-				case 'date_created':
+				case 'date_created': 
 					$base_data['date_created'] = directorist_rest_prepare_date_response( $plan->post_date, false );
 					break;
-				case 'date_created_gmt':
+				case 'date_created_gmt': 
 					$base_data['date_created_gmt'] = directorist_rest_prepare_date_response( $plan->post_date_gmt );
 					break;
-				case 'date_modified':
+				case 'date_modified': 
 					$base_data['date_modified'] = directorist_rest_prepare_date_response( $plan->post_date_modified, false );
 					break;
-				case 'date_modified_gmt':
+				case 'date_modified_gmt': 
 					$base_data['date_modified_gmt'] = directorist_rest_prepare_date_response( $plan->post_date_modified_gmt );
 					break;
-				case 'description':
-					$base_data['description'] = 'view' === $context ? wpautop( do_shortcode( $plan->post_content ) ): $plan->post_content;
+				case 'description': 
+					$base_data['description'] = get_post_meta( $plan->ID, 'fm_description', true );
 					break;
-				case 'directory':
+				case 'hide_description_from_plan': 
+					$base_data['hide_description_from_plan'] = (bool) get_post_meta( $plan->ID, 'hide_description', true );
+					break;
+				case 'directory': 
 					$base_data['directory'] = $this->get_directory_id( $plan );
 					break;
-				case 'status':
+				case 'status': 
 					$base_data['status'] = $plan->post_status;
 					break;
-				case 'type':
-					$base_data['type'] = get_post_meta( $plan->ID, 'plan_type', true );
+				case 'is_recommended': 
+					$base_data['is_recommended'] = ( get_post_meta( $plan->ID, 'default_pln', true ) === 'yes' );
 					break;
-				case 'price':
-					$base_data['price'] = get_post_meta( $plan->ID, 'fm_price', true );
+				case 'is_hidden': 
+					$base_data['is_hidden'] = ( get_post_meta( $plan->ID, '_hide_from_plans', true ) === 'yes' );
 					break;
-				case 'fields':
+				case 'type': 
+					$base_data['type'] = $this->get_plan_type( $plan );
+					break;
+				case 'type_label': 
+					$base_data['type_label'] = $this->get_plan_type( $plan ) === 'package' ? esc_html__( 'Per Package', 'directorist' ) : esc_html__( 'Per Listing', 'directorist' );
+					break;
+				case 'currency': 
+					$base_data['currency'] = atbdp_get_payment_currency();
+					break;
+				case 'currency_symbol': 
+					$base_data['currency_symbol'] = html_entity_decode( atbdp_currency_symbol( atbdp_get_payment_currency() ) );
+					break;
+				case 'is_free': 
+					$base_data['is_free'] = (bool) get_post_meta( $plan->ID, 'free_plan', true );
+					break;
+				case 'price': 
+					$base_data['price'] = (float) get_post_meta( $plan->ID, 'fm_price', true );
+					break;
+				case 'is_taxable': 
+					$base_data['is_taxable'] = (bool) get_post_meta( $plan->ID, 'plan_tax', true );
+					break;
+				case 'tax_type': 
+					$base_data['tax_type'] = $this->get_tax_type( $plan );
+					break;
+				case 'tax': 
+					$base_data['tax'] = (float) get_post_meta( $plan->ID, 'fm_tax', true );
+					break;
+				case 'validity_period': 
+					$base_data['validity_period'] = (int) get_post_meta( $plan->ID, 'fm_length', true );
+					break;
+				case 'validity_period_unit': 
+					$base_data['validity_period_unit'] = $this->get_validity_period_unit( $plan );
+					break;
+				case 'validity_period_label': 
+					$base_data['validity_period_label'] = $this->get_validity_period_label( $plan );
+					break;
+				case 'is_non_expiring': 
+					$base_data['is_non_expiring'] = (bool) get_post_meta( $plan->ID, 'fm_length_unl', true );
+					break;
+				case 'features': 
+					$base_data['features'] = $this->get_features_data( $plan );
+					break;
+				case 'fields': 
 					$base_data['fields'] = $this->get_fields_data( $plan );
 					break;
 			}
@@ -361,9 +359,156 @@ class Plans_Controller extends Posts_Controller {
 		return $base_data;
 	}
 
+	protected function get_validity_period_label( $plan ) {
+		$is_non_expiring = (bool) get_post_meta( $plan->ID, 'fm_length_unl', true );
+
+		if ( $is_non_expiring ) {
+			return esc_html__( 'Lifetime', 'directorist' );
+		}
+
+		$validity_period = (int) get_post_meta( $plan->ID, 'fm_length', true );
+
+		$translations = array(
+			'day'   => _n( 'Day', '%d days', $validity_period, 'directorist' ),
+			'week'  => _n( 'Week', '%d weeks', $validity_period, 'directorist' ),
+			'month' => _n( 'Month', '%d months', $validity_period, 'directorist' ),
+			'year'  => _n( 'Year', '%d years', $validity_period, 'directorist' ),
+		);
+		
+		return sprintf( $translations[ $this->get_validity_period_unit( $plan ) ], $validity_period );
+	}
+
+	protected function get_validity_period_unit( $plan ) {
+		$unit = get_post_meta( $plan->ID, '_recurrence_period_term', true );
+		return ( in_array( $unit, array( 'day', 'week', 'month', 'year' ), true ) ? $unit : 'day' );
+	}
+
+	protected function get_tax_type( $plan ) {
+		$tax_type = get_post_meta( $plan->ID, 'plan_tax_type', true );
+
+		if ( ! empty( $tax_type ) && $tax_type === 'percent' ) {
+			return 'percentage';
+		}
+
+		return 'fixed';
+	}
+
+	protected function get_plan_type( $plan ) {
+		$plan_type = get_post_meta( $plan->ID, 'plan_type', true );
+
+		if ( ! empty( $plan_type ) && $plan_type === 'pay_per_listng' ) {
+			return 'pay_per_listing';
+		}
+
+		return 'package';
+	}
+
+	protected function get_features_data( $plan ) {
+		$features = array();
+
+		$features[] = array(
+			'key'            => 'auto_renewal',
+			'label'          => esc_html__( 'Auto renewing', 'directorist' ),
+			'is_active'      => (bool) get_post_meta( $plan->ID, '_atpp_recurring', true ),
+			'hide_from_plan' => (bool) get_post_meta( $plan->ID, 'hide_recurring', true ),
+		);
+
+		if ( $this->get_plan_type( $plan ) === 'package' ) {
+			$regular_listing_count = (int) get_post_meta( $plan->ID, 'num_regular', true );
+			$unlimited_regular_listings = (bool) get_post_meta( $plan->ID, 'num_regular_unl', true );
+
+			if ( $unlimited_regular_listings ) {
+				$regular_listing_label = __( 'Unlimited Regular Listings', 'directorist' );
+			} else {
+				$regular_listing_label = sprintf( _n( '%s Regular Listing', '%s Regular Listings', $regular_listing_count, 'directorist' ), $regular_listing_count );
+			}
+
+			$features[] = array(
+				'key'            => 'regular_listings',
+				'label'          => $regular_listing_label,
+				'is_active'      => true,
+				'hide_from_plan' => (bool) get_post_meta( $plan->ID, 'hide_listings', true ),
+			);
+
+			$featured_listing_count = (int) get_post_meta( $plan->ID, 'num_featured', true );
+			$unlimited_featured_listings = (bool) get_post_meta( $plan->ID, 'num_featured_unl', true );
+
+			if ( $unlimited_featured_listings ) {
+				$featured_listing_label = __( 'Unlimited Featured Listings', 'directorist' );
+			} else {
+				$featured_listing_label = sprintf( _n( '%s Featured Listing', '%s Featured Listings', $featured_listing_count, 'directorist' ), $featured_listing_count );
+			}
+
+			$features[] = array(
+				'key'            => 'featured_listings',
+				'label'          => $featured_listing_label,
+				'is_active'      => true,
+				'hide_from_plan' => apply_filters( 'atbdp_plan_featured_compare', (bool) get_post_meta( $plan->ID, 'hide_featured', true ) ),
+			);
+		} else {
+			$features[] = array(
+				'key'            => 'featured_listing',
+				'label'          => esc_html__( 'Listing as featured', 'directorist' ),
+				'is_active'      => (bool) get_post_meta( $plan->ID, 'is_featured_listing', true ),
+				'hide_from_plan' => apply_filters( 'atbdp_plan_featured_compare', (bool) get_post_meta( $plan->ID, 'hide_listing_featured', true ) ), //$this->get_plan_type( $plan ) !== 'pay_per_listing'
+			);
+		}
+
+		$features[] = array(
+			'key'            => 'contact_listing_owner',
+			'label'          => esc_html__( 'Contact Owner', 'directorist' ),
+			'is_active'      => (bool) get_post_meta( $plan->ID, 'cf_owner', true ),
+			'hide_from_plan' => apply_filters( 'atbdp_plan_contact_owner_compare', (bool) get_post_meta( $plan->ID, 'hide_Cowner', true ) ),
+		);
+
+		$features[] = array(
+			'key'            => 'reviews_allowed',
+			'label'          => esc_html__( 'Allow Customer Review', 'directorist' ),
+			'is_active'      => (bool) get_post_meta( $plan->ID, 'fm_cs_review', true ),
+			'hide_from_plan' => apply_filters( 'atbdp_plan_review_compare', (bool) get_post_meta( $plan->ID, 'hide_review', true ) ),
+		);
+
+		$features[] = array(
+			'key'            => 'claim_badge_included',
+			'label'          => esc_html__( 'Claim Badge Included', 'directorist' ),
+			'is_active'      => (bool) get_post_meta( $plan->ID, '_fm_claim', true ),
+			'hide_from_plan' => apply_filters( 'atbdp_plan_claim_compare', (bool) get_post_meta( $plan->ID, '_hide_claim', true ) ),
+		);
+
+		$features[] = array(
+			'key'            => 'booking_included',
+			'label'          => esc_html__( 'Booking Included', 'directorist' ),
+			'is_active'      => (bool) get_post_meta( $plan->ID, '_fm_booking', true ),
+			'hide_from_plan' => apply_filters( 'atbdp_plan_booking_compare', (bool) get_post_meta( $plan->ID, '_hide_booking', true ) ),
+		);
+
+		$features[] = array(
+			'key'            => 'live_chat_included',
+			'label'          => esc_html__( 'Live Chat Included', 'directorist' ),
+			'is_active'      => (bool) get_post_meta( $plan->ID, '_fm_live_chat', true ),
+			'hide_from_plan' => apply_filters( 'atbdp_plan_live_chat_compare', (bool) get_post_meta( $plan->ID, '_hide_live_chat', true ) ),
+		);
+
+		$features[] = array(
+			'key'            => 'mark_as_sold_included',
+			'label'          => esc_html__( 'Mark as Sold Included', 'directorist' ),
+			'is_active'      => (bool) get_post_meta( $plan->ID, '_fm_mark_as_sold', true ),
+			'hide_from_plan' => apply_filters( 'atbdp_plan_mark_as_sold_compare', (bool) get_post_meta( $plan->ID, '_hide_mark_as_sold', true ) ),
+		);
+
+		$features[] = array(
+			'key'            => 'categories_included',
+			'label'          => esc_html__( 'All Categories', 'directorist' ),
+			'is_active'      => (bool) get_post_meta( $plan->ID, 'exclude_cat', true ),
+			'hide_from_plan' => (bool) get_post_meta( $plan->ID, 'hide_categories', true ),
+		);
+
+		return $features;
+	}
+
 	protected function get_fields_data( $plan ) {
 		$form_fields     = directorist_get_listing_form_fields_data( $this->get_directory_id( $plan ) );
-		$limitable_fields = array( 'location', 'category', 'tag', 'number', 'textarea', 'description', 'excerpt', 'image_upload' );
+		$limitable_fields = array( 'location', 'category', 'tag', 'float', 'textarea', 'description', 'excerpt', 'image_upload' );
 		$field_data      = array();
 
 		foreach ( $form_fields as $form_field ) {
@@ -425,12 +570,6 @@ class Plans_Controller extends Posts_Controller {
 			),
 		);
 
-		if ( $object->post_parent ) {
-			$links['up'] = array(
-				'href' => rest_url( sprintf( '/%s/plans/%d', $this->namespace, $object->post_parent ) ),  // @codingStandardsIgnoreLine.
-			);
-		}
-
 		return $links;
 	}
 
@@ -469,8 +608,13 @@ class Plans_Controller extends Posts_Controller {
 					'readonly'    => true,
 				),
 				'description'           => array(
-					'description' => __( 'plan description.', 'directorist' ),
+					'description' => __( 'Plan description.', 'directorist' ),
 					'type'        => 'string',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'hide_description_from_plan'           => array(
+					'description' => __( 'Hide description from plan.', 'directorist' ),
+					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'directory' => array(
@@ -479,9 +623,117 @@ class Plans_Controller extends Posts_Controller {
 					'context'     => array( 'view', 'edit' ),
 				),
 				'status'     => array(
-					'description' => __( 'plan status.', 'directorist' ),
+					'description' => __( 'Plan status.', 'directorist' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
+				),
+				'is_recommended'     => array(
+					'description' => __( 'Plan recommendation status.', 'directorist' ),
+					'type'        => 'boolean',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'is_hidden'     => array(
+					'description' => __( 'Plan hidden during plan selection.', 'directorist' ),
+					'type'        => 'boolean',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'type'     => array(
+					'description' => __( 'Plan type.', 'directorist' ),
+					'type'        => 'string',
+					'enum'        => array( 'package', 'pay_per_listing' ),
+					'context'     => array( 'view', 'edit' ),
+				),
+				'type_label'     => array(
+					'description' => __( 'Plan type label.', 'directorist' ),
+					'type'        => 'string',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'currency'     => array(
+					'description' => __( 'Plan currency.', 'directorist' ),
+					'type'        => 'string',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'currency_symbol'     => array(
+					'description' => __( 'Plan currency symbol.', 'directorist' ),
+					'type'        => 'string',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'is_free'     => array(
+					'description' => __( 'Is plan free?.', 'directorist' ),
+					'type'        => 'boolean',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'price'     => array(
+					'description' => __( 'Plan price.', 'directorist' ),
+					'type'        => 'float',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'is_taxable'     => array(
+					'description' => __( 'Is plan taxable?', 'directorist' ),
+					'type'        => 'boolean',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'tax_type'     => array(
+					'description' => __( 'Plan tax type', 'directorist' ),
+					'type'        => 'string',
+					'enum'        => array( 'fixed', 'percentage' ),
+					'context'     => array( 'view', 'edit' ),
+				),
+				'tax'     => array(
+					'description' => __( 'Plan tax amount.', 'directorist' ),
+					'type'        => 'float',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'validity_period'     => array(
+					'description' => __( 'Plan validity period.', 'directorist' ),
+					'type'        => 'integer',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'validity_period_unit'     => array(
+					'description' => __( 'Plan validity period unit.', 'directorist' ),
+					'type'        => 'string',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'validity_period_label'     => array(
+					'description' => __( 'Plan validity period label.', 'directorist' ),
+					'type'        => 'string',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'is_non_expiring'    => array(
+					'description' => __( 'Is plan non expiring?', 'directorist' ),
+					'type'        => 'boolean',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'features'             => array(
+					'description' => __( 'Features data.', 'directorist' ),
+					'type'        => 'array',
+					'context'     => array( 'view', 'edit' ),
+					'items'       => array(
+						'type'       => 'object',
+						'properties' => array(
+							'key'    => array(
+								'description' => __( 'Feature key.', 'directorist' ),
+								'type'        => 'string',
+								'context'     => array( 'view', 'edit' ),
+								'readonly'    => true,
+							),
+							'label' => array(
+								'description' => __( 'Feature label.', 'directorist' ),
+								'type'        => 'string',
+								'context'     => array( 'view', 'edit' ),
+							),
+							'is_active' => array(
+								'description' => __( 'Feature active status.', 'directorist' ),
+								'type'        => 'bool',
+								'context'     => array( 'view', 'edit' ),
+							),
+							'hide_from_plan' => array(
+								'description' => __( 'Feature visibility status from plan package.', 'directorist' ),
+								'type'        => 'bool',
+								'context'     => array( 'view', 'edit' ),
+							),
+						),
+					),
 				),
 				'fields'             => array(
 					'description' => __( 'Fields data.', 'directorist' ),
@@ -545,21 +797,6 @@ class Plans_Controller extends Posts_Controller {
 
 		$params['context']['default'] = 'view';
 
-		$params['exclude'] = array(
-			'description'       => __( 'Ensure result set excludes specific IDs.', 'directorist' ),
-			'type'              => 'string',
-			'sanitize_callback' => 'wp_parse_id_list',
-		);
-		$params['include'] = array(
-			'description'       => __( 'Limit result set to specific IDs.', 'directorist' ),
-			'type'              => 'string',
-			'sanitize_callback' => 'wp_parse_id_list',
-		);
-		$params['offset'] = array(
-			'description'        => __( 'Offset the result set by a specific number of items.', 'directorist' ),
-			'type'               => 'integer',
-			'sanitize_callback'  => 'absint',
-		);
 		$params['order'] = array(
 			'default'            => 'desc',
 			'description'        => __( 'Order sort attribute ascending or descending.', 'directorist' ),
@@ -573,29 +810,12 @@ class Plans_Controller extends Posts_Controller {
 			'type'               => 'string',
 			'sanitize_callback'  => 'sanitize_key',
 		);
-		$params['status'] = array(
-			'default'           => 'publish',
-			'description'       => __( 'Limit result set to plans assigned a specific status.', 'directorist' ),
-			'type'              => 'string',
-			'enum'              => array_merge( array( 'any', 'future', 'trash', 'expired' ), array_keys( get_post_statuses() ) ),
-			'sanitize_callback' => 'sanitize_key',
-		);
-		$params['directory'] = array(
-			'description'       => __( 'Limit result set to plans to sepecific directory type.', 'directorist' ),
-			'type'              => 'integar',
-		);
-		$params['author'] = array(
-			'description'       => __( 'Limit result set to plans specific to author ID.', 'directorist' ),
-			'type'              => 'integer',
-		);
 
 		return $params;
 	}
 
 	protected function get_orderby_possibles() {
 		return array(
-			'id'      => 'ID',
-			'include' => 'include',
 			'title'   => 'title',
 			'date'    => 'date',
 		);

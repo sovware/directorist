@@ -507,9 +507,19 @@ class Plans_Controller extends Posts_Controller {
 	}
 
 	protected function get_fields_data( $plan ) {
-		$form_fields     = directorist_get_listing_form_fields_data( $this->get_directory_id( $plan ) );
-		$limitable_fields = array( 'location', 'category', 'tag', 'float', 'textarea', 'description', 'excerpt', 'image_upload' );
-		$field_data      = array();
+		$form_fields  = directorist_get_listing_form_fields_data( $this->get_directory_id( $plan ) );
+		$translations = array(
+			'location'     => _n_noop( '%s (maximum %d item)', '%s (maximum %d items)', 'directorist' ),
+			'category'     => _n_noop( '%s (maximum %d item)', '%s (maximum %d items)', 'directorist' ),
+			'tag'          => _n_noop( '%s (maximum %d item)', '%s (maximum %d items)', 'directorist' ),
+			'number'       => _n_noop( '%s (maximum %d)', '%s (maximum %d)', 'directorist' ),
+			'textarea'     => _n_noop( '%s (maximum %d character)', '%s (maximum %d characters)', 'directorist' ),
+			'description'  => _n_noop( '%s (maximum %d character)', '%s (maximum %d characters)', 'directorist' ),
+			'excerpt'      => _n_noop( '%s (maximum %d character)', '%s (maximum %d characters)', 'directorist' ),
+			'image_upload' => _n_noop( '%s (maximum %d item)', '%s (maximum %d items)', 'directorist' ),
+		);
+		$fields     = array_keys( $translations );
+		$field_data = array();
 
 		foreach ( $form_fields as $form_field ) {
 			$field_key = $form_field['field_key'];
@@ -538,11 +548,15 @@ class Plans_Controller extends Posts_Controller {
 				'hide_from_plan' => (bool) get_post_meta( $plan->ID, '_hide_' . $field_key, true ),
 			);
 
-			if ( isset( $form_field['widget_name'] ) && in_array( $form_field['widget_name'], $limitable_fields, true ) ) {
+			if ( $data['is_active'] && isset( $form_field['widget_name'] ) && in_array( $form_field['widget_name'], $fields, true ) ) {
 				if ( (bool) get_post_meta( $plan->ID, '_unlimited_'. $field_key, true ) ) {
-					$data['unlimited'] = true;
-				} else {
-					$data['max'] = (int) get_post_meta( $plan->ID, '_max_'. $field_key, true );
+					$data['label'] = sprintf( __( '%s (unlimited)', 'directorist' ), $data['label'] );
+				} elseif ( ( $count = (int) get_post_meta( $plan->ID, '_max_'. $field_key, true ) ) ) {
+					$data['label'] = sprintf(
+						translate_nooped_plural( $translations[ $form_field['widget_name'] ], $count, 'directorist' ),
+						$data['label'],
+						$count,
+					);
 				}
 			}
 
@@ -765,16 +779,6 @@ class Plans_Controller extends Posts_Controller {
 							),
 							'hide_from_plan' => array(
 								'description' => __( 'Field visibility status from plan package.', 'directorist' ),
-								'type'        => 'bool',
-								'context'     => array( 'view', 'edit' ),
-							),
-							'max' => array(
-								'description' => __( 'Maximum limit.', 'directorist' ),
-								'type'        => 'integer',
-								'context'     => array( 'view', 'edit' ),
-							),
-							'unlimited' => array(
-								'description' => __( 'Maximum limit.', 'directorist' ),
 								'type'        => 'bool',
 								'context'     => array( 'view', 'edit' ),
 							),

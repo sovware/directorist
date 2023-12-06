@@ -421,7 +421,11 @@ class Directorist_Listing_Search_Form {
 			'value'      		=> $value,
 		);
 		if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $this->assign_to_category()['custom_field_key'] ) ) ) {
-			$template = 'search-form/custom-fields/' . $field_data['widget_name'];
+			if( ! empty( $field_data['type'] ) && 'number' != $field_data['type'] ) {
+				$template = 'search-form/custom-fields/number/' . $field_data['type'];
+			} else {
+				$template = 'search-form/custom-fields/' . $field_data['widget_name'];
+			}
 		}
 		else {
 			$template = 'search-form/fields/' . $field_data['widget_name'];

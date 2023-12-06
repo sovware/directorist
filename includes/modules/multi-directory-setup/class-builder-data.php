@@ -675,6 +675,28 @@ class Builder_Data {
                                 'label' => __( 'Placeholder', 'directorist' ),
                                 'value' => 'Number',
                             ],
+                            'type'      => [
+                                'type'    => 'select',
+                                'label'   => __( 'Type', 'directorist' ),
+                                'value'   => 'number',
+                                'options' => [
+                                    ['value' => 'number', 'label' => 'Number'],
+                                    ['value' => 'range', 'label' => 'Range'],
+                                    ['value' => 'dropdown', 'label' => 'Dropdown'],
+                                    ['value' => 'radio', 'label' => 'Radio'],
+                                ],
+                            ],
+                            'step'       => [
+                                'type'  => 'number',
+                                'label' => __( 'Step', 'directorist' ),
+                                'value' => '',
+                                'show_if' => [
+                                    'where'      => 'self.type',
+                                    'conditions' => [
+                                        ['key' => 'value', 'compare' => '!=', 'value' => 'number'],
+                                    ],
+                                ],
+                            ],
                             'required'    => [
                                 'type'  => 'toggle',
                                 'label' => __( 'Required', 'directorist' ),

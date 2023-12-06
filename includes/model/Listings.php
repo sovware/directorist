@@ -910,12 +910,25 @@ class Directorist_Listings {
 				} else {
 					$field_type = str_replace( 'custom-', '', $key );
 					$field_type = preg_replace( '/([!^0-9])|(-)/', '', $field_type ); //replaces any additional numbering to just keep the field name, for example if previous line gives us "text-2", this line makes it "text"
-					$operator   = in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=';
-					$meta_queries[] = array(
-						'key'     => '_' . $key,
-						'value'   => sanitize_text_field( $values ),
-						'compare' => $operator
-					);
+					// Check if $values contains a hyphen
+					if (strpos($values, '-') !== false) {
+						// If $values is in the format "40-50", create a range query
+						list( $min_value, $max_value ) = array_map( 'intval', explode( '-', $values ) );
+						
+						$meta_queries[] = array(
+							'key'     => '_' . $key,
+							'value'   => array( $min_value, $max_value ),
+							'type'    => 'NUMERIC',
+							'compare' => 'BETWEEN',
+						);
+					} else {
+						$operator   = in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=';
+						$meta_queries[] = array(
+							'key'     => '_' . $key,
+							'value'   => sanitize_text_field( $values ),
+							'compare' => $operator
+						);
+					}
 				}
 			}
 		}

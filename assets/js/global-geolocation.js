@@ -196,7 +196,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     country = value[count - 1];
                     state = value[count - 2];
                     city = value[count - 3];
-                    locationInput.value = city;
+                    locationInput.value = value;
                     $('.directorist-location-js, .atbdp-search-address').attr("data-value", city);
                   } else {
                     locationInput.value = 'address not found';
@@ -205,6 +205,12 @@ window.addEventListener('DOMContentLoaded', function () {
                   locationInput.value = "Geocoder failed due to: ".concat(status);
                 }
               });
+            }
+
+            var parentField = e.target.closest('.directorist-search-field');
+
+            if (!parentField.classList.contains('input-is-focused')) {
+              parentField.classList.add('input-is-focused');
             }
           });
         })();

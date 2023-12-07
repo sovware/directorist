@@ -137,7 +137,9 @@
                                                     </div>
                                                     <p class='directorist-slug-notice directorist-slug-notice-<?php echo esc_attr( $listing_type->term_id ); ?>'></p>
                                                 </td>
-                                                <td><span class="directorist_listing-count"><?php echo esc_html( $listing_type->count ); ?></span></td>
+                                                <td class="directorist-type-count">
+                                                    <span class="directorist_listing-count"><?php echo esc_html( $listing_type->count ); ?></span>
+                                                </td>
                                                 <td><?php
                                                 if( $created_time ) {
                                                     echo esc_attr( date( 'F j, Y', $created_time ) );

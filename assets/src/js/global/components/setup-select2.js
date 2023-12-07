@@ -92,6 +92,11 @@ function initSelect2AjaxFields() {
         url: `${rest_base_url}/listings/categories`,
     });
 
+    initSelect2AjaxTaxonomy({
+        selector: $('.directorist-form-categories-field').find('select'),
+        url: `${rest_base_url}/listings/categories`,
+    });
+
     // Init Select2 Ajax Location Field
     initSelect2AjaxTaxonomy({
         selector: $('.directorist-search-location').find('select'),
@@ -180,6 +185,7 @@ function initSelect2AjaxTaxonomy( args, terms_options ) {
                 url: args.url,
                 dataType: 'json',
                 cache: true,
+                delay: 250,
                 data: function (params) {
                     currentPage = params.page || 1;
                     const search_term = ( params.term ) ? params.term : '';

@@ -103,6 +103,7 @@ class Asset_Loader {
 				wp_enqueue_script( 'directorist-listing-slider' );
 				wp_enqueue_script( 'directorist-swiper' );
 				wp_enqueue_script( 'directorist-select2-script' );
+				wp_enqueue_script( 'directorist-search-form' );
 
 				if ( Helper::instant_search_enabled() ) {
 					wp_enqueue_script( 'jquery-masonry' );
@@ -286,6 +287,8 @@ class Asset_Loader {
 			wp_enqueue_script( 'directorist-import-export' );
 		} elseif ( Helper::is_admin_page( 'all_listings' ) ) {
 			wp_enqueue_style( 'directorist-font-awesome' );
+			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_script( 'directorist-admin-script' );
 		} elseif ( Helper::is_admin_page( 'add_listing' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_style( 'directorist-unicons' );

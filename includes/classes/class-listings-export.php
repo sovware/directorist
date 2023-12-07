@@ -382,6 +382,11 @@ class Listings_Exporter {
 	 * @return string
 	 */
 	public static function escape_data( $data ) {
+
+        if( ! is_string( $data ) ) {
+            return $data;
+        }
+
 		$active_content_triggers = array( '=', '+', '-', '@' );
 
 		if ( in_array( mb_substr( $data, 0, 1 ), $active_content_triggers, true ) ) {

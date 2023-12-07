@@ -42,9 +42,11 @@ export var directorist_range_slider = (selector, obj) => {
         slide1.style.border = obj.pointerBorder;
         id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = `<span>${min}</span> ${sliderDataUnit}`;
 
-        var x 			= null,
+        let sliderValue = id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value;
+
+        let x 			= null,
             count 		= 0,
-            slid1_val 	= 0,
+            slid1_val 	= sliderValue,
             slid1_val2 	= sliderDataMin,
             count2 		= width;
 

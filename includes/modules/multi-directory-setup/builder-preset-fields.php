@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-return array(
+return apply_filters( 'atbdp_form_preset_widgets', array(
 	'title' => [
 		'label'    => __( 'Title', 'directorist' ),
 		'icon'     => 'las la-text-height',
@@ -261,45 +261,6 @@ return array(
 		]
 	],
 
-	'view_count' => [
-		'label'   => __( 'View Count', 'directorist' ),
-		'icon'    => 'uil uil-eye',
-		'options' => [
-			'type' => [
-				'type'  => 'hidden',
-				'value' => 'number',
-			],
-			'field_key' => [
-				'type'  => 'hidden',
-				'value' => 'atbdp_post_views_count',
-				'rules' => [
-					'unique'   => true,
-					'required' => true,
-				]
-			],
-			'label' => [
-				'type'  => 'text',
-				'label' => __( 'Label', 'directorist' ),
-				'value' => 'View Count',
-			],
-			'placeholder' => [
-				'type'  => 'text',
-				'label' => __( 'Placeholder', 'directorist' ),
-				'value' => '',
-			],
-			'required' => [
-				'type'  => 'toggle',
-				'label' => __( 'Required', 'directorist' ),
-				'value' => false,
-			],
-			'only_for_admin' => [
-				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
-				'value' => true,
-			],
-		],
-	],
-
 	'excerpt' => [
 		'label'   => __( 'Excerpt', 'directorist' ),
 		'icon'    => 'uil uil-subject',
@@ -540,11 +501,6 @@ return array(
 				'type'  => 'text',
 				'label' => __( 'Enter Coordinates Label', 'directorist' ),
 				'value' => __( 'Or Enter Coordinates (latitude and longitude) Manually', 'directorist' ),
-			],
-			'required' => [
-				'type'  => 'toggle',
-				'label' => __( 'Required', 'directorist' ),
-				'value' => false,
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
@@ -987,4 +943,4 @@ return array(
 			],
 		],
 	],
-);
+));

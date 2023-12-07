@@ -80,6 +80,11 @@
             right: 0;
         }
     }
+
+    &.directorist-sortby-dropdown {
+        border-radius: 8px;
+        border: 2px solid var(--directorist-color-white);
+    }
 }
 
 /* custom dropdown with select */

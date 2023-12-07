@@ -607,7 +607,7 @@ class Directorist_Listing_Form {
 
 	public function field_template( $field_data ) {
 
-		if( !empty( $field_data['assign_to'] ) && ( $field_data['assign_to'] !== 'form' ) ) {
+		if( ! empty( $field_data['assign_to'] ) ) {
 			return;
 		}
 

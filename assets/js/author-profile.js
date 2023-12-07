@@ -103,7 +103,7 @@
     return;
   }
 
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     /* Directorist alert dismiss */
     var getUrl = window.location.href;
     var newUrl = getUrl.replace('notice=1', '');
@@ -139,7 +139,7 @@
     return;
   }
 
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
 
@@ -271,7 +271,7 @@
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
         'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).find('.directorist-single-listing-action__text').data('post_id')
+        'post_id': $(this).data('listing_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -398,7 +398,12 @@
 
     if ($('.directorist-archive-grid-view').innerWidth() <= 500) {
       $('.directorist-archive-grid-view').addClass('directorist-archive-grid--fix');
-    }
+    } // Back Button to go back to the previous page
+
+
+    $('body').on('click', '.directorist-btn__back', function (e) {
+      window.history.back();
+    });
   });
 })(jQuery);
 

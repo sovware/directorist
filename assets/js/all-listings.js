@@ -391,6 +391,10 @@ function initSelect2AjaxFields() {
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
+  });
+  initSelect2AjaxTaxonomy({
+    selector: $('.directorist-form-categories-field').find('select'),
+    url: "".concat(rest_base_url, "/listings/categories")
   }); // Init Select2 Ajax Location Field
 
   initSelect2AjaxTaxonomy({
@@ -475,6 +479,7 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
         url: args.url,
         dataType: 'json',
         cache: true,
+        delay: 250,
         data: function data(params) {
           currentPage = params.page || 1;
           var search_term = params.term ? params.term : '';
@@ -653,7 +658,7 @@ function convertToSelect2(field) {
 /***/ (function(module, exports) {
 
 // Archive Sidebar
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   var body = document.body; // Toggle sidebar and update toggle button's active state
 
   function toggleSidebar(toggleBtn, archiveSidebar) {
@@ -800,7 +805,7 @@ window.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     /* Directorist alert dismiss */
     var getUrl = window.location.href;
     var newUrl = getUrl.replace('notice=1', '');
@@ -836,7 +841,7 @@ window.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     /* custom dropdown */
     var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select'); // toggle dropdown
 
@@ -968,7 +973,7 @@ window.addEventListener('DOMContentLoaded', function () {
       var data = {
         'action': 'atbdp_public_add_remove_favorites',
         'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).find('.directorist-single-listing-action__text').data('post_id')
+        'post_id': $(this).data('listing_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -1143,7 +1148,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
     if ($('.directorist-archive-grid-view').innerWidth() <= 500) {
       $('.directorist-archive-grid-view').addClass('directorist-archive-grid--fix');
-    }
+    } // Back Button to go back to the previous page
+
+
+    $('body').on('click', '.directorist-btn__back', function (e) {
+      window.history.back();
+    });
   });
 })(jQuery);
 
@@ -1503,7 +1513,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   /* Directorist instant search */
 
 
-  $('body').on("submit", ".directorist-instant-search .directorist-advanced-filter__form, .directorist-instant-search .directorist-search-form, .directorist-instant-search .directorist-basic-search, .directorist-instant-search .directorist-advanced-search", function (e) {
+  $('body').on("submit", ".directorist-instant-search form", function (e) {
     e.preventDefault();
     var instant_search_element = $(this).closest('.directorist-instant-search');
     var tag = [];
@@ -1717,6 +1727,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show');
         instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').hide();
         $(document).scrollTop(instant_search_element.offset().top);
+        closeAllSearchModal();
       },
       success: function success(html) {
         if (html.search_result) {
@@ -1851,7 +1862,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           type: "POST",
           data: form_data,
           beforeSend: function beforeSend() {
-            //$(_this).closest('.search-area').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", true);
             $('.directorist-archive-contents').find('.directorist-archive-items').addClass('atbdp-form-fade');
             $('.directorist-archive-contents').find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show');
             $('.directorist-archive-contents').find('.directorist-header-bar .directorist-advanced-filter').hide();
@@ -2303,36 +2313,36 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     });
   });
 
-  function filterListing(sidebarElm) {
-    var _this = sidebarElm;
+  function filterListing(searchElm) {
+    var _this = searchElm;
     var tag = [];
     var price = [];
     var search_by_rating = [];
     var custom_field = {};
-    sidebarElm.find('input[name^="in_tag[]"]:checked').each(function (index, el) {
+    searchElm.find('input[name^="in_tag[]"]:checked').each(function (index, el) {
       tag.push($(el).val());
     });
-    sidebarElm.find('input[name^="search_by_rating[]"]:checked').each(function (index, el) {
+    searchElm.find('input[name^="search_by_rating[]"]:checked').each(function (index, el) {
       search_by_rating.push($(el).val());
     });
-    sidebarElm.find('input[name^="price["]').each(function (index, el) {
+    searchElm.find('input[name^="price["]').each(function (index, el) {
       price.push($(el).val());
     });
-    sidebarElm.find('[name^="custom_field"]').each(function (index, el) {
+    searchElm.find('[name^="custom_field"]').each(function (index, el) {
       var name = $(el).attr('name');
       var type = $(el).attr('type');
       var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
 
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
-          value = sidebarElm.val();
+          value = searchElm.val();
           custom_field[post_id] = value;
         });
       } else if ('checkbox' === type) {
         post_id = post_id.split('[]')[0];
         $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
           var checkValue = [];
-          value = sidebarElm.val();
+          value = searchElm.val();
           checkValue.push(value);
           custom_field[post_id] = checkValue;
         });
@@ -2359,32 +2369,32 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       data_atts: JSON.parse(data_atts)
     };
     var fields = {
-      q: sidebarElm.find('input[name="q"]').val(),
-      in_cat: sidebarElm.find('.bdas-category-search, .directorist-category-select').val(),
-      in_loc: sidebarElm.find('.bdas-category-location, .directorist-location-select').val(),
-      price_range: sidebarElm.find("input[name='price_range']:checked").val(),
-      address: sidebarElm.find('input[name="address"]').val(),
-      zip: sidebarElm.find('input[name="zip"]').val(),
-      fax: sidebarElm.find('input[name="fax"]').val(),
-      email: sidebarElm.find('input[name="email"]').val(),
-      website: sidebarElm.find('input[name="website"]').val(),
-      phone: sidebarElm.find('input[name="phone"]').val()
+      q: searchElm.find('input[name="q"]').val(),
+      in_cat: searchElm.find('.bdas-category-search, .directorist-category-select').val(),
+      in_loc: searchElm.find('.bdas-category-location, .directorist-location-select').val(),
+      price_range: searchElm.find("input[name='price_range']:checked").val(),
+      address: searchElm.find('input[name="address"]').val(),
+      zip: searchElm.find('input[name="zip"]').val(),
+      fax: searchElm.find('input[name="fax"]').val(),
+      email: searchElm.find('input[name="email"]').val(),
+      website: searchElm.find('input[name="website"]').val(),
+      phone: searchElm.find('input[name="phone"]').val()
     }; //business hours
 
     if ($('input[name="open_now"]').is(':checked')) {
-      fields.open_now = sidebarElm.find('input[name="open_now"]').val();
+      fields.open_now = searchElm.find('input[name="open_now"]').val();
     }
 
     if (fields.address && fields.address.length) {
-      fields.cityLat = sidebarElm.find('#cityLat').val();
-      fields.cityLng = sidebarElm.find('#cityLng').val();
-      fields.miles = sidebarElm.find('.directorist-range-slider-value').val();
+      fields.cityLat = searchElm.find('#cityLat').val();
+      fields.cityLng = searchElm.find('#cityLng').val();
+      fields.miles = searchElm.find('.directorist-range-slider-value').val();
     }
 
     if (fields.zip && fields.zip.length) {
-      fields.zip_cityLat = sidebarElm.find('.zip-cityLat').val();
-      fields.zip_cityLng = sidebarElm.find('.zip-cityLng').val();
-      fields.miles = sidebarElm.find('.directorist-range-slider-value').val();
+      fields.zip_cityLat = searchElm.find('.zip-cityLat').val();
+      fields.zip_cityLng = searchElm.find('.zip-cityLng').val();
+      fields.miles = searchElm.find('.directorist-range-slider-value').val();
     }
 
     var form_data = _objectSpread(_objectSpread({}, data), fields);
@@ -2423,13 +2433,86 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         }
       }
     });
-  } // sidebar on click searching
+  }
 
+  function initObserver() {
+    var targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-range-slider-value');
+    targetNodes.forEach(function (targetNode) {
+      var searchElm = $(targetNode.closest('form'));
 
-  $('body').on("change", ".directorist-instant-search .listing-with-sidebar", function (e) {
+      if (targetNode) {
+        var timeout;
+
+        var observerCallback = function observerCallback(mutationList, observer) {
+          var _iterator = _createForOfIteratorHelper(mutationList),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var mutation = _step.value;
+
+              if (mutation.attributeName == 'value') {
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                  filterListing(searchElm);
+                }, 250);
+              }
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        };
+
+        var observer = new MutationObserver(observerCallback);
+        observer.observe(targetNode, {
+          attributes: true,
+          childList: true,
+          subtree: true
+        });
+      }
+    });
+  }
+
+  function directorist_debounce(func, wait, immediate) {
+    var timeout;
+    return function () {
+      var context = this,
+          args = arguments;
+
+      var later = function later() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+
+  ; // sidebar on keyup searching
+
+  $('body').on("keyup", ".directorist-instant-search form", directorist_debounce(function (e) {
     e.preventDefault();
-    var sidebarElm = $(this);
-    filterListing(sidebarElm);
+    var searchElm = $(this);
+    filterListing(searchElm);
+  }, 250)); // sidebar on change searching
+
+  $('body').on("change", ".directorist-instant-search select, .directorist-instant-search input[type='checkbox'],.directorist-instant-search input[type='radio'] ", directorist_debounce(function (e) {
+    e.preventDefault();
+    var searchElm = $(this.closest('form'));
+    filterListing(searchElm);
+  }, 250));
+  $('body').on("click", ".directorist-instant-search .directorist-search-field__btn--clear", function (e) {
+    var inputValue = $(this).closest('.directorist-search-field').find('input, select').val();
+
+    if (inputValue) {
+      var searchElm = $(document.querySelector('.directorist-instant-search form'));
+      filterListing(searchElm);
+    }
   });
 
   if ($('.directorist-instant-search').length === 0) {
@@ -2443,39 +2526,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     });
   }
 
-  function initObserver() {
-    var targetNode = document.querySelector('.directorist-range-slider-wrap .directorist-range-slider');
-
-    if (targetNode) {
-      var observer = new MutationObserver(function (mutationList, observer) {
-        var _iterator = _createForOfIteratorHelper(mutationList),
-            _step;
-
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var mutation = _step.value;
-
-            if (mutation.attributeName == 'value') {
-              var sidebarElm = $(document.querySelector('.directorist-instant-search .listing-with-sidebar'));
-              filterListing(sidebarElm);
-            }
-          }
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
-        }
-      });
-      observer.observe(targetNode, {
-        attributes: true,
-        childList: true,
-        subtree: true
-      });
-    }
-  }
-
-  $('body').on("click", ".directorist-instant-search .listing-with-sidebar .directorist-search-form-box", function (e) {
-    initObserver();
+  window.addEventListener('load', function () {
+    directorist_debounce(initObserver(), 250);
   });
 })(jQuery);
 

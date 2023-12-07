@@ -1,5 +1,5 @@
 // Archive Sidebar
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     const body = document.body;
 
     // Toggle sidebar and update toggle button's active state

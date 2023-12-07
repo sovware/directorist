@@ -24,7 +24,7 @@ $max_value = $data['options']['max_value'];
             <label for="directorist-custom-range-slider__value__max">Max</label>
             <input type="number" placeholder="Max" value="<?php echo esc_attr($max_value) ?>" name="directorist-custom-range-slider__value__max" id="directorist-custom-range-slider__value__max" class="directorist-custom-range-slider__value__max">
         </div>
-        <input type="hidden" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" id="directorist-custom-range-slider__value__range" value="<?php echo esc_attr($min_val) ?>-<?php echo esc_attr($max_value) ?>">
+        <input type="hidden" name="directorist-custom-range-slider__range" id="directorist-custom-range-slider__range" value="<?php echo esc_attr($min_val) ?>-<?php echo esc_attr($max_value) ?>">
     </div>
 
 </div>

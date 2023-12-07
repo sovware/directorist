@@ -8,7 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $options = directorist_calculate_number_options( $data );
-e_var_dump( $value );
 ?>
 
 <div class="directorist-search-field directorist-form-group">
@@ -26,7 +25,7 @@ e_var_dump( $value );
 			<?php
 			if( $options ) {
 				foreach ( $options['select'] as $option ) {
-					printf( '<option value="%s"%s>%s</option>', esc_attr( $option ), esc_attr( selected(  $value === $option ) ), esc_html( $option ) );
+					printf( '<option value="%s"%s>%s</option>', esc_attr( $option ), esc_attr( selected( (int) $value === $option ) ), esc_html( $option ) );
 				}
 			}
 			?>

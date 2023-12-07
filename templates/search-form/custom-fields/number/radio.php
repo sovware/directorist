@@ -27,7 +27,7 @@ $options = directorist_calculate_number_options( $data );
 
 				<div class="directorist-radio directorist-radio-circle">
 					<input  <?php checked(  $value === $option_value ); ?> type="radio" id="<?php echo esc_attr( $uniqid ); ?>" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $option_value ); ?>">
-					<label class="directorist-radio__label" for="<?php echo esc_attr( $uniqid ); ?>"><?php echo esc_html( $value ); ?></label>
+					<label class="directorist-radio__label" for="<?php echo esc_attr( $uniqid ); ?>"><?php echo esc_html( $option_value ); ?></label>
 				</div>
 
 				<?php

@@ -1798,7 +1798,7 @@ class Builder_Data {
             ],
 
             'default_expiration'                          => [
-                'label'       => __( 'Default expiration in days', 'directorist' ),
+                'label'       => __( 'Default expiration listings in days', 'directorist' ),
                 'type'        => 'number',
                 'value'       => 30,
                 'placeholder' => '365',
@@ -2498,14 +2498,13 @@ class Builder_Data {
 
                     'expiration'      => [
                         'title'       => __( 'Expiration', 'directorist' ),
-                        'description' => __( 'Default time to expire a listing.', 'directorist' ),
                         'fields'      => [
                             'default_expiration',
                         ],
                     ],
 
                     'default_preview' => [
-                        'title'       => __( 'Default Preview', 'directorist' ),
+                        'title'       => __( 'Default preview', 'directorist' ),
                         'description' => __( 'This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist' ),
                         'fields'      => [
                             'preview_image',
@@ -2513,7 +2512,7 @@ class Builder_Data {
                     ],
 
                     'export_import'   => [
-                        'title'       => __( 'Export The Config File', 'directorist' ),
+                        'title'       => __( 'Export the config file', 'directorist' ),
                         'description' => __( 'Export all the form, layout and settings', 'directorist' ),
                         'fields'      => [
                             'import_export',

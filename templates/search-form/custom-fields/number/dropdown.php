@@ -8,7 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $options = directorist_calculate_number_options( $data );
-e_var_dump( $value );
 ?>
 
 <div class="directorist-search-field directorist-form-group">

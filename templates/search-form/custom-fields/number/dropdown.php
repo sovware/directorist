@@ -25,7 +25,7 @@ $options = directorist_calculate_number_options( $data );
 			<?php
 			if( $options ) {
 				foreach ( $options['select'] as $option ) {
-					printf( '<option value="%s"%s>%s</option>', esc_attr( $option ), esc_attr( selected(  $value === $option ) ), esc_html( $option ) );
+					printf( '<option value="%s"%s>%s</option>', esc_attr( $option ), esc_attr( selected( (int) $value === $option ) ), esc_html( $option ) );
 				}
 			}
 			?>

@@ -773,38 +773,27 @@
     }
   }
   li a {
-    color: var(--directorist-color-body);
-    font-size: 14px;
-    font-weight: 500;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     width: max-content;
     gap: 10px;
-    i,
-    span,
-    span.las,
-    span.lar,
-    span.lab,
-    span.fab,
-    span.fas,
-    span.la {
-      font-size: 15px;
-      color: var(--directorist-color-body);
-    }
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    margin: 0;
+    color: var(--directorist-color-body);
     .directorist-icon-mask::after {
       position: relative;
       height: 15px;
       width: 15px;
       background-color: var(--directorist-color-body);
     }
-
-    p {
-      font-size: 14px;
-      line-height: 1;
-      font-weight: 400;
-      margin: 0;
-      color: var(--directorist-color-body);
+    &:hover {
+      color: var(--directorist-color-primary);
+      .directorist-icon-mask::after {
+        background-color: var(--directorist-color-primary);
+      }
     }
     @media screen and (max-width: 575px){
       i {

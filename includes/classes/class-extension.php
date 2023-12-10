@@ -71,6 +71,45 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			$this->required_extensions = apply_filters( 'directorist_required_extensions', array() );
 
 			$this->setup_products_list();
+
+			// $this->bulk_update_license();
+
+		}
+
+		// setup individual plugin licensing
+		public function bulk_update_license() {
+			
+			if( get_option( 'directorist_bulk_license_updated' ) ) {
+				return;
+			}
+
+			$user_id = get_current_user_id();
+
+			if( ! get_user_meta( $user_id, '_atbdp_has_subscriptions_sassion' ) ) {
+				return;
+			}
+
+
+
+			$api_params = array(
+				'edd_action' => 'activate_license',
+				'license' => '',
+				'item_id' => ATBDP_BDB_POST_ID, // The ID of the item in EDD
+				'url' => home_url()
+			);
+			// Call the custom API.
+			$response = wp_remote_post(ATBDP_AUTHOR_URL, array('timeout' => 15, 'sslverify' => false, 'body' => $api_params));
+
+			e_var_dump([
+				'themes' => $this->themes,
+				'extensions' => $this->extensions,
+			]);
+
+			die;
+
+
+			// update_option( 'directorist_bulk_license_updated', true );
+
 		}
 
 		// setup_extensions_alias
@@ -210,7 +249,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// get_the_products_list
 		public function setup_products_list() {
 
-			$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-remote-products';
+			$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-remote-products?time=' . time();
 			$headers = array(
 				'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
 				'Accept'     => 'application/json',

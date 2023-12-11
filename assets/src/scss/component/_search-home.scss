@@ -817,28 +817,29 @@
 
 .directorist-custom-range-slider {
 	.directorist-custom-range-slider-target {
-		margin: 0 0 10px;
+		margin: 7px 0 24px;
 	}
 	@include e('wrap') {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		flex-wrap: wrap;
-		gap: 10px;
+		gap: 20px;
 		.directorist-custom-range-slider__value {
 			position: relative;
 			display: flex;
+      flex: 1;
 			align-items: center;
 			background: transparent;
 			border-bottom: 1px solid var(--directorist-color-border);
+      transition: border ease 0.3s;
+      &:focus-within {
+        border-bottom: 2px solid var(--directorist-color-primary);
+      }
 			label {
 				font-size: 14px;
 				font-weight: 400;
 				color: var(--directorist-color-light-gray);
-				position: absolute;
-				left: 0;
-				top: 50%;
-				transform: translateY(-50%);
 			}
 			input {
 				width: 100%;
@@ -846,7 +847,7 @@
 				border: none;
 				outline: none;
 				box-shadow: none;
-				padding-inline-start: 35px;
+				padding-inline-start: 10px;
 			}
 		}
 	}

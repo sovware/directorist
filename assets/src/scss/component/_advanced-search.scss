@@ -116,6 +116,7 @@
             .directorist-search-tags {
                 gap: 20px;
                 margin: 0;
+                padding: 10px 0;
                 flex-wrap: wrap;
                 @media only screen and (max-width: 575px) {
                     gap: 10px;
@@ -358,8 +359,10 @@
         flex-wrap: wrap;
         flex: 0 0 100%;
         gap: 6px;
+        margin: 11px 0 0;
         @media screen and (max-width: 575px) {
             gap: 0;
+            margin: 0;
             border-radius: 10px;
             border: 1px solid var(--directorist-color-border);
             label {

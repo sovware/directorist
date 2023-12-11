@@ -946,8 +946,8 @@ import { directorist_range_slider } from './range-slider';
                 });
     
                 minInput.addEventListener('change', function () {
-                    let minValue = Math.round(parseInt(this.value, 10) / stepSize) * stepSize;
-                    let maxValue = Math.round(parseInt(maxInput.value, 10) / stepSize) * stepSize;
+                    let minValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
+                    let maxValue = Math.round(parseInt(maxInput.value, 10) / sliderStep) * sliderStep;
     
                     if (minValue > maxValue) {
                         this.value = maxValue;
@@ -957,8 +957,8 @@ import { directorist_range_slider } from './range-slider';
                 });
     
                 maxInput.addEventListener('change', function () {
-                    let minValue = Math.round(parseInt(minInput.value, 10) / stepSize) * stepSize;
-                    let maxValue = Math.round(parseInt(this.value, 10) / stepSize) * stepSize;
+                    let minValue = Math.round(parseInt(minInput.value, 10) / sliderStep) * sliderStep;
+                    let maxValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
     
                     if (maxValue < minValue) {
                         this.value = minValue;

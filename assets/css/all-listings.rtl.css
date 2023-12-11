@@ -13119,6 +13119,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-custom-range-slider .directorist-custom-range-slider-target {
   margin: 7px 0 24px;
 }
+.directorist-custom-range-slider .directorist-custom-range-slider-handle {
+  left: -20px;
+}
 .directorist-custom-range-slider__wrap {
   display: -webkit-box;
   display: -webkit-flex;

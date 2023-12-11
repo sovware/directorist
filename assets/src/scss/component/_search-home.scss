@@ -819,6 +819,9 @@
 	.directorist-custom-range-slider-target {
 		margin: 7px 0 24px;
 	}
+  .directorist-custom-range-slider-handle {
+    right: -20px;
+  }
 	@include e('wrap') {
 		display: flex;
 		align-items: center;

@@ -105,6 +105,17 @@ import { directorist_range_slider } from './range-slider';
             });
 
             searchForm.querySelectorAll("select").forEach(function (el) {
+                el.selectedIndex = 0;
+                $('.directorist-select2-dropdown-close').click();
+
+                let parentElem = el.closest('.directorist-search-field');
+
+                if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
+                    setTimeout(function(){
+                        parentElem.classList.remove('input-has-value', 'input-is-focused');
+                    }, 100)
+                }
+
                 if (el.value || el.selectedIndex !== 0 ) {
                     value = true;
                 }

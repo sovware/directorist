@@ -95,6 +95,18 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				return;
 			}
 
+			$subscriber = get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true );
+
+			$user_licenses = self::remote_reauthenticate_user( [ 'user' => $subscriber, 'site' => site_url() ] );
+
+			if ( is_wp_error( $user_licenses ) ) {
+				return;
+			}
+
+			$license = ! empty( $user_licenses['licenses']['all_access_licence'] ) ? $user_licenses['licenses']['all_access_licence'] : $user_licenses['licenses']['active_license_keys'][0];
+
+			update_option( 'directorist_membership_key', $license );
+
 			foreach( $all_available_products as $product ) {
 
 				if ( ! isset( $product['id'] ) ) {
@@ -112,16 +124,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 		public static function handle_product_license( $item_id, $task = 'activate' ) {
 			
-			$subscriber = get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true );
-
-			$user_licenses = self::remote_reauthenticate_user( [ 'user' => $subscriber, 'site' => site_url() ] );
-
-			if ( is_wp_error( $user_licenses ) ) {
-				return;
-			}
-
-			$license = ! empty( $user_licenses['licenses']['all_access_licence'] ) ? $user_licenses['licenses']['all_access_licence'] : $user_licenses['licenses']['active_license_keys'][0];
-
+			$license = get_option( 'directorist_membership_key' );
 			$api_params = array(
 				'edd_action' => $task . '_license',
 				'license' => $license,

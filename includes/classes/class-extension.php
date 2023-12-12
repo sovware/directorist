@@ -72,14 +72,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 			$this->setup_products_list();
 
-			// $this->bulk_update_license();
+			$this->bulk_update_license();
 
 		}
 
 		// setup individual plugin licensing
 		public function bulk_update_license() {
 			
-			if( get_option( 'directorist_bulk_license_updated' ) ) {
+			if( apply_filters( 'directorist_ignore_bulk_license_updated', get_option( 'directorist_bulk_license_updated' ) ) ) {
 				return;
 			}
 
@@ -89,27 +89,52 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				return;
 			}
 
+			$all_available_products = array_merge( $this->themes, $this->extensions );
 
+			if ( ! $all_available_products ) {
+				return;
+			}
+
+			foreach( $all_available_products as $product ) {
+
+				if ( ! isset( $product['id'] ) ) {
+					continue;
+				}
+
+				$response = self::handle_product_license( $product['id'], 'activate' );
+			}
+
+			if ( ! is_wp_error( $response ) ) {
+				update_option( 'directorist_bulk_license_updated', true );
+			}
+
+		}
+
+		public static function handle_product_license( $item_id, $task = 'activate' ) {
+			
+			$subscriber = get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true );
+
+			$user_licenses = self::remote_reauthenticate_user( [ 'user' => $subscriber, 'site' => site_url() ] );
+
+			if ( is_wp_error( $user_licenses ) ) {
+				return;
+			}
+
+			$license = ! empty( $user_licenses['licenses']['all_access_licence'] ) ? $user_licenses['licenses']['all_access_licence'] : $user_licenses['licenses']['active_license_keys'][0];
 
 			$api_params = array(
-				'edd_action' => 'activate_license',
-				'license' => '',
-				'item_id' => ATBDP_BDB_POST_ID, // The ID of the item in EDD
+				'edd_action' => $task . '_license',
+				'license' => $license,
+				'item_id' => $item_id,
 				'url' => home_url()
 			);
-			// Call the custom API.
-			$response = wp_remote_post(ATBDP_AUTHOR_URL, array('timeout' => 15, 'sslverify' => false, 'body' => $api_params));
+			$response = wp_remote_post( DIRECTORIST_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+			
+			if( is_wp_error( $response ) ) {
+				return;
+			}
 
-			e_var_dump([
-				'themes' => $this->themes,
-				'extensions' => $this->extensions,
-			]);
-
-			die;
-
-
-			// update_option( 'directorist_bulk_license_updated', true );
-
+			return $response;
 		}
 
 		// setup_extensions_alias
@@ -2135,6 +2160,55 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			return $status;
 		}
 
+		// remote_authenticate_user
+		public static function remote_reauthenticate_user( $user_credentials = array() ) {
+			$status = array( 'success' => true );
+
+			$url     = 'https://directorist.com/wp-json/directorist/v1/get_user_license_data';
+			$headers = array(
+				'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
+				'Accept'     => 'application/json',
+			);
+
+			$config = array(
+				'method'      => 'GET',
+				'timeout'     => 30,
+				'redirection' => 5,
+				'httpversion' => '1.0',
+				'headers'     => $headers,
+				'cookies'     => array(),
+				'body'        => $user_credentials, // [ 'user' => '', 'site_url' => '']
+			);
+
+			$response_body = array();
+
+			try {
+				$response = wp_remote_get( $url, $config );
+
+				if ( is_wp_error( $response ) ) {
+					$status['success'] = false;
+					$status['message'] = Directorist\Helper::get_first_wp_error_message( $response );
+				} else {
+					$response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
+				}
+			} catch ( Exception $e ) {
+				$status['success'] = false;
+				$status['message'] = $e->getMessage();
+			}
+
+			if ( is_array( $response_body ) ) {
+				$status = array_merge( $status, $response_body );
+			}
+
+			if ( empty( $response_body['success'] ) ) {
+				$status['success'] = false;
+			}
+
+			$status['response'] = $response_body;
+
+			return $status;
+		}
+		
 		// remote_authenticate_user
 		public static function remote_authenticate_user( $user_credentials = array() ) {
 			$status = array( 'success' => true );

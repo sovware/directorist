@@ -46,6 +46,8 @@ if ( !defined('ATBDP_ADMIN_ASSETS') ) { define('ATBDP_ADMIN_ASSETS', DIRECTORIST
 if ( !defined('ATBDP_LANG_DIR') ) { define('ATBDP_LANG_DIR', dirname(plugin_basename( __FILE__ ) ) . '/languages'); }
 // Plugin Name
 if ( !defined('ATBDP_NAME') ) { define('ATBDP_NAME', 'Directorist'); }
+// Plugin Author URL
+if ( !defined('DIRECTORIST_URL') ) { define('DIRECTORIST_URL', 'https://directorist.com'); }
 // Plugin Post Type
 
 if ( !defined('ATBDP_POST_TYPE') ) { define('ATBDP_POST_TYPE', 'at_biz_dir'); }

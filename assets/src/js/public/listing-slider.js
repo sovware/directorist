@@ -275,7 +275,7 @@
 
     // Function to set up the Mutation Observer on Range Slider
     function sliderObserver() {
-        let rangeSliders = document.querySelectorAll('.directorist-range-slider-value');
+        let rangeSliders = document.querySelectorAll('.directorist-custom-range-slider__value input');
 
         rangeSliders.forEach((rangeSlider) => {
 

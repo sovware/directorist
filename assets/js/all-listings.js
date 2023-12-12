@@ -1472,12 +1472,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     if (fields.address && fields.address.length) {
       fields.cityLat = $(this).find('#cityLat').val();
       fields.cityLng = $(this).find('#cityLng').val();
-      fields.miles = $(this).find('.directorist-range-slider-value').val();
+      fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
     }
     if (fields.zip && fields.zip.length) {
       fields.zip_cityLat = $(this).find('.zip-cityLat').val();
       fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-      fields.miles = $(this).find('.directorist-range-slider-value').val();
+      fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
     }
     var form_data = _objectSpread(_objectSpread({}, data), fields);
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
@@ -1692,7 +1692,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       if (fields.zip && fields.zip.length) {
         fields.zip_cityLat = $(this).find('.zip-cityLat').val();
         fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-        fields.miles = $(this).find('.directorist-range-slider-value').val();
+        fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
       }
       var form_data = _objectSpread(_objectSpread({}, data), fields);
       var allFieldsAreEmpty = Object.values(fields).every(function (item) {
@@ -2235,12 +2235,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     if (fields.address && fields.address.length) {
       fields.cityLat = searchElm.find('#cityLat').val();
       fields.cityLng = searchElm.find('#cityLng').val();
-      fields.miles = searchElm.find('.directorist-range-slider-value').val();
+      fields.miles = searchElm.find('.directorist-custom-range-slider__value input').val();
     }
     if (fields.zip && fields.zip.length) {
       fields.zip_cityLat = searchElm.find('.zip-cityLat').val();
       fields.zip_cityLng = searchElm.find('.zip-cityLng').val();
-      fields.miles = searchElm.find('.directorist-range-slider-value').val();
+      fields.miles = searchElm.find('.directorist-custom-range-slider__value input').val();
     }
     var form_data = _objectSpread(_objectSpread({}, data), fields);
     if (view && view.length) {
@@ -2276,7 +2276,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     });
   }
   function initObserver() {
-    var targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-range-slider-value');
+    var targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-custom-range-slider__value input');
     targetNodes.forEach(function (targetNode) {
       var searchElm = $(targetNode.closest('form'));
       if (targetNode) {

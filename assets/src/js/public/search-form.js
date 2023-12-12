@@ -3,8 +3,6 @@ import './components/directoristSelect';
 import './components/colorPicker';
 import './../global/components/setup-select2';
 import './../global/components/select2-custom-control';
-import { directorist_callingSlider } from './range-slider';
-import { directorist_range_slider } from './range-slider';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
@@ -121,7 +119,7 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
 
-            searchForm.querySelectorAll(".directorist-range-slider-value").forEach(function (el) {
+            searchForm.querySelectorAll(".directorist-custom-range-slider__value input").forEach(function (el) {
                 if (el.value > 0 ) {
                     value = true;
                 }
@@ -216,11 +214,6 @@ import { directorist_range_slider } from './range-slider';
             });
             searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
                 if(el.getAttribute('name') === "directory_type") return;
-                if(el.getAttribute('name') === "miles"){
-                    let radiusDefaultValue = searchForm.querySelector('.directorist-range-slider').dataset.defaultRadius;
-                    el.value = radiusDefaultValue;
-                    return;
-                }
                 el.value = "";
             });
             searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
@@ -232,7 +225,6 @@ import { directorist_range_slider } from './range-slider';
             searchForm.querySelectorAll("select").forEach(function (el) {
                 el.selectedIndex = 0;
                 $('.directorist-select2-dropdown-close').click();
-                // $(el).val(null).trigger('change');
 
                 let parentElem = el.closest('.directorist-search-field');
 
@@ -243,15 +235,17 @@ import { directorist_range_slider } from './range-slider';
                 }
             });
 
+            let customRangeSliders = document.querySelectorAll('.directorist-custom-range-slider');
+
+            customRangeSliders.forEach(function (sliderItem) {
+                resetCustomRangeSlider(sliderItem);
+            });
+
             let irisPicker = searchForm.querySelector("input.wp-picker-clear");
             if (irisPicker !== null) {
                 irisPicker.click();
             }
 
-            let rangeValue = searchForm.querySelector(".directorist-range-slider-current-value span");
-            if (rangeValue !== null) {
-                rangeValue.innerHTML = "0";
-            }
             handleRadiusVisibility();
 
             initForm(searchForm);
@@ -275,9 +269,6 @@ import { directorist_range_slider } from './range-slider';
                     if (advanceSearchFilter) {
                         adsFormReset(advanceSearchFilter);
                     }
-                }
-                if($(this).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').length){
-                    directorist_callingSlider(0);
                 }
             });
         }
@@ -663,7 +654,6 @@ import { directorist_range_slider } from './range-slider';
                     $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({display: "none"});
                 } else{
                     $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({display: "block"});
-                    directorist_callingSlider();
                 }
             });
         }
@@ -993,6 +983,18 @@ import { directorist_range_slider } from './range-slider';
 
         directorist_custom_range_slider();
 
+        function resetCustomRangeSlider(sliderItem) {
+            let slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
+            let minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
+            let maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
+
+            // Reset values to their initial state
+            slider.directoristCustomRangeSlider.set([0, 0]); // Set your initial values
+            minInput.value = ''; // Set your initial min value
+            maxInput.value = ''; // Set your initial max value
+
+        }
+
         // DOM Mutation observer
         function locationObserver() {
             let targetNode = document.querySelector('.directorist-location-js');
@@ -1069,6 +1071,10 @@ import { directorist_range_slider } from './range-slider';
         function sliderValueCheck(targetNode, value) {
             let searchForm = targetNode.closest('form');
             if (value > 0) {
+                let customSliderMin = targetNode.closest('.directorist-custom-range-slider').querySelector('.directorist-custom-range-slider__value__min');
+                let customSliderRange = targetNode.closest('.directorist-custom-range-slider').querySelector('.directorist-custom-range-slider__range');
+                customSliderMin.value = customSliderMin.value ? customSliderMin.value : 0;
+                customSliderRange.value = customSliderMin.value + '-' + value;
                 enableResetButton(searchForm);
             } else {
                 initForm(searchForm);
@@ -1076,14 +1082,14 @@ import { directorist_range_slider } from './range-slider';
         }
         
         function rangeSliderObserver() {
-            let targetNodes = document.querySelectorAll('.directorist-range-slider-value');
+            let targetNodes = document.querySelectorAll('.directorist-custom-range-slider-handle-upper');
 
             targetNodes.forEach((targetNode) => {
                 if(targetNode){
                     let observerCallback = (mutationList, observer) => {
                         for (let mutation of mutationList) {
-                            if (mutation.attributeName == 'value') {
-                                sliderValueCheck(targetNode, parseInt(targetNode.value));
+                            if (targetNode.classList.contains('directorist-custom-range-slider-handle-upper')) {
+                                sliderValueCheck(targetNode, parseInt(targetNode.ariaValueNow));
                             }
                         }
                     };

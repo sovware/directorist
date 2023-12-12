@@ -4045,12 +4045,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       sliders.forEach(function (sliderItem) {
         var slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
         if (slider) {
-          var sliderStep = parseInt(slider.getAttribute('step'), 10) || 1;
+          var sliderStep = parseInt(slider.getAttribute('step')) || 1;
+          var sliderDefaultValue = parseInt(slider.getAttribute('value'));
           var minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
           var maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
           var sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
+          var sliderRangeShow = sliderItem.querySelector('.directorist-custom-range-slider__range__show');
           directoristCustomRangeSlider.create(slider, {
-            start: [0, 100],
+            start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
             connect: true,
             step: sliderStep ? sliderStep : 1,
             range: {
@@ -4061,7 +4063,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           slider.directoristCustomRangeSlider.on('update', function (values, handle) {
             var value = values[handle];
             handle === 0 ? minInput.value = Math.round(value) : maxInput.value = Math.round(value);
-            sliderRange.value = minInput.value + '-' + maxInput.value;
+            var rangeValue = minInput.value + '-' + maxInput.value;
+            sliderRange.value = rangeValue;
+            sliderRangeShow && (sliderRangeShow.innerHTML = rangeValue);
           });
           minInput.addEventListener('change', function () {
             var minValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;

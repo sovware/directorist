@@ -218,6 +218,11 @@
 
 .directorist-search-field-radius_search {
     position: relative;
+    .directorist-custom-range-slider__range__wrap {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
 }
 
 .directorist-search-field-review .directorist-checkbox {
@@ -356,6 +361,7 @@
         display: flex;
         flex-wrap: wrap;
         flex: 0 0 100%;
+        width: 100%;
         gap: 6px;
         margin: 11px 0 0;
         @media screen and (max-width: 575px) {

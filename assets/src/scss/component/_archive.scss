@@ -416,12 +416,11 @@
 				font-weight: 500;
 				margin: 0;
 			}
-			&.directorist-search-field-radius_search {
+			&.directorist-search-field-radius_search,
+			&.directorist-search-field-price_range,
+			&.directorist-search-field-text_range {
 				> label {
 					margin-bottom: 15px;
-				}
-				.directorist-range-slider-current-value {
-					top: 0;
 				}
 			}
 			.directorist-search-tags,

@@ -24,8 +24,8 @@ $value = !empty($_REQUEST['miles']) ? sanitize_text_field( wp_unslash( $_REQUEST
 		</div>
 		<div class="directorist-custom-range-slider__slide" value="<?php echo esc_attr($default_distance); ?>"></div>
 		<div class="directorist-custom-range-slider__wrap">
-			<input type="hidden" placeholder="Min" value="<?php echo esc_attr($min_distance); ?>" name="directorist-custom-range-slider__value__min" class="directorist-custom-range-slider__value__min">
-			<input type="hidden" placeholder="Max" value="<?php echo esc_attr($max_distance); ?>" name="directorist-custom-range-slider__value__max" class="directorist-custom-range-slider__value__max">
+			<input type="hidden" placeholder="Min" value="<?php echo esc_attr($min_distance); ?>" name="directorist-custom-range-slider__value__min" class="directorist-custom-range-slider__radius directorist-custom-range-slider__value__min">
+			<input type="hidden" placeholder="Max" value="<?php echo esc_attr($max_distance); ?>" name="directorist-custom-range-slider__value__max" class="directorist-custom-range-slider__radius directorist-custom-range-slider__value__max">
 			<input type="hidden" name="directorist-custom-range-slider__range" class="directorist-custom-range-slider__range" value="<?php echo esc_attr($min_distance); ?> - <?php echo esc_attr($max_distance); ?>">
 		</div>
 	</div>

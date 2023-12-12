@@ -16,7 +16,7 @@ $min_placeholder = !empty( $data['price_range_min_placeholder'] ) ? $data['price
 	<?php if ( !empty($data['label']) ): ?>
 		<label><?php echo esc_html( $data['label'] ); ?></label>
 	<?php endif; ?>
-	
+
 	<?php if ( $ptype == 'both' || $ptype == 'price_unit' ): ?>
 		<div class="directorist-custom-range-slider">
 			<div class="directorist-custom-range-slider__slide"></div>
@@ -28,7 +28,7 @@ $min_placeholder = !empty( $data['price_range_min_placeholder'] ) ? $data['price
 						</label>
 					<?php endif; ?>
 					<span class="directorist-custom-range-slider__prefix">$</span>
-					<input type="number" placeholder="Min" value="<?php echo esc_attr( $searchform->price_value('min') ); ?>" name="directorist-custom-range-slider__value__min" id="directorist-custom-range-slider__value__min__pricing" class="directorist-custom-range-slider__value__min">
+					<input type="number" placeholder="Min" value="<?php echo esc_attr( $searchform->price_value('min') ); ?>" name="directorist-custom-range-slider__value__min" id="directorist-custom-range-slider__value__min__pricing" class="directorist-custom-range-slider__pricing directorist-custom-range-slider__value__min">
 				</div>
 				<div class="directorist-custom-range-slider__value">
 					<?php if ( !empty($max_placeholder) ): ?>
@@ -37,7 +37,7 @@ $min_placeholder = !empty( $data['price_range_min_placeholder'] ) ? $data['price
 						</label>
 					<?php endif; ?>
 					<span class="directorist-custom-range-slider__prefix">$</span>
-					<input type="number" placeholder="Max" value="<?php echo esc_attr( $searchform->price_value('max') ); ?>" name="directorist-custom-range-slider__value__max" id="directorist-custom-range-slider__value__max__pricing" class="directorist-custom-range-slider__value__max">
+					<input type="number" placeholder="Max" value="<?php echo esc_attr( $searchform->price_value('max') ); ?>" name="directorist-custom-range-slider__value__max" id="directorist-custom-range-slider__value__max__pricing" class="directorist-custom-range-slider__pricing directorist-custom-range-slider__value__max">
 				</div>
 				<input type="hidden" name="directorist-custom-range-slider__range" class="directorist-custom-range-slider__range" value="<?php echo esc_attr( $searchform->price_value('max') ); ?> - <?php echo esc_attr( $searchform->price_value('max') ); ?>">
 			</div>

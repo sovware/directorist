@@ -605,36 +605,35 @@ import './../global/components/select2-custom-control';
                 $search_form_box.addClass('atbdp-form-fade');
 
                 $.ajax({
-                  method     : 'POST',
-                  processData: false,
-                  contentType: false,
-                  url        : directorist.ajax_url,
-                  data       : form_data,
-                  success: function success(response) {
-                    if (response) {
-                        $search_form_box.html(response['search_form']);
+                    method     : 'POST',
+                    processData: false,
+                    contentType: false,
+                    url        : directorist.ajax_url,
+                    data       : form_data,
+                    success: function success(response) {
+                        if (response) {
+                            $search_form_box.html(response['search_form']);
 
-                        $container.find('.directorist-category-select option').data('custom-field', 1);
-                        $container.find('.directorist-category-select').val(cat_id);
+                            $container.find('.directorist-category-select option').data('custom-field', 1);
+                            $container.find('.directorist-category-select').val(cat_id);
 
-                        [
-                            new CustomEvent('directorist-search-form-nav-tab-reloaded'),
-                            new CustomEvent('directorist-reload-select2-fields'),
-                            new CustomEvent('directorist-reload-map-api-field'),
-                            new CustomEvent('triggerSlice')
-                        ].forEach(function (event) {
-                            document.body.dispatchEvent(event);
-                            window.dispatchEvent(event);
-                        });
+                            [
+                                new CustomEvent('directorist-search-form-nav-tab-reloaded'),
+                                new CustomEvent('directorist-reload-select2-fields'),
+                                new CustomEvent('directorist-reload-map-api-field'),
+                                new CustomEvent('triggerSlice')
+                            ].forEach(function (event) {
+                                document.body.dispatchEvent(event);
+                                window.dispatchEvent(event);
+                            });
+                        }
+
+                        $search_form_box.removeClass('atbdp-form-fade');
+                        initSearchFields();
+                    },
+                    error: function error(_error) {
+                        //console.log(_error);
                     }
-
-                    $search_form_box.removeClass('atbdp-form-fade');
-                    initSearchFields();
-                    initSearchFields();
-                  },
-                  error: function error(_error) {
-                    //console.log(_error);
-                  }
                 });
             });
         }
@@ -987,11 +986,19 @@ import './../global/components/select2-custom-control';
             let slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
             let minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
             let maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
-
-            // Reset values to their initial state
+            let sliderParent = sliderItem.closest('.directorist-search-field-radius_search');
+            let maxValue = slider.getAttribute('value') || 'none';
+            
+            if (sliderParent) {
+                minInput.value = '0';
+                maxInput.value = maxValue; 
+                slider.directoristCustomRangeSlider.set([0, maxValue]); // Set your initial values
+            } else {
+                // Reset values to their initial state
             slider.directoristCustomRangeSlider.set([0, 0]); // Set your initial values
-            minInput.value = ''; // Set your initial min value
-            maxInput.value = ''; // Set your initial max value
+                minInput.value = ''; // Set your initial min value
+                maxInput.value = ''; // Set your initial max value
+            }
 
         }
 
@@ -1082,8 +1089,7 @@ import './../global/components/select2-custom-control';
         }
         
         function rangeSliderObserver() {
-            let targetNodes = document.querySelectorAll('.directorist-custom-range-slider-handle-upper');
-
+            let targetNodes = document.querySelectorAll('.directorist-search-field:not(.directorist-search-field-radius_search) .directorist-custom-range-slider-handle-upper');
             targetNodes.forEach((targetNode) => {
                 if(targetNode){
                     let observerCallback = (mutationList, observer) => {

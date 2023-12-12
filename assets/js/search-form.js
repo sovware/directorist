@@ -1372,7 +1372,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
             $search_form_box.removeClass('atbdp-form-fade');
             initSearchFields();
-            initSearchFields();
           },
           error: function error(_error) {
             //console.log(_error);
@@ -1664,11 +1663,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
       var minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
       var maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
-
-      // Reset values to their initial state
-      slider.directoristCustomRangeSlider.set([0, 0]); // Set your initial values
-      minInput.value = ''; // Set your initial min value
-      maxInput.value = ''; // Set your initial max value
+      var sliderParent = sliderItem.closest('.directorist-search-field-radius_search');
+      var maxValue = slider.getAttribute('value') || 'none';
+      if (sliderParent) {
+        minInput.value = '0';
+        maxInput.value = maxValue;
+        slider.directoristCustomRangeSlider.set([0, maxValue]); // Set your initial values
+      } else {
+        // Reset values to their initial state
+        slider.directoristCustomRangeSlider.set([0, 0]); // Set your initial values
+        minInput.value = ''; // Set your initial min value
+        maxInput.value = ''; // Set your initial max value
+      }
     }
 
     // DOM Mutation observer
@@ -1754,7 +1760,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     }
     function rangeSliderObserver() {
-      var targetNodes = document.querySelectorAll('.directorist-custom-range-slider-handle-upper');
+      var targetNodes = document.querySelectorAll('.directorist-search-field:not(.directorist-search-field-radius_search) .directorist-custom-range-slider-handle-upper');
       targetNodes.forEach(function (targetNode) {
         if (targetNode) {
           var observerCallback = function observerCallback(mutationList, observer) {

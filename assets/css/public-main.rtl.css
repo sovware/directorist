@@ -7113,10 +7113,6 @@ p.atbd-min {
           box-sizing: border-box;
 }
 
-.directorist-custom-range-slider-target {
-  position: relative;
-}
-
 .directorist-custom-range-slider-base,
 .directorist-custom-range-slider-connects {
   width: 100%;
@@ -7137,9 +7133,9 @@ p.atbd-min {
   position: absolute;
   z-index: 1;
   top: 0;
-  left: 0;
+  right: 0;
   height: 100%;
-  width: 100%;
+  width: calc(100% - 20px);
   -webkit-transform-origin: 100% 0;
           transform-origin: 100% 0;
   -webkit-transform-style: flat;
@@ -7192,7 +7188,7 @@ p.atbd-min {
   height: 20px;
   border-radius: 50%;
   border: 4px solid rgb(64, 64, 64);
-  left: -10px;
+  left: -20px;
   top: -8px;
   cursor: pointer;
 }
@@ -7214,9 +7210,12 @@ p.atbd-min {
 
 /* Giving the connect element a border radius causes issues with using transform: scale */
 .directorist-custom-range-slider-target {
-  background: #d9d9d9;
-  border-radius: 2px;
+  position: relative;
+  width: 100%;
   height: 4px;
+  margin: 7px 0 24px;
+  border-radius: 2px;
+  background: #d9d9d9;
 }
 
 .directorist-custom-range-slider-connect {
@@ -11931,20 +11930,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     line-height: 34px;
   }
 }
-.directorist-price-ranges__label {
-  line-height: 1;
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  -webkit-margin-end: 6px !important;
-          margin-inline-end: 6px !important;
-  color: var(--directorist-color-light-gray) !important;
-}
-.directorist-price-ranges__currency {
-  line-height: 1;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--directorist-color-primary);
-}
 .directorist-price-ranges__price-frequency {
   display: -webkit-box;
   display: -webkit-flex;
@@ -13181,11 +13166,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-left: 1px solid var(--directorist-color-border);
 }
 
-.directorist-custom-range-slider .directorist-custom-range-slider-target {
-  margin: 7px 0 24px;
-}
-.directorist-custom-range-slider .directorist-custom-range-slider-handle {
-  left: -20px;
+.directorist-custom-range-slider {
+  width: 100%;
 }
 .directorist-custom-range-slider__wrap {
   display: -webkit-box;
@@ -13204,8 +13186,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   gap: 20px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
 }
-.directorist-custom-range-slider__wrap .directorist-custom-range-slider__value {
+.directorist-custom-range-slider__value {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -13224,23 +13210,29 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: border ease 0.3s;
   transition: border ease 0.3s;
 }
-.directorist-custom-range-slider__wrap .directorist-custom-range-slider__value:focus-within {
+.directorist-custom-range-slider__value:focus-within {
   border-bottom: 2px solid var(--directorist-color-primary);
 }
-.directorist-custom-range-slider__wrap .directorist-custom-range-slider__value label {
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--directorist-color-light-gray);
-}
-.directorist-custom-range-slider__wrap .directorist-custom-range-slider__value input {
+.directorist-custom-range-slider__value input {
   width: 100%;
   height: 40px;
   border: none;
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
-  -webkit-padding-start: 10px;
-          padding-inline-start: 10px;
+}
+.directorist-custom-range-slider__label {
+  font-size: 14px;
+  font-weight: 400;
+  -webkit-margin-end: 10px;
+          margin-inline-end: 10px;
+  color: var(--directorist-color-light-gray);
+}
+.directorist-custom-range-slider__prefix {
+  line-height: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--directorist-color-primary);
 }
 
 .directorist-pagination {

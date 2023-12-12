@@ -296,7 +296,7 @@
     }
 }
 
-.directorist-price-ranges{
+.directorist-price-ranges {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -352,20 +352,6 @@
             }
         }
     }
-    @include e(label) {
-        line-height: 1;
-        font-size: 14px !important;
-        font-weight: 400 !important;
-        margin-inline-end: 6px !important;
-        color: var(--directorist-color-light-gray) !important;
-    }
-    @include e(currency) {
-        line-height: 1;
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--directorist-color-primary);
-    }
-
     @include e('price-frequency'){
         display: flex;
         flex-wrap: wrap;

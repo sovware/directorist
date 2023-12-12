@@ -4040,46 +4040,51 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     });
 
     // Custom Range Slider
-    function custom_range_slider() {
-      var slider = document.getElementById('directorist-custom-range-slider__slide');
-      if (slider) {
-        var sliderStep = parseInt(slider.getAttribute('step'), 10) || 1;
-        var minInput = document.getElementById('directorist-custom-range-slider__value__min');
-        var maxInput = document.getElementById('directorist-custom-range-slider__value__max');
-        var sliderRange = document.getElementById('directorist-custom-range-slider__range');
-        directoristCustomRangeSlider.create(slider, {
-          start: [0, 100],
-          connect: true,
-          step: sliderStep,
-          range: {
-            'min': Number(minInput === null || minInput === void 0 ? void 0 : minInput.value),
-            'max': Number(maxInput === null || maxInput === void 0 ? void 0 : maxInput.value)
-          }
-        });
-        slider.directoristCustomRangeSlider.on('update', function (values, handle) {
-          var value = values[handle];
-          handle === 0 ? minInput.value = Math.round(value) : maxInput.value = Math.round(value);
-          sliderRange.value = minInput.value + '-' + maxInput.value;
-        });
-        minInput.addEventListener('change', function () {
-          var minValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
-          var maxValue = Math.round(parseInt(maxInput.value, 10) / sliderStep) * sliderStep;
-          if (minValue > maxValue) {
-            this.value = maxValue;
-          }
-          slider.directoristCustomRangeSlider.set([minValue, null]);
-        });
-        maxInput.addEventListener('change', function () {
-          var minValue = Math.round(parseInt(minInput.value, 10) / sliderStep) * sliderStep;
-          var maxValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
-          if (maxValue < minValue) {
-            this.value = minValue;
-          }
-          slider.directoristCustomRangeSlider.set([null, maxValue]);
-        });
-      }
+    function directorist_custom_range_slider() {
+      var sliders = document.querySelectorAll('.directorist-custom-range-slider');
+      sliders.forEach(function (sliderItem) {
+        var slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
+        if (slider) {
+          var sliderStep = parseInt(slider.getAttribute('step'), 10) || 1;
+          var minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
+          var maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
+          var sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
+          directoristCustomRangeSlider.create(slider, {
+            start: [0, 100],
+            connect: true,
+            step: sliderStep ? sliderStep : 1,
+            range: {
+              'min': Number(minInput.value ? minInput.value : 0),
+              'max': Number(maxInput.value ? maxInput.value : 100)
+            }
+          });
+          slider.directoristCustomRangeSlider.on('update', function (values, handle) {
+            var value = values[handle];
+            handle === 0 ? minInput.value = Math.round(value) : maxInput.value = Math.round(value);
+            sliderRange.value = minInput.value + '-' + maxInput.value;
+          });
+          minInput.addEventListener('change', function () {
+            var minValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
+            var maxValue = Math.round(parseInt(maxInput.value, 10) / sliderStep) * sliderStep;
+            if (minValue > maxValue) {
+              this.value = maxValue;
+              minValue = maxValue;
+            }
+            slider.directoristCustomRangeSlider.set([minValue, null]);
+          });
+          maxInput.addEventListener('change', function () {
+            var minValue = Math.round(parseInt(minInput.value, 10) / sliderStep) * sliderStep;
+            var maxValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
+            if (maxValue < minValue) {
+              this.value = minValue;
+              maxValue = minValue;
+            }
+            slider.directoristCustomRangeSlider.set([null, maxValue]);
+          });
+        }
+      });
     }
-    custom_range_slider();
+    directorist_custom_range_slider();
 
     // DOM Mutation observer
     function locationObserver() {

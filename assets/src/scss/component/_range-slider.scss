@@ -152,9 +152,6 @@ p.atbd-min {
 	user-select: none;
 	box-sizing: border-box;
 }
-.directorist-custom-range-slider-target {
-  	position: relative;
-}
 .directorist-custom-range-slider-base,
 .directorist-custom-range-slider-connects {
 	width: 100%;
@@ -174,9 +171,9 @@ p.atbd-min {
 	position: absolute;
 	z-index: 1;
 	top: 0;
-	right: 0;
+	left: 0;
 	height: 100%;
-	width: 100%;
+	width: calc(100% - 20px);
 	transform-origin: 0 0;
 	transform-style: flat;
 }
@@ -227,7 +224,7 @@ p.atbd-min {
 		height: 20px;
 		border-radius: 50%;
 		border: 4px solid rgb(64, 64, 64);
-		right: -10px;
+		right: -20px;
 		top: -8px;
 		cursor: pointer;
 	}
@@ -253,9 +250,12 @@ p.atbd-min {
 
 /* Giving the connect element a border radius causes issues with using transform: scale */
 .directorist-custom-range-slider-target {
-	background: #d9d9d9;
-	border-radius: 2px;
+	position: relative;
+	width: 100%;
 	height: 4px;
+	margin: 7px 0 24px;
+	border-radius: 2px;
+	background: #d9d9d9;
 }
 .directorist-custom-range-slider-connect {
   	background: #404040;

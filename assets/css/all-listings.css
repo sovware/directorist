@@ -15659,6 +15659,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-radius: 50%;
   position: relative;
   text-decoration: none;
+  padding: 0;
+  font-weight: unset;
+  line-height: unset;
+  text-transform: unset;
+  letter-spacing: unset;
 }
 .directorist-mark-as-favorite__btn:focus {
   outline: 0;

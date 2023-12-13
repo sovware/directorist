@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 7.8.1
+Stable tag: 8.0.0-beta
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 

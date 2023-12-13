@@ -281,7 +281,9 @@
 
         // maybe_unserialize_csv_string
         public function maybe_unserialize_csv_string( $data ) {
-            if ( 'string' !== gettype( $data ) ) { return $data; }
+            if ( ! is_string( $data ) ) {
+				return $data;
+			}
 
             $_data = str_replace( "'", '"', $data );
             $_data = maybe_unserialize( maybe_unserialize( $_data ) );

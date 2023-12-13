@@ -341,12 +341,12 @@ class Multi_Directory_Manager {
             $grouped_fields_value = [];
 
             foreach ( $group_fields as $field_index => $field_key ) {
-                if ('string' === gettype( $field_key ) && array_key_exists($field_key, self::$fields)) {
+                if ( is_string( $field_key ) && array_key_exists($field_key, self::$fields)) {
                     $grouped_fields_value[ $field_key ] = ( isset( $new_fields[ $field_key ] ) ) ? $new_fields[ $field_key ] : '';
                     unset( $new_fields[ $field_key ] );
                 }
 
-                if ( 'array' === gettype( $field_key ) ) {
+                if ( is_array( $field_key ) ) {
                     $grouped_fields_value[ $field_index ] = [];
 
                     foreach ( $field_key as $sub_field_key ) {
@@ -575,7 +575,9 @@ class Multi_Directory_Manager {
             $all_term_meta = self::$migration->get_fields_data();
         }
 
-        if ( 'array' !== getType( $all_term_meta ) ) { return; }
+        if ( ! is_array( $all_term_meta ) ) {
+			return;
+		}
 
         foreach ( $all_term_meta as $meta_key => $meta_value ) {
             if ( isset( self::$fields[$meta_key] ) ) {
@@ -595,11 +597,11 @@ class Multi_Directory_Manager {
 
                     if ( ! key_exists( $field_key, $group_value ) ) { continue; }
 
-                    if ( 'string' === gettype($field_key) && array_key_exists($field_key, self::$fields)) {
+                    if ( is_string( $field_key ) && array_key_exists($field_key, self::$fields)) {
                         self::$fields[$field_key]['value'] = $group_value[$field_key];
                     }
 
-                    if ('array' === gettype($field_key)) {
+                    if ( is_array( $field_key ) ) {
                         foreach ($field_key as $sub_field_key) {
                             if (array_key_exists($sub_field_key, self::$fields)) {
                                 self::$fields[$sub_field_key]['value'] = $group_value[$field_index][$sub_field_key];

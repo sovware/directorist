@@ -9003,8 +9003,10 @@ body.modal-overlay-enabled:before {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  border-radius: 6px;
-  border: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+}
+.directorist-form-group__with-prefix:focus-within {
+  border-bottom: 2px solid #000;
 }
 .directorist-form-group__with-prefix .directorist-form-element {
   -webkit-box-flex: 1;
@@ -9024,29 +9026,21 @@ body.modal-overlay-enabled:before {
 .directorist-form-group__prefix {
   height: 40px;
   line-height: 40px;
-  padding: 0 10px;
   font-size: 14px;
   font-weight: 500;
   color: #828282;
-  background-color: #eeeeee;
 }
 .directorist-form-group__prefix--start {
   -webkit-box-ordinal-group: 0;
   -webkit-order: -1;
       -ms-flex-order: -1;
           order: -1;
-  border-radius: 6px 0 0 6px;
-  -webkit-border-end: 1px solid #d9d9d9;
-          border-inline-end: 1px solid #d9d9d9;
 }
 .directorist-form-group__prefix--end {
   -webkit-box-ordinal-group: 3;
   -webkit-order: 2;
       -ms-flex-order: 2;
           order: 2;
-  border-radius: 0 6px 6px 0;
-  -webkit-border-start: 1px solid #d9d9d9;
-          border-inline-start: 1px solid #d9d9d9;
 }
 
 .directorist-form-group label {
@@ -16988,11 +16982,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-top: 4px;
 }
 .directorist-single-contents-area .directorist-single-wrapper .directorist-details-info-wrap .directorist-single-info .directorist-form-group__prefix {
-  padding: 0;
-  border: none;
   height: auto;
   line-height: unset;
-  background: transparent;
   color: var(--directorist-color-body);
 }
 .directorist-single-contents-area .directorist-card {

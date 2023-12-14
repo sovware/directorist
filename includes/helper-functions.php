@@ -4221,7 +4221,7 @@ if (!function_exists('directorist_calculate_number_options')) {
         $max_val = ! empty( $data['options']['max_value'] ) ? absint( $data['options']['max_value'] ) : 100;
 
         // Calculate step
-        $step = ! empty( $data['options']['step'] ) ? $data['options']['step'] : ( $max_val - $min_val ) / 5;
+        $step = absint( ! empty( $data['options']['step'] ) ? $data['options']['step'] : ( $max_val - $min_val ) / 5 );
 
         if( empty( $data['options']['step'] ) && $max_val < 10 ) {
             $step = 1;

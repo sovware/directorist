@@ -2189,7 +2189,7 @@ class Directorist_Listings {
 			));
 
 			if ( $links ) {
-				$navigation = '<div class="directorist-pagination">'.$links.'</div>';
+				$navigation = '<nav class="directorist-pagination" aria-label="Listings Pagination">'.$links.'</nav>';
 			}
 
 

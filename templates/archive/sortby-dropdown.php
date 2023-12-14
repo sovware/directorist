@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			foreach ($listings->get_sort_by_link_list() as $key => $value) {
 				$active_class = ( $value['key'] == $current_order ) ? ' active' : '';
 				?>
-				<a class="directorist-dropdown__links--single directorist-dropdown__links--single-js <?php echo esc_attr( $active_class );?>" data-link="<?php echo esc_attr( $value['link'] ); ?>"><?php echo esc_html($value['label']);?></a>
+				<a href="#" class="directorist-dropdown__links--single directorist-dropdown__links--single-js <?php echo esc_attr( $active_class );?>" data-link="<?php echo esc_attr( $value['link'] ); ?>"><?php echo esc_html($value['label']);?></a>
 				<?php
 			}
 			?>

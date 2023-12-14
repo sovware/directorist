@@ -77,7 +77,7 @@ $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
 	</div><!-- ends: .directorist-review-content -->
 
 	<?php if ( get_comment_pages_count() > 1 ) : ?>
-		<nav class="directorist-review-content__pagination directorist-pagination">
+		<nav class="directorist-review-content__pagination directorist-pagination" aria-label="Review Pagination">
 			<?php
 			$prev_text = directorist_icon( 'las la-arrow-left', false );
 			$next_text = directorist_icon( 'las la-arrow-right', false );

@@ -148,9 +148,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<?php if( $authors->display_pagination() ): ?>
 
-					<div class="directorist-pagination directorist-authors__pagination directorist-authors-pagination">
+					<nav class="directorist-pagination directorist-authors__pagination directorist-authors-pagination" aria-label="Author Pagination">
 						<?php echo wp_kses_post( $authors->author_pagination() ); ?>
-					</div>
+					</nav>
 
 				<?php endif; ?>
 

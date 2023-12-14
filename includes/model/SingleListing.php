@@ -493,7 +493,7 @@ class Directorist_Single_Listing {
 
 		// Get the preview images
 		$preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
-		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
+		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source( $preview_img_id, 'large' ) : '';
 		$preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
 		$preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
 

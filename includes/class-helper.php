@@ -79,7 +79,7 @@ class Helper {
 	 * @return mixed
 	 */
 	public static function maybe_json( $input_data = '', $return_first_item = false ) {
-		if ( 'string' !== gettype( $input_data )  ) {
+		if ( ! is_string( $input_data ) ) {
 			return $input_data;
 		}
 

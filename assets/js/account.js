@@ -187,19 +187,20 @@
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {
       e.preventDefault();
+      var $this = $(this);
       $('p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
+      var form_data = {
+        'action': 'ajaxlogin',
+        'username': $this.find('#username').val(),
+        'password': $this.find('#password').val(),
+        'rememberme': $this.find('#keep_signed_in').is(':checked') ? 1 : 0,
+        'security': $this.find('#security').val()
+      };
       $.ajax({
         type: 'POST',
         dataType: 'json',
         url: directorist.ajax_url,
-        data: {
-          'action': 'ajaxlogin',
-          //calls wp_ajax_nopriv_ajaxlogin
-          'username': $('form#login #username').val(),
-          'password': $('form#login #password').val(),
-          'rememberme': $('form#login #keep_signed_in').is(':checked') ? 1 : 0,
-          'security': $('#security').val()
-        },
+        data: form_data,
         success: function success(data) {
           if ('nonce_faild' in data && data.nonce_faild) {
             $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');

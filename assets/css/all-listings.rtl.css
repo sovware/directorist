@@ -3167,26 +3167,14 @@ body.stop-scrolling {
 .directorist-form-image-upload-field .ezmu__info-list-item:empty {
   display: none;
 }
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item {
-  width: auto;
-}
 
 .directorist-add-listing-wrapper {
   max-width: 750px !important;
   margin: 0 auto;
 }
-.directorist-add-listing-wrapper .ezmu__thumbnail-list-item {
-  max-width: 300px;
-  -webkit-flex-basis: 300px;
-      -ms-flex-preferred-size: 300px;
-          flex-basis: 300px;
-}
 .directorist-add-listing-wrapper .ezmu__thumbnail-list-item_back {
   height: 200px;
   width: 100%;
-}
-.directorist-add-listing-wrapper .ezmu__media-picker-buttons {
-  margin-top: 10px;
 }
 .directorist-add-listing-wrapper .ezmu__titles-area .ezmu__title-1 {
   font-size: 30px;
@@ -7892,7 +7880,8 @@ p.atbd-min {
 }
 .directorist-form-group textarea,
 .directorist-form-group textarea.directorist-form-element {
-  min-height: 120px;
+  min-height: unset;
+  height: auto;
 }
 
 .directorist-form-group .directorist-form-element {
@@ -13225,9 +13214,22 @@ Review: New Style
           align-items: center;
   margin-bottom: 3px;
 }
-.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask::after {
+.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask:after {
   width: 15px;
   height: 15px;
+  background-color: #EF8000;
+}
+.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask.directorist_fraction_star {
+  position: relative;
+}
+.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask.directorist_fraction_star:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  -webkit-mask-image: url(../images/b6ad67158aa2d6258e619021127e704f.svg);
+          mask-image: url(../images/b6ad67158aa2d6258e619021127e704f.svg);
   background-color: #EF8000;
 }
 .directorist-review-content .directorist-review-content__overview__rating .directorist-rating-overall {
@@ -13668,7 +13670,7 @@ Review: New Style
   font-size: 16px;
   font-weight: 500;
   color: #1A1B29;
-  margin-bottom: 0;
+  margin: 0;
 }
 .directorist-review-submit__form {
   margin: 0 !important;

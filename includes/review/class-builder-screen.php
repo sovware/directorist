@@ -41,18 +41,10 @@ class Builder_Screen {
 
 	protected static function get_sections() {
 		$sections = [
-			// 'rating_fields' => [
-			// 	'title'     => __( 'Rating', 'directorist' ),
-			// 	'container' => 'short-width',
-			// 	'fields'    => [
-			// 		'review_rating_type',
-			// 	],
-			// ],
 			'regular_fields' => [
 				'title'     => __( 'Regular Fields', 'directorist' ),
 				'container' => 'short-width',
 				'fields'    => [
-					'review_rating_type',
 					'review_cookies_consent',
 					'review_comment_label',
 					'review_comment_placeholder',
@@ -72,20 +64,6 @@ class Builder_Screen {
 
 	public static function get_fields() {
 		$fields = [
-			// Rating fields
-			// 'review_rating_type' => [
-			// 	'type' => 'select',
-			// 	'label' => __( 'Rating Type', 'directorist' ),
-			// 	'options' => [
-			// 		[ 'value' => 'single' , 'label' => __( 'Single', 'directorist' ) ],
-			// 	],
-			// 	'value' => 'single'
-			// ],
-
-			'review_rating_type' => [
-				'type'  => 'hidden',
-				'value' => 'single'
-			],
 
 			// Regular fields
 			'review_cookies_consent' => [

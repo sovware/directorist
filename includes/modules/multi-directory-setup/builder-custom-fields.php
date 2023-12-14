@@ -263,12 +263,17 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			'min_value' => [
 				'type'  => 'number',
 				'label' => __( 'Min Value', 'directorist' ),
-				'value' => 0,
+				'value' => '',
 			],
 			'max_value' => [
 				'type'  => 'number',
 				'label' => __( 'Max Value', 'directorist' ),
-				'value' => 100,
+				'value' => '',
+			],
+			'step'       => [
+				'type'  => 'number',
+				'label' => __( 'Step', 'directorist' ),
+				'value' => 1,
 			],
 			'prepend' => [
 				'type'        => 'text',

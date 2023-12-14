@@ -191,13 +191,13 @@ import {
         if (fields.address && fields.address.length) {
             fields.cityLat = $(this).find('#cityLat').val();
             fields.cityLng = $(this).find('#cityLng').val();
-            fields.miles = $(this).find('.directorist-range-slider-value').val();
+            fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
         }
 
         if (fields.zip && fields.zip.length) {
             fields.zip_cityLat = $(this).find('.zip-cityLat').val();
             fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-            fields.miles = $(this).find('.directorist-range-slider-value').val();
+            fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
         }
 
         var form_data = {
@@ -436,7 +436,7 @@ import {
             if (fields.zip && fields.zip.length) {
                 fields.zip_cityLat = $(this).find('.zip-cityLat').val();
                 fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-                fields.miles       = $(this).find('.directorist-range-slider-value').val();
+                fields.miles       = $(this).find('.directorist-custom-range-slider__value input').val();
             }
 
             var form_data = {
@@ -1031,13 +1031,13 @@ import {
         if (fields.address && fields.address.length) {
             fields.cityLat = searchElm.find('#cityLat').val();
             fields.cityLng = searchElm.find('#cityLng').val();
-            fields.miles = searchElm.find('.directorist-range-slider-value').val();
+            fields.miles = searchElm.find('.directorist-custom-range-slider__value input').val();
         }
 
         if (fields.zip && fields.zip.length) {
             fields.zip_cityLat = searchElm.find('.zip-cityLat').val();
             fields.zip_cityLng = searchElm.find('.zip-cityLng').val();
-            fields.miles = searchElm.find('.directorist-range-slider-value').val();
+            fields.miles = searchElm.find('.directorist-custom-range-slider__value input').val();
         }
 
         var form_data = {
@@ -1083,7 +1083,7 @@ import {
     }
 
     function initObserver() {
-        let targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-range-slider-value');
+        let targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-custom-range-slider__value input');
 
         targetNodes.forEach((targetNode) => {
 

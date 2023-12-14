@@ -9,14 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <?php if ( is_user_logged_in() ): ?>
-	<a class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-action-report directorist-action-report-loggedin directorist-btn-modal directorist-btn-modal-js" href="#" data-directorist_target="directorist-report-abuse-modal">
+	<buttton class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-action-report directorist-action-report-loggedin directorist-btn-modal directorist-btn-modal-js" href="#" data-directorist_target="directorist-report-abuse-modal" aria-label="Report Open Modal">
 		<?php directorist_icon( $icon );?><span class="directorist-single-listing-action__text"><?php esc_html_e( 'Report', 'directorist'); ?></span> 
-	</a>
+	</buttton>
 <?php else: ?>
-	<a class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-action-report directorist-action-report-not-loggedin directorist-btn-modal directorist-btn-modal-js" href="javascript:void(0)"><?php directorist_icon( $icon );?> <span class="directorist-single-listing-action__text"> <?php esc_html_e( 'Report', 'directorist'); ?></span></a>
+	<buttton class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-action-report directorist-action-report-not-loggedin directorist-btn-modal directorist-btn-modal-js"><?php directorist_icon( $icon );?> <span class="directorist-single-listing-action__text" aria-label="Report Modal"> <?php esc_html_e( 'Report', 'directorist'); ?></span></buttton>
 <?php endif; ?>
 
-<div class="directorist-modal directorist-modal-js directorist-fade directorist-report-abuse-modal">
+<section class="directorist-modal directorist-modal-js directorist-fade directorist-report-abuse-modal">
 
 	<div class="directorist-modal__dialog">
 
@@ -24,13 +24,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<form id="directorist-report-abuse-form">
 
-				<div class="directorist-modal__header">
+				<header class="directorist-modal__header">
 
-					<h3 class="directorist-modal-title" id="directorist-report-abuse-modal__label"><?php esc_html_e('Report Abuse', 'directorist'); ?></h3>
+					<h2 class="directorist-modal-title" id="directorist-report-abuse-modal__label"><?php esc_html_e('Report Abuse', 'directorist'); ?></h2>
 
-					<a href="" class="directorist-modal-close directorist-modal-close-js"><span aria-hidden="true">&times;</span></a>
+					<button class="directorist-modal-close directorist-modal-close-js" aria-label="Report Modal Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 
-				</div>
+				</header>
 
 				<div class="directorist-modal__body">
 
@@ -60,4 +62,4 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	</div>
 
-</div>
+</section>

@@ -53,8 +53,9 @@
 // Directorist Single Listing Style
 .directorist-single-contents-area {
     .directorist-card {
-        margin-bottom: 35px;
+        padding: 0;
         filter: none;
+        margin-bottom: 35px;
         box-shadow: 0 2px 15px rgba(0,0,0,.08);
         .directorist-card__body{
             padding: 30px;
@@ -137,6 +138,10 @@
     .directorist-single-listing-slider .directorist-swiper__nav i:after {
         background-color: var(--directorist-color-white);
     }
+
+    .directorist-related {
+        padding: 0;
+    }
 }
 .directorist-single-contents-area {
     margin-top: 50px;
@@ -206,7 +211,9 @@
 .directorist-single-listing-header {
     margin-bottom: 25px;
     margin-top: -15px;
+    padding: 0;
     .directorist-single-listing-slider-wrap {
+        padding: 0;
         margin: 15px 0;
     }
 }
@@ -352,15 +359,7 @@
 // Listing Details
 .directorist-listing-details {
     margin: 15px 0 30px;
-
-    .directorist-listing-single__info {
-        padding: 0;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .directorist-listing-details__text {
+    @include e('text') {
         p {
             margin: 0 0 15px;
             color: #7a82a6;
@@ -375,27 +374,34 @@
             list-style: disc;
         }
     }
+    @include e('listing-title') {
+        font-size: 30px;
+        font-weight: 600;
+        display: inline-block;
+        margin: 15px 0 0;
+        @media screen and (max-width: 575px) {
+            font-size: 24px;
+        }
+    }
+    @include e('tagline') {
+        margin: 10px 0;
+        color: var(--directorist-color-body);
+    }
 
     .directorist-pricing-meta  .directorist-listing-price {
         padding: 5px 10px;
         border-radius: 6px;
         background: var(--directorist-color-light);
     }
-}
-.directorist-listing-details__listing-title {
-    font-size: 30px;
-    font-weight: 600;
-    display: inline-block;
-    margin: 15px 0 0;
-    @media screen and (max-width: 575px) {
-        font-size: 24px;
+
+    .directorist-listing-single__info {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
     }
 }
 
-.directorist-listing-details-tagline {
-    margin: 10px 0;
-    color: var(--directorist-color-body);
-}
 
 // Directorist Embaded Video
 .directorist-single-contents-area .directorist-embaded-video {

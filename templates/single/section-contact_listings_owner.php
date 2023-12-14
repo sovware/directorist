@@ -12,18 +12,18 @@ if( $listing->contact_owner_form_disabled() ) {
 }
 ?>
 
-<div class="directorist-card directorist-card-contact-owner <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
+<section class="directorist-card directorist-card-contact-owner <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
 
-	<div class="directorist-card__header">
+	<header class="directorist-card__header">
 
-		<h4 class="directorist-card__header--title">
+		<h3 class="directorist-card__header--title">
 			<?php if ( ! empty( $icon ) ) : ?>
 				<span class="directorist-card__header-icon"><?php directorist_icon( $icon );?></span>
 			<?php endif; ?>
 			<span class="directorist-card__header-text"><?php echo esc_html( $label );?></span>
-		</h4>
+		</h3>
 
-	</div>
+	</header>
 
 	<div class="directorist-card__body">
 
@@ -56,4 +56,4 @@ if( $listing->contact_owner_form_disabled() ) {
 
 	</div>
 
-</div>
+</section>

@@ -31,16 +31,16 @@ $section_class = isset( $section_data['class'] ) ? $section_data['class'] : '';
 $section_icon  = isset( $section_data['icon'] ) ? $section_data['icon'] : '';
 $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
 ?>
-<div id="<?php echo esc_attr( $section_id ); ?>" class="directorist-review-container <?php echo esc_attr( $section_class ); ?>">
+<section id="<?php echo esc_attr( $section_id ); ?>" class="directorist-review-container <?php echo esc_attr( $section_class ); ?>">
 	<div class="directorist-card directorist-review-content">
 		<div class="directorist-card__header directorist-review-content__header <?php if ( ! have_comments() ) : ?>directorist-review-content__header--noreviews<?php endif;?>">
 			<?php if ( ! have_comments() ) : ?><?php endif;?>
-			<h4 class="directorist-card__header--title">
+			<h3 class="directorist-card__header--title">
 				<?php if ( ! empty( $section_icon ) ) : ?>
 					<span class="directorist-card__header-icon"><?php directorist_icon( $section_icon ); ?> </span>
 				<?php endif; ?>
 				<span class="directorist-card__header-text"><?php echo esc_html( $section_label ); ?></span>
-			</h4>
+			</h3>
 
 			<?php if ( directorist_can_current_user_review() || directorist_can_guest_review() ) : ?>
 				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Write a Review', 'directorist' ); ?></a>
@@ -186,4 +186,4 @@ $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
 		Comment_Form_Renderer::comment_form( apply_filters( 'directorist/review_form/comment_form_args', $args ) );
 	}
 	?>
-</div>
+</section>

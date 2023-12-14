@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<?php endif; ?>
 
 					<?php if ( $listings->header_title ): ?>
-						<h3 class="directorist-header-found-title"><?php echo wp_kses_post( $listings->item_found_title() ); ?></h3>
+						<span class="directorist-header-found-title"><?php echo wp_kses_post( $listings->item_found_title() ); ?></span>
 					<?php endif; ?>
 				</div>
 

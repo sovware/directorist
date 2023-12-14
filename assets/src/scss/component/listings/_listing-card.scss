@@ -65,6 +65,7 @@
                 gap: 10px;
                 flex-direction: column;
                 margin-top: 10px;
+                width: 100%;
                 @media only screen and (max-width: 575px) {
                     gap: 8px;
                 }
@@ -1043,7 +1044,6 @@
         flex-direction: row;
         @include e(list) {
             margin: 16px 0 10px;
-            width: 100%;
             li {
                 .directorist-icon-mask {
                     position: relative;

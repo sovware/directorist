@@ -44,7 +44,7 @@ function init_blocks() {
 		'directorist-block-editor',
 		'directoristBlockConfig',
 		array(
-			'multiDirectoryEnabled' => (bool) Helper::multi_directory_enabled(),
+			'multiDirectoryEnabled' => directorist_is_multi_directory_enabled(),
 			'postType'              => ATBDP_POST_TYPE,
 			'locationTax'           => ATBDP_LOCATION,
 			'tagTax'                => ATBDP_TAGS,

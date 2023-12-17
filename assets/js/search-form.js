@@ -1045,7 +1045,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     /* ----------------
     Search Listings
     ------------------ */
-    //ad search js
     function defaultTags() {
       $('.directorist-btn-ml').each(function (index, element) {
         var item = $(element).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
@@ -1059,7 +1058,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
 
     $(window).on('load', defaultTags);
-    window.addEventListener('triggerSlice', defaultTags);
+    window.addEventListener('triggerSlice', defaultTags); // See More Tags Button
+
     $('body').on('click', '.directorist-btn-ml', function (event) {
       event.preventDefault();
       var item = $(this).siblings('.directorist-search-tags');
@@ -1112,13 +1112,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         dropDownParent.addClass('input-is-focused');
       } else {
         dropDownParent.removeClass('input-is-focused');
-      }
+      } // Hide all other open contents
+
+
+      $('.directorist-search-basic-dropdown-content.dropdown-content-show').not(dropDownContent).removeClass('dropdown-content-show').slideUp();
     }); // Dropdown Toggle
 
     $('body').on('click', function (e) {
       var dropDownRoot = $(e.target).closest('.directorist-search-form-dropdown');
-      var dropDownParent = $('.directorist-search-form-dropdown');
-      var dropDownContent = $('.directorist-search-basic-dropdown-content');
+      var dropDownParent = $('.directorist-search-form-dropdown.input-is-focused');
+      var dropDownContent = $('.directorist-search-basic-dropdown-content.dropdown-content-show');
 
       if (!dropDownRoot.length) {
         dropDownParent.removeClass('input-is-focused');

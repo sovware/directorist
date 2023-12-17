@@ -9005,7 +9005,7 @@ p.atbd-min {
   background: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
-  max-height: 300px;
+  max-height: 250px;
   overflow-y: auto;
   z-index: 100;
   display: none;
@@ -11760,6 +11760,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 
 .directorist-search-field-review .directorist-checkbox {
   display: block;
+  width: auto;
 }
 .directorist-search-field-review .directorist-checkbox input[type=checkbox] + label {
   display: -webkit-box;
@@ -12736,7 +12737,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
-  max-height: 300px;
+  max-height: 250px;
   overflow-y: auto;
   z-index: 100;
   display: none;

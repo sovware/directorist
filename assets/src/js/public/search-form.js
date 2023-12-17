@@ -11,9 +11,6 @@ import { directorist_range_slider } from './range-slider';
         /* ----------------
         Search Listings
         ------------------ */
-
-        //ad search js
-
         function defaultTags() {
             $('.directorist-btn-ml').each((index, element) => {
                 let item = $(element).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
@@ -27,6 +24,7 @@ import { directorist_range_slider } from './range-slider';
         $(window).on('load', defaultTags);
         window.addEventListener('triggerSlice', defaultTags);
 
+        // See More Tags Button
         $('body').on('click', '.directorist-btn-ml', function (event) {
             event.preventDefault();
             let item = $(this).siblings('.directorist-search-tags');
@@ -84,12 +82,14 @@ import { directorist_range_slider } from './range-slider';
             } else {
                 dropDownParent.removeClass('input-is-focused');
             }
+            // Hide all other open contents
+            $('.directorist-search-basic-dropdown-content.dropdown-content-show').not(dropDownContent).removeClass('dropdown-content-show').slideUp();
         }); // Dropdown Toggle
         
         $('body').on('click', function (e) {
             let dropDownRoot = $(e.target).closest('.directorist-search-form-dropdown');
-            let dropDownParent = $('.directorist-search-form-dropdown');
-            let dropDownContent = $('.directorist-search-basic-dropdown-content');
+            let dropDownParent = $('.directorist-search-form-dropdown.input-is-focused');
+            let dropDownContent = $('.directorist-search-basic-dropdown-content.dropdown-content-show');
 
             if (!dropDownRoot.length) {
                 dropDownParent.removeClass('input-is-focused');

@@ -12060,7 +12060,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
-  max-height: 300px;
+  max-height: 250px;
   overflow-y: auto;
   z-index: 100;
   display: none;

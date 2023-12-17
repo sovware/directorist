@@ -4,7 +4,7 @@
     @include e(basic){
         display: flex;
         flex-direction: column;
-        @include m(element){
+        @include e(element){
             .directorist-search-field {
                 flex-direction: column;
                 align-items: flex-start;
@@ -69,7 +69,7 @@
     @include e(advanced){
         display: flex;
         flex-direction: column;
-        @include m(element){
+        @include e(element){
             .directorist-search-field {
                 flex-direction: column;
                 align-items: flex-start;

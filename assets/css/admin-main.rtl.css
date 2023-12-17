@@ -11808,7 +11808,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal--basic .directorist-search-modal__input .directorist-price-ranges__price-frequency--btn {
   display: block;
 }
-.directorist-search-modal--basic .directorist-advanced-filter__advanced--element .directorist-search-field {
+.directorist-search-modal--basic .directorist-advanced-filter__advanced__element .directorist-search-field {
   margin: 0;
   padding: 10px 0;
 }

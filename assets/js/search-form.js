@@ -1295,14 +1295,22 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
       searchForm.querySelectorAll("select").forEach(function (el) {
         el.selectedIndex = 0;
-        $('.directorist-select2-dropdown-close').click(); // $(el).val(null).trigger('change');
-
+        $('.directorist-select2-dropdown-close').click();
         var parentElem = el.closest('.directorist-search-field');
 
         if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
           setTimeout(function () {
             parentElem.classList.remove('input-has-value', 'input-is-focused');
           }, 100);
+        }
+      });
+      searchForm.querySelectorAll(".directorist-search-basic-dropdown-content").forEach(function (dropdown) {
+        var dropDownParent = dropdown.closest('.directorist-search-field');
+        $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-count').text('');
+        $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-prefix').text('');
+
+        if (dropDownParent.classList.contains('input-has-value') || dropDownParent.classList.contains('input-is-focused')) {
+          dropDownParent.classList.remove('input-has-value', 'input-is-focused');
         }
       });
       var irisPicker = searchForm.querySelector("input.wp-picker-clear");

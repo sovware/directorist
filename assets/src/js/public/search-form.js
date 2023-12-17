@@ -274,7 +274,6 @@ import { directorist_range_slider } from './range-slider';
             searchForm.querySelectorAll("select").forEach(function (el) {
                 el.selectedIndex = 0;
                 $('.directorist-select2-dropdown-close').click();
-                // $(el).val(null).trigger('change');
 
                 let parentElem = el.closest('.directorist-search-field');
 
@@ -284,6 +283,19 @@ import { directorist_range_slider } from './range-slider';
                     }, 100)
                 }
             });
+
+            searchForm.querySelectorAll(".directorist-search-basic-dropdown-content").forEach((dropdown) => {
+                let dropDownParent = dropdown.closest('.directorist-search-field');
+
+                $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-count').text('');
+                $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-prefix').text('');
+
+                if (dropDownParent.classList.contains('input-has-value') || dropDownParent.classList.contains('input-is-focused')) {
+                    dropDownParent.classList.remove('input-has-value', 'input-is-focused');
+                }
+            })
+
+            
 
             let irisPicker = searchForm.querySelector("input.wp-picker-clear");
             if (irisPicker !== null) {

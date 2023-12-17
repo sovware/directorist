@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<div class="directorist-advanced-filter__advanced">
 		<input type="hidden" name='directory_type' value='<?php echo esc_attr( $listings->get_directory_type_slug() ); ?>'>
 			<?php foreach ( $searchform->form_data[1]['fields'] as $field ) : ?>
-				<div class="directorist-advanced-filter__advanced--element directorist-search-field-<?php echo esc_attr( $field['widget_name'] ) ?>"><?php $searchform->field_template( $field ); ?></div>
+				<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] ) ?>"><?php $searchform->field_template( $field ); ?></div>
 			<?php endforeach; ?>
 		</div>
 		<?php $searchform->buttons_template(); ?>

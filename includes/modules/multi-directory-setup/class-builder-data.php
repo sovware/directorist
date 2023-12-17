@@ -675,6 +675,17 @@ class Builder_Data {
                                 'label' => __( 'Placeholder', 'directorist' ),
                                 'value' => 'Number',
                             ],
+                            'type'      => [
+                                'type'    => 'select',
+                                'label'   => __( 'Search Type', 'directorist' ),
+                                'value'   => 'number',
+                                'options' => [
+                                    ['value' => 'number', 'label' => 'Input'],
+                                    ['value' => 'range', 'label' => 'Range'],
+                                    ['value' => 'dropdown', 'label' => 'Dropdown'],
+                                    ['value' => 'radio', 'label' => 'Radio'],
+                                ],
+                            ],
                             'required'    => [
                                 'type'  => 'toggle',
                                 'label' => __( 'Required', 'directorist' ),

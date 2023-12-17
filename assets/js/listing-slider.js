@@ -355,7 +355,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   }); // Function to set up the Mutation Observer on Range Slider
 
   function sliderObserver() {
-    var rangeSliders = document.querySelectorAll('.directorist-range-slider-value');
+    var rangeSliders = document.querySelectorAll('.directorist-custom-range-slider__value input');
     rangeSliders.forEach(function (rangeSlider) {
       if (rangeSlider) {
         var timeout;

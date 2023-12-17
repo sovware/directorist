@@ -174,7 +174,7 @@
 			flex-wrap: wrap;
 			gap: 10px;
 
-			.directorist-dropdown .directorist-dropdown__links--single {
+			.directorist-dropdown .directorist-dropdown__links__single {
 				cursor: pointer;
 
 				&:hover {
@@ -464,13 +464,13 @@
 		.directorist-btn-submit {
 			width: 100%;
 		}
-		.directorist-price-ranges__price-frequency--btn .directorist-pf-range {
+		.directorist-price-ranges__price-frequency__btn .directorist-pf-range {
 			width: 54px;
 			@media screen and (max-width: 575px) {
 				width: 100%;
 			}
 		}
-		.directorist-price-ranges__price-frequency--btn:last-child {
+		.directorist-price-ranges__price-frequency__btn:last-child {
 			border: 0 none;
 		}
 		.directorist-checkbox-wrapper,

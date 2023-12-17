@@ -520,7 +520,7 @@ __webpack_require__.r(__webpack_exports__);
         $(".directorist-shade").removeClass("directorist-active");
       }
     }).trigger("resize");
-    $('.directorist-dashboard__nav--close, .directorist-shade').on('click', function () {
+    $('.directorist-dashboard__nav__close, .directorist-shade').on('click', function () {
       $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
       $(".directorist-shade").removeClass("directorist-active");
     }); // Profile Responsive

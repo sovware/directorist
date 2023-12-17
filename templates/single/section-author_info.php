@@ -21,7 +21,7 @@ $avatar_img = get_avatar($author_id, 32);
 
 	<header class="directorist-card__header">
 
-		<h3 class="directorist-card__header--title">
+		<h3 class="directorist-card__header__title">
 			<?php if ( ! empty( $icon ) ) : ?>
 				<span class="directorist-card__header-icon"><?php directorist_icon( $icon ); ?></span>
 			<?php endif; ?>

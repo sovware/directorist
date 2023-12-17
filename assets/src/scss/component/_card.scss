@@ -13,7 +13,7 @@
             @media screen and (max-width: 575px){
                 padding: 15px 20px;
             }
-            @include m('title'){
+            @include e('title'){
                 font-size: 18px;
                 font-weight: 500;
                 line-height: 1.2;

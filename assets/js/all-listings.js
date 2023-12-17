@@ -1109,7 +1109,7 @@ window.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('DOMContentLoaded', function () {
     // Sorting Js
     if (!$('.directorist-instant-search').length) {
-      $('.directorist-dropdown__links--single-js').click(function (e) {
+      $('.directorist-dropdown__links__single-js').click(function (e) {
         e.preventDefault();
         var href = $(this).attr('data-link');
         $('#directorsit-listing-sort').attr('action', href);
@@ -1962,7 +1962,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         custom_field[post_id] = value;
       }
     });
-    var sort_href = $(this).closest(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
+    var sort_href = $(this).closest(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
     var view_href = $(this).closest(this).attr('href');
@@ -2035,8 +2035,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       data: form_data,
       beforeSend: function beforeSend() {
         instant_search_element.find('.directorist-archive-items').addClass('atbdp-form-fade');
-        instant_search_element.find('.directorist-viewas-dropdown .directorist-dropdown__links--single').addClass("disabled-link");
-        instant_search_element.find('.directorist-dropdown__links-js a').removeClass('directorist-dropdown__links--single');
+        instant_search_element.find('.directorist-viewas-dropdown .directorist-dropdown__links__single').addClass("disabled-link");
+        instant_search_element.find('.directorist-dropdown__links-js a').removeClass('directorist-dropdown__links__single');
         instant_search_element.find('.directorist-archive-items').addClass('atbdp-form-fade');
         instant_search_element.find('.directorist-dropdown__links').hide();
         instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show');
@@ -2047,8 +2047,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           instant_search_element.find('.directorist-header-found-title span').text(html.count);
           instant_search_element.find('.directorist-archive-items').replaceWith(html.view_as);
           instant_search_element.find('.directorist-archive-items').removeClass('atbdp-form-fade');
-          instant_search_element.find('.directorist-viewas-dropdown .directorist-dropdown__links--single').removeClass("disabled-link");
-          instant_search_element.find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single');
+          instant_search_element.find('.directorist-viewas-dropdown .directorist-dropdown__links__single').removeClass("disabled-link");
+          instant_search_element.find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links__single');
           window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
           instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').css('visibility', 'visible');
@@ -2056,9 +2056,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       }
     });
   });
-  $('.directorist-instant-search .directorist-dropdown__links--single-js').off('click'); // Directorist sort by changes
+  $('.directorist-instant-search .directorist-dropdown__links__single-js').off('click'); // Directorist sort by changes
 
-  $('body').on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js", function (e) {
+  $('body').on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links__single-js", function (e) {
     e.preventDefault();
     var instant_search_element = $(this).closest('.directorist-instant-search');
     var tag = [];
@@ -2116,7 +2116,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     var email = instant_search_element.find('input[name="email"]').val();
     var website = instant_search_element.find('input[name="website"]').val();
     var phone = instant_search_element.find('input[name="phone"]').val();
-    instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links--single").removeClass('active');
+    instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links__single").removeClass('active');
     $(this).addClass("active");
     var form_data = {
       action: 'directorist_instant_search',
@@ -2157,8 +2157,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       type: "POST",
       data: form_data,
       beforeSend: function beforeSend() {
-        instant_search_element.find('.directorist-sortby-dropdown .directorist-dropdown__links--single-js').addClass("disabled-link");
-        instant_search_element.find('.directorist-dropdown__links-js a').removeClass('directorist-dropdown__links--single-js');
+        instant_search_element.find('.directorist-sortby-dropdown .directorist-dropdown__links__single-js').addClass("disabled-link");
+        instant_search_element.find('.directorist-dropdown__links-js a').removeClass('directorist-dropdown__links__single-js');
         instant_search_element.find('.directorist-archive-items').addClass('atbdp-form-fade');
         instant_search_element.find('.directorist-dropdown__links').hide();
         var advance_filter = instant_search_element.find('.directorist-header-bar .directorist-advanced-filter')[0];
@@ -2171,8 +2171,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           instant_search_element.find('.directorist-header-found-title span').text(html.count);
           instant_search_element.find('.directorist-archive-items').replaceWith(html.view_as);
           instant_search_element.find('.directorist-archive-items').removeClass('atbdp-form-fade');
-          instant_search_element.find('.directorist-sortby-dropdown .directorist-dropdown__links--single-js').removeClass("disabled-link");
-          instant_search_element.find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single-js');
+          instant_search_element.find('.directorist-sortby-dropdown .directorist-dropdown__links__single-js').removeClass("disabled-link");
+          instant_search_element.find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links__single-js');
         }
 
         window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
@@ -2218,7 +2218,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         custom_field[post_id] = value;
       }
     });
-    var sort_href = instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
+    var sort_href = instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
     var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');

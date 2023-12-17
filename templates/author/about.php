@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<section class="directorist-card directorist-widget directorist-author-contact">
 
 			<header class="directorist-card__header">
-				<h3 class="directorist-card__header--title directorist-widget-title"><?php directorist_icon( 'fas fa-align-left' ); ?><?php esc_html_e( 'Contact Info', 'directorist' ); ?></h3>
+				<h3 class="directorist-card__header__title directorist-widget-title"><?php directorist_icon( 'fas fa-align-left' ); ?><?php esc_html_e( 'Contact Info', 'directorist' ); ?></h3>
 			</header>
 
 			<div class="directorist-card__body">
@@ -88,7 +88,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<section class="directorist-card directorist-author-about">
 
 			<header class="directorist-card__header">
-				<h3 class="directorist-card__header--title"><?php directorist_icon( 'fas fa-address-book' ); ?><?php esc_html_e( 'About', 'directorist' ); ?></h3>
+				<h3 class="directorist-card__header__title"><?php directorist_icon( 'fas fa-address-book' ); ?><?php esc_html_e( 'About', 'directorist' ); ?></h3>
 			</header>
 
 			<div class="directorist-card__body">

@@ -26,7 +26,7 @@ use \Directorist\Helper;
             ?>
             <div class="directorist-card directorist-checkout-card">
                 <div class="directorist-card__header">
-                    <h3 class="directorist-card__header--title">Order Summary</h3>
+                    <h3 class="directorist-card__header__title">Order Summary</h3>
                 </div>
                 <div class="directorist-card__body">
                     <div class="directorist-table-responsive">
@@ -122,7 +122,7 @@ use \Directorist\Helper;
             <?php if ( $subtotal > 0 ) : ?>
             <div class="directorist-card directorist-mt-30 directorist-payment-gateways directorist-mb-15 directorist-checkout-card directorist-checkout-payment" id="directorist_payment_gateways">
                 <div class="directorist-card__header">
-                    <h3 class="directorist-card__header--title"><?php esc_html_e('Choose a payment method', 'directorist'); ?></h3>
+                    <h3 class="directorist-card__header__title"><?php esc_html_e('Choose a payment method', 'directorist'); ?></h3>
                 </div>
 
                 <div class="directorist-card__body">

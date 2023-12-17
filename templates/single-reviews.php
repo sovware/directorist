@@ -35,7 +35,7 @@ $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
 	<div class="directorist-card directorist-review-content">
 		<div class="directorist-card__header directorist-review-content__header <?php if ( ! have_comments() ) : ?>directorist-review-content__header--noreviews<?php endif;?>">
 			<?php if ( ! have_comments() ) : ?><?php endif;?>
-			<h3 class="directorist-card__header--title">
+			<h3 class="directorist-card__header__title">
 				<?php if ( ! empty( $section_icon ) ) : ?>
 					<span class="directorist-card__header-icon"><?php directorist_icon( $section_icon ); ?> </span>
 				<?php endif; ?>
@@ -173,7 +173,7 @@ $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
 			'cancel_reply_link'  => __( 'Cancel Reply', 'directorist' ),
 			'class_container'    => $container_class,
 			'title_reply'        => __( 'Leave a Review', 'directorist' ),
-			'title_reply_before' => '<div class="directorist-card__header directorist-review-submit__header"><h3 id="reply-title" class="directorist-card__header--title">',
+			'title_reply_before' => '<div class="directorist-card__header directorist-review-submit__header"><h3 id="reply-title" class="directorist-card__header__title">',
 			'title_reply_after'  => '</h3></div>',
 			'class_form'         => 'directorist-card__body directorist-review-submit__form',
 			'class_submit'       => 'directorist-btn directorist-btn-primary directorist-btn-lg',

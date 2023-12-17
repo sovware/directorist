@@ -42,16 +42,16 @@ $min_placeholder = !empty( $data['price_range_min_placeholder'] ) ? $data['price
 		<?php if ( $ptype == 'both' || $ptype == 'price_range' ): ?>
 
 			<div class="directorist-price-ranges__item directorist-price-ranges__price-frequency">
-				<label class="directorist-price-ranges__price-frequency--btn">
+				<label class="directorist-price-ranges__price-frequency__btn">
 					<?php $searchform->the_price_range_input('bellow_economy');?><span class="directorist-pf-range"><?php echo esc_html( str_repeat($searchform->c_symbol, 1) ); ?></span>
 				</label>
-				<label class="directorist-price-ranges__price-frequency--btn">
+				<label class="directorist-price-ranges__price-frequency__btn">
 					<?php $searchform->the_price_range_input('economy');?><span class="directorist-pf-range"><?php echo esc_html( str_repeat($searchform->c_symbol, 2) ); ?></span>
 				</label>
-				<label class="directorist-price-ranges__price-frequency--btn">
+				<label class="directorist-price-ranges__price-frequency__btn">
 					<?php $searchform->the_price_range_input('moderate');?><span class="directorist-pf-range"><?php echo esc_html( str_repeat($searchform->c_symbol, 3) ); ?></span>
 				</label>
-				<label class="directorist-price-ranges__price-frequency--btn">
+				<label class="directorist-price-ranges__price-frequency__btn">
 					<?php $searchform->the_price_range_input('skimming');?><span class="directorist-pf-range"><?php echo esc_html( str_repeat($searchform->c_symbol, 4) ); ?></span>
 				</label>
 			</div>

@@ -64,7 +64,8 @@
                 display: flex;
                 gap: 10px;
                 flex-direction: column;
-                margin-top: 10px;
+                margin: 10px 0 0;
+                padding: 0;
                 width: 100%;
                 @media only screen and (max-width: 575px) {
                     gap: 8px;
@@ -909,6 +910,7 @@
     text-transform: unset;
     letter-spacing: unset;
     background: transparent;
+    border: none;
     &:focus {
         outline: 0;
         text-decoration: none;

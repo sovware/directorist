@@ -428,9 +428,10 @@
 				}
 			}
 			.directorist-search-tags,
+			.directorist-search-review,
 			.directorist-radio-wrapper,
 			.directorist-checkbox-wrapper {
-				margin-top: 10px;
+				margin-top: 13px;
 			}
 		}
 		.directorist-form-group:last-child .directorist-search-field {
@@ -495,6 +496,7 @@
 					color: var(--directorist-color-body);
 					&.directorist-search-basic-dropdown-label {
 						position: unset;
+						transform: unset;
 						font-size: 15px;
 						font-weight: 500;
 						i,

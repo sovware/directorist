@@ -41,7 +41,7 @@ import './../global/components/select2-custom-control';
 
         });
 
-        // Basic Search Tag Dropdown
+        // Count Checkbox Selected Items
         function selectedItemCount(item) {
             let dropdownParent = $(item).closest('.directorist-search-field');
             let dropDownContent = $(item).closest('.directorist-search-basic-dropdown-content');
@@ -59,14 +59,40 @@ import './../global/components/select2-custom-control';
                 selectedPrefix.text('');
                 dropdownParent.removeClass('input-has-value');
             }
-        } // Count Selected Values
+        } 
+        
+        // Radio Selected Items
+        function selectedRadioItem(item) {
+            let dropdownParent = $(item).closest('.directorist-search-field');
+            let dropDownLabel = dropdownParent.find('.directorist-search-basic-dropdown-selected-item');
+            let selectedItem = dropdownParent.find('.directorist-radio input[type="radio"]:checked');
+            let selectedItemLabel = selectedItem.siblings('.directorist-radio__label').text();
 
+            if (selectedItem) {
+                dropDownLabel.text(' - ' + selectedItemLabel);
+                dropdownParent.addClass('input-has-value');
+            } else {
+                // If no items are checked, clear the text
+                selectedItem.text('');
+                dropdownParent.removeClass('input-has-value');
+            }
+        } 
+        
+        // Checkbox Field Check
         $('body').on('change', '.directorist-search-form__top .directorist-search-basic-dropdown input[type="checkbox"], .directorist-search-modal .directorist-search-basic-dropdown input[type="checkbox"]', function (e) {
             e.preventDefault();
 
             selectedItemCount(this);
-        }); // Input Field Check
+        }); 
 
+        // Radio Field Check
+        $('body').on('change', '.directorist-search-form__top .directorist-search-basic-dropdown input[type="radio"], .directorist-search-modal .directorist-search-basic-dropdown input[type="radio"]', function (e) {
+            e.preventDefault();
+
+            selectedRadioItem(this);
+        }); 
+
+        // Basic Search Dropdown
         $('body').on('click', '.directorist-search-form__top .directorist-search-basic-dropdown-label, .directorist-search-modal .directorist-search-basic-dropdown-label', function (e) {
             e.preventDefault();
             let dropDownParent = $(this).closest('.directorist-search-field');
@@ -540,6 +566,7 @@ import './../global/components/select2-custom-control';
                     $(dropdown).slideUp();
                     $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-count').text('');
                     $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-prefix').text('');
+                    $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-item').text('');
                 })
             }
 

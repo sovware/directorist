@@ -615,7 +615,7 @@
                     transform: unset;
                     font-size: 16px;
                     font-weight: 500;
-                    margin: 0 0 10px;
+                    margin: 0;
                     z-index: 1;
                 }
                 .directorist-search-field__input {
@@ -698,6 +698,11 @@
                     opacity: 1 !important;
                     visibility: visible;
                     margin: 0;
+
+                    .directorist-search-basic-dropdown-selected-item {
+                        font-weight: 600;
+                        margin-left: 5px;
+                    }
                 }
             }
             .directorist-search-field__btn i::after {
@@ -788,6 +793,18 @@
             .directorist-checkbox__label {
                 width: 100%;
             }
+            .directorist-radio-wrapper,
+            .directorist-checkbox-wrapper {
+                flex-direction: column;
+            }
+        }
+    }
+
+    .directorist-search-field-pricing,
+    .directorist-search-field-text_range,
+    .directorist-search-field-radius_search {
+        > label {
+            margin-bottom: 18px !important;
         }
     }
 }

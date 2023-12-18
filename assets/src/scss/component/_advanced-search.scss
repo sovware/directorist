@@ -105,8 +105,7 @@
                         transform: unset;
                         font-size: 16px;
                         font-weight: 500;
-                        margin: 0 0 10px;
-                        margin: 0 0 10px;
+                        margin: 0;
                     }
                     .directorist-search-field__input {
                         bottom: 0;
@@ -122,6 +121,9 @@
                     font-size: 13px;
                     font-weight: 500;
                     color: var(--directorist-color-primary);
+                    @media screen and (max-width: 575px) {
+                        margin-top: 10px;
+                    }
                 }
             }
             .directorist-checkbox-wrapper,
@@ -167,6 +169,13 @@
                     margin: 0;
                     color: var(--directorist-color-primary);
                 }
+            }
+
+            &.directorist-search-field-tag,
+            &.directorist-search-field-radio,
+            &.directorist-search-field-review,
+            &.directorist-search-field-checkbox {
+                overflow: visible;
             }
         }
     }

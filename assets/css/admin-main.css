@@ -11857,7 +11857,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           transform: unset;
   font-size: 16px;
   font-weight: 500;
-  margin: 0 0 10px;
+  margin: 0;
   z-index: 1;
 }
 .directorist-search-modal--full .directorist-search-field.input-is-focused .directorist-search-field__input {
@@ -11974,6 +11974,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   opacity: 1 !important;
   visibility: visible;
   margin: 0;
+}
+.directorist-search-modal .directorist-search-form-dropdown.input-has-value .directorist-search-field__input .directorist-search-basic-dropdown-label .directorist-search-basic-dropdown-selected-item, .directorist-search-modal .directorist-search-form-dropdown.input-is-focused .directorist-search-field__input .directorist-search-basic-dropdown-label .directorist-search-basic-dropdown-selected-item {
+  font-weight: 600;
+  margin-left: 5px;
 }
 .directorist-search-modal .directorist-search-form-dropdown.input-has-value .directorist-search-field__btn i::after, .directorist-search-modal .directorist-search-form-dropdown.input-is-focused .directorist-search-field__btn i::after {
   opacity: 1;
@@ -12100,6 +12104,19 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content .directorist-checkbox__label {
   width: 100%;
+}
+.directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content .directorist-radio-wrapper,
+.directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content .directorist-checkbox-wrapper {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.directorist-search-modal .directorist-search-field-pricing > label,
+.directorist-search-modal .directorist-search-field-text_range > label,
+.directorist-search-modal .directorist-search-field-radius_search > label {
+  margin-bottom: 18px !important;
 }
 
 /* Responsive CSS */

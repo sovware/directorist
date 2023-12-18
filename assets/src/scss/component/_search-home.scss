@@ -387,11 +387,14 @@
 			&.input-has-value,
 			&.input-is-focused {
 				.directorist-search-field__input {
-					bottom: -3px !important;
 					padding-right: 25px;
 					.directorist-search-basic-dropdown-label {
 						opacity: 1 !important;
 						visibility: visible;
+						.directorist-search-basic-dropdown-selected-item {
+							font-weight: 600;
+							margin-left: 5px;
+						}
 					}
 				}
 				.directorist-search-field__btn i::after {
@@ -477,7 +480,9 @@
 				overflow-y: auto;
 				z-index: 100;
 				display: none;
-				.directorist-search-tags {
+				.directorist-search-tags,
+				.directorist-radio-wrapper,
+				.directorist-checkbox-wrapper {
 					gap: 12px;
 				}
 				.directorist-checkbox__label {
@@ -943,8 +948,11 @@
 		  border-bottom: 2px solid var(--directorist-color-primary);
 		}
 		input {
+			flex: 1;
 			width: 100%;
 			height: 40px;
+			margin: 0;
+			padding: 0;
 			border: none;
 			outline: none;
 			box-shadow: none;
@@ -953,7 +961,7 @@
 	@include e(label) {
 		font-size: 14px;
 		font-weight: 400;
-		margin-inline-end: 10px;
+		margin: 0 10px 0 0;
 		color: var(--directorist-color-light-gray);
 	}
 	@include e(prefix) {

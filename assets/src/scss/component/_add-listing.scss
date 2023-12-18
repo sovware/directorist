@@ -1382,7 +1382,7 @@
         @include e(title) {
           position: relative;
           cursor: pointer;
-          h4 {
+          h2 {
             padding-inline-end: 20px;
           }
           &:before {

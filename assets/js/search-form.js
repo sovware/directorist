@@ -892,9 +892,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
+    //Remove Preload after Window Load
+    $(window).on('load', function () {
+      $('body').removeClass("directorist-preload");
+      $('.button.wp-color-result').attr('style', ' ');
+    });
     /* ----------------
-    Search Listings
+    Search Form
     ------------------ */
+    // Default Tags Slice
+
     function defaultTags() {
       $('.directorist-btn-ml').each(function (index, element) {
         var item = $(element).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
@@ -924,7 +931,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         $(this).text(directorist.i18n_text.show_more);
         $(item_checkbox).slice(4, item_checkbox.length).fadeOut();
       }
-    }); // Count Checkbox Selected Items
+    }); // Search Form
+    // Count Checkbox Selected Items
 
     function selectedItemCount(item) {
       var dropdownParent = $(item).closest('.directorist-search-field');
@@ -971,7 +979,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     $('body').on('change', '.directorist-search-form__top .directorist-search-basic-dropdown input[type="radio"], .directorist-search-modal .directorist-search-basic-dropdown input[type="radio"]', function (e) {
       e.preventDefault();
       selectedRadioItem(this);
-    }); // Basic Search Dropdown
+    }); // Basic Search Dropdown Toggle
 
     $('body').on('click', '.directorist-search-form__top .directorist-search-basic-dropdown-label, .directorist-search-modal .directorist-search-basic-dropdown-label', function (e) {
       e.preventDefault();
@@ -988,7 +996,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
       $('.directorist-search-basic-dropdown-content.dropdown-content-show').not(dropDownContent).removeClass('dropdown-content-show').slideUp();
-    }); // Dropdown Toggle
+    }); // Dropdown Content Hide on Outside Click
 
     $('body').on('click', function (e) {
       var dropDownRoot = $(e.target).closest('.directorist-search-form-dropdown');
@@ -1000,14 +1008,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         dropDownContent.removeClass('dropdown-content-show');
         dropDownContent.slideUp();
       }
-    }); // Click outside the dropdown content to hide it
-    //remove preload after window load
-
-    $(window).on('load', function () {
-      $('body').removeClass("directorist-preload");
-      $('.button.wp-color-result').attr('style', ' ');
-    }); // Search Form
-    // Check Empty Search Fields on Search Modal
+    }); // Check Empty Search Fields on Search Modal
 
     function initSearchFields() {
       var inputFields = document.querySelectorAll('.directorist-search-modal__input');
@@ -1042,8 +1043,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     }
 
-    initSearchFields();
-    /* Search Form Reset Button Initialize */
+    initSearchFields(); // Search Form Reset Button Initialize
 
     function initForm(searchForm) {
       var value = false;
@@ -1130,8 +1130,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           initForm(searchForm);
         }, 100);
       }
-    });
-    /* advanced search form reset */
+    }); // Searchform Reset
 
     function adsFormReset(searchForm) {
       searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
@@ -1203,8 +1202,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       handleRadiusVisibility();
       initForm(searchForm);
-    }
-    /* Advance Search Filter For Search Home Short Code */
+    } // Searchform Reset Trigger
 
 
     if ($('.directorist-btn-reset-js') !== null) {
@@ -1256,7 +1254,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (modalContent) {
         modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
       }
-    } // Modal Minimizer
+    } // Search Modal Minimizer
 
 
     function searchModalMinimize(searchModalParent) {
@@ -1270,7 +1268,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         modalMinimizer.classList.add('minimized');
         modalContent.style.bottom = '-50%';
       }
-    } // Search Modal Open
+    } // Search Modal Open Trigger
 
 
     $('body').on('click', '.directorist-modal-btn', function (e) {
@@ -1293,27 +1291,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
         searchModalOpen(_searchModalElement2);
       }
-    }); // Search Modal Close
+    }); // Search Modal Close Trigger
 
     $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
       e.preventDefault();
       var searchModalElement = this.closest('.directorist-search-modal');
       searchModalClose(searchModalElement);
-    }); // Search Modal Minimizer
+    }); // Search Modal Minimizer Trigger
 
     $('body').on('click', '.directorist-search-modal__minimizer', function (e) {
       e.preventDefault();
       var searchModalElement = this.closest('.directorist-search-modal');
       searchModalMinimize(searchModalElement);
-    }); // Search Form Input Field Check
-
-    $('body').on('input keyup change', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function (e) {
-      var searchField = $(this).closest('.directorist-search-field');
-      inputValueCheck(e, searchField);
-    });
-    $('body').on('focus blur', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function (e) {
-      var searchField = $(this).closest('.directorist-search-field');
-      inputEventCheck(e, searchField);
     }); // Search Field Input Value Check
 
     function inputValueCheck(e, searchField) {
@@ -1381,8 +1370,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         }
       });
-    } // Search Form Input Clear Button
+    } // Search Form Input Field Check Trigger
 
+
+    $('body').on('input keyup change', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function (e) {
+      var searchField = $(this).closest('.directorist-search-field');
+      inputValueCheck(e, searchField);
+    });
+    $('body').on('focus blur', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function (e) {
+      var searchField = $(this).closest('.directorist-search-field');
+      inputEventCheck(e, searchField);
+    }); // Search Form Input Clear Button
 
     $('body').on('click', '.directorist-search-field__btn--clear', function (e) {
       var inputFields = this.parentElement.querySelectorAll('.directorist-form-element');
@@ -1451,10 +1449,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           parentField.classList.remove('input-is-focused');
         }
       }
-    });
-    /* ----------------
-    Search-form-listing
-    ------------------- */
+    }); // Listing Type Change
 
     $('body').on('click', '.search_listing_types', function (event) {
       event.preventDefault();
@@ -1516,7 +1511,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         error: function error(_error2) {// console.log(error);
         }
       });
-    }); // Search Category
+    }); // Search Category Change
 
     if ($('.directorist-search-contents').length) {
       $('body').on('change', '.directorist-category-select', function (event) {
@@ -1562,8 +1557,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     $('body').on('click', '.directorist-btn__back', function (e) {
       e.preventDefault();
       window.history.back();
-    });
-    /* When location field is empty we need to hide Radius Search */
+    }); // Radius Search Field Hide on Empty Location Field
 
     function handleRadiusVisibility() {
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
@@ -1578,11 +1572,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           });
         }
       });
-    }
+    } // handleRadiusVisibility Trigger
+
 
     $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
       handleRadiusVisibility();
-    }); // hide country result when click outside the zipcode field
+    }); // Hide Country Result Click on Outside of Zipcode Field
 
     $(document).on('click', function (e) {
       if (!$(e.target).closest('.directorist-zip-code').length) {
@@ -1856,7 +1851,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     }
 
-    directorist_custom_range_slider();
+    directorist_custom_range_slider(); // Reset Custom Range Slider
 
     function resetCustomRangeSlider(sliderItem) {
       var slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
@@ -1877,7 +1872,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
         maxInput.value = ''; // Set your initial max value
       }
-    } // DOM Mutation observer
+    } // DOM Mutation Observer on Location Field
 
 
     function locationObserver() {
@@ -1956,7 +1951,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         }
       });
-    }, 250));
+    }, 250)); // Custom Range Slider Value Check on Change
 
     function sliderValueCheck(targetNode, value) {
       var searchForm = targetNode.closest('form');
@@ -1970,7 +1965,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       } else {
         initForm(searchForm);
       }
-    }
+    } // DOM Mutation Observer on Custom Range Slider
+
 
     function rangeSliderObserver() {
       var targetNodes = document.querySelectorAll('.directorist-search-field:not(.directorist-search-field-radius_search) .directorist-custom-range-slider-handle-upper');

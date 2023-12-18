@@ -6,9 +6,17 @@ import './../global/components/select2-custom-control';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
+        //Remove Preload after Window Load
+        $(window).on('load', function () {
+            $('body').removeClass("directorist-preload");
+            $('.button.wp-color-result').attr('style', ' ');
+        });
+
         /* ----------------
-        Search Listings
+        Search Form
         ------------------ */
+
+        // Default Tags Slice
         function defaultTags() {
             $('.directorist-btn-ml').each((index, element) => {
                 let item = $(element).siblings('.atbdp_cf_checkbox, .directorist-search-field-tag, .directorist-search-tags');
@@ -19,6 +27,7 @@ import './../global/components/select2-custom-control';
                 }
             });
         }
+
         $(window).on('load', defaultTags);
         window.addEventListener('triggerSlice', defaultTags);
 
@@ -40,6 +49,8 @@ import './../global/components/select2-custom-control';
             }
 
         });
+
+        // Search Form
 
         // Count Checkbox Selected Items
         function selectedItemCount(item) {
@@ -92,7 +103,7 @@ import './../global/components/select2-custom-control';
             selectedRadioItem(this);
         }); 
 
-        // Basic Search Dropdown
+        // Basic Search Dropdown Toggle
         $('body').on('click', '.directorist-search-form__top .directorist-search-basic-dropdown-label, .directorist-search-modal .directorist-search-basic-dropdown-label', function (e) {
             e.preventDefault();
             let dropDownParent = $(this).closest('.directorist-search-field');
@@ -108,8 +119,9 @@ import './../global/components/select2-custom-control';
             }
             // Hide all other open contents
             $('.directorist-search-basic-dropdown-content.dropdown-content-show').not(dropDownContent).removeClass('dropdown-content-show').slideUp();
-        }); // Dropdown Toggle
-        
+        });
+
+        // Dropdown Content Hide on Outside Click
         $('body').on('click', function (e) {
             let dropDownRoot = $(e.target).closest('.directorist-search-form-dropdown');
             let dropDownParent = $('.directorist-search-form-dropdown.input-is-focused');
@@ -120,15 +132,7 @@ import './../global/components/select2-custom-control';
                 dropDownContent.removeClass('dropdown-content-show');
                 dropDownContent.slideUp();
             }
-        }); // Click outside the dropdown content to hide it
-
-        //remove preload after window load
-        $(window).on('load', function () {
-            $('body').removeClass("directorist-preload");
-            $('.button.wp-color-result').attr('style', ' ');
-        });
-
-        // Search Form
+        }); 
 
         // Check Empty Search Fields on Search Modal
         function initSearchFields(){
@@ -165,7 +169,7 @@ import './../global/components/select2-custom-control';
 
         initSearchFields();
 
-        /* Search Form Reset Button Initialize */
+        // Search Form Reset Button Initialize
         function initForm(searchForm) {
             let value = false;
 
@@ -262,7 +266,7 @@ import './../global/components/select2-custom-control';
             }
         })
 
-        /* advanced search form reset */
+        // Searchform Reset
         function adsFormReset(searchForm) {
             searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
                 el.value = "";
@@ -344,7 +348,7 @@ import './../global/components/select2-custom-control';
             
         }
 
-        /* Advance Search Filter For Search Home Short Code */
+        // Searchform Reset Trigger
         if ($('.directorist-btn-reset-js') !== null) {
             $('body').on('click', '.directorist-btn-reset-js', function (e) {
                 e.preventDefault();
@@ -393,7 +397,7 @@ import './../global/components/select2-custom-control';
             }
         }
 
-        // Modal Minimizer
+        // Search Modal Minimizer
         function searchModalMinimize(searchModalParent) {
             let modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
             let modalMinimizer = searchModalParent.querySelector('.directorist-search-modal__minimizer');
@@ -407,7 +411,7 @@ import './../global/components/select2-custom-control';
             }
         }
 
-        // Search Modal Open
+        // Search Modal Open Trigger
         $('body').on('click', '.directorist-modal-btn', function (e) {
             e.preventDefault();
 
@@ -431,7 +435,7 @@ import './../global/components/select2-custom-control';
             
         });
 
-        // Search Modal Close
+        // Search Modal Close Trigger
         $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
             e.preventDefault();
 
@@ -440,28 +444,13 @@ import './../global/components/select2-custom-control';
             searchModalClose(searchModalElement)
         });
 
-        // Search Modal Minimizer
+        // Search Modal Minimizer Trigger
         $('body').on('click', '.directorist-search-modal__minimizer', function (e) {
             e.preventDefault();
 
             let searchModalElement = this.closest('.directorist-search-modal');
 
             searchModalMinimize(searchModalElement)
-        });
-
-        // Search Form Input Field Check
-        $('body').on('input keyup change', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function(e) {
-            let searchField = $(this).closest('.directorist-search-field');
-
-            inputValueCheck(e, searchField);
-
-        });
-
-        $('body').on('focus blur', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function(e) {
-            let searchField = $(this).closest('.directorist-search-field');
-
-            inputEventCheck(e, searchField);
-
         });
 
         // Search Field Input Value Check
@@ -533,6 +522,21 @@ import './../global/components/select2-custom-control';
             });
         }
 
+        // Search Form Input Field Check Trigger
+        $('body').on('input keyup change', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function(e) {
+            let searchField = $(this).closest('.directorist-search-field');
+
+            inputValueCheck(e, searchField);
+
+        });
+
+        $('body').on('focus blur', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function(e) {
+            let searchField = $(this).closest('.directorist-search-field');
+
+            inputEventCheck(e, searchField);
+
+        });
+
         // Search Form Input Clear Button
         $('body').on('click', '.directorist-search-field__btn--clear', function(e) {
             let inputFields = this.parentElement.querySelectorAll('.directorist-form-element');
@@ -603,9 +607,7 @@ import './../global/components/select2-custom-control';
             }
         })
 
-        /* ----------------
-        Search-form-listing
-        ------------------- */
+        // Listing Type Change
         $('body').on('click', '.search_listing_types', function (event) {
             event.preventDefault();
             let parent = $(this).closest('.directorist-search-contents');
@@ -687,8 +689,7 @@ import './../global/components/select2-custom-control';
             });
         });
 
-        // Search Category
-
+        // Search Category Change
         if( $( '.directorist-search-contents' ).length ) {
             $('body').on('change', '.directorist-category-select', function (event) {
                 let $this            = $(this);
@@ -747,7 +748,7 @@ import './../global/components/select2-custom-control';
             window.history.back();
         });
 
-        /* When location field is empty we need to hide Radius Search */
+        // Radius Search Field Hide on Empty Location Field
         function handleRadiusVisibility(){
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
             $('.directorist-location-js').each((index,locationDOM)=>{
@@ -758,12 +759,12 @@ import './../global/components/select2-custom-control';
                 }
             });
         }
-        
+        // handleRadiusVisibility Trigger
         $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
             handleRadiusVisibility();
         });
 
-        // hide country result when click outside the zipcode field
+        // Hide Country Result Click on Outside of Zipcode Field
         $(document).on('click', function (e) {
             if (!$(e.target).closest('.directorist-zip-code').length) {
                 $('.directorist-country').hide();
@@ -1084,6 +1085,7 @@ import './../global/components/select2-custom-control';
 
         directorist_custom_range_slider();
 
+        // Reset Custom Range Slider
         function resetCustomRangeSlider(sliderItem) {
             let slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
             let minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
@@ -1104,7 +1106,7 @@ import './../global/components/select2-custom-control';
 
         }
 
-        // DOM Mutation observer
+        // DOM Mutation Observer on Location Field
         function locationObserver() {
             let targetNode = document.querySelector('.directorist-location-js');
             if(targetNode){
@@ -1177,6 +1179,7 @@ import './../global/components/select2-custom-control';
             });
         }, 250 ));
 
+        // Custom Range Slider Value Check on Change
         function sliderValueCheck(targetNode, value) {
             let searchForm = targetNode.closest('form');
             if (value > 0) {
@@ -1190,6 +1193,7 @@ import './../global/components/select2-custom-control';
             }
         }
         
+        // DOM Mutation Observer on Custom Range Slider
         function rangeSliderObserver() {
             let targetNodes = document.querySelectorAll('.directorist-search-field:not(.directorist-search-field-radius_search) .directorist-custom-range-slider-handle-upper');
             targetNodes.forEach((targetNode) => {

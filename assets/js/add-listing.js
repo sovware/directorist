@@ -876,7 +876,7 @@ $(document).ready(function () {
         submit_button.html(submit_button_default_html);
       }
     });
-  });
+  }); // Sticky Navigation on Add Listing
 
   function addSticky() {
     $(window).scroll(function () {
@@ -957,7 +957,7 @@ function multiStepWizard() {
       if (index === 0) {
         item.classList.add('active');
       }
-    }); // Previous Step
+    }); // Go Previous Step
 
     $('.multistep-wizard__btn--prev').on('click', function (e) {
       e.preventDefault();
@@ -970,7 +970,7 @@ function multiStepWizard() {
           this.setAttribute('disabled', true);
         }
       }
-    }); // Next Step
+    }); // Go Next Step
 
     $('.multistep-wizard__btn--next').on('click', function (e) {
       e.preventDefault();
@@ -979,7 +979,7 @@ function multiStepWizard() {
         stepCount++;
         activeWizard(stepCount);
       }
-    }); // Random Step
+    }); // Go Random Step
 
     $('.multistep-wizard__nav__btn').on('click', function (e) {
       e.preventDefault();
@@ -1019,7 +1019,7 @@ function multiStepWizard() {
         } else if (value - 1 === index) {
           item.classList.add('active');
         }
-      }); // Enable Button
+      }); // Enable Previous Button
 
       if (value > 1) {
         $('.multistep-wizard__btn--prev').removeAttr('disabled');
@@ -1110,8 +1110,7 @@ function addListingAccordion() {
   });
 }
 
-addListingAccordion();
-/* Elementor Edit Mode */
+addListingAccordion(); // Multistep Add Listing on Elementor EditMode 
 
 $(window).on('elementor/frontend/init', function () {
   setTimeout(function () {
@@ -1119,8 +1118,7 @@ $(window).on('elementor/frontend/init', function () {
       multiStepWizard();
     }
   }, 3000);
-}); // Elementor EditMode
-
+});
 $('body').on('click', function (e) {
   if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
     multiStepWizard();

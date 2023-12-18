@@ -1,5 +1,8 @@
-// All Listing Slider
+/***
+    All Listing Slider
+***/
 (function ($) {
+    // All Listing Slider
     function allListingSlider() {
         /* Check Slider Data */
         let checkData = function (data, value) {
@@ -245,6 +248,7 @@
         });
     }
 
+    // Slider Call on Page Load
     window.addEventListener('DOMContentLoaded', () => {
 
         allListingSlider();
@@ -273,7 +277,7 @@
         
     });
 
-    // Function to set up the Mutation Observer on Range Slider
+    // Mutation Observer on Range Slider
     function sliderObserver() {
         let rangeSliders = document.querySelectorAll('.directorist-custom-range-slider__value input');
 
@@ -298,7 +302,7 @@
         })
     }
 
-    /* Elementor Edit Mode */
+    /* Slider Call on Elementor EditMode */
     $(window).on('elementor/frontend/init', function () {
         setTimeout(function() {
             if ($('body').hasClass('elementor-editor-active')) {
@@ -311,7 +315,6 @@
 
     });
 
-    // Elementor EditMode
     $('body').on('click', function (e) {
         if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
             allListingSlider();

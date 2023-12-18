@@ -105,8 +105,11 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-// All Listing Slider
+/***
+    All Listing Slider
+***/
 (function ($) {
+  // All Listing Slider
   function allListingSlider() {
     /* Check Slider Data */
     var checkData = function checkData(data, value) {
@@ -330,7 +333,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
       }
     });
-  }
+  } // Slider Call on Page Load
+
 
   window.addEventListener('DOMContentLoaded', function () {
     allListingSlider();
@@ -352,7 +356,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       }, 1000);
     });
-  }); // Function to set up the Mutation Observer on Range Slider
+  }); // Mutation Observer on Range Slider
 
   function sliderObserver() {
     var rangeSliders = document.querySelectorAll('.directorist-custom-range-slider__value input');
@@ -391,7 +395,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     });
   }
-  /* Elementor Edit Mode */
+  /* Slider Call on Elementor EditMode */
 
 
   $(window).on('elementor/frontend/init', function () {
@@ -404,8 +408,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         allListingSlider();
       }
     }, 3000);
-  }); // Elementor EditMode
-
+  });
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       allListingSlider();

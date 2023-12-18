@@ -64,7 +64,7 @@
             }
         }
         .directorist-card__header {
-            padding: 20px 25px;
+            padding: 20px 30px;
             @media screen and (max-width: 575px) {
                 padding: 15px 20px;
             }
@@ -75,10 +75,10 @@
     }
 
     .directorist-card__header__title {
+        gap: 12px;
         font-size: 18px;
         font-weight: 500;
         color: var(--directorist-color-primary);
-        margin: 0 -6px;
 
         #directorist-review-counter {
             margin-right: 10px;
@@ -101,10 +101,6 @@
             }
 
         }
-    }
-    .directorist-card__header-icon,
-    .directorist-card__header-text {
-        margin: 0 6px;
     }
 
     .directorist-details-info-wrap {
@@ -187,13 +183,15 @@
         i::after {
             width: 14px;
             height: 14px;
-            margin-top: 4px;
+            margin-top: 2px;
         }
     }
-    @include e(direction a) {
-        display: flex;
-        gap: 10px;
-        align-items: center;
+    @include e(direction) {
+        a {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
     }
 }
 .directorist-single-contents-area .directorist-single-map__direction a {

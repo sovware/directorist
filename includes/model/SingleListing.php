@@ -557,7 +557,7 @@ class Directorist_Single_Listing {
 			'width'              => empty( $width ) ? 740 : $width,
 			'height'             => empty( $height ) ? 580 : $height,
 			'background-color'   => get_directorist_option( 'single_slider_background_color', 'gainsboro' ),
-			'thumbnail-bg-color' => '#fff',
+			'thumbnail-bg-color' => '',
 			'show-thumbnails'    => ! empty( $data['footer_thumbnail'] ) ? '1' : '0',
 			'gallery'            => true,
 			'rtl'                => is_rtl() ? '1' : '0',

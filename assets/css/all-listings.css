@@ -13592,6 +13592,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 40px;
   margin: 0;
   padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--directorist-color-primary);
   border: none;
   outline: none;
   -webkit-box-shadow: none;
@@ -17406,7 +17409,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
 }
 .directorist-single-contents-area .directorist-card .directorist-card__header {
-  padding: 20px 25px;
+  padding: 20px 30px;
 }
 @media screen and (max-width: 575px) {
   .directorist-single-contents-area .directorist-card .directorist-card__header {
@@ -17417,10 +17420,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 0;
 }
 .directorist-single-contents-area .directorist-card__header__title {
+  gap: 12px;
   font-size: 18px;
   font-weight: 500;
   color: var(--directorist-color-primary);
-  margin: 0 -6px;
 }
 .directorist-single-contents-area .directorist-card__header__title #directorist-review-counter {
   margin-right: 10px;
@@ -17449,10 +17452,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-contents-area .directorist-card__header-icon .directorist-icon-mask:after {
   width: 14px;
   height: 14px;
-}
-.directorist-single-contents-area .directorist-card__header-icon,
-.directorist-single-contents-area .directorist-card__header-text {
-  margin: 0 6px;
 }
 .directorist-single-contents-area .directorist-details-info-wrap a {
   font-size: 15px;
@@ -17555,7 +17554,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-map__address i::after {
   width: 14px;
   height: 14px;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 .directorist-single-map__direction a {
   display: -webkit-box;

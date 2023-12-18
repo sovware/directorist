@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.7.0
+ * @version8.0
  */
 
 extract( $checkout );
@@ -13,7 +13,7 @@ use \Directorist\Helper;
         <div class="<?php Helper::directorist_row(); ?>">
             <div class="directorist-col-md-6 directorist-offset-md-3">
         <?php do_action('atbdp_before_checkout_form_start'); ?>
-        <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="#" role="form">
+        <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="#">
             <?php do_action('atbdp_after_checkout_form_start'); ?>
             <div class="directorist-checkout-text directorist-text-center directorist-mb-40">
                 <?php esc_html_e('Your order details are given below. Please review it and click on Proceed to Payment to complete this order.', 'directorist'); ?>

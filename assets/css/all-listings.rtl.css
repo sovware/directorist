@@ -14089,7 +14089,7 @@ Review: New Style
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  width: calc(100% - 230px);
+  max-width: 100%;
 }
 .directorist-user-dashboard .directorist-alert {
   margin-bottom: 15px;
@@ -14885,6 +14885,7 @@ Review: New Style
 
 .directorist-user-dashboard__nav {
   min-width: 230px;
+  max-width: 230px;
   padding: 20px 10px;
   margin-left: 30px;
   -webkit-transition: 0.3s ease;
@@ -14902,18 +14903,21 @@ Review: New Style
     position: fixed;
     top: 0;
     right: 0;
-    width: 230px;
+    min-width: 230px;
+    max-width: 230px;
     height: 100vh;
+    overflow-y: auto;
+    margin: 0;
+    padding-top: 80px;
     background-color: #fff;
-    padding-top: 100px;
     -webkit-box-shadow: 0 5px 10px rgba(143, 142, 159, 0.1);
             box-shadow: 0 5px 10px rgba(143, 142, 159, 0.1);
     z-index: 2222;
   }
 }
-@media only screen and (max-width: 479px) {
+@media only screen and (max-width: 600px) {
   .directorist-user-dashboard__nav {
-    padding-top: 80px;
+    padding-top: 40px;
   }
 }
 .directorist-user-dashboard__nav .directorist-dashboard__nav--close {
@@ -14927,13 +14931,14 @@ Review: New Style
     display: block;
   }
 }
-@media only screen and (max-width: 479px) {
+@media only screen and (max-width: 600px) {
   .directorist-user-dashboard__nav .directorist-dashboard__nav--close {
     left: 20px;
-    top: 60px;
+    top: 10px;
   }
 }
 .directorist-user-dashboard__nav.directorist-dashboard-nav-collapsed {
+  min-width: unset;
   width: 0 !important;
   height: 0;
   margin-left: 0;
@@ -14990,7 +14995,6 @@ Review: New Style
 .directorist-user-dashboard__nav .directorist-tab__nav__link span.fa {
   pointer-events: none;
   display: inline-block;
-  margin-left: 10px;
 }
 .directorist-user-dashboard__nav .directorist-tab__nav__link .directorist_menuItem-text {
   pointer-events: none;
@@ -14998,6 +15002,7 @@ Review: New Style
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 10px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;

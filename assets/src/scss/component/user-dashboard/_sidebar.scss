@@ -1,5 +1,6 @@
 .directorist-user-dashboard__nav {
     min-width: 230px;
+    max-width: 230px;
     padding: 20px 10px;
     margin-right: 30px;
     transition: 0.3s ease;
@@ -12,16 +13,19 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 230px;
+        min-width: 230px;
+        max-width: 230px;
         height: 100vh;
+        overflow-y: auto;
+        margin: 0;
+        padding-top: 80px;
         background-color: #fff;
-        padding-top: 100px;
         box-shadow: 0 5px 10px rgb(143 142 159 / 10%);
         z-index: 2222;
     }
 
-    @media only screen and (max-width: 479px) {
-        padding-top: 80px;
+    @media only screen and (max-width: 600px) {
+        padding-top: 40px;
     }
     .directorist-dashboard__nav--close {
         display: none;
@@ -33,13 +37,14 @@
             display: block;
         }
 
-        @media only screen and (max-width: 479px) {
+        @media only screen and (max-width: 600px) {
             right: 20px;
-            top: 60px;
+            top: 10px;
         }
     }
 
     &.directorist-dashboard-nav-collapsed {
+        min-width: unset;
         width: 0 !important;
         height: 0;
         margin-right: 0;
@@ -88,12 +93,12 @@
         span.fa {
             pointer-events: none;
             display: inline-block;
-            margin-right: 10px;
         }
 
         .directorist_menuItem-text {
             pointer-events: none;
             display: flex;
+            gap: 10px;
             flex-wrap: wrap;
             align-items: center;
             .directorist_menuItem-icon{

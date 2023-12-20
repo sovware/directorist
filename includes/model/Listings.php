@@ -1635,43 +1635,58 @@ class Directorist_Listings {
 			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 			$listing_img       = get_post_meta($id, '_listing_img', true);
 			$thumbnail_img_id  = array_filter( array_merge( (array) $listing_prv_img, (array) $listing_img ) );
+			$link_start       = '<a href="'. esc_url( $this->loop['permalink'] ) .'">';
+			$link_end         = '</a>';
 		
 			if ( empty( $thumbnail_img_id ) ) {
 				$thumbnail_img_id = $default_image_src;
-				$image_alt = esc_html( get_the_title( $id ) );
-				return "<img src='$default_image_src' alt='$image_alt' class='$class' />";
+				$image_alt        = esc_html( get_the_title( $id ) );
+				$image            = "<img src='$default_image_src' alt='$image_alt' class='$class' />";
+				if ( ! $this->disable_single_listing ) { 
+					$image = $link_start . $image . $link_end;
+				}
+				return $image;
 			}
 		
 			$image_count = count( $thumbnail_img_id );
 		
 			if ( 1 === (int) $image_count ) {
-				$image_src = atbdp_get_image_source( reset( $thumbnail_img_id ), $image_quality );
-				$image_alt = get_post_meta( reset( $thumbnail_img_id ), '_wp_attachment_image_alt', true );
-				$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( reset( $thumbnail_img_id ) ) );
-
-				return "<img src='$image_src' alt='$image_alt' class='$class' />";
-
-			} else {
-				ob_start();
-				echo "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='300' data-sw-autoplay='false' data-sw-responsive='{}' >
-				<div class='swiper-wrapper'>";
-				foreach ( $thumbnail_img_id as $img_id  ) {
-					$image_src = atbdp_get_image_source( $img_id, $image_quality );
-					$image_alt = get_post_meta($img_id, '_wp_attachment_image_alt', true);
-					$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $img_id ) );
-					echo "<div class='swiper-slide'>
-							<img src='$image_src' alt='$image_alt' class='$class' />
-						</div>";
+				$image_src  = atbdp_get_image_source( reset( $thumbnail_img_id ), $image_quality );
+				$image_alt  = get_post_meta( reset( $thumbnail_img_id ), '_wp_attachment_image_alt', true );
+				$image_alt  = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( reset( $thumbnail_img_id ) ) );
+				$image      = "<img src='$image_src' alt='$image_alt' class='$class' />";
+				if ( ! $this->disable_single_listing ) { 
+					$image = $link_start . $image . $link_end;
 				}
-				echo "</div>
-						<div class='directorist-swiper__navigation'>
-							<div class='directorist-swiper__nav directorist-swiper__nav--prev directorist-swiper__nav--prev-listing'>".directorist_icon('las la-angle-left', false)."</div>
-							<div class='directorist-swiper__nav directorist-swiper__nav--next directorist-swiper__nav--next-listing'>".directorist_icon('las la-angle-right', false)."</div>
-						</div>
+				return $image;
+			} else {
+				$output = "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='300' data-sw-autoplay='false' data-sw-responsive='{}'>
+					<div class='swiper-wrapper'>";
 
-						<div class='directorist-swiper__pagination directorist-swiper__pagination--listing'></div>
-					</div>";
-				return ob_get_clean();
+				foreach ( $thumbnail_img_id as $img_id ) {
+					$image_src = atbdp_get_image_source( $img_id, $image_quality );
+					$image_alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+					$image_alt = ! empty( $image_alt ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $img_id ) );
+					$image = "<img src='$image_src' alt='$image_alt' class='$class' />";
+
+					if ( ! $this->disable_single_listing ) {
+						$image = $link_start . $image . $link_end;
+					}
+
+					$output .= "<div class='swiper-slide'>$image</div>";
+				}
+
+				$output .= "</div>
+					<div class='directorist-swiper__navigation'>
+						<div class='directorist-swiper__nav directorist-swiper__nav--prev directorist-swiper__nav--prev-listing'>" . directorist_icon( 'las la-angle-left', false ) . "</div>
+						<div class='directorist-swiper__nav directorist-swiper__nav--next directorist-swiper__nav--next-listing'>" . directorist_icon( 'las la-angle-right', false ) . "</div>
+					</div>
+
+					<div class='directorist-swiper__pagination directorist-swiper__pagination--listing'></div>
+				</div>";
+
+				return $output;
+
 			}
 		}
 

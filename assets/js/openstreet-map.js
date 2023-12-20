@@ -100,6 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 (function ($) {
+  // Add Listing Map Initialize
   function initAddListingMap() {
     var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
 
@@ -321,8 +322,7 @@ __webpack_require__.r(__webpack_exports__);
 
   $(document).ready(function () {
     initAddListingMap();
-  });
-  /* Elementor Edit Mode */
+  }); // Add Listing Map on Elementor EditMode 
 
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
@@ -330,8 +330,7 @@ __webpack_require__.r(__webpack_exports__);
         initAddListingMap();
       }
     }, 3000);
-  }); // Elementor EditMode
-
+  });
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initAddListingMap();
@@ -371,7 +370,7 @@ __webpack_require__.r(__webpack_exports__);
   }
 
   window.addEventListener('DOMContentLoaded', initMap);
-  window.addEventListener('directorist-reload-listings-map-archive', initMap);
+  window.addEventListener('directorist-reload-listings-map-archive', initMap); // Map Initialize 
 
   function initMap() {
     var $ = jQuery;
@@ -446,8 +445,7 @@ __webpack_require__.r(__webpack_exports__);
     setup_map();
   }
 
-  var $ = jQuery;
-  /* Elementor Edit Mode */
+  var $ = jQuery; // Map on Elementor Edit Mode
 
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
@@ -455,8 +453,7 @@ __webpack_require__.r(__webpack_exports__);
         initMap();
       }
     }, 3000);
-  }); // Elementor EditMode
-
+  });
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initMap();
@@ -485,6 +482,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* Widget OSMap */
 (function ($) {
+  // Single Listing Map Initialize
   function initSingleMap() {
     // Localized Data
     if ($('#gmap-widget').length) {
@@ -538,8 +536,7 @@ __webpack_require__.r(__webpack_exports__);
 
   jQuery(document).ready(function () {
     initSingleMap();
-  });
-  /* Elementor Edit Mode */
+  }); // Single Listing Map on Elementor EditMode 
 
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
@@ -547,8 +544,7 @@ __webpack_require__.r(__webpack_exports__);
         initSingleMap();
       }
     }, 3000);
-  }); // Elementor EditMode
-
+  });
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initSingleMap();
@@ -567,6 +563,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* Single listing OSMap */
 (function ($) {
+  // Single Listing Map Initialize
   function initSingleMap() {
     // Localized Data
     if ($('.directorist-single-map').length) {
@@ -621,8 +618,7 @@ __webpack_require__.r(__webpack_exports__);
 
   jQuery(document).ready(function () {
     initSingleMap();
-  });
-  /* Elementor Edit Mode */
+  }); // Single Listing Map on Elementor EditMode 
 
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
@@ -630,8 +626,7 @@ __webpack_require__.r(__webpack_exports__);
         initSingleMap();
       }
     }, 3000);
-  }); // Elementor EditMode
-
+  });
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initSingleMap();

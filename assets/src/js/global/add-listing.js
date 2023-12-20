@@ -756,6 +756,7 @@ $(document).ready(function () {
         });
     });
 
+    // Sticky Navigation on Add Listing
     function addSticky () {
         $(window).scroll(function() {
             var windowWidth = $(window).width();
@@ -801,17 +802,17 @@ $(document).ready(function () {
 
 // MultiStep Wizard
 function multiStepWizard() {
-    var defaultAddListing = document.querySelector('.multistep-wizard.default-add-listing');
+    let defaultAddListing = document.querySelector('.multistep-wizard.default-add-listing');
     if(!defaultAddListing) {
-        var totalStep = document.querySelectorAll('.multistep-wizard .multistep-wizard__nav__btn');
-        var totalWizard = document.querySelectorAll('.multistep-wizard .multistep-wizard__single');
-        var totalWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__total');
-        var currentWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__current');
-        var progressWidth = document.querySelector('.multistep-wizard .multistep-wizard__progressbar__width');
+        let totalStep = document.querySelectorAll('.multistep-wizard .multistep-wizard__nav__btn');
+        let totalWizard = document.querySelectorAll('.multistep-wizard .multistep-wizard__single');
+        let totalWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__total');
+        let currentWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__current');
+        let progressWidth = document.querySelector('.multistep-wizard .multistep-wizard__progressbar__width');
 
-        var stepCount = 1;
+        let stepCount = 1;
 
-        var progressPerStep = 100 / totalWizard.length;
+        let progressPerStep = 100 / totalWizard.length;
 
         // Initialize Wizard Count & Progressbar
         if(currentWizardCount) {
@@ -842,7 +843,7 @@ function multiStepWizard() {
             }
         })
 
-        // Previous Step
+        // Go Previous Step
         $('.multistep-wizard__btn--prev').on('click', function (e) {
             e.preventDefault();
             if(stepCount > 1) {
@@ -854,7 +855,7 @@ function multiStepWizard() {
             } 
         });
 
-        // Next Step
+        // Go Next Step
         $('.multistep-wizard__btn--next').on('click', function (e) {
             e.preventDefault();
             if(stepCount < totalWizard.length) {
@@ -863,11 +864,11 @@ function multiStepWizard() {
             }
         });
 
-        // Random Step
+        // Go Random Step
         $('.multistep-wizard__nav__btn').on('click', function (e) {
             e.preventDefault()
             if (this.classList.contains('completed')) {
-                var currentStep = Number(this.attributes[3].value) + 1;
+                let currentStep = Number(this.attributes[3].value) + 1;
                 stepCount = currentStep;
                 activeWizard(stepCount);
             }
@@ -906,15 +907,15 @@ function multiStepWizard() {
                 
             })
 
-            // Enable Button
+            // Enable Previous Button
             if(value > 1) {
                 $('.multistep-wizard__btn--prev').removeAttr('disabled');
             } 
 
             // Change Button Text on Last Step
-            var nextBtn = document.querySelector('.multistep-wizard__btn--next');
-            var previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
-            var submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
+            let nextBtn = document.querySelector('.multistep-wizard__btn--next');
+            let previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
+            let submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
             if(value === totalWizard.length) {
                 nextBtn.style.cssText = "display:none; width: 0; height: 0; opacity: 0; visibility: hidden;";
                 previewBtn.style.cssText = "height: 54px; flex: unset; opacity: 1; visibility: visible;";
@@ -930,8 +931,7 @@ function multiStepWizard() {
             progressWidth.style.width= progressPerStep * value + '%';
             progressWidth.style.transition = "0.5s ease";
         }
-    }
-    
+    } 
 }
 
 // Default Add Listing
@@ -972,7 +972,6 @@ function defaultAddListing() {
                 }
             });
         }
-
         
     }
 
@@ -984,7 +983,6 @@ function defaultAddListing() {
 }
 
 // Add Listing Accordion
-
 function addListingAccordion() {
     $('body').on('click', '.directorist-add-listing-form .directorist-content-module__title', function (e) {
         e.preventDefault();
@@ -1002,7 +1000,7 @@ function addListingAccordion() {
 addListingAccordion()
 
 
-/* Elementor Edit Mode */
+// Multistep Add Listing on Elementor EditMode 
 $(window).on('elementor/frontend/init', function () {
     setTimeout(function() {
         if ($('body').hasClass('elementor-editor-active')) {
@@ -1012,7 +1010,6 @@ $(window).on('elementor/frontend/init', function () {
 
 });
 
-// Elementor EditMode
 $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
         multiStepWizard();

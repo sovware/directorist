@@ -50,14 +50,14 @@ class Directorist_All_Categories extends Custom_Widget_Base {
 				'label'    => __( 'Directory Types', 'directorist' ),
 				'multiple' => true,
 				'options'  => $this->az_listing_types(),
-				'condition' => Helper::multi_directory_enabled() ? '' : ['nocondition' => true],
+				'condition' => directorist_is_multi_directory_enabled() ? '' : ['nocondition' => true],
 			),
 			array(
 				'type'     => Controls_Manager::SELECT2,
 				'id'       => 'default_type',
 				'label'    => __( 'Default Directory Types', 'directorist' ),
 				'options'  => $this->az_listing_types(),
-				'condition' => Helper::multi_directory_enabled() ? '' : ['nocondition' => true],
+				'condition' => directorist_is_multi_directory_enabled() ? '' : ['nocondition' => true],
 			),
 			array(
 				'type'    => Controls_Manager::SELECT,
@@ -148,7 +148,7 @@ class Directorist_All_Categories extends Custom_Widget_Base {
 			'slug'                => $settings['slug'] ? implode( ',', $settings['slug'] ) : '',
 		);
 
-		if ( Helper::multi_directory_enabled() ) {
+		if ( directorist_is_multi_directory_enabled() ) {
 			if ( $settings['type'] ) {
 				$atts['directory_type'] = implode( ',', $settings['type'] );
 			}

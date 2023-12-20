@@ -162,7 +162,7 @@ trait Multi_Directory_Helper {
             $has_invalid_data = true;
         }
 
-        if ( 'array' !== gettype( $args['fields_value'] ) ) {
+        if ( ! is_array( $args['fields_value'] ) ) {
             $has_invalid_data = true;
         }
 

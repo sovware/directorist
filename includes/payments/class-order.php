@@ -126,7 +126,7 @@ class ATBDP_Order
     public function register_custom_post_type()
     {
 
-        $mitization_active = get_directorist_option('enable_monetization');
+        $mitization_active = directorist_is_monetization_enabled();
         $labels = array(
             'name' => _x('Order History', 'Post Type General Name', 'directorist'),
             'singular_name' => _x('Order', 'Post Type Singular Name', 'directorist'),

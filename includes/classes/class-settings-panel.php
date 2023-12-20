@@ -84,7 +84,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             $fields['single_listing_slug_with_directory_type'] = [
                 'type'  => 'toggle',
                 'label' => __('Listing Slug with Directory Type', 'directorist'),
-                'value' => get_directorist_option( 'enable_multi_directory' ),
+                'value' => directorist_is_multi_directory_enabled(),
                 'show-if' => [
                     'where' => "enable_multi_directory",
                     'conditions' => [
@@ -117,7 +117,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         'label' => __( 'Start Building Directory', 'directorist' ),
                         'type'  => 'success',
                         'url'   => admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types' ),
-                        'show'  => get_directorist_option( 'enable_multi_directory', false ),
+                        'show'  => directorist_is_multi_directory_enabled(),
                     ]
                 ]
             ];
@@ -3537,6 +3537,34 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'         => __('Search Result Page Meta Description', 'directorist'),
                     'value'         => '',
                 ],
+                //currency settings
+                'g_currency_note'    => [
+                    'type'          => 'note',
+                    'title'         => __('Note About This Currency Settings:', 'directorist'),
+                    'description' => __('This currency settings lets you customize how you would like to display price amount in your website. However, you can accept currency in a different currency. Therefore, for accepting currency in a different currency, Go to Gateway Settings Tab.', 'directorist'),
+                ],
+                'g_currency'    => [
+                    'type'          => 'text',
+                    'label'         => __('Currency Name', 'directorist'),
+                    'description'   => __('Enter the Name of the currency eg. USD or GBP etc.', 'directorist'),
+                    'value'         => 'USD',
+                ],
+                'g_currency_position' => [
+                    'label'        => __('Currency Position', 'directorist'),
+                    'type'        => 'select',
+                    'value'       => 'before',
+                    'description' => __('Select where you would like to show the currency symbol. Default is before. Eg. $5', 'directorist'),
+                    'options' => [
+                        [
+                            'value' => 'before',
+                            'label' => __('$5 - Before', 'directorist'),
+                        ],
+                        [
+                            'value' => 'after',
+                            'label' => __('After - 5$', 'directorist'),
+                        ],
+                    ],
+                ],
                 // categories settings
                 'display_categories_as' => [
                     'label'        => __('Default View', 'directorist'),
@@ -4574,6 +4602,19 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ],
                             ] ),
                         ],
+
+                        'currency_settings' => [
+                            'label' => __( 'Listing Currency', 'directorist' ),
+                            'icon' => '<i class="fa fa-money-bill"></i>',
+                            'sections' => apply_filters( 'atbdp_currency_settings_sections', [
+                                'title_metas' => [
+                                    'fields'      => [
+                                        'g_currency_note', 'g_currency', 'g_currency_position'
+                                     ],
+                                ],
+                            ] ),
+                        ],
+
                         'map' => [
                             'label' => __('Map', 'directorist'),
                             'icon' => '<i class="fa fa-map"></i>',
@@ -4815,6 +4856,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
                             ] ),
                         ],
+                        
                         'user_dashboard' => [
                             'label' => __('Dashboard', 'directorist'),
                             'icon' => '<i class="fa fa-chart-bar"></i>',

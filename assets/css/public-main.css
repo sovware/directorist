@@ -14895,7 +14895,7 @@ Review: New Style
 }
 
 .directorist-user-dashboard__nav {
-  width: 230px;
+  min-width: 230px;
   padding: 20px 10px;
   margin-right: 30px;
   -webkit-transition: 0.3s ease;

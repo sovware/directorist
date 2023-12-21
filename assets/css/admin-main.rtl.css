@@ -9181,6 +9181,8 @@ body.stop-scrolling {
   width: 16px;
   height: 16px;
   background-color: var(--directorist-color-light-gray);
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 .multistep-wizard__nav__btn:before {
   position: absolute;
@@ -9198,11 +9200,11 @@ body.stop-scrolling {
   background-color: #000;
   display: block;
   opacity: 0;
-  -webkit-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
   z-index: 2;
 }
-.multistep-wizard__nav__btn.active, .multistep-wizard__nav__btn:hover, .multistep-wizard__nav__btn:focus {
+.multistep-wizard__nav__btn.active, .multistep-wizard__nav__btn:hover {
   font-weight: 600;
   color: var(--directorist-color-dark);
   -webkit-box-shadow: var(--directorist-box-shadow-sm);
@@ -9211,10 +9213,10 @@ body.stop-scrolling {
   border: 0 none;
   outline: none;
 }
-.multistep-wizard__nav__btn.active:before, .multistep-wizard__nav__btn:hover:before, .multistep-wizard__nav__btn:focus:before {
+.multistep-wizard__nav__btn.active:before, .multistep-wizard__nav__btn:hover:before {
   opacity: 1;
 }
-.multistep-wizard__nav__btn.active i::after, .multistep-wizard__nav__btn:hover i::after, .multistep-wizard__nav__btn:focus i::after {
+.multistep-wizard__nav__btn.active i::after, .multistep-wizard__nav__btn:hover i::after {
   background-color: var(--directorist-color-primary);
 }
 .multistep-wizard__nav__btn.completed {

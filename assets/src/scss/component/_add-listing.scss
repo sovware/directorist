@@ -1314,6 +1314,7 @@
           width: 16px;
           height: 16px;
           background-color: var(--directorist-color-light-gray);
+          transition: background-color 0.2s ease;
         }
       }
       &:before {
@@ -1329,12 +1330,11 @@
         background-color: #000;
         display: block;
         opacity: 0;
-        transition: all 0.3s ease 0s;
+        transition: opacity 0.2s ease;
         z-index: 2;
       }
       &.active,
-      &:hover,
-      &:focus {
+      &:hover {
         font-weight: 600;
         color: var(--directorist-color-dark);
         box-shadow: var(--directorist-box-shadow-sm);

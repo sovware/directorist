@@ -544,7 +544,6 @@ $(document).ready(function () {
         if (error_count) {
             on_processing = false;
             $submitButton.attr('disabled', false);
-            // console.log('Form has invalid data');
             console.log(error_count, err_log);
             return;
         }
@@ -558,8 +557,6 @@ $(document).ready(function () {
             url: localized_data.ajaxurl,
             data: form_data,
             success(response) {
-                //console.log(response);
-                // return;
                 // show the error notice
                 $submitButton.attr('disabled', false);
 
@@ -975,11 +972,31 @@ function defaultAddListing() {
         
     }
 
+    // Function to scroll smoothly to the target section
+    function smoothScroll(targetSection) {
+        const targetElement = document.getElementById(targetSection);
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+
     // Initial update and update on scroll
     if(navLinks.length > 0) {
         updateActiveNav();
         window.addEventListener("scroll", updateActiveNav);
     }
+
+    // Add smooth scroll to navigation links
+    navLinks.forEach((link) => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetSection = this.getAttribute("href").substring(1);
+            smoothScroll(targetSection);
+        });
+    });
 }
 
 // Add Listing Accordion

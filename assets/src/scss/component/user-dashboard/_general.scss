@@ -7,7 +7,7 @@
     display: flex;
   }
 
-  @include e(toggle) {
+  @include e('toggle') {
     margin-bottom: 20px;
 
     @include e(link) {
@@ -22,12 +22,9 @@
     }
   }
 
-  @include e(nav) {
-  }
-
-  @include e(tab-content) {
+  @include e('tab-content') {
     flex: 1;
-    width: calc(100% - 230px);
+    max-width: 100%;
   }
 
   .directorist-alert{

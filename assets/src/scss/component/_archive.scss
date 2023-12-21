@@ -202,6 +202,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		box-sizing: border-box;
 		width: 40px;
 		height: 40px;
 		border-radius: 8px;
@@ -273,6 +274,12 @@
 		}
 		.directorist-search-form {
 			display: flex;
+			.directorist-search-field__btn {
+				bottom: 8px;
+				@media only screen and (max-width: 575px) {
+					bottom: 5px;
+				}
+			}
 		}
 		.directorist-advanced-filter__form {
 			display: flex;
@@ -587,7 +594,7 @@
 		@include e(btn) {
 			display: flex;
 			position: absolute;
-			bottom: 12px;
+			bottom: 13px;
 			cursor: pointer;
 			@include m(clear) {
 				right: 15px;
@@ -672,7 +679,6 @@
 		.directorist-filter-location-icon {
 			~ .directorist-search-field__btn--clear {
 				right: 25px;
-				bottom: 12px;
 			}
 			.directorist-icon-mask:after {
 				background-color: #808080;

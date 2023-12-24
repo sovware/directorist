@@ -48,6 +48,194 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			} else {
 				add_action( 'user_register', [$this, 'action_user_register'] );
 			}
+
+			add_action( 'wp_ajax_directorist_register_form', array( $this, 'directorist_register_form' ) );
+			add_action( 'wp_ajax_nopriv_directorist_register_form', array( $this, 'directorist_register_form' ) );
+		}
+
+		public function directorist_register_form() {
+			$new_user_registration = (bool) get_directorist_option( 'new_user_registration', true );
+			if ( ! directorist_verify_nonce() || ! $new_user_registration ) {
+				//return;
+			}
+
+			// if the form is submitted then save the form
+			$require_website      = get_directorist_option( 'require_website_reg', 0 );
+			$display_website      = get_directorist_option( 'display_website_reg', 1 );
+			$display_fname        = get_directorist_option( 'display_fname_reg', 1 );
+			$require_fname        = get_directorist_option( 'require_fname_reg', 0 );
+			$display_lname        = get_directorist_option( 'display_lname_reg', 1 );
+			$require_lname        = get_directorist_option( 'require_lname_reg', 0 );
+			$display_password     = get_directorist_option( 'display_password_reg', 1 );
+			$require_password     = get_directorist_option( 'require_password_reg', 0 );
+			$display_user_type    = get_directorist_option( 'display_user_type', 0 );
+			$display_bio          = get_directorist_option( 'display_bio_reg', 1 );
+			$require_bio          = get_directorist_option( 'require_bio_reg', 0 );
+			$registration_privacy = get_directorist_option( 'registration_privacy', 1 );
+			$terms_condition      = get_directorist_option( 'regi_terms_condition', 1 );
+
+			$username       = ! empty( $_POST['username'] ) ? directorist_clean( wp_unslash( $_POST['username'] ) ) : '';
+			$password       = ! empty( $_POST['password'] ) ? $_POST['password'] : '';                                                 // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			$email          = ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+			$website        = ! empty( $_POST['website'] ) ? directorist_clean( wp_unslash( $_POST['website'] ) ) : '';
+			$first_name     = ! empty( $_POST['fname'] ) ? directorist_clean( wp_unslash( $_POST['fname'] ) ) : '';
+			$last_name      = ! empty( $_POST['lname'] ) ? directorist_clean( wp_unslash( $_POST['lname'] ) ) : '';
+			$user_type      = ! empty( $_POST['user_type'] ) ? directorist_clean( wp_unslash( $_POST['user_type'] ) ) : '';
+			$bio            = ! empty( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '';
+			$privacy_policy = ! empty( $_POST['privacy_policy'] ) ? directorist_clean( wp_unslash( $_POST['privacy_policy'] ) ) : '';
+			$t_c_check      = ! empty( $_POST['t_c_check'] ) ? directorist_clean( wp_unslash( $_POST['t_c_check'] ) ) : '';
+			$previous_page  = !empty($_POST['previous_page']) ? directorist_clean( $_POST['previous_page'] ) : '';
+
+			//password validation
+			if ( ! empty( $require_password ) && ! empty( $display_password ) && empty( $password ) ) {
+				$password_validation = 'yes';
+			}
+
+			//website validation
+			if ( ! empty( $require_website ) && ! empty( $display_website ) && empty( $website ) ) {
+				$website_validation = 'yes';
+			}
+
+			//first name validation
+			if ( ! empty( $require_fname ) && ! empty( $display_fname ) && empty( $first_name ) ) {
+				$fname_validation = 'yes';
+			}
+
+			//last name validation
+			if ( ! empty( $require_lname ) && !empty( $display_lname ) && empty( $last_name ) ) {
+				$lname_validation = 'yes';
+			}
+
+			//bio validation
+			if(!empty($require_bio) && !empty($display_bio) && empty($bio)){
+				$bio_validation = 'yes';
+			}
+			if( ! empty( $display_user_type ) && empty( $user_type) ) {
+				$user_type_validation = 'yes';
+			}
+			//privacy validation
+			if(!empty($registration_privacy) && empty($privacy_policy)){
+				$privacy_validation = 'yes';
+			}
+			//terms & conditions validation
+			if(!empty($terms_condition) && empty($t_c_check)){
+				$t_c_validation = 'yes';
+			}
+
+			$validation = $this->registration_validation( $username, $password, $email, $website, $first_name, $last_name, $bio, $user_type, $privacy_policy, $t_c_check );
+			
+			if ( 'passed' !== $validation ){
+				if (empty( $username ) || !empty( $password_validation ) || empty( $email ) || !empty($website_validation) || !empty($fname_validation) || !empty($lname_validation) || !empty($bio_validation)|| !empty($privacy_validation)|| !empty($t_c_validation)){
+					$response = array(
+						'success' => false,
+						'message' => directorist_get_registration_error_message( 1 )
+					);
+					wp_send_json( $response );
+					exit();
+				}elseif(email_exists($email)){
+					$response = array(
+						'success' => false,
+						'message' => directorist_get_registration_error_message( 2 )
+					);
+					wp_send_json( $response );
+					exit();
+				}elseif(!empty( $username ) && 4 > strlen( $username ) ){
+					$response = array(
+						'success' => false,
+						'message' => directorist_get_registration_error_message( 3 )
+					);
+					wp_send_json( $response );
+					exit();
+				}elseif(!empty( $username ) && preg_match('/\s/',$username) ){
+					$response = array(
+						'success' => false,
+						'message' => directorist_get_registration_error_message( 7 )
+					);
+					wp_send_json( $response );
+					exit();
+				}elseif( username_exists( $username )){
+					$response = array(
+						'success' => false,
+						'message' => directorist_get_registration_error_message( 4 )
+					);
+					wp_send_json( $response );
+					exit();
+				}elseif(! empty( $password ) && 5 > strlen( $password )){
+					$response = array(
+						'success' => false,
+						'message' => directorist_get_registration_error_message( 5 )
+					);
+					wp_send_json( $response );
+					exit();
+				}elseif(!is_email( $email )){
+					$response = array(
+						'success' => false,
+						'message' => directorist_get_registration_error_message( 6 )
+					);
+					wp_send_json( $response );
+					exit();
+				} elseif( ! empty( $user_type_validation ) ) {
+					$response = array(
+						'success' => false,
+						'message' => directorist_get_registration_error_message( 8 )
+					);
+					wp_send_json( $response );
+					exit();
+				}
+			}
+
+			if (empty($display_password) || empty($_POST['password'])){
+				$password   =   wp_generate_password( 12, false );
+			} else {
+				$password   =  $_POST['password']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			}
+
+			$user_id = $this->complete_registration($username, $password, $email, $website, $first_name, $last_name, $bio);
+
+			if ($user_id && !is_wp_error( $user_id )) {
+				/*
+				* @since 6.3.0
+				* If fires after completed user registration
+				*/
+				do_action('atbdp_user_registration_completed', $user_id);
+				update_user_meta($user_id, '_atbdp_generated_password', $password);
+				update_user_meta($user_id, '_atbdp_privacy', $privacy_policy);
+				update_user_meta($user_id, '_user_type', $user_type);
+				update_user_meta($user_id, '_atbdp_terms_and_conditions', $t_c_check);
+				// user has been created successfully, now work on activation process
+				wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
+
+				if ( directorist_is_email_verification_enabled() ) {
+					ATBDP()->email->send_user_confirmation_email( get_user_by( 'ID', $user_id ) );
+
+					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_login_page_link( array(
+						'user'         => $email,
+						'verification' => 1,
+					) ) ) );
+					exit();
+				}
+
+				ATBDP()->email->custom_wp_new_user_notification_email($user_id);
+
+				$redirection_after_reg = get_directorist_option( 'redirection_after_reg');
+				$auto_login            = get_directorist_option( 'auto_login' );
+
+				if ( ! empty( $auto_login ) ) {
+					wp_set_current_user( $user_id, $email );
+					wp_set_auth_cookie( $user_id );
+				}
+
+				if ( ! empty( $redirection_after_reg ) ) {
+					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ) );
+				} else {
+					file_put_contents( __DIR__ . '/data.txt', 'status' );
+					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link( array( 'registration_status' => true ) ) ) );
+				}
+				exit();
+			} else {
+				wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link(array('errors' => true ) ) ) );
+				exit();
+			}
 		}
 
 		public function filter_users_table_bulk_actions( array $actions ) {

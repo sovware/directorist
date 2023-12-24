@@ -10008,7 +10008,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 /* Authentication style */
 .directorist-authentication {
-  display: none;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  transition: height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
 }
 .directorist-authentication__form {
   max-width: 540px;
@@ -10073,7 +10077,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-authentication__form__toggle-area a:hover {
   color: #000000;
 }
+.directorist-authentication__form__recover-pass-modal {
+  display: none;
+}
 .directorist-authentication__form__recover-pass-modal .directorist-form-group {
+  margin: 0;
   padding: 25px;
 }
 .directorist-authentication__form__recover-pass-modal p {
@@ -10094,13 +10102,23 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-weight: 400;
   color: #404040;
 }
+.directorist-authentication__btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background: transparent;
+}
 .directorist-authentication__message__text {
   font-size: 14px;
   font-weight: 400;
   color: #404040;
 }
 .directorist-authentication.active {
-  display: block;
+  height: auto;
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Directorist all authors card */

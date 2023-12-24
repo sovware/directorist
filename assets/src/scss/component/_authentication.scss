@@ -1,6 +1,9 @@
 /* Authentication style */
 .directorist-authentication {
-    display: none;
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: height .3s ease, opacity .3s ease, visibility .3s ease;
     @include e(form) {
         max-width: 540px;
         margin: 0 auto;
@@ -52,7 +55,9 @@
             }
         }
         @include e('recover-pass-modal') {
+            display: none;
             .directorist-form-group {
+                margin: 0;
                 padding: 25px;
             }
             p {
@@ -75,6 +80,13 @@
             color: #404040;
         }        
     }
+    @include e('btn') {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        box-shadow: none;
+        background: transparent;
+    }
     @include e(message) {
         @include e(text) {
             font-size: 14px;
@@ -84,7 +96,9 @@
     }
 
     &.active {
-        display: block;
+        height: auto;
+        opacity: 1;
+        visibility: visible;
     }
 }
 

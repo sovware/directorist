@@ -1,5 +1,6 @@
 /* Authentication style */
-.directorist-author {
+.directorist-authentication {
+    display: none;
     @include e(form) {
         max-width: 540px;
         margin: 0 auto;
@@ -81,4 +82,9 @@
             color: #404040;
         }
     }
+
+    &.active {
+        display: block;
+    }
 }
+

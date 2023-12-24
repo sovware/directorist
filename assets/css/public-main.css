@@ -10007,7 +10007,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
 }
 /* Authentication style */
-.directorist-author__form {
+.directorist-authentication {
+  display: none;
+}
+.directorist-authentication__form {
   max-width: 540px;
   margin: 0 auto;
   padding: 50px 40px;
@@ -10017,16 +10020,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 @media only screen and (max-width: 480px) {
-  .directorist-author__form {
+  .directorist-authentication__form {
     padding: 40px 25px;
   }
 }
-.directorist-author__form__btn {
+.directorist-authentication__form__btn {
   width: 100%;
   height: 50px;
   border-radius: 12px;
 }
-.directorist-author__form__actions {
+.directorist-authentication__form__actions {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -10041,60 +10044,63 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           justify-content: space-between;
   padding: 28px 0 33px;
 }
-.directorist-author__form__actions a {
+.directorist-authentication__form__actions a {
   font-size: 14px;
   font-weight: 400;
   color: #808080;
   border-bottom: 1px dashed #808080;
 }
-.directorist-author__form__actions a:hover {
+.directorist-authentication__form__actions a:hover {
   color: #000000;
   border-color: #000000;
 }
-.directorist-author__form__actions label {
+.directorist-authentication__form__actions label {
   font-size: 14px;
   font-weight: 400;
   color: #404040;
 }
-.directorist-author__form__toggle-area {
+.directorist-authentication__form__toggle-area {
   font-size: 14px;
   font-weight: 400;
   color: #404040;
 }
-.directorist-author__form__toggle-area a {
+.directorist-authentication__form__toggle-area a {
   margin-left: 5px;
   color: #2c99ff;
   -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
-.directorist-author__form__toggle-area a:hover {
+.directorist-authentication__form__toggle-area a:hover {
   color: #000000;
 }
-.directorist-author__form__recover-pass-modal .directorist-form-group {
+.directorist-authentication__form__recover-pass-modal .directorist-form-group {
   padding: 25px;
 }
-.directorist-author__form__recover-pass-modal p {
+.directorist-authentication__form__recover-pass-modal p {
   font-size: 14px;
   font-weight: 400;
   color: #404040;
   margin: 0 0 20px;
 }
-.directorist-author__form .directorist-form-element {
+.directorist-authentication__form .directorist-form-element {
   border: none;
   padding: 15px 0;
   border-radius: 0;
   border-bottom: 1px solid #ececec;
 }
-.directorist-author__form .directorist-form-group > label {
+.directorist-authentication__form .directorist-form-group > label {
   margin: 0;
   font-size: 14px;
   font-weight: 400;
   color: #404040;
 }
-.directorist-author__message__text {
+.directorist-authentication__message__text {
   font-size: 14px;
   font-weight: 400;
   color: #404040;
+}
+.directorist-authentication.active {
+  display: block;
 }
 
 /* Directorist all authors card */

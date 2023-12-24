@@ -150,12 +150,24 @@
   margin-bottom: -20px !important;
 }
 
+.directorist-mb-10 {
+  margin-bottom: 10px !important;
+}
+
 .directorist-mb-15 {
   margin-bottom: 15px !important;
 }
 
-.directorist-mb-10 {
-  margin-bottom: 10px !important;
+.directorist-mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.directorist-mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.directorist-mb-35 {
+  margin-bottom: 35px !important;
 }
 
 .directorist-mb-40 {
@@ -9994,6 +10006,97 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     width: calc(100% - 30px);
   }
 }
+/* Authentication style */
+.directorist-author__form {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 50px 40px;
+  border-radius: 16px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+@media only screen and (max-width: 480px) {
+  .directorist-author__form {
+    padding: 40px 25px;
+  }
+}
+.directorist-author__form__btn {
+  width: 100%;
+  height: 50px;
+  border-radius: 12px;
+}
+.directorist-author__form__actions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  gap: 15px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 28px 0 33px;
+}
+.directorist-author__form__actions a {
+  font-size: 14px;
+  font-weight: 400;
+  color: #808080;
+  border-bottom: 1px dashed #808080;
+}
+.directorist-author__form__actions a:hover {
+  color: #000000;
+  border-color: #000000;
+}
+.directorist-author__form__actions label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+}
+.directorist-author__form__toggle-area {
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+}
+.directorist-author__form__toggle-area a {
+  margin-left: 5px;
+  color: #2c99ff;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+.directorist-author__form__toggle-area a:hover {
+  color: #000000;
+}
+.directorist-author__form__recover-pass-modal .directorist-form-group {
+  padding: 25px;
+}
+.directorist-author__form__recover-pass-modal p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+  margin: 0 0 20px;
+}
+.directorist-author__form .directorist-form-element {
+  border: none;
+  padding: 15px 0;
+  border-radius: 0;
+  border-bottom: 1px solid #ececec;
+}
+.directorist-author__form .directorist-form-group > label {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+}
+.directorist-author__message__text {
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+}
+
 /* Directorist all authors card */
 .directorist-authors-section {
   position: relative;

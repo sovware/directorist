@@ -301,6 +301,10 @@
                         box-shadow: none;
                         display: flex;
                         align-items: center;
+                        transition: color 0.3s ease;
+                        &:hover {
+                            color: var(--directorist-color-primary);
+                        }
                     }
                 }
             }
@@ -911,9 +915,16 @@
     letter-spacing: unset;
     background: transparent;
     border: none;
+    cursor: pointer;
+    &:hover,
     &:focus {
         outline: 0;
         text-decoration: none;
+        .directorist-favorite-icon {
+            &:before {
+                background-color: var(--directorist-color-danger);
+            }
+        }
     }
 
     .directorist-favorite-icon {

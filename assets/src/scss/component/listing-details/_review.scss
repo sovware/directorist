@@ -260,7 +260,7 @@ Review: New Style
     #cancel-comment-reply-link,
     .directorist-js-cancel-comment-edit {
         font-size: 14px;
-        margin-left: 30px;
+        margin-left: 15px;
         color: var(--directorist-color-deep-gray);
 
         &:hover,
@@ -268,7 +268,7 @@ Review: New Style
             color: var(--directorist-color-dark);
         }
         @media screen and (max-width: 575px){
-            margin-left: 15px;
+            margin-left: 0;
         }
     }
 
@@ -1011,11 +1011,12 @@ Review: New Style
     @include e(author) {
         display: flex;
         flex-wrap: wrap;
-        align-items: center;
+        align-items: flex-start;
 
         @include e(img) {
             width: 50px;
             height: 50px;
+            padding: 0;
             img {
                 width: 50px;
                 height: 50px;
@@ -1074,7 +1075,6 @@ Review: New Style
         }
     }
 
-
     @include e(feedback) {
         display: flex;
         flex-wrap: wrap;
@@ -1111,6 +1111,18 @@ Review: New Style
         }
     }
 
+    .directorist-review-meta {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        @media screen and (max-width: 575px){
+            gap: 10px;
+        }
+        .directorist-review-date {
+            margin: 0;
+        }
+    }
+
     .directorist-review-submit {
         margin-top: 0;
         margin-bottom: 0;
@@ -1130,6 +1142,7 @@ Review: New Style
             margin: 0;
         }
     }
+    
     .directorist-review-single {
         padding: 18px 40px;
         &:last-child{
@@ -1168,9 +1181,15 @@ Review: New Style
             padding: 25px;
         }
 
-        &.directorist-form-comment-edit .directorist-form-group {
-            display: flex;
-            align-items: center;
+        &#commentform,
+        &.directorist-form-comment-edit {
+            .directorist-form-group {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: flex-start;
+            }
         }
 
         .directorist-review-single .directorist-card__body {
@@ -1189,7 +1208,7 @@ Review: New Style
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
-                gap: 10px;
+                gap: 15px;
                 @include e(label) {
                     width: 100px;
                     word-wrap: break-word;

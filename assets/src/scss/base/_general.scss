@@ -392,6 +392,7 @@
     margin: 0;
     padding: 18px 5px 11px;
     max-width: 270px;
+    min-width: 200px;
     border-radius: 10px;
     @media (max-width: 575px) {
         max-width: unset;

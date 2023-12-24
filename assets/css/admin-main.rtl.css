@@ -6078,6 +6078,7 @@ img.atbdp-file-info {
   margin: 0;
   padding: 18px 5px 11px;
   max-width: 270px;
+  min-width: 200px;
   border-radius: 10px;
 }
 @media (max-width: 575px) {
@@ -10725,7 +10726,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
           box-sizing: border-box;
 }
 .directorist-form-group.directorist-icon-right .directorist-input-icon {
-  left: 15px;
+  left: 0;
 }
 .directorist-form-group.directorist-icon-right .location-name {
   padding-left: 25px;

@@ -23,6 +23,127 @@
 	z-index: 2;
 }
 
+// Search Field Style
+.directorist-search-field {
+	@include e(label) {
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		font-size: 14px;
+		font-weight: 400;
+		color: var(--directorist-color-body);
+		transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
+	}
+	@include e(input) {
+		&::placeholder {
+		  opacity: 0;
+		  transition: opacity 0.3s ease;
+		}
+	}
+	@include e(btn) {
+		display: flex;
+		position: absolute;
+		bottom: 12px;
+		cursor: pointer;
+		@include m(clear) {
+			right: 0;
+			i::after {
+				width: 16px;
+				height: 16px;
+				opacity: 0;
+				visibility: hidden;
+				background-color: #BCBCBC;
+				transition: background-color 0.3s ease;
+			}
+			&:hover {
+				i::after {
+					background-color: var(--directorist-color-primary);
+				}
+			}
+		}
+	}
+
+	@media screen and (max-width: 575px) {
+		.directorist-filter-location-icon {
+			right: -15px;
+		}
+	}
+
+	&.input-is-focused {
+		.directorist-search-field__input {
+			&:not(.directorist-select) {
+				padding-right: 25px;
+			}
+			&[type="number"] {
+				appearance: none !important;
+				-webkit-appearance: none !important;
+				-moz-appearance: none !important;
+			}
+			&::placeholder {
+				opacity: 1;
+			}
+		}
+		.directorist-search-field__label {
+			top: 0;
+			font-size: 13px;
+			font-weight: 400;
+			color: var(--directorist-color-body);
+		}
+		.directorist-search-field__btn i::after {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.directorist-select,
+		.directorist-search-field__input {
+			position: relative;
+			bottom: -5px;
+		}
+		.directorist-select {
+			.directorist-search-field__label {
+				opacity: 1;
+			}
+		}
+		.directorist-location-js {
+			padding-right: 45px;
+		}
+
+		.select2-selection--single .select2-selection__rendered,
+		.select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
+			color: var(--directorist-color-primary);
+		}
+		.directorist-select2-addons-area .directorist-icon-mask:after {
+			background-color: var(--directorist-color-primary);
+		}
+
+		// &.atbdp-form-fade:after,
+		// .directorist-filter-location-icon {
+		// 	margin-top: 3px;
+		// }
+	}
+
+	.directorist-select {
+		.directorist-search-field__label {
+			opacity: 0;
+		}
+	}
+	.directorist-select,
+	.directorist-filter-location-icon {
+		~ .directorist-search-field__btn--clear {
+			right: 25px;
+		}
+		.directorist-icon-mask:after {
+			background-color: #808080;
+		}
+	}
+	.directorist-filter-location-icon {
+		~ .directorist-search-field__btn--clear {
+			bottom: 8px;
+		}
+	}
+}
+
 // Search Form
 .directorist-search-form {
 	@include e('box') {

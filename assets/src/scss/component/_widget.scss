@@ -55,6 +55,24 @@
 			}
 		}
 
+
+		.directorist-search-basic-dropdown-label {
+			position: unset;
+			transform: unset;
+			font-size: 15px;
+			font-weight: 500;
+			i {
+				display: none;
+			}
+		}
+
+		.directorist-checkbox-wrapper,
+		.directorist-radio-wrapper,
+		.directorist-search-tags {
+			flex-direction: column;
+		}
+		
+
 		select {
 			width: 100%;
 			height: 40px;

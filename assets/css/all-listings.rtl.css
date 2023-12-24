@@ -6485,19 +6485,20 @@ body.modal-overlay-enabled:before {
 .directorist-sidebar .directorist-card .directorist-search-form-top .directorist-search-modal__contents__body .directorist-search-modal__input .directorist-search-field {
   border: 0 none;
 }
-.directorist-sidebar .directorist-card .directorist-search-basic-dropdown-label {
+.directorist-sidebar .directorist-card .directorist-search-basic-dropdown .directorist-search-basic-dropdown-label {
   position: unset;
   -webkit-transform: unset;
           transform: unset;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
 }
-.directorist-sidebar .directorist-card .directorist-search-basic-dropdown-label i {
+.directorist-sidebar .directorist-card .directorist-search-basic-dropdown .directorist-search-basic-dropdown-label i {
   display: none;
 }
-.directorist-sidebar .directorist-card .directorist-checkbox-wrapper,
-.directorist-sidebar .directorist-card .directorist-radio-wrapper,
-.directorist-sidebar .directorist-card .directorist-search-tags {
+.directorist-sidebar .directorist-card .directorist-search-basic-dropdown .directorist-checkbox-wrapper,
+.directorist-sidebar .directorist-card .directorist-search-basic-dropdown .directorist-radio-wrapper,
+.directorist-sidebar .directorist-card .directorist-search-basic-dropdown .directorist-search-tags {
+  gap: 10px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -8967,7 +8968,7 @@ body.modal-overlay-enabled:before {
   height: auto;
 }
 .directorist-search-modal--advanced .directorist-search-modal__contents__body .directorist-search-field__btn {
-  top: 12px;
+  bottom: 12px;
 }
 .directorist-search-modal--full .directorist-search-field {
   -webkit-transition: margin 0.3s ease;
@@ -12649,6 +12650,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-form__top .directorist-search-field__btn--clear {
   left: 15px;
+  bottom: 8px;
 }
 .directorist-search-form__top .directorist-search-field.input-is-focused .directorist-search-field__input {
   padding-left: 25px;

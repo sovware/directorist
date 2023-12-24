@@ -11851,7 +11851,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: auto;
 }
 .directorist-search-modal--advanced .directorist-search-modal__contents__body .directorist-search-field__btn {
-  top: 12px;
+  bottom: 12px;
 }
 .directorist-search-modal--full .directorist-search-field {
   -webkit-transition: margin 0.3s ease;

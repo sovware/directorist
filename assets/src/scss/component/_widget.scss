@@ -55,21 +55,23 @@
 			}
 		}
 
-
-		.directorist-search-basic-dropdown-label {
-			position: unset;
-			transform: unset;
-			font-size: 15px;
-			font-weight: 500;
-			i {
-				display: none;
+		.directorist-search-basic-dropdown {
+			.directorist-search-basic-dropdown-label {
+				position: unset;
+				transform: unset;
+				font-size: 16px;
+				font-weight: 500;
+				i {
+					display: none;
+				}
 			}
-		}
-
-		.directorist-checkbox-wrapper,
-		.directorist-radio-wrapper,
-		.directorist-search-tags {
-			flex-direction: column;
+	
+			.directorist-checkbox-wrapper,
+			.directorist-radio-wrapper,
+			.directorist-search-tags {
+				gap: 10px;
+				flex-direction: column;
+			}
 		}
 		
 

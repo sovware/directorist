@@ -12068,6 +12068,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           justify-content: center;
   color: var(--directorist-color-white);
   background: var(--directorist-color-primary);
+  font-size: 10px;
   border-radius: 100%;
   -webkit-margin-start: 10px;
           margin-inline-start: 10px;
@@ -12174,6 +12175,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     width: calc(100% - 30px);
   }
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition: background-color 5000s ease-in-out 0s !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
 /* Alerts style */
 .directorist-alert {
   font-size: 15px;

@@ -274,11 +274,11 @@
 		}
 		.directorist-search-form {
 			display: flex;
-			.directorist-search-field__btn {
+			.directorist-filter-location-icon {
+				right: 15px;
+				top: unset;
+				transform: unset;
 				bottom: 8px;
-				@media only screen and (max-width: 575px) {
-					bottom: 5px;
-				}
 			}
 		}
 		.directorist-advanced-filter__form {

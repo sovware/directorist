@@ -1632,6 +1632,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 var place = autocomplete.getPlace();
                 elm.closest('.directorist-search-field').querySelector("#".concat(field.lat_id)).value = place.geometry.location.lat();
                 elm.closest('.directorist-search-field').querySelector("#".concat(field.lng_id)).value = place.geometry.location.lng();
+                console.log('Chk', )
               });
             });
           };

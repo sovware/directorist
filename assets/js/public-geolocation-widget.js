@@ -95,27 +95,8 @@
 
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
-    /*// Price Range Slider
-    var slider_range = $(".atbd_slider-range");
-    var miles = directorist.i18n_text.Miles;
-    var dvalue = $("#atbd_rs_value").val();
-    slider_range.each(function () {
-    $(this).slider({
-        range: "min",
-        min: 0,
-        max: 1000,
-        value: dvalue,
-        slide: function (event, ui) {
-            $(".atbdpr_amount").text(ui.value + miles);
-            $("#atbd_rs_value").val(ui.value);
-        }
-    });
-    });
-    $(".atbdpr_amount").text(slider_range.slider("value") + miles);
-    $("#atbd_rs_value").val(slider_range.slider("value"));*/
-
     /*
-    get current location
+        get current location
     */
     if ('google' === adbdp_geolocation.select_listing_map) {
       (function () {

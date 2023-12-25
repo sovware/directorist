@@ -14,7 +14,7 @@ if ( !$related->have_posts() ) {
 }
 ?>
 
-<section class="directorist-related <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
+<section class="directorist-related-listing <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
 
 	<div class="directorist-related-listing-header">
 
@@ -22,7 +22,7 @@ if ( !$related->have_posts() ) {
 
 	</div>
 
-	<div class='directorist-swiper directorist-swiper-related' data-sw-items='3' data-sw-margin='30' data-sw-loop='false' data-sw-perslide='1' data-sw-speed='300' data-sw-autoplay='false' data-sw-responsive='{
+	<div class='directorist-swiper directorist-swiper-related-listing' data-sw-items='3' data-sw-margin='30' data-sw-loop='false' data-sw-perslide='1' data-sw-speed='300' data-sw-autoplay='false' data-sw-responsive='{
 		"0": {"slidesPerView": "1"},
 		"768": {"slidesPerView": "2"},
 		"1200": {"slidesPerView": "3"}

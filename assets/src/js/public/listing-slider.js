@@ -51,13 +51,13 @@
         });
 
         /* Swiper Slider Related Listing */
-        let swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related');
+        let swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related-listing');
 
         swiperCarouselRelated.forEach(function (el, i) {
 
-            let navBtnPrev = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--prev-related');
-            let navBtnNext = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--next-related');
-            let swiperPagination = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination--related');
+            let navBtnPrev = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--prev-related');
+            let navBtnNext = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--next-related');
+            let swiperPagination = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__pagination--related');
 
             navBtnPrev.forEach((el, i) => {
                 el.classList.add(`directorist-swiper__nav--prev-related-${i}`);
@@ -69,9 +69,9 @@
                 el.classList.add(`directorist-swiper__pagination--related-${i}`);
             });
 
-            el.classList.add(`directorist-swiper-related-${i}`);
+            el.classList.add(`directorist-swiper-related-listing-${i}`);
             
-            let swiper = new Swiper(`.directorist-swiper-related-${i}`, {
+            let swiper = new Swiper(`.directorist-swiper-related-listing-${i}`, {
                 slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
                 spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
                 loop: checkData(el.dataset.swLoop, false),
@@ -108,16 +108,16 @@
                 var breakpointValues = Object.entries(breakpoints); 
                 var currentBreakpoint = breakpointValues.filter(([key]) => key == currentBreakpointKey); 
 
-                var sliderItemsCount = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination .swiper-pagination-bullet');
+                var sliderItemsCount = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__pagination .swiper-pagination-bullet');
 
                 if(sliderItemsCount.length == '1') {
                     swiper.loopDestroy();
-                    var relatedListingSlider = document.querySelector('.directorist-swiper-related');
+                    var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');
                     relatedListingSlider.classList.add('slider-has-one-item');
                 }
 
                 currentBreakpoint[0].forEach((elm, ind) => {  
-                    var relatedListingSlider = document.querySelector('.directorist-swiper-related');               
+                    var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');               
                     if (swiper.loopedSlides < elm.slidesPerView) {
                         swiper.loopDestroy();
                         relatedListingSlider.classList.add('slider-has-less-items');

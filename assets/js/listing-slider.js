@@ -154,11 +154,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     });
     /* Swiper Slider Related Listing */
 
-    var swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related');
+    var swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related-listing');
     swiperCarouselRelated.forEach(function (el, i) {
-      var navBtnPrev = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--prev-related');
-      var navBtnNext = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--next-related');
-      var swiperPagination = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination--related');
+      var navBtnPrev = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--prev-related');
+      var navBtnNext = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--next-related');
+      var swiperPagination = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__pagination--related');
       navBtnPrev.forEach(function (el, i) {
         el.classList.add("directorist-swiper__nav--prev-related-".concat(i));
       });
@@ -168,8 +168,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       swiperPagination.forEach(function (el, i) {
         el.classList.add("directorist-swiper__pagination--related-".concat(i));
       });
-      el.classList.add("directorist-swiper-related-".concat(i));
-      var swiper = new Swiper(".directorist-swiper-related-".concat(i), {
+      el.classList.add("directorist-swiper-related-listing-".concat(i));
+      var swiper = new Swiper(".directorist-swiper-related-listing-".concat(i), {
         slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
         loop: checkData(el.dataset.swLoop, false),
@@ -205,16 +205,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
           return key == currentBreakpointKey;
         });
-        var sliderItemsCount = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination .swiper-pagination-bullet');
+        var sliderItemsCount = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__pagination .swiper-pagination-bullet');
 
         if (sliderItemsCount.length == '1') {
           swiper.loopDestroy();
-          var relatedListingSlider = document.querySelector('.directorist-swiper-related');
+          var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');
           relatedListingSlider.classList.add('slider-has-one-item');
         }
 
         currentBreakpoint[0].forEach(function (elm, ind) {
-          var relatedListingSlider = document.querySelector('.directorist-swiper-related');
+          var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');
 
           if (swiper.loopedSlides < elm.slidesPerView) {
             swiper.loopDestroy();

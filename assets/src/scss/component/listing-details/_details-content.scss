@@ -89,7 +89,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 34px;
+        min-width: 34px;
         height: 34px;
         border-radius: 50%;
         background-color: var(--directorist-color-bg-light);

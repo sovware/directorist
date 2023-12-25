@@ -468,12 +468,14 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
 
 
 .ezmu__thumbnail-list-item.ezmu__thumbnail_avater {
+  min-width: 140px;
   width: 140px;
   height: 140px;
   border-radius: 50%;
 }
 @media screen and (max-width: 1399px) and (min-width: 1199px) {
   .ezmu__thumbnail-list-item.ezmu__thumbnail_avater{
+    min-width: 100px;
     width: 100px;
     height: 100px;
   }

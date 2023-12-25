@@ -6843,19 +6843,30 @@ body.modal-overlay-enabled:before {
 .directorist-widget-advanced-search .directorist-btn-ml:hover {
   color: var(--directorist-color-primary);
 }
-.directorist-widget-advanced-search .directorist-btn {
-  height: 46px;
+.directorist-widget-advanced-search .directorist-advanced-filter__action {
+  padding: 0 0;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
-.directorist-widget-advanced-search .directorist-btn-reset-js {
-  background: var(--directorist-color-light);
-  font-size: 14px;
-  border-radius: 10px;
-  padding: 0 32px;
+.directorist-widget-advanced-search .directorist-advanced-filter__action .directorist-btn {
   height: 46px;
-  text-transform: capitalize;
-  text-decoration: none;
-  letter-spacing: 0;
+  font-size: 14px;
   font-weight: 400;
+}
+.directorist-widget-advanced-search .directorist-advanced-filter__action .directorist-btn-reset-js {
+  height: 46px;
+  padding: 0 32px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  border-radius: 10px;
+  text-decoration: none;
+  text-transform: capitalize;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -6868,24 +6879,14 @@ body.modal-overlay-enabled:before {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  cursor: pointer;
+  background: var(--directorist-color-light);
 }
-.directorist-widget-advanced-search .directorist-btn-reset-js:focus {
+.directorist-widget-advanced-search .directorist-advanced-filter__action .directorist-btn-reset-js:focus {
   outline: none;
 }
-.directorist-widget-advanced-search .directorist-btn-reset-js:disabled {
+.directorist-widget-advanced-search .directorist-advanced-filter__action .directorist-btn-reset-js:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-.directorist-widget-advanced-search .directorist-advanced-filter__action {
-  padding: 0 0;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
 .directorist-widget-authentication form {
@@ -17261,12 +17262,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: #fa8b0c;
 }
 
-.directorist-single button:not(:hover):not(:active):not(.has-background).directorist-btn.directorist-btn-light {
+.directorist-single .directorist-signle-listing-top button:not(:hover):not(:active):not(.has-background).directorist-btn.directorist-btn-light {
   background-color: var(--directorist-color-light);
   color: var(--directorist-color-title);
 }
 @media screen and (max-width: 575px) {
-  .directorist-single button:not(:hover):not(:active):not(.has-background).directorist-btn.directorist-btn-light {
+  .directorist-single .directorist-signle-listing-top button:not(:hover):not(:active):not(.has-background).directorist-btn.directorist-btn-light {
     background-color: transparent;
   }
 }
@@ -17534,7 +17535,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 34px;
+  min-width: 34px;
   height: 34px;
   border-radius: 50%;
   background-color: var(--directorist-color-bg-light);

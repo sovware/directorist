@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 <form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-search-form directorist-advanced-search">
-	<div class="directorist-search-form-box directorist-search-form__box">
+	<div class="directorist-search-form__box">
 		<div class="directorist-advanced-filter__top">
 			<h2 class="directorist-advanced-filter__title"><?php esc_html_e( 'Filters', 'directorist' ); ?></h2>
 			<button class="directorist-search-modal__contents__btn directorist-advanced-filter__close" type="button"  aria-label="Sidebar Filter Close Button">

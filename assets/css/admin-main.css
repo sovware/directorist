@@ -11990,6 +11990,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   opacity: 1 !important;
   visibility: visible;
   margin: 0;
+  font-size: 14px !important;
+  font-weight: 500;
 }
 .directorist-search-modal .directorist-search-form-dropdown.input-has-value .directorist-search-field__input .directorist-search-basic-dropdown-label .directorist-search-basic-dropdown-selected-item, .directorist-search-modal .directorist-search-form-dropdown.input-is-focused .directorist-search-field__input .directorist-search-basic-dropdown-label .directorist-search-basic-dropdown-selected-item {
   font-weight: 600;
@@ -12037,7 +12039,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   max-width: unset;
   height: 40px;
   line-height: 40px;
-  font-size: 14px !important;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   position: unset !important;

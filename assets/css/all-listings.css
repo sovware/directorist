@@ -6763,14 +6763,14 @@ body.modal-overlay-enabled:before {
   border-color: var(--directorist-color-primary);
 }
 
-.directorist-widget-advanced-search .directorist-search-form-box {
+.directorist-widget-advanced-search .directorist-search-form__box {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
 }
-.directorist-widget-advanced-search .directorist-search-form-box .directorist-search-form-action {
+.directorist-widget-advanced-search .directorist-search-form__box .directorist-search-form-action {
   margin-top: 25px;
 }
 .directorist-widget-advanced-search .directorist-search-form-top {
@@ -9116,6 +9116,8 @@ body.modal-overlay-enabled:before {
   opacity: 1 !important;
   visibility: visible;
   margin: 0;
+  font-size: 14px !important;
+  font-weight: 500;
 }
 .directorist-search-modal .directorist-search-form-dropdown.input-has-value .directorist-search-field__input .directorist-search-basic-dropdown-label .directorist-search-basic-dropdown-selected-item, .directorist-search-modal .directorist-search-form-dropdown.input-is-focused .directorist-search-field__input .directorist-search-basic-dropdown-label .directorist-search-basic-dropdown-selected-item {
   font-weight: 600;
@@ -9163,7 +9165,7 @@ body.modal-overlay-enabled:before {
   max-width: unset;
   height: 40px;
   line-height: 40px;
-  font-size: 14px !important;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   position: unset !important;
@@ -11564,17 +11566,17 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 @media only screen and (max-width: 991px) {
-  .logged-in .listing-with-sidebar__sidebar .directorist-search-form-box {
+  .logged-in .listing-with-sidebar__sidebar .directorist-search-form__box {
     padding-top: 30px;
   }
 }
 @media only screen and (max-width: 767px) {
-  .logged-in .listing-with-sidebar__sidebar .directorist-search-form-box {
+  .logged-in .listing-with-sidebar__sidebar .directorist-search-form__box {
     padding-top: 46px;
   }
 }
 @media only screen and (max-width: 600px) {
-  .logged-in .listing-with-sidebar__sidebar .directorist-search-form-box {
+  .logged-in .listing-with-sidebar__sidebar .directorist-search-form__box {
     padding-top: 0;
   }
 }
@@ -12938,6 +12940,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-form__top .directorist-search-form-dropdown.input-has-value .directorist-search-field__input .directorist-search-basic-dropdown-label, .directorist-search-form__top .directorist-search-form-dropdown.input-is-focused .directorist-search-field__input .directorist-search-basic-dropdown-label {
   opacity: 1 !important;
   visibility: visible;
+  font-size: 14px !important;
+  font-weight: 500;
 }
 .directorist-search-form__top .directorist-search-form-dropdown.input-has-value .directorist-search-field__input .directorist-search-basic-dropdown-label .directorist-search-basic-dropdown-selected-item, .directorist-search-form__top .directorist-search-form-dropdown.input-is-focused .directorist-search-field__input .directorist-search-basic-dropdown-label .directorist-search-basic-dropdown-selected-item {
   font-weight: 600;
@@ -12989,7 +12993,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 40px;
   line-height: 40px;
   margin-bottom: 0 !important;
-  font-size: 14px !important;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   position: unset !important;
@@ -13209,11 +13213,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-radius: 8px;
   overflow: visible;
 }
-.atbdp-form-fade.directorist-search-form-box {
+.atbdp-form-fade.directorist-search-form__box {
   padding: 15px;
   border-radius: 12px;
 }
-.atbdp-form-fade.directorist-search-form-box:after {
+.atbdp-form-fade.directorist-search-form__box:after {
   border-radius: 12px;
 }
 .atbdp-form-fade.directorist-search-field input[type=text] {

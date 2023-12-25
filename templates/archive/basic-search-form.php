@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.2.2
- * @version 7.7.0
+ * @version 8.0
  */
 
 use \Directorist\Helper;
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-search-form directorist-basic-search">
-    <div class="directorist-search-form-box directorist-search-form__box">
+    <div class="directorist-search-form__box">
         <div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline directorist-search-form__top">
 
             <?php

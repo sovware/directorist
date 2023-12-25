@@ -696,7 +696,8 @@
                     opacity: 1 !important;
                     visibility: visible;
                     margin: 0;
-
+                    font-size: 14px !important;
+                    font-weight: 500;
                     .directorist-search-basic-dropdown-selected-item {
                         font-weight: 600;
                         margin-left: 5px;
@@ -734,7 +735,7 @@
             max-width: unset;
             height: 40px;
             line-height: 40px;
-            font-size: 14px !important;
+            font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             position: unset !important;

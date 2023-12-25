@@ -6818,7 +6818,11 @@ body.modal-overlay-enabled:before {
   font-weight: 400;
   color: var(--directorist-color-body);
 }
-.directorist-widget-advanced-search .directorist-search-form .directorist-search-field.input-is-focused > label, .directorist-widget-advanced-search .directorist-search-form .directorist-search-field.input-has-value > label,
+.directorist-widget-advanced-search .directorist-search-form .directorist-search-field.input-is-focused > label, .directorist-widget-advanced-search .directorist-search-form .directorist-search-field.input-has-value > label, .directorist-widget-advanced-search .directorist-search-form .directorist-search-field.directorist-search-field-text_range > label, .directorist-widget-advanced-search .directorist-search-form .directorist-search-field.directorist-search-field-radius_search > label {
+  font-size: 16px;
+  font-weight: 500;
+}
+.directorist-widget-advanced-search .directorist-search-form .directorist-search-field.input-is-focused .directorist-search-field__label, .directorist-widget-advanced-search .directorist-search-form .directorist-search-field.input-has-value .directorist-search-field__label,
 .directorist-widget-advanced-search .directorist-search-form .directorist-search-field .directorist-search-basic-dropdown-label {
   font-size: 16px;
   font-weight: 500;
@@ -11333,7 +11337,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 25px 30px;
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field > label {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   margin: 0;
 }
@@ -11424,7 +11428,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   position: unset;
   -webkit-transform: unset;
           transform: unset;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
 }
 .listing-with-sidebar__sidebar .directorist-form-group.directorist-search-field .directorist-search-field__label.directorist-search-basic-dropdown-label i,
@@ -11787,7 +11791,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-advanced-filter__advanced__element .directorist-checkbox-wrapper,
 .directorist-advanced-filter__advanced__element .directorist-radio-wrapper,
 .directorist-advanced-filter__advanced__element .directorist-search-tags {
-  gap: 20px;
+  gap: 15px;
   margin: 0;
   padding: 10px 0;
   -webkit-flex-wrap: wrap;
@@ -12917,6 +12921,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .directorist-search-form__top .directorist-search-form-dropdown .directorist-search-field__btn {
     right: 0;
   }
+}
+.directorist-search-form__top .directorist-search-form-dropdown .directorist-search-field__btn--clear {
+  bottom: 10px;
 }
 .directorist-search-form__top .directorist-search-form-dropdown.input-has-value .directorist-search-field__input, .directorist-search-form__top .directorist-search-form-dropdown.input-is-focused .directorist-search-field__input {
   padding-right: 25px;

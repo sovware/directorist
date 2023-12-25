@@ -407,8 +407,17 @@
 				font-weight: 400;
 				color: var(--directorist-color-body);
 			}
-			&.input-is-focused > label,
-			&.input-has-value > label, 
+			&.input-is-focused,
+			&.input-has-value,
+			&.directorist-search-field-text_range,
+			&.directorist-search-field-radius_search {
+				> label {
+					font-size: 16px;
+					font-weight: 500;
+				}
+			}
+			&.input-is-focused .directorist-search-field__label,
+			&.input-has-value .directorist-search-field__label,
 			.directorist-search-basic-dropdown-label {
 				font-size: 16px;
 				font-weight: 500;

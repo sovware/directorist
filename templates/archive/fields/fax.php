@@ -10,4 +10,4 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<li class="directorist-listing-card-fax"><?php directorist_icon( $icon ); ?><span class="directorist-listing-single__info__list__label"><?php $listings->print_label( $label ); ?></span><a href="tel:<?php Helper::formatted_tel( $value ); ?>"><?php echo esc_html( $value ); ?></a></li>
+<li class="directorist-listing-card-fax"><?php directorist_icon( $icon ); ?><span class="directorist-listing-card-info-label"><?php $listings->print_label( $label ); ?></span><a href="tel:<?php Helper::formatted_tel( $value ); ?>"><?php echo esc_html( $value ); ?></a></li>

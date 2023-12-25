@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <li class="directorist-listing-card-location">
     <?php directorist_icon( $icon );?>
-    <span class="directorist-listing-single__info__list__label">
+    <span class="directorist-listing-card-info-label">
         <?php $listings->print_label( $label ); ?>
     </span>
     <div class="directorist-listing-card-location-list">

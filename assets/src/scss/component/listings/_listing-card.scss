@@ -86,7 +86,7 @@
                             background-color: var(--directorist-color-light-gray);
                         }
                     }
-                    .directorist-listing-single__info__list__label {
+                    .directorist-listing-card-info-label {
                         display: none;
                     }
                 }
@@ -1081,7 +1081,7 @@
                     position: relative;
                     top: 4px;
                 }
-                .directorist-listing-single__info__list__label {
+                .directorist-listing-card-info-label {
                     display: none;
                 }
                 .directorist-icon {
@@ -1123,7 +1123,7 @@
                         position: relative;
                         top: 4px;
                     }
-                    .directorist-listing-single__info__list__label {
+                    .directorist-listing-card-info-label {
                         display: none;
                     }
                 }

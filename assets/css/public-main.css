@@ -11728,6 +11728,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-primary);
 }
 .directorist-advanced-filter__advanced__element .directorist-search-field .directorist-search-field__label {
+  top: 6px;
+  -webkit-transform: unset;
+          transform: unset;
   font-size: 14px;
   font-weight: 400;
 }
@@ -13754,6 +13757,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-body);
   background-color: var(--directorist-color-white);
   border: 2px solid var(--directorist-color-border);
+  -webkit-transition: border 0.3s ease, color 0.3s ease;
+  transition: border 0.3s ease, color 0.3s ease;
 }
 .directorist-pagination .page-numbers .directorist-icon-mask:after {
   width: 14px;

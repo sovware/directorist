@@ -80,6 +80,8 @@
                     color: var(--directorist-color-primary);
                 }
                 .directorist-search-field__label {
+                    top: 6px;
+                    transform: unset;
                     font-size: 14px;
                     font-weight: 400;
                 }

@@ -101,6 +101,9 @@
                     text-decoration: none;
                     color: var(--directorist-color-body);
                     word-break: break-word;
+                    &:hover {
+                        color: var(--directorist-color-primary);
+                    }
                 }
     
                 .directorist-listing-card-location-list {
@@ -135,6 +138,9 @@
                 a {
                     color: var(--directorist-color-primary);
                     text-decoration: underline;
+                    &:hover {
+                        color: var(--directorist-color-body);
+                    }
                 }
             }
     
@@ -161,6 +167,10 @@
                 text-decoration: none;
                 box-shadow: none;
                 color: var(--directorist-color-body);
+                transition: color 0.3s ease;
+                &:hover {
+                    color: var(--directorist-color-primary);
+                }
             }
     
             .directorist-info-item {
@@ -170,7 +180,6 @@
                 display: inline-block;
                 &:not(:last-of-type) {
                     padding-right: 10px;
-    
                     &:after {
                         position: absolute;
                         right: 0;
@@ -263,6 +272,9 @@
                 a {
                     text-decoration: none;
                     color: var(--directorist-color-primary);
+                    &:hover {
+                        color: var(--directorist-color-body);
+                    }
                 }
             }
     
@@ -1041,6 +1053,9 @@
             a {
                 text-decoration: none;
                 color: var(--directorist-color-primary);
+                &:hover {
+                    color: var(--directorist-color-body);
+                }
             }
         }
 
@@ -1121,11 +1136,17 @@
                     border-bottom: 0 none;
                     box-shadow: none;
                     line-height: 1.7;
+                    &:hover {
+                        color: var(--directorist-color-primary);
+                    }
                 }
             }
             a {
                 color: var(--directorist-color-primary);
                 text-decoration: underline;
+                &:hover {
+                    color: var(--directorist-color-body);
+                }
             }
         }
     }

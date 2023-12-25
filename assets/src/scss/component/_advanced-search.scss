@@ -309,7 +309,7 @@
     }
 }
 
-.directorist-price-ranges {
+.directorist-search-field .directorist-price-ranges {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -364,6 +364,12 @@
                 }
             }
         }
+    }
+    @include e(label) {
+        margin-right: 5px;
+    }
+    @include e(currency) {
+        line-height: 1;
     }
     @include e('price-frequency'){
         display: flex;

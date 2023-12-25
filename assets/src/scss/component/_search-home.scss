@@ -362,9 +362,14 @@
 			}
 
 			.directorist-btn-ml {
+				display: block;
 				font-size: 13px;
 				font-weight: 500;
+				margin-top: 10px;
 				color: var(--directorist-color-body);
+				&:hover {
+					color: var(--directorist-color-primary);
+				}
 			}
 
 			@media screen and (max-width: 767px) {

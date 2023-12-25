@@ -14,14 +14,6 @@
                 @media screen and (max-width: 575px) {
                     margin: 0 0 20px;
                 }
-                
-                .directorist-btn-ml{
-                    display: inline-block;
-                    margin-top: 20px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    color: var(--directorist-color-primary);
-                }
             }
             .directorist-checkbox-wrapper,
             .directorist-radio-wrapper,
@@ -115,16 +107,6 @@
                         }
                     }
                 }
-                .directorist-btn-ml{
-                    display: inline-block;
-                    margin-top: 20px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    color: var(--directorist-color-primary);
-                    @media screen and (max-width: 575px) {
-                        margin-top: 10px;
-                    }
-                }
             }
             .directorist-checkbox-wrapper,
             .directorist-radio-wrapper,
@@ -191,6 +173,7 @@
             justify-content: center;
             text-decoration: none;
             cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
             &:disabled {
                 opacity: 0.5;
                 cursor: not-allowed;
@@ -222,6 +205,20 @@
         }
         &.directorist-icon-left .directorist-input-icon {
             left: 0;
+        }
+    }
+
+    .directorist-btn-ml{
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--directorist-color-body);
+        &:hover {
+            color: var(--directorist-color-primary);
+        }
+        @media screen and (max-width: 575px) {
+            margin-top: 10px;
         }
     }
 }

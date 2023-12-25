@@ -11482,12 +11482,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal__contents__body .directorist-search-field .directorist-select .directorist-search-field__label {
   opacity: 0;
 }
-.directorist-search-modal__contents__body .directorist-search-field .directorist-select ~ .directorist-search-field__btn--clear,
 .directorist-search-modal__contents__body .directorist-search-field .directorist-filter-location-icon ~ .directorist-search-field__btn--clear {
   right: 25px;
   bottom: 8px;
 }
-.directorist-search-modal__contents__body .directorist-search-field .directorist-select .directorist-icon-mask:after,
 .directorist-search-modal__contents__body .directorist-search-field .directorist-filter-location-icon .directorist-icon-mask:after {
   background-color: #808080;
 }

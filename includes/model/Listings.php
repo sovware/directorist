@@ -1635,8 +1635,8 @@ class Directorist_Listings {
 			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 			$listing_img       = get_post_meta($id, '_listing_img', true);
 			$thumbnail_img_id  = array_filter( array_merge( (array) $listing_prv_img, (array) $listing_img ) );
-			$link_start       = '<a href="'. esc_url( $this->loop['permalink'] ) .'">';
-			$link_end         = '</a>';
+			$link_start       = '<a href="'. esc_url( $this->loop['permalink'] ) .'"><figure>';
+			$link_end         = '</figure></a>';
 		
 			if ( empty( $thumbnail_img_id ) ) {
 				$thumbnail_img_id = $default_image_src;

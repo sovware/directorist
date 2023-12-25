@@ -12,10 +12,10 @@ $loop_fields = $listings->loop['list_fields']['template_data']['list_view_with_t
 
 <article class="directorist-listing-single directorist-listing-single--bg directorist-listing-list directorist-listing-has-thumb <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
 
-	<figure class="directorist-listing-single__thumb">
+	<div class="directorist-listing-single__thumb">
 		<?php $listings->loop_thumb_card_template(); ?>
 		<div class="directorist-thumb-top-right"><?php $listings->render_loop_fields($loop_fields['thumbnail']['top_right']); ?></div>
-	</figure>
+	</div>
 
 	<section class="directorist-listing-single__content">
 

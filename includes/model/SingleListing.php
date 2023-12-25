@@ -1153,7 +1153,7 @@ class Directorist_Single_Listing {
 		$listing_prv_imgurl = !empty($listing_prv_img) ? atbdp_get_image_source($listing_prv_img, 'small') : '';
 		$listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, 150, 150, true, 100)['url'];
 		$img_url = !empty($listing_prv_imgurl) ? $listing_prv_imgurl : $default_image;
-		$image = "<img src=" . $img_url . ">";
+		$image = "<figure><img src=" . $img_url . " /></figure>";
 		if ( empty( $display_image_map ) ) {
 			$image = '';
 		}

@@ -12,7 +12,7 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_with_t
 
 <article class="directorist-listing-single directorist-listing-single--bg directorist-listing-card directorist-listing-has-thumb <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
 
-	<figure class="directorist-listing-single__thumb">
+	<div class="directorist-listing-single__thumb">
 
 		<?php
 		$listings->loop_thumb_card_template();
@@ -24,7 +24,7 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_with_t
 		<div class="directorist-thumb-bottom-left"><?php $listings->render_loop_fields($loop_fields['thumbnail']['bottom_left']); ?></div>
 		<div class="directorist-thumb-bottom-right"><?php $listings->render_loop_fields($loop_fields['thumbnail']['bottom_right']); ?></div>
 
-	</figure>
+	</div>
 
 	<div class="directorist-listing-single__content">
 		<section class="directorist-listing-single__info">

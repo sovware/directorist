@@ -23,7 +23,6 @@ jQuery(($) => {
             type: "POST",
             data: data,
             success: function (response) {
-                console.log( response )
                 if( response.success ) {
                     $('.directorist-register-error').hide();
                     if( response.redirect_url ) {

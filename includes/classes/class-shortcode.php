@@ -244,7 +244,10 @@ class ATBDP_Shortcode {
 	}
 
 	public function user_dashboard( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
+		if ( ! is_user_logged_in() ) {
+			return $this->user_login( $atts );
+		}
+		$atts      = ! empty( $atts ) ? $atts : array();
 		$dashboard = Directorist_Listing_Dashboard::instance();
 
 		$atts[ 'shortcode' ] = 'directorist_user_dashboard';

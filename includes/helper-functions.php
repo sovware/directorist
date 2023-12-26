@@ -4024,23 +4024,23 @@ function directorist_password_reset_url( $user, $password_reset = true, $confirm
 
     global $directories_user_rest_keys;
 
-    if( is_array( $directories_user_rest_keys ) && !empty( $directories_user_rest_keys[$user->user_email] ) ) {
+    if( is_array( $directories_user_rest_keys ) && ! empty( $directories_user_rest_keys[$user->user_email] ) ) {
         $args['key'] = $directories_user_rest_keys[$user->user_email];
     } else {
-        $key = get_password_reset_key( $user );
+        $key                                           = get_password_reset_key( $user );
         $directories_user_rest_keys[$user->user_email] = $key;
-        $args['key'] = $key;
+        $args['key']                                   = $key;
     }
 
-    if($password_reset) {
+    if ( $password_reset ) {
         $args['password_reset'] = true;
     }
 
-    if($confirm_mail) {
+    if ( $confirm_mail ) {
         $args['confirm_mail'] = true;
     }
 
-    $reset_password_url = ATBDP_Permalink::get_login_page_url($args);
+    $reset_password_url = ATBDP_Permalink::get_dashboard_page_link( $args );
 
     return apply_filters( 'directorist_password_reset_url', $reset_password_url );
 }

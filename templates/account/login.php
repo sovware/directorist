@@ -112,23 +112,23 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 						$display_signup      = get_directorist_option( 'display_signup', 1 );
 
 						?>
-						<form action="#" id="directorist__authentication__signin" method="POST">
+						<form action="#" id="login" method="POST">
 							<p class="status"></p>
 							<div class="directorist-form-group directorist-mb-15">
 								<label for="directorist__authentication__signin__username"><?php echo esc_html( $log_username ); ?></label>
-								<input type="text" placeholder="<?php echo esc_html( $log_username ); ?>" class="directorist-form-element" id="directorist__authentication__signin__username" name="username" />
+								<input type="text" placeholder="<?php echo esc_html( $log_username ); ?>" class="directorist-form-element" id="username" name="username" />
 							</div>
 
 							<div class="directorist-form-group">
 								<label for="directorist__authentication__signin__password"><?php echo esc_html( $log_password ); ?></label>
-								<input type="password" placeholder="<?php echo esc_html( $log_password ); ?>" id="directorist__authentication__signin__password" autocomplete="off" name="password" class="directorist-form-element" />
+								<input type="password" placeholder="<?php echo esc_html( $log_password ); ?>" id="password" autocomplete="off" name="password" class="directorist-form-element" />
 							</div>
 
 							<div class="directorist-authentication__form__actions">
 								<div class="keep_signed directorist-checkbox">
 									<?php if ( $display_rememberMe ) : ?>
-										<input type="checkbox" id="directorist__authentication__signin__keep_signed_in" value="1" name="keep_signed_in" checked />
-										<label for="directorist__authentication__signin__keep_signed_in" class="directorist-checkbox__label not_empty">
+										<input type="checkbox" id="directorist_login_keep_signed_in" value="1" name="keep_signed_in" checked />
+										<label for="directorist_login_keep_signed_in" class="directorist-checkbox__label not_empty">
 											<?php echo esc_html( $log_rememberMe ); ?>
 										</label>
 									<?php endif; ?>
@@ -225,8 +225,8 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							<form method="post">
 								<fieldset class="directorist-form-group">
 									<p><?php echo esc_html( $recpass_desc ); ?></p>
-									<label for="directorist__authentication__reset_user_login"><?php echo esc_html( $recpass_username ); ?></label>
-									<input type="text" class="directorist-mb-15 directorist-form-element" name="user_login" id="directorist__authentication__reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $recpass_placeholder ); ?>" required="required" />
+									<label for="reset_user_login"><?php echo esc_html( $recpass_username ); ?></label>
+									<input type="text" class="directorist-mb-15 directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $recpass_placeholder ); ?>" required="required" />
 									<div class="directorist-authentication__form__btn-wrapper">
 										<input type="hidden" name="action" value="reset" />
 										<button type="submit" class="directorist-btn directorist-btn-primary directorist-authentication__form__btn" id="directorist__authentication__submit" aria-label="Recover Password Button"><?php echo esc_html( $recpass_button ); ?></button>

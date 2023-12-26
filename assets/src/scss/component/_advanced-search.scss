@@ -5,10 +5,12 @@
         display: flex;
         flex-direction: column;
         @include e(element){
+            display: flex;
             .directorist-search-field {
                 flex-direction: column;
                 align-items: flex-start;
                 flex-wrap: wrap;
+                width: 100%;
                 padding: 0;
                 margin: 0 0 40px;
                 @media screen and (max-width: 575px) {
@@ -18,7 +20,7 @@
             .directorist-checkbox-wrapper,
             .directorist-radio-wrapper,
             .directorist-search-tags {
-                gap: 20px;
+                gap: 15px;
                 margin: 0;
                 flex-wrap: wrap;
                 .directorist-checkbox,
@@ -160,6 +162,10 @@
             &.directorist-search-field-review,
             &.directorist-search-field-checkbox {
                 overflow: visible;
+                display: flex;
+                .directorist-search-field {
+                    width: 100%;
+                }
             }
         }
     }

@@ -11411,7 +11411,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-modal__contents__body .directorist-search-field__btn {
   position: absolute;
-  bottom: 10px;
+  bottom: 12px;
   cursor: pointer;
 }
 .directorist-search-modal__contents__body .directorist-search-field__btn--clear {
@@ -11848,6 +11848,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal--basic .directorist-select .select2-container.select2-container--default .select2-selection--single {
   height: auto;
 }
+.directorist-search-modal--basic .directorist-search-field-pricing > label,
+.directorist-search-modal--basic .directorist-search-field-text_range > label,
+.directorist-search-modal--basic .directorist-search-field-radius_search > label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
 .directorist-search-modal--advanced .directorist-search-modal__contents__body .directorist-search-field__btn {
   bottom: 12px;
 }
@@ -11894,6 +11902,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-modal--full .directorist-search-field.input-is-focused .directorist-search-field__input::placeholder {
   opacity: 1;
+}
+.directorist-search-modal--full .directorist-search-field-pricing > label,
+.directorist-search-modal--full .directorist-search-field-text_range > label,
+.directorist-search-modal--full .directorist-search-field-radius_search > label {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 18px;
 }
 .directorist-search-modal__input {
   display: -webkit-box;
@@ -11983,7 +11999,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-top: 0 !important;
 }
 .directorist-search-modal .directorist-search-form-dropdown.input-has-value .directorist-search-field__input, .directorist-search-modal .directorist-search-form-dropdown.input-is-focused .directorist-search-field__input {
-  bottom: -1px !important;
+  bottom: 0 !important;
   padding-left: 25px;
 }
 .directorist-search-modal .directorist-search-form-dropdown.input-has-value .directorist-search-field__input .directorist-search-basic-dropdown-label, .directorist-search-modal .directorist-search-form-dropdown.input-is-focused .directorist-search-field__input .directorist-search-basic-dropdown-label {
@@ -12011,11 +12027,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-modal .directorist-search-basic-dropdown {
   position: relative;
-}
-@media screen and (min-width: 575px) {
-  .directorist-search-modal .directorist-search-basic-dropdown {
-    bottom: -3px !important;
-  }
 }
 .directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-label {
   display: -webkit-box;
@@ -12131,11 +12142,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
-}
-.directorist-search-modal .directorist-search-field-pricing > label,
-.directorist-search-modal .directorist-search-field-text_range > label,
-.directorist-search-modal .directorist-search-field-radius_search > label {
-  margin-bottom: 18px !important;
 }
 
 /* Responsive CSS */
@@ -12503,6 +12509,16 @@ input:-webkit-autofill:active {
   background-color: transparent;
 }
 @media only screen and (max-width: 575px) {
+  .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label, .directorist-checkbox input[type=checkbox] + .directorist-radio__label,
+.directorist-checkbox input[type=radio] + .directorist-checkbox__label,
+.directorist-checkbox input[type=radio] + .directorist-radio__label,
+.directorist-radio input[type=checkbox] + .directorist-checkbox__label,
+.directorist-radio input[type=checkbox] + .directorist-radio__label,
+.directorist-radio input[type=radio] + .directorist-checkbox__label,
+.directorist-radio input[type=radio] + .directorist-radio__label {
+    line-height: 1.2;
+    padding-right: 25px;
+  }
   .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label:after, .directorist-checkbox input[type=checkbox] + .directorist-radio__label:after,
 .directorist-checkbox input[type=radio] + .directorist-checkbox__label:after,
 .directorist-checkbox input[type=radio] + .directorist-radio__label:after,

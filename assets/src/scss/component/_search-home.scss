@@ -178,7 +178,7 @@
 		@media screen and (max-width: 767px) {
 			width: 100%;
 		}
-		@media screen and (min-width: 576px) {
+		@media screen and (min-width: 575px) {
 			margin-top: 5px;
 			.directorist-search-modal__minimizer {
 				display: none;
@@ -193,15 +193,16 @@
 			}
 
 			.directorist-search-modal__input {
+				display: flex;
 				flex: 30%;
 				margin: 0;
 				border: none;
 				border-radius: 0;
 				.directorist-search-modal__input__btn {
-				display: none;
+					display: none;
 				}
 				.directorist-form-group .directorist-form-element:focus {
-				border-bottom: 2px solid var(--directorist-color-primary);
+					border-bottom: 2px solid var(--directorist-color-primary);
 				}
 			}
 
@@ -512,7 +513,7 @@
 				}
 			}
 			.directorist-search-field__btn--clear {
-				bottom: 10px;
+				bottom: 12px;
 			}
 			&.input-has-value,
 			&.input-is-focused {
@@ -540,16 +541,16 @@
 						padding-right: 0 !important;
 					}
 					.directorist-search-field__btn {
-						right: -20px;
+						right: 20px;
+					}
+					.directorist-search-field__btn--clear {
+						bottom: 5px;
 					}
 				}
 			}
 		}
 		.directorist-search-basic-dropdown {
 			position: relative;
-			@media screen and (min-width: 575px) {
-				bottom: -3px !important;
-			}
 			.directorist-search-basic-dropdown-label {
 				display: flex;
 				flex-wrap: wrap;

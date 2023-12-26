@@ -292,6 +292,24 @@
 		.directorist-search-contents {
 			padding: 0;
 		}
+		.directorist-search-form-dropdown {
+			&.input-has-value,
+			&.input-is-focused {
+				.directorist-search-field__input {
+					bottom: 0;
+				}
+			}
+		}
+		.directorist-search-field-pricing,
+        .directorist-search-field-text_range,
+        .directorist-search-field-radius_search {
+            > label {
+                display: block;
+                font-size: 14px;
+                font-weight: 500;
+                margin-bottom: 15px;
+            }
+        }
 	}
 	@include e(header) {
 		flex: 0 0 100%;

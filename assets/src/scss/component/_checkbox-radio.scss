@@ -39,6 +39,8 @@
             }
 
             @media only screen and (max-width: 575px) {
+                line-height: 1.2;
+                padding-left: 25px;
                 &:after {
                     top: 1px;
                     width: 16px;

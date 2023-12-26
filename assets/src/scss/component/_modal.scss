@@ -220,7 +220,7 @@
                 }
                 @include e(btn) {
                     position: absolute;
-                    bottom: 10px;
+                    bottom: 12px;
                     cursor: pointer;
                     @include m(clear) {
                         right: 0;
@@ -588,6 +588,16 @@
         .directorist-select .select2-container.select2-container--default .select2-selection--single {
             height: auto;
         }
+        .directorist-search-field-pricing,
+        .directorist-search-field-text_range,
+        .directorist-search-field-radius_search {
+            > label {
+                display: block;
+                font-size: 14px;
+                font-weight: 500;
+                margin-bottom: 15px;
+            }
+        }
     }
 
     @include m(advanced) {
@@ -623,6 +633,17 @@
                         opacity: 1;
                     }
                 }
+            }
+        }
+
+        .directorist-search-field-pricing,
+        .directorist-search-field-text_range,
+        .directorist-search-field-radius_search {
+            > label {
+                display: block;
+                font-size: 16px;
+                font-weight: 500;
+                margin-bottom: 18px;
             }
         }
     }
@@ -690,7 +711,7 @@
         &.input-is-focused {
             margin-top: 0 !important;
             .directorist-search-field__input {
-                bottom: -1px !important;
+                bottom: 0 !important;
                 padding-right: 25px;
                 .directorist-search-basic-dropdown-label {
                     opacity: 1 !important;
@@ -721,9 +742,6 @@
     }
     .directorist-search-basic-dropdown {
         position: relative;
-        @media screen and (min-width: 575px) {
-            bottom: -3px !important;
-        }
         .directorist-search-basic-dropdown-label {
             display: flex;
             flex-wrap: wrap;
@@ -797,14 +815,6 @@
             .directorist-checkbox-wrapper {
                 flex-direction: column;
             }
-        }
-    }
-
-    .directorist-search-field-pricing,
-    .directorist-search-field-text_range,
-    .directorist-search-field-radius_search {
-        > label {
-            margin-bottom: 18px !important;
         }
     }
 }

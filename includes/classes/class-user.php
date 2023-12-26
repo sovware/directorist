@@ -56,7 +56,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		public function directorist_register_form() {
 			$new_user_registration = (bool) get_directorist_option( 'new_user_registration', true );
 			if ( ! directorist_verify_nonce() || ! $new_user_registration ) {
-				//return;
+				return;
 			}
 
 			// if the form is submitted then save the form
@@ -184,11 +184,23 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				}
 			}
 
+			// sanitize user form input
+			global $username, $password, $email, $website, $first_name, $last_name, $bio;
+			$username   =   directorist_clean( wp_unslash( $_POST['username'] ) );
+
 			if (empty($display_password) || empty($_POST['password'])){
 				$password   =   wp_generate_password( 12, false );
 			} else {
 				$password   =  $_POST['password']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			}
+
+			$email         = ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+			$website       = ! empty( $_POST['website'] ) ? directorist_clean( $_POST['website'] ) : '';                    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			$first_name    = ! empty( $_POST['fname'] ) ? directorist_clean( wp_unslash( $_POST['fname'] ) ) : '';
+			$last_name     = ! empty( $_POST['lname'] ) ? directorist_clean( wp_unslash( $_POST['lname'] ) ) : '';
+			$user_type     = ! empty( $_POST['user_type'] ) ? directorist_clean( wp_unslash( $_POST['user_type'] ) ) : '';
+			$bio           = ! empty( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '';
+			$previous_page = ! empty( $_POST['previous_page'] ) ? directorist_clean( $_POST['previous_page'] ) : '';
 
 			$user_id = $this->complete_registration($username, $password, $email, $website, $first_name, $last_name, $bio);
 
@@ -207,11 +219,15 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 				if ( directorist_is_email_verification_enabled() ) {
 					ATBDP()->email->send_user_confirmation_email( get_user_by( 'ID', $user_id ) );
-
-					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_login_page_link( array(
-						'user'         => $email,
-						'verification' => 1,
-					) ) ) );
+					
+					$response = array(
+						'success'      => true,
+						'redirect_url' => esc_url_raw( ATBDP_Permalink::get_login_page_link( array(
+							'user'         => $email,
+							'verification' => 1,
+						) ) )
+					);
+					wp_send_json( $response );
 					exit();
 				}
 
@@ -226,14 +242,27 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				}
 
 				if ( ! empty( $redirection_after_reg ) ) {
-					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ) );
+					$response = array(
+						'success'      => true,
+						'redirect_url' => esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ),
+					);
+					wp_send_json( $response );
 				} else {
 					file_put_contents( __DIR__ . '/data.txt', 'status' );
-					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link( array( 'registration_status' => true ) ) ) );
+					$response = array(
+						'success'      => true,
+						'redirect_url' => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array( 'registration_status' => true ) ) ),
+					);
+					wp_send_json( $response );
 				}
+				
 				exit();
 			} else {
-				wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link(array('errors' => true ) ) ) );
+				$response = array(
+					'success' => false,
+					'message' => directorist_get_registration_error_message( 0 )
+				);
+				wp_send_json( $response );
 				exit();
 			}
 		}
@@ -631,6 +660,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		private function complete_registration($username, $password, $email, $website, $first_name, $last_name, $bio) {
 			global $reg_errors, $username, $password, $email, $website, $first_name, $last_name,  $bio;
 			$reg_errors = new WP_Error;
+			
 			if ( 1 > count( $reg_errors->get_error_messages() ) ) {
 				$userdata = array(
 					'user_login'  => $username,

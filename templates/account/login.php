@@ -271,9 +271,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 					}
 					?>
 					<!--Registration failed, so show notification.-->
-					<?php if ( isset( $_GET['errors'] ) ) { ?>
-						<p style="padding: 20px" class="alert-danger"><?php directorist_icon( 'las la-exclamation-triangle' ); ?> <?php echo wp_kses_post( directorist_get_registration_error_message( sanitize_text_field( wp_unslash( $_GET['errors'] ) ) ) ); ?></p>
-					<?php } ?>
+					<p style="padding: 20px; display:none;" class="alert-danger directorist-register-error"><?php directorist_icon( 'las la-exclamation-triangle' ); ?></p>
 				</div>
 			</div>
 			<div class="directorist-col-md-6 directorist-offset-md-3">
@@ -370,8 +368,8 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							<?php if ( get_directorist_option( 'redirection_after_reg' ) === 'previous_page' ) { ?>
 							<input type="hidden" name='previous_page' value='<?php echo esc_url( wp_get_referer() ); ?>'>
 							<?php } ?>
-							<button type="submit" class="directorist-btn directorist-btn-primary directorist-authentication__form__btn" name="atbdp_user_submit"><?php echo esc_html( $reg_signup ); ?></button>
 							<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( directorist_get_nonce_key() ) ); ?>" name="directorist_nonce">
+							<button type="submit" class="directorist-btn directorist-btn-primary directorist-authentication__form__btn" name="atbdp_user_submit"><?php echo esc_html( $reg_signup ); ?></button>
 						</div>
 						<?php if ( ! empty( $display_login ) ) { ?>
 							<div class="directory_regi_btn directorist-authentication__form__toggle-area">

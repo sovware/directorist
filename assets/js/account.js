@@ -269,11 +269,11 @@
 /***/ (function(module, exports) {
 
 jQuery(function ($) {
-  $('.directorist-register-form').on('submit', function (e) {
+  $('.directorist__authentication__signup').on('submit', function (e) {
     e.preventDefault();
     var data = {
       action: 'directorist_register_form',
-      _nonce: directorist.ajax_nonce,
+      directorist_nonce: $(this).find("input[name='directorist_nonce']").val(),
       username: $(this).find("input[name='username']").val(),
       email: $(this).find("input[name='email']").val(),
       password: $(this).find("input[name='password']").val(),
@@ -291,8 +291,12 @@ jQuery(function ($) {
       type: "POST",
       data: data,
       success: function success(response) {
+        console.log(response);
         if (response.success) {
           $('.directorist-register-error').hide();
+          if (response.redirect_url) {
+            window.location.href = response.redirect_url;
+          }
         } else {
           $('.directorist-register-error').empty().show().append(response.message);
         }

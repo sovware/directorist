@@ -4084,63 +4084,21 @@ body.stop-scrolling {
 .directorist-form-image-upload-field .ezmu__info-list-item:empty {
   display: none;
 }
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item {
-  width: auto;
+
+.directorist-add-listing-wrapper {
+  max-width: 750px !important;
+  margin: 0 auto;
 }
-.directorist-form-image-upload-field .ezmu__thumbnail-list {
-  gap: 8px;
-}
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item {
-  width: 100px;
-  margin: 0;
-}
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__featured_tag {
-  display: none;
-}
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__thumbnail-front-item {
-  display: none;
-}
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__thumbnail-front-item.ezmu__front-item__close {
-  display: block;
-}
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__thumbnail-front-item.ezmu__front-item__close .ezmu__front-item__close-icon {
-  background: #ff385c;
-  height: 32px;
-  width: 32px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  border-radius: 50%;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-}
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__thumbnail-front-item.ezmu__front-item__close .ezmu__front-item__close-icon .directorist-icon-mask:after {
-  width: 14px;
-  height: 14px;
-  background-color: var(--directorist-color-white);
-}
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_front .ezmu__thumbnail-front-item.ezmu__front-item__close .ezmu__front-item__close-icon:hover {
-  opacity: 0.8;
-}
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_back {
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item_back {
   position: relative;
   height: 80px;
   width: 100%;
 }
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_back .ezmu__thumbnail-img {
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item_back .ezmu__thumbnail-img {
   -o-object-fit: cover;
      object-fit: cover;
 }
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item .ezmu__thumbnail-list-item_back:before {
+.directorist-add-listing-wrapper .ezmu__thumbnail-list-item_back:before {
   content: "";
   width: 100%;
   height: 100%;
@@ -4153,31 +4111,28 @@ body.stop-scrolling {
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
 }
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item:hover .ezmu__thumbnail-list-item_back:before {
+.directorist-add-listing-wrapper:hover .ezmu__thumbnail-list-item_back:before {
   opacity: 1;
   visibility: visible;
 }
-.directorist-form-image-upload-field .ezmu__media-picker-buttons {
-  margin-top: 0;
-}
-.directorist-form-image-upload-field .ezmu__titles-area .ezmu__title-1 {
+.directorist-add-listing-wrapper .ezmu__titles-area .ezmu__title-1 {
   font-size: 20px;
   font-weight: 500;
   margin: 0;
 }
-.directorist-form-image-upload-field .ezmu__btn {
+.directorist-add-listing-wrapper .ezmu__btn {
   margin-bottom: 25px;
   background-color: var(--directorist-color-primary);
   color: #fff;
 }
-.directorist-form-image-upload-field .directorist-image-upload.max-file-reached .ezmu__upload-button-wrap .ezmu__btn {
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached .ezmu__upload-button-wrap .ezmu__btn {
   pointer-events: none;
   opacity: 0.7;
 }
-.directorist-form-image-upload-field .directorist-image-upload.max-file-reached.highlight {
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached.highlight {
   position: relative;
 }
-.directorist-form-image-upload-field .directorist-image-upload.max-file-reached.highlight:before {
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached.highlight:before {
   content: "";
   position: absolute;
   right: 0;
@@ -4188,7 +4143,7 @@ body.stop-scrolling {
   cursor: no-drop;
   z-index: 9999;
 }
-.directorist-form-image-upload-field .directorist-image-upload.max-file-reached.highlight:after {
+.directorist-add-listing-wrapper .directorist-image-upload.max-file-reached.highlight:after {
   content: "Maximum Files Uploaded";
   font-size: 18px;
   font-weight: 700;
@@ -4201,7 +4156,7 @@ body.stop-scrolling {
   cursor: no-drop;
   z-index: 9999;
 }
-.directorist-form-image-upload-field .ezmu__info-list {
+.directorist-add-listing-wrapper .ezmu__info-list {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4218,10 +4173,10 @@ body.stop-scrolling {
   gap: 6px;
   margin: 15px 0 0;
 }
-.directorist-form-image-upload-field .ezmu__info-list .ezmu__info-list-item {
+.directorist-add-listing-wrapper .ezmu__info-list .ezmu__info-list-item {
   margin: 0;
 }
-.directorist-form-image-upload-field .ezmu__info-list .ezmu__info-list-item:before {
+.directorist-add-listing-wrapper .ezmu__info-list .ezmu__info-list-item:before {
   width: 16px;
   height: 16px;
   background-image: url(../images/83eed1a628ff52c2adf977f50ac7adb4.svg);
@@ -10118,14 +10073,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
 }
 .directorist-content-active .directorist-author-profile__avatar img {
-  max-width: 100px;
+  max-width: 100px !important;
   border-radius: 50%;
   background-color: var(--directorist-color-bg-gray);
 }
 @media only screen and (max-width: 575px) {
   .directorist-content-active .directorist-author-profile__avatar img {
-    max-width: 75px;
-    max-height: 75px;
+    max-width: 75px !important;
+    max-height: 75px !important;
   }
 }
 .directorist-content-active .directorist-author-profile__avatar__info .directorist-author-profile__avatar__info__name {

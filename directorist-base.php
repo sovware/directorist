@@ -162,6 +162,8 @@ final class Directorist_Base
 	public $announcement;
 	public $review;
 
+	public $background_image_process = null;
+
 	/**
 	 * Main Directorist_Base Instance.
 	 *
@@ -225,6 +227,8 @@ final class Directorist_Base
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools();
 			self::$instance->announcement = new ATBDP_Announcement();
+
+			self::$instance->background_image_process = new \Directorist\Background_Image_Process();
 
 			// Load widgets
 			Directorist\Widgets\Init::instance();
@@ -447,6 +451,8 @@ final class Directorist_Base
 		$this->autoload( ATBDP_INC_DIR . 'widgets/' );
 
 		self::require_files([
+			ATBDP_INC_DIR . 'directorist-core-functions',
+			ATBDP_INC_DIR . 'directorist-directory-functions',
 			ATBDP_INC_DIR . 'class-helper',
 			ATBDP_INC_DIR . 'helper-functions',
 			ATBDP_INC_DIR . 'template-functions',
@@ -457,7 +463,6 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
-			ATBDP_INC_DIR . 'directorist-directory-functions',
 			ATBDP_INC_DIR . 'fields/init',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-builder-data',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/trait-multi-directory-helper',

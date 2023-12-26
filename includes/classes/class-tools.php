@@ -301,11 +301,15 @@
         if (!filter_var($file_url, FILTER_VALIDATE_URL)) {
             return false;
         }
-        $contents = @file_get_contents($file_url);
 
-        if ($contents === false) {
+		$response = wp_remote_get( $file_url );
+
+
+        if ( is_wp_error( $response ) ) {
             return false;
         }
+
+		$contents = wp_remote_retrieve_body( $response );
 
         if( ! wp_check_filetype( $file_url )['ext'] ) {
 

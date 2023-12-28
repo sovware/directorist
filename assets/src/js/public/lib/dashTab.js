@@ -67,7 +67,7 @@
             var selector = document.querySelectorAll(selector);
 
             selector.forEach((el) => {
-                a = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
+                a = el.querySelectorAll('.directorist-tab__nav__link');
                 a.forEach((element) => {
                     element.style.cursor = 'pointer';
                     element.addEventListener('click', (event) => {
@@ -83,7 +83,13 @@
                         item_link.forEach((link) => {
                             link.classList.remove('directorist-tab__nav__active');
                         });
+                        
                         event.target.classList.add('directorist-tab__nav__active');
+
+                        var dropDownToggler = event.target.closest('.atbdp_tab_nav--has-child')?.querySelector('.atbd-dash-nav-dropdown');
+                        if (dropDownToggler && !dropDownToggler.classList.contains('directorist-tab__nav__active')) {
+                            dropDownToggler.classList.add('directorist-tab__nav__active');
+                        }
 
                         // Activate Content Panel
                         section.forEach((sectionItem) => {

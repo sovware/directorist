@@ -562,9 +562,16 @@ __webpack_require__.r(__webpack_exports__);
     } //dashboard nav dropdown
 
 
-    $(".atbdp_tab_nav--has-child .atbd-dash-nav-dropdown").on("click", function (e) {
+    $(".directorist-tab__nav__link").on("click", function (e) {
       e.preventDefault();
-      $(this).siblings("ul").slideToggle();
+
+      if ($(this).hasClass("atbd-dash-nav-dropdown")) {
+        // Slide toggle the sibling ul element
+        $(this).siblings("ul").slideToggle();
+      } else if (!$(this).parents(".atbdp_tab_nav--has-child").length > 0) {
+        // Slide up all the dropdown contents while clicked item is not inside dropdown
+        $(".atbd-dash-nav-dropdown").siblings("ul").slideUp();
+      }
     });
 
     if ($(window).innerWidth() < 1199) {
@@ -1157,10 +1164,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     this.navLinksSetup = function (selector) {
       var selector = document.querySelectorAll(selector);
       selector.forEach(function (el) {
-        a = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
+        a = el.querySelectorAll('.directorist-tab__nav__link');
         a.forEach(function (element) {
           element.style.cursor = 'pointer';
           element.addEventListener('click', function (event) {
+            var _event$target$closest;
+
             event.preventDefault();
             event.stopPropagation();
             var ul = event.target.closest('.directorist-tab__nav'),
@@ -1171,7 +1180,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             item_link.forEach(function (link) {
               link.classList.remove('directorist-tab__nav__active');
             });
-            event.target.classList.add('directorist-tab__nav__active'); // Activate Content Panel
+            event.target.classList.add('directorist-tab__nav__active');
+            var dropDownToggler = (_event$target$closest = event.target.closest('.atbdp_tab_nav--has-child')) === null || _event$target$closest === void 0 ? void 0 : _event$target$closest.querySelector('.atbd-dash-nav-dropdown');
+
+            if (dropDownToggler && !dropDownToggler.classList.contains('directorist-tab__nav__active')) {
+              dropDownToggler.classList.add('directorist-tab__nav__active');
+            } // Activate Content Panel
+
 
             section.forEach(function (sectionItem) {
               sectionItem.classList.remove('directorist-tab__pane--active');

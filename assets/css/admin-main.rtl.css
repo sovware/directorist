@@ -5356,6 +5356,8 @@ input.atbdp-form-control {
           box-shadow: 0 10px 40px rgba(134, 142, 174, 0.1882352941);
   border-radius: 5px;
   z-index: 99999;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist_dropdown .directorist_dropdown-option ul li a {
   font-size: 14px;

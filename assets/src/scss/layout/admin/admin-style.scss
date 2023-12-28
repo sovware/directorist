@@ -5222,6 +5222,7 @@ input.atbdp-form-control {
     box-shadow: 0 10px 40px rgba(134, 142, 174, 0.18823529411764706);
     border-radius: 5px;
     z-index: 99999;
+    box-sizing: border-box;
 
     ul {
       li {

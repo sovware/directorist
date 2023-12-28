@@ -75,6 +75,9 @@
 			&:not(.directorist-select) {
 				padding-right: 25px;
 			}
+			&.directorist-location-js {
+				padding-right: 45px;
+			}
 			&[type="number"] {
 				appearance: none !important;
 				-webkit-appearance: none !important;

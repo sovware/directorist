@@ -12414,6 +12414,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-field.input-is-focused .directorist-search-field__input:not(.directorist-select) {
   padding-left: 25px;
 }
+.directorist-search-field.input-is-focused .directorist-search-field__input.directorist-location-js {
+  padding-left: 45px;
+}
 .directorist-search-field.input-is-focused .directorist-search-field__input[type=number] {
   appearance: none !important;
   -webkit-appearance: none !important;

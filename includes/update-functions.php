@@ -152,5 +152,5 @@ function directorist_783_merge_dashboard_login_registration_page() {
 }
 
 function directorist_783_update_db_version() {
-	\ATBDP_Installation::update_db_version( '7.8.3' );
+	\ATBDP_Installation::update_db_version( '7.9.0' );
 }

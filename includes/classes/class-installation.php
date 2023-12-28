@@ -72,6 +72,7 @@ class ATBDP_Installation {
 		$atpdp_setup_wizard = apply_filters( 'atbdp_setup_wizard', true );
 
 		if( ! $atbdp_option && $atpdp_setup_wizard ) {
+			update_option( 'directorist_merge_dashboard_login_reg_page', true );
 			set_transient( '_directorist_setup_page_redirect', true, 30 );
 		}
 

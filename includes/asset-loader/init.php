@@ -210,6 +210,7 @@ class Asset_Loader {
 
 			case 'account/login':
 			case 'account/registration':
+			case 'account/login-registration-form':
 				wp_enqueue_script( 'directorist-account' );
 				break;
 

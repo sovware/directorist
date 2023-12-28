@@ -54,7 +54,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			if ( ! get_option( 'directorist_merge_dashboard_login_reg_page' ) ) {
 				add_filter( 'atbdp_listing_settings_page_settings_sections', array( $this, 'atbdp_listing_settings_page_settings_sections' ) );
-				add_filter( 'atbdp_pages_settings_fields', array( $this, 'atbdp_pages_settings_fields' ) );
+
 			}
 		}
 
@@ -68,17 +68,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				];
 				
 			return $args;
-		}
-
-		public function atbdp_pages_settings_fields( $options ) {
-			
-			// Values to be removed
-			$values_to_remove = array('user_login', 'custom_registration');
-			
-			// Use array_diff to remove specific values
-			$options = array_values( array_diff( $options, $values_to_remove ) );
-			
-			return $options;
 		}
 
 		public function directorist_register_form() {

@@ -4654,7 +4654,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'title'       => __('Page, Links & View Settings', 'directorist'),
                             'description' => '',
                             'fields'      => apply_filters( 'atbdp_pages_settings_fields', [
-                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'custom_registration', 'user_login', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
+                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
                              ] ),
                         ],
                     ]),

@@ -2635,14 +2635,6 @@ function atbdp_create_required_pages(){
             'title' => __('Dashboard', 'directorist'),
             'content' => '[directorist_user_dashboard]'
         ),
-        'custom_registration' => array(
-            'title' => __('Registration', 'directorist'),
-            'content' => '[directorist_custom_registration]'
-        ),
-        'user_login' => array(
-            'title' => __('Login', 'directorist'),
-            'content' => '[directorist_user_login]'
-        ),
         /* 'checkout_page' => array(
             'title' => __('Checkout', 'directorist'),
             'content' => '[directorist_checkout]'

@@ -14,7 +14,7 @@ $atbd_listing_pricing    = get_post_meta( $p_id, '_atbd_listing_pricing', true )
 $price_placeholder       = $data['price_unit_field_placeholder'];
 $price_range_placeholder = $data['price_range_placeholder'];
 $allow_decimal           = get_directorist_option( 'allow_decimal', 1 );
-$currency                = get_directorist_option( 'g_currency', 'USD' );
+$currency                = directorist_get_currency();
 $c_symbol                = atbdp_currency_symbol( $currency );
 $current_price_type      = '';
 ?>

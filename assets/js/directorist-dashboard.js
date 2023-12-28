@@ -1135,12 +1135,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           var href = link.getAttribute('href');
           var target = link.getAttribute('target');
 
-          if (href === hash || "#".concat(target) === hash) {
+          if (href === hash || "#".concat(target) === hash || window.location.hash.match(new RegExp("^".concat(href, "$")))) {
             var parent = link.closest('.atbdp_tab_nav--has-child');
 
             if (parent) {
               var dropdownMenu = parent.querySelector('.atbd-dashboard-nav');
-              dropdownMenu.style.display = 'block';
+
+              if (dropdownMenu) {
+                dropdownMenu.style.display = 'block';
+              }
             }
 
             link.click();
@@ -1168,8 +1171,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         a.forEach(function (element) {
           element.style.cursor = 'pointer';
           element.addEventListener('click', function (event) {
-            var _event$target$closest;
-
             event.preventDefault();
             event.stopPropagation();
             var ul = event.target.closest('.directorist-tab__nav'),
@@ -1180,11 +1181,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             item_link.forEach(function (link) {
               link.classList.remove('directorist-tab__nav__active');
             });
-            event.target.classList.add('directorist-tab__nav__active');
-            var dropDownToggler = (_event$target$closest = event.target.closest('.atbdp_tab_nav--has-child')) === null || _event$target$closest === void 0 ? void 0 : _event$target$closest.querySelector('.atbd-dash-nav-dropdown');
+            var parentNavRef = event.target.getAttribute('data-parent-nav');
 
-            if (dropDownToggler && !dropDownToggler.classList.contains('directorist-tab__nav__active')) {
-              dropDownToggler.classList.add('directorist-tab__nav__active');
+            if (parentNavRef) {
+              var parentNav = document.querySelector(parentNavRef);
+
+              if (parentNav) {
+                parentNav.classList.add('directorist-tab__nav__active');
+              }
+            } else {
+              var _event$target$closest;
+
+              event.target.classList.add('directorist-tab__nav__active');
+              var dropDownToggler = (_event$target$closest = event.target.closest('.atbdp_tab_nav--has-child')) === null || _event$target$closest === void 0 ? void 0 : _event$target$closest.querySelector('.atbd-dash-nav-dropdown');
+
+              if (dropDownToggler && !dropDownToggler.classList.contains('directorist-tab__nav__active')) {
+                dropDownToggler.classList.add('directorist-tab__nav__active');
+              }
             } // Activate Content Panel
 
 
@@ -1202,7 +1215,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               hashID = matchLink ? matchLink[1] : hashID;
             }
 
-            window.location.hash = "#" + hashID;
+            var hasMatch = window.location.hash.match(new RegExp("^".concat(link, "$")));
+            window.location.hash = hasMatch ? hasMatch[0] : "#" + hashID;
             var newHash = window.location.hash;
             var newUrl = window.location.pathname + newHash;
             window.history.replaceState(null, null, newUrl);

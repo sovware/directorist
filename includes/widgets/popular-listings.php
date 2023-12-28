@@ -87,8 +87,7 @@ class Popular_Listings extends \WP_Widget {
 			'posts_per_page' => $count,
 		);
 
-		$has_featured               = (bool) get_directorist_option( 'enable_featured_listing' );
-		$has_featured               = $has_featured || is_fee_manager_active();
+		$has_featured               = directorist_is_featured_listing_enabled() || is_fee_manager_active();
 		$listing_popular_by         = get_directorist_option( 'listing_popular_by' );
 		$average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
 		$view_to_popular            = (int) get_directorist_option( 'views_for_popular' );

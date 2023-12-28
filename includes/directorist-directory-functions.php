@@ -63,7 +63,9 @@ function directorist_get_listing_form_field( $directory_id, $field_key = '' ) {
 		return array();
 	}
 
-	return directorist_get_listing_form_fields( $directory_id )[ $field_key ] ?: array();
+	$form_fields = directorist_get_listing_form_fields( $directory_id );
+
+	return empty( $form_fields[ $field_key ] ) ? array() : $form_fields[ $field_key ];
 }
 
 function directorist_get_listing_form_category_field( int $directory_id ) {
@@ -73,22 +75,6 @@ function directorist_get_listing_form_category_field( int $directory_id ) {
 function directorist_listing_form_has_category_field( int $directory_id ) {
 	$category_field = directorist_get_listing_form_category_field( $directory_id );
 	return ! empty( $category_field );
-}
-
-function directorist_is_multi_directory_enabled() {
-	return (bool) get_directorist_option( 'enable_multi_directory', false );
-}
-
-function directorist_is_guest_submission_enabled() {
-	return (bool) get_directorist_option( 'guest_listings', 0 );
-}
-
-function directorist_is_featured_listing_enabled() {
-	return (bool) get_directorist_option( 'enable_featured_listing' );
-}
-
-function directorist_is_monetization_enabled() {
-	return (bool) get_directorist_option( 'enable_monetization' );
 }
 
 function directorist_is_terms_and_condition_enabled( int $directory_id ) {

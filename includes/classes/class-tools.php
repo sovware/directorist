@@ -281,7 +281,9 @@
 
         // maybe_unserialize_csv_string
         public function maybe_unserialize_csv_string( $data ) {
-            if ( 'string' !== gettype( $data ) ) { return $data; }
+            if ( ! is_string( $data ) ) {
+				return $data;
+			}
 
             $_data = str_replace( "'", '"', $data );
             $_data = maybe_unserialize( maybe_unserialize( $_data ) );
@@ -299,11 +301,15 @@
         if (!filter_var($file_url, FILTER_VALIDATE_URL)) {
             return false;
         }
-        $contents = @file_get_contents($file_url);
 
-        if ($contents === false) {
+		$response = wp_remote_get( $file_url );
+
+
+        if ( is_wp_error( $response ) ) {
             return false;
         }
+
+		$contents = wp_remote_retrieve_body( $response );
 
         if( ! wp_check_filetype( $file_url )['ext'] ) {
 

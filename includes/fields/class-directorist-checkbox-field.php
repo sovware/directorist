@@ -19,7 +19,9 @@ class Checkbox_Field extends Base_Field {
 			return array();
 		}
 
-		return wp_list_pluck( $options, 'option_value' );
+		return array_map( static function( $option ) {
+			return str_replace( '&lt;', '<', $option['option_value'] );
+		}, $options );
 	}
 
 	public function validate( $posted_data ) {

@@ -51,6 +51,34 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			add_action( 'wp_ajax_directorist_register_form', array( $this, 'directorist_register_form' ) );
 			add_action( 'wp_ajax_nopriv_directorist_register_form', array( $this, 'directorist_register_form' ) );
+
+			if ( ! get_option( 'directorist_merge_dashboard_login_reg_page' ) ) {
+				add_filter( 'atbdp_listing_settings_page_settings_sections', array( $this, 'atbdp_listing_settings_page_settings_sections' ) );
+				add_filter( 'atbdp_pages_settings_fields', array( $this, 'atbdp_pages_settings_fields' ) );
+			}
+		}
+
+		public function atbdp_listing_settings_page_settings_sections( $args ) {
+			$args['legacy_login_reg_page'] = [
+				'title'       => __('Legacy Pages', 'directorist'),
+				'description' => '',
+				'fields'      => [
+					'custom_registration', 'user_login'
+					],
+				];
+				
+			return $args;
+		}
+
+		public function atbdp_pages_settings_fields( $options ) {
+			
+			// Values to be removed
+			$values_to_remove = array('user_login', 'custom_registration');
+			
+			// Use array_diff to remove specific values
+			$options = array_values( array_diff( $options, $values_to_remove ) );
+			
+			return $options;
 		}
 
 		public function directorist_register_form() {

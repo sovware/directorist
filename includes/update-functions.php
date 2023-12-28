@@ -137,7 +137,7 @@ function directorist_710_update_db_version() {
 	\ATBDP_Installation::update_db_version( '7.1.0' );
 }
 
-function directorist_790_merge_dashboard_login_registration_page() {
+function directorist_783_merge_dashboard_login_registration_page() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
@@ -151,6 +151,6 @@ function directorist_790_merge_dashboard_login_registration_page() {
 	update_option( 'directorist_merge_dashboard_login_reg_page', true );
 }
 
-function directorist_790_update_db_version() {
-	\ATBDP_Installation::update_db_version( '7.9.0' );
+function directorist_783_update_db_version() {
+	\ATBDP_Installation::update_db_version( '7.8.3' );
 }

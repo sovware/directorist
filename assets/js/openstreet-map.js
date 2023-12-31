@@ -100,10 +100,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 (function ($) {
+  // Add Listing Map Initialize
   function initAddListingMap() {
-    var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data');
+    var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data'); // Localized Data
 
-    // Localized Data
     var loc_default_latitude = parseFloat(mapData.default_latitude);
     var loc_default_longitude = parseFloat(mapData.default_longitude);
     var loc_manual_lat = parseFloat(mapData.manual_lat);
@@ -112,11 +112,13 @@ __webpack_require__.r(__webpack_exports__);
     var loc_map_icon = mapData.map_icon;
     loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
     loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+
     function mapLeaflet(lat, lon) {
       // @todo @kowsar / remove later. fix js error
       if ($("#gmap").length == 0) {
         return;
       }
+
       var fontAwesomeIcon = L.divIcon({
         html: "<div class=\"atbd_map_shape\">".concat(loc_map_icon, "</div>"),
         iconSize: [20, 20],
@@ -143,10 +145,12 @@ __webpack_require__.r(__webpack_exports__);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(mymap);
+
       function toggleFullscreen() {
         var mapContainer = document.getElementById('gmap');
         var fullScreenEnable = document.querySelector('#gmap_full_screen_button .fullscreen-enable');
         var fullScreenDisable = document.querySelector('#gmap_full_screen_button .fullscreen-disable');
+
         if (!document.fullscreenElement && !document.webkitFullscreenElement) {
           if (mapContainer.requestFullscreen) {
             mapContainer.requestFullscreen();
@@ -165,39 +169,45 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }
+
       $('body').on('click', '#gmap_full_screen_button', function (event) {
         event.preventDefault();
         toggleFullscreen();
       });
     }
+
     function directorist_debounce(func, wait, immediate) {
       var timeout;
       return function () {
         var context = this,
-          args = arguments;
+            args = arguments;
+
         var later = function later() {
           timeout = null;
           if (!immediate) func.apply(context, args);
         };
+
         var callNow = immediate && !timeout;
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
         if (callNow) func.apply(context, args);
       };
     }
+
     ;
     $('.directorist-location-js').each(function (id, elm) {
       var result_container = $(elm).siblings('.address_result');
       $(elm).on('keyup', directorist_debounce(function (event) {
         event.preventDefault();
-        var blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
+        var blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145]; // Return early when blocked key is pressed.
 
-        // Return early when blocked key is pressed.
         if (blockedKeyCodes.includes(event.keyCode)) {
           return;
         }
+
         var locationAddressField = $(this).parent('.directorist-form-address-field');
         var search = $(elm).val();
+
         if (search.length < 3) {
           result_container.css({
             'display': 'none'
@@ -213,15 +223,19 @@ __webpack_require__.r(__webpack_exports__);
             data: {},
             success: function success(data) {
               var res = '';
+
               for (var i = 0; i < data.length; i++) {
                 res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
               }
+
               result_container.find('ul').html(res);
+
               if (res.length) {
                 result_container.show();
               } else {
                 result_container.hide();
               }
+
               locationAddressField.removeClass('atbdp-form-fade');
             }
           });
@@ -229,10 +243,9 @@ __webpack_require__.r(__webpack_exports__);
       }, 750));
     });
     var lat = loc_manual_lat,
-      lon = loc_manual_lng;
-    mapLeaflet(lat, lon);
+        lon = loc_manual_lng;
+    mapLeaflet(lat, lon); // Add Map on Add Listing Multistep
 
-    // Add Map on Add Listing Multistep
     $('body').on('click', '.multistep-wizard__btn', function (event) {
       if (document.getElementById('osm')) {
         document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
@@ -243,10 +256,11 @@ __webpack_require__.r(__webpack_exports__);
       if (document.getElementById('osm')) {
         document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
       }
+
       event.preventDefault();
       var text = $(this).text(),
-        lat = $(this).data('lat'),
-        lon = $(this).data('lon');
+          lat = $(this).data('lat'),
+          lon = $(this).data('lon');
       $('#manual_lat').val(lat);
       $('#manual_lng').val(lon);
       $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
@@ -267,28 +281,33 @@ __webpack_require__.r(__webpack_exports__);
       event.preventDefault();
       document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
       mapLeaflet($('#manual_lat').val(), $('#manual_lng').val());
-    });
+    }); // Popup controller by keyboard
 
-    // Popup controller by keyboard
     var index = 0;
     $('.directorist-location-js').on('keyup', function (event) {
       event.preventDefault();
       var length = $('#directorist.atbd_wrapper .address_result ul li a').length;
+
       if (event.keyCode === 40) {
         index++;
+
         if (index > length) {
           index = 0;
         }
       } else if (event.keyCode === 38) {
         index--;
+
         if (index < 0) {
           index = length;
         }
+
         ;
       }
+
       if ($('#directorist.atbd_wrapper .address_result ul li a').length > 0) {
         $('#directorist.atbd_wrapper .address_result ul li a').removeClass('active');
         $($('#directorist.atbd_wrapper .address_result ul li a')[index]).addClass('active');
+
         if (event.keyCode === 13) {
           $($('#directorist.atbd_wrapper .address_result ul li a')[index]).click();
           event.preventDefault();
@@ -296,14 +315,15 @@ __webpack_require__.r(__webpack_exports__);
           return false;
         }
       }
+
       ;
     });
   }
+
   $(document).ready(function () {
     initAddListingMap();
-  });
+  }); // Add Listing Map on Elementor EditMode 
 
-  /* Elementor Edit Mode */
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
       if ($('body').hasClass('elementor-editor-active')) {
@@ -311,8 +331,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     }, 3000);
   });
-
-  // Elementor EditMode
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initAddListingMap();
@@ -339,6 +357,7 @@ __webpack_require__.r(__webpack_exports__);
 (function () {
   // DOM Mutation observer
   var targetNode = document.querySelector('.directorist-archive-contents');
+
   if (targetNode) {
     function initObserver() {
       var observer = new MutationObserver(initMap);
@@ -346,31 +365,39 @@ __webpack_require__.r(__webpack_exports__);
         childList: true
       });
     }
+
     window.addEventListener('DOMContentLoaded', initObserver);
   }
+
   window.addEventListener('DOMContentLoaded', initMap);
-  window.addEventListener('directorist-reload-listings-map-archive', initMap);
+  window.addEventListener('directorist-reload-listings-map-archive', initMap); // Map Initialize 
+
   function initMap() {
     var $ = jQuery;
     var mapData;
     $('#map').length ? mapData = JSON.parse($('#map').attr('data-options')) : '';
+
     function setup_map() {
       bundle1.fillPlaceholders();
       var localVersion = bundle1.getLibVersion('leaflet.featuregroup.subgroup', 'local');
+
       if (localVersion) {
         localVersion.checkAssetsAvailability(true).then(function () {
           mapData !== undefined ? load() : '';
         }).catch(function () {
           var version102 = bundle1.getLibVersion('leaflet.featuregroup.subgroup', '1.0.2');
+
           if (version102) {
             version102.defaultVersion = true;
           }
+
           mapData !== undefined ? load() : '';
         });
       } else {
         mapData !== undefined ? load() : '';
       }
     }
+
     function load() {
       var url = window.location.href;
       var urlParts = URI.parse(url);
@@ -382,12 +409,14 @@ __webpack_require__.r(__webpack_exports__);
       });
       loadJsCss.list(list, {
         delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
+
       });
 
       function toggleFullscreen() {
         var mapContainer = document.getElementById('map');
         var fullScreenEnable = document.querySelector('#gmap_full_screen_button .fullscreen-enable');
         var fullScreenDisable = document.querySelector('#gmap_full_screen_button .fullscreen-disable');
+
         if (!document.fullscreenElement && !document.webkitFullscreenElement) {
           if (mapContainer.requestFullscreen) {
             mapContainer.requestFullscreen();
@@ -406,16 +435,18 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }
+
       $('body').on('click', '#gmap_full_screen_button', function (event) {
         event.preventDefault();
         toggleFullscreen();
       });
     }
+
     setup_map();
   }
-  var $ = jQuery;
 
-  /* Elementor Edit Mode */
+  var $ = jQuery; // Map on Elementor Edit Mode
+
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
       if ($('body').hasClass('elementor-editor-active')) {
@@ -423,22 +454,21 @@ __webpack_require__.r(__webpack_exports__);
       }
     }, 3000);
   });
-
-  // Elementor EditMode
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initMap();
     }
   });
 })();
-
 /* Add listing OSMap */
+
 
 
 /* Single listing OSMap */
 
 
 /* Widget OSMap */
+
 
 
 /***/ }),
@@ -451,8 +481,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 /* Widget OSMap */
-
 (function ($) {
+  // Single Listing Map Initialize
   function initSingleMap() {
     // Localized Data
     if ($('#gmap-widget').length) {
@@ -463,11 +493,11 @@ __webpack_require__.r(__webpack_exports__);
       var loc_manual_lng = parseFloat(localized_data_widget.manual_lng);
       var loc_map_zoom_level = parseInt(localized_data_widget.map_zoom_level);
       var _localized_data_widge = localized_data_widget,
-        display_map_info = _localized_data_widge.display_map_info;
+          display_map_info = _localized_data_widge.display_map_info;
       var _localized_data_widge2 = localized_data_widget,
-        cat_icon = _localized_data_widge2.cat_icon;
+          cat_icon = _localized_data_widge2.cat_icon;
       var _localized_data_widge3 = localized_data_widget,
-        info_content = _localized_data_widge3.info_content;
+          info_content = _localized_data_widge3.info_content;
       loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
       loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
       $manual_lat = $('#manual_lat');
@@ -476,6 +506,7 @@ __webpack_require__.r(__webpack_exports__);
         lat: loc_manual_lat,
         lng: loc_manual_lng
       };
+
       function mapLeaflet(lat, lon) {
         var fontAwesomeIcon = L.divIcon({
           html: "<div class=\"atbd_map_shape\"><span class=\"\">".concat(cat_icon, "</span></div>"),
@@ -483,6 +514,7 @@ __webpack_require__.r(__webpack_exports__);
           className: 'myDivIcon'
         });
         var mymap = L.map(map_container).setView([lat, lon], loc_map_zoom_level);
+
         if (display_map_info) {
           L.marker([lat, lon], {
             icon: fontAwesomeIcon
@@ -492,18 +524,20 @@ __webpack_require__.r(__webpack_exports__);
             icon: fontAwesomeIcon
           }).addTo(mymap);
         }
+
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
       }
+
       mapLeaflet(loc_manual_lat, loc_manual_lng);
     }
   }
+
   jQuery(document).ready(function () {
     initSingleMap();
-  });
+  }); // Single Listing Map on Elementor EditMode 
 
-  /* Elementor Edit Mode */
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
       if ($('body').hasClass('elementor-editor-active')) {
@@ -511,8 +545,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     }, 3000);
   });
-
-  // Elementor EditMode
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initSingleMap();
@@ -530,8 +562,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 /* Single listing OSMap */
-
 (function ($) {
+  // Single Listing Map Initialize
   function initSingleMap() {
     // Localized Data
     if ($('.directorist-single-map').length) {
@@ -553,6 +585,7 @@ __webpack_require__.r(__webpack_exports__);
           lat: loc_manual_lat,
           lng: loc_manual_lng
         };
+
         function mapLeaflet(lat, lon) {
           var fontAwesomeIcon = L.divIcon({
             html: "<div class=\"atbd_map_shape\">".concat(cat_icon, "</div>"),
@@ -562,6 +595,7 @@ __webpack_require__.r(__webpack_exports__);
           var mymap = L.map(mapElm, {
             scrollWheelZoom: false
           }).setView([lat, lon], loc_map_zoom_level);
+
           if (display_map_info) {
             L.marker([lat, lon], {
               icon: fontAwesomeIcon
@@ -571,19 +605,21 @@ __webpack_require__.r(__webpack_exports__);
               icon: fontAwesomeIcon
             }).addTo(mymap);
           }
+
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           }).addTo(mymap);
         }
+
         mapLeaflet(loc_manual_lat, loc_manual_lng);
       });
     }
   }
+
   jQuery(document).ready(function () {
     initSingleMap();
-  });
+  }); // Single Listing Map on Elementor EditMode 
 
-  /* Elementor Edit Mode */
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
       if ($('body').hasClass('elementor-editor-active')) {
@@ -591,8 +627,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     }, 3000);
   });
-
-  // Elementor EditMode
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initSingleMap();
@@ -620,14 +654,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var $ = jQuery;
+
 function get_dom_data(key, parent) {
   // var elmKey = 'directorist-dom-data-' + key;
   var elmKey = 'directorist-dom-data-' + key;
   var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
+
   if (!dataElm) {
     return '';
   }
+
   var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
+
   try {
     var dataValue = atob(dataElm[0].dataset.value);
     dataValue = JSON.parse(dataValue);
@@ -640,19 +678,24 @@ function get_dom_data(key, parent) {
         error: error
       });
     }
+
     return '';
   }
 }
+
 function convertToSelect2(field) {
   if (!field) {
     return;
   }
+
   if (!field.elm) {
     return;
   }
+
   if (!field.elm.length) {
     return;
   }
+
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(field.elm).forEach(function (item) {
     var default_args = {
       allowClear: true,
@@ -661,6 +704,7 @@ function convertToSelect2(field) {
         if (!data.id) {
           return data.text;
         }
+
         var iconURI = $(data.element).data('icon');
         var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
         var originalText = data.text;
@@ -672,12 +716,15 @@ function convertToSelect2(field) {
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
     var options = $(item).find('option');
     var placeholder = options.length ? options[0].innerHTML : '';
+
     if (placeholder.length) {
       args.placeholder = placeholder;
     }
+
     $(item).select2(args);
   });
 }
+
 
 
 /***/ }),
@@ -691,9 +738,14 @@ function convertToSelect2(field) {
 
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
   return arr2;
 }
+
 module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -706,9 +758,11 @@ module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exp
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
 }
+
 module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -723,6 +777,7 @@ module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.ex
 function _iterableToArray(iter) {
   if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
+
 module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -737,6 +792,7 @@ module.exports = _iterableToArray, module.exports.__esModule = true, module.expo
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
+
 module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -749,12 +805,17 @@ module.exports = _nonIterableSpread, module.exports.__esModule = true, module.ex
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
+
 var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
+
 var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
 var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
+
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
 }
+
 module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -775,6 +836,7 @@ function _typeof(obj) {
     return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
   }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
 }
+
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -787,6 +849,7 @@ module.exports = _typeof, module.exports.__esModule = true, module.exports["defa
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === "string") return arrayLikeToArray(o, minLen);
@@ -795,6 +858,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 }
+
 module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),

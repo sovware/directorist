@@ -49,8 +49,8 @@ $url_args = [
         <?php
         foreach( $offer_lists as $offer ){ ?>
             <li>
-                <span class="directorist_membership-notice__list--icon"><i class="fa fa-check"></i></span>
-                <span class="directorist_membership-notice__list--text"><?php echo esc_html( $offer ); ?></span>
+                <span class="directorist_membership-notice__list__icon"><i class="fa fa-check"></i></span>
+                <span class="directorist_membership-notice__list__text"><?php echo esc_html( $offer ); ?></span>
             </li>
         <?php } ?>
     </ul>

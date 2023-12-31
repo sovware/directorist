@@ -140,11 +140,14 @@
     }
 }
 
-.directorist-single{
-    button:not(:hover):not(:active):not(.has-background){
-        &.directorist-btn.directorist-btn-light{
+.directorist-single {
+    .directorist-signle-listing-top button:not(:hover):not(:active):not(.has-background) {
+        &.directorist-btn.directorist-btn-light {
             background-color: var(--directorist-color-light);
             color: var(--directorist-color-title);
+            @media screen and (max-width: 575px) {
+                background-color: transparent;
+            }
         }
     }
 }

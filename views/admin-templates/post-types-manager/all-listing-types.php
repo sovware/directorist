@@ -45,7 +45,7 @@
         <div class="directorist_builder-body">
             <h2 class="directorist_builder__title"><?php esc_html_e( 'All Directory Types', 'directorist' ); ?></h2>
             <div class="directorist_builder__content">
-                <div class="directorist_builder__content--left">
+                <div class="directorist_builder__content__left">
                     <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="directorist_link-block directorist_link-block-primary">
                         <span class="directorist_link-icon">
                             <i class="fa fa-plus"></i>
@@ -82,7 +82,7 @@
                        'order'      => 'DSCE',
                      ]);
                 ?>
-                <div class="directorist_builder__content--right">
+                <div class="directorist_builder__content__right">
                     <div class="directorist_builder--tab">
                         <div class="atbd_tab_nav">
                             <ul>

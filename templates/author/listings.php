@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.0
  */
 
 use \Directorist\Helper;
@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-author-listing-top">
+<header class="directorist-author-listing-top">
 	<h2 class="directorist-author-listing-top__title"><?php esc_html_e( 'Author Listings' , 'directorist'); ?></h2>
 	<div class="directorist-author-listing-top__filter">
 		<div class="directorist-author-listing-type">
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				foreach ($author->get_listing_categories() as $category) {
 					$active_class = ( isset($_GET['category']) && ($category->slug == $_GET['category']) ) ? 'active' : '';
 					$link = directorist_add_query_args_with_no_pagination( [ 'category' => $category->slug ] );
-					printf( '<a class="directorist-dropdown__links--single %s" href="%s">%s</a>', esc_attr( $active_class ), esc_url( $link ), esc_html( $category->name ) );
+					printf( '<a class="directorist-dropdown__links__single %s" href="%s">%s</a>', esc_attr( $active_class ), esc_url( $link ), esc_html( $category->name ) );
 				}
 				?>
 
@@ -40,10 +40,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<?php endif; ?>
 	</div>
 
-</div>
+</header>
 
 <?php do_action( 'directorist_author_listings_before_loop' ); ?>
-<div class="directorist-author-listing-content">
+<section class="directorist-author-listing-content">
 
 	<div class="<?php Helper::directorist_row(); ?>">
 
@@ -63,4 +63,4 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	}
 	?>
 
-</div>
+</section>

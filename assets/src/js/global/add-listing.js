@@ -19,6 +19,13 @@ const localized_data = directorist.add_listing_data;
     return url.match( /[?]/ ) ? `${url}&${queryString}` : `${url}?${queryString}`;
 }
 
+function scrollTo(selector) {
+    document.querySelector(selector)?.scrollIntoView({
+        block: 'start',
+        behavior: 'smooth'
+    });
+}
+
 /* Show and hide manual coordinate input field */
 $(window).on('load', function () {
     if ($('input#manual_coordinate').length) {
@@ -400,13 +407,6 @@ $(document).ready(function () {
         storeCustomFieldsData();
     });
 
-    function scrollToEl(selector) {
-        document.querySelector(selector).scrollIntoView({
-            block: 'start',
-            behavior: 'smooth'
-        })
-    }
-
     function atbdp_element_value(element) {
         const field = $(element);
         if (field.length) {
@@ -415,21 +415,21 @@ $(document).ready(function () {
         return '';
     }
 
-    const uploaders = localized_data.media_uploader;
     let mediaUploaders = [];
-    if (uploaders) {
-        let i = 0;
-        for (var uploader of uploaders) {
-            if ($('.' + uploader['element_id']).length) {
-                let media_uploader = new EzMediaUploader({
-                    containerClass: uploader['element_id'],
+    if (localized_data.media_uploader) {
+        for (let uploader of localized_data.media_uploader) {
+            if ($('.' + uploader.element_id).length) {
+                const EzUploader = new EzMediaUploader({
+                    containerClass: uploader.element_id,
                 });
+
                 mediaUploaders.push({
-                    media_uploader: media_uploader,
+                    media_uploader: EzUploader,
                     uploaders_data: uploader,
                 });
-                mediaUploaders[i].media_uploader.init();
-                i++;
+
+                EzUploader.init();
+                // mediaUploaders[i].media_uploader.init();
             }
         }
     }
@@ -437,209 +437,303 @@ $(document).ready(function () {
     let on_processing = false;
     let has_media = true;
     let quick_login_modal__success_callback = null;
+    const $notification = $('#listing_notifier');
 
     // -----------------------------
     // Submit The Form
     // -----------------------------
+    let uploadedImages = [];
+
     $('body').on('submit', '#directorist-add-listing-form', function (e) {
         e.preventDefault();
-        if (localized_data.is_admin) {
-            return;
-        }
 
-        const $form         = $(e.target);
-        const $submitButton = $form.find('.directorist-form-submit__btn');
-        const err_log       = {};
-        let   error_count   = 0;
+        const $form       = $(e.target);
+        let   error_count = 0;
+        const err_log     = {};
+        const $submitButton = $('.directorist-form-submit__btn');
 
         if (on_processing) {
-            $submitButton.attr('disabled', true);
             return;
         }
 
-        const form_data = new FormData();
+        function disableSubmitButton() {
+            on_processing = true;
+            $submitButton.addClass('atbd_loading').attr('disabled', true);
+        }
 
-        form_data.append('action', 'add_listing_action');
-        form_data.append('directorist_nonce', directorist.directorist_nonce);
-
-        $submitButton.addClass('atbd_loading');
-
-        const fieldValuePairs = $form.serializeArray();
-
-        // Append Form Fields Values
-        for ( const field of fieldValuePairs ) {
-            form_data.append( field.name, field.value );
+        function enableSubmitButton() {
+            on_processing = false;
+            $submitButton.removeClass('atbd_loading').attr('disabled', false);
         }
 
         // images
+        let selectedImages = [];
+
         if (mediaUploaders.length) {
             for (var uploader of mediaUploaders) {
-                if (has_media && uploader.media_uploader) {
-                    if (uploader.media_uploader.hasValidFiles()) {
-                        // files
-                        var files = uploader.media_uploader.getTheFiles();
-                        if (files) {
-                            for (var i = 0; i < files.length; i++) {
-                                form_data.append(uploader.uploaders_data['meta_name'] + '[]', files[i]);
-                            }
+                if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
+                    continue;
+                }
+
+                if (!uploader.media_uploader.hasValidFiles()) {
+                    $submitButton.removeClass('atbd_loading');
+
+                    err_log.listing_gallery = {
+                        msg: uploader.uploaders_data['error_msg']
+                    };
+
+                    error_count++;
+                    scrollTo('.' + uploader.uploaders_data.element_id);
+                    break;
+                }
+
+                selectedImages = uploader.media_uploader.getTheFiles();
+            }
+        }
+
+        if ( selectedImages.length ) {
+            let counter = 0;
+
+            function uploadImage() {
+                const formData = new FormData();
+
+                formData.append( 'action', 'directorist_upload_listing_image' );
+                formData.append( 'directorist_nonce', directorist.directorist_nonce );
+                formData.append( 'image', selectedImages[ counter ] );
+
+                $.ajax( {
+                    method: 'POST',
+                    processData: false,
+                    contentType: false,
+                    url: localized_data.ajaxurl,
+                    data: formData,
+                    beforeSend() {
+                        disableSubmitButton();
+
+                        const totalImages = selectedImages.length;
+                        if ( totalImages === 1 ) {
+                            $notification
+                                .show()
+                                .html(`<span class="atbdp_success">${localized_data.i18n_text.image_uploading_msg}</span>`);
+                        } else {
+                            const completedPercent = Math.ceil( ( ( counter === 0 ? 1 : counter ) * 100 ) / totalImages );
+                            $notification
+                                .show()
+                                .html(`<span class="atbdp_success">${localized_data.i18n_text.image_uploading_msg} (${completedPercent}%)</span>`);
                         }
+                    },
+                    success( response ) {
+                        if ( ! response.success ) {
+                            enableSubmitButton()
+                            
+                            $notification.show().html(`<span class="atbdp_error">${response.data}</span>`);
+
+                            return;
+                        }
+
+                        uploadedImages.push( response.data );
+
+                        counter++;
+                        
+                        if ( counter < selectedImages.length ) {
+                            uploadImage();
+                        } else {
+                            submitForm( $form, uploadedImages );
+                        }
+                    },
+                    error(response) {
+                        enableSubmitButton();
+
+                        $notification.html(`<span class="atbdp_error">${response.responseJSON.data}</span>`);
+                    }
+                } );
+            }
+
+            if ( uploadedImages.length === selectedImages.length ) {
+                submitForm( $form, uploadedImages );
+            } else {
+                uploadImage();
+            }
+        } else {
+            submitForm( $form );
+        }
+
+        function submitForm( $form, uploadedImages = [] ) {
+            var error_count = 0;
+            var err_log     = {};
+            let form_data   = new FormData();
+    
+            form_data.append('action', 'add_listing_action');
+            form_data.append('directorist_nonce', directorist.directorist_nonce);
+            form_data.append('listing_img', uploadedImages );
+    
+            disableSubmitButton();
+    
+            const fieldValuePairs = $form.serializeArray();
+    
+            // Append Form Fields Values
+            for ( const field of fieldValuePairs ) {
+                form_data.append( field.name, field.value );
+            }
+    
+            //images
+            if (mediaUploaders.length) {
+                for (var uploader of mediaUploaders) {
+                    if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
+                        continue;
+                    }
+    
+                    if (uploader.media_uploader.hasValidFiles()) {
                         var files_meta = uploader.media_uploader.getFilesMeta();
                         if (files_meta) {
                             for (var i = 0; i < files_meta.length; i++) {
-                                var elm = files_meta[i];
-                                for (var key in elm) {
-                                    form_data.append(`${uploader.uploaders_data['files_meta_name']}[${i}][${key}]`, elm[key]);
-                                }
+                                form_data.append(`listing_img_old[${i}]`, files_meta[i].attachmentID);
                             }
                         }
                     } else {
-                        $submitButton.removeClass('atbd_loading');
                         err_log.listing_gallery = {
                             msg: uploader.uploaders_data['error_msg']
                         };
+    
                         error_count++;
-                        if ($('#' + uploader.uploaders_data['element_id']).length) {
-                            scrollToEl('#' + uploader.uploaders_data['element_id']);
-                        }
-                        if ($('.' + uploader.uploaders_data['element_id']).length) {
-                            scrollToEl('.' + uploader.uploaders_data['element_id']);
+    
+                        if ($('.' + uploader.uploaders_data.element_id).length) {
+                            scrollTo('.' + uploader.uploaders_data.element_id);
                         }
                     }
                 }
             }
-        }
-
-        // categories
-        const categories = $form.find('#at_biz_dir-categories').val();
-        if (Array.isArray(categories) && categories.length) {
-            for (var key in categories) {
-                var value = categories[key];
-                form_data.append('tax_input[at_biz_dir-category][]', value);
+    
+            // categories
+            const categories = $form.find('#at_biz_dir-categories').val();
+            if ( Array.isArray( categories ) && categories.length ) {
+                for ( let key in categories ) {
+                    form_data.append('tax_input[at_biz_dir-category][]', categories[key]);
+                }
             }
-        }
+    
+            if ( typeof categories === 'string' ) {
+                form_data.append('tax_input[at_biz_dir-category][]', categories);
+            }
+    
+            if( form_data.has( 'admin_category_select[]') ) {
+                form_data.delete( 'admin_category_select[]' );
+            }
+    
+            if( form_data.has( 'directory_type') ) {
+                form_data.delete( 'directory_type' );
+            }
+    
+            var form_directory_type = $form.find( "input[name='directory_type']" );
+    
+            var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.val() : '';
+            var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
+    
+            form_data.append('directory_type', directory_type);
+    
+            if (qs.plan) {
+                form_data.append('plan_id', qs.plan);
+            }
+    
+            if (error_count) {
+                enableSubmitButton();
 
-        if (typeof categories === 'string') {
-            form_data.append('tax_input[at_biz_dir-category][]', categories);
-        }
+                console.log('Form has invalid data');
+                console.log(error_count, err_log);
+                return;
+            }
 
-        if( form_data.has( 'admin_category_select[]') ) {
-            form_data.delete( 'admin_category_select[]' );
-        }
+            $.ajax({
+                method: 'POST',
+                processData: false,
+                contentType: false,
+                url: localized_data.ajaxurl,
+                data: form_data,
+                beforeSend() {
+                    disableSubmitButton();
 
-        if( form_data.has( 'directory_type') ) {
-            form_data.delete( 'directory_type' );
-        }
-
-        var form_directory_type = $form.find("input[name='directory_type']");
-
-        var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.val() : '';
-        var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
-
-        form_data.append('directory_type', directory_type);
-
-        if (qs.plan) {
-            form_data.append('plan_id', qs.plan);
-        }
-
-        if (error_count) {
-            on_processing = false;
-            $submitButton.attr('disabled', false);
-            // console.log('Form has invalid data');
-            console.log(error_count, err_log);
-            return;
-        }
-
-        on_processing = true;
-
-        $.ajax({
-            method: 'POST',
-            processData: false,
-            contentType: false,
-            url: localized_data.ajaxurl,
-            data: form_data,
-            success(response) {
-                //console.log(response);
-                // return;
-                // show the error notice
-                $submitButton.attr('disabled', false);
-
-                var redirect_url = ( response && response.redirect_url ) ? response.redirect_url : '';
-                redirect_url = ( redirect_url && typeof redirect_url === 'string' ) ? response.redirect_url.replace( /:\/\//g, '%3A%2F%2F' ) : '';
-
-                if (response.error === true) {
-                    $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
-                    $submitButton.removeClass('atbd_loading');
-                    on_processing = false;
-
-                    if (response.quick_login_required) {
-                        var modal = $('#directorist-quick-login');
-                        var email = response.email;
-
-                        // Prepare fields
-                        modal.find('input[name="email"]').val(email);
-                        modal.find('input[name="email"]').prop('disabled', true);
-
-                        // Show alert
-                        var alert = '<div class="directorist-alert directorist-alert-info directorist-mb-10 atbd-text-center directorist-mb-10">' + response.error_msg + '</div>';
-                        modal.find('.directorist-modal-alerts-area').html(alert);
-
-                        // Show the modal
-                        modal.addClass('show');
-
-                        quick_login_modal__success_callback = function (args) {
-                            $('#guest_user_email').prop('disabled', true);
-                            $('#listing_notifier').hide().html('');
-
-                            args.elements.submit_button.remove();
-
-                            var form_actions = args.elements.form.find('.directorist-form-actions');
-                            form_actions.find('.directorist-toggle-modal').removeClass('directorist-d-none');
-                        }
-                    }
-                } else {
-                    // preview on and no need to redirect to payment
-                    if (response.preview_mode === true && response.need_payment !== true) {
-                        if (response.edited_listing !== true) {
-                            $('#listing_notifier')
-                                .show()
-                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
-
-                            window.location.href = joinQueryString( response.preview_url, `preview=1&redirect=${redirect_url}` );
-
-                        } else {
-                            $('#listing_notifier')
-                                .show()
-                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
-                            if (qs.redirect) {
-                                window.location.href = joinQueryString( response.preview_url, `post_id=${response.id}&preview=1&payment=1&edited=1&redirect=${qs.redirect}` );
-                            } else {
-                                window.location.href = joinQueryString( response.preview_url, `preview=1&edited=1&redirect=${redirect_url}` );
+                    $notification
+                        .show()
+                        .html(`<span class="atbdp_success">${localized_data.i18n_text.submission_wait_msg}</span>`);
+                },
+                success(response) {
+                    var redirect_url = ( response && response.redirect_url ) ? response.redirect_url : '';
+                    redirect_url = ( redirect_url && typeof redirect_url === 'string' ) ? response.redirect_url.replace( /:\/\//g, '%3A%2F%2F' ) : '';
+    
+                    if (response.error === true) {
+                        enableSubmitButton();
+                        
+                        $notification.show().html(`<span>${response.error_msg}</span>`);
+    
+                        if (response.quick_login_required) {
+                            var modal = $('#directorist-quick-login');
+                            var email = response.email;
+    
+                            // Prepare fields
+                            modal.find('input[name="email"]').val(email);
+                            modal.find('input[name="email"]').prop('disabled', true);
+    
+                            // Show alert
+                            var alert = '<div class="directorist-alert directorist-alert-info directorist-mb-10 atbd-text-center directorist-mb-10">' + response.error_msg + '</div>';
+                            modal.find('.directorist-modal-alerts-area').html(alert);
+    
+                            // Show the modal
+                            modal.addClass('show');
+    
+                            quick_login_modal__success_callback = function (args) {
+                                $('#guest_user_email').prop('disabled', true);
+                                $notification.hide().html('');
+    
+                                args.elements.submit_button.remove();
+    
+                                var form_actions = args.elements.form.find('.directorist-form-actions');
+                                form_actions.find('.directorist-toggle-modal').removeClass('directorist-d-none');
                             }
                         }
-                        // preview mode active and need payment
-                    } else if (response.preview_mode === true && response.need_payment === true) {
-                        window.location.href = joinQueryString( response.preview_url, `preview=1&payment=1&redirect=${redirect_url}` );
                     } else {
-                        const is_edited = response.edited_listing ? `listing_id=${response.id}&edited=1` : '';
-
-                        if (response.need_payment === true) {
-                            $('#listing_notifier').show().html(`<span class="atbdp_success">${response.success_msg}</span>`);
-                            window.location.href = decodeURIComponent(redirect_url);
+                        // preview on and no need to redirect to payment
+                        if (response.preview_mode === true && response.need_payment !== true) {
+                            if (response.edited_listing !== true) {
+                                $notification
+                                    .show()
+                                    .html(`<span class="atbdp_success">${response.success_msg}</span>`);
+    
+                                window.location.href = joinQueryString( response.preview_url, `preview=1&redirect=${redirect_url}` );
+    
+                            } else {
+                                $notification
+                                    .show()
+                                    .html(`<span class="atbdp_success">${response.success_msg}</span>`);
+                                if (qs.redirect) {
+                                    window.location.href = joinQueryString( response.preview_url, `post_id=${response.id}&preview=1&payment=1&edited=1&redirect=${qs.redirect}` );
+                                } else {
+                                    window.location.href = joinQueryString( response.preview_url, `preview=1&edited=1&redirect=${redirect_url}` );
+                                }
+                            }
+                            // preview mode active and need payment
+                        } else if (response.preview_mode === true && response.need_payment === true) {
+                            window.location.href = joinQueryString( response.preview_url, `preview=1&payment=1&redirect=${redirect_url}` );
                         } else {
-                            $('#listing_notifier').show().html(`<span class="atbdp_success">${response.success_msg}</span>`);
-                            window.location.href = joinQueryString( response.redirect_url, is_edited );
+                            const is_edited = response.edited_listing ? `listing_id=${response.id}&edited=1` : '';
+    
+                            if (response.need_payment === true) {
+                                $notification.show().html(`<span class="atbdp_success">${response.success_msg}</span>`);
+                                window.location.href = decodeURIComponent(redirect_url);
+                            } else {
+                                $notification.show().html(`<span class="atbdp_success">${response.success_msg}</span>`);
+                                window.location.href = joinQueryString( response.redirect_url, is_edited );
+                            }
                         }
                     }
-                }
-            },
-            error(error) {
-                on_processing = false;
-                $submitButton.attr('disabled', false);
-                $submitButton.removeClass('atbd_loading');
-                console.log(error);
-            },
-        });
-    });
+                },
+                error(error) {
+                    enableSubmitButton();
+
+                    console.log(error);
+                },
+            });
+        }
+    } );
 
     // Custom Field Checkbox Button More
     function customFieldSeeMore() {
@@ -756,6 +850,7 @@ $(document).ready(function () {
         });
     });
 
+    // Sticky Navigation on Add Listing
     function addSticky () {
         $(window).scroll(function() {
             var windowWidth = $(window).width();
@@ -801,17 +896,17 @@ $(document).ready(function () {
 
 // MultiStep Wizard
 function multiStepWizard() {
-    var defaultAddListing = document.querySelector('.multistep-wizard.default-add-listing');
+    let defaultAddListing = document.querySelector('.multistep-wizard.default-add-listing');
     if(!defaultAddListing) {
-        var totalStep = document.querySelectorAll('.multistep-wizard .multistep-wizard__nav__btn');
-        var totalWizard = document.querySelectorAll('.multistep-wizard .multistep-wizard__single');
-        var totalWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__total');
-        var currentWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__current');
-        var progressWidth = document.querySelector('.multistep-wizard .multistep-wizard__progressbar__width');
+        let totalStep = document.querySelectorAll('.multistep-wizard .multistep-wizard__nav__btn');
+        let totalWizard = document.querySelectorAll('.multistep-wizard .multistep-wizard__single');
+        let totalWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__total');
+        let currentWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__current');
+        let progressWidth = document.querySelector('.multistep-wizard .multistep-wizard__progressbar__width');
 
-        var stepCount = 1;
+        let stepCount = 1;
 
-        var progressPerStep = 100 / totalWizard.length;
+        let progressPerStep = 100 / totalWizard.length;
 
         // Initialize Wizard Count & Progressbar
         if(currentWizardCount) {
@@ -842,7 +937,7 @@ function multiStepWizard() {
             }
         })
 
-        // Previous Step
+        // Go Previous Step
         $('.multistep-wizard__btn--prev').on('click', function (e) {
             e.preventDefault();
             if(stepCount > 1) {
@@ -854,7 +949,7 @@ function multiStepWizard() {
             } 
         });
 
-        // Next Step
+        // Go Next Step
         $('.multistep-wizard__btn--next').on('click', function (e) {
             e.preventDefault();
             if(stepCount < totalWizard.length) {
@@ -863,11 +958,11 @@ function multiStepWizard() {
             }
         });
 
-        // Random Step
+        // Go Random Step
         $('.multistep-wizard__nav__btn').on('click', function (e) {
             e.preventDefault()
             if (this.classList.contains('completed')) {
-                var currentStep = Number(this.attributes[3].value) + 1;
+                let currentStep = Number(this.attributes[3].value) + 1;
                 stepCount = currentStep;
                 activeWizard(stepCount);
             }
@@ -906,15 +1001,15 @@ function multiStepWizard() {
                 
             })
 
-            // Enable Button
+            // Enable Previous Button
             if(value > 1) {
                 $('.multistep-wizard__btn--prev').removeAttr('disabled');
             } 
 
             // Change Button Text on Last Step
-            var nextBtn = document.querySelector('.multistep-wizard__btn--next');
-            var previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
-            var submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
+            let nextBtn = document.querySelector('.multistep-wizard__btn--next');
+            let previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
+            let submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
             if(value === totalWizard.length) {
                 nextBtn.style.cssText = "display:none; width: 0; height: 0; opacity: 0; visibility: hidden;";
                 previewBtn.style.cssText = "height: 54px; flex: unset; opacity: 1; visibility: visible;";
@@ -930,8 +1025,7 @@ function multiStepWizard() {
             progressWidth.style.width= progressPerStep * value + '%';
             progressWidth.style.transition = "0.5s ease";
         }
-    }
-    
+    } 
 }
 
 // Default Add Listing
@@ -972,8 +1066,18 @@ function defaultAddListing() {
                 }
             });
         }
-
         
+    }
+
+    // Function to scroll smoothly to the target section
+    function smoothScroll(targetSection) {
+        const targetElement = document.getElementById(targetSection);
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     }
 
     // Initial update and update on scroll
@@ -981,10 +1085,18 @@ function defaultAddListing() {
         updateActiveNav();
         window.addEventListener("scroll", updateActiveNav);
     }
+
+    // Add smooth scroll to navigation links
+    navLinks.forEach((link) => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetSection = this.getAttribute("href").substring(1);
+            smoothScroll(targetSection);
+        });
+    });
 }
 
 // Add Listing Accordion
-
 function addListingAccordion() {
     $('body').on('click', '.directorist-add-listing-form .directorist-content-module__title', function (e) {
         e.preventDefault();
@@ -1002,7 +1114,7 @@ function addListingAccordion() {
 addListingAccordion()
 
 
-/* Elementor Edit Mode */
+// Multistep Add Listing on Elementor EditMode 
 $(window).on('elementor/frontend/init', function () {
     setTimeout(function() {
         if ($('body').hasClass('elementor-editor-active')) {
@@ -1012,7 +1124,6 @@ $(window).on('elementor/frontend/init', function () {
 
 });
 
-// Elementor EditMode
 $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
         multiStepWizard();

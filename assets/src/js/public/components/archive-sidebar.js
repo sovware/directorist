@@ -10,9 +10,9 @@ window.addEventListener('load', () => {
     }
 
     // Close sidebar and reset toggle button's active state
-    function closeSidebar( toggleBtn, archiveSidebar ) {
+    function closeSidebar( closeBtn, archiveSidebar ) {
         archiveSidebar.classList.remove('listing-with-sidebar__sidebar--open');
-        toggleBtn.classList.remove('directorist-archive-sidebar-toggle--active');
+        closeBtn.classList.remove('directorist-archive-sidebar-toggle--active');
         body.classList.remove('modal-overlay-enabled');
     }
 

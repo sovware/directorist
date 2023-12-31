@@ -15,6 +15,6 @@ if ( $display_title ): ?>
 
 if ( $display_tagline && $listing->get_tagline() ): ?>
 
-    <p class="directorist-listing-details-tagline"><?php echo esc_html( $listing->get_tagline() ); ?></p>
+    <p class="directorist-listing-details__tagline"><?php echo esc_html( $listing->get_tagline() ); ?></p>
     
 <?php endif;

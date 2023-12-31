@@ -12,6 +12,7 @@
     window.addEventListener('DOMContentLoaded', initMap);
     window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
+    // Map Initialize 
     function initMap() {
         var $ = jQuery;
         let mapData;
@@ -88,7 +89,7 @@
 
     const $ = jQuery;
 
-    /* Elementor Edit Mode */
+    // Map on Elementor Edit Mode
     $(window).on('elementor/frontend/init', function () {
         setTimeout(function() {
             if ($('body').hasClass('elementor-editor-active')) {
@@ -98,12 +99,12 @@
 
     });
 
-    // Elementor EditMode
     $('body').on('click', function (e) {
         if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
             initMap();
         }
     });
+
 })();
 
 /* Add listing OSMap */

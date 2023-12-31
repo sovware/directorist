@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -74,12 +74,4 @@ switch ($image_size) {
 $link_start = '<a href="'.esc_url( $listings->loop['permalink'] ).'">';
 $link_end   = '</a>';
 
-if (!$listings->disable_single_listing) {
-	echo wp_kses_post( $link_start );
-}
-
 echo wp_kses_post( $the_html );
-
-if (!$listings->disable_single_listing) {
-	echo wp_kses_post( $link_end );
-}

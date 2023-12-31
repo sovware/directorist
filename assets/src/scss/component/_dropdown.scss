@@ -12,7 +12,7 @@
         padding: 0 20px;
         border-radius: 8px;
         cursor: pointer;
-        transition: all ease 0.3s;
+        transition: background-color 0.3s ease;
         position: relative;
         &:hover {
             background-color: var(--directorist-color-gray);
@@ -75,7 +75,7 @@
             right: 0;
         }
 
-        @media (max-width: 767px) {
+        @media (max-width: 1440px) {
             left: unset;
             right: 0;
         }

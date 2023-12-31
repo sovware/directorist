@@ -131,9 +131,7 @@ class Directorist_Listing_Author {
 
 	// Hooks ------------
 	public function archive_type( $listings ) {
-		$count = count( $listings->listing_types );
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
+		if ( count( $listings->listing_types ) > 1 && directorist_is_multi_directory_enabled() ) {
 			Helper::get_template( 'archive/directory-type-nav', array('listings' => $listings) );
 		}
 	}
@@ -238,16 +236,18 @@ class Directorist_Listing_Author {
 	}
 
 	public function avatar_html() {
-		$html = '';
-		$author_id = $this->id;
-		$u_pro_pic = get_user_meta( $author_id, 'pro_pic', true );
-
-		if ( !empty( $u_pro_pic ) ) {
+		$html         = '';
+		$author_id    = $this->id;
+		$u_pro_pic    = get_user_meta( $author_id, 'pro_pic', true );
+		$author_data  = get_userdata( $author_id );
+		$display_name = ! empty( $author_data->display_name ) ? $author_data->display_name : '';
+		
+		if ( ! empty( $u_pro_pic ) ) {
 			$html = wp_get_attachment_image( $u_pro_pic );
 		}
 
-		if ( !$html ) {
-			$html = get_avatar( $author_id );
+		if ( ! $html ) {
+			$html = get_avatar( $author_id, 96, '', $display_name );
 		}
 
 		return $html;

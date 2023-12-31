@@ -87,7 +87,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 									<div class="directorist-alert directorist-alert-success">
 										<?php echo wp_kses( sprintf(
 											__( 'Email verification successful. Please <a href="%s">click here to login</a>.', 'directorist' ),
-											esc_url( ATBDP_Permalink::get_login_page_url() )
+											esc_url( ATBDP_Permalink::get_dashboard_page_link() )
 										), array( 'a' => array( 'href' => array() ) ) ); ?>
 									</div>
 									<?php

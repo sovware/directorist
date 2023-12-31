@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php if ( $icon ): ?>
 				<span class="directorist-single-info__label-icon"><?php directorist_icon( $icon );?></span>
 			<?php endif; ?>
-			<span class="directorist-single-info__label--text"><?php echo esc_html( $data['label'] ); ?></span>
+			<span class="directorist-single-info__label__text"><?php echo esc_html( $data['label'] ); ?></span>
 		</div>
 	<?php endif; ?>
 

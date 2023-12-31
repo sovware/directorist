@@ -12,7 +12,7 @@ if ( !$value ) {
 }
 ?>
 
-<p>
+<p class="directorist-listing-single__info__excerpt">
 	<?php echo esc_html( wp_trim_words( $value, (int) $data['words_limit'] ) );
 	if ( $data['show_readmore'] ) {
 		printf( '<span> %s</span>', esc_html( $data['show_readmore_text'] ) );

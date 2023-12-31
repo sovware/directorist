@@ -410,6 +410,14 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
+7.8.2 - Dec 03, 2023
+
+* Improve - Large image upload and bulk image upload during listing submission
+* Improve - Listing submission status messages
+* Improve - User dashboard navigation
+* Fix - Validation issue of category custom fields in listing form
+* Fix- Listing currency issues
+
 7.8.1 - Nov 16, 2023
 
 * Fix - Importer issue in assigning directory type in category, location and tag

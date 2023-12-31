@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-author-profile-area directorist-author-profile">
+<section class="directorist-author-profile-area directorist-author-profile">
 
 	<?php do_action( 'directorist_before_author_profile_section' ); ?>
 
@@ -51,4 +51,4 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	</div>
 
-</div>
+</section>

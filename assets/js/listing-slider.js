@@ -98,18 +98,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
 
+
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-// All Listing Slider
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/***
+    All Listing Slider
+***/
 (function ($) {
+  // All Listing Slider
   function allListingSlider() {
     /* Check Slider Data */
     var checkData = function checkData(data, value) {
       return typeof data === 'undefined' ? value : data;
     };
-
     /* Swiper Slider Listing */
+
+
     var swiperCarouselListing = document.querySelectorAll('.directorist-swiper-listing');
     swiperCarouselListing.forEach(function (el, i) {
       var navBtnPrev = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__nav--prev-listing');
@@ -144,13 +152,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
       });
     });
-
     /* Swiper Slider Related Listing */
-    var swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related');
+
+    var swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related-listing');
     swiperCarouselRelated.forEach(function (el, i) {
-      var navBtnPrev = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--prev-related');
-      var navBtnNext = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__nav--next-related');
-      var swiperPagination = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination--related');
+      var navBtnPrev = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--prev-related');
+      var navBtnNext = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--next-related');
+      var swiperPagination = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__pagination--related');
       navBtnPrev.forEach(function (el, i) {
         el.classList.add("directorist-swiper__nav--prev-related-".concat(i));
       });
@@ -160,8 +168,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       swiperPagination.forEach(function (el, i) {
         el.classList.add("directorist-swiper__pagination--related-".concat(i));
       });
-      el.classList.add("directorist-swiper-related-".concat(i));
-      var swiper = new Swiper(".directorist-swiper-related-".concat(i), {
+      el.classList.add("directorist-swiper-related-listing-".concat(i));
+      var swiper = new Swiper(".directorist-swiper-related-listing-".concat(i), {
         slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
         loop: checkData(el.dataset.swLoop, false),
@@ -178,9 +186,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           clickable: true
         },
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-      });
+      }); // Destroy Swiper Slider When Slider Image Are Less Than Minimum Required Image
 
-      // Destroy Swiper Slider When Slider Image Are Less Than Minimum Required Image
       function destroySwiperSlider() {
         var windowScreen = screen.width;
         var breakpoints = JSON.parse(el.dataset.swResponsive);
@@ -194,17 +201,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var breakpointValues = Object.entries(breakpoints);
         var currentBreakpoint = breakpointValues.filter(function (_ref) {
           var _ref2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_ref, 1),
-            key = _ref2[0];
+              key = _ref2[0];
+
           return key == currentBreakpointKey;
         });
-        var sliderItemsCount = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination .swiper-pagination-bullet');
+        var sliderItemsCount = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__pagination .swiper-pagination-bullet');
+
         if (sliderItemsCount.length == '1') {
           swiper.loopDestroy();
-          var relatedListingSlider = document.querySelector('.directorist-swiper-related');
+          var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');
           relatedListingSlider.classList.add('slider-has-one-item');
         }
+
         currentBreakpoint[0].forEach(function (elm, ind) {
-          var relatedListingSlider = document.querySelector('.directorist-swiper-related');
+          var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');
+
           if (swiper.loopedSlides < elm.slidesPerView) {
             swiper.loopDestroy();
             relatedListingSlider.classList.add('slider-has-less-items');
@@ -215,13 +226,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         });
       }
+
       window.addEventListener('resize', function () {
         destroySwiperSlider();
       });
       destroySwiperSlider();
     });
-
     /* Swiper Slider Single Listing */
+
     var singleListingSlider = document.querySelectorAll('.directorist-single-listing-slider-wrap');
     singleListingSlider.forEach(function (el, i) {
       // Get Data Attribute
@@ -232,9 +244,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var dataBackgroundSize = el.getAttribute('data-background-size');
       var dataBackgroundBlur = el.getAttribute('data-blur-background');
       var dataShowThumbnails = el.getAttribute('data-show-thumbnails');
-      var dataThumbnailsBackground = el.getAttribute('data-thumbnail-background-color');
+      var dataThumbnailsBackground = el.getAttribute('data-thumbnail-background-color'); // Find Sliders
 
-      // Find Sliders
       var swiperCarouselSingleListingThumb = el.querySelector('.directorist-single-listing-slider-thumb');
       var swiperCarouselSingleListing = el.querySelector('.directorist-single-listing-slider');
       var swiperSingleListingThumb = new Swiper(swiperCarouselSingleListingThumb, {
@@ -290,22 +301,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           clickable: true
         }
       };
+
       if (swiperCarouselSingleListingThumb) {
         swiperSingleListingConfig.thumbs = {
           swiper: swiperSingleListingThumb
         };
       }
-      var swiperSingleListing = new Swiper(swiperCarouselSingleListing, swiperSingleListingConfig);
 
-      // Loop Destroy on Single Slider Item
+      var swiperSingleListing = new Swiper(swiperCarouselSingleListing, swiperSingleListingConfig); // Loop Destroy on Single Slider Item
+
       var sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
+
       if (sliderItemsCount.length <= '1') {
         swiperSingleListing.loopDestroy();
         swiperCarouselSingleListing.classList.add('slider-has-one-item');
         swiperCarouselSingleListing.parentElement.querySelector('.directorist-single-listing-slider-thumb').style.display = 'none';
-      }
+      } // Add Styles
 
-      // Add Styles
+
       if (swiperCarouselSingleListing) {
         swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
         swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
@@ -313,13 +326,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
         swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
       }
+
       if (swiperCarouselSingleListingThumb) {
         // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
         swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
         swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
       }
     });
-  }
+  } // Slider Call on Page Load
+
+
   window.addEventListener('DOMContentLoaded', function () {
     allListingSlider();
     $('body').on('click', '.directorist-viewas__item, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function (e) {
@@ -333,26 +349,29 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (e.target.classList.contains('directorist-location-js')) {
         sliderObserver();
       }
+
       setTimeout(function () {
         if ($('.directorist-archive-items .directorist-swiper-listing')) {
           allListingSlider();
         }
       }, 1000);
     });
-  });
+  }); // Mutation Observer on Range Slider
 
-  // Function to set up the Mutation Observer on Range Slider
   function sliderObserver() {
     var rangeSliders = document.querySelectorAll('.directorist-custom-range-slider__value input');
     rangeSliders.forEach(function (rangeSlider) {
       if (rangeSlider) {
         var timeout;
+
         var observerCallback = function observerCallback(mutationList, observer) {
           var _iterator = _createForOfIteratorHelper(mutationList),
-            _step;
+              _step;
+
           try {
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var mutation = _step.value;
+
               if (mutation.attributeName == 'value') {
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
@@ -366,6 +385,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             _iterator.f();
           }
         };
+
         var observer = new MutationObserver(observerCallback);
         observer.observe(rangeSlider, {
           attributes: true,
@@ -375,20 +395,20 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     });
   }
+  /* Slider Call on Elementor EditMode */
 
-  /* Elementor Edit Mode */
+
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
       if ($('body').hasClass('elementor-editor-active')) {
         allListingSlider();
       }
+
       if ($('body').hasClass('elementor-editor-active')) {
         allListingSlider();
       }
     }, 3000);
   });
-
-  // Elementor EditMode
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       allListingSlider();
@@ -407,9 +427,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
   return arr2;
 }
+
 module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -424,6 +449,7 @@ module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exp
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
+
 module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -436,32 +462,35 @@ module.exports = _arrayWithHoles, module.exports.__esModule = true, module.expor
 /***/ (function(module, exports) {
 
 function _iterableToArrayLimit(arr, i) {
-  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
-  if (null != _i) {
-    var _s,
-      _e,
-      _x,
-      _r,
-      _arr = [],
-      _n = !0,
-      _d = !1;
-    try {
-      if (_x = (_i = _i.call(arr)).next, 0 === i) {
-        if (Object(_i) !== _i) return;
-        _n = !1;
-      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
-    } catch (err) {
-      _d = !0, _e = err;
-    } finally {
-      try {
-        if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return;
-      } finally {
-        if (_d) throw _e;
-      }
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
     }
-    return _arr;
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
   }
+
+  return _arr;
 }
+
 module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -476,6 +505,7 @@ module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
+
 module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -488,12 +518,17 @@ module.exports = _nonIterableRest, module.exports.__esModule = true, module.expo
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+
 var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+
 var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
 var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ "./node_modules/@babel/runtime/helpers/nonIterableRest.js");
+
 function _slicedToArray(arr, i) {
   return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
 }
+
 module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -506,6 +541,7 @@ module.exports = _slicedToArray, module.exports.__esModule = true, module.export
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === "string") return arrayLikeToArray(o, minLen);
@@ -514,6 +550,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 }
+
 module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),

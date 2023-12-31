@@ -4362,7 +4362,7 @@ input.atbdp-form-control {
     @media only screen and (max-width: 1199px) {
       width: 100%;
     }
-    .directorist_membership-notice__list--icon {
+    .directorist_membership-notice__list__icon {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -4457,7 +4457,7 @@ input.atbdp-form-control {
     }
   }
 
-  .directorist_builder__content--left {
+  .directorist_builder__content__left {
     width: 360px;
     margin-right: 30px;
     margin-top: 38px;
@@ -4566,7 +4566,7 @@ input.atbdp-form-control {
     }
   }
 
-  .directorist_builder__content--right {
+  .directorist_builder__content__right {
     flex: 1;
 
     @media only screen and (max-width: 1199px) {
@@ -5222,6 +5222,7 @@ input.atbdp-form-control {
     box-shadow: 0 10px 40px rgba(134, 142, 174, 0.18823529411764706);
     border-radius: 5px;
     z-index: 99999;
+    box-sizing: border-box;
 
     ul {
       li {

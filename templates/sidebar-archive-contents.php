@@ -33,16 +33,16 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				?>
 			</div>
 			<div class="listing-with-sidebar__contents">
-				<div class="listing-with-sidebar__sidebar <?php echo esc_attr( $listings->sidebar_class() ); ?>">
+				<aside class="listing-with-sidebar__sidebar <?php echo esc_attr( $listings->sidebar_class() ); ?>">
 					<?php
 						$listings->advance_search_form_template();
 					?>
-				</div>
-				<div class="listing-with-sidebar__listing">
+				</aside>
+				<section class="listing-with-sidebar__listing">
 					<?php
 						$listings->archive_view_template();
 					?>
-				</div>
+				</section>
 			</div>
 		</div>
 	</div>

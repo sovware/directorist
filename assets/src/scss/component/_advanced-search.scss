@@ -4,29 +4,23 @@
     @include e(basic){
         display: flex;
         flex-direction: column;
-        @include m(element){
+        @include e(element){
+            display: flex;
             .directorist-search-field {
                 flex-direction: column;
                 align-items: flex-start;
                 flex-wrap: wrap;
+                width: 100%;
                 padding: 0;
                 margin: 0 0 40px;
                 @media screen and (max-width: 575px) {
                     margin: 0 0 20px;
                 }
-                
-                .directorist-btn-ml{
-                    display: inline-block;
-                    margin-top: 20px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    color: var(--directorist-color-primary);
-                }
             }
             .directorist-checkbox-wrapper,
             .directorist-radio-wrapper,
             .directorist-search-tags {
-                gap: 20px;
+                gap: 15px;
                 margin: 0;
                 flex-wrap: wrap;
                 .directorist-checkbox,
@@ -40,7 +34,7 @@
             }
             .directorist-form-group{
                 .directorist-filter-location-icon{
-                    margin-top: 1px;
+                    margin-top: 3px;
                     z-index: 99;
                 }
             }
@@ -69,7 +63,8 @@
     @include e(advanced){
         display: flex;
         flex-direction: column;
-        @include m(element){
+        @include e(element){
+            overflow: hidden;
             .directorist-search-field {
                 flex-direction: column;
                 align-items: flex-start;
@@ -87,6 +82,8 @@
                     color: var(--directorist-color-primary);
                 }
                 .directorist-search-field__label {
+                    top: 6px;
+                    transform: unset;
                     font-size: 14px;
                     font-weight: 400;
                 }
@@ -104,8 +101,7 @@
                         transform: unset;
                         font-size: 16px;
                         font-weight: 500;
-                        margin: 0 0 10px;
-                        margin: 0 0 10px;
+                        margin: 0;
                     }
                     .directorist-search-field__input {
                         bottom: 0;
@@ -115,18 +111,11 @@
                         }
                     }
                 }
-                .directorist-btn-ml{
-                    display: inline-block;
-                    margin-top: 20px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    color: var(--directorist-color-primary);
-                }
             }
             .directorist-checkbox-wrapper,
             .directorist-radio-wrapper,
             .directorist-search-tags {
-                gap: 20px;
+                gap: 15px;
                 margin: 0;
                 padding: 10px 0;
                 flex-wrap: wrap;
@@ -167,6 +156,17 @@
                     color: var(--directorist-color-primary);
                 }
             }
+
+            &.directorist-search-field-tag,
+            &.directorist-search-field-radio,
+            &.directorist-search-field-review,
+            &.directorist-search-field-checkbox {
+                overflow: visible;
+                display: flex;
+                .directorist-search-field {
+                    width: 100%;
+                }
+            }
         }
     }
 
@@ -181,6 +181,7 @@
             justify-content: center;
             text-decoration: none;
             cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
             &:disabled {
                 opacity: 0.5;
                 cursor: not-allowed;
@@ -214,6 +215,20 @@
             left: 0;
         }
     }
+
+    .directorist-btn-ml{
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--directorist-color-body);
+        &:hover {
+            color: var(--directorist-color-primary);
+        }
+        @media screen and (max-width: 575px) {
+            margin-top: 10px;
+        }
+    }
 }
 
 .directorist-search-field-radius_search {
@@ -227,6 +242,7 @@
 
 .directorist-search-field-review .directorist-checkbox {
     display: block;
+    width: auto;
     input[type=checkbox] + label {
         display: flex;
         align-items: center;
@@ -301,7 +317,7 @@
     }
 }
 
-.directorist-price-ranges {
+.directorist-search-field .directorist-price-ranges {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -356,6 +372,12 @@
                 }
             }
         }
+    }
+    @include e(label) {
+        margin-right: 5px;
+    }
+    @include e(currency) {
+        line-height: 1;
     }
     @include e('price-frequency'){
         display: flex;

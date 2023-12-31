@@ -9,7 +9,7 @@
     window.addEventListener('DOMContentLoaded', () => {
         // Sorting Js
         if(!$('.directorist-instant-search').length){
-            $('.directorist-dropdown__links--single-js').click(function (e) {
+            $('.directorist-dropdown__links__single-js').click(function (e) {
                 e.preventDefault();
                 var href = $(this).attr('data-link');
                 $('#directorsit-listing-sort').attr('action', href);

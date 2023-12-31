@@ -1,6 +1,7 @@
 /* Single listing google map */
 
 (function ($) {
+    // Single Listing Map Initialize
     function initSingleMap() {
         if ($('.directorist-single-map').length) {
             document.querySelectorAll('.directorist-single-map').forEach(mapElm => {
@@ -177,21 +178,19 @@
         initSingleMap()
     })
 
-
-    /* Elementor Edit Mode */
+    // Single Listing Map on Elementor EditMode 
     $(window).on('elementor/frontend/init', function () {
         setTimeout(function() {
             if ($('body').hasClass('elementor-editor-active')) {
                 initSingleMap()
             }
         }, 3000);
-
     });
 
-    // Elementor EditMode
     $('body').on('click', function (e) {
         if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
             initSingleMap()
         }
     });
+
 })(jQuery);

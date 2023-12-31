@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<?php if (  ! in_array( $field['field_key'], $searchform->assign_to_category()['custom_field_key'] ) ) { ?>
 
-				<div class="directorist-advanced-filter__advanced--element directorist-search-field-<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
+				<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
 
 			<?php } ?>
 

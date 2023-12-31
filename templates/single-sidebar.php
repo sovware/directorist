@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 8.0
  */
 
 use \Directorist\Helper;
@@ -14,7 +14,7 @@ if ( !is_active_sidebar( 'right-sidebar-listing' ) ) {
 }
 ?>
 
-<div class="<?php Helper::directorist_column('md-4'); ?>">
+<div class="<?php Helper::directorist_column('lg-4'); ?>">
 
 	<div class="directorist-sidebar">
 		<?php dynamic_sidebar( 'right-sidebar-listing' ); ?>

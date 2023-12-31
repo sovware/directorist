@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.0
  */
 
 use \Directorist\Helper;
@@ -15,11 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="<?php Helper::directorist_row(); ?> directorist-mb-80">
 
 	<div class="<?php Helper::directorist_column( 'md-4' ); ?>">
-		<div class="directorist-card directorist-widget directorist-author-contact">
+		<section class="directorist-card directorist-widget directorist-author-contact">
 
-			<div class="directorist-card__header">
-				<h4 class="directorist-card__header--title directorist-widget-title"><?php directorist_icon( 'fas fa-align-left' ); ?><?php esc_html_e( 'Contact Info', 'directorist' ); ?></h4>
-			</div>
+			<header class="directorist-card__header">
+				<h3 class="directorist-card__header__title directorist-widget-title"><?php directorist_icon( 'fas fa-align-left' ); ?><?php esc_html_e( 'Contact Info', 'directorist' ); ?></h3>
+			</header>
 
 			<div class="directorist-card__body">
 				<div class="directorist-author-info-widget">
@@ -81,15 +81,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				</div>
 			</div>
 
-		</div>
+		</section>
 	</div>
 
 	<div class="<?php Helper::directorist_column( 'md-8' ); ?>">
-		<div class="directorist-card directorist-author-about">
+		<section class="directorist-card directorist-author-about">
 
-			<div class="directorist-card__header">
-				<h4 class="directorist-card__header--title"><?php directorist_icon( 'fas fa-address-book' ); ?><?php esc_html_e( 'About', 'directorist' ); ?></h4>
-			</div>
+			<header class="directorist-card__header">
+				<h3 class="directorist-card__header__title"><?php directorist_icon( 'fas fa-address-book' ); ?><?php esc_html_e( 'About', 'directorist' ); ?></h3>
+			</header>
 
 			<div class="directorist-card__body">
 				<div class="directorist-author-about__content">
@@ -97,7 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				</div>
 			</div>
 
-		</div>
+		</section>
 	</div>
 
 </div>

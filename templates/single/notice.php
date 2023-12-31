@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -12,7 +12,7 @@ if ( !$notice_text ) {
 }
 ?>
 
-<div class="directorist-alert directorist-alert-info directorist-single-listing-notice">
+<section class="directorist-alert directorist-alert-info directorist-single-listing-notice">
 
 	<div class="directorist-alert__content">
 
@@ -22,4 +22,4 @@ if ( !$notice_text ) {
 
 	</div>
 
-</div>
+</section>

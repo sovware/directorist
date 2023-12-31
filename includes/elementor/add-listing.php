@@ -39,7 +39,7 @@ class Directorist_Add_Listing extends Custom_Widget_Base {
 				'type'      => Controls_Manager::HEADING,
 				'id'        => 'sec_heading',
 				'label'     => __( 'This widget works only in Add Listing page. It has no additional elementor settings.', 'directorist' ),
-				'condition' => !Helper::multi_directory_enabled() ? '' : ['nocondition' => true],
+				'condition' => ! directorist_is_multi_directory_enabled() ? '' : ['nocondition' => true],
 			),
 			array(
 				'type'     => Controls_Manager::SELECT2,
@@ -47,7 +47,7 @@ class Directorist_Add_Listing extends Custom_Widget_Base {
 				'label'    => __( 'Directory Types', 'directorist' ),
 				'multiple' => true,
 				'options'  => $this->az_listing_types(),
-				'condition' => Helper::multi_directory_enabled() ? '' : ['nocondition' => true],
+				'condition' => directorist_is_multi_directory_enabled() ? '' : ['nocondition' => true],
 			),
 			array(
 				'mode' => 'section_end',
@@ -61,7 +61,7 @@ class Directorist_Add_Listing extends Custom_Widget_Base {
 
 		$atts = [];
 
-		if ( Helper::multi_directory_enabled() ) {
+		if ( directorist_is_multi_directory_enabled() ) {
 			if ( $settings['type'] ) {
 				$atts['directory_type'] = implode( ',', $settings['type'] );
 			}

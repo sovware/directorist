@@ -37,5 +37,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 </div>
 
 <div class="directorist-search-modal directorist-search-modal--advanced">
-	<?php $searchform->advanced_search_form_advanced_fields_template();?>
+	<?php $searchform->advanced_search_form_fields_template(); ?>
 </div>

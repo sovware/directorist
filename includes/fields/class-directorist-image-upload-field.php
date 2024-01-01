@@ -13,8 +13,12 @@ class Image_Upload_Field extends Base_Field {
 	public $type = 'image_upload';
 
 	public function get_value( $posted_data ) {
-		$new_images = $posted_data[ $this->get_key() ];
-		$old_images = (array) $posted_data[ $this->get_key() . '_old' ];
+		if ( empty( $posted_data[ $this->get_key() ] ) && empty( $posted_data[ $this->get_key() . '_old' ] ) ) {
+			return null;
+		}
+
+		$new_images = directorist_get_var( $posted_data[ $this->get_key() ], '' );
+		$old_images = (array) directorist_get_var( $posted_data[ $this->get_key() . '_old' ], array() );
 
 		return array(
 			'new' => array_filter( explode( ',', $new_images ) ),
@@ -108,7 +112,7 @@ class Image_Upload_Field extends Base_Field {
 			$size_in_mb = KB_IN_BYTES * $size_in_mb;
 		}
 
-		return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() ); 
+		return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() );
 	}
 
 	public function get_per_image_upload_size() {
@@ -120,7 +124,7 @@ class Image_Upload_Field extends Base_Field {
 			$size_in_mb = KB_IN_BYTES * $size_in_mb;
 		}
 
-		return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() ); 
+		return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() );
 	}
 }
 

@@ -239,7 +239,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					
 					$response = array(
 						'success'      => true,
-						'redirect_url' => esc_url_raw( ATBDP_Permalink::get_login_page_link( array(
+						'redirect_url' => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array(
 							'user'         => $email,
 							'verification' => 1,
 						) ) )
@@ -260,15 +260,17 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 				if ( ! empty( $redirection_after_reg ) ) {
 					$response = array(
-						'success'      => true,
-						'redirect_url' => esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ),
+						'success'          => true,
+						'redirect_url'     => esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ),
+						'redirect_message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
 					);
 					wp_send_json( $response );
 				} else {
 					file_put_contents( __DIR__ . '/data.txt', 'status' );
 					$response = array(
-						'success'      => true,
-						'redirect_url' => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array( 'registration_status' => true ) ) ),
+						'success'          => true,
+						'redirect_url'     => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array( 'registration_status' => true ) ) ),
+						'redirect_message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
 					);
 					wp_send_json( $response );
 				}

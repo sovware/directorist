@@ -294,7 +294,13 @@ jQuery(function ($) {
         if (response.success) {
           $('.directorist-register-error').hide();
           if (response.redirect_url) {
-            window.location.href = response.redirect_url;
+            $('.directorist-register-error').empty().show().append(response.redirect_message).css({
+              'color': '#009114',
+              'background-color': '#d9efdc'
+            });
+            setTimeout(function () {
+              window.location.href = response.redirect_url;
+            }, 500);
           }
         } else {
           $('.directorist-register-error').empty().show().append(response.message);

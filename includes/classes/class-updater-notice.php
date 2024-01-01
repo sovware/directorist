@@ -93,7 +93,7 @@ class Updater_Notice {
 
 	public static function update_notice() {
 		$update_url = wp_nonce_url(
-			add_query_arg( 'do_update_directorist', 'true', admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-settings' ) ),
+			add_query_arg( 'do_update_directorist', 'true', get_permalink() ),
 			'directorist_db_update',
 			'directorist_db_update_nonce'
 		);

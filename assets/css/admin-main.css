@@ -5804,6 +5804,13 @@ img.atbdp-file-info {
   padding-bottom: 0;
 }
 
+.atbd_success_mesage > p i {
+  top: 2px;
+  margin-right: 5px;
+  position: relative;
+  display: inline-block;
+}
+
 .directorist-loader {
   position: relative;
 }

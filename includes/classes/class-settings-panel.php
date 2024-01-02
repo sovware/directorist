@@ -3997,7 +3997,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'redirection_after_reg' => [
                     'label' => __('Redirection after Registration', 'directorist'),
                     'type'  => 'select',
-                    'value' => 'previous_page',
+                    'value' => get_directorist_option( 'user_dashboard' ),
                     'options' => $this->get_pages_with_prev_page(),
                 ],
                 // login settings

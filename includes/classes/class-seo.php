@@ -54,7 +54,6 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 			add_filter( 'single_post_title', array( $this, 'update_taxonomy_single_page_title' ), 10, 2 );
 			add_filter( 'pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10 );
 
-			add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 10, 2);
 			add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 10, 2);
 
 			add_filter('wpseo_title', array($this, 'wpseo_title'));

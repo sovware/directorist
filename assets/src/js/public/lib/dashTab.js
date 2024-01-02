@@ -95,6 +95,10 @@
                             }
                         } else {
                             event.target.classList.add('directorist-tab__nav__active');
+                            var dropDownToggler = event.target.closest('.atbdp_tab_nav--has-child')?.querySelector('.atbd-dash-nav-dropdown');
+                            if (dropDownToggler && !dropDownToggler.classList.contains('directorist-tab__nav__active')) {
+                                dropDownToggler.classList.add('directorist-tab__nav__active');
+                            }
                         }
 
                         // Activate Content Panel

@@ -297,8 +297,8 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $edited         = $args['edited'];
     $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 
-    $monitization          = get_directorist_option('enable_monetization', 0);
-    $featured_enabled      = get_directorist_option('enable_featured_listing');
+    $monitization          = directorist_is_monetization_enabled();
+    $featured_enabled      = directorist_is_featured_listing_enabled();
     $pricing_plans_enabled = is_fee_manager_active();
 
     $post_status =  $listing_status;
@@ -915,7 +915,7 @@ if (!function_exists('atbdp_get_featured_settings_array')) {
     function atbdp_get_featured_settings_array()
     {
         return array(
-            'active' => get_directorist_option('enable_featured_listing'),
+            'active' => directorist_is_featured_listing_enabled(),
             'label' => get_directorist_option('featured_listing_title'),
             'desc' => get_directorist_option('featured_listing_desc'),
             'price' => get_directorist_option('featured_listing_price'),
@@ -1120,10 +1120,10 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
     $before = '';
     $after = '';
     if (empty($c_position)) {
-        $c_position = get_directorist_option('g_currency_position');
+        $c_position = directorist_get_currency_position();
     }
     if (empty($currency)) {
-        $currency = get_directorist_option('g_currency', 'USD');
+        $currency = directorist_get_currency();
     }
     if (empty($symbol)) {
         $symbol = atbdp_currency_symbol($currency);
@@ -1148,7 +1148,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
  */
 function atbdp_display_price_range($price_range)
 {
-    $currency = get_directorist_option('g_currency', 'USD');
+    $currency = directorist_get_currency();
     $c_symbol = atbdp_currency_symbol($currency);
     if (empty($price_range)) return null;
     $output = '';
@@ -3063,7 +3063,7 @@ if( !function_exists('directorist_legacy_mode') ){
 
 if( !function_exists('directorist_multi_directory') ){
     function directorist_multi_directory() {
-        return get_directorist_option( 'enable_multi_directory', false );
+        return directorist_is_multi_directory_enabled();
     }
 }
 
@@ -3081,8 +3081,8 @@ if( ! function_exists( 'directorist_warnings' ) ) {
         $checkout_page			 	= get_directorist_option( 'checkout_page' );
         $payment_receipt_page	 	= get_directorist_option( 'payment_receipt_page' );
         $transaction_failure_page	= get_directorist_option( 'transaction_failure_page' );
-        $enable_monetization	 	= get_directorist_option( 'enable_monetization' );
-        $enable_featured_listing	= get_directorist_option( 'enable_featured_listing' );
+        $enable_monetization	 	= directorist_is_monetization_enabled();
+        $enable_featured_listing	= directorist_is_featured_listing_enabled();
         $select_listing_map			= get_directorist_option( 'select_listing_map' );
         $map_api_key				= get_directorist_option( 'map_api_key' );
         $host                       = gethostname();

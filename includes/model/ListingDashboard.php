@@ -74,7 +74,7 @@ class Directorist_Listing_Dashboard {
 		if ( $task === 'delete' ) {
 			if ( current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->delete_post, $taskdata ) )  {
 				wp_delete_post( $taskdata );
-	
+
 				do_action( 'directorist_listing_deleted', $taskdata );
 			}
 		}
@@ -533,14 +533,13 @@ class Directorist_Listing_Dashboard {
 	public function can_promote() {
 		$post_id = get_the_ID();
 		$status  = get_post_meta( $post_id, '_listing_status', true );
-		$featured_active = get_directorist_option( 'enable_featured_listing' );
 		$featured = get_post_meta( $post_id, '_featured', true );
 
 		if ( 'renewal' == $status || 'expired' == $status ) {
 			return false;
 		}
 
-		if ( $featured_active && empty( $featured ) ) {
+		if ( directorist_is_featured_listing_enabled() && empty( $featured ) ) {
 			return true;
 		}
 
@@ -548,7 +547,7 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function get_renewal_link( $listing_id ) {
-		return get_directorist_option( 'enable_monetization' ) && get_directorist_option( 'enable_featured_listing' ) ? ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id ) : ATBDP_Permalink::get_renewal_page_link( $listing_id );
+		return directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ? ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id ) : ATBDP_Permalink::get_renewal_page_link( $listing_id );
 	}
 
 	public function get_action_dropdown_item() {

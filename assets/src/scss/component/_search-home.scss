@@ -613,6 +613,7 @@
 				border-radius: 10px;
 				background: var(--directorist-color-white);
 				box-shadow: var(--directorist-box-shadow);
+				box-sizing: border-box;
 				max-height: 250px;
 				overflow-y: auto;
 				z-index: 100;

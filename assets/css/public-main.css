@@ -4086,7 +4086,7 @@ body.stop-scrolling {
 }
 
 .directorist-add-listing-wrapper {
-  max-width: 750px !important;
+  max-width: 1000px !important;
   margin: 0 auto;
 }
 .directorist-add-listing-wrapper .ezmu__thumbnail-list-item_back {
@@ -4244,6 +4244,18 @@ body.stop-scrolling {
       -ms-flex-align: start;
           align-items: flex-start;
 }
+@media only screen and (max-width: 576px) {
+  .directorist-add-listing-form__action .directorist-form-group,
+.directorist-add-listing-form__action .directorist-checkbox {
+    padding: 30px 0 0;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__action .directorist-form-group,
+.directorist-add-listing-form__action .directorist-checkbox {
+    padding: 30px 20px 0;
+  }
+}
 .directorist-add-listing-form__action .directorist-form-group label,
 .directorist-add-listing-form__action .directorist-checkbox label {
   font-size: 14px;
@@ -4262,10 +4274,20 @@ body.stop-scrolling {
   padding-left: 5px;
 }
 .directorist-add-listing-form__publish {
-  padding: 100px 15px;
+  padding: 100px 20px;
   margin-bottom: 0;
   text-align: center;
   border-bottom: 1px solid var(--directorist-color-border);
+}
+@media only screen and (max-width: 576px) {
+  .directorist-add-listing-form__publish {
+    padding: 70px 20px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__publish {
+    padding: 50px 20px;
+  }
 }
 .directorist-add-listing-form__publish__icon i {
   width: 70px;
@@ -4286,15 +4308,37 @@ body.stop-scrolling {
   margin: 0 auto 25px;
   background: var(--directorist-color-light);
 }
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__publish__icon i {
+    margin-bottom: 20px;
+  }
+}
 .directorist-add-listing-form__publish__icon i:after {
   width: 30px;
   height: 30px;
   background: var(--directorist-color-primary);
 }
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__publish__icon i:after {
+    width: 25px;
+    height: 25px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__publish__icon i:after {
+    width: 22px;
+    height: 22px;
+  }
+}
 .directorist-add-listing-form__publish__title {
   font-size: 24px;
   font-weight: 600;
   margin: 0 0 10px;
+}
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__publish__title {
+    font-size: 22px;
+  }
 }
 .directorist-add-listing-form__publish__subtitle {
   font-size: 15px;
@@ -9108,6 +9152,8 @@ body.modal-overlay-enabled:before {
 }
 .directorist-search-modal .directorist-search-basic-dropdown {
   position: relative;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-label {
   display: -webkit-box;
@@ -9201,6 +9247,8 @@ body.modal-overlay-enabled:before {
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
   max-height: 250px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   overflow-y: auto;
   z-index: 100;
   display: none;
@@ -13066,6 +13114,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   max-height: 250px;
   overflow-y: auto;
   z-index: 100;
@@ -17693,7 +17743,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-map__address i::after {
   width: 14px;
   height: 14px;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 .directorist-single-map__direction a {
   display: -webkit-box;
@@ -21106,12 +21156,6 @@ Review: New Style
   color: #51526E;
   text-decoration: none;
 }
-.directorist-user-dashboard__nav .directorist-tab__nav__link i,
-.directorist-user-dashboard__nav .directorist-tab__nav__link span.fa {
-  pointer-events: none;
-  display: inline-block;
-  margin-right: 10px;
-}
 .directorist-user-dashboard__nav .directorist-tab__nav__link .directorist_menuItem-text {
   pointer-events: none;
   display: -webkit-box;
@@ -21129,10 +21173,19 @@ Review: New Style
 .directorist-user-dashboard__nav .directorist-tab__nav__link .directorist_menuItem-text .directorist_menuItem-icon {
   line-height: 0;
 }
+.directorist-user-dashboard__nav .directorist-tab__nav__link .directorist_menuItem-text i,
+.directorist-user-dashboard__nav .directorist-tab__nav__link .directorist_menuItem-text span.fa {
+  pointer-events: none;
+  display: inline-block;
+  margin-right: 10px;
+}
 .directorist-user-dashboard__nav .directorist-tab__nav__link.directorist-tab__nav__active, .directorist-user-dashboard__nav .directorist-tab__nav__link:focus {
   font-weight: 700;
-  background-color: #E9E9E9 !important;
+  background-color: #E9E9E9;
   color: #0A0B1E;
+}
+.directorist-user-dashboard__nav .directorist-tab__nav__link.directorist-tab__nav__active.atbd-dash-nav-dropdown, .directorist-user-dashboard__nav .directorist-tab__nav__link:focus.atbd-dash-nav-dropdown {
+  background-color: transparent;
 }
 .directorist-user-dashboard__nav .directorist-tab__nav__action {
   margin-top: 15px;

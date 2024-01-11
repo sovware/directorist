@@ -8552,7 +8552,7 @@ body.stop-scrolling {
 }
 
 .directorist-add-listing-wrapper {
-  max-width: 750px !important;
+  max-width: 1000px !important;
   margin: 0 auto;
 }
 .directorist-add-listing-wrapper .ezmu__thumbnail-list-item_back {
@@ -8710,6 +8710,18 @@ body.stop-scrolling {
       -ms-flex-align: start;
           align-items: flex-start;
 }
+@media only screen and (max-width: 576px) {
+  .directorist-add-listing-form__action .directorist-form-group,
+.directorist-add-listing-form__action .directorist-checkbox {
+    padding: 30px 0 0;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__action .directorist-form-group,
+.directorist-add-listing-form__action .directorist-checkbox {
+    padding: 30px 20px 0;
+  }
+}
 .directorist-add-listing-form__action .directorist-form-group label,
 .directorist-add-listing-form__action .directorist-checkbox label {
   font-size: 14px;
@@ -8728,10 +8740,20 @@ body.stop-scrolling {
   padding-left: 5px;
 }
 .directorist-add-listing-form__publish {
-  padding: 100px 15px;
+  padding: 100px 20px;
   margin-bottom: 0;
   text-align: center;
   border-bottom: 1px solid var(--directorist-color-border);
+}
+@media only screen and (max-width: 576px) {
+  .directorist-add-listing-form__publish {
+    padding: 70px 20px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__publish {
+    padding: 50px 20px;
+  }
 }
 .directorist-add-listing-form__publish__icon i {
   width: 70px;
@@ -8752,15 +8774,37 @@ body.stop-scrolling {
   margin: 0 auto 25px;
   background: var(--directorist-color-light);
 }
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__publish__icon i {
+    margin-bottom: 20px;
+  }
+}
 .directorist-add-listing-form__publish__icon i:after {
   width: 30px;
   height: 30px;
   background: var(--directorist-color-primary);
 }
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__publish__icon i:after {
+    width: 25px;
+    height: 25px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__publish__icon i:after {
+    width: 22px;
+    height: 22px;
+  }
+}
 .directorist-add-listing-form__publish__title {
   font-size: 24px;
   font-weight: 600;
   margin: 0 0 10px;
+}
+@media only screen and (max-width: 480px) {
+  .directorist-add-listing-form__publish__title {
+    font-size: 22px;
+  }
 }
 .directorist-add-listing-form__publish__subtitle {
   font-size: 15px;
@@ -11984,6 +12028,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-modal .directorist-search-basic-dropdown {
   position: relative;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-label {
   display: -webkit-box;
@@ -12077,6 +12123,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
   max-height: 250px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   overflow-y: auto;
   z-index: 100;
   display: none;

@@ -776,7 +776,7 @@
 
 //add listing image upload
 .directorist-add-listing-wrapper {
-  max-width: 750px !important;
+  max-width: 1000px !important;
   margin: 0 auto;
 
   .ezmu__thumbnail-list-item_back {
@@ -931,6 +931,12 @@
       margin: 0;
       padding: 30px 40px 0;
       align-items: flex-start;
+      @media only screen and (max-width: 576px) {
+        padding: 30px 0 0;
+      }
+      @media only screen and (max-width: 480px) {
+        padding: 30px 20px 0;
+      }
       label {
         font-size: 14px;
         font-weight: 500;
@@ -951,10 +957,16 @@
 
   // Publish Text
   @include e(publish) {
-    padding: 100px 15px;
+    padding: 100px 20px;
     margin-bottom: 0;
     text-align: center;
     border-bottom: 1px solid var(--directorist-color-border);
+    @media only screen and (max-width: 576px) {
+      padding: 70px 20px;
+    }
+    @media only screen and (max-width: 480px) {
+      padding: 50px 20px;
+    }
     @include e(icon) {
       i {
         width: 70px;
@@ -965,10 +977,21 @@
         border-radius: 100%;
         margin: 0 auto 25px;
         background: var(--directorist-color-light);
+        @media only screen and (max-width: 480px) {
+          margin-bottom: 20px;
+        }
         &:after {
           width: 30px;
           height: 30px;
           background: var(--directorist-color-primary);
+          @media only screen and (max-width: 480px) {
+            width: 25px;
+            height: 25px;
+          }
+          @media only screen and (max-width: 480px) {
+            width: 22px;
+            height: 22px;
+          }
         }
       }
     }
@@ -976,6 +999,9 @@
       font-size: 24px;
       font-weight: 600;
       margin: 0 0 10px;
+      @media only screen and (max-width: 480px) {
+        font-size: 22px;
+      }
     }
     @include e(subtitle) {
       font-size: 15px;

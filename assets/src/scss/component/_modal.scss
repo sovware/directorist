@@ -742,6 +742,7 @@
     }
     .directorist-search-basic-dropdown {
         position: relative;
+        box-sizing: border-box;
         .directorist-search-basic-dropdown-label {
             display: flex;
             flex-wrap: wrap;
@@ -801,6 +802,7 @@
             background: var(--directorist-color-white);
             box-shadow: var(--directorist-box-shadow);
             max-height: 250px;
+            box-sizing: border-box;
             overflow-y: auto;
             z-index: 100;
             display: none;

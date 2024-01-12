@@ -136,7 +136,7 @@ function directorist_get_comment_edit_link( $args = array(), $comment = null, $p
 	$data_attribute_string = '';
 
 	foreach ( $data_attributes as $name => $value ) {
-		$data_attribute_string .= " data-${name}=\"" . esc_attr( $value ) . '"';
+		$data_attribute_string .= " data-{$name}=\"" . esc_attr( $value ) . '"';
 	}
 
 	$data_attribute_string = trim( $data_attribute_string );

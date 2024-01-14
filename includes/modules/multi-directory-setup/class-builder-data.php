@@ -1926,39 +1926,11 @@ class Builder_Data {
             ],
 
             // TERMS AND CONDITIONS
-            'listing_privacy' => [
-                'label' => __('Enable', 'directorist'),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
-            'require_privacy' => [
-                'label' => __('Required', 'directorist'),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
-            'terms_name' => [
-                'label'       => __('Terms Name', 'directorist'),
-                'type'        => 'text',
-                'value'       => __( 'Terms & Conditions', 'directorist' ),
-            ],
-            'terms_link' => [
-                'label'       => __('Terms Link', 'directorist'),
-                'type'        => 'text',
-                'value'       => ATBDP_Permalink::get_terms_and_conditions_page_url(),
-            ],
-            'privacy_name' => [
-                'label'       => __('Privacy name', 'directorist'),
-                'type'        => 'text',
-                'value'       => __( 'Privacy & Policy', 'directorist' ),
-            ],
-            'privacy_link' => [
-                'label'       => __('Terms Link', 'directorist'),
-                'type'        => 'text',
-                'value'       => ATBDP_Permalink::get_privacy_policy_page_url(),
-            ],
             'terms_privacy_label' => [
-                'label'       => __('Label', 'directorist'),
-                'type'        => 'text',
+                'label'       => __('Terms Label', 'directorist'),
+                'type'        => 'textarea',
+                'editor'      => 'wp_editor',
+                'editorID'    => 'wp_editor_terms_privacy',
                 'value'       => __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ),
             ],
 
@@ -2553,25 +2525,11 @@ class Builder_Data {
                     'settings'    => [
                         'label'    => __( 'Settings', 'directorist' ),
                         'sections' => apply_filters( 'atbdp_submission_form_settings', [
-                            'terms_and_conditions' => [
-                                'title'     => __( 'Terms and Conditions', 'directorist' ),
-                                'container' => 'short-width',
-                                'fields'    => [
-                                    'listing_terms_condition',
-                                    'require_terms_conditions',
-                                    'terms_label',
-                                ],
-                            ],
                             'privacy_and_policy'   => [
-                                'title'     => __( 'Privacy and Policy', 'directorist' ),
+                                'title'     => __( 'Privacy Policy and Terms & Conditions', 'directorist' ),
                                 'container' => 'short-width',
                                 'fields'    => [
-                                    'listing_privacy',
-                                    'terms_name',
-                                    'terms_link',
-                                    'privacy_name',
-                                    'privacy_link',
-                                    'terms_privacy_label'
+                                    'terms_privacy_label',
                                 ],
                             ],
                             'submittion_settings'  => [

@@ -15847,8 +15847,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-thumb-listing-author.directorist-alignment-center {
   left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  -webkit-transform: translate(-50%, 50%);
+          transform: translate(-50%, 50%);
 }
 .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-thumb-listing-author img {
   width: 100%;

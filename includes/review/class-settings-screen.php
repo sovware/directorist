@@ -207,7 +207,7 @@ class Settings_Screen {
 				'description' => __( 'Use [privacy_policy]privacy policy[/privacy_policy] for privacy link and [terms_conditions]terms and conditions[/terms_conditions] for terms and conditions link.', 'directorist' ),
 				'type'        => 'textarea',
 				'rows'        => 3,
-				'value'       => 'I have read and agree to the [privacy_policy]privacy policy[/privacy_policy].',
+				'value'       => 'I have read and agree to the [privacy_policy]privacy policy[/privacy_policy] & [terms_conditions]terms and conditions[/terms_conditions].',
 				'show-if'     => [
 					'where'      => 'enable_review',
 					'conditions' => [

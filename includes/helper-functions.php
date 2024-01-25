@@ -4197,6 +4197,10 @@ function directorist_validate_youtube_vimeo_url( $url ) {
         return true;
     }
 
+    if ( preg_match( '/^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]+)(\?.*)?$/', $url ) ) {
+        return true;
+    }
+
 	if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]+)(\S+)?$/i', $url ) ) {
         return true;
     }

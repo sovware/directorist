@@ -410,7 +410,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.8.3 - Jan 27, 2024
+7.8.3 - Jan 29, 2024
 
 * Added - GDPR consent box in review form (#1682)
 * Added - Filters hook to manipulate the announcement email headers and recipients (#1673)

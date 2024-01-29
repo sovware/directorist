@@ -72,10 +72,10 @@
 				line-height: 46px;
 			}
 		}
-	}
-	textarea {
-		min-height: 130px;
-		resize: none;
+		textarea {
+			min-height: 130px !important;
+			resize: none;
+		}
 	}
 	.directorist-btn {
 		width: 100%;

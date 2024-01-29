@@ -304,68 +304,69 @@
                 align-items: center;
                 flex-wrap: wrap;
                 gap: 20px;
-                .directorist-listing-category {
-                    a {
-                        text-decoration: none;
-                        font-size: 14px;
-                        color: var(--directorist-color-body);
-                        border-bottom: 0 none;
-                        box-shadow: none;
-                        display: flex;
-                        align-items: center;
-                        transition: color 0.3s ease;
-                        &:hover {
-                            color: var(--directorist-color-primary);
-                        }
-                    }
-                }
             }
             @include e(right) {
                 display: flex;
                 align-items: center;
                 flex-wrap: wrap;
                 gap: 20px;
-    
-                .directorist-view-count {
+            }
+
+            .directorist-listing-category {
+                a {
+                    text-decoration: none;
                     font-size: 14px;
                     color: var(--directorist-color-body);
+                    border-bottom: 0 none;
+                    box-shadow: none;
                     display: flex;
                     align-items: center;
-                    gap: 5px;
-                    .directorist-icon-mask{
-                        &:after{
-                            width: 15px;
-                            height: 15px;
-                            background-color: var(--directorist-color-light-gray);
-                        }
-                    }
-    
-                    /* Legacy Icon */
-                    > span{
-                        display: inline-block;
-                        margin-right: 5px;
+                    transition: color 0.3s ease;
+                    &:hover {
+                        color: var(--directorist-color-primary);
                     }
                 }
-    
-                .directorist-thumb-listing-author {
-                    a {
-                        width: 38px;
-                        height: 38px;
-                        display: inline-block;
-                        vertical-align: middle;
-                    }
-    
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 50%;
+            }
+
+            .directorist-view-count {
+                font-size: 14px;
+                color: var(--directorist-color-body);
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                .directorist-icon-mask{
+                    &:after{
+                        width: 15px;
+                        height: 15px;
+                        background-color: var(--directorist-color-light-gray);
                     }
                 }
-    
-                .directorist-mark-as-favorite__btn {
-                    width: auto;
-                    height: auto;
+
+                /* Legacy Icon */
+                > span{
+                    display: inline-block;
+                    margin-right: 5px;
                 }
+            }
+
+            .directorist-thumb-listing-author {
+                a {
+                    width: 38px;
+                    height: 38px;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                }
+            }
+
+            .directorist-mark-as-favorite__btn {
+                width: auto;
+                height: auto;
             }
     
             .directorist-listing-category {

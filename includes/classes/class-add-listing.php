@@ -302,7 +302,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				$new_listing_status  = get_term_meta( $directory_id, 'new_listing_status', true );
-				$edit_listing_status = get_term_meta( $directory_id, 'edit_listing_status', true );
+				$edit_listing_status = directorist_edit_listing_status( $directory_id );
 				$default_expiration  = get_term_meta( $directory_id, 'default_expiration', true );
 				$preview_enable      = atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) );
 

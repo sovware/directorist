@@ -33,7 +33,7 @@
 
 .directorist-modal__content{
     width: 100%;
-    background: var(--directorist-color-white);
+    background-color: var(--directorist-color-white);
     pointer-events: auto;
     border-radius: 16px;
     position: relative;
@@ -437,7 +437,7 @@
                 height: 16px;
                 mask-position: center;
                 mask-repeat: no-repeat;
-                background: var(--directorist-color-body);
+                background-color: var(--directorist-color-body);
                 mask-image: url("../../../icons/font-awesome/svgs/solid/search.svg");
             }
         }
@@ -770,7 +770,7 @@
                 align-items: center;
                 justify-content: center;
                 color: var(--directorist-color-white);
-                background: var(--directorist-color-primary);
+                background-color: var(--directorist-color-primary);
                 font-size: 10px;
                 border-radius: 100%;
                 margin-inline-start: 10px;
@@ -782,7 +782,7 @@
                 &:after {
                     width: 12px;
                     height: 12px;
-                    background: #808080;
+                    background-color: #808080;
                 }
             }
             &:before {
@@ -799,7 +799,7 @@
             min-width: 150px;
             padding: 15px 20px;
             border-radius: 10px;
-            background: var(--directorist-color-white);
+            background-color: var(--directorist-color-white);
             box-shadow: var(--directorist-box-shadow);
             max-height: 250px;
             box-sizing: border-box;

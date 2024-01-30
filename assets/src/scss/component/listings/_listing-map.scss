@@ -168,7 +168,7 @@
         padding: 0;
         display: none;
         &:hover {
-            background: #444752;
+            background-color: #444752;
         }
     }
 
@@ -200,7 +200,7 @@
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 5px 20px rgba(0,0,0,0.33);
-    background: var(--directorist-color-white);
+    background-color: var(--directorist-color-white);
     .directorist-mark-as-favorite__btn {
         position: absolute;
         top: 20px;
@@ -208,7 +208,7 @@
         width: 30px;
         height: 30px;
         border-radius: 100%;
-        background: var(--directorist-color-white);
+        background-color: var(--directorist-color-white);
         .directorist-favorite-icon::before {
             width: 16px;
             height: 16px;
@@ -390,7 +390,7 @@
         &:after {
             width: 16px;
             height: 16px;
-            background: var(--directorist-color-white);
+            background-color: var(--directorist-color-white);
         }
     }
     &:hover {
@@ -404,7 +404,7 @@
 .marker-cluster-shape {
     width: 35px;
     height: 35px;
-    background: #444752;
+    background-color: #444752;
     border-radius: 50%;
     display: flex;
     align-items: center;

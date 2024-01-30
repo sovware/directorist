@@ -6,7 +6,7 @@
     
         @include m(bg) {
             border-radius: 12px;
-            background: var(--directorist-color-white);
+            background-color: var(--directorist-color-white);
             box-shadow: var(--directorist-box-shadow);
         }
     
@@ -376,7 +376,7 @@
                         height: 34px;
                         width: 34px;
                         border-radius: 50%;
-                        background: var(--directorist-color-light);
+                        background-color: var(--directorist-color-light);
                         display: inline-flex;
                         align-items: center;
                         justify-content: center;
@@ -393,7 +393,7 @@
                         width: 36px;
                         height: 36px;
                         border-radius: 50%;
-                        background: #F3F3F3;
+                        background-color: #F3F3F3;
                         display: inline-flex;
                         align-items: center;
                         justify-content: center;
@@ -612,7 +612,7 @@
             .directorist-mark-as-favorite__btn {
                 width: 30px;
                 height: 30px;
-                background: var(--directorist-color-white);
+                background-color: var(--directorist-color-white);
             }
         }
     
@@ -759,7 +759,7 @@
                         width: 20px;
                         height: 20px;
                         border-radius: 100%;
-                        background: var(--directorist-color-white);
+                        background-color: var(--directorist-color-white);
                     }
                     .directorist-favorite-icon:before{
                         width: 10px;
@@ -976,7 +976,7 @@
             min-width: 120px;
             right: 0;
             top: 35px;
-            background: #000;
+            background-color: #000;
             color: #fff;
             font-size: 13px;
             border-radius: 3px;

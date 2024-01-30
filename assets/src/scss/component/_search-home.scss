@@ -582,7 +582,7 @@
 					align-items: center;
 					justify-content: center;
 					color: var(--directorist-color-white);
-					background: var(--directorist-color-primary);
+					background-color: var(--directorist-color-primary);
 					font-size: 10px;
 					border-radius: 100%;
 					margin-inline-start: 10px;
@@ -594,7 +594,7 @@
 					&:after {
 						width: 12px;
 						height: 12px;
-						background: #808080;
+						background-color: #808080;
 					}
 				}
 				&:before {
@@ -611,7 +611,7 @@
 				min-width: 150px;
 				padding: 15px 20px;
 				border-radius: 10px;
-				background: var(--directorist-color-white);
+				background-color: var(--directorist-color-white);
 				box-shadow: var(--directorist-box-shadow);
 				box-sizing: border-box;
 				max-height: 250px;
@@ -1033,7 +1033,7 @@
 	width: 100%;
 	left: 0;
 	top: 45px;
-	background: var(--directorist-color-white);
+	background-color: var(--directorist-color-white);
 	box-shadow: 0 5px 10px rgb(145 146 163 / 20%);
 	border-radius: 3px;
 	z-index: 1;

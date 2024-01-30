@@ -241,7 +241,7 @@
         opacity: 0;
         right: 0;
         top: calc(100% + 30px);
-        background: #ffffff;
+        background-color: #ffffff;
         border-radius: 10px;
         width: 150px;
         box-shadow: 0 5px 15px rgba(#000, 0.15);
@@ -281,7 +281,7 @@
             }
             &:hover{
                 font-weight: 500;
-                background: var(--directorist-color-light);
+                background-color: var(--directorist-color-light);
                 color: var(--directorist-color-dark);
                 span.la,
                 span.fa,
@@ -386,7 +386,7 @@
     .directorist-pricing-meta  .directorist-listing-price {
         padding: 5px 10px;
         border-radius: 6px;
-        background: var(--directorist-color-light);
+        background-color: var(--directorist-color-light);
     }
 
     .directorist-listing-single__info {

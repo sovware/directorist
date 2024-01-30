@@ -1,5 +1,5 @@
 .atbdp-setup {
-    background: #F1F1F1;
+    background-color: #F1F1F1;
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -19,7 +19,7 @@
     color: #3e3e3e;
     border-radius: 5px;
     box-shadow: 0 5px 15px rgba(146, 153, 184, 0.2);
-    background: #fff;
+    background-color: #fff;
     overflow: hidden;
 }
 
@@ -62,7 +62,7 @@
 }
 
 .atbdp-setup-content .atbdp-c-footer {
-    background: #F4F5F7;
+    background-color: #F4F5F7;
     padding: 20px 40px;
     display: flex;
     justify-content: flex-end;
@@ -86,7 +86,7 @@
 }
 
 .wbtn-primary {
-    background: #4353FF;
+    background-color: #4353FF;
     border-color: #4353FF;
     color: #fff;
     margin-left: 6px;
@@ -169,7 +169,7 @@
 
 .w-toggle-switch .w-switch:before {
     border-radius: 19px;
-    background: #C8CADF;
+    background-color: #C8CADF;
     height: 26px;
     left: -4px;
     top: -3px;
@@ -181,7 +181,7 @@
 .w-toggle-switch .w-switch:after {
     box-shadow: 0 0 4px rgba(146, 155, 177, 0.15);
     border-radius: 50%;
-    background: #fefefe;
+    background-color: #fefefe;
     height: 18px;
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
@@ -199,7 +199,7 @@
 }
 
 .w-toggle-switch .w-switch:checked:before {
-    background: #4353FF;
+    background-color: #4353FF;
 }
 
 .w-input-group {
@@ -216,7 +216,7 @@
     font-size: 12px;
     padding: 0 12px;
     color: #9299B8;
-    background: #EFF0F3;
+    background-color: #EFF0F3;
     border-radius: 4px 0 0 4px;
 }
 
@@ -227,7 +227,7 @@
 .wicon-done {
     display: inline-flex;
     font-size: 50px;
-    background: #0FB73B;
+    background-color: #0FB73B;
     border-radius: 50%;
     width: 80px;
     height: 80px;
@@ -288,7 +288,7 @@
     content: '';
     width: 120px;
     height: 3px;
-    background: #C6D0DC;
+    background-color: #C6D0DC;
     left: 35px;
     top: 27%;
     transform: translateY(-50%);
@@ -296,7 +296,7 @@
 }
 
 .atbdp-setup-steps li.done:after {
-    background: #0FB73B;
+    background-color: #0FB73B;
 }
 
 .atbdp-setup-steps li:last-child {
@@ -309,7 +309,7 @@
 
 .atbdp-setup-steps li span.atbdp-sw-circle {
     display: inline-flex;
-    background: #fff;
+    background-color: #fff;
     width: 34px;
     height: 34px;
     border-radius: 50%;
@@ -325,7 +325,7 @@
 }
 
 .atbdp-setup-steps li.done span.atbdp-sw-circle {
-    background: #0FB73B;
+    background-color: #0FB73B;
     color: #fff;
 }
 
@@ -338,7 +338,7 @@
 }
 
 .atbdp-setup-steps li.active span.atbdp-sw-circle {
-    background: #272B41;
+    background-color: #272B41;
     color: #fff;
 }
 
@@ -406,23 +406,23 @@
 }
 
 .directorist-importer__importing progress::-webkit-progress-bar {
-    background: #E8F0F8;
+    background-color: #E8F0F8;
     border-radius: 15px;
 }
 
 .directorist-importer__importing progress::-webkit-progress-value {
-    background: #2C99FF;
+    background-color: #2C99FF;
 }
 
 .directorist-importer__importing progress::-moz-progress-bar {
-    background: #E8F0F8;
+    background-color: #E8F0F8;
     border-radius: 15px;
     border: none;
     box-shadow: none;
 }
 
 .directorist-importer__importing progress[value]::-moz-progress-bar {
-    background: #2C99FF;
+    background-color: #2C99FF;
 }
 
 .directorist-importer__importing span.importer-notice {

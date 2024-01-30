@@ -40,38 +40,38 @@
 // Button Type
 .directorist-btn {
   &.directorist-btn-primary {
-    background: var(--directorist-color-primary);
+    background-color: var(--directorist-color-primary);
     color: var(--directorist-color-white);
     @include btnFocusBg(var(--directorist-color-primary));
     &:hover{
-      background: var(--directorist-color-primary-hover);
+      background-color: var(--directorist-color-primary-hover);
     }
   }
 
   &.directorist-btn-secondary {
-    background: var(--directorist-color-secondary);
+    background-color: var(--directorist-color-secondary);
     color: var(--directorist-color-body);
   }
 
   &.directorist-btn-dark {
-    background: var(--directorist-color-primary);
+    background-color: var(--directorist-color-primary);
     color: var(--directorist-color-white);
   }
 
   &.directorist-btn-success {
-    background: var(--directorist-color-success);
+    background-color: var(--directorist-color-success);
     color: var(--directorist-color-white);
   }
 
   &.directorist-btn-info {
-    background: var(--directorist-color-info);
+    background-color: var(--directorist-color-info);
     color: var(--directorist-color-white);
   }
 
   &.directorist-btn-light {
-    background: var(--directorist-color-light);
+    background-color: var(--directorist-color-light);
     &:hover{
-      background: var(--directorist-color-light-hover);
+      background-color: var(--directorist-color-light-hover);
     }
   }
 
@@ -81,12 +81,12 @@
   }
 
   &.directorist-btn-warning {
-    background: var(--directorist-color-warning);
+    background-color: var(--directorist-color-warning);
     color: var(--directorist-color-white);
   }
 
   &.directorist-btn-danger {
-    background: var(--directorist-color-danger);
+    background-color: var(--directorist-color-danger);
     color: var(--directorist-color-white);
   }
 

@@ -1058,16 +1058,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       });
       searchForm.querySelectorAll("select").forEach(function (el) {
-        el.selectedIndex = 0;
-        $('.directorist-select2-dropdown-close').click();
-        var parentElem = el.closest('.directorist-search-field');
-
-        if (parentElem.classList.contains('input-has-value') || parentElem.classList.contains('input-is-focused')) {
-          setTimeout(function () {
-            parentElem.classList.remove('input-has-value', 'input-is-focused');
-          }, 100);
-        }
-
         if (el.value || el.selectedIndex !== 0) {
           value = true;
         }

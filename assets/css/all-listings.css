@@ -15487,8 +15487,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-content-active .directorist-listing-single__info .directorist-pricing-meta .directorist-listing-price {
   font-size: 14px;
   font-weight: 700;
-  color: var(--directorist-color-body);
   padding: 0;
+  background: transparent;
+  color: var(--directorist-color-body);
 }
 @media screen and (max-width: 575px) {
   .directorist-content-active .directorist-listing-single__info .directorist-pricing-meta .directorist-listing-price {

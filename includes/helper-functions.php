@@ -4242,7 +4242,7 @@ function directorist_background_image_process( $images ) {
  *
  * @return string The edited or original status for the listing.
  */
-function directorist_edit_listing_status( $directory_type ) {
+function directorist_get_listing_edit_status( $directory_type ) {
 	$edit_listing_status = get_term_meta( $directory_type, 'edit_listing_status', true );
 	$new_listing_status  = get_term_meta( $directory_type, 'new_listing_status', true );
     

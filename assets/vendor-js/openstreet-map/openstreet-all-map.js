@@ -1,7 +1,7 @@
 (function ($) {
     $(document).ready(function ($) {
 
-        window.addEventListener('DOMContentLoaded', initMap );
+        window.addEventListener('load', initMap );
         window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
         function initMap() {

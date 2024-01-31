@@ -77,22 +77,6 @@ function directorist_listing_form_has_category_field( int $directory_id ) {
 	return ! empty( $category_field );
 }
 
-function directorist_is_multi_directory_enabled() {
-	return (bool) get_directorist_option( 'enable_multi_directory', false );
-}
-
-function directorist_is_guest_submission_enabled() {
-	return (bool) get_directorist_option( 'guest_listings', 0 );
-}
-
-function directorist_is_featured_listing_enabled() {
-	return (bool) get_directorist_option( 'enable_featured_listing' );
-}
-
-function directorist_is_monetization_enabled() {
-	return (bool) get_directorist_option( 'enable_monetization' );
-}
-
 function directorist_is_terms_and_condition_enabled( int $directory_id ) {
 	return (bool) directorist_get_directory_meta( $directory_id, 'listing_terms_condition' );
 }

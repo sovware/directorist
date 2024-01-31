@@ -84,7 +84,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             $fields['single_listing_slug_with_directory_type'] = [
                 'type'  => 'toggle',
                 'label' => __('Listing Slug with Directory Type', 'directorist'),
-                'value' => get_directorist_option( 'enable_multi_directory' ),
+                'value' => directorist_is_multi_directory_enabled(),
                 'show-if' => [
                     'where' => "enable_multi_directory",
                     'conditions' => [
@@ -117,7 +117,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         'label' => __( 'Start Building Directory', 'directorist' ),
                         'type'  => 'success',
                         'url'   => admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types' ),
-                        'show'  => get_directorist_option( 'enable_multi_directory', false ),
+                        'show'  => directorist_is_multi_directory_enabled(),
                     ]
                 ]
             ];

@@ -101,7 +101,7 @@ class Builder_Controller extends Abstract_Controller {
 
 		$new_status = get_term_meta( $item->term_id, 'new_listing_status', true );
 
-		$edit_status = get_term_meta( $item->term_id, 'edit_listing_status', true );
+		$edit_status = directorist_get_listing_edit_status( $item->term_id );
 
 		$is_default = get_term_meta( $item->term_id, '_default', true );
 

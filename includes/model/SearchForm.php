@@ -90,7 +90,7 @@ class Directorist_Listing_Search_Form {
 
 		$this->form_data          = $this->build_form_data();
 
-		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
+		$this->c_symbol           = atbdp_currency_symbol( directorist_get_currency() );
 		// $this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
 		// $this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
@@ -460,9 +460,7 @@ class Directorist_Listing_Search_Form {
 
 
 	public function directory_type_nav_template() {
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-
-		if( count( $this->get_listing_type_data() ) < 2 || empty( $enable_multi_directory ) ) {
+		if ( count( $this->get_listing_type_data() ) < 2 || ! directorist_is_multi_directory_enabled() ) {
 			return;
 		}
 

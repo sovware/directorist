@@ -3167,26 +3167,14 @@ body.stop-scrolling {
 .directorist-form-image-upload-field .ezmu__info-list-item:empty {
   display: none;
 }
-.directorist-form-image-upload-field .ezmu__thumbnail-list-item {
-  width: auto;
-}
 
 .directorist-add-listing-wrapper {
   max-width: 750px !important;
   margin: 0 auto;
 }
-.directorist-add-listing-wrapper .ezmu__thumbnail-list-item {
-  max-width: 300px;
-  -webkit-flex-basis: 300px;
-      -ms-flex-preferred-size: 300px;
-          flex-basis: 300px;
-}
 .directorist-add-listing-wrapper .ezmu__thumbnail-list-item_back {
   height: 200px;
   width: 100%;
-}
-.directorist-add-listing-wrapper .ezmu__media-picker-buttons {
-  margin-top: 10px;
 }
 .directorist-add-listing-wrapper .ezmu__titles-area .ezmu__title-1 {
   font-size: 30px;
@@ -15009,12 +14997,6 @@ Review: New Style
   color: #51526E;
   text-decoration: none;
 }
-.directorist-user-dashboard__nav .directorist-tab__nav__link i,
-.directorist-user-dashboard__nav .directorist-tab__nav__link span.fa {
-  pointer-events: none;
-  display: inline-block;
-  margin-right: 10px;
-}
 .directorist-user-dashboard__nav .directorist-tab__nav__link .directorist_menuItem-text {
   pointer-events: none;
   display: -webkit-box;
@@ -15032,10 +15014,19 @@ Review: New Style
 .directorist-user-dashboard__nav .directorist-tab__nav__link .directorist_menuItem-text .directorist_menuItem-icon {
   line-height: 0;
 }
+.directorist-user-dashboard__nav .directorist-tab__nav__link .directorist_menuItem-text i,
+.directorist-user-dashboard__nav .directorist-tab__nav__link .directorist_menuItem-text span.fa {
+  pointer-events: none;
+  display: inline-block;
+  margin-right: 10px;
+}
 .directorist-user-dashboard__nav .directorist-tab__nav__link.directorist-tab__nav__active, .directorist-user-dashboard__nav .directorist-tab__nav__link:focus {
   font-weight: 700;
-  background-color: #E9E9E9 !important;
+  background-color: #E9E9E9;
   color: #0A0B1E;
+}
+.directorist-user-dashboard__nav .directorist-tab__nav__link.directorist-tab__nav__active.atbd-dash-nav-dropdown, .directorist-user-dashboard__nav .directorist-tab__nav__link:focus.atbd-dash-nav-dropdown {
+  background-color: transparent;
 }
 .directorist-user-dashboard__nav .directorist-tab__nav__action {
   margin-top: 15px;

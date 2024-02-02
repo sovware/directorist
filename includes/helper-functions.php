@@ -297,8 +297,8 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $edited         = $args['edited'];
     $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 
-    $monitization          = get_directorist_option('enable_monetization', 0);
-    $featured_enabled      = get_directorist_option('enable_featured_listing');
+    $monitization          = directorist_is_monetization_enabled();
+    $featured_enabled      = directorist_is_featured_listing_enabled();
     $pricing_plans_enabled = is_fee_manager_active();
 
     $post_status =  $listing_status;
@@ -915,7 +915,7 @@ if (!function_exists('atbdp_get_featured_settings_array')) {
     function atbdp_get_featured_settings_array()
     {
         return array(
-            'active' => get_directorist_option('enable_featured_listing'),
+            'active' => directorist_is_featured_listing_enabled(),
             'label' => get_directorist_option('featured_listing_title'),
             'desc' => get_directorist_option('featured_listing_desc'),
             'price' => get_directorist_option('featured_listing_price'),
@@ -1120,10 +1120,10 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
     $before = '';
     $after = '';
     if (empty($c_position)) {
-        $c_position = get_directorist_option('g_currency_position');
+        $c_position = directorist_get_currency_position();
     }
     if (empty($currency)) {
-        $currency = get_directorist_option('g_currency', 'USD');
+        $currency = directorist_get_currency();
     }
     if (empty($symbol)) {
         $symbol = atbdp_currency_symbol($currency);
@@ -1148,7 +1148,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
  */
 function atbdp_display_price_range($price_range)
 {
-    $currency = get_directorist_option('g_currency', 'USD');
+    $currency = directorist_get_currency();
     $c_symbol = atbdp_currency_symbol($currency);
     if (empty($price_range)) return null;
     $output = '';
@@ -2447,13 +2447,30 @@ function atbdp_guest_submission($guest_email)
     }
 }
 
-function atbdp_get_listing_attachment_ids($post_id){
+function atbdp_get_listing_attachment_ids( $listing_id ) {
+	$featured_image = (int) get_post_meta( $listing_id, '_listing_prv_img', true );
+	$attachment_ids = array();
 
-    $listing_img = get_post_meta($post_id, '_listing_img', true);
-    $listing_img = !empty($listing_img) ? $listing_img : array();
-    $listing_prv_img = get_post_meta($post_id, '_listing_prv_img', true);
-    array_unshift($listing_img, $listing_prv_img);
-    return $listing_img;
+	if ( $featured_image ) {
+		$attachment_ids[] = $featured_image;
+	}
+
+    $gallery_images = (array) get_post_meta( $listing_id, '_listing_img', true );
+
+	if ( empty( $gallery_images ) ) {
+		return $attachment_ids;
+	}
+
+	$gallery_images = wp_parse_id_list( $gallery_images );
+	$gallery_images = array_filter( $gallery_images );
+
+	if ( empty( $gallery_images ) ) {
+		return $attachment_ids;
+	}
+	
+    $attachment_ids = array_merge( $attachment_ids, $gallery_images );
+
+    return $attachment_ids;
 }
 
 
@@ -3046,7 +3063,7 @@ if( !function_exists('directorist_legacy_mode') ){
 
 if( !function_exists('directorist_multi_directory') ){
     function directorist_multi_directory() {
-        return get_directorist_option( 'enable_multi_directory', false );
+        return directorist_is_multi_directory_enabled();
     }
 }
 
@@ -3064,8 +3081,8 @@ if( ! function_exists( 'directorist_warnings' ) ) {
         $checkout_page			 	= get_directorist_option( 'checkout_page' );
         $payment_receipt_page	 	= get_directorist_option( 'payment_receipt_page' );
         $transaction_failure_page	= get_directorist_option( 'transaction_failure_page' );
-        $enable_monetization	 	= get_directorist_option( 'enable_monetization' );
-        $enable_featured_listing	= get_directorist_option( 'enable_featured_listing' );
+        $enable_monetization	 	= directorist_is_monetization_enabled();
+        $enable_featured_listing	= directorist_is_featured_listing_enabled();
         $select_listing_map			= get_directorist_option( 'select_listing_map' );
         $map_api_key				= get_directorist_option( 'map_api_key' );
         $host                       = gethostname();
@@ -4028,44 +4045,36 @@ function directorist_password_reset_url( $user, $password_reset = true, $confirm
     return apply_filters( 'directorist_password_reset_url', $reset_password_url );
 }
 
-function directorist_get_mime_types( $filter_type = '', $return_type = '' ) {
-	$supported_mime_types = wp_get_mime_types();
+/**
+ * Get allowed mime types.
+ * 
+ * @param string $filterby Filter allowed mime types by group. eg. image, audio, video, document etc.
+ * @param string $return_type Get the full mime types map or only extensions. Valid args are extension and .extension.
+ * 
+ * @return array
+ */
+function directorist_get_mime_types( $filterby = '', $return_type = '' ) {
+	$allowed_mime_types = get_allowed_mime_types();
 
-	// Filter
-	if ( ! empty( $filter_type ) ) {
-		$filtered_supported_mime_types = [];
-
-		foreach ($supported_mime_types as $key => $value) {
-			$_type = preg_replace( "/\/\w+$/", '', $value );
-
-			if ( $_type !== $filter_type ) {
-				continue;
-			}
-
-			$filtered_supported_mime_types[ $key ] = $value;
-		}
-
-		$supported_mime_types = $filtered_supported_mime_types;
+	if ( ! empty( $filterby ) ) {
+		$allowed_mime_types = array_filter( $allowed_mime_types, static function( $mime_type, $extensions ) use ( $filterby ) {
+			return stripos( $mime_type, $filterby ) !== false;
+		}, ARRAY_FILTER_USE_BOTH );
 	}
 
-	// Convert to extension
 	if ( $return_type === 'extension' || $return_type === '.extension' ) {
-		$extensions = array_keys( $supported_mime_types );
+		$allowed_mime_types = array_reduce( array_keys( $allowed_mime_types ), static function( $carry, $extension ) {
+			return array_merge( $carry, explode( '|',  $extension ) );
+		}, array() );
 
-		$extended_extensions = [];
-
-		foreach ( $extensions as $extension ) {
-			$_sub_extensions = explode( '|',  $extension );
-
-			foreach ( $_sub_extensions as $sub_extension ) {
-				$extended_extensions[] = ( $return_type === '.extension' ) ? '.' . $sub_extension : $sub_extension;
-			}
+		if ( $return_type === '.extension' ) {
+			$allowed_mime_types = array_map( static function( $extension ) {
+				return '.' . $extension;
+			}, $allowed_mime_types );
 		}
-
-		$supported_mime_types = array_values( $extended_extensions );
 	}
 
-	return $supported_mime_types;
+	return $allowed_mime_types;
 }
 
 /**
@@ -4188,6 +4197,10 @@ function directorist_validate_youtube_vimeo_url( $url ) {
         return true;
     }
 
+    if ( preg_match( '/^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]+)(\?.*)?$/', $url ) ) {
+        return true;
+    }
+
 	if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]+)(\S+)?$/i', $url ) ) {
         return true;
     }
@@ -4197,4 +4210,45 @@ function directorist_validate_youtube_vimeo_url( $url ) {
 
 function directorist_is_listing_post_type( $listing_id ) {
 	return ( get_post_type( absint( $listing_id ) ) === ATBDP_POST_TYPE );
+}
+
+function directorist_background_image_process( $images ) {
+	if ( empty( $images ) || ! is_array( $images ) ) {
+		return;
+	}
+
+	$should_dispatch = false;
+
+	foreach ( $images as $image_id => $image_path ) {
+		if ( empty( $image_id ) || empty( $image_path ) ) {
+			continue;
+		}
+
+		$should_dispatch = true;
+		
+		ATBDP()->background_image_process->push_to_queue( array( $image_id => $image_path ) );
+	}
+
+	if ( $should_dispatch ) {
+		ATBDP()->background_image_process->save()->dispatch();
+	}
+}
+
+/**
+ * Get or modify the status of a directory listing during editing.
+ *
+ * @param int    $directory_type The directory type ID.
+ * @param int    $listing_id      The listing ID.
+ *
+ * @return string The edited or original status for the listing.
+ */
+function directorist_get_listing_edit_status( $directory_type ) {
+	$edit_listing_status = get_term_meta( $directory_type, 'edit_listing_status', true );
+	$new_listing_status  = get_term_meta( $directory_type, 'new_listing_status', true );
+    
+    if ( 'publish' !== $new_listing_status && 'publish' === $edit_listing_status ) {
+        $edit_listing_status = $new_listing_status;
+    }
+
+    return $edit_listing_status;
 }

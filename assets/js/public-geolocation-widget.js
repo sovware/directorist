@@ -122,7 +122,6 @@
         var x = document.querySelector(".widget-location-name");
         var get_lat = document.querySelector("#cityLat");
         var get_lng = document.querySelector("#cityLng");
-
         function getLocation() {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -130,7 +129,6 @@
             x.value = "Geolocation is not supported by this browser.";
           }
         }
-
         function showPosition(position) {
           lat = position.coords.latitude;
           lon = position.coords.longitude;
@@ -138,27 +136,22 @@
           get_lat.value = lat;
           get_lng.value = lon;
         }
-
         function showError(error) {
           switch (error.code) {
             case error.PERMISSION_DENIED:
               x.value = "User denied the request for Geolocation.";
               break;
-
             case error.POSITION_UNAVAILABLE:
               x.value = "Location information is unavailable.";
               break;
-
             case error.TIMEOUT:
               x.value = "The request to get user location timed out.";
               break;
-
             case error.UNKNOWN_ERROR:
               x.value = "An unknown error occurred.";
               break;
           }
         }
-
         function displayLocation(latitude, longitude) {
           var geocoder;
           geocoder = new google.maps.Geocoder();
@@ -183,12 +176,10 @@
             }
           });
         }
-
         var get_loc_btn = document.querySelector(".atbd_get_loc_wid");
         get_loc_btn.addEventListener("click", function () {
           getLocation();
         });
-
         if (directorist.i18n_text.select_listing_map === 'google') {
           function initialize() {
             var input = document.getElementById('address_widget');
@@ -205,7 +196,6 @@
               document.getElementById('cityLng').value = place.geometry.location.lng();
             });
           }
-
           google.maps.event.addDomListener(window, 'load', initialize);
         }
       })();
@@ -216,13 +206,11 @@
         $('#address_widget_result').css({
           'display': 'block'
         });
-
         if (search === "") {
           $('#address_widget_result').css({
             'display': 'none'
           });
         }
-
         var res = "";
         $.ajax({
           url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
@@ -233,7 +221,6 @@
             for (var i = 0; i < data.length; i++) {
               res += '<li><a href="#" data-lat=' + data[i].lat + ' data-lon=' + data[i].lon + '>' + data[i].display_name + '</a></li>';
             }
-
             $('#address_widget_result').html('<ul>' + res + '</ul>');
           }
         });
@@ -241,14 +228,13 @@
       $('body').on('click', '#address_widget_result ul li a', function (event) {
         event.preventDefault();
         var text = $(this).text(),
-            lat = $(this).data('lat'),
-            lon = $(this).data('lon');
+          lat = $(this).data('lat'),
+          lon = $(this).data('lon');
         $('#cityLat').val(lat);
         $('#cityLng').val(lon);
         $('#address_widget').val(text);
         $('#address_widget_result').hide();
       });
-
       function displayLocation(position) {
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
@@ -263,12 +249,10 @@
           }
         });
       }
-
       $(".atbd_get_loc_wid").on('click', function () {
         navigator.geolocation.getCurrentPosition(displayLocation);
       });
     }
-
     if ($('#address_widget').val() === "") {
       $('#address_widget_result').css({
         'display': 'none'

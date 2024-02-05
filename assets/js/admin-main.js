@@ -3343,9 +3343,9 @@ function convertToSelect2(field) {
   !*** ./assets/src/scss/layout/admin/admin-style.scss ***!
   \*******************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleError: Module Error (from ./node_modules/resolve-url-loader/index.js):\nresolve-url-loader: loader misconfiguration\n  \"engine\" option is not valid\n    at Object.emitError (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/webpack/lib/NormalModule.js:173:6)\n    at handleAsError (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/resolve-url-loader/index.js:214:12)\n    at Object.resolveUrlLoader (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/resolve-url-loader/index.js:156:12)");
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 

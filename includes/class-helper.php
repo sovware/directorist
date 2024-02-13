@@ -785,7 +785,7 @@ class Helper {
 
 		$url = preg_replace( self::get_query_string_pattern(), '', $url );
 		$url = rtrim( $url, '/' );
-		$url = "${url}/${slug}/${query_string}";
+		$url = "{$url}/{$slug}/{$query_string}";
 
 		return $url;
 	}

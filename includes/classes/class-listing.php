@@ -123,8 +123,8 @@ if (!class_exists('ATBDP_Listing')):
                     update_post_meta( $id, '_directory_type', $directory_type );
                     wp_set_object_terms($id, (int)$directory_type, ATBDP_TYPE);
                 }
-                $new_l_status = get_term_meta( $directory_type, 'new_listing_status', true );
-                $edit_l_status = get_term_meta( $directory_type, 'edit_listing_status', true );
+                $new_l_status  = get_term_meta( $directory_type, 'new_listing_status', true );
+                $edit_l_status = directorist_get_listing_edit_status( $directory_type );
 
                 $edited = isset($_GET['edited']) ? directorist_clean( wp_unslash( $_GET['edited'] ) ) : '';
                 $args = [ 'id' => $id, 'edited' => $edited, 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status ];

@@ -97,13 +97,14 @@ class ATBDP_Metabox {
 			}
 		}
 		$terms = get_terms( $taxonomy_id, $args);
-	
+
 		if( $terms ) {
 			foreach( $terms as $term ) {
-				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
-				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
-				$checked        = in_array( $term->term_id, $saving_values, true ) ? 'checked' : '';
-				if( in_array( $term_id, $directory_type, true ) ) { ?>
+				$directory_type     = get_term_meta( $term->term_id, '_directory_type', true );
+				$directory_type     = ! empty ( $directory_type ) ? $directory_type : array();
+				$directory_type_int = array_map( 'intval', $directory_type );
+				$checked            = in_array( $term->term_id, $saving_values, true ) ? 'checked' : '';
+				if ( in_array( $term_id, $directory_type_int, true ) ) { ?>
 					<li id="<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>">
 						<label class="selectit">
 							<input value="<?php echo esc_attr( $term->term_id ); ?>" type="checkbox" name="tax_input[<?php echo esc_attr( $taxonomy_id ); ?>][]" id="in-<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>" <?php echo ! empty( $checked ) ? esc_attr( $checked ) : ''; ?>>
@@ -169,7 +170,7 @@ class ATBDP_Metabox {
 		$directory_type         = isset( $term_id ) ? $term_id : default_directory_type();
 		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
 		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
-		$f_active               = get_directorist_option('enable_featured_listing');
+		$f_active               = directorist_is_featured_listing_enabled();
 		$never_expire           = get_post_meta( $listing_id, '_never_expire', true );
 		$never_expire           = !empty( $never_expire ) ? (int) $never_expire : '';
 
@@ -226,17 +227,15 @@ class ATBDP_Metabox {
 		$current_type   =  get_post_meta( $post->ID, '_directory_type', true );
 		$value 			= $current_type ? $current_type : $default;
 		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
-		$multi_directory = get_directorist_option( 'enable_multi_directory', false );
 
-
-		$show_directory_type_nav = ! empty ( $multi_directory ) && ( count( $all_types ) > 1 );
+		$show_directory_type_nav = directorist_is_multi_directory_enabled() && ( count( $all_types ) > 1 );
 		$show_directory_type_nav = apply_filters( 'directorist_show_admin_edit_listing_directory_type_nav', $show_directory_type_nav, $post->ID );
 
 		if ( $show_directory_type_nav ) { ?>
 
-		<label><?php esc_html_e( 'Listing Type', 'directorist' ); ?></label>
+		<label><?php esc_html_e( 'Directory', 'directorist' ); ?></label>
 		<select name="directory_type">
-			<option value=""><?php esc_attr_e( 'Select Listing Type', 'directorist' ); ?></option>
+			<option value=""><?php esc_attr_e( 'Select a directory...', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ):
 				?>
 				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo selected( $type->term_id, $value ); ; ?> ><?php echo esc_attr( $type->name ); ?></option>
@@ -306,7 +305,7 @@ class ATBDP_Metabox {
 		$directory_type         = default_directory_type();
 		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
 		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
-		$f_active               = get_directorist_option('enable_featured_listing');
+		$f_active               = directorist_is_featured_listing_enabled();
 		$never_expire           = get_post_meta($post->ID, '_never_expire', true);
 		$never_expire           = !empty($never_expire) ? (int) $never_expire : '';
 

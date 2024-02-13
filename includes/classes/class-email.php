@@ -77,14 +77,14 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 				$listing_id = (int) get_post_meta( $order_id, '_listing_id', true );
 			}
 			if ( empty( $user ) ) {
-				$post_author_id = get_post_field( 'post_author', $listing_id );
+				$post_author_id = get_post_field( 'post_author', $listing_id ? $listing_id : $order_id );
 				$user = get_userdata( $post_author_id );
 			} else {
 				if ( ! $user instanceof WP_User ) {
 					$user = get_userdata( (int) $user );
 				}
 			}
-			$user_password = get_user_meta( $user->ID, '_atbdp_generated_password', true );
+			$user_password = $user ? get_user_meta( $user->ID, '_atbdp_generated_password', true ) :  '';
 			$site_name = get_option( 'blogname' );
 			$site_url = site_url();
 			$l_title = get_the_title( $listing_id );
@@ -131,8 +131,8 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 				'==USER_PASSWORD=='                              => $user_password,
 				'==USER_DASHBOARD=='                             => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
 				'==PIN=='                                        => $pin,
-				'==CONFIRM_EMAIL_ADDRESS_URL=='                  => sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw(directorist_password_reset_url($user, false, true)), __( 'Confirm Email Address', 'directorist' ) ),
-				'==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw(directorist_password_reset_url($user, true, true)), __( 'Set Password And Confirm Email Address', 'directorist' ) )
+				'==CONFIRM_EMAIL_ADDRESS_URL=='                  => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw(directorist_password_reset_url($user, false, true)), __( 'Confirm Email Address', 'directorist' ) ) : '',
+				'==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw(directorist_password_reset_url($user, true, true)), __( 'Set Password And Confirm Email Address', 'directorist' ) ) : ''
 			);
 			$c = nl2br( strtr( $content, $find_replace ) );
 			// we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
@@ -675,7 +675,7 @@ This email is sent automatically for information purpose only. Please do not res
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_edit_listing' ), null, $listing_id, $user );
 			$to = $user->user_email;
 			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
-			$edited_status  = get_term_meta( $directory_type, 'edit_listing_status', true );
+			$edited_status  = directorist_get_listing_edit_status( $directory_type );
 			if ( 'publish' === $edited_status ) {
 				$body = $this->replace_in_content( get_directorist_option( 'email_tmpl_edit_listing' ), null, $listing_id, $user );
 			} else {
@@ -953,7 +953,7 @@ This email is sent automatically for information purpose only. Please do not res
 			$gateway = get_post_meta( $order_id, '_payment_gateway', true );
 
 			if ( 'bank_transfer' !== $gateway ) {
-				return false;	
+				return false;
 			}
 
 			/*@todo; think if it is better to assign disabled_email_notification to the class prop*/
@@ -1086,22 +1086,15 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @param int $listing_email
 		 * @return bool Whether the email was sent successfully or not.
 		 */
-		public function send_password_reset_pin_email( $listing_email ) {
-			$s = __( '[==SITE_NAME==] Password Reset PIN', 'directorist' );
-			$sub = str_replace( '==SITE_NAME==', get_option( 'blogname' ), $s );
-			$pin = random_int( 1000, 9999 );
+		public function send_password_reset_pin_email( $user ) {
+			$subject    = esc_html( sprintf( __( '[%s] Password Reset PIN', 'directorist' ), get_option( 'blogname' ) ) );
+			$user_email = $user->user_email;
+			$pin_code   = directorist_generate_password_reset_pin_code( $user );
+			$body       = $this->get_password_reset_pin_email_template();
+			$message    = $this->replace_in_content( $body, 0, 0, $user, null, $pin_code );
+			$body       = atbdp_email_html( $subject, $message );
 
-			$min = 15;
-			$expiration = 60 * $min; // In seconds
-
-			set_transient( "directorist_reset_pin_${listing_email}", $pin, $expiration );
-
-			$body    = $this->get_password_reset_pin_email_template();
-			$message = $this->replace_in_content( $body, $order_id = 0, $listing_id = 0, $user = null, $renewal = null, $pin );
-			$body    = atbdp_email_html( $sub, $message );
-
-			return $this->send_mail( $listing_email, $sub, $body, $this->get_email_headers() );
-
+			return $this->send_mail( $user_email, $subject, $body, $this->get_email_headers() );
 		}
 
 		private function disable_notification() {

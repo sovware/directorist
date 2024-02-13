@@ -131,9 +131,7 @@ class Directorist_Listing_Author {
 
 	// Hooks ------------
 	public function archive_type( $listings ) {
-		$count = count( $listings->listing_types );
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
+		if ( count( $listings->listing_types ) > 1 && directorist_is_multi_directory_enabled() ) {
 			Helper::get_template( 'archive/directory-type-nav', array('listings' => $listings) );
 		}
 	}

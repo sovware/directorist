@@ -10,7 +10,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 
 		public function __construct() {
 			// Add the listing post type and taxonomies
-			add_action( 'init', array( $this, 'register_new_post_types' ) );
+			add_action( 'init', array( $this, 'register_new_post_types' ), 5 );
 
 			// add new columns for ATBDP_SHORT_CODE_POST_TYPE
 			add_filter( 'manage_' . ATBDP_POST_TYPE . '_posts_columns', array( $this, 'add_new_listing_columns' ) );
@@ -31,7 +31,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			// Customize listing slug
 			if ( get_directorist_option( 'single_listing_slug_with_directory_type', false ) ) {
 				add_filter( 'post_type_link', array( $this, 'customize_listing_slug' ), 20, 2 );
-				add_filter( 'post_link ', array( $this, 'customize_listing_slug' ), 20, 2 );
+				// add_filter( 'post_link', array( $this, 'customize_listing_slug' ), 20, 2 );
 			}
 
 			add_action( 'admin_footer', array( $this, 'quick_edit_scripts' ) );
@@ -82,32 +82,30 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			return $post_link;
 		}
 
-		public function save_quick_edit_custom_box( $post_id ) {
-
-			if ( ! is_admin() ) {
+		public function save_quick_edit_custom_box( $listing_id ) {
+			if ( ! directorist_verify_nonce() || ! directorist_is_listing_post_type( $listing_id ) ) {
 				return;
 			}
 
-			if ( ! directorist_verify_nonce() ) {
+			$action = isset( $_REQUEST['action'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) : '';
+			if ( $action !== 'inline-save' ) {
 				return;
 			}
 
-			if ( get_post_type( $post_id ) !== ATBDP_POST_TYPE ) {
+			if ( ! current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_posts ) ) {
 				return;
 			}
 
-			// if our current user can't edit this post, bail
-			if ( ! current_user_can( 'edit_posts' ) ) {
+			$directory_id = ! empty( $_REQUEST['directory_type'] ) ? absint( wp_unslash( $_REQUEST['directory_type'] ) ) : 0;
+
+			if ( ! directorist_is_directory( $directory_id ) ) {
 				return;
 			}
 
-			$directory_type = ! empty( $_REQUEST['directory_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) ) : '';
-			$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', (bool) $directory_type );
+			$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', (bool) $directory_id );
 
-			// Make sure that it is set.
 			if ( $should_update_directory_type ) {
-				update_post_meta( $post_id, '_directory_type', $directory_type );
-				wp_set_object_terms( $post_id, (int) $directory_type, ATBDP_TYPE );
+				directorist_set_listing_directory( $listing_id, $directory_id );
 			}
 		}
 
@@ -212,21 +210,40 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			// Args for ATBDP_POST_TYPE, here any constant may not be available because this function will be called from the
 			// register_activation_hook .
 			$labels = array(
-				'name'               => _x( 'Directory listings', 'Plural Name of Directory listing', 'directorist' ),
-				'singular_name'      => _x( 'Directory listing', 'Singular Name of Directory listing', 'directorist' ),
-				'menu_name'          => __( 'Directory listings', 'directorist' ),
-				'name_admin_bar'     => __( 'Directory listing', 'directorist' ),
-				'parent_item_colon'  => __( 'Parent Directory listing:', 'directorist' ),
-				'all_items'          => __( 'All listings', 'directorist' ),
-				'add_new_item'       => __( 'Add New listing', 'directorist' ),
-				'add_new'            => __( 'Add New listing', 'directorist' ),
-				'new_item'           => __( 'New listing', 'directorist' ),
-				'edit_item'          => __( 'Edit listing', 'directorist' ),
-				'update_item'        => __( 'Update listing', 'directorist' ),
-				'view_item'          => __( 'View listing', 'directorist' ),
-				'search_items'       => __( 'Search listing', 'directorist' ),
-				'not_found'          => __( 'No listings found', 'directorist' ),
-				'not_found_in_trash' => __( 'Not listings found in Trash', 'directorist' ),
+				'menu_name'                => __( 'Directory Listings', 'directorist' ),
+				'name_admin_bar'           => __( 'Listing', 'directorist' ),
+				'name'                     => _x( 'Listings', 'post type general name', 'directorist' ),
+				'singular_name'            => _x( 'Listing', 'post type singular name', 'directorist' ),
+				'add_new'                  => _x( 'Add New', 'listing', 'directorist' ),
+				'add_new_item'             => __( 'Add New Listing', 'directorist' ),
+				'edit_item'                => __( 'Edit Listing', 'directorist' ),
+				'update_item'              => __( 'Update Listing', 'directorist' ),
+				'new_item'                 => __( 'New Listing', 'directorist' ),
+				'view_item'                => __( 'View Listing', 'directorist' ),
+				'view_items'               => __( 'View Listings', 'directorist' ),
+				'search_items'             => __( 'Search Listings', 'directorist' ),
+				'not_found'                => __( 'No listings found.', 'directorist' ),
+				'not_found_in_trash'       => __( 'No listings found in Trash.', 'directorist' ),
+				'all_items'                => __( 'All Listings', 'directorist' ),
+				'archives'                 => __( 'Listing Archives', 'directorist' ),
+				'attributes'               => __( 'Listing Attributes', 'directorist' ),
+				'insert_into_item'         => __( 'Insert into listing', 'directorist' ),
+				'uploaded_to_this_item'    => __( 'Uploaded to this listing', 'directorist' ),
+				'featured_image'           => _x( 'Featured image', 'listing', 'directorist' ),
+				'set_featured_image'       => _x( 'Set featured image', 'listing', 'directorist' ),
+				'remove_featured_image'    => _x( 'Remove featured image', 'listing', 'directorist' ),
+				'use_featured_image'       => _x( 'Use as featured image', 'listing', 'directorist' ),
+				'filter_items_list'        => __( 'Filter listings list', 'directorist' ),
+				'items_list_navigation'    => __( 'Listings list navigation', 'directorist' ),
+				'items_list'               => __( 'Listings list', 'directorist' ),
+				'item_published'           => __( 'Listing published.', 'directorist' ),
+				'item_published_privately' => __( 'Listing published privately.', 'directorist' ),
+				'item_reverted_to_draft'   => __( 'Listing reverted to draft.', 'directorist' ),
+				'item_trashed'             => __( 'Listing trashed.', 'directorist' ),
+				'item_scheduled'           => __( 'Listing scheduled.', 'directorist' ),
+				'item_updated'             => __( 'Listing updated.', 'directorist' ),
+				'item_link'                => _x( 'Listing Link', 'navigation link block title', 'directorist' ),
+				'item_link_description'    => _x( 'A link to a listing.', 'navigation link block description', 'directorist' ),
 			);
 
 			$args = array(
@@ -235,7 +252,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 				'labels'              => $labels,
 				'supports'            => array( 'title', 'editor', 'author' ),
 				// 'show_in_rest'         => true,
-				'taxonomies'          => array( ATBDP_CATEGORY ),
+				'taxonomies'          => array( ATBDP_CATEGORY, ATBDP_LOCATION, ATBDP_TAGS, ATBDP_DIRECTORY_TYPE ),
 				'hierarchical'        => false,
 				'public'              => true,
 				'show_ui'             => current_user_can( 'edit_others_at_biz_dirs' ) ? true : false, // show the menu only to the admin
@@ -280,20 +297,17 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 		}
 
 		public function add_new_listing_columns( $columns ) {
-			$featured_active        = get_directorist_option( 'enable_featured_listing' );
-			$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-
 			$columns          = array();
 			$columns['cb']    = '<input type="checkbox" />';
 			$columns['title'] = __( 'Name', 'directorist' );
-			if ( atbdp_is_truthy( $enable_multi_directory ) ) {
+			if ( directorist_is_multi_directory_enabled() ) {
 				$columns['directory_type'] = __( 'Directory', 'directorist' );
 			}
 			$columns['atbdp_location'] = __( 'Location', 'directorist' );
 			$columns['atbdp_category'] = __( 'Categories', 'directorist' );
 			$columns['atbdp_author']   = __( 'Author', 'directorist' );
 			$columns['atbdp_status']   = __( 'Status', 'directorist' );
-			if ( $featured_active || is_fee_manager_active() ) {
+			if ( directorist_is_featured_listing_enabled() || is_fee_manager_active() ) {
 				$columns['atbdp_featured'] = __( 'Featured', 'directorist' );
 			}
 			$subscribed_package_id      = get_user_meta( get_current_user_id(), '_subscribed_users_plan_id', true );

@@ -79,7 +79,7 @@ class Helper {
 	 * @return mixed
 	 */
 	public static function maybe_json( $input_data = '', $return_first_item = false ) {
-		if ( 'string' !== gettype( $input_data )  ) {
+		if ( ! is_string( $input_data ) ) {
 			return $input_data;
 		}
 
@@ -277,7 +277,7 @@ class Helper {
 
 	public static function price_range_template( $listing_id ) {
 		$price_range = get_post_meta( $listing_id, '_price_range', true );
-		$currency = get_directorist_option( 'g_currency', 'USD' );
+		$currency = directorist_get_currency();
 		$currency = atbdp_currency_symbol( $currency );
 
 		switch ( $price_range ) {
@@ -312,8 +312,8 @@ class Helper {
 
 	public static function formatted_price( $price ) {
 		$allow_decimal = get_directorist_option('allow_decimal', 1);
-		$c_position    = get_directorist_option('g_currency_position');
-		$currency      = get_directorist_option('g_currency', 'USD');
+		$c_position    = directorist_get_currency_position();
+		$currency      = directorist_get_currency();
 		$symbol        = atbdp_currency_symbol($currency);
 		$before        = '';
 		$after         = '';
@@ -494,11 +494,11 @@ class Helper {
 	}
 
 	public static function multi_directory_enabled() {
-		return get_directorist_option( 'enable_multi_directory', false );
+		return directorist_is_multi_directory_enabled();
 	}
 
 	public static function default_preview_image_src( $type ) {
-		if ( self::multi_directory_enabled() ) {
+		if ( directorist_is_multi_directory_enabled() ) {
 			$type_general = get_term_meta( $type, 'general_config', true );
 
 			if ( ! empty( $type_general['preview_image'] ) ) {
@@ -785,7 +785,7 @@ class Helper {
 
 		$url = preg_replace( self::get_query_string_pattern(), '', $url );
 		$url = rtrim( $url, '/' );
-		$url = "${url}/${slug}/${query_string}";
+		$url = "{$url}/{$slug}/{$query_string}";
 
 		return $url;
 	}

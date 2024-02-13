@@ -36,16 +36,12 @@ class Comment_Form_Processor {
 				throw new Exception( __( 'Review is disabled.', 'directorist' ) );
 			}
 
-			if ( get_post_type( $post_id ) !== ATBDP_POST_TYPE ) {
-				throw new Exception( __( 'Invalid listing id.', 'directorist' ), 400 );
-			}
-
 			$comment = get_comment( $comment_id );
 			if ( is_null( $comment ) ) {
-				throw new Exception( __( 'Invalid resource id.', 'directorist' ), 400 );
+				throw new Exception( __( 'Invalid review or comment id.', 'directorist' ), 400 );
 			}
 
-			if ( get_post_type( $comment->comment_post_ID ) !== ATBDP_POST_TYPE ) {
+			if ( ! directorist_is_listing_post_type( $post_id ) || ! directorist_is_listing_post_type( $comment->comment_post_ID ) ) {
 				throw new Exception( __( 'Invalid listing id.', 'directorist' ), 400 );
 			}
 
@@ -107,6 +103,14 @@ class Comment_Form_Processor {
 				$redirect_to = add_query_arg( 'cpage', $cpage, $redirect_to );
 			}
 			$redirect_to .= '#' . $comment_id;
+
+			/**
+			* @since 7.7.0
+			*
+			*/
+
+			do_action( 'directorist_review_updated', $comment_id, $comment_data );
+
 
 			wp_safe_redirect( $redirect_to );
 			exit;

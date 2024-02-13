@@ -357,16 +357,22 @@ class Directorist_Listing_Form {
 		return $location_fields;
 	}
 
-	public function add_listing_cat_ids() {
-		$p_id  = $this->add_listing_id;
-		$terms = get_the_terms( $p_id, ATBDP_CATEGORY );
-		$ids   = array();
-		if ( ! empty( $terms ) ) {
-			foreach ( $terms as $term ) {
-				$ids[] = $term->term_id;
-			}
+	public function add_listing_terms( $taxonomy ) {
+		$terms = get_the_terms( $this->add_listing_id, $taxonomy );
+
+		if ( is_wp_error( $terms ) || empty( $terms ) ) {
+			return [];
 		}
-		return $ids;
+
+		return $terms;
+	}
+
+	public function add_listing_term_ids( $taxonomy ) {
+		return directorist_get_object_terms( $this->add_listing_id, $taxonomy, 'term_id' );
+	}
+
+	public function add_listing_cat_ids() {
+		return $this->add_listing_term_ids( ATBDP_CATEGORY );
 	}
 
 	/**
@@ -382,7 +388,7 @@ class Directorist_Listing_Form {
 		$p_id     = $this->add_listing_id;
 		$fm_plan  = get_post_meta( $p_id, '_fm_plans', true );
 		$plan_cat = is_fee_manager_active() ? is_plan_allowed_category( $fm_plan ) : array();
-		$ids      = $this->add_listing_cat_ids();
+		$ids      = $this->add_listing_term_ids( ATBDP_CATEGORY );
 
 		$query_args = array(
 			'parent'             => 0,
@@ -456,7 +462,7 @@ class Directorist_Listing_Form {
 
 		$args = array(
 			'listing_form'            => $this,
-			'display_guest_listings'  => get_directorist_option( 'guest_listings', 0 ),
+			'display_guest_listings'  => directorist_is_guest_submission_enabled(),
 			'guest_email_label'       => get_directorist_type_option( $type, 'guest_email_label', __( 'Your Email', 'directorist' ) ),
 			'guest_email_placeholder' => get_directorist_type_option( $type, 'guest_email_placeholder' ),
 			'display_privacy'         => (bool) get_directorist_type_option( $type, 'listing_privacy', 1 ),
@@ -548,8 +554,12 @@ class Directorist_Listing_Form {
 		if ( ! empty( $listing_id ) ) {
 
 			$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
-
 		}
+
+		if ( $field_data['field_key'] === 'hide_contact_owner' && $value == 1 ) {
+			$value = 'on';
+		}
+
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
 
@@ -613,6 +623,9 @@ class Directorist_Listing_Form {
 			}
 		}
 
+		if ( $field_data['field_key'] === 'hide_contact_owner' && $value == 1 ) {
+			$value = 'on';
+		}
 
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
@@ -675,7 +688,7 @@ class Directorist_Listing_Form {
 
 	public function get_listing_types() {
 		// @cache @kowsar
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory' );
+		$enable_multi_directory = directorist_is_multi_directory_enabled();
 		$listing_types = array();
 		$args = array(
 			'taxonomy'   => ATBDP_TYPE,
@@ -786,7 +799,7 @@ class Directorist_Listing_Form {
 		$atts = shortcode_atts( ['directory_type' => ''], $atts );
 		self::$directory_type = $atts['directory_type'] ? explode( ',', $atts['directory_type'] ) : '';
 
-		$guest_submission = get_directorist_option( 'guest_listings', 0 );
+		$guest_submission = directorist_is_guest_submission_enabled();
 		$user_id		  = get_current_user_id();
 		$user_type        = get_user_meta( $user_id, '_user_type', true );
 

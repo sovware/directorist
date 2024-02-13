@@ -71,7 +71,7 @@ switch ($image_size) {
 }
 
 
-$link_start = '<a href="'.esc_url( $listings->loop['permalink'] ).'">';
+$link_start = '<a href="'.esc_url( apply_filters( 'directorist_archive_single_listing_url', $listings->loop['permalink'], $listings->loop['id'], 'thumbnail' ) ).'">';
 $link_end   = '</a>';
 
 if (!$listings->disable_single_listing) {

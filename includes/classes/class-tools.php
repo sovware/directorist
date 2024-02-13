@@ -125,8 +125,8 @@
                     $post_status = ( in_array( $post_status, $supported_post_status, true ) ) ? $post_status : $new_listing_status;
 
                     $args = array(
-                        'post_title'   => isset( $post[ $title ] ) ? html_entity_decode( $post[ $title ] ): '',
-                        'post_content' => isset( $post[ $description ] ) ? html_entity_decode( $post[ $description ] ) : '',
+                        'post_title'   => isset( $post[ $title ] ) ? self::unescape_data( html_entity_decode( $post[ $title ] ) ) : '',
+                        'post_content' => isset( $post[ $description ] ) ? self::unescape_data( html_entity_decode( $post[ $description ] ) ) : '',
                         'post_type'    => ATBDP_POST_TYPE,
                         'post_status'  => $post_status,
                     );
@@ -166,25 +166,28 @@
                                 continue;
                             }
 
-                            if ('category' == $taxonomy) {
+                            if ( 'category' === $taxonomy ) {
                                 $taxonomy = ATBDP_CATEGORY;
-                            }elseif ('location' == $taxonomy) {
+                            } elseif ( 'location' === $taxonomy ) {
                                 $taxonomy = ATBDP_LOCATION;
-                            }else{
+                            } else {
                                 $taxonomy = ATBDP_TAGS;
                             }
 
                             $term_ids = array();
                             $multiple = $terms > 0;
 
-                            foreach( $terms as $term ) {
+                            foreach ( $terms as $term ) {
 								$term_id = $this->get_or_create_term_id( $term, $taxonomy );
 
 								if ( empty( $term_id ) ) {
 									continue;
 								}
 
-                                update_term_meta( $term_id, '_directory_type', [ $directory_type ] );
+								if ( $taxonomy === ATBDP_CATEGORY || $taxonomy === ATBDP_LOCATION ) {
+									directorist_update_term_directory( $term_id, array( $directory_type ), true );
+								}
+
                                 $term_ids[] = $term_id;
                             }
 
@@ -193,7 +196,7 @@
                     }
 
                     foreach ( $metas as $index => $value ) {
-                        $meta_value = $post[ $value ] ? $post[ $value ] : '';
+                        $meta_value = $post[ $value ] ? self::unescape_data( $post[ $value ] ) : '';
                         $meta_value = $this->maybe_unserialize_csv_string( $meta_value );
 
                         if ( $meta_value ) {
@@ -278,7 +281,9 @@
 
         // maybe_unserialize_csv_string
         public function maybe_unserialize_csv_string( $data ) {
-            if ( 'string' !== gettype( $data ) ) { return $data; }
+            if ( ! is_string( $data ) ) {
+				return $data;
+			}
 
             $_data = str_replace( "'", '"', $data );
             $_data = maybe_unserialize( maybe_unserialize( $_data ) );
@@ -291,67 +296,21 @@
         }
 
 
-       public static function atbdp_insert_attachment_from_url( $file_url ) {
+       public static function atbdp_insert_attachment_from_url( $image_url ) {
 
-        if (!filter_var($file_url, FILTER_VALIDATE_URL)) {
-            return false;
-        }
-        $contents = @file_get_contents($file_url);
-
-        if ($contents === false) {
+        if (!filter_var($image_url, FILTER_VALIDATE_URL)) {
             return false;
         }
 
-        if( ! wp_check_filetype( $file_url )['ext'] ) {
+        $upload = directorist_rest_upload_image_from_url( esc_url_raw( $image_url ) );
 
-            $headers = array(
-                'Accept'     => 'application/json',
-            );
-
-            $config = array(
-                'method'      => 'GET',
-                'timeout'     => 30,
-                'redirection' => 5,
-                'httpversion' => '1.0',
-                'headers'     => $headers,
-                'cookies'     => array(),
-            );
-
-            $upload = array();
-
-            try {
-                $response = wp_remote_get( $file_url, $config );
-
-                if ( ! is_wp_error( $response ) ) {
-                    $type = wp_remote_retrieve_header( $response, 'content-type' );
-                    $extension = preg_replace("/\w+\//", '', $type );
-                    $upload = wp_upload_bits(basename( $file_url . '.'. $extension ), '', wp_remote_retrieve_body($response));
-
-                }
-            } catch ( Exception $e ) {
-
-            }
-        }else{
-            $upload = wp_upload_bits(basename($file_url), null, $contents);
+        if ( is_wp_error( $upload ) ) {
+            return $upload;
         }
 
-        if (isset($upload['error']) && $upload['error']) {
-            return false;
-        }
+        $image_id = directorist_rest_set_uploaded_image_as_attachment( $upload );
 
-        $type = '';
-        if (!empty($upload['type'])) {
-            $type = $upload['type'];
-        } else {
-            $mime = wp_check_filetype($upload['file']);
-            if ($mime) {
-                $type = $mime['type'];
-            }
-        }
-        $attachment = array('post_title' => basename($upload['file']), 'post_content' => '', 'post_type' => 'attachment', 'post_mime_type' => $type, 'guid' => $upload['url']);
-        $id = wp_insert_attachment($attachment, $upload['file']);
-        wp_update_attachment_metadata($id, wp_generate_attachment_metadata($id, $upload['file']));
-        return $id;
+        return $image_id;
 
         }
 
@@ -588,6 +547,24 @@
 
 		public function get_importable_fields() {
 			return apply_filters( 'directorist_importable_fields', $this->importable_fields );
+		}
+
+		/**
+		 * The exporter prepends a ' to escape fields that start with =, +, - or @.
+		 * Remove the prepended ' character preceding those characters.
+		 *
+		 * @since 7.7.1
+		 * @param  string $value A string that may or may not have been escaped with '.
+		 * @return string
+		 */
+		protected static function unescape_data( $value ) {
+			$active_content_triggers = array( "'=", "'+", "'-", "'@" );
+
+			if ( in_array( mb_substr( $value, 0, 2 ), $active_content_triggers, true ) ) {
+				$value = mb_substr( $value, 1 );
+			}
+
+			return $value;
 		}
     }
 

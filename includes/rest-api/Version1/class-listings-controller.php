@@ -325,24 +325,26 @@ class Listings_Controller extends Posts_Controller {
 				}
 		}
 
-		// Expired listings query.
-		$meta_query['expired'] = array(
-			'key'     => '_listing_status',
-			'value'   => 'expired',
-			'compare' => '!='
-		);
+		// TODO: Status has been migrated, remove related code.
+		// // Expired listings query.
+		// $meta_query['expired'] = array(
+		// 	'key'     => '_listing_status',
+		// 	'value'   => 'expired',
+		// 	'compare' => '!='
+		// );
 
-		if ( $args['post_status'] === 'expired' ) {
-			// Get only expired listings
-			$meta_query['expired'] = array(
-				'key'     => '_listing_status',
-				'value'   => 'expired',
-				'compare' => '==',
-			);
+		// if ( $args['post_status'] === 'expired' ) {
+		// 	// Get only expired listings
+		// 	$meta_query['expired'] = array(
+		// 		'key'     => '_listing_status',
+		// 		'value'   => 'expired',
+		// 		'compare' => '==',
+		// 	);
 
-			// Expired listings have post_status => private hence we need to set any.
-			$args['post_status'] = 'any';
-		}
+		// 	// Expired listings have post_status => private hence we need to set any.
+		// 	$args['post_status'] = 'any';
+		// }
+		// TODO: Remove the above lines due to listing status migration.
 
 		// Price query.
 		if ( isset( $request['min_price'] ) || isset( $request['max_price'] ) ) {
@@ -656,7 +658,7 @@ class Listings_Controller extends Posts_Controller {
 	 * @param WP_Post   $listing WP_Post instance.
 	 * @param WP_REST_Request $request Request object.
 	 * @param string    $context Request context. Options: 'view' and 'edit'.
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function get_listing_data( $listing, $request, $context = 'view' ) {
@@ -768,12 +770,14 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['popular'] = (bool) Helper::is_popular( $listing->ID );
 					break;
 				case 'status':
-					$listing_status = get_post_meta( $listing->ID, '_listing_status', true );
-					if ( $listing_status && $listing_status === 'expired' ) {
-						$base_data['status'] = 'expired';
-					} else {
-						$base_data['status'] = $listing->post_status;
-					}
+					// TODO: Status has been migrated, remove related code.
+					// $listing_status = get_post_meta( $listing->ID, '_listing_status', true );
+					// if ( $listing_status && $listing_status === 'expired' ) {
+					// 	$base_data['status'] = 'expired';
+					// } else {
+					// 	$base_data['status'] = $listing->post_status;
+					// }
+					$base_data['status'] = $listing->post_status;
 					break;
 				case 'reviews_allowed':
 					$base_data['reviews_allowed'] = directorist_is_review_enabled();
@@ -866,11 +870,12 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		$meta_queries = array();
-		$meta_queries['expired'] = array(
-			'key'     => '_listing_status',
-			'value'   => 'expired',
-			'compare' => '!=',
-		);
+		// TODO: Status has been migrated, remove related code.
+		// $meta_queries['expired'] = array(
+		// 	'key'     => '_listing_status',
+		// 	'value'   => 'expired',
+		// 	'compare' => '!=',
+		// );
 		$meta_queries['directory_type'] = array(
 			'key'     => '_directory_type',
 			'value'   => $directory_type,

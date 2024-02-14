@@ -136,3 +136,24 @@ function _directorist_get_comment_status_by_review_status( $status = 'approved' 
 function directorist_710_update_db_version() {
 	\ATBDP_Installation::update_db_version( '7.1.0' );
 }
+
+function directorist_790_clean_falsy_never_expire_meta() {
+	global $wpdb;
+
+	$wp_postmeta = $wpdb->prefix . 'postmeta';
+	$wp_posts    = $wpdb->prefix . 'posts';
+
+	$query = "
+		DELETE pm FROM {$wp_postmeta} AS pm
+		LEFT JOIN {$wp_posts} AS posts ON (pm.post_id = posts.ID)
+		WHERE posts.post_type = 'at_biz_dir'
+			AND meta_key = '_never_expire'
+			AND(meta_value IN('', 0, '0') || meta_value IS NULL);
+	";
+
+	$wpdb->query( $query );
+}
+
+function directorist_790_update_db_version() {
+	\ATBDP_Installation::update_db_version( '7.9.0' );
+}

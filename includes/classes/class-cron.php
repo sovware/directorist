@@ -191,11 +191,12 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 						),
 						'expiration' => array(
 							'relation' => 'OR',
-							array(
-								'key'     => '_never_expire',
-								'value'   => array( '', '0' ),
-								'compare' => 'IN',
-							),
+							// TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
+							// array(
+							// 	'key'     => '_never_expire',
+							// 	'value'   => array( '', '0' ),
+							// 	'compare' => 'IN',
+							// ),
 							array(
 								'key'     => '_never_expire',
 								'compare' => 'NOT EXISTS',
@@ -245,11 +246,12 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					),
 					'expiration' => array(
 						'relation' => 'OR',
-						array(
-							'key'     => '_never_expire',
-							'value'   => array( '', '0' ),
-							'compare' => 'IN',
-						),
+						// TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
+						// array(
+						// 	'key'     => '_never_expire',
+						// 	'value'   => array( '', '0' ),
+						// 	'compare' => 'IN',
+						// ),
 						array(
 							'key'     => '_never_expire',
 							'compare' => 'NOT EXISTS',
@@ -313,7 +315,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					),
 					array(
 						'key'   => '_never_expire',
-						'value' => 1,
+						// 'value' => 1, // TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
 					),
 				);
 					$meta['get_expired']  = array(
@@ -370,11 +372,12 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 						),
 						'expiration' => array(
 							'relation' => 'OR',
-							array(
-								'key'     => '_never_expire',
-								'value'   => array( '', '0' ),
-								'compare' => 'IN',
-							),
+							// TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
+							// array(
+							// 	'key'     => '_never_expire',
+							// 	'value'   => array( '', '0' ),
+							// 	'compare' => 'IN',
+							// ),
 							array(
 								'key'     => '_never_expire',
 								'compare' => 'NOT EXISTS',
@@ -436,11 +439,12 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					),
 					'expiration' => array(
 						'relation' => 'OR',
-						array(
-							'key'     => '_never_expire',
-							'value'   => array( '', '0' ),
-							'compare' => 'IN',
-						),
+						// TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
+						// array(
+						// 	'key'     => '_never_expire',
+						// 	'value'   => array( '', '0' ),
+						// 	'compare' => 'IN',
+						// ),
 						array(
 							'key'     => '_never_expire',
 							'compare' => 'NOT EXISTS',

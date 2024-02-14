@@ -37,7 +37,7 @@ class Image_Upload_Field extends Base_Field {
 			return false;
 		}
 
-		if ( ( count( $old_images ) + count( $new_images ) ) > $this->get_total_upload_limit() ) {
+		if ( $this->get_total_upload_limit() !== 0 && ( ( count( $old_images ) + count( $new_images ) ) > $this->get_total_upload_limit() ) ) {
 			$this->add_error( sprintf(
 				_n( '%s image allowed only.', '%s images allowed only.', $this->get_total_upload_limit(), 'directorist' ),
 				$this->get_total_upload_limit()

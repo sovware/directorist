@@ -562,9 +562,16 @@ __webpack_require__.r(__webpack_exports__);
     } //dashboard nav dropdown
 
 
-    $(".atbdp_tab_nav--has-child .atbd-dash-nav-dropdown").on("click", function (e) {
+    $(".directorist-tab__nav__link").on("click", function (e) {
       e.preventDefault();
-      $(this).siblings("ul").slideToggle();
+
+      if ($(this).hasClass("atbd-dash-nav-dropdown")) {
+        // Slide toggle the sibling ul element
+        $(this).siblings("ul").slideToggle();
+      } else if (!$(this).parents(".atbdp_tab_nav--has-child").length > 0) {
+        // Slide up all the dropdown contents while clicked item is not inside dropdown
+        $(".atbd-dash-nav-dropdown").siblings("ul").slideUp();
+      }
     });
 
     if ($(window).innerWidth() < 1199) {
@@ -1183,7 +1190,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 parentNav.classList.add('directorist-tab__nav__active');
               }
             } else {
+              var _event$target$closest;
+
               event.target.classList.add('directorist-tab__nav__active');
+              var dropDownToggler = (_event$target$closest = event.target.closest('.atbdp_tab_nav--has-child')) === null || _event$target$closest === void 0 ? void 0 : _event$target$closest.querySelector('.atbd-dash-nav-dropdown');
+
+              if (dropDownToggler && !dropDownToggler.classList.contains('directorist-tab__nav__active')) {
+                dropDownToggler.classList.add('directorist-tab__nav__active');
+              }
             } // Activate Content Panel
 
 

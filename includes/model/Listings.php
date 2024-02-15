@@ -1571,7 +1571,7 @@ class Directorist_Listings {
 
 		public function loop_get_title() {
 			if ( ! $this->disable_single_listing ) {
-				$title = sprintf('<a href="%s"%s>%s</a>', $this->loop['permalink'], $this->loop_link_attr(), $this->loop['title']);
+				$title = sprintf('<a href="%s"%s>%s</a>', apply_filters( 'directorist_archive_single_listing_url', $this->loop['permalink'], $this->loop['id'], 'title' ), $this->loop_link_attr(), $this->loop['title']);
 			}
 			else {
 				$title = $this->loop['title'];

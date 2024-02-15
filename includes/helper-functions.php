@@ -4197,6 +4197,10 @@ function directorist_validate_youtube_vimeo_url( $url ) {
         return true;
     }
 
+    if ( preg_match( '/^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]+)(\?.*)?$/', $url ) ) {
+        return true;
+    }
+
 	if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]+)(\S+)?$/i', $url ) ) {
         return true;
     }
@@ -4228,4 +4232,23 @@ function directorist_background_image_process( $images ) {
 	if ( $should_dispatch ) {
 		ATBDP()->background_image_process->save()->dispatch();
 	}
+}
+
+/**
+ * Get or modify the status of a directory listing during editing.
+ *
+ * @param int    $directory_type The directory type ID.
+ * @param int    $listing_id      The listing ID.
+ *
+ * @return string The edited or original status for the listing.
+ */
+function directorist_get_listing_edit_status( $directory_type ) {
+	$edit_listing_status = get_term_meta( $directory_type, 'edit_listing_status', true );
+	$new_listing_status  = get_term_meta( $directory_type, 'new_listing_status', true );
+    
+    if ( 'publish' !== $new_listing_status && 'publish' === $edit_listing_status ) {
+        $edit_listing_status = $new_listing_status;
+    }
+
+    return $edit_listing_status;
 }

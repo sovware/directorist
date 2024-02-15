@@ -23,7 +23,8 @@ $get_now_button_text = ! empty( $response_body->get_now_button_text ) ? $respons
 $get_now_button_link = ! empty( $response_body->get_now_button_link ) ? ATBDP_Upgrade::promo_link( $response_body->get_now_button_link ) : '';
 
 $url_args = [
-    'close-directorist-promo-version' => $promo_version,
+	'close-directorist-promo-version' => $promo_version,
+	'directorist_promo_nonce'         => wp_create_nonce( 'close-directorist-promo-version' )
 ];
 ?>
  <div class="directorist_membership-notice">

@@ -1488,6 +1488,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               window.dispatchEvent(event);
             });
             handleRadiusVisibility();
+            directorist_custom_range_slider();
           }
 
           var parentAfterAjax = $(this).closest('.directorist-search-contents');
@@ -1495,7 +1496,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
           if (parentAfterAjax.find('.directorist-search-form-box').find('.directorist-search-field-radius_search').length) {
             handleRadiusVisibility();
-            directorist_callingSlider();
+            directorist_custom_range_slider();
           }
         },
         error: function error(_error2) {// console.log(error);

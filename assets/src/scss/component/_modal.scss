@@ -490,6 +490,13 @@
                         padding-right: 0;
                     }
 
+                    &.directorist-search-field-radius_search {
+                        padding-right: 0;
+                        .directorist-custom-range-slider__range__wrap {
+                            right: 0;
+                        }
+                    }
+
                     &.input-is-focused {
                         margin: 0 40px;
                         .directorist-search-field__label {

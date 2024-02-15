@@ -662,6 +662,7 @@ import './../global/components/select2-custom-control';
                         });
 
                         handleRadiusVisibility();
+                        directorist_custom_range_slider();
                     }
 
                     let parentAfterAjax = $(this).closest('.directorist-search-contents');
@@ -669,7 +670,7 @@ import './../global/components/select2-custom-control';
                     parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
                     if(parentAfterAjax.find('.directorist-search-form-box').find('.directorist-search-field-radius_search').length){
                         handleRadiusVisibility()
-                        directorist_callingSlider();
+                        directorist_custom_range_slider();
                     }
                 },
                 error(error) {

@@ -342,6 +342,12 @@
 				}
 			}
 
+			&.directorist-search-field-radius_search {
+				.directorist-custom-range-slider__range__wrap {
+					right: 15px;
+				}
+			}
+
 			.directorist-select select,
 			.directorist-select .directorist-select__label {
 				border: 0 none;

@@ -11722,6 +11722,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     width: 100%;
     padding-left: 0;
   }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.directorist-search-field-radius_search {
+    padding-left: 0;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.directorist-search-field-radius_search .directorist-custom-range-slider__range__wrap {
+    left: 0;
+  }
   .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.input-is-focused {
     margin: 0 40px;
   }

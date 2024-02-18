@@ -70,7 +70,8 @@
                 @media only screen and (max-width: 575px) {
                     gap: 8px;
                 }
-                li {
+                li,
+                >div {
                     display: flex;
                     gap: 10px;
                     margin: 0;

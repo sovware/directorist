@@ -8851,6 +8851,10 @@ body.modal-overlay-enabled:before {
 }
 .directorist-search-modal--basic .directorist-select .select2-container.select2-container--default .select2-selection--single {
   height: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 .directorist-search-modal--basic .directorist-search-field-pricing > label,
 .directorist-search-modal--basic .directorist-search-field-text_range > label,
@@ -15132,7 +15136,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     gap: 8px;
   }
 }
-.directorist-content-active .directorist-listing-single__info__list li {
+.directorist-content-active .directorist-listing-single__info__list li,
+.directorist-content-active .directorist-listing-single__info__list > div {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -15143,16 +15148,19 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   line-height: 18px;
   color: var(--directorist-color-body);
 }
-.directorist-content-active .directorist-listing-single__info__list li .directorist-icon-mask {
+.directorist-content-active .directorist-listing-single__info__list li .directorist-icon-mask,
+.directorist-content-active .directorist-listing-single__info__list > div .directorist-icon-mask {
   position: relative;
   top: 2px;
 }
-.directorist-content-active .directorist-listing-single__info__list li .directorist-icon-mask:after {
+.directorist-content-active .directorist-listing-single__info__list li .directorist-icon-mask:after,
+.directorist-content-active .directorist-listing-single__info__list > div .directorist-icon-mask:after {
   width: 16px;
   height: 16px;
   background-color: var(--directorist-color-light-gray);
 }
-.directorist-content-active .directorist-listing-single__info__list li .directorist-listing-card-info-label {
+.directorist-content-active .directorist-listing-single__info__list li .directorist-listing-card-info-label,
+.directorist-content-active .directorist-listing-single__info__list > div .directorist-listing-card-info-label {
   display: none;
 }
 .directorist-content-active .directorist-listing-single__info__list .directorist-icon {

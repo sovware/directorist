@@ -104,6 +104,7 @@
 			bottom: -5px;
 		}
 		&.directorist-date,
+		&.directorist-time,
 		.directorist-select {
 			.directorist-search-field__label {
 				opacity: 1;
@@ -122,15 +123,11 @@
 		}
 	}
 	&.directorist-date,
+	&.directorist-time,
 	&.directorist-color,
 	.directorist-select {
 		.directorist-search-field__label {
 			opacity: 0;
-		}
-	}
-	&.directorist-date {
-		.directorist-search-field__btn--clear {
-			bottom: 10px;
 		}
 	}
 	.directorist-select,
@@ -642,6 +639,15 @@
 				}
 				.directorist-checkbox__label {
 					width: 100%;
+				}
+			}
+		}
+		.directorist-form-group__with-prefix {
+			border: none;
+			.directorist-form-element {
+				padding-left: 0 !important;
+				&:focus {
+					border-bottom: 2px solid var(--directorist-color-primary) !important;
 				}
 			}
 		}

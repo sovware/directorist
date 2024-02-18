@@ -8385,6 +8385,9 @@ body.modal-overlay-enabled:before {
 .directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input.directorist-form-element[type=date] {
   padding-left: 0;
 }
+.directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input.directorist-form-element[type=time] {
+  padding-left: 0;
+}
 .directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input::-webkit-input-placeholder {
   opacity: 0;
   -webkit-transition: opacity 0.3s ease;
@@ -8430,8 +8433,8 @@ body.modal-overlay-enabled:before {
 .directorist-search-modal__contents__body .directorist-search-field__btn--clear:hover i::after {
   background-color: var(--directorist-color-primary);
 }
-.directorist-search-modal__contents__body .directorist-search-field.directorist-date .directorist-search-field__btn--clear {
-  bottom: 14px;
+.directorist-search-modal__contents__body .directorist-search-field.directorist-date .directorist-search-field__btn--clear, .directorist-search-modal__contents__body .directorist-search-field.directorist-time .directorist-search-field__btn--clear {
+  bottom: 8px;
 }
 .directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input[type=number] {
   appearance: none !important;
@@ -8439,6 +8442,9 @@ body.modal-overlay-enabled:before {
   -moz-appearance: none !important;
 }
 .directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input[type=date] {
+  padding-left: 20px;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input[type=time] {
   padding-left: 20px;
 }
 .directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input::-webkit-input-placeholder {
@@ -9289,6 +9295,7 @@ input:-webkit-autofill:active {
 
 .directorist-form-group {
   position: relative;
+  width: 100%;
 }
 .directorist-form-group textarea,
 .directorist-form-group textarea.directorist-form-element {
@@ -11688,6 +11695,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: opacity 0.3s all;
   transition: opacity 0.3s all;
 }
+.directorist-advanced-filter__advanced__element .directorist-search-field .directorist-search-field__input[type=date] {
+  padding-left: 0;
+}
+.directorist-advanced-filter__advanced__element .directorist-search-field .directorist-search-field__input[type=time] {
+  padding-left: 0;
+}
 .directorist-advanced-filter__advanced__element .directorist-search-field.input-is-focused {
   width: 100%;
   display: -webkit-inline-box;
@@ -11722,6 +11735,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-advanced-filter__advanced__element .directorist-search-field.input-is-focused .directorist-search-field__input::placeholder {
   opacity: 1;
+}
+.directorist-advanced-filter__advanced__element .directorist-search-field.input-is-focused .directorist-search-field__input[type=date] {
+  padding-left: 20px;
+}
+.directorist-advanced-filter__advanced__element .directorist-search-field.input-is-focused .directorist-search-field__input[type=time] {
+  padding-left: 20px;
 }
 .directorist-advanced-filter__advanced__element .directorist-checkbox-wrapper,
 .directorist-advanced-filter__advanced__element .directorist-radio-wrapper,
@@ -11856,7 +11875,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-advanced-filter .directorist-form-group.directorist-icon-left .directorist-input-icon {
   right: 0;
 }
-.directorist-advanced-filter .directorist-date .directorist-form-group {
+.directorist-advanced-filter .directorist-date .directorist-form-group,
+.directorist-advanced-filter .directorist-time .directorist-form-group {
   width: 100%;
 }
 .directorist-advanced-filter .directorist-btn-ml {
@@ -12395,7 +12415,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   position: relative;
   bottom: -5px;
 }
-.directorist-search-field.input-is-focused.directorist-date .directorist-search-field__label,
+.directorist-search-field.input-is-focused.directorist-date .directorist-search-field__label, .directorist-search-field.input-is-focused.directorist-time .directorist-search-field__label,
 .directorist-search-field.input-is-focused .directorist-select .directorist-search-field__label {
   opacity: 1;
 }
@@ -12409,12 +12429,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-field.input-is-focused .directorist-select2-addons-area .directorist-icon-mask:after {
   background-color: var(--directorist-color-primary);
 }
-.directorist-search-field.directorist-date .directorist-search-field__label, .directorist-search-field.directorist-color .directorist-search-field__label,
+.directorist-search-field.directorist-date .directorist-search-field__label, .directorist-search-field.directorist-time .directorist-search-field__label, .directorist-search-field.directorist-color .directorist-search-field__label,
 .directorist-search-field .directorist-select .directorist-search-field__label {
   opacity: 0;
-}
-.directorist-search-field.directorist-date .directorist-search-field__btn--clear {
-  bottom: 10px;
 }
 .directorist-search-field .directorist-select ~ .directorist-search-field__btn--clear,
 .directorist-search-field .directorist-filter-location-icon ~ .directorist-search-field__btn--clear {
@@ -13037,6 +13054,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-form__top .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content .directorist-checkbox__label {
   width: 100%;
+}
+.directorist-search-form__top .directorist-form-group__with-prefix {
+  border: none;
+}
+.directorist-search-form__top .directorist-form-group__with-prefix .directorist-form-element {
+  padding-right: 0 !important;
+}
+.directorist-search-form__top .directorist-form-group__with-prefix .directorist-form-element:focus {
+  border-bottom: 2px solid var(--directorist-color-primary) !important;
 }
 
 .directorist-search-form-action {

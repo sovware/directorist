@@ -87,9 +87,17 @@
                     font-size: 14px;
                     font-weight: 400;
                 }
-                .directorist-search-field__input::placeholder {
-                    opacity: 0;
-                    transition: opacity 0.3s all;
+                .directorist-search-field__input {
+                    &::placeholder {
+                        opacity: 0;
+                        transition: opacity 0.3s all;
+                    }
+                    &[type="date"] {
+                        padding-right: 0;
+                    }
+                    &[type="time"] {
+                        padding-right: 0;
+                    }
                 }
                 
                 &.input-is-focused {
@@ -108,6 +116,13 @@
                         width: 100%;
                         &::placeholder {
                             opacity: 1;
+                        }
+
+                        &[type="date"] {
+                            padding-right: 20px;
+                        }
+                        &[type="time"] {
+                            padding-right: 20px;
                         }
                     }
                 }
@@ -217,7 +232,8 @@
         }
     }
 
-    .directorist-date {
+    .directorist-date,
+    .directorist-time {
         .directorist-form-group {
             width: 100%;
         }

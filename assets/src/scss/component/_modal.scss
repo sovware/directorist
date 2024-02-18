@@ -215,6 +215,9 @@
                         &[type="date"] {
                             padding-right: 0;
                         }
+                        &[type="time"] {
+                            padding-right: 0;
+                        }
                     }
                     &::placeholder {
                         opacity: 0;
@@ -243,9 +246,10 @@
                     }
                 }
 
-                &.directorist-date {
+                &.directorist-date,
+                &.directorist-time {
                     .directorist-search-field__btn--clear {
-                        bottom: 14px;
+                        bottom: 8px;
                     }
                 }
         
@@ -257,6 +261,9 @@
                             -moz-appearance: none !important;
                         }
                         &[type="date"] {
+                            padding-right: 20px;
+                        }
+                        &[type="time"] {
                             padding-right: 20px;
                         }
                         

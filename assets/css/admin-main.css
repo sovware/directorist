@@ -10603,6 +10603,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
 .directorist-form-group {
   position: relative;
+  width: 100%;
 }
 .directorist-form-group textarea,
 .directorist-form-group textarea.directorist-form-element {
@@ -11380,6 +11381,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input.directorist-form-element[type=date] {
   padding-right: 0;
 }
+.directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input.directorist-form-element[type=time] {
+  padding-right: 0;
+}
 .directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input::-webkit-input-placeholder {
   opacity: 0;
   -webkit-transition: opacity 0.3s ease;
@@ -11425,8 +11429,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal__contents__body .directorist-search-field__btn--clear:hover i::after {
   background-color: var(--directorist-color-primary);
 }
-.directorist-search-modal__contents__body .directorist-search-field.directorist-date .directorist-search-field__btn--clear {
-  bottom: 14px;
+.directorist-search-modal__contents__body .directorist-search-field.directorist-date .directorist-search-field__btn--clear, .directorist-search-modal__contents__body .directorist-search-field.directorist-time .directorist-search-field__btn--clear {
+  bottom: 8px;
 }
 .directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input[type=number] {
   appearance: none !important;
@@ -11434,6 +11438,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -moz-appearance: none !important;
 }
 .directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input[type=date] {
+  padding-right: 20px;
+}
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input[type=time] {
   padding-right: 20px;
 }
 .directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input::-webkit-input-placeholder {

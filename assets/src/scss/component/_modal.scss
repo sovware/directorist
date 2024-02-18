@@ -212,6 +212,9 @@
                 .directorist-search-field__input {
                     &.directorist-form-element {
                         padding-right: 20px;
+                        &[type="date"] {
+                            padding-right: 0;
+                        }
                     }
                     &::placeholder {
                         opacity: 0;
@@ -239,6 +242,12 @@
                         }
                     }
                 }
+
+                &.directorist-date {
+                    .directorist-search-field__btn--clear {
+                        bottom: 14px;
+                    }
+                }
         
                 &.input-is-focused {
                     .directorist-search-field__input {
@@ -246,6 +255,9 @@
                             appearance: none !important;
                             -webkit-appearance: none !important;
                             -moz-appearance: none !important;
+                        }
+                        &[type="date"] {
+                            padding-right: 20px;
                         }
                         
                         &::placeholder {

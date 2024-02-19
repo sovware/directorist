@@ -9324,7 +9324,6 @@ input:-webkit-autofill:active {
       -ms-flex: 1;
           flex: 1;
   margin: 0 !important;
-  padding: 0 10px !important;
   border: none !important;
 }
 .directorist-form-group__with-prefix .directorist-single-info__value {

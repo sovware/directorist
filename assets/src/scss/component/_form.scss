@@ -1,7 +1,7 @@
 // Form Element Group
 .directorist-form-group {
     position: relative;
-
+    width: 100%;
     textarea,
     textarea.directorist-form-element {
         min-height: unset;
@@ -20,7 +20,6 @@
         .directorist-form-element {
             flex: 1;
             margin: 0 !important;
-            padding: 0 10px !important;
             border: none !important;
         }
         .directorist-single-info__value {

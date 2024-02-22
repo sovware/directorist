@@ -15,7 +15,7 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      background: var(--directorist-color-white);
+      background-color: var(--directorist-color-white);
       color: var(--directorist-color-primary);
       font-size: 16px;
       font-weight: 500;
@@ -42,7 +42,7 @@
         }
       }
       &:hover {
-        background: var(--directorist-color-primary);
+        background-color: var(--directorist-color-primary);
         color: var(--directorist-color-white);
         .directorist-icon-mask {
           background-color: var(--directorist-color-white);
@@ -180,14 +180,14 @@
         cursor: pointer;
         border-radius: 100%;
         transition: all ease 0.3s;
-        background: var(--directorist-color-light) !important;
+        background-color: var(--directorist-color-light) !important;
         i::after {
           width: 12px;
           height: 12px;
           background-color: var(--directorist-color-light-gray);
         }
         &:hover {
-          background: var(--directorist-color-primary) !important;
+          background-color: var(--directorist-color-primary) !important;
           i::after {
             background-color: var(--directorist-color-white);
           }
@@ -199,7 +199,7 @@
 
 // Admin Add Listing
 #directiost-listing-fields_wrapper .directorist-content-module {
-  background: #fff;
+  background-color: #fff;
   border-radius: 0;
   border: 1px solid #e3e6ef;
   @include e(title) {
@@ -216,12 +216,12 @@
   .directorist-form-social-fields {
     margin: 0 0 25px;
     @include e("remove") {
-      background: #ededed !important;
+      background-color: #ededed !important;
       i::after {
         background-color: #808080;
       }
       &:hover {
-        background: #000 !important;
+        background-color: #000 !important;
         i::after {
           background-color: #fff;
         }
@@ -361,7 +361,7 @@
   .directorist-form-social-info-field .directorist-btn {
     width: auto;
     padding: 11px 26px;
-    background: #444752;
+    background-color: #444752;
     color: #fff;
     border-radius: 5px;
     i::after {
@@ -497,7 +497,7 @@
             width: 8px;
             height: 8px;
             mask-image: none;
-            background: #fff;
+            background-color: #fff;
             border-radius: 100%;
             border: 5px solid #000;
           }
@@ -685,7 +685,7 @@
     border-radius: 16px;
     padding: 35px 10px;
     margin: 0;
-    background: var(--directorist-color-bg-gray) !important;
+    background-color: var(--directorist-color-bg-gray) !important;
     border: 2px dashed var(--directorist-color-border-gray) !important;
     &.ezmu--show {
       margin-bottom: 145px;
@@ -703,7 +703,7 @@
         i::after {
           width: 90px;
           height: 80px;
-          background: var(--directorist-color-border-gray);
+          background-color: var(--directorist-color-border-gray);
         }
       }
     }
@@ -741,7 +741,7 @@
           height: 76px;
           width: 100px;
           border-radius: 8px;
-          background: var(--directorist-color-bg-gray) !important;
+          background-color: var(--directorist-color-bg-gray) !important;
           border: 2px dashed var(--directorist-color-border-gray) !important;
           .ezmu__update-file-btn {
             padding: 0;
@@ -976,14 +976,14 @@
         justify-content: center;
         border-radius: 100%;
         margin: 0 auto 25px;
-        background: var(--directorist-color-light);
+        background-color: var(--directorist-color-light);
         @media only screen and (max-width: 480px) {
           margin-bottom: 20px;
         }
         &:after {
           width: 30px;
           height: 30px;
-          background: var(--directorist-color-primary);
+          background-color: var(--directorist-color-primary);
           @media only screen and (max-width: 480px) {
             width: 25px;
             height: 25px;
@@ -1027,7 +1027,7 @@
     .directorist-icon-mask::after {
       width: 12px;
       height: 20px;
-      background: var(--directorist-color-white);
+      background-color: var(--directorist-color-white);
     }
   }
 }

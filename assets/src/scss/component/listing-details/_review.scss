@@ -95,7 +95,7 @@
 }
 
 // Client Review
-.directorist-signle-review {
+.directorist-single-review {
     padding-bottom: 26px;
     padding-top: 30px;
     border-bottom: 1px solid #e3e6ef;
@@ -109,18 +109,18 @@
         border-bottom: 0;
     }
 
-    .directorist-signle-review__top {
+    .directorist-single-review__top {
         display: flex;
         justify-content: space-between;
     }
 
-    .directorist-signle-review-avatar-wrap {
+    .directorist-single-review-avatar-wrap {
         display: flex;
         align-items: center;
         margin-bottom: 22px;
     }
 
-    .directorist-signle-review-avatar {
+    .directorist-single-review-avatar {
         margin-right: 12px;
 
         img {
@@ -156,7 +156,7 @@
         line-height: 28px;
         border-radius: 3px;
         transition: 0.3s ease;
-        background: #fff;
+        background-color: #fff;
 
         i {
             line-height: 28px;
@@ -281,7 +281,7 @@ Review: New Style
             padding: 6px 20px;
             border: 1px solid #EFF1F6;
             border-bottom-color: #f2f2f2;
-            background: #fff;
+            background-color: #fff;
             border-radius: 16px 16px 0 0;
             h3:not(.directorist-card__header__title) {
                 font-size: 16px;
@@ -654,7 +654,7 @@ Review: New Style
                             &::before {
                                 content: '';
                                 height: 100%;
-                                background: #F2F2F2;
+                                background-color: #F2F2F2;
                                 width: 2px;
                                 left: -20px;
                                 position: absolute;
@@ -714,7 +714,7 @@ Review: New Style
                         color: #090E30;
                         font-weight: 500;
                         font-size: 14px;
-                        background: #fff;
+                        background-color: #fff;
                     }
 
                     .page-numbers.current {
@@ -729,7 +729,7 @@ Review: New Style
 .directorist-review-submit {
     margin-top: 25px;
     margin-bottom: 25px;
-    background: #fff;
+    background-color: #fff;
     border-radius: 4px;
     border: 1px solid #EFF1F6;
 
@@ -966,7 +966,7 @@ Review: New Style
                 color: #090E30;
                 font-weight: 500;
                 font-size: 14px;
-                background: #fff;
+                background-color: #fff;
             }
 
             .page-numbers.current {
@@ -1229,7 +1229,7 @@ Review: New Style
                     width: 24px;
                     height: 24px;
                     border-radius: 4px;
-                    background: #E1E4EC;
+                    background-color: #E1E4EC;
                     margin: 1px;
                     text-decoration: none;
                     outline: 0;
@@ -1243,14 +1243,14 @@ Review: New Style
                         background-color: #fff;
                     }
                     &:focus{
-                        background: #E1E4EC !important;
+                        background-color: #E1E4EC !important;
                         text-decoration: none !important;
                         outline: 0;
                     }
 
                     &.br-selected,
                     &.br-active {
-                        background: #fa8b0c !important;
+                        background-color: #fa8b0c !important;
                         text-decoration: none;
                         outline: 0;
                     }
@@ -1271,13 +1271,13 @@ Review: New Style
             }
 
             textarea {
-                background: #F6F7F9;
+                background-color: #F6F7F9;
                 font-size: 15px;
                 display: block;
                 resize: vertical;
                 margin: 0;
                 &:focus{
-                    background: #F6F7F9;
+                    background-color: #F6F7F9;
                 }
             }
 
@@ -1293,7 +1293,7 @@ Review: New Style
             input[type="email"],
             input[type="url"] {
                 height: 46px;
-                background: var(--directorist-color-white);
+                background-color: var(--directorist-color-white);
                 margin: 0;
                 &::placeholder{
                     color: var(--directorist-color-deep-gray);

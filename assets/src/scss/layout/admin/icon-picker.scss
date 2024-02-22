@@ -26,7 +26,7 @@
         width: 34px;
         height: 34px;
         border-radius: 50%;
-        background: #5A5F7D;
+        background-color: #5A5F7D;
         color: #fff;
         font-size: 12px;
         display: flex;
@@ -38,12 +38,12 @@
         transition: 0.3s ease;
         &:hover{
             color: #fff;
-            background: #222;
+            background-color: #222;
         }
     }
     &__sidebar{
         width: 25%;
-        background: #eff0f3;
+        background-color: #eff0f3;
         padding: 30px 20px;
     }
     &__content{
@@ -65,14 +65,14 @@
                 margin: 5px 3px;
                 width: 70px;
                 height: 70px;
-                background: #F4F5F7;
+                background-color: #F4F5F7;
                 border-radius: 5px;
                 font-size: 24px;
                 color: #868EAE;
                 border: 0 none;
                 transition: 0.3s ease;
                 &.cptm-btn-primary{
-                    background: #3e62f5;
+                    background-color: #3e62f5;
                     color: #fff;
                     font-size: 30px;
                     box-shadow: 0 3px 10px rgba(#272B41, 0.2);
@@ -173,7 +173,7 @@
     &__btn{
         margin: 0 10px;
         height: 40px;
-        background: #DADCE0;
+        background-color: #DADCE0;
         border-radius: 4px;
         border: 0 none;
         font-weight: 500;

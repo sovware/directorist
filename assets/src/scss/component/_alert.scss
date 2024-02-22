@@ -3,7 +3,7 @@
     font-size: 15px;
     word-break: break-word;
     border-radius: 10px;
-    background: #f4f4f4;
+    background-color: #f4f4f4;
     padding: 15px 20px;
     display: flex;
     align-items: center;
@@ -74,7 +74,7 @@
     }
 
     &.directorist-alert-info {
-        background: #DCEBFE;
+        background-color: #DCEBFE;
         color: #157CF6;
 
         .directorist-alert__close {
@@ -83,7 +83,7 @@
     }
 
     &.directorist-alert-warning {
-        background: #FEE9D9;
+        background-color: #FEE9D9;
         color: #F56E00;
 
         .directorist-alert__close {
@@ -92,7 +92,7 @@
     }
 
     &.directorist-alert-danger {
-        background: #FCD9D9;
+        background-color: #FCD9D9;
         color: #E80000;
 
         .directorist-alert__close {
@@ -101,7 +101,7 @@
     }
 
     &.directorist-alert-success {
-        background: #D9EFDC;
+        background-color: #D9EFDC;
         color: #009114;
 
         .directorist-alert__close {

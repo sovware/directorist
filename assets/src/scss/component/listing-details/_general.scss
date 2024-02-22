@@ -21,7 +21,7 @@
             left: auto;
             position: absolute;
             transform: none;
-            background: #444752;
+            background-color: #444752;
             color: #fff;
             border-radius: 300px;
             opacity: 1;
@@ -141,7 +141,7 @@
 }
 
 .directorist-single {
-    .directorist-signle-listing-top button:not(:hover):not(:active):not(.has-background) {
+    .directorist-single-listing-top button:not(:hover):not(:active):not(.has-background) {
         &.directorist-btn.directorist-btn-light {
             background-color: var(--directorist-color-light);
             color: var(--directorist-color-title);
@@ -178,7 +178,7 @@
             height: 35px;
             min-width: 35px;
             border-radius: 50%;
-            background: var(--directorist-color-bg-light);
+            background-color: var(--directorist-color-bg-light);
             position: relative;
             top: -5px;
             transition: 0.3s ease;
@@ -195,7 +195,7 @@
             width: 35px;
             height: 35px;
             border-radius: 50%;
-            background: var(--directorist-color-bg-light);
+            background-color: var(--directorist-color-bg-light);
             margin-right: 10px;
             transition: 0.3s ease;
             font-size: 15px;
@@ -204,7 +204,7 @@
         &:hover{
             color: #000;
             span{
-                background: #000;
+                background-color: #000;
                 color: #fff;
             }
         }
@@ -264,7 +264,7 @@
         margin-top: 0;
     }
     .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item {
-        background: var(--directorist-color-light);
+        background-color: var(--directorist-color-light);
         border-radius: 16px;
     }
     .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item li {

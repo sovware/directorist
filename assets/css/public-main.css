@@ -7451,6 +7451,7 @@ body.modal-overlay-enabled:before {
   max-width: 100%;
   margin: 0 auto;
   border-radius: 16px;
+  margin: 0 auto;
 }
 @media screen and (max-width: 991px) {
   .directorist-single-listing-slider {

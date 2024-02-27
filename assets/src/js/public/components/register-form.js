@@ -12,22 +12,23 @@ jQuery(($) => {
             contentType: false,
             processData: false,
             cache: false,
-            success: function (response) {
-                console.log(response.data)
+            success: function ( response ) {
+
                 if( response.success ) {
                     $('.directorist-register-error').hide();
-                    if( response.redirect_url ) {
-                        $('.directorist-register-error').empty().show().append( response.redirect_message ).css({
+                    if( response.data.redirect_url ) {
+                        $('.directorist-register-error').empty().show().append( response.data.redirect_message ).css({
                             'color'           : '#009114',
                             'background-color': '#d9efdc'
                         });
                         setTimeout(function () {
-                            window.location.href = response.redirect_url;
+                            window.location.href = response.data.redirect_url;
                         }, 500)
                     }
                 } else { 
                     $('.directorist-register-error').empty().show().append( response.data );
                 }
+
             }
         });
         

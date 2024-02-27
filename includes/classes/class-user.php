@@ -206,13 +206,12 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					ATBDP()->email->send_user_confirmation_email( get_user_by( 'ID', $user_id ) );
 					
 					$response = array(
-						'success'      => true,
 						'redirect_url' => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array(
 							'user'         => $email,
 							'verification' => 1,
 						) ) )
 					);
-					wp_send_json( $response );
+					wp_send_json_success( $response );
 					exit();
 				}
 

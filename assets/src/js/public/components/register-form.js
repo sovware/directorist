@@ -1,7 +1,7 @@
 jQuery(($) => {
 	$('.directorist__authentication__signup').on('submit', function(e) {
 		e.preventDefault();
-        
+
         var formData = new FormData(this);
         formData.append('action', 'directorist_register_form');
 
@@ -13,6 +13,7 @@ jQuery(($) => {
             processData: false,
             cache: false,
             success: function (response) {
+                console.log(response.data)
                 if( response.success ) {
                     $('.directorist-register-error').hide();
                     if( response.redirect_url ) {
@@ -25,7 +26,7 @@ jQuery(($) => {
                         }, 500)
                     }
                 } else { 
-                    $('.directorist-register-error').empty().show().append( response.message );
+                    $('.directorist-register-error').empty().show().append( response.data );
                 }
             }
         });

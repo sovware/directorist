@@ -281,6 +281,7 @@ jQuery(function ($) {
       processData: false,
       cache: false,
       success: function success(response) {
+        console.log(response.data);
         if (response.success) {
           $('.directorist-register-error').hide();
           if (response.redirect_url) {
@@ -293,7 +294,7 @@ jQuery(function ($) {
             }, 500);
           }
         } else {
-          $('.directorist-register-error').empty().show().append(response.message);
+          $('.directorist-register-error').empty().show().append(response.data);
         }
       }
     });

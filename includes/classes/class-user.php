@@ -141,62 +141,30 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			$validation = $this->registration_validation( $username, $password, $email, $website, $first_name, $last_name, $bio, $user_type, $privacy_policy, $t_c_check );
 			
-			if ( 'passed' !== $validation ){
-				if (empty( $username ) || !empty( $password_validation ) || empty( $email ) || !empty($website_validation) || !empty($fname_validation) || !empty($lname_validation) || !empty($bio_validation)|| !empty($privacy_validation)|| !empty($t_c_validation)){
-					$response = array(
-						'success' => false,
-						'message' => directorist_get_registration_error_message( 1 )
-					);
-					wp_send_json( $response );
+			if ( 'passed' !== $validation ) {
+				if ( empty( $username ) || ! empty( $password_validation ) || empty( $email ) || ! empty( $website_validation ) || ! empty( $fname_validation ) || ! empty( $lname_validation ) || ! empty( $bio_validation )|| ! empty( $privacy_validation ) || ! empty( $t_c_validation ) ) {
+					wp_send_json_error( directorist_get_registration_error_message( 1 ) );
 					exit();
-				}elseif(email_exists($email)){
-					$response = array(
-						'success' => false,
-						'message' => directorist_get_registration_error_message( 2 )
-					);
-					wp_send_json( $response );
+				} elseif ( email_exists( $email ) ) {
+					wp_send_json_error( directorist_get_registration_error_message( 2 ) );
 					exit();
-				}elseif(!empty( $username ) && 4 > strlen( $username ) ){
-					$response = array(
-						'success' => false,
-						'message' => directorist_get_registration_error_message( 3 )
-					);
-					wp_send_json( $response );
+				} elseif ( ! empty( $username ) && 4 > strlen( $username ) ) {
+					wp_send_json_error( directorist_get_registration_error_message( 3 ) );
 					exit();
-				}elseif(!empty( $username ) && preg_match('/\s/',$username) ){
-					$response = array(
-						'success' => false,
-						'message' => directorist_get_registration_error_message( 7 )
-					);
-					wp_send_json( $response );
+				} elseif ( ! empty( $username ) && preg_match('/\s/',$username) ) {
+					wp_send_json_error( directorist_get_registration_error_message( 7 ) );
 					exit();
-				}elseif( username_exists( $username )){
-					$response = array(
-						'success' => false,
-						'message' => directorist_get_registration_error_message( 4 )
-					);
-					wp_send_json( $response );
+				} elseif ( username_exists( $username ) ) {
+					wp_send_json_error( directorist_get_registration_error_message( 4 ) );
 					exit();
-				}elseif(! empty( $password ) && 5 > strlen( $password )){
-					$response = array(
-						'success' => false,
-						'message' => directorist_get_registration_error_message( 5 )
-					);
-					wp_send_json( $response );
+				} elseif ( ! empty( $password ) && 5 > strlen( $password ) ) {
+					wp_send_json_error( directorist_get_registration_error_message( 5 ) );
 					exit();
-				}elseif(!is_email( $email )){
-					$response = array(
-						'success' => false,
-						'message' => directorist_get_registration_error_message( 6 )
-					);
-					wp_send_json( $response );
+				} elseif ( ! is_email( $email ) ) {
+					wp_send_json_error( directorist_get_registration_error_message( 6 ) );
 					exit();
-				} elseif( ! empty( $user_type_validation ) ) {
-					$response = array(
-						'success' => false,
-						'message' => directorist_get_registration_error_message( 8 )
-					);
-					wp_send_json( $response );
+				} elseif ( ! empty( $user_type_validation ) ) {
+					wp_send_json_error( directorist_get_registration_error_message( 8 ) );
 					exit();
 				}
 			}

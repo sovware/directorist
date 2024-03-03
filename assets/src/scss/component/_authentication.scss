@@ -6,7 +6,7 @@
     transition: height .3s ease, opacity .3s ease, visibility .3s ease;
     @include e(form) {
         max-width: 540px;
-        margin: 0 auto;
+        margin: 0 auto 15px;
         padding: 50px 40px;
         border-radius: 16px;
         background-color: #fff;
@@ -87,8 +87,12 @@
         outline: none;
         cursor: pointer;
         box-shadow: none;
-        background: transparent;
         color: #000000;
+        font-size: 13px;
+        font-weight: 400;
+        padding: 0 6px;
+        text-transform: capitalize;
+        background: transparent;
         transition: color .3s ease;
         &:hover {
             opacity: 0.75;

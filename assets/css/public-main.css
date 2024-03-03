@@ -10031,7 +10031,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-authentication__form {
   max-width: 540px;
-  margin: 0 auto;
+  margin: 0 auto 15px;
   padding: 50px 40px;
   border-radius: 16px;
   background-color: #fff;
@@ -10126,8 +10126,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   cursor: pointer;
   -webkit-box-shadow: none;
           box-shadow: none;
-  background: transparent;
   color: #000000;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 0 6px;
+  text-transform: capitalize;
+  background: transparent;
   -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }

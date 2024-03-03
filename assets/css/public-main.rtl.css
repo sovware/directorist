@@ -7519,6 +7519,14 @@ p.atbd-min {
 .alert-danger {
   background: rgba(232, 0, 0, 0.3);
 }
+.alert-danger.directorist-register-error {
+  background: #FCD9D9;
+  color: #E80000;
+  border-radius: 3px;
+}
+.alert-danger.directorist-register-error .directorist-alert__close {
+  color: #E80000;
+}
 
 /* Add listing notice alert */
 .directorist-single-listing-notice .directorist-alert__content {
@@ -10030,7 +10038,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-authentication__form__btn {
   width: 100%;
   height: 50px;
+  border: none;
   border-radius: 12px;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 .directorist-authentication__form__actions {
   display: -webkit-box;
@@ -10108,6 +10119,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-box-shadow: none;
           box-shadow: none;
   background: transparent;
+  color: #000000;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+.directorist-authentication__btn:hover {
+  opacity: 0.75;
 }
 .directorist-authentication__message__text {
   font-size: 14px;

@@ -9683,6 +9683,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .alert-danger {
   background: rgba(232, 0, 0, 0.3);
 }
+.alert-danger.directorist-register-error {
+  background: #FCD9D9;
+  color: #E80000;
+  border-radius: 3px;
+}
+.alert-danger.directorist-register-error .directorist-alert__close {
+  color: #E80000;
+}
 
 /* Add listing notice alert */
 .directorist-single-listing-notice .directorist-alert__content {

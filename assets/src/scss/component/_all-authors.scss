@@ -56,7 +56,7 @@
     @include e(card) {
         padding: 20px;
         border-radius: 12px;
-        background: var(--directorist-color-white);
+        background-color: var(--directorist-color-white);
         box-shadow: var(--directorist-box-shadow);
 
         @include e(img) {
@@ -159,7 +159,7 @@
                 text-decoration: none;
 
                 &:hover {
-                    background: #000;
+                    background-color: #000;
                     /* Legacy Icon */
                     >span{
                         background: none;
@@ -181,7 +181,7 @@
             transition: 0.3s ease;
 
             &:hover {
-                background: #000;
+                background-color: #000;
                 color: #fff;
             }
         }

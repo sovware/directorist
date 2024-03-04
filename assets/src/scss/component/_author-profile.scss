@@ -157,7 +157,7 @@
                 border-radius: 100%;
                 align-items: center;
                 justify-content: center;
-                background: var(--directorist-color-light);
+                background-color: var(--directorist-color-light);
                 &:after {
                     width: 14px;
                     height: 14px;
@@ -278,7 +278,7 @@
                     transition: 0.3s ease;
                 }
                 &:hover{
-                    background: var(--directorist-color-primary);
+                    background-color: var(--directorist-color-primary);
                     .directorist-icon-mask::after{
                         background-color: var(--directorist-color-white);
                     }

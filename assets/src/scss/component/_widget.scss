@@ -72,10 +72,10 @@
 				line-height: 46px;
 			}
 		}
-	}
-	textarea {
-		min-height: 130px;
-		resize: none;
+		textarea {
+			min-height: 130px !important;
+			resize: none;
+		}
 	}
 	.directorist-btn {
 		width: 100%;
@@ -222,7 +222,7 @@
 		line-height: 28px;
 		width: 28px;
 		text-align: center;
-		background: #f1f3f8;
+		background-color: #f1f3f8;
 		color: #9299b8;
 		border-radius: 50%;
 	}
@@ -263,7 +263,7 @@
 			}
 			@include e('icon') {
 				.directorist-icon-mask {
-					background: var(--directorist-color-light);
+					background-color: var(--directorist-color-light);
 				}
 			}
 		}
@@ -271,7 +271,7 @@
 			width: 40px;
 			height: 40px;
 			border-radius: 50%;
-			background: var(--directorist-color-light);
+			background-color: var(--directorist-color-light);
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
@@ -280,7 +280,7 @@
 				width: 8px;
 				height: 8px;
 				border-radius: 50%;
-				background: var(--directorist-color-primary);
+				background-color: var(--directorist-color-primary);
 				display: block;
 			}
 		}
@@ -446,7 +446,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background: var(--directorist-color-light);
+			background-color: var(--directorist-color-light);
 			&:focus {
 				outline: none;
 			}

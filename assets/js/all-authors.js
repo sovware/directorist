@@ -109,24 +109,19 @@
         });
       });
     }
-
     authorsMasonry();
+
     /* alphabet data value */
-
     var alphabetValue;
-    /* authors nav default active item */
 
+    /* authors nav default active item */
     if ($('.directorist-authors__nav').length) {
       $('.directorist-authors__nav ul li:first-child').addClass('active');
     }
     /* authors nav item */
-
-
     $('body').on('click', '.directorist-alphabet', function (e) {
       e.preventDefault();
-
       var _this = $(this);
-
       var alphabet = $(this).attr("data-alphabet");
       $('body').addClass('atbdp-form-fade');
       $.ajax({
@@ -144,24 +139,22 @@
           alphabetValue = $(_this).attr('data-alphabet');
           authorsMasonry();
         },
-        error: function error(_error) {//console.log(error);
+        error: function error(_error) {
+          //console.log(error);
         }
       });
     });
-    /* authors pagination */
 
+    /* authors pagination */
     $('body').on('click', '.directorist-authors-pagination a', function (e) {
       e.preventDefault();
       var paged = $(this).text();
-
       if ($(this).hasClass('prev')) {
         paged = parseInt($('.directorist-authors-pagination .current').text()) - 1;
       }
-
       if ($(this).hasClass('next')) {
         paged = parseInt($('.directorist-authors-pagination .current').text()) + 1;
       }
-
       $('body').addClass('atbdp-form-fade');
       var getAlphabetValue = alphabetValue;
       $.ajax({
@@ -175,16 +168,15 @@
           $('body').removeClass('atbdp-form-fade');
           $('#directorist-all-authors').empty().append(response);
           authorsMasonry();
-
           if (document.querySelector('.' + getAlphabetValue) !== null) {
             document.querySelector('.' + getAlphabetValue).closest('li').classList.add('active');
           } else if ($('.directorist-authors__nav').length) {
             $('.directorist-authors__nav ul li:first-child').addClass('active');
           }
-
           ;
         },
-        error: function error(_error2) {//console.log(error);
+        error: function error(_error2) {
+          //console.log(error);
         }
       });
     });

@@ -178,7 +178,7 @@
 				cursor: pointer;
 
 				&:hover {
-					background: var(--directorist-color-light);
+					background-color: var(--directorist-color-light);
 				}
 			}
 		}
@@ -330,7 +330,7 @@
 			text-transform: capitalize;
 			text-decoration: none !important;
 			color: var(--directorist-color-primary);
-			background: var(--directorist-color-light);
+			background-color: var(--directorist-color-light);
 			border: 2px solid var(--directorist-color-white);
 			display: none;
 			.directorist-icon-mask{
@@ -346,7 +346,7 @@
 			}
 			@include m('active'){
 				color: var(--directorist-color-white);
-				background: var(--directorist-color-primary);
+				background-color: var(--directorist-color-primary);
 				.directorist-icon-mask::after{
 					background-color: var(--directorist-color-white);
 				}

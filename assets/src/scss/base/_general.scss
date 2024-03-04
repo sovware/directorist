@@ -113,7 +113,7 @@
             }
             .html-active .switch-html,
             .tmce-active .switch-tmce {
-                background: #f6f7f7;
+                background-color: #f6f7f7;
             }
             .wp-editor-container {
                 border: none;
@@ -175,7 +175,7 @@
                 }
                 &:hover {
                     color: var(--directorist-color-white);
-                    background: var(--directorist-color-primary);
+                    background-color: var(--directorist-color-primary);
                     i::after {
                         background-color: #fff;
                     }
@@ -310,7 +310,7 @@
 
     .atbdp_button {
         border: 1px solid var(--directorist-color-border);
-        background: var(--directorist-color-ss-bg-light);
+        background-color: var(--directorist-color-ss-bg-light);
         font-size: 14px;
         box-shadow: none;
         line-height: 40px !important;
@@ -426,7 +426,7 @@
         min-width: 36px;
         border-radius: 10px;
         margin: 0 15px 0 0;
-        background: var(--directorist-color-border-gray);
+        background-color: var(--directorist-color-border-gray);
         &:after {
             content: "";
             display: block;
@@ -581,7 +581,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
                         align-items: center;
                         justify-content: center;
                         border-radius: 10px;
-                        background: var(--directorist-color-bg-light);
+                        background-color: var(--directorist-color-bg-light);
                     }
                 }
             }

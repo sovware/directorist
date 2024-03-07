@@ -171,7 +171,10 @@ class ATBDP_Shortcode {
 
 		foreach ( $listing->content_data as $section ) {
 			foreach ( $section['fields'] as $field ) {
-				if( $field[ 'field_key' ] === $atts[ 'field_key' ] ) $listing->field_template( $field );
+				if( $field[ 'field_key' ] === $atts[ 'field_key' ] ) { 
+					$listing->field_template( $field );
+					continue 2;
+				}
 			}
 		}
 

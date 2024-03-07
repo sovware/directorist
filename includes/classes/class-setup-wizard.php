@@ -369,149 +369,16 @@ class SetupWizard
     }
 
     public function directorist_step_one() { ?>
-        <div class="atbdp-c-header">
-            <h1><?php esc_html_e('Recommended Pages', 'directorist'); ?></h1>
+        <div class="directorist-setup-wizard__box">
+            <div class="directorist-setup-wizard__box__content directorist-setup-wizard__box__content--location">
+                <h1>Default Location</h1>
+                <p>Drag the map or marker to the middle of your city</p>
+                <h4>Add your location</h4>
+                <input type="text" placeholder="Search your location" />
+                <div id="map" style="height: 400px; width: 100%;"></div>
+            </div>
         </div>
 
-        <form method="post">
-            <div class="atbdp-c-body">
-                <div class="w-form-group">
-                    <label for="add_listing_page"><?php esc_html_e( 'Add Listing', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='add_listing' class="w-switch" id='add_listing' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="all_listings"><?php esc_html_e( 'All Listings', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='all_listings' class="w-switch" id='all_listings' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="single_category"><?php esc_html_e( 'Single Category', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='single_category' class="w-switch" id='single_category' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="single_location"><?php esc_html_e( 'Single Location', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='single_location' class="w-switch" id='single_location' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="single_tag"><?php esc_html_e( 'Single Tag', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='single_tag' class="w-switch" id='single_tag' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="author_profile"><?php esc_html_e( 'Author Profile', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='author_profile' class="w-switch" id='author_profile' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="dashboard"><?php esc_html_e( 'Dashboard', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='dashboard' class="w-switch" id='dashboard' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="login"><?php esc_html_e( 'Login', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='login' class="w-switch" id='login' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="registration"><?php esc_html_e( 'Registration', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='registration' class="w-switch" id='registration' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="search_listing"><?php esc_html_e( 'Search Listing', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='search_listing' class="w-switch" id='search_listing' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="search_result"><?php esc_html_e( 'Search Result', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='search_result' class="w-switch" id='search_result' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="all_categories"><?php esc_html_e( 'All Categories', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='all_categories' class="w-switch" id='all_categories' value=1>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="all_locations"><?php esc_html_e( 'All Locations', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='all_locations' class="w-switch" id='all_locations' value=1>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="all_authors"><?php esc_html_e( 'All Authors', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='all_authors' class="w-switch" id='all_authors' value=1>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="terms_conditions"><?php esc_html_e( 'Terms & Conditions', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='terms_conditions' class="w-switch" id='terms_conditions' value=1>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="privacy_policy"><?php esc_html_e( 'Privacy Policy', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='privacy_policy' class="w-switch" id='privacy_policy' value=1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="atbdp-c-footer">
-                <p class="atbdp-setup-actions step">
-                    <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="w-skip-link"><?php esc_html_e('Skip this step', 'directorist'); ?></a>
-                    <?php wp_nonce_field('directorist-setup'); ?>
-                    <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
-                </p>
-            </div>
-        </form>
         <?php
     }
 
@@ -593,57 +460,34 @@ class SetupWizard
     {
 
     ?>
-        <div class="atbdp-c-header">
-            <h1><?php esc_html_e('Fill out the form to get maps and monetization feature to work right away', 'directorist'); ?></h1>
+        <div class="directorist-setup-wizard__content">
+            <div class="directorist-setup-wizard__content__header">
+                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Yes You can use directorist core for free', 'directorist'); ?></h1>
+            </div>
+            <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__items--listings">
+                <div class="directorist-setup-wizard__content__pricing">
+                    <div class="directorist-setup-wizard__content__pricing__checkbox">
+                        <label for="enable_featured">Featured Listings</label>
+                        <input type="checkbox" name="enable_featured" id="enable_featured" />
+                    </div>
+                    <div class="directorist-setup-wizard__content__pricing__amount">
+                        <span class="price-title">Pricing</span>
+                        <span class="price-amount">$19.99</label>
+                    </div>
+                </div>
+                <div class="directorist-setup-wizard__content__gatways">
+                    <h4 class="directorist-setup-wizard__content__gatways__title">Gateways</h4>
+                    <div class="directorist-setup-wizard__content___gatways__checkbox">
+                        <label for="enable_featured">Bank Transfer</label>
+                        <input type="checkbox" name="enable_bank_transfer" id="enable_bank_transfer" />
+                    </div>
+                    <div class="directorist-setup-wizard__content___gatways__checkbox">
+                        <label for="enable_featured">Paypal</label>
+                        <input type="checkbox" name="enable_paypal" id="enable_paypal" />
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <form method="post">
-            <div class="atbdp-c-body">
-                <div class="w-form-group">
-                    <label for="select_map"><?php esc_html_e( 'Select Map', 'directorist' ); ?></label>
-                    <div><select name="select_listing_map" id="select_map">
-                            <option value="openstreet"><?php esc_html_e( 'Openstreet', 'directorist' ); ?></option>
-                            <option value="google"><?php esc_html_e( 'Google', 'directorist' ); ?></option>
-                        </select></div>
-                </div>
-                <div class="w-form-group atbdp-sw-gmap-key">
-                    <label for="google_api"><?php esc_html_e( 'Google Map API key', 'directorist' ); ?></label>
-                    <div><input type="text" name="map_api_key" id="google_api"><small><?php esc_html_e( '* API Key is required for Google Map to work properly', 'directorist' ); ?></small></div>
-                </div>
-                <div class="w-form-group">
-                    <label for="enable_monetization"><?php esc_html_e( 'Enable Monetization Feature', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='enable_monetization' class="w-switch" id='enable_monetization' value=1>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group atbdp-sw-featured-listing">
-                    <label for="enable_featured_listing"><?php esc_html_e( 'Monetize by Featured Listing', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='enable_featured_listing' class="w-switch" id='enable_featured_listing' value=1>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group atbdp-sw-listing-price">
-                    <label for="featured_listing_price"><?php esc_html_e( 'Price', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-input-group">
-                            <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99>
-                            <span>USD</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="atbdp-c-footer">
-                <p class="atbdp-setup-actions step">
-                    <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="w-skip-link"><?php esc_html_e('Skip this step', 'directorist'); ?></a>
-                    <?php wp_nonce_field('directorist-setup'); ?>
-                    <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
-                </p>
-            </div>
-        </form>
     <?php
     }
 
@@ -713,57 +557,48 @@ class SetupWizard
         <div class="atbdp-c-header">
             <h1><?php esc_html_e( 'Import Dummy Data', 'directorist' ); ?></h1>
         </div>
-        <form method="post" id="atbdp_dummy_form">
-            <div class="atbdp-c-body">
-                <div class="atbdp_dummy_body">
-                    <input type="hidden" id="dummy_csv_file" value="<?php echo esc_attr( $dummy_csv ); ?>">
-                    <div class="w-form-group">
-                        <label for="atbdp-listings-to-import"><?php esc_html_e('Number of Listings to import', 'directorist'); ?></label>
-                        <div>
-                            <select name="total_listings_to_import" id="atbdp-listings-to-import">
-                                <option value="6">6</option>
-                                <option value="12" selected>12</option>
-                                <option value="18">18</option>
-                                <option value="24">24</option>
-                                <option value="30">30</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="w-form-group">
-                        <label for="atbdp-import-image"><?php esc_html_e('Import images', 'directorist'); ?></label>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" value="1" class="w-switch" id="atbdp-import-image">
-                        </div>
+        <div class="atbdp-c-body">
+            <div class="atbdp_dummy_body">
+                <input type="hidden" id="dummy_csv_file" value="<?php echo esc_attr( $dummy_csv ); ?>">
+                <div class="w-form-group">
+                    <label for="atbdp-listings-to-import"><?php esc_html_e('Number of Listings to import', 'directorist'); ?></label>
+                    <div>
+                        <select name="total_listings_to_import" id="atbdp-listings-to-import">
+                            <option value="6">6</option>
+                            <option value="12" selected>12</option>
+                            <option value="18">18</option>
+                            <option value="24">24</option>
+                            <option value="30">30</option>
+                        </select>
                     </div>
                 </div>
-                <div class="directorist-importer__importing" style="display: none;">
-                    <header>
-                        <span class="spinner is-active"></span>
-                        <h2><?php esc_html_e('Importing', 'directorist');
-                            ?></h2>
-                        <p><?php esc_html_e('Your listings are now being imported...', 'directorist');
-                            ?></p>
-                    </header>
-                    <section>
-                        <span class="importer-notice"><?php esc_html_e('Please don\'t reload the page', 'directorist')?></span>
-                        <div class="directorist-importer-wrapper">
-                            <progress class="directorist-importer-progress" max="100" value="0"></progress>
-                            <span class="directorist-importer-length"></span>
-                        </div>
-                        <span class="importer-details"></span>
-                    </section>
+                <div class="w-form-group">
+                    <label for="atbdp-import-image"><?php esc_html_e('Import images', 'directorist'); ?></label>
+                    <div class="w-toggle-switch">
+                        <input type="checkbox" value="1" class="w-switch" id="atbdp-import-image">
+                    </div>
                 </div>
+            </div>
+            <div class="directorist-importer__importing" style="display: none;">
+                <header>
+                    <span class="spinner is-active"></span>
+                    <h2><?php esc_html_e('Importing', 'directorist');
+                        ?></h2>
+                    <p><?php esc_html_e('Your listings are now being imported...', 'directorist');
+                        ?></p>
+                </header>
+                <section>
+                    <span class="importer-notice"><?php esc_html_e('Please don\'t reload the page', 'directorist')?></span>
+                    <div class="directorist-importer-wrapper">
+                        <progress class="directorist-importer-progress" max="100" value="0"></progress>
+                        <span class="directorist-importer-length"></span>
+                    </div>
+                    <span class="importer-details"></span>
+                </section>
+            </div>
 
-                <!-- add dummy contents here -->
-            </div>
-            <div class="atbdp-c-footer">
-                <p class="atbdp-setup-actions step">
-                    <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="w-skip-link"><?php esc_html_e('Skip this step', 'directorist'); ?></a>
-                    <?php wp_nonce_field('directorist-setup'); ?>
-                    <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
-                </p>
-            </div>
-        </form>
+            <!-- add dummy contents here -->
+        </div>
     <?php
     }
 
@@ -815,19 +650,47 @@ class SetupWizard
     public function directorist_setup_introduction()
     {
     ?>
-        <div class="atbdp-c-body">
-            <div class="atbdp-c-logo">
-                <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.svg');?>" alt="Directorist">
+        <div class="directorist-setup-wizard__content">
+            <div class="directorist-setup-wizard__content__header">
+                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
+                <p class="directorist-setup-wizard__content__header__desc"><?php echo wp_kses(__('Thank you for choosing Directorist to amp your business directory. This quick setup wizard will help you <strong>configure the basic settings and get you started in no longer than 3 minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
             </div>
-            <h1 class="atbdp-c-intro-title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
-            <p><?php echo wp_kses(__('Thank you for choosing Directorist to amp your business directory. This quick setup wizard will help you <strong>configure the basic settings and get you started in no longer than 3 minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
-            <p><?php esc_html_e('If you don\'t want to run the setup wizard now, you can skip and return to the WordPress dashboard. You can always come back and run the wizard at your convenience.', 'directorist'); ?></p>
-        </div>
-        <div class="atbdp-c-footer">
-            <p class="atbdp-setup-actions step">
-                <a href="<?php echo esc_url(admin_url()); ?>" class="wbtn wbtn-white"><?php esc_html_e('Not right now', 'directorist'); ?></a>
-                <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="wbtn wbtn-primary"><?php esc_html_e('Let\'s Go!', 'directorist'); ?></a>
-            </p>
+            <div class="directorist-setup-wizard__content__items">
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="business" id="business-directory" />
+                    <label for="business-directory">Business Directory</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="classified" id="classified-listing" />
+                    <label for="classified-listing">Classified Listing</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="car" id="car-listing" />
+                    <label for="car-listing">Car Listing</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="restaurant" id="restaurant-listing" />
+                    <label for="restaurant-listing">Restaurant Listing</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="lawyers" id="lawyers-listing" />
+                    <label for="lawyers-listing">Lawyers Listing</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="doctors" id="doctors-listing" />
+                    <label for="doctors-listing">Doctors Listing</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="others" id="others-listing" />
+                    <label for="others-listing">Others</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox directorist-setup-wizard__checkbox--custom">
+                    <input type="text" name="others" id="others-listing" placeholder="Type Your Prefered Directory Name" />
+                </div>
+            </div>
+            <div class="directorist-setup-wizard__content__notice">
+                Not Right Now. Exit to Dashboard
+            </div>
         </div>
     <?php
     }
@@ -861,6 +724,10 @@ class SetupWizard
     {
         set_current_screen();
         $hide = ! isset( $_GET['step'] ) ? 'directorist-setup-wizard-vh' : 'directorist-setup-wizard-vh-none';
+        
+        $ouput_steps = $this->steps;
+        array_shift($ouput_steps);
+        $hide = ! isset( $_GET['step'] ) ? 'atbdp-none' : '';
     ?>
         <!DOCTYPE html>
         <html <?php language_attributes(); ?>>
@@ -876,8 +743,45 @@ class SetupWizard
             <?php do_action('directorist_setup_wizard_styles'); ?>
         </head>
 
-        <body class="atbdp-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? esc_attr( ' directorist-setup-wizard-activated-wc' ) : '';  ?> <?php echo esc_attr( $hide ); ?>">
-            <div class="directorist-setup-wizard-wrapper">
+        <body class="atbdp-setup directorist-setup-wizard wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? esc_attr( ' directorist-setup-wizard-activated-wc' ) : '';  ?> <?php echo esc_attr( $hide ); ?>">
+            <form method="post" class="directorist-setup-wizard-wrapper directorist-setup-wizard__wrapper">
+                <div class="directorist-setup-wizard__header">
+                    <div class="directorist-setup-wizard__logo">
+                        <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.svg');?>" alt="Directorist">
+                    </div>
+                    <div class="directorist-setup-wizard__header__step">
+                        <ul class="atbdp-setup-steps <?php echo esc_attr( $hide ); ?>">
+                            <?php foreach ($ouput_steps as $step_key => $step) : ?>
+                                <li class="<?php
+                                    if ($step_key === $this->step && 'step-four' != $step_key ) {
+                                        echo 'active';
+                                    } elseif ( array_search( $this->step, array_keys($this->steps ) ) > array_search( $step_key, array_keys( $this->steps ) ) ) {
+                                        echo 'done';
+                                    } elseif ( isset( $_GET['step'] ) && 'step-four' == $_GET['step'] ) {
+                                        echo 'done';
+                                    }
+                                    $number = 1;
+                                    if ( 'step-one' == $step_key ) {
+                                        $number = 1;
+                                    } else if ( 'step-two' == $step_key ) {
+                                        $number = 2;
+                                    } else if ( 'step-three' == $step_key ) {
+                                        $number = 3;
+                                    } else if ( 'step-four' == $step_key ) {
+                                        $number = 4;
+                                    }
+                                    ?>">
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <span class="step-count">Choose a directory type 1 of 4</span>
+                    </div>
+                    <div class="directorist-setup-wizard__close">
+                        <a href="#" class="directorist-setup-wizard__close__btn">
+                            x
+                        </a>
+                    </div>
+                </div>
             <?php
             /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.svg', directorist_FILE );*/
             ?>
@@ -894,8 +798,7 @@ class SetupWizard
         array_shift($ouput_steps);
         $hide = ! isset( $_GET['step'] ) ? 'atbdp-none' : '';
         ?>
-
-            <ul class="atbdp-setup-steps <?php echo esc_attr( $hide ); ?>">
+            <!-- <ul class="atbdp-setup-steps <?php echo esc_attr( $hide ); ?>">
             <li class="atbdsw-logo"><img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.svg');?>" alt="Directorist"></li>
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
@@ -918,7 +821,7 @@ class SetupWizard
                         }
                         ?>"><span class="atbdp-sw-circle"><span><?php echo esc_html( $number ); ?></span> <span class="dashicons dashicons-yes"></span></span><?php echo esc_html( $step['name'] ); ?> </li>
                 <?php endforeach; ?>
-            </ul>
+            </ul> -->
         <?php
     }
 
@@ -931,10 +834,10 @@ class SetupWizard
             wp_redirect(esc_url_raw(add_query_arg('step', 'introduction')));
             exit;
         }
-        $introduction_class = ! isset( $_GET['step'] ) ? 'atbdp_introduction' : '';
-        echo '<div class="atbdp-setup-content '. esc_attr( $introduction_class ) .'">';
+        $introduction_class = ! isset( $_GET['step'] ) ? 'directorist-setup-wizard__introduction' : '';
+        echo '<div class="directorist-setup-wizard__step '. esc_attr( $introduction_class ) .'">';
         call_user_func($this->steps[$this->step]['view']);
-        echo '</div> </div>';
+        echo '</div>';
     }
 
     /**
@@ -946,6 +849,20 @@ class SetupWizard
             <?php if ( 'next_steps' === $this->step ) : ?>
                 <a class="atbdp-return-to-dashboard" href="<?php echo esc_url(admin_url()); ?>"><?php esc_html_e('Return to the WordPress Dashboard', 'directorist'); ?></a>
             <?php endif; ?>
+
+                <div class="directorist-setup-wizard__footer">
+                    <div class="directorist-setup-wizard__back">
+                        <a href="#" class="directorist-setup-wizard__back__btn">Back</a>
+                    </div>
+                    <div class="directorist-setup-wizard__next">
+                        <a href="/wp-admin/index.php?page=directorist-setup&amp;step=step-three" class="w-skip-link">Skip this step</a>
+                        <input type="hidden" id="_wpnonce" name="_wpnonce" value="58e2a34b73">
+                        <input type="hidden" name="_wp_http_referer" value="/wp-admin/index.php?page=directorist-setup&amp;step=step-two"> 
+                        <input type="submit" class="directorist-setup-wizard__next__btn" value="Continue" name="save_step">
+                        <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="directorist-setup-wizard__next__btn directorist-setup-wizard__next__btn--start">Continue</a>
+                    </div>
+                </div>
+            </form>
         </body>
 
         </html>

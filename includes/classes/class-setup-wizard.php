@@ -370,11 +370,13 @@ class SetupWizard
 
     public function directorist_step_one() { ?>
         <div class="directorist-setup-wizard__box">
-            <div class="directorist-setup-wizard__box__content directorist-setup-wizard__box__content--location">
+            <div class="directorist-setup-wizard__box__content">
                 <h1 class="directorist-setup-wizard__box__content__title">Default Location</h1>
                 <p class="directorist-setup-wizard__box__content__desc">Drag the map or marker to the middle of your city</p>
                 <h4 class="directorist-setup-wizard__box__content__title directorist-setup-wizard__box__content__title--section">Add your location</h4>
-                <input type="text" placeholder="Search your location" />
+                <div class="directorist-setup-wizard__box__content__form">
+                    <input type="text" class="directorist-setup-wizard__box__content__input" placeholder="Search your location" />
+                </div>
                 <div id="map" style="height: 400px; width: 100%;"></div>
             </div>
         </div>
@@ -556,7 +558,8 @@ class SetupWizard
     ?>
         <div class="directorist-setup-wizard__content">
             <div class="directorist-setup-wizard__content__header text-center">
-                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Yes You can use directorist core for free', 'directorist'); ?></h1>
+                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Insert Content', 'directorist'); ?></h1>
+                <p class="directorist-setup-wizard__content__header__desc"><?php echo wp_kses(__('Install required tools, Import listings, share non-sensitive data, etc', 'directorist'), ['strong' => []]); ?></p>
             </div>
             <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__import">
                 <div class="directorist-setup-wizard__content__import__wrapper">
@@ -578,7 +581,10 @@ class SetupWizard
                         <label for="share-data">Share Non-Sensitive Data</label>
                     </div>
                 </div>
-                <a href="#" class="directorist-setup-wizard__content__import__btn directorist-setup-wizard__btn directorist-setup-wizard__btn--full">Submit & Build My Directory Website</a>
+                <a href="#" class="directorist-setup-wizard__content__import__btn directorist-setup-wizard__btn directorist-setup-wizard__btn--full">
+                    Submit & Build My Directory Website 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12.007" viewBox="284 4 14 12.007"><g data-name="Group 2970"><path d="M284.841 9.02c.058-.009.116-.013.174-.012h9.876l-.215-.1c-.21-.1-.402-.236-.566-.401l-2.77-2.77a1.037 1.037 0 0 1-.145-1.327 1.002 1.002 0 0 1 1.503-.13l5.008 5.008a1.002 1.002 0 0 1 0 1.418l-5.008 5.008a1.002 1.002 0 0 1-1.503-.1c-.28-.419-.22-.98.145-1.327l2.765-2.775c.147-.147.316-.27.501-.366l.3-.135h-9.836a1.037 1.037 0 0 1-1.057-.841 1.002 1.002 0 0 1 .828-1.15Z" fill="#fff" fill-rule="evenodd" data-name="Path 1600"/></g></svg>
+                </a>
                 <div class="directorist-setup-wizard__content__import__notice">
                     By clicking "Submit & Build My Website", you agree to our <a href="#">Terms</a> & <a href="#">Privacy Policy</a>
                 </div>
@@ -610,6 +616,9 @@ class SetupWizard
         ?>
         <div class="directorist-setup-wizard__content">
             <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__items--completed">
+                <svg class="congratulations-img" xmlns="http://www.w3.org/2000/svg" width="58.999" height="58.999" viewBox="611.001 174.001 58.999 58.999">
+                    <g data-name="Group 2976"><path d="m658.324 217.969-44.67 14.927a2.013 2.013 0 0 1-2.549-2.548l14.927-44.671 32.292 32.292Z" fill="#fdc70e" fill-rule="evenodd" data-name="Path 1603"/><path d="M658.324 217.97s-6.579-1.49-18.684-13.606c-11.784-11.773-13.524-18.34-13.607-18.683v-.012s6.591 1.49 18.7 13.6c12.11 12.109 13.591 18.702 13.591 18.702Z" fill="#d39518" fill-rule="evenodd" data-name="Path 1604"/><path d="m629.457 227.614-6.62 2.21a107.26 107.26 0 0 1-4.45-4.21c-1.58-1.58-2.97-3.06-4.21-4.45l2.21-6.62c1.68 2.03 3.73 4.3 6.25 6.82 2.52 2.52 4.79 4.57 6.82 6.25Z" fill="#2167d8" fill-rule="evenodd" data-name="Path 1605"/><path d="m647.477 221.594-7.11 2.37a82.592 82.592 0 0 1-10.93-9.4 82.593 82.593 0 0 1-9.4-10.93l2.37-7.11a74.4 74.4 0 0 0 11.28 13.79 74.4 74.4 0 0 0 13.79 11.28Z" fill="#d3374e" fill-rule="evenodd" data-name="Path 1606"/><path d="M635.53 194.41a1 1 0 0 1-.707-1.707 12.2 12.2 0 0 0 2.36-14.675 1 1 0 1 1 1.714-1.024 14.247 14.247 0 0 1-2.66 17.118.993.993 0 0 1-.707.288Z" fill="#2167d8" fill-rule="evenodd" data-name="Path 1607"/><path d="M633.857 184.37a1 1 0 0 1-.707-.293l-1.674-1.673a1 1 0 0 1 1.415-1.414l1.673 1.673a1 1 0 0 1-.707 1.707Z" fill="#23af6f" fill-rule="evenodd" data-name="Path 1608"/><path d="M645.57 182.697a1 1 0 0 1-1-1v-1.673a1 1 0 0 1 2 0v1.673a1 1 0 0 1-1 1Z" fill="#d3374e" fill-rule="evenodd" data-name="Path 1609"/><path d="M647.244 189.39h-1.674a1 1 0 0 1 0-2h1.674a1 1 0 0 1 0 2Z" fill="#23af6f" fill-rule="evenodd" data-name="Path 1610"/><path d="M650.59 209.47a1 1 0 0 1-.707-1.706 14.248 14.248 0 0 1 17.12-2.66 1 1 0 0 1-1.028 1.715 12.067 12.067 0 0 0-14.678 2.359 1 1 0 0 1-.707.293Z" fill="#2167d8" fill-rule="evenodd" data-name="Path 1611"/><path d="M662.304 212.817a1 1 0 0 1-.707-.292l-1.674-1.674a1 1 0 1 1 1.414-1.414l1.674 1.673a1 1 0 0 1-.707 1.707Z" fill="#23af6f" fill-rule="evenodd" data-name="Path 1612"/><path d="M663.976 199.43h-1.672a1 1 0 0 1 0-2h1.672a1 1 0 0 1 0 2Z" fill="#d3374e" fill-rule="evenodd" data-name="Path 1613"/><path d="M655.61 199.43a1 1 0 0 1-1-1v-1.673a1 1 0 0 1 2 0v1.674a1 1 0 0 1-1 1Z" fill="#d3374e" fill-rule="evenodd" data-name="Path 1614"/><path d="M647.244 196.084a1 1 0 0 1-.707-1.707 4.061 4.061 0 0 1 3.216-1.128h.022a2.1 2.1 0 0 0 1.78-.542 2.119 2.119 0 0 0 .541-1.8 3.94 3.94 0 0 1 4.346-4.348 2 2 0 0 0 2.355-2.355 4.067 4.067 0 0 1 1.131-3.218 1 1 0 1 1 1.41 1.418 2.128 2.128 0 0 0-.546 1.8 3.942 3.942 0 0 1-4.349 4.349 1.993 1.993 0 0 0-2.346 2.35 4.054 4.054 0 0 1-1.128 3.217 4.105 4.105 0 0 1-3.216 1.128h-.023a2.094 2.094 0 0 0-1.778.542 1 1 0 0 1-.708.294Z" fill="#fdc70e" fill-rule="evenodd" data-name="Path 1615"/><g data-name="Group 2975"><path d="M650.591 184.37a1 1 0 0 1-.925-1.381 9.272 9.272 0 0 0 .042-7.515 1 1 0 1 1 1.764-.944 11.275 11.275 0 0 1 .044 9.22 1 1 0 0 1-.925.62Z" fill="#d3374e" fill-rule="evenodd" data-name="Path 1616"/><path d="M660.63 194.41a1 1 0 0 1-.38-1.925 11.266 11.266 0 0 1 9.221.044 1 1 0 0 1-.944 1.764 9.267 9.267 0 0 0-7.516.042c-.12.05-.25.075-.38.075Z" fill="#d3374e" fill-rule="evenodd" data-name="Path 1617"/></g></g>
+                </svg>
                 <h1 class="directorist-setup-wizard__content__title"><?php esc_html_e('Congratulations', 'directorist'); ?></h1>
                 <h4 class="directorist-setup-wizard__content__desc"><?php esc_html_e('Your directory website is ready. Thank you for using Directorist', 'directorist'); ?></h4>
                 <h2 class="directorist-setup-wizard__content__title--section"><?php esc_html_e('What\'s Next', 'directorist'); ?></h2>
@@ -648,20 +657,44 @@ class SetupWizard
                     <label for="classified-listing">Classified Listing</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="car" id="car-listing" />
-                    <label for="car-listing">Car Listing</label>
+                    <input type="checkbox" name="car" id="car-directory" />
+                    <label for="car-directory">Car Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="restaurant" id="restaurant-listing" />
-                    <label for="restaurant-listing">Restaurant Listing</label>
+                    <input type="checkbox" name="real-estate" id="real-estate" />
+                    <label for="real-estate">Real Estate</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="lawyers" id="lawyers-listing" />
-                    <label for="lawyers-listing">Lawyers Listing</label>
+                    <input type="checkbox" name="travel" id="travel-directory" />
+                    <label for="travel-directory">Travel Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="doctors" id="doctors-listing" />
-                    <label for="doctors-listing">Doctors Listing</label>
+                    <input type="checkbox" name="service" id="service-directory" />
+                    <label for="service-directory">Service Directory</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="job" id="job-directory" />
+                    <label for="job-directory">Job Directory</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="hotel" id="hotel-directory" />
+                    <label for="hotel-directory">Hotel Directory</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="restaurant" id="restaurant-directory" />
+                    <label for="restaurant-directory">Restaurant Directory</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="multipurpose" id="multipurpose-directory" />
+                    <label for="multipurpose-directory">Multipurpose Directory</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="lawyers" id="lawyers-directory" />
+                    <label for="lawyers-directory">Lawyers Directory</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="doctors" id="doctors-directory" />
+                    <label for="doctors-directory">Doctors Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="others" id="others-listing" />

@@ -412,6 +412,10 @@
     height: auto;
     margin: 0;
     @include e('wrapper') {
+        height: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
         width: 100%;
         padding: 0;
         background-color: #F4F5F7;
@@ -452,8 +456,12 @@
                         height: 10px;
                         background-color: #C6D0DC;
                     }
-                    &.done:after {
-                        background-color: #0FB73B;
+                    &.done,
+                    &.active {
+                        &:after {
+                            background-color: #4353FF;
+                        }
+                    
                     }
                 }
             }
@@ -486,27 +494,32 @@
         background-color: #ffffff;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+    @include e('btn') {
+        padding: 0 20px;
+        line-height: 38px;
+        display: inline-block;
+        border-radius: 5px;
+        font-size: 15px;
+        background-color: #4353FF;
+        border-color: #4353FF;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        @include m('skip') {
+            background: transparent;
+            color: #000;
+            padding: 0;
+        }
+        @include m('full') {
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+    }
     @include e('next') {
         display: flex;
         align-items: center;
         gap: 20px;
-        @include e('btn') {
-            padding: 0 20px;
-            line-height: 38px;
-            display: inline-block;
-            border-radius: 5px;
-            font-size: 15px;
-            background-color: #4353FF;
-            border-color: #4353FF;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            @include m('skip') {
-                background: transparent;
-                color: #000;
-                padding: 0;
-            }
-        }
     }
     @include e('back') {
         @include e('btn') {
@@ -514,9 +527,24 @@
         }
     }
     @include e('content') {
+        width: 100%;
         display: flex;
         gap: 30px;
         flex-direction: column;
+        @include e('title') {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 10px;
+            @include m('section') {
+                font-size: 24px;
+                font-weight: 600;
+            }
+        }
+        @include e('desc') {
+            font-size: 15px;
+            font-weight: 400;
+            margin: 0 0 10px;
+        }
         @include e('header') {
             @include e('title') {
                 font-size: 28px;
@@ -539,6 +567,186 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             @include m('listings') {
                 flex-direction: column;
+            }
+            @include m('completed') {
+                flex-direction: column;
+                text-align: center;
+                gap: 0;
+            }
+        }
+        @include e('import') {
+            flex-direction: column;
+            @include e('title') {
+                font-size: 20px;
+                font-weight: 600;
+                margin: 0 0 10px;
+            }
+            @include e('wrapper') {
+                display: flex;
+                gap: 15px;
+                flex-direction: column;
+            }
+            @include e('single') {
+                label {
+                    font-size: 15px;
+                    font-weight: 500;
+                    position: relative;
+                    padding-left: 25px;
+                    &:before {
+                        content: '';
+                        display: inline-flex;
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 3px;
+                        border: 1px solid #000;
+                        position: absolute;
+                        left: 2px;
+                        top: 0;
+                    }
+                    &:after {
+                        content: '+';
+                        color: #000;
+                        position: absolute;
+                        left: 5px;
+                        top: 0;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                    }
+                }
+                input[type="checkbox"] {
+                    display: none;
+                    &:checked {
+                        ~ label {
+                            &:after {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+                input[type="checkbox"] {
+                    display: none;
+                }
+            }
+            @include e('btn') {
+                margin-top: 20px;
+            }
+            @include e('notice') {
+                text-align: center;
+            }
+        }
+        @include e('btns') {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        @include e('pricing') {
+            @include e('checkbox') {
+                label {
+                    display: flex;
+                    font-size: 15px;
+                    font-weight: 500;
+                    position: relative;  
+                    cursor: pointer;  
+                    &:before {
+                        content: '';
+                        width: 50px;
+                        height: 20px;
+                        border-radius: 10px;
+                        border: 1px solid #4353FF;
+                        background: transparent;
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                    }          
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        right: 32px;
+                        top: 4px;
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 100%;
+                        background-color: #4353FF;
+                        transition: right 0.3s ease;
+                    }  
+                }
+                input[type="checkbox"] {
+                    display: none;
+                    &:checked {
+                        ~ label {
+                            &:before {
+                                background-color: #4353FF;
+                            }
+                            &:after {
+                                right: 5px;
+                                background-color: #ffffff;
+                            }
+                        }
+                    }
+                }
+            }
+            @include e('amount') {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 20px;
+                .price-title {
+                    font-size: 15px;
+                    font-weight: 500;
+                    color: #000;
+                }
+                .price-amount {
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                    background-color: #F4F5F7;
+                }
+            }
+        }
+        @include e('gateway') {
+            display: flex;
+            gap: 15px;
+            flex-direction: column;
+            @include e('checkbox') {
+                label {
+                    display: flex;
+                    font-size: 15px;
+                    font-weight: 500;
+                    position: relative;  
+                    cursor: pointer;  
+                    &:before {
+                        content: '';
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 6px;
+                        border: 1px solid #C6D0DC;
+                        background: transparent;
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                    }          
+                    &:after {
+                        content: '+';
+                        position: absolute;
+                        right: 7px;
+                        top: 1px;
+                        color: #ffffff;
+                        opacity: 0;
+                    }  
+                }
+                input[type="checkbox"] {
+                    display: none;
+                    &:checked {
+                        ~ label {
+                            &:before {
+                                border-color: #4353FF;
+                                background-color: #4353FF;
+                            }
+                            &:after {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

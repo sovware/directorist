@@ -467,23 +467,23 @@ class SetupWizard
             <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__items--listings">
                 <div class="directorist-setup-wizard__content__pricing">
                     <div class="directorist-setup-wizard__content__pricing__checkbox">
-                        <label for="enable_featured">Featured Listings</label>
                         <input type="checkbox" name="enable_featured" id="enable_featured" />
+                        <label for="enable_featured">Featured Listings</label>
                     </div>
                     <div class="directorist-setup-wizard__content__pricing__amount">
                         <span class="price-title">Pricing</span>
                         <span class="price-amount">$19.99</label>
                     </div>
                 </div>
-                <div class="directorist-setup-wizard__content__gatways">
-                    <h4 class="directorist-setup-wizard__content__gatways__title">Gateways</h4>
-                    <div class="directorist-setup-wizard__content___gatways__checkbox">
-                        <label for="enable_featured">Bank Transfer</label>
+                <div class="directorist-setup-wizard__content__gateway">
+                    <h4 class="directorist-setup-wizard__content__gateway__title">Gateways</h4>
+                    <div class="directorist-setup-wizard__content__gateway__checkbox">
                         <input type="checkbox" name="enable_bank_transfer" id="enable_bank_transfer" />
+                        <label for="enable_bank_transfer">Bank Transfer</label>
                     </div>
-                    <div class="directorist-setup-wizard__content___gatways__checkbox">
-                        <label for="enable_featured">Paypal</label>
+                    <div class="directorist-setup-wizard__content__gateway__checkbox">
                         <input type="checkbox" name="enable_paypal" id="enable_paypal" />
+                        <label for="enable_paypal">Paypal</label>
                     </div>
                 </div>
             </div>
@@ -552,52 +552,37 @@ class SetupWizard
 
     public function directorist_step_three()
     {
-        $dummy_csv = ATBDP_DIR . 'views/admin-templates/import-export/data/dummy.csv';
+        
     ?>
-        <div class="atbdp-c-header">
-            <h1><?php esc_html_e( 'Import Dummy Data', 'directorist' ); ?></h1>
-        </div>
-        <div class="atbdp-c-body">
-            <div class="atbdp_dummy_body">
-                <input type="hidden" id="dummy_csv_file" value="<?php echo esc_attr( $dummy_csv ); ?>">
-                <div class="w-form-group">
-                    <label for="atbdp-listings-to-import"><?php esc_html_e('Number of Listings to import', 'directorist'); ?></label>
-                    <div>
-                        <select name="total_listings_to_import" id="atbdp-listings-to-import">
-                            <option value="6">6</option>
-                            <option value="12" selected>12</option>
-                            <option value="18">18</option>
-                            <option value="24">24</option>
-                            <option value="30">30</option>
-                        </select>
+        <div class="directorist-setup-wizard__content">
+            <div class="directorist-setup-wizard__content__header text-center">
+                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Yes You can use directorist core for free', 'directorist'); ?></h1>
+            </div>
+            <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__import">
+                <div class="directorist-setup-wizard__content__import__wrapper">
+                    <h3 class="directorist-setup-wizard__content__import__title">Install required tools</h3>
+                    <div class="directorist-setup-wizard__content__import__single">
+                        <input type="checkbox" name="business" id="import-listing" />
+                        <label for="import-listing">Import Listing</label>
+                    </div>
+                    <div class="directorist-setup-wizard__content__import__single">
+                        <input type="checkbox" name="business" id="import-directory-settings" />
+                        <label for="import-directory-settings">Import Directory Settings</label>
+                    </div>
+                    <div class="directorist-setup-wizard__content__import__single">
+                        <input type="checkbox" name="business" id="install-required-plugins" />
+                        <label for="install-required-plugins">Install Required Plugins</label>
+                    </div>
+                    <div class="directorist-setup-wizard__content__import__single">
+                        <input type="checkbox" name="business" id="share-data" />
+                        <label for="share-data">Share Non-Sensitive Data</label>
                     </div>
                 </div>
-                <div class="w-form-group">
-                    <label for="atbdp-import-image"><?php esc_html_e('Import images', 'directorist'); ?></label>
-                    <div class="w-toggle-switch">
-                        <input type="checkbox" value="1" class="w-switch" id="atbdp-import-image">
-                    </div>
+                <a href="#" class="directorist-setup-wizard__content__import__btn directorist-setup-wizard__btn directorist-setup-wizard__btn--full">Submit & Build My Directory Website</a>
+                <div class="directorist-setup-wizard__content__import__notice">
+                    By clicking "Submit & Build My Website", you agree to our <a href="#">Terms</a> & <a href="#">Privacy Policy</a>
                 </div>
             </div>
-            <div class="directorist-importer__importing" style="display: none;">
-                <header>
-                    <span class="spinner is-active"></span>
-                    <h2><?php esc_html_e('Importing', 'directorist');
-                        ?></h2>
-                    <p><?php esc_html_e('Your listings are now being imported...', 'directorist');
-                        ?></p>
-                </header>
-                <section>
-                    <span class="importer-notice"><?php esc_html_e('Please don\'t reload the page', 'directorist')?></span>
-                    <div class="directorist-importer-wrapper">
-                        <progress class="directorist-importer-progress" max="100" value="0"></progress>
-                        <span class="directorist-importer-length"></span>
-                    </div>
-                    <span class="importer-details"></span>
-                </section>
-            </div>
-
-            <!-- add dummy contents here -->
         </div>
     <?php
     }
@@ -623,18 +608,16 @@ class SetupWizard
 
         do_action( 'directorist_setup_wizard_completed' );
         ?>
-        <div class="atbdp-c-body">
-            <div class="wsteps-done">
-                <span class="wicon-done dashicons dashicons-yes"></span>
-                <h2><?php esc_html_e('Great, your directory is ready!', 'directorist'); ?></h2>
-                <div>
-                    <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-primary"><?php esc_html_e('Visit Directorist Dashboard', 'directorist'); ?></a>
-                    <a href="<?php echo esc_url(admin_url().'post-new.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-outline-primary"><?php esc_html_e('Create your First Listing', 'directorist'); ?></a>
+        <div class="directorist-setup-wizard__content">
+            <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__items--completed">
+                <h1 class="directorist-setup-wizard__content__title"><?php esc_html_e('Congratulations', 'directorist'); ?></h1>
+                <h4 class="directorist-setup-wizard__content__desc"><?php esc_html_e('Your directory website is ready. Thank you for using Directorist', 'directorist'); ?></h4>
+                <h2 class="directorist-setup-wizard__content__title--section"><?php esc_html_e('What\'s Next', 'directorist'); ?></h2>
+                <div class="directorist-setup-wizard__content__btns">
+                    <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="directorist-setup-wizard__btn"><?php esc_html_e('Create Your First Listing', 'directorist'); ?></a>  
+                    <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="directorist-setup-wizard__btn directorist-setup-wizard__btn--return"><?php esc_html_e('Return to the wordpress dashboard', 'directorist'); ?></a>  
                 </div>
             </div>
-        </div>
-        <div class="atbdp-c-footer atbdp-c-footer-center">
-            <a href="<?php echo esc_url(admin_url()); ?>" class="w-footer-link"><?php esc_html_e('Return to the WordPress Dashboard', 'directorist'); ?></a>
         </div>
     <?php
     }
@@ -856,10 +839,7 @@ class SetupWizard
                     </div>
                     <div class="directorist-setup-wizard__next">
                         <a href="/wp-admin/index.php?page=directorist-setup&amp;step=step-three" class="w-skip-link">Skip this step</a>
-                        <input type="hidden" id="_wpnonce" name="_wpnonce" value="58e2a34b73">
-                        <input type="hidden" name="_wp_http_referer" value="/wp-admin/index.php?page=directorist-setup&amp;step=step-two"> 
-                        <input type="submit" class="directorist-setup-wizard__next__btn" value="Continue" name="save_step">
-                        <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="directorist-setup-wizard__next__btn directorist-setup-wizard__next__btn--start">Continue</a>
+                        <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="directorist-setup-wizard__btn">Continue</a>
                     </div>
                 </div>
             </form>

@@ -206,6 +206,11 @@ jQuery(document).ready(function ($) {
   $('#atbdp-listings-to-import').select2({
     minimumResultsForSearch: -1
   });
+
+  // Updated Style
+  $('#others-listing').on('change', function () {
+    $('.directorist-setup-wizard__checkbox--custom').slideToggle();
+  });
 });
 
 /***/ })

@@ -592,6 +592,7 @@
                     font-weight: 500;
                     position: relative;
                     padding-left: 25px;
+                    cursor: pointer;
                     &:before {
                         content: '';
                         display: inline-flex;
@@ -622,9 +623,6 @@
                             }
                         }
                     }
-                }
-                input[type="checkbox"] {
-                    display: none;
                 }
             }
             @include e('btn') {
@@ -757,14 +755,26 @@
         gap: 10px;
         @include m('custom') {
             flex: 0 0 100%;
+            display: none;
         }
         label {
+            position: relative;
             font-size: 15px;
             font-weight: 500;
             border-radius: 5px;
             border: 1px solid #C6D0DC;
             padding: 10px 25px 10px 15px;
             transition: background-color 0.3s ease;
+            cursor: pointer;
+            &:before {
+                content: '+';
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 14px;
+                opacity: 0;
+            }
         }
         input[type="checkbox"] {
             display: none;
@@ -772,7 +782,10 @@
                 ~ label {
                     color: #fff;
                     background-color: #4353FF;
-                    border-color: #4353FF
+                    border-color: #4353FF;
+                    &::before {
+                        opacity: 1;
+                    }
                 }
             }
         }

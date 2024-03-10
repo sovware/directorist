@@ -371,9 +371,9 @@ class SetupWizard
     public function directorist_step_one() { ?>
         <div class="directorist-setup-wizard__box">
             <div class="directorist-setup-wizard__box__content directorist-setup-wizard__box__content--location">
-                <h1>Default Location</h1>
-                <p>Drag the map or marker to the middle of your city</p>
-                <h4>Add your location</h4>
+                <h1 class="directorist-setup-wizard__box__content__title">Default Location</h1>
+                <p class="directorist-setup-wizard__box__content__desc">Drag the map or marker to the middle of your city</p>
+                <h4 class="directorist-setup-wizard__box__content__title directorist-setup-wizard__box__content__title--section">Add your location</h4>
                 <input type="text" placeholder="Search your location" />
                 <div id="map" style="height: 400px; width: 100%;"></div>
             </div>
@@ -635,8 +635,8 @@ class SetupWizard
     ?>
         <div class="directorist-setup-wizard__content">
             <div class="directorist-setup-wizard__content__header">
-                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
-                <p class="directorist-setup-wizard__content__header__desc"><?php echo wp_kses(__('Thank you for choosing Directorist to amp your business directory. This quick setup wizard will help you <strong>configure the basic settings and get you started in no longer than 3 minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
+                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('What type of directory are you creating?', 'directorist'); ?></h1>
+                <p class="directorist-setup-wizard__content__header__desc"><?php echo wp_kses(__('Select the directory type you’re building. Weather it’s a business directory, a classifieds platform, or something else, we’ve got you covered.', 'directorist'), ['strong' => []]); ?></p>
             </div>
             <div class="directorist-setup-wizard__content__items">
                 <div class="directorist-setup-wizard__checkbox">
@@ -672,7 +672,7 @@ class SetupWizard
                 </div>
             </div>
             <div class="directorist-setup-wizard__content__notice">
-                Not Right Now. Exit to Dashboard
+                <svg xmlns="http://www.w3.org/2000/svg" width="14.932" height="16" viewBox="570 654 14.932 16"><path d="M580.32 669.25a.75.75 0 0 1-.75.75h-7.07a2.503 2.503 0 0 1-2.5-2.5v-11a2.503 2.503 0 0 1 2.5-2.5h7.07a.75.75 0 0 1 0 1.5h-7.07c-.552 0-1 .448-1 1v11c0 .552.448 1 1 1h7.07a.75.75 0 0 1 .75.75Zm4.393-7.78-3.564-3.564a.75.75 0 1 0-1.061 1.06l2.284 2.284h-5.905a.75.75 0 0 0 0 1.5h5.905l-2.284 2.284a.75.75 0 1 0 1.06 1.06l3.565-3.564a.75.75 0 0 0 0-1.06Z" fill="#484848" fill-rule="evenodd" data-name="Path 1620"/></svg> Not Right Now. Exit to Dashboard
             </div>
         </div>
     <?php
@@ -761,7 +761,7 @@ class SetupWizard
                     </div>
                     <div class="directorist-setup-wizard__close">
                         <a href="#" class="directorist-setup-wizard__close__btn">
-                            x
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11.998" viewBox="1237 31 12 11.998"><path d="m1244.409 36.998 4.295-4.286a1.003 1.003 0 0 0-1.418-1.418L1243 35.59l-4.286-4.296a1.003 1.003 0 0 0-1.418 1.418l4.295 4.286-4.295 4.286a.999.999 0 0 0 0 1.419.999.999 0 0 0 1.418 0l4.286-4.296 4.286 4.296a1 1 0 0 0 1.418 0 .999.999 0 0 0 0-1.419l-4.295-4.286Z" fill="#b7b7b7" fill-rule="evenodd" data-name="times"/></svg>
                         </a>
                     </div>
                 </div>

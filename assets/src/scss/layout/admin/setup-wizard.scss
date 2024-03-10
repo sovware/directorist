@@ -443,7 +443,7 @@
                 padding: 0;
                 margin: 0;
                 list-style: none;
-                border-radius: 5px;
+                border-radius: 25px;
                 overflow: hidden;
                 li {
                     display: flex;
@@ -453,8 +453,8 @@
                         content: '';
                         display: inline-flex;
                         width: 100%;
-                        height: 10px;
-                        background-color: #C6D0DC;
+                        height: 12px;
+                        background-color: #ebebeb;
                     }
                     &.done,
                     &.active {
@@ -472,9 +472,9 @@
         align-self: stretch;
         align-items: center;
         padding: 15px 25px;
-        border-right: 1px solid #C6D0DC;
+        border-right: 1px solid #e7e7e7;
         img {
-            width: 200px;
+            width: 140px;
         }
     }
     @include e('close') {
@@ -482,7 +482,18 @@
         align-self: stretch;
         align-items: center;
         padding: 15px 25px;
-        border-left: 1px solid #C6D0DC;
+        border-left: 1px solid #e7e7e7;
+        @include e('btn') {
+            svg path {
+                fill: #b7b7b7;
+                transition: fill 0.3s ease;
+            }
+            &:hover {
+                svg path {
+                    fill: #4353FF;
+                }
+            }
+        }
     }
 
     @include e('footer') {
@@ -532,18 +543,20 @@
         gap: 30px;
         flex-direction: column;
         @include e('title') {
-            font-size: 28px;
-            font-weight: 600;
+            font-size: 30px;
+            font-weight: 400;
             margin: 0 0 10px;
+            color: #141414;
             @include m('section') {
                 font-size: 24px;
                 font-weight: 600;
             }
         }
         @include e('desc') {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 400;
             margin: 0 0 10px;
+            color: #484848;
         }
         @include e('header') {
             @include e('title') {
@@ -564,7 +577,8 @@
             padding: 30px;
             background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+            
             @include m('listings') {
                 flex-direction: column;
             }
@@ -747,6 +761,15 @@
                 }
             }
         }
+        @include e('notice') {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #484848;
+        }
     }
 
     @include e('checkbox') {
@@ -761,13 +784,18 @@
             position: relative;
             font-size: 15px;
             font-weight: 500;
+            color: #141414;
             border-radius: 5px;
-            border: 1px solid #C6D0DC;
-            padding: 10px 25px 10px 15px;
+            border: 1px solid #D6D6D6;
+            padding: 10px 40px 10px 15px;
             transition: background-color 0.3s ease;
             cursor: pointer;
             &:before {
-                content: '+';
+                content: '';
+                background-image: url('../../../../images/checkbox.svg');
+                background-repeat: no-repeat;
+                width: 16px;
+                height: 16px;
                 position: absolute;
                 right: 10px;
                 top: 50%;
@@ -780,9 +808,8 @@
             display: none;
             &:checked {
                 ~ label {
-                    color: #fff;
-                    background-color: #4353FF;
-                    border-color: #4353FF;
+                    background-color: #4353FF34;
+                    border-color: #4353FF34;
                     &::before {
                         opacity: 1;
                     }
@@ -794,7 +821,7 @@
             height: 42px;
             border-radius: 4px;
             padding: 0 16px;
-            border: 1px solid #C6D0DC;
+            border: 1px solid #D6D6D6;
             box-sizing: border-box;
         }
     }
@@ -832,6 +859,24 @@
                     background-color: #F4F5F7;
                     border: 1px solid #F4F5F7;
                 }
+            }
+            @include e('title') {
+                font-size: 24px;
+                font-weight: 400;
+                margin: 0 0 5px;
+                color: #141414;
+                @include m('section') {
+                    font-size: 15px;
+                    font-weight: 400;
+                    color: #141414;
+                    margin: 0 0 10px;
+                }
+            }
+            @include e('desc') {
+                font-size: 15px;
+                font-weight: 400;
+                margin: 0 0 25px;
+                color: #484848;
             }
         }
     }

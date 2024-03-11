@@ -1324,7 +1324,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$subject  = strtr( $contact_email_subject, $placeholders );
 			$message  = strtr( $contact_email_body, $placeholders );
 			$message  = nl2br( $message );
-			$headers  = ATBDP()->email->get_email_headers();
+			$headers  = ATBDP()->email->get_email_headers( [ 'name' => $name, 'email' => $email ] );
 			$message  = atbdp_email_html( $subject, $message );
 			// return true or false, based on the result
 			$is_sent = ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;

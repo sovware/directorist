@@ -971,17 +971,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       searchFields.forEach(function (searchField) {
         var inputFieldValue = searchField.value;
         if (searchField.classList.contains('directorist-select')) {
-          inputFieldValue = searchField.querySelector('select').dataset.selectedId;
-        }
-        if (inputFieldValue != '') {
-          searchField.parentElement.classList.add('input-has-value');
-          if (!searchField.parentElement.classList.contains('input-is-focused')) {
-            searchField.parentElement.classList.add('input-is-focused');
-          }
+          $(window).on('load', function () {
+            console.log('searchField CHK', searchField.parentElement.classList);
+            if (searchField.parentElement.classList.contains('input-is-focused')) {
+              searchField.parentElement.classList.remove('input-is-focused');
+            }
+          });
         } else {
-          inputFieldValue = '';
-          if (searchField.parentElement.classList.contains('input-has-value')) {
-            searchField.parentElement.classList.remove('input-has-value');
+          if (inputFieldValue != '') {
+            searchField.parentElement.classList.add('input-has-value');
+            if (!searchField.parentElement.classList.contains('input-is-focused')) {
+              searchField.parentElement.classList.add('input-is-focused');
+            }
+          } else {
+            inputFieldValue = '';
+            if (searchField.parentElement.classList.contains('input-has-value')) {
+              searchField.parentElement.classList.remove('input-has-value');
+            }
           }
         }
       });

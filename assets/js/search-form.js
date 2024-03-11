@@ -972,7 +972,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var inputFieldValue = searchField.value;
         if (searchField.classList.contains('directorist-select')) {
           $(window).on('load', function () {
-            console.log('searchField CHK', searchField.parentElement.classList);
             if (searchField.parentElement.classList.contains('input-is-focused')) {
               searchField.parentElement.classList.remove('input-is-focused');
             }

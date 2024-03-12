@@ -4229,3 +4229,39 @@ function directorist_background_image_process( $images ) {
 		ATBDP()->background_image_process->save()->dispatch();
 	}
 }
+
+function directorist_get_json_from_url( $url ) { 
+    $zip_content = file_get_contents( $url );
+		
+    if ( $zip_content === false ) {
+        return false;
+    }
+
+    $temp_zip_path = tempnam( sys_get_temp_dir(), 'unzip_temp' );
+
+    if ( ! $temp_zip_path ) {
+        return false;
+    }
+
+    if ( file_put_contents($temp_zip_path, $zip_content) === false ) {
+        return false;
+    }
+
+    $zip = new ZipArchive;
+
+    if ( $zip->open( $temp_zip_path ) === true ) {
+      
+        $json_content = $zip->getFromIndex( 0 );
+        $decoded_data = json_decode( $json_content, true );
+
+        if ( $decoded_data === null ) {
+            return false;
+        }
+
+        $zip->close();
+
+        unlink($temp_zip_path);
+
+        return $decoded_data;
+    }
+}

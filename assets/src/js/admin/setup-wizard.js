@@ -72,6 +72,31 @@ jQuery(document).ready(function ($) {
         run_import();
     });
 
+    $('.directorist-submit-importing').on('click', function(e) {
+        e.preventDefault();
+
+        var data = {
+            action                 : 'directorist_setup_wizard',
+            directorist_nonce      : import_export_data.directorist_nonce,
+        };
+
+        if ( $('input[name="directory_type_settings"]').is(':checked') ) {
+            data.directory_type_settings = true;
+        }
+        
+        $.ajax({
+            method: 'POST',
+            url   : import_export_data.ajaxurl,
+            data  : data,
+            success(response) {
+                console.log(response);
+                if(response.data.url) {
+                    window.location = response.data.url;
+                }
+            },
+        });
+    });
+
     //options
     $('.atbdp-sw-gmap-key').hide();
     $('#select_map').on('change', function (e) {

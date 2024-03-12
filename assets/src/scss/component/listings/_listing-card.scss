@@ -517,6 +517,24 @@
                 }
             }
         }
+
+        @include e(header) {
+            @include e(left) {
+                .directorist-thumb-listing-author {
+                    position: unset !important;
+                    transform: unset !important;
+                }
+            }
+        }
+        .directorist-listing-single__header__left,
+        .directorist-listing-single__header__right,
+        .directorist-thumb-bottom-left,
+        .directorist-thumb-bottom-right {
+            .directorist-thumb-listing-author {
+                position: unset !important;
+                transform: unset !important;
+            }
+        }
     
         .directorist-badge {
             margin: 3px;

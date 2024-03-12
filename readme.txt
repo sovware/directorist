@@ -423,14 +423,6 @@ Directorist is a complete directory solution and in combination with its advance
 * Improve - atbdp_format_amount filter hook (#1675)
 * Improve - Syntax for variables in string literals (#1684)
 
-7.8.5 - Feb 12, 2024
-
-* Fix - Setup wizard user permission issue (#1702)
-* Add - New filter hook: Directorist archive single listing url (#1699)
-* Add - New hook: single listing slider image size (#1698)
-* Improve - atbdp_format_amount filter hook (#1675)
-* Improve - Syntax for variables in string literals (#1684)
-
 7.8.4 - Jan 30, 2024
 
 * Fix - Single listing back button/link (#1695)

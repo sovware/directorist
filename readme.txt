@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 7.8.5
+Stable tag: 7.8.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -410,6 +410,11 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
+7.8.6 - Mar 12, 2024
+
+* Fix - Undefined array index issue
+* Fix - Promo banner nonce validation issue
+
 7.8.5 - Feb 12, 2024
 
 * Fix - Setup wizard user permission issue (#1702)
@@ -515,10 +520,10 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix -  Column Issue in All Categories & Locations Page
 * Fix - Publish Date Issue when Importing Listings
 * Fix - Typo Issue in Users REST API
-* Fix - Image Size Issue in Single Listing Slider 
+* Fix - Image Size Issue in Single Listing Slider
 * Fix - Listing Count Issue in All Categories & Locations Page
 * Fix - PHP 8 Deprecated Notices
-* Fix - inlineEditPost JS Console Error 
+* Fix - inlineEditPost JS Console Error
 
 7.5.5 - Jun 01, 2023
 

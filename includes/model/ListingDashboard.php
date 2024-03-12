@@ -188,7 +188,7 @@ class Directorist_Listing_Dashboard {
 		$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 		$listing_img       = get_post_meta($id, '_listing_img', true);
 
-		if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
+		if ( is_array( $listing_img ) && ! empty( $listing_img[0] ) ) {
 			$thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
 			$thumbnail_id = $listing_img[0];
 		}

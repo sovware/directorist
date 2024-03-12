@@ -67,6 +67,7 @@ class SetupWizard
                         $type_url      = $selected_type['url'];
                         $file_contents = directorist_get_json_from_url( $type_url );
                         if( $file_contents ) {
+                            $multi_directory_manager->prepare_settings();
                             $multi_directory_manager->add_directory([
                                 'directory_name' => $selected_type['name'],
                                 'fields_value'   => $file_contents,
@@ -835,6 +836,10 @@ class SetupWizard
         $ouput_steps = $this->steps;
         array_shift($ouput_steps);
         $hide = ! isset( $_GET['step'] ) ? 'atbdp-none' : '';
+        $introduction_step = empty( $_GET['step'] ) || 'step-one' == $_GET['step'] || 'step-two' == $_GET['step'] || 'step-three' == $_GET['step'] ? 'active' : ''; 
+        $step_one = ( ! empty( $_GET['step'] ) && ( 'step-one' == $_GET['step'] || 'step-two' == $_GET['step'] || 'step-three' == $_GET['step'] ) ) ? 'active' : '' ; 
+        $step_two = ( ! empty( $_GET['step'] ) && ( 'step-two' == $_GET['step'] || 'step-three' == $_GET['step'] ) ) ? 'active' : '' ; 
+        $step_three = ( ! empty( $_GET['step'] ) && ( 'step-three' == $_GET['step'] || 'step-three' == $_GET['step'] ) ) ? 'active' : '' ; 
     ?>
         <!DOCTYPE html>
         <html <?php language_attributes(); ?>>
@@ -859,28 +864,10 @@ class SetupWizard
                     </div>
                     <div class="directorist-setup-wizard__header__step">
                         <ul class="atbdp-setup-steps <?php echo esc_attr( $hide ); ?>">
-                            <?php foreach ($ouput_steps as $step_key => $step) : ?>
-                                <li class="<?php
-                                    if ($step_key === $this->step && 'step-four' != $step_key ) {
-                                        echo 'active';
-                                    } elseif ( array_search( $this->step, array_keys($this->steps ) ) > array_search( $step_key, array_keys( $this->steps ) ) ) {
-                                        echo 'done';
-                                    } elseif ( isset( $_GET['step'] ) && 'step-four' == $_GET['step'] ) {
-                                        echo 'done';
-                                    }
-                                    $number = 1;
-                                    if ( 'step-one' == $step_key ) {
-                                        $number = 1;
-                                    } else if ( 'step-two' == $step_key ) {
-                                        $number = 2;
-                                    } else if ( 'step-three' == $step_key ) {
-                                        $number = 3;
-                                    } else if ( 'step-four' == $step_key ) {
-                                        $number = 4;
-                                    }
-                                    ?>">
-                                </li>
-                            <?php endforeach; ?>
+                                <li class="<?php echo $introduction_step; ?>"></li>
+                                <li class="<?php echo $step_one; ?>"></li>
+                                <li class="<?php echo $step_two; ?>"></li>
+                                <li class="<?php echo $step_three; ?>"></li>
                         </ul>
                         <span class="step-count">Choose a directory type 1 of 4</span>
                     </div>

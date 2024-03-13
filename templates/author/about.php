@@ -81,7 +81,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 							<?php endif; ?>
 
 							<?php if ( $twitter ): ?>
-								<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a></li>
+								<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitterx' ); ?></a></li>
 							<?php endif; ?>
 
 							<?php if ( $linkedin ): ?>

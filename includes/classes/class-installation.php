@@ -30,6 +30,10 @@ class ATBDP_Installation {
 			'directorist_710_migrate_posts_table_to_comments_table',
 			'directorist_710_review_rating_clear_transients',
 			'directorist_710_update_db_version',
+		],
+		'7.9.0' => [
+			'directorist_790_merge_dashboard_login_registration_page',
+			'directorist_790_update_db_version',
 		]
 	);
 
@@ -68,6 +72,7 @@ class ATBDP_Installation {
 		$atpdp_setup_wizard = apply_filters( 'atbdp_setup_wizard', true );
 
 		if( ! $atbdp_option && $atpdp_setup_wizard ) {
+			update_option( 'directorist_merge_dashboard_login_reg_page', true );
 			set_transient( '_directorist_setup_page_redirect', true, 30 );
 		}
 

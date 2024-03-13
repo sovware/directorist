@@ -150,10 +150,18 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if ( $user instanceof \WP_User && get_user_meta( $user->ID, 'directorist_user_email_unverified', true ) ) {
 				ATBDP()->email->send_user_confirmation_email( $user );
 			}
-
-			wp_safe_redirect( ATBDP_Permalink::get_login_page_url( array(
-				'send_verification_email' => true
-			) ) );
+			
+			if( get_option( 'directorist_merge_dashboard_login_reg_page' ) ) {
+				$args = ATBDP_Permalink::get_dashboard_page_link( array(
+					'send_verification_email' => true
+				) );
+			} else {
+				ATBDP_Permalink::get_login_page_url( array(
+					'send_verification_email' => true
+				) );
+			}
+			
+			wp_safe_redirect( $args );
 			exit;
 		}
 

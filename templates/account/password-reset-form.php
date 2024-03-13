@@ -13,21 +13,18 @@ do_action('directorist_before_reset_password_form');
 	<p>
 		<?php esc_html_e('Enter a new password below.', 'directorist'); ?>
 	</p>
-	<p>
+	<div class="directorist-form-group directorist-mb-15">
 		<label for="password_1">
 			<?php esc_html_e('New password', 'directorist'); ?> &nbsp;<span class="required">*</span>
 		</label>
-		<input type="password" class="directorist-Input directorist-Input--text input-text" name="password_1"
-			id="password_1" autocomplete="new-password" required/>
-	</p>
-	<p>
+		<input type="password" class="directorist-form-element" id="password_1" name="password_1"  autocomplete="new-password" required>
+	</div>
+	<div class="directorist-form-group directorist-mb-15">
 		<label for="password_2">
-			<?php esc_html_e('Re-enter new password', 'directorist'); ?>&nbsp;
-			<span class="required">*</span>
+			<?php esc_html_e('Re-enter new password', 'directorist'); ?> &nbsp;<span class="required">*</span>
 		</label>
-		<input type="password" class="directorist-Input directorist-Input--text input-text" name="password_2"
-			id="password_2" autocomplete="new-password" required/>
-	</p>
+		<input type="password" class="directorist-form-element" id="password_2" name="password_2"  autocomplete="new-password" required>
+	</div>
 
 	<div class="clear"></div>
 
@@ -35,7 +32,7 @@ do_action('directorist_before_reset_password_form');
 
 	<p class="directorist-form-row form-row">
 		<input type="hidden" name="directorist_reset_password" value="true" />
-		<button type="submit" class="btn btn-primary" value="<?php esc_attr_e('Save', 'directorist'); ?>"><?php esc_html_e('Save', 'directorist'); ?></button>
+		<button type="submit" class="directorist-btn directorist-btn-block directorist-btn-primary directorist-authentication__form__btn" value="<?php esc_attr_e('Save', 'directorist'); ?>"><?php esc_html_e('Save', 'directorist'); ?></button>
 	</p>
 
 	<?php wp_nonce_field('reset_password', 'directorist-reset-password-nonce'); ?>

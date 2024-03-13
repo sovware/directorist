@@ -483,7 +483,7 @@ class SetupWizard
                     
                 </div>
 
-                <div class="directorist-form-map-field__maps">
+                <div class="directorist-setup-wizard__map directorist-form-map-field__maps">
                     <div id="osm">
                         <div id="gmap">
                             <div id="gmap_full_screen_button">
@@ -531,24 +531,29 @@ class SetupWizard
             <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__items--listings">
                 <div class="directorist-setup-wizard__content__pricing">
                     <div class="directorist-setup-wizard__content__pricing__checkbox">
+                        <span class="feature-title">Featured Listings</span>
                         <input type="checkbox" name="enable_monetization" id="enable_featured" value=1 />
-                        <label for="enable_featured">Featured Listings</label>
+                        <label for="enable_featured"></label>
                     </div>
                     <div class="directorist-setup-wizard__content__pricing__amount">
                         <span class="price-title">Pricing</span>
-                        <span>$</span>
-                        <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99>
+                        <div class="price-amount">
+                            <span class="price-prefix">$</span>
+                            <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99 />
+                        </div>
                     </div>
                 </div>
                 <div class="directorist-setup-wizard__content__gateway">
                     <h4 class="directorist-setup-wizard__content__gateway__title">Gateways</h4>
                     <div class="directorist-setup-wizard__content__gateway__checkbox">
+                        <span class="gateway-title">Bank Transfer</span>
                         <input type="checkbox" name="active_gateways[]" id="enable_bank_transfer" value="bank_transfer" />
-                        <label for="enable_bank_transfer">Bank Transfer</label>
+                        <label for="enable_bank_transfer"></label>
                     </div>
                     <div class="directorist-setup-wizard__content__gateway__checkbox">
+                        <span class="gateway-title">Paypal</span>
                         <input type="checkbox" name="active_gateways[]" id="enable_paypal" value="paypal_gateway" />
-                        <label for="enable_paypal">Paypal</label>
+                        <label for="enable_paypal"></label>
                     </div>
                 </div>
             </div>
@@ -858,6 +863,7 @@ class SetupWizard
 
         <body class="atbdp-setup directorist-setup-wizard wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? esc_attr( ' directorist-setup-wizard-activated-wc' ) : '';  ?> <?php echo esc_attr( $hide ); ?>">
             <form method="post" class="directorist-setup-wizard-wrapper directorist-setup-wizard__wrapper">
+            <?php if (!(isset($_GET['step']) && $_GET['step'] == 'step-four')) : ?>
                 <div class="directorist-setup-wizard__header">
                     <div class="directorist-setup-wizard__logo">
                         <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.svg');?>" alt="Directorist">
@@ -877,6 +883,7 @@ class SetupWizard
                         </a>
                     </div>
                 </div>
+            <?php endif; ?>
             <?php
             /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.svg', directorist_FILE );*/
             ?>
@@ -944,7 +951,7 @@ class SetupWizard
             <?php if ( 'next_steps' === $this->step ) : ?>
                 <a class="atbdp-return-to-dashboard" href="<?php echo esc_url(admin_url()); ?>"><?php esc_html_e('Return to the WordPress Dashboard', 'directorist'); ?></a>
             <?php endif; ?>
-
+            <?php if (!(isset($_GET['step']) && ($_GET['step'] == 'step-three' || $_GET['step'] == 'step-four'))) : ?>
                 <div class="directorist-setup-wizard__footer">
                     <div class="directorist-setup-wizard__back">
                         <a href="#" class="directorist-setup-wizard__back__btn">Back</a>
@@ -953,9 +960,10 @@ class SetupWizard
                         <a href="/wp-admin/index.php?page=directorist-setup&amp;step=step-three" class="w-skip-link">Skip this step</a>
                         <?php wp_nonce_field('directorist-setup'); ?>
                         <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
-                        <!-- <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="directorist-setup-wizard__btn">Continue</a> -->
                     </div>
                 </div>
+            <?php endif; ?>
+
             </form>
         </body>
 

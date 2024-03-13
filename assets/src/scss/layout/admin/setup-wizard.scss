@@ -691,10 +691,15 @@
         }
         @include e('pricing') {
             @include e('checkbox') {
-                label {
-                    display: flex;
+                display: flex;
+                justify-content: space-between;
+                .feature-title {
                     font-size: 15px;
                     font-weight: 500;
+                    color: #484848;
+                }
+                label {
+                    display: flex;
                     position: relative;  
                     cursor: pointer;  
                     &:before {
@@ -743,15 +748,23 @@
                 .price-title {
                     font-size: 15px;
                     font-weight: 500;
-                    color: #000;
+                    color: #484848;
                 }
                 .price-amount {
                     font-size: 14px;
                     font-weight: 500;
                     color: #141414;
                     border-radius: 8px;
-                    background-color: #EBEBEB;
-                    padding: 10px 27px 10px 15px;
+                    border: 1px solid #EBEBEB;
+                    padding: 10px 15px;
+                    input {
+                        border: none;
+                        outline: none;
+                        box-shadow: none;
+                        padding: 0;
+                        max-width: 45px;
+                        background: transparent;
+                    }
                 }
             }
         }
@@ -766,10 +779,15 @@
                 margin: 30px 0 0;
             }
             @include e('checkbox') {
-                label {
-                    display: flex;
+                display: flex;
+                justify-content: space-between;
+                .gateway-title {
                     font-size: 15px;
                     font-weight: 500;
+                    color: #484848;
+                }
+                label {
+                    display: flex;
                     position: relative;  
                     cursor: pointer;  
                     &:before {
@@ -821,7 +839,6 @@
             color: #484848;
         }
     }
-
     @include e('checkbox') {
         display: flex;
         align-items: center;
@@ -875,7 +892,6 @@
             box-sizing: border-box;
         }
     }
-
     @include e('introduction') {
         max-width: 700px;
         margin: 0 auto;
@@ -944,5 +960,8 @@
                 box-sizing: border-box;
             }
         }
+    }
+    @include e('map') {
+        margin-top: 20px;
     }
 }

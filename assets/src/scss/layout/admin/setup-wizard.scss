@@ -576,6 +576,10 @@
             max-width: 500px;
             margin: 0 auto;
             text-align: center;
+            @include m('listings') {
+                max-width: 100%;
+                text-align: center;
+            }
             @include e('title') {
                 font-size: 30px;
                 line-height: 1;

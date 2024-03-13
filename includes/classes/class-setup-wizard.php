@@ -525,8 +525,8 @@ class SetupWizard
 
     ?>
         <div class="directorist-setup-wizard__content">
-            <div class="directorist-setup-wizard__content__header">
-                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Yes You can use directorist core for free', 'directorist'); ?></h1>
+            <div class="directorist-setup-wizard__content__header--listings">
+                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Yes! You can earn using Directorist Core for FREE', 'directorist'); ?></h1>
             </div>
             <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__items--listings">
                 <div class="directorist-setup-wizard__content__pricing">

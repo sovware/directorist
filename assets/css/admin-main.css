@@ -24974,6 +24974,10 @@ span.drop-toggle-caret:before {
   margin: 0 auto;
   text-align: center;
 }
+.directorist-setup-wizard__content__header--listings {
+  max-width: 100%;
+  text-align: center;
+}
 .directorist-setup-wizard__content__header__title {
   font-size: 30px;
   line-height: 1;

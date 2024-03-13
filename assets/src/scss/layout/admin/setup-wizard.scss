@@ -431,9 +431,8 @@
             display: flex;
             flex: 1;
             gap: 15px;
-            max-width: 750px;
-            margin: 0 auto;
-            padding: 15px  25px;
+            max-width: 700px;
+            padding: 15px 0;
             flex-direction: column;
             align-items: center;
             .atbdp-setup-steps {
@@ -482,6 +481,7 @@
         align-self: stretch;
         align-items: center;
         padding: 15px 25px;
+        margin-inline-start: 138px;
         border-left: 1px solid #e7e7e7;
         @include e('btn') {
             svg path {
@@ -596,18 +596,20 @@
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            padding: 30px;
+            padding: 40px;
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
             
             @include m('listings') {
+                padding: 40px 180px;
                 flex-direction: column;
             }
             @include m('completed') {
                 flex-direction: column;
                 text-align: center;
                 gap: 0;
+                padding: 40px 75px 50px;
                 .congratulations-img {
                     margin: 0 auto 10px;
                 }
@@ -640,7 +642,7 @@
                         width: 18px;
                         height: 18px;
                         border-radius: 4px;
-                        border: 1px solid #000;
+                        border: 1px solid #b7b7b7;
                         position: absolute;
                         left: 0;
                         top: -1px;
@@ -849,13 +851,16 @@
         }
         label {
             position: relative;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             color: #141414;
+            height: 40px;
+            line-height: 38px;
+            padding: 0 40px 0 15px;
             border-radius: 5px;
             border: 1px solid #D6D6D6;
-            padding: 10px 40px 10px 15px;
             transition: background-color 0.3s ease;
+            box-sizing: border-box;
             cursor: pointer;
             &:before {
                 content: '';
@@ -888,8 +893,15 @@
             height: 42px;
             border-radius: 4px;
             padding: 0 16px;
-            border: 1px solid #D6D6D6;
+            background-color: #ebebeb;
+            border: none;
+            outline: none;
             box-sizing: border-box;
+            &::placeholder {
+                font-size: 14px;
+                font-weight: 400;
+                color: #787878;
+            }
         }
     }
     @include e('introduction') {
@@ -903,7 +915,7 @@
         flex: 1;
         gap: 15px;
         width: 100%;
-        max-width: 750px;
+        max-width: 720px;
         margin: 0 auto;
         padding: 50px 0 100px;
         flex-direction: column;
@@ -911,10 +923,11 @@
     }
     @include e('box') {
         width: 100%;
-        padding: 30px;
+        padding: 30px 40px 40px;
         background-color: #ffffff;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
         @include e('content') {
             @include e('title') {
                 font-size: 24px;
@@ -941,8 +954,8 @@
                     content: '';
                     background-image: url('../../../../images/search.svg');
                     background-repeat: no-repeat;
-                    width: 16px;
-                    height: 16px;
+                    width: 14px;
+                    height: 14px;
                     position: absolute;
                     left: 18px;
                     top: 14px;
@@ -963,5 +976,9 @@
     }
     @include e('map') {
         margin-top: 20px;
+        #gmap {
+            height: 280px;
+            border-radius: 8px;
+        }
     }
 }

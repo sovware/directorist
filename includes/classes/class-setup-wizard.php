@@ -689,10 +689,10 @@ class SetupWizard
                 </svg>
                 <h1 class="directorist-setup-wizard__content__title"><?php esc_html_e('Congratulations', 'directorist'); ?></h1>
                 <h4 class="directorist-setup-wizard__content__desc"><?php esc_html_e('Your directory website is ready. Thank you for using Directorist', 'directorist'); ?></h4>
-                <h2 class="directorist-setup-wizard__content__title--section"><?php esc_html_e('What\'s Next', 'directorist'); ?></h2>
+                <h2 class="directorist-setup-wizard__content__title--section"><?php esc_html_e('What\'s next?', 'directorist'); ?></h2>
                 <div class="directorist-setup-wizard__content__btns">
                     <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="directorist-setup-wizard__btn"><?php esc_html_e('Create Your First Listing', 'directorist'); ?></a>  
-                    <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="directorist-setup-wizard__btn directorist-setup-wizard__btn--return"><?php esc_html_e('Return to the wordpress dashboard', 'directorist'); ?></a>  
+                    <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="directorist-setup-wizard__btn directorist-setup-wizard__btn--return"><?php esc_html_e('Return to the Wordpress Dashboard', 'directorist'); ?></a>  
                 </div>
             </div>
         </div>
@@ -870,12 +870,12 @@ class SetupWizard
                     </div>
                     <div class="directorist-setup-wizard__header__step">
                         <ul class="atbdp-setup-steps <?php echo esc_attr( $hide ); ?>">
-                                <li class="<?php echo $introduction_step; ?>"></li>
-                                <li class="<?php echo $step_one; ?>"></li>
-                                <li class="<?php echo $step_two; ?>"></li>
-                                <li class="<?php echo $step_three; ?>"></li>
+                            <li class="<?php echo $introduction_step; ?>"></li>
+                            <li class="<?php echo $step_one; ?>"></li>
+                            <li class="<?php echo $step_two; ?>"></li>
+                            <li class="<?php echo $step_three; ?>"></li>
                         </ul>
-                        <span class="step-count">Choose a directory type 1 of 4</span>
+                        <span class="step-count">Choose a Directory Type 1 of 4</span>
                     </div>
                     <div class="directorist-setup-wizard__close">
                         <a href="#" class="directorist-setup-wizard__close__btn">

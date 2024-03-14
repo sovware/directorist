@@ -530,8 +530,8 @@ class SetupWizard
 
     ?>
         <div class="directorist-setup-wizard__content">
-            <div class="directorist-setup-wizard__content__header">
-                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Yes You can use directorist core for free', 'directorist'); ?></h1>
+            <div class="directorist-setup-wizard__content__header--listings">
+                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Yes! You can earn using Directorist Core for FREE', 'directorist'); ?></h1>
             </div>
             <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__items--listings">
                 <div class="directorist-setup-wizard__content__pricing">
@@ -694,10 +694,10 @@ class SetupWizard
                 </svg>
                 <h1 class="directorist-setup-wizard__content__title"><?php esc_html_e('Congratulations', 'directorist'); ?></h1>
                 <h4 class="directorist-setup-wizard__content__desc"><?php esc_html_e('Your directory website is ready. Thank you for using Directorist', 'directorist'); ?></h4>
-                <h2 class="directorist-setup-wizard__content__title--section"><?php esc_html_e('What\'s Next', 'directorist'); ?></h2>
+                <h2 class="directorist-setup-wizard__content__title--section"><?php esc_html_e('What\'s next?', 'directorist'); ?></h2>
                 <div class="directorist-setup-wizard__content__btns">
                     <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="directorist-setup-wizard__btn"><?php esc_html_e('Create Your First Listing', 'directorist'); ?></a>  
-                    <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="directorist-setup-wizard__btn directorist-setup-wizard__btn--return"><?php esc_html_e('Return to the wordpress dashboard', 'directorist'); ?></a>  
+                    <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="directorist-setup-wizard__btn directorist-setup-wizard__btn--return"><?php esc_html_e('Return to the Wordpress Dashboard', 'directorist'); ?></a>  
                 </div>
             </div>
         </div>

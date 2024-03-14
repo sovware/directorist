@@ -541,6 +541,34 @@
             gap: 10px;
             padding: 0 25px;
         }
+        &.loading {
+            position: relative;
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 8px;
+                background-color: rgba(0, 0, 0, 0.5);
+            
+            }
+            &:after {
+                content: '';
+                display: inline-flex;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                border: 2px solid #ffffff;
+                border-top-color: #4353FF;
+                position: absolute;
+                top: 12px;
+                right: 50%;
+                transform: translateX(-50%);
+                animation: spin 3s linear infinite;
+            }
+        }
     }
     @include e('next') {
         display: flex;
@@ -998,5 +1026,15 @@
             height: 280px;
             border-radius: 8px;
         }
+    }
+}
+
+// Keyframes
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

@@ -159,6 +159,8 @@ jQuery(document).ready(function ($) {
   });
   $('.directorist-submit-importing').on('click', function (e) {
     e.preventDefault();
+    // Add a class when the button is clicked
+    $(this).addClass('loading');
     var data = {
       action: 'directorist_setup_wizard',
       directorist_nonce: import_export_data.directorist_nonce
@@ -174,6 +176,8 @@ jQuery(document).ready(function ($) {
       url: import_export_data.ajaxurl,
       data: data,
       success: function success(response) {
+        // Remove the class on success
+        $('.directorist-submit-importing').removeClass('loading');
         if (response.data.url) {
           window.location = response.data.url;
         }

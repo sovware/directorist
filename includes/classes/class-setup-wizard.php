@@ -28,7 +28,6 @@ class SetupWizard
      * Hook in tabs.
      */
     public function __construct() {
-
             add_action( 'admin_menu', array( $this, 'admin_menus' ) );
             add_action( 'admin_init', array( $this, 'setup_wizard' ), 99 );
             add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
@@ -79,6 +78,12 @@ class SetupWizard
                     }
                 }
             }
+        }
+
+        if( isset( $_POST['share_non_sensitive_data'] ) ) {
+            ATBDP()->insights->optin();
+        } else {
+            ATBDP()->insights->optout();
         }
 
         
@@ -645,7 +650,7 @@ class SetupWizard
                         <label for="install-required-plugins">Install Required Plugins</label>
                     </div>
                     <div class="directorist-setup-wizard__content__import__single">
-                        <input type="checkbox" name="share-data" id="share-data" />
+                        <input type="checkbox" name="share_non_sensitive_data" id="share-data" value="yes" checked/>
                         <label for="share-data">Share Non-Sensitive Data</label>
                     </div>
                 </div>
@@ -769,11 +774,11 @@ class SetupWizard
                     <label for="doctors-directory">Doctors Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="directory_type[]" id="others-listing" value="other" />
+                    <input type="checkbox" name="other_directory" id="others-listing" value="other" />
                     <label for="others-listing">Others</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox directorist-setup-wizard__checkbox--custom">
-                    <input type="text" name="others" id="others-listing" placeholder="Type Your Prefered Directory Name" />
+                    <input type="text" name="other_directory_type" id="others-listing" placeholder="Type Your Preferred Directory Name" />
                 </div>
             </div>
             <div class="directorist-setup-wizard__content__notice">
@@ -795,6 +800,13 @@ class SetupWizard
         if( count( $directory_type ) > 1 ) {
             $atbdp_option['enable_multi_directory'] = true;
             update_option('atbdp_option', $atbdp_option);
+        }
+
+        if( ! empty( $_post_data['other_directory_type'] ) ) {
+            $other_directory_type = array(
+                'other_directory_type' => $_post_data['other_directory_type'],
+            );
+            ATBDP()->insights->add_extra( $other_directory_type );
         }
        
         set_transient( 'directory_type', $directory_type, $expiration_time );
@@ -841,10 +853,31 @@ class SetupWizard
         $ouput_steps = $this->steps;
         array_shift($ouput_steps);
         $hide = ! isset( $_GET['step'] ) ? 'atbdp-none' : '';
-        $introduction_step = empty( $_GET['step'] ) || 'step-one' == $_GET['step'] || 'step-two' == $_GET['step'] || 'step-three' == $_GET['step'] ? 'active' : ''; 
-        $step_one = ( ! empty( $_GET['step'] ) && ( 'step-one' == $_GET['step'] || 'step-two' == $_GET['step'] || 'step-three' == $_GET['step'] ) ) ? 'active' : '' ; 
-        $step_two = ( ! empty( $_GET['step'] ) && ( 'step-two' == $_GET['step'] || 'step-three' == $_GET['step'] ) ) ? 'active' : '' ; 
-        $step_three = ( ! empty( $_GET['step'] ) && ( 'step-three' == $_GET['step'] || 'step-three' == $_GET['step'] ) ) ? 'active' : '' ; 
+        $step = ! empty( $_GET['step'] ) ? $_GET['step'] : '';
+        $introduction_step = empty( $step ) || 'step-one' == $step || 'step-two' == $step || 'step-three' == $step ? 'active' : ''; 
+        $step_one = ( ! empty( $step ) && ( 'step-one' == $step || 'step-two' == $step || 'step-three' == $step ) ) ? 'active' : '' ; 
+        $step_two = ( ! empty( $step ) && ( 'step-two' == $step || 'step-three' == $step ) ) ? 'active' : '' ; 
+        $step_three = ( ! empty( $step ) && ( 'step-three' == $step || 'step-three' == $step ) ) ? 'active' : '' ;
+        
+        $header_title = __( 'Choose a directory type', 'directorist' );
+        $active_number = 1;
+
+        switch ( $step ) {
+            case 'step-one':
+                $active_number = 2;
+                $header_title = __( 'Choose Default Location', 'directorist' );
+                break;
+            case 'step-two':
+                $active_number = 3;
+                $header_title = __( 'Earn with Directorist', 'directorist' );
+                break;
+            case 'step-three':
+                $active_number = 4;
+                $header_title = __( 'Insert Content', 'directorist' );
+                break;
+            default:
+                $active_number = 1;
+        }
     ?>
         <!DOCTYPE html>
         <html <?php language_attributes(); ?>>
@@ -866,16 +899,16 @@ class SetupWizard
             <?php if (!(isset($_GET['step']) && $_GET['step'] == 'step-four')) : ?>
                 <div class="directorist-setup-wizard__header">
                     <div class="directorist-setup-wizard__logo">
-                        <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/directorist-logo.svg');?>" alt="Directorist">
+                        <img src="<?php echo esc_url( DIRECTORIST_ASSETS . 'images/directorist-logo.svg' );?>" alt="Directorist">
                     </div>
                     <div class="directorist-setup-wizard__header__step">
                         <ul class="atbdp-setup-steps <?php echo esc_attr( $hide ); ?>">
-                            <li class="<?php echo $introduction_step; ?>"></li>
-                            <li class="<?php echo $step_one; ?>"></li>
-                            <li class="<?php echo $step_two; ?>"></li>
-                            <li class="<?php echo $step_three; ?>"></li>
+                                <li class="<?php echo esc_attr( $introduction_step ); ?>"></li>
+                                <li class="<?php echo esc_attr( $step_one ); ?>"></li>
+                                <li class="<?php echo esc_attr( $step_two ); ?>"></li>
+                                <li class="<?php echo esc_attr( $step_three ); ?>"></li>
                         </ul>
-                        <span class="step-count">Choose a Directory Type 1 of 4</span>
+                        <span class="step-count"><?php esc_html_e( sprintf( '%s %d of 4', $header_title, $active_number ), 'your-text-domain' ); ?></span>
                     </div>
                     <div class="directorist-setup-wizard__close">
                         <a href="#" class="directorist-setup-wizard__close__btn">
@@ -884,10 +917,7 @@ class SetupWizard
                     </div>
                 </div>
             <?php endif; ?>
-            <?php
-            /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.svg', directorist_FILE );*/
-            ?>
-            <!--<h1 id="atbdp-logo"><a href="https://wedevs.com/directorist/"><img src="<?php /*echo esc_url( $logo_url ); */ ?>" alt="directorist Logo" width="135" height="auto" /></a></h1>-->
+            
         <?php
     }
 
@@ -953,20 +983,23 @@ class SetupWizard
             <?php endif; ?>
             <?php if (!(isset($_GET['step']) && ($_GET['step'] == 'step-three' || $_GET['step'] == 'step-four'))) : ?>
                 <div class="directorist-setup-wizard__footer">
+                    <?php if ( ! empty( $_GET['step'] ) && 'step-four' != $_GET['step'] ) : ?>
                     <div class="directorist-setup-wizard__back">
-                        <a href="#" class="directorist-setup-wizard__back__btn">
+                        <a href="<?php echo esc_url( wp_get_referer() ) ?>" class="directorist-setup-wizard__back__btn">
                             <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/angle-down.svg');?>" />
                             Back
                         </a>
                     </div>
+                    <?php endif; ?>
                     <div class="directorist-setup-wizard__next">
-                        <a href="/wp-admin/index.php?page=directorist-setup&amp;step=step-three" class="w-skip-link">Skip this step</a>
+                        <?php if ( ! empty( $_GET['step'] ) && 'step-four' != $_GET['step'] ) : ?>
+                            <a href="/wp-admin/index.php?page=directorist-setup&amp;step=step-three" class="w-skip-link">Skip this step</a>
+                        <?php endif; ?>
                         <?php wp_nonce_field('directorist-setup'); ?>
                         <button type="submit" class="directorist-setup-wizard__btn directorist-setup-wizard__btn--next">Next <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/arrow-right.svg');?>" /></button>
                     </div>
                 </div>
             <?php endif; ?>
-
             </form>
         </body>
 

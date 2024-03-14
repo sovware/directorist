@@ -149,6 +149,14 @@ final class Directorist_Base
 	public $tools;
 
 	/**
+     * Insights class
+     *
+     * @var Insights
+	 * @since 8.0
+     */
+    public $insights = null;
+
+	/**
 	 * ATBDP_Single_Templates Object.
 	 *
 	 * @var ATBDP_Single_Templates
@@ -713,7 +721,8 @@ final class Directorist_Base
 		}
 
 		$client = new \Directorist\Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist', __FILE__ );
-
+		$this->insights = $client->insights();
+		
 		// Active insights
 		$client->set_textdomain( 'directorist' );
 		$client->insights()->init();

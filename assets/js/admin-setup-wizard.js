@@ -166,12 +166,14 @@ jQuery(document).ready(function ($) {
     if ($('input[name="directory_type_settings"]').is(':checked')) {
       data.directory_type_settings = true;
     }
+    if ($('input[name="share_non_sensitive_data"]').is(':checked')) {
+      data.share_non_sensitive_data = true;
+    }
     $.ajax({
       method: 'POST',
       url: import_export_data.ajaxurl,
       data: data,
       success: function success(response) {
-        console.log(response);
         if (response.data.url) {
           window.location = response.data.url;
         }

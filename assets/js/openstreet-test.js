@@ -81,36 +81,33 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 25);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/src/js/public/modules/add-listing.js":
-/*!*****************************************************!*\
-  !*** ./assets/src/js/public/modules/add-listing.js ***!
-  \*****************************************************/
+/***/ "./assets/src/js/global/map-scripts/test.js":
+/*!**************************************************!*\
+  !*** ./assets/src/js/global/map-scripts/test.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// General Components
-/* import '../components/directoristDropdown';
-import '../components/directoristSelect';
-import '../components/colorPicker'; */
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/assets/src/js/global/map-scripts/test.js'");
 
 /***/ }),
 
-/***/ 9:
-/*!***********************************************************!*\
-  !*** multi ./assets/src/js/public/modules/add-listing.js ***!
-  \***********************************************************/
+/***/ 25:
+/*!********************************************************!*\
+  !*** multi ./assets/src/js/global/map-scripts/test.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./assets/src/js/public/modules/add-listing.js */"./assets/src/js/public/modules/add-listing.js");
+module.exports = __webpack_require__(/*! ./assets/src/js/global/map-scripts/test.js */"./assets/src/js/global/map-scripts/test.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=public-add-listing.js.map
+//# sourceMappingURL=openstreet-test.js.map

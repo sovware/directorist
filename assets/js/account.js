@@ -94,7 +94,6 @@
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     // Recovery Password Modal
@@ -102,14 +101,16 @@
     $(".atbdp_recovery_pass").on("click", function (e) {
       e.preventDefault();
       $("#recover-pass-modal").slideToggle().show();
-    }); // Contact form [on modal closed]
+    });
 
+    // Contact form [on modal closed]
     $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
       $('#atbdp-contact-message').val('');
       $('#atbdp-contact-message-display').html('');
-    }); // Template Restructured
-    // Modal
+    });
 
+    // Template Restructured
+    // Modal
     var directoristModal = document.querySelector('.directorist-modal-js');
     $('body').on('click', '.directorist-btn-modal-js', function (e) {
       e.preventDefault();
@@ -138,7 +139,6 @@
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_alert_executed === 'undefined') {
@@ -146,12 +146,10 @@
   } else {
     return;
   }
-
   window.addEventListener('DOMContentLoaded', function () {
     /* Directorist alert dismiss */
     var getUrl = window.location.href;
     var newUrl = getUrl.replace('notice=1', '');
-
     if ($('.directorist-alert__close') !== null) {
       $('.directorist-alert__close').each(function (i, e) {
         $(e).on('click', function (e) {
@@ -174,7 +172,6 @@
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_loginjs_executed === 'undefined') {
@@ -182,7 +179,6 @@
   } else {
     return;
   }
-
   window.addEventListener('DOMContentLoaded', function () {
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {
@@ -205,7 +201,6 @@
           if ('nonce_faild' in data && data.nonce_faild) {
             $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
-
           if (data.loggedin == true) {
             $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
             document.location.href = directorist.redirect_url;
@@ -217,7 +212,6 @@
           if ('nonce_faild' in data && data.nonce_faild) {
             $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
-
           $('p.status').show().html('<div class="directorist-alert directorist-alert-danger"><span>' + directorist.login_error_message + '</span></div>');
         }
       });
@@ -225,7 +219,6 @@
     });
     $('form#login .status').on('click', 'a', function (e) {
       e.preventDefault();
-
       if ($(this).attr('href') === '#atbdp_recovery_pass') {
         $("#recover-pass-modal").slideDown().show();
         window.scrollTo({
@@ -235,22 +228,24 @@
       } else {
         location.href = href;
       }
-    }); // Alert users to login (only if applicable)
+    });
 
+    // Alert users to login (only if applicable)
     $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
       e.preventDefault();
       alert(directorist.login_alert_message);
       return false;
-    }); // Remove URL params to avoid show message again and again
+    });
 
+    // Remove URL params to avoid show message again and again
     var current_url = location.href;
     var url = new URL(current_url);
     url.searchParams.delete('registration_status');
-    url.searchParams.delete('errors'); // url.searchParams.delete('key');
-
+    url.searchParams.delete('errors');
+    // url.searchParams.delete('key');
     url.searchParams.delete('password_reset');
-    url.searchParams.delete('confirm_mail'); // url.searchParams.delete('user');
-
+    url.searchParams.delete('confirm_mail');
+    // url.searchParams.delete('user');
     url.searchParams.delete('verification');
     url.searchParams.delete('send_verification_email');
     window.history.pushState(null, null, url.toString());
@@ -269,12 +264,10 @@
 jQuery(function ($) {
   $('.directorist-ResetPassword').on('submit', function () {
     var form = $(this);
-
     if (form.find('#password_1').val() != form.find('#password_2').val()) {
       form.find('.password-not-match').show();
       return false;
     }
-
     form.find('.password-not-match').hide();
     return true;
   });

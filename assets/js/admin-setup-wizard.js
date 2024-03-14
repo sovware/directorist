@@ -171,7 +171,6 @@ jQuery(document).ready(function ($) {
       url: import_export_data.ajaxurl,
       data: data,
       success: function success(response) {
-        console.log(response);
         if (response.data.url) {
           window.location = response.data.url;
         }

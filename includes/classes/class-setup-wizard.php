@@ -996,7 +996,7 @@ class SetupWizard
                             <a href="/wp-admin/index.php?page=directorist-setup&amp;step=step-three" class="w-skip-link">Skip this step</a>
                         <?php endif; ?>
                         <?php wp_nonce_field('directorist-setup'); ?>
-                        <button type="submit" class="directorist-setup-wizard__btn directorist-setup-wizard__btn--next">Next <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/arrow-right.svg');?>" /></button>
+                        <button type="submit" class="directorist-setup-wizard__btn directorist-setup-wizard__btn--next" name="save_step" value="submit">Next <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/arrow-right.svg');?>" /></button>
                     </div>
                 </div>
             <?php endif; ?>

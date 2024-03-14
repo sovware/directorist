@@ -536,18 +536,31 @@
             color: #141414;
             background: #EBEBEB;
         }
+        @include m('next') {
+            position: relative;
+            gap: 10px;
+            padding: 0 25px;
+        }
     }
     @include e('next') {
         display: flex;
         align-items: center;
         gap: 20px;
+        flex: 1;
+        justify-content: flex-end;
         .directorist-setup-wizard__btn {
             height: 44px;
         }
     }
     @include e('back') {
         @include e('btn') {
+            display: flex;
+            gap: 10px;
+            align-items: center;
             color: #000;
+            &:hover {
+                opacity: 0.85;
+            }
         }
     }
     @include e('content') {
@@ -761,6 +774,7 @@
                     font-weight: 500;
                     color: #141414;
                     border-radius: 8px;
+                    background-color: #EBEBEB;
                     border: 1px solid #EBEBEB;
                     padding: 10px 15px;
                     input {
@@ -884,8 +898,8 @@
             display: none;
             &:checked {
                 ~ label {
-                    background-color: #4353FF34;
-                    border-color: #4353FF34;
+                    background-color: #4353FF40;
+                    border-color: transparent;
                     &::before {
                         opacity: 1;
                     }

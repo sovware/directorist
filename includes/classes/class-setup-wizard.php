@@ -954,12 +954,15 @@ class SetupWizard
             <?php if (!(isset($_GET['step']) && ($_GET['step'] == 'step-three' || $_GET['step'] == 'step-four'))) : ?>
                 <div class="directorist-setup-wizard__footer">
                     <div class="directorist-setup-wizard__back">
-                        <a href="#" class="directorist-setup-wizard__back__btn">Back</a>
+                        <a href="#" class="directorist-setup-wizard__back__btn">
+                            <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/angle-down.svg');?>" />
+                            Back
+                        </a>
                     </div>
                     <div class="directorist-setup-wizard__next">
                         <a href="/wp-admin/index.php?page=directorist-setup&amp;step=step-three" class="w-skip-link">Skip this step</a>
                         <?php wp_nonce_field('directorist-setup'); ?>
-                        <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
+                        <button type="submit" class="directorist-setup-wizard__btn directorist-setup-wizard__btn--next">Next <img src="<?php echo esc_url(DIRECTORIST_ASSETS . 'images/arrow-right.svg');?>" /></button>
                     </div>
                 </div>
             <?php endif; ?>

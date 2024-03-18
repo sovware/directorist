@@ -299,6 +299,8 @@ function directorist_800_migrate_builder_data() {
 
 		}
 
+		$new_structure = apply_filters( 'directorist_single_listing_header_migration_data', $new_structure, $header_contents );
+
 		update_term_meta( $directory_type->term_id, 'single_listing_header', $new_structure );
 
 	}

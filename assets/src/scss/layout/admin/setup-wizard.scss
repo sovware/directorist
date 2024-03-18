@@ -957,6 +957,12 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    @media (max-width: 480px) {
+      width: 100%;
+      label {
+        width: 100%;
+      }
+    }
     @include m("custom") {
       flex: 0 0 100%;
       display: none;

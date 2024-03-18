@@ -25456,6 +25456,14 @@ span.drop-toggle-caret:before {
           align-items: center;
   gap: 10px;
 }
+@media (max-width: 480px) {
+  .directorist-setup-wizard__checkbox {
+    width: 100%;
+  }
+  .directorist-setup-wizard__checkbox label {
+    width: 100%;
+  }
+}
 .directorist-setup-wizard__checkbox--custom {
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 100%;

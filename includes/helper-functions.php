@@ -3025,21 +3025,7 @@ if ( ! function_exists( 'default_directory_type' ) ) {
 
 if( !function_exists('get_listing_types') ){
     function get_listing_types() {
-        $listing_types = array();
-        $args          = array(
-            'taxonomy'   => ATBDP_TYPE,
-            'hide_empty' => false
-        );
-        $all_types     = get_terms( $args );
-
-        foreach ( $all_types as $type ) {
-            $listing_types[ $type->term_id ] = [
-                'term' => $type,
-                'name' => $type->name,
-                'data' => get_term_meta( $type->term_id, 'general_config', true ),
-            ];
-        }
-        return $listing_types;
+        return directorist_get_directories_for_template();
     }
 }
 

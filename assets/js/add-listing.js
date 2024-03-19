@@ -317,11 +317,13 @@ $(document).ready(function () {
       });
     }
   }
+
+  /**
+   * Price field.
+   */
   function getPriceTypeItem(typeId) {
     return $("#".concat($("[for=\"".concat(typeId, "\"]")).data('option')));
   }
-
-  // price range
   if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
     $('#price_range, #price').hide();
     getPriceTypeItem($('.directorist-form-pricing-field__options input:checked').attr('id')).show();

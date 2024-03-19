@@ -220,11 +220,13 @@ $(document).ready(function () {
 
     }
 
+    /**
+     * Price field.
+     */
     function getPriceTypeItem(typeId) {
         return $(`#${$(`[for="${typeId}"]`).data('option')}`);
     }
 
-    // price range
     if ( $( '.directorist-form-pricing-field' ).hasClass( 'price-type-both' ) ) {
         $('#price_range, #price').hide();
         getPriceTypeItem( $( '.directorist-form-pricing-field__options input:checked' ).attr( 'id' ) ).show();

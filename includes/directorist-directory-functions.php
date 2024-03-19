@@ -174,3 +174,21 @@ function directorist_get_location_directory( $location_id ) {
 function directorist_get_category_directory( $category_id ) {
 	return directorist_get_term_directory( $category_id );
 }
+
+/**
+ * Get directory General tab settings.
+ *
+ * @param int $directory_id
+ * @since 7.8.9
+ *
+ * @return array
+ */
+function directorist_get_directory_general_settings( $directory_id ) {
+	$settings              = (array) directorist_get_directory_meta( $directory_id, 'general_config' );
+	$default_preview_image = get_directorist_option( 'default_preview_image' );
+
+	return array_merge( array(
+		'icon'          => '',
+		'preview_image' => empty( $default_preview_image ) ? DIRECTORIST_ASSETS . 'images/grid.jpg' : $default_preview_image,
+	), $settings );
+}

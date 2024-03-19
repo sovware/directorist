@@ -192,3 +192,32 @@ function directorist_get_directory_general_settings( $directory_id ) {
 		'preview_image' => empty( $default_preview_image ) ? DIRECTORIST_ASSETS . 'images/grid.jpg' : $default_preview_image,
 	), $settings );
 }
+
+function directorist_get_directories( array $args = array() ) {
+	$defaults = array(
+		'taxonomy'   => ATBDP_TYPE,
+		'hide_empty' => false
+	);
+
+	$args = wp_parse_args( $args, $defaults );
+
+	return get_terms( $args );
+}
+
+function directorist_get_directories_for_template( array $args = array() ) {
+	$directories = directorist_get_directories( $args );
+
+	if ( is_wp_error( $directories ) ) {
+		return array();
+	}
+
+	return array_reduce( $directories, static function( $carry, $directory ) {
+		$carry[ $directory->term_id ] = array(
+			'term' => $directory,
+			'name' => $directory->name,
+			'data' => directorist_get_directory_general_settings( $directory->term_id ),
+		);
+
+		return $carry;
+	}, array() );
+}

@@ -2993,14 +2993,10 @@ if ( ! function_exists( 'directorist_get_default_directory' ) ) {
 	 * @return int Default directory id.
 	 */
 	function directorist_get_default_directory() {
-		$directories = get_terms( [
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-			'fields'     => 'ids',
-			'meta_key'   => '_default',
-			'meta_value' => '1',
-			'number'     => 1
-		] );
+		$directories = directorist_get_directories( array(
+			'default_only' => true,
+			'fields'       => 'ids',
+		) );
 
 		if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
 			return 0;

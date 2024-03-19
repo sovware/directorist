@@ -184,22 +184,32 @@ function directorist_get_category_directory( $category_id ) {
  * @return array
  */
 function directorist_get_directory_general_settings( $directory_id ) {
-	$settings              = (array) directorist_get_directory_meta( $directory_id, 'general_config' );
-	$default_preview_image = get_directorist_option( 'default_preview_image' );
-
-	return array_merge( array(
+	$settings = (array) directorist_get_directory_meta( $directory_id, 'general_config' );
+	$defaults = array(
 		'icon'          => '',
-		'preview_image' => empty( $default_preview_image ) ? DIRECTORIST_ASSETS . 'images/grid.jpg' : $default_preview_image,
-	), $settings );
+		'preview_image' => '',
+	);
+
+	return array_merge( $defaults, $settings );
 }
 
 function directorist_get_directories( array $args = array() ) {
 	$defaults = array(
-		'taxonomy'   => ATBDP_TYPE,
-		'hide_empty' => false
+		'hide_empty' => false,
+		'default_only' => false,
 	);
 
 	$args = wp_parse_args( $args, $defaults );
+
+	if ( $args['default_only'] ) {
+		$args['number']     = 1;
+		$args['meta_value'] = '1';
+		$args['meta_key']   = '_default';
+
+		unset( $args['default_only'] );
+	}
+
+	$args['taxonomy'] = ATBDP_DIRECTORY_TYPE;
 
 	return get_terms( $args );
 }

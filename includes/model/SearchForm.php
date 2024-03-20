@@ -243,12 +243,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function get_default_listing_type() {
-		$listing_types = get_terms(
-			array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			)
-		);
+		$listing_types = directorist_get_directories();
 
 		foreach ( $listing_types as $type ) {
 			$is_default = get_term_meta( $type->term_id, '_default', true );

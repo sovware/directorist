@@ -223,27 +223,36 @@ $(document).ready(function () {
     /**
      * Price field.
      */
-    function getPriceTypeItem(typeId) {
+    function getPriceTypeInput(typeId) {
         return $(`#${$(`[for="${typeId}"]`).data('option')}`);
-    }
-
-    if ( $( '.directorist-form-pricing-field' ).hasClass( 'price-type-both' ) ) {
-        $('#price_range, #price').hide();
-        getPriceTypeItem( $( '.directorist-form-pricing-field__options input:checked' ).attr( 'id' ) ).show();
     }
 
     $( '.directorist-form-pricing-field__options' ).on( 'change', 'input', function() {
         const $otherOptions = $(this).parent().siblings('.directorist-checkbox').find( 'input' );
 
         $otherOptions.prop( 'checked', false );
-        getPriceTypeItem( $otherOptions.attr('id') ).hide();
+        getPriceTypeInput( $otherOptions.attr('id') ).hide();
 
         if ( this.checked ) {
-            getPriceTypeItem( this.id ).show();
+            getPriceTypeInput( this.id ).show();
         } else {
-            getPriceTypeItem( this.id ).hide();
+            getPriceTypeInput( this.id ).hide();
         }
     } );
+
+    if ( $( '.directorist-form-pricing-field' ).hasClass( 'price-type-both' ) ) {
+        $( '#price_range, #price' ).hide();
+
+        const $selectedPriceType = $( '.directorist-form-pricing-field__options input:checked' );
+
+        if ( $selectedPriceType.length ) {
+            getPriceTypeInput( $selectedPriceType.attr( 'id' ) ).show();
+        } else {
+            $( $( '.directorist-form-pricing-field__options input' ).get(0) )
+                .prop( 'checked', true )
+                .trigger( 'change' );
+        }
+    }
 
     const has_tagline = $('#has_tagline').val();
     const has_excerpt = $('#has_excerpt').val();

@@ -321,23 +321,28 @@ $(document).ready(function () {
   /**
    * Price field.
    */
-  function getPriceTypeItem(typeId) {
+  function getPriceTypeInput(typeId) {
     return $("#".concat($("[for=\"".concat(typeId, "\"]")).data('option')));
-  }
-  if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
-    $('#price_range, #price').hide();
-    getPriceTypeItem($('.directorist-form-pricing-field__options input:checked').attr('id')).show();
   }
   $('.directorist-form-pricing-field__options').on('change', 'input', function () {
     var $otherOptions = $(this).parent().siblings('.directorist-checkbox').find('input');
     $otherOptions.prop('checked', false);
-    getPriceTypeItem($otherOptions.attr('id')).hide();
+    getPriceTypeInput($otherOptions.attr('id')).hide();
     if (this.checked) {
-      getPriceTypeItem(this.id).show();
+      getPriceTypeInput(this.id).show();
     } else {
-      getPriceTypeItem(this.id).hide();
+      getPriceTypeInput(this.id).hide();
     }
   });
+  if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+    $('#price_range, #price').hide();
+    var $selectedPriceType = $('.directorist-form-pricing-field__options input:checked');
+    if ($selectedPriceType.length) {
+      getPriceTypeInput($selectedPriceType.attr('id')).show();
+    } else {
+      $($('.directorist-form-pricing-field__options input').get(0)).prop('checked', true).trigger('change');
+    }
+  }
   var has_tagline = $('#has_tagline').val();
   var has_excerpt = $('#has_excerpt').val();
   if (has_excerpt && has_tagline) {

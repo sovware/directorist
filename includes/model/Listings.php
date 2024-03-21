@@ -1950,6 +1950,8 @@ class Directorist_Listings {
 					'label'          => ( ! empty( $field['show_label'] ) ? $field['label'] : '' ),
 					'icon'           => directorist_get_var( $field['icon'] ),
 					'original_field' => $submission_form_fields,
+					'before'		 => $before,
+					'after'		 	 => $after,
 				);
 
 				// Didn't find any $data within this method.
@@ -1984,9 +1986,9 @@ class Directorist_Listings {
 
 				if ( $load_template ) {
 					// Print $before and $after here so that empty li or other wrapper tags are not printed.
-					echo wp_kses_post( $before );
+					//echo wp_kses_post( $before );
 					Helper::get_template( $template, $args );
-					echo wp_kses_post( $after );
+					//echo wp_kses_post( $after );
 				}
 			}
 		}

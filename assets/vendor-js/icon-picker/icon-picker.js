@@ -248,8 +248,41 @@ window.IconPicker = function (args) {
                 }
             }
 
-            const resetBtn = document.querySelector('.icon-picker-selector__icon__reset');
-            resetBtn.style.display = 'none';
+            const resetBtns = document.querySelectorAll('.icon-picker-selector__icon__reset');
+            if (resetBtns.length) {
+                for (const resetBtn of resetBtns) {
+                    const parent = resetBtn.parentElement;
+
+                    // Select the input sibling of resetBtn
+                    const inputSibling = parent.querySelector('input');
+
+                    // Hide the reset button if the input value is empty
+                    if (inputSibling && inputSibling.value === "") {
+                        resetBtn.style.display = 'none';
+                    }
+
+                    resetBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        self.value = "";
+                        if (typeof self.onSelect === 'function') {
+                            self.onSelect('');
+                        }
+
+                        // Update the value of the input sibling
+                        if (inputSibling) {
+                            inputSibling.value = "";
+                            inputSibling.style.paddingLeft = '20px';
+                        }
+
+                        // Update classname of the directorist-selected-icon
+                        parent.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon`);
+
+                        resetBtn.style.display = 'none';
+                    });
+                }
+            }
+
 
             document.querySelector('.icon-picker__done-btn').addEventListener('click', (e) => {
                 e.preventDefault();
@@ -273,26 +306,10 @@ window.IconPicker = function (args) {
 
                 closeModal();
 
+                // Show Reset Button after Icon Select
                 if(selector.querySelector('input').value !== ''){
-                    resetBtn.style.display = 'block';
+                    selector.querySelector('.icon-picker-selector__icon__reset').style.display = 'block';
                 }
-            });
-
-
-            resetBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                const selector = document.querySelector(`.icon-picker-selector`);
-
-                self.value = "";
-                if (typeof self.onSelect === 'function') {
-                    self.onSelect('');
-                }
-
-                selector.querySelector('input').value = "";
-                selector.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon`);
-
-                resetBtn.style.display = 'none';
             });
 
             document.querySelector('.icon-picker__close').addEventListener('click', closeModal)

@@ -214,7 +214,9 @@ class All_Locations extends \WP_Widget {
                     $total = ($count)?($count-$number_of_expired):$count;
                     $html .= '<span class="directorist-taxonomy-list__count">(' . $total . ')</span>';
                 }
-                $html .= $plus_icon ? '<span class="directorist-taxonomy-list__toggler">'. $plus_icon . '</span>' : '';
+                if( empty( $settings['immediate_category'] ) && empty( $settings['hide_empty'] ) ) {
+                    $html .= $plus_icon ? '<span class="directorist-taxonomy-list__toggler">'. $plus_icon . '</span>' : '';
+                }
                 $html .= '</a>';
                 $html .= $this->sub_locations_list( $settings );
                 $html .= '</div>';

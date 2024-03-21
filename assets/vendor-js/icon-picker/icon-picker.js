@@ -94,7 +94,7 @@ window.IconPicker = function (args) {
             let iconPickerWrap = `
             <div class="icon-picker">
             <div class="icon-picker__inner">
-                <a href="#" class="icon-picker__close"
+                <a href="#0" class="icon-picker__close"
                     ><span class="fas fa-times"></span
                 ></a>
                 <div class="icon-picker__sidebar">

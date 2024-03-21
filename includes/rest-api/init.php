@@ -85,5 +85,11 @@ function register_controllers() {
 
 	$plans = new \Directorist\Rest_Api\Controllers\Version1\Plans_Controller();
 	$plans->register_routes();
+
+	// Temporary Media Upload controller
+	require_once $dir . 'Version1/class-temporary-media-upload-controller.php';
+
+	$temp_media_upload = new \Directorist\Rest_Api\Controllers\Version1\Temporary_Media_Upload_Controller();
+	$temp_media_upload->register_routes();
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\register_controllers' );

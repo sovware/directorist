@@ -248,6 +248,23 @@ window.IconPicker = function (args) {
                 }
             }
 
+            const selectIconInputs = document.querySelectorAll('.icon-picker-selector .icon-picker-selector__icon input');
+
+            if (selectIconInputs.length) {
+                for (const selectIconInput of selectIconInputs) {
+                    selectIconInput.addEventListener('click', (e) => {
+                        const inputIcon = selectIconInput.value;
+
+                        if (inputIcon === '') {
+                            e.preventDefault(); 
+                            // open icon modal
+                            openModal(e, self);
+                        }
+                    });
+                    
+                }
+            }
+
             const resetBtns = document.querySelectorAll('.icon-picker-selector__icon__reset');
             if (resetBtns.length) {
                 for (const resetBtn of resetBtns) {
@@ -259,6 +276,7 @@ window.IconPicker = function (args) {
                     // Hide the reset button if the input value is empty
                     if (inputSibling && inputSibling.value === "") {
                         resetBtn.style.display = 'none';
+                        inputSibling.style.cssText = 'pointer-events: all; cursor: pointer;';
                     }
 
                     resetBtn.addEventListener('click', (e) => {
@@ -272,7 +290,8 @@ window.IconPicker = function (args) {
                         // Update the value of the input sibling
                         if (inputSibling) {
                             inputSibling.value = "";
-                            inputSibling.style.paddingLeft = '20px';
+                            
+                            inputSibling.style.cssText = 'padding-left: 20px; pointer-events: all; cursor: pointer;';
                         }
 
                         // Update classname of the directorist-selected-icon
@@ -300,8 +319,8 @@ window.IconPicker = function (args) {
                     self.onSelect(icon);
                 }
 
-                selector.querySelector('input').style.paddingLeft = '38px';
                 selector.querySelector('input').value = self.value;
+                selector.querySelector('input').style.cssText = 'padding-left: 38px; pointer-events: none; cursor: auto;';
                 selector.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon ${self.value}`);
 
                 closeModal();

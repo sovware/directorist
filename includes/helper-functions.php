@@ -4229,3 +4229,56 @@ function directorist_background_image_process( $images ) {
 		ATBDP()->background_image_process->save()->dispatch();
 	}
 }
+
+/**
+ * Calculate number options for select and radio inputs.
+ *
+ * @param array $data {
+ *     An array of data containing configuration parameters.
+ *
+ *     @type array $options {
+ *         An array of options for configuring the calculation.
+ *
+ *         @type int $min_value The minimum value for the range. Defaults to 1 if not provided.
+ *         @type int $max_value The maximum value for the range. Defaults to 100 if not provided.
+ *     }
+ *     @type int $step The step size for calculating options. Defaults to dividing the range into 5 parts if not provided.
+ * }
+ * @return array Associative array containing 'select' and 'radio' options.
+ */
+if ( ! function_exists('directorist_calculate_number_options') ) {
+    function directorist_calculate_number_options( $data ) {
+        $min_val = ! empty( $data['options']['min_value'] ) ? absint( $data['options']['min_value'] ) : 1;
+        $max_val = ! empty( $data['options']['max_value'] ) ? absint( $data['options']['max_value'] ) : 100;
+
+        // Calculate step
+        $step = absint( ! empty( $data['options']['step'] ) ? $data['options']['step'] : ( $max_val - $min_val ) / 5 );
+
+        if( empty( $data['options']['step'] ) && $max_val < 10 ) {
+            $step = 1;
+        }
+
+        // Calculate select options
+        $select_options = array();
+        if( $max_val > $min_val ) {
+            for ( $i = $min_val; $i <= $max_val; $i += $step ) {
+                $select_options[] = (int) round( $i );
+            }
+        }
+
+        // Calculate radio options
+        $radio_options = array();
+        if( $max_val > $min_val ) {
+            for ( $i = $min_val; $i <= $max_val; $i += $step ) {
+                $range_start     = $i;
+                $range_end       = min( $i + $step - 1, $max_val );
+                $radio_options[] = array( 'start' => $range_start, 'end' => $range_end );
+            }
+        }
+
+        return array(
+            'select' => $select_options,
+            'radio' => $radio_options,
+        );
+    }
+}

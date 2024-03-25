@@ -168,7 +168,6 @@ class All_Categories extends \WP_Widget {
 
     public function directorist_categories_list( $settings ) {
 
-
         if( $settings['immediate_category'] ) {
 
             if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
@@ -231,7 +230,9 @@ class All_Categories extends \WP_Widget {
                     $total = ($count)?($count-$number_of_expired):$count;
                     $html .= '<span class="directorist-taxonomy-list__count"> (' . $total . ') </span>';
                 }
-                $html .= $plus_icon ? '<span class="directorist-taxonomy-list__toggler">'. $plus_icon . '</span>' : '';
+                if( empty( $settings['immediate_category'] ) && empty( $settings['hide_empty'] ) ) {
+                    $html .= $plus_icon ? '<span class="directorist-taxonomy-list__toggler">'. $plus_icon . '</span>' : '';
+                }
                 $html .= '</a>';
                 $html .= $this->sub_categories_list( $settings );
                 $html .= '</div>';

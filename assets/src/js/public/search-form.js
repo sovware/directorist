@@ -1,8 +1,8 @@
+import './../global/components/select2-custom-control';
+import './../global/components/setup-select2';
+import './components/colorPicker';
 import './components/directoristDropdown';
 import './components/directoristSelect';
-import './components/colorPicker';
-import './../global/components/setup-select2';
-import './../global/components/select2-custom-control';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
@@ -748,9 +748,9 @@ import './../global/components/select2-custom-control';
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
             $('.directorist-location-js').each((index,locationDOM)=>{
                 if($(locationDOM).val() === ''){
-                    $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({display: "none"});
+                    $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search').css({display: "none"});
                 } else{
-                    $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({display: "block"});
+                    $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search').css({display: "block"});
                 }
             });
         }

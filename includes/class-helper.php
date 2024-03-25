@@ -329,36 +329,29 @@ class Helper {
 		return $price;
 	}
 
-	public static function formatted_tel( $tel = '', $echo = true ) {
-		$tel = preg_replace( '/\D/', '', $tel );
+	public static function formatted_tel( $tel_number = '', $echo = true ) {
+		$tel_number = preg_replace( '/[^\d\+]/', '', $tel_number );
 
-		if ( !$echo ) {
-			return $tel;
+		if ( ! $echo ) {
+			return $tel_number;
 		}
-		else {
-			echo esc_html( $tel );
-		}
+
+		echo esc_html( $tel_number );
 	}
 
 	public static function phone_link( $args ) {
-
-		$defaults = array(
+		$args = array_merge( array(
 			'number'    => '',
 			'whatsapp'  => false,
-		);
+		), $args );
 
-		$args = wp_parse_args( $args, $defaults );
-
-		$num = self::formatted_tel( $args['number'], false );
+		$number = self::formatted_tel( $args['number'], false );
 
 		if ( $args['whatsapp'] ) {
-			$result = sprintf( 'https://wa.me/%s', $num );
-		}
-		else {
-			$result = sprintf( 'tel:%s', $num );
+			return sprintf( 'https://wa.me/%s', $number );
 		}
 
-		return $result;
+		return sprintf( 'tel:%s', $number );
 	}
 
 	public static function user_info( $user_id_or_obj, $meta ) {

@@ -94,7 +94,7 @@ window.IconPicker = function (args) {
             let iconPickerWrap = `
             <div class="icon-picker">
             <div class="icon-picker__inner">
-                <a href="#" class="icon-picker__close"
+                <a href="#0" class="icon-picker__close"
                     ><span class="fas fa-times"></span
                 ></a>
                 <div class="icon-picker__sidebar">
@@ -248,8 +248,60 @@ window.IconPicker = function (args) {
                 }
             }
 
-            const resetBtn = document.querySelector('.icon-picker-selector__icon__reset');
-            resetBtn.style.display = 'none';
+            const selectIconInputs = document.querySelectorAll('.icon-picker-selector .icon-picker-selector__icon input');
+
+            if (selectIconInputs.length) {
+                for (const selectIconInput of selectIconInputs) {
+                    selectIconInput.addEventListener('click', (e) => {
+                        const inputIcon = selectIconInput.value;
+
+                        if (inputIcon === '') {
+                            e.preventDefault(); 
+                            // open icon modal
+                            openModal(e, self);
+                        }
+                    });
+                    
+                }
+            }
+
+            const resetBtns = document.querySelectorAll('.icon-picker-selector__icon__reset');
+            if (resetBtns.length) {
+                for (const resetBtn of resetBtns) {
+                    const parent = resetBtn.parentElement;
+
+                    // Select the input sibling of resetBtn
+                    const inputSibling = parent.querySelector('input');
+
+                    // Hide the reset button if the input value is empty
+                    if (inputSibling && inputSibling.value === "") {
+                        resetBtn.style.display = 'none';
+                        inputSibling.style.cssText = 'pointer-events: all; cursor: pointer;';
+                    }
+
+                    resetBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        self.value = "";
+                        if (typeof self.onSelect === 'function') {
+                            self.onSelect('');
+                        }
+
+                        // Update the value of the input sibling
+                        if (inputSibling) {
+                            inputSibling.value = "";
+                            
+                            inputSibling.style.cssText = 'padding-left: 20px; pointer-events: all; cursor: pointer;';
+                        }
+
+                        // Update classname of the directorist-selected-icon
+                        parent.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon`);
+
+                        resetBtn.style.display = 'none';
+                    });
+                }
+            }
+
 
             document.querySelector('.icon-picker__done-btn').addEventListener('click', (e) => {
                 e.preventDefault();
@@ -267,32 +319,16 @@ window.IconPicker = function (args) {
                     self.onSelect(icon);
                 }
 
-                selector.querySelector('input').style.paddingLeft = '38px';
                 selector.querySelector('input').value = self.value;
+                selector.querySelector('input').style.cssText = 'padding-left: 38px; pointer-events: none; cursor: auto;';
                 selector.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon ${self.value}`);
 
                 closeModal();
 
+                // Show Reset Button after Icon Select
                 if(selector.querySelector('input').value !== ''){
-                    resetBtn.style.display = 'block';
+                    selector.querySelector('.icon-picker-selector__icon__reset').style.display = 'block';
                 }
-            });
-
-
-            resetBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                const selector = document.querySelector(`.icon-picker-selector`);
-
-                self.value = "";
-                if (typeof self.onSelect === 'function') {
-                    self.onSelect('');
-                }
-
-                selector.querySelector('input').value = "";
-                selector.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon`);
-
-                resetBtn.style.display = 'none';
             });
 
             document.querySelector('.icon-picker__close').addEventListener('click', closeModal)

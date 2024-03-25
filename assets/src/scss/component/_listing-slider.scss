@@ -6,7 +6,8 @@
 
   .swiper-slide {
     display: flex;
-    >div {
+    >div,
+    >a {
       width: 100%;
     }
   }

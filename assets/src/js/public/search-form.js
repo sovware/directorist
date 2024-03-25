@@ -1,8 +1,8 @@
+import './../global/components/select2-custom-control';
+import './../global/components/setup-select2';
+import './components/colorPicker';
 import './components/directoristDropdown';
 import './components/directoristSelect';
-import './components/colorPicker';
-import './../global/components/setup-select2';
-import './../global/components/select2-custom-control';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
@@ -150,18 +150,23 @@ import './../global/components/select2-custom-control';
             searchFields.forEach((searchField)=>{
                 let inputFieldValue = searchField.value;
                 if(searchField.classList.contains('directorist-select')) {
-                    inputFieldValue = searchField.querySelector('select').dataset.selectedId;
-                }
-                
-                if (inputFieldValue !='') {
-                    searchField.parentElement.classList.add('input-has-value');
-                    if(!searchField.parentElement.classList.contains('input-is-focused')) {
-                        searchField.parentElement.classList.add('input-is-focused');
-                    }
+                    $(window).on('load', function () {
+                        if(searchField.parentElement.classList.contains('input-is-focused')) {
+                            searchField.parentElement.classList.remove('input-is-focused');
+                        }
+                    });
+                    
                 } else {
-                    inputFieldValue = ''
-                    if(searchField.parentElement.classList.contains('input-has-value')) {
-                        searchField.parentElement.classList.remove('input-has-value');
+                    if (inputFieldValue !='') {
+                        searchField.parentElement.classList.add('input-has-value');
+                        if(!searchField.parentElement.classList.contains('input-is-focused')) {
+                            searchField.parentElement.classList.add('input-is-focused');
+                        }
+                    } else {
+                        inputFieldValue = ''
+                        if(searchField.parentElement.classList.contains('input-has-value')) {
+                            searchField.parentElement.classList.remove('input-has-value');
+                        }
                     }
                 }
             });
@@ -743,9 +748,9 @@ import './../global/components/select2-custom-control';
             $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
             $('.directorist-location-js').each((index,locationDOM)=>{
                 if($(locationDOM).val() === ''){
-                    $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({display: "none"});
+                    $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search').css({display: "none"});
                 } else{
-                    $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search').css({display: "block"});
+                    $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search').css({display: "block"});
                 }
             });
         }

@@ -135,14 +135,14 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 				'label'    => __( 'Directory Types', 'directorist' ),
 				'multiple' => true,
 				'options'  => $this->az_listing_types(),
-				'condition' => Helper::multi_directory_enabled() ? '' : ['nocondition' => true],
+				'condition' => directorist_is_multi_directory_enabled() ? '' : ['nocondition' => true],
 			),
 			array(
 				'type'     => Controls_Manager::SELECT2,
 				'id'       => 'default_type',
 				'label'    => __( 'Default Directory Types', 'directorist' ),
 				'options'  => $this->az_listing_types(),
-				'condition' => Helper::multi_directory_enabled() ? '' : ['nocondition' => true],
+				'condition' => directorist_is_multi_directory_enabled() ? '' : ['nocondition' => true],
 			),
 			array(
 				'type'     => Controls_Manager::SELECT2,
@@ -240,7 +240,7 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 			'order'                 => $settings['order_list'],
 		);
 
-		if ( Helper::multi_directory_enabled() ) {
+		if ( directorist_is_multi_directory_enabled() ) {
 			if ( $settings['type'] ) {
 				$atts['directory_type'] = implode( ',', $settings['type'] );
 			}
@@ -251,9 +251,9 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 
 		/**
 		 * Filters the Elementor All Listing atts to modify or extend it
-		 * 
+		 *
 		 * @since 7.4.2
-		 * 
+		 *
 		 * @param array 	$atts 		Available atts in the widgers
 		 * @param array 	$settings 	All the settings of the widget
 		 */

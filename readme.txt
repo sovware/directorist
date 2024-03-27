@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 7.7.3
+Stable tag: 7.8.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -410,6 +410,64 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
+7.8.6 - Mar 12, 2024
+
+* Fix - Undefined array index issue
+* Fix - Promo banner nonce validation issue
+
+7.8.5 - Feb 12, 2024
+
+* Fix - Setup wizard user permission issue (#1702)
+* Add - New filter hook: Directorist archive single listing url (#1699)
+* Add - New hook: single listing slider image size (#1698)
+* Improve - atbdp_format_amount filter hook (#1675)
+* Improve - Syntax for variables in string literals (#1684)
+
+7.8.4 - Jan 30, 2024
+
+* Fix - Single listing back button/link (#1695)
+* Fix - Edited listing status issue (#1693)
+* Improve - Admin promo banner security (#1689)
+
+7.8.3 - Jan 29, 2024
+
+* Added - GDPR consent box in review form (#1682)
+* Added - Filters hook to manipulate the announcement email headers and recipients (#1673)
+* Fixed - Listing form field (image length) validation issue (#1669)
+* Fixed - Category icon issue (#1642)
+* Fixed - Importer issue (#1668)
+* Fixed - Duplicate meta description with "Yoast" - SEO plugin (#1674)
+* Fixed - Dashboard Navbar Dropdown Target Issue - Fixed (#1658)
+* Fixed - Empty image field undefined index issue (#1678)
+* Fixed - Max image limit validation issue when value is empty or zero (#1685)
+* Refactor - gettype function (#1643)
+* Improve -  Code refactoring with utility (#1605)
+
+7.8.2 - Dec 03, 2023
+
+* Improve - Large image upload and bulk image upload during listing submission
+* Improve - Listing submission status messages
+* Improve - User dashboard navigation
+* Fix - Validation issue of category custom fields in listing form
+* Fix- Listing currency issues
+
+7.8.1 - Nov 16, 2023
+
+* Fix - Importer issue in assigning directory type in category, location and tag
+
+7.8.0 - Nov 12, 2023
+
+* Fix - Review submission captcha and guest user issues (#1619)
+* Fix - javascript:void(0) issue creating trouble for SEO (#1607)
+* Fix - Fatal error when no listings reference in an order (#1595)
+* Fix - Translate issue (#1575)
+* Fix - Thousand separator (#1553)
+* Improve - Builder data (#1594)
+* Improve - Refactored add listings (#1586)
+* Improve - Refactor review system (#1564)
+* Improve - Query optimization (#1547)
+* Deprecate - atbdp_parse_videos method (#1637)
+
 7.7.3 - Oct 04, 2023
 
 * Improve - Password reset rest API security
@@ -462,10 +520,10 @@ Directorist is a complete directory solution and in combination with its advance
 * Fix -  Column Issue in All Categories & Locations Page
 * Fix - Publish Date Issue when Importing Listings
 * Fix - Typo Issue in Users REST API
-* Fix - Image Size Issue in Single Listing Slider 
+* Fix - Image Size Issue in Single Listing Slider
 * Fix - Listing Count Issue in All Categories & Locations Page
 * Fix - PHP 8 Deprecated Notices
-* Fix - inlineEditPost JS Console Error 
+* Fix - inlineEditPost JS Console Error
 
 7.5.5 - Jun 01, 2023
 

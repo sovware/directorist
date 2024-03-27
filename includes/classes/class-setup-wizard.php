@@ -297,12 +297,14 @@ class SetupWizard
     /**
      * Show the setup wizard.
      */
-    public function setup_wizard()
-    {
-
-        if (empty($_GET['page']) || 'directorist-setup' !== $_GET['page']) {
+    public function setup_wizard() {
+        if ( empty( $_GET['page'] ) || 'directorist-setup' !== $_GET['page'] ) {
             return;
         }
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
 
         $this->set_steps();
 

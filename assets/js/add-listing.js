@@ -132,6 +132,15 @@ var localized_data = directorist.add_listing_data;
 function joinQueryString(url, queryString) {
   return url.match(/[?]/) ? "".concat(url, "&").concat(queryString) : "".concat(url, "?").concat(queryString);
 }
+
+function scrollTo(selector) {
+  var _document$querySelect;
+
+  (_document$querySelect = document.querySelector(selector)) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.scrollIntoView({
+    block: 'start',
+    behavior: 'smooth'
+  });
+}
 /* Show and hide manual coordinate input field */
 
 
@@ -488,13 +497,6 @@ $(document).ready(function () {
     storeCustomFieldsData();
   });
 
-  function scrollToEl(selector) {
-    document.querySelector(selector).scrollIntoView({
-      block: 'start',
-      behavior: 'smooth'
-    });
-  }
-
   function atbdp_element_value(element) {
     var field = $(element);
 
@@ -505,29 +507,25 @@ $(document).ready(function () {
     return '';
   }
 
-  var uploaders = localized_data.media_uploader;
   var mediaUploaders = [];
 
-  if (uploaders) {
-    var i = 0;
-
-    var _iterator = _createForOfIteratorHelper(uploaders),
+  if (localized_data.media_uploader) {
+    var _iterator = _createForOfIteratorHelper(localized_data.media_uploader),
         _step;
 
     try {
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
         var uploader = _step.value;
 
-        if ($('.' + uploader['element_id']).length) {
-          var media_uploader = new EzMediaUploader({
-            containerClass: uploader['element_id']
+        if ($('.' + uploader.element_id).length) {
+          var EzUploader = new EzMediaUploader({
+            containerClass: uploader.element_id
           });
           mediaUploaders.push({
-            media_uploader: media_uploader,
+            media_uploader: EzUploader,
             uploaders_data: uploader
           });
-          mediaUploaders[i].media_uploader.init();
-          i++;
+          EzUploader.init(); // mediaUploaders[i].media_uploader.init();
         }
       }
     } catch (err) {
@@ -539,220 +537,300 @@ $(document).ready(function () {
 
   var on_processing = false;
   var has_media = true;
-  var quick_login_modal__success_callback = null; // -----------------------------
+  var quick_login_modal__success_callback = null;
+  var $notification = $('#listing_notifier'); // -----------------------------
   // Submit The Form
   // -----------------------------
 
+  var uploadedImages = [];
   $('body').on('submit', '#directorist-add-listing-form', function (e) {
     e.preventDefault();
-
-    if (localized_data.is_admin) {
-      return;
-    }
-
     var $form = $(e.target);
-    var $submitButton = $form.find('.directorist-form-submit__btn');
-    var err_log = {};
     var error_count = 0;
+    var err_log = {};
+    var $submitButton = $('.directorist-form-submit__btn');
 
     if (on_processing) {
-      $submitButton.attr('disabled', true);
       return;
     }
 
-    var form_data = new FormData();
-    form_data.append('action', 'add_listing_action');
-    form_data.append('directorist_nonce', directorist.directorist_nonce);
-    $submitButton.addClass('atbd_loading');
-    var fieldValuePairs = $form.serializeArray(); // Append Form Fields Values
-
-    var _iterator2 = _createForOfIteratorHelper(fieldValuePairs),
-        _step2;
-
-    try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var field = _step2.value;
-        form_data.append(field.name, field.value);
-      } // images
-
-    } catch (err) {
-      _iterator2.e(err);
-    } finally {
-      _iterator2.f();
+    function disableSubmitButton() {
+      on_processing = true;
+      $submitButton.addClass('atbd_loading').attr('disabled', true);
     }
 
+    function enableSubmitButton() {
+      on_processing = false;
+      $submitButton.removeClass('atbd_loading').attr('disabled', false);
+    } // images
+
+
+    var selectedImages = [];
+
     if (mediaUploaders.length) {
-      var _iterator3 = _createForOfIteratorHelper(mediaUploaders),
+      var _iterator2 = _createForOfIteratorHelper(mediaUploaders),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var uploader = _step2.value;
+
+          if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
+            continue;
+          }
+
+          if (!uploader.media_uploader.hasValidFiles()) {
+            $submitButton.removeClass('atbd_loading');
+            err_log.listing_gallery = {
+              msg: uploader.uploaders_data['error_msg']
+            };
+            error_count++;
+            scrollTo('.' + uploader.uploaders_data.element_id);
+            break;
+          }
+
+          selectedImages = uploader.media_uploader.getTheFiles();
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+    }
+
+    if (selectedImages.length) {
+      var counter = 0;
+
+      function uploadImage() {
+        var formData = new FormData();
+        formData.append('action', 'directorist_upload_listing_image');
+        formData.append('directorist_nonce', directorist.directorist_nonce);
+        formData.append('image', selectedImages[counter]);
+        $.ajax({
+          method: 'POST',
+          processData: false,
+          contentType: false,
+          url: localized_data.ajaxurl,
+          data: formData,
+          beforeSend: function beforeSend() {
+            disableSubmitButton();
+            var totalImages = selectedImages.length;
+
+            if (totalImages === 1) {
+              $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.image_uploading_msg, "</span>"));
+            } else {
+              var completedPercent = Math.ceil((counter === 0 ? 1 : counter) * 100 / totalImages);
+              $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.image_uploading_msg, " (").concat(completedPercent, "%)</span>"));
+            }
+          },
+          success: function success(response) {
+            if (!response.success) {
+              enableSubmitButton();
+              $notification.show().html("<span class=\"atbdp_error\">".concat(response.data, "</span>"));
+              return;
+            }
+
+            uploadedImages.push(response.data);
+            counter++;
+
+            if (counter < selectedImages.length) {
+              uploadImage();
+            } else {
+              submitForm($form, uploadedImages);
+            }
+          },
+          error: function error(response) {
+            enableSubmitButton();
+            $notification.html("<span class=\"atbdp_error\">".concat(response.responseJSON.data, "</span>"));
+          }
+        });
+      }
+
+      if (uploadedImages.length === selectedImages.length) {
+        submitForm($form, uploadedImages);
+      } else {
+        uploadImage();
+      }
+    } else {
+      submitForm($form);
+    }
+
+    function submitForm($form) {
+      var uploadedImages = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      var error_count = 0;
+      var err_log = {};
+      var form_data = new FormData();
+      form_data.append('action', 'add_listing_action');
+      form_data.append('directorist_nonce', directorist.directorist_nonce);
+      form_data.append('listing_img', uploadedImages);
+      disableSubmitButton();
+      var fieldValuePairs = $form.serializeArray(); // Append Form Fields Values
+
+      var _iterator3 = _createForOfIteratorHelper(fieldValuePairs),
           _step3;
 
       try {
         for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-          var uploader = _step3.value;
+          var field = _step3.value;
+          form_data.append(field.name, field.value);
+        } //images
 
-          if (has_media && uploader.media_uploader) {
-            if (uploader.media_uploader.hasValidFiles()) {
-              // files
-              var files = uploader.media_uploader.getTheFiles();
-
-              if (files) {
-                for (var i = 0; i < files.length; i++) {
-                  form_data.append(uploader.uploaders_data['meta_name'] + '[]', files[i]);
-                }
-              }
-
-              var files_meta = uploader.media_uploader.getFilesMeta();
-
-              if (files_meta) {
-                for (var i = 0; i < files_meta.length; i++) {
-                  var elm = files_meta[i];
-
-                  for (var key in elm) {
-                    form_data.append("".concat(uploader.uploaders_data['files_meta_name'], "[").concat(i, "][").concat(key, "]"), elm[key]);
-                  }
-                }
-              }
-            } else {
-              $submitButton.removeClass('atbd_loading');
-              err_log.listing_gallery = {
-                msg: uploader.uploaders_data['error_msg']
-              };
-              error_count++;
-
-              if ($('#' + uploader.uploaders_data['element_id']).length) {
-                scrollToEl('#' + uploader.uploaders_data['element_id']);
-              }
-
-              if ($('.' + uploader.uploaders_data['element_id']).length) {
-                scrollToEl('.' + uploader.uploaders_data['element_id']);
-              }
-            }
-          }
-        }
       } catch (err) {
         _iterator3.e(err);
       } finally {
         _iterator3.f();
       }
-    } // categories
 
+      if (mediaUploaders.length) {
+        var _iterator4 = _createForOfIteratorHelper(mediaUploaders),
+            _step4;
 
-    var categories = $form.find('#at_biz_dir-categories').val();
+        try {
+          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+            var uploader = _step4.value;
 
-    if (Array.isArray(categories) && categories.length) {
-      for (var key in categories) {
-        var value = categories[key];
-        form_data.append('tax_input[at_biz_dir-category][]', value);
-      }
-    }
+            if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
+              continue;
+            }
 
-    if (typeof categories === 'string') {
-      form_data.append('tax_input[at_biz_dir-category][]', categories);
-    }
+            if (uploader.media_uploader.hasValidFiles()) {
+              var files_meta = uploader.media_uploader.getFilesMeta();
 
-    if (form_data.has('admin_category_select[]')) {
-      form_data.delete('admin_category_select[]');
-    }
-
-    if (form_data.has('directory_type')) {
-      form_data.delete('directory_type');
-    }
-
-    var form_directory_type = $form.find("input[name='directory_type']");
-    var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.val() : '';
-    var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
-    form_data.append('directory_type', directory_type);
-
-    if (qs.plan) {
-      form_data.append('plan_id', qs.plan);
-    }
-
-    if (error_count) {
-      on_processing = false;
-      $submitButton.attr('disabled', false);
-      console.log('Form has invalid data');
-      console.log(error_count, err_log);
-      return;
-    }
-
-    on_processing = true;
-    $.ajax({
-      method: 'POST',
-      processData: false,
-      contentType: false,
-      url: localized_data.ajaxurl,
-      data: form_data,
-      success: function success(response) {
-        //console.log(response);
-        // return;
-        // show the error notice
-        $submitButton.attr('disabled', false);
-        var redirect_url = response && response.redirect_url ? response.redirect_url : '';
-        redirect_url = redirect_url && typeof redirect_url === 'string' ? response.redirect_url.replace(/:\/\//g, '%3A%2F%2F') : '';
-
-        if (response.error === true) {
-          $('#listing_notifier').show().html("<span>".concat(response.error_msg, "</span>"));
-          $submitButton.removeClass('atbd_loading');
-          on_processing = false;
-
-          if (response.quick_login_required) {
-            var modal = $('#directorist-quick-login');
-            var email = response.email; // Prepare fields
-
-            modal.find('input[name="email"]').val(email);
-            modal.find('input[name="email"]').prop('disabled', true); // Show alert
-
-            var alert = '<div class="directorist-alert directorist-alert-info directorist-mb-10 atbd-text-center directorist-mb-10">' + response.error_msg + '</div>';
-            modal.find('.directorist-modal-alerts-area').html(alert); // Show the modal
-
-            modal.addClass('show');
-
-            quick_login_modal__success_callback = function quick_login_modal__success_callback(args) {
-              $('#guest_user_email').prop('disabled', true);
-              $('#listing_notifier').hide().html('');
-              args.elements.submit_button.remove();
-              var form_actions = args.elements.form.find('.directorist-form-actions');
-              form_actions.find('.directorist-toggle-modal').removeClass('directorist-d-none');
-            };
-          }
-        } else {
-          // preview on and no need to redirect to payment
-          if (response.preview_mode === true && response.need_payment !== true) {
-            if (response.edited_listing !== true) {
-              $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-              window.location.href = joinQueryString(response.preview_url, "preview=1&redirect=".concat(redirect_url));
-            } else {
-              $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-
-              if (qs.redirect) {
-                window.location.href = joinQueryString(response.preview_url, "post_id=".concat(response.id, "&preview=1&payment=1&edited=1&redirect=").concat(qs.redirect));
-              } else {
-                window.location.href = joinQueryString(response.preview_url, "preview=1&edited=1&redirect=".concat(redirect_url));
+              if (files_meta) {
+                for (var i = 0; i < files_meta.length; i++) {
+                  form_data.append("listing_img_old[".concat(i, "]"), files_meta[i].attachmentID);
+                }
               }
-            } // preview mode active and need payment
-
-          } else if (response.preview_mode === true && response.need_payment === true) {
-            window.location.href = joinQueryString(response.preview_url, "preview=1&payment=1&redirect=".concat(redirect_url));
-          } else {
-            var is_edited = response.edited_listing ? "listing_id=".concat(response.id, "&edited=1") : '';
-
-            if (response.need_payment === true) {
-              $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-              window.location.href = decodeURIComponent(redirect_url);
             } else {
-              $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-              window.location.href = joinQueryString(response.redirect_url, is_edited);
+              err_log.listing_gallery = {
+                msg: uploader.uploaders_data['error_msg']
+              };
+              error_count++;
+
+              if ($('.' + uploader.uploaders_data.element_id).length) {
+                scrollTo('.' + uploader.uploaders_data.element_id);
+              }
             }
           }
+        } catch (err) {
+          _iterator4.e(err);
+        } finally {
+          _iterator4.f();
         }
-      },
-      error: function error(_error) {
-        on_processing = false;
-        $submitButton.attr('disabled', false);
-        $submitButton.removeClass('atbd_loading');
-        console.log(_error);
-        "";
+      } // categories
+
+
+      var categories = $form.find('#at_biz_dir-categories').val();
+
+      if (Array.isArray(categories) && categories.length) {
+        for (var key in categories) {
+          form_data.append('tax_input[at_biz_dir-category][]', categories[key]);
+        }
       }
-    });
+
+      if (typeof categories === 'string') {
+        form_data.append('tax_input[at_biz_dir-category][]', categories);
+      }
+
+      if (form_data.has('admin_category_select[]')) {
+        form_data.delete('admin_category_select[]');
+      }
+
+      if (form_data.has('directory_type')) {
+        form_data.delete('directory_type');
+      }
+
+      var form_directory_type = $form.find("input[name='directory_type']");
+      var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.val() : '';
+      var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
+      form_data.append('directory_type', directory_type);
+
+      if (qs.plan) {
+        form_data.append('plan_id', qs.plan);
+      }
+
+      if (error_count) {
+        enableSubmitButton();
+        console.log('Form has invalid data');
+        console.log(error_count, err_log);
+        return;
+      }
+
+      $.ajax({
+        method: 'POST',
+        processData: false,
+        contentType: false,
+        url: localized_data.ajaxurl,
+        data: form_data,
+        beforeSend: function beforeSend() {
+          disableSubmitButton();
+          $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.submission_wait_msg, "</span>"));
+        },
+        success: function success(response) {
+          var redirect_url = response && response.redirect_url ? response.redirect_url : '';
+          redirect_url = redirect_url && typeof redirect_url === 'string' ? response.redirect_url.replace(/:\/\//g, '%3A%2F%2F') : '';
+
+          if (response.error === true) {
+            enableSubmitButton();
+            $notification.show().html("<span>".concat(response.error_msg, "</span>"));
+
+            if (response.quick_login_required) {
+              var modal = $('#directorist-quick-login');
+              var email = response.email; // Prepare fields
+
+              modal.find('input[name="email"]').val(email);
+              modal.find('input[name="email"]').prop('disabled', true); // Show alert
+
+              var alert = '<div class="directorist-alert directorist-alert-info directorist-mb-10 atbd-text-center directorist-mb-10">' + response.error_msg + '</div>';
+              modal.find('.directorist-modal-alerts-area').html(alert); // Show the modal
+
+              modal.addClass('show');
+
+              quick_login_modal__success_callback = function quick_login_modal__success_callback(args) {
+                $('#guest_user_email').prop('disabled', true);
+                $notification.hide().html('');
+                args.elements.submit_button.remove();
+                var form_actions = args.elements.form.find('.directorist-form-actions');
+                form_actions.find('.directorist-toggle-modal').removeClass('directorist-d-none');
+              };
+            }
+          } else {
+            // preview on and no need to redirect to payment
+            if (response.preview_mode === true && response.need_payment !== true) {
+              if (response.edited_listing !== true) {
+                $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
+                window.location.href = joinQueryString(response.preview_url, "preview=1&redirect=".concat(redirect_url));
+              } else {
+                $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
+
+                if (qs.redirect) {
+                  window.location.href = joinQueryString(response.preview_url, "post_id=".concat(response.id, "&preview=1&payment=1&edited=1&redirect=").concat(qs.redirect));
+                } else {
+                  window.location.href = joinQueryString(response.preview_url, "preview=1&edited=1&redirect=".concat(redirect_url));
+                }
+              } // preview mode active and need payment
+
+            } else if (response.preview_mode === true && response.need_payment === true) {
+              window.location.href = joinQueryString(response.preview_url, "preview=1&payment=1&redirect=".concat(redirect_url));
+            } else {
+              var is_edited = response.edited_listing ? "listing_id=".concat(response.id, "&edited=1") : '';
+
+              if (response.need_payment === true) {
+                $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
+                window.location.href = decodeURIComponent(redirect_url);
+              } else {
+                $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
+                window.location.href = joinQueryString(response.redirect_url, is_edited);
+              }
+            }
+          }
+        },
+        error: function error(_error) {
+          enableSubmitButton();
+          console.log(_error);
+        }
+      });
+    }
   }); // Custom Field Checkbox Button More
 
   function customFieldSeeMore() {

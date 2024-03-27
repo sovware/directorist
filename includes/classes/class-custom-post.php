@@ -297,20 +297,17 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 		}
 
 		public function add_new_listing_columns( $columns ) {
-			$featured_active        = get_directorist_option( 'enable_featured_listing' );
-			$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-
 			$columns          = array();
 			$columns['cb']    = '<input type="checkbox" />';
 			$columns['title'] = __( 'Name', 'directorist' );
-			if ( atbdp_is_truthy( $enable_multi_directory ) ) {
+			if ( directorist_is_multi_directory_enabled() ) {
 				$columns['directory_type'] = __( 'Directory', 'directorist' );
 			}
 			$columns['atbdp_location'] = __( 'Location', 'directorist' );
 			$columns['atbdp_category'] = __( 'Categories', 'directorist' );
 			$columns['atbdp_author']   = __( 'Author', 'directorist' );
 			$columns['atbdp_status']   = __( 'Status', 'directorist' );
-			if ( $featured_active || is_fee_manager_active() ) {
+			if ( directorist_is_featured_listing_enabled() || is_fee_manager_active() ) {
 				$columns['atbdp_featured'] = __( 'Featured', 'directorist' );
 			}
 			$subscribed_package_id      = get_user_meta( get_current_user_id(), '_subscribed_users_plan_id', true );

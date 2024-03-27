@@ -48,9 +48,10 @@ class Comment {
 	 * @return bool
 	 */
 	public static function comments_open( $is_open, $post_id ) {
-		if ( ATBDP_POST_TYPE === get_post_type( $post_id ) ) {
+		if ( directorist_is_listing_post_type( $post_id ) ) {
 			return apply_filters( 'directorist/review/comments_open', directorist_is_review_enabled(), $post_id );
 		}
+
 		return $is_open;
 	}
 
@@ -61,7 +62,7 @@ class Comment {
 	 * @return array
 	 */
 	public static function validate_data( $comment_data ) {
-		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( $_POST['comment_post_ID'] ) ) ) { // @codingStandardsIgnoreLine.
+		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ! directorist_is_listing_post_type( $_POST['comment_post_ID'] ) ) { // @codingStandardsIgnoreLine.
 			return $comment_data;
 		}
 
@@ -74,6 +75,14 @@ class Comment {
 			// Exit when guest review is disabled.
 			if ( ! directorist_is_guest_review_enabled() && ! is_user_logged_in() ) {
 				throw new Exception( __( '<strong>Error</strong>: You must login to share review.', 'directorist' ), 401 );
+			}
+
+			if ( ! is_user_logged_in() && directorist_is_review_gdpr_consent_enabled() && ! isset( $_POST['directorist-gdpr-consent'] ) ) {
+				throw new Exception( sprintf(
+					/** translators: %1$s gdpr consent label */
+					__( '<strong>Error</strong>: Please agree to - %1$s', 'directorist' ),
+					directorist_get_review_gdpr_consent_label()
+				), 400 );
 			}
 
 			$post_id      = absint( $_POST['comment_post_ID'] ); // @codingStandardsIgnoreLine.
@@ -111,7 +120,7 @@ class Comment {
 
 			do_action( 'directorist_review_validate_data', $comment_data );
 		} catch( Exception $e ) {
-			wp_die( esc_attr( $e->getMessage() ) );
+			wp_die( wp_kses_post( $e->getMessage() ) );
 			exit;
 		}
 

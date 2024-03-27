@@ -136,7 +136,7 @@ function directorist_get_comment_edit_link( $args = array(), $comment = null, $p
 	$data_attribute_string = '';
 
 	foreach ( $data_attributes as $name => $value ) {
-		$data_attribute_string .= " data-${name}=\"" . esc_attr( $value ) . '"';
+		$data_attribute_string .= " data-{$name}=\"" . esc_attr( $value ) . '"';
 	}
 
 	$data_attribute_string = trim( $data_attribute_string );
@@ -270,4 +270,28 @@ function directorist_can_current_user_review( $listing_id = null ) {
 	}
 
 	return true;
+}
+
+function directorist_is_review_gdpr_consent_enabled() {
+	return (bool) get_directorist_option( 'enable_gdpr_consent', false );
+}
+
+function directorist_get_review_gdpr_consent_label() {
+	$label = get_directorist_option( 'gdpr_consent_label', '' );
+
+	return preg_replace(
+		array(
+			'/\[privacy_policy\]/',
+			'/\[\/privacy_policy\]/',
+			'/\[terms_conditions\]/',
+			'/\[\/terms_conditions\]/',
+		),
+		array(
+			'<a target="_blank" href="' . esc_url( ATBDP_Permalink::get_privacy_policy_page_url() ) . '">',
+			'</a>',
+			'<a target="_blank" href="' . esc_url( ATBDP_Permalink::get_terms_and_conditions_page_url() ) . '">',
+			'</a>'
+		),
+		$label
+	);
 }

@@ -145,8 +145,8 @@ use \Directorist\Helper;
             <?php wp_nonce_field('checkout_action', 'checkout_nonce');
             $directory_type 	 = get_post_meta( $listing_id, '_directory_type', true );
 		    $new_l_status 	     = get_term_meta( $directory_type, 'new_listing_status', true );
-            $monitization        = get_directorist_option('enable_monetization',0);
-            $featured_enabled    = get_directorist_option('enable_featured_listing',0);
+            $monitization        = directorist_is_monetization_enabled();
+            $featured_enabled    = directorist_is_featured_listing_enabled();
             $submit_button_label = ( $selected_product > 0 && $subtotal < 1 ) ? __( 'Complete Submission', 'directorist' ) : __( 'Pay Now', 'directorist' );
 
             if ( is_fee_manager_active() ){

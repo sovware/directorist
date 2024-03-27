@@ -36,10 +36,8 @@ class ATBDP_Gateway{
 
     }
 
-    public function atbdp_form_builder_widgets($widgets)
-        {
-            $featured_enable = get_directorist_option('enable_featured_listing');
-            if( !is_fee_manager_active() && $featured_enable ) {
+    public function atbdp_form_builder_widgets($widgets) {
+            if ( ! is_fee_manager_active() && directorist_is_featured_listing_enabled() ) {
                 $widgets['listing-type'] = [
                     'label' => 'Listing Type',
                     'icon' => 'las la-toggle-on',

@@ -287,30 +287,18 @@
       display: none;
     }
   }
-
-  .ezmu__thumbnail-list-item {
-    width: auto;
-  }
 }
 
 //add listing image upload
 .directorist-add-listing-wrapper {
   max-width: 750px !important;
   margin: 0 auto;
-  .ezmu__thumbnail-list-item {
-    max-width: 300px;
-    flex-basis: 300px;
-  }
 
   .ezmu__thumbnail-list-item_back {
     height: 200px;
     width: 100%;
   }
-
-  .ezmu__media-picker-buttons {
-    margin-top: 10px;
-  }
-
+  
   .ezmu__titles-area {
     .ezmu__title-1 {
       font-size: 30px;

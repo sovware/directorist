@@ -339,6 +339,7 @@
     if ( 'contain' === self.options.backgroundSize && self.options.blurBackground ) {
       var slider_item_img_back = createElementWithClass('plasmaSlider__bgImgBlur', 'img');
       slider_item_img_back.src = opt.src;
+      slider_item_img_back.loading = 'lazy';
       slider_item_bg.appendChild(slider_item_img_back);
     }
 
@@ -346,6 +347,7 @@
     var slider_item_img_front = createElementWithClass('plasmaSlider__bgImg plasmaSlider__' + background_size, 'img');
     slider_item_img_front.src = opt.src;
     slider_item_img_front.alt = opt.alt;
+    slider_item_img_front.loading = 'lazy';
     slider_item_bg.appendChild(slider_item_img_front);
 
     slider_item.appendChild(slider_item_bg);

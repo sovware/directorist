@@ -107,12 +107,12 @@ class Multi_Directory_Manager {
     }
 
     public function conditional_layouts( $layouts ) {
-
         $updated_layouts = $layouts;
 
-        if( ! directorist_multi_directory() ) {
+        if ( ! directorist_is_multi_directory_enabled() ) {
             unset( $updated_layouts['general']['sections']['default_preview'] );
         }
+
         return $updated_layouts;
     }
 
@@ -341,12 +341,12 @@ class Multi_Directory_Manager {
             $grouped_fields_value = [];
 
             foreach ( $group_fields as $field_index => $field_key ) {
-                if ('string' === gettype( $field_key ) && array_key_exists($field_key, self::$fields)) {
+                if ( is_string( $field_key ) && array_key_exists($field_key, self::$fields)) {
                     $grouped_fields_value[ $field_key ] = ( isset( $new_fields[ $field_key ] ) ) ? $new_fields[ $field_key ] : '';
                     unset( $new_fields[ $field_key ] );
                 }
 
-                if ( 'array' === gettype( $field_key ) ) {
+                if ( is_array( $field_key ) ) {
                     $grouped_fields_value[ $field_index ] = [];
 
                     foreach ( $field_key as $sub_field_key ) {
@@ -440,9 +440,7 @@ class Multi_Directory_Manager {
             wp_send_json( $add_directory );
         }
 
-        $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-
-        if (  $enable_multi_directory && empty( $term_id ) ) {
+        if ( directorist_is_multi_directory_enabled() && empty( $term_id ) ) {
             $redirect_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $add_directory['term_id'] );
             $add_directory['redirect_url'] = $redirect_url;
         }
@@ -478,11 +476,10 @@ class Multi_Directory_Manager {
     // add_menu_pages
     public function add_menu_pages()
     {
-        $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
         $page_title = __( 'Directory Builder', 'directorist' );
         $page_slug  = 'atbdp-layout-builder';
 
-        if ( atbdp_is_truthy( $enable_multi_directory ) ) {
+        if ( directorist_is_multi_directory_enabled() ) {
             $page_title = __( 'Directory Builder', 'directorist' );
             $page_slug  = 'atbdp-directory-types';
         }
@@ -512,8 +509,7 @@ class Multi_Directory_Manager {
     // menu_page_callback__directory_types
     public function menu_page_callback__directory_types()
     {
-        $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-        $enable_multi_directory = atbdp_is_truthy( $enable_multi_directory );
+        $enable_multi_directory = directorist_is_multi_directory_enabled();
 
         $action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
         $listing_type_id = 0;
@@ -575,7 +571,9 @@ class Multi_Directory_Manager {
             $all_term_meta = self::$migration->get_fields_data();
         }
 
-        if ( 'array' !== getType( $all_term_meta ) ) { return; }
+        if ( ! is_array( $all_term_meta ) ) {
+			return;
+		}
 
         foreach ( $all_term_meta as $meta_key => $meta_value ) {
             if ( isset( self::$fields[$meta_key] ) ) {
@@ -595,11 +593,11 @@ class Multi_Directory_Manager {
 
                     if ( ! key_exists( $field_key, $group_value ) ) { continue; }
 
-                    if ( 'string' === gettype($field_key) && array_key_exists($field_key, self::$fields)) {
+                    if ( is_string( $field_key ) && array_key_exists($field_key, self::$fields)) {
                         self::$fields[$field_key]['value'] = $group_value[$field_key];
                     }
 
-                    if ('array' === gettype($field_key)) {
+                    if ( is_array( $field_key ) ) {
                         foreach ($field_key as $sub_field_key) {
                             if (array_key_exists($sub_field_key, self::$fields)) {
                                 self::$fields[$sub_field_key]['value'] = $group_value[$field_index][$sub_field_key];

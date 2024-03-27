@@ -84,12 +84,6 @@
         align-items: center;
         color: #51526E;
         text-decoration: none;
-        i,
-        span.fa {
-            pointer-events: none;
-            display: inline-block;
-            margin-right: 10px;
-        }
 
         .directorist_menuItem-text {
             pointer-events: none;
@@ -99,13 +93,22 @@
             .directorist_menuItem-icon{
                 line-height: 0;
             }
+            i,
+            span.fa {
+                pointer-events: none;
+                display: inline-block;
+                margin-right: 10px;
+            }
         }
 
         &.directorist-tab__nav__active,
         &:focus {
             font-weight: 700;
-            background-color: #E9E9E9 !important;
+            background-color: #E9E9E9;
             color: #0A0B1E;
+            &.atbd-dash-nav-dropdown {
+                background-color: transparent;
+            }
         }
     }
 

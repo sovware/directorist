@@ -187,6 +187,38 @@ class Settings_Screen {
 					],
 				],
 			],
+			'enable_gdpr_consent' => [
+				'label'       => __( 'Enable GDPR Consent', 'directorist' ),
+				'description' => __( 'Make your site GDPR compliant by enabling this consent checkbox which will enforce users to accept the privacy policy before submitting any review or comment.', 'directorist' ),
+				'type'        => 'toggle',
+				'show-if'     => [
+					'where'      => 'enable_review',
+					'conditions' => [
+						[
+							'key'     => 'value',
+							'compare' => '=',
+							'value'   => true
+						],
+					],
+				],
+			],
+			'gdpr_consent_label' => [
+				'label'       => __( 'GDPR Consent Label', 'directorist' ),
+				'description' => __( 'Use [privacy_policy]privacy policy[/privacy_policy] for privacy link and [terms_conditions]terms and conditions[/terms_conditions] for terms and conditions link.', 'directorist' ),
+				'type'        => 'textarea',
+				'rows'        => 3,
+				'value'       => 'I have read and agree to the [privacy_policy]privacy policy[/privacy_policy] & [terms_conditions]terms and conditions[/terms_conditions].',
+				'show-if'     => [
+					'where'      => 'enable_review',
+					'conditions' => [
+						[
+							'key'     => 'value',
+							'compare' => '=',
+							'value'   => true
+						],
+					],
+				],
+			],
 		];
 	}
 

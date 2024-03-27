@@ -4,7 +4,8 @@
 
     textarea,
     textarea.directorist-form-element {
-        min-height: 120px;
+        min-height: unset;
+        height: auto;
     }
 }
 

@@ -100,7 +100,7 @@ class ATBDP_Permalink {
                 $author = get_user_by( 'id', $author_id );
 				$author_id = ( $author ) ? $author->user_login : $author_id;
 
-                if( ! empty( $directory_type ) && Directorist\Helper::multi_directory_enabled() ) {
+                if( ! empty( $directory_type ) && directorist_is_multi_directory_enabled() ) {
                     $slug = $author_id . '/directory/' . $directory_type;
                     $link = Helper::join_slug_to_url( $link, $slug );
                 } else {

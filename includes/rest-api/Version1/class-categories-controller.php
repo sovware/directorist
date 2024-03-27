@@ -58,7 +58,7 @@ class Categories_Controller extends Terms_Controller {
 		);
 
 		// Category directory type.
-		if ( get_directorist_option( 'enable_multi_directory' ) ) {
+		if ( directorist_is_multi_directory_enabled() ) {
 			$directory = get_term_meta( $item->term_id, '_directory_type', true );
 			if ( ! empty( $directory ) && is_array( $directory ) ) {
 				$data['directory'] = array_map( 'absint', $directory );
@@ -247,7 +247,7 @@ class Categories_Controller extends Terms_Controller {
 
 		// Save directory types
 		if ( isset( $request['directory'] ) ) {
-			if ( ! get_directorist_option( 'enable_multi_directory' ) ) {
+			if ( ! directorist_is_multi_directory_enabled() ) {
 				return new WP_Error(
 					'directorist_rest_invalid_directory_request',
 					__( 'Multi directory is disabled.', 'directorist' ),
@@ -333,7 +333,7 @@ class Categories_Controller extends Terms_Controller {
 	public function get_collection_params() {
 		$params = parent::get_collection_params();
 
-		if ( get_directorist_option( 'enable_multi_directory' ) ) {
+		if ( directorist_is_multi_directory_enabled() ) {
 			$params['directory'] = array(
 				'description' => __( 'Limit result set to specific directory type ids.', 'directorist' ),
 				'type'        => 'array',

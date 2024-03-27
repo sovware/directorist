@@ -39,7 +39,7 @@ if ( $query->have_posts() ) {
 
 			<?php do_action( 'directorist_dashboard_listing_td_2', $dashboard ); ?>
 
-			<?php if ( Helper::multi_directory_enabled() ): ?>
+			<?php if ( directorist_is_multi_directory_enabled() ): ?>
 				<td><span class="directorist-listing-plan"><?php echo esc_html( $dashboard->get_listing_type() ); ?></span></td>
 			<?php endif; ?>
 

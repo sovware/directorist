@@ -293,6 +293,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					) ) );
 				}
 
+				return wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', array(
+					'error'     => true,
+					'error_msg' => implode( '<br>', $error->get_error_messages() ),
+				) ) );
+
 				if ( ! empty( $posted_data['privacy_policy'] ) ) {
 					$meta_data['_privacy_policy'] = (bool) $posted_data['privacy_policy'];
 				}

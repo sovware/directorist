@@ -489,7 +489,6 @@ $(document).ready(function () {
                     contentType: false,
                     mimeType: 'multipart/form-data',
                     async: true,
-                    // url: localized_data.ajaxurl,
                     url: directorist.rest_url + 'directorist/v1/temp-media-upload',
                     data: formData,
                     beforeSend( xhr ) {

@@ -261,12 +261,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			// get current group
 			$icon_name                = get_term_meta( $term->term_id, 'category_icon', true );
 			$selected_directory_types = (array) get_term_meta( $term->term_id, '_directory_type', true );
-			$directory_types          = get_terms(
-				array(
-					'taxonomy'   => ATBDP_TYPE,
-					'hide_empty' => false,
-				)
-			);
+			$directory_types          = directorist_get_directories();
 			$default_listing_type = $this->default_listing_type();
 			if ( ! $default_listing_type ) {
 				?>
@@ -331,12 +326,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			$directory_type       = get_term_meta( $term->term_id, '_directory_type', true );
 			$value                = ! empty( $directory_type ) ? $directory_type : array();
 			$image_src            = ( $image_id ) ? wp_get_attachment_url( (int) $image_id ) : '';
-			$directory_types      = get_terms(
-				array(
-					'taxonomy'   => ATBDP_TYPE,
-					'hide_empty' => false,
-				)
-			);
+			$directory_types      = directorist_get_directories();
 			$default_listing_type = $this->default_listing_type();
 			if ( ! $default_listing_type ) { ?>
 			<tr class="form-field term-group-wrap">
@@ -422,12 +412,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 		}
 
 		public function add_category_form_fields( $taxonomy ) {
-			$directory_types      = get_terms(
-				array(
-					'taxonomy'   => ATBDP_TYPE,
-					'hide_empty' => false,
-				)
-			);
+			$directory_types      = directorist_get_directories();
 			$default_listing_type = $this->default_listing_type();
 			if ( ! $default_listing_type ) {
 				?>
@@ -468,12 +453,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 		}
 
 		public function add_location_form_fields( $taxonomy ) {
-			$directory_types      = get_terms(
-				array(
-					'taxonomy'   => ATBDP_TYPE,
-					'hide_empty' => false,
-				)
-			);
+			$directory_types      = directorist_get_directories();
 			$default_listing_type = $this->default_listing_type();
 			if ( ! $default_listing_type ) {
 				?>
@@ -832,21 +812,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 		}
 
 		public function get_listing_types() {
-			$listing_types = array();
-			$args          = array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			);
-			$all_types     = get_terms( $args );
-
-			foreach ( $all_types as $type ) {
-				$listing_types[ $type->term_id ] = array(
-					'term' => $type,
-					'name' => $type->name,
-					'data' => get_term_meta( $type->term_id, 'general_config', true ),
-				);
-			}
-			return $listing_types;
+			return directorist_get_directories_for_template();
 		}
 
 		public function get_current_listing_type() {

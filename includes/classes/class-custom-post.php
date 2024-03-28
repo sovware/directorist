@@ -122,10 +122,8 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 						<select name="directory_type">
 							<option value="">— <?php esc_html_e( 'Select type', 'directorist' ); ?> —</option>
 							<?php
-							$listing_types = get_terms( array(
-								'taxonomy'   => ATBDP_TYPE,
-								'hide_empty' => false,
-							) );
+							$listing_types = directorist_get_directories();
+
 							foreach ( $listing_types as $listing_type ) { ?>
 								<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
 							<?php } ?>

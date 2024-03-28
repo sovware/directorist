@@ -451,14 +451,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 			do_action( 'directorist_before_set_default_directory_type', $default_directory_id, $current_language );
 
-			$directory_types = get_terms(
-				array(
-					'taxonomy'   => ATBDP_DIRECTORY_TYPE,
-					'hide_empty' => false,
-					'exclude'    => $default_directory_id,
-					'fields'     => 'ids',
-				)
-			);
+			$directory_types = directorist_get_directories( array(
+				'fields'  => 'ids',
+				'exclude' => $default_directory_id,
+			) );
 
 			if ( ! empty( $directory_types ) || ! is_wp_error( $directory_types ) ) {
 				foreach ( $directory_types as $directory_type ) {
@@ -489,12 +485,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$update_slug = isset( $_POST['update_slug'] ) ? sanitize_key( $_POST['update_slug'] ) : '';
 
 			$directory_slugs = array();
-			$listing_types   = get_terms(
-				array(
-					'taxonomy'   => ATBDP_TYPE,
-					'hide_empty' => false,
-				)
-			);
+			$listing_types   = directorist_get_directories();
+
 			if ( $listing_types ) {
 				foreach ( $listing_types as $listing_type ) {
 					$directory_slugs[] = $listing_type->slug;

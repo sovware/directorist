@@ -19,13 +19,13 @@ class Directorist_Add_Listing extends Custom_Widget_Base {
 	}
 
 	private function az_listing_types() {
-		$listing_types = array();
-		$all_types = get_terms( [ 'taxonomy'=> ATBDP_TYPE, 'hide_empty' => false ] );
+		$directories = directorist_get_directories();
 
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->slug ] = $type->name;
+		if ( is_wp_error( $directories ) || empty( $directories ) ) {
+			return array();
 		}
-		return $listing_types;
+
+		return wp_list_pluck( $directories, 'name', 'slug' );
 	}
 
 	public function az_fields(){

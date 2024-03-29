@@ -80,7 +80,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				// Make sure we are dealing with a real listing in edit mode.
 				$listing_id = absint( directorist_get_var( $posted_data['listing_id'], 0 ) );
 
-				if ( $listing_id && get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+				if ( $listing_id && directorist_is_listing_post_type( $listing_id ) ) {
 					throw new Exception( __( 'Invalid listing!', 'directorist' ), 200 );
 				}
 

@@ -110,7 +110,7 @@ class Temporary_Media_Upload_Controller extends Abstract_Controller {
 	}
 
 	public static function set_temporary_upload_dir( $upload ) {
-		$upload['subdir'] = directorist_get_temp_upload_dir();
+		$upload['subdir'] = DIRECTORY_SEPARATOR . directorist_get_temp_upload_dir();
 		$upload['path']   = $upload['basedir'] . $upload['subdir'];
 		$upload['url']    = $upload['baseurl'] . $upload['subdir'];
 

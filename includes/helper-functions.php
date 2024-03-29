@@ -4254,5 +4254,5 @@ function directorist_get_listing_edit_status( $directory_type ) {
 }
 
 function directorist_get_temp_upload_dir() {
-	return DIRECTORY_SEPARATOR . 'directorist_temp_uploads';
+	return 'directorist_temp_uploads';
 }

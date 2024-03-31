@@ -29,10 +29,10 @@ class All_Locations extends \WP_Widget {
             'order_by'              => 'id',
             'order'                 => 'asc',
             'max_number'            => '',
-            'immediate_category'    => '',
-            'hide_empty'            => '',
-            'show_count'            => '',
-            'single_only'           => '',
+            'immediate_category'    => 1,
+            'hide_empty'            => 1,
+            'show_count'            => 1,
+            'single_only'           => 1,
 		];
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -100,61 +100,65 @@ class All_Locations extends \WP_Widget {
 		$instance['display_as']         = ! empty( $new_instance['display_as'] ) ? sanitize_text_field( $new_instance['display_as'] ) : 'list';
         $instance['order_by']           = ! empty( $new_instance['order_by'] ) ? sanitize_text_field( $new_instance['order_by'] ) : 'id';
         $instance['order']              = ! empty( $new_instance['order'] ) ? sanitize_text_field( $new_instance['order'] ) : 'asc';
-        $instance['immediate_category'] = ! empty( $new_instance['immediate_category'] ) ? 1 : 0;
-        $instance['hide_empty']         = ! empty( $new_instance['hide_empty'] ) ? 1 : 0;
-        $instance['show_count']         = ! empty( $new_instance['show_count'] ) ? 1 : 0;
-        $instance['single_only']        = ! empty( $new_instance['single_only'] ) ? 1 : 0;
+        $instance['immediate_category'] = isset( $new_instance['immediate_category'] ) ? 1 : 0;
+        $instance['hide_empty']         = isset( $new_instance['hide_empty'] ) ? 1 : 0;
+        $instance['show_count']         = isset( $new_instance['show_count'] ) ? 1 : 0;
+        $instance['single_only']        = isset( $new_instance['single_only'] ) ? 1 : 0;
         $instance['max_number']         = ! empty( $new_instance['max_number'] ) ? $new_instance['max_number'] : '';
 
 		return $instance;
 	}
 
 	public function widget( $args, $instance ) {
-        $allowWidget = apply_filters('atbdp_allow_locations_widget', true);
+        $allowWidget = apply_filters( 'atbdp_allow_locations_widget', true );
 
-        if( ( ! empty( $instance['single_only'] ) && ! is_singular( ATBDP_POST_TYPE ) ) || ! $allowWidget)
+        if ( ( ! empty( $instance['single_only'] ) && ! is_singular( ATBDP_POST_TYPE ) ) || ! $allowWidget ) {
             return;
+		}
+
 		echo wp_kses_post( $args['before_widget'] );
 
-		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Locations', 'directorist');
-		$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
+		$title = __( 'Directorist Locations', 'directorist' );
+		if ( ! empty( $instance['title'] ) ) {
+			$title = $instance['title'];
+		}
+
+		$widget_title = $args['before_title'] . esc_html( apply_filters( 'widget_title', $title ) ). $args['after_title'];
+
 		echo '<div class="atbd_widget_title">';
 		echo wp_kses_post( $widget_title );
 		echo '</div>';
 
         $query_args = array(
-            'template'       => !empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
-            'parent'         => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
-            'term_id'        => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
-            'hide_empty'     => !empty( $instance['hide_empty'] ) ? 1 : 0,
-            'orderby'        => !empty( $instance['order_by'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
-            'order'          => !empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
-            'max_number'     => !empty( $instance['max_number'] ) ? $instance['max_number'] : '',
-            'show_count'     => !empty( $instance['show_count'] ) ? 1 : 0,
-            'single_only'    => !empty( $instance['single_only'] ) ? 1 : 0,
-            'pad_counts'     => true,
+            'template'           => !empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
+            'parent'             => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
+            'term_id'            => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
+            'hide_empty'         => !empty( $instance['hide_empty'] ) ? 1 : 0,
+            'orderby'            => !empty( $instance['order_by'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
+            'order'              => !empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
+            'max_number'         => !empty( $instance['max_number'] ) ? $instance['max_number'] : '',
+            'show_count'         => !empty( $instance['show_count'] ) ? 1 : 0,
+            'single_only'        => !empty( $instance['single_only'] ) ? 1 : 0,
+            'pad_counts'         => true,
             'immediate_category' => ! empty( $instance['immediate_category'] ) ? 1 : 0,
-            'active_term_id' => 0,
-            'ancestors'      => array()
+            'active_term_id'     => 0,
+            'ancestors'          => array()
         );
 
-
-        if( $query_args['immediate_category'] ) {
+        if ( $query_args['immediate_category'] ) {
 
             $term_slug = get_query_var( ATBDP_LOCATION );
 
-            if( '' != $term_slug ) {
-				$term = get_term_by( 'slug', $term_slug, ATBDP_LOCATION );
+            if ( '' !== $term_slug ) {
+				$term                         = get_term_by( 'slug', $term_slug, ATBDP_LOCATION );
 				$query_args['active_term_id'] = $term->term_id;
-
-				$query_args['ancestors'] = get_ancestors( $query_args['active_term_id'], 'atbdp_categories' );
-				$query_args['ancestors'][] = $query_args['active_term_id'];
-				$query_args['ancestors'] = array_unique( $query_args['ancestors'] );
+				$query_args['ancestors']      = get_ancestors( $query_args['active_term_id'], 'atbdp_categories' );
+				$query_args['ancestors'][]    = $query_args['active_term_id'];
+				$query_args['ancestors']      = array_unique( $query_args['ancestors'] );
             }
-
         }
 
-        if( 'dropdown' == $query_args['template'] ) {
+        if ( 'dropdown' === $query_args['template'] ) {
             $categories = $this->dropdown_locations( $query_args );
         } else {
             $categories = $this->list_locations( $query_args );
@@ -166,13 +170,10 @@ class All_Locations extends \WP_Widget {
 	}
 
     public function list_locations( $settings ) {
-
-        if( $settings['immediate_category'] ) {
-
-            if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
-                return;
-            }
-
+        if ( $settings['immediate_category'] &&
+			( $settings['term_id'] > $settings['parent'] ) &&
+			! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+			return;
         }
 
         $args = array(
@@ -185,12 +186,12 @@ class All_Locations extends \WP_Widget {
             'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
         );
 
-        $terms = get_terms( $args );
-        $parent = $args['parent'];
+        $terms       = get_terms( $args );
+        $parent      = $args['parent'];
         $child_class = !empty($parent) ? 'atbdp_child_location' : 'atbdp_parent_location';
-        $html = '';
+        $html        = '';
 
-        if( count( $terms ) > 0 ) {
+        if ( count( $terms ) > 0 ) {
             $i = 1;
             $html .= '<ul class="' .$child_class. '">';
             foreach( $terms as $term ) {

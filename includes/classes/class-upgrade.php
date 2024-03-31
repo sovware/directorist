@@ -71,7 +71,7 @@ class ATBDP_Upgrade
 		$dismiss_url = add_query_arg(
 			array(
 				'directorist_promo2_closed_version' => $version,
-				'directorist_promo2_nonce'          => wp_create_nonce( 'directorist_promo2_closed_version' ),
+				'directorist_promo_nonce'          => wp_create_nonce( 'directorist_promo_nonce' ),
 			),
 			atbdp_get_current_url()
 		);
@@ -140,12 +140,18 @@ class ATBDP_Upgrade
 
 		$text .= sprintf( __( '<p class="directorist__notice_new"><span>Congratulations!</span> You are now using the latest version of Directorist with some cool <a href="%s" target="blank">new features</a>. If you are using any of our premium theme or extension, please update them from this <a href="%s">page</a> </p>', 'directorist' ), $link, $membership_page );
 
-		$text .= sprintf( __( '<p class="directorist__notice_new_action"><a href="%s" class="directorist__notice_new__btn">Continue using Directorist 7.0 </a><a target="blank" href="%s"> Roll back to v6.5.8</a></p>', 'directorist' ), add_query_arg( 'directorist-v7', 1 ), $wp_rollback );
+		$text .= sprintf(
+			__( '<p class="directorist__notice_new_action"><a href="%s" class="directorist__notice_new__btn">Continue using Directorist 7.0</a> or <a target="_blank" href="%s">Roll back to v6.5.8</a></p>', 'directorist' ),
+			add_query_arg( array(
+				'directorist-v7'              => 1,
+				'directorist_migration_nonce' => wp_create_nonce( 'directorist_migration_nonce' )
+			) ),
+			$wp_rollback
+		);
 
 		$notice = '<div class="notice notice-warning is-dismissible directorist-plugin-updater-notice" style="font-weight:bold;padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
 
 		echo wp_kses_post( $notice );
-
 	}
 
 	public function configure_notices() {
@@ -154,24 +160,26 @@ class ATBDP_Upgrade
 		}
 
 		$this->directorist_notices      = get_option( 'directorist_notices' );
-
 		$this->directorist_migration    = get_option( 'directorist_migration' );
 
-		if ( isset( $_GET['directorist-v7'] ) ) {
+		if ( isset( $_GET['directorist-v7'], $_GET['directorist_migration_nonce'] ) && wp_verify_nonce( $_GET['directorist_migration_nonce'], 'directorist_migration_nonce' ) ) {
 			$this->directorist_migration[ $this->upgrade_notice_id ] = 1;
 			update_option( 'directorist_migration', $this->directorist_migration );
 		}
 
-		if ( isset( $_GET['directorist-depricated-notice'] ) ) {
-			$this->directorist_notices[ $this->legacy_notice_id ] = 1;
-			update_option( 'directorist_notices', $this->directorist_notices );
-		}
+		/**
+		 * Didn't find any use of the 'directorist-depricated-notice'.
+		 */
+		// if ( isset( $_GET['directorist-depricated-notice'] ) ) {
+		// 	$this->directorist_notices[ $this->legacy_notice_id ] = 1;
+		// 	update_option( 'directorist_notices', $this->directorist_notices );
+		// }
 
-		if ( isset( $_GET['close-directorist-promo-version'], $_GET['directorist_promo_nonce'] ) && wp_verify_nonce( $_GET['directorist_promo_nonce'], 'close-directorist-promo-version' ) ) {
+		if ( isset( $_GET['close-directorist-promo-version'], $_GET['directorist_promo_nonce'] ) && wp_verify_nonce( $_GET['directorist_promo_nonce'], 'directorist_promo_nonce' ) ) {
 			update_user_meta( get_current_user_id(), '_directorist_promo_closed', directorist_clean( wp_unslash( $_GET['close-directorist-promo-version'] ) ) );
 		}
 
-		if ( isset( $_GET['directorist_promo2_closed_version'], $_GET['directorist_promo2_nonce'] ) && wp_verify_nonce( $_GET['directorist_promo2_nonce'], 'directorist_promo2_closed_version' ) ) {
+		if ( isset( $_GET['directorist_promo2_closed_version'], $_GET['directorist_promo_nonce'] ) && wp_verify_nonce( $_GET['directorist_promo_nonce'], 'directorist_promo_nonce' ) ) {
 			update_user_meta( get_current_user_id(), 'directorist_promo2_closed_version', directorist_clean( wp_unslash( $_GET['directorist_promo2_closed_version'] ) ) );
 		}
 	}

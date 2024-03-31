@@ -1303,18 +1303,19 @@
 
   .directorist-custom-field-btn-more {
     margin-top: 5px;
-
     &:after {
-      font-size: 14px;
-      font-family: "Line Awesome Free";
-      content: "";
-      font-weight: 900;
-      padding-left: 5px;
+      content: "";
+      display: inline-block;
+      margin-left: 5px;
+      mask-image: url(../../../icons/line-awesome/svgs/angle-down-solid.svg);
+      width: 12px;
+      height: 12px;
+      background-color: var(--directorist-color-body);
     }
 
     &.active {
       &:after {
-        content: "\f106";
+        mask-image: url(../../../icons/line-awesome/svgs/angle-up-solid.svg);
       }
     }
   }

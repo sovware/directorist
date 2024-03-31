@@ -4512,15 +4512,19 @@ body.stop-scrolling {
 }
 .directorist-custom-field-radio .directorist-custom-field-btn-more:after,
 .directorist-custom-field-checkbox .directorist-custom-field-btn-more:after {
-  font-size: 14px;
-  font-family: "Line Awesome Free";
-  content: "\f107";
-  font-weight: 900;
-  padding-left: 5px;
+  content: "";
+  display: inline-block;
+  margin-left: 5px;
+  -webkit-mask-image: url(../images/05feea3d261c8b97573023a74fd26f03.svg);
+          mask-image: url(../images/05feea3d261c8b97573023a74fd26f03.svg);
+  width: 12px;
+  height: 12px;
+  background-color: var(--directorist-color-body);
 }
 .directorist-custom-field-radio .directorist-custom-field-btn-more.active:after,
 .directorist-custom-field-checkbox .directorist-custom-field-btn-more.active:after {
-  content: "\f106";
+  -webkit-mask-image: url(../images/c90867d23032298fc0ff1d456a6fdb30.svg);
+          mask-image: url(../images/c90867d23032298fc0ff1d456a6fdb30.svg);
 }
 
 .directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__rendered {
@@ -12424,7 +12428,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 16px;
   opacity: 0;
   visibility: hidden;
-  background-color: #BCBCBC;
+  background-color: #bcbcbc;
   -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }

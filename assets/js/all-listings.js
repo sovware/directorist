@@ -1845,7 +1845,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Directorist pagination
   $('body').on("click", ".directorist-instant-search .directorist-pagination .page-numbers", function (e) {
-    var _form_data;
     e.preventDefault();
     var tag = [];
     var price = [];
@@ -1913,7 +1912,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var page = paginate_link && paginate_link.length ? paginate_link.match(/paged=.+/) : '';
       var page_no = page && page.length ? page[0].replace(/paged=/, '') : '';
     }
-    var form_data = (_form_data = {
+    var form_data = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
       current_page_id: directorist.current_page_id,
@@ -1935,7 +1934,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       website: website || getURLParameter(full_url, 'website'),
       phone: phone || getURLParameter(full_url, 'phone'),
       custom_field: custom_field || getURLParameter(full_url, 'custom_field')
-    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "data_atts", JSON.parse(data_atts)), _form_data);
+    }, "view", view), "paged", page_no), "data_atts", JSON.parse(data_atts));
 
     //business hours
     if ($('input[name="open_now"]').is(':checked')) {

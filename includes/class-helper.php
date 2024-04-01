@@ -490,24 +490,22 @@ class Helper {
 		return directorist_is_multi_directory_enabled();
 	}
 
-	public static function default_preview_image_src( $type ) {
+	public static function default_preview_image_src( $directory_id ) {
 		if ( directorist_is_multi_directory_enabled() ) {
-			$type_general = get_term_meta( $type, 'general_config', true );
+			$settings = directorist_get_directory_general_settings( $directory_id );
 
-			if ( ! empty( $type_general['preview_image'] ) ) {
-				$default_image_src = $type_general['preview_image'];
-			}
-			else {
+			if ( ! empty( $settings['preview_image'] ) ) {
+				$default_preview = $settings['preview_image'];
+			} else {
 				$default_img = get_directorist_option( 'default_preview_image' );
-				$default_image_src = $default_img ? $default_img : DIRECTORIST_ASSETS . 'images/grid.jpg';
+				$default_preview = $default_img ? $default_img : DIRECTORIST_ASSETS . 'images/grid.jpg';
 			}
-		}
-		else {
+		} else {
 			$default_img = get_directorist_option( 'default_preview_image' );
-			$default_image_src = $default_img ? $default_img : DIRECTORIST_ASSETS . 'images/grid.jpg';
+			$default_preview = $default_img ? $default_img : DIRECTORIST_ASSETS . 'images/grid.jpg';
 		}
 
-		return $default_image_src;
+		return $default_preview;
 	}
 
 	public static function is_review_enabled() {
@@ -553,8 +551,6 @@ class Helper {
 	 */
 	public static function get_directory_types_with_custom_single_page( $page_id = null ) {
 		$args = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
 			'meta_query' => array(
 				'page_enabled' => array(
 					'key'     => 'enable_single_listing_page',
@@ -564,7 +560,7 @@ class Helper {
 			),
 		);
 
-		$directory_types = get_terms( $args );
+		$directory_types = directorist_get_directories( $args );
 		if ( empty( $directory_types ) || is_wp_error( $directory_types ) ) {
 			return [];
 		}

@@ -1191,24 +1191,13 @@ class Directorist_Listings {
 	}
 
 	public function get_listing_types() {
-		$listing_types = array();
-		$args          = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false
-		);
-		if( $this->directory_type ) {
-			$args['slug']     = $this->directory_type;
-		}
-		$all_types     = get_terms( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
+		$args = array();
 
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'term' => $type,
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
+		if ( $this->directory_type ) {
+			$args['slug'] = $this->directory_type;
 		}
-		return $listing_types;
+
+		return directorist_get_directories_for_template( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
 	}
 
 	public function get_current_listing_type() {

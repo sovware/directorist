@@ -687,43 +687,22 @@ class Directorist_Listing_Form {
 	}
 
 	public function get_listing_types() {
-		// @cache @kowsar
-		$enable_multi_directory = directorist_is_multi_directory_enabled();
-		$listing_types = array();
-		$args = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-		);
+		$args = array();
 
-		if( self::$directory_type ) {
-			$term_slug    = get_term_by( 'slug', self::$directory_type[0], 'atbdp_listing_types' );
-			if( $term_slug || current_user_can('manage_options') || current_user_can('edit_pages') ) {
+		if ( self::$directory_type ) {
+			$term_slug = get_term_by( 'slug', self::$directory_type[0], 'atbdp_listing_types' );
+			if ( $term_slug || current_user_can( 'manage_options' ) || current_user_can( 'edit_pages' ) ) {
 				$args['slug'] = self::$directory_type;
 			}
 		}
 
-		$all_types     = get_terms( $args );
+		if ( ! directorist_is_multi_directory_enabled() ) {
+			$args['default_only'] = true;
 
-		foreach ( $all_types as $type ) {
-			if(  empty( $enable_multi_directory ) ) {
-				$is_default = get_term_meta( $type->term_id, '_default', true );
-				if ( $is_default ) {
-					$listing_types[ $type->term_id ] = [
-						'term' => $type,
-						'name' => $type->name,
-						'data' => get_term_meta( $type->term_id, 'general_config', true ),
-					];
-					break;
-				}
-			} else {
-				$listing_types[ $type->term_id ] = [
-					'term' => $type,
-					'name' => $type->name,
-					'data' => get_term_meta( $type->term_id, 'general_config', true ),
-				];
-			}
+			return directorist_get_directories_for_template( $args );
 		}
-		return $listing_types;
+
+		return directorist_get_directories_for_template( $args );
 	}
 
 	public function get_current_listing_type() {

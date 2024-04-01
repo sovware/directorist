@@ -410,6 +410,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                             if (array_key_exists('wpseo_focuskw', $meta['at_biz_dir-category'][$term->term_id])) {
                                 $replacements['%%term_title%%'] = $meta['at_biz_dir-category'][$term->term_id]['wpseo_focuskw'];
                             }
+
+                            if (array_key_exists('wpseo_title', $meta['at_biz_dir-category'][$term->term_id]) && !empty($meta['at_biz_dir-category'][$term->term_id]['wpseo_title'])) {
+                                $title_template = $meta['at_biz_dir-category'][$term->term_id]['wpseo_title'];
+                            }
                         }
                     }
                 }
@@ -437,6 +441,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                             if (array_key_exists('wpseo_focuskw', $meta['at_biz_dir-location'][$term->term_id])) {
                                 $replacements['%%term_title%%'] = $meta['at_biz_dir-location'][$term->term_id]['wpseo_focuskw'];
                             }
+
+                            if (array_key_exists('wpseo_title', $meta['at_biz_dir-location'][$term->term_id]) && !empty($meta['at_biz_dir-location'][$term->term_id]['wpseo_title'])) {
+                                $title_template = $meta['at_biz_dir-location'][$term->term_id]['wpseo_title'];
+                            }
                         }
                     }
                 }
@@ -463,6 +471,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
                             if (array_key_exists('wpseo_focuskw', $meta['at_biz_dir-tags'][$term->term_id])) {
                                 $replacements['%%term_title%%'] = $meta['at_biz_dir-tags'][$term->term_id]['wpseo_focuskw'];
+                            }
+
+                            if (array_key_exists('wpseo_title', $meta['at_biz_dir-tags'][$term->term_id]) && !empty($meta['at_biz_dir-tags'][$term->term_id]['wpseo_title'])) {
+                                $title_template = $meta['at_biz_dir-tags'][$term->term_id]['wpseo_title'];
                             }
                         }
                     }

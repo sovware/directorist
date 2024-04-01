@@ -306,6 +306,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 7.8.7 - Apr 1, 2024
 
+* Add - New shortcode to show listing's meta (#1725)
 * Fix - Phone number plus prefix missing issue (#1720)
 * Fix - Single taxonomy archive page title issue for Yoast SEO plugin (#1721)
 * Fix - Contact listing owner email reply to issue (#1712)

@@ -228,8 +228,6 @@ class All_Tags extends \WP_Widget {
     }
 
     public function dropdown_tags( $settings, $prefix = '' ) {
-		print_r( $settings );
-
         $term_slug = get_query_var(ATBDP_TAGS);
         if( $settings['display_single_tag'] ) {
             $terms = get_the_terms(get_the_ID(), ATBDP_TAGS);

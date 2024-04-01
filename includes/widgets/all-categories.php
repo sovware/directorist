@@ -75,18 +75,22 @@ class All_Categories extends \WP_Widget {
             'immediate_category' => [
 				'label'   => esc_html__( 'Show all the top-level categories only', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'hide_empty' => [
 				'label'   => esc_html__( 'Hide empty categories', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'show_count' => [
 				'label'   => esc_html__( 'Display listing counts', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'single_only' => [
 				'label'   => esc_html__( 'Display only on single listing', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
         ];
 

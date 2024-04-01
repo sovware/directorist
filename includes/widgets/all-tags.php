@@ -74,14 +74,17 @@ class All_Tags extends \WP_Widget {
             'hide_empty' => [
 				'label'   => esc_html__( 'Hide empty tags', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'show_count' => [
 				'label'   => esc_html__( 'Display listing counts', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'display_single_tag' => [
 				'label'   => esc_html__( 'Display single listing tags', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
         ];
 

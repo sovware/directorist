@@ -304,7 +304,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.9.0 - Apr 1, 2024
+7.9.0 - Apr 2, 2024
 
 * Add - New shortcode to show listing's meta (#1725)
 * Fix - Phone number plus prefix missing issue (#1720)

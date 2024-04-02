@@ -2832,6 +2832,20 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
+                'search_max_radius_distance' => [
+                    'label'         => __('Maximum Radius Distance', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '1000',
+                    'min'           => '0',
+                    'max'           => '1000',
+                    'step'          => '10',
+                    'show-if' => [
+                        'where' => "search_more_filter",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
                 'search_listing_text'    => [
                     'type'          => 'text',
                     'label'         => __('Search Button Text', 'directorist'),
@@ -4670,7 +4684,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'directorist_search_setting_sections', [
                                 'search_form' => [
                                     'fields'      => [
-                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg',
+                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_max_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg',
                                      ],
                                 ],
                             ] ),

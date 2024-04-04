@@ -573,16 +573,9 @@ class Directorist_Listing_Dashboard {
 		if ( in_array( get_post_status( get_the_ID() ), array( 'expired', 'renewal' ), true ) ) {
 			return false;
 		}
-
-<<<<<<< HEAD
+		
 		$is_featured = (bool) get_post_meta( get_the_ID(), '_featured', true );
 		if ( directorist_is_featured_listing_enabled() && ! $is_featured ) {
-=======
-		$featured_enabled = (bool) get_directorist_option( 'enable_featured_listing' );
-		$is_featured      = (bool) get_post_meta( get_the_ID(), '_featured', true );
-
-		if ( $featured_enabled && ! $is_featured ) {
->>>>>>> dc59a10651e7431a0e801b97cb37857a6d413448
 			return true;
 		}
 

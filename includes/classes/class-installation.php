@@ -25,12 +25,12 @@ class ATBDP_Installation {
 	 * @var array
 	 */
 	private static $db_updates = array(
-		'7.8.0' => [
-			'directorist_780_migrate_expired_meta_to_expired_status',
-			'directorist_780_migrate_renewal_meta_to_renewal_status',
-			// 'directorist_780_clean_listing_status_expired_meta',
-			// 'directorist_780_clean_listing_status_renewal_meta',
-			'directorist_780_update_db_version',
+		'7.10.0' => [
+			'directorist_7100_migrate_expired_meta_to_expired_status',
+			'directorist_7100_migrate_renewal_meta_to_renewal_status',
+			// 'directorist_7100_clean_listing_status_expired_meta',
+			// 'directorist_7100_clean_listing_status_renewal_meta',
+			'directorist_7100_update_db_version',
 		],
 		'7.1.0' => [
 			'directorist_710_migrate_reviews_table_to_comments_table',

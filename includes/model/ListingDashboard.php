@@ -74,7 +74,7 @@ class Directorist_Listing_Dashboard {
 		if ( $task === 'delete' ) {
 			if ( current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->delete_post, $taskdata ) )  {
 				wp_delete_post( $taskdata );
-	
+
 				do_action( 'directorist_listing_deleted', $taskdata );
 			}
 		}
@@ -212,7 +212,7 @@ class Directorist_Listing_Dashboard {
 		$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 		$listing_img       = get_post_meta($id, '_listing_img', true);
 
-		if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
+		if ( is_array( $listing_img ) && ! empty( $listing_img[0] ) ) {
 			$thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
 			$thumbnail_id = $listing_img[0];
 		}
@@ -486,7 +486,7 @@ class Directorist_Listing_Dashboard {
 		}
 
 		$directory_type 		= default_directory_type();
-        $edit_listing_status    = get_term_meta( $directory_type, 'edit_listing_status', true );
+        $edit_listing_status    = directorist_get_listing_edit_status( $directory_type );
 		$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 		$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
 		$confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
@@ -578,10 +578,8 @@ class Directorist_Listing_Dashboard {
 			return false;
 		}
 
-		$featured_enabled = (bool) get_directorist_option( 'enable_featured_listing' );
-		$is_featured      = (bool) get_post_meta( get_the_ID(), '_featured', true );
-
-		if ( $featured_enabled && ! $is_featured ) {
+		$is_featured = (bool) get_post_meta( get_the_ID(), '_featured', true );
+		if ( directorist_is_featured_listing_enabled() && ! $is_featured ) {
 			return true;
 		}
 
@@ -589,7 +587,7 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function get_renewal_link( $listing_id ) {
-		return get_directorist_option( 'enable_monetization' ) && get_directorist_option( 'enable_featured_listing' ) ? ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id ) : ATBDP_Permalink::get_renewal_page_link( $listing_id );
+		return directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ? ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id ) : ATBDP_Permalink::get_renewal_page_link( $listing_id );
 	}
 
 	public function get_action_dropdown_item() {

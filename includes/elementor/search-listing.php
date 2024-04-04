@@ -19,13 +19,13 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 	}
 
 	private function az_listing_types() {
-		$listing_types = array();
-		$all_types = get_terms( [ 'taxonomy'=> ATBDP_TYPE, 'hide_empty' => false ] );
+		$directories = directorist_get_directories();
 
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->slug ] = $type->name;
+		if ( is_wp_error( $directories ) || empty( $directories ) ) {
+			return array();
 		}
-		return $listing_types;
+
+		return wp_list_pluck( $directories, 'name', 'slug' );
 	}
 
 	public function az_fields(){
@@ -86,14 +86,14 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 				'label'    => __( 'Directory Types', 'directorist' ),
 				'multiple' => true,
 				'options'  => $this->az_listing_types(),
-				'condition' => Helper::multi_directory_enabled() ? '' : ['nocondition' => true],
+				'condition' => directorist_is_multi_directory_enabled() ? '' : ['nocondition' => true],
 			),
 			array(
 				'type'     => Controls_Manager::SELECT2,
 				'id'       => 'default_type',
 				'label'    => __( 'Default Directory Types', 'directorist' ),
 				'options'  => $this->az_listing_types(),
-				'condition' => Helper::multi_directory_enabled() ? '' : ['nocondition' => true],
+				'condition' => directorist_is_multi_directory_enabled() ? '' : ['nocondition' => true],
 			),
 			array(
 				'type'      => Controls_Manager::TEXT,
@@ -234,7 +234,7 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 			'logged_in_user_only'   => $settings['user'] ? $settings['user'] : 'no',
 		);
 
-		if ( Helper::multi_directory_enabled() ) {
+		if ( directorist_is_multi_directory_enabled() ) {
 			if ( $settings['type'] ) {
 				$atts['directory_type'] = implode( ',', $settings['type'] );
 			}

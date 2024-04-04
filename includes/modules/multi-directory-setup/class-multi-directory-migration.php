@@ -1,6 +1,7 @@
 <?php
 
-namespace Directorist;
+namespace Directorist\Multi_Directory;
+
 class Multi_Directory_Migration {
 
     public $multi_directory_manager = null;
@@ -25,10 +26,7 @@ class Multi_Directory_Migration {
         $add_directory      = $this->multi_directory_manager->add_directory( $add_directory_args );
 
         if ( $add_directory['status']['success'] ) {
-            $directory_types = get_terms([
-                'taxonomy'   => ATBDP_DIRECTORY_TYPE,
-                'hide_empty' => false,
-            ]);
+            $directory_types = directorist_get_directories();
 
             if ( ! empty( $directory_types ) ) {
                 foreach ( $directory_types as $directory_type ) {

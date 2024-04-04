@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.7.2
+ * Version: 7.9.0
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -156,6 +156,14 @@ final class Directorist_Base
 	 */
 	public $ATBDP_Single_Templates;
 
+	public $multi_directory_manager;
+	public $settings_panel;
+	public $hooks;
+	public $announcement;
+	public $review;
+
+	public $background_image_process = null;
+
 	/**
 	 * Main Directorist_Base Instance.
 	 *
@@ -195,7 +203,7 @@ final class Directorist_Base
 			Directorist\Asset_Loader\Asset_Loader::init();
 
 			// ATBDP_Listing_Type_Manager
-			self::$instance->multi_directory_manager = new Directorist\Multi_Directory_Manager();
+			self::$instance->multi_directory_manager = new Directorist\Multi_Directory\Multi_Directory_Manager();
 			self::$instance->multi_directory_manager->run();
 
 			self::$instance->settings_panel = new ATBDP_Settings_Panel();
@@ -219,6 +227,8 @@ final class Directorist_Base
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools();
 			self::$instance->announcement = new ATBDP_Announcement();
+
+			self::$instance->background_image_process = new \Directorist\Background_Image_Process();
 
 			// Load widgets
 			Directorist\Widgets\Init::instance();
@@ -361,6 +371,10 @@ final class Directorist_Base
 
 	// get_polylang_swicher_link_for_term
 	public function get_polylang_swicher_link_for_term( $args ) {
+		if ( ! function_exists( 'pll_get_post_language' ) ) {
+			return;
+		}
+
 		$default = [
 			'term_type'            => '',
 			'term_query_var'       => '',
@@ -437,6 +451,8 @@ final class Directorist_Base
 		$this->autoload( ATBDP_INC_DIR . 'widgets/' );
 
 		self::require_files([
+			ATBDP_INC_DIR . 'directorist-core-functions',
+			ATBDP_INC_DIR . 'directorist-directory-functions',
 			ATBDP_INC_DIR . 'class-helper',
 			ATBDP_INC_DIR . 'helper-functions',
 			ATBDP_INC_DIR . 'template-functions',
@@ -447,10 +463,11 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
-			ATBDP_INC_DIR . 'directorist-directory-functions',
 			ATBDP_INC_DIR . 'fields/init',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-builder-data',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/trait-multi-directory-helper',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-migration',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-manager',
-			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-migration'
 		]);
 
 		$this->autoload( ATBDP_INC_DIR . 'database/' );
@@ -657,36 +674,19 @@ final class Directorist_Base
 	}
 
 	/**
-	 * Parse the video URL and determine it's valid embeddable URL for usage.
+	 * Deprecated: 7.8.0
+	 *
+	 * This function is deprecated since version 7.8.0. Please use parse_video() instead.
+	 *
+	 * @param string $url The URL to parse for videos.
+	 * @return mixed The parsed video URL.
+	 *
+	 * @deprecated Use parse_video() for video parsing.
 	 */
-	public function atbdp_parse_videos($url)
-	{
-		$embeddable_url = '';
-		// Check for YouTube
-		$is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url);
+	public function atbdp_parse_videos( $url ) {
+		_deprecated_function( __METHOD__, '7.8.0', 'Directorist\Helper::parse_video()' );
 
-		if ($is_youtube) {
-			$pattern = '/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/';
-			preg_match($pattern, $url, $matches);
-			if (count($matches) && strlen($matches[7]) == 11) {
-				$embeddable_url = 'https://www.youtube.com/embed/' . $matches[7];
-			}
-		}
-
-		// Check for Vimeo
-		$is_vimeo = preg_match('/vimeo\.com/i', $url);
-
-		if ($is_vimeo) {
-			$pattern = '/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/';
-			preg_match($pattern, $url, $matches);
-			if (count($matches)) {
-				$embeddable_url = 'https://player.vimeo.com/video/' . $matches[2];
-			}
-		}
-
-		// Return
-		return $embeddable_url;
-
+		return \Directorist\Helper::parse_video( $url );
 	}
 
 	public function atbdp_body_class($c_classes)

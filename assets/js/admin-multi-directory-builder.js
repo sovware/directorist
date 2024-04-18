@@ -1662,6 +1662,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     preview: {
       required: false
+    },
+    editor: {
+      required: false
+    },
+    editorID: {
+      required: false
     }
   }
 });
@@ -14669,6 +14675,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       for (var _field in fields) {
         var _value = this.maybeJSON([fields[_field].value]);
 
+        if (fields[_field].editor) {
+          var privacyFieldID = fields[_field].editorID;
+          var editorInstance = tinymce.get(privacyFieldID);
+          _value = editorInstance.getContent();
+        }
+
         form_data.append(_field, _value);
         field_list.push(_field);
       }
@@ -16095,6 +16107,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -16154,6 +16167,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       var type_class = field && field.type ? "cptm-field-wraper-type-" + field.type : "cptm-field-wraper";
       var key_class = "cptm-field-wraper-key-" + field_key;
       return _ref = {}, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_ref, type_class, true), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_ref, key_class, true), _ref;
+    },
+    fieldWrapperID: function fieldWrapperID(field) {
+      var type_id = "";
+
+      if (field && field.editor !== undefined) {
+        type_id = field.editor === "wp_editor" ? "cptm-field_wp_editor" : "";
+      }
+
+      return type_id;
     }
   }
 });
@@ -31383,10 +31405,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'textarea-field-theme-default',
-  mixins: [_mixins_form_fields_textarea_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  mixins: [_mixins_form_fields_textarea_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  props: {
+    editor: {
+      required: false,
+      default: ''
+    },
+    editorID: {
+      required: false,
+      default: ''
+    },
+    fieldId: {
+      required: false,
+      default: ''
+    },
+    value: {
+      required: false,
+      default: ''
+    }
+  },
+  mounted: function mounted() {
+    var editorID = this.editorID;
+    var value = this.value;
+    tinymce.init({
+      selector: "#".concat(editorID),
+      plugins: 'link',
+      toolbar: 'undo redo | formatselect | bold italic | link',
+      menubar: false,
+      branding: false,
+      init_instance_callback: function init_instance_callback(editor) {
+        // Set the initial content using the init_instance_callback
+        editor.setContent(value);
+      }
+    }); // Save the editor instance for later use
+
+    this.editorInstance = tinymce.get(editorID);
+  }
 });
 
 /***/ }),
@@ -37037,6 +37096,7 @@ var render = function () {
                     {
                       key: field_key,
                       class: _vm.fieldWrapperClass(field, _vm.fields[field]),
+                      attrs: { id: _vm.fieldWrapperID(_vm.fields[field]) },
                     },
                     [
                       _vm.fields[field]
@@ -49497,33 +49557,34 @@ var render = function () {
           })
         : _vm._e(),
       _vm._v(" "),
-      _c("textarea", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.local_value,
-            expression: "local_value",
-          },
-        ],
-        staticClass: "cptm-form-control",
-        attrs: {
-          name: "",
-          id: "",
-          cols: _vm.cols,
-          rows: _vm.rows,
-          placeholder: _vm.placeholder,
-        },
-        domProps: { value: _vm.local_value },
-        on: {
-          input: function ($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.local_value = $event.target.value
-          },
-        },
-      }),
+      _vm.editor
+        ? _c("div", { attrs: { id: _vm.editorID } })
+        : _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.local_value,
+                expression: "local_value",
+              },
+            ],
+            staticClass: "cptm-form-control",
+            attrs: {
+              name: "",
+              cols: _vm.cols,
+              rows: _vm.rows,
+              placeholder: _vm.placeholder,
+            },
+            domProps: { value: _vm.local_value },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.local_value = $event.target.value
+              },
+            },
+          }),
       _vm._v(" "),
       _c("form-field-validatior", {
         attrs: {

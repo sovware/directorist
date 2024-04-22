@@ -105,7 +105,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php endif; ?>
 
 			<?php if ( $twitter ): ?>
-				<p><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitterx' ); ?></a></p>
+				<p><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a></p>
 			<?php endif; ?>
 
 			<?php if ( $linkedIn ): ?>

@@ -92,7 +92,7 @@ $avatar_img = get_avatar($author_id, 32);
 					<?php endif; ?>
 
 					<?php if ( $twitter = $listing->author_info( 'twitter' ) ): ?>
-						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitterx' ); ?></a></li>
+						<li class="directorist-author-social-item"><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a></li>
 					<?php endif; ?>
 
 					<?php if ( $linkedin = $listing->author_info( 'linkedin' ) ): ?>

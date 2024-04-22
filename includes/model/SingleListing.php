@@ -445,7 +445,7 @@ class Directorist_Single_Listing {
 			),
 			'twitter' => array(
 				'title' => __('Twitter', 'directorist'),
-				'icon'  => 'lab la-twitterx',
+				'icon'  => 'lab la-twitter',
 				'link'  => 'https://twitter.com/intent/tweet?text=' . $title . '&amp;url=' . $link,
 			),
 			'linkedin' => array(

@@ -188,7 +188,7 @@ class Directorist_Listing_Dashboard {
 		$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 		$listing_img       = get_post_meta($id, '_listing_img', true);
 
-		if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
+		if ( is_array( $listing_img ) && ! empty( $listing_img[0] ) ) {
 			$thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
 			$thumbnail_id = $listing_img[0];
 		}
@@ -462,7 +462,7 @@ class Directorist_Listing_Dashboard {
 		}
 
 		$directory_type 		= default_directory_type();
-        $edit_listing_status    = get_term_meta( $directory_type, 'edit_listing_status', true );
+        $edit_listing_status    = directorist_get_listing_edit_status( $directory_type );
 		$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 		$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
 		$confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;

@@ -220,22 +220,39 @@ $(document).ready(function () {
 
     }
 
-    // price range
-    if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
-        $('#price').show();
-        $('#price_range').hide();
+    /**
+     * Price field.
+     */
+    function getPriceTypeInput(typeId) {
+        return $(`#${$(`[for="${typeId}"]`).data('option')}`);
     }
-    $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
-        const $this = $(this);
-        if ($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true) {
-            $(`#${$this.data('option')}`).hide();
+
+    $( '.directorist-form-pricing-field__options' ).on( 'change', 'input', function() {
+        const $otherOptions = $(this).parent().siblings('.directorist-checkbox').find( 'input' );
+
+        $otherOptions.prop( 'checked', false );
+        getPriceTypeInput( $otherOptions.attr('id') ).hide();
+
+        if ( this.checked ) {
+            getPriceTypeInput( this.id ).show();
         } else {
-            $(`#${$this.data('option')}`).show();
+            getPriceTypeInput( this.id ).hide();
         }
-        const $sibling = $this.parent().siblings('.directorist-checkbox');
-        $sibling.children('input[type=checkbox]').prop('checked', false);
-        $(`#${$sibling.children('.directorist-checkbox__label').data('option')}`).hide();
-    });
+    } );
+
+    if ( $( '.directorist-form-pricing-field' ).hasClass( 'price-type-both' ) ) {
+        $( '#price_range, #price' ).hide();
+
+        const $selectedPriceType = $( '.directorist-form-pricing-field__options input:checked' );
+
+        if ( $selectedPriceType.length ) {
+            getPriceTypeInput( $selectedPriceType.attr( 'id' ) ).show();
+        } else {
+            $( $( '.directorist-form-pricing-field__options input' ).get(0) )
+                .prop( 'checked', true )
+                .trigger( 'change' );
+        }
+    }
 
     const has_tagline = $('#has_tagline').val();
     const has_excerpt = $('#has_excerpt').val();
@@ -507,7 +524,7 @@ $(document).ready(function () {
                     success( response ) {
                         if ( ! response.success ) {
                             enableSubmitButton()
-                            
+
                             $notification.show().html(`<span class="atbdp_error">${response.data}</span>`);
 
                             return;
@@ -516,7 +533,7 @@ $(document).ready(function () {
                         uploadedImages.push( response.data );
 
                         counter++;
-                        
+
                         if ( counter < selectedImages.length ) {
                             uploadImage();
                         } else {
@@ -544,27 +561,27 @@ $(document).ready(function () {
             var error_count = 0;
             var err_log     = {};
             let form_data   = new FormData();
-    
+
             form_data.append('action', 'add_listing_action');
             form_data.append('directorist_nonce', directorist.directorist_nonce);
             form_data.append('listing_img', uploadedImages );
-    
+
             disableSubmitButton();
-    
+
             const fieldValuePairs = $form.serializeArray();
-    
+
             // Append Form Fields Values
             for ( const field of fieldValuePairs ) {
                 form_data.append( field.name, field.value );
             }
-    
+
             //images
             if (mediaUploaders.length) {
                 for (var uploader of mediaUploaders) {
                     if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
                         continue;
                     }
-    
+
                     if (uploader.media_uploader.hasValidFiles()) {
                         var files_meta = uploader.media_uploader.getFilesMeta();
                         if (files_meta) {
@@ -576,16 +593,16 @@ $(document).ready(function () {
                         err_log.listing_gallery = {
                             msg: uploader.uploaders_data['error_msg']
                         };
-    
+
                         error_count++;
-    
+
                         if ($('.' + uploader.uploaders_data.element_id).length) {
                             scrollTo('.' + uploader.uploaders_data.element_id);
                         }
                     }
                 }
             }
-    
+
             // categories
             const categories = $form.find('#at_biz_dir-categories').val();
             if ( Array.isArray( categories ) && categories.length ) {
@@ -593,30 +610,30 @@ $(document).ready(function () {
                     form_data.append('tax_input[at_biz_dir-category][]', categories[key]);
                 }
             }
-    
+
             if ( typeof categories === 'string' ) {
                 form_data.append('tax_input[at_biz_dir-category][]', categories);
             }
-    
+
             if( form_data.has( 'admin_category_select[]') ) {
                 form_data.delete( 'admin_category_select[]' );
             }
-    
+
             if( form_data.has( 'directory_type') ) {
                 form_data.delete( 'directory_type' );
             }
-    
+
             var form_directory_type = $form.find( "input[name='directory_type']" );
-    
+
             var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.val() : '';
             var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
-    
+
             form_data.append('directory_type', directory_type);
-    
+
             if (qs.plan) {
                 form_data.append('plan_id', qs.plan);
             }
-    
+
             if (error_count) {
                 enableSubmitButton();
 
@@ -641,33 +658,33 @@ $(document).ready(function () {
                 success(response) {
                     var redirect_url = ( response && response.redirect_url ) ? response.redirect_url : '';
                     redirect_url = ( redirect_url && typeof redirect_url === 'string' ) ? response.redirect_url.replace( /:\/\//g, '%3A%2F%2F' ) : '';
-    
+
                     if (response.error === true) {
                         enableSubmitButton();
-                        
+
                         $notification.show().html(`<span>${response.error_msg}</span>`);
-    
+
                         if (response.quick_login_required) {
                             var modal = $('#directorist-quick-login');
                             var email = response.email;
-    
+
                             // Prepare fields
                             modal.find('input[name="email"]').val(email);
                             modal.find('input[name="email"]').prop('disabled', true);
-    
+
                             // Show alert
                             var alert = '<div class="directorist-alert directorist-alert-info directorist-mb-10 atbd-text-center directorist-mb-10">' + response.error_msg + '</div>';
                             modal.find('.directorist-modal-alerts-area').html(alert);
-    
+
                             // Show the modal
                             modal.addClass('show');
-    
+
                             quick_login_modal__success_callback = function (args) {
                                 $('#guest_user_email').prop('disabled', true);
                                 $notification.hide().html('');
-    
+
                                 args.elements.submit_button.remove();
-    
+
                                 var form_actions = args.elements.form.find('.directorist-form-actions');
                                 form_actions.find('.directorist-toggle-modal').removeClass('directorist-d-none');
                             }
@@ -679,9 +696,9 @@ $(document).ready(function () {
                                 $notification
                                     .show()
                                     .html(`<span class="atbdp_success">${response.success_msg}</span>`);
-    
+
                                 window.location.href = joinQueryString( response.preview_url, `preview=1&redirect=${redirect_url}` );
-    
+
                             } else {
                                 $notification
                                     .show()
@@ -697,7 +714,7 @@ $(document).ready(function () {
                             window.location.href = joinQueryString( response.preview_url, `preview=1&payment=1&redirect=${redirect_url}` );
                         } else {
                             const is_edited = response.edited_listing ? `listing_id=${response.id}&edited=1` : '';
-    
+
                             if (response.need_payment === true) {
                                 $notification.show().html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                 window.location.href = decodeURIComponent(redirect_url);

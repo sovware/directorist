@@ -295,69 +295,98 @@
             return $data;
         }
 
+        public static function atbdp_legacy_insert_attachment_from_url( $file_url, $post_id ) {
 
-       public static function atbdp_insert_attachment_from_url( $file_url ) {
-
-        if (!filter_var($file_url, FILTER_VALIDATE_URL)) {
-            return false;
-        }
-        $contents = @file_get_contents($file_url);
-
-        if ($contents === false) {
-            return false;
-        }
-
-        if( ! wp_check_filetype( $file_url )['ext'] ) {
-
-            $headers = array(
-                'Accept'     => 'application/json',
-            );
-
-            $config = array(
-                'method'      => 'GET',
-                'timeout'     => 30,
-                'redirection' => 5,
-                'httpversion' => '1.0',
-                'headers'     => $headers,
-                'cookies'     => array(),
-            );
-
-            $upload = array();
-
-            try {
-                $response = wp_remote_get( $file_url, $config );
-
-                if ( ! is_wp_error( $response ) ) {
-                    $type = wp_remote_retrieve_header( $response, 'content-type' );
-                    $extension = preg_replace("/\w+\//", '', $type );
-                    $upload = wp_upload_bits(basename( $file_url . '.'. $extension ), '', wp_remote_retrieve_body($response));
-
+            if (!filter_var($file_url, FILTER_VALIDATE_URL)) {
+                return false;
+            }
+            $contents = @file_get_contents($file_url);
+    
+            if ($contents === false) {
+                return false;
+            }
+    
+            if( ! wp_check_filetype( $file_url )['ext'] ) {
+    
+                $headers = array(
+                    'Accept'     => 'application/json',
+                );
+    
+                $config = array(
+                    'method'      => 'GET',
+                    'timeout'     => 30,
+                    'redirection' => 5,
+                    'httpversion' => '1.0',
+                    'headers'     => $headers,
+                    'cookies'     => array(),
+                );
+    
+                $upload = array();
+    
+                try {
+                    $response = wp_remote_get( $file_url, $config );
+    
+                    if ( ! is_wp_error( $response ) ) {
+                        $type = wp_remote_retrieve_header( $response, 'content-type' );
+                        $extension = preg_replace("/\w+\//", '', $type );
+                        $upload = wp_upload_bits(basename( $file_url . '.'. $extension ), '', wp_remote_retrieve_body($response));
+    
+                    }
+                } catch ( Exception $e ) {
+    
                 }
-            } catch ( Exception $e ) {
-
+            }else{
+                $upload = wp_upload_bits(basename($file_url), null, $contents);
             }
-        }else{
-            $upload = wp_upload_bits(basename($file_url), null, $contents);
-        }
-
-        if (isset($upload['error']) && $upload['error']) {
-            return false;
-        }
-
-        $type = '';
-        if (!empty($upload['type'])) {
-            $type = $upload['type'];
-        } else {
-            $mime = wp_check_filetype($upload['file']);
-            if ($mime) {
-                $type = $mime['type'];
+    
+            if (isset($upload['error']) && $upload['error']) {
+                return false;
             }
+    
+            $type = '';
+            if (!empty($upload['type'])) {
+                $type = $upload['type'];
+            } else {
+                $mime = wp_check_filetype($upload['file']);
+                if ($mime) {
+                    $type = $mime['type'];
+                }
+            }
+            $attachment = array( 'post_title' => basename($upload['file']), 'post_content' => '', 'post_type' => 'attachment', 'post_mime_type' => $type, 'guid' => $upload['url'] );
+            $id = wp_insert_attachment( $attachment, $upload['file'], $post_id );
+            wp_update_attachment_metadata( $id, wp_generate_attachment_metadata($id, $upload['file']) );
+            return $id;
+    
         }
-        $attachment = array('post_title' => basename($upload['file']), 'post_content' => '', 'post_type' => 'attachment', 'post_mime_type' => $type, 'guid' => $upload['url']);
-        $id = wp_insert_attachment($attachment, $upload['file']);
-        wp_update_attachment_metadata($id, wp_generate_attachment_metadata($id, $upload['file']));
-        return $id;
 
+
+        public static function atbdp_updated_insert_attachment_from_url( $image_url, $post_id ) {
+
+            if (!filter_var($image_url, FILTER_VALIDATE_URL)) {
+                return false;
+            }
+
+            $upload = directorist_rest_upload_image_from_url( esc_url_raw( $image_url ) );
+
+            if ( is_wp_error( $upload ) ) {
+                return $upload;
+            }
+
+            $image_id = directorist_rest_set_uploaded_image_as_attachment( $upload, $post_id );
+
+            return $image_id;
+
+        }
+
+        public static function atbdp_insert_attachment_from_url( $image_url, $post_id ) {
+
+            $legacy = apply_filters( 'directorist_legacy_attachment_importer', false, $image_url, $post_id );
+            
+            if( ! $legacy ) {
+                return self::atbdp_updated_insert_attachment_from_url( $image_url, $post_id );
+            }
+            
+            return self::atbdp_legacy_insert_attachment_from_url( $image_url, $post_id );
         }
 
 		public static function on_wp_handle_upload_prefilter( $file ) {

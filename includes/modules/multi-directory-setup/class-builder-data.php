@@ -812,7 +812,7 @@ class Builder_Data {
                                 'type'  => 'range',
                                 'label' => __( 'Default Radius Distance', 'directorist' ),
                                 'min'   => 0,
-                                'max'   => 750,
+                                'max'   => apply_filters( 'directorist_search_default_radius_distance', 750 ),
                                 'value' => 0,
                             ],
                             'radius_search_unit'      => [
@@ -1508,13 +1508,13 @@ class Builder_Data {
             ],
         ] );
 
-        $listing_card_list_view_widget = $listing_card_widget;
+        $listing_card_conditional_widget = $listing_card_widget;
 
-        if (  ! empty( $listing_card_list_view_widget['user_avatar'] ) ) {
-            $listing_card_list_view_widget['user_avatar']['can_move'] = true;
+        if (  ! empty( $listing_card_conditional_widget['user_avatar'] ) ) {
+            $listing_card_conditional_widget['user_avatar']['can_move'] = true;
 
-            if (  ! empty( $listing_card_list_view_widget['user_avatar']['options'] ) ) {
-                unset( $listing_card_list_view_widget['user_avatar']['options'] );
+            if (  ! empty( $listing_card_conditional_widget['user_avatar']['options'] ) ) {
+                unset( $listing_card_conditional_widget['user_avatar']['options'] );
             }
 
         }
@@ -2335,7 +2335,7 @@ class Builder_Data {
                     'grid_view_without_thumbnail' => [
                         'label'    => __( 'Without Preview Image', 'directorist' ),
                         'template' => 'grid-view-without-thumbnail',
-                        'widgets'  => $listing_card_widget,
+                        'widgets'  => $listing_card_conditional_widget,
                         'layout'   => $listing_card_grid_view_without_thumbnail_layout,
                     ],
                 ],
@@ -2347,13 +2347,13 @@ class Builder_Data {
                     'list_view_with_thumbnail'    => [
                         'label'    => __( 'With Preview Image', 'directorist' ),
                         'template' => 'list-view-with-thumbnail',
-                        'widgets'  => $listing_card_widget,
+                        'widgets'  => $listing_card_conditional_widget,
                         'layout'   => $listing_card_list_view_with_thumbnail_layout,
                     ],
                     'list_view_without_thumbnail' => [
                         'label'    => __( 'Without Preview Image', 'directorist' ),
                         'template' => 'list-view-without-thumbnail',
-                        'widgets'  => $listing_card_widget,
+                        'widgets'  => $listing_card_conditional_widget,
                         'layout'   => $listing_card_list_view_without_thumbnail_layout,
                     ],
                 ],

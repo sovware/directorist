@@ -140,7 +140,7 @@ class Comment_Form_Renderer {
 		$comment_type = __( 'comment', 'directorist' );
 		if ( $comment->comment_type === 'review' ) {
 			$rating = Comment::get_rating( $comment->comment_ID );
-			$fields['rating'] = '<div class="directorist-review-criteria">' . Markup::get_rating( $rating ) . '</div>';
+			$fields['rating'] = '<div class="directorist-review-criteria directorist-adv-criteria">' . Markup::get_rating( $rating, $comment ) . '</div>';
 			$comment_type = __( 'review', 'directorist' );
 		}
 
@@ -245,6 +245,16 @@ class Comment_Form_Renderer {
 				)
 			),
 		);
+
+		if ( directorist_is_review_gdpr_consent_enabled() && ! is_user_logged_in() ) {
+			$args['fields']['gdpr_consent'] = sprintf(
+				'<p class="comment-form-gdpr-consent comment-form-cookies-consent">
+					<input id="directorist-gdpr-consent" name="directorist-gdpr-consent" type="checkbox" value="yes" required />
+					<label for="directorist-gdpr-consent"><span class="required">*</span> %s</label>
+				</p>',
+				directorist_get_review_gdpr_consent_label()
+			);
+		}
 
 		if ( has_action( 'set_comment_cookies', 'wp_set_comment_cookies' ) && get_option( 'show_comments_cookies_opt_in' ) ) {
 			$consent = empty( $commenter['comment_author_email'] ) ? '' : ' checked="checked"';

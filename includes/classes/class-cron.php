@@ -94,9 +94,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		  */
 
 		private function featured_listing_followup() {
-			$monitization    = get_directorist_option( 'enable_monetization' );
-			$featured_enable = get_directorist_option( 'enable_featured_listing' );
-			if ( $monitization && $featured_enable ) {
+			if ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ) {
 				$featured_days = get_directorist_option( 'featured_listing_time', 30 );
 				// Define the query
 				$args = array(
@@ -229,7 +227,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 			$can_renew         = get_directorist_option( 'can_renew_listing' );
 			$email_renewal_day = get_directorist_option( 'email_renewal_day' );
 			$delete_in_days    = get_directorist_option( 'delete_expired_listings_after' );
-			$del_exp_l         = get_directorist_option( 'delete_expired_listing', 1 );
+			$del_exp_l         = get_directorist_option( 'delete_expired_listing' );
 			// add renewal reminder days to deletion thresholds
 			$delete_threshold = $can_renew ? (int) $email_renewal_day + (int) $delete_in_days : $delete_in_days;
 
@@ -416,7 +414,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		 */
 		private function delete_expired_listings() {
 
-			$del_exp_l = get_directorist_option( 'delete_expired_listing', 1 );
+			$del_exp_l = get_directorist_option( 'delete_expired_listing' );
 			if ( ! $del_exp_l ) {
 				return; // vail if admin does not want to delete expired listing
 			}

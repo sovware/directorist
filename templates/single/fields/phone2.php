@@ -13,10 +13,9 @@ $phone_args = array(
 	'number'    => $value,
 	'whatsapp'  => $listing->has_whatsapp( $data ),
 );
+
 ?>
-
 <div class="directorist-single-info directorist-single-info-phone2">
-
 	<div class="directorist-single-info__label">
 		<span class="directorist-single-info__label-icon"><?php directorist_icon( $icon );?></span>
 		<span class="directorist-single-info__label--text"><?php echo esc_html( $data['label'] ); ?></span>
@@ -25,5 +24,4 @@ $phone_args = array(
 	<div class="directorist-single-info__value">
 		<a href="<?php echo esc_url( Helper::phone_link( $phone_args ) ); ?>"><?php echo esc_html( $value ); ?></a>
 	</div>
-
 </div>

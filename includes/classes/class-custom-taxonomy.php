@@ -261,12 +261,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			// get current group
 			$icon_name                = get_term_meta( $term->term_id, 'category_icon', true );
 			$selected_directory_types = (array) get_term_meta( $term->term_id, '_directory_type', true );
-			$directory_types          = get_terms(
-				array(
-					'taxonomy'   => ATBDP_TYPE,
-					'hide_empty' => false,
-				)
-			);
+			$directory_types          = directorist_get_directories();
 			$default_listing_type = $this->default_listing_type();
 			if ( ! $default_listing_type ) {
 				?>
@@ -331,12 +326,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			$directory_type       = get_term_meta( $term->term_id, '_directory_type', true );
 			$value                = ! empty( $directory_type ) ? $directory_type : array();
 			$image_src            = ( $image_id ) ? wp_get_attachment_url( (int) $image_id ) : '';
-			$directory_types      = get_terms(
-				array(
-					'taxonomy'   => ATBDP_TYPE,
-					'hide_empty' => false,
-				)
-			);
+			$directory_types      = directorist_get_directories();
 			$default_listing_type = $this->default_listing_type();
 			if ( ! $default_listing_type ) { ?>
 			<tr class="form-field term-group-wrap">
@@ -422,12 +412,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 		}
 
 		public function add_category_form_fields( $taxonomy ) {
-			$directory_types      = get_terms(
-				array(
-					'taxonomy'   => ATBDP_TYPE,
-					'hide_empty' => false,
-				)
-			);
+			$directory_types      = directorist_get_directories();
 			$default_listing_type = $this->default_listing_type();
 			if ( ! $default_listing_type ) {
 				?>
@@ -468,12 +453,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 		}
 
 		public function add_location_form_fields( $taxonomy ) {
-			$directory_types      = get_terms(
-				array(
-					'taxonomy'   => ATBDP_TYPE,
-					'hide_empty' => false,
-				)
-			);
+			$directory_types      = directorist_get_directories();
 			$default_listing_type = $this->default_listing_type();
 			if ( ! $default_listing_type ) {
 				?>
@@ -633,12 +613,11 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 		public function category_columns( $original_columns ) {
 			$new_columns = $original_columns;
 			array_splice( $new_columns, 1 ); // in this way we could place our columns on the first place after the first checkbox.
-			$enable_multi_directory = get_directorist_option( 'enable_multi_directory' );
 
 			$new_columns['ID'] = __( 'ID', 'directorist' );
-
 			$new_columns['atbdp_category_icon'] = __( 'Icon', 'directorist' );
-			if ( ! empty( $enable_multi_directory ) ) {
+
+			if ( directorist_is_multi_directory_enabled() ) {
 				$new_columns['atbdp_category_directory_type'] = __( 'Directory Type', 'directorist' );
 			}
 
@@ -648,8 +627,8 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 		public function location_columns( $original_columns ) {
 			$new_columns = $original_columns;
 			array_splice( $new_columns, 2 ); // in this way we could place our columns on the first place after the first checkbox.
-			$enable_multi_directory = get_directorist_option( 'enable_multi_directory' );
-			if ( ! empty( $enable_multi_directory ) ) {
+
+			if ( directorist_is_multi_directory_enabled() ) {
 				$new_columns['atbdp_location_directory_type'] = __( 'Directory Type', 'directorist' );
 			}
 
@@ -833,21 +812,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 		}
 
 		public function get_listing_types() {
-			$listing_types = array();
-			$args          = array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			);
-			$all_types     = get_terms( $args );
-
-			foreach ( $all_types as $type ) {
-				$listing_types[ $type->term_id ] = array(
-					'term' => $type,
-					'name' => $type->name,
-					'data' => get_term_meta( $type->term_id, 'general_config', true ),
-				);
-			}
-			return $listing_types;
+			return directorist_get_directories_for_template();
 		}
 
 		public function get_current_listing_type() {
@@ -871,8 +836,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 		}
 
 		public function default_listing_type() {
-			$enable_multi_directory = get_directorist_option( 'enable_multi_directory' );
-			if ( empty( $enable_multi_directory ) || ( 1 == count( $this->get_listing_types() ) ) ) {
+			if ( ! directorist_is_multi_directory_enabled() || ( 1 == count( $this->get_listing_types() ) ) ) {
 				return $this->get_current_listing_type();
 			}
 		}

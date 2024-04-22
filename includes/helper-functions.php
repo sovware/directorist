@@ -4229,5 +4229,5 @@ function directorist_get_listing_edit_status( $directory_type ) {
         $edit_listing_status = $new_listing_status;
     }
 
-    return $edit_listing_status;
+    return apply_filters( 'directorist_edit_listing_status', $edit_listing_status, $directory_type );
 }

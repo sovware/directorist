@@ -1477,7 +1477,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'delete_expired_listing' => [
                     'label' => __('Delete/Trash Expired Listings', 'directorist'),
                     'type'  => 'toggle',
-                    'value' => true,
+                    'value' => false,
                 ],
                 'delete_expired_listings_after' => [
                     'label' => __('Delete/Trash Expired Listings After (days) of Expiration', 'directorist'),

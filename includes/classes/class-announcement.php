@@ -512,6 +512,33 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 				$message = atbdp_email_html( $subject, $message );
 				$headers = ATBDP()->email->get_email_headers();
 
+				/**
+				 * Filter the email headers for Directorist announcement emails.
+				 *
+				 * Allows developers to modify the email headers before sending Directorist announcement emails.
+				 *
+				 * @since 7.8.3
+				 *
+				 * @param string $headers   The email headers.
+				 * @param string[] $recipients The email recipients.
+				 *
+				 * @return string The filtered email headers.
+				 */
+				$headers = apply_filters( 'directorist_announcement_email_headers', $headers, $recipients );
+
+				/**
+				 * Filter the email recipients for Directorist announcement emails.
+				 *
+				 * Allows developers to modify the list of email recipients for Directorist announcement emails.
+				 *
+				 * @since 7.8.3
+				 *
+				 * @param string[] $recipients The email recipients.
+				 *
+				 * @return string[] The filtered email recipients.
+				 */
+				$recipients = apply_filters( 'directorist_announcement_email_recipients', $recipients );
+
 				ATBDP()->email->send_mail( $recipients, $subject, $message, $headers );
 			}
 

@@ -161,7 +161,7 @@ class Walker extends Walker_Comment {
 					<?php
 					echo wp_kses_post( $comment_reply_link );
 
-					echo wp_kses_post( directorist_get_comment_edit_link(
+					$edit_link = directorist_get_comment_edit_link(
 						array_merge(
 							$args,
 							array(
@@ -170,7 +170,13 @@ class Walker extends Walker_Comment {
 								'max_depth'  => $args['max_depth']
 							)
 						)
-					) );
+					);
+
+					if ( $edit_link ) {
+
+						echo wp_kses_post( $edit_link );
+						
+					}
 					?>
 				</div>
 				<?php endif; ?>

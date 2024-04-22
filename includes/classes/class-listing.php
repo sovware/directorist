@@ -80,12 +80,11 @@ if (!class_exists('ATBDP_Listing')):
             if (isset($_GET['post_type'])) {
                 $type = ! empty( $_GET['post_type'] ) ? directorist_clean( wp_unslash( $_GET['post_type'] ) ) : '';
             }
-            $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 
             //only add filter to post type you want
-            if ( ( 'at_biz_dir' == $type ) && ( atbdp_is_truthy( $enable_multi_directory ) ) ) { ?>
+            if ( ( 'at_biz_dir' == $type ) && directorist_is_multi_directory_enabled() ) { ?>
                 <select name="directory_type">
-                    <option value=""><?php esc_html_e('Filter by directory ', 'directorist'); ?></option>
+                    <option value=""><?php esc_html_e( 'Filter by directory ', 'directorist' ); ?></option>
                     <?php
                     $current_v = ! empty( $_GET['directory_type'] ) ? directorist_clean( wp_unslash( $_GET['directory_type'] ) ) : '';
 
@@ -124,8 +123,8 @@ if (!class_exists('ATBDP_Listing')):
                     update_post_meta( $id, '_directory_type', $directory_type );
                     wp_set_object_terms($id, (int)$directory_type, ATBDP_TYPE);
                 }
-                $new_l_status = get_term_meta( $directory_type, 'new_listing_status', true );
-                $edit_l_status = get_term_meta( $directory_type, 'edit_listing_status', true );
+                $new_l_status  = get_term_meta( $directory_type, 'new_listing_status', true );
+                $edit_l_status = directorist_get_listing_edit_status( $directory_type );
 
                 $edited = isset($_GET['edited']) ? directorist_clean( wp_unslash( $_GET['edited'] ) ) : '';
                 $args = [ 'id' => $id, 'edited' => $edited, 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status ];
@@ -152,11 +151,15 @@ if (!class_exists('ATBDP_Listing')):
 
         // update_listing_status
         public function update_listing_status( $order_id, $listing_id ) {
-            $featured_enabled = get_directorist_option('enable_featured_listing');
             $pricing_plan_enabled = is_fee_manager_active();
 
-            if ( $pricing_plan_enabled ) { return; };
-            if ( ! $featured_enabled ) { return; };
+            if ( $pricing_plan_enabled ) {
+				return;
+			};
+
+            if ( ! directorist_is_featured_listing_enabled() ) {
+				return;
+			};
 
             $directory_type = get_post_meta( $listing_id, '_directory_type', true );
             $post_status = get_term_meta( $directory_type, 'new_listing_status', true );

@@ -137,7 +137,7 @@ function directorist_710_update_db_version() {
 	\ATBDP_Installation::update_db_version( '7.1.0' );
 }
 
-function directorist_790_clean_falsy_never_expire_meta() {
+function directorist_791_clean_falsy_never_expire_meta() {
 	global $wpdb;
 
 	$wp_postmeta = $wpdb->prefix . 'postmeta';
@@ -154,6 +154,6 @@ function directorist_790_clean_falsy_never_expire_meta() {
 	$wpdb->query( $query );
 }
 
-function directorist_790_update_db_version() {
-	\ATBDP_Installation::update_db_version( '7.9.0' );
+function directorist_791_update_db_version() {
+	\ATBDP_Installation::update_db_version( '7.9.1' );
 }

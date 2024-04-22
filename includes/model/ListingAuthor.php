@@ -85,21 +85,7 @@ class Directorist_Listing_Author {
 	}
 
 	public function get_listing_types() {
-		$listing_types = array();
-		$args          = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false
-		);
-		$all_types     = get_terms( $args );
-
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'term' => $type,
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
-		}
-		return $listing_types;
+		return directorist_get_directories_for_template();
 	}
 
 	public function get_current_listing_type() {
@@ -131,9 +117,7 @@ class Directorist_Listing_Author {
 
 	// Hooks ------------
 	public function archive_type( $listings ) {
-		$count = count( $listings->listing_types );
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
+		if ( count( $listings->listing_types ) > 1 && directorist_is_multi_directory_enabled() ) {
 			Helper::get_template( 'archive/directory-type-nav', array('listings' => $listings) );
 		}
 	}

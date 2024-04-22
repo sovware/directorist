@@ -84,7 +84,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             $fields['single_listing_slug_with_directory_type'] = [
                 'type'  => 'toggle',
                 'label' => __('Listing Slug with Directory Type', 'directorist'),
-                'value' => get_directorist_option( 'enable_multi_directory' ),
+                'value' => directorist_is_multi_directory_enabled(),
                 'show-if' => [
                     'where' => "enable_multi_directory",
                     'conditions' => [
@@ -117,7 +117,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         'label' => __( 'Start Building Directory', 'directorist' ),
                         'type'  => 'success',
                         'url'   => admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types' ),
-                        'show'  => get_directorist_option( 'enable_multi_directory', false ),
+                        'show'  => directorist_is_multi_directory_enabled(),
                     ]
                 ]
             ];
@@ -1477,7 +1477,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'delete_expired_listing' => [
                     'label' => __('Delete/Trash Expired Listings', 'directorist'),
                     'type'  => 'toggle',
-                    'value' => true,
+                    'value' => false,
                 ],
                 'delete_expired_listings_after' => [
                     'label' => __('Delete/Trash Expired Listings After (days) of Expiration', 'directorist'),
@@ -2832,6 +2832,20 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
+                'search_max_radius_distance' => [
+                    'label'         => __('Maximum Radius Distance', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '1000',
+                    'min'           => '0',
+                    'max'           => '1000',
+                    'step'          => '10',
+                    'show-if' => [
+                        'where' => "search_more_filter",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
                 'search_listing_text'    => [
                     'type'          => 'text',
                     'label'         => __('Search Button Text', 'directorist'),
@@ -3548,23 +3562,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'         => __('Currency Name', 'directorist'),
                     'description'   => __('Enter the Name of the currency eg. USD or GBP etc.', 'directorist'),
                     'value'         => 'USD',
-                ],
-                'g_thousand_separator'    => [
-                    'type'          => 'text',
-                    'label'         => __('Thousand Separator', 'directorist'),
-                    'description'   => __('Enter the currency thousand separator. Eg. , or . etc.', 'directorist'),
-                    'value'         => ',',
-                ],
-                'allow_decimal' => [
-                    'label'         => __('Allow Decimal', 'directorist'),
-                    'type'          => 'toggle',
-                    'value'         => true,
-                ],
-                'g_decimal_separator'    => [
-                    'type'          => 'text',
-                    'label'         => __('Decimal Separator', 'directorist'),
-                    'description'   => __('Enter the currency decimal separator. Eg. "." or ",". Default is "."', 'directorist'),
-                    'value'         => '.',
                 ],
                 'g_currency_position' => [
                     'label'        => __('Currency Position', 'directorist'),
@@ -4620,26 +4617,13 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
 
-
-                        // 'review' => [
-                        //     'label' => __('Review', 'directorist'),
-                        //     'icon' => '<i class="fa fa-star"></i>',
-                        //     'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
-                        //         'labels' => [
-                        //             'fields'      => [
-                        //                 'enable_review', 'enable_owner_review', 'approve_immediately', 'review_approval_text', 'enable_reviewer_img', 'enable_reviewer_content', 'required_reviewer_content', 'review_num', 'guest_review'
-                        //             ],
-                        //         ],
-                        //     ] ),
-                        // ],
-
                         'currency_settings' => [
                             'label' => __( 'Listing Currency', 'directorist' ),
                             'icon' => '<i class="fa fa-money-bill"></i>',
                             'sections' => apply_filters( 'atbdp_currency_settings_sections', [
                                 'title_metas' => [
                                     'fields'      => [
-                                        'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
+                                        'g_currency_note', 'g_currency', 'g_currency_position'
                                      ],
                                 ],
                             ] ),
@@ -4700,7 +4684,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'directorist_search_setting_sections', [
                                 'search_form' => [
                                     'fields'      => [
-                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg',
+                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_max_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg',
                                      ],
                                 ],
                             ] ),
@@ -4886,6 +4870,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
                             ] ),
                         ],
+                        
                         'user_dashboard' => [
                             'label' => __('Dashboard', 'directorist'),
                             'icon' => '<i class="fa fa-chart-bar"></i>',

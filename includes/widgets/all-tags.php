@@ -74,14 +74,17 @@ class All_Tags extends \WP_Widget {
             'hide_empty' => [
 				'label'   => esc_html__( 'Hide empty tags', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'show_count' => [
 				'label'   => esc_html__( 'Display listing counts', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'display_single_tag' => [
 				'label'   => esc_html__( 'Display single listing tags', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
         ];
 
@@ -95,9 +98,9 @@ class All_Tags extends \WP_Widget {
 		$instance['display_as']         = ! empty( $new_instance['display_as'] ) ? sanitize_text_field( $new_instance['display_as'] ) : 'list';
         $instance['order_by']           = ! empty( $new_instance['order_by'] ) ? sanitize_text_field( $new_instance['order_by'] ) : 'id';
         $instance['order']              = ! empty( $new_instance['order'] ) ? sanitize_text_field( $new_instance['order'] ) : 'asc';
-        $instance['hide_empty']         = isset( $new_instance['hide_empty'] ) ? 1 : 0;
-        $instance['show_count']         = isset( $new_instance['show_count'] ) ? 1 : 0;
-        $instance['display_single_tag'] = isset( $new_instance['display_single_tag'] ) ? 1 : 0;
+        $instance['hide_empty']         = ! empty( $new_instance['hide_empty'] ) ? 1 : 0;
+        $instance['show_count']         = ! empty( $new_instance['show_count'] ) ? 1 : 0;
+        $instance['display_single_tag'] = ! empty( $new_instance['display_single_tag'] ) ? 1 : 0;
         $instance['max_number']         = ! empty( $new_instance['max_number'] ) ? $new_instance['max_number'] : '';
 
 		return $instance;
@@ -161,13 +164,13 @@ class All_Tags extends \WP_Widget {
 	}
 
     public function directorist_tags_list( $settings ) {
-
-        if( $settings['display_single_tag'] ) {
+        if ( $settings['display_single_tag'] ) {
             $terms = get_the_terms(get_the_ID(), ATBDP_TAGS);
             $html = '';
-            if (!empty($terms)) {
+
+            if ( ! empty( $terms ) ) {
                 $html .= '<ul>';
-                foreach ($terms as $term) {
+                foreach ( $terms as $term ) {
                     $html .= '<li>';
                     $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_tag_page($term) . '">';
                     $html .= $term->name;
@@ -177,62 +180,51 @@ class All_Tags extends \WP_Widget {
                 $html .= '</ul>';
             }
         } else {
-
-
-            if ($settings['immediate_category']) {
-
-                if ($settings['term_id'] > $settings['parent'] && !in_array($settings['term_id'], $settings['ancestors'])) {
-                    return;
-                }
-
+            if ( $settings['immediate_category'] &&
+				( $settings['term_id'] > $settings['parent'] ) &&
+				! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+				return;
             }
 
             $args = array(
-                'taxonomy' => ATBDP_TAGS,
-                'orderby' => $settings['orderby'],
-                'order' => $settings['order'],
-                'hide_empty' => $settings['hide_empty'],
-                'parent' => !empty($settings['term_id']) ? $settings['term_id'] : '',
+                'taxonomy'     => ATBDP_TAGS,
+                'orderby'      => $settings['orderby'],
+                'order'        => $settings['order'],
+                'hide_empty'   => $settings['hide_empty'],
+                'parent'       => !empty($settings['term_id']) ? $settings['term_id'] : '',
                 'hierarchical' => !empty($settings['hide_empty']) ? true : false,
-                'number' => !empty($settings['max_number']) ? $settings['max_number'] : ''
+                'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
             );
+
             $terms = get_terms( $args );
 
+			if ( is_wp_error( $terms ) ) {
+				return;
+			}
+
             $html = '';
+			$html .= '<ul>';
 
-            if (count($terms) > 0) {
+			foreach ( $terms as $term ) {
+				$settings['term_id'] = $term->term_id;
 
-                $html .= '<ul>';
+				$html .= '<li>';
+				$html .= '<a href="' . \ATBDP_Permalink::atbdp_get_tag_page( $term ) . '">';
+				$html .= $term->name;
 
-                foreach ($terms as $term) {
-                    $settings['term_id'] = $term->term_id;
+				if ( ! empty( $settings['show_count'] ) ) {
+					$html .= ' (' . $term->count . ')';
+				}
 
-                    $count = 0;
-                    if (!empty($settings['hide_empty']) || !empty($settings['show_count'])) {
-                        $count = atbdp_listings_count_by_tag($term->term_id);
+				$html .= '</a>';
+				// $html .= $this->directorist_tags_list($settings);
+				$html .= '</li>';
+			}
 
-                        if (!empty($settings['hide_empty']) && 0 == $count) continue;
-                    }
-
-                    $html .= '<li>';
-                    $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_tag_page($term) . '">';
-                    $html .= $term->name;
-                    if (!empty($settings['show_count'])) {
-                        $html .= ' (' . $count . ')';
-                    }
-                    $html .= '</a>';
-                   // $html .= $this->directorist_tags_list($settings);
-                    $html .= '</li>';
-                }
-
-                $html .= '</ul>';
-
-            }
+			$html .= '</ul>';
         }
+
         return $html;
-
-
-
     }
 
     public function dropdown_tags( $settings, $prefix = '' ) {
@@ -251,52 +243,45 @@ class All_Tags extends \WP_Widget {
             }
         } else {
 
-            if ($settings['immediate_category']) {
-
-                if ($settings['term_id'] > $settings['parent'] && !in_array($settings['term_id'], $settings['ancestors'])) {
-                    return;
-                }
-
+            if ( $settings['immediate_category'] &&
+				( $settings['term_id'] > $settings['parent'] ) &&
+				! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+				return;
             }
 
             $args = array(
-                    'taxonomy' => ATBDP_TAGS,
-                    'orderby' => $settings['orderby'],
-                    'order' => $settings['order'],
-                    'hide_empty' => $settings['hide_empty'],
-                    'parent' => !empty($settings['term_id']) ? $settings['term_id'] : '',
-                    'hierarchical' => !empty($settings['hide_empty']) ? true : false,
-                    'number' => !empty($settings['max_number']) ? $settings['max_number'] : ''
-                );
+				'taxonomy'     => ATBDP_TAGS,
+				'orderby'      => $settings['orderby'],
+				'order'        => $settings['order'],
+				'hide_empty'   => $settings['hide_empty'],
+				'parent'       => !empty($settings['term_id']) ? $settings['term_id'] : '',
+				'hierarchical' => !empty($settings['hide_empty']) ? true : false,
+				'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
+			);
 
             $terms = get_terms( $args );
 
+			if ( is_wp_error( $terms ) ) {
+				return;
+			}
+
             $html = '';
 
-            if (count($terms) > 0) {
+			foreach ( $terms as $term ) {
+				$settings['term_id'] = $term->term_id;
 
-                foreach ($terms as $term) {
-                    $settings['term_id'] = $term->term_id;
+				$html .= sprintf('<option value="%s" %s>', $term->term_taxonomy_id, selected($term->slug, $term_slug, false));
+				$html .= $prefix . $term->name;
 
-                    $count = 0;
-                    if (!empty($settings['hide_empty']) || !empty($settings['show_count'])) {
-                        $count = atbdp_listings_count_by_tag($term->term_id);
+				if ( ! empty( $settings['show_count'] ) ) {
+					$html .= ' (' . $term->count . ')';
+				}
 
-                        if (!empty($settings['hide_empty']) && 0 == $count) continue;
-                    }
-
-                    $html .= sprintf('<option value="%s" %s>', $term->term_taxonomy_id, selected($term->slug, $term_slug, false));
-                    $html .= $prefix . $term->name;
-                    if (!empty($settings['show_count'])) {
-                        $html .= ' (' . $count . ')';
-                    }
-                    //$html .= $this->dropdown_tags($settings, $prefix . '&nbsp;&nbsp;&nbsp;');
-                    $html .= '</option>';
-                }
-
-            }
+				//$html .= $this->dropdown_tags($settings, $prefix . '&nbsp;&nbsp;&nbsp;');
+				$html .= '</option>';
+			}
         }
-        return $html;
 
+        return $html;
     }
 }

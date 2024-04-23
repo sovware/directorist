@@ -2968,13 +2968,10 @@ if( ! function_exists( 'atbdp_field_assigned_plan' ) ) {
 }
 if( !function_exists('directory_types') ){
     function directory_types() {
-        $listing_types = get_terms([
-            'taxonomy'   => ATBDP_TYPE,
-            'hide_empty' => false,
-            'orderby'    => 'date',
-            'order'      => 'DSCE',
-          ]);
-          return $listing_types;
+		return directorist_get_directories( array(
+			'orderby'    => 'date',
+            'order'      => 'DESC',
+		) );
     }
 }
 
@@ -2985,14 +2982,10 @@ if ( ! function_exists( 'directorist_get_default_directory' ) ) {
 	 * @return int Default directory id.
 	 */
 	function directorist_get_default_directory() {
-		$directories = get_terms( [
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-			'fields'     => 'ids',
-			'meta_key'   => '_default',
-			'meta_value' => '1',
-			'number'     => 1
-		] );
+		$directories = directorist_get_directories( array(
+			'default_only' => true,
+			'fields'       => 'ids',
+		) );
 
 		if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
 			return 0;
@@ -3017,21 +3010,7 @@ if ( ! function_exists( 'default_directory_type' ) ) {
 
 if( !function_exists('get_listing_types') ){
     function get_listing_types() {
-        $listing_types = array();
-        $args          = array(
-            'taxonomy'   => ATBDP_TYPE,
-            'hide_empty' => false
-        );
-        $all_types     = get_terms( $args );
-
-        foreach ( $all_types as $type ) {
-            $listing_types[ $type->term_id ] = [
-                'term' => $type,
-                'name' => $type->name,
-                'data' => get_term_meta( $type->term_id, 'general_config', true ),
-            ];
-        }
-        return $listing_types;
+        return directorist_get_directories_for_template();
     }
 }
 
@@ -4242,5 +4221,5 @@ function directorist_get_listing_edit_status( $directory_type ) {
         $edit_listing_status = $new_listing_status;
     }
 
-    return $edit_listing_status;
+    return apply_filters( 'directorist_edit_listing_status', $edit_listing_status, $directory_type );
 }

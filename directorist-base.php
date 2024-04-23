@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.8.5
+ * Version: 7.9.0
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -675,7 +675,7 @@ final class Directorist_Base
 
 	/**
 	 * Deprecated: 7.8.0
-	 * 
+	 *
 	 * This function is deprecated since version 7.8.0. Please use parse_video() instead.
 	 *
 	 * @param string $url The URL to parse for videos.
@@ -683,7 +683,7 @@ final class Directorist_Base
 	 *
 	 * @deprecated Use parse_video() for video parsing.
 	 */
-	public function atbdp_parse_videos( $url ) {	
+	public function atbdp_parse_videos( $url ) {
 		_deprecated_function( __METHOD__, '7.8.0', 'Directorist\Helper::parse_video()' );
 
 		return \Directorist\Helper::parse_video( $url );

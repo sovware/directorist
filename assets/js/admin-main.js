@@ -812,26 +812,37 @@ window.addEventListener('DOMContentLoaded', function () {
   } else {
     $('.atbd_tagline_moto_field').fadeOut();
   }
-  if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
-    $('#price').show();
-    $('#price_range').hide();
-  }
-  $('.directorist_pricing_options label').on('click', function () {
-    var $this = $(this);
-    $this.children('input[type=checkbox]').prop('checked') == true ? $("#".concat($this.data('option'))).show() : $("#".concat($this.data('option'))).hide();
-    var $sibling = $this.siblings('label');
-    $sibling.children('input[type=checkbox]').prop('checked', false);
-    $("#".concat($sibling.data('option'))).hide();
-  });
-  $('.directorist_pricing_options label').on('click', function () {
-    var self = $(this);
-    var current_input = self.attr('for');
-    var current_field = "#".concat(self.data('option'));
-    $('.directorist_pricing_options input[type=checkbox]').prop('checked', false);
-    $('.directorist_pricing_options input[id=' + current_input + ']').attr('checked', true);
-    $('.directory_pricing_field').hide();
-    $(current_field).show();
-  });
+
+  /**
+   * Price field.
+   */
+  // if ( $( '.directorist-form-pricing-field' ).hasClass( 'price-type-both' ) ) {
+  //     $('#price, #price_range').hide();
+  // }
+
+  // $( '.directorist_pricing_options label' ).on( 'click', function() {
+  //     const $this = $(this);
+  //     $this.children('input[type=checkbox]').prop('checked') == true
+  //         ? $(`#${$this.data('option')}`).show()
+  //         : $(`#${$this.data('option')}`).hide();
+  //     const $sibling = $this.siblings('label');
+  //     $sibling.children('input[type=checkbox]').prop('checked', false);
+  //     $(`#${$sibling.data('option')}`).hide();
+  // } );
+
+  // $('.directorist_pricing_options label').on( 'click', function () {
+  //     const self = $( this );
+
+  //     const current_input = self.attr( 'for' );
+  //     const current_field = `#${self.data('option')}`;
+
+  //     $( '.directorist_pricing_options input[type=checkbox]' ).prop( 'checked', false );
+  //     $( '.directorist_pricing_options input[id='+ current_input +']' ).attr( 'checked', true );
+
+  //     $('.directory_pricing_field').hide();
+  //     $( current_field ).show();
+  // });
+
   $('#atbd_optional_field_check').on('change', function () {
     $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut();
   });
@@ -1273,30 +1284,54 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   });
   function assetsNeedToWorkInVirtualDom() {
-    // price range
-    /* $('#price_range').hide();
-    const pricing = $('#atbd_listing_pricing').val();
-    if (pricing === 'range') {
-        $('#price').hide();
-        $('#price_range').show();
-    } */
+    function getPriceTypeInput(typeId) {
+      return $("#".concat($("[for=\"".concat(typeId, "\"]")).data('option')));
+    }
+    $('.directorist-form-pricing-field__options').on('change', 'input', function () {
+      var $otherOptions = $(this).parent().siblings('.directorist-checkbox').find('input');
+      $otherOptions.prop('checked', false);
+      getPriceTypeInput($otherOptions.attr('id')).hide();
+      if (this.checked) {
+        getPriceTypeInput(this.id).show();
+      } else {
+        getPriceTypeInput(this.id).hide();
+      }
+    });
 
-    $('.atbd_pricing_options label').on('click', function () {
-      var $this = $(this);
-      $this.children('input[type=checkbox]').prop('checked') == true ? $("#".concat($this.data('option'))).show() : $("#".concat($this.data('option'))).hide();
-      var $sibling = $this.siblings('label');
-      $sibling.children('input[type=checkbox]').prop('checked', false);
-      $("#".concat($sibling.data('option'))).hide();
-    });
-    $('.directorist_pricing_options label').on('click', function () {
-      var self = $(this);
-      var current_input = self.attr('for');
-      var current_field = "#".concat(self.data('option'));
-      $('.directorist_pricing_options input[type=checkbox]').prop('checked', false);
-      $('.directorist_pricing_options input[id=' + current_input + ']').attr('checked', true);
-      $('.directory_pricing_field').hide();
-      $(current_field).show();
-    });
+    // Must be placed after the event listener.
+    if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+      $('#price_range, #price').hide();
+      var $selectedPriceType = $('.directorist-form-pricing-field__options input:checked');
+      if ($selectedPriceType.length) {
+        getPriceTypeInput($selectedPriceType.attr('id')).show();
+      } else {
+        $($('.directorist-form-pricing-field__options input').get(0)).prop('checked', true).trigger('change');
+      }
+    }
+
+    // $('.atbd_pricing_options label').on('click', function () {
+    //     const $this = $(this);
+    //     $this.children('input[type=checkbox]').prop('checked') == true ?
+    //         $(`#${$this.data('option')}`).show() :
+    //         $(`#${$this.data('option')}`).hide();
+    //     const $sibling = $this.siblings('label');
+    //     $sibling.children('input[type=checkbox]').prop('checked', false);
+    //     $(`#${$sibling.data('option')}`).hide();
+    // });
+
+    // $('.directorist_pricing_options label').on('click', function () {
+    //     const self = $(this);
+
+    //     const current_input = self.attr('for');
+    //     const current_field = `#${self.data('option')}`;
+
+    //     $('.directorist_pricing_options input[type=checkbox]').prop('checked', false);
+    //     $('.directorist_pricing_options input[id=' + current_input + ']').attr('checked', true);
+
+    //     $('.directory_pricing_field').hide();
+    //     $(current_field).show();
+    // });
+
     var imageUpload;
     if (imageUpload) {
       imageUpload.open();
@@ -2877,8 +2912,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 var $ = jQuery;
@@ -3498,14 +3533,14 @@ module.exports = _toPropertyKey, module.exports.__esModule = true, module.export
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _typeof(obj) {
+function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 

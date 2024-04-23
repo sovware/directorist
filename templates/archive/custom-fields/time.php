@@ -6,6 +6,8 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$time_format = get_option( 'time_format' );
 ?>
 
-<div class="directorist-listing-card-time"><?php directorist_icon( $icon ); ?><?php $listings->print_label( $label ); ?><?php echo esc_html( $value ); ?></div>
+<div class="directorist-listing-card-time"><?php directorist_icon( $icon ); ?><?php $listings->print_label( $label ); ?><?php echo esc_html( date( $time_format, strtotime( esc_html( $value ) ) ) ); ?></div>

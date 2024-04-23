@@ -141,7 +141,7 @@ import { directorist_range_slider } from './range-slider';
             e.preventDefault();
             let miles = parseInt($('.directorist-range-slider-value').val());
             let default_args = {
-                maxValue: 1000,
+                maxValue: directorist.args.search_max_radius_distance,
                 minValue: miles,
                 maxWidth: '100%',
                 barColor: '#d4d5d9',

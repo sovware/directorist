@@ -200,7 +200,7 @@ var directorist_range_slider = function directorist_range_slider(selector, obj) 
 function directorist_callingSlider() {
   var minValueWrapper = document.querySelector('.directorist-range-slider-value');
   var default_args = {
-    maxValue: 1000,
+    maxValue: directorist.args.search_max_radius_distance,
     minValue: parseInt(minValueWrapper && minValueWrapper.value),
     maxWidth: '100%',
     barColor: '#d4d5d9',

@@ -80,7 +80,7 @@
     "can_renew_listing": true,
     "email_to_expire_day": "7",
     "email_renewal_day": "7",
-    "delete_expired_listing": true,
+    "delete_expired_listing": false,
     "delete_expired_listings_after": 15,
     "deletion_mode": "trash",
     "paginate_author_listings": true,

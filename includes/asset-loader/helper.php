@@ -175,7 +175,12 @@ class Helper {
 	 * @return bool
 	 */
 	public static function is_widget_template( $template ) {
-		return str_starts_with( $template, 'widgets/' );
+		
+		if( ! empty( $template ) ) {
+			return str_starts_with( $template, 'widgets/' );
+		}
+		
+		return false;
 	}
 
 	/**

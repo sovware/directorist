@@ -5153,6 +5153,12 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-l
   text-align: center !important;
 }
 
+.directorist-social-links .twitter .directorist-icon-mask:after,
+.directorist-social-links__item .la-twitter .directorist-icon-mask:after {
+  width: 15px;
+  height: 15px;
+}
+
 /* Login/Signup Form */
 .directorist-login-wrapper #recover-pass-modal .directorist-btn {
   margin-top: 15px;
@@ -14754,7 +14760,7 @@ Review: New Style
 }
 
 .directorist-user-dashboard__nav {
-  width: 230px;
+  min-width: 230px;
   padding: 20px 10px;
   margin-left: 30px;
   -webkit-transition: 0.3s ease;

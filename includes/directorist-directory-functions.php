@@ -13,10 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function directorist_get_directory_meta( int $directory_id, string $meta_key ) {
-	if ( ! term_exists( $directory_id, ATBDP_DIRECTORY_TYPE ) ) {
-		return false;
-	}
-
 	if ( empty( $meta_key ) ) {
 		return false;
 	}
@@ -120,6 +116,9 @@ function directorist_is_directory( $directory_id ) {
 }
 
 function directorist_set_listing_directory( $listing_id, $directory_id ) {
+	$listing_id   = (int) $listing_id;
+	$directory_id = (int) $directory_id;
+
 	if ( ! directorist_is_listing_post_type( $listing_id ) ) {
 		return new WP_Error( 'invalid_listing', __( 'Invalid listing id.', 'directorist' ) );
 	}

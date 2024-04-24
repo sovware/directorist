@@ -35,6 +35,22 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			}
 
 			add_action( 'admin_footer', array( $this, 'quick_edit_scripts' ) );
+
+			add_action( 'bulk_edit_posts', array( __CLASS__, 'on_listing_bulk_edit' ), 10, 2 );
+		}
+
+		public static function on_listing_bulk_edit( $updated, $shared_post_data ) {
+			if ( ! isset( $shared_post_data['post_type'] ) || $shared_post_data['post_type'] !== ATBDP_POST_TYPE ) {
+				return;
+			}
+
+			if ( empty( $shared_post_data['directory_type'] ) || ! directorist_is_directory( $shared_post_data['directory_type'] ) ) {
+				return;
+			}
+
+			foreach ( $updated as $listing_id ) {
+				directorist_set_listing_directory( $listing_id, $shared_post_data['directory_type'] );
+			}
 		}
 
 		public function quick_edit_scripts() {

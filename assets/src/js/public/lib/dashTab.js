@@ -69,7 +69,7 @@
             var selector = document.querySelectorAll(selector);
 
             selector.forEach((el) => {
-                a = el.querySelectorAll('.directorist-tab__nav__link');
+                a = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
                 a.forEach((element) => {
                     element.style.cursor = 'pointer';
                     element.addEventListener('click', (event) => {

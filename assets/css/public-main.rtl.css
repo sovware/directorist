@@ -14121,13 +14121,21 @@ Review: New Style
   font-weight: 400;
   color: #8f8e9f;
   padding: 10px 40px 10px 18px;
-  min-width: 260px;
-  height: 36px;
+  min-width: 250px;
+  max-width: 250px;
+  height: 56px;
   background-color: #f6f7f9;
   margin-bottom: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-user-dashboard-tab .directorist-user-dashboard-search input:focus {
   outline: none;
+}
+@media (max-width: 375px) {
+  .directorist-user-dashboard-tab .directorist-user-dashboard-search input {
+    min-width: 200px;
+  }
 }
 
 .directorist-user-dashboard-tabcontent {
@@ -14753,7 +14761,9 @@ Review: New Style
   width: 100%;
   min-width: 240px;
 }
-.table.atbd_single_saved_item td, .table.atbd_single_saved_item th, .table.atbd_single_saved_item tr {
+.table.atbd_single_saved_item td,
+.table.atbd_single_saved_item th,
+.table.atbd_single_saved_item tr {
   border: 1px solid #ececec;
 }
 .table.atbd_single_saved_item td {

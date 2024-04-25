@@ -176,7 +176,7 @@ class Helper {
 	 */
 	public static function is_widget_template( $template ) {
 		if ( empty( $template ) ) {
-			return;
+			return false;
 		}
 
 		return str_starts_with( $template, 'widgets/' );

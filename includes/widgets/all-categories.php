@@ -75,18 +75,22 @@ class All_Categories extends \WP_Widget {
             'immediate_category' => [
 				'label'   => esc_html__( 'Show all the top-level categories only', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'hide_empty' => [
 				'label'   => esc_html__( 'Hide empty categories', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'show_count' => [
 				'label'   => esc_html__( 'Display listing counts', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'single_only' => [
 				'label'   => esc_html__( 'Display only on single listing', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
         ];
 
@@ -167,14 +171,10 @@ class All_Categories extends \WP_Widget {
 	}
 
     public function directorist_categories_list( $settings ) {
-
-
-        if( $settings['immediate_category'] ) {
-
-            if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
-                return;
-            }
-
+        if ( $settings['immediate_category'] &&
+			( $settings['term_id'] > $settings['parent'] ) &&
+			! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+			return;
         }
 
         $args = array(
@@ -189,59 +189,47 @@ class All_Categories extends \WP_Widget {
         );
 
         $terms = get_terms( $args );
-        $parent = $args['parent'];
-        $child_class = !empty($parent) ? 'atbdp_child_category' : 'atbdp_parent_category';
-        $html = '';
-        if( count( $terms ) > 0 ) {
-            $i = 1;
-            $html .= '<ul class="' .$child_class. '">';
-            foreach( $terms as $term ) {
-				$settings['term_id'] = $term->term_id;
-                $child_category = get_term_children($term->term_id,ATBDP_CATEGORY);
-                $plus_icon = (!empty($child_category) && empty($parent) )? directorist_icon( 'las la-plus', false ) : '';
-                $icon = get_term_meta($term->term_id,'category_icon',true);
-                $child_icon = empty($parent)  ? directorist_icon( $icon, false ) : '';
 
-                $count = 0;
-                if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
-                    $count = atbdp_listings_count_by_category( $term->term_id );
+		if ( is_wp_error( $terms ) ) {
+			return;
+		}
 
-                    if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
-                }
+        $parent      = $args['parent'];
+        $child_class = ! empty( $parent ) ? 'atbdp_child_category' : 'atbdp_parent_category';
+        $html        = '';
 
-                $html .= '<li>';
-                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_category_page( $term ) . '">'. $child_icon .'';
-                $html .= $term->name;
-                if( ! empty( $settings['show_count'] ) ) {
-                    $expired_listings = atbdp_get_expired_listings(ATBDP_CATEGORY, $term->term_id);
-                    $number_of_expired = $expired_listings->post_count;
-                    $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
-                    $totat = ($count)?($count-$number_of_expired):$count;
-                    $html .= ' (' . $totat . ')';
-                }
-                $html .= '</a>'. $plus_icon . '';
-                $html .= $this->directorist_categories_list( $settings );
-                $html .= '</li>';
-                if(!empty($args['number'])) {
-                    if( $i++ == $args['number'] ) break;
-                }
-            }
-            $html .= '</ul>';
+		$html .= '<ul class="' .$child_class. '">';
 
-        }
+		foreach( $terms as $term ) {
+			$settings['term_id'] = $term->term_id;
+			$child_category = get_term_children($term->term_id,ATBDP_CATEGORY);
+			$plus_icon = (!empty($child_category) && empty($parent) )? directorist_icon( 'las la-plus', false ) : '';
+			$icon = get_term_meta($term->term_id,'category_icon',true);
+			$child_icon = empty($parent)  ? directorist_icon( $icon, false ) : '';
+
+			$html .= '<li>';
+			$html .= '<a href="' . \ATBDP_Permalink::atbdp_get_category_page( $term ) . '">'. $child_icon .'';
+			$html .= $term->name;
+
+			if ( ! empty( $settings['show_count'] ) ) {
+				$html .= ' (' . $term->count . ')';
+			}
+
+			$html .= '</a>'. $plus_icon . '';
+			$html .= $this->directorist_categories_list( $settings );
+			$html .= '</li>';
+		}
+
+		$html .= '</ul>';
 
         return $html;
-
     }
 
     public function dropdown_categories( $settings, $prefix = '' ) {
-
-        if( $settings['immediate_category'] ) {
-
-            if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
-                return;
-            }
-
+        if ( $settings['immediate_category'] &&
+			( $settings['term_id'] > $settings['parent'] ) &&
+			! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+			return;
         }
 
         $term_slug = get_query_var( ATBDP_CATEGORY );
@@ -258,35 +246,26 @@ class All_Categories extends \WP_Widget {
 
         $terms = get_terms( $args );
 
+		if ( is_wp_error( $terms ) ) {
+			return;
+		}
+
         $html = '';
 
-        if( count( $terms ) > 0 ) {
-            $i = 1;
-            foreach( $terms as $term ) {
-                $settings['term_id'] = $term->term_id;
+		foreach( $terms as $term ) {
+			$settings['term_id'] = $term->term_id;
 
-                $count = 0;
-                if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
-                    $count = atbdp_listings_count_by_category( $term->term_id );
+			$html .= sprintf( '<option value="%s" %s>', $term->term_id, selected( $term->term_id, $term_slug, false ) );
+			$html .= $prefix . $term->name;
 
-                    if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
-                }
+			if ( ! empty( $settings['show_count'] ) ) {
+				$html .= ' (' . $term->count . ')';
+			}
 
-                $html .= sprintf( '<option value="%s" %s>', $term->term_id, selected( $term->term_id, $term_slug, false ) );
-                $html .= $prefix . $term->name;
-                if( ! empty( $settings['show_count'] ) ) {
-                    $html .= ' (' . $count . ')';
-                }
-                //$html .= $this->dropdown_locations( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
-                $html .= '</option>';
-                if(!empty($args['number'])) {
-                    if( $i++ == $args['number'] ) break;
-                }
-            }
-
-        }
+			//$html .= $this->dropdown_locations( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
+			$html .= '</option>';
+		}
 
         return $html;
-
     }
 }

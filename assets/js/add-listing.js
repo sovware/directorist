@@ -318,22 +318,31 @@ $(document).ready(function () {
     }
   }
 
-  // price range
-  if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
-    $('#price').show();
-    $('#price_range').hide();
+  /**
+   * Price field.
+   */
+  function getPriceTypeInput(typeId) {
+    return $("#".concat($("[for=\"".concat(typeId, "\"]")).data('option')));
   }
-  $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
-    var $this = $(this);
-    if ($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true) {
-      $("#".concat($this.data('option'))).hide();
+  $('.directorist-form-pricing-field__options').on('change', 'input', function () {
+    var $otherOptions = $(this).parent().siblings('.directorist-checkbox').find('input');
+    $otherOptions.prop('checked', false);
+    getPriceTypeInput($otherOptions.attr('id')).hide();
+    if (this.checked) {
+      getPriceTypeInput(this.id).show();
     } else {
-      $("#".concat($this.data('option'))).show();
+      getPriceTypeInput(this.id).hide();
     }
-    var $sibling = $this.parent().siblings('.directorist-checkbox');
-    $sibling.children('input[type=checkbox]').prop('checked', false);
-    $("#".concat($sibling.children('.directorist-checkbox__label').data('option'))).hide();
   });
+  if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+    $('#price_range, #price').hide();
+    var $selectedPriceType = $('.directorist-form-pricing-field__options input:checked');
+    if ($selectedPriceType.length) {
+      getPriceTypeInput($selectedPriceType.attr('id')).show();
+    } else {
+      $($('.directorist-form-pricing-field__options input').get(0)).prop('checked', true).trigger('change');
+    }
+  }
   var has_tagline = $('#has_tagline').val();
   var has_excerpt = $('#has_excerpt').val();
   if (has_excerpt && has_tagline) {

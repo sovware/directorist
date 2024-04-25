@@ -14787,6 +14787,8 @@ Review: New Style
   background-color: #fff;
   -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   /* user dashboard sidebar nav action */
 }
 @media only screen and (max-width: 1199px) {

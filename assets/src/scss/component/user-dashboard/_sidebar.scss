@@ -9,6 +9,7 @@
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
   @media only screen and (max-width: 1199px) {
     position: fixed;
     top: 0;

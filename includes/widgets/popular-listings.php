@@ -43,6 +43,7 @@ class Popular_Listings extends \WP_Widget {
 			'single_only' => [
 				'label'   => esc_html__( 'Display only on single listing', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
         ];
 
@@ -54,7 +55,7 @@ class Popular_Listings extends \WP_Widget {
 
 		$instance['title']            = ! empty( $new_instance['title'] ) ? sanitize_text_field( $new_instance['title'] ) : '';
 		$instance['pop_listing_num']  = ! empty( $new_instance['pop_listing_num'] ) ? sanitize_text_field( $new_instance['pop_listing_num'] ) : '';
-		$instance['single_only']      = isset( $new_instance['single_only'] ) ? 1 : 0;
+		$instance['single_only']      = ! empty( $new_instance['single_only'] ) ? 1 : 0;
 
 		return $instance;
 	}

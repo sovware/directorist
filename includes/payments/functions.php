@@ -101,7 +101,7 @@ function atbdp_get_payment_bulk_actions()
  */
 function atbdp_format_amount( $amount, $decimals = true, $currency_settings = array() ) {
 
-    return number_format_i18n( apply_filters( 'atbdp_format_amount', (float) $amount, (float) $amount, $decimals, $currency_settings ), 2 );
+    return apply_filters( 'atbdp_format_amount', number_format_i18n( ( float ) $amount, 2 ), $amount, $decimals, $currency_settings );
 
 }
 

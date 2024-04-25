@@ -1201,6 +1201,11 @@ class Directorist_Listings {
 	}
 
 	public function get_current_listing_type() {
+
+		if( is_singular( ATBDP_POST_TYPE ) ) {
+			return get_post_meta( get_the_ID(), '_directory_type', true );
+		}
+		
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );
 

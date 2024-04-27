@@ -231,7 +231,8 @@ class Directorist_Listings {
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
-		$this->options['listing_instant_search']         = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
+		$this->options['listing_instant_search']          = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
+		$this->options['marker_clustering']               = get_directorist_option( 'marker_clustering', true ) ? 'markerclusterer' : '';
 	}
 
 	// update_search_options
@@ -1446,7 +1447,7 @@ class Directorist_Listings {
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
 		$map_height = !empty( $this->listings_map_height ) ? $this->listings_map_height: '';
 		?>
-		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo esc_attr( $map_height );?>px;">
+		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="<?php echo $this->options['marker_clustering']; ?>" style="height: <?php echo esc_attr( $map_height );?>px;">
 			<?php
 
 			$listings = $this->query_results;

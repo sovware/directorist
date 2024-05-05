@@ -521,7 +521,6 @@ $(document).ready(function () {
   // -----------------------------
   // Submit The Form
   // -----------------------------
-  var uploadedImages = [];
   $('body').on('submit', '#directorist-add-listing-form', function (e) {
     e.preventDefault();
     var $form = $(e.target);
@@ -542,6 +541,7 @@ $(document).ready(function () {
 
     // images
     var selectedImages = [];
+    var uploadedImages = [];
     if (mediaUploaders.length) {
       for (var _i = 0, _mediaUploaders = mediaUploaders; _i < _mediaUploaders.length; _i++) {
         var uploader = _mediaUploaders[_i];

@@ -557,7 +557,12 @@ $(document).ready(function () {
           scrollTo('.' + uploader.uploaders_data.element_id);
           break;
         }
-        selectedImages = uploader.media_uploader.getTheFiles();
+        uploader.media_uploader.getTheFiles().forEach(function (file) {
+          selectedImages.push({
+            field: uploader.uploaders_data.meta_name,
+            file: file
+          });
+        });
       }
     }
     if (selectedImages.length) {
@@ -566,7 +571,8 @@ $(document).ready(function () {
         var formData = new FormData();
         formData.append('action', 'directorist_upload_listing_image');
         formData.append('directorist_nonce', directorist.directorist_nonce);
-        formData.append('image', selectedImages[counter]);
+        formData.append('image', selectedImages[counter].file);
+        formData.append('field', selectedImages[counter].field);
         $.ajax({
           method: 'POST',
           processData: false,
@@ -589,7 +595,10 @@ $(document).ready(function () {
               $notification.show().html("<span class=\"atbdp_error\">".concat(response.data, "</span>"));
               return;
             }
-            uploadedImages.push(response.data);
+            uploadedImages.push({
+              field: selectedImages[counter].field,
+              file: response.data
+            });
             counter++;
             if (counter < selectedImages.length) {
               uploadImage();
@@ -618,7 +627,9 @@ $(document).ready(function () {
       var form_data = new FormData();
       form_data.append('action', 'add_listing_action');
       form_data.append('directorist_nonce', directorist.directorist_nonce);
-      form_data.append('listing_img', uploadedImages);
+      uploadedImages.forEach(function (image, index) {
+        form_data.append("".concat(image.field, "[").concat(index, "]"), image.file);
+      });
       disableSubmitButton();
       var fieldValuePairs = $form.serializeArray();
 
@@ -638,17 +649,19 @@ $(document).ready(function () {
         _iterator2.f();
       }
       if (mediaUploaders.length) {
-        for (var _i2 = 0, _mediaUploaders2 = mediaUploaders; _i2 < _mediaUploaders2.length; _i2++) {
+        var _loop = function _loop() {
           var uploader = _mediaUploaders2[_i2];
           if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
-            continue;
+            return 1; // continue
           }
           if (uploader.media_uploader.hasValidFiles()) {
             var files_meta = uploader.media_uploader.getFilesMeta();
             if (files_meta) {
-              for (var i = 0; i < files_meta.length; i++) {
-                form_data.append("listing_img_old[".concat(i, "]"), files_meta[i].attachmentID);
-              }
+              files_meta.forEach(function (file_meta, index) {
+                if (file_meta.attachmentID) {
+                  form_data.append("".concat(uploader.uploaders_data.meta_name, "_old[").concat(index, "]"), file_meta.attachmentID);
+                }
+              });
             }
           } else {
             err_log.listing_gallery = {
@@ -659,6 +672,9 @@ $(document).ready(function () {
               scrollTo('.' + uploader.uploaders_data.element_id);
             }
           }
+        };
+        for (var _i2 = 0, _mediaUploaders2 = mediaUploaders; _i2 < _mediaUploaders2.length; _i2++) {
+          if (_loop()) continue;
         }
       }
 

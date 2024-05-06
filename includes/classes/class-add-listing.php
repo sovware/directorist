@@ -518,6 +518,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$selected_images = Fields::create( $image_upload_field )->get_value( $posted_data );
 
 			if ( is_null( $selected_images ) ) {
+				// Cleanup listing meta when images field is empty.
+				delete_post_thumbnail( $listing_id );
+				delete_post_meta( $listing_id, '_listing_img' );
+				delete_post_meta( $listing_id, '_listing_prv_img' );
+
 				return;
 			}
 

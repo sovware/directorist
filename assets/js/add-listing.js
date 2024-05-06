@@ -627,9 +627,6 @@ $(document).ready(function () {
       var form_data = new FormData();
       form_data.append('action', 'add_listing_action');
       form_data.append('directorist_nonce', directorist.directorist_nonce);
-      uploadedImages.forEach(function (image, index) {
-        form_data.append("".concat(image.field, "[").concat(index, "]"), image.file);
-      });
       disableSubmitButton();
       var fieldValuePairs = $form.serializeArray();
 
@@ -642,7 +639,7 @@ $(document).ready(function () {
           form_data.append(field.name, field.value);
         }
 
-        //images
+        // Upload existing image
       } catch (err) {
         _iterator2.e(err);
       } finally {
@@ -655,14 +652,11 @@ $(document).ready(function () {
             return 1; // continue
           }
           if (uploader.media_uploader.hasValidFiles()) {
-            var files_meta = uploader.media_uploader.getFilesMeta();
-            if (files_meta) {
-              files_meta.forEach(function (file_meta, index) {
-                if (file_meta.attachmentID) {
-                  form_data.append("".concat(uploader.uploaders_data.meta_name, "_old[").concat(index, "]"), file_meta.attachmentID);
-                }
-              });
-            }
+            uploader.media_uploader.getFilesMeta().forEach(function (file_meta) {
+              if (file_meta.attachmentID) {
+                form_data.append("".concat(uploader.uploaders_data.meta_name, "_old[]"), file_meta.attachmentID);
+              }
+            });
           } else {
             err_log.listing_gallery = {
               msg: uploader.uploaders_data['error_msg']
@@ -676,6 +670,13 @@ $(document).ready(function () {
         for (var _i2 = 0, _mediaUploaders2 = mediaUploaders; _i2 < _mediaUploaders2.length; _i2++) {
           if (_loop()) continue;
         }
+      }
+
+      // Upload new image
+      if (uploadedImages.length) {
+        uploadedImages.forEach(function (image) {
+          form_data.append("".concat(image.field, "[]"), image.file);
+        });
       }
 
       // categories

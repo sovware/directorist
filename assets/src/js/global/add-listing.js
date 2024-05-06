@@ -573,10 +573,6 @@ $(document).ready(function () {
             form_data.append('action', 'add_listing_action');
             form_data.append('directorist_nonce', directorist.directorist_nonce);
 
-            uploadedImages.forEach( function( image, index ) {
-                form_data.append( `${image.field}[${index}]`, image.file );
-            } );
-
             disableSubmitButton();
 
             const fieldValuePairs = $form.serializeArray();
@@ -586,7 +582,7 @@ $(document).ready(function () {
                 form_data.append( field.name, field.value );
             }
 
-            //images
+            // Upload existing image
             if ( mediaUploaders.length ) {
                 for ( let uploader of mediaUploaders ) {
                     if ( ! uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0) ) {
@@ -594,15 +590,11 @@ $(document).ready(function () {
                     }
 
                     if ( uploader.media_uploader.hasValidFiles() ) {
-                        let files_meta = uploader.media_uploader.getFilesMeta();
-
-                        if ( files_meta ) {
-                            files_meta.forEach( function( file_meta, index ) {
-                                if ( file_meta.attachmentID ) {
-                                    form_data.append(`${uploader.uploaders_data.meta_name}_old[${index}]`, file_meta.attachmentID);
-                                }
-                            } );
-                        }
+                        uploader.media_uploader.getFilesMeta().forEach( function( file_meta ) {
+                            if ( file_meta.attachmentID ) {
+                                form_data.append(`${uploader.uploaders_data.meta_name}_old[]`, file_meta.attachmentID);
+                            }
+                        } );
                     } else {
                         err_log.listing_gallery = {
                             msg: uploader.uploaders_data['error_msg']
@@ -615,6 +607,13 @@ $(document).ready(function () {
                         }
                     }
                 }
+            }
+
+            // Upload new image
+            if ( uploadedImages.length ) {
+                uploadedImages.forEach( function( image ) {
+                    form_data.append(`${image.field}[]`, image.file);
+                } );
             }
 
             // categories

@@ -48,7 +48,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			add_action( 'parse_query', array( $this, 'parse_query' ) ); // do stuff likes adding, editing, renewing, favorite etc in this hook.
 			add_action( 'wp_ajax_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
 			add_action( 'wp_ajax_nopriv_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
-			
+
 			add_action( 'wp_ajax_directorist_upload_listing_image', array( __CLASS__, 'upload_listing_image' ) );
 			add_action( 'wp_ajax_nopriv_directorist_upload_listing_image', array( __CLASS__, 'upload_listing_image' ) );
 		}
@@ -58,16 +58,16 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				if ( ! directorist_verify_nonce() ) {
 					throw new Exception( __( 'Invalid request.', 'directorist' ), 400 );
 				}
-	
+
 				$image = ! empty( $_FILES['image'] ) ? directorist_clean( $_FILES['image'] ) : array();
-				
+
 				if ( empty( $image ) ) {
 					return;
 				}
-				
+
 				// Set temporary upload directory.
 				add_filter( 'upload_dir', array( __CLASS__, 'set_temporary_upload_dir' ) );
-	
+
 				// handle file upload
 				$status = wp_handle_upload(
 					$image,
@@ -78,14 +78,14 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						'mimes'     => directorist_get_mime_types( 'image' ),
 					)
 				);
-	
+
 				// Restore to default upload directory.
 				remove_filter( 'upload_dir', array( __CLASS__, 'set_temporary_upload_dir' ) );
-	
+
 				if ( ! empty( $status['error'] ) ) {
 					throw new Exception( sprintf( '%s - (%s)', $status['error'], $image['name'] ), 500 );
 				}
-	
+
 				if ( empty( $status['url'] ) ) {
 					throw new Exception( sprintf( __( 'Could not upload (%s), please try again.', 'directorist' ), $image['name'] ), 500 );
 				}
@@ -269,7 +269,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						case 'map':
 							self::process_map( $field, $posted_data, $meta_data, $error );
 							break;
-						
+
 						case 'image_upload':
 							break;
 
@@ -302,7 +302,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				$new_listing_status  = get_term_meta( $directory_id, 'new_listing_status', true );
-				$edit_listing_status = get_term_meta( $directory_id, 'edit_listing_status', true );
+				$edit_listing_status = directorist_get_listing_edit_status( $directory_id );
 				$default_expiration  = get_term_meta( $directory_id, 'default_expiration', true );
 				$preview_enable      = atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) );
 
@@ -512,10 +512,15 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$image_upload_field = directorist_get_listing_form_field( $posted_data['directory_id'], 'image_upload' );
 
 			if ( empty( $image_upload_field ) ) {
-				return;	
+				return;
 			}
 
 			$selected_images = Fields::create( $image_upload_field )->get_value( $posted_data );
+
+			if ( is_null( $selected_images ) ) {
+				return;
+			}
+
 			$old_images = $selected_images['old'];
 			$new_images = $selected_images['new'];
 
@@ -531,14 +536,14 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$target_dir                    = trailingslashit( $upload_dir['path'] );
 				$uploaded_images               = $old_images;
 				$background_processable_images = array();
-	
+
 				foreach ( $new_images as $image ) {
 					if ( empty( $image ) ) {
 						continue;
 					}
 
 					$filepath = $temp_dir . $image;
-	
+
 					if ( is_dir( $filepath ) || ! file_exists( $filepath ) ) {
 						continue;
 					}
@@ -546,7 +551,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					if ( file_exists( $target_dir . $image ) ) {
 						$image = wp_unique_filename( $target_dir, $image );
 					}
-					
+
 					rename( $filepath, $target_dir . $image );
 
 					$mime = wp_check_filetype( $image );
@@ -569,7 +574,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 
 					$background_processable_images[ $attachment_id ] = $target_dir . $image;
-					
+
 					$uploaded_images[] = $attachment_id;
 				}
 

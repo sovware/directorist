@@ -1238,24 +1238,13 @@ class Directorist_Listings {
 	}
 
 	public function get_listing_types() {
-		$listing_types = array();
-		$args          = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false
-		);
-		if( $this->directory_type ) {
-			$args['slug']     = $this->directory_type;
-		}
-		$all_types     = get_terms( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
+		$args = array();
 
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'term' => $type,
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
+		if ( $this->directory_type ) {
+			$args['slug'] = $this->directory_type;
 		}
-		return $listing_types;
+
+		return directorist_get_directories_for_template( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
 	}
 
 	public function get_current_listing_type() {
@@ -1707,7 +1696,7 @@ class Directorist_Listings {
 
 		public function loop_get_title() {
 			if ( ! $this->disable_single_listing ) {
-				$title = sprintf('<a href="%s"%s>%s</a>', $this->loop['permalink'], $this->loop_link_attr(), $this->loop['title']);
+				$title = sprintf('<a href="%s"%s>%s</a>', apply_filters( 'directorist_archive_single_listing_url', $this->loop['permalink'], $this->loop['id'], 'title' ), $this->loop_link_attr(), $this->loop['title']);
 			}
 			else {
 				$title = $this->loop['title'];
@@ -1950,6 +1939,8 @@ class Directorist_Listings {
 					'label'          => ( ! empty( $field['show_label'] ) ? $field['label'] : '' ),
 					'icon'           => directorist_get_var( $field['icon'] ),
 					'original_field' => $submission_form_fields,
+					'before'		 => $before,
+					'after'		 	 => $after,
 				);
 
 				// Didn't find any $data within this method.
@@ -1984,9 +1975,9 @@ class Directorist_Listings {
 
 				if ( $load_template ) {
 					// Print $before and $after here so that empty li or other wrapper tags are not printed.
-					echo wp_kses_post( $before );
+					//echo wp_kses_post( $before );
 					Helper::get_template( $template, $args );
-					echo wp_kses_post( $after );
+					//echo wp_kses_post( $after );
 				}
 			}
 		}

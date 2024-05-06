@@ -2975,13 +2975,10 @@ if( ! function_exists( 'atbdp_field_assigned_plan' ) ) {
 }
 if( !function_exists('directory_types') ){
     function directory_types() {
-        $listing_types = get_terms([
-            'taxonomy'   => ATBDP_TYPE,
-            'hide_empty' => false,
-            'orderby'    => 'date',
-            'order'      => 'DSCE',
-          ]);
-          return $listing_types;
+		return directorist_get_directories( array(
+			'orderby'    => 'date',
+            'order'      => 'DESC',
+		) );
     }
 }
 
@@ -2992,14 +2989,10 @@ if ( ! function_exists( 'directorist_get_default_directory' ) ) {
 	 * @return int Default directory id.
 	 */
 	function directorist_get_default_directory() {
-		$directories = get_terms( [
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-			'fields'     => 'ids',
-			'meta_key'   => '_default',
-			'meta_value' => '1',
-			'number'     => 1
-		] );
+		$directories = directorist_get_directories( array(
+			'default_only' => true,
+			'fields'       => 'ids',
+		) );
 
 		if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
 			return 0;
@@ -3024,21 +3017,7 @@ if ( ! function_exists( 'default_directory_type' ) ) {
 
 if( !function_exists('get_listing_types') ){
     function get_listing_types() {
-        $listing_types = array();
-        $args          = array(
-            'taxonomy'   => ATBDP_TYPE,
-            'hide_empty' => false
-        );
-        $all_types     = get_terms( $args );
-
-        foreach ( $all_types as $type ) {
-            $listing_types[ $type->term_id ] = [
-                'term' => $type,
-                'name' => $type->name,
-                'data' => get_term_meta( $type->term_id, 'general_config', true ),
-            ];
-        }
-        return $listing_types;
+        return directorist_get_directories_for_template();
     }
 }
 
@@ -4197,6 +4176,10 @@ function directorist_validate_youtube_vimeo_url( $url ) {
         return true;
     }
 
+    if ( preg_match( '/^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]+)(\?.*)?$/', $url ) ) {
+        return true;
+    }
+
 	if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]+)(\S+)?$/i', $url ) ) {
         return true;
     }
@@ -4264,4 +4247,77 @@ function directorist_get_json_from_url( $url ) {
 
         return $decoded_data;
     }
+}
+
+/**
+ * Calculate number options for select and radio inputs.
+ *
+ * @param array $data {
+ *     An array of data containing configuration parameters.
+ *
+ *     @type array $options {
+ *         An array of options for configuring the calculation.
+ *
+ *         @type int $min_value The minimum value for the range. Defaults to 1 if not provided.
+ *         @type int $max_value The maximum value for the range. Defaults to 100 if not provided.
+ *     }
+ *     @type int $step The step size for calculating options. Defaults to dividing the range into 5 parts if not provided.
+ * }
+ * @return array Associative array containing 'select' and 'radio' options.
+ */
+
+if ( ! function_exists('directorist_calculate_number_options') ) {
+    function directorist_calculate_number_options( $data ) {
+        $min_val = ! empty( $data['options']['min_value'] ) ? absint( $data['options']['min_value'] ) : 1;
+        $max_val = ! empty( $data['options']['max_value'] ) ? absint( $data['options']['max_value'] ) : 100;
+
+        // Calculate step
+        $step = absint( ! empty( $data['options']['step'] ) ? $data['options']['step'] : ( $max_val - $min_val ) / 5 );
+
+        if( empty( $data['options']['step'] ) && $max_val < 10 ) {
+            $step = 1;
+        }
+
+        // Calculate select options
+        $select_options = array();
+        if( $max_val > $min_val ) {
+            for ( $i = $min_val; $i <= $max_val; $i += $step ) {
+                $select_options[] = (int) round( $i );
+            }
+        }
+
+        // Calculate radio options
+        $radio_options = array();
+        if( $max_val > $min_val ) {
+            for ( $i = $min_val; $i <= $max_val; $i += $step ) {
+                $range_start     = $i;
+                $range_end       = min( $i + $step - 1, $max_val );
+                $radio_options[] = array( 'start' => $range_start, 'end' => $range_end );
+            }
+        }
+
+        return array(
+            'select' => $select_options,
+            'radio' => $radio_options,
+        );
+    }
+}
+
+/**
+ * Get or modify the status of a directory listing during editing.
+ *
+ * @param int    $directory_type The directory type ID.
+ * @param int    $listing_id      The listing ID.
+ *
+ * @return string The edited or original status for the listing.
+ */
+function directorist_get_listing_edit_status( $directory_type ) {
+	$edit_listing_status = get_term_meta( $directory_type, 'edit_listing_status', true );
+	$new_listing_status  = get_term_meta( $directory_type, 'new_listing_status', true );
+    
+    if ( 'publish' !== $new_listing_status && 'publish' === $edit_listing_status ) {
+        $edit_listing_status = $new_listing_status;
+    }
+
+    return apply_filters( 'directorist_edit_listing_status', $edit_listing_status, $directory_type );
 }

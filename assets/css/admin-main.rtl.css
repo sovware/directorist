@@ -8021,7 +8021,7 @@ body.stop-scrolling {
   height: 20px;
   border-radius: 3px;
   content: "";
-  border: 1px solid #C6D0DC;
+  border: 1px solid #c6d0dc;
   background-color: #fff;
 }
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after,
@@ -8388,7 +8388,7 @@ body.stop-scrolling {
   width: 100% !important;
   height: 100% !important;
   border-radius: 100%;
-  background-color: var(--directorist-color-primary);
+  background-color: #000000;
 }
 .directorist-form-map-field__maps #gmap div[role=img]:before {
   content: "";
@@ -8402,6 +8402,8 @@ body.stop-scrolling {
   transition: all 0.3s ease-in-out;
   border: none;
   border: 50px solid rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
   -webkit-animation: atbd_scale 3s linear alternate infinite;
           animation: atbd_scale 3s linear alternate infinite;
 }
@@ -8412,7 +8414,7 @@ body.stop-scrolling {
   height: 20px;
   position: absolute;
   z-index: 2;
-  background-color: var(--directorist-color-white);
+  background-color: #ffffff;
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -8430,8 +8432,58 @@ body.stop-scrolling {
 .directorist-form-map-field__maps #gmap div[role=img].transit-wheelchair-icon:before, .directorist-form-map-field__maps #gmap div[role=img].transit-wheelchair-icon:after {
   display: none;
 }
+.directorist-form-map-field__maps #gmap div[role=img]:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
 .directorist-form-map-field .map_drag_info {
   display: none;
+}
+.directorist-form-map-field .atbd_map_shape {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 100%;
+  background-color: #000000;
+}
+.directorist-form-map-field .atbd_map_shape:before {
+  content: "";
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 50%;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border: none;
+  border: 40px solid rgba(0, 0, 0, 0.2);
+  -webkit-animation: atbd_scale 3s linear alternate infinite;
+          animation: atbd_scale 3s linear alternate infinite;
+}
+.directorist-form-map-field .atbd_map_shape .directorist-icon-mask:after {
+  width: 16px;
+  height: 16px;
+  background-color: #ffffff;
+}
+.directorist-form-map-field .atbd_map_shape:hover:before {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* EZ Media Upload */
@@ -9045,15 +9097,19 @@ body.stop-scrolling {
 }
 .directorist-custom-field-radio .directorist-custom-field-btn-more:after,
 .directorist-custom-field-checkbox .directorist-custom-field-btn-more:after {
-  font-size: 14px;
-  font-family: "Line Awesome Free";
-  content: "\f107";
-  font-weight: 900;
-  padding-right: 5px;
+  content: "";
+  display: inline-block;
+  margin-right: 5px;
+  -webkit-mask-image: url(../images/05feea3d261c8b97573023a74fd26f03.svg);
+          mask-image: url(../images/05feea3d261c8b97573023a74fd26f03.svg);
+  width: 12px;
+  height: 12px;
+  background-color: var(--directorist-color-body);
 }
 .directorist-custom-field-radio .directorist-custom-field-btn-more.active:after,
 .directorist-custom-field-checkbox .directorist-custom-field-btn-more.active:after {
-  content: "\f106";
+  -webkit-mask-image: url(../images/c90867d23032298fc0ff1d456a6fdb30.svg);
+          mask-image: url(../images/c90867d23032298fc0ff1d456a6fdb30.svg);
 }
 
 .directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__rendered {
@@ -9477,6 +9533,27 @@ body.stop-scrolling {
   top: 32px;
 }
 
+@-webkit-keyframes atbd_scale {
+  0% {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes atbd_scale {
+  0% {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
 .upload-error {
   display: block !important;
   clear: both;

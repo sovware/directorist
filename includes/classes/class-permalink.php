@@ -379,7 +379,7 @@ class ATBDP_Permalink {
             if ( '' != get_option( 'permalink_structure' ) ) {
                 $link = user_trailingslashit( trailingslashit( $link )  . 'edit/' . $listing_id );
             } else {
-                $link = add_query_arg( array( 'atbdp_action' => 'edit', 'atbdp_listing_id ' => $listing_id ), $link );
+                $link = add_query_arg( array( 'atbdp_action' => 'edit', 'atbdp_listing_id' => $listing_id ), $link );
             }
         }
 

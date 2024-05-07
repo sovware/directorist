@@ -90,7 +90,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					throw new Exception( sprintf( __( 'Could not upload (%s), please try again.', 'directorist' ), $image['name'] ), 500 );
 				}
 
-				wp_send_json_success( explode( 'directorist_temp_uploads/', $status['url'] )[1] );
+				wp_send_json_success( basename( $status['url'] ) );
 
 			} catch ( Exception $e ) {
 
@@ -100,7 +100,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		}
 
 		public static function set_temporary_upload_dir( $upload ) {
-			$upload['subdir'] = '/directorist_temp_uploads';
+			$upload['subdir'] = '/directorist_temp_uploads/' . date( 'nj' );
 			$upload['path']   = $upload['basedir'] . $upload['subdir'];
 			$upload['url']    = $upload['baseurl'] . $upload['subdir'];
 
@@ -518,6 +518,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$selected_images = Fields::create( $image_upload_field )->get_value( $posted_data );
 
 			if ( is_null( $selected_images ) ) {
+				// Cleanup listing meta when images field is empty.
+				delete_post_thumbnail( $listing_id );
+				delete_post_meta( $listing_id, '_listing_img' );
+				delete_post_meta( $listing_id, '_listing_prv_img' );
+
 				return;
 			}
 
@@ -532,7 +537,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			try {
 				$upload_dir                    = wp_get_upload_dir();
-				$temp_dir                      = $upload_dir['basedir'] . '/directorist_temp_uploads/';
+				$temp_dir                      = $upload_dir['basedir'] . '/directorist_temp_uploads/' . date( 'nj' ) . '/';
 				$target_dir                    = trailingslashit( $upload_dir['path'] );
 				$uploaded_images               = $old_images;
 				$background_processable_images = array();

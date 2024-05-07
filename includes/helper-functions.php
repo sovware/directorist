@@ -2467,7 +2467,7 @@ function atbdp_get_listing_attachment_ids( $listing_id ) {
 	if ( empty( $gallery_images ) ) {
 		return $attachment_ids;
 	}
-	
+
     $attachment_ids = array_merge( $attachment_ids, $gallery_images );
 
     return $attachment_ids;
@@ -4026,10 +4026,10 @@ function directorist_password_reset_url( $user, $password_reset = true, $confirm
 
 /**
  * Get allowed mime types.
- * 
+ *
  * @param string $filterby Filter allowed mime types by group. eg. image, audio, video, document etc.
  * @param string $return_type Get the full mime types map or only extensions. Valid args are extension and .extension.
- * 
+ *
  * @return array
  */
 function directorist_get_mime_types( $filterby = '', $return_type = '' ) {
@@ -4204,7 +4204,7 @@ function directorist_background_image_process( $images ) {
 		}
 
 		$should_dispatch = true;
-		
+
 		ATBDP()->background_image_process->push_to_queue( array( $image_id => $image_path ) );
 	}
 
@@ -4224,10 +4224,63 @@ function directorist_background_image_process( $images ) {
 function directorist_get_listing_edit_status( $directory_type ) {
 	$edit_listing_status = get_term_meta( $directory_type, 'edit_listing_status', true );
 	$new_listing_status  = get_term_meta( $directory_type, 'new_listing_status', true );
-    
+
     if ( 'publish' !== $new_listing_status && 'publish' === $edit_listing_status ) {
         $edit_listing_status = $new_listing_status;
     }
 
     return apply_filters( 'directorist_edit_listing_status', $edit_listing_status, $directory_type );
+}
+
+/**
+ * Delete directory even when non empty.
+ *
+ * @since 7.9.1
+ *
+ * @param $dir Directory path.
+ */
+function directorist_delete_dir( $dir ) {
+	$objects = scandir( $dir );
+
+	unset( $objects[0], $objects[1] ); // Remove '.' and '..' entries
+
+	foreach ( $objects as $object ) {
+		if ( is_dir( $dir . '/' . $object ) ) {
+			directorist_delete_dir( $dir . '/' . $object );
+		} else {
+			unlink( $dir . '/' . $object );
+		}
+	}
+
+	if ( ! rmdir( $dir ) ) {
+		throw new Exception( "Failed to remove directory: $dir" );
+	}
+}
+
+/**
+ * Remove temporary upload directories.
+ *
+ * @since 7.9.1
+ *
+ * @return void
+ */
+function directorist_delete_temporary_upload_dirs() {
+	$upload_dir = wp_get_upload_dir();
+	$temp_dir   = trailingslashit( $upload_dir['basedir'] ) . 'directorist_temp_uploads/';
+
+	$dirs = scandir( $temp_dir );
+	$date = date( 'nj' );
+
+	unset( $dirs[0], $dirs[1] ); // Remove '.' and '..' entries
+
+	foreach ( $dirs as $dir ) {
+		// Check if it's a directory and older than current date
+		if ( is_dir( $temp_dir . $dir ) && $dir < $date ) {
+			try {
+				directorist_delete_dir( $temp_dir . $dir );
+			} catch ( Exception $e ) {
+				error_log( 'Error removing directory: ' . $temp_dir . $dir . ' - ' . $e->getMessage() );
+			}
+		}
+	}
 }

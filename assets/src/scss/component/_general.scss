@@ -53,7 +53,7 @@
     padding: 15px 0;
     display: flex;
     align-items: center;
-    &.hidden{
+    &.hidden {
       display: none;
     }
 
@@ -114,7 +114,11 @@
   padding-right: 0 !important;
 }
 
-.directorist-select .select2.select2-container .select2-selection--single .select2-selection__rendered .select2-selection__clear{
+.directorist-select
+  .select2.select2-container
+  .select2-selection--single
+  .select2-selection__rendered
+  .select2-selection__clear {
   display: none;
 }
 .select2.select2-container {
@@ -175,22 +179,28 @@
   text-align: center !important;
 }
 
+// Twitter Icon CSS
+.directorist-social-links .twitter .directorist-icon-mask:after,
+.directorist-social-links__item .la-twitter .directorist-icon-mask:after {
+  width: 15px;
+  height: 15px;
+}
+
 /* Login/Signup Form */
-.directorist-login-wrapper{
-  #recover-pass-modal{
-      .directorist-btn{
-          margin-top: 15px;
-          &:hover{
-            text-decoration: none;
-          }
+.directorist-login-wrapper {
+  #recover-pass-modal {
+    .directorist-btn {
+      margin-top: 15px;
+      &:hover {
+        text-decoration: none;
       }
+    }
   }
 }
 
-.select2-container.select2-container--open{
+.select2-container.select2-container--open {
   z-index: 99999;
 }
-
 
 .select2-container {
   .directorist-select2-addons-area {
@@ -204,7 +214,6 @@
       right: 25px;
     }
   }
-
 }
 
 // Loading CSS

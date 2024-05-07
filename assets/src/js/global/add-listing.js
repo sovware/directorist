@@ -441,8 +441,6 @@ $(document).ready(function () {
     // -----------------------------
     // Submit The Form
     // -----------------------------
-    let uploadedImages = [];
-
     $('body').on('submit', '#directorist-add-listing-form', function (e) {
         e.preventDefault();
 
@@ -467,6 +465,7 @@ $(document).ready(function () {
 
         // images
         let selectedImages = [];
+        let uploadedImages = [];
 
         if (mediaUploaders.length) {
             for (var uploader of mediaUploaders) {
@@ -486,7 +485,12 @@ $(document).ready(function () {
                     break;
                 }
 
-                selectedImages = uploader.media_uploader.getTheFiles();
+                uploader.media_uploader.getTheFiles().forEach( function( file ) {
+                    selectedImages.push( {
+                        field: uploader.uploaders_data.meta_name,
+                        file: file
+                    } );
+                } );
             }
         }
 
@@ -498,7 +502,8 @@ $(document).ready(function () {
 
                 formData.append( 'action', 'directorist_upload_listing_image' );
                 formData.append( 'directorist_nonce', directorist.directorist_nonce );
-                formData.append( 'image', selectedImages[ counter ] );
+                formData.append( 'image', selectedImages[ counter ].file );
+                formData.append( 'field', selectedImages[ counter ].field );
 
                 $.ajax( {
                     method: 'POST',
@@ -530,7 +535,10 @@ $(document).ready(function () {
                             return;
                         }
 
-                        uploadedImages.push( response.data );
+                        uploadedImages.push( {
+                            field: selectedImages[ counter ].field,
+                            file: response.data
+                        } );
 
                         counter++;
 
@@ -564,7 +572,6 @@ $(document).ready(function () {
 
             form_data.append('action', 'add_listing_action');
             form_data.append('directorist_nonce', directorist.directorist_nonce);
-            form_data.append('listing_img', uploadedImages );
 
             disableSubmitButton();
 
@@ -575,20 +582,19 @@ $(document).ready(function () {
                 form_data.append( field.name, field.value );
             }
 
-            //images
-            if (mediaUploaders.length) {
-                for (var uploader of mediaUploaders) {
-                    if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
+            // Upload existing image
+            if ( mediaUploaders.length ) {
+                for ( let uploader of mediaUploaders ) {
+                    if ( ! uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0) ) {
                         continue;
                     }
 
-                    if (uploader.media_uploader.hasValidFiles()) {
-                        var files_meta = uploader.media_uploader.getFilesMeta();
-                        if (files_meta) {
-                            for (var i = 0; i < files_meta.length; i++) {
-                                form_data.append(`listing_img_old[${i}]`, files_meta[i].attachmentID);
+                    if ( uploader.media_uploader.hasValidFiles() ) {
+                        uploader.media_uploader.getFilesMeta().forEach( function( file_meta ) {
+                            if ( file_meta.attachmentID ) {
+                                form_data.append(`${uploader.uploaders_data.meta_name}_old[]`, file_meta.attachmentID);
                             }
-                        }
+                        } );
                     } else {
                         err_log.listing_gallery = {
                             msg: uploader.uploaders_data['error_msg']
@@ -601,6 +607,13 @@ $(document).ready(function () {
                         }
                     }
                 }
+            }
+
+            // Upload new image
+            if ( uploadedImages.length ) {
+                uploadedImages.forEach( function( image ) {
+                    form_data.append(`${image.field}[]`, image.file);
+                } );
             }
 
             // categories

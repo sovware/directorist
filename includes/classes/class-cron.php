@@ -28,6 +28,8 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 			add_filter( 'cron_schedules', array( $this, 'atbdp_cron_init' ) );
 
 			add_action( 'edit_post', array( $this, 'update_atbdp_schedule_tasks' ), 10, 2 );
+
+			add_action( 'directorist_cleanup_temporary_uploads', array( $this, 'cleanup_temporary_uploads' ) );
 		}
 
 		// update_atbdp_schedule_tasks
@@ -84,6 +86,10 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		public function atbdp_custom_schedule_cron() {
 			if ( ! wp_next_scheduled( 'directorist_hourly_scheduled_events' ) ) {
 				wp_schedule_event( time(), 'atbdp_listing_manage', 'directorist_hourly_scheduled_events' );
+			}
+
+			if ( ! wp_next_scheduled( 'directorist_cleanup_temporary_uploads' ) ) {
+				wp_schedule_event( time(), 'daily', 'directorist_cleanup_temporary_uploads' );
 			}
 		}
 
@@ -461,6 +467,14 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					}
 					do_action( 'atbdp_deleted_expired_listings', $listing->ID );
 				}
+			}
+		}
+
+		public function cleanup_temporary_uploads() {
+			directorist_delete_temporary_upload_dirs();
+
+			if ( ! wp_next_scheduled( 'directorist_cleanup_temporary_uploads' ) ) {
+				wp_schedule_event( time(), 'daily', 'directorist_cleanup_temporary_uploads' );
 			}
 		}
 	}

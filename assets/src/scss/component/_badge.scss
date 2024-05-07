@@ -83,13 +83,13 @@
         visibility: hidden;
         transition: all 0.3s ease-in-out;
         @include e(featured) {
-            background: var(--directorist-color-featured-badge);
+            background-color: var(--directorist-color-featured-badge);
         }
         @include e(new) {
-            background: var(--directorist-color-new-badge);
+            background-color: var(--directorist-color-new-badge);
         }
         @include e(popular) {
-            background: var(--directorist-color-popular-badge);
+            background-color: var(--directorist-color-popular-badge);
         }
         @media screen and (max-width: 480px) {
             height: 25px;

@@ -147,19 +147,19 @@
 
                 } else if (response.success) {
                     output +=
-                        '<div class="directorist-signle-review" id="directorist-single-review-' + response.data.id + '">' +
+                        '<div class="directorist-single-review" id="directorist-single-review-' + response.data.id + '">' +
                         '<input type="hidden" value="1" id="has_ajax">' +
-                        '<div class="directorist-signle-review__top"> ' +
-                        '<div class="directorist-signle-review-avatar-wrap"> ' +
-                        '<div class="directorist-signle-review-avatar">' + ava_img + '</div> ' +
-                        '<div class="directorist-signle-review-avatar__info"> ' +
+                        '<div class="directorist-single-review__top"> ' +
+                        '<div class="directorist-single-review-avatar-wrap"> ' +
+                        '<div class="directorist-single-review-avatar">' + ava_img + '</div> ' +
+                        '<div class="directorist-single-review-avatar__info"> ' +
                         '<p>' + name + '</p>' +
-                        '<span class="directorist-signle-review-time">' + response.data.date + '</span> ' + '</div> ' + '</div> ' +
+                        '<span class="directorist-single-review-time">' + response.data.date + '</span> ' + '</div> ' + '</div> ' +
                         '<div class="directorist-rated-stars">' + print_static_rating(rating) + '</div> ' +
                         '</div> ';
                     if (directorist.enable_reviewer_content) {
                         output +=
-                            '<div class="directorist-signle-review__content"> ' +
+                            '<div class="directorist-single-review__content"> ' +
                             '<p>' + content + '</p> ' +
                             //'<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a> ' +
                             '</div> ';

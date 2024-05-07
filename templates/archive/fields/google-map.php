@@ -21,7 +21,7 @@
 			<?php if ( ! empty( $display_image_map ) ) { ?>
 				<div class='map-listing-card-single__img'>
 					<?php if ( ! $disable_single_listing ) { ?>
-						<a href='<?php echo esc_url( get_the_permalink() ); ?>'>
+						<a href='<?php echo esc_url( get_the_permalink() ); ?>'><figure>
 						<?php
 					}
 
@@ -41,7 +41,7 @@
 					}
 
 					if ( ! $disable_single_listing ) { ?>
-						</a>
+						</figure></a>
 						<?php
 					}
 					?>

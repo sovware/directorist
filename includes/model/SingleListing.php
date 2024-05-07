@@ -522,9 +522,11 @@ class Directorist_Single_Listing {
 		$type          = get_post_meta( $this->id, '_directory_type', true );
 		$default_image = Helper::default_preview_image_src( $type );
 
+		$image_size = apply_filters( 'directorist_single_listing_slider_image_size', 'large' );
+
 		// Get the preview images
 		$preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
-		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
+		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source( $preview_img_id, $image_size ) : '';
 		$preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
 		$preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
 
@@ -539,7 +541,7 @@ class Directorist_Single_Listing {
 
 			$image_links[] = [
 				'alt' => ( ! empty( $alt )  ) ? $alt : $listing_title,
-				'src' => atbdp_get_image_source( $img_id, 'large' ),
+				'src' => atbdp_get_image_source( $img_id, $image_size ),
 			];
 		}
 
@@ -557,7 +559,7 @@ class Directorist_Single_Listing {
 			'width'              => empty( $width ) ? 740 : $width,
 			'height'             => empty( $height ) ? 580 : $height,
 			'background-color'   => get_directorist_option( 'single_slider_background_color', 'gainsboro' ),
-			'thumbnail-bg-color' => '#fff',
+			'thumbnail-bg-color' => '',
 			'show-thumbnails'    => ! empty( $data['footer_thumbnail'] ) ? '1' : '0',
 			'gallery'            => true,
 			'rtl'                => is_rtl() ? '1' : '0',
@@ -646,7 +648,7 @@ class Directorist_Single_Listing {
 
 	public function price_range_html() {
 		$id = $this->id;
-		$currency = get_directorist_option('g_currency', 'USD');
+		$currency = directorist_get_currency();
 		$c_symbol = atbdp_currency_symbol($currency);
 		$active   = '<span class="directorist-price-active">' . $c_symbol . '</span>';
 		$inactive = '<span>' . $c_symbol . '</span>';
@@ -760,8 +762,8 @@ class Directorist_Single_Listing {
 	public function price_html() {
 		$id            = $this->id;
 		$allow_decimal = get_directorist_option('allow_decimal', 1);
-		$c_position    = get_directorist_option('g_currency_position');
-		$currency      = get_directorist_option('g_currency', 'USD');
+		$c_position    = directorist_get_currency_position();
+		$currency      = directorist_get_currency();
 		$symbol        = atbdp_currency_symbol($currency);
 
 		$before = $after = '';
@@ -885,7 +887,7 @@ class Directorist_Single_Listing {
 
 		if( isset( $_GET['notice'] ) ) {
 			$new_listing_status  = get_term_meta( $this->type, 'new_listing_status', true );
-			$edit_listing_status = get_term_meta( $this->type, 'edit_listing_status', true );
+			$edit_listing_status = directorist_get_listing_edit_status( $this->type );
 			$edited = ( isset( $_GET['edited'] ) ) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ): 'no';
 
 			$pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
@@ -1153,7 +1155,7 @@ class Directorist_Single_Listing {
 		$listing_prv_imgurl = !empty($listing_prv_img) ? atbdp_get_image_source($listing_prv_img, 'small') : '';
 		$listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, 150, 150, true, 100)['url'];
 		$img_url = !empty($listing_prv_imgurl) ? $listing_prv_imgurl : $default_image;
-		$image = "<img src=" . $img_url . ">";
+		$image = "<figure><img src=" . $img_url . " /></figure>";
 		if ( empty( $display_image_map ) ) {
 			$image = '';
 		}

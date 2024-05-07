@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.8.1
+ * Version: 8.0.0 - Beta
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -162,6 +162,8 @@ final class Directorist_Base
 	public $announcement;
 	public $review;
 
+	public $background_image_process = null;
+
 	/**
 	 * Main Directorist_Base Instance.
 	 *
@@ -225,6 +227,8 @@ final class Directorist_Base
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools();
 			self::$instance->announcement = new ATBDP_Announcement();
+
+			self::$instance->background_image_process = new \Directorist\Background_Image_Process();
 
 			// Load widgets
 			Directorist\Widgets\Init::instance();
@@ -447,6 +451,8 @@ final class Directorist_Base
 		$this->autoload( ATBDP_INC_DIR . 'widgets/' );
 
 		self::require_files([
+			ATBDP_INC_DIR . 'directorist-core-functions',
+			ATBDP_INC_DIR . 'directorist-directory-functions',
 			ATBDP_INC_DIR . 'class-helper',
 			ATBDP_INC_DIR . 'helper-functions',
 			ATBDP_INC_DIR . 'template-functions',
@@ -457,7 +463,6 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
-			ATBDP_INC_DIR . 'directorist-directory-functions',
 			ATBDP_INC_DIR . 'fields/init',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-builder-data',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/trait-multi-directory-helper',
@@ -543,8 +548,8 @@ final class Directorist_Base
 				'description' => __('Add widgets for the right sidebar on single listing page', 'directorist'),
 				'before_widget' => '<div class="directorist-card %2$s">',
 				'after_widget' => '</div>',
-				'before_title' => '<div class="directorist-card__header directorist-widget__header"><h4 class="directorist-card__header--title directorist-widget__header--title">',
-				'after_title' => '</h4></div>',
+				'before_title' => '<div class="directorist-card__header directorist-widget__header"><h3 class="directorist-card__header__title directorist-widget__header__title">',
+				'after_title' => '</h3></div>',
 			));
 		}
 	}
@@ -670,7 +675,7 @@ final class Directorist_Base
 
 	/**
 	 * Deprecated: 7.8.0
-	 * 
+	 *
 	 * This function is deprecated since version 7.8.0. Please use parse_video() instead.
 	 *
 	 * @param string $url The URL to parse for videos.
@@ -678,7 +683,7 @@ final class Directorist_Base
 	 *
 	 * @deprecated Use parse_video() for video parsing.
 	 */
-	public function atbdp_parse_videos( $url ) {	
+	public function atbdp_parse_videos( $url ) {
 		_deprecated_function( __METHOD__, '7.8.0', 'Directorist\Helper::parse_video()' );
 
 		return \Directorist\Helper::parse_video( $url );

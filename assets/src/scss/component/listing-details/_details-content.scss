@@ -1,4 +1,4 @@
-.directorist-signle-listing-top {
+.directorist-single-listing-top {
     gap: 20px;
     margin: 15px 0 30px;
     align-items: flex-start;
@@ -53,17 +53,18 @@
 // Directorist Single Listing Style
 .directorist-single-contents-area {
     .directorist-card {
-        margin-bottom: 35px;
+        padding: 0;
         filter: none;
+        margin-bottom: 35px;
         box-shadow: 0 2px 15px rgba(0,0,0,.08);
-        .directorist-card__body{
+        .directorist-card__body {
             padding: 30px;
             @media screen and (max-width: 575px) {
-                padding: 20px;
+                padding: 20px 15px;
             }
         }
-        .directorist-card__header{
-            padding: 20px 25px;
+        .directorist-card__header {
+            padding: 20px 30px;
             @media screen and (max-width: 575px) {
                 padding: 15px 20px;
             }
@@ -73,22 +74,22 @@
         }
     }
 
-    .directorist-card__header--title {
+    .directorist-card__header__title {
+        gap: 12px;
         font-size: 18px;
         font-weight: 500;
         color: var(--directorist-color-primary);
-        margin: 0 -6px;
 
         #directorist-review-counter {
             margin-right: 10px;
         }
     }
 
-    .directorist-card__header-icon{
+    .directorist-card__header-icon {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 34px;
+        min-width: 34px;
         height: 34px;
         border-radius: 50%;
         background-color: var(--directorist-color-bg-light);
@@ -100,10 +101,6 @@
             }
 
         }
-    }
-    .directorist-card__header-icon,
-    .directorist-card__header-text{
-        margin: 0 6px;
     }
 
     .directorist-details-info-wrap {
@@ -130,12 +127,16 @@
     }
 
 
-    .directorist-single-info__label-icon .directorist-icon-mask:after{
+    .directorist-single-info__label-icon .directorist-icon-mask:after {
         background-color: #808080;
     }
 
     .directorist-single-listing-slider .directorist-swiper__nav i:after {
         background-color: var(--directorist-color-white);
+    }
+
+    .directorist-related {
+        padding: 0;
     }
 }
 .directorist-single-contents-area {
@@ -151,11 +152,8 @@
                 margin-top: 4px;
             }
             .directorist-form-group__prefix {
-                padding: 0;
-                border: none;
                 height: auto;
                 line-height: unset;
-                background: transparent;
                 color: var(--directorist-color-body);
             }
         }
@@ -188,10 +186,12 @@
             margin-top: 4px;
         }
     }
-    @include e(direction a) {
-        display: flex;
-        gap: 10px;
-        align-items: center;
+    @include e(direction) {
+        a {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
     }
 }
 .directorist-single-contents-area .directorist-single-map__direction a {
@@ -206,7 +206,9 @@
 .directorist-single-listing-header {
     margin-bottom: 25px;
     margin-top: -15px;
+    padding: 0;
     .directorist-single-listing-slider-wrap {
+        padding: 0;
         margin: 15px 0;
     }
 }
@@ -239,7 +241,7 @@
         opacity: 0;
         right: 0;
         top: calc(100% + 30px);
-        background: #ffffff;
+        background-color: #ffffff;
         border-radius: 10px;
         width: 150px;
         box-shadow: 0 5px 15px rgba(#000, 0.15);
@@ -279,7 +281,7 @@
             }
             &:hover{
                 font-weight: 500;
-                background: var(--directorist-color-light);
+                background-color: var(--directorist-color-light);
                 color: var(--directorist-color-dark);
                 span.la,
                 span.fa,
@@ -352,15 +354,7 @@
 // Listing Details
 .directorist-listing-details {
     margin: 15px 0 30px;
-
-    .directorist-listing-single__info {
-        padding: 0;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .directorist-listing-details__text {
+    @include e('text') {
         p {
             margin: 0 0 15px;
             color: #7a82a6;
@@ -375,27 +369,34 @@
             list-style: disc;
         }
     }
+    @include e('listing-title') {
+        font-size: 30px;
+        font-weight: 600;
+        display: inline-block;
+        margin: 15px 0 0;
+        @media screen and (max-width: 575px) {
+            font-size: 24px;
+        }
+    }
+    @include e('tagline') {
+        margin: 10px 0;
+        color: var(--directorist-color-body);
+    }
 
     .directorist-pricing-meta  .directorist-listing-price {
         padding: 5px 10px;
         border-radius: 6px;
-        background: var(--directorist-color-light);
+        background-color: var(--directorist-color-light);
     }
-}
-.directorist-listing-details__listing-title {
-    font-size: 30px;
-    font-weight: 600;
-    display: inline-block;
-    margin: 15px 0 0;
-    @media screen and (max-width: 575px) {
-        font-size: 24px;
+
+    .directorist-listing-single__info {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
     }
 }
 
-.directorist-listing-details-tagline {
-    margin: 10px 0;
-    color: var(--directorist-color-body);
-}
 
 // Directorist Embaded Video
 .directorist-single-contents-area .directorist-embaded-video {

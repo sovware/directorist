@@ -20,7 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<div class="directorist-become-author-modal">
             <div class="directorist-become-author-modal__content">
-                <!-- <a href="" class="directorist-become-author-modal__close">x</a> -->
                 <h3><?php esc_html_e( 'Are you sure you want to become an author?', 'directorist' ); ?> <br><?php esc_html_e( '(It is subject to approval by the admin)', 'directorist' ); ?> <span class="directorist-become-author__loader"></span></h3>
                 <p>
                     <a href="#" class="directorist-become-author-modal__cancel">Cancel</a>

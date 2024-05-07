@@ -10,7 +10,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-single-listing-header">
+<section class="directorist-single-listing-header">
 	<?php
 	$args = [
 		'listing' => $listing,
@@ -24,4 +24,4 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		$template = str_replace( "-placeholder", "", $data['placeholderKey'] );
 		Helper::get_template( 'single/header-parts/'. $template, $args );
 	} ?>
-</div>
+</section>

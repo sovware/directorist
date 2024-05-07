@@ -6,7 +6,8 @@
 
   .swiper-slide {
     display: flex;
-    >div {
+    >div,
+    >a {
       width: 100%;
     }
   }
@@ -206,7 +207,7 @@
   }
 }
 
-.directorist-swiper-related {
+.directorist-swiper-related-listing {
   &.directorist-swiper {
     padding: 15px;
     margin: -15px;

@@ -1,5 +1,5 @@
 .directorist-user-dashboard__nav {
-    width: 230px;
+    min-width: 230px;
     padding: 20px 10px;
     margin-right: 30px;
     transition: 0.3s ease;
@@ -25,7 +25,7 @@
     @media only screen and (max-width: 479px) {
         padding-top: 80px;
     }
-    .directorist-dashboard__nav--close {
+    .directorist-dashboard__nav__close {
         display: none;
         position: absolute;
         right: 15px;
@@ -85,12 +85,6 @@
         align-items: center;
         color: #51526E;
         text-decoration: none;
-        i,
-        span.fa {
-            pointer-events: none;
-            display: inline-block;
-            margin-right: 10px;
-        }
 
         .directorist_menuItem-text {
             pointer-events: none;
@@ -100,13 +94,22 @@
             .directorist_menuItem-icon{
                 line-height: 0;
             }
+            i,
+            span.fa {
+                pointer-events: none;
+                display: inline-block;
+                margin-right: 10px;
+            }
         }
 
         &.directorist-tab__nav__active,
         &:focus {
             font-weight: 700;
-            background-color: #E9E9E9 !important;
+            background-color: #E9E9E9;
             color: #0A0B1E;
+            &.atbd-dash-nav-dropdown {
+                background-color: transparent;
+            }
         }
     }
 

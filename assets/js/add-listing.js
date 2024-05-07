@@ -128,6 +128,16 @@ var localized_data = directorist.add_listing_data;
 function joinQueryString(url, queryString) {
   return url.match(/[?]/) ? "".concat(url, "&").concat(queryString) : "".concat(url, "?").concat(queryString);
 }
+<<<<<<< HEAD
+=======
+function scrollTo(selector) {
+  var _document$querySelect;
+  (_document$querySelect = document.querySelector(selector)) === null || _document$querySelect === void 0 || _document$querySelect.scrollIntoView({
+    block: 'start',
+    behavior: 'smooth'
+  });
+}
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
 
 /* Show and hide manual coordinate input field */
 $(window).on('load', function () {
@@ -325,6 +335,7 @@ $(document).ready(function () {
         allowClear: true
       });
     }
+<<<<<<< HEAD
   }
 
   // price range
@@ -336,13 +347,41 @@ $(document).ready(function () {
     var $this = $(this);
     if ($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true) {
       $("#".concat($this.data('option'))).hide();
+=======
+  }
+
+  /**
+   * Price field.
+   */
+  function getPriceTypeInput(typeId) {
+    return $("#".concat($("[for=\"".concat(typeId, "\"]")).data('option')));
+  }
+  $('.directorist-form-pricing-field__options').on('change', 'input', function () {
+    var $otherOptions = $(this).parent().siblings('.directorist-checkbox').find('input');
+    $otherOptions.prop('checked', false);
+    getPriceTypeInput($otherOptions.attr('id')).hide();
+    if (this.checked) {
+      getPriceTypeInput(this.id).show();
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
     } else {
-      $("#".concat($this.data('option'))).show();
+      getPriceTypeInput(this.id).hide();
     }
+<<<<<<< HEAD
     var $sibling = $this.parent().siblings('.directorist-checkbox');
     $sibling.children('input[type=checkbox]').prop('checked', false);
     $("#".concat($sibling.children('.directorist-checkbox__label').data('option'))).hide();
+=======
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   });
+  if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+    $('#price_range, #price').hide();
+    var $selectedPriceType = $('.directorist-form-pricing-field__options input:checked');
+    if ($selectedPriceType.length) {
+      getPriceTypeInput($selectedPriceType.attr('id')).show();
+    } else {
+      $($('.directorist-form-pricing-field__options input').get(0)).prop('checked', true).trigger('change');
+    }
+  }
   var has_tagline = $('#has_tagline').val();
   var has_excerpt = $('#has_excerpt').val();
   if (has_excerpt && has_tagline) {
@@ -481,12 +520,15 @@ $(document).ready(function () {
     render_category_based_fields();
     storeCustomFieldsData();
   });
+<<<<<<< HEAD
   function scrollToEl(selector) {
     document.querySelector(selector).scrollIntoView({
       block: 'start',
       behavior: 'smooth'
     });
   }
+=======
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   function atbdp_element_value(element) {
     var field = $(element);
     if (field.length) {
@@ -494,25 +536,37 @@ $(document).ready(function () {
     }
     return '';
   }
+<<<<<<< HEAD
   var uploaders = localized_data.media_uploader;
   var mediaUploaders = [];
   if (uploaders) {
     var i = 0;
     var _iterator = _createForOfIteratorHelper(uploaders),
+=======
+  var mediaUploaders = [];
+  if (localized_data.media_uploader) {
+    var _iterator = _createForOfIteratorHelper(localized_data.media_uploader),
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
       _step;
     try {
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
         var uploader = _step.value;
+<<<<<<< HEAD
         if ($('.' + uploader['element_id']).length) {
           var media_uploader = new EzMediaUploader({
             containerClass: uploader['element_id']
+=======
+        if ($('.' + uploader.element_id).length) {
+          var EzUploader = new EzMediaUploader({
+            containerClass: uploader.element_id
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
           });
           mediaUploaders.push({
-            media_uploader: media_uploader,
+            media_uploader: EzUploader,
             uploaders_data: uploader
           });
-          mediaUploaders[i].media_uploader.init();
-          i++;
+          EzUploader.init();
+          // mediaUploaders[i].media_uploader.init();
         }
       }
     } catch (err) {
@@ -524,23 +578,36 @@ $(document).ready(function () {
   var on_processing = false;
   var has_media = true;
   var quick_login_modal__success_callback = null;
+<<<<<<< HEAD
+=======
+  var $notification = $('#listing_notifier');
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
 
   // -----------------------------
   // Submit The Form
   // -----------------------------
+<<<<<<< HEAD
   $('body').on('submit', '#directorist-add-listing-form', function (e) {
     e.preventDefault();
     if (localized_data.is_admin) {
       return;
     }
+=======
+  var uploadedImages = [];
+  $('body').on('submit', '#directorist-add-listing-form', function (e) {
+    e.preventDefault();
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
     var $form = $(e.target);
-    var $submitButton = $form.find('.directorist-form-submit__btn');
-    var err_log = {};
     var error_count = 0;
+<<<<<<< HEAD
+=======
+    var err_log = {};
+    var $submitButton = $('.directorist-form-submit__btn');
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
     if (on_processing) {
-      $submitButton.attr('disabled', true);
       return;
     }
+<<<<<<< HEAD
     var form_data = new FormData();
     form_data.append('action', 'add_listing_action');
     form_data.append('directorist_nonce', directorist.directorist_nonce);
@@ -696,19 +763,249 @@ $(document).ready(function () {
             } else {
               $('#listing_notifier').show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
               window.location.href = joinQueryString(response.redirect_url, is_edited);
+=======
+    function disableSubmitButton() {
+      on_processing = true;
+      $submitButton.addClass('atbd_loading').attr('disabled', true);
+    }
+    function enableSubmitButton() {
+      on_processing = false;
+      $submitButton.removeClass('atbd_loading').attr('disabled', false);
+    }
+
+    // images
+    var selectedImages = [];
+    if (mediaUploaders.length) {
+      for (var _i = 0, _mediaUploaders = mediaUploaders; _i < _mediaUploaders.length; _i++) {
+        var uploader = _mediaUploaders[_i];
+        if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
+          continue;
+        }
+        if (!uploader.media_uploader.hasValidFiles()) {
+          $submitButton.removeClass('atbd_loading');
+          err_log.listing_gallery = {
+            msg: uploader.uploaders_data['error_msg']
+          };
+          error_count++;
+          scrollTo('.' + uploader.uploaders_data.element_id);
+          break;
+        }
+        selectedImages = uploader.media_uploader.getTheFiles();
+      }
+    }
+    if (selectedImages.length) {
+      var counter = 0;
+      function uploadImage() {
+        var formData = new FormData();
+        formData.append('action', 'directorist_upload_listing_image');
+        formData.append('directorist_nonce', directorist.directorist_nonce);
+        formData.append('image', selectedImages[counter]);
+        $.ajax({
+          method: 'POST',
+          processData: false,
+          contentType: false,
+          url: localized_data.ajaxurl,
+          data: formData,
+          beforeSend: function beforeSend() {
+            disableSubmitButton();
+            var totalImages = selectedImages.length;
+            if (totalImages === 1) {
+              $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.image_uploading_msg, "</span>"));
+            } else {
+              var completedPercent = Math.ceil((counter === 0 ? 1 : counter) * 100 / totalImages);
+              $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.image_uploading_msg, " (").concat(completedPercent, "%)</span>"));
+            }
+          },
+          success: function success(response) {
+            if (!response.success) {
+              enableSubmitButton();
+              $notification.show().html("<span class=\"atbdp_error\">".concat(response.data, "</span>"));
+              return;
+            }
+            uploadedImages.push(response.data);
+            counter++;
+            if (counter < selectedImages.length) {
+              uploadImage();
+            } else {
+              submitForm($form, uploadedImages);
+            }
+          },
+          error: function error(response) {
+            enableSubmitButton();
+            $notification.html("<span class=\"atbdp_error\">".concat(response.responseJSON.data, "</span>"));
+          }
+        });
+      }
+      if (uploadedImages.length === selectedImages.length) {
+        submitForm($form, uploadedImages);
+      } else {
+        uploadImage();
+      }
+    } else {
+      submitForm($form);
+    }
+    function submitForm($form) {
+      var uploadedImages = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      var error_count = 0;
+      var err_log = {};
+      var form_data = new FormData();
+      form_data.append('action', 'add_listing_action');
+      form_data.append('directorist_nonce', directorist.directorist_nonce);
+      form_data.append('listing_img', uploadedImages);
+      disableSubmitButton();
+      var fieldValuePairs = $form.serializeArray();
+
+      // Append Form Fields Values
+      var _iterator2 = _createForOfIteratorHelper(fieldValuePairs),
+        _step2;
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var field = _step2.value;
+          form_data.append(field.name, field.value);
+        }
+
+        //images
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+      if (mediaUploaders.length) {
+        for (var _i2 = 0, _mediaUploaders2 = mediaUploaders; _i2 < _mediaUploaders2.length; _i2++) {
+          var uploader = _mediaUploaders2[_i2];
+          if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
+            continue;
+          }
+          if (uploader.media_uploader.hasValidFiles()) {
+            var files_meta = uploader.media_uploader.getFilesMeta();
+            if (files_meta) {
+              for (var i = 0; i < files_meta.length; i++) {
+                form_data.append("listing_img_old[".concat(i, "]"), files_meta[i].attachmentID);
+              }
+            }
+          } else {
+            err_log.listing_gallery = {
+              msg: uploader.uploaders_data['error_msg']
+            };
+            error_count++;
+            if ($('.' + uploader.uploaders_data.element_id).length) {
+              scrollTo('.' + uploader.uploaders_data.element_id);
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
             }
           }
         }
-      },
-      error: function error(_error) {
-        on_processing = false;
-        $submitButton.attr('disabled', false);
-        $submitButton.removeClass('atbd_loading');
-        console.log(_error);
       }
+<<<<<<< HEAD
     });
   });
 
+=======
+
+      // categories
+      var categories = $form.find('#at_biz_dir-categories').val();
+      if (Array.isArray(categories) && categories.length) {
+        for (var key in categories) {
+          form_data.append('tax_input[at_biz_dir-category][]', categories[key]);
+        }
+      }
+      if (typeof categories === 'string') {
+        form_data.append('tax_input[at_biz_dir-category][]', categories);
+      }
+      if (form_data.has('admin_category_select[]')) {
+        form_data.delete('admin_category_select[]');
+      }
+      if (form_data.has('directory_type')) {
+        form_data.delete('directory_type');
+      }
+      var form_directory_type = $form.find("input[name='directory_type']");
+      var form_directory_type_value = form_directory_type !== undefined ? form_directory_type.val() : '';
+      var directory_type = qs.directory_type ? qs.directory_type : form_directory_type_value;
+      form_data.append('directory_type', directory_type);
+      if (qs.plan) {
+        form_data.append('plan_id', qs.plan);
+      }
+      if (error_count) {
+        enableSubmitButton();
+        console.log('Form has invalid data');
+        console.log(error_count, err_log);
+        return;
+      }
+      $.ajax({
+        method: 'POST',
+        processData: false,
+        contentType: false,
+        url: localized_data.ajaxurl,
+        data: form_data,
+        beforeSend: function beforeSend() {
+          disableSubmitButton();
+          $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.submission_wait_msg, "</span>"));
+        },
+        success: function success(response) {
+          var redirect_url = response && response.redirect_url ? response.redirect_url : '';
+          redirect_url = redirect_url && typeof redirect_url === 'string' ? response.redirect_url.replace(/:\/\//g, '%3A%2F%2F') : '';
+          if (response.error === true) {
+            enableSubmitButton();
+            $notification.show().html("<span>".concat(response.error_msg, "</span>"));
+            if (response.quick_login_required) {
+              var modal = $('#directorist-quick-login');
+              var email = response.email;
+
+              // Prepare fields
+              modal.find('input[name="email"]').val(email);
+              modal.find('input[name="email"]').prop('disabled', true);
+
+              // Show alert
+              var alert = '<div class="directorist-alert directorist-alert-info directorist-mb-10 atbd-text-center directorist-mb-10">' + response.error_msg + '</div>';
+              modal.find('.directorist-modal-alerts-area').html(alert);
+
+              // Show the modal
+              modal.addClass('show');
+              quick_login_modal__success_callback = function quick_login_modal__success_callback(args) {
+                $('#guest_user_email').prop('disabled', true);
+                $notification.hide().html('');
+                args.elements.submit_button.remove();
+                var form_actions = args.elements.form.find('.directorist-form-actions');
+                form_actions.find('.directorist-toggle-modal').removeClass('directorist-d-none');
+              };
+            }
+          } else {
+            // preview on and no need to redirect to payment
+            if (response.preview_mode === true && response.need_payment !== true) {
+              if (response.edited_listing !== true) {
+                $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
+                window.location.href = joinQueryString(response.preview_url, "preview=1&redirect=".concat(redirect_url));
+              } else {
+                $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
+                if (qs.redirect) {
+                  window.location.href = joinQueryString(response.preview_url, "post_id=".concat(response.id, "&preview=1&payment=1&edited=1&redirect=").concat(qs.redirect));
+                } else {
+                  window.location.href = joinQueryString(response.preview_url, "preview=1&edited=1&redirect=".concat(redirect_url));
+                }
+              }
+              // preview mode active and need payment
+            } else if (response.preview_mode === true && response.need_payment === true) {
+              window.location.href = joinQueryString(response.preview_url, "preview=1&payment=1&redirect=".concat(redirect_url));
+            } else {
+              var is_edited = response.edited_listing ? "listing_id=".concat(response.id, "&edited=1") : '';
+              if (response.need_payment === true) {
+                $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
+                window.location.href = decodeURIComponent(redirect_url);
+              } else {
+                $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
+                window.location.href = joinQueryString(response.redirect_url, is_edited);
+              }
+            }
+          }
+        },
+        error: function error(_error) {
+          enableSubmitButton();
+          console.log(_error);
+        }
+      });
+    }
+  });
+
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   // Custom Field Checkbox Button More
   function customFieldSeeMore() {
     if ($('.directorist-custom-field-btn-more').length) {
@@ -808,6 +1105,11 @@ $(document).ready(function () {
       }
     });
   });
+<<<<<<< HEAD
+=======
+
+  // Sticky Navigation on Add Listing
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   function addSticky() {
     $(window).scroll(function () {
       var windowWidth = $(window).width();
@@ -886,7 +1188,11 @@ function multiStepWizard() {
       }
     });
 
+<<<<<<< HEAD
     // Previous Step
+=======
+    // Go Previous Step
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
     $('.multistep-wizard__btn--prev').on('click', function (e) {
       e.preventDefault();
       if (stepCount > 1) {
@@ -898,7 +1204,11 @@ function multiStepWizard() {
       }
     });
 
+<<<<<<< HEAD
     // Next Step
+=======
+    // Go Next Step
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
     $('.multistep-wizard__btn--next').on('click', function (e) {
       e.preventDefault();
       if (stepCount < totalWizard.length) {
@@ -907,7 +1217,11 @@ function multiStepWizard() {
       }
     });
 
+<<<<<<< HEAD
     // Random Step
+=======
+    // Go Random Step
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
     $('.multistep-wizard__nav__btn').on('click', function (e) {
       e.preventDefault();
       if (this.classList.contains('completed')) {
@@ -947,7 +1261,11 @@ function multiStepWizard() {
         }
       });
 
+<<<<<<< HEAD
       // Enable Button
+=======
+      // Enable Previous Button
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
       if (value > 1) {
         $('.multistep-wizard__btn--prev').removeAttr('disabled');
       }
@@ -1011,16 +1329,44 @@ function defaultAddListing() {
       });
     }
   }
+<<<<<<< HEAD
+=======
+
+  // Function to scroll smoothly to the target section
+  function smoothScroll(targetSection) {
+    var targetElement = document.getElementById(targetSection);
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
 
   // Initial update and update on scroll
   if (navLinks.length > 0) {
     updateActiveNav();
     window.addEventListener("scroll", updateActiveNav);
   }
+<<<<<<< HEAD
 }
 
 // Add Listing Accordion
+=======
 
+  // Add smooth scroll to navigation links
+  navLinks.forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      var targetSection = this.getAttribute("href").substring(1);
+      smoothScroll(targetSection);
+    });
+  });
+}
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
+
+// Add Listing Accordion
 function addListingAccordion() {
   $('body').on('click', '.directorist-add-listing-form .directorist-content-module__title', function (e) {
     e.preventDefault();
@@ -1033,7 +1379,11 @@ function addListingAccordion() {
 }
 addListingAccordion();
 
+<<<<<<< HEAD
 /* Elementor Edit Mode */
+=======
+// Multistep Add Listing on Elementor EditMode 
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
 $(window).on('elementor/frontend/init', function () {
   setTimeout(function () {
     if ($('body').hasClass('elementor-editor-active')) {
@@ -1041,8 +1391,11 @@ $(window).on('elementor/frontend/init', function () {
     }
   }, 3000);
 });
+<<<<<<< HEAD
 
 // Elementor EditMode
+=======
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
 $('body').on('click', function (e) {
   if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
     multiStepWizard();

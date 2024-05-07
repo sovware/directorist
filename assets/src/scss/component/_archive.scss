@@ -174,11 +174,11 @@
 			flex-wrap: wrap;
 			gap: 10px;
 
-			.directorist-dropdown .directorist-dropdown__links--single {
+			.directorist-dropdown .directorist-dropdown__links__single {
 				cursor: pointer;
 
 				&:hover {
-					background: var(--directorist-color-light);
+					background-color: var(--directorist-color-light);
 				}
 			}
 		}
@@ -202,6 +202,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		box-sizing: border-box;
 		width: 40px;
 		height: 40px;
 		border-radius: 8px;
@@ -273,6 +274,12 @@
 		}
 		.directorist-search-form {
 			display: flex;
+			.directorist-filter-location-icon {
+				right: 15px;
+				top: unset;
+				transform: unset;
+				bottom: 8px;
+			}
 		}
 		.directorist-advanced-filter__form {
 			display: flex;
@@ -285,6 +292,24 @@
 		.directorist-search-contents {
 			padding: 0;
 		}
+		.directorist-search-form-dropdown {
+			&.input-has-value,
+			&.input-is-focused {
+				.directorist-search-field__input {
+					bottom: 0;
+				}
+			}
+		}
+		.directorist-search-field-pricing,
+        .directorist-search-field-text_range,
+        .directorist-search-field-radius_search {
+            > label {
+                display: block;
+                font-size: 14px;
+                font-weight: 500;
+                margin-bottom: 15px;
+            }
+        }
 	}
 	@include e(header) {
 		flex: 0 0 100%;
@@ -302,9 +327,10 @@
 			min-height: 40px;
 			padding: 0 20px;
 			border-radius: 8px;
+			text-transform: capitalize;
 			text-decoration: none !important;
 			color: var(--directorist-color-primary);
-			background: var(--directorist-color-light);
+			background-color: var(--directorist-color-light);
 			border: 2px solid var(--directorist-color-white);
 			display: none;
 			.directorist-icon-mask{
@@ -320,7 +346,7 @@
 			}
 			@include m('active'){
 				color: var(--directorist-color-white);
-				background: var(--directorist-color-primary);
+				background-color: var(--directorist-color-primary);
 				.directorist-icon-mask::after{
 					background-color: var(--directorist-color-white);
 				}
@@ -382,8 +408,16 @@
 		.directorist-search-contents {
 			padding: 0;
 		}
+		.directorist-search-basic-dropdown-content {
+			display: block !important;
+		}
 		.directorist-search-form__box {
 			padding: 0;
+		}
+		.directorist-search-field__input {
+			&.directorist-form-element {
+				padding-right: 20px;
+			}
 		}
 		.directorist-advanced-filter__top {
 			width: 100%;
@@ -403,26 +437,26 @@
 		.directorist-advanced-filter__advanced {
 			flex: 1;
 			box-sizing: border-box;
-			padding: 25px 30px;
+			padding: 25px 30px 0;
 		}
-		.directorist-advanced-filter__advanced--element .directorist-search-field {
+		.directorist-advanced-filter__advanced__element .directorist-search-field {
 			> label {
-				font-size: 15px;
+				font-size: 16px;
 				font-weight: 500;
 				margin: 0;
 			}
-			&.directorist-search-field-radius_search {
+			&.directorist-search-field-radius_search,
+			&.directorist-search-field-price_range,
+			&.directorist-search-field-text_range {
 				> label {
 					margin-bottom: 15px;
 				}
-				.directorist-range-slider-current-value {
-					top: 0;
-				}
 			}
 			.directorist-search-tags,
+			.directorist-search-review,
 			.directorist-radio-wrapper,
 			.directorist-checkbox-wrapper {
-				margin-top: 10px;
+				margin-top: 13px;
 			}
 		}
 		.directorist-form-group:last-child .directorist-search-field {
@@ -460,13 +494,13 @@
 		.directorist-btn-submit {
 			width: 100%;
 		}
-		.directorist-price-ranges__price-frequency--btn .directorist-pf-range {
+		.directorist-price-ranges__price-frequency__btn .directorist-pf-range {
 			width: 54px;
 			@media screen and (max-width: 575px) {
 				width: 100%;
 			}
 		}
-		.directorist-price-ranges__price-frequency--btn:last-child {
+		.directorist-price-ranges__price-frequency__btn:last-child {
 			border: 0 none;
 		}
 		.directorist-checkbox-wrapper,
@@ -485,22 +519,40 @@
 					font-size: 14px;
 					font-weight: 400;
 					color: var(--directorist-color-body);
+					&.directorist-search-basic-dropdown-label {
+						position: unset;
+						transform: unset;
+						font-size: 16px;
+						font-weight: 500;
+						i,
+						span {
+							display: none;
+						}
+					}
 				}
 				.directorist-search-field__input::placeholder {
 					opacity: 0;
 					transition: opacity 0.3s ease;
 				}
-				.directorist-search-field__btn--clear {
-					right: 0;
-				}
 				&.input-is-focused {
+					width: 100%;
+					display: inline-flex;
+					margin-top: 40px;
 					.directorist-search-field__label {
-						font-size: 13px;
+						top: -35px;
+						transform: unset;
+						font-size: 16px;
 						font-weight: 500;
+						margin: 0 0 10px;
+						z-index: 1;
 					}
-					.directorist-search-field__input::placeholder {
-                        opacity: 1;
-                    }
+					.directorist-search-field__input {
+						bottom: 0;
+						width: 100%;
+						&::placeholder {
+							opacity: 1;
+						}
+					}
 				}
 			}
 			&.directorist-icon-right .directorist-input-icon {
@@ -514,6 +566,7 @@
 	@include e(listing) {
 		display: inline-flex;
 		flex: 1;
+		padding: 0;
 		flex-wrap: wrap;
 		flex-direction: column;
 		.directorist-header-bar,
@@ -535,125 +588,28 @@
 		display: flex;
 		gap: 30px;
 	}
-
-	.directorist-search-field {
-		@include e(label) {
-			position: absolute;
-			left: 0;
-			top: 50%;
-			transform: translateY(-50%);
-			font-size: 14px;
-			font-weight: 400;
-			color: var(--directorist-color-body);
-			transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
-		}
-		@include e(input) {
-			&::placeholder {
-			  opacity: 0;
-			  transition: opacity 0.3s ease;
-			}
-		}
-		@include e(btn) {
-			display: flex;
-			position: absolute;
-			bottom: 10px;
-			cursor: pointer;
-			@include m(clear) {
-				right: 15px;
-				i::after {
-					width: 16px;
-					height: 16px;
-					opacity: 0;
-					visibility: hidden;
-					background-color: #BCBCBC;
-					transition: background-color 0.3s ease;
+	.directorist-search-form__top {
+		.directorist-search-field {
+			@media screen and (max-width: 575px) {
+				margin: 0 20px 0 0;
+				&.input-is-focued {
+					margin: 0 25px;
 				}
-				&:hover {
-					i::after {
-						background-color: var(--directorist-color-primary);
-					}
+				.directorist-filter-location-icon {
+					right: -15px;
 				}
-			}
-		}
-
-		@media screen and (max-width: 575px) {
-			.directorist-filter-location-icon {
-				right: -15px;
-			}
-		}
-
-		&.input-is-focused {
-			.directorist-search-field__input {
-				&[type="number"] {
-					appearance: none !important;
-					-webkit-appearance: none !important;
-					-moz-appearance: none !important;
-				}
-				&::placeholder {
-					opacity: 1;
-				}
-			}
-			.directorist-search-field__label {
-				top: 0;
-				font-size: 13px;
-				font-weight: 400;
-				color: var(--directorist-color-body);
-			}
-			.directorist-search-field__btn i::after {
-				opacity: 1;
-				visibility: visible;
-			}
-	
-			.directorist-select,
-			.directorist-search-field__input {
-				position: relative;
-				bottom: -5px;
-			}
-			.directorist-select {
-				.directorist-search-field__label {
-					opacity: 1;
-				}
-			}
-			.directorist-location-js {
-				padding-right: 45px;
-			}
-
-			.select2-selection--single .select2-selection__rendered,
-			.select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
-				color: var(--directorist-color-primary);
-			}
-			.directorist-select2-addons-area .directorist-icon-mask:after {
-				background-color: var(--directorist-color-primary);
-			}
-	
-			&.atbdp-form-fade:after,
-			.directorist-filter-location-icon {
-				margin-top: 3px;
-			}
-		}
-	
-		.directorist-select {
-			.directorist-search-field__label {
-				opacity: 0;
-			}
-		}
-		.directorist-select,
-		.directorist-filter-location-icon {
-			~ .directorist-search-field__btn--clear {
-				right: 25px;
-				bottom: 8px;
-			}
-			.directorist-icon-mask:after {
-				background-color: #808080;
 			}
 		}
 	}
 }
-.logged-in .listing-with-sidebar__sidebar .directorist-search-form-box {
+.logged-in .listing-with-sidebar__sidebar .directorist-search-form__box {
 	@media only screen and (max-width: 991px) {
 		padding-top: 30px;
 	}
 	@media only screen and (max-width: 767px) {
 		padding-top: 46px;
+	}
+	@media only screen and (max-width: 600px) {
+		padding-top: 0;
 	}
 }

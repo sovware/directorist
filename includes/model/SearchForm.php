@@ -90,7 +90,7 @@ class Directorist_Listing_Search_Form {
 
 		$this->form_data          = $this->build_form_data();
 
-		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
+		$this->c_symbol           = atbdp_currency_symbol( directorist_get_currency() );
 		// $this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
 		// $this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
@@ -243,12 +243,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function get_default_listing_type() {
-		$listing_types = get_terms(
-			array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			)
-		);
+		$listing_types = directorist_get_directories();
 
 		foreach ( $listing_types as $type ) {
 			$is_default = get_term_meta( $type->term_id, '_default', true );
@@ -421,7 +416,11 @@ class Directorist_Listing_Search_Form {
 			'value'      		=> $value,
 		);
 		if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $this->assign_to_category()['custom_field_key'] ) ) ) {
-			$template = 'search-form/custom-fields/' . $field_data['widget_name'];
+			if( ! empty( $field_data['type'] ) && 'number' != $field_data['type'] ) {
+				$template = 'search-form/custom-fields/number/' . $field_data['type'];
+			} else {
+				$template = 'search-form/custom-fields/' . $field_data['widget_name'];
+			}
 		}
 		else {
 			$template = 'search-form/fields/' . $field_data['widget_name'];
@@ -437,32 +436,18 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function get_listing_type_data() {
-		$listing_types = array();
-		$args          = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-		);
-		if( $this->directory_type ) {
-			$args['slug']     = $this->directory_type;
+		$args = array();
+
+		if ( $this->directory_type ) {
+			$args['slug'] = $this->directory_type;
 		}
 
-		$all_types     = get_terms( $args );
-
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'term' => $type,
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
-		}
-		return $listing_types;
+		return directorist_get_directories_for_template( $args );
 	}
 
 
 	public function directory_type_nav_template() {
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-
-		if( count( $this->get_listing_type_data() ) < 2 || empty( $enable_multi_directory ) ) {
+		if ( count( $this->get_listing_type_data() ) < 2 || ! directorist_is_multi_directory_enabled() ) {
 			return;
 		}
 
@@ -487,7 +472,7 @@ class Directorist_Listing_Search_Form {
 		Helper::get_template( 'search-form/basic-search', array('searchform' => $this) );
 	}
 
-	public function advanced_search_form_advanced_fields_template() {
+	public function advanced_search_form_fields_template() {
 		Helper::get_template( 'search-form/adv-search', array('searchform' => $this) );
 	}
 

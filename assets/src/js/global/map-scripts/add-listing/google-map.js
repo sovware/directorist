@@ -5,6 +5,7 @@ import {
 } from './../../../lib/helper';
 
 (function ($) {
+    // Add Listing Map Initialize
     function initAddListingMap() {
         if ($('#gmap').length) {
             var localized_data = get_dom_data('map_data');
@@ -51,11 +52,6 @@ import {
                 content: info_content,
                 maxWidth: 400,
             }));
-
-            // if(address_input){
-            //         address_input = document.getElementById('address');
-            //         address_input.addEventListener('focus', geolocate);
-            // }
 
             address_input = document.getElementById('address');
             if (address_input !== null) {
@@ -124,6 +120,7 @@ import {
 
             initAutocomplete(); // start google map place auto complete API call
 
+            // Map Inittialize
             function initMap() {
                 /* Create new map instance */
                 map = new google.maps.Map(document.getElementById('gmap'), {
@@ -244,12 +241,12 @@ import {
             }
         }
     }
+
     $(document).ready(function () {
         initAddListingMap()
     });
 
-
-    /* Elementor Edit Mode */
+    // Add Listing Map on Elementor EditMode 
     $(window).on('elementor/frontend/init', function () {
         setTimeout(function() {
             if ($('body').hasClass('elementor-editor-active')) {
@@ -259,10 +256,10 @@ import {
 
     });
 
-    // Elementor EditMode
     $('body').on('click', function (e) {
         if ($('body').hasClass('elementor-editor-active')  && (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON')) {
             initAddListingMap()
         }
     });
+
 })(jQuery);

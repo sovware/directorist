@@ -1,13 +1,13 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
 import SlideUpDown from 'vue-slide-up-down';
+import Vuex from 'vuex';
 
 Vue.use(Vuex);
 Vue.component('slide-up-down', SlideUpDown);
 
-import './vue/global-component';
-import store from './vue/store/CPT_Manager_Store'
 import cpt_manager_component from './vue/apps/cpt-manager/CPT_Manager.vue';
+import './vue/global-component';
+import store from './vue/store/CPT_Manager_Store';
 
 window.addEventListener('DOMContentLoaded', () => {
     const cpt_manager_el = document.getElementById( 'atbdp-cpt-manager' );

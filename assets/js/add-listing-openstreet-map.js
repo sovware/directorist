@@ -100,6 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 (function ($) {
+  // Add Listing Map Initialize
   function initAddListingMap() {
     var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data');
 
@@ -303,7 +304,11 @@ __webpack_require__.r(__webpack_exports__);
     initAddListingMap();
   });
 
+<<<<<<< HEAD
   /* Elementor Edit Mode */
+=======
+  // Add Listing Map on Elementor EditMode 
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
       if ($('body').hasClass('elementor-editor-active')) {
@@ -311,8 +316,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     }, 3000);
   });
+<<<<<<< HEAD
 
   // Elementor EditMode
+=======
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initAddListingMap();

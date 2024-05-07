@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<li>
 				<a href="<?php echo esc_url( ATBDP_Permalink::atbdp_get_category_page( $cat ) ); ?>">
 					<?php directorist_icon( get_cat_icon( $cat->term_id ) ); ?>
-					<p><?php echo esc_html( $cat->name ); ?></p>
+					<?php echo esc_html( $cat->name ); ?>
 				</a>
 			</li>
 

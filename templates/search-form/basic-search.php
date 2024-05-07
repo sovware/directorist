@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="directorist-search-adv-filter directorist-advanced-filter directorist-search-modal__contents">
 	<span class="directorist-search-modal__minimizer"></span>
 	<div class="directorist-search-modal__contents__body">
-		<?php foreach ( $searchform->form_data[0]['fields'] as $field ){ ?>
-			<div class="directorist-search-modal__input">
+		<?php foreach ( $searchform->form_data[0]['fields'] as $key => $field ){ ?>
+			<div class="directorist-search-modal__input <?php echo $key === 'radius_search' ? 'directorist-radius-search' : ''; ?>">
 				<?php $searchform->field_template( $field ); ?>
 			</div>
 		<?php } ?>

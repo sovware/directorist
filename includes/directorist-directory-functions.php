@@ -63,7 +63,9 @@ function directorist_get_listing_form_field( $directory_id, $field_key = '' ) {
 		return array();
 	}
 
-	return directorist_get_listing_form_fields( $directory_id )[ $field_key ] ?: array();
+	$form_fields = directorist_get_listing_form_fields( $directory_id );
+
+	return empty( $form_fields[ $field_key ] ) ? array() : $form_fields[ $field_key ];
 }
 
 function directorist_get_listing_form_category_field( int $directory_id ) {
@@ -73,22 +75,6 @@ function directorist_get_listing_form_category_field( int $directory_id ) {
 function directorist_listing_form_has_category_field( int $directory_id ) {
 	$category_field = directorist_get_listing_form_category_field( $directory_id );
 	return ! empty( $category_field );
-}
-
-function directorist_is_multi_directory_enabled() {
-	return (bool) get_directorist_option( 'enable_multi_directory', false );
-}
-
-function directorist_is_guest_submission_enabled() {
-	return (bool) get_directorist_option( 'guest_listings', 0 );
-}
-
-function directorist_is_featured_listing_enabled() {
-	return (bool) get_directorist_option( 'enable_featured_listing' );
-}
-
-function directorist_is_monetization_enabled() {
-	return (bool) get_directorist_option( 'enable_monetization' );
 }
 
 function directorist_is_terms_and_condition_enabled( int $directory_id ) {
@@ -187,4 +173,61 @@ function directorist_get_location_directory( $location_id ) {
 
 function directorist_get_category_directory( $category_id ) {
 	return directorist_get_term_directory( $category_id );
+}
+
+/**
+ * Get directory General tab settings.
+ *
+ * @param int $directory_id
+ * @since 7.8.9
+ *
+ * @return array
+ */
+function directorist_get_directory_general_settings( $directory_id ) {
+	$settings = (array) directorist_get_directory_meta( $directory_id, 'general_config' );
+	$defaults = array(
+		'icon'          => '',
+		'preview_image' => '',
+	);
+
+	return array_merge( $defaults, $settings );
+}
+
+function directorist_get_directories( array $args = array() ) {
+	$defaults = array(
+		'hide_empty' => false,
+		'default_only' => false,
+	);
+
+	$args = wp_parse_args( $args, $defaults );
+
+	if ( $args['default_only'] ) {
+		$args['number']     = 1;
+		$args['meta_value'] = '1';
+		$args['meta_key']   = '_default';
+
+		unset( $args['default_only'] );
+	}
+
+	$args['taxonomy'] = ATBDP_DIRECTORY_TYPE;
+
+	return get_terms( $args );
+}
+
+function directorist_get_directories_for_template( array $args = array() ) {
+	$directories = directorist_get_directories( $args );
+
+	if ( is_wp_error( $directories ) ) {
+		return array();
+	}
+
+	return array_reduce( $directories, static function( $carry, $directory ) {
+		$carry[ $directory->term_id ] = array(
+			'term' => $directory,
+			'name' => $directory->name,
+			'data' => directorist_get_directory_general_settings( $directory->term_id ),
+		);
+
+		return $carry;
+	}, array() );
 }

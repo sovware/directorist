@@ -769,6 +769,7 @@ window.addEventListener('DOMContentLoaded', function () {
   } else {
     $('.atbd_tagline_moto_field').fadeOut();
   }
+<<<<<<< HEAD
   if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
     $('#price').show();
     $('#price_range').hide();
@@ -789,6 +790,39 @@ window.addEventListener('DOMContentLoaded', function () {
     $('.directory_pricing_field').hide();
     $(current_field).show();
   });
+=======
+
+  /**
+   * Price field.
+   */
+  // if ( $( '.directorist-form-pricing-field' ).hasClass( 'price-type-both' ) ) {
+  //     $('#price, #price_range').hide();
+  // }
+
+  // $( '.directorist_pricing_options label' ).on( 'click', function() {
+  //     const $this = $(this);
+  //     $this.children('input[type=checkbox]').prop('checked') == true
+  //         ? $(`#${$this.data('option')}`).show()
+  //         : $(`#${$this.data('option')}`).hide();
+  //     const $sibling = $this.siblings('label');
+  //     $sibling.children('input[type=checkbox]').prop('checked', false);
+  //     $(`#${$sibling.data('option')}`).hide();
+  // } );
+
+  // $('.directorist_pricing_options label').on( 'click', function () {
+  //     const self = $( this );
+
+  //     const current_input = self.attr( 'for' );
+  //     const current_field = `#${self.data('option')}`;
+
+  //     $( '.directorist_pricing_options input[type=checkbox]' ).prop( 'checked', false );
+  //     $( '.directorist_pricing_options input[id='+ current_input +']' ).attr( 'checked', true );
+
+  //     $('.directory_pricing_field').hide();
+  //     $( current_field ).show();
+  // });
+
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   $('#atbd_optional_field_check').on('change', function () {
     $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut();
   });
@@ -1230,6 +1264,7 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   });
   function assetsNeedToWorkInVirtualDom() {
+<<<<<<< HEAD
     // price range
     /* $('#price_range').hide();
     const pricing = $('#atbd_listing_pricing').val();
@@ -1254,6 +1289,56 @@ window.addEventListener('DOMContentLoaded', function () {
       $('.directory_pricing_field').hide();
       $(current_field).show();
     });
+=======
+    function getPriceTypeInput(typeId) {
+      return $("#".concat($("[for=\"".concat(typeId, "\"]")).data('option')));
+    }
+    $('.directorist-form-pricing-field__options').on('change', 'input', function () {
+      var $otherOptions = $(this).parent().siblings('.directorist-checkbox').find('input');
+      $otherOptions.prop('checked', false);
+      getPriceTypeInput($otherOptions.attr('id')).hide();
+      if (this.checked) {
+        getPriceTypeInput(this.id).show();
+      } else {
+        getPriceTypeInput(this.id).hide();
+      }
+    });
+
+    // Must be placed after the event listener.
+    if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+      $('#price_range, #price').hide();
+      var $selectedPriceType = $('.directorist-form-pricing-field__options input:checked');
+      if ($selectedPriceType.length) {
+        getPriceTypeInput($selectedPriceType.attr('id')).show();
+      } else {
+        $($('.directorist-form-pricing-field__options input').get(0)).prop('checked', true).trigger('change');
+      }
+    }
+
+    // $('.atbd_pricing_options label').on('click', function () {
+    //     const $this = $(this);
+    //     $this.children('input[type=checkbox]').prop('checked') == true ?
+    //         $(`#${$this.data('option')}`).show() :
+    //         $(`#${$this.data('option')}`).hide();
+    //     const $sibling = $this.siblings('label');
+    //     $sibling.children('input[type=checkbox]').prop('checked', false);
+    //     $(`#${$sibling.data('option')}`).hide();
+    // });
+
+    // $('.directorist_pricing_options label').on('click', function () {
+    //     const self = $(this);
+
+    //     const current_input = self.attr('for');
+    //     const current_field = `#${self.data('option')}`;
+
+    //     $('.directorist_pricing_options input[type=checkbox]').prop('checked', false);
+    //     $('.directorist_pricing_options input[id=' + current_input + ']').attr('checked', true);
+
+    //     $('.directory_pricing_field').hide();
+    //     $(current_field).show();
+    // });
+
+>>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
     var imageUpload;
     if (imageUpload) {
       imageUpload.open();

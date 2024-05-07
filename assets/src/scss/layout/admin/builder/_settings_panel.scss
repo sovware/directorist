@@ -120,7 +120,7 @@
 }
 
 .setting-top-bar {
-    background: #272B41;
+    background-color: #272B41;
     padding: 15px 20px;
     border-radius: 5px 5px 0 0;
     display: flex;
@@ -299,7 +299,7 @@
     border-radius: 4px;
     cursor: pointer;
     border: 1px solid #3E62F5;
-    background: #3E62F5;
+    background-color: #3E62F5;
     transition: all ease-in-out 300ms;
 
     &:focus{
@@ -322,7 +322,7 @@
 .setting-left-sibebar {
     min-width: 250px;
     max-width: 250px;
-    background: #F6F6F6;
+    background-color: #F6F6F6;
     border-right: 1px solid #f6f6f6;
     @media only screen and (max-width: 767px) {
         position: fixed;
@@ -373,12 +373,12 @@
 }
 
 .settings-nav__item.active {
-    background: #fff;
+    background-color: #fff;
 }
 
 .settings-nav__item ul {
     padding-left: 0;
-    background: #fff;
+    background-color: #fff;
     display: none;
 }
 
@@ -398,7 +398,7 @@
 }
 
 .settings-nav__item__link:hover {
-    background: #fff;
+    background-color: #fff;
 }
 
 .settings-nav__item.active .settings-nav__item__link {
@@ -466,13 +466,13 @@
 
 .settings-nav__item ul li a.active {
     color: #3E62F5;
-    background: #fff;
+    background-color: #fff;
     box-shadow: 0 5px 20px rgba(161, 168, 198, 0.2);
     border-left-color: #3E62F5;
 }
 
 .settings-nav__item ul li a:hover {
-    background: #fff;
+    background-color: #fff;
     box-shadow: 0 5px 20px rgba(161, 168, 198, 0.2);
 }
 

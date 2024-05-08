@@ -169,9 +169,9 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		 * @access   private
 		 */
 		private function update_renewal_status() {
-			$can_renew             = get_directorist_option( 'can_renew_listing' );
-			$renew_email_threshold = get_directorist_option( 'email_to_expire_day' ); // before how many days of expiration, a renewal message should be sent
-			if ( $can_renew && $renew_email_threshold > 0 ) {
+			$renew_email_threshold = (int) get_directorist_option( 'email_to_expire_day' ); // before how many days of expiration, a renewal message should be sent
+
+			if ( directorist_can_user_renew_listings() && $renew_email_threshold > 0 ) {
 				$renew_email_threshold_date = date( 'Y-m-d H:i:s', strtotime( "+{$renew_email_threshold} days" ) );
 
 				// Define the query
@@ -183,38 +183,28 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					'nopaging'       => true,
 					'meta_query'     => array(
 						'relation'   => 'AND',
-						array(
+						'never_expire' => array(
+							'key'     => '_never_expire',
+							'compare' => 'NOT EXISTS',
+						),
+						'expiry_date' => array(
 							'key'     => '_expiry_date',
 							'value'   => $renew_email_threshold_date,
 							'compare' => '<=',
 							// _expiry_date > $renew_email_threshold_date,     '2018-04-15 09:24:00' < '2018-04-09 12:57:27'. eg. expiry date can not be greater than renewal threshold because threshold is the future date. expiration date should be equal to future date or less.
 							'type'    => 'DATETIME',
 						),
-						'expiration' => array(
-							array(
-								'key'     => '_never_expire',
-								'compare' => 'NOT EXISTS',
-							),
-						),
 					),
 				);
 
 				$listings = new WP_Query( $args ); // get all the post that has post_status only and update their status and fire an email
+
 				if ( $listings->found_posts ) {
 					foreach ( $listings->posts as $listing ) {
-						// TODO: Status has been migrated, remove related code.
-						// update_post_meta( $listing->ID, '_listing_status', 'renewal' );
-						$renewal_listing_id = wp_update_post( array(
-							'ID'          => $listing->ID,
-							'post_status' => 'renewal',
-						) );
-
-						if ( is_wp_error( $renewal_listing_id ) ) {
-							continue;
-						}
+						update_post_meta( $listing->ID, '_listing_status', 'renewal' );
 
 						// hook for dev.
-						do_action( 'atbdp_status_updated_to_renewal', $renewal_listing_id );
+						do_action( 'atbdp_status_updated_to_renewal', $listing->ID );
 					}
 				}
 			}
@@ -227,13 +217,11 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		 * @access   private
 		 */
 		private function update_expired_status() {
-
-			$can_renew         = get_directorist_option( 'can_renew_listing' );
-			$email_renewal_day = get_directorist_option( 'email_renewal_day' );
-			$delete_in_days    = get_directorist_option( 'delete_expired_listings_after' );
+			$email_renewal_day = (int) get_directorist_option( 'email_renewal_day' );
+			$delete_in_days    = (int) get_directorist_option( 'delete_expired_listings_after' );
 			$del_exp_l         = get_directorist_option( 'delete_expired_listing' );
 			// add renewal reminder days to deletion thresholds
-			$delete_threshold = $can_renew ? (int) $email_renewal_day + (int) $delete_in_days : $delete_in_days;
+			$delete_threshold = directorist_can_user_renew_listings() ? ( $email_renewal_day +  $delete_in_days ) : $delete_in_days;
 
 			// Define the query
 			$args = array(
@@ -244,23 +232,22 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 				'post_status'    => 'publish', // get expired post with published status
 				'meta_query'     => array(
 					'relation'   => 'AND',
-					array(
+					'never_expire' => array(
+						'key'     => '_never_expire',
+						'compare' => 'NOT EXISTS',
+					),
+					'expiry_date' => array(
 						'key'     => '_expiry_date',
 						'value'   => current_time( 'mysql' ),
 						'compare' => '<=',                    // eg. expire date 6 <= current date 7 will return the post
 						'type'    => 'DATETIME',
 					),
-					'expiration' => array(
-						array(
-							'key'     => '_never_expire',
-							'compare' => 'NOT EXISTS',
-						),
-					),
 				),
 			);
 
 			$listings = new WP_Query( apply_filters( 'directorist_update_listings_expired_status_query_arguments ', $args ) );
-			if ( $listings->found_posts ) {
+
+			if ( $listings->have_posts() ) {
 				foreach ( $listings->posts as $listing ) {
 					// prepare the post meta data
 					$meta_input = array(
@@ -355,25 +342,23 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 				'cache_results'  => false,
 				'nopaging'       => true,
 				'meta_query' => array(
-					'relation' => 'AND',
-					'renewed_by_admin' => array(
-						'relation' => 'OR',
-						array(
-							'key'     => '_expiry_date',
-							'value'   => current_time( 'mysql' ),
-							'compare' => '>',                     // eg. expire date 6 <= current date 7 will return the post
-							'type'    => 'DATETIME',
-						),
-						array(
-							'key'   => '_never_expire',
-						),
-					)
+					'relation' => 'OR',
+					'never_expire' => array(
+						'key'     => '_never_expire',
+						'compare' => 'EXISTS',
+					),
+					'expiry_date' => array(
+						'key'     => '_expiry_date',
+						'value'   => current_time( 'mysql' ),
+						'compare' => '>',                     // eg. expire date 6 <= current date 7 will return the post
+						'type'    => 'DATETIME',
+					),
 				)
 			);
 
 			$listings = new WP_Query( $args );
 
-			if ( $listings->found_posts ) {
+			if ( $listings->have_posts() ) {
 				foreach ( $listings->posts as $listing ) {
 					wp_update_post( array(
 						'ID'          => $listing->ID,
@@ -393,10 +378,9 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		 * @access   private
 		 */
 		private function send_renewal_reminders() {
-			$can_renew         = get_directorist_option( 'can_renew_listing' );
-			$email_renewal_day = get_directorist_option( 'email_renewal_day' );
+			$email_renewal_day = (int) get_directorist_option( 'email_renewal_day' );
 
-			if ( $can_renew && $email_renewal_day > 0 ) {
+			if ( directorist_can_user_renew_listings() && $email_renewal_day > 0 ) {
 				// Define the query
 				$args = array(
 					'post_type'      => ATBDP_POST_TYPE,
@@ -411,15 +395,13 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 						// 	'key'   => '_listing_status',
 						// 	'value' => 'expired',
 						// ),
-						array(
+						'never_expire' => array(
+							'key'     => '_never_expire',
+							'compare' => 'NOT EXISTS',
+						),
+						'renewal_reminder_sent' => array(
 							'key'   => '_renewal_reminder_sent',
 							'value' => 0,
-						),
-						'expiration' => array(
-							array(
-								'key'     => '_never_expire',
-								'compare' => 'NOT EXISTS',
-							),
 						),
 					),
 				);
@@ -427,7 +409,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 				$listings = new WP_Query( $args );
 
 				// Start the Loop
-				if ( $listings->found_posts ) {
+				if ( $listings->have_posts() ) {
 					foreach ( $listings->posts as $listing ) {
 						// Send emails
 						$expiration_date      = get_post_meta( $listing->ID, '_expiry_date', true );
@@ -472,17 +454,15 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					// 	'key'   => '_listing_status',
 					// 	'value' => 'expired',
 					// ),
-					array(
+					'never_expire' => array(
+						'key'     => '_never_expire',
+						'compare' => 'NOT EXISTS',
+					),
+					'deletion_date' => array(
 						'key'     => '_deletion_date',
 						'value'   => current_time( 'mysql' ),
 						'compare' => '<',
 						'type'    => 'DATETIME',
-					),
-					'expiration' => array(
-						array(
-							'key'     => '_never_expire',
-							'compare' => 'NOT EXISTS',
-						),
 					),
 				),
 			);

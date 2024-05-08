@@ -53,20 +53,6 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					),
 				)
 			);
-
-			register_post_status(
-				'renewal',
-				array(
-					'label'       => _x( 'Renewal', 'post status', 'directorist' ),
-					'protected'   => true,
-					/* translators: %s: Number of renewal listings. */
-					'label_count' => _n_noop(
-						'Renewal <span class="count">(%s)</span>',
-						'Renewal <span class="count">(%s)</span>',
-						'directorist'
-					),
-				)
-			);
 		}
 
 		public function quick_edit_scripts() {
@@ -412,7 +398,13 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					// TODO: Status has been migrated, remove related code.
 					// $status = get_post_meta( $post_id, '_listing_status', true );
 					// $status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
-					$status = get_post_status( $post_id );
+
+					if ( get_post_meta( $post_id, '_listing_status', true ) === 'renewal' ) {
+						$status = _x( 'Renewal', 'Noun: listing status', 'directorist' );
+					} else {
+						$status = get_post_status( $post_id );
+					}
+
 					echo esc_html( ucfirst( $status ) );
 					break;
 

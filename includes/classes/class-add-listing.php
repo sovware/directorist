@@ -377,7 +377,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						}
 
 						update_post_meta( $listing_id, '_featured', 0 );
-						update_post_meta( $listing_id, '_listing_status', 'post_status' );
+						// TODO: Status has been migrated, remove related code.
+						// update_post_meta( $listing_id, '_listing_status', 'post_status' );
 
 						/*
 						 * It fires before processing a listing from the front end
@@ -931,9 +932,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		 * @since 3.1.0
 		 */
 		private function renew_listing( $listing_id ) {
-			$can_renew = get_directorist_option( 'can_renew_listing' );
-
-			if ( ! $can_renew ) {
+			if ( ! directorist_can_user_renew_listings() ) {
 				return false;// vail if renewal option is turned off on the site.
 			}
 

@@ -552,11 +552,17 @@ class Directorist_Listing_Dashboard {
 		// 	}
 		// }
 
-		if ( in_array( get_post_status( get_the_ID() ), array( 'expired', 'renewal' ), true ) ) {
-			return (bool) get_directorist_option( 'can_renew_listing' );
+		if ( ! directorist_can_user_renew_listings() ) {
+			return false;
 		}
 
-		return false;
+		$status = get_post_status( get_the_ID() );
+
+		if ( $status !== 'expired' || ( $status === 'publish' && get_post_meta( get_the_ID(), '_listing_status', true ) !== 'renewal' ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	public function can_promote() {
@@ -570,16 +576,22 @@ class Directorist_Listing_Dashboard {
 		// 	return false;
 		// }
 
-		if ( in_array( get_post_status( get_the_ID() ), array( 'expired', 'renewal' ), true ) ) {
+		if ( ! directorist_is_featured_listing_enabled() ) {
 			return false;
 		}
-		
-		$is_featured = (bool) get_post_meta( get_the_ID(), '_featured', true );
-		if ( directorist_is_featured_listing_enabled() && ! $is_featured ) {
-			return true;
+
+		$status = get_post_status( get_the_ID() );
+
+		if ( $status === 'expired' || ( $status === 'publish' && get_post_meta( get_the_ID(), '_listing_status', true ) === 'renewal' ) ) {
+			return false;
 		}
 
-		return false;
+		$is_featured = (bool) get_post_meta( get_the_ID(), '_featured', true );
+		if ( $is_featured ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	public function get_renewal_link( $listing_id ) {

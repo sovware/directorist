@@ -1427,7 +1427,6 @@ function atbdp_listings_count_by_tag($term_id)
             ),
             array(
                 'key' => '_never_expire',
-                // 'value' => 1, // TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
             ),
         ))
     );

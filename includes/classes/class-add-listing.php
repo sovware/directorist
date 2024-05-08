@@ -982,10 +982,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			if ( $exp_days <= 0 ) {
 				update_post_meta( $listing_id, '_never_expire', 1 );
 			}
-			// TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
-			// else {
-			// 	update_post_meta( $listing_id, '_never_expire', 0 );
-			// }
 
 			do_action( 'atbdp_after_renewal', $listing_id );
 			$r_url = add_query_arg( 'renew', 'success', ATBDP_Permalink::get_dashboard_page_link() );

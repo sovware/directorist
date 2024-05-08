@@ -17,11 +17,11 @@ class Image_Upload_Field extends Base_Field {
 			return null;
 		}
 
-		$new_images = directorist_get_var( $posted_data[ $this->get_key() ], '' );
+		$new_images = (array) directorist_get_var( $posted_data[ $this->get_key() ], array() );
 		$old_images = (array) directorist_get_var( $posted_data[ $this->get_key() . '_old' ], array() );
 
 		return array(
-			'new' => array_filter( explode( ',', $new_images ) ),
+			'new' => array_filter( $new_images ),
 			'old' => array_filter( wp_parse_id_list( $old_images ) ),
 		);
 	}

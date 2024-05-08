@@ -28,6 +28,8 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 			add_filter( 'cron_schedules', array( $this, 'atbdp_cron_init' ) );
 
 			add_action( 'edit_post', array( $this, 'update_atbdp_schedule_tasks' ), 10, 2 );
+
+			add_action( 'directorist_cleanup_temporary_uploads', array( $this, 'cleanup_temporary_uploads' ) );
 		}
 
 		// update_atbdp_schedule_tasks
@@ -84,6 +86,10 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		public function atbdp_custom_schedule_cron() {
 			if ( ! wp_next_scheduled( 'directorist_hourly_scheduled_events' ) ) {
 				wp_schedule_event( time(), 'atbdp_listing_manage', 'directorist_hourly_scheduled_events' );
+			}
+
+			if ( ! wp_next_scheduled( 'directorist_cleanup_temporary_uploads' ) ) {
+				wp_schedule_event( time(), 'daily', 'directorist_cleanup_temporary_uploads' );
 			}
 		}
 
@@ -186,11 +192,12 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 						),
 						'expiration' => array(
 							'relation' => 'OR',
-							array(
-								'key'     => '_never_expire',
-								'value'   => array( '', '0' ),
-								'compare' => 'IN',
-							),
+							// TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
+							// array(
+							// 	'key'     => '_never_expire',
+							// 	'value'   => array( '', '0' ),
+							// 	'compare' => 'IN',
+							// ),
 							array(
 								'key'     => '_never_expire',
 								'compare' => 'NOT EXISTS',
@@ -231,7 +238,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 			$can_renew         = get_directorist_option( 'can_renew_listing' );
 			$email_renewal_day = get_directorist_option( 'email_renewal_day' );
 			$delete_in_days    = get_directorist_option( 'delete_expired_listings_after' );
-			$del_exp_l         = get_directorist_option( 'delete_expired_listing', 1 );
+			$del_exp_l         = get_directorist_option( 'delete_expired_listing' );
 			// add renewal reminder days to deletion thresholds
 			$delete_threshold = $can_renew ? (int) $email_renewal_day + (int) $delete_in_days : $delete_in_days;
 
@@ -252,11 +259,12 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					),
 					'expiration' => array(
 						'relation' => 'OR',
-						array(
-							'key'     => '_never_expire',
-							'value'   => array( '', '0' ),
-							'compare' => 'IN',
-						),
+						// TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
+						// array(
+						// 	'key'     => '_never_expire',
+						// 	'value'   => array( '', '0' ),
+						// 	'compare' => 'IN',
+						// ),
 						array(
 							'key'     => '_never_expire',
 							'compare' => 'NOT EXISTS',
@@ -372,7 +380,6 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 						),
 						array(
 							'key'   => '_never_expire',
-							'value' => 1,
 						),
 					)
 				)
@@ -424,11 +431,12 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 						),
 						'expiration' => array(
 							'relation' => 'OR',
-							array(
-								'key'     => '_never_expire',
-								'value'   => array( '', '0' ),
-								'compare' => 'IN',
-							),
+							// TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
+							// array(
+							// 	'key'     => '_never_expire',
+							// 	'value'   => array( '', '0' ),
+							// 	'compare' => 'IN',
+							// ),
 							array(
 								'key'     => '_never_expire',
 								'compare' => 'NOT EXISTS',
@@ -465,7 +473,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 		 */
 		private function delete_expired_listings() {
 
-			$del_exp_l = get_directorist_option( 'delete_expired_listing', 1 );
+			$del_exp_l = get_directorist_option( 'delete_expired_listing' );
 			if ( ! $del_exp_l ) {
 				return; // vail if admin does not want to delete expired listing
 			}
@@ -493,11 +501,12 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					),
 					'expiration' => array(
 						'relation' => 'OR',
-						array(
-							'key'     => '_never_expire',
-							'value'   => array( '', '0' ),
-							'compare' => 'IN',
-						),
+						// TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
+						// array(
+						// 	'key'     => '_never_expire',
+						// 	'value'   => array( '', '0' ),
+						// 	'compare' => 'IN',
+						// ),
 						array(
 							'key'     => '_never_expire',
 							'compare' => 'NOT EXISTS',
@@ -518,6 +527,14 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					}
 					do_action( 'atbdp_deleted_expired_listings', $listing->ID );
 				}
+			}
+		}
+
+		public function cleanup_temporary_uploads() {
+			directorist_delete_temporary_upload_dirs();
+
+			if ( ! wp_next_scheduled( 'directorist_cleanup_temporary_uploads' ) ) {
+				wp_schedule_event( time(), 'daily', 'directorist_cleanup_temporary_uploads' );
 			}
 		}
 	}

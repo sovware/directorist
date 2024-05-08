@@ -1202,33 +1202,22 @@ class Directorist_Listings {
 	}
 
 	public function get_current_listing_type() {
-		$listing_types      = $this->get_listing_types();
-		$listing_type_count = count( $listing_types );
-
-		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
-
-		if ( isset( $_REQUEST['directory_type'] ) ) {
-			$current = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
-		}
-		else if( $this->default_directory_type ) {
-			$current = $this->default_directory_type;
-		}
-		else {
-
-			foreach ( $listing_types as $id => $type ) {
-				$is_default = get_term_meta( $id, '_default', true );
-				if ( $is_default ) {
-					$current = $id;
-					break;
-				}
+		if ( is_singular( ATBDP_POST_TYPE ) ) {
+			$directory = get_post_meta( get_the_ID(), '_directory_type', true );
+		} else if ( ! empty( $_REQUEST['directory_type'] ) ) {
+			$directory = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
+	
+			if ( ! is_numeric( $directory ) ) {
+				$directory_term = get_term_by( 'slug', $directory, ATBDP_DIRECTORY_TYPE );
+				$directory      = $directory_term ? $directory_term->term_id : 0;
 			}
 		}
-
-		if( ! is_numeric( $current ) ) {
-			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
-			$current = $term->term_id;
+	
+		if ( ! empty( $directory ) && directorist_is_directory( $directory ) ) {
+			return (int) $directory;
 		}
-		return (int) $current;
+		
+		return directorist_get_default_directory();
 	}
 
 	public function search_category_location_args() {

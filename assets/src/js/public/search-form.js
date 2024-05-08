@@ -141,7 +141,7 @@ import { directorist_range_slider } from './range-slider';
             e.preventDefault();
             let miles = parseInt($('.directorist-range-slider-value').val());
             let default_args = {
-                maxValue: 1000,
+                maxValue: directorist.args.search_max_radius_distance,
                 minValue: miles,
                 maxWidth: '100%',
                 barColor: '#d4d5d9',
@@ -587,7 +587,7 @@ import { directorist_range_slider } from './range-slider';
             if( directorist.i18n_text.select_listing_map === 'google' ) {
               var url = directorist.ajax_url;
             } else {
-                url = `https://nominatim.openstreetmap.org/?postalcode=+${zipcode}+&format=json&addressdetails=1`;
+                url = `https://nominatim.openstreetmap.org/?postalcode=${zipcode}&format=json&addressdetails=1`;
 
                 $('.directorist-country').css({
                     display: 'block'
@@ -609,7 +609,7 @@ import { directorist_range_slider } from './range-slider';
             };
             $.ajax({
                 url: url,
-                method: 'POST',
+                method: 'GET',
                 data : directorist.i18n_text.select_listing_map === 'google' ? google_data : "",
                 success: function( data ) {
                     if( data.data && data.data.error_message ) {

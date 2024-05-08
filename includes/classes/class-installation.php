@@ -32,6 +32,10 @@ class ATBDP_Installation {
 			// 'directorist_7100_clean_listing_status_renewal_meta',
 			'directorist_7100_update_db_version',
 		],
+		'7.9.0' => [
+			'directorist_791_clean_falsy_never_expire_meta',
+			'directorist_791_update_db_version',
+		],
 		'7.1.0' => [
 			'directorist_710_migrate_reviews_table_to_comments_table',
 			'directorist_710_migrate_posts_table_to_comments_table',

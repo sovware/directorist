@@ -783,7 +783,7 @@ var directorist_range_slider = function directorist_range_slider(selector, obj) 
 function directorist_callingSlider() {
   var minValueWrapper = document.querySelector('.directorist-range-slider-value');
   var default_args = {
-    maxValue: 1000,
+    maxValue: directorist.args.search_max_radius_distance,
     minValue: parseInt(minValueWrapper && minValueWrapper.value),
     maxWidth: '100%',
     barColor: '#d4d5d9',
@@ -956,7 +956,7 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
       var miles = parseInt($('.directorist-range-slider-value').val());
       var default_args = {
-        maxValue: 1000,
+        maxValue: directorist.args.search_max_radius_distance,
         minValue: miles,
         maxWidth: '100%',
         barColor: '#d4d5d9',
@@ -1340,7 +1340,7 @@ __webpack_require__.r(__webpack_exports__);
       if (directorist.i18n_text.select_listing_map === 'google') {
         var url = directorist.ajax_url;
       } else {
-        url = "https://nominatim.openstreetmap.org/?postalcode=+".concat(zipcode, "+&format=json&addressdetails=1");
+        url = "https://nominatim.openstreetmap.org/?postalcode=".concat(zipcode, "&format=json&addressdetails=1");
         $('.directorist-country').css({
           display: 'block'
         });
@@ -1358,7 +1358,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       $.ajax({
         url: url,
-        method: 'POST',
+        method: 'GET',
         data: directorist.i18n_text.select_listing_map === 'google' ? google_data : "",
         success: function success(data) {
           if (data.data && data.data.error_message) {

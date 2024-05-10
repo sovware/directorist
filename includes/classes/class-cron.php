@@ -252,7 +252,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					// prepare the post meta data
 					$meta_input = array(
 						// TODO: Status has been migrated, remove related code.
-						// '_listing_status'        => 'expired',
+						'_listing_status'        => 'expired',
 						'_featured'              => 0,
 						'_renewal_reminder_sent' => 0,
 					);
@@ -364,6 +364,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 						'ID'          => $listing->ID,
 						'post_status' => 'publish',
 						'meta_input'  => array(
+							'_listing_status'        => 'post_status',
 							'_renewal_reminder_sent' => 0,
 						),
 					) );

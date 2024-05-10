@@ -240,7 +240,7 @@ class SetupWizard
                 update_post_meta($post_id, '_featured', 0);
 
 				// TODO: Status has been migrated, remove related code.
-                // update_post_meta($post_id, '_listing_status', 'post_status');
+                update_post_meta($post_id, '_listing_status', 'post_status');
                 $preview_url = isset($post['listing_prv_img']) ? $post['listing_prv_img'] : '';
 
                 if ( $preview_image && $preview_url ) {

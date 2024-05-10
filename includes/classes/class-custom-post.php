@@ -399,13 +399,15 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					// $status = get_post_meta( $post_id, '_listing_status', true );
 					// $status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
 
-					if ( get_post_meta( $post_id, '_listing_status', true ) === 'renewal' ) {
-						$status = _x( 'Renewal', 'Noun: listing status', 'directorist' );
+					$status = get_post_status( $post_id );
+
+					if ( $status === 'publish' && get_post_meta( $post_id, '_listing_status', true ) === 'renewal' ) {
+						$status_label = _x( 'Renewal', 'Noun: listing status', 'directorist' );
 					} else {
-						$status = get_post_status( $post_id );
+						$status_label = get_post_status_object( $status )->label;
 					}
 
-					echo esc_html( ucfirst( $status ) );
+					echo esc_html( $status_label );
 					break;
 
 				case 'atbdp_featured':

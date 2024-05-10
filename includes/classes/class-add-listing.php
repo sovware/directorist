@@ -378,7 +378,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 						update_post_meta( $listing_id, '_featured', 0 );
 						// TODO: Status has been migrated, remove related code.
-						// update_post_meta( $listing_id, '_listing_status', 'post_status' );
+						update_post_meta( $listing_id, '_listing_status', 'post_status' );
 
 						/*
 						 * It fires before processing a listing from the front end
@@ -975,7 +975,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			// update related post meta_data
 			update_post_meta( $listing_id, '_expiry_date', $expiry_date );
 			// TODO: Status has been migrated, remove related code.
-			// update_post_meta( $listing_id, '_listing_status', 'post_status' );
+			update_post_meta( $listing_id, '_listing_status', 'post_status' );
 
 			$exp_days = get_term_meta( $directory_type, 'default_expiration', true );
 			if ( $exp_days <= 0 ) {

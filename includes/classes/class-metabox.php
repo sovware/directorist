@@ -463,9 +463,9 @@ class ATBDP_Metabox {
 					'ID'          => $post_id,
 					'post_status' => $post_status, // update the status to private so that we do not run this func a second time
 					// TODO: Status has been migrated, remove related code.
-					// 'meta_input' => array(
-					// 	'_listing_status' => 'post_status',
-					// ), // insert all meta data once to reduce update meta query
+					'meta_input' => array(
+						'_listing_status' => 'post_status',
+					), // insert all meta data once to reduce update meta query
 				) );
 			}
 		}
@@ -476,8 +476,8 @@ class ATBDP_Metabox {
 		}
 
 		// TODO: Status has been migrated, remove related code.
-		// if ( ! metadata_exists( 'post', $post_id, '_listing_status' ) ) {
-		// 	update_post_meta( $post_id, '_listing_status', 'post_status' );
-		// }
+		if ( ! metadata_exists( 'post', $post_id, '_listing_status' ) ) {
+			update_post_meta( $post_id, '_listing_status', 'post_status' );
+		}
 	}
 }

@@ -4523,64 +4523,37 @@ input.atbdp-form-control {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 30px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: start;
   -webkit-align-items: flex-start;
       -ms-flex-align: start;
           align-items: flex-start;
 }
-@media only screen and (max-width: 1199px) {
-  .directorist_builder__content {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-}
 .directorist_builder__content .directorist_btn.directorist_btn-success {
   background-color: #08bf9c;
 }
 .directorist_builder__content .directorist_builder__content__left {
-  width: 360px;
-  margin-left: 30px;
-  margin-top: 38px;
-}
-@media only screen and (max-width: 1599px) {
-  .directorist_builder__content .directorist_builder__content__left {
-    width: 320px;
-    margin-left: 20px;
-  }
-}
-@media only screen and (max-width: 1499px) {
-  .directorist_builder__content .directorist_builder__content__left {
-    width: 240px;
-    margin-left: 15px;
-  }
-}
-@media only screen and (max-width: 1399px) {
-  .directorist_builder__content .directorist_builder__content__left {
-    width: 230px;
-  }
-}
-@media only screen and (max-width: 1199px) {
-  .directorist_builder__content .directorist_builder__content__left {
-    width: 320px;
-  }
-}
-@media only screen and (max-width: 575px) {
-  .directorist_builder__content .directorist_builder__content__left {
-    width: 100%;
-    margin-left: 0;
-    margin-top: 0;
-  }
-}
-.directorist_builder__content .directorist_builder__content__left .directorist_link-block {
-  width: 100%;
-  min-height: 126px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 10px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.directorist_builder__content .directorist_builder__content__left .directorist_link-block {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
@@ -4589,17 +4562,12 @@ input.atbdp-form-control {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  border-radius: 4px;
+  border-radius: 8px;
   -webkit-box-shadow: 0 5px 10px rgba(173, 180, 210, 0.062745098);
           box-shadow: 0 5px 10px rgba(173, 180, 210, 0.062745098);
   text-decoration: none;
-  text-align: center;
-  padding: 0 15px;
+  padding: 0 20px;
+  height: 46px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -4628,12 +4596,9 @@ input.atbdp-form-control {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  height: 25px;
-  width: 25px;
-  border-radius: 50%;
-  border: 2px solid #fff;
 }
 .directorist_builder__content .directorist_builder__content__left .directorist_link-block .directorist_link-icon i {
+  font-size: 20px;
   font-weight: 900;
   color: #fff;
 }
@@ -4643,7 +4608,6 @@ input.atbdp-form-control {
   line-height: 1.5;
   font-weight: 500;
   color: #fff;
-  margin-top: 15px;
 }
 @media only screen and (max-width: 1199px) {
   .directorist_builder__content .directorist_builder__content__left .directorist_link-block .directorist_link-text {
@@ -4657,29 +4621,10 @@ input.atbdp-form-control {
   border: 0 none;
 }
 .directorist_builder__content .directorist_builder__content__left .directorist_btn-import .directorist_link-icon i {
-  font-size: 24px;
-}
-.directorist_builder__content .directorist_builder__content__left .directorist_btn-import .directorist_link-text {
-  margin-top: 12px;
-}
-.directorist_builder__content .directorist_builder__content__left .directorist_link-block + .directorist_link-block {
-  margin-top: 20px;
+  font-size: 20px;
 }
 .directorist_builder__content .directorist_builder__content__right {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-@media only screen and (max-width: 1199px) {
-  .directorist_builder__content .directorist_builder__content__right {
-    -webkit-box-flex: 1;
-    -webkit-flex: auto;
-        -ms-flex: auto;
-            flex: auto;
-    width: 100%;
-    margin-top: 30px;
-  }
+  width: 100%;
 }
 .directorist_builder__content .directorist_builder__content__right .atbd_tab_nav {
   margin-bottom: 20px;

@@ -58,7 +58,7 @@
                             <i class="fa fa-download"></i>
                         </span>
                         <span class="directorist_link-text">
-                            <?php esc_html_e( 'Import', 'directorist' ) ?>
+                            <?php esc_html_e( 'Import Directory Type', 'directorist' ) ?>
                         </span>
                     </a>
 

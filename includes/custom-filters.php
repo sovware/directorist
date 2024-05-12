@@ -27,23 +27,3 @@ function atbdp_directorist_button_classes($type='primary'){
     return is_array($image_obj) ? $image_obj[0] : '';
  }
 
-/**
- * Get post status when _listing_status meta is quired.
- *
- * @since 7.10.0
- *
- * @param  mixed $value
- * @param  int $object_id
- * @param  string $key
- *
- * @return mixed
- */
-function directorist_get_post_metadata_filter( $value, $object_id, $key ) {
-    if ( $key !== '_listing_status' || ! directorist_is_listing_post_type( $object_id ) ) {
-        return $value;
-    }
-
-    return get_post_status( $object_id );
-}
-add_filter( 'get_post_metadata', 'directorist_get_post_metadata_filter', 99999, 3 );
-add_filter( 'default_post_metadata', 'directorist_get_post_metadata_filter', 99999, 3 );

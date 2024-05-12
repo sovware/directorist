@@ -207,7 +207,7 @@
                         <p class="cptm-create-directory-modal__desc">You can select a template to assist you, or start from scratch.</p>
                     </div>
                     <button class="cptm-modal-action-link cptm-modal-toggle" data-target="cptm-create-directory-modal">
-                        <span class="la la-times"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11.998"><path d="m7.409 5.998 4.295-4.286A1.003 1.003 0 1 0 10.286.294L6 4.59 1.714.294A1.003 1.003 0 0 0 .296 1.712L4.59 5.998.296 10.284a.999.999 0 0 0 0 1.419.999.999 0 0 0 1.418 0L6 7.407l4.286 4.296a.999.999 0 0 0 1.418 0 .999.999 0 0 0 0-1.419L7.41 5.998Z" fill="#3c3c3c" fill-rule="evenodd" data-name="times"/></svg>
                     </button>
                 </div>
 

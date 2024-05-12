@@ -4524,22 +4524,22 @@ input.atbdp-form-control {
   .directorist_builder__content__right {
     width: 100%;
 
-    .atbd_tab_nav {
+    .directorist-tab__nav {
       margin-bottom: 20px;
 
-      ul {
+      .directorist-tab__nav__items {
         padding: 0;
         margin: 0;
         display: flex;
 
-        .directorist_builder--tab-item {
+        .directorist-tab__nav__item {
           margin-bottom: 0;
 
           &:not(:last-child) {
             margin-right: 20px;
           }
 
-          .atbd_tn_link {
+          .directorist-tab__nav__link {
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
@@ -4557,7 +4557,7 @@ input.atbdp-form-control {
               margin-left: 5px;
             }
 
-            &.tabItemActive {
+            &.directorist-tab__nav__active {
               color: #3e62f5;
 
               .directorist_count {
@@ -4569,7 +4569,7 @@ input.atbdp-form-control {
       }
     }
 
-    .directorist_builder--tabContent {
+    .directorist-tab__content {
       padding: 20px;
       background-color: #fff;
       border-radius: 4px;
@@ -4847,6 +4847,13 @@ input.atbdp-form-control {
               }
             }
           }
+        }
+      }
+
+      .directorist-tab__pane {
+        display: none;
+        &.directorist-tab__pane--active {
+          display: block;
         }
       }
     }

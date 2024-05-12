@@ -83,16 +83,22 @@
                     ]);
                 ?>
                 <div class="directorist_builder__content__right">
-                    <div class="directorist_builder--tab">
-                        <div class="atbd_tab_nav">
-                            <ul>
-                                <li class="directorist_builder--tab-item">
-                                    <a href="#" target="all" class="atbd_tn_link tabItemActive"><?php esc_html_e( 'All','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span></a>
+                    <div class="directorist_builder--tab directorist-tab">
+                        <div class="directorist-tab__nav">
+                            <ul class="directorist-tab__nav__items">
+                                <li class="directorist-tab__nav__item">
+                                    <a href="#" target="all" class="directorist-tab__nav__link directorist-tab__nav__active"><?php esc_html_e( 'All','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span></a>
+                                </li>
+                                <li class="directorist-tab__nav__item">
+                                    <a href="#" target="published" class="directorist-tab__nav__link"><?php esc_html_e( 'Published','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span></a>
+                                </li>
+                                <li class="directorist-tab__nav__item">
+                                    <a href="#" target="private" class="directorist-tab__nav__link"><?php esc_html_e( 'Private','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span></a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="directorist_builder--tabContent">
-                            <div class="atbd_tab_inner tabContentActive" id="all">
+                        <div class="directorist-tab__content">
+                            <div class="directorist-tab__pane directorist-tab__pane--active" id="all">
                                 <div class="directorist_all-listing-table directorist_table-responsive">
                                     <table class="directorist_table">
                                         <thead>
@@ -184,6 +190,174 @@
                                             <?php
                                                 }
                                             } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="directorist-tab__pane" id="published">
+                                <div class="directorist_all-listing-table directorist_table-responsive">
+                                    <table class="directorist_table">
+                                        <thead>
+                                            <tr>
+                                                <th class="directorist_listing-title"><?php esc_html_e( 'Title', 'directorist' ); ?></th>
+                                                <th class="directorist_listing-slug"><?php esc_html_e( 'Slug', 'directorist' ); ?></th>
+                                                <th class="directorist_listing-count"><span class="directorist_listing-count-title"><?php esc_html_e( 'Listings', 'directorist' ); ?></span></th>
+                                                <th class="directorist_listing-c-date"><?php esc_html_e( 'Created Date', 'directorist' ); ?></th>
+                                                <th class="directorist_listing-c-action"><?php esc_html_e( 'Action', 'directorist' ); ?></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="directory-type-row" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>">
+                                                <td>
+                                                    <a href="<?php echo esc_url( ! empty( $edit_link ) ? $edit_link : '#' ); ?>" class="directorist_title">
+                                                        Published Directory 1
+                                                        <?php if( $default ) { ?>
+                                                        <span class="directorist_badge"><?php esc_html_e( 'Published', 'directorist' ); ?></span>
+                                                        <?php } ?>
+                                                    </a>
+                                                    <span class="directorist_listing-id">ID: #<?php echo esc_attr( ! empty( $listing_type->term_id ) ? $listing_type->term_id : '' ); ?></span>
+                                                </td>
+                                                <td class="directorist-type-slug">
+                                                    <div class="directorist-type-slug-content">
+                                                        <span class="directorist_listing-slug-text directorist-slug-text-<?php echo esc_attr( $listing_type->term_id ); ?>" data-value="<?php echo esc_attr( ! empty( $listing_type->slug ) ? $listing_type->slug : '-' ); ?>" contenteditable="false">
+                                                            <?php echo esc_html( html_entity_decode( $listing_type->slug ) ); ?>
+                                                        </span>
+                                                        <div class="directorist-listing-slug-edit-wrap">
+                                                            <a href="" class="directorist-listing-slug__edit" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>
+                                                            <a href="" class="directorist_listing-slug-formText-add" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>
+                                                            <a href="#" class="directorist_listing-slug-formText-remove directorist_listing-slug-formText-remove--hidden"></a>
+                                                        </div>
+                                                    </div>
+                                                    <p class='directorist-slug-notice directorist-slug-notice-<?php echo esc_attr( $listing_type->term_id ); ?>'></p>
+                                                </td>
+                                                <td class="directorist-type-count">
+                                                    <span class="directorist_listing-count"><?php echo esc_html( $listing_type->count ); ?></span>
+                                                </td>
+                                                <td><?php
+                                                if( $created_time ) {
+                                                    echo esc_attr( date( 'F j, Y', $created_time ) );
+                                                }
+                                                ?></td>
+                                                <td>
+                                                    <div class="directorist_listing-actions">
+                                                        <a href="#" class="directorist_btn directorist_btn-primary"><i class="fa fa-edit"></i><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
+                                                        <?php
+                                                        if( ! $default ) {  ?>
+                                                            <div class="directorist_more-dropdown">
+                                                                <a href="#" class="directorist_more-dropdown-toggle">
+                                                                    <i class="fa fa-ellipsis-h"></i>
+                                                                </a>
+                                                                <div class="directorist_more-dropdown-option">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="#">
+                                                                                <div data-type-id="1" class="directorist_listing-type-checkbox directorist_custom-checkbox submitdefault">
+                                                                                    <input class="submitDefaultCheckbox" type="checkbox" name="check-1" id="check-1">
+                                                                                    <label for="check-1">
+                                                                                        <span class="checkbox-text">
+                                                                                        <?php esc_html_e( 'Make It Default', 'directorist' ); ?>
+                                                                                        </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="cptm-modal-toggle atbdp-directory-delete-link-action" data-delete-link="<?php echo esc_url( $delete_link ); ?>" data-target="cptm-delete-directory-modal">
+                                                                                <i class="fa fa-trash"></i><?php esc_html_e( 'Delete', 'directorist' ); ?>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        <?php } ?>
+                                                    </div>
+                                                    <div class="directorist_notifier"></div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="directorist-tab__pane" id="private">
+                                <div class="directorist_all-listing-table directorist_table-responsive">
+                                    <table class="directorist_table">
+                                        <thead>
+                                            <tr>
+                                                <th class="directorist_listing-title"><?php esc_html_e( 'Title', 'directorist' ); ?></th>
+                                                <th class="directorist_listing-slug"><?php esc_html_e( 'Slug', 'directorist' ); ?></th>
+                                                <th class="directorist_listing-count"><span class="directorist_listing-count-title"><?php esc_html_e( 'Listings', 'directorist' ); ?></span></th>
+                                                <th class="directorist_listing-c-date"><?php esc_html_e( 'Created Date', 'directorist' ); ?></th>
+                                                <th class="directorist_listing-c-action"><?php esc_html_e( 'Action', 'directorist' ); ?></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="directory-type-row" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>">
+                                                <td>
+                                                    <a href="<?php echo esc_url( ! empty( $edit_link ) ? $edit_link : '#' ); ?>" class="directorist_title">
+                                                        Private Directory 1
+                                                        <?php if( $default ) { ?>
+                                                        <span class="directorist_badge"><?php esc_html_e( 'Private', 'directorist' ); ?></span>
+                                                        <?php } ?>
+                                                    </a>
+                                                    <span class="directorist_listing-id">ID: #<?php echo esc_attr( ! empty( $listing_type->term_id ) ? $listing_type->term_id : '' ); ?></span>
+                                                </td>
+                                                <td class="directorist-type-slug">
+                                                    <div class="directorist-type-slug-content">
+                                                        <span class="directorist_listing-slug-text directorist-slug-text-<?php echo esc_attr( $listing_type->term_id ); ?>" data-value="<?php echo esc_attr( ! empty( $listing_type->slug ) ? $listing_type->slug : '-' ); ?>" contenteditable="false">
+                                                            <?php echo esc_html( html_entity_decode( $listing_type->slug ) ); ?>
+                                                        </span>
+                                                        <div class="directorist-listing-slug-edit-wrap">
+                                                            <a href="" class="directorist-listing-slug__edit" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>
+                                                            <a href="" class="directorist_listing-slug-formText-add" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>
+                                                            <a href="#" class="directorist_listing-slug-formText-remove directorist_listing-slug-formText-remove--hidden"></a>
+                                                        </div>
+                                                    </div>
+                                                    <p class='directorist-slug-notice directorist-slug-notice-<?php echo esc_attr( $listing_type->term_id ); ?>'></p>
+                                                </td>
+                                                <td class="directorist-type-count">
+                                                    <span class="directorist_listing-count"><?php echo esc_html( $listing_type->count ); ?></span>
+                                                </td>
+                                                <td><?php
+                                                if( $created_time ) {
+                                                    echo esc_attr( date( 'F j, Y', $created_time ) );
+                                                }
+                                                ?></td>
+                                                <td>
+                                                    <div class="directorist_listing-actions">
+                                                        <a href="#" class="directorist_btn directorist_btn-primary"><i class="fa fa-edit"></i><?php esc_html_e( 'Edit', 'directorist' ); ?></a>
+                                                        <?php
+                                                        if( ! $default ) {  ?>
+                                                            <div class="directorist_more-dropdown">
+                                                                <a href="#" class="directorist_more-dropdown-toggle">
+                                                                    <i class="fa fa-ellipsis-h"></i>
+                                                                </a>
+                                                                <div class="directorist_more-dropdown-option">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="#">
+                                                                                <div data-type-id="1" class="directorist_listing-type-checkbox directorist_custom-checkbox submitdefault">
+                                                                                    <input class="submitDefaultCheckbox" type="checkbox" name="check-1" id="check-1">
+                                                                                    <label for="check-1">
+                                                                                        <span class="checkbox-text">
+                                                                                        <?php esc_html_e( 'Make It Default', 'directorist' ); ?>
+                                                                                        </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="cptm-modal-toggle atbdp-directory-delete-link-action" data-delete-link="<?php echo esc_url( $delete_link ); ?>" data-target="cptm-delete-directory-modal">
+                                                                                <i class="fa fa-trash"></i><?php esc_html_e( 'Delete', 'directorist' ); ?>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        <?php } ?>
+                                                    </div>
+                                                    <div class="directorist_notifier"></div>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

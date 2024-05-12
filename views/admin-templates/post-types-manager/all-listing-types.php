@@ -87,18 +87,18 @@
                         <div class="directorist-tab__nav">
                             <ul class="directorist-tab__nav__items">
                                 <li class="directorist-tab__nav__item">
-                                    <a href="#" target="all" class="directorist-tab__nav__link directorist-tab__nav__active"><?php esc_html_e( 'All','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span></a>
+                                    <a href="#" target="directory-type__all" class="directorist-tab__nav__link directorist-tab__nav__active"><?php esc_html_e( 'All','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span></a>
                                 </li>
                                 <li class="directorist-tab__nav__item">
-                                    <a href="#" target="published" class="directorist-tab__nav__link"><?php esc_html_e( 'Published','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span></a>
+                                    <a href="#" target="directory-type__published" class="directorist-tab__nav__link"><?php esc_html_e( 'Published','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span></a>
                                 </li>
                                 <li class="directorist-tab__nav__item">
-                                    <a href="#" target="private" class="directorist-tab__nav__link"><?php esc_html_e( 'Private','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span></a>
+                                    <a href="#" target="directory-type__private" class="directorist-tab__nav__link"><?php esc_html_e( 'Private','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span></a>
                                 </li>
                             </ul>
                         </div>
                         <div class="directorist-tab__content">
-                            <div class="directorist-tab__pane directorist-tab__pane--active" id="all">
+                            <div class="directorist-tab__pane directorist-tab__pane--active" id="directory-type__all">
                                 <div class="directorist_all-listing-table directorist_table-responsive">
                                     <table class="directorist_table">
                                         <thead>
@@ -194,7 +194,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="directorist-tab__pane" id="published">
+                            <div class="directorist-tab__pane" id="directory-type__published">
                                 <div class="directorist_all-listing-table directorist_table-responsive">
                                     <table class="directorist_table">
                                         <thead>
@@ -278,7 +278,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="directorist-tab__pane" id="private">
+                            <div class="directorist-tab__pane" id="directory-type__private">
                                 <div class="directorist_all-listing-table directorist_table-responsive">
                                     <table class="directorist_table">
                                         <thead>

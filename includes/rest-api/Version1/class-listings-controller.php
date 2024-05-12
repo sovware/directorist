@@ -656,7 +656,7 @@ class Listings_Controller extends Posts_Controller {
 	 * @param WP_Post   $listing WP_Post instance.
 	 * @param WP_REST_Request $request Request object.
 	 * @param string    $context Request context. Options: 'view' and 'edit'.
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function get_listing_data( $listing, $request, $context = 'view' ) {
@@ -871,11 +871,14 @@ class Listings_Controller extends Posts_Controller {
 			'value'   => 'expired',
 			'compare' => '!=',
 		);
-		$meta_queries['directory_type'] = array(
-			'key'     => '_directory_type',
-			'value'   => $directory_type,
-			'compare' => '=',
-		);
+
+		if ( directorist_is_multi_directory_enabled() ) {
+			$meta_queries['directory_type'] = array(
+				'key'     => '_directory_type',
+				'value'   => $directory_type,
+				'compare' => '=',
+			);
+		}
 
 		$meta_queries = apply_filters('atbdp_related_listings_meta_queries', $meta_queries);
 		$count_meta_queries = count($meta_queries);

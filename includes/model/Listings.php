@@ -465,11 +465,13 @@ class Directorist_Listings {
 			$current_order = atbdp_get_listings_current_order( $this->orderby . '-' . $this->order );
 		}
 
-		$meta_queries['directory_type'] = array(
-			'key'     => '_directory_type',
-			'value'   => $this->get_current_listing_type(),
-			'compare' => '=',
-		);
+		if ( directorist_is_multi_directory_enabled() ) {
+			$meta_queries['directory_type'] = array(
+				'key'     => '_directory_type',
+				'value'   => $this->get_current_listing_type(),
+				'compare' => '=',
+			);
+		}
 
 		$meta_queries['expired'] = array(
 			'key'     => '_listing_status',
@@ -1205,17 +1207,17 @@ class Directorist_Listings {
 			$directory = get_post_meta( get_the_ID(), '_directory_type', true );
 		} else if ( ! empty( $_REQUEST['directory_type'] ) ) {
 			$directory = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
-	
+
 			if ( ! is_numeric( $directory ) ) {
 				$directory_term = get_term_by( 'slug', $directory, ATBDP_DIRECTORY_TYPE );
 				$directory      = $directory_term ? $directory_term->term_id : 0;
 			}
 		}
-	
+
 		if ( ! empty( $directory ) && directorist_is_directory( $directory ) ) {
 			return (int) $directory;
 		}
-		
+
 		return directorist_get_default_directory();
 	}
 

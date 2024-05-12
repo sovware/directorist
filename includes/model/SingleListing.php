@@ -1183,11 +1183,14 @@ class Directorist_Single_Listing {
 				'value'   => 'expired',
 				'compare' => '!=',
 			);
-		$meta_queries['directory_type'] = array(
+
+		if ( directorist_is_multi_directory_enabled() ) {
+			$meta_queries['directory_type'] = array(
 				'key'     => '_directory_type',
 				'value'   => $this->type,
 				'compare' => '=',
 			);
+		}
 
 		$meta_queries = apply_filters('atbdp_related_listings_meta_queries', $meta_queries);
 		$count_meta_queries = count($meta_queries);

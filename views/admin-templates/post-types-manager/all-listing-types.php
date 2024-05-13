@@ -384,16 +384,16 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11.998"><path d="m7.409 5.998 4.295-4.286A1.003 1.003 0 1 0 10.286.294L6 4.59 1.714.294A1.003 1.003 0 0 0 .296 1.712L4.59 5.998.296 10.284a.999.999 0 0 0 0 1.419.999.999 0 0 0 1.418 0L6 7.407l4.286 4.296a.999.999 0 0 0 1.418 0 .999.999 0 0 0 0-1.419L7.41 5.998Z" fill="#3c3c3c" fill-rule="evenodd" data-name="times"/></svg>
                     </button>
                 </div>
-
+                            
                 <div class="cptm-modal-body cptm-center-content cptm-content-wide cptm-create-directory-modal__body">
                     <div class="cptm-create-directory-modal__action">
-                        <a href="#" class="cptm-create-directory-modal__action__single">
+                        <a href="<?php echo admin_url( 'admin.php?page=templatiq' ) ?>" class="cptm-create-directory-modal__action__single">
                             <span class="modal-btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="510 399 30 30"><path d="M536.667 399h-23.334a3.333 3.333 0 0 0-3.333 3.333V409a3.333 3.333 0 0 0 3.333 3.333h23.334A3.333 3.333 0 0 0 540 409v-6.667a3.333 3.333 0 0 0-3.333-3.333Zm-23.334 10v-6.667h23.334V409h-23.334Zm10 5h-10a3.333 3.333 0 0 0-3.333 3.333v8.334a3.333 3.333 0 0 0 3.333 3.333h10a3.333 3.333 0 0 0 3.334-3.333v-8.334a3.333 3.333 0 0 0-3.334-3.333Zm-10 11.667v-8.334h10v8.334h-10ZM536.667 414h-5a3.333 3.333 0 0 0-3.334 3.333v8.334a3.333 3.333 0 0 0 3.334 3.333h5a3.333 3.333 0 0 0 3.333-3.333v-8.334a3.333 3.333 0 0 0-3.333-3.333Zm-5 11.667v-8.334h5v8.334h-5Z" fill="#3e62f5" fill-rule="evenodd" data-name="template"/></svg>
                             </span>
                             <span class="modal-btn-text"><?php esc_html_e( 'Choose a directory template', 'directorist' ); ?></span>
                         </a>
-                        <a href="#" class="cptm-create-directory-modal__action__single">
+                        <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="cptm-create-directory-modal__action__single">
                             <span class="modal-btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="740 399 30 30"><g data-name="Group 2618"><path d="m766.212 409.354-.937.936a10.781 10.781 0 0 0-3.712-.65c-6.035.011-10.925 4.897-10.936 10.927 0 1.298.225 2.548.65 3.71l-1.526 1.524-3.313-3.31-3.238-3.235.1-.1 15.66-15.636.689-.687 3.162 3.147 3.388 3.359.013.015ZM742.68 420.5l-2.627 7.237a.96.96 0 0 0 .225.987c.261.253.642.34.987.225l7.242-2.624-5.827-5.825Zm25.92-20.152c-.887-.875-2.062-1.312-3.286-1.35a4.633 4.633 0 0 0-3.263 1.387l-1.526 1.557.008.005 3.163 3.148 3.386 3.356.005.008 1.55-1.581a4.562 4.562 0 0 0 1.337-3.235v-.05a4.522 4.522 0 0 0-1.374-3.245Z" fill="#3e62f5" fill-rule="evenodd" data-name="Path 1478"/><path d="M761.563 412.125c-4.652 0-8.437 3.785-8.437 8.437 0 4.651 3.785 8.437 8.437 8.437 4.652 0 8.437-3.786 8.437-8.437 0-4.652-3.785-8.437-8.437-8.437ZM765 421.81h-2.188v2.188a1.25 1.25 0 0 1-2.501 0v-2.188h-2.188a1.25 1.25 0 0 1 0-2.5h2.188v-2.189a1.25 1.25 0 0 1 2.5 0v2.188H765a1.25 1.25 0 1 1 0 2.501Z" fill="#3e62f5" fill-rule="evenodd" data-name="Path 1479"/></g></svg>
                             </span>

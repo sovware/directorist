@@ -25,6 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<?php if ( $listings->header_title ): ?>
 						<span class="directorist-header-found-title"><?php echo wp_kses_post( $listings->item_found_title() ); ?></span>
 					<?php endif; ?>
+
+					<?php do_action( 'directorist_after_listings_header_title' ); ?>
 				</div>
 
 			<?php endif; ?>

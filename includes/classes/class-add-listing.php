@@ -377,6 +377,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						}
 
 						update_post_meta( $listing_id, '_featured', 0 );
+						// TODO: Status has been migrated, remove related code.
 						update_post_meta( $listing_id, '_listing_status', 'post_status' );
 
 						/*
@@ -931,9 +932,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		 * @since 3.1.0
 		 */
 		private function renew_listing( $listing_id ) {
-			$can_renew = get_directorist_option( 'can_renew_listing' );
-
-			if ( ! $can_renew ) {
+			if ( ! directorist_can_user_renew_listings() ) {
 				return false;// vail if renewal option is turned off on the site.
 			}
 
@@ -963,8 +962,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
 			// Update the post_meta into the database
-			$old_status = get_post_meta( $listing_id, '_listing_status', true );
-			if ( 'expired' == $old_status ) {
+			// TODO: Status has been migrated, remove related code.
+			// $old_status = get_post_meta( $listing_id, '_listing_status', true );
+			$old_status = get_post_status( $listing_id );
+			if ( 'expired' === $old_status ) {
 				$expiry_date = calc_listing_expiry_date();
 			} else {
 				$old_expiry_date = get_post_meta( $listing_id, '_expiry_date', true );
@@ -973,16 +974,13 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			// update related post meta_data
 			update_post_meta( $listing_id, '_expiry_date', $expiry_date );
+			// TODO: Status has been migrated, remove related code.
 			update_post_meta( $listing_id, '_listing_status', 'post_status' );
 
 			$exp_days = get_term_meta( $directory_type, 'default_expiration', true );
 			if ( $exp_days <= 0 ) {
 				update_post_meta( $listing_id, '_never_expire', 1 );
 			}
-			// TODO: Delete (refactored '_never_expire' for the sake of key comparison only).
-			// else {
-			// 	update_post_meta( $listing_id, '_never_expire', 0 );
-			// }
 
 			do_action( 'atbdp_after_renewal', $listing_id );
 			$r_url = add_query_arg( 'renew', 'success', ATBDP_Permalink::get_dashboard_page_link() );

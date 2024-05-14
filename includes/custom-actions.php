@@ -259,7 +259,7 @@ add_filter('atbdp_extension_settings_submenus', 'atbdp_extend_extension_settings
      }
  }
 
- 
+
 /**
  * @since 6.6.5
  * @return URL if current theme has the file return the actual file path otherwise return false
@@ -512,8 +512,41 @@ if(!function_exists('atbdp_country_code_to_name')){
            'YE' => 'Yemen',
            'ZM' => 'Zambia',
            'ZW' => 'Zimbabwe');
-          return $country_code_to_name; 
+          return $country_code_to_name;
     }
 }
 
+/**
+ * Update listing status when _listing_status meta update.
+ *
+ * @since 7.10.0
+ *
+ * @param  int $meta_id
+ * @param  int $object_id
+ * @param  string $meta_key
+ * @param  mixed $meta_value
+ *
+ * @return void
+ */
+function directorist_updated_post_meta_action( $meta_id, $object_id, $meta_key, $meta_value ) {
+    if ( $meta_key !== '_listing_status' || ! directorist_is_listing_post_type( $object_id ) ) {
+        return;
+    }
 
+    if ( $meta_value === 'post_status' ) {
+        return;
+    }
+
+    if ( $meta_value === 'expired' || $meta_value === 'renewal' ) {
+        if ( $meta_value === 'renewal' ) {
+            $meta_value = 'publish';
+        }
+
+        wp_update_post( array(
+            'ID'          => $object_id,
+            'post_status' => $meta_value
+        ), false );
+    }
+}
+add_action( 'added_post_meta', 'directorist_updated_post_meta_action', 99999, 4 );
+add_action( 'updated_post_meta', 'directorist_updated_post_meta_action', 99999, 4 );

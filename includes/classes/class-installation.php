@@ -25,9 +25,11 @@ class ATBDP_Installation {
 	 * @var array
 	 */
 	private static $db_updates = array(
-		'7.9.0' => [
-			'directorist_791_clean_falsy_never_expire_meta',
-			'directorist_791_update_db_version',
+		'7.10.0' => [
+			'directorist_7100_clean_falsy_never_expire_meta',
+			'directorist_7100_migrate_expired_meta_to_expired_status',
+			// 'directorist_7100_clean_listing_status_expired_meta', // Use this in future version to cleanup old data.
+			'directorist_7100_update_db_version',
 		],
 		'7.1.0' => [
 			'directorist_710_migrate_reviews_table_to_comments_table',

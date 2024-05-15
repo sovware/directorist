@@ -4958,6 +4958,19 @@ body.stop-scrolling {
             transform: scale(1);
   }
 }
+#directorist_submit_privacy_policy {
+  display: block;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+#directorist_submit_privacy_policy::after {
+  display: none;
+}
+
 .upload-error {
   display: block !important;
   clear: both;
@@ -21081,7 +21094,7 @@ Review: New Style
 }
 
 .directorist-user-dashboard__nav {
-  width: 230px;
+  min-width: 230px;
   padding: 20px 10px;
   margin-left: 30px;
   -webkit-transition: 0.3s ease;

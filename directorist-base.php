@@ -675,7 +675,7 @@ final class Directorist_Base
 
 	/**
 	 * Deprecated: 7.8.0
-	 * 
+	 *
 	 * This function is deprecated since version 7.8.0. Please use parse_video() instead.
 	 *
 	 * @param string $url The URL to parse for videos.
@@ -683,7 +683,7 @@ final class Directorist_Base
 	 *
 	 * @deprecated Use parse_video() for video parsing.
 	 */
-	public function atbdp_parse_videos( $url ) {	
+	public function atbdp_parse_videos( $url ) {
 		_deprecated_function( __METHOD__, '7.8.0', 'Directorist\Helper::parse_video()' );
 
 		return \Directorist\Helper::parse_video( $url );

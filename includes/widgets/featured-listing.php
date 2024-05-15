@@ -43,6 +43,7 @@ class Featured_Listing extends \WP_Widget {
             'single_only' => [
 				'label'   => esc_html__( 'Display only on single listing', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
         ];
 

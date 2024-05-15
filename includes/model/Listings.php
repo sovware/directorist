@@ -1238,54 +1238,32 @@ class Directorist_Listings {
 	}
 
 	public function get_listing_types() {
-		$listing_types = array();
-		$args          = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false
-		);
-		if( $this->directory_type ) {
-			$args['slug']     = $this->directory_type;
-		}
-		$all_types     = get_terms( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
+		$args = array();
 
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'term' => $type,
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
+		if ( $this->directory_type ) {
+			$args['slug'] = $this->directory_type;
 		}
-		return $listing_types;
+
+		return directorist_get_directories_for_template( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
 	}
 
 	public function get_current_listing_type() {
-		$listing_types      = $this->get_listing_types();
-		$listing_type_count = count( $listing_types );
-
-		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
-
-		if ( isset( $_REQUEST['directory_type'] ) ) {
-			$current = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
-		}
-		else if( $this->default_directory_type ) {
-			$current = $this->default_directory_type;
-		}
-		else {
-
-			foreach ( $listing_types as $id => $type ) {
-				$is_default = get_term_meta( $id, '_default', true );
-				if ( $is_default ) {
-					$current = $id;
-					break;
-				}
+		if ( is_singular( ATBDP_POST_TYPE ) ) {
+			$directory = get_post_meta( get_the_ID(), '_directory_type', true );
+		} else if ( ! empty( $_REQUEST['directory_type'] ) ) {
+			$directory = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
+	
+			if ( ! is_numeric( $directory ) ) {
+				$directory_term = get_term_by( 'slug', $directory, ATBDP_DIRECTORY_TYPE );
+				$directory      = $directory_term ? $directory_term->term_id : 0;
 			}
 		}
-
-		if( ! is_numeric( $current ) ) {
-			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
-			$current = $term->term_id;
+	
+		if ( ! empty( $directory ) && directorist_is_directory( $directory ) ) {
+			return (int) $directory;
 		}
-		return (int) $current;
+		
+		return directorist_get_default_directory();
 	}
 
 	public function get_directory_type_slug() {
@@ -1707,7 +1685,7 @@ class Directorist_Listings {
 
 		public function loop_get_title() {
 			if ( ! $this->disable_single_listing ) {
-				$title = sprintf('<a href="%s"%s>%s</a>', $this->loop['permalink'], $this->loop_link_attr(), $this->loop['title']);
+				$title = sprintf('<a href="%s"%s>%s</a>', apply_filters( 'directorist_archive_single_listing_url', $this->loop['permalink'], $this->loop['id'], 'title' ), $this->loop_link_attr(), $this->loop['title']);
 			}
 			else {
 				$title = $this->loop['title'];

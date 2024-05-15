@@ -48,7 +48,8 @@ class Localized_Data {
 	private static function search_form_localized_data() {
 		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
 		$data = self::get_search_script_data([
-			'directory_type_id' => $directory_type_id
+			'directory_type_id' => $directory_type_id,
+			'search_max_radius_distance' => apply_filters( 'directorist_search_max_radius_distance', get_directorist_option( 'search_max_radius_distance', 1000 ) )
 		]);
 		return $data;
 	}

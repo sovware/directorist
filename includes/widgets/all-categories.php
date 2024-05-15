@@ -75,18 +75,22 @@ class All_Categories extends \WP_Widget {
             'immediate_category' => [
 				'label'   => esc_html__( 'Show all the top-level categories only', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'hide_empty' => [
 				'label'   => esc_html__( 'Hide empty categories', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'show_count' => [
 				'label'   => esc_html__( 'Display listing counts', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'single_only' => [
 				'label'   => esc_html__( 'Display only on single listing', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
         ];
 
@@ -323,13 +327,10 @@ class All_Categories extends \WP_Widget {
     }
 
     public function dropdown_categories( $settings, $prefix = '' ) {
-
-        if( $settings['immediate_category'] ) {
-
-            if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
-                return;
-            }
-
+        if ( $settings['immediate_category'] &&
+			( $settings['term_id'] > $settings['parent'] ) &&
+			! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+			return;
         }
 
         $term_slug = get_query_var( ATBDP_CATEGORY );
@@ -346,35 +347,26 @@ class All_Categories extends \WP_Widget {
 
         $terms = get_terms( $args );
 
+		if ( is_wp_error( $terms ) ) {
+			return;
+		}
+
         $html = '';
 
-        if( count( $terms ) > 0 ) {
-            $i = 1;
-            foreach( $terms as $term ) {
-                $settings['term_id'] = $term->term_id;
+		foreach( $terms as $term ) {
+			$settings['term_id'] = $term->term_id;
 
-                $count = 0;
-                if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
-                    $count = atbdp_listings_count_by_category( $term->term_id );
+			$html .= sprintf( '<option value="%s" %s>', $term->term_id, selected( $term->term_id, $term_slug, false ) );
+			$html .= $prefix . $term->name;
 
-                    if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
-                }
+			if ( ! empty( $settings['show_count'] ) ) {
+				$html .= ' (' . $term->count . ')';
+			}
 
-                $html .= sprintf( '<option value="%s" %s>', $term->term_id, selected( $term->term_id, $term_slug, false ) );
-                $html .= $prefix . $term->name;
-                if( ! empty( $settings['show_count'] ) ) {
-                    $html .= ' (' . $count . ')';
-                }
-                //$html .= $this->dropdown_locations( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
-                $html .= '</option>';
-                if(!empty($args['number'])) {
-                    if( $i++ == $args['number'] ) break;
-                }
-            }
-
-        }
+			//$html .= $this->dropdown_locations( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
+			$html .= '</option>';
+		}
 
         return $html;
-
     }
 }

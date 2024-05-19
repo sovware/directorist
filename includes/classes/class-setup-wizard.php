@@ -31,7 +31,6 @@ class SetupWizard
             add_action( 'admin_menu', array( $this, 'admin_menus' ) );
             add_action( 'admin_init', array( $this, 'setup_wizard' ), 99 );
             add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
-            add_action( 'wp_ajax_atbdp_dummy_data_import', array( $this, 'atbdp_dummy_data_import' ) );
             add_action( 'wp_ajax_directorist_setup_wizard', array( $this, 'directorist_setup_wizard' ) );
             add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
     }
@@ -54,29 +53,53 @@ class SetupWizard
             if( is_wp_error( $request_directory_types ) ) {
                 return false;
             }
-            $multi_directory_manager = new Multi_Directory_Manager;
+
+            $multi_directory_manager = new Directorist\Multi_Directory\Multi_Directory_Manager();
+
             $get_types      = get_transient( 'directory_type' );
             $response_body  = wp_remote_retrieve_body( $request_directory_types );
             $pre_made_types = json_decode( $response_body, true );
-            if ( $get_types ) {
-                foreach ( $get_types as $type ) {
-                    
-                    if ( array_key_exists( $type, $pre_made_types ) ) {
-                        $selected_type = $pre_made_types[$type];
-                        $type_url      = $selected_type['url'];
-                        $file_contents = directorist_get_json_from_url( $type_url );
-                        if( $file_contents ) {
-                            $multi_directory_manager->prepare_settings();
-                            $multi_directory_manager->add_directory([
-                                'directory_name' => $selected_type['name'],
-                                'fields_value'   => $file_contents,
-                                'is_json'        => false
-                            ]);
-                        }
-                        
-                        
+
+            // wp_send_json([
+            //     'get_types' => $get_types,
+            //     'pre_made_types' => $pre_made_types,
+            // ]);
+
+            if ( $pre_made_types ) {
+
+                foreach( $pre_made_types as $key => $type ) {
+
+                    if( ! in_array( $key, $get_types ) ) {
+                        continue;
                     }
+
+                    // @todo: need to pass the dynamic csv from remote
+                    $listing_data = ATBDP_URL .'views/admin-templates/import-export/data/dummy.csv';
+                    
+                    $file_url = $type['url'];
+
+                    $file_contents = directorist_get_json_from_url( $file_url );
+
+                    if( $file_contents ) {
+                        $multi_directory_manager->prepare_settings();
+                        $term = $multi_directory_manager->add_directory([
+                            'directory_name' => $type['name'],
+                            'fields_value'   => $file_contents,
+                            'is_json'        => false
+                        ]);
+
+                        if( ! $term['status']['success'] ) {
+                            $term_id = $term['status']['term_id'];
+                        }else{
+                            $term_id = $term['term_id'];
+                        }
+
+                        $data['import_log'] = self::atbdp_dummy_data_import( $listing_data, $term_id );
+
+                    }
+
                 }
+
             }
         }
 
@@ -165,7 +188,7 @@ class SetupWizard
         update_option('atbdp_option', $atbdp_option);
     }
 
-    public function atbdp_dummy_data_import()
+    public static function atbdp_dummy_data_import( $file = '', $type = '' )
     {
 
         if ( ! current_user_can( 'import' ) ) {
@@ -185,23 +208,17 @@ class SetupWizard
         $failed             = 0;
         $count              = 0;
         $preview_image      = isset($_POST['image']) ? sanitize_text_field( wp_unslash( $_POST['image'] ) ) : '';
-        $file               = isset($_POST['file']) ? sanitize_text_field( wp_unslash( $_POST['file'] ) ) : '';
-        $total_length       = isset($_POST['limit']) ? sanitize_text_field( wp_unslash( $_POST['limit'])) : 0;
+        $file               = isset($_POST['file']) ? sanitize_text_field( wp_unslash( $_POST['file'] ) ) : $file;
+        $total_length       = isset($_POST['limit']) ? sanitize_text_field( wp_unslash( $_POST['limit'])) : 5;
         $position           = isset($_POST['position']) ? sanitize_text_field( wp_unslash( $_POST['position'] ) ) : 0;
-        $all_posts          = $this->read_csv($file);
+
+        $all_posts          = self::read_csv($file);
+        
         $posts              = array_slice($all_posts, $position);
-        $limit              = 1;
-        if ( ! $total_length ) {
-            $data['error'] = __('No data found', 'directorist');
-            die();
-        }
-        $listing_types = get_terms([
-            'taxonomy'   => 'atbdp_listing_types',
-            'hide_empty' => false,
-            'showposts' => 1,
-        ]);
-        $directory_id = !empty( $listing_types[0] ) ? $listing_types[0]->term_id : '';
-        $directory_slug = !empty( $listing_types[0] ) ? $listing_types[0]->slug : '';
+       
+        $limit              = 10;
+
+        $directory_id = ! empty( $type ) ? $type : default_directory_type();
 
 		$allowed_meta_data_keys = array(
 			'tagline',
@@ -316,10 +333,10 @@ class SetupWizard
         $data['imported']      = $imported;
         $data['failed']        = $failed;
 
-        wp_send_json($data);
+        return $data;
     }
 
-    public function read_csv($file){
+    public static function read_csv($file){
         $fp = fopen($file, 'r');
         $header = fgetcsv($fp);
 

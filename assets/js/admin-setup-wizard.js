@@ -234,10 +234,44 @@ jQuery(document).ready(function ($) {
     minimumResultsForSearch: -1
   });
 
-  // Updated Style
+  // Setup Wizard
   $('#others-listing').on('change', function () {
-    $('.directorist-setup-wizard__checkbox--custom').slideToggle();
+    // $('.directorist-setup-wizard__checkbox--custom').slideToggle();
+    if ($(this).is(':checked')) {
+      $('.directorist-setup-wizard__checkbox--custom').slideDown();
+    } else {
+      $('.directorist-setup-wizard__checkbox--custom').slideUp();
+    }
   });
+  var setupWizardTypes = document.querySelectorAll('.directorist-setup-wizard__checkbox input[type="checkbox"]');
+  var setupWizardTypeCounterDesc = document.querySelector('.directorist-setup-wizard__counter .directorist-setup-wizard__counter__desc');
+  var setupWizardSelectedTypeCount = document.querySelector('.directorist-setup-wizard__counter .selected_count');
+  var setupWizardTypesMaxCount = document.querySelector('.directorist-setup-wizard__counter .max_count');
+  var setupWizardTypesMaxAllowed = 5;
+  var handleSetupWizardTypeChange = function handleSetupWizardTypeChange() {
+    var setupWizardCheckedTypeCount = Array.from(setupWizardTypes).filter(function (checkbox) {
+      return checkbox.checked;
+    }).length;
+    setupWizardSelectedTypeCount.textContent = setupWizardCheckedTypeCount;
+    setupWizardTypesMaxCount.textContent = setupWizardTypesMaxAllowed;
+    if (setupWizardCheckedTypeCount >= setupWizardTypesMaxAllowed) {
+      setupWizardTypeCounterDesc.style.display = 'block';
+      setupWizardTypes.forEach(function (checkbox) {
+        if (!checkbox.checked) {
+          checkbox.disabled = true;
+        }
+      });
+    } else {
+      setupWizardTypeCounterDesc.style.display = 'none';
+      setupWizardTypes.forEach(function (checkbox) {
+        checkbox.disabled = false;
+      });
+    }
+  };
+  setupWizardTypes.forEach(function (type) {
+    type.addEventListener('change', handleSetupWizardTypeChange);
+  });
+  handleSetupWizardTypeChange();
 });
 
 /***/ })

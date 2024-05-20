@@ -156,8 +156,48 @@ jQuery(document).ready(function ($) {
         minimumResultsForSearch: -1
     });
 
-    // Updated Style
+
+    // Setup Wizard
     $('#others-listing').on('change', function () {
-        $('.directorist-setup-wizard__checkbox--custom').slideToggle();
+        // $('.directorist-setup-wizard__checkbox--custom').slideToggle();
+        if ($(this).is(':checked')) {
+            $('.directorist-setup-wizard__checkbox--custom').slideDown();
+        } else {
+            $('.directorist-setup-wizard__checkbox--custom').slideUp();
+        }
     });
+
+    const setupWizardTypes = document.querySelectorAll('.directorist-setup-wizard__checkbox input[type="checkbox"]');
+    const setupWizardTypeCounterDesc = document.querySelector('.directorist-setup-wizard__counter .directorist-setup-wizard__counter__desc');
+    const setupWizardSelectedTypeCount = document.querySelector('.directorist-setup-wizard__counter .selected_count');
+    const setupWizardTypesMaxCount = document.querySelector('.directorist-setup-wizard__counter .max_count');
+    const setupWizardTypesMaxAllowed = 5;
+
+    const handleSetupWizardTypeChange = () => {
+        const setupWizardCheckedTypeCount = Array.from(setupWizardTypes).filter(checkbox => checkbox.checked).length;
+
+        setupWizardSelectedTypeCount.textContent = setupWizardCheckedTypeCount;
+        setupWizardTypesMaxCount.textContent = setupWizardTypesMaxAllowed;
+        
+        if (setupWizardCheckedTypeCount >= setupWizardTypesMaxAllowed) {
+            setupWizardTypeCounterDesc.style.display = 'block';
+            setupWizardTypes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    checkbox.disabled = true;
+                }
+            });
+        } else {
+            setupWizardTypeCounterDesc.style.display = 'none';
+            setupWizardTypes.forEach(checkbox => {
+                checkbox.disabled = false;
+            });
+        }
+    };
+
+    setupWizardTypes.forEach(type => {
+        type.addEventListener('change', handleSetupWizardTypeChange);
+    });
+
+    handleSetupWizardTypeChange();
+
 });

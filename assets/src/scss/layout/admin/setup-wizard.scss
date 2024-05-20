@@ -951,6 +951,10 @@
       font-size: 14px;
       font-weight: 500;
       color: #484848;
+      transition: color 0.3s eases;
+      &:hover {
+        color: #4353ff;
+      }
     }
   }
   @include e("checkbox") {
@@ -1005,6 +1009,13 @@
           }
         }
       }
+      &:disabled {
+        ~ label {
+          background-color: #ebebeb;
+          color: #b7b7b7;
+          cursor: not-allowed;
+        }
+      }
     }
     input[type="text"] {
       width: 100%;
@@ -1020,6 +1031,25 @@
         font-weight: 400;
         color: #787878;
       }
+    }
+  }
+  @include e("counter") {
+    width: 100%;
+    text-align: left;
+    @include e("title") {
+      font-size: 20px;
+      font-weight: 600;
+      color: #141414;
+      margin: 0 0 10px;
+    }
+    @include e("desc") {
+      display: none;
+      font-size: 14px;
+      color: #404040;
+      margin: 0 0 10px;
+    }
+    .selected_count {
+      color: #4353ff;
     }
   }
   @include e("introduction") {

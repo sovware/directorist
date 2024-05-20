@@ -25534,6 +25534,11 @@ span.drop-toggle-caret:before {
   font-size: 14px;
   font-weight: 500;
   color: #484848;
+  -webkit-transition: color 0.3s eases;
+  transition: color 0.3s eases;
+}
+.directorist-setup-wizard__content__notice:hover {
+  color: #4353ff;
 }
 .directorist-setup-wizard__checkbox {
   display: -webkit-box;
@@ -25601,6 +25606,11 @@ span.drop-toggle-caret:before {
 .directorist-setup-wizard__checkbox input[type=checkbox]:checked ~ label::before {
   opacity: 1;
 }
+.directorist-setup-wizard__checkbox input[type=checkbox]:disabled ~ label {
+  background-color: #ebebeb;
+  color: #b7b7b7;
+  cursor: not-allowed;
+}
 .directorist-setup-wizard__checkbox input[type=text] {
   width: 100%;
   height: 42px;
@@ -25636,6 +25646,25 @@ span.drop-toggle-caret:before {
   font-size: 14px;
   font-weight: 400;
   color: #787878;
+}
+.directorist-setup-wizard__counter {
+  width: 100%;
+  text-align: left;
+}
+.directorist-setup-wizard__counter__title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #141414;
+  margin: 0 0 10px;
+}
+.directorist-setup-wizard__counter__desc {
+  display: none;
+  font-size: 14px;
+  color: #404040;
+  margin: 0 0 10px;
+}
+.directorist-setup-wizard__counter .selected_count {
+  color: #4353ff;
 }
 .directorist-setup-wizard__introduction {
   max-width: 700px;

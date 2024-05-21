@@ -301,10 +301,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$meta_data['_t_c_check'] = (bool) $posted_data['t_c_check'];
 				}
 
-				$new_listing_status  = get_term_meta( $directory_id, 'new_listing_status', true );
-				$edit_listing_status = directorist_get_listing_edit_status( $directory_id );
-				$default_expiration  = get_term_meta( $directory_id, 'default_expiration', true );
-				$preview_enable      = atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) );
+				$listing_create_status = directorist_get_listing_create_status( $directory_id );
+				$listing_edit_status   = directorist_get_listing_edit_status( $directory_id );
+				$default_expiration    = get_term_meta( $directory_id, 'default_expiration', true );
+				$preview_enable        = atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) );
 
 				/**
 				 * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
@@ -329,7 +329,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					if ( $preview_enable ) {
 						$listing_data['post_status'] = 'private';
 					} else {
-						$listing_data['post_status'] = $edit_listing_status;
+						$listing_data['post_status'] = $listing_edit_status;
 					}
 
 					$listing_id = wp_update_post( $listing_data );
@@ -354,7 +354,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					if ( $preview_enable ) {
 						$listing_data['post_status'] = 'private';
 					} else {
-						$listing_data['post_status'] = $edit_listing_status;
+						$listing_data['post_status'] = $listing_create_status;
 					}
 
 					$listing_id = wp_insert_post( $listing_data );
@@ -368,7 +368,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					do_action( 'atbdp_listing_inserted', $listing_id ); // for sending email notification
 
 					// Every post with the published status should contain all the post meta keys so that we can include them in query.
-					if ( 'publish' === $new_listing_status || 'pending' === $new_listing_status ) {
+					if ( 'publish' === $listing_create_status || 'pending' === $listing_create_status ) {
 						if ( ! $default_expiration ) {
 							update_post_meta( $listing_id, '_never_expire', 1 );
 						} else {
@@ -387,7 +387,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						do_action( 'atbdp_before_processing_listing_frontend', $listing_id );
 					}
 
-					if ( 'publish' === $new_listing_status ) {
+					if ( 'publish' === $listing_create_status ) {
 						do_action( 'atbdp_listing_published', $listing_id );// for sending email notification
 					}
 				}

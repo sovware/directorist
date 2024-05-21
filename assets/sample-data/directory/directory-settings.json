@@ -97,7 +97,6 @@
     "listings_display_filter": "sliding",
     "listing_filters_fields": "[\"search_text\",\"search_category\",\"search_location\",\"search_price\",\"search_price_range\",\"search_rating\",\"search_tag\",\"search_custom_fields\",\"radius_search\"]",
     "listing_location_fields": "map_api",
-    "listing_tags_field": "all_tags",
     "listing_default_radius_distance": "0",
     "listings_filters_button": "[\"reset_button\",\"apply_button\"]",
     "listings_reset_text": "Reset Filters",

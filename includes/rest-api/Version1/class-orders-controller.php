@@ -281,6 +281,12 @@ class Orders_Controller extends Posts_Controller {
 				case 'customer':
 					$data[ $field ] = (int) $order->post_author;
 					break;
+				case 'plan': 
+					$data[ $field ] = (int) get_post_meta( $order->ID, '_fm_plan_ordered', true );
+					break;
+				case 'plan_position': 
+					$data[ $field ] = (int) get_post_meta( $order->ID, '_dpp_plan_sorting_order', true );
+					break;
 				case 'listing': 
 					$data[ $field ] = (int) get_post_meta( $order->ID, '_listing_id', true );
 					break;
@@ -362,6 +368,16 @@ class Orders_Controller extends Posts_Controller {
 				),
 				'customer'           => array(
 					'description' => __( 'Customer id.', 'directorist' ),
+					'type'        => 'integer',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'plan'           => array(
+					'description' => __( 'Pricing plan id.', 'directorist' ),
+					'type'        => 'integer',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'plan_position'           => array(
+					'description' => __( 'Pricing plan order position.', 'directorist' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),

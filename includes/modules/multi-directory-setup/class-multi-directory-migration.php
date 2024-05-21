@@ -806,7 +806,6 @@ class Multi_Directory_Migration {
                 'field_key' => 'tag',
                 "options" => [
                     'label'              => 'Tag',
-                    'tags_filter_source' => 'all_tags',
                     'widget_name'        => 'tag',
                     'widget_group'       => 'available_widgets',
                 ],

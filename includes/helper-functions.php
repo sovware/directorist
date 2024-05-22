@@ -4213,25 +4213,6 @@ function directorist_background_image_process( $images ) {
 }
 
 /**
- * Get or modify the status of a directory listing during editing.
- *
- * @param int    $directory_type The directory type ID.
- * @param int    $listing_id      The listing ID.
- *
- * @return string The edited or original status for the listing.
- */
-function directorist_get_listing_edit_status( $directory_type ) {
-	$edit_listing_status = get_term_meta( $directory_type, 'edit_listing_status', true );
-	$new_listing_status  = get_term_meta( $directory_type, 'new_listing_status', true );
-
-    if ( 'publish' !== $new_listing_status && 'publish' === $edit_listing_status ) {
-        $edit_listing_status = $new_listing_status;
-    }
-
-    return apply_filters( 'directorist_edit_listing_status', $edit_listing_status, $directory_type );
-}
-
-/**
  * Delete directory even when non empty.
  *
  * @since 7.9.1

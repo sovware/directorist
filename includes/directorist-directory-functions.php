@@ -101,12 +101,30 @@ function directorist_should_check_privacy_policy( int $directory_id ) {
 	return ( directorist_is_privacy_policy_enabled( $directory_id ) && directorist_is_privacy_policy_required( $directory_id ) );
 }
 
-function directorist_get_new_listing_status( int $directory_id ) {
-	return directorist_get_directory_meta( $directory_id, 'new_listing_status' );
+/**
+ * Get listing default create status from directory settings.
+ *
+ * @param  int  $directory_id
+ *
+ * @return string Default create status.
+ */
+function directorist_get_listing_create_status( int $directory_id ) {
+	$status = directorist_get_directory_meta( $directory_id, 'new_listing_status' );
+	
+	return apply_filters( 'directorist_listing_create_status', $status, $directory_id );
 }
 
-function directorist_get_edit_listing_status( int $directory_id ) {
-	return directorist_get_directory_meta( $directory_id, 'edit_listing_status' );
+/**
+ * Get listing default edit status from directory settings.
+ *
+ * @param  int  $directory_id
+ *
+ * @return string Default edit status.
+ */
+function directorist_get_listing_edit_status( int $directory_id ) {
+	$status = directorist_get_directory_meta( $directory_id, 'edit_listing_status' );
+
+	return apply_filters( 'directorist_listing_edit_status', $status, $directory_id );
 }
 
 function directorist_get_default_expiration( int $directory_id ) {

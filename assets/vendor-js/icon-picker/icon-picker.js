@@ -79,6 +79,8 @@ window.IconPicker = function (args) {
                     class="cptm-form-control"
                     value="${this.value}" style="${this.value ? 'padding-left: 38px' : '' }"
                     />
+                    <span class="icon-picker-selector__icon__reset"><span class="fas fa-times"></span
+                    ></span>
                 </div>
                 <button class="icon-picker-selector__btn">${this.labels.changeIconButtonLabel}</button>
             </div>
@@ -246,6 +248,9 @@ window.IconPicker = function (args) {
                 }
             }
 
+            const resetBtn = document.querySelector('.icon-picker-selector__icon__reset');
+            resetBtn.style.display = 'none';
+
             document.querySelector('.icon-picker__done-btn').addEventListener('click', (e) => {
                 e.preventDefault();
 
@@ -267,6 +272,27 @@ window.IconPicker = function (args) {
                 selector.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon ${self.value}`);
 
                 closeModal();
+
+                if(selector.querySelector('input').value !== ''){
+                    resetBtn.style.display = 'block';
+                }
+            });
+
+
+            resetBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const selector = document.querySelector(`.icon-picker-selector`);
+
+                self.value = "";
+                if (typeof self.onSelect === 'function') {
+                    self.onSelect('');
+                }
+
+                selector.querySelector('input').value = "";
+                selector.querySelector('.directorist-selected-icon').setAttribute('class', `directorist-selected-icon`);
+
+                resetBtn.style.display = 'none';
             });
 
             document.querySelector('.icon-picker__close').addEventListener('click', closeModal)

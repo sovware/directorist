@@ -8,27 +8,25 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$file            = isset( $_GET['file'] ) ? sanitize_text_field( wp_unslash( $_GET['file'] ) ) : '';
+$file_id         = isset( $_GET['file_id'] ) ? absint( wp_unslash( $_GET['file_id'] ) ) : '';
 $delimiter       = isset( $_GET['delimiter'] ) ? sanitize_text_field( wp_unslash( $_GET['delimiter'] ) ) : ',';
-$posts           = csv_get_data( $file, true, $delimiter );
-$total           = count( $posts );
-$update_existing = isset( $_GET['update_existing'] ) ? sanitize_key( $_GET['update_existing'] ) : false;
+$update_existing = isset( $_GET['update_existing'] ) ? sanitize_text_field( wp_unslash( $_GET['update_existing'] ) ) : false;
+
+$file = ( ! empty( $file_id ) ) ? get_attached_file( $file_id ) : '';
+
+$posts = csv_get_data( $file, true, $delimiter );
+$total = count( $posts );
 
 $builder_posts    = csv_get_data( $file, true, ',' );
 $csv_from_builder = csv_from_builder( $builder_posts );
 $delimiter        = ( $csv_from_builder ) ? ',' : $delimiter;
 $total            = ( $csv_from_builder ) ? count( $builder_posts ) : $total;
 
-// var_dump( [
-// 	// 'builder_posts' => $builder_posts,
-// 	'file' => $file, 
-// 	'csv_from_builder' => $csv_from_builder
-// ] );
-
 // csv_from_builder
 function csv_from_builder( $data = [] ) {
-	if ( 'array' !== gettype( $data ) ) { return false; }
-	if ( ! count( $data ) ) { return false; }
+	if ( ! is_array( $data ) || count( $data ) < 1 ) {
+		return false;
+	}
 
 	if (  empty( $data[0]['directory_type'] ) ) {
 		return false;
@@ -71,7 +69,7 @@ function csv_from_builder( $data = [] ) {
 									<?php } ?>
 								</select>
 							<?php }
-							$this->tools->get_data_table();
+							$this->tools->get_data_table( $file, $delimiter );
 						endif; ?>
 					</div>
 				</section>

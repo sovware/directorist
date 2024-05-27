@@ -14,11 +14,17 @@
         }
 
         //dashboard nav dropdown
-        $(".atbdp_tab_nav--has-child .atbd-dash-nav-dropdown").on("click", function (e) {
+        $(".directorist-tab__nav__link").on("click", function (e) {
             e.preventDefault();
-            $(this).siblings("ul").slideToggle();
+            if ($(this).hasClass("atbd-dash-nav-dropdown")) {
+                // Slide toggle the sibling ul element
+                $(this).siblings("ul").slideToggle();
+            } else if(!$(this).parents(".atbdp_tab_nav--has-child").length > 0) {
+                // Slide up all the dropdown contents while clicked item is not inside dropdown
+                $(".atbd-dash-nav-dropdown").siblings("ul").slideUp();
+            }
         });
-
+        
         if ($(window).innerWidth() < 1199) {
             $(".directorist-tab__nav__link").on("click", function () {
                 $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');

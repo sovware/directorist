@@ -42,7 +42,7 @@
         return;
       }
       this.container = containerElm;
-      
+
       if ( hasClass(this.container, 'is-initialized') ) {
         return;
       }
@@ -122,7 +122,7 @@
         if ( image_list.length ) {
           this.options.images = image_list;
         }
-        
+
       }
     };
 
@@ -140,7 +140,7 @@
       var ratio_height = this.options.height;
       var padding_top = (ratio_height / ratio_width) * 100;
       body_elm.setAttribute('style', 'padding-top: ' + padding_top + '%');
-      
+
       if ( this.options.images.length > 1 ) {
         // Slider Right Control
         var right_control = createDOMSliderRightControl();
@@ -150,7 +150,7 @@
         var left_control = createDOMSliderLeftControl();
         body_elm.appendChild(left_control);
       }
-      
+
 
       // Slider Contents
       var contents = createDOMSliderContents(this);
@@ -163,7 +163,7 @@
         var footer = createDOMSliderfooter(this);
         this.container.appendChild(footer);
       }
-      
+
     };
 
     // attachEvents
@@ -196,7 +196,7 @@
           });
         }
       }
-      
+
     };
 
     // handleArrowEvent
@@ -236,7 +236,7 @@
         left = ( next_index === 0 ) ? 'right: ' : 'right: -';
       }
       var style = width_style + left + (next_index * 100) + '%;'
-      
+
       var contents_wrap = this.container.querySelectorAll('.plasmaSlider__contentsWrap');
       contents_wrap[0].setAttribute('style', style);
 
@@ -275,7 +275,7 @@
 
           var thumbnail_next_item_offset = thumbnail_list_items[next_index].offsetLeft;
           var thumbnail_next_item_width = thumbnail_list_items[next_index].offsetWidth;
-      
+
           var scroll_left = thumbnail_next_item_offset;
           var scroll_left_w = scroll_left + thumbnail_next_item_width;
           scroll_left = ( scroll_left > scrollLeftMax ) ? scrollLeftMax : scroll_left;
@@ -319,7 +319,7 @@
         contents_wrap.appendChild(slider_item);
       });
     }
-    
+
     contents.appendChild(contents_wrap);
     return contents;
   }
@@ -339,15 +339,17 @@
     if ( 'contain' === self.options.backgroundSize && self.options.blurBackground ) {
       var slider_item_img_back = createElementWithClass('plasmaSlider__bgImgBlur', 'img');
       slider_item_img_back.src = opt.src;
+      slider_item_img_back.loading = 'lazy';
       slider_item_bg.appendChild(slider_item_img_back);
     }
-    
+
 
     var slider_item_img_front = createElementWithClass('plasmaSlider__bgImg plasmaSlider__' + background_size, 'img');
     slider_item_img_front.src = opt.src;
     slider_item_img_front.alt = opt.alt;
+    slider_item_img_front.loading = 'lazy';
     slider_item_bg.appendChild(slider_item_img_front);
-    
+
     slider_item.appendChild(slider_item_bg);
 
     return slider_item;
@@ -389,8 +391,8 @@
     var control_right = createElementWithClass('plasmaSlider__controlRight');
 
     var control_right_arrow_btn = createElementWithClass(
-      'plasmaSlider__arrowBtn arrowBtn--right', 
-      'button', 
+      'plasmaSlider__arrowBtn arrowBtn--right',
+      'button',
       '<span class="plasmaSliderIcon psi-angle-right"></span><span class="plasmaSliderSkin"></span>'
     );
     control_right_arrow_btn.setAttribute('type', 'button');
@@ -404,8 +406,8 @@
   function createDOMSliderLeftControl() {
     var control_left = createElementWithClass('plasmaSlider__controlLeft');
     var control_left_arrow_btn = createElementWithClass(
-      'plasmaSlider__arrowBtn arrowBtn--left', 
-      'button', 
+      'plasmaSlider__arrowBtn arrowBtn--left',
+      'button',
       '<span class="plasmaSliderIcon psi-angle-left"></span><span class="plasmaSliderSkin"></span>'
     );
     control_left_arrow_btn.setAttribute('type', 'button');
@@ -450,7 +452,7 @@
       data_is_valid = ( data ) ? true : false;
     }
 
-    return ( data_is_valid ) ? data : false; 
+    return ( data_is_valid ) ? data : false;
   }
 
   // isBoolean
@@ -525,7 +527,7 @@
   function indexOf( elm ) {
     if ( !elm ) { return null; }
     if ( !('parentElement' in elm && elm.parentElement) ) { return null; }
-    
+
     var parent = elm.parentElement.children;
     var index = [].slice.call(parent).indexOf(elm);
     return index;

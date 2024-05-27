@@ -107,9 +107,9 @@ pureScriptTabChild2 = (selector1) => {
     });
 }; */
 
-if ($('.directorist-tab')) {
-    pureScriptTab('.directorist-tab');
-}
+// if ($('.directorist-tab')) {
+//     pureScriptTab('.directorist-tab');
+// }
 
 /* pureScriptTab('.directorist-user-dashboard-tab');
 pureScriptTabChild('.atbdp-bookings-tab');

@@ -97,6 +97,8 @@ class Listings_Actions_Controller extends Abstract_Controller {
 	public function create_item( $request ) {
 		$listing_id = (int) $request['listing_id'];
 
+		do_action( 'directorist_rest_before_query', 'create_listing_action_item', $request, $listing_id );
+
 		if ( get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
 			return new WP_Error( 'directorist_rest_invalid_listing_id', __( 'Invalid listing id.', 'directorist' ), 400 );
 		}
@@ -132,6 +134,10 @@ class Listings_Actions_Controller extends Abstract_Controller {
 		$response = $this->prepare_item_for_response( $action, $request );
 		$response = rest_ensure_response( $response );
 		$response->set_status( 201 );
+
+		do_action( 'directorist_rest_after_query', 'create_listing_action_item', $request, $listing_id );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'create_listing_action_item', $request, $request['id'] );
 
 		return $response;
 	}

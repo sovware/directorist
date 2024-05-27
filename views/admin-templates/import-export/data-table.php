@@ -5,7 +5,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 $headers = $args['data'];
-$fields = $args['fields'];
+$fields  = $args['fields'];
 
 ?>
 <input type="hidden" name="csv_file" value="<?php echo esc_attr( $args['csv_file'] ) ?>">
@@ -32,10 +32,10 @@ $fields = $args['fields'];
                     <td class="atbdp-importer-mapping-table-field">
                         <input type="hidden" name="map_from[<?php echo esc_attr($index); ?>]" value="<?php echo esc_attr($name); ?>" />
                         <select class="atbdp_map_to" name="<?php echo esc_attr($index); ?>">
-                            <option value=""><?php esc_html_e('Do not import', 'directorist'); ?></option>
-                            <option value="">--------------</option>
-                            <?php foreach ($fields as $key => $value) : ?>
-                                <option value="<?php echo esc_attr($key); ?>" <?php selected( $key, $field_key ); ?>><?php echo esc_html($value); ?></option>
+                            <option value=""><?php esc_html_e( 'Do not import', 'directorist' ); ?></option>
+                            <option value="">&mdash; Select a field &mdash;</option>
+                            <?php foreach ( $fields as $key => $value ) : ?>
+                                <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $key, $field_key ); ?>><?php echo esc_html( $value ); ?></option>
                             <?php endforeach ?>
                         </select>
                     </td>

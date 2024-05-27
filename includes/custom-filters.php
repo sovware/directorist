@@ -26,3 +26,4 @@ function atbdp_directorist_button_classes($type='primary'){
     $image_obj = wp_get_attachment_image_src($id, $size);
     return is_array($image_obj) ? $image_obj[0] : '';
  }
+

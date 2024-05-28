@@ -80,7 +80,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				// Make sure we are dealing with a real listing in edit mode.
 				$listing_id = absint( directorist_get_var( $posted_data['listing_id'], 0 ) );
 
-				if ( $listing_id && directorist_is_listing_post_type( $listing_id ) ) {
+				if ( $listing_id && ! directorist_is_listing_post_type( $listing_id ) ) {
 					throw new Exception( __( 'Invalid listing!', 'directorist' ), 200 );
 				}
 
@@ -223,10 +223,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$meta_data['_t_c_check'] = (bool) $posted_data['t_c_check'];
 				}
 
-				$new_listing_status  = get_term_meta( $directory_id, 'new_listing_status', true );
-				$edit_listing_status = directorist_get_listing_edit_status( $directory_id );
-				$default_expiration  = get_term_meta( $directory_id, 'default_expiration', true );
-				$preview_enable      = atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) );
+				$listing_create_status = directorist_get_listing_create_status( $directory_id );
+				$listing_edit_status   = directorist_get_listing_edit_status( $directory_id );
+				$default_expiration    = get_term_meta( $directory_id, 'default_expiration', true );
+				$preview_enable        = atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) );
 
 				/**
 				 * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
@@ -251,7 +251,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					if ( $preview_enable ) {
 						$listing_data['post_status'] = 'private';
 					} else {
-						$listing_data['post_status'] = $edit_listing_status;
+						$listing_data['post_status'] = $listing_edit_status;
 					}
 
 					$listing_id = wp_update_post( $listing_data );
@@ -276,7 +276,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					if ( $preview_enable ) {
 						$listing_data['post_status'] = 'private';
 					} else {
-						$listing_data['post_status'] = $edit_listing_status;
+						$listing_data['post_status'] = $listing_create_status;
 					}
 
 					$listing_id = wp_insert_post( $listing_data );
@@ -290,7 +290,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					do_action( 'atbdp_listing_inserted', $listing_id ); // for sending email notification
 
 					// Every post with the published status should contain all the post meta keys so that we can include them in query.
-					if ( 'publish' === $new_listing_status || 'pending' === $new_listing_status ) {
+					if ( 'publish' === $listing_create_status || 'pending' === $listing_create_status ) {
 						if ( ! $default_expiration ) {
 							update_post_meta( $listing_id, '_never_expire', 1 );
 						} else {
@@ -299,6 +299,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						}
 
 						update_post_meta( $listing_id, '_featured', 0 );
+						// TODO: Status has been migrated, remove related code.
 						update_post_meta( $listing_id, '_listing_status', 'post_status' );
 
 						/*
@@ -308,7 +309,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						do_action( 'atbdp_before_processing_listing_frontend', $listing_id );
 					}
 
-					if ( 'publish' === $new_listing_status ) {
+					if ( 'publish' === $listing_create_status ) {
 						do_action( 'atbdp_listing_published', $listing_id );// for sending email notification
 					}
 				}
@@ -327,6 +328,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				$submission_notice = get_directorist_option( 'submission_confirmation', 1 );
 				$redirect_page     = get_directorist_option( 'edit_listing_redirect', 'view_listing' );
+
+				return wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', array(
+					'error'     => true,
+					'error_msg' => 'test',
+				) ) );
 
 				if ( 'view_listing' === $redirect_page ) {
 					$data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, $permalink ) : $permalink;
@@ -440,6 +446,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			$selected_images = Fields::create( $image_upload_field )->get_value( $posted_data );
 
 			if ( is_null( $selected_images ) ) {
+				// Cleanup listing meta when images field is empty.
+				delete_post_thumbnail( $listing_id );
+				delete_post_meta( $listing_id, '_listing_img' );
+				delete_post_meta( $listing_id, '_listing_prv_img' );
+
 				return;
 			}
 
@@ -454,7 +465,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			try {
 				$upload_dir                    = wp_get_upload_dir();
-				$temp_dir                      = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . directorist_get_temp_upload_dir() . DIRECTORY_SEPARATOR;
+				$temp_dir                      = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( directorist_get_temp_upload_dir() . DIRECTORY_SEPARATOR . date( 'nj' ) );
 				$target_dir                    = trailingslashit( $upload_dir['path'] );
 				$uploaded_images               = $old_images;
 				$background_processable_images = array();
@@ -848,9 +859,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		 * @since 3.1.0
 		 */
 		private function renew_listing( $listing_id ) {
-			$can_renew = get_directorist_option( 'can_renew_listing' );
-
-			if ( ! $can_renew ) {
+			if ( ! directorist_can_user_renew_listings() ) {
 				return false;// vail if renewal option is turned off on the site.
 			}
 
@@ -880,8 +889,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
 			// Update the post_meta into the database
-			$old_status = get_post_meta( $listing_id, '_listing_status', true );
-			if ( 'expired' == $old_status ) {
+			// TODO: Status has been migrated, remove related code.
+			// $old_status = get_post_meta( $listing_id, '_listing_status', true );
+			$old_status = get_post_status( $listing_id );
+			if ( 'expired' === $old_status ) {
 				$expiry_date = calc_listing_expiry_date();
 			} else {
 				$old_expiry_date = get_post_meta( $listing_id, '_expiry_date', true );
@@ -890,13 +901,12 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			// update related post meta_data
 			update_post_meta( $listing_id, '_expiry_date', $expiry_date );
+			// TODO: Status has been migrated, remove related code.
 			update_post_meta( $listing_id, '_listing_status', 'post_status' );
 
-			$exp_days       = get_term_meta( $directory_type, 'default_expiration', true );
+			$exp_days = get_term_meta( $directory_type, 'default_expiration', true );
 			if ( $exp_days <= 0 ) {
 				update_post_meta( $listing_id, '_never_expire', 1 );
-			} else {
-				update_post_meta( $listing_id, '_never_expire', 0 );
 			}
 
 			do_action( 'atbdp_after_renewal', $listing_id );

@@ -299,7 +299,9 @@ class Directorist_Listing_Form {
 			$listing_info['videourl']                = get_post_meta( $p_id, '_videourl', true );
 			$listing_info['price_range']             = get_post_meta( $p_id, '_price_range', true );
 			$listing_info['atbd_listing_pricing']    = get_post_meta( $p_id, '_atbd_listing_pricing', true );
-			$listing_info['listing_status']          = get_post_meta( $p_id, '_listing_status', true );
+			// TODO: Status has been migrated, remove related code.
+			// $listing_info['listing_status']          = get_post_meta( $p_id, '_listing_status', true );
+			$listing_info['listing_status']          = get_post_status( $p_id );
 			$listing_info['tagline']                 = get_post_meta( $p_id, '_tagline', true );
 			$listing_info['atbdp_post_views_count']  = directorist_get_listing_views_count( $p_id );
 			$listing_info['excerpt']                 = get_post_meta( $p_id, '_excerpt', true );

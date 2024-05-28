@@ -17,11 +17,11 @@ class Image_Upload_Field extends Base_Field {
 			return null;
 		}
 
-		$new_images = directorist_get_var( $posted_data[ $this->get_key() ], '' );
+		$new_images = (array) directorist_get_var( $posted_data[ $this->get_key() ], array() );
 		$old_images = (array) directorist_get_var( $posted_data[ $this->get_key() . '_old' ], array() );
 
 		return array(
-			'new' => array_filter( explode( ',', $new_images ) ),
+			'new' => array_filter( $new_images ),
 			'old' => array_filter( wp_parse_id_list( $old_images ) ),
 		);
 	}
@@ -49,7 +49,7 @@ class Image_Upload_Field extends Base_Field {
 		// TODO: use get_attached_file to calculate the old images file size.
 
 		$upload_dir = wp_get_upload_dir();
-		$temp_dir   = $upload_dir['basedir'] . '/directorist_temp_uploads/';
+		$temp_dir   = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . trailingslashit( directorist_get_temp_upload_dir() . DIRECTORY_SEPARATOR . date( 'nj' ) );
 		$total_size = 0;
 
 		foreach ( $new_images as $file ) {

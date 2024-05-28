@@ -103,14 +103,14 @@ class Temporary_Media_Upload_Controller extends Abstract_Controller {
 
 		$data = array(
 			'name' => $files['file']['name'],
-			'file' => explode( 'directorist_temp_uploads/', $file['url'] )[1]
+			'file' => basename( $file['url'] ),
 		);
 
 		return rest_ensure_response( $data );
 	}
 
 	public static function set_temporary_upload_dir( $upload ) {
-		$upload['subdir'] = DIRECTORY_SEPARATOR . directorist_get_temp_upload_dir();
+		$upload['subdir'] = DIRECTORY_SEPARATOR . directorist_get_temp_upload_dir() . DIRECTORY_SEPARATOR . date( 'nj' );
 		$upload['path']   = $upload['basedir'] . $upload['subdir'];
 		$upload['url']    = $upload['baseurl'] . $upload['subdir'];
 

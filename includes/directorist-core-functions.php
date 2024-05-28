@@ -33,3 +33,7 @@ function directorist_get_currency() {
 function directorist_get_currency_position() {
 	return get_directorist_option( 'g_currency_position' );
 }
+
+function directorist_can_user_renew_listings() {
+	return (bool) get_directorist_option( 'can_renew_listing' );
+}

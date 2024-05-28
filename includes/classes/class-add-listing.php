@@ -329,11 +329,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$submission_notice = get_directorist_option( 'submission_confirmation', 1 );
 				$redirect_page     = get_directorist_option( 'edit_listing_redirect', 'view_listing' );
 
-				return wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', array(
-					'error'     => true,
-					'error_msg' => 'test',
-				) ) );
-
 				if ( 'view_listing' === $redirect_page ) {
 					$data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, $permalink ) : $permalink;
 				} else {

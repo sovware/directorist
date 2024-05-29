@@ -136,21 +136,18 @@ if (!class_exists('ATBDP_Listing')):
 				directorist_set_listing_directory( $listing_id, $directory_id );
 			}
 
-			$create_status = directorist_get_listing_create_status( $directory_id );
-			$edit_status   = directorist_get_listing_edit_status( $directory_id );
+			$directory_id = absint( $directory_id );
 
 			$args = array(
 				'id'            => $listing_id,
 				'edited'        => isset( $_GET['edited'] ) ? directorist_clean( wp_unslash( $_GET['edited'] ) ) : '',
-				'new_l_status'  => $create_status,
-				'edit_l_status' => $edit_status
+				'new_l_status'  => directorist_get_listing_create_status( $directory_id ),
+				'edit_l_status' => directorist_get_listing_edit_status( $directory_id ),
 			);
-
-			$post_status = atbdp_get_listing_status_after_submission( $args );
 
 			$args = apply_filters( 'atbdp_reviewed_listing_status_controller_argument', array(
 				'ID'          => $listing_id,
-				'post_status' => $post_status,
+				'post_status' => atbdp_get_listing_status_after_submission( $args ),
 			) );
 
 			wp_update_post( $args );

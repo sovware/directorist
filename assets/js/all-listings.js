@@ -1517,6 +1517,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         },
         success: function success(html) {
           if (html.search_result) {
+            instant_search_element.find('.directorist-header-found-title').replaceWith(html.header_title);
             instant_search_element.find('.directorist-header-found-title span').text(html.count);
             instant_search_element.find('.directorist-archive-items').replaceWith(html.search_result);
             instant_search_element.find('.directorist-archive-items').removeClass('atbdp-form-fade');
@@ -2264,6 +2265,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       },
       success: function success(html) {
         if (html.search_result) {
+          $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title').replaceWith(html.header_title);
           $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title span').text(html.count);
           $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').replaceWith(html.search_result);
           $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
@@ -2326,7 +2328,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   ;
 
   // sidebar on keyup searching
-  $('body').on("keyup", ".directorist-instant-search form", directorist_debounce(function (e) {
+  $('body').on("keyup", ".directorist-instant-search .listing-with-sidebar form", directorist_debounce(function (e) {
     e.preventDefault();
     var searchElm = $(this);
     filterListing(searchElm);

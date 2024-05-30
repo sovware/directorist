@@ -550,3 +550,31 @@ function directorist_updated_post_meta_action( $meta_id, $object_id, $meta_key, 
 }
 add_action( 'added_post_meta', 'directorist_updated_post_meta_action', 99999, 4 );
 add_action( 'updated_post_meta', 'directorist_updated_post_meta_action', 99999, 4 );
+
+/**
+ * Delete _never_expire metadata when _never_expire is set to falsy.
+ *
+ * @since 7.10.0
+ *
+ * @param mixed $check
+ * @param int $object_id Listing id
+ * @param string $meta_key
+ * @param mixed $meta_value
+ *
+ * @return mixed Modified value of $check
+ */
+function directorist_delete_never_expire_meta_on_update( $check, $object_id, $meta_key, $meta_value ) {
+    if ( ! directorist_is_listing_post_type( $object_id ) || $meta_key !== '_never_expire' ) {
+        return $check;
+    }
+
+    if ( ! in_array( $meta_value, array( false, '', 0, '0' ), true ) ) {
+        return $check;
+    }
+
+    delete_post_meta( $object_id, $meta_key );
+
+    return true;
+}
+add_filter( 'add_post_metadata', 'directorist_delete_never_expire_meta_on_update', 10, 4 );
+add_filter( 'update_post_metadata', 'directorist_delete_never_expire_meta_on_update', 10, 4 );

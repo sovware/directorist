@@ -2333,12 +2333,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }, 250));
 
   // sidebar on change searching
-  $('body').on("change", ".directorist-instant-search select, .directorist-instant-search input[type='checkbox'],.directorist-instant-search input[type='radio'] ", directorist_debounce(function (e) {
+  $('body').on("change", ".directorist-instant-search .listing-with-sidebar select, .directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'] ", directorist_debounce(function (e) {
     e.preventDefault();
     var searchElm = $(this.closest('form'));
     filterListing(searchElm);
   }, 250));
-  $('body').on("click", ".directorist-instant-search .directorist-search-field__btn--clear", function (e) {
+  $('body').on("click", ".directorist-instant-search .listing-with-sidebar .directorist-search-field__btn--clear", function (e) {
     var inputValue = $(this).closest('.directorist-search-field').find('input, select').val();
     if (inputValue) {
       var searchElm = $(document.querySelector('.directorist-instant-search form'));

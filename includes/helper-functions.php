@@ -4264,3 +4264,25 @@ function directorist_delete_temporary_upload_dirs() {
 		}
 	}
 }
+
+/**
+ * Formats a given date/time value according to WordPress settings or provided format.
+ *
+ * @param string $value The date/time value to format.
+ * @param string $type The type of format, either 'date' or 'time'. Default is 'date'.
+ * @param string $format Optional. The format to use. If empty, uses the WordPress settings.
+ * @return string The formatted date/time string, or an empty string if the input value is empty.
+ */
+function directorist_date_time_format( $value = '', $type = 'date', $format = '' ) {
+    // Return an empty string if the input value is empty
+    if ( empty( $value ) ) {
+        return '';
+    }
+
+    // Determine the format to use based on the type and input format
+    $default_format = ( 'time' === $type ) ? get_option( 'time_format' ) : get_option( 'date_format' );
+    $format = ! empty( $format ) ? $format : $default_format;
+
+    // Format and return the date/time value using the determined format
+    return date( apply_filters( 'directorist_date_time_format', $format, $type, 'single' ), strtotime( esc_html( $value ) ) );
+}

@@ -220,6 +220,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					'directory_type' => $listings->render_shortcode(),
 					'view_as'        => $archive_view,
 					'count'          => $listings->query_results->total,
+					'header_title'   => $listings->listings_header_title(),
 				)
 			);
 		}

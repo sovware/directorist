@@ -22,11 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						<button class="directorist-btn directorist-btn-sm directorist-filter-btn directorist-modal-btn directorist-modal-btn--full" aria-label="Modal Button"><?php echo wp_kses_post( $listings->filter_btn_html() ); ?></button>
 					<?php endif; ?>
 
-					<?php if ( $listings->header_title ): ?>
-						<span class="directorist-header-found-title"><?php echo wp_kses_post( $listings->item_found_title() ); ?></span>
-					<?php endif; ?>
-
-					<?php do_action( 'directorist_after_listings_header_title' ); ?>
+					<?php 
+						if ( $listings->header_title ) {
+							echo $listings->listings_header_title();
+						} 
+					?>
 				</div>
 
 			<?php endif; ?>

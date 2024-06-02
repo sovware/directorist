@@ -2160,6 +2160,13 @@ class Directorist_Listings {
 			Helper::get_template( 'archive/header-bar', array('listings' => $this) );
 		}
 
+		public function listings_header_title() {
+			$html = "<span class='directorist-header-found-title'>" . wp_kses_post( $this->item_found_title() ) . "</span>";
+			$html = apply_filters( 'directorist_listings_header_title', $html );
+
+			return $html;
+		}
+
 		public function full_search_form_template() {
 			// only catch atts with the prefix 'filter_'
 			$search_field_atts = array_filter( $this->atts, function( $key ) {

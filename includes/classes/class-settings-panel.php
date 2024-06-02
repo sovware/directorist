@@ -262,6 +262,19 @@ SWBD;
                 'description' => $description,
             ];
 
+            // Marker Clustering
+            $fields['marker_clustering'] = [
+                'type'  => 'toggle',
+                'label' => __('Marker Clustering', 'directorist'),
+                'value' => true,
+                'show-if' => [
+                    'where' => "select_listing_map",
+                    'conditions' => [
+                        ['key' => 'value', 'compare' => '=', 'value' => 'google'],
+                    ],
+                ],
+            ];
+
 
             // Map Country Restriction Field
             $fields['country_restriction'] = [
@@ -4622,7 +4635,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Map', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'use_def_lat_long', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
+                                        'select_listing_map', 'map_api_key', 'marker_clustering', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'use_def_lat_long', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
                                     ],
                                 ],
                                 'map_info_window' => [

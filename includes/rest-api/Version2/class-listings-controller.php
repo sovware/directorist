@@ -76,8 +76,8 @@ class Listings_Controller extends Legacy_Listings_Controller {
 	}
 
 	public function create_item( $request ) {
-		
-		
+
+
 		return new WP_Error('TEst');
 	}
 
@@ -143,12 +143,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					$base_data['popular'] = (bool) Helper::is_popular( $listing->ID );
 					break;
 				case 'status':
-					$listing_status = get_post_meta( $listing->ID, '_listing_status', true );
-					if ( $listing_status && $listing_status === 'expired' ) {
-						$base_data['status'] = 'expired';
-					} else {
-						$base_data['status'] = $listing->post_status;
-					}
+					$base_data['status'] = $listing->post_status;
 					break;
 				case 'reviews_allowed':
 					$base_data['reviews_allowed'] = directorist_is_review_enabled();
@@ -189,7 +184,6 @@ class Listings_Controller extends Legacy_Listings_Controller {
 			'atbdp_post_views_count',
 		);
 
-
 		$data = array();
 
 		foreach ( $form_fields as $form_field ) {
@@ -212,7 +206,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 				case 'excerpt':
 					$data['excerpt'] = empty( $listing->post_excerpt ) ? get_post_meta( $listing->ID, '_excerpt', true ) : $listing->post_excerpt;
 					break;
-				
+
 				case 'location':
 					$data['locations'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_LOCATION );
 					break;
@@ -220,11 +214,11 @@ class Listings_Controller extends Legacy_Listings_Controller {
 				case 'category':
 					$data['categories'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_CATEGORY );
 					break;
-	
+
 				case 'tag':
 					$data['tags'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_TAGS );
 					break;
-	
+
 				case 'social_info':
 					$data[ $field_key ] = $this->get_listing_social_links( $listing->ID );
 					break;
@@ -241,7 +235,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					$field_value       = get_post_meta( $listing->ID, '_'. $field_key, true );
 					$data[ $field_key ] = ( 'view' === $context ? esc_url( $field_value ) : esc_url_raw( $field_value ) );
 					break;
-		
+
 				case 'textarea':
 					$field_value       = get_post_meta( $listing->ID, '_'. $field_key, true );
 					$data[ $field_key ] = esc_textarea( $field_value );
@@ -252,7 +246,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					$data['price_type']  = directorist_clean( get_post_meta( $listing->ID, '_atbd_listing_pricing', true ) );
 					$data['price_range'] = directorist_clean( get_post_meta( $listing->ID, '_price_range', true ) );
 					break;
-		
+
 				case 'map':
 					$data['hide_map']  = (bool) get_post_meta( $listing->ID, '_hide_map', true );
 					$data['latitude']  = directorist_clean( get_post_meta( $listing->ID, '_manual_lat', true ) );
@@ -262,7 +256,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 				default:
 					$value              = get_post_meta( $listing->ID, '_'. $field_key, true );
 					$value              = directorist_clean( $value );
-					$data[ $field_key ] = apply_filters( 'directorist_rest_listing_field_default_data', $value, $form_field, $listing, $context );
+					$data[ $field_key ] = apply_filters( 'directorist_rest_listing_field_data', $value, $form_field, $listing, $context );
 					break;
 			}
 		}
@@ -333,9 +327,10 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					'type'        => 'integer',
 					'default'     => 0,
 					'context'     => array( 'view', 'edit' ),
+					'readonly'    => true,
 				),
 				'directory' => array(
-					'description' => __( 'Multi directory type id.', 'directorist' ),
+					'description' => __( 'Directory id.', 'directorist' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
@@ -349,6 +344,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					'type'        => 'boolen',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
+					'readonly'    => true,
 				),
 				'featured'              => array(
 					'description' => __( 'Featured listing.', 'directorist' ),
@@ -380,6 +376,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					'type'        => 'boolean',
 					'default'     => true,
 					'context'     => array( 'view', 'edit' ),
+					'readonly'    => true,
 				),
 				'average_rating'        => array(
 					'description' => __( 'Reviews average rating.', 'directorist' ),
@@ -406,6 +403,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					'description' => __( 'Menu order, used to custom sort listings.', 'directorist' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
+					'readonly'    => true,
 				),
 				'author'            => array(
 					'description' => __( 'Listing author id.', 'directorist' ),
@@ -422,9 +420,116 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'properties'  => array(
+						'categories' => array(
+							'description' => __( 'List of categories.', 'directorist' ),
+							'type'        => 'array',
+							'context'     => array( 'view', 'edit' ),
+							'items'       => array(
+								'type'       => 'object',
+								'properties' => array(
+									'id'   => array(
+										'description' => __( 'Category ID.', 'directorist' ),
+										'type'        => 'integer',
+										'context'     => array( 'view', 'edit' ),
+									),
+									'name' => array(
+										'description' => __( 'Category name.', 'directorist' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+										'readonly'    => true,
+									),
+									'slug' => array(
+										'description' => __( 'Category slug.', 'directorist' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+										'readonly'    => true,
+									),
+									'icon' => array(
+										'description' => __( 'Category icon.', 'directorist' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+										'readonly'    => true,
+									),
+								),
+							),
+						),
+						'tags' => array(
+							'description' => __( 'List of tags.', 'directorist' ),
+							'type'        => 'array',
+							'context'     => array( 'view', 'edit' ),
+							'items'       => array(
+								'type'       => 'object',
+								'properties' => array(
+									'id'   => array(
+										'description' => __( 'Tag ID.', 'directorist' ),
+										'type'        => 'integer',
+										'context'     => array( 'view', 'edit' ),
+									),
+									'name' => array(
+										'description' => __( 'Tag name.', 'directorist' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+										'readonly'    => true,
+									),
+									'slug' => array(
+										'description' => __( 'Tag slug.', 'directorist' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+										'readonly'    => true,
+									),
+								),
+							),
+						),
+						'locations' => array(
+							'description' => __( 'List of locations.', 'directorist' ),
+							'type'        => 'array',
+							'context'     => array( 'view', 'edit' ),
+							'items'       => array(
+								'type'       => 'object',
+								'properties' => array(
+									'id'   => array(
+										'description' => __( 'Location ID.', 'directorist' ),
+										'type'        => 'integer',
+										'context'     => array( 'view', 'edit' ),
+									),
+									'name' => array(
+										'description' => __( 'Location name.', 'directorist' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+										'readonly'    => true,
+									),
+									'slug' => array(
+										'description' => __( 'Location slug.', 'directorist' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+										'readonly'    => true,
+									),
+								),
+							),
+						),
+						'social'             => array(
+							'description' => __( 'List of social links.', 'directorist' ),
+							'type'        => 'array',
+							'context'     => array( 'view', 'edit' ),
+							'items'       => array(
+								'type'       => 'object',
+								'properties' => array(
+									'id'   => array(
+										'description' => __( 'Social media name', 'directorist' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+									),
+									'url' => array(
+										'description' => __( 'Social media url.', 'directorist' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+									),
+								),
+							),
+						),
 						'[field_key]'   => array(
 							'description' => __( 'Field key: value.', 'directorist' ),
-							'type'        => array( 'string', 'array', 'int' ),
+							'type'        => array( 'string', 'array', 'integer', 'boolean' ),
 							'context'     => array( 'view', 'edit' ),
 						),
 					),

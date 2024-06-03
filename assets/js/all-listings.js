@@ -1517,7 +1517,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         },
         success: function success(html) {
           if (html.search_result) {
-            instant_search_element.find('.directorist-header-found-title').replaceWith(html.header_title);
+            instant_search_element.find('.directorist-header-found-title').remove();
+            instant_search_element.find('.dsa-save-search-container').remove();
+            instant_search_element.find('.directorist-listings-header__left').append(html.header_title);
             instant_search_element.find('.directorist-header-found-title span').text(html.count);
             instant_search_element.find('.directorist-archive-items').replaceWith(html.search_result);
             instant_search_element.find('.directorist-archive-items').removeClass('atbdp-form-fade');

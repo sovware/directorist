@@ -91,32 +91,32 @@ class Listings_Controller extends Legacy_Listings_Controller {
 		);
 	}
 
-	protected function get_rest_to_post_fields_map() {
+	protected function get_schema_to_post_fields_map() {
 		return array(
 			'title' => array(
-				'listing_title' => 'title',
+				'title' => 'listing_title',
 			),
 			'description' => array(
-				'listing_content' => 'description',
+				'description' => 'listing_content',
 			),
 			'location' => array(
-				'tax_input[' . ATBDP_LOCATION . ']' => 'locations',
+				'locations' => 'tax_input[' . ATBDP_LOCATION . ']',
 			),
 			'category' => array(
-				'tax_input[' . ATBDP_CATEGORY . ']' => 'categories',
+				'categories' => 'tax_input[' . ATBDP_CATEGORY . ']',
 			),
 			'tag' => array(
-				'tax_input[' . ATBDP_TAGS . ']' => 'tags',
+				'tags' => 'tax_input[' . ATBDP_TAGS . ']',
 			),
 			'pricing' => array(
-				'atbd_listing_pricing' => 'price_type',
-				'price'                => 'price',
-				'price_range'          => 'price_range',
+				'price_type'  => 'atbd_listing_pricing',
+				'price'       => 'price',
+				'price_range' => 'price_range',
 			),
 			'map' => array(
-				'hide_map'   => 'map_hidden',
-				'manual_lat' => 'latitude',
-				'manual_lng' => 'longitude',
+				'map_hidden' => 'hide_map',
+				'latitude'   => 'manual_lat',
+				'longitude'  => 'manual_lng',
 			),
 		);
 	}
@@ -126,7 +126,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 		$plan_id      = $request['plan'];
 
 		$form_fields = directorist_get_listing_form_fields( $directory_id, $plan_id );
-		$map         = $this->get_rest_to_post_fields_map();
+		$map         = $this->get_schema_to_post_fields_map();
 
 		foreach ( $form_fields as $form_field ) {
 			if ( empty( $form_field['widget_name'] ) || (bool) directorist_get_var( $form_field['only_for_admin'] ) ) {
@@ -137,29 +137,38 @@ class Listings_Controller extends Legacy_Listings_Controller {
 			$widget_key = directorist_get_var( $form_field['widget_key'] );
 			// $group      = directorist_get_var( $form_field['widget_group'] );
 
-			if ( ! isset( $map[ $widget_key ] ) && isset( $request['fields'][ $field_key ] ) ) {
-				$_POST[ $field_key ] = $request['fields'][ $field_key ];
+			if ( isset( $request['fields'] ) && isset( $map[ $widget_key ] ) ) {
 
-				continue;
-			}
-
-			if ( isset( $map[ $widget_key ] ) ) {
-				foreach ( $map[ $widget_key ] as $post_key => $request_key ) {
-					if ( isset( $request['fields'][ $request_key ] ) ) {
-						$_POST[ $post_key ] = $request['fields'][ $request_key ];
+				foreach ( $map[ $widget_key ] as $schema_key => $post_key ) {
+					if ( isset( $request['fields'][ $schema_key ] ) ) {
+						$_POST[ $post_key ] = $request['fields'][ $schema_key ];
 					}
 				}
+
+			} elseif ( isset( $request['fields'] ) && isset( $request['fields'][ $field_key ] ) ) {
+
+				$_POST[ $field_key ] = $request['fields'][ $field_key ];
+
+			} elseif ( isset( $request[ $field_key ] ) && isset( $map[ $widget_key ] ) ) {
+
+				foreach ( $map[ $widget_key ] as $schema_key => $post_key ) {
+					if ( isset( $request[ $schema_key ] ) ) {
+						$_POST[ $post_key ] = $request[ $schema_key ];
+					}
+				}
+
+			} elseif ( isset( $request[ $field_key ] ) && isset( $request[ $field_key ] ) ) {
+
+				$_POST[ $field_key ] = $request[ $field_key ];
+
 			}
 		}
 
-		// 'privacy_policy' => 'privacy_policy',
-		// 't_c_check' => 'terms_conditions'
-		// 'directory_type' => 'directory'
-		if ( isset( $request['privacy_policy'] ) ) {
+		if ( directorist_should_check_privacy_policy( $directory_id ) && isset( $request['privacy_policy'] ) ) {
 			$_POST['privacy_policy'] = $request['privacy_policy'];
 		}
 
-		if ( isset( $request['terms_conditions'] ) ) {
+		if ( directorist_should_check_terms_and_condition( $directory_id ) && isset( $request['terms_conditions'] ) ) {
 			$_POST['t_c_check'] = $request['terms_conditions'];
 		}
 
@@ -178,8 +187,6 @@ class Listings_Controller extends Legacy_Listings_Controller {
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
-
-		file_put_contents( __DIR__ . '/data.txt', print_r( $response, 1 ) );
 
 		return $response;
 	}
@@ -323,11 +330,11 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					break;
 
 				case 'social_info':
-					$data[ $field_key ] = $this->get_listing_social_links( $listing->ID );
+					$data['social'] = $this->get_listing_social_links( $listing->ID );
 					break;
 
 				case 'hide_contact_owner':
-					$data[ $field_key ] = (bool) get_post_meta( $listing->ID, '_'. $field_key, true );
+					$data['contact_form_hidden'] = (bool) get_post_meta( $listing->ID, '_'. $field_key, true );
 					break;
 
 				case 'image_upload':
@@ -351,7 +358,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					break;
 
 				case 'map':
-					$data['hide_map']  = (bool) get_post_meta( $listing->ID, '_hide_map', true );
+					$data['map_hidden']  = (bool) get_post_meta( $listing->ID, '_hide_map', true );
 					$data['latitude']  = directorist_clean( get_post_meta( $listing->ID, '_manual_lat', true ) );
 					$data['longitude'] = directorist_clean( get_post_meta( $listing->ID, '_manual_lng', true ) );
 					break;
@@ -639,7 +646,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 								),
 							),
 						),
-						'social_links'             => array(
+						'social'             => array(
 							'description' => __( 'List of social links.', 'directorist' ),
 							'type'        => 'array',
 							'context'     => array( 'view', 'edit' ),

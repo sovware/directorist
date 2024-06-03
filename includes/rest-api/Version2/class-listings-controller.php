@@ -11,6 +11,7 @@ namespace Directorist\Rest_Api\Controllers\Version2;
 use WP_Error;
 use WP_REST_Server;
 use Directorist\Helper;
+use Directorist\AddListingForm\SubmissionController;
 use Directorist\Rest_Api\Controllers\Version1\Listings_Controller as Legacy_Listings_Controller;
 
 defined( 'ABSPATH' ) || exit;
@@ -42,7 +43,22 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					'methods'             => WP_REST_Server::CREATABLE,
 					'callback'            => array( $this, 'create_item' ),
 					'permission_callback' => '__return_true', //array( $this, 'create_item_permissions_check' ),
-					'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
+					'args'                => array_merge(
+						$this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
+						array(
+							'directory' => array(
+								'description' => __( 'Directory id.', 'directorist' ),
+								'type'        => 'integer',
+								'required'    => directorist_is_multi_directory_enabled(),
+								'default'     => directorist_get_default_directory()
+							),
+							'plan' => array(
+								'description' => __( 'Plan id.', 'directorist' ),
+								'type'        => 'integer',
+								'default'     => 0,
+							),
+						)
+					),
 				),
 				'schema' => array( $this, 'get_public_item_schema' ),
 			)
@@ -75,10 +91,86 @@ class Listings_Controller extends Legacy_Listings_Controller {
 		);
 	}
 
+	protected function get_rest_to_post_fields_map() {
+		return array(
+			'title' => array(
+				'listing_title' => 'title',
+			),
+			'description' => array(
+				'listing_content' => 'description',
+			),
+			'location' => array(
+				'tax_input[' . ATBDP_LOCATION . ']' => 'locations',
+			),
+			'category' => array(
+				'tax_input[' . ATBDP_CATEGORY . ']' => 'categories',
+			),
+			'tag' => array(
+				'tax_input[' . ATBDP_TAGS . ']' => 'tags',
+			),
+			'pricing' => array(
+				'atbd_listing_pricing' => 'price_type',
+				'price'                => 'price',
+				'price_range'          => 'price_range',
+			),
+			'map' => array(
+				'hide_map'   => 'map_hidden',
+				'manual_lat' => 'latitude',
+				'manual_lng' => 'longitude',
+			),
+		);
+	}
+
+	protected function hydrate_global_post( $request ) {
+		$directory_id = $request['directory'];
+		$plan_id      = $request['plan'];
+
+		$form_fields = directorist_get_listing_form_fields( $directory_id, $plan_id );
+		$map         = $this->get_rest_to_post_fields_map();
+
+		foreach ( $form_fields as $form_field ) {
+			if ( empty( $form_field['widget_name'] ) || (bool) directorist_get_var( $form_field['only_for_admin'] ) ) {
+				continue;
+			}
+
+			$field_key  = directorist_get_var( $form_field['field_key'] );
+			$widget_key = directorist_get_var( $form_field['widget_key'] );
+			// $group      = directorist_get_var( $form_field['widget_group'] );
+
+			if ( isset( $map[ $widget_key ] ) ) {
+				foreach ( $map[ $widget_key ] as $post_key => $request_key ) {
+					$_POST[ $post_key ] = $request['fields'][ $request_key ];
+				}
+			} else {
+				$_POST[ $field_key ] = $request['fields'][ $field_key ];
+			}
+		}
+
+		if ( isset( $request['privacy_policy'] ) ) {
+			$_POST['privacy_policy'] = $request['privacy_policy'];
+		}
+
+		if ( isset( $request['terms_conditions'] ) ) {
+			$_POST['t_c_check'] = $request['terms_conditions'];
+		}
+	}
+
 	public function create_item( $request ) {
+		$directory_id = $request['directory'];
+		$plan_id      = $request['plan'];
 
+		$this->hydrate_global_post( $request );
 
-		return new WP_Error('TEst');
+		$sc       = new SubmissionController();
+		$response = $sc->submit( $directory_id, wp_unslash( $_POST ) );
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		file_put_contents( __DIR__ . '/data.txt', print_r( $response, 1 ) );
+
+		return $response;
 	}
 
 	/**
@@ -270,6 +362,10 @@ class Listings_Controller extends Legacy_Listings_Controller {
 	 * @return array
 	 */
 	public function get_item_schema() {
+		if ( $this->schema ) {
+            return $this->schema;
+        }
+
 		$schema         = array(
 			'$schema'    => 'http://json-schema.org/draft-04/schema#',
 			'title'      => $this->post_type,
@@ -280,11 +376,6 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
-				),
-				'title'                  => array(
-					'description' => __( 'Listing title.', 'directorist' ),
-					'type'        => 'string',
-					'context'     => array( 'view', 'edit' ),
 				),
 				'slug'                  => array(
 					'description' => __( 'Listing slug.', 'directorist' ),
@@ -415,11 +506,41 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
+				'privacy_policy' => array(
+					'description' => __( 'Agree to listing privacy policy.', 'directorist' ),
+					'type'        => 'boolean',
+					'context'     => array( 'edit' ),
+				),
+				'terms_conditions' => array(
+					'description' => __( 'Agree to terms and conditions.', 'directorist' ),
+					'type'        => 'boolean',
+					'context'     => array( 'edit' ),
+				),
 				'fields'             => array(
 					'description' => __( 'Fields data.', 'directorist' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'properties'  => array(
+						'title'                  => array(
+							'description' => __( 'Listing title.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'tagline'              => array(
+							'description' => __( 'Tagline.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'description'           => array(
+							'description' => __( 'Listing description.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'excerpt'     => array(
+							'description' => __( 'Listing short description.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
 						'categories' => array(
 							'description' => __( 'List of categories.', 'directorist' ),
 							'type'        => 'array',
@@ -507,7 +628,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 								),
 							),
 						),
-						'social'             => array(
+						'social_links'             => array(
 							'description' => __( 'List of social links.', 'directorist' ),
 							'type'        => 'array',
 							'context'     => array( 'view', 'edit' ),
@@ -527,6 +648,85 @@ class Listings_Controller extends Legacy_Listings_Controller {
 								),
 							),
 						),
+						'price_type'              => array(
+							'description' => __( 'Price type.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'price'              => array(
+							'description' => __( 'Price amount.', 'directorist' ),
+							'type'        => 'number',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'price_range'              => array(
+							'description' => __( 'Price range.', 'directorist' ),
+							'type'        => 'string',
+							'enum'        => array( 'skimming', 'moderate', 'economy', 'bellow_economy' ),
+							'context'     => array( 'view', 'edit' ),
+						),
+						'contact_form_hidden' => array(
+							'description' => __( 'Listing owner contact form visibility status.', 'directorist' ),
+							'type'        => 'boolean',
+							'default'     => false,
+							'context'     => array( 'view', 'edit' ),
+						),
+						'zip'                  => array(
+							'description' => __( 'Zip code.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'address'              => array(
+							'description' => __( 'Listing address.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'map_hidden'              => array(
+							'description' => __( 'Map visibility status status.', 'directorist' ),
+							'type'        => 'boolean',
+							'default'     => false,
+							'context'     => array( 'view', 'edit' ),
+						),
+						'latitude'              => array(
+							'description' => __( 'Address location latitude.', 'directorist' ),
+							'type'        => 'number',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'longitude'              => array(
+							'description' => __( 'Address location longitude.', 'directorist' ),
+							'type'        => 'number',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'phone'                  => array(
+							'description' => __( 'Phone number 1.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'phone_2'                  => array(
+							'description' => __( 'Phone number 2.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'fax'                  => array(
+							'description' => __( 'Fax number.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'email'                  => array(
+							'description' => __( 'Email address.', 'directorist' ),
+							'type'        => 'string',
+							'format'      => 'email',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'website'                => array(
+							'description' => __( 'Website url.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'video_url'              => array(
+							'description' => __( 'Video url.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
 						'[field_key]'   => array(
 							'description' => __( 'Field key: value.', 'directorist' ),
 							'type'        => array( 'string', 'array', 'integer', 'boolean' ),
@@ -537,6 +737,8 @@ class Listings_Controller extends Legacy_Listings_Controller {
 			),
 		);
 
-		return $this->add_additional_fields_schema( $schema );
+		$this->schema = $this->add_additional_fields_schema( $schema );
+
+		return $this->schema;
 	}
 }

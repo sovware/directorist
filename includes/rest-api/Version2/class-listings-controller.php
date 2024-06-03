@@ -137,15 +137,24 @@ class Listings_Controller extends Legacy_Listings_Controller {
 			$widget_key = directorist_get_var( $form_field['widget_key'] );
 			// $group      = directorist_get_var( $form_field['widget_group'] );
 
+			if ( ! isset( $map[ $widget_key ] ) && isset( $request['fields'][ $field_key ] ) ) {
+				$_POST[ $field_key ] = $request['fields'][ $field_key ];
+
+				continue;
+			}
+
 			if ( isset( $map[ $widget_key ] ) ) {
 				foreach ( $map[ $widget_key ] as $post_key => $request_key ) {
-					$_POST[ $post_key ] = $request['fields'][ $request_key ];
+					if ( isset( $request['fields'][ $request_key ] ) ) {
+						$_POST[ $post_key ] = $request['fields'][ $request_key ];
+					}
 				}
-			} else {
-				$_POST[ $field_key ] = $request['fields'][ $field_key ];
 			}
 		}
 
+		// 'privacy_policy' => 'privacy_policy',
+		// 't_c_check' => 'terms_conditions'
+		// 'directory_type' => 'directory'
 		if ( isset( $request['privacy_policy'] ) ) {
 			$_POST['privacy_policy'] = $request['privacy_policy'];
 		}
@@ -153,6 +162,8 @@ class Listings_Controller extends Legacy_Listings_Controller {
 		if ( isset( $request['terms_conditions'] ) ) {
 			$_POST['t_c_check'] = $request['terms_conditions'];
 		}
+
+		$_POST['directory_type'] = $directory_id;
 	}
 
 	public function create_item( $request ) {

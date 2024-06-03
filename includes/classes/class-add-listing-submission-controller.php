@@ -345,10 +345,25 @@ class SubmissionController {
 			);
 		}
 
-		$error      = new WP_Error();
-		$taxonomies = array();
-		$metadata   = array();
-		$listing_data       = array();
+		$maybe_directory_id = sanitize_text_field( directorist_get_var( $posted_data['directory_type'], '' ) );
+		$directory          = get_term_by( ( is_numeric( $maybe_directory_id ) ? 'id' : 'slug' ), $maybe_directory_id, ATBDP_DIRECTORY_TYPE );
+
+		if ( directorist_is_multi_directory_enabled() && ! $directory ) {
+			return new WP_Error(
+				'directorist_invalid_directory',
+				__( 'Invalid directory id.', 'directorist' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		$directory_id = (int) $directory->term_id;
+
+		$error        = new WP_Error();
+		$taxonomies   = array();
+		$metadata     = array();
+		$listing_data = array(
+			'post_type' => ATBDP_POST_TYPE
+		);
 
 		if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) ) {
 			$error->add(

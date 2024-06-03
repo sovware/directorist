@@ -905,9 +905,7 @@ class Listings_Controller extends Posts_Controller {
 	}
 
 	protected function get_plan_id( $listing ) {
-		$plan_id = (int) get_post_meta( $listing->ID, '_fm_plans', true );
-
-		return $plan_id;
+		return ( (int) get_post_meta( $listing->ID, '_fm_plans', true ) );
 	}
 
 	protected function get_related_listings_ids( $listing_id ) {
@@ -986,7 +984,7 @@ class Listings_Controller extends Posts_Controller {
 			),
 		);
 
-		$plan_id = $this->get_plan_id( $object->ID );
+		$plan_id = $this->get_plan_id( $object );
 		if ( $plan_id ) {
 			$links['plan'] = array(
 				'href' => rest_url( sprintf( '/%s/%s/%d', $this->namespace, 'plans', $plan_id ) ),  // @codingStandardsIgnoreLine.

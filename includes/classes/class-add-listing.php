@@ -282,10 +282,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$error->add( 'privacy_policy_required', __( 'Privacy Policy is required.', 'directorist' ) );
 				}
 
-				if ( directorist_should_check_terms_and_condition( $directory_id ) && empty( $posted_data['t_c_check'] ) ) {
-					$error->add( 'terms_and_condition_required', __( 'Terms and condition is required.', 'directorist' ) );
-				}
-
 				if ( $error->has_errors() ) {
 					return wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', array(
 						'error'     => true,

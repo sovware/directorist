@@ -84,12 +84,14 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					'callback'            => array( $this, 'get_item' ),
 					'permission_callback' => array( $this, 'get_item_permissions_check' ),
 					'args'                => array(
-						'context' => $this->get_context_param(
-							array(
-								'default' => 'view',
-							)
-						),
+						'context' => $this->get_context_param( array( 'default' => 'view' ) ),
 					),
+				),
+				array(
+					'methods'             => WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'update_item' ),
+					'permission_callback' => array( $this, 'update_item_permissions_check' ),
+					'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE ),
 				),
 				'schema' => array( $this, 'get_public_item_schema' ),
 			)
@@ -133,6 +135,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 			'directory'        => 'directory_type',
 			'plan'             => 'plan_id',
 			'order'            => 'order_id',
+			'id'               => 'listing_id',
 		);
 	}
 
@@ -216,6 +219,33 @@ class Listings_Controller extends Legacy_Listings_Controller {
 		$response = apply_filters( 'directorist_rest_response', $response, 'create_listing_item', $request );
 
 		return $response;
+	}
+
+	public function update_item( $request ) {
+		$id = (int) $request['id'];
+
+		do_action( 'directorist_rest_before_query', 'update_listing_item', $request, $id );
+
+		$this->hydrate_global_post( $request );
+
+		$controller_response = SubmissionController::submit( wp_unslash( $_POST ), 'api' );
+
+		if ( is_wp_error( $controller_response ) ) {
+			return $controller_response;
+		}
+
+		$listing = get_post( $id );
+
+		$request->set_param( 'context', 'edit' );
+		$response = $this->prepare_item_for_response( $listing, $request );
+		$response = rest_ensure_response( $response );
+		$response->set_status( 201 );
+
+		do_action( 'directorist_rest_after_query', 'update_listing_item', $request, $id );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'update_listing_item', $request, $id );
+
+		return rest_ensure_response( $response );
 	}
 
 	/**

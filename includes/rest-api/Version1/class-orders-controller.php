@@ -45,7 +45,7 @@ class Orders_Controller extends Posts_Controller {
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_items' ),
-					'permission_callback' => array( $this, 'get_items_permissions_check' ),
+					'permission_callback' => array( $this, 'update_item_permissions_check' ),
 					'args'                => $this->get_collection_params(),
 				),
 				'schema' => array( $this, 'get_public_item_schema' ),
@@ -65,7 +65,7 @@ class Orders_Controller extends Posts_Controller {
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_item' ),
-					'permission_callback' => array( $this, 'get_item_permissions_check' ),
+					'permission_callback' => array( $this, 'update_item_permissions_check' ),
 					'args'                => array(
 						'context' => $this->get_context_param(
 							array(
@@ -262,47 +262,47 @@ class Orders_Controller extends Posts_Controller {
 	 */
 	protected function get_order_data( $order, $request, $context = 'view' ) {
 		$fields  = $this->get_fields_for_response( $request );
-		
+
 		$data = array();
 		foreach ( $fields as $field ) {
 			switch ( $field ) {
-				case 'id': 
+				case 'id':
 					$data[ $field ] = $order->ID;
 					break;
-				case 'title': 
+				case 'title':
 					$data[ $field ] = get_the_title( $order );
 					break;
-				case 'date_created': 
+				case 'date_created':
 					$data[ $field ] = directorist_rest_prepare_date_response( $order->post_date, false );
 					break;
-				case 'date_modified': 
+				case 'date_modified':
 					$data[ $field ] = directorist_rest_prepare_date_response( $order->post_date_modified, false );
 					break;
 				case 'customer':
 					$data[ $field ] = (int) $order->post_author;
 					break;
-				case 'plan': 
+				case 'plan':
 					$data[ $field ] = (int) get_post_meta( $order->ID, '_fm_plan_ordered', true );
 					break;
-				case 'plan_position': 
+				case 'plan_position':
 					$data[ $field ] = (int) get_post_meta( $order->ID, '_dpp_plan_sorting_order', true );
 					break;
-				case 'listing': 
+				case 'listing':
 					$data[ $field ] = (int) get_post_meta( $order->ID, '_listing_id', true );
 					break;
-				case 'featured': 
+				case 'featured':
 					$data[ $field ] = (bool) get_post_meta( $order->ID, '_featured', true );
 					break;
-				case 'amount': 
+				case 'amount':
 					$data[ $field ] = (float) get_post_meta( $order->ID, '_amount', true );
 					break;
-				case 'payment_status': 
+				case 'payment_status':
 					$data[ $field ] = get_post_meta( $order->ID, '_payment_status', true );
 					break;
-				case 'payment_gateway': 
+				case 'payment_gateway':
 					$data[ $field ] = get_post_meta( $order->ID, '_payment_gateway', true );
 					break;
-				case 'transaction_id': 
+				case 'transaction_id':
 					$data[ $field ] = get_post_meta( $order->ID, '_transaction_id', true );
 					break;
 			}

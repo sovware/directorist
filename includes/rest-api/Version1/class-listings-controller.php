@@ -795,9 +795,6 @@ class Listings_Controller extends Posts_Controller {
 				case 'images':
 					$base_data['images'] = $this->get_images( $listing, $context );
 					break;
-				case 'fields_data':
-					$base_data['fields_data'] = $this->get_fields_data( $listing, $context );
-					break;
 			}
 		}
 
@@ -820,79 +817,6 @@ class Listings_Controller extends Posts_Controller {
 				'id' => $link['id'],
 				'url' => $link['url']
 			);
-		}
-
-		return $data;
-	}
-
-	protected function get_fields_data( $listing, $context ) {
-		$directory_id     = $this->get_directory_id( $listing );
-		$form_fields      = directorist_get_listing_form_fields( $directory_id, $this->get_plan_id( $listing ) );
-		$ignorable_fields = array(
-			'title',
-			'tag',
-			'location',
-			'category',
-			'image_upload',
-			'hide_contact_owner'
-		);
-		$data = array();
-
-		foreach ( $form_fields as $form_field ) {
-			if ( empty( $form_field['widget_name'] ) ) {
-				continue;
-			}
-
-			$field_internal_key = $form_field['widget_name'];
-
-			if ( in_array( $field_internal_key, $ignorable_fields, true ) ) {
-				continue;
-			}
-
-			if ( $field_internal_key === 'description' ) {
-				$data['description'] = ( 'view' === $context ? wpautop( do_shortcode( $listing->post_content ) ) : $listing->post_content );
-				continue;
-			}
-
-			if ( $field_internal_key === 'excerpt' ) {
-				$data['excerpt'] = empty( $listing->post_excerpt ) ? get_post_meta( $listing->ID, '_excerpt', true ) : $listing->post_excerpt;
-				continue;
-			}
-
-			if ( empty( $form_field['field_key'] ) ) {
-				continue;
-			}
-
-			$meta_key = $form_field['field_key'];
-
-			if ( $field_internal_key === 'url' ) {
-
-				$field_value       = get_post_meta( $listing->ID, '_'. $meta_key, true );
-				$data[ $meta_key ] = ( 'view' === $context ? esc_url( $field_value ) : esc_url_raw( $field_value ) );
-
-			} elseif ( $field_internal_key === 'textarea' ) {
-
-				$field_value       = get_post_meta( $listing->ID, '_'. $meta_key, true );
-				$data[ $meta_key ] = esc_textarea( $field_value );
-
-			} elseif ( $field_internal_key === 'price' ) {
-
-				$data['price']       = directorist_clean( get_post_meta( $listing->ID, '_price', true ) );
-				$data['price_type']  = directorist_clean( get_post_meta( $listing->ID, '_atbd_listing_pricing', true ) );
-				$data['price_range'] = directorist_clean( get_post_meta( $listing->ID, '_price_range', true ) );
-
-			} elseif ( $field_internal_key === 'map') {
-
-				$data['hide_map']  = directorist_clean( get_post_meta( $listing->ID, '_hide_map', true ) );
-				$data['latitude']  = directorist_clean( get_post_meta( $listing->ID, '_manual_lat', true ) );
-				$data['longitude'] = directorist_clean( get_post_meta( $listing->ID, '_manual_lng', true ) );
-
-			} else {
-
-				$field_value       = get_post_meta( $listing->ID, '_'. $meta_key, true );
-				$data[ $meta_key ] = directorist_clean( $field_value );
-
-			}
 		}
 
 		return $data;
@@ -1409,18 +1333,6 @@ class Listings_Controller extends Posts_Controller {
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'fields_data'             => array(
-					'description' => __( 'Fields data.', 'directorist' ),
-					'type'        => 'object',
-					'context'     => array( 'view', 'edit' ),
-					'properties'  => array(
-						'[field_key]'   => array(
-							'description' => __( 'Field key: value.', 'directorist' ),
-							'type'        => array( 'string', 'array', 'int' ),
-							'context'     => array( 'view', 'edit' ),
-						),
-					),
-				),
 			),
 		);
 
@@ -1464,6 +1376,7 @@ class Listings_Controller extends Posts_Controller {
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['orderby'] = array(
+			'default'            => 'date',
 			'description'        => __( 'Sort collection by object attribute.', 'directorist' ),
 			'enum'               => array_keys( $this->get_orderby_possibles() ),
 			'sanitize_callback'  => 'sanitize_key',

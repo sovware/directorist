@@ -343,15 +343,18 @@ class Listings_Controller extends Legacy_Listings_Controller {
 	}
 
 	protected function get_fields_data( $listing, $context ) {
-		$directory_id     = $this->get_directory_id( $listing );
+		$directory_id = $this->get_directory_id( $listing );
+
+		if ( ! $directory_id ) {
+			return apply_filters( 'directorist_rest_listing_fields_data', array(), $listing, $context );
+		}
+
 		$form_fields      = directorist_get_listing_form_fields( $directory_id, $this->get_plan_id( $listing ) );
+		$data             = array();
 		$ignorable_fields = array(
-			'title',
 			'view_count',
 			'atbdp_post_views_count',
 		);
-
-		$data = array();
 
 		foreach ( $form_fields as $form_field ) {
 			if ( empty( $form_field['widget_name'] ) ) {
@@ -366,6 +369,10 @@ class Listings_Controller extends Legacy_Listings_Controller {
 			}
 
 			switch ( $internal_key ) {
+				case 'title':
+					$data['title'] = ( 'view' === $context ? get_the_title( $listing ) : $listing->post_title );
+					break;
+
 				case 'description':
 					$data['description'] = ( 'view' === $context ? wpautop( do_shortcode( $listing->post_content ) ) : $listing->post_content );
 					break;

@@ -646,6 +646,9 @@ $(document).ready(function () {
             if (qs.plan) {
                 form_data.append('plan_id', qs.plan);
             }
+            if (qs.order) {
+                form_data.append('activated_order', qs.order);
+            }
 
             if (error_count) {
                 enableSubmitButton();

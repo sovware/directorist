@@ -4266,23 +4266,37 @@ function directorist_delete_temporary_upload_dirs() {
 }
 
 /**
- * Formats a given date/time value according to WordPress settings or provided format.
+ * Formats a given date value according to WordPress settings or provided format.
  *
- * @param string $value The date/time value to format.
- * @param string $type The type of format, either 'date' or 'time'. Default is 'date'.
+ * @param string $date The date value to format.
  * @param string $format Optional. The format to use. If empty, uses the WordPress settings.
- * @return string The formatted date/time string, or an empty string if the input value is empty.
+ * @return string The formatted date string, or an empty string if the input value is empty.
  */
-function directorist_date_time_format( $value = '', $type = 'date', $format = '' ) {
-    // Return an empty string if the input value is empty
-    if ( empty( $value ) ) {
+function directorist_format_date( $date = '', $format = '' ) {
+    $date = strtotime( $date );
+    if ( ! $date ) {
         return '';
     }
 
-    // Determine the format to use based on the type and input format
-    $default_format = ( 'time' === $type ) ? get_option( 'time_format' ) : get_option( 'date_format' );
-    $format = ! empty( $format ) ? $format : $default_format;
+    $format = apply_filters( 'directorist_date_format', ( $format ? $format : get_option( 'date_format' ) ) );
 
-    // Format and return the date/time value using the determined format
-    return date( apply_filters( 'directorist_date_time_format', $format, $type, 'single' ), strtotime( esc_html( $value ) ) );
+    return date( $format, $date );
+}
+
+/**
+ * Formats a given time value according to WordPress settings or provided format.
+ *
+ * @param string $time The time value to format.
+ * @param string $format Optional. The format to use. If empty, uses the WordPress settings.
+ * @return string The formatted time string, or an empty string if the input value is empty.
+ */
+function directorist_format_time( $time = '', $format = '' ) {
+    $time = strtotime( $time );
+    if ( ! $time ) {
+        return '';
+    }
+
+    $format = apply_filters( 'directorist_time_format', ( $format ? $format : get_option( 'time_format' ) ) );
+
+    return date( $format, $time );
 }

@@ -15,6 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<span class="directorist-single-info__label--text"><?php echo esc_html( $data['label'] ); ?></span>
 	</div>
 
-	<div class="directorist-single-info__value"><?php echo esc_html( directorist_date_time_format( $value, 'time' ) ); ?></div>
+	<div class="directorist-single-info__value"><?php echo esc_html( directorist_format_time( $value ) ); ?></div>
 
 </div>

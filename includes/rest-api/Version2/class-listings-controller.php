@@ -121,6 +121,15 @@ class Listings_Controller extends Legacy_Listings_Controller {
 		);
 	}
 
+	protected function get_schema_to_post_map() {
+		return array(
+			'privacy_policy'   => 'privacy_policy',
+			'terms_conditions' => 't_c_check',
+			'directory'        => 'directory_type',
+			'plan'             => 'plan',
+		);
+	}
+
 	protected function hydrate_global_post( $request ) {
 		$directory_id = $request['directory'];
 		$plan_id      = $request['plan'];
@@ -135,7 +144,6 @@ class Listings_Controller extends Legacy_Listings_Controller {
 
 			$field_key  = directorist_get_var( $form_field['field_key'] );
 			$widget_key = directorist_get_var( $form_field['widget_key'] );
-			// $group      = directorist_get_var( $form_field['widget_group'] );
 
 			if ( isset( $request['fields'] ) && isset( $map[ $widget_key ] ) ) {
 
@@ -164,29 +172,42 @@ class Listings_Controller extends Legacy_Listings_Controller {
 			}
 		}
 
-		if ( directorist_should_check_privacy_policy( $directory_id ) && isset( $request['privacy_policy'] ) ) {
-			$_POST['privacy_policy'] = $request['privacy_policy'];
-		}
+		unset( $schema_key, $post_key );
 
-		if ( directorist_should_check_terms_and_condition( $directory_id ) && isset( $request['terms_conditions'] ) ) {
-			$_POST['t_c_check'] = $request['terms_conditions'];
-		}
+		foreach ( $this->get_schema_to_post_map() as $schema_key => $post_key ) {
+			if ( isset( $request[ $schema_key ] ) ) {
 
-		$_POST['directory_type'] = $directory_id;
+				$_POST[ $post_key ] = $request[ $schema_key ];
+
+			}
+		}
 	}
 
 	public function create_item( $request ) {
-		$directory_id = $request['directory'];
-		$plan_id      = $request['plan'];
-
 		$this->hydrate_global_post( $request );
 
-		$sc       = new SubmissionController();
-		$response = $sc->submit( $directory_id, wp_unslash( $_POST ) );
+		$controller_response = SubmissionController::submit( wp_unslash( $_POST ), 'api' );
 
-		if ( is_wp_error( $response ) ) {
-			return $response;
+		if ( is_wp_error( $controller_response ) ) {
+			return $controller_response;
 		}
+
+		$listing = get_post( $controller_response['id'] );
+
+		$request->set_param( 'context', 'edit' );
+		$response = $this->prepare_item_for_response( $listing, $request );
+		$response = rest_ensure_response( $response );
+		$response->set_status( 201 );
+
+		if ( isset( $controller_response['preview_url'] ) ) {
+			$response->add_link( 'preview', $controller_response['preview_url'] );
+		}
+
+		$base = '/' . $this->namespace . '/' . $this->rest_base;
+
+		$response->header( 'Location', rest_url( $base . '/' . $listing->ID ) );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'create_listing_item', $request );
 
 		return $response;
 	}

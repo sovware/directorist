@@ -15,7 +15,7 @@ class SubmissionController {
 
 	protected static $selected_categories = null;
 
-	protected function cache_selected_categories( $directory_id, &$posted_data ) {
+	protected static function cache_selected_categories( $directory_id, &$posted_data ) {
 		// Cache categories to check assigned categories in custom fields.
 		$category_field = directorist_get_listing_form_category_field( $directory_id );
 
@@ -326,8 +326,12 @@ class SubmissionController {
 		}
 	}
 
-	public function submit( $directory_id, &$posted_data ) {
+	protected static function maybe_get_listing_id( &$posted_data ) {
 		$listing_id = absint( directorist_get_var( $posted_data['listing_id'], 0 ) );
+
+		if ( ! $listing_id ) {
+			return 0;
+		}
 
 		if ( $listing_id && ! directorist_is_listing_post_type( $listing_id ) ) {
 			return new WP_Error(
@@ -345,6 +349,10 @@ class SubmissionController {
 			);
 		}
 
+		return $listing_id;
+	}
+
+	protected static function maybe_get_directory_id( &$posted_data ) {
 		$maybe_directory_id = sanitize_text_field( directorist_get_var( $posted_data['directory_type'], '' ) );
 		$directory          = get_term_by( ( is_numeric( $maybe_directory_id ) ? 'id' : 'slug' ), $maybe_directory_id, ATBDP_DIRECTORY_TYPE );
 
@@ -356,14 +364,15 @@ class SubmissionController {
 			);
 		}
 
-		$directory_id = (int) $directory->term_id;
+		if ( ! $directory ) {
+			return directorist_get_default_directory();
+		}
 
-		$error        = new WP_Error();
-		$taxonomies   = array();
-		$metadata     = array();
-		$listing_data = array(
-			'post_type' => ATBDP_POST_TYPE
-		);
+		return ( (int) $directory->term_id );
+	}
+
+	protected static function validate_terms_and_conditions( $directory_id, &$posted_data ) {
+		$error = new WP_Error();
 
 		if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) ) {
 			$error->add(
@@ -389,7 +398,41 @@ class SubmissionController {
 			return $error;
 		}
 
-		$this->cache_selected_categories( $directory_id, $posted_data );
+		return true;
+	}
+
+	/**
+	 * Process form submission.
+	 *
+	 * @param  array $posted_data
+	 * @param  string $from Request coming form web or api.
+	 *
+	 * @return WP_Error|array
+	 */
+	public static function submit( &$posted_data, $from = 'web' ) {
+		$listing_id = static::maybe_get_listing_id( $posted_data );
+		if ( is_wp_error( $listing_id ) ) {
+			return $listing_id;
+		}
+
+		$directory_id = static::maybe_get_directory_id( $posted_data );
+		if ( is_wp_error( $directory_id ) ) {
+			return $directory_id;
+		}
+
+		$terms_conditions_check = static::validate_terms_and_conditions( $directory_id, $posted_data );
+		if ( is_wp_error( $terms_conditions_check ) ) {
+			return $terms_conditions_check;
+		}
+
+		static::cache_selected_categories( $directory_id, $posted_data );
+
+		$error        = new WP_Error();
+		$taxonomies   = array();
+		$metadata     = array();
+		$listing_data = array(
+			'post_type' => ATBDP_POST_TYPE
+		);
 
 		/**
 		 * Process form fields.
@@ -411,8 +454,8 @@ class SubmissionController {
 					'directorist_invalid_field',
 					$result['message'],
 					array(
-						'key'    => $field->get_key(),
-						'field'  => $field->label,
+						'field'  => $field->get_key(),
+						'label'  => $field->label,
 						'status' => 400
 					)
 				);
@@ -481,7 +524,6 @@ class SubmissionController {
 		$listing_create_status = directorist_get_listing_create_status( $directory_id );
 		$listing_edit_status   = directorist_get_listing_edit_status( $directory_id );
 		$default_expiration    = directorist_get_default_expiration( $directory_id );
-		$preview_enable        = atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) );
 
 		/**
 		 * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
@@ -504,7 +546,7 @@ class SubmissionController {
 			do_action( 'atbdp_before_processing_to_update_listing' );
 
 			$listing_data['ID'] = $listing_id; // set the ID of the post to update the post
-			$listing_data['post_status'] = $listing_edit_status;
+			$listing_data['post_status'] = directorist_get_listing_edit_status( $directory_id );
 
 			$listing_id = wp_update_post( $listing_data );
 
@@ -519,8 +561,6 @@ class SubmissionController {
 			self::clean_empty_metadata( $listing_id, $metadata, $meta_input );
 
 			do_action( 'atbdp_listing_updated', $listing_id );
-
-			do_action( 'directorist_listing_updated', $listing_id );
 		} else {
 			$listing_data['post_status'] = $listing_create_status;
 
@@ -564,7 +604,7 @@ class SubmissionController {
 		// handling media files
 		self::upload_images( $listing_id, $posted_data );
 
-		$data = array(
+		$response = array(
 			'id' => $listing_id
 		);
 
@@ -575,9 +615,9 @@ class SubmissionController {
 		$redirect_page     = get_directorist_option( 'edit_listing_redirect', 'view_listing' );
 
 		if ( 'view_listing' === $redirect_page ) {
-			$data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, $permalink ) : $permalink;
+			$response['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, $permalink ) : $permalink;
 		} else {
-			$data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, ATBDP_Permalink::get_dashboard_page_link() ) : ATBDP_Permalink::get_dashboard_page_link();
+			$response['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, ATBDP_Permalink::get_dashboard_page_link() ) : ATBDP_Permalink::get_dashboard_page_link();
 		}
 
 		$is_listing_featured = ( ! empty( $posted_data['listing_type'] ) && ( 'featured' === $posted_data['listing_type'] ) );
@@ -588,8 +628,8 @@ class SubmissionController {
 			$rejectable_payment_status = array( 'failed', 'cancelled', 'refunded' );
 
 			if ( empty( $payment_status ) || in_array( $payment_status, $rejectable_payment_status, true ) ) {
-				$data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link( $listing_id );
-				$data['need_payment'] = true;
+				$response['redirect_url'] = ATBDP_Permalink::get_checkout_page_link( $listing_id );
+				$response['need_payment'] = true;
 
 				wp_update_post( array(
 					'ID'          => $listing_id,
@@ -598,31 +638,31 @@ class SubmissionController {
 			}
 		}
 
-		$data['success'] = true;
-		$data['success_msg'] = __( 'Your listing submission is completed! Redirecting...', 'directorist' );
-		$data['preview_url'] = $permalink;
+		$response['success'] = true;
+		$response['success_msg'] = __( 'Your listing submission is completed! Redirecting...', 'directorist' );
+		$response['preview_url'] = $permalink;
 
-		if ( ! empty( $data['need_payment'] ) && $data['need_payment'] === true ) {
-			$data['success_msg'] = __( 'Payment required! Redirecting to checkout...', 'directorist' );
+		if ( ! empty( $response['need_payment'] ) && $response['need_payment'] === true ) {
+			$response['success_msg'] = __( 'Payment required! Redirecting to checkout...', 'directorist' );
 		}
 
-		if ( $preview_enable ) {
-			$data['preview_mode'] = true;
+		if ( atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) ) ) {
+			$response['preview_mode'] = true;
 		}
 
 		if ( ! empty( $posted_data['listing_id'] ) ) {
-			$data['edited_listing'] = true;
+			$response['edited_listing'] = true;
 		}
 
 		if ( ! empty( $posted_data['preview_url'] ) ) {
-			$data['preview_url'] = Helper::escape_query_strings_from_url( $posted_data['preview_url'] );
+			$response['preview_url'] = Helper::escape_query_strings_from_url( $posted_data['preview_url'] );
 		}
 
 		if ( ! empty( $posted_data['redirect_url'] ) ) {
-			$data['redirect_url'] = Helper::escape_query_strings_from_url( $posted_data['redirect_url'] );
+			$response['redirect_url'] = Helper::escape_query_strings_from_url( $posted_data['redirect_url'] );
 		}
 
-		return $data;
+		return $response;
 	}
 
 	public static function upload_images( $listing_id, $posted_data ) {

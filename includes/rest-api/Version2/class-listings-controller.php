@@ -42,7 +42,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 				array(
 					'methods'             => WP_REST_Server::CREATABLE,
 					'callback'            => array( $this, 'create_item' ),
-					'permission_callback' => '__return_true', //array( $this, 'create_item_permissions_check' ),
+					'permission_callback' => array( $this, 'create_item_permissions_check' ),
 					'args'                => array_merge(
 						$this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
 						array(

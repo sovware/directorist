@@ -57,6 +57,11 @@ class Listings_Controller extends Legacy_Listings_Controller {
 								'type'        => 'integer',
 								'default'     => 0,
 							),
+							'order' => array(
+								'description' => __( 'Order id.', 'directorist' ),
+								'type'        => 'integer',
+								'default'     => 0,
+							),
 						)
 					),
 				),
@@ -126,7 +131,8 @@ class Listings_Controller extends Legacy_Listings_Controller {
 			'privacy_policy'   => 'privacy_policy',
 			'terms_conditions' => 't_c_check',
 			'directory'        => 'directory_type',
-			'plan'             => 'plan',
+			'plan'             => 'plan_id',
+			'order'            => 'order_id',
 		);
 	}
 

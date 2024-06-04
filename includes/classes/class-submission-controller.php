@@ -524,6 +524,7 @@ class SubmissionController {
 		$listing_create_status = directorist_get_listing_create_status( $directory_id );
 		$listing_edit_status   = directorist_get_listing_edit_status( $directory_id );
 		$default_expiration    = directorist_get_default_expiration( $directory_id );
+		$preview_enable        = atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) );
 
 		/**
 		 * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
@@ -546,7 +547,12 @@ class SubmissionController {
 			do_action( 'atbdp_before_processing_to_update_listing' );
 
 			$listing_data['ID'] = $listing_id; // set the ID of the post to update the post
-			$listing_data['post_status'] = directorist_get_listing_edit_status( $directory_id );
+
+			if ( $from === 'web' && $preview_enable ) {
+				$listing_data['post_status'] = 'private';
+			} else {
+				$listing_data['post_status'] = $listing_edit_status;
+			}
 
 			$listing_id = wp_update_post( $listing_data );
 
@@ -562,7 +568,11 @@ class SubmissionController {
 
 			do_action( 'atbdp_listing_updated', $listing_id );
 		} else {
-			$listing_data['post_status'] = $listing_create_status;
+			if ( $from === 'web' && $preview_enable ) {
+				$listing_data['post_status'] = 'private';
+			} else {
+				$listing_data['post_status'] = $listing_create_status;
+			}
 
 			$listing_id = wp_insert_post( $listing_data );
 
@@ -646,7 +656,7 @@ class SubmissionController {
 			$response['success_msg'] = __( 'Payment required! Redirecting to checkout...', 'directorist' );
 		}
 
-		if ( atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) ) ) {
+		if ( $preview_enable ) {
 			$response['preview_mode'] = true;
 		}
 

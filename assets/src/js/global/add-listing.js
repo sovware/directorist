@@ -647,7 +647,7 @@ $(document).ready(function () {
                 form_data.append('plan_id', qs.plan);
             }
             if (qs.order) {
-                form_data.append('activated_order', qs.order);
+                form_data.append('order_id', qs.order);
             }
 
             if (error_count) {

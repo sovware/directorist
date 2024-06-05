@@ -349,32 +349,32 @@ class ATBDP_Metabox {
 			return;
 		}
 
-		$listing_type           = ! empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
+		$directory_id           = ! empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : directorist_get_default_directory();
 		$listing_categories     = ! empty( $_POST['tax_input'][ ATBDP_CATEGORY ] ) ? directorist_clean( wp_unslash( $_POST['tax_input'][ ATBDP_CATEGORY ] ) ) : array();
 		$listing_locations      = ! empty( $_POST['tax_input'][ ATBDP_LOCATION ] ) ? directorist_clean( wp_unslash( $_POST['tax_input'][ ATBDP_LOCATION ] ) ) : array();
 		$submission_form_fields = array();
 		$meta_data              = array();
 
-		if ( $listing_type ) {
-			$term = get_term_by( is_numeric( $listing_type ) ? 'id' : 'slug', $listing_type, ATBDP_TYPE );
-			$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
-			$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
-			$submission_form_fields = $submission_form['fields'];
+		if ( $directory_id ) {
+			$directory_term = get_term_by( is_numeric( $directory_id ) ? 'id' : 'slug', $directory_id, ATBDP_TYPE );
+			$directory_id   = $directory_term->term_id;
 		}
 
-		if ( ( ! empty( $listing_categories ) || ! empty( $listing_locations ) ) && ! empty( $listing_type ) ) {
-			foreach ( $listing_categories as $category ) {
-				$directory_type = get_term_meta( $category, '_directory_type', true );
-				if ( empty( $directory_type ) ) {
-					update_term_meta( $category, '_directory_type', array( $term->term_id ) );
-				}
-			}
+		$directory_id = (int) $directory_id;
 
+		$submission_form        = get_term_meta( $directory_id, 'submission_form_fields', true );
+		$expiration             = get_term_meta( $directory_id, 'default_expiration', true );
+		$submission_form_fields = $submission_form['fields'];
+
+		if ( ! empty( $listing_categories ) && is_array( $listing_categories ) ) {
+			foreach ( $listing_categories as $category ) {
+				directorist_update_category_directory( $category, array( $directory_id ), true );
+			}
+		}
+
+		if ( ! empty( $listing_locations ) && is_array( $listing_locations ) ) {
 			foreach ( $listing_locations as $location ) {
-				$directory_type = get_term_meta( $location, '_directory_type', true );
-				if ( empty( $directory_type ) ) {
-					update_term_meta( $location, '_directory_type', array( $term->term_id ) );
-				}
+				directorist_update_location_directory( $location, array( $directory_id ), true );
 			}
 		}
 
@@ -406,11 +406,11 @@ class ATBDP_Metabox {
 			}
 		}
 
-		$meta_data['_directory_type'] = $listing_type;
+		$meta_data['_directory_type'] = $directory_id;
 		$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', (bool) $meta_data['_directory_type'] );
 
 		if ( $should_update_directory_type ) {
-			wp_set_object_terms( $post_id, (int) $listing_type, ATBDP_TYPE );
+			wp_set_object_terms( $post_id, (int) $directory_id, ATBDP_TYPE );
 		}
 
         $admin_plan = isset( $_POST['admin_plan'] ) ? directorist_clean( wp_unslash( $_POST['admin_plan'] ) ) : '';

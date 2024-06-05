@@ -352,7 +352,6 @@ class ATBDP_Metabox {
 		$directory_id           = ! empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : directorist_get_default_directory();
 		$listing_categories     = ! empty( $_POST['tax_input'][ ATBDP_CATEGORY ] ) ? directorist_clean( wp_unslash( $_POST['tax_input'][ ATBDP_CATEGORY ] ) ) : array();
 		$listing_locations      = ! empty( $_POST['tax_input'][ ATBDP_LOCATION ] ) ? directorist_clean( wp_unslash( $_POST['tax_input'][ ATBDP_LOCATION ] ) ) : array();
-		$submission_form_fields = array();
 		$meta_data              = array();
 
 		if ( $directory_id ) {
@@ -361,10 +360,7 @@ class ATBDP_Metabox {
 		}
 
 		$directory_id = (int) $directory_id;
-
-		$submission_form        = get_term_meta( $directory_id, 'submission_form_fields', true );
-		$expiration             = get_term_meta( $directory_id, 'default_expiration', true );
-		$submission_form_fields = $submission_form['fields'];
+		$expiration   = directorist_get_default_expiration( $directory_id );
 
 		if ( ! empty( $listing_categories ) && is_array( $listing_categories ) ) {
 			foreach ( $listing_categories as $category ) {
@@ -378,9 +374,8 @@ class ATBDP_Metabox {
 			}
 		}
 
+		$submission_form_fields = directorist_get_listing_form_fields( $directory_id );
 		foreach ( $submission_form_fields as $key => $value ) {
-			$field_type = !empty( $value['field_type'] ) ? $value['field_type'] : '';
-
 			if ( 'image_upload' === $key ) {
 				$meta_data['_listing_img']     = ! empty( $_POST['listing_img'] ) ? (array) directorist_clean( wp_unslash( $_POST['listing_img'] ) ) : array();
 				$meta_data['_listing_prv_img'] = isset( $_POST['listing_prv_img'] ) ? directorist_clean( wp_unslash( $_POST['listing_prv_img'] ) ) : '';
@@ -407,10 +402,10 @@ class ATBDP_Metabox {
 		}
 
 		$meta_data['_directory_type'] = $directory_id;
-		$should_update_directory_type = apply_filters( 'directorist_should_update_directory_type', (bool) $meta_data['_directory_type'] );
+		$should_update_directory = apply_filters( 'directorist_should_update_directory_type', (bool) $meta_data['_directory_type'] );
 
-		if ( $should_update_directory_type ) {
-			wp_set_object_terms( $post_id, (int) $directory_id, ATBDP_TYPE );
+		if ( $should_update_directory ) {
+			wp_set_object_terms( $post_id, $directory_id, ATBDP_TYPE );
 		}
 
         $admin_plan = isset( $_POST['admin_plan'] ) ? directorist_clean( wp_unslash( $_POST['admin_plan'] ) ) : '';
@@ -435,26 +430,18 @@ class ATBDP_Metabox {
 				'min'   => (int) $expire_date['mn']
 			) );
 		} else {
-			$expire_date = calc_listing_expiry_date( '', $expiration, $directory_type ); // get the expiry date in mysql date format using the default expiration date.
+			$expire_date = calc_listing_expiry_date( '', $expiration, $directory_id ); // get the expiry date in mysql date format using the default expiration date.
 		}
 
 		$meta_data['_expiry_date'] = $expire_date;
 		$meta_data                 = apply_filters( 'atbdp_listing_meta_admin_submission', $meta_data, $_POST );
-		$updatable_meta_data       = array_filter( $meta_data, static function( $value ) {
-			if ( is_array( $value ) ) {
-				return ! empty( $value );
-			}
-			return $value !== '';
-		} );
 
-		foreach ( $updatable_meta_data as $meta_key => $meta_value) {
+		$valid_metadata = directorist_filter_listing_empty_metadata( $meta_data );
+		foreach ( $valid_metadata as $meta_key => $meta_value) {
 			update_post_meta( $post_id, $meta_key, $meta_value );
 		}
 
-		$deletable_meta_data = array_diff_key( $meta_data, $updatable_meta_data );
-		foreach ( $deletable_meta_data as $deletable_meta_key => $v ) {
-			delete_post_meta( $post_id, $deletable_meta_key );
-		}
+		directorist_delete_listing_empty_metadata( $post_id, $meta_data, $valid_metadata );
 
 		if ( ! empty( $_POST['listing_prv_img'] ) ) {
 			set_post_thumbnail( $post_id, directorist_clean( wp_unslash( $_POST['listing_prv_img'] ) ) );
@@ -475,19 +462,9 @@ class ATBDP_Metabox {
 					// TODO: Status has been migrated, remove related code.
 					'meta_input' => array(
 						'_listing_status' => 'post_status',
-					), // insert all meta data once to reduce update meta query
+					),
 				) );
 			}
 		}
-
-		// No need to save false value. It's false when the value doesn't exists.
-		// if ( ! metadata_exists( 'post', $post_id, '_featured' ) ) {
-		// 	update_post_meta( $post_id, '_featured', false );
-		// }
-
-		// Already being saved.
-		// if ( ! metadata_exists( 'post', $post_id, '_listing_status' ) ) {
-		// 	update_post_meta( $post_id, '_listing_status', 'post_status' );
-		// }
 	}
 }

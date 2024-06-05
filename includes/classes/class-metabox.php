@@ -359,8 +359,8 @@ class ATBDP_Metabox {
 			$directory_id   = $directory_term->term_id;
 		}
 
-		$directory_id = (int) $directory_id;
-		$expiration   = directorist_get_default_expiration( $directory_id );
+		$directory_id       = (int) $directory_id;
+		$default_expiration = directorist_get_default_expiration( $directory_id );
 
 		if ( ! empty( $listing_categories ) && is_array( $listing_categories ) ) {
 			foreach ( $listing_categories as $category ) {
@@ -415,8 +415,12 @@ class ATBDP_Metabox {
 			$meta_data['_featured'] = false;
 		}
 
-		if ( ! empty( $_POST['never_expire'] ) || ! empty( $expiration ) ) {
+		$should_never_expire = ! empty( $_POST['never_expire'] );
+		if ( $should_never_expire || ! $default_expiration ) {
 			$meta_data['_never_expire'] = true;
+		} else {
+			// Setting null will delete the meta.
+			$meta_data['_never_expire'] = null;
 		}
 
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
@@ -430,7 +434,7 @@ class ATBDP_Metabox {
 				'min'   => (int) $expire_date['mn']
 			) );
 		} else {
-			$expire_date = calc_listing_expiry_date( '', $expiration, $directory_id ); // get the expiry date in mysql date format using the default expiration date.
+			$expire_date = calc_listing_expiry_date( '', $default_expiration, $directory_id ); // get the expiry date in mysql date format using the default expiration date.
 		}
 
 		$meta_data['_expiry_date'] = $expire_date;
@@ -455,7 +459,7 @@ class ATBDP_Metabox {
 
 		// let's check is listing need to update
 		if ( empty( $listing_status ) || ( 'expired' === $listing_status ) && ( 'private' === $listing_status ) ) {
-			if ( ( $expire_date > $current_date ) || ! empty( $_POST['never_expire'] ) ) {
+			if ( ( $expire_date > $current_date ) || $should_never_expire ) {
 				wp_update_post( array(
 					'ID'          => $post_id,
 					'post_status' => $listing_status,   // update the status to private so that we do not run this func a second time

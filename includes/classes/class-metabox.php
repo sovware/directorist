@@ -33,7 +33,7 @@ class ATBDP_Metabox {
 			) );
 		}
 
-		$term_id 		= ! empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
+		$term_id 		= ! empty( $_POST['directory_type'] ) ? (int) directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
 		$listing_id    	= ! empty( $_POST['listing_id'] ) ? directorist_clean( wp_unslash( $_POST['listing_id'] ) ) : '';
 
 		// listing meta fields
@@ -83,13 +83,14 @@ class ATBDP_Metabox {
 
 	}
 
-	public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id ) {
+	public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id, $parent_id = 0 ) {
 		$args = array(
-			'hide_empty' => 0,
-			'hierarchical' => false
+			'hide_empty'   => 0,
+			'hierarchical' => true,
+			'parent'       => $parent_id
 		);
-		$saving_terms   = get_the_terms( $listing_id, $taxonomy_id );
-		$saving_values    = array();
+		$saving_terms  = get_the_terms( $listing_id, $taxonomy_id );
+		$saving_values = array();
 		if( $saving_terms ) {
 			foreach( $saving_terms as $saving_term ) {
 				$saving_values[] = $saving_term->term_id;
@@ -99,11 +100,25 @@ class ATBDP_Metabox {
 
 		if( $terms ) {
 			foreach( $terms as $term ) {
-				$directory_type = get_term_meta( $term->term_id, '_directory_type', true );
-				$directory_type = ! empty ( $directory_type ) ? $directory_type : array();
-				$checked		= in_array( $term->term_id, $saving_values ) ? 'checked' : '';
-				if( in_array( $term_id, $directory_type) ) { ?>
-					<li id="<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>"><label class="selectit"><input value="<?php echo esc_attr( $term->term_id ); ?>" type="checkbox" name="tax_input[<?php echo esc_attr( $taxonomy_id ); ?>][]" id="in-<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>" <?php echo ! empty( $checked ) ? esc_attr( $checked ) : ''; ?>> <?php echo esc_html( $term->name ); ?></label></li>
+				$directory_type     = get_term_meta( $term->term_id, '_directory_type', true );
+				$directory_type     = ! empty ( $directory_type ) ? $directory_type : array();
+				$directory_type_int = array_map( 'intval', $directory_type );
+				$checked            = in_array( $term->term_id, $saving_values, true ) ? 'checked' : '';
+				if ( in_array( $term_id, $directory_type_int, true ) ) { ?>
+					<li id="<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>">
+						<label class="selectit">
+							<input value="<?php echo esc_attr( $term->term_id ); ?>" type="checkbox" name="tax_input[<?php echo esc_attr( $taxonomy_id ); ?>][]" id="in-<?php echo esc_attr( $taxonomy_id ); ?>-<?php echo esc_attr( $term->term_id ); ?>" <?php echo ! empty( $checked ) ? esc_attr( $checked ) : ''; ?>>
+							<?php echo esc_html( $term->name ); ?>
+						</label>
+						<?php
+						$child_terms = get_term_children( $term->term_id, $taxonomy_id );
+						if ( $child_terms ) {
+							echo '<ul>';
+								$this->render_listing_taxonomies( $listing_id, (int) $term_id, $taxonomy_id, $term->term_id );
+							echo '</ul>';
+						}
+						?>
+					</li>
 				<?php
 				}
 			}
@@ -155,7 +170,7 @@ class ATBDP_Metabox {
 		$directory_type         = isset( $term_id ) ? $term_id : default_directory_type();
 		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
 		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
-		$f_active               = get_directorist_option('enable_featured_listing');
+		$f_active               = directorist_is_featured_listing_enabled();
 		$never_expire           = get_post_meta( $listing_id, '_never_expire', true );
 		$never_expire           = !empty( $never_expire ) ? (int) $never_expire : '';
 
@@ -165,7 +180,9 @@ class ATBDP_Metabox {
 
 		$featured               = get_post_meta( $listing_id, '_featured', true);
 		$listing_type           = get_post_meta( $listing_id, '_listing_type', true);
-		$listing_status         = get_post_meta( $listing_id, '_listing_status', true);
+		// TODO: Status has been migrated, remove related code.
+		// $listing_status         = get_post_meta( $listing_id, '_listing_status', true);
+		$listing_status         = get_post_status( $listing_id );
 		$default_expire_in_days = !empty( $default_expire_in_days ) ? $default_expire_in_days : '';
 		// load the meta fields
 		$data = compact('f_active', 'never_expire', 'expiry_date', 'featured', 'listing_type', 'listing_status', 'default_expire_in_days');
@@ -212,17 +229,15 @@ class ATBDP_Metabox {
 		$current_type   =  get_post_meta( $post->ID, '_directory_type', true );
 		$value 			= $current_type ? $current_type : $default;
 		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
-		$multi_directory = get_directorist_option( 'enable_multi_directory', false );
 
-
-		$show_directory_type_nav = ! empty ( $multi_directory ) && ( count( $all_types ) > 1 );
+		$show_directory_type_nav = directorist_is_multi_directory_enabled() && ( count( $all_types ) > 1 );
 		$show_directory_type_nav = apply_filters( 'directorist_show_admin_edit_listing_directory_type_nav', $show_directory_type_nav, $post->ID );
 
 		if ( $show_directory_type_nav ) { ?>
 
-		<label><?php esc_html_e( 'Listing Type', 'directorist' ); ?></label>
+		<label><?php esc_html_e( 'Directory', 'directorist' ); ?></label>
 		<select name="directory_type">
-			<option value=""><?php esc_attr_e( 'Select Listing Type', 'directorist' ); ?></option>
+			<option value=""><?php esc_attr_e( 'Select a directory...', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ):
 				?>
 				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo selected( $type->term_id, $value ); ; ?> ><?php echo esc_attr( $type->name ); ?></option>
@@ -292,7 +307,7 @@ class ATBDP_Metabox {
 		$directory_type         = default_directory_type();
 		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
 		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
-		$f_active               = get_directorist_option('enable_featured_listing');
+		$f_active               = directorist_is_featured_listing_enabled();
 		$never_expire           = get_post_meta($post->ID, '_never_expire', true);
 		$never_expire           = !empty($never_expire) ? (int) $never_expire : '';
 
@@ -302,7 +317,9 @@ class ATBDP_Metabox {
 
 		$featured               = get_post_meta($post->ID, '_featured', true);
 		$listing_type           = get_post_meta($post->ID, '_listing_type', true);
-		$listing_status         = get_post_meta($post->ID, '_listing_status', true);
+		// TODO: Status has been migrated, remove related code.
+		// $listing_status         = get_post_meta($post->ID, '_listing_status', true);
+		$listing_status         = get_post_status( $post->ID );
 		$default_expire_in_days = !empty($default_expire_in_days) ? $default_expire_in_days : '';
 		// load the meta fields
 		$data = compact('f_active', 'never_expire', 'expiry_date', 'featured', 'listing_type', 'listing_status', 'default_expire_in_days');
@@ -318,14 +335,13 @@ class ATBDP_Metabox {
 	 * @param object    $post       Current post object being saved
 	 */
 	public function save_post_meta( $post_id, $post ) {
+		$nonce = ! empty( $_POST['listing_info_nonce'] ) ? directorist_clean( wp_unslash( $_POST['listing_info_nonce'] ) ) : '';
 
-		$nonce = !empty($_POST['listing_info_nonce']) ? directorist_clean( wp_unslash($_POST['listing_info_nonce'] ) ) : '';
-
-		if( ! is_admin() ){
+		if ( ! is_admin() ) {
 			return;
 		}
 
-		if( ! wp_verify_nonce( $nonce, 'listing_info_action' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'listing_info_action' ) ) {
 			return;
 		}
 
@@ -333,11 +349,11 @@ class ATBDP_Metabox {
 			return;
 		}
 
-		$listing_type = !empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
-		$listing_categories = !empty( $_POST['tax_input']['at_biz_dir-category'] ) ?  directorist_clean( wp_unslash( $_POST['tax_input']['at_biz_dir-category'] ) ) : array();
-		$listing_locations = !empty( $_POST['tax_input']['at_biz_dir-location'] ) ?  directorist_clean( wp_unslash( $_POST['tax_input']['at_biz_dir-location'] ) ) : array();
+		$listing_type           = ! empty( $_POST['directory_type'] ) ? directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : '';
+		$listing_categories     = ! empty( $_POST['tax_input'][ ATBDP_CATEGORY ] ) ? directorist_clean( wp_unslash( $_POST['tax_input'][ ATBDP_CATEGORY ] ) ) : array();
+		$listing_locations      = ! empty( $_POST['tax_input'][ ATBDP_LOCATION ] ) ? directorist_clean( wp_unslash( $_POST['tax_input'][ ATBDP_LOCATION ] ) ) : array();
 		$submission_form_fields = array();
-		$meta_data = array();
+		$meta_data              = array();
 
 		if ( $listing_type ) {
 			$term = get_term_by( is_numeric( $listing_type ) ? 'id' : 'slug', $listing_type, ATBDP_TYPE );
@@ -397,12 +413,19 @@ class ATBDP_Metabox {
 			wp_set_object_terms( $post_id, (int) $listing_type, ATBDP_TYPE );
 		}
 
-		$meta_data['_featured'] = ! empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
+        $admin_plan = isset( $_POST['admin_plan'] ) ? directorist_clean( wp_unslash( $_POST['admin_plan'] ) ) : '';
+		if ( ! is_fee_manager_active() || ( 'null' === $admin_plan ) ) {
+			$meta_data['_featured'] = !empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
+		} else {
+			$meta_data['_featured'] = false;
+		}
 
-		$expiration_to_forever      = ! $expiration ? 1 : '';
-		$meta_data['_never_expire'] = ! empty( $_POST['never_expire'] ) ? (int) directorist_clean( wp_unslash( $_POST['never_expire'] ) ) : $expiration_to_forever;
-		$expire_date                = ! empty( $_POST['exp_date'] ) ? directorist_clean( wp_unslash( $_POST['exp_date'] ) ) : array();                               // get expiry date from the $_POST and then later sanitize it.
+		if ( ! empty( $_POST['never_expire'] ) || ! empty( $expiration ) ) {
+			$meta_data['_never_expire'] = true;
+		}
+
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
+		$expire_date = ! empty( $_POST['exp_date'] ) ? directorist_clean( wp_unslash( $_POST['exp_date'] ) ) : array();
 		if ( ! is_empty_v( $expire_date ) && ! empty( $expire_date['aa'] ) ) {
 			$expire_date = get_date_in_mysql_format( array(
 				'year'  => (int) $expire_date['aa'],
@@ -439,17 +462,18 @@ class ATBDP_Metabox {
 			delete_post_thumbnail( $post_id );
 		}
 
-		$listing_status = get_post_meta( $post_id, '_listing_status', true );
-		$post_status    = get_post_status( $post_id );
+		// $listing_status = get_post_meta( $post_id, '_listing_status', true );
+		$listing_status = get_post_status( $post_id );
 		$current_date   = current_time( 'mysql' );
 
 		// let's check is listing need to update
-		if ( empty( $listing_status ) || ( 'expired' === $listing_status ) && ( 'private' === $post_status ) ) {
+		if ( empty( $listing_status ) || ( 'expired' === $listing_status ) && ( 'private' === $listing_status ) ) {
 			if ( ( $expire_date > $current_date ) || ! empty( $_POST['never_expire'] ) ) {
 				wp_update_post( array(
 					'ID'          => $post_id,
-					'post_status' => $post_status,   // update the status to private so that we do not run this func a second time
-					'meta_input'  => array(
+					'post_status' => $listing_status,   // update the status to private so that we do not run this func a second time
+					// TODO: Status has been migrated, remove related code.
+					'meta_input' => array(
 						'_listing_status' => 'post_status',
 					), // insert all meta data once to reduce update meta query
 				) );
@@ -460,7 +484,7 @@ class ATBDP_Metabox {
 		// if ( ! metadata_exists( 'post', $post_id, '_featured' ) ) {
 		// 	update_post_meta( $post_id, '_featured', false );
 		// }
-		
+
 		// Already being saved.
 		// if ( ! metadata_exists( 'post', $post_id, '_listing_status' ) ) {
 		// 	update_post_meta( $post_id, '_listing_status', 'post_status' );

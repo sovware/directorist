@@ -48,7 +48,8 @@ class Localized_Data {
 	private static function search_form_localized_data() {
 		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
 		$data = self::get_search_script_data([
-			'directory_type_id' => $directory_type_id
+			'directory_type_id' => $directory_type_id,
+			'search_max_radius_distance' => apply_filters( 'directorist_search_max_radius_distance', get_directorist_option( 'search_max_radius_distance', 1000 ) )
 		]);
 		return $data;
 	}
@@ -141,6 +142,8 @@ class Localized_Data {
 		// Internationalization text for javascript file especially add-listing.js
 
 		$i18n_text = array(
+			'see_more_text'			  => __( 'See More', 'directorist' ),
+			'see_less_text'			  => __( 'See Less', 'directorist' ),
 			'confirmation_text'       => __( 'Are you sure', 'directorist' ),
 			'ask_conf_sl_lnk_del_txt' => __( 'Do you really want to remove this Social Link!', 'directorist' ),
 			'ask_conf_faqs_del_txt'   => __( 'Do you really want to remove this FAQ!', 'directorist' ),
@@ -148,6 +151,8 @@ class Localized_Data {
 			'deleted'                 => __( 'Deleted!', 'directorist' ),
 			'max_location_creation'   => esc_attr( $max_loc_creation ),
 			'max_location_msg'        => sprintf( __('You can only use %s', 'directorist'), $max_loc_creation ),
+			'submission_wait_msg'     => esc_html__( 'Please wait, your submission is being processed.', 'directorist' ),
+			'image_uploading_msg'     => esc_html__( 'Please wait, your selected images being uploaded.', 'directorist' )
 		);
 
 		//get listing is if the screen in edit listing

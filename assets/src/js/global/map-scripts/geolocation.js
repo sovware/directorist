@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             }
                         })
                     });
-                }
+                } 
                 (function () {
                     eventDelegation('click', '.directorist-filter-location-icon > i, .directorist-filter-location-icon > span', function (e) {
                         const locationInput = e.target.closest('.directorist-search-field').querySelector('.location-name');
@@ -120,7 +120,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                     $.ajax({
                         url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${lng}&lat=${lat}`,
-                        type: 'POST',
+                        type: 'GET',
                         data: {},
                         success(data) {
                             $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
@@ -130,8 +130,8 @@ window.addEventListener('DOMContentLoaded', () => {
                         },
                     });
                 }
-                $('.directorist-filter-location-icon').on('click', (event) => {
-                    navigator.geolocation.getCurrentPosition((position) => displayLocation(position, event));
+                $('body').on("click", ".directorist-filter-location-icon", function (e) {
+                    navigator.geolocation.getCurrentPosition((position) => displayLocation(position, e));
                 });
             }
 

@@ -2,10 +2,14 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.4.3
+ * @version 7.5.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( empty( $related_listings->posts ) ) {
+  return;
+}
 
 $default_icon = 'las la-tags';
 ?>
@@ -108,9 +112,9 @@ $default_icon = 'las la-tags';
               }
               ?>
             </div>
-          <?php } ?>
         </div>
       </li>
+    <?php } ?>
   </ul>
 </div>
 <!--ends .categorized_listings-->

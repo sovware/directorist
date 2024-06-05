@@ -2,85 +2,99 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.4.4
+ * @version 7.5.5
  */
 
 use \Directorist\Helper;
+
+$user_email = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
+$key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
 ?>
 <div class="directorist-login-wrapper directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
             <div class="directorist-col-md-6 directorist-offset-md-3">
                 <div class="atbdp_login_form_shortcode">
-                    <?php
+					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['verification'] ) && is_email( $user_email ) ) : ?>
+						<p class="directorist-alert directorist-alert-success"><span>
+							<?php
+							$send_confirm_mail_url = add_query_arg( array(
+								'action'            => 'directorist_send_confirmation_email',
+								'user'              => $user_email,
+								'directorist_nonce' => wp_create_nonce( 'directorist_nonce' ),
+							), admin_url( 'admin-ajax.php' ) );
+
+							echo wp_kses( sprintf( __( "Thank you for signing up! To complete the registration, please verify your email address by clicking on the link we have sent to your email.<br><br>If you didn't find the verification email, please check your spam folder. If you still can't find it, click on the <a href='%s'>Resend confirmation email</a> to have a new email sent to you.", 'directorist' ), esc_url( $send_confirm_mail_url ) ), array( 'a' => array( 'href' => array() ), 'br' => array() ) );
+							?>
+						</span></p>
+					<?php endif; ?>
+
+					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['send_verification_email'] ) ) : ?>
+						<p class="directorist-alert directorist-alert-success"><span>
+							<?php echo wp_kses( __( "Thank you for requesting a new verification email. Please check your inbox and verify to complete the registration.<br><br>If you still can't find it, please check your spam folder. And please contact if you are still having trouble.", 'directorist' ), array( 'br' => array() ) ); ?>
+						</span></p>
+					<?php endif; ?>
+
+					<?php
 					// start recovery stuff
-					$recovery = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
-					$key      = isset( $_GET['key'] ) ? $_GET['key'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- ignore password sanitization
+					if ( is_email( $user_email ) && ! empty( $key ) ) {
+						$user = get_user_by( 'email', $user_email );
 
-					if ( ! empty( $recovery ) ) :
-						$user = get_user_by( 'email', $recovery );
+						if ( ! $user ) { ?>
+							<p class="directorist-alert directorist-alert-danger">
+								<?php esc_html_e( 'Sorry! user not found', 'directorist' ); ?>
+							</p>
+						<?php } else {
+							$is_valid_password_reset_key = check_password_reset_key( $key, $user->user_login );
 
-						if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) ) :
-							// Ignore password sanitization
-							$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-							$password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+							if ( is_wp_error( $is_valid_password_reset_key ) ) {
+								?><p class="directorist-alert directorist-alert-danger">
+									<?php echo $is_valid_password_reset_key->get_error_message(); ?>
+								</p><?php
+							} else {
+								if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) ) :
+									// Ignore password sanitization
+									$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+									$password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-							if ( ( $password_1 === $password_2 ) && ! empty( $password_1 && $password_2 ) ) :
-								$update_user = wp_update_user( [
-									'ID'        => $user->ID,
-									'user_pass' => $password_2,
-								] );
+									if ( empty( $password_1 ) || empty( $password_2 ) ) : ?>
+										<p class="atbd_reset_warning directorist-alert directorist-alert-danger"><?php echo esc_html__( 'Passwords cannot be empty.', 'directorist' ); ?></p>
+									<?php elseif ( $password_1 !== $password_2 ) : ?>
+										<p class="atbd_reset_error directorist-alert directorist-alert-danger"><?php echo esc_html__( 'Passwords do not match!', 'directorist' ); ?></p>
+									<?php else :
+										wp_set_password( $password_2, $user->ID );
+										// Since password reset is handled through email, so we can consider it verified!
+										delete_user_meta( $user->ID, 'directorist_user_email_unverified' );
+										?>
+										<p class="atbd_reset_success directorist-alert directorist-alert-success"><?php echo wp_kses( sprintf(
+											__( 'Password changed successfully. Please <a href="%s">click here to login</a>.', 'directorist' ),
+											esc_url( ATBDP_Permalink::get_login_page_url() )
+										), array( 'a' => array( 'href' => array() ) ) ); ?></p>
+									<?php endif;
+								endif;
 
-								if ( $update_user ) : ?>
-									<p class="atbd_reset_success"><?php echo esc_html__( 'Password changed successfully!', 'directorist' ); ?>
-										<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url() ) ?>"><?php echo esc_html__( ' Login', 'directorist' ); ?></a>
-									</p>
-								<?php endif;
-							elseif ( empty( $password_1 || $password_2 ) ) : ?>
-								<p class="atbd_reset_warning"><?php echo esc_html__( 'Fields are required!', 'directorist' ); ?></p>
-							<?php else : ?>
-								<p class="atbd_reset_error"><?php echo esc_html__( 'Password not matched!', 'directorist' ); ?></p>
-							<?php endif;
-						endif;
+								if ( ! empty( $_GET['password_reset'] ) ) {
+									include ATBDP_DIR . 'templates/account/password-reset-form.php';
+								}
 
-						$db_key = get_user_meta( $user->ID, '_atbdp_recovery_key', true );
-
-						if ( $key === $db_key ) :
-							do_action( 'directorist_before_reset_password_form' ); ?>
-
-							<form method="post" class="directorist-ResetPassword lost_reset_password">
-								<p><?php esc_html_e( 'Enter a new password below.', 'directorist' ); ?></p>
-								<p>
-									<label for="password_1"><?php esc_html_e( 'New password', 'directorist' );?> &nbsp;<span class="required">*</span></label>
-									<input type="password" class="directorist-Input directorist-Input--text input-text" name="password_1" id="password_1" autocomplete="new-password" />
-								</p>
-								<p>
-									<label for="password_2">
-										<?php esc_html_e( 'Re-enter new password', 'directorist' );?>&nbsp;
-										<span class="required">*</span>
-									</label>
-									<input type="password" class="directorist-Input directorist-Input--text input-text" name="password_2" id="password_2" autocomplete="new-password" />
-								</p>
-
-								<div class="clear"></div>
-
-								<?php do_action( 'directorist_resetpassword_form' );?>
-
-								<p class="directorist-form-row form-row">
-									<input type="hidden" name="directorist_reset_password" value="true" />
-									<button type="submit" class="btn btn-primary" value="<?php esc_attr_e( 'Save', 'directorist' );?>"><?php esc_html_e( 'Save', 'directorist' );?></button>
-								</p>
-
-								<?php wp_nonce_field( 'reset_password', 'directorist-reset-password-nonce' );?>
-							</form>
-
-						<?php else : ?>
-
-							<p><?php esc_html_e( 'Sorry! The link is invalid.', 'directorist' ); ?></p>
-
-						<?php endif;
-
-					else :
+								if ( ! empty( $_GET['confirm_mail'] ) ) {
+									/**
+									 * Verify user and send registration confirmation mail
+									 */
+									delete_user_meta( $user->ID, 'directorist_user_email_unverified' );
+									ATBDP()->email->custom_wp_new_user_notification_email( $user->ID );
+									?>
+									<div class="directorist-alert directorist-alert-success">
+										<?php echo wp_kses( sprintf(
+											__( 'Email verification successful. Please <a href="%s">click here to login</a>.', 'directorist' ),
+											esc_url( ATBDP_Permalink::get_login_page_url() )
+										), array( 'a' => array( 'href' => array() ) ) ); ?>
+									</div>
+									<?php
+								}
+							}
+						}
+					} else {
 						$log_username        = get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) );
 						$log_password        = get_directorist_option( 'log_password', __( 'Password', 'directorist' ) );
 						$display_rememberMe  = get_directorist_option( 'display_rememberme', 1 );
@@ -99,6 +113,7 @@ use \Directorist\Helper;
 
 						?>
 						<form action="#" id="login" method="POST">
+							<p class="status"></p>
 							<div class="directorist-form-group directorist-mb-15">
 								<label for="username"><?php echo esc_html( $log_username ); ?></label>
 								<input type="text" class="directorist-form-element" id="username" name="username">
@@ -113,7 +128,6 @@ use \Directorist\Helper;
 								<button class="directorist-btn directorist-btn-block directorist-btn-primary" type="submit" value="<?php echo esc_attr( $log_button ); ?>" name="submit"><?php echo esc_html( $log_button ); ?></button>
 								<?php wp_nonce_field( 'ajax-login-nonce', 'security' );?>
 							</div>
-							<p class="status"></p>
 
 							<div class="keep_signed directorist-checkbox directorist-mb-15">
 								<?php if ( $display_rememberMe ) : ?>
@@ -125,10 +139,8 @@ use \Directorist\Helper;
 							</div>
 
 							<?php if ( $display_recpass ) :
-								$output = sprintf( __( '<p>%s</p>', 'directorist' ), "<a href='' class='atbdp_recovery_pass'> " . $recpass_text . '</a>' );
-								echo wp_kses_post( $output );
+								printf( '<p><a href="" class="atbdp_recovery_pass">%s</a></p>', esc_html( $recpass_text ) );
 							endif; ?>
-
 						</form>
 
 						<div class="atbd_social_login">
@@ -147,60 +159,61 @@ use \Directorist\Helper;
 						$error = '';
 						$success = '';
 						// check if we're in reset form
-						if ( isset( $_POST['action'] ) && 'reset' == $_POST['action'] && directorist_verify_nonce() ) :
+						if ( isset( $_POST['action'] ) && 'reset' === $_POST['action'] && directorist_verify_nonce() ) :
 
 							$email = isset( $_POST['user_login'] ) ? sanitize_email( wp_unslash( $_POST['user_login'] ) ) : '';
 
 							if ( empty( $email ) ) {
-								$error = __( 'Enter an e-mail address..', 'directorist' );
+								$error = __( 'Email address cannot be empty.', 'directorist' );
 							} else if ( ! is_email( $email ) ) {
 								$error = __( 'Invalid e-mail address.', 'directorist' );
 							} else if ( ! email_exists( $email ) ) {
 								$error = __( 'There is no user registered with that email address.', 'directorist' );
 							} else {
-								$random_password = wp_generate_password( 22, false );
-								$user            = get_user_by( 'email', $email );
-								$update_user     = update_user_meta( $user->ID, '_atbdp_recovery_key', $random_password );
-								// if  update user return true then lets send user an email containing the new password
-								if ( $update_user ) {
-									$subject = esc_html__( '	Password Reset Request', 'directorist' );
-									//$message = esc_html__('Your new password is: ', 'directorist') . $random_password;
+								$user      = get_user_by( 'email', $email );
+								/* translators: %s: site name */
+								$subject   = esc_html( sprintf( __( '[%s] Reset Your Password', 'directorist' ), get_option( 'blogname', 'display' )  ));
+								$title     = esc_html__( 'Password Reset Request', 'directorist' );
+								$site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
-									$site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-									$message   = __( 'Someone has requested a password reset for the following account:', 'directorist' ) . '<br>';
-									/* translators: %s: site name */
-									$message .= sprintf( __( 'Site Name: %s', 'directorist' ), $site_name ) . '<br>';
-									/* translators: %s: user login */
-									$message .= sprintf( __( 'User: %s', 'directorist' ), $user->user_login ) . '<br>';
-									$message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'directorist' ) . '<br>';
-									$message .= __( 'To reset your password, visit the following address:', 'directorist' ) . '<br>';
-									$link = [
-										'key'  => $random_password,
-										'user' => $email,
-									];
-									$message .= '<a href="' . esc_url( add_query_arg( $link, ATBDP_Permalink::get_login_page_url() ) ) . '">' . esc_url( add_query_arg( $link, ATBDP_Permalink::get_login_page_url() ) ) . '</a>';
+								/* translators: %1$s: site name, %1$s: user name, %3$s: password reset link */
+								$message = sprintf( __( 'Someone has requested a password reset for the following account:
+									<strong>Site name:</strong> %1$s
+									<strong>User name:</strong> %2$s
+									To reset your password, please click on the <a href="%3$s">Reset Password</a>.<br>
+									If this was a mistake, just ignore this email and nothing will happen.'
+									),
+									$site_name,
+									$user->user_login,
+									esc_url( directorist_password_reset_url( $user, true ) )
+								);
 
-									$message = atbdp_email_html( $subject, $message );
+								$message = wp_kses( $message, array(
+									'br' => array(),
+									'strong' => array(),
+									'a' => array(
+										'href' => array()
+									)
+								) );
 
-									$headers[] = 'Content-Type: text/html; charset=UTF-8';
-									$mail      = wp_mail( $email, $subject, $message, $headers );
-									if ( $mail ) {
-										$success = __( 'A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox.', 'directorist' );
-									} else {
-										$error = __( 'Something went wrong, unable to send the password reset email. If the issue persists please contact with the site administrator.', 'directorist' );
-									}
+								$message = atbdp_email_html( $title, nl2br( $message ) );
+
+								$headers[] = 'Content-Type: text/html; charset=UTF-8';
+								$mail      = wp_mail( $email, $subject, $message, $headers );
+								if ( $mail ) {
+									$success = __( 'A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox.', 'directorist' );
 								} else {
-									$error = __( 'Oops something went wrong updating your account.', 'directorist' );
+									$error = __( 'Something went wrong, unable to send the password reset email. If the issue persists please contact with the site administrator.', 'directorist' );
 								}
+
 							}
 
 							if ( ! empty( $error ) ) {
-								$output =  '<div class="message"><p class="error"><strong>' . __( 'ERROR:', 'directorist' ) . '</strong> ' . $error . '</p></div>';
-								echo wp_kses_post( $output );
+								echo '<div class="message"><p class="error directorist-alert directorist-alert-danger">' . wp_kses( sprintf( __( '<strong>ERROR: </strong> %s', 'directorist' ), esc_html( $error ) ), array( 'strong' => array() ) ) . '</p></div>';
 							}
 
 							if ( ! empty( $success ) ) {
-								echo '<div class="error_login"><p class="success">' . esc_html( $success ) . '</p></div>';
+								echo '<div class="error_login"><p class="success directorist-alert directorist-alert-success">' . esc_html( $success ) . '</p></div>';
 							}
 
 						endif; ?>
@@ -219,7 +232,7 @@ use \Directorist\Helper;
 								</fieldset>
 							</form>
 						</div>
-					<?php endif; ?>
+					<?php }; ?>
 				</div><!-- /.atbdp_login_form_shortcode -->
 			</div>
 		</div>

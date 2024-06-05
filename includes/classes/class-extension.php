@@ -210,7 +210,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// get_the_products_list
 		public function setup_products_list() {
 
-			$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-remote-products';
+			$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-remote-products?' . ATBDP_VERSION;
 			$headers = array(
 				'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
 				'Accept'     => 'application/json',
@@ -231,7 +231,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				$response = wp_remote_get( $url, $config );
 
 				if ( ! is_wp_error( $response ) ) {
-					$response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
+					$response_body = is_string( $response['body'] ) ? json_decode( $response['body'], true ) : $response['body'];
 					$extensions = $response_body['extensions'];
 					$themes = $response_body['themes'];
 
@@ -2125,7 +2125,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 					$status['success'] = false;
 					$status['message'] = Directorist\Helper::get_first_wp_error_message( $response );
 				} else {
-					$response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
+					$response_body = is_string( $response['body'] ) ? json_decode( $response['body'], true ) : $response['body'];
 				}
 			} catch ( Exception $e ) {
 				$status['success'] = false;

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.6.3
+ * @version 7.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php if ( is_user_logged_in() ): ?>
 		<a class="directorist-action-report-loggedin" href="#"><?php directorist_icon( $icon );?></a>
 	<?php else: ?>
-		<a class="directorist-action-report-not-loggedin" href="javascript:void(0)"><?php directorist_icon( $icon );?></a>
+		<a class="directorist-action-report-not-loggedin" href="#"><?php directorist_icon( $icon );?></a>
 	<?php endif; ?>
 
 	<input type="hidden" id="atbdp-post-id" value="<?php echo esc_attr( $listing->id ); ?>"/>
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 					<div class="directorist-form-group">
 
-						<label for="directorist-report-message"><?php esc_html_e( 'Your Complain', 'directorist' ); ?><span class="directorist-report-star">*</span></label>
+						<label for="directorist-report-message"><?php esc_html_e( 'Your Complaint', 'directorist' ); ?><span class="directorist-report-star">*</span></label>
 
 						<textarea class="directorist-form-element" id="directorist-report-message" rows="3" placeholder="<?php esc_attr_e( 'Message...', 'directorist' ); ?>" required></textarea>
 

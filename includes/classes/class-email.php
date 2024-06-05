@@ -77,14 +77,14 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 				$listing_id = (int) get_post_meta( $order_id, '_listing_id', true );
 			}
 			if ( empty( $user ) ) {
-				$post_author_id = get_post_field( 'post_author', $listing_id );
+				$post_author_id = get_post_field( 'post_author', $listing_id ? $listing_id : $order_id );
 				$user = get_userdata( $post_author_id );
 			} else {
 				if ( ! $user instanceof WP_User ) {
 					$user = get_userdata( (int) $user );
 				}
 			}
-			$user_password = get_user_meta( $user->ID, '_atbdp_generated_password', true );
+			$user_password = $user ? get_user_meta( $user->ID, '_atbdp_generated_password', true ) :  '';
 			$site_name = get_option( 'blogname' );
 			$site_url = site_url();
 			$l_title = get_the_title( $listing_id );
@@ -107,29 +107,32 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 			$order_receipt_link = ATBDP_Permalink::get_payment_receipt_page_link( $order_id );
 			$cats = wp_get_object_terms( $listing_id, ATBDP_CATEGORY, array( 'fields' => 'names' ) );/*@todo, maybe we can use get_the_terms() for utilizing some default caching???*/
 			$cat_name = ! empty( $cats ) ? $cats[0] : '';/*@todo; if a listing is attached to multiple cats, we can print more than one cat later.*/
+
 			$find_replace = array(
-				'==NAME==' => ! empty( $user->display_name ) ? $user->display_name : '',
-				'==USERNAME==' => ! empty( $user->user_login ) ? $user->user_login : '',
-				'==SITE_NAME==' => $site_name,
-				'==SITE_LINK==' => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
-				'==SITE_URL==' => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
-				'==EXPIRATION_DATE==' => ! empty( $never_exp ) ? __( 'Never Expires', 'directorist' ) : date_i18n( $date_format, strtotime( $exp_date ) ),
-				'==CATEGORY_NAME==' => $cat_name,
-				'==RENEWAL_LINK==' => sprintf( '<a href="%s">%s</a>', $renewal_link, __( 'Visit Listing Renewal Page', 'directorist' ) ),
-				'==LISTING_ID==' => $listing_id,
-				'==LISTING_TITLE==' => $l_title,
-				'==LISTING_EDIT_URL==' => sprintf( '<a href="%s">%s</a>', $l_edit_url, $l_title ),
-				'==LISTING_LINK==' => sprintf( '<a href="%s">%s</a>', $listing_url, $l_title ),
-				'==LISTING_URL==' => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_url ),
-				'==ORDER_ID==' => $order_id,
+				'==NAME=='              => ! empty( $user->display_name ) ? $user->display_name : '',
+				'==USERNAME=='          => ! empty( $user->user_login ) ? $user->user_login : '',
+				'==SITE_NAME=='         => $site_name,
+				'==SITE_LINK=='         => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
+				'==SITE_URL=='          => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
+				'==EXPIRATION_DATE=='   => ! empty( $never_exp ) ? __( 'Never Expires', 'directorist' ) : date_i18n( $date_format, strtotime( $exp_date ) ),
+				'==CATEGORY_NAME=='     => $cat_name,
+				'==RENEWAL_LINK=='      => sprintf( '<a href="%s">%s</a>', $renewal_link, __( 'Visit Listing Renewal Page', 'directorist' ) ),
+				'==LISTING_ID=='        => $listing_id,
+				'==LISTING_TITLE=='     => $l_title,
+				'==LISTING_EDIT_URL=='  => sprintf( '<a href="%s">%s</a>', $l_edit_url, $l_title ),
+				'==LISTING_LINK=='      => sprintf( '<a href="%s">%s</a>', $listing_url, $l_title ),
+				'==LISTING_URL=='       => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_url ),
+				'==ORDER_ID=='          => $order_id,
 				'==ORDER_RECEIPT_URL==' => sprintf( '<a href="%s">%s</a>', $order_receipt_link, __( 'View Order/Payment Receipt', 'directorist' ) ),
-				// '==ORDER_DETAILS=='         => ATBDP_Order::get_order_details( $order_id ),
-				'==TODAY==' => date_i18n( $date_format, $current_time ),
-				'==NOW==' => date_i18n( $date_format . ' ' . $time_format, $current_time ),
-				'==DASHBOARD_LINK==' => sprintf( '<a href="%s">%s</a>', $dashboard_link, $dashboard_link ),
-				'==USER_PASSWORD==' => $user_password,
-				'==USER_DASHBOARD==' => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
-				'==PIN==' => $pin,
+				  // '==ORDER_DETAILS=='         => ATBDP_Order::get_order_details( $order_id ),
+				'==TODAY=='                                      => date_i18n( $date_format, $current_time ),
+				'==NOW=='                                        => date_i18n( $date_format . ' ' . $time_format, $current_time ),
+				'==DASHBOARD_LINK=='                             => sprintf( '<a href="%s">%s</a>', $dashboard_link, $dashboard_link ),
+				'==USER_PASSWORD=='                              => $user_password,
+				'==USER_DASHBOARD=='                             => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
+				'==PIN=='                                        => $pin,
+				'==CONFIRM_EMAIL_ADDRESS_URL=='                  => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw(directorist_password_reset_url($user, false, true)), __( 'Confirm Email Address', 'directorist' ) ) : '',
+				'==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw(directorist_password_reset_url($user, true, true)), __( 'Set Password And Confirm Email Address', 'directorist' ) ) : ''
 			);
 			$c = nl2br( strtr( $content, $find_replace ) );
 			// we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
@@ -447,40 +450,46 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the message was sent successfully or not.
 		 */
 		public function notify_owner_order_created( $order_id, $listing_id, $offline = false ) {
+
 			$gateway = get_post_meta( $order_id, '_payment_gateway', true );
-			if ( 'bank_transfer' === $gateway ) {
-				if ( get_directorist_option( 'disable_email_notification' ) ) {
-					return false;
-				}
-				if ( ! in_array( 'order_created', get_directorist_option( 'notify_user', array( 'order_created' ) ) ) ) {
-					return false;
-				}
-				$user = $this->get_owner( $listing_id );
-				// Send email according to the type of the payment that user used during checkout. get email template from the db.
-				$offline = ( ! empty( $offline ) ) ? '_offline' : '';
-				$subject = $this->replace_in_content( get_directorist_option( "email_sub{$offline}_new_order" ), $order_id, $listing_id, $user );
-				$body = $this->replace_in_content( get_directorist_option( "email_tmpl{$offline}_new_order" ), $order_id, $listing_id, $user );
-				$message = atbdp_email_html( $subject, $body );
 
-				$to = $user->user_email;
-				$headers = $this->get_email_headers();
-
-				$is_sent = $this->send_mail( $to, $subject, $message, $headers );
-
-				// Action Hook
-				$action_args = array(
-					'is_sent'    => $is_sent,
-					'to_email'   => $to,
-					'subject'    => $subject,
-					'message'    => $message,
-					'headers'    => $headers,
-					'listing_id' => $listing_id,
-				);
-
-				do_action( 'directorist_email_on_notify_owner_order_created', $action_args );
-
-				return $is_sent;
+			if ( 'bank_transfer' !== $gateway ) {
+				return false;
 			}
+
+			if ( get_directorist_option( 'disable_email_notification' ) ) {
+				return false;
+			}
+
+			if ( ! in_array( 'order_created', get_directorist_option( 'notify_user', array( 'order_created' ), true ) ) ) {
+				return false;
+			}
+
+			$user = $this->get_owner( $listing_id );
+			// Send email according to the type of the payment that user used during checkout. get email template from the db.
+			$offline = ( ! empty( $offline ) ) ? '_offline' : '';
+			$subject = $this->replace_in_content( get_directorist_option( "email_sub{$offline}_new_order" ), $order_id, $listing_id, $user );
+			$body = $this->replace_in_content( get_directorist_option( "email_tmpl{$offline}_new_order" ), $order_id, $listing_id, $user );
+			$message = atbdp_email_html( $subject, $body );
+
+			$to = $user->user_email;
+			$headers = $this->get_email_headers();
+
+			$is_sent = $this->send_mail( $to, $subject, $message, $headers );
+
+			// Action Hook
+			$action_args = array(
+				'is_sent'    => $is_sent,
+				'to_email'   => $to,
+				'subject'    => $subject,
+				'message'    => $message,
+				'headers'    => $headers,
+				'listing_id' => $listing_id,
+			);
+
+			do_action( 'directorist_email_on_notify_owner_order_created', $action_args );
+
+			return $is_sent;
 		}
 
 		/**
@@ -495,10 +504,11 @@ This email is sent automatically for information purpose only. Please do not res
 			if ( get_directorist_option( 'disable_email_notification' ) ) {
 				return false;
 			}
-			if ( ! in_array( 'order_completed', get_directorist_option( 'notify_user', array( 'order_completed' ) ) ) ) {
+
+			if ( ! in_array( 'order_completed', get_directorist_option( 'notify_user', array( 'order_completed' ), true ) ) ) {
 				return false;
 			}
-			$user = $this->get_owner( $listing_id );
+			$user = $this->get_owner( $listing_id ? $listing_id : $order_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_completed_order' ), $order_id, $listing_id, $user );
 			$body = $this->replace_in_content( get_directorist_option( 'email_tmpl_completed_order' ), $order_id, $listing_id, $user );
 			$message = atbdp_email_html( $subject, $body );
@@ -530,8 +540,10 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the message was sent successfully or not.
 		 */
 		public function notify_owner_listing_submitted( $listing_id ) {
+
 			$notify = apply_filters( 'directorist_notify_owner_listing_submitted', true, $listing_id );
-			if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_submitted', get_directorist_option( 'notify_user', array( 'listing_submitted' ) ) ) ) {
+
+			if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_submitted', get_directorist_option( 'notify_user', array( 'listing_submitted' ), true ) ) ) {
 				return false;
 			}
 
@@ -568,8 +580,10 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the email was sent successfully or not.
 		 */
 		public function notify_admin_listing_published( $listing_id ) {
+
 			$notify = apply_filters( 'directorist_notify_admin_listing_published', true, $listing_id );
-			if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_published', get_directorist_option( 'notify_admin', array( 'listing_published' ) ) ) ) {
+
+			if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_published', get_directorist_option( 'notify_admin', array( 'listing_published' ), true ) ) ) {
 				return false;
 			}
 
@@ -609,8 +623,10 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the message was sent successfully or not.
 		 */
 		public function notify_owner_listing_published( $listing_id ) {
+
 			$notify = apply_filters( 'directorist_notify_owner_listing_published', true, $listing_id );
-			if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_published', get_directorist_option( 'notify_user', array( 'listing_published' ) ) ) ) {
+
+			if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_published', get_directorist_option( 'notify_user', array( 'listing_published' ), true ) ) ) {
 				return false;
 			}
 
@@ -646,17 +662,20 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the message was sent successfully or not.
 		 */
 		public function notify_owner_listing_edited( $listing_id ) {
+
 			if ( get_directorist_option( 'disable_email_notification' ) ) {
 				return false;
 			}
-			if ( ! in_array( 'listing_edited', get_directorist_option( 'notify_user', array( 'listing_edited' ) ) ) ) {
+
+			if ( ! in_array( 'listing_edited', get_directorist_option( 'notify_user', array( 'listing_edited' ), true ) ) ) {
 				return false;
 			}
+
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_edit_listing' ), null, $listing_id, $user );
 			$to = $user->user_email;
 			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
-			$edited_status  = get_term_meta( $directory_type, 'edit_listing_status', true );
+			$edited_status  = directorist_get_listing_edit_status( $directory_type );
 			if ( 'publish' === $edited_status ) {
 				$body = $this->replace_in_content( get_directorist_option( 'email_tmpl_edit_listing' ), null, $listing_id, $user );
 			} else {
@@ -691,7 +710,8 @@ This email is sent automatically for information purpose only. Please do not res
 		public function notify_owner_listing_to_expire( $listing_id ) {
 
 			$notify = apply_filters( 'directorist_notify_owner_listing_to_expire', true, $listing_id );
-			if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'listing_to_expire', get_directorist_option( 'notify_user', array( 'listing_to_expire' ) ) ) ) {
+
+			if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'listing_to_expire', get_directorist_option( 'notify_user', array( 'listing_to_expire' ), true ) ) ) {
 				return false;
 			}
 
@@ -729,7 +749,8 @@ This email is sent automatically for information purpose only. Please do not res
 		public function notify_owner_listing_expired( $listing_id ) {
 
 			$notify = apply_filters( 'directorist_notify_owner_listing_expired', true, $listing_id );
-			if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'listing_expired', get_directorist_option( 'notify_user', array( 'listing_expired' ) ) ) ) {
+
+			if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'listing_expired',  get_directorist_option( 'notify_user', array( 'listing_expired' ), true ) ) ) {
 				return false;
 			}
 
@@ -765,8 +786,10 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the message was sent successfully or not.
 		 */
 		public function notify_owner_to_renew( $listing_id ) {
+
 			$notify = apply_filters( 'directorist_notify_owner_to_renew', true, $listing_id );
-			if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'remind_to_renew', get_directorist_option( 'notify_user', array( 'remind_to_renew' ) ) ) ) {
+
+			if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'remind_to_renew', get_directorist_option( 'notify_user', array( 'remind_to_renew' ), true ) ) ) {
 				return false;
 			}
 
@@ -805,9 +828,11 @@ This email is sent automatically for information purpose only. Please do not res
 			if ( get_directorist_option( 'disable_email_notification' ) ) {
 				return false;
 			}
-			if ( ! in_array( 'listing_renewed', get_directorist_option( 'notify_user', array( 'listing_renewed' ) ) ) ) {
+
+			if ( ! in_array( 'listing_renewed', get_directorist_option( 'notify_user', array( 'listing_renewed' ), true ) ) ) {
 				return false;
 			}
+
 			$user = $this->get_owner( $listing_id );
 			$sub = $this->replace_in_content( get_directorist_option( 'email_sub_renewed_listing' ), null, $listing_id, $user );
 			$body = $this->replace_in_content( get_directorist_option( 'email_tmpl_renewed_listing' ), null, $listing_id, $user );
@@ -824,12 +849,15 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the email was sent successfully or not.
 		 */
 		public function notify_owner_listing_deleted( $listing_id ) {
+
 			if ( get_directorist_option( 'disable_email_notification' ) ) {
 				return false;
 			}
-			if ( ! in_array( 'listing_deleted', get_directorist_option( 'notify_user', array( 'listing_deleted' ) ) ) ) {
+
+			if ( ! in_array( 'listing_deleted', get_directorist_option( 'notify_user', array( 'listing_deleted' ), true ) ) ) {
 				return false;
 			}
+
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_deleted_listing' ), null, $listing_id, $user );
 			$body = $this->replace_in_content( get_directorist_option( 'email_tmpl_deleted_listing' ), null, $listing_id, $user );
@@ -864,12 +892,15 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the email was sent successfully or not.
 		 */
 		public function notify_admin_listing_deleted( $listing_id ) {
+
 			if ( get_directorist_option( 'disable_email_notification' ) ) {
 				return false; // vail if email notification is off
 			}
-			if ( ! in_array( 'listing_deleted', get_directorist_option( 'notify_admin', array() ) ) ) {
+
+			if ( ! in_array( 'listing_deleted', get_directorist_option( 'notify_admin', array(), true ) ) ) {
 				return false; // vail if order created notification to admin off
 			}
+
 			$s = __( '[==SITE_NAME==] A Listing has been deleted [ID#: ==LISTING_ID==] on your website', 'directorist' );
 			$sub = $this->replace_in_content( $s, null, $listing_id );
 			$body = $this->replace_in_content( $this->get_listing_deleted_admin_tmpl(), null, $listing_id );
@@ -918,43 +949,48 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the email was sent successfully or not.
 		 */
 		public function notify_admin_order_created( $order_id, $listing_id ) {
+
 			$gateway = get_post_meta( $order_id, '_payment_gateway', true );
-			if ( 'bank_transfer' === $gateway ) {
-				/*@todo; think if it is better to assign disabled_email_notification to the class prop*/
-				if ( get_directorist_option( 'disable_email_notification' ) ) {
-					return false; // vail if email notification is off
-				}
-				if ( ! in_array( 'order_created', get_directorist_option( 'notify_admin', array( 'order_created' ) ) ) ) {
-					return false; // vail if order created notification to admin off
-				}
-				$s = __( '[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist' );
-				$subject = $this->replace_in_content( $s, $order_id );
 
-				$t = $this->get_order_created_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
-				$body = str_replace( '==ORDER_RECEIPT_URL==', admin_url( 'edit.php?post_type=atbdp_orders' ), $t ); /*@todo; MAYBE ?? it would be good if there is a dedicated page for viewing the payment receipt by the admin regardless the order_receipt shortcode is used or not.*/
-				$body = $this->replace_in_content( $body, $order_id, $listing_id );
-				$message = atbdp_email_html( $subject, $body );
-				$to = $this->get_admin_email_list();
-				$headers = $this->get_email_headers();
-
-				$is_sent = $this->send_mail( $to, $subject, $message, $headers );
-
-				// Action Hook
-				$action_args = array(
-					'is_sent'    => $is_sent,
-					'to_email'   => $to,
-					'subject'    => $subject,
-					'message'    => $message,
-					'headers'    => $headers,
-					'listing_id' => $listing_id,
-				);
-
-				do_action( 'directorist_email_on_notify_admin_order_created', $action_args );
-
-				return $is_sent;
+			if ( 'bank_transfer' !== $gateway ) {
+				return false;
 			}
-		}
 
+			/*@todo; think if it is better to assign disabled_email_notification to the class prop*/
+			if ( get_directorist_option( 'disable_email_notification' ) ) {
+				return false; // vail if email notification is off
+			}
+
+			if ( ! in_array( 'order_created', get_directorist_option( 'notify_admin', array( 'order_created' ), true ) ) ) {
+				return false; // vail if order created notification to admin off
+			}
+
+			$s = __( '[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist' );
+			$subject = $this->replace_in_content( $s, $order_id );
+
+			$t = $this->get_order_created_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
+			$body = str_replace( '==ORDER_RECEIPT_URL==', admin_url( 'edit.php?post_type=atbdp_orders' ), $t ); /*@todo; MAYBE ?? it would be good if there is a dedicated page for viewing the payment receipt by the admin regardless the order_receipt shortcode is used or not.*/
+			$body = $this->replace_in_content( $body, $order_id, $listing_id );
+			$message = atbdp_email_html( $subject, $body );
+			$to = $this->get_admin_email_list();
+			$headers = $this->get_email_headers();
+
+			$is_sent = $this->send_mail( $to, $subject, $message, $headers );
+
+			// Action Hook
+			$action_args = array(
+				'is_sent'    => $is_sent,
+				'to_email'   => $to,
+				'subject'    => $subject,
+				'message'    => $message,
+				'headers'    => $headers,
+				'listing_id' => $listing_id,
+			);
+
+			do_action( 'directorist_email_on_notify_admin_order_created', $action_args );
+
+			return $is_sent;
+		}
 
 		/**
 		 * It notifies admin when an order is completed and payment is received therefore.
@@ -965,12 +1001,15 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the email was sent correctly or not
 		 */
 		public function notify_admin_order_completed( $order_id, $listing_id ) {
+
 			if ( get_directorist_option( 'disable_email_notification' ) ) {
 				return false;
 			}
-			if ( ! in_array( 'order_completed', get_directorist_option( 'notify_admin', array( 'order_completed' ) ) ) ) {
+
+			if ( ! in_array( 'order_completed', get_directorist_option( 'notify_admin', array( 'order_completed' ), true ) ) ) {
 				return false;
 			}
+
 			$s = __( '[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed', 'directorist' );
 			$subject = $this->replace_in_content( $s, $order_id );
 
@@ -1006,8 +1045,10 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the email was sent successfully or not.
 		 */
 		public function notify_admin_listing_submitted( $listing_id ) {
+
 			$notify = apply_filters( 'directorist_notify_admin_listing_submitted', true, $listing_id );
-			if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_submitted', get_directorist_option( 'notify_admin', array( 'listing_submitted' ) ) ) ) {
+
+			if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_submitted', get_directorist_option( 'notify_admin', array( 'listing_submitted' ), true ) ) ) {
 				return false;
 			}
 
@@ -1045,22 +1086,15 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @param int $listing_email
 		 * @return bool Whether the email was sent successfully or not.
 		 */
-		public function send_password_reset_pin_email( $listing_email ) {
-			$s = __( '[==SITE_NAME==] Password Reset PIN', 'directorist' );
-			$sub = str_replace( '==SITE_NAME==', get_option( 'blogname' ), $s );
-			$pin = random_int( 1000, 9999 );
+		public function send_password_reset_pin_email( $user ) {
+			$subject    = esc_html( sprintf( __( '[%s] Password Reset PIN', 'directorist' ), get_option( 'blogname' ) ) );
+			$user_email = $user->user_email;
+			$pin_code   = directorist_generate_password_reset_pin_code( $user );
+			$body       = $this->get_password_reset_pin_email_template();
+			$message    = $this->replace_in_content( $body, 0, 0, $user, null, $pin_code );
+			$body       = atbdp_email_html( $subject, $message );
 
-			$min = 15;
-			$expiration = 60 * $min; // In seconds
-
-			set_transient( "directorist_reset_pin_${listing_email}", $pin, $expiration );
-
-			$body    = $this->get_password_reset_pin_email_template();
-			$message = $this->replace_in_content( $body, $order_id = 0, $listing_id = 0, $user = null, $renewal = null, $pin );
-			$body    = atbdp_email_html( $sub, $message );
-
-			return $this->send_mail( $listing_email, $sub, $body, $this->get_email_headers() );
-
+			return $this->send_mail( $user_email, $subject, $body, $this->get_email_headers() );
 		}
 
 		private function disable_notification() {
@@ -1075,12 +1109,15 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool Whether the email was sent successfully or not.
 		 */
 		public function notify_admin_listing_edited( $listing_id ) {
+
 			if ( get_directorist_option( 'disable_email_notification' ) ) {
 				return false;
 			}
-			if ( ! in_array( 'listing_edited', get_directorist_option( 'notify_admin', array() ) ) ) {
+
+			if ( ! in_array( 'listing_edited', get_directorist_option( 'notify_admin', array(), true ) ) ) {
 				return false;
 			}
+
 			$s = __( '[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website', 'directorist' );
 			$subject = $this->replace_in_content( $s, null, $listing_id );
 			$to = $this->get_admin_email_list();
@@ -1109,12 +1146,16 @@ This email is sent automatically for information purpose only. Please do not res
 		/**
 		 * @since 5.8
 		 */
-		function custom_wp_new_user_notification_email( $user_id ) {
+		public function custom_wp_new_user_notification_email( $user_id ) {
+
 			$user = get_user_by( 'ID', $user_id );
+
 			if ( get_directorist_option( 'disable_email_notification' ) ) {
 				return;
 			}
+
 			$sub = get_directorist_option( 'email_sub_registration_confirmation', __( 'Registration Confirmation!', 'directorist' ) );
+
 			$body = get_directorist_option(
 				'email_tmpl_registration_confirmation',
 				'Hi ==USERNAME==,
@@ -1123,12 +1164,38 @@ Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==US
 
 We look forward to seeing you soon'
 			);
+
+
 			$body = $this->replace_in_content( $body, null, null, $user );
 			$body = atbdp_email_html( $sub, $body );
 			$mail = $this->send_mail( $user->user_email, $sub, $body, $this->get_email_headers() );
 			if ( $mail ) {
 				delete_user_meta( $user_id, '_atbdp_generated_password' );
 			}
+		}
+
+		public function send_user_confirmation_email(Wp_User $user) {
+
+			if ( get_directorist_option( 'disable_email_notification' ) ) {
+				return;
+			}
+
+			$title = __( 'Verify your email address', 'directorist' );
+			$subject = sprintf( __( '[%s] Verify Your Email', 'directorist' ), get_bloginfo( 'blogname', 'display' ) );
+
+			$body = sprintf(__( "Hi %s,
+
+			Thank you for signing up at ==SITE_NAME==, to complete the registration, please verify your email address.
+
+			To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
+
+			==CONFIRM_EMAIL_ADDRESS_URL==<p align='center'>If you did not sign up for this account you can ignore this email.</p>", 'directorist' ), $user->user_nicename );
+
+			$body = $this->replace_in_content( $body, null, null, $user );
+
+			$body = atbdp_email_html( $title, $body );
+
+			return $this->send_mail( $user->user_email, $subject, $body, $this->get_email_headers() );
 		}
 
 	} // ends class

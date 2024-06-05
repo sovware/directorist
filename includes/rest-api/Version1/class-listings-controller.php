@@ -92,7 +92,10 @@ class Listings_Controller extends Posts_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_items( $request ) {
-		$query_args    = $this->prepare_objects_query( $request );
+		$query_args = $this->prepare_objects_query( $request );
+
+		do_action( 'directorist_rest_before_query', 'get_listing_items', $request, $query_args );
+
 		$query_results = $this->get_listings( $query_args );
 
 		$objects = array();
@@ -127,6 +130,10 @@ class Listings_Controller extends Posts_Controller {
 			$next_link = add_query_arg( 'page', $next_page, $base );
 			$response->link_header( 'next', $next_link );
 		}
+
+		do_action( 'directorist_rest_after_query', 'get_listing_items', $request, $query_args );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_listing_items', $request, $query_args );
 
 		return $response;
 	}
@@ -318,24 +325,26 @@ class Listings_Controller extends Posts_Controller {
 				}
 		}
 
-		// Expired listings query.
-		$meta_query['expired'] = array(
-			'key'     => '_listing_status',
-			'value'   => 'expired',
-			'compare' => '!='
-		);
+		// TODO: Status has been migrated, remove related code.
+		// // Expired listings query.
+		// $meta_query['expired'] = array(
+		// 	'key'     => '_listing_status',
+		// 	'value'   => 'expired',
+		// 	'compare' => '!='
+		// );
 
-		if ( $args['post_status'] === 'expired' ) {
-			// Get only expired listings
-			$meta_query['expired'] = array(
-				'key'     => '_listing_status',
-				'value'   => 'expired',
-				'compare' => '==',
-			);
+		// if ( $args['post_status'] === 'expired' ) {
+		// 	// Get only expired listings
+		// 	$meta_query['expired'] = array(
+		// 		'key'     => '_listing_status',
+		// 		'value'   => 'expired',
+		// 		'compare' => '==',
+		// 	);
 
-			// Expired listings have post_status => private hence we need to set any.
-			$args['post_status'] = 'any';
-		}
+		// 	// Expired listings have post_status => private hence we need to set any.
+		// 	$args['post_status'] = 'any';
+		// }
+		// TODO: Remove the above lines due to listing status migration.
 
 		// Price query.
 		if ( isset( $request['min_price'] ) || isset( $request['max_price'] ) ) {
@@ -487,7 +496,10 @@ class Listings_Controller extends Posts_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
-		$id   = (int) $request['id'];
+		$id = (int) $request['id'];
+
+		do_action( 'directorist_rest_before_query', 'get_listing_item', $request, $id );
+
 		$post = get_post( $id );
 
 		if ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
@@ -500,6 +512,10 @@ class Listings_Controller extends Posts_Controller {
 		if ( $this->public ) {
 			$response->link_header( 'alternate', get_permalink( $id ), array( 'type' => 'text/html' ) );
 		}
+
+		do_action( 'directorist_rest_after_query', 'get_listing_item', $request, $id );
+
+		$response = apply_filters( 'directorist_rest_response', $response, 'get_listing_item', $request, $id );
 
 		return $response;
 	}
@@ -515,7 +531,7 @@ class Listings_Controller extends Posts_Controller {
 	public function prepare_item_for_response( $object, $request ) {
 		$context       = ! empty( $request['context'] ) ? $request['context'] : 'view';
 		$this->request = $request;
-		$data          = $this->get_listing_data( $object, $context, $request );
+		$data          = $this->get_listing_data( $object, $request, $context );
 
 		$data     = $this->add_additional_fields_to_object( $data, $request );
 		$data     = $this->filter_response_by_context( $data, $context );
@@ -640,11 +656,12 @@ class Listings_Controller extends Posts_Controller {
 	 * Get listing data.
 	 *
 	 * @param WP_Post   $listing WP_Post instance.
+	 * @param WP_REST_Request $request Request object.
 	 * @param string    $context Request context. Options: 'view' and 'edit'.
 	 *
 	 * @return array
 	 */
-	protected function get_listing_data( $listing, $context = 'view', $request ) {
+	protected function get_listing_data( $listing, $request, $context = 'view' ) {
 		$fields  = $this->get_fields_for_response( $request );
 
 		$base_data = array();
@@ -753,12 +770,14 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['popular'] = (bool) Helper::is_popular( $listing->ID );
 					break;
 				case 'status':
-					$listing_status = get_post_meta( $listing->ID, '_listing_status', true );
-					if ( $listing_status && $listing_status === 'expired' ) {
-						$base_data['status'] = 'expired';
-					} else {
-						$base_data['status'] = $listing->post_status;
-					}
+					// TODO: Status has been migrated, remove related code.
+					// $listing_status = get_post_meta( $listing->ID, '_listing_status', true );
+					// if ( $listing_status && $listing_status === 'expired' ) {
+					// 	$base_data['status'] = 'expired';
+					// } else {
+					// 	$base_data['status'] = $listing->post_status;
+					// }
+					$base_data['status'] = $listing->post_status;
 					break;
 				case 'reviews_allowed':
 					$base_data['reviews_allowed'] = directorist_is_review_enabled();
@@ -851,11 +870,12 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		$meta_queries = array();
-		$meta_queries['expired'] = array(
-			'key'     => '_listing_status',
-			'value'   => 'expired',
-			'compare' => '!=',
-		);
+		// TODO: Status has been migrated, remove related code.
+		// $meta_queries['expired'] = array(
+		// 	'key'     => '_listing_status',
+		// 	'value'   => 'expired',
+		// 	'compare' => '!=',
+		// );
 		$meta_queries['directory_type'] = array(
 			'key'     => '_directory_type',
 			'value'   => $directory_type,
@@ -1490,6 +1510,10 @@ class Listings_Controller extends Posts_Controller {
 	 * @param WP_Post $post Post object.
 	 */
 	protected function delete_post( $post ) {
+		do_action( 'directorist_rest_before_query', 'delete_listing_item', $post );
+
 		wp_delete_post( $post->ID, true );
+
+		do_action( 'directorist_rest_after_query', 'delete_listing_item', $post );
 	}
 }

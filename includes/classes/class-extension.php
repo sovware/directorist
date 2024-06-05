@@ -211,36 +211,37 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		public function setup_products_list() {
 
 			$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-remote-products?' . ATBDP_VERSION;
-			$headers = array(
-				'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
-				'Accept'     => 'application/json',
-			);
 
-			$config = array(
-				'method'      => 'GET',
-				'timeout'     => 30,
-				'redirection' => 5,
-				'httpversion' => '1.0',
-				'headers'     => $headers,
-				'cookies'     => array(),
-			);
+			$headers = self::request_header();
 
 			$response_body = array();
+			$cached_response = get_transient( 'directorist_get_promo_products' );
 
-			try {
-				$response = wp_remote_get( $url, $config );
+			if( $cached_response ) {
+				$response_body = $cached_response;
+			} else {
 
-				if ( ! is_wp_error( $response ) ) {
-					$response_body = is_string( $response['body'] ) ? json_decode( $response['body'], true ) : $response['body'];
-					$extensions = $response_body['extensions'];
-					$themes = $response_body['themes'];
+				try {
+					$response = wp_remote_get( $url, $headers );
 
-					$this->extensions = apply_filters( 'atbdp_extension_list', $extensions );
-					$this->themes = apply_filters( 'atbdp_theme_list', $themes );
+					if ( ! is_wp_error( $response ) ) {
+						$response_body = is_string( $response['body'] ) ? json_decode( $response['body'], true ) : $response['body'];
+						set_transient( 'directorist_get_promo_products', $response_body, 24 * HOUR_IN_SECONDS );
+					}
+				} catch ( Exception $e ) {
+
 				}
-			} catch ( Exception $e ) {
-
 			}
+
+			if( empty( $response_body ) ) {
+				return;
+			}
+
+			$extensions = $response_body['extensions'];
+			$themes = $response_body['themes'];
+
+			$this->extensions = apply_filters( 'atbdp_extension_list', $extensions );
+			$this->themes = apply_filters( 'atbdp_theme_list', $themes );
 		}
 
 		// exclude_purchased_extensions
@@ -402,6 +403,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 					$status['success'] = false;
 					$status['message'] = __( 'The plugin could not update', 'directorist' );
 					$status['log']     = $download_status['message'];
+					$status['args']    = [
+						'url' => $url,
+						'plugin_item' => $plugin_item,
+						'plugin_key' => $plugin_key,
+					];
 				} else {
 					$status['success'] = true;
 					$status['message'] = __( 'The plugin has been updated successfully', 'directorist' );
@@ -2063,15 +2069,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				'license'    => $license,
 			);
 
+			$headers = self::request_header( 'GET',$query_args );
+
 			try {
-				$response = wp_remote_get(
-					$activation_url,
-					array(
-						'timeout'   => 15,
-						'sslverify' => false,
-						'body'      => $query_args,
-					)
-				);
+				$response = wp_remote_get( $activation_url, $headers );
 
 				$response_status = json_decode( $response['body'], true );
 			} catch ( Exception $e ) {
@@ -2096,30 +2097,34 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			return $status;
 		}
 
+		public static function request_header( $type = 'GET', $body = [] ) {
+
+			return array(
+				'method'      => $type,
+				'timeout'     => 30,
+				'redirection' => 5,
+				'httpversion' => '1.0',
+				'headers'     => [
+					'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
+					'Accept'     => 'application/json',
+				],
+				'cookies'     => array(),
+				'body'        => $body,
+			);
+		}
+
 		// remote_authenticate_user
 		public static function remote_authenticate_user( $user_credentials = array() ) {
 			$status = array( 'success' => true );
 
 			$url     = 'https://directorist.com/wp-json/directorist/v1/licencing';
-			$headers = array(
-				'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
-				'Accept'     => 'application/json',
-			);
-
-			$config = array(
-				'method'      => 'GET',
-				'timeout'     => 30,
-				'redirection' => 5,
-				'httpversion' => '1.0',
-				'headers'     => $headers,
-				'cookies'     => array(),
-				'body'        => $user_credentials, // [ 'user' => '', 'password' => '']
-			);
+			
+			$headers = self::request_header( 'GET',$user_credentials );
 
 			$response_body = array();
 
 			try {
-				$response = wp_remote_get( $url, $config );
+				$response = wp_remote_get( $url, $headers );
 
 				if ( is_wp_error( $response ) ) {
 					$status['success'] = false;
@@ -2147,6 +2152,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 		// get_file_download_link
 		public static function get_file_download_link( $file_item = array(), $product_type = 'plugin' ) {
+			
+			if ( isset( $file_item['download_link'] ) ) {
+				return $file_item['download_link'];
+			}
+			
 			if ( ! is_array( $file_item ) ) {
 				return '';
 			}
@@ -2171,15 +2181,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				'get_info'     => 'download_link',
 			);
 
+			$headers = self::request_header( 'GET',$query_args );
+
 			try {
-				$response = wp_remote_get(
-					$activation_url,
-					array(
-						'timeout'   => 15,
-						'sslverify' => false,
-						'body'      => $query_args,
-					)
-				);
+				$response = wp_remote_get( $activation_url, $headers );
 
 				$response = json_decode( $response['body'], true );
 			} catch ( Exception $e ) {

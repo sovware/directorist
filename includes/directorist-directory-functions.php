@@ -249,11 +249,3 @@ function directorist_get_directories_for_template( array $args = array() ) {
 		return $carry;
 	}, array() );
 }
-
-/**
- * @param array $field_data pass the add listing form field configuration
- */
-
-function directorist_is_target_url( $field_data ) {
-	return ! empty( $field_data['target'] ) ? $field_data['target'] : false;
-}

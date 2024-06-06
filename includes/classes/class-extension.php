@@ -403,11 +403,6 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 					$status['success'] = false;
 					$status['message'] = __( 'The plugin could not update', 'directorist' );
 					$status['log']     = $download_status['message'];
-					$status['args']    = [
-						'url' => $url,
-						'plugin_item' => $plugin_item,
-						'plugin_key' => $plugin_key,
-					];
 				} else {
 					$status['success'] = true;
 					$status['message'] = __( 'The plugin has been updated successfully', 'directorist' );

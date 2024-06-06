@@ -210,12 +210,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		// get_the_products_list
 		public function setup_products_list() {
 
-			$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-remote-products?' . ATBDP_VERSION;
+			$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-remote-products?';
 
 			$headers = self::request_header();
 
 			$response_body = array();
-			$cached_response = get_transient( 'directorist_get_promo_products' );
+			$cached_response = get_transient( 'directorist_get_promo_products_v' . ATBDP_VERSION );
 
 			if( $cached_response ) {
 				$response_body = $cached_response;
@@ -226,7 +226,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 					if ( ! is_wp_error( $response ) ) {
 						$response_body = is_string( $response['body'] ) ? json_decode( $response['body'], true ) : $response['body'];
-						set_transient( 'directorist_get_promo_products', $response_body, 24 * HOUR_IN_SECONDS );
+						set_transient( 'directorist_get_promo_products_v' . ATBDP_VERSION, $response_body, MONTH_IN_SECONDS );
 					}
 				} catch ( Exception $e ) {
 
@@ -2100,7 +2100,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				'redirection' => 5,
 				'httpversion' => '1.0',
 				'headers'     => [
-					'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
+					'user-agent' => 'Directorist/' . ATBDP_VERSION . ';',
 					'Accept'     => 'application/json',
 				],
 				'cookies'     => array(),

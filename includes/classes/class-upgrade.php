@@ -82,29 +82,27 @@ class ATBDP_Upgrade
 	}
 
 	public static function promo_remote_get() {
-		$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-promo';
+		$url = 'https://app.directorist.com/wp-json/directorist/v1/get-promo';
 		$headers = [
 			'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
-			'Accept'     => 'application/json',
+			'Accept' => 'application/json',
 		];
 	
 		$config = [
-			'method'      => 'GET',
-			'timeout'     => 30,
+			'method' => 'GET',
+			'timeout' => 30,
 			'redirection' => 5,
 			'httpversion' => '1.0',
-			'headers'     => $headers,
-			'cookies'     => [],
+			'headers' => $headers,
+			'cookies' => [],
 		];
 	
 		$response_body = [];
 	
 		// Get the cached response
 		$cached_response = get_transient( 'directorist_get_promo_banner' );
-		$promo_expiration = get_option('directorist_promo_expiration', 0);
 	
-		// Check if the cache is valid
-		if ($cached_response && time() < $promo_expiration) {
+		if ($cached_response) {
 			$response_body = $cached_response;
 		} else {
 			try {
@@ -116,13 +114,12 @@ class ATBDP_Upgrade
 	
 			$response_body = is_string( $response_body ) ? json_decode( $response_body ) : $response_body;
 	
-			// Determine the promo duration and set the expiration time
-			$promo_duration = ! empty( $response_body->promo_duration ) ? $response_body->promo_duration : DAY_IN_SECONDS;
-			$promo_expiration = time() + $promo_duration;
+			// Determine the promo end date and calculate the remaining duration
+			$promo_end_date = ! empty( $response_body->promo_end_date ) ? $response_body->promo_end_date : time() + DAY_IN_SECONDS;
+			$remaining_duration = $promo_end_date - time();
 	
-			// Cache the response and set the expiration time
-			set_transient( 'directorist_get_promo_banner', $response_body, $promo_duration );
-			update_option( 'directorist_promo_expiration', $promo_expiration );
+			// Cache the response only for the remaining duration
+			set_transient( 'directorist_get_promo_banner', $response_body, $remaining_duration );
 		}
 	
 		return $response_body;

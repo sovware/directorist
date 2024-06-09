@@ -87,7 +87,7 @@ class ATBDP_Upgrade
 			'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
 			'Accept'     => 'application/json',
 		];
-
+	
 		$config = [
 			'method'      => 'GET',
 			'timeout'     => 30,
@@ -96,25 +96,35 @@ class ATBDP_Upgrade
 			'headers'     => $headers,
 			'cookies'     => [],
 		];
-
+	
 		$response_body = [];
-
+	
+		// Get the cached response
 		$cached_response = get_transient( 'directorist_get_promo_banner' );
-
-		if( $cached_response ) {
+		$promo_expiration = get_option('directorist_promo_expiration', 0);
+	
+		// Check if the cache is valid
+		if ($cached_response && time() < $promo_expiration) {
 			$response_body = $cached_response;
 		} else {
 			try {
 				$response = wp_remote_get( $url, $config );
 				$response_body = ! is_wp_error( $response ) ? wp_remote_retrieve_body( $response ) : [];
-				set_transient( 'directorist_get_promo_banner', $response_body, 24 * HOUR_IN_SECONDS );
 			} catch ( Exception $e ) {
 				return $response_body;
 			}
+	
+			$response_body = is_string( $response_body ) ? json_decode( $response_body ) : $response_body;
+	
+			// Determine the promo duration and set the expiration time
+			$promo_duration = ! empty( $response_body->promo_duration ) ? $response_body->promo_duration : DAY_IN_SECONDS;
+			$promo_expiration = time() + $promo_duration;
+	
+			// Cache the response and set the expiration time
+			set_transient( 'directorist_get_promo_banner', $response_body, $promo_duration );
+			update_option( 'directorist_promo_expiration', $promo_expiration );
 		}
-
-		$response_body = is_string( $response_body ) ? json_decode( $response_body ) : $response_body;
-
+	
 		return $response_body;
 	}
 

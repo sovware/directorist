@@ -1,5 +1,7 @@
 <?php
 
+use Directorist\Core\API;
+
 // it handles directorist upgrade
 class ATBDP_Upgrade
 {
@@ -82,40 +84,7 @@ class ATBDP_Upgrade
 	}
 
 	public static function promo_remote_get() {
-		$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-promo';
-		$headers = [
-			'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
-			'Accept'     => 'application/json',
-		];
-
-		$config = [
-			'method'      => 'GET',
-			'timeout'     => 30,
-			'redirection' => 5,
-			'httpversion' => '1.0',
-			'headers'     => $headers,
-			'cookies'     => [],
-		];
-
-		$response_body = [];
-
-		$cached_response = get_transient( 'directorist_get_promo_banner' );
-
-		if( $cached_response ) {
-			$response_body = $cached_response;
-		} else {
-			try {
-				$response = wp_remote_get( $url, $config );
-				$response_body = ! is_wp_error( $response ) ? wp_remote_retrieve_body( $response ) : [];
-				set_transient( 'directorist_get_promo_banner', $response_body, 24 * HOUR_IN_SECONDS );
-			} catch ( Exception $e ) {
-				return $response_body;
-			}
-		}
-
-		$response_body = is_string( $response_body ) ? json_decode( $response_body ) : $response_body;
-
-		return $response_body;
+		return API::get_promotion();
 	}
 
 	public function upgrade_notice() {

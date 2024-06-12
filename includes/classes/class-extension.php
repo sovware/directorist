@@ -20,6 +20,8 @@ if ( ! is_admin() ) {
 	return;
 }
 
+use Directorist\Core\API;
+
 if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 	/**
@@ -209,38 +211,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 		// get_the_products_list
 		public function setup_products_list() {
+			$products = API::get_products();
 
-			$url     = 'https://app.directorist.com/wp-json/directorist/v1/get-remote-products?' . ATBDP_VERSION;
-			$headers = array(
-				'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
-				'Accept'     => 'application/json',
-			);
-
-			$config = array(
-				'method'      => 'GET',
-				'timeout'     => 30,
-				'redirection' => 5,
-				'httpversion' => '1.0',
-				'headers'     => $headers,
-				'cookies'     => array(),
-			);
-
-			$response_body = array();
-
-			try {
-				$response = wp_remote_get( $url, $config );
-
-				if ( ! is_wp_error( $response ) ) {
-					$response_body = is_string( $response['body'] ) ? json_decode( $response['body'], true ) : $response['body'];
-					$extensions = $response_body['extensions'];
-					$themes = $response_body['themes'];
-
-					$this->extensions = apply_filters( 'atbdp_extension_list', $extensions );
-					$this->themes = apply_filters( 'atbdp_theme_list', $themes );
-				}
-			} catch ( Exception $e ) {
-
-			}
+			$this->extensions = apply_filters( 'atbdp_extension_list', $products['extensions'] );
+			$this->themes = apply_filters( 'atbdp_theme_list', $products['themes'] );
 		}
 
 		// exclude_purchased_extensions
@@ -319,13 +293,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		public function get_active_extensions() {
 			$active_extensions = array();
 
-			foreach ( $this->extensions as $extension_key => $extension_args ) {
-
-				if ( empty( $extension_args['active'] ) ) {
+			foreach ( $this->extensions as $extension_slug => $extension ) {
+				if ( empty( $extension['active'] ) ) {
 					continue;
 				}
 
-				$active_extensions[ $extension_key ] = $extension_args;
+				$active_extensions[ $extension_slug ] = $extension;
 			}
 
 			return $active_extensions;
@@ -335,13 +308,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		public function get_active_themes() {
 			$active_themes = array();
 
-			foreach ( $this->themes as $theme_key => $theme_args ) {
-
-				if ( empty( $theme_args['active'] ) ) {
+			foreach ( $this->themes as $theme_slug => $theme ) {
+				if ( empty( $theme['active'] ) ) {
 					continue;
 				}
 
-				$active_themes[ $theme_key ] = $theme_args;
+				$active_themes[ $theme_slug ] = $theme;
 			}
 
 			return $active_themes;

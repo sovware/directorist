@@ -1204,6 +1204,8 @@ class Directorist_Listings {
 	}
 
 	public function get_current_listing_type() {
+		$directory = 0;
+
 		if ( is_singular( ATBDP_POST_TYPE ) ) {
 			$directory = get_post_meta( get_the_ID(), '_directory_type', true );
 		} else if ( ! empty( $_REQUEST['directory_type'] ) ) {
@@ -1219,7 +1221,7 @@ class Directorist_Listings {
 			$directory      = $directory_term ? $directory_term->term_id : 0;
 		}
 
-		if ( ! empty( $directory ) && directorist_is_directory( $directory ) ) {
+		if ( directorist_is_directory( $directory ) ) {
 			return (int) $directory;
 		}
 

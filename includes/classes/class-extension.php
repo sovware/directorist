@@ -648,9 +648,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				}
 
 				$theme_item = $themes_available_in_subscriptions[ $theme_stylesheet ];
-				$url        = self::get_file_download_link( $theme_item, 'theme' );
-				$url        = ( empty( $url ) && ! empty( $outdated_themes[ $theme_stylesheet ]['package'] ) ) ? $outdated_themes[ $theme_stylesheet ]['package'] : $url;
-
+				$url = $theme_item['download_link'] ?? '';
 				$download_status = $this->download_theme( array( 'url' => $url ) );
 
 				if ( ! $download_status['success'] ) {

@@ -1208,13 +1208,15 @@ class Directorist_Listings {
 			$directory = get_post_meta( get_the_ID(), '_directory_type', true );
 		} else if ( ! empty( $_REQUEST['directory_type'] ) ) {
 			$directory = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
-
-			if ( ! is_numeric( $directory ) ) {
-				$directory_term = get_term_by( 'slug', $directory, ATBDP_DIRECTORY_TYPE );
-				$directory      = $directory_term ? $directory_term->term_id : 0;
-			}
+		} else if ( ! empty( $this->default_directory_type ) ) {
+			$directory = $this->default_directory_type;
 		} else if ( ! empty( $this->directory_type ) ) {
 			$directory = array_key_first( $this->get_listing_types() );
+		}
+
+		if ( ! is_numeric( $directory ) ) {
+			$directory_term = get_term_by( 'slug', $directory, ATBDP_DIRECTORY_TYPE );
+			$directory      = $directory_term ? $directory_term->term_id : 0;
 		}
 
 		if ( ! empty( $directory ) && directorist_is_directory( $directory ) ) {

@@ -1196,28 +1196,35 @@ class Directorist_Listings {
 		$args = array();
 
 		if ( $this->directory_type ) {
-			$args['slug'] = $this->directory_type;
+			$args['slug']    = $this->directory_type;
+			$args['orderby'] = 'slug__in';
 		}
 
 		return directorist_get_directories_for_template( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
 	}
 
 	public function get_current_listing_type() {
+		$directory = 0;
+
 		if ( is_singular( ATBDP_POST_TYPE ) ) {
 			$directory = get_post_meta( get_the_ID(), '_directory_type', true );
 		} else if ( ! empty( $_REQUEST['directory_type'] ) ) {
 			$directory = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
-	
-			if ( ! is_numeric( $directory ) ) {
-				$directory_term = get_term_by( 'slug', $directory, ATBDP_DIRECTORY_TYPE );
-				$directory      = $directory_term ? $directory_term->term_id : 0;
-			}
+		} else if ( ! empty( $this->default_directory_type ) ) {
+			$directory = $this->default_directory_type;
+		} else if ( ! empty( $this->directory_type ) ) {
+			$directory = array_key_first( $this->get_listing_types() );
 		}
-	
-		if ( ! empty( $directory ) && directorist_is_directory( $directory ) ) {
+
+		if ( ! is_numeric( $directory ) ) {
+			$directory_term = get_term_by( 'slug', $directory, ATBDP_DIRECTORY_TYPE );
+			$directory      = $directory_term ? $directory_term->term_id : 0;
+		}
+
+		if ( directorist_is_directory( $directory ) ) {
 			return (int) $directory;
 		}
-		
+
 		return directorist_get_default_directory();
 	}
 

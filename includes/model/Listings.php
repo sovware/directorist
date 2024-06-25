@@ -1102,6 +1102,8 @@ class Directorist_Listings {
 			case 'no_sidebar':
 				$template = 'archive-contents';
 				break;
+			default :
+				$template = 'sidebar-archive-contents';
 		}
 
 		// Load the template

@@ -986,133 +986,166 @@ class Multi_Directory_Migration {
         return $search_form_fields;
     }
 
-    // get_single_listing_header_data
     public function get_single_listing_header_data() {
-        // Single Listing
-        // Quick Actions Items
-        $quick_actions = [];
+        // Quick Info Placeholder Items
+        // ------------------------------
+        $quick_info_placeholder_items = [];
+
+        // # Back Button
+        if ( get_directorist_option( 'display_back_link', true ) ) {
+            $quick_info_placeholder_items[] = [
+                "type"        => "button",
+                "label"       => "Back",
+                "widget_name" => "back",
+                "widget_key"  => "back"
+            ];
+        }
+
+        // Quick Action Placeholder Items
+        // ------------------------------
+        $quick_action_placeholder_items = [];
+
+        // # Bookmark
         if ( '1' == get_directorist_option( 'enable_favourite', true ) ) {
-            $quick_actions[] = [
+            $quick_action_placeholder_items[] = [
                 "type"        => "button",
                 "label"       => "Bookmark",
                 "widget_name" => "bookmark",
-                "widget_key"  => "bookmark",
-                'icon'        => 'las la-heart',
+                "widget_key"  => "bookmark"
             ];
         }
-        if ( '1' == get_directorist_option( 'enable_report_abuse', true ) ) {
-            $quick_actions[] = [
+
+        // # Share
+        if ( '1' == get_directorist_option( 'enable_social_share', true ) ) {
+            $quick_action_placeholder_items[] = [
                 "type"        => "badge",
                 "label"       => "Share",
-                "hook"        => "atbdp_single_listings_title",
                 "widget_name" => "share",
                 "widget_key"  => "share",
                 "icon"        => "las la-share"
             ];
         }
-        if ( '1' == get_directorist_option( 'enable_social_share', true ) ) {
-            $quick_actions[] = [
+
+        // # Report
+        if ( '1' == get_directorist_option( 'enable_report_abuse', true ) ) {
+            $quick_action_placeholder_items[] = [
                 "type"        => "badge",
                 "label"       => "Report",
-                "hook"        => "atbdp_single_listings_title",
                 "widget_name" => "report",
                 "widget_key"  => "report",
                 "icon"        => "las la-flag"
             ];
         }
 
-        // Thumbnail Items
-        $thumbnail = [];
-        if ( '1' == get_directorist_option( 'dsiplay_slider_single_page', true ) ) {
-            $thumbnail[] = [
-                "type"            => "thumbnail",
-                "label"           => "Select Files",
-                "hook"            => "atbdp_single_listings_slider",
-                "widget_name"     => "listing_slider",
-                "widget_key"      => "listing_slider",
-                "footer_thumbail" => get_directorist_option( 'dsiplay_thumbnail_img', true )
-            ];
-        }
+        // More Widgets Placeholder Items
+        $more_widgets_placeholder_items = [
+            [
+                "type"           => "badge",
+                "label"          => "Badges",
+                "widget_name"    => "badges",
+                "widget_key"     => "badges",
+                "new_badge"      => true,
+                "popular_badge"  => true,
+                "featured_badge" => true
+            ],
+            [
+                "type"        => "badge",
+                "label"       => "Category",
+                "widget_name" => "category",
+                "widget_key"  => "category"
+            ],
+            [
+                "type"        => "badge",
+                "label"       => "Location",
+                "widget_name" => "location",
+                "widget_key"  => "location"
+            ]
+        ];
 
-        // Quick Info Items
-        $quick_info = [];
+        // # Pricing
         if ( '0' == get_directorist_option( 'disable_list_price', true ) ) {
-            $quick_info[] = [
+            $more_widgets_placeholder_items[] = [
                 "type"        => "badge",
                 "label"       => "Pricing",
-                "hook"        => "atbdp_single_listings_price",
                 "widget_name" => "price",
                 "widget_key"  => "price"
             ];
         }
 
-        $quick_info[] = [
+        // # Rating
+        $more_widgets_placeholder_items[] = [
             "type"        => "ratings-count",
-            "label"       => "Listings Ratings",
+            "label"       => "Rating",
             "widget_name" => "ratings_count",
             "widget_key"  => "ratings_count"
         ];
 
-        $quick_info[] = [
-            "type"        => "reviews",
-            "label"       => "Listings Reviews",
-            "widget_name" => "reviews",
-            "widget_key"  => "reviews"
+        // # Badges
+        $more_widgets_placeholder_items[] = [
+            "type"           => "badge",
+            "label"          => "Badges",
+            "widget_name"    => "badges",
+            "widget_key"     => "badges",
+            "new_badge"      => get_directorist_option( 'display_new_badge_cart', true ),
+            "popular_badge"  => get_directorist_option( 'display_popular_badge_cart', true ),
+            "featured_badge" => true
         ];
 
-        $quick_info[] = [
-            "type"          => "badge",
-            "label"         => "Badges",
-            "widget_name"   => "badges",
-            "widget_key"    => "badges",
-            "new_badge"     => get_directorist_option( 'display_new_badge_cart', true ),
-            "popular_badge" => get_directorist_option( 'display_popular_badge_cart', true )
-        ];
+        // Slider Placeholder Items
+        $slider_placeholder_items = [];
 
-        $quick_info[] = [
-            "type"        => "badge",
-            "label"       => "Category",
-            "widget_name" => "category",
-            "widget_key"  => "category"
-        ];
+        // Listing Image/Slider
+        if ( '1' == get_directorist_option( 'dsiplay_slider_single_page', true ) ) {
+            $slider_placeholder_items[] = [
+                "type"             => "thumbnail",
+                "label"            => "Listing Image/Slider",
+                "widget_name"      => "slider",
+                "widget_key"       => "slider",
+                "footer_thumbnail" => get_directorist_option( 'dsiplay_thumbnail_img', true ),
+            ];
+        }
 
-        $quick_info[] = [
-            "type"        => "badge",
-            "label"       => "Location",
-            "widget_name" => "location",
-            "widget_key"  => "location"
-        ];
-
-
-        $single_listing_header = [
-            "listings_header" => [
-                "quick_actions" => $quick_actions,
-                "thumbnail"     => $thumbnail,
-                "quick_info"    => $quick_info
-            ],
-
-            "options" => [
-                "general" => [
-                    "back" => [
-                        "label" => get_directorist_option( 'display_back_link', true )
+        return [
+            [
+                "type"           => "placeholder_group",
+                "placeholderKey" => "quick-widgets-placeholder",
+                "placeholders"   => [
+                    [
+                        "type"            => "placeholder_group",
+                        "placeholderKey"  => "quick-info-placeholder",
+                        "selectedWidgets" => $quick_info_placeholder_items,
                     ],
-                    "section_title" => [
-                        "label" => get_directorist_option( 'listing_details_text', 'Listing Details' )
-                    ]
-                ],
-                "content_settings" => [
-                    "listing_title" => [
-                        "enable_title"   => true,
-                        "enable_tagline" => true
-                    ],
-                    "listing_description" => [
-                        "enable" => true
+                    [
+                        "type"            => "placeholder_group",
+                        "placeholderKey"  => "quick-action-placeholder",
+                        "selectedWidgets" => $quick_action_placeholder_items
                     ]
                 ]
+            ],
+            [
+                "type"            => "placeholder_item",
+                "placeholderKey"  => "listing-title-placeholder",
+                "selectedWidgets" => [
+                    [
+                        "type"           => "title",
+                        "label"          => "Listing Title",
+                        "widget_name"    => "title",
+                        "widget_key"     => "title",
+                        "enable_tagline" => false
+                    ]
+                ]
+            ],
+            [
+                "type"            => "placeholder_item",
+                "placeholderKey"  => "more-widgets-placeholder",
+                "selectedWidgets" => $more_widgets_placeholder_items
+            ],
+            [
+                "type"            => "placeholder_item",
+                "placeholderKey"  => "slider-placeholder",
+                "selectedWidgets" => $slider_placeholder_items
             ]
         ];
-
-        return $single_listing_header;
     }
 
     // get_listings_card_grid_view_data

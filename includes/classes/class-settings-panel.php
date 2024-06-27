@@ -5598,6 +5598,10 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value' => 'remind_to_renew',
                     'label' => __('Remind to renew', 'directorist'),
                 ),
+                array(
+                    'value' => 'listing_renewed',
+                    'label' => __('Listing Renewed', 'directorist'),
+                ),
             ));
         }
 

@@ -183,6 +183,11 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					'nopaging'       => true,
 					'meta_query'     => array(
 						'relation'   => 'AND',
+						'renewal_status' => array(
+							'key' => '_listing_status',
+							'value' => 'renewal',
+							'compare' => '!=',
+						),
 						'never_expire' => array(
 							'key'     => '_never_expire',
 							'compare' => 'NOT EXISTS',

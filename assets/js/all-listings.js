@@ -1438,7 +1438,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-    var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+    var type_href = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var data_atts = instant_search_element.attr('data-atts');
@@ -1574,7 +1574,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-    var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+    var type_href = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var data_atts = instant_search_element.attr('data-atts');
@@ -1658,7 +1658,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var view_href = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
       var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
       var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-      var type_href = $('.directorist-type-nav__list .current a').attr('href');
+      var type_href = $('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
       var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
       var directory_type = getURLParameter(type_href, 'directory_type');
       var data_atts = $(this).closest('.directorist-instant-search').attr('data-atts');
@@ -1829,7 +1829,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
     var view_href = $(this).closest(this).attr('href');
     var view = view_href && view_href.length ? view_href.match(/view=.+/) : '';
-    var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+    var type_href = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var page_no = $(this).closest(".page-numbers.current").text();
@@ -1959,7 +1959,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
     var sort_href = $(this).closest(this).attr('data-link');
     var sort_by = sort_href.match(/sort=.+/);
-    var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+    var type_href = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var data_atts = instant_search_element.attr('data-atts');
@@ -2081,7 +2081,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-    var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+    var type_href = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var data_atts = instant_search_element.attr('data-atts');
@@ -2203,7 +2203,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var view_href = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-    var type_href = $('.directorist-type-nav__list .current a').attr('href');
+    var type_href = $('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var data_atts = $('.directorist-instant-search').attr('data-atts');

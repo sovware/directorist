@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 7.9.0
+Stable tag: 7.10.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -304,16 +304,32 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.9.0 - Apr 2, 2024
+7.10.3 - Jun 13, 2024
 
-* Add - New shortcode to show listing's meta (#1725)
-* Fix - Phone number plus prefix missing issue (#1720)
-* Fix - Single taxonomy archive page title issue for Yoast SEO plugin (#1721)
-* Fix - Contact listing owner email reply to issue (#1712)
-* Fix - widget checkbox boolean value (#1724)
-* Improve - Add listing price field (#1715)
-* Update - Promo banner nonce validation (#1723)
-* Tweak - Directories query and general config use (#1716)
-* Test - Compatibility with WP 6.5
+* Fix - Renewal email sending issue
+* Fix - Extension update issue
+
+7.10.2 - Jun 13, 2024
+
+* Fix - Extension update issue
+* Fix - Directory type specification issue Listings page
+
+
+7.10.0 - Jun 9, 2024
+
+* Add - Listing edit status filter hook directorist_listing_edit_status (#1731)
+* Update - Performance improvement: Listing status migrated to native status from post meta (#1606)
+* Update - Performance improvement: Never expire listings query (#1625)
+* Update - Twitter(X) Logo (#1706)
+* Update - Dynamic Value for Maximum Radius Distance (#1730)
+* Update - Default value of delete_expired_listing is set to false (#1732)
+* Update - atbdp_insert_attachment_from_url function (#1704)
+* Fix - HTML ID conflict on registration and add listing page (#1623)
+* Fix - Open Street Map zipcode radius search (#1701)
+* Fix - Dashboard nav width update (#1676)
+* Fix - Remove empty space from the url parameter (#1739)
+* Fix - Image upload with gallery extension (#1741)
+* Fix - Related listing template on single listing page (#1738)
+* Fix - Warning when no widget pass (#1733)
 
 [Full Changelog](https://github.com/sovware/directorist/wiki/Changelogs)

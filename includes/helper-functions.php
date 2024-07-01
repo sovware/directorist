@@ -1427,7 +1427,6 @@ function atbdp_listings_count_by_tag($term_id)
             ),
             array(
                 'key' => '_never_expire',
-                'value' => 1,
             ),
         ))
     );
@@ -4214,25 +4213,6 @@ function directorist_background_image_process( $images ) {
 }
 
 /**
- * Get or modify the status of a directory listing during editing.
- *
- * @param int    $directory_type The directory type ID.
- * @param int    $listing_id      The listing ID.
- *
- * @return string The edited or original status for the listing.
- */
-function directorist_get_listing_edit_status( $directory_type ) {
-	$edit_listing_status = get_term_meta( $directory_type, 'edit_listing_status', true );
-	$new_listing_status  = get_term_meta( $directory_type, 'new_listing_status', true );
-
-    if ( 'publish' !== $new_listing_status && 'publish' === $edit_listing_status ) {
-        $edit_listing_status = $new_listing_status;
-    }
-
-    return apply_filters( 'directorist_edit_listing_status', $edit_listing_status, $directory_type );
-}
-
-/**
  * Delete directory even when non empty.
  *
  * @since 7.9.1
@@ -4283,4 +4263,40 @@ function directorist_delete_temporary_upload_dirs() {
 			}
 		}
 	}
+}
+
+/**
+ * Formats a given date value according to WordPress settings or provided format.
+ *
+ * @param string $date The date value to format.
+ * @param string $format Optional. The format to use. If empty, uses the WordPress settings.
+ * @return string The formatted date string, or an empty string if the input value is empty.
+ */
+function directorist_format_date( $date = '', $format = '' ) {
+    $date = strtotime( $date );
+    if ( ! $date ) {
+        return '';
+    }
+
+    $format = apply_filters( 'directorist_date_format', ( $format ? $format : get_option( 'date_format' ) ) );
+
+    return date( $format, $date );
+}
+
+/**
+ * Formats a given time value according to WordPress settings or provided format.
+ *
+ * @param string $time The time value to format.
+ * @param string $format Optional. The format to use. If empty, uses the WordPress settings.
+ * @return string The formatted time string, or an empty string if the input value is empty.
+ */
+function directorist_format_time( $time = '', $format = '' ) {
+    $time = strtotime( $time );
+    if ( ! $time ) {
+        return '';
+    }
+
+    $format = apply_filters( 'directorist_time_format', ( $format ? $format : get_option( 'time_format' ) ) );
+
+    return date( $format, $time );
 }

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.3.1
+ * @version 7.10.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -15,6 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<span class="directorist-single-info__label--text"><?php echo esc_html( $data['label'] ); ?></span>
 	</div>
 
-	<div class="directorist-single-info__value"><?php echo esc_html( date( 'h:i A', strtotime( esc_html( $value ) ) ) ); ?></div>
+	<div class="directorist-single-info__value"><?php echo esc_html( directorist_format_time( $value ) ); ?></div>
 
 </div>

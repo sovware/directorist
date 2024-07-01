@@ -1845,7 +1845,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Directorist pagination
   $('body').on("click", ".directorist-instant-search .directorist-pagination .page-numbers", function (e) {
-    var _form_data;
     e.preventDefault();
     var tag = [];
     var price = [];
@@ -1913,7 +1912,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var page = paginate_link && paginate_link.length ? paginate_link.match(/paged=.+/) : '';
       var page_no = page && page.length ? page[0].replace(/paged=/, '') : '';
     }
-    var form_data = (_form_data = {
+    var form_data = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
       current_page_id: directorist.current_page_id,
@@ -1935,7 +1934,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       website: website || getURLParameter(full_url, 'website'),
       phone: phone || getURLParameter(full_url, 'phone'),
       custom_field: custom_field || getURLParameter(full_url, 'custom_field')
-    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "data_atts", JSON.parse(data_atts)), _form_data);
+    }, "view", view), "paged", page_no), "data_atts", JSON.parse(data_atts));
 
     //business hours
     if ($('input[name="open_now"]').is(':checked')) {
@@ -2606,9 +2605,9 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./assets/src/scss/layout/public/main-style.scss ***!
   \*******************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-// extracted by mini-css-extract-plugin
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleError: Module Error (from ./node_modules/resolve-url-loader/index.js):\nresolve-url-loader: loader misconfiguration\n  \"engine\" option is not valid\n    at Object.emitError (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/webpack/lib/NormalModule.js:173:6)\n    at handleAsError (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/resolve-url-loader/index.js:214:12)\n    at Object.resolveUrlLoader (/Users/mac/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/resolve-url-loader/index.js:156:12)");
 
 /***/ }),
 

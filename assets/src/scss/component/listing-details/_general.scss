@@ -9,7 +9,7 @@
             margin-bottom: 0.5rem;
             font-weight: 500;
             line-height: 1.2;
-            color: var(--directorist-color-title);
+            color: var(--directorist-color-dark);
             letter-spacing: normal;
         }
 
@@ -134,7 +134,7 @@
 
         &.directorist-rate-active {
            &:before{
-            background-color: #fa8b0c;
+            background-color: var(--directorist-color-warning);
            }
         }
     }
@@ -144,7 +144,7 @@
     .directorist-single-listing-top button:not(:hover):not(:active):not(.has-background) {
         &.directorist-btn.directorist-btn-light {
             background-color: var(--directorist-color-light);
-            color: var(--directorist-color-title);
+            color: var(--directorist-color-dark);
             @media screen and (max-width: 575px) {
                 background-color: transparent;
             }

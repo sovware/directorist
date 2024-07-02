@@ -57,6 +57,9 @@
         a{
             text-decoration: none;
             color: var(--directorist-color-body);
+            &:hover{
+                color: var(--directorist-color-primary);
+            }
         }
         .directorist-icon-mask::after{
             width: 14px;

@@ -289,7 +289,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     #directorist.atbd_wrapper .btn-primary:hover,
     .default-ad-search .submit_btn .btn-default:hover,
     .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .atbd-add-payment-method form .atbd-save-card:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
-        border-color: var(--directorist-color-btn-border);
+        border-color: var(--directorist-color-primary);
     }
 
     /* =======================================

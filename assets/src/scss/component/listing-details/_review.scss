@@ -290,7 +290,7 @@ Review: New Style
                 margin: 10px 0;
 
                 span {
-                    color: #525768;
+                    color: var(--directorist-color-body);
 
                     &:before {
                         content: "-";
@@ -301,6 +301,9 @@ Review: New Style
             }
             .directorist-btn{
                 align-items: center;
+                &:hover{
+                    opacity: 0.8;
+                }
                 .directorist-icon-mask{
                     display: inline-block;
                     margin-right: 4px;
@@ -396,7 +399,7 @@ Review: New Style
                         word-break: break-all;
                         margin-bottom: 0;
                         font-size: 15px;
-                        color: #525768;
+                        color: var(--directorist-color-body);
                     }
 
                     progress {
@@ -1250,7 +1253,7 @@ Review: New Style
 
                     &.br-selected,
                     &.br-active {
-                        background-color: #fa8b0c !important;
+                        background-color: var(--directorist-color-warning) !important;
                         text-decoration: none;
                         outline: 0;
                     }
@@ -1352,7 +1355,7 @@ Review: New Style
                 span {
                     display: block;
                     font-size: 14px;
-                    color: #525768;
+                    color: var(--directorist-color-body);
                     margin-top: 6px;
                 }
             }

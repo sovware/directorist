@@ -11103,6 +11103,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-primary);
   outline: 0 !important;
 }
+.directorist-btn:hover .directorist-icon-mask:after, .directorist-btn:focus .directorist-icon-mask:after {
+  background-color: var(--directorist-color-primary);
+}
 
 .directorist-btn.directorist-btn-primary {
   background-color: var(--directorist-color-primary);
@@ -11113,6 +11116,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-btn.directorist-btn-primary:hover {
   background-color: var(--directorist-color-primary-hover);
+}
+.directorist-btn.directorist-btn-primary:hover .directorist-icon-mask:after {
+  background-color: var(--directorist-color-primary);
 }
 .directorist-btn.directorist-btn-secondary {
   background-color: var(--directorist-color-secondary);

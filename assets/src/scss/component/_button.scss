@@ -34,6 +34,9 @@
   &:focus {
     color: var(--directorist-color-primary);
     outline: 0 !important;
+    .directorist-icon-mask:after{
+      background-color: var(--directorist-color-primary);
+    }
   }
 }
 
@@ -45,6 +48,9 @@
     @include btnFocusBg(var(--directorist-color-primary));
     &:hover{
       background-color: var(--directorist-color-primary-hover);
+      .directorist-icon-mask:after{
+        background-color: var(--directorist-color-primary);
+      }
     }
   }
 

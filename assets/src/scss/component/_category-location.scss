@@ -46,7 +46,10 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 16px;
-            color: var(--directorist-color-primary);
+            color: var(--directorist-color-dark);
+            &:hover{
+                color: var(--directorist-color-primary);
+            }
             &::before{
                 content: '';
                 position: absolute;
@@ -503,7 +506,7 @@
                 font-weight: 500;
             }
             a{
-                color: var(--directorist-color-title);
+                color: var(--directorist-color-dark);
                 text-decoration: none;
                 &::after{
                     position: absolute;

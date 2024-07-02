@@ -146,7 +146,7 @@
             margin-right: 5px;
             input{
                 border-radius: 20px;
-                color: #fff !important;
+                color: var(--directorist-color-white) !important;
             }
         }
     }
@@ -161,11 +161,11 @@
                 text-decoration: none;
                 font-size: 14px;
                 font-weight: 400;
-                color: #ffffff50;
+                color: var(--directorist-color-white)fff50;
                 &.active{
-                    color: #fff;
+                    color: var(--directorist-color-white);
                     &::before{
-                        color: #ffffff50;
+                        color: var(--directorist-color-white)fff50;
                     }
                 }
                 &:focus{
@@ -204,7 +204,7 @@
             color: #5A5F7D;
 
             &:hover {
-                color: #fff;
+                color: var(--directorist-color-white);
                 background-color: #3E62F5;
             }
         }
@@ -229,7 +229,7 @@
     display: flex;
     margin: 0 10px;
     align-items: center;
-    color: #fff;
+    color: var(--directorist-color-white);
 }
 
 .setting-search-suggestions {
@@ -243,7 +243,7 @@
     width: 100%;
     z-index: 9999;
     box-shadow: 0 0 3px #ccc;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
 }
 
 .search-suggestions-list--list-item {
@@ -268,16 +268,16 @@
 .settings-contents {
     flex-grow: 1;
     padding: 20px 20px 0;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
 }
 
 .setting-search-field__input {
     height: 40px;
     padding: 0 16px !important;
     border: 0 none !important;
-    background-color: #ffffff08 !important;
+    background-color: var(--directorist-color-white)fff08 !important;
     border-radius: 4px;
-    color: #ffffff50 !important;
+    color: var(--directorist-color-white)fff50 !important;
     width: 250px;
     max-width: 250px;
     font-size: 14px;
@@ -291,7 +291,7 @@
 .settings-save-btn{
     display: inline-block;
     padding: 0 20px;
-    color: #fff;
+    color: var(--directorist-color-white);
     font-size: 14px;
     text-decoration: none;
     font-weight: 500;
@@ -303,14 +303,14 @@
     transition: all ease-in-out 300ms;
 
     &:focus{
-        color: #fff;
+        color: var(--directorist-color-white);
         outline: none;
     }
 
     &:hover {
         border-color: darken(#3E62F5, 5);
         background: darken(#3E62F5, 5);
-        color: #fff;
+        color: var(--directorist-color-white);
     }
 
     &:disabled {
@@ -331,7 +331,7 @@
         width: 100%;
         height: 100vh;
         overflow-y: auto;
-        background-color: #fff;
+        background-color: var(--directorist-color-white);
         transform: translateX(-250px);
         transition: .35s;
         z-index: 99999;
@@ -373,12 +373,12 @@
 }
 
 .settings-nav__item.active {
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
 }
 
 .settings-nav__item ul {
     padding-left: 0;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     display: none;
 }
 
@@ -398,7 +398,7 @@
 }
 
 .settings-nav__item__link:hover {
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
 }
 
 .settings-nav__item.active .settings-nav__item__link {
@@ -466,13 +466,13 @@
 
 .settings-nav__item ul li a.active {
     color: #3E62F5;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     box-shadow: 0 5px 20px rgba(161, 168, 198, 0.2);
     border-left-color: #3E62F5;
 }
 
 .settings-nav__item ul li a:hover {
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     box-shadow: 0 5px 20px rgba(161, 168, 198, 0.2);
 }
 

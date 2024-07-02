@@ -168,7 +168,7 @@
             .directorist-icon-mask:after{
                 width: 14px;
                 height: 14px;
-                background-color: #fff;
+                background-color: var(--directorist-color-white);
             }
             &:hover {
                 opacity: 0.8;
@@ -189,7 +189,7 @@
             visibility: hidden;
             border-radius: 16px;
             transition: all ease 0.3s;
-            background-color: rgba(0, 0, 0, .5);
+            background-color: rgba(var(--directorist-color-dark-rgb), .5);
         }
     }
 }

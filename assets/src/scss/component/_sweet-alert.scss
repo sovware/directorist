@@ -6,7 +6,7 @@ body.stop-scrolling {
 .sweet-overlay {
     background-color: black;
     -ms-filter: "alpha(opacity=40)";
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(var(--directorist-color-dark-rgb), 0.4);
     position: fixed;
     left: 0;
     right: 0;
@@ -162,7 +162,7 @@ body.stop-scrolling {
     margin-top: 10px;
     margin-bottom: 17px;
     font-size: 18px;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06);
+    box-shadow: inset 0 1px 1px rgba(var(--directorist-color-dark-rgb), 0.06);
     padding: 0 12px;
     display: none;
     -webkit-transition: all .3s;
@@ -237,7 +237,7 @@ body.stop-scrolling {
 
 .sweet-alert button:focus {
     outline: 0;
-    box-shadow: 0 0 2px rgba(128, 179, 235, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.05)
+    box-shadow: 0 0 2px rgba(128, 179, 235, 0.5), inset 0 0 0 1px rgba(var(--directorist-color-dark-rgb), 0.05)
 }
 
 .sweet-alert button:hover {
@@ -261,7 +261,7 @@ body.stop-scrolling {
 }
 
 .sweet-alert button.cancel:focus {
-    box-shadow: rgba(197, 205, 211, 0.8) 0 0 2px, rgba(0, 0, 0, 0.0470588) 0 0 0 1px inset !important
+    box-shadow: rgba(197, 205, 211, 0.8) 0 0 2px, rgba(var(--directorist-color-dark-rgb), 0.0470588) 0 0 0 1px inset !important
 }
 
 .sweet-alert button[disabled] {
@@ -1054,7 +1054,7 @@ body.stop-scrolling {
 .la-ball-fall {
     display: block;
     font-size: 0;
-    color: #fff
+    color: var(--directorist-color-white);
 }
 
 .la-ball-fall.la-dark {

@@ -83,9 +83,9 @@
         line-height: 35px;
         width: 35px;
         text-align: center;
-        background-color: #444752 !important;
+        background-color: var(--directorist-color-body) !important;
         border-radius: 4px;
-        color: #ffffff !important;
+        color: var(--directorist-color-white) !important;
         overflow: hidden;
         transition: all ease-in-out 300ms !important;
     }

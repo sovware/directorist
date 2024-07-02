@@ -79,7 +79,7 @@
           margin: 0 0 15px;
           font-size: 16px;
           font-weight: 500;
-          color: var(--directorist-color-primary);
+          color: var(--directorist-color-dark);
         }
         .directorist-search-field__label {
           top: 6px;
@@ -194,7 +194,7 @@
     .directorist-btn-reset-js {
       font-size: 14px;
       font-weight: 500;
-      color: var(--directorist-color-primary);
+      color: var(--directorist-color-dark);
       justify-content: center;
       text-decoration: none;
       cursor: pointer;
@@ -304,14 +304,14 @@
   input[value="5"] + label {
     .directorist-icon-mask {
       &:after {
-        background-color: var(--directorist-color-primary);
+        background-color: var(--directorist-color-star);
       }
     }
   }
   input[value="4"] + label {
     .directorist-icon-mask {
       &:not(:nth-child(5)):after {
-        background-color: var(--directorist-color-primary);
+        background-color: var(--directorist-color-star);
       }
     }
   }
@@ -320,7 +320,7 @@
       &:nth-child(1):after,
       &:nth-child(2):after,
       &:nth-child(3):after {
-        background-color: var(--directorist-color-primary);
+        background-color: var(--directorist-color-star);
       }
     }
   }
@@ -328,14 +328,14 @@
     .directorist-icon-mask {
       &:nth-child(1):after,
       &:nth-child(2):after {
-        background-color: var(--directorist-color-primary);
+        background-color: var(--directorist-color-star);
       }
     }
   }
   input[value="1"] + label {
     .directorist-icon-mask {
       &:nth-child(1):after {
-        background-color: var(--directorist-color-primary);
+        background-color: var(--directorist-color-star);
       }
     }
   }
@@ -447,7 +447,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--directorist-color-primary);
+    color: var(--directorist-color-dark);
     background-color: var(--directorist-color-border);
     border-radius: 8px;
     width: 70px;
@@ -568,7 +568,7 @@
         border-radius: 5px;
         content: "";
         border: 2px solid #d9d9d9;
-        background-color: #fff;
+        background-color: var(--directorist-color-white);
         box-sizing: content-box;
       }
     }

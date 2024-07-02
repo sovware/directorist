@@ -85,11 +85,11 @@
         border-radius: 50%;
         transition: 0.2s;
         cursor: pointer;
-        color: #ffffff;
+        color: var(--directorist-color-white);
         padding: 0;
 
         &:hover {
-          color: #c81d1d;
+          color: var(--directorist-color-danger);
         }
       }
     }
@@ -274,7 +274,7 @@
 
     .single_extension {
       margin-bottom: 30px;
-      background-color: #ffffff;
+      background-color: var(--directorist-color-white);
       box-shadow: 0px 5px 10px #e1e7f7;
       padding: 25px;
 
@@ -359,7 +359,7 @@
         box-shadow: 0 10px 20px rgba(103, 103, 103, 0.27);
 
         h3 {
-          color: #fff;
+          color: var(--directorist-color-white);
           margin-bottom: 25px;
         }
       }
@@ -380,7 +380,7 @@
         color: #ededed;
 
         &:hover {
-          color: #fff;
+          color: var(--directorist-color-white);
         }
       }
     }
@@ -611,7 +611,7 @@ a {
   &:before {
     content: "Upgrade/Regenerate";
     position: absolute;
-    color: #fff;
+    color: var(--directorist-color-white);
     left: 50%;
     top: 48%;
     transform: translate(-50%, -50%);
@@ -669,7 +669,7 @@ a {
 
     &:hover {
       background-color: #ff0000;
-      color: #fff;
+      color: var(--directorist-color-white);
     }
   }
 }
@@ -697,7 +697,7 @@ a {
       justify-content: center;
 
       .thumbremovelink {
-        background-color: #000;
+        background-color: var(--directorist-color-dark);
         height: 30px;
         width: 30px;
         display: flex;
@@ -807,7 +807,7 @@ a {
     left: 50%;
     transform: translate(-50%, 7px);
     border: 6px solid transparent;
-    border-top-color: rgba(0, 0, 0, 0.8);
+    border-top-color: rgba(var(--directorist-color-dark-rgb), 0.8);
   }
 
   &[aria-label]:after {
@@ -816,10 +816,10 @@ a {
     transform: translate(-50%, -5px);
     min-width: 150px;
     text-align: center;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(var(--directorist-color-dark-rgb), 0.8);
     padding: 5px 12px;
     border-radius: 3px;
-    color: #fff;
+    color: var(--directorist-color-white);
   }
 
   &[aria-label]:hover:before,
@@ -839,7 +839,7 @@ a {
   &:after {
     content: "\f0c5";
     font-family: "Font Awesome 5 Free";
-    color: #000;
+    color: var(--directorist-color-dark);
     font-weight: normal;
     line-height: initial;
     cursor: pointer;
@@ -972,7 +972,7 @@ span.atbdp-tick-cross {
     text-decoration: none;
     line-height: 44px;
     padding: 0 20px;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     border: 1px solid #e3e6ef;
     color: #272b41;
     border-radius: 5px;
@@ -989,11 +989,11 @@ span.atbdp-tick-cross {
 
     &.btn-active {
       background-color: #2c99ff;
-      color: #fff;
+      color: var(--directorist-color-white);
       border-color: #2c99ff;
 
       span {
-        color: rgba(#fff, 0.8);
+        color: rgba(var(--directorist-color-white-rgb), 0.8);
       }
     }
   }
@@ -1031,7 +1031,7 @@ span.atbdp-tick-cross {
         border-radius: 50%;
         color: #9299b8;
         box-shadow: 5px 0 10px rgba(#9299b8, 0.15);
-        background-color: #fff;
+        background-color: var(--directorist-color-white);
 
         .dashicons {
           margin: 0;
@@ -1049,7 +1049,7 @@ span.atbdp-tick-cross {
       &.active {
         .step {
           background-color: #272b41;
-          color: #fff;
+          color: var(--directorist-color-white);
         }
 
         .step-text {
@@ -1064,7 +1064,7 @@ span.atbdp-tick-cross {
 
         .step {
           background-color: #0fb73b;
-          color: #fff;
+          color: var(--directorist-color-white);
 
           .step-count {
             display: none;
@@ -1094,7 +1094,7 @@ span.atbdp-tick-cross {
   .csv-center {
     width: 700px;
     margin: 0 auto;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     border-radius: 5px;
     box-shadow: 0 5px 8px rgba(#9299b8, 0.15);
   }
@@ -1147,7 +1147,7 @@ span.atbdp-tick-cross {
                 border-radius: 5px;
                 padding: 0 20px;
                 background-color: #5a5f7d;
-                color: #fff;
+                color: var(--directorist-color-white);
                 font-weight: 500;
               }
 
@@ -1286,7 +1286,7 @@ span.atbdp-tick-cross {
 
       .button {
         background-color: #2c99ff;
-        color: #fff;
+        color: var(--directorist-color-white);
         border: 0 none;
         line-height: 44px;
         padding: 0 20px;
@@ -1374,7 +1374,7 @@ span.atbdp-tick-cross {
           border-radius: 50%;
           background-color: #0fb73b;
           font-size: 70px;
-          color: #fff;
+          color: var(--directorist-color-white);
           align-items: center;
           justify-content: center;
         }
@@ -1406,7 +1406,7 @@ span.atbdp-tick-cross {
 
       .button {
         background-color: #2c99ff;
-        color: #fff;
+        color: var(--directorist-color-white);
         border: 0 none;
         line-height: 44px;
         padding: 0 20px;
@@ -1425,7 +1425,7 @@ span.atbdp-tick-cross {
 
     .button-secondary {
       background-color: #2c99ff;
-      color: #fff;
+      color: var(--directorist-color-white);
       border: 0 none;
       line-height: 44px;
       padding: 0 20px;
@@ -1449,7 +1449,7 @@ span.atbdp-tick-cross {
       justify-content: center;
       padding: 0 15px;
       border-radius: 3px;
-      color: #fff;
+      color: var(--directorist-color-white);
       background-image: none;
       width: auto;
       cursor: pointer;
@@ -1587,7 +1587,7 @@ span.atbdp-tick-cross {
         &.btn-primary {
           background: $primary;
           border: 0 none;
-          color: #fff;
+          color: var(--directorist-color-white);
         }
       }
     }
@@ -1774,7 +1774,7 @@ span.atbdp-tick-cross {
 
     &.active {
       color: $ss-primary;
-      background-color: #fff;
+      background-color: var(--directorist-color-white);
     }
 
     &:focus {
@@ -1946,7 +1946,7 @@ span.atbdp-tick-cross {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     box-shadow: 0 5px 10px rgba(#a1a8c6, 0.05);
 
     i,
@@ -2022,23 +2022,23 @@ span.atbdp-tick-cross {
   }
 
   &.atbds_btnPrimary {
-    color: #fff;
+    color: var(--directorist-color-white);
     background-color: $ss-primary;
 
     &:hover {
       color: $ss-primary;
-      background-color: #fff;
+      background-color: var(--directorist-color-white);
       border-color: $ss-primary;
     }
   }
 
   &.atbds_btnDark {
-    color: #fff;
+    color: var(--directorist-color-white);
     background-color: $ss-dark;
 
     &:hover {
       color: $ss-dark;
-      background-color: #fff;
+      background-color: var(--directorist-color-white);
       border-color: $ss-dark;
     }
   }
@@ -2049,7 +2049,7 @@ span.atbdp-tick-cross {
 
     &:hover {
       color: $ss-dark;
-      background-color: #fff;
+      background-color: var(--directorist-color-white);
       border-color: $ss-border-light;
     }
   }
@@ -2153,7 +2153,7 @@ span.atbdp-tick-cross {
       height: 18px;
       border-radius: 3px;
       content: "";
-      background-color: #fff;
+      background-color: var(--directorist-color-white);
       border-width: 1px;
       border-style: solid;
       border: 1px solid $ss-border-gray;
@@ -2185,7 +2185,7 @@ span.atbdp-tick-cross {
 
       &:before {
         opacity: 1;
-        color: #fff;
+        color: var(--directorist-color-white);
       }
     }
   }
@@ -2203,7 +2203,7 @@ span.atbdp-tick-cross {
   .atbd_content_module {
     border: 1px solid #e3e6ef;
     margin-bottom: 35px;
-    background-color: #ffffff;
+    background-color: var(--directorist-color-white);
     text-align: left;
     border-radius: 3px;
 
@@ -2261,7 +2261,7 @@ span.atbdp-tick-cross {
   font-size: 11px;
   position: relative;
   top: 1px;
-  color: #fff;
+  color: var(--directorist-color-white);
 }
 
 .atbd-listing-type-active-status {
@@ -2432,12 +2432,12 @@ span.atbdp-tick-cross {
       text-decoration: none;
       border-color: #3e62f5;
       color: #3e62f5;
-      background-color: #fff;
+      background-color: var(--directorist-color-white);
       transition: 0.3s ease;
 
       &:hover {
         background-color: #3e62f5;
-        color: #fff;
+        color: var(--directorist-color-white);
       }
     }
   }
@@ -2466,7 +2466,7 @@ span.atbdp-tick-cross {
     line-height: 38px;
     border-radius: 4px;
     text-decoration: none;
-    color: #fff;
+    color: var(--directorist-color-white);
   }
 
   .listing-img-container {
@@ -2493,7 +2493,7 @@ span.atbdp-tick-cross {
         -o-transition: 0.2s;
         transition: 0.2s;
         cursor: pointer;
-        color: #ffffff;
+        color: var(--directorist-color-white);
       }
     }
 
@@ -2535,7 +2535,7 @@ span.atbdp-tick-cross {
   justify-content: center;
   padding: 0 15px;
   border-radius: 3px;
-  color: #fff;
+  color: var(--directorist-color-white);
   background-image: none;
   width: auto;
   cursor: pointer;
@@ -2555,7 +2555,7 @@ span.atbdp-tick-cross {
     justify-content: center;
     padding: 0 15px;
     border-radius: 3px;
-    color: #fff;
+    color: var(--directorist-color-white);
     background-image: none;
     width: 80px;
     cursor: pointer;
@@ -2596,7 +2596,7 @@ span.atbdp-tick-cross {
 
 .atbdp-section-content {
   padding: 10px;
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
 }
 
 .atbdp-state-section-content {
@@ -2621,7 +2621,7 @@ span.atbdp-tick-cross {
 .atbdp-accordion-content {
   display: none;
   padding: 10px;
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
 }
 
 /* Card */
@@ -2640,8 +2640,8 @@ span.atbdp-tick-cross {
 
 .atbdp-card {
   display: block;
-  background-color: #fff;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--directorist-color-white);
+  box-shadow: 0 0 5px rgba(var(--directorist-color-dark-rgb), 0.1);
   padding: 20px;
   text-align: center;
 }
@@ -2684,8 +2684,8 @@ span.atbdp-tick-cross {
   max-width: 400px;
   padding: 20px;
   border-radius: 4px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  box-shadow: 0 0 30px rgba(var(--directorist-color-dark-rgb), 0.1);
+  background-color: var(--directorist-color-white);
 }
 
 .atbdp-license-form-container {
@@ -2800,13 +2800,13 @@ input.atbdp-form-control {
 }
 
 .atbdp-form-alert-success {
-  color: #fff;
+  color: var(--directorist-color-white);
   background-color: #53b732;
 }
 
 .atbdp-form-alert-danger,
 .atbdp-form-alert-error {
-  color: #fff;
+  color: var(--directorist-color-white);
   background-color: #ff4343;
 }
 
@@ -2819,7 +2819,7 @@ input.atbdp-form-control {
 }
 
 .atbdp-btn-primary {
-  color: #fff;
+  color: var(--directorist-color-white);
   background-color: #6495ed;
 }
 
@@ -2910,7 +2910,7 @@ input.atbdp-form-control {
 
 .atbdp-tab-nav-menu__link:hover {
   color: #555;
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
 }
 
 .atbdp-tab-nav-menu__link:active,
@@ -3010,7 +3010,7 @@ input.atbdp-form-control {
 }
 
 .et-wrapper {
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
   border-radius: 4px;
 
   .et-wrapper-head {
@@ -3199,7 +3199,7 @@ input.atbdp-form-control {
           button.ei-action-btn {
             background-color: #c6d0dc !important;
             border-radius: 4px;
-            color: #fff !important;
+            color: var(--directorist-color-white) !important;
             line-height: 30px;
             padding: 0 15px !important;
           }
@@ -3281,7 +3281,7 @@ input.atbdp-form-control {
           display: inline-block;
           font-size: 11px;
           font-weight: 600;
-          color: #fff;
+          color: var(--directorist-color-white);
           background-color: #00b158;
           line-height: 22px;
           padding: 0 10px;
@@ -3360,7 +3360,7 @@ input.atbdp-form-control {
               border-radius: 4px;
               min-width: 140px;
               box-shadow: 0 5px 10px rgba(#a1a8c6, 0.2);
-              background-color: #fff;
+              background-color: var(--directorist-color-white);
               z-index: 1;
               visibility: hidden;
               opacity: 0;
@@ -3468,12 +3468,12 @@ input.atbdp-form-control {
 
   &:hover {
     background-color: #3e62f5 !important;
-    color: #fff !important;
+    color: var(--directorist-color-white) !important;
   }
 
   &.ext-install-btn {
     background-color: #3e62f5 !important;
-    color: #fff !important;
+    color: var(--directorist-color-white) !important;
   }
 }
 
@@ -3491,7 +3491,7 @@ input.atbdp-form-control {
 }
 
 .theme-card {
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
   box-shadow: 0 5px 20px rgba(#adb4d2, 0.3);
   width: 400px;
   max-width: 400px;
@@ -3536,7 +3536,7 @@ input.atbdp-form-control {
           margin: 8px 6px;
 
           &.btn-customize {
-            color: #fff !important;
+            color: var(--directorist-color-white) !important;
             background-color: #3e62f5 !important;
           }
         }
@@ -3588,7 +3588,7 @@ input.atbdp-form-control {
       line-height: 34px;
       font-size: 13px;
       font-weight: 500;
-      color: #fff !important;
+      color: var(--directorist-color-white) !important;
       background-color: #3e62f5 !important;
       border-radius: 20px;
       padding: 0 20px;
@@ -3648,14 +3648,14 @@ input.atbdp-form-control {
         border-radius: 20px;
         color: #272b41 !important;
         box-shadow: 0 5px 10px rgba(#868eae, 0.05);
-        background-color: #fff !important;
+        background-color: var(--directorist-color-white) !important;
         font-weight: 500;
         font-size: 14px;
         margin: 8px 6px;
 
         &.theme-activate-btn {
           background-color: #3e62f5 !important;
-          color: #fff !important;
+          color: var(--directorist-color-white) !important;
         }
       }
     }
@@ -3664,7 +3664,7 @@ input.atbdp-form-control {
 
 #directorist.atbd_wrapper .account-connect {
   padding: 30px 50px;
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
   border-radius: 6px;
   box-shadow: 0 5px 20px rgba(#adb4d2, 0.05);
   width: 670px;
@@ -3738,7 +3738,7 @@ input.atbdp-form-control {
       box-shadow: 0 5px 10px rgba(#3e62f5, 0.1);
       font-size: 15px;
       font-weight: 500;
-      color: #fff;
+      color: var(--directorist-color-white);
       cursor: pointer;
 
       .atbdp-loading {
@@ -3776,7 +3776,7 @@ input.atbdp-form-control {
 }
 
 #directorist.atbd_wrapper .et-card {
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
   border-radius: 6px;
   box-shadow: 0 5px 5px rgba(#adb4d2, 0.05);
   display: flex;
@@ -3873,7 +3873,7 @@ input.atbdp-form-control {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(var(--directorist-color-dark-rgb), 0.5);
   left: 0;
   top: 0;
   z-index: 9999;
@@ -3898,7 +3898,7 @@ input.atbdp-form-control {
 
 .atm-contents-inner {
   width: 100%;
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
   pointer-events: auto;
   border-radius: 3px;
   position: relative;
@@ -3939,7 +3939,7 @@ input.atbdp-form-control {
   position: absolute;
   transform: none;
   background-color: #444752;
-  color: #fff;
+  color: var(--directorist-color-white);
   border-radius: 300px;
   opacity: 1;
   font-weight: 300;
@@ -3969,7 +3969,7 @@ input.atbdp-form-control {
 
 #directorist.atbd_wrapper .at-modal-close {
   background-color: #5a5f7d;
-  color: #fff;
+  color: var(--directorist-color-white);
   font-size: 25px;
 }
 
@@ -3979,7 +3979,7 @@ input.atbdp-form-control {
 }
 
 #directorist.atbd_wrapper .at-modal-close:hover {
-  color: #fff;
+  color: var(--directorist-color-white);
 }
 
 #directorist.atbd_wrapper .modal-body {
@@ -3997,8 +3997,8 @@ input.atbdp-form-control {
 #directorist.atbd_wrapper .modal-body .update-list .update-badge {
   line-height: 23px;
   border-radius: 3px;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--directorist-color-dark);
+  color: var(--directorist-color-white);
   font-size: 11px;
   font-weight: 600;
   padding: 0 7px;
@@ -4057,7 +4057,7 @@ input.atbdp-form-control {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #000;
+  background-color: var(--directorist-color-dark);
   left: 0;
   top: 5px;
 }
@@ -4139,7 +4139,7 @@ input.atbdp-form-control {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
   padding: 0 30px;
 
   @media only screen and (max-width: 575px) {
@@ -4281,7 +4281,7 @@ input.atbdp-form-control {
       }
     }
     .directorist_membership-notice__text {
-      color: #fff;
+      color: var(--directorist-color-white);
       h4 {
         font-size: 24px;
         font-weight: bold;
@@ -4299,7 +4299,7 @@ input.atbdp-form-control {
         font-weight: 500;
         max-width: 350px;
         margin-bottom: 12px;
-        color: #ffffff90;
+        color: var(--directorist-color-white)fff90;
       }
       .directorist_membership-sale-badge {
         display: inline-flex;
@@ -4310,7 +4310,7 @@ input.atbdp-form-control {
         line-height: 1.95;
         padding: 0 15px;
         border-radius: 6px;
-        color: #000000;
+        color: var(--directorist-color-primary);
         transition: 0.3s;
         background-color: #3af4c2;
         &:hover {
@@ -4354,7 +4354,7 @@ input.atbdp-form-control {
     width: 50%;
     font-size: 16px;
     font-weight: 500;
-    color: #fff;
+    color: var(--directorist-color-white);
     margin: 8px 0;
     @media only screen and (max-width: 1499px) {
       font-size: 15px;
@@ -4375,7 +4375,7 @@ input.atbdp-form-control {
         position: relative;
         top: 1px;
         font-size: 11px;
-        color: #000;
+        color: var(--directorist-color-dark);
         @media only screen and (max-width: 1199px) {
           top: 0;
         }
@@ -4399,7 +4399,7 @@ input.atbdp-form-control {
     justify-content: center;
     font-size: 18px;
     font-weight: bold;
-    color: #000;
+    color: var(--directorist-color-dark);
     min-height: 52px;
     border-radius: 8px;
     padding: 0 34.45px;
@@ -4429,12 +4429,12 @@ input.atbdp-form-control {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
   transition: 0.3s;
   &:hover {
     background-color: $danger;
     i {
-      color: #fff;
+      color: var(--directorist-color-white);
     }
   }
   i {
@@ -4520,11 +4520,11 @@ input.atbdp-form-control {
         height: 25px;
         width: 25px;
         border-radius: 50%;
-        border: 2px solid #fff;
+        border: 2px solid var(--directorist-color-white);
 
         i {
           font-weight: 900;
-          color: #fff;
+          color: var(--directorist-color-white);
         }
       }
 
@@ -4533,7 +4533,7 @@ input.atbdp-form-control {
         font-size: 16px;
         line-height: 1.5;
         font-weight: 500;
-        color: #fff;
+        color: var(--directorist-color-white);
         margin-top: 15px;
         @media only screen and (max-width: 1199px) {
           font-size: 15px;
@@ -4622,7 +4622,7 @@ input.atbdp-form-control {
 
     .directorist_builder--tabContent {
       padding: 20px;
-      background-color: #fff;
+      background-color: var(--directorist-color-white);
       border-radius: 4px;
       box-shadow: 0 5px 10px #adb4d210;
 
@@ -4731,7 +4731,7 @@ input.atbdp-form-control {
 
                 .directorist_listing-actions {
                   a {
-                    color: #fff;
+                    color: var(--directorist-color-white);
 
                     &.directorist_btn-primary {
                       background-color: #3e62f5;
@@ -4802,7 +4802,7 @@ input.atbdp-form-control {
                 padding: 4px 9px 3px;
                 letter-spacing: 1px;
                 background-color: #868eae;
-                color: #fff;
+                color: var(--directorist-color-white);
                 text-transform: uppercase;
               }
 
@@ -4867,7 +4867,7 @@ input.atbdp-form-control {
                   }
 
                   &:hover {
-                    color: #fff;
+                    color: var(--directorist-color-white);
                   }
                 }
 
@@ -4962,7 +4962,7 @@ input.atbdp-form-control {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     box-shadow: 0 5px 10px #adb4d260;
     margin: 2px;
     transition: 0.3s ease;
@@ -4998,7 +4998,7 @@ input.atbdp-form-control {
       content: '\f00c';
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
-      color: #fff;
+      color: var(--directorist-color-white);
     }
     &.active {
       display: inline-flex;
@@ -5019,13 +5019,13 @@ input.atbdp-form-control {
     margin: 2px;
     transition: 0.3s ease;
     background-color: #ff006e;
-    color: #fff;
+    color: var(--directorist-color-white);
     &:before {
       content: "\f00d";
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       font-size: 15px;
-      color: #fff;
+      color: var(--directorist-color-white);
     }
     &--hidden {
       opacity: 0;
@@ -5097,7 +5097,7 @@ input.atbdp-form-control {
       height: 18px;
       border-radius: 50%;
       content: "";
-      background-color: #fff;
+      background-color: var(--directorist-color-white);
       border: 2px solid #c6d0dc;
     }
   }
@@ -5110,7 +5110,7 @@ input.atbdp-form-control {
 
     &:before {
       opacity: 1;
-      color: #fff;
+      color: var(--directorist-color-white);
     }
   }
 }
@@ -5130,7 +5130,7 @@ input.atbdp-form-control {
     border: 0 none;
 
     &.directorist_badge-primary {
-      color: #fff;
+      color: var(--directorist-color-white);
       background-color: #3e62f5;
     }
   }
@@ -5166,7 +5166,7 @@ input.atbdp-form-control {
       background-color: transparent;
 
       &:hover {
-        color: #fff;
+        color: var(--directorist-color-white);
         background-color: #3e62f5;
       }
     }
@@ -5177,7 +5177,7 @@ input.atbdp-form-control {
       background-color: transparent;
 
       &:hover {
-        color: #fff;
+        color: var(--directorist-color-white);
         background-color: #ff272a;
       }
     }
@@ -5218,7 +5218,7 @@ input.atbdp-form-control {
     left: 0;
     top: 44px;
     padding: 15px;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     box-shadow: 0 10px 40px rgba(134, 142, 174, 0.18823529411764706);
     border-radius: 5px;
     z-index: 99999;
@@ -5291,7 +5291,7 @@ input.atbdp-form-control {
     height: 40px;
     width: 40px;
     border-radius: 50% !important;
-    background-color: #fff !important;
+    background-color: var(--directorist-color-white) !important;
     padding: 0 !important;
     color: #868eae !important;
 
@@ -5313,7 +5313,7 @@ input.atbdp-form-control {
     top: 40px;
     opacity: 0;
     visibility: hidden;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     -webkit-box-shadow: 0 5px 15px #8f8e9f20;
     box-shadow: 0 5px 15px #8f8e9f20;
     border-radius: 6px;
@@ -5341,7 +5341,7 @@ input.atbdp-form-control {
           margin: 0 !important;
           line-height: 1.75 !important;
           color: #5a5f7d !important;
-          background-color: #fff !important;
+          background-color: var(--directorist-color-white) !important;
 
           &:focus {
             outline: none;
@@ -5429,7 +5429,7 @@ input.atbdp-form-control {
 #atbdp_ie_download_sample {
   display: inline-block;
   padding: 0 20px;
-  color: #fff;
+  color: var(--directorist-color-white);
   font-size: 14px;
   text-decoration: none;
   font-weight: 500;
@@ -5443,7 +5443,7 @@ input.atbdp-form-control {
   &:hover {
     border-color: darken(#3e62f5, 5);
     background: darken(#3e62f5, 5);
-    color: #fff;
+    color: var(--directorist-color-white);
   }
 }
 
@@ -5498,12 +5498,12 @@ img.atbdp-file-info {
     transition: all ease-in-out 300ms;
     font-weight: 500;
     font-size: 15px;
-    color: #fff;
+    color: var(--directorist-color-white);
     background-color: #3e62f5;
     margin-right: 10px;
 
     &:hover {
-      color: #fff;
+      color: var(--directorist-color-white);
     }
   }
 }

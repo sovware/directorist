@@ -22,7 +22,7 @@
             position: absolute;
             transform: none;
             background-color: #444752;
-            color: #fff;
+            color: var(--directorist-color-white);
             border-radius: 300px;
             opacity: 1;
             font-weight: 300;
@@ -166,7 +166,7 @@
     }
     a{
         text-decoration: none;
-        color: #51526E;
+        color: var(--directorist-color-body);
         transition: 0.3s ease;
         display: flex;
         gap: 10px;
@@ -202,10 +202,10 @@
         }
 
         &:hover{
-            color: #000;
+            color: var(--directorist-color-primary);
             span{
-                background-color: #000;
-                color: #fff;
+                background-color: var(--directorist-color-primary);
+                color: var(--directorist-color-white);
             }
         }
     }
@@ -214,7 +214,7 @@
 .directorist-single-dummy-shortcode {
     width: 100%;
     background-color: #556166;
-    color: #fff;
+    color: var(--directorist-color-white);
     margin: 10px 0;
     text-align: center;
     padding: 40px 10px;

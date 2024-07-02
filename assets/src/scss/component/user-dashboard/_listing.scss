@@ -2,7 +2,7 @@
 .directorist-favourite-items-wrap {
     box-shadow: 0 0 15px rgba(0,0,0, 0.05);
     .directorist-favourirte-items {
-        background-color: #fff;
+        background-color: var(--directorist-color-white);
         padding: 20px 10px;
         border-radius: 16px;
 
@@ -56,7 +56,7 @@
                 font-weight: 500;
                 margin: 0 0 6px;
                 a {
-                    color: var(--directorist-color-primary);
+                    color: var(--directorist-color-dark);
                     text-decoration: none;
                 }
             }
@@ -92,14 +92,14 @@
                     align-items: center;
                     border-radius: 8px;
                     padding: 0px 14px;
-                    color: #fff !important;
+                    color: var(--directorist-color-white) !important;
                     line-height: 2.65;
                     opacity: 0;
                     visibility: hidden;
                     .directorist-icon-mask {
                         margin-right: 5px;
                         &:after{
-                            background-color: #fff;
+                            background-color: var(--directorist-color-white);
                         }
                     }
 

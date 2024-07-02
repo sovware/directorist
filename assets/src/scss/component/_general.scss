@@ -12,8 +12,8 @@
     border-radius: 8px;
     cursor: pointer;
     &:hover {
-      color: #fff;
-      background: rgba(0, 0, 0, 0.7);
+      color: var(--directorist-color-white);
+      background: rgba(var(--directorist-color-dark-rgb), 0.7);
     }
 
     .wp-color-result-text {
@@ -109,6 +109,7 @@
   }
   .directorist-search-modal__contents__title {
     margin: 0;
+    color: var(--directorist-color-dark);
   }
 }
 
@@ -277,7 +278,7 @@ body.modal-overlay-enabled {
     position: absolute;
     left: 0;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(var(--directorist-color-dark-rgb), 0.05);
     z-index: 1;
   }
 }

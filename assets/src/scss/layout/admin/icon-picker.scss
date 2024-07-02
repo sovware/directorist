@@ -1,6 +1,6 @@
 .icon-picker{
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.35);
+    background-color: rgba(var(--directorist-color-dark-rgb), 0.35);
     top: 0;
     right: 0;
     bottom: 0;
@@ -27,7 +27,7 @@
         height: 34px;
         border-radius: 50%;
         background-color: #5A5F7D;
-        color: #fff;
+        color: var(--directorist-color-white);
         font-size: 12px;
         display: flex;
         align-items: center;
@@ -37,7 +37,7 @@
         top: 23px;
         transition: 0.3s ease;
         &:hover{
-            color: #fff;
+            color: var(--directorist-color-white);
             background-color: #222;
         }
     }
@@ -73,7 +73,7 @@
                 transition: 0.3s ease;
                 &.cptm-btn-primary{
                     background-color: #3e62f5;
-                    color: #fff;
+                    color: var(--directorist-color-white);
                     font-size: 30px;
                     box-shadow: 0 3px 10px rgba(#272B41, 0.2);
                     border: 1px solid #E3E6EF;

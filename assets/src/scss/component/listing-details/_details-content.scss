@@ -241,10 +241,10 @@
         opacity: 0;
         right: 0;
         top: calc(100% + 30px);
-        background-color: #ffffff;
+        background-color: var(--directorist-color-white);
         border-radius: 10px;
         width: 150px;
-        box-shadow: 0 5px 15px rgba(#000, 0.15);
+        box-shadow: 0 5px 15px rgba(var(--directorist-color-dark-rgb), 0.15);
         list-style-type: none;
         padding: 10px;
         margin: 0;

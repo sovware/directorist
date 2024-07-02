@@ -42,12 +42,14 @@
 
                 &:hover {
                     border-bottom-color: var(--directorist-color-primary);
+                    color: var(--directorist-color-primary);
                 }
             }
 
             &.active {
                 a {
                     border-bottom-color: var(--directorist-color-primary);
+                    color: var(--directorist-color-primary);
                 }
             }
         }
@@ -159,11 +161,11 @@
                 text-decoration: none;
 
                 &:hover {
-                    background-color: #000;
+                    background-color: var(--directorist-color-primary);
                     /* Legacy Icon */
                     >span{
                         background: none;
-                        color: #fff;
+                        color: var(--directorist-color-white);
                     }
                 }
             }
@@ -181,8 +183,8 @@
             transition: 0.3s ease;
 
             &:hover {
-                background-color: #000;
-                color: #fff;
+                background-color: var(--directorist-color-primary);
+                color: var(--directorist-color-white);
             }
         }
     }

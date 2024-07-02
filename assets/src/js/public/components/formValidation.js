@@ -43,7 +43,8 @@
             var message = $(this).find('textarea[name="atbdp-contact-message"]');
             var post_id = $(this).find('input[name="atbdp-post-id"]');
             var listing_email = $(this).find('input[name="atbdp-listing-email"]');
-
+            var recaptcha_response = $(this).find('textarea[name="g-recaptcha-response"]');
+            
             // Post via AJAX
             var data = {
                 'action': 'atbdp_public_send_contact_email',
@@ -54,6 +55,10 @@
                 'message': message.val(),
                 'directorist_nonce': directorist.directorist_nonce
             };
+
+            if ( recaptcha_response.val() && recaptcha_response.val().length ) {
+                data.recaptcha_response = recaptcha_response.val();
+            }
 
             submit_button.prop('disabled', true);
             $.post(directorist.ajaxurl, data, function (response) {

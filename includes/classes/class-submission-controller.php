@@ -428,8 +428,8 @@ class SubmissionController {
 		static::cache_selected_categories( $directory_id, $posted_data );
 
 		$error        = new WP_Error();
-		$taxonomies   = array();
-		$metadata     = array();
+		$tax_data     = array();
+		$meta_data    = array();
 		$listing_data = array(
 			'post_type' => ATBDP_POST_TYPE
 		);
@@ -474,7 +474,7 @@ class SubmissionController {
 
 				case 'excerpt':
 					$listing_data['post_excerpt'] = $field->sanitize( $posted_data );
-					$metadata['_excerpt']        = $field->sanitize( $posted_data );
+					$meta_data['_excerpt']        = $field->sanitize( $posted_data );
 					break;
 
 				case 'description':
@@ -482,23 +482,23 @@ class SubmissionController {
 					break;
 
 				case 'location':
-					self::process_locations( $field, $posted_data, $taxonomies, $error );
+					self::process_locations( $field, $posted_data, $tax_data, $error );
 					break;
 
 				case 'category':
-					self::process_categories( $field, $posted_data, $taxonomies, $error );
+					self::process_categories( $field, $posted_data, $tax_data, $error );
 					break;
 
 				case 'tag':
-					self::process_tags( $field, $posted_data, $taxonomies, $error );
+					self::process_tags( $field, $posted_data, $tax_data, $error );
 					break;
 
 				case 'pricing':
-					self::process_pricing( $field, $posted_data, $metadata, $error );
+					self::process_pricing( $field, $posted_data, $meta_data, $error );
 					break;
 
 				case 'map':
-					self::process_map( $field, $posted_data, $metadata, $error );
+					self::process_map( $field, $posted_data, $meta_data, $error );
 					break;
 
 				case 'image_upload':
@@ -514,11 +514,11 @@ class SubmissionController {
 		}
 
 		if ( ! empty( $posted_data['privacy_policy'] ) ) {
-			$metadata['_privacy_policy'] = (bool) $posted_data['privacy_policy'];
+			$meta_data['_privacy_policy'] = (bool) $posted_data['privacy_policy'];
 		}
 
 		if ( ! empty( $posted_data['t_c_check'] ) ) {
-			$metadata['_t_c_check'] = (bool) $posted_data['t_c_check'];
+			$meta_data['_t_c_check'] = (bool) $posted_data['t_c_check'];
 		}
 
 		$listing_create_status = directorist_get_listing_create_status( $directory_id );
@@ -531,13 +531,13 @@ class SubmissionController {
 		 *
 		 * @param array $meta_data the array of meta keys and meta values
 		 */
-		$metadata = apply_filters( 'atbdp_listing_meta_user_submission', $metadata );
-		$metadata = apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $metadata, $posted_data );
+		$meta_data = apply_filters( 'atbdp_listing_meta_user_submission', $meta_data );
+		$meta_data = apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $meta_data, $posted_data );
 
-		$meta_input = self::filter_empty_meta_data( $metadata );
+		$meta_input = self::filter_empty_meta_data( $meta_data );
 
 		$listing_data['meta_input'] = $meta_input;
-		$listing_data['tax_input']  = $taxonomies;
+		$listing_data['tax_input']  = $tax_data;
 
 		// Handle edit
 		if ( $listing_id ) {
@@ -560,11 +560,11 @@ class SubmissionController {
 				return $listing_id;
 			}
 
-			self::reset_listing_taxonomy( $listing_id, $taxonomies );
+			self::reset_listing_taxonomy( $listing_id, $tax_data );
 			directorist_set_listing_directory( $listing_id, $directory_id );
 
 			// Clean empty meta data.
-			self::clean_empty_metadata( $listing_id, $metadata, $meta_input );
+			self::clean_empty_metadata( $listing_id, $meta_data, $meta_input );
 
 			do_action( 'atbdp_listing_updated', $listing_id );
 		} else {

@@ -743,7 +743,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				if ( ! empty( $redirection_after_reg ) ) {
 					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ) );
 				} else {
-					file_put_contents( __DIR__ . '/data.txt', 'status' );
 					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link( array( 'registration_status' => true ) ) ) );
 				}
 				exit();

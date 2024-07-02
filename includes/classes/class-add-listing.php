@@ -74,12 +74,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$response = SubmissionController::submit( $posted_data, 'web' );
 
 				if ( is_wp_error( $response ) ) {
-					file_put_contents( __DIR__ . '/data.txt', print_r( [
-						$response->get_all_error_data('directorist_invalid_field'),
-						$response->get_error_messages(),
-						$response->errors
-					], 1 ) );
-
 					return wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', array(
 						'error'     => true,
 						'error_msg' => implode( '<br>', $response->get_error_messages() ),

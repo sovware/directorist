@@ -734,6 +734,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 							'description' => __( 'Price type.', 'directorist' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
+							'enum' 		  => array( 'price', 'range' ),
 						),
 						'price'              => array(
 							'description' => __( 'Price amount.', 'directorist' ),
@@ -783,7 +784,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
-						'phone_2'                  => array(
+						'phone2'                  => array(
 							'description' => __( 'Phone number 2.', 'directorist' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
@@ -804,7 +805,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
-						'video_url'              => array(
+						'videourl'              => array(
 							'description' => __( 'Video url.', 'directorist' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),

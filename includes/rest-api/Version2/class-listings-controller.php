@@ -107,13 +107,13 @@ class Listings_Controller extends Legacy_Listings_Controller {
 				'description' => 'listing_content',
 			),
 			'location' => array(
-				'locations' => 'tax_input[' . ATBDP_LOCATION . ']',
+				'locations' => ATBDP_LOCATION,
 			),
 			'category' => array(
-				'categories' => 'tax_input[' . ATBDP_CATEGORY . ']',
+				'categories' => ATBDP_CATEGORY,
 			),
 			'tag' => array(
-				'tags' => 'tax_input[' . ATBDP_TAGS . ']',
+				'tags' => ATBDP_TAGS,
 			),
 			'pricing' => array(
 				'price_type'  => 'atbd_listing_pricing',
@@ -145,6 +145,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 
 		$form_fields = directorist_get_listing_form_fields( $directory_id, $plan_id );
 		$map         = $this->get_schema_to_post_fields_map();
+		$_POST['tax_input'] = array();
 
 		foreach ( $form_fields as $form_field ) {
 			if ( empty( $form_field['widget_name'] ) || (bool) directorist_get_var( $form_field['only_for_admin'] ) ) {
@@ -157,7 +158,18 @@ class Listings_Controller extends Legacy_Listings_Controller {
 			if ( isset( $request['fields'] ) && isset( $map[ $widget_key ] ) ) {
 
 				foreach ( $map[ $widget_key ] as $schema_key => $post_key ) {
-					if ( isset( $request['fields'][ $schema_key ] ) ) {
+					if ( ! isset( $request['fields'][ $schema_key ] ) ) {
+						continue;
+					}
+
+					if ( in_array( $schema_key, array( 'categories', 'locations', 'tags' ), true ) ) {
+						$_POST['tax_input'] = array_merge(
+							$_POST['tax_input'],
+							array(
+								$post_key => $this->transform_taxonomy_data( $schema_key, $request['fields'][ $schema_key ] )
+							)
+						);
+					} else {
 						$_POST[ $post_key ] = $request['fields'][ $schema_key ];
 					}
 				}
@@ -169,7 +181,18 @@ class Listings_Controller extends Legacy_Listings_Controller {
 			} elseif ( isset( $request[ $field_key ] ) && isset( $map[ $widget_key ] ) ) {
 
 				foreach ( $map[ $widget_key ] as $schema_key => $post_key ) {
-					if ( isset( $request[ $schema_key ] ) ) {
+					if ( ! isset( $request[ $schema_key ] ) ) {
+						continue;
+					}
+
+					if ( in_array( $schema_key, array( 'categories', 'locations', 'tags' ), true ) ) {
+						$_POST['tax_input'] = array_merge(
+							$_POST['tax_input'],
+							array(
+								$post_key => $this->transform_taxonomy_data( $schema_key, $request[ $schema_key ] )
+							)
+						);
+					} else {
 						$_POST[ $post_key ] = $request[ $schema_key ];
 					}
 				}
@@ -189,6 +212,37 @@ class Listings_Controller extends Legacy_Listings_Controller {
 				$_POST[ $post_key ] = $request[ $schema_key ];
 
 			}
+		}
+	}
+
+	protected function transform_taxonomy_data( $taxonomy, $taxonomy_data ) {
+		if ( $taxonomy === 'categories' || $taxonomy === 'locations' ) {
+			return array_map( static function( $item ) {
+				if ( ! empty( $item['id'] ) ) {
+					return $item['id'];
+				}
+
+				if ( ! empty( $item['name'] ) ) {
+					return $item['name'];
+				}
+
+				return '';
+			}, $taxonomy_data );
+		} else {
+			$names = wp_list_pluck( $taxonomy_data, 'name' );
+			$ids   = wp_list_pluck( $taxonomy_data, 'id' );
+			$tags  = get_terms( array(
+				'taxonomy'   => ATBDP_TAGS,
+				'include'    => $ids,
+				'hide_empty' => false,
+				'fields'     => 'names',
+			) );
+
+			if ( ! empty( $tags ) ) {
+				return array_merge( $names, $tags );
+			}
+
+			return $names;
 		}
 	}
 
@@ -582,6 +636,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					'description' => __( 'Listing author id.', 'directorist' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
+					'readonly'    => true,
 				),
 				'plan' => array(
 					'description' => __( 'Listing plan id.', 'directorist' ),
@@ -764,7 +819,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 							'context'     => array( 'view', 'edit' ),
 						),
 						'map_hidden'              => array(
-							'description' => __( 'Map visibility status status.', 'directorist' ),
+							'description' => __( 'Map visibility status.', 'directorist' ),
 							'type'        => 'boolean',
 							'default'     => false,
 							'context'     => array( 'view', 'edit' ),

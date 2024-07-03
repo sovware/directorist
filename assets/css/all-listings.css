@@ -13929,9 +13929,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 16px;
   color: var(--directorist-color-dark);
 }
-.directorist-categories__single__name:hover {
-  color: var(--directorist-color-primary);
-}
 .directorist-categories__single__name::before {
   content: "";
   position: absolute;

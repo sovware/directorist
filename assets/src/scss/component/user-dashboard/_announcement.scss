@@ -1,6 +1,6 @@
 // Userdashboard Announcement
 .directorist-announcement-wrapper {
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     border-radius: 16px;
     padding: 25px 20px;
     box-shadow: 0 0 15px rgba(0,0,0, 0.05);
@@ -125,7 +125,7 @@
                     background-color: var(--directorist-color-danger);
 
                     .directorist-icon-mask::after{
-                        background-color: #fff;
+                        background-color: var(--directorist-color-white);
                     }
                 }
             }
@@ -139,7 +139,7 @@
     min-width: 20px;
     height: 20px;
     line-height: 20px;
-    color: #fff;
+    color: var(--directorist-color-white);
     text-align: center;
     margin: 0 10px;
     vertical-align: middle;

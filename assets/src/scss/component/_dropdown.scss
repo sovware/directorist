@@ -61,8 +61,8 @@
             &.active,
             &:hover {
                 border-radius: 8px;
-                color: var(--directorist-color-dark);
-                background-color: var(--directorist-color-light);
+                color: var(--directorist-color-primary);
+                background-color: rgba(var(--directorist-color-primary-rgb), 0.05);
             }
 
             @media screen and (max-width: 575px) {
@@ -118,7 +118,7 @@
     opacity: 0;
     pointer-events: none;
     transition: 0.3s ease;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     z-index: 10;
 }
 

@@ -8,7 +8,7 @@
     border-radius: 16px;
     overflow: hidden;
     overflow-y: auto;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     box-shadow: var(--directorist-box-shadow);
     @media only screen and (max-width: 1199px) {
         position: fixed;
@@ -16,7 +16,7 @@
         left: 0;
         width: 230px;
         height: 100vh;
-        background-color: #fff;
+        background-color: var(--directorist-color-white);
         padding-top: 100px;
         box-shadow: 0 5px 10px rgb(143 142 159 / 10%);
         z-index: 2222;
@@ -83,7 +83,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: #51526E;
+        color: var(--directorist-color-body);
         text-decoration: none;
 
         .directorist_menuItem-text {
@@ -106,7 +106,10 @@
         &:focus {
             font-weight: 700;
             background-color: #E9E9E9;
-            color: #0A0B1E;
+            color:var(--directorist-color-primary);
+            .directorist-icon-mask:after{
+                background-color:var(--directorist-color-primary);
+            }
             &.atbd-dash-nav-dropdown {
                 background-color: transparent;
             }

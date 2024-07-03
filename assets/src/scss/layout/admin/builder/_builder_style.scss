@@ -60,7 +60,7 @@ $light-gray: #f4f5f7;
 .atbdp-cpt-manager {
   display: block;
   color: $dark;
-  background-color: var(--directorist-color-white);
+  background-color: #fff;
 }
 
 .atbdp-cptm-header {
@@ -94,7 +94,7 @@ $light-gray: #f4f5f7;
 .atbdp-cptm-footer {
   display: block;
   padding: 20px 10px;
-  background-color: var(--directorist-color-white);
+  background-color: #fff;
 }
 
 .atbdp-cptm-footer-actions {
@@ -118,7 +118,7 @@ $light-gray: #f4f5f7;
   flex-wrap: wrap;
   margin: 0 -10px;
   padding: 15px 10px;
-  background-color: var(--directorist-color-white);
+  background-color: #fff;
 }
 
 .cptm-card-preview-widget {
@@ -173,7 +173,7 @@ $light-gray: #f4f5f7;
   }
 
   &.cptm-btn-primary {
-    color: var(--directorist-color-white);
+    color: #fff;
     border-color: $primary;
     background-color: $primary;
 
@@ -188,7 +188,7 @@ $light-gray: #f4f5f7;
     background-color: transparent;
 
     &:hover {
-      color: var(--directorist-color-white);
+      color: #fff;
       background-color: $primary;
     }
   }
@@ -214,7 +214,7 @@ $light-gray: #f4f5f7;
   padding: 20px;
   margin-bottom: 10px;
   text-align: center;
-  background-color: var(--directorist-color-white);
+  background-color: #fff;
   transition: all ease-in-out 300ms;
   border: 1px dashed #c0c0c0;
 
@@ -237,18 +237,18 @@ $light-gray: #f4f5f7;
   max-width: 500px;
   padding: 10px 20px;
   text-align: center;
-  color: var(--directorist-color-white);
+  color: #fff;
   background-color: $primary;
   border-radius: 5px;
 }
 
 .cptm-alert-success {
-  color: var(--directorist-color-white);
+  color: #fff;
   background-color: $primary;
 }
 
 .cptm-alert-error {
-  color: var(--directorist-color-white);
+  color: #fff;
   background-color: rgb(197, 22, 22);
 }
 
@@ -385,7 +385,7 @@ $light-gray: #f4f5f7;
     border-bottom-color: $primary;
 
     .cptm-header-nav__icon {
-      color: var(--directorist-color-white);
+      color: #fff;
       background-color: $primary;
     }
 
@@ -506,18 +506,18 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-link-light {
-  color: var(--directorist-color-white);
+  color: #fff;
   @extend .reset-pseudo-link;
 
   &:hover,
   &:focus,
   &:active {
-    color: var(--directorist-color-white);
+    color: #fff;
   }
 }
 
 .cptm-color-white {
-  color: var(--directorist-color-white);
+  color: #fff;
 }
 
 .cptm-my-10 {
@@ -543,7 +543,7 @@ $light-gray: #f4f5f7;
 
 .atbdp-cptm-tab-contents {
   display: block;
-  background-color: var(--directorist-color-white);
+  background-color: #fff;
 }
 
 .atbdp-cptm-tab-item {
@@ -669,7 +669,7 @@ $light-gray: #f4f5f7;
 
       &.cptm-btn-primary {
         background: $primary;
-        color: var(--directorist-color-white);
+        color: #fff;
       }
     }
   }
@@ -794,7 +794,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   display: block;
 
   .cptm-form-builder-header-action-link {
-    color: var(--directorist-color-white);
+    color: #fff;
   }
 }
 
@@ -808,11 +808,11 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   flex-grow: 1;
   margin: 0;
   font-size: 14px;
-  color: var(--directorist-color-white);
+  color: #fff;
 }
 
 .cptm-form-builder-group-options {
-  background-color: var(--directorist-color-white);
+  background-color: #fff;
   margin: -5px 50px 0 0;
   padding: 22px 25px 25px;
   box-shadow: 0 1px 5px rgba(#a1a8c6, 0.1);
@@ -843,7 +843,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   margin-bottom: 20px;
   position: relative;
   margin-right: 50px;
-  // background-color: var(--directorist-color-white);
+  // background-color: #fff;
   border-radius: 4px;
 }
 
@@ -884,7 +884,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-field-item-header-actions {
   margin-left: 10px;
-  background-color: var(--directorist-color-white);
+  background-color: #fff;
 }
 
 .cptm-form-builder-header-action-link {
@@ -921,7 +921,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   cursor: move;
   box-shadow: 0px 1px 5px rgba(#a1a8c6, 0.1);
   border-radius: 4px;
-  background-color: var(--directorist-color-white);
+  background-color: #fff;
   z-index: 8;
 
   .cptm-title-3 {
@@ -932,7 +932,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-field-item-body {
   padding: 22px 25px 25px;
-  background-color: var(--directorist-color-white);
+  background-color: #fff;
 
   .cptm-field-wraper-type-toggle {
     border-bottom: 1px solid #F1F2F6;
@@ -1099,7 +1099,7 @@ input[type="checkbox"].cptm-checkbox {
     &::before {
       font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
       font-weight: 900;
-      color: var(--directorist-color-white);
+      color: #fff;
       content: "\f00c";
       z-index: 22;
     }
@@ -1131,7 +1131,7 @@ input[type="radio"].cptm-radio {
 
   .cptm-form-range-output-text {
     padding: 10px 20px;
-    background-color: var(--directorist-color-white);
+    background-color: #fff;
   }
 }
 
@@ -1246,7 +1246,7 @@ input[type="radio"].cptm-radio {
   &:hover,
   &.active {
     font-weight: 600;
-    color: var(--directorist-color-white);
+    color: #fff;
     background: $primary;
   }
 
@@ -1314,7 +1314,7 @@ input[type="radio"].cptm-radio {
     height: 0;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
-    border-top: 15px solid var(--directorist-color-white);
+    border-top: 15px solid #fff;
   }
 }
 
@@ -1322,12 +1322,12 @@ input[type="radio"].cptm-radio {
   display: inline-block;
   padding: 0 10px;
   text-decoration: none;
-  color: var(--directorist-color-white);
+  color: #fff;
   transition: all ease-in-out 300ms;
   @extend .reset-pseudo-link;
 
   &:hover {
-    color: var(--directorist-color-white);
+    color: #fff;
   }
 }
 
@@ -1341,7 +1341,7 @@ input[type="radio"].cptm-radio {
 .cptm-option-card-header-title-section {
   display: flex;
   align-items: center;
-  color: var(--directorist-color-white);
+  color: #fff;
   min-height: 56px;
   padding: 0 15px 0 25px;
 }
@@ -1350,7 +1350,7 @@ input[type="radio"].cptm-radio {
   flex-grow: 1;
   margin: 0;
   text-align: left;
-  color: var(--directorist-color-white);
+  color: #fff;
 }
 
 .cptm-header-action-area {
@@ -1366,7 +1366,7 @@ input[type="radio"].cptm-radio {
 
 .cptm-option-card-header-nav {
   display: flex;
-  color: var(--directorist-color-white);
+  color: #fff;
   flex-wrap: wrap;
   padding: 0;
   margin: 0;
@@ -1392,8 +1392,8 @@ input[type="radio"].cptm-radio {
   border-radius: 5px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-  box-shadow: 0 10px 40px 0 rgba(var(--directorist-color-dark-rgb), 0.2);
-  background-color: var(--directorist-color-white);
+  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
+  background-color: #fff;
   max-height: 500px;
   overflow-y: auto;
 
@@ -1445,8 +1445,8 @@ input[type="radio"].cptm-radio {
   font-size: 14px;
   text-align: center;
   text-decoration: none;
-  background-color: var(--directorist-color-white);
-  box-shadow: 0 0 5px rgba(var(--directorist-color-dark-rgb), 0.2);
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   color: #5a5f7d;
 }
 
@@ -1454,7 +1454,7 @@ input[type="radio"].cptm-radio {
 .cptm-listing-card-preview-footer {
   .cptm-widget-insert-link {
     background: $dark;
-    color: var(--directorist-color-white);
+    color: #fff;
   }
 }
 
@@ -1534,7 +1534,7 @@ input[type="radio"].cptm-radio {
 .cptm-widget-badge {
   display: inline-block;
   text-align: center;
-  color: var(--directorist-color-white);
+  color: #fff;
   border-radius: 5px;
   font-size: 11px;
   padding: 2px 8px;
@@ -1610,7 +1610,7 @@ input[type="radio"].cptm-radio {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 0;
-  color: rgba(var(--directorist-color-white-rgb), 0.40);
+  color: rgba(#fff, 0.40);
   font-size: 13px;
 
   &.hide {
@@ -1671,8 +1671,8 @@ input[type="radio"].cptm-radio {
   max-width: 450px;
   margin: 0 auto;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(var(--directorist-color-dark-rgb), 0.2);
-  background-color: var(--directorist-color-white);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
 
   &.cptm-card-list-view {
     display: flex;
@@ -1753,7 +1753,7 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-card-preview-thumbnail-bg span {
-  color: rgba(var(--directorist-color-white-rgb) 0.1);
+  color: rgba(#fff, 0.1);
 }
 
 .cptm-card-preview-top-left {
@@ -1831,7 +1831,7 @@ input[type="radio"].cptm-radio {
     // bottom: auto;
     // transform: translate(-50%, -50%);
     .cptm-widget-insert-link {
-      background-color: var(--directorist-color-white);
+      background-color: #fff;
       color: #5a5f7d;
     }
   }
@@ -1846,7 +1846,7 @@ input[type="radio"].cptm-radio {
     border-radius: 50%;
     object-fit: cover;
     background-color: #c6d0dc;
-    border: 4px solid var(--directorist-color-white);
+    border: 4px solid #fff;
   }
 }
 
@@ -1909,7 +1909,7 @@ input[type="radio"].cptm-radio {
   a {
     padding: 0 6px;
     font-size: 12px;
-    color: var(--directorist-color-white);
+    color: #fff;
   }
 }
 
@@ -1997,7 +1997,7 @@ input[type="radio"].cptm-radio {
 .cptm-widget-control-action {
   display: inline-block;
   padding: 5px 8px;
-  color: var(--directorist-color-white);
+  color: #fff;
   font-size: 12px;
   cursor: pointer;
   background-color: $primary;
@@ -2091,19 +2091,19 @@ input[type="radio"].cptm-radio {
     padding: 5px 12px;
     color: #888;
     border-radius: 30px;
-    background-color: var(--directorist-color-white);
+    background-color: #fff;
   }
 
   .cptm-widget-badge {
-    background-color: rgba(var(--directorist-color-dark-rgb), .8);
+    background-color: rgba(0, 0, 0, .8);
   }
 }
 
 
 .cptm-widgets-container {
   overflow: hidden;
-  border: 1px solid rgba(var(--directorist-color-dark-rgb), 0.1);
-  background-color: var(--directorist-color-white);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 .cptm-widgets-header {
@@ -2141,7 +2141,7 @@ input[type="radio"].cptm-radio {
   &.active {
     font-weight: bold;
     color: #2b2b2b;
-    background-color: var(--directorist-color-white);
+    background-color: #fff;
   }
 }
 
@@ -2253,7 +2253,7 @@ input[type="radio"].cptm-radio {
     display: inline-block;
     width: 30%;
     height: calc(100% - 10px);
-    background-color: var(--directorist-color-white);
+    background-color: #fff;
     border-radius: 50%;
     position: absolute;
     top: 0;
@@ -2389,7 +2389,7 @@ input[type="text"] {
 
     &.cptm-form-control-light {
       border: 1px solid #ccc;
-      background-color: var(--directorist-color-white);
+      background-color: #fff;
     }
   }
 
@@ -2403,7 +2403,7 @@ input[type="text"] {
 
   .cptm-form-group {
     .cptm-form-control {
-      background-color: var(--directorist-color-white);
+      background-color: #fff;
       border: 1px solid #e3e6ef;
     }
   }
@@ -2447,7 +2447,7 @@ input[type="text"] {
   justify-content: center;
   align-items: center;
   transition: all ease-in-out 300ms;
-  background-color: rgba(var(--directorist-color-dark-rgb), 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .cptm-modal {
@@ -2457,7 +2457,7 @@ input[type="text"] {
   width: 100%;
   max-width: 300px;
   border-radius: 5px;
-  background-color: var(--directorist-color-white);
+  background-color: #fff;
 }
 
 .cptm-modal-header {
@@ -2535,12 +2535,12 @@ input[type="text"] {
   background-color: #f2f2f2;
 
   &.cptm-alert-success {
-    color: var(--directorist-color-white);
+    color: #fff;
     background-color: #14cc60;
   }
 
   &.cptm-alert-error {
-    color: var(--directorist-color-white);
+    color: #fff;
     background-color: #cc1433;
   }
 }
@@ -2645,7 +2645,7 @@ input[type=radio] {
       background-color: #272B41;
       box-shadow: none;
       font-size: 12px;
-      color: var(--directorist-color-white);
+      color: #fff;
     }
 
     @include e(item) {
@@ -2707,7 +2707,7 @@ input[type=radio] {
         width: 26px;
         height: 26px;
         line-height: 26px;
-        background-color: var(--directorist-color-white);
+        background-color: #fff;
         border-radius: 100%;
         margin-inline-end: 7px;
       }
@@ -2798,7 +2798,7 @@ input[type=radio] {
 
   &.active {
     display: block;
-    background-color: var(--directorist-color-white);
+    background-color: #fff;
 
     .atbdp-sidebar-subnav {
       display: block;
@@ -2935,7 +2935,7 @@ input[type=radio] {
     left: 0;
     top: 44px;
     padding: 15px;
-    background-color: var(--directorist-color-white);
+    background-color: #fff;
     box-shadow: 0 10px 40px #868EAE30;
     border-radius: 5px;
     z-index: 99999;
@@ -2961,7 +2961,7 @@ input[type=radio] {
 
           &:hover,
           &.active:hover {
-            color: var(--directorist-color-white);
+            color: #fff;
             background-color: $primary;
           }
 

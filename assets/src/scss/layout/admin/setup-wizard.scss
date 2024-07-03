@@ -19,7 +19,7 @@
     color: #3e3e3e;
     border-radius: 5px;
     box-shadow: 0 5px 15px rgba(146, 153, 184, 0.2);
-    background-color: var(--directorist-color-white);
+    background-color: #fff;
     overflow: hidden;
 }
 
@@ -81,14 +81,14 @@
     font-size: 15px;
     text-decoration: none;
     color: #5A5F7D;
-    background-color: var(--directorist-color-white);
+    background-color: #fff;
     cursor: pointer;
 }
 
 .wbtn-primary {
     background-color: #4353FF;
     border-color: #4353FF;
-    color: var(--directorist-color-white);
+    color: #fff;
     margin-left: 6px;
 }
 
@@ -233,7 +233,7 @@
     height: 80px;
     align-items: center;
     justify-content: center;
-    color: var(--directorist-color-white);
+    color: #fff;
     margin-bottom: 10px;
 }
 
@@ -309,7 +309,7 @@
 
 .atbdp-setup-steps li span.atbdp-sw-circle {
     display: inline-flex;
-    background-color: var(--directorist-color-white);
+    background-color: #fff;
     width: 34px;
     height: 34px;
     border-radius: 50%;
@@ -326,7 +326,7 @@
 
 .atbdp-setup-steps li.done span.atbdp-sw-circle {
     background-color: #0FB73B;
-    color: var(--directorist-color-white);
+    color: #fff;
 }
 
 .atbdp-setup-steps li.done span.atbdp-sw-circle span {
@@ -339,7 +339,7 @@
 
 .atbdp-setup-steps li.active span.atbdp-sw-circle {
     background-color: #272B41;
-    color: var(--directorist-color-white);
+    color: #fff;
 }
 
 .atbdp-setup-steps li.atbdsw-logo {

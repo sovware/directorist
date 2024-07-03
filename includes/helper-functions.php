@@ -4213,6 +4213,42 @@ function directorist_background_image_process( $images ) {
 	}
 }
 
+function directorist_get_json_from_url( $url ) { 
+    $zip_content = file_get_contents( $url );
+		
+    if ( $zip_content === false ) {
+        return false;
+    }
+
+    $temp_zip_path = tempnam( sys_get_temp_dir(), 'unzip_temp' );
+
+    if ( ! $temp_zip_path ) {
+        return false;
+    }
+
+    if ( file_put_contents($temp_zip_path, $zip_content) === false ) {
+        return false;
+    }
+
+    $zip = new ZipArchive;
+
+    if ( $zip->open( $temp_zip_path ) === true ) {
+      
+        $json_content = $zip->getFromIndex( 0 );
+        $decoded_data = json_decode( $json_content, true );
+
+        if ( $decoded_data === null ) {
+            return false;
+        }
+
+        $zip->close();
+
+        unlink($temp_zip_path);
+
+        return $decoded_data;
+    }
+}
+
 /**
  * Calculate number options for select and radio inputs.
  *
@@ -4229,6 +4265,7 @@ function directorist_background_image_process( $images ) {
  * }
  * @return array Associative array containing 'select' and 'radio' options.
  */
+
 if ( ! function_exists('directorist_calculate_number_options') ) {
     function directorist_calculate_number_options( $data ) {
         $min_val = ! empty( $data['options']['min_value'] ) ? absint( $data['options']['min_value'] ) : 1;

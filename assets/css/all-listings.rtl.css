@@ -11713,7 +11713,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 16px;
   font-weight: 500;
   margin: 0;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-dark);
 }
 .directorist-advanced-filter__advanced {
   display: -webkit-box;
@@ -11914,7 +11914,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 16px;
   font-weight: 500;
   margin: 0;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-dark);
 }
 .directorist-advanced-filter__advanced__element.directorist-search-field-tag, .directorist-advanced-filter__advanced__element.directorist-search-field-radio, .directorist-advanced-filter__advanced__element.directorist-search-field-review, .directorist-advanced-filter__advanced__element.directorist-search-field-checkbox, .directorist-advanced-filter__advanced__element.directorist-search-field-pricing, .directorist-advanced-filter__advanced__element.directorist-search-field-color_picker {
   overflow: visible;

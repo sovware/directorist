@@ -396,7 +396,12 @@
 
 			&.directorist_status_pending {
 				color: var(--directorist-color-warning);
-				background-color: rgba(var(--directorist-color-success-rgb), 0.15);
+				background-color: rgba(var(--directorist-color-warning-rgb), 0.15);
+			}
+
+			&.directorist_status_private{
+				color: var(--directorist-color-danger) ;
+				background-color: rgba(var(--directorist-color-danger-rgb), 0.15);
 			}
 
 			&.danger {

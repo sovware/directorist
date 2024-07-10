@@ -35,6 +35,24 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			}
 
 			add_action( 'admin_footer', array( $this, 'quick_edit_scripts' ) );
+
+			add_action( 'init', array( $this, 'register_post_status' ) );
+		}
+
+		public function register_post_status() {
+			register_post_status(
+				'expired',
+				array(
+					'label'       => _x( 'Expired', 'post status', 'directorist' ),
+					'protected'   => true,
+					/* translators: %s: Number of expired listings. */
+					'label_count' => _n_noop(
+						'Expired <span class="count">(%s)</span>',
+						'Expired <span class="count">(%s)</span>',
+						'directorist'
+					),
+				)
+			);
 		}
 
 		public function quick_edit_scripts() {
@@ -377,9 +395,19 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					break;
 
 				case 'atbdp_status':
-					$status = get_post_meta( $post_id, '_listing_status', true );
-					$status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
-					echo esc_html( ucfirst( $status ) );
+					// TODO: Status has been migrated, remove related code.
+					// $status = get_post_meta( $post_id, '_listing_status', true );
+					// $status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
+
+					$status = get_post_status( $post_id );
+
+					if ( $status === 'publish' && get_post_meta( $post_id, '_listing_status', true ) === 'renewal' ) {
+						$status_label = _x( 'Renewal', 'Noun: listing status', 'directorist' );
+					} else {
+						$status_label = get_post_status_object( $status )->label;
+					}
+
+					echo esc_html( $status_label );
 					break;
 
 				case 'atbdp_featured':

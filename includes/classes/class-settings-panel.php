@@ -262,6 +262,19 @@ SWBD;
                 'description' => $description,
             ];
 
+            // Marker Clustering
+            $fields['marker_clustering'] = [
+                'type'  => 'toggle',
+                'label' => __('Marker Clustering', 'directorist'),
+                'value' => true,
+                'show-if' => [
+                    'where' => "select_listing_map",
+                    'conditions' => [
+                        ['key' => 'value', 'compare' => '=', 'value' => 'google'],
+                    ],
+                ],
+            ];
+
 
             // Map Country Restriction Field
             $fields['country_restriction'] = [
@@ -1611,21 +1624,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'text',
                     'label' => __('Filters Button Text', 'directorist'),
                     'value' => __('Filters', 'directorist'),
-                ],
-                'listing_tags_field' => [
-                    'label' => __('Tags Filter Source', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'all_tags',
-                    'options' => [
-                        [
-                            'value' => 'category_based_tags',
-                            'label' => __('Category Based Tags', 'directorist'),
-                        ],
-                        [
-                            'value' => 'all_tags',
-                            'label' => __('All Tags', 'directorist'),
-                        ],
-                    ],
                 ],
                 'listing_default_radius_distance' => [
                     'label' => __('Default Radius Distance', 'directorist'),
@@ -4581,7 +4579,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'display_listings_header', 'all_listing_title', 'listing_instant_search', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'address_location', 'paginate_all_listings', 'all_listing_page_items'
+                                        'display_listings_header', 'all_listing_title', 'listing_instant_search', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'address_location', 'paginate_all_listings', 'all_listing_page_items'
                                     ],
                                 ],
                             ] ),
@@ -4637,7 +4635,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Map', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'use_def_lat_long', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
+                                        'select_listing_map', 'map_api_key', 'marker_clustering', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'use_def_lat_long', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
                                     ],
                                 ],
                                 'map_info_window' => [

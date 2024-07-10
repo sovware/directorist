@@ -927,16 +927,21 @@ window.addEventListener('DOMContentLoaded', function () {
         value: function onSubmit(event) {
           var _this2 = this;
           event.preventDefault();
+          console.log(wp.hooks);
           var form = $('.directorist-review-container #commentform');
           var originalButtonLabel = form.find('[type="submit"]').val();
           $(document).trigger('directorist_review_before_submit', form);
+          var formData = new FormData(form[0]);
+
+          // Apply the filter
+          formData = wp.hooks.applyFilters('directorist_add_review_form_data', formData, 'directorist-advanced-review');
           var do_comment = $.ajax({
             url: form.attr('action'),
             type: 'POST',
             contentType: false,
             cache: false,
             processData: false,
-            data: new FormData(form[0])
+            data: formData
           });
           $('#comment').prop('disabled', true);
           form.find('[type="submit"]').prop('disabled', true).val('loading');

@@ -154,7 +154,7 @@ function directorist_get_listing_edit_status( $directory_id ) {
 }
 
 function directorist_get_default_expiration( $directory_id ) {
-	return directorist_get_directory_meta( $directory_id, 'default_expiration' );
+	return (int) directorist_get_directory_meta( $directory_id, 'default_expiration' );
 }
 
 function directorist_is_directory( $directory_id ) {

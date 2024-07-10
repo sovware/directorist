@@ -237,7 +237,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			// 	$listing_create_status = directorist_get_listing_create_status( $directory_id );
 			// 	$listing_edit_status   = directorist_get_listing_edit_status( $directory_id );
-			// 	$default_expiration    = get_term_meta( $directory_id, 'default_expiration', true );
+			// 	$default_expiration    = directorist_get_default_expiration( $directory_id );
 			// 	$preview_enable        = atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) );
 
 			// 	/**
@@ -303,7 +303,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			// 		// Every post with the published status should contain all the post meta keys so that we can include them in query.
 			// 		if ( 'publish' === $listing_create_status || 'pending' === $listing_create_status ) {
-			// 			if ( ! $default_expiration ) {
+			// 			if ( $default_expiration <= 0 ) {
 			// 				update_post_meta( $listing_id, '_never_expire', 1 );
 			// 			} else {
 			// 				$expiration_date = calc_listing_expiry_date( '', $default_expiration );
@@ -911,9 +911,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			// TODO: Status has been migrated, remove related code.
 			update_post_meta( $listing_id, '_listing_status', 'post_status' );
 
-			$exp_days = get_term_meta( $directory_type, 'default_expiration', true );
-			if ( $exp_days <= 0 ) {
+			if ( directorist_get_default_expiration( $directory_type ) <= 0 ) {
 				update_post_meta( $listing_id, '_never_expire', 1 );
+			} else {
+				delete_post_meta( $listing_id, '_never_expire' );
 			}
 
 			do_action( 'atbdp_after_renewal', $listing_id );

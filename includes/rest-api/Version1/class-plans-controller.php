@@ -79,6 +79,20 @@ class Plans_Controller extends Posts_Controller {
 		);
 	}
 
+	public function get_items_permissions_check( $request ) {
+		if ( ! is_fee_manager_active() ) {
+			return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), 400 );
+		}
+		return parent::get_items_permissions_check( $request );
+	}
+
+	public function get_item_permissions_check( $request ) {
+		if ( ! is_fee_manager_active() ) {
+			return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), 400 );
+		}
+		return parent::get_item_permissions_check( $request );
+	}
+
 	/**
 	 * Get a collection of posts.
 	 *
@@ -269,88 +283,88 @@ class Plans_Controller extends Posts_Controller {
 		$base_data = array();
 		foreach ( $fields as $field ) {
 			switch ( $field ) {
-				case 'id': 
+				case 'id':
 					$base_data['id'] = $plan->ID;
 					break;
-				case 'name': 
+				case 'name':
 					$base_data['name'] = get_the_title( $plan );
 					break;
-				case 'slug': 
+				case 'slug':
 					$base_data['slug'] = $plan->post_name;
 					break;
-				case 'date_created': 
+				case 'date_created':
 					$base_data['date_created'] = directorist_rest_prepare_date_response( $plan->post_date, false );
 					break;
-				case 'date_created_gmt': 
+				case 'date_created_gmt':
 					$base_data['date_created_gmt'] = directorist_rest_prepare_date_response( $plan->post_date_gmt );
 					break;
-				case 'date_modified': 
+				case 'date_modified':
 					$base_data['date_modified'] = directorist_rest_prepare_date_response( $plan->post_date_modified, false );
 					break;
-				case 'date_modified_gmt': 
+				case 'date_modified_gmt':
 					$base_data['date_modified_gmt'] = directorist_rest_prepare_date_response( $plan->post_date_modified_gmt );
 					break;
-				case 'description': 
+				case 'description':
 					$base_data['description'] = get_post_meta( $plan->ID, 'fm_description', true );
 					break;
-				case 'hide_description_from_plan': 
+				case 'hide_description_from_plan':
 					$base_data['hide_description_from_plan'] = (bool) get_post_meta( $plan->ID, 'hide_description', true );
 					break;
-				case 'directory': 
+				case 'directory':
 					$base_data['directory'] = $this->get_directory_id( $plan );
 					break;
-				case 'status': 
+				case 'status':
 					$base_data['status'] = $plan->post_status;
 					break;
-				case 'is_recommended': 
+				case 'is_recommended':
 					$base_data['is_recommended'] = ( get_post_meta( $plan->ID, 'default_pln', true ) === 'yes' );
 					break;
-				case 'is_hidden': 
+				case 'is_hidden':
 					$base_data['is_hidden'] = ( get_post_meta( $plan->ID, '_hide_from_plans', true ) === 'yes' );
 					break;
-				case 'type': 
+				case 'type':
 					$base_data['type'] = $this->get_plan_type( $plan );
 					break;
-				case 'type_label': 
+				case 'type_label':
 					$base_data['type_label'] = $this->get_plan_type( $plan ) === 'package' ? esc_html__( 'Per Package', 'directorist' ) : esc_html__( 'Per Listing', 'directorist' );
 					break;
-				case 'currency': 
+				case 'currency':
 					$base_data['currency'] = atbdp_get_payment_currency();
 					break;
-				case 'currency_symbol': 
+				case 'currency_symbol':
 					$base_data['currency_symbol'] = html_entity_decode( atbdp_currency_symbol( atbdp_get_payment_currency() ) );
 					break;
-				case 'is_free': 
+				case 'is_free':
 					$base_data['is_free'] = (bool) get_post_meta( $plan->ID, 'free_plan', true );
 					break;
-				case 'price': 
+				case 'price':
 					$base_data['price'] = (float) get_post_meta( $plan->ID, 'fm_price', true );
 					break;
-				case 'is_taxable': 
+				case 'is_taxable':
 					$base_data['is_taxable'] = (bool) get_post_meta( $plan->ID, 'plan_tax', true );
 					break;
-				case 'tax_type': 
+				case 'tax_type':
 					$base_data['tax_type'] = $this->get_tax_type( $plan );
 					break;
-				case 'tax': 
+				case 'tax':
 					$base_data['tax'] = (float) get_post_meta( $plan->ID, 'fm_tax', true );
 					break;
-				case 'validity_period': 
+				case 'validity_period':
 					$base_data['validity_period'] = (int) get_post_meta( $plan->ID, 'fm_length', true );
 					break;
-				case 'validity_period_unit': 
+				case 'validity_period_unit':
 					$base_data['validity_period_unit'] = $this->get_validity_period_unit( $plan );
 					break;
-				case 'validity_period_label': 
+				case 'validity_period_label':
 					$base_data['validity_period_label'] = $this->get_validity_period_label( $plan );
 					break;
-				case 'is_non_expiring': 
+				case 'is_non_expiring':
 					$base_data['is_non_expiring'] = (bool) get_post_meta( $plan->ID, 'fm_length_unl', true );
 					break;
-				case 'features': 
+				case 'features':
 					$base_data['features'] = $this->get_features_data( $plan );
 					break;
-				case 'fields': 
+				case 'fields':
 					$base_data['fields'] = $this->get_fields_data( $plan );
 					break;
 			}
@@ -374,7 +388,7 @@ class Plans_Controller extends Posts_Controller {
 			'month' => _n( 'Month', '%d months', $validity_period, 'directorist' ),
 			'year'  => _n( 'Year', '%d years', $validity_period, 'directorist' ),
 		);
-		
+
 		return sprintf( $translations[ $this->get_validity_period_unit( $plan ) ], $validity_period );
 	}
 

@@ -13,7 +13,7 @@
 // User Profile Image
 .directorist-image-profile-wrap {
   padding: 25px;
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
   border-radius: 16px;
   border: 1px solid #ececec;
 
@@ -24,7 +24,7 @@
     box-shadow: 0 0;
     font-size: 14px;
     font-weight: 500;
-    color: var(--directorist-color-primary);
+    color: var(--directorist-color-dark);
   }
 
   .directorist-profile-uploader {
@@ -35,6 +35,13 @@
         width: 16px;
         height: 16px;
       }
+    }
+    .ezmu__loading-icon-img-bg{
+      background-image: none;
+      background-color: var(--directorist-color-primary);
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-image: url("../../../../../assets/icons/font-awesome/svgs/regular/spinner-solid.svg");
     }
   }
 

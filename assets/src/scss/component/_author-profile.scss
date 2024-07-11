@@ -45,7 +45,7 @@
                 @include e(name) {
                     font-size: 20px;
                     font-weight: 500;
-                    color: var(--directorist-color-primary);
+                    color: var(--directorist-color-dark);
                     margin: 0 0 5px;
                     @media only screen and (max-width: 991px){
                         margin: 0;
@@ -321,7 +321,7 @@
                     justify-content: center;
                     background-color: var(--directorist-color-light);
                     border-radius: 4px;
-                    color: #ffffff;
+                    color: var(--directorist-color-white);
                     overflow: hidden;
                     transition: all ease-in-out 300ms;
                     .directorist-icon-mask:after {
@@ -380,9 +380,9 @@
                     }
                 }
                 &:hover {
-                    color: var(--directorist-color-body);
+                    color: var(--directorist-color-primary);
                     i::after {
-                        background-color: var(--directorist-color-body);
+                        background-color: var(--directorist-color-primary);
                     }
                 }
             }
@@ -393,9 +393,9 @@
                     padding: 0;
                 }
                 @include e(current) {
-                    color: var(--directorist-color-body);
+                    color: var(--directorist-color-primary);
                     i::after {
-                        background-color: var(--directorist-color-body);
+                        background-color: var(--directorist-color-primary);
                     }
                 }
             }

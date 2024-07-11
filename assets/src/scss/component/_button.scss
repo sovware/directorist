@@ -23,7 +23,7 @@
   border: 1px solid transparent;
   box-sizing: border-box;
   text-decoration: none;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-btn);
   transition: all ease 0.3s;
   text-decoration: none !important;
   &.directorist-btn--add-listing,
@@ -34,6 +34,9 @@
   &:focus {
     color: var(--directorist-color-primary);
     outline: 0 !important;
+    .directorist-icon-mask:after{
+      background-color: var(--directorist-color-primary);
+    }
   }
 }
 
@@ -45,6 +48,9 @@
     @include btnFocusBg(var(--directorist-color-primary));
     &:hover{
       background-color: var(--directorist-color-primary-hover);
+      .directorist-icon-mask:after{
+        background-color: var(--directorist-color-primary);
+      }
     }
   }
 

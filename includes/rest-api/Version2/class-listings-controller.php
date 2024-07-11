@@ -115,6 +115,9 @@ class Listings_Controller extends Legacy_Listings_Controller {
 			'tag' => array(
 				'tags' => ATBDP_TAGS,
 			),
+			'hide_contact_owner' => array(
+				'contact_form_hidden' => 'hide_contact_owner',
+			),
 			'pricing' => array(
 				'price_type'  => 'atbd_listing_pricing',
 				'price'       => 'price',
@@ -143,9 +146,10 @@ class Listings_Controller extends Legacy_Listings_Controller {
 		$directory_id = $request['directory'];
 		$plan_id      = $request['plan'];
 
-		$form_fields = directorist_get_listing_form_fields( $directory_id, $plan_id );
-		$map         = $this->get_schema_to_post_fields_map();
-		$_POST['tax_input'] = array();
+		$form_fields           = directorist_get_listing_form_fields( $directory_id, $plan_id );
+		$map                   = $this->get_schema_to_post_fields_map();
+		$_POST['directory_id'] = $directory_id;
+		$_POST['tax_input']    = array();
 
 		foreach ( $form_fields as $form_field ) {
 			if ( empty( $form_field['widget_name'] ) || (bool) directorist_get_var( $form_field['only_for_admin'] ) ) {
@@ -154,6 +158,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 
 			$field_key  = directorist_get_var( $form_field['field_key'] );
 			$widget_key = directorist_get_var( $form_field['widget_key'] );
+			$type       = directorist_get_var( $form_field['type'], '' );
 
 			if ( isset( $request['fields'] ) && isset( $map[ $widget_key ] ) ) {
 
@@ -176,7 +181,11 @@ class Listings_Controller extends Legacy_Listings_Controller {
 
 			} elseif ( isset( $request['fields'] ) && isset( $request['fields'][ $field_key ] ) ) {
 
-				$_POST[ $field_key ] = $request['fields'][ $field_key ];
+				if ( $type === 'media' ) {
+					$_POST[ $field_key ] = is_array( $request['fields'][ $field_key ] ) ? $request['fields'][ $field_key ] : array();
+				} else {
+					$_POST[ $field_key ] = $request['fields'][ $field_key ];
+				}
 
 			} elseif ( isset( $request[ $field_key ] ) && isset( $map[ $widget_key ] ) ) {
 
@@ -197,7 +206,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					}
 				}
 
-			} elseif ( isset( $request[ $field_key ] ) && isset( $request[ $field_key ] ) ) {
+			} elseif ( isset( $request[ $field_key ] ) ) {
 
 				$_POST[ $field_key ] = $request[ $field_key ];
 
@@ -490,6 +499,57 @@ class Listings_Controller extends Legacy_Listings_Controller {
 		}
 
 		return apply_filters( 'directorist_rest_listing_fields_data', $data, $listing, $context );
+	}
+
+	/**
+	 * Get the images for a listing.
+	 *
+	 * @param WP_Post $listing.
+	 *
+	 * @return array
+	 */
+	protected function get_images( $listing, $context ) {
+		$images         = array();
+		$attachment_ids = array();
+
+		// Add featured image.
+		if ( has_post_thumbnail( $listing ) ) {
+			$attachment_ids[] = get_post_thumbnail_id( $listing );
+		} else {
+			$thumbnail_id = (int) get_post_meta( $listing->ID, '_listing_prv_img', true );
+			if ( $thumbnail_id ) {
+				$attachment_ids[] = $thumbnail_id;
+			}
+		}
+
+		// Add gallery images.
+		$gallery_images = (array) get_post_meta( $listing->ID, '_listing_img', true );
+		if ( ! empty( $gallery_images ) ) {
+			$attachment_ids = array_unique( array_merge( $attachment_ids, array_filter( wp_parse_id_list( $gallery_images ) ) ) );
+		}
+
+		// Build image data.
+		foreach ( $attachment_ids as $position => $attachment_id ) {
+			$attachment_post = get_post( $attachment_id );
+			if ( is_null( $attachment_post ) ) {
+				continue;
+			}
+
+			$image_url = wp_get_attachment_image_url( $attachment_id, ( $context === 'view' ? 'large' : 'full' ) );
+			if ( ! $image_url ) {
+				continue;
+			}
+
+			$images[] = array(
+				'id'                => (int) $attachment_id,
+				'src'               => $image_url,
+				'name'              => get_the_title( $attachment_id ),
+				'alt'               => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
+				'position'          => (int) $position,
+			);
+		}
+
+		return $images;
 	}
 
 	/**

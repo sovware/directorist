@@ -20,6 +20,13 @@ class Image_Upload_Field extends Base_Field {
 		$new_images = (array) directorist_get_var( $posted_data[ $this->get_key() ], array() );
 		$old_images = (array) directorist_get_var( $posted_data[ $this->get_key() . '_old' ], array() );
 
+		$maybe_old_images = array_filter( $new_images, 'is_numeric' );
+
+		if ( count( $maybe_old_images ) > 0 ) {
+			$old_images = array_merge( $old_images, $maybe_old_images );
+			$new_images = array_diff( $new_images, $maybe_old_images );
+		}
+
 		return array(
 			'new' => array_filter( $new_images ),
 			'old' => array_filter( wp_parse_id_list( $old_images ) ),

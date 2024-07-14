@@ -551,7 +551,7 @@ class SubmissionController {
 	 *
 	 * @return WP_Error|array
 	 */
-	public static function submit( &$posted_data, $from = 'web' ) {
+	public static function submit( $posted_data, $from = 'web' ) {
 		self::$from = $from;
 
 		$listing_id = static::maybe_get_listing_id( $posted_data );
@@ -563,6 +563,7 @@ class SubmissionController {
 		if ( is_wp_error( $directory_id ) ) {
 			return $directory_id;
 		}
+		$posted_data['directory_id'] = $directory_id;
 
 		$terms_conditions_check = static::validate_terms_and_conditions( $directory_id, $posted_data );
 		if ( is_wp_error( $terms_conditions_check ) ) {

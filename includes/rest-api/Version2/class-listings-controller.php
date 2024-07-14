@@ -181,11 +181,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 
 			} elseif ( isset( $request['fields'] ) && isset( $request['fields'][ $field_key ] ) ) {
 
-				if ( $type === 'media' ) {
-					$_POST[ $field_key ] = is_array( $request['fields'][ $field_key ] ) ? $request['fields'][ $field_key ] : array();
-				} else {
-					$_POST[ $field_key ] = $request['fields'][ $field_key ];
-				}
+				$_POST[ $field_key ] = $request['fields'][ $field_key ];
 
 			} elseif ( isset( $request[ $field_key ] ) && isset( $map[ $widget_key ] ) ) {
 

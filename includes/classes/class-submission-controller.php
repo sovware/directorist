@@ -15,6 +15,14 @@ class SubmissionController {
 
 	protected static $selected_categories = null;
 
+	/**
+	 * Request source origin.
+	 * Possible values are: web, api
+	 *
+	 * @var string
+	 */
+	protected static $from = 'web';
+
 	protected static function cache_selected_categories( $directory_id, &$posted_data ) {
 		// Cache categories to check assigned categories in custom fields.
 		$category_field = directorist_get_listing_form_category_field( $directory_id );
@@ -59,12 +67,105 @@ class SubmissionController {
 			$field->add_error( __( 'This field is required.', 'directorist' ) );
 		} elseif ( ! self::is_field_submission_empty( $field, $posted_data ) ) {
 			$field->validate( $posted_data );
+
+			if ( self::$from === 'api' && $field->type === 'file' ) {
+				self::validate_file_field( $field, $posted_data );
+			}
 		}
 
 		return array(
 			'is_valid' => ! $field->has_error(),
 			'message'  => $field->get_error()
 		);
+	}
+
+	protected static function validate_file_field( $field, &$posted_data ) {
+		$value = $field->get_value( $posted_data );
+
+		if ( ! is_string( $value ) ) {
+			$field->add_error( __( 'Invalid data type, string allowed only.', 'directorist' ) );
+
+			return;
+		}
+
+		try {
+			$upload_dir = wp_get_upload_dir();
+			$temp_dir   = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( directorist_get_temp_upload_dir() . DIRECTORY_SEPARATOR . date( 'nj' ) );
+			$filepath   = $temp_dir . $value;
+
+			if ( is_dir( $filepath ) || ! file_exists( $filepath ) ) {
+				$field->add_error( __( 'Invalid file or file does not exist.', 'directorist' ) );
+				return;
+			}
+
+			$file_type = $field->get_file_types();
+
+			if ( in_array( $file_type, array( '', 'all_types', 'all' ), true ) ) {
+				$file_types = directorist_get_supported_file_types();
+			} else {
+				$groups = directorist_get_supported_file_types_groups();
+
+				if ( isset( $groups[ $file_type ] ) ) {
+					$file_types = $groups[ $file_type ];
+				} else {
+					$file_types = (array) $file_type;
+				}
+			}
+
+			$supported_mimes = array();
+			foreach ( get_allowed_mime_types() as $ext => $mime ) {
+				$_exts = explode( '|', $ext );
+				$match = array_intersect( $file_types, $_exts );
+				if ( count( $match ) ) {
+					$supported_mimes[ $ext ] = $mime;
+				}
+			}
+
+			$mimetype = mime_content_type( $filepath );
+			if ( ! in_array( $mimetype, $supported_mimes, true ) ) {
+				$field->add_error( __( 'Invalid file type.', 'directorist' ) );
+			}
+
+			$size = filesize( $filepath );
+			if ( $size > $field->get_file_size() ) {
+				$field->add_error( sprintf(
+					__( 'Uploaded file (%s) is larger than supported size (%s).', 'directorist' ),
+					size_format( $size ),
+					size_format( $field->get_file_size() )
+					) );
+			}
+
+		} catch ( Exception $e ) {
+
+			error_log( $e->getMessage() );
+
+		}
+	}
+
+	protected static function get_file_value( $field, &$posted_data ) {
+		$value = $field->get_value( $posted_data );
+
+		try {
+			$upload_dir = wp_get_upload_dir();
+			$temp_dir   = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( directorist_get_temp_upload_dir() . DIRECTORY_SEPARATOR . date( 'nj' ) );
+			$filepath   = $temp_dir . $value;
+			$target_dir = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( 'atbdp_temp' );
+
+			if ( file_exists( $target_dir . $value ) ) {
+				$value = wp_unique_filename( $target_dir, $value );
+			}
+
+			rename( $filepath, $target_dir . $value );
+
+			return trailingslashit( $upload_dir['baseurl'] ) . trailingslashit( 'atbdp_temp' ) . $value;
+
+		} catch ( Exception $e ) {
+
+			error_log( $e->getMessage() );
+
+		}
+
+		return '';
 	}
 
 	protected static function process_locations( &$field, &$posted_data, &$data, &$error ) {
@@ -410,6 +511,8 @@ class SubmissionController {
 	 * @return WP_Error|array
 	 */
 	public static function submit( &$posted_data, $from = 'web' ) {
+		self::$from = $from;
+
 		$listing_id = static::maybe_get_listing_id( $posted_data );
 		if ( is_wp_error( $listing_id ) ) {
 			return $listing_id;
@@ -506,6 +609,10 @@ class SubmissionController {
 
 				default:
 					$meta_data[ '_' . $field->get_key() ] = $field->sanitize( $posted_data );
+			}
+
+			if ( self::$from === 'api' && $field->type === 'file' ) {
+				$meta_data[ '_' . $field->get_key() ] = self::get_file_value( $field, $posted_data );
 			}
 		}
 

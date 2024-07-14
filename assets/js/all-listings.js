@@ -2627,13 +2627,17 @@ window.addEventListener('DOMContentLoaded', function () {
           var $form = $(event.target);
           var originalButtonLabel = $form.find('[type="submit"]').val();
           $(document).trigger('directorist_review_before_submit', $form);
+          var formData = new FormData($form[0]);
+
+          // Apply the filter
+          formData = wp.hooks.applyFilters('directorist_add_review_form_data', formData, 'directorist-advanced-review');
           var updateComment = $.ajax({
             url: $form.attr('action'),
             type: 'POST',
             contentType: false,
             cache: false,
             processData: false,
-            data: new FormData($form[0])
+            data: formData
           });
           $form.find('#comment').prop('disabled', true);
           $form.find('[type="submit"]').prop('disabled', true).val('loading');

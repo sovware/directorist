@@ -766,7 +766,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 			),
-			'listing_img'                => array(
+			'listing_img'            => array(
 				'description' => __( 'Listing images.', 'directorist' ),
 				'type'        => 'array',
 				'context'     => array( 'view', 'edit' ),

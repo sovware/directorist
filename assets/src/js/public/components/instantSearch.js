@@ -561,7 +561,8 @@
         // Select Active Form Based on Screen Size
         const advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
         const searchForm  = instant_search_element.find('.directorist-search-form');
-        const activeForm = screen.width > 575 ? advancedForm : searchForm;
+        const sidebarListing = instant_search_element.find('.listing-with-sidebar');
+        const activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
 
         // Get Values from Active Form
         activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
@@ -712,7 +713,8 @@
         // Select Active Form Based on Screen Size
         const advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
         const searchForm  = instant_search_element.find('.directorist-search-form');
-        const activeForm = screen.width > 575 ? advancedForm : searchForm;
+        const sidebarListing = instant_search_element.find('.listing-with-sidebar');
+        const activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
 
         // Get Values from Active Form
         activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
@@ -846,7 +848,8 @@
         // Select Active Form Based on Screen Size
         const advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
         const searchForm  = instant_search_element.find('.directorist-search-form');
-        const activeForm = screen.width > 575 ? advancedForm : searchForm;
+        const sidebarListing = instant_search_element.find('.listing-with-sidebar');
+        const activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
 
         // Get Values from Active Form
         activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {

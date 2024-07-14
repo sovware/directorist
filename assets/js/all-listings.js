@@ -1808,7 +1808,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     // Select Active Form Based on Screen Size
     var advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
     var searchForm = instant_search_element.find('.directorist-search-form');
-    var activeForm = screen.width > 575 ? advancedForm : searchForm;
+    var sidebarListing = instant_search_element.find('.listing-with-sidebar');
+    var activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
 
     // Get Values from Active Form
     activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
@@ -1946,7 +1947,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     // Select Active Form Based on Screen Size
     var advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
     var searchForm = instant_search_element.find('.directorist-search-form');
-    var activeForm = screen.width > 575 ? advancedForm : searchForm;
+    var sidebarListing = instant_search_element.find('.listing-with-sidebar');
+    var activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
 
     // Get Values from Active Form
     activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
@@ -2074,7 +2076,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     // Select Active Form Based on Screen Size
     var advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
     var searchForm = instant_search_element.find('.directorist-search-form');
-    var activeForm = screen.width > 575 ? advancedForm : searchForm;
+    var sidebarListing = instant_search_element.find('.listing-with-sidebar');
+    var activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
 
     // Get Values from Active Form
     activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {

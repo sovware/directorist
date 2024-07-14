@@ -158,11 +158,39 @@ class SubmissionController {
 	protected static function get_file_value( $field, &$posted_data ) {
 		$value = $field->get_value( $posted_data );
 
+		if ( ! $value ) {
+			return;
+		}
+
+		if ( ! empty( $posted_data['listing_id'] ) ) {
+			$stored_value = get_post_meta( (int) $posted_data['listing_id'], '_' . $field->field_key, true );
+
+			if ( $stored_value && ( $pos = strpos( $stored_value, '|' ) ) !== false ) {
+				$stored_value = substr( $stored_value, 0, $pos );
+			}
+
+			if ( $stored_value && ( $value === $stored_value ) ) {
+				return $stored_value;
+			}
+		}
+
 		try {
 			$upload_dir = wp_get_upload_dir();
 			$temp_dir   = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( directorist_get_temp_upload_dir() . DIRECTORY_SEPARATOR . date( 'nj' ) );
 			$filepath   = $temp_dir . $value;
 			$target_dir = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( 'atbdp_temp' );
+
+			// Clean old file
+			if ( ! empty( $stored_value ) ) {
+				$old_file = basename( $stored_value );
+				if ( file_exists( $target_dir . $old_file ) ) {
+					unlink( $target_dir . $old_file );
+				}
+			}
+
+			if ( ! file_exists( $filepath ) ) {
+				return;
+			}
 
 			if ( file_exists( $target_dir . $value ) ) {
 				$value = wp_unique_filename( $target_dir, $value );
@@ -178,7 +206,7 @@ class SubmissionController {
 
 		}
 
-		return '';
+		return;
 	}
 
 	protected static function process_locations( &$field, &$posted_data, &$data, &$error ) {

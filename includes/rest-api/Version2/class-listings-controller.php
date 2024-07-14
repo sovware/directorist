@@ -766,6 +766,42 @@ class Listings_Controller extends Legacy_Listings_Controller {
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 			),
+			'listing_img'                => array(
+				'description' => __( 'Listing images.', 'directorist' ),
+				'type'        => 'array',
+				'context'     => array( 'view', 'edit' ),
+				'items'       => array(
+					'type'       => array( 'object', 'string', 'integer' ),
+					'properties' => array(
+						'id'                => array(
+							'description' => __( 'Image ID.', 'directorist' ),
+							'type'        => 'integer',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'src'               => array(
+							'description' => __( 'Image URL.', 'directorist' ),
+							'type'        => 'string',
+							'format'      => 'uri',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'name'              => array(
+							'description' => __( 'Image name.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'alt'               => array(
+							'description' => __( 'Image alternative text.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'position'          => array(
+							'description' => __( 'Image position. 0 means that the image is featured.', 'directorist' ),
+							'type'        => 'integer',
+							'context'     => array( 'view', 'edit' ),
+						),
+					),
+				),
+			),
 			'[field_key]'   => array(
 				'description' => __( 'Field key: value.', 'directorist' ),
 				'type'        => array( 'string', 'array', 'integer', 'boolean' ),

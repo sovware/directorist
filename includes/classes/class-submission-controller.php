@@ -88,6 +88,19 @@ class SubmissionController {
 			return;
 		}
 
+		// Ignore when stored value matched with given value.
+		if ( ! empty( $posted_data['listing_id'] ) ) {
+			$stored_value = get_post_meta( (int) $posted_data['listing_id'], '_' . $field->field_key, true );
+
+			if ( $stored_value && ( $pos = strpos( $stored_value, '|' ) ) !== false ) {
+				$stored_value = substr( $stored_value, 0, $pos );
+			}
+
+			if ( $stored_value && ( $value === $stored_value ) ) {
+				return;
+			}
+		}
+
 		try {
 			$upload_dir = wp_get_upload_dir();
 			$temp_dir   = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( directorist_get_temp_upload_dir() . DIRECTORY_SEPARATOR . date( 'nj' ) );

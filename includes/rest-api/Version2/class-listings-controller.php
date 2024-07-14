@@ -558,6 +558,230 @@ class Listings_Controller extends Legacy_Listings_Controller {
             return $this->schema;
         }
 
+		$fields = array(
+			'title'                => array(
+				'description' => __( 'Listing title.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'tagline'              => array(
+				'description' => __( 'Tagline.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'description'           => array(
+				'description' => __( 'Listing description.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'excerpt'     => array(
+				'description' => __( 'Listing short description.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'categories' => array(
+				'description' => __( 'List of categories.', 'directorist' ),
+				'type'        => 'array',
+				'context'     => array( 'view', 'edit' ),
+				'items'       => array(
+					'type'       => 'object',
+					'properties' => array(
+						'id'   => array(
+							'description' => __( 'Category ID.', 'directorist' ),
+							'type'        => 'integer',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'name' => array(
+							'description' => __( 'Category name.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+							'readonly'    => true,
+						),
+						'slug' => array(
+							'description' => __( 'Category slug.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+							'readonly'    => true,
+						),
+						'icon' => array(
+							'description' => __( 'Category icon.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+							'readonly'    => true,
+						),
+					),
+				),
+			),
+			'tags' => array(
+				'description' => __( 'List of tags.', 'directorist' ),
+				'type'        => 'array',
+				'context'     => array( 'view', 'edit' ),
+				'items'       => array(
+					'type'       => 'object',
+					'properties' => array(
+						'id'   => array(
+							'description' => __( 'Tag ID.', 'directorist' ),
+							'type'        => 'integer',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'name' => array(
+							'description' => __( 'Tag name.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+							'readonly'    => true,
+						),
+						'slug' => array(
+							'description' => __( 'Tag slug.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+							'readonly'    => true,
+						),
+					),
+				),
+			),
+			'locations' => array(
+				'description' => __( 'List of locations.', 'directorist' ),
+				'type'        => 'array',
+				'context'     => array( 'view', 'edit' ),
+				'items'       => array(
+					'type'       => 'object',
+					'properties' => array(
+						'id'   => array(
+							'description' => __( 'Location ID.', 'directorist' ),
+							'type'        => 'integer',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'name' => array(
+							'description' => __( 'Location name.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+							'readonly'    => true,
+						),
+						'slug' => array(
+							'description' => __( 'Location slug.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+							'readonly'    => true,
+						),
+					),
+				),
+			),
+			'social'             => array(
+				'description' => __( 'List of social links.', 'directorist' ),
+				'type'        => 'array',
+				'context'     => array( 'view', 'edit' ),
+				'items'       => array(
+					'type'       => 'object',
+					'properties' => array(
+						'id'   => array(
+							'description' => __( 'Social media name', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'url' => array(
+							'description' => __( 'Social media url.', 'directorist' ),
+							'type'        => 'string',
+							'context'     => array( 'view', 'edit' ),
+						),
+					),
+				),
+			),
+			'price_type'              => array(
+				'description' => __( 'Price type.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+				'enum' 		  => array( 'price', 'range' ),
+			),
+			'price'              => array(
+				'description' => __( 'Price amount.', 'directorist' ),
+				'type'        => 'number',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'price_range'              => array(
+				'description' => __( 'Price range.', 'directorist' ),
+				'type'        => 'string',
+				'enum'        => array( 'skimming', 'moderate', 'economy', 'bellow_economy' ),
+				'context'     => array( 'view', 'edit' ),
+			),
+			'contact_form_hidden' => array(
+				'description' => __( 'Listing owner contact form visibility status.', 'directorist' ),
+				'type'        => 'boolean',
+				'default'     => false,
+				'context'     => array( 'view', 'edit' ),
+			),
+			'zip'                  => array(
+				'description' => __( 'Zip code.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'address'              => array(
+				'description' => __( 'Listing address.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'map_hidden'              => array(
+				'description' => __( 'Map visibility status.', 'directorist' ),
+				'type'        => 'boolean',
+				'default'     => false,
+				'context'     => array( 'view', 'edit' ),
+			),
+			'latitude'              => array(
+				'description' => __( 'Address location latitude.', 'directorist' ),
+				'type'        => 'number',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'longitude'              => array(
+				'description' => __( 'Address location longitude.', 'directorist' ),
+				'type'        => 'number',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'phone'                  => array(
+				'description' => __( 'Phone number 1.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'phone2'                  => array(
+				'description' => __( 'Phone number 2.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'fax'                  => array(
+				'description' => __( 'Fax number.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'email'                  => array(
+				'description' => __( 'Email address.', 'directorist' ),
+				'type'        => 'string',
+				'format'      => 'email',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'website'                => array(
+				'description' => __( 'Website url.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'videourl'              => array(
+				'description' => __( 'Video url.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+			),
+			'[field_key]'   => array(
+				'description' => __( 'Field key: value.', 'directorist' ),
+				'type'        => array( 'string', 'array', 'integer', 'boolean' ),
+				'context'     => array( 'view', 'edit' ),
+			),
+		);
+
+		if ( ! is_fee_manager_active() && directorist_is_featured_listing_enabled() ) {
+			$fields['listing_type'] = array(
+				'description' => __( 'Listing type.', 'directorist' ),
+				'type'        => 'string',
+				'context'     => array( 'edit' ),
+				'enum'        => array( 'general', 'featured' )
+			);
+		}
+
 		$schema         = array(
 			'$schema'    => 'http://json-schema.org/draft-04/schema#',
 			'title'      => $this->post_type,
@@ -713,220 +937,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 					'description' => __( 'Fields data.', 'directorist' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
-					'properties'  => array(
-						'title'                  => array(
-							'description' => __( 'Listing title.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'tagline'              => array(
-							'description' => __( 'Tagline.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'description'           => array(
-							'description' => __( 'Listing description.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'excerpt'     => array(
-							'description' => __( 'Listing short description.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'categories' => array(
-							'description' => __( 'List of categories.', 'directorist' ),
-							'type'        => 'array',
-							'context'     => array( 'view', 'edit' ),
-							'items'       => array(
-								'type'       => 'object',
-								'properties' => array(
-									'id'   => array(
-										'description' => __( 'Category ID.', 'directorist' ),
-										'type'        => 'integer',
-										'context'     => array( 'view', 'edit' ),
-									),
-									'name' => array(
-										'description' => __( 'Category name.', 'directorist' ),
-										'type'        => 'string',
-										'context'     => array( 'view', 'edit' ),
-										'readonly'    => true,
-									),
-									'slug' => array(
-										'description' => __( 'Category slug.', 'directorist' ),
-										'type'        => 'string',
-										'context'     => array( 'view', 'edit' ),
-										'readonly'    => true,
-									),
-									'icon' => array(
-										'description' => __( 'Category icon.', 'directorist' ),
-										'type'        => 'string',
-										'context'     => array( 'view', 'edit' ),
-										'readonly'    => true,
-									),
-								),
-							),
-						),
-						'tags' => array(
-							'description' => __( 'List of tags.', 'directorist' ),
-							'type'        => 'array',
-							'context'     => array( 'view', 'edit' ),
-							'items'       => array(
-								'type'       => 'object',
-								'properties' => array(
-									'id'   => array(
-										'description' => __( 'Tag ID.', 'directorist' ),
-										'type'        => 'integer',
-										'context'     => array( 'view', 'edit' ),
-									),
-									'name' => array(
-										'description' => __( 'Tag name.', 'directorist' ),
-										'type'        => 'string',
-										'context'     => array( 'view', 'edit' ),
-										'readonly'    => true,
-									),
-									'slug' => array(
-										'description' => __( 'Tag slug.', 'directorist' ),
-										'type'        => 'string',
-										'context'     => array( 'view', 'edit' ),
-										'readonly'    => true,
-									),
-								),
-							),
-						),
-						'locations' => array(
-							'description' => __( 'List of locations.', 'directorist' ),
-							'type'        => 'array',
-							'context'     => array( 'view', 'edit' ),
-							'items'       => array(
-								'type'       => 'object',
-								'properties' => array(
-									'id'   => array(
-										'description' => __( 'Location ID.', 'directorist' ),
-										'type'        => 'integer',
-										'context'     => array( 'view', 'edit' ),
-									),
-									'name' => array(
-										'description' => __( 'Location name.', 'directorist' ),
-										'type'        => 'string',
-										'context'     => array( 'view', 'edit' ),
-										'readonly'    => true,
-									),
-									'slug' => array(
-										'description' => __( 'Location slug.', 'directorist' ),
-										'type'        => 'string',
-										'context'     => array( 'view', 'edit' ),
-										'readonly'    => true,
-									),
-								),
-							),
-						),
-						'social'             => array(
-							'description' => __( 'List of social links.', 'directorist' ),
-							'type'        => 'array',
-							'context'     => array( 'view', 'edit' ),
-							'items'       => array(
-								'type'       => 'object',
-								'properties' => array(
-									'id'   => array(
-										'description' => __( 'Social media name', 'directorist' ),
-										'type'        => 'string',
-										'context'     => array( 'view', 'edit' ),
-									),
-									'url' => array(
-										'description' => __( 'Social media url.', 'directorist' ),
-										'type'        => 'string',
-										'context'     => array( 'view', 'edit' ),
-									),
-								),
-							),
-						),
-						'price_type'              => array(
-							'description' => __( 'Price type.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-							'enum' 		  => array( 'price', 'range' ),
-						),
-						'price'              => array(
-							'description' => __( 'Price amount.', 'directorist' ),
-							'type'        => 'number',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'price_range'              => array(
-							'description' => __( 'Price range.', 'directorist' ),
-							'type'        => 'string',
-							'enum'        => array( 'skimming', 'moderate', 'economy', 'bellow_economy' ),
-							'context'     => array( 'view', 'edit' ),
-						),
-						'contact_form_hidden' => array(
-							'description' => __( 'Listing owner contact form visibility status.', 'directorist' ),
-							'type'        => 'boolean',
-							'default'     => false,
-							'context'     => array( 'view', 'edit' ),
-						),
-						'zip'                  => array(
-							'description' => __( 'Zip code.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'address'              => array(
-							'description' => __( 'Listing address.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'map_hidden'              => array(
-							'description' => __( 'Map visibility status.', 'directorist' ),
-							'type'        => 'boolean',
-							'default'     => false,
-							'context'     => array( 'view', 'edit' ),
-						),
-						'latitude'              => array(
-							'description' => __( 'Address location latitude.', 'directorist' ),
-							'type'        => 'number',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'longitude'              => array(
-							'description' => __( 'Address location longitude.', 'directorist' ),
-							'type'        => 'number',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'phone'                  => array(
-							'description' => __( 'Phone number 1.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'phone2'                  => array(
-							'description' => __( 'Phone number 2.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'fax'                  => array(
-							'description' => __( 'Fax number.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'email'                  => array(
-							'description' => __( 'Email address.', 'directorist' ),
-							'type'        => 'string',
-							'format'      => 'email',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'website'                => array(
-							'description' => __( 'Website url.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'videourl'              => array(
-							'description' => __( 'Video url.', 'directorist' ),
-							'type'        => 'string',
-							'context'     => array( 'view', 'edit' ),
-						),
-						'[field_key]'   => array(
-							'description' => __( 'Field key: value.', 'directorist' ),
-							'type'        => array( 'string', 'array', 'integer', 'boolean' ),
-							'context'     => array( 'view', 'edit' ),
-						),
-					),
+					'properties'  => $fields,
 				),
 			),
 		);

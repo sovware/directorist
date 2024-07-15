@@ -90,11 +90,12 @@
 /*!**********************************************!*\
   !*** ./assets/src/js/public/range-slider.js ***!
   \**********************************************/
-/*! no exports provided */
+/*! exports provided: directorist_callingSlider */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "directorist_callingSlider", function() { return directorist_callingSlider; });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -117,6 +118,99 @@ __webpack_require__.r(__webpack_exports__);
     Positions: 'positions',
     Count: 'count',
     Values: 'values'
+  };
+
+  //RTL
+  var isRTL = directorist.rtl === 'true';
+  var direction;
+  if (isRTL) {
+    direction = 'right';
+  } else {
+    direction = 'left';
+  }
+  var slider = document.querySelectorAll(selector);
+  slider.forEach(function (id, index) {
+    var sliderDataMin = min;
+    var sliderDataUnit = id.getAttribute('data-slider-unit');
+    id.setAttribute('style', "max-width: ".concat(obj.maxWidth, "; border: ").concat(obj.barBorder, "; width: 100%; height: 4px; background: ").concat(obj.barColor, "; position: relative; border-radius: 2px;"));
+    id.innerHTML = div;
+    var slide1 = id.querySelector('.directorist-range-slider1'),
+      width = id.clientWidth;
+    slide1.style.background = obj.pointerColor;
+    slide1.style.border = obj.pointerBorder;
+    id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = "<span>".concat(min, "</span> ").concat(sliderDataUnit);
+    var x = null,
+      count = 0,
+      slid1_val = 0,
+      slid1_val2 = sliderDataMin,
+      count2 = width;
+    if (window.outerWidth < 600) {
+      id.classList.add('m-device');
+      slide1.classList.add('m-device2');
+    }
+    slide1.addEventListener(down, function (event) {
+      if (!touch) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      x = event.clientX;
+      if (touch) {
+        x = event.touches[0].clientX;
+      }
+      isDraging = true;
+      event.target.classList.add('directorist-rs-active');
+    });
+    document.body.addEventListener(up, function (event2) {
+      if (!touch) {
+        event2.preventDefault();
+        event2.stopPropagation();
+      }
+      isDraging = false;
+      slid1_val2 = slid1_val;
+      slide1.classList.remove('directorist-rs-active');
+    });
+    slide1.classList.add('directorist-rs-active1');
+    count = width / max;
+    if (slide1.classList.contains('directorist-rs-active1')) {
+      var onLoadValue = count * min;
+      id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value span').innerHTML = sliderDataMin;
+      id.querySelector('.directorist-range-slider-minimum').value = sliderDataMin;
+      id.querySelector('.directorist-rs-active1').style[direction] = onLoadValue <= 0 ? 0 : onLoadValue + 'px';
+      id.querySelector('.directorist-range-slider-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue + 'px';
+    }
+    document.body.addEventListener(move, function (e) {
+      if (isDraging) {
+        count = !isRTL ? e.clientX + slid1_val2 * width / max - x : -e.clientX + slid1_val2 * width / max + x;
+        if (touch) {
+          count = !isRTL ? e.touches[0].clientX + slid1_val2 * width / max - x : -e.touches[0].clientX + slid1_val2 * width / max + x;
+        }
+        if (count < 0) {
+          count = 0;
+        } else if (count > count2 - 18) {
+          count = count2 - 18;
+        }
+      }
+      if (slide1.classList.contains('directorist-rs-active')) {
+        slid1_val = Math.floor(max / (width - 18) * count);
+        id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = "<span>".concat(slid1_val, "</span> ").concat(sliderDataUnit);
+        id.querySelector('.directorist-range-slider-minimum').value = slid1_val;
+        id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-value').value = slid1_val;
+        id.querySelector('.directorist-rs-active').style[direction] = count + 'px';
+        id.querySelector('.directorist-range-slider-child').style.width = count + 'px';
+      }
+    });
+  });
+});
+function directorist_callingSlider() {
+  var minValueWrapper = document.querySelector('.directorist-range-slider-value');
+  var default_args = {
+    maxValue: directorist.args.search_max_radius_distance,
+    minValue: parseInt(minValueWrapper && minValueWrapper.value),
+    maxWidth: '100%',
+    barColor: '#d4d5d9',
+    barBorder: 'none',
+    pointerColor: '#fff',
+    pointerBorder: '4px solid #444752'
   };
   exports.PipsType = {
     None: -1,
@@ -553,7 +647,7 @@ __webpack_require__.r(__webpack_exports__);
           - The provided value for the option;
           - A reference to the options object;
           - The name for the option;
-        The testing function returns false when an error is detected,
+       The testing function returns false when an error is detected,
       or true when everything is OK. It can also modify the option
       object, to make sure all values can be correctly looped elsewhere. */
   //region Defaults
@@ -2379,7 +2473,8 @@ __webpack_require__.r(__webpack_exports__);
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-});
+}
+;
 
 /***/ }),
 

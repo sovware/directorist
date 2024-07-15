@@ -603,6 +603,7 @@ $(document).ready(function () {
                 form_data.append( field.name, field.value );
             }
 
+<<<<<<< HEAD
             // Upload existing image
             if ( mediaUploaders.length ) {
                 for ( let uploader of mediaUploaders ) {
@@ -614,6 +615,20 @@ $(document).ready(function () {
                         uploader.media_uploader.getFilesMeta().forEach( function( file_meta ) {
                             if ( file_meta.attachmentID ) {
                                 form_data.append(`${uploader.uploaders_data.meta_name}_old[]`, file_meta.attachmentID);
+=======
+            //images
+            if (mediaUploaders.length) {
+                for (var uploader of mediaUploaders) {
+                    if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
+                        continue;
+                    }
+
+                    if (uploader.media_uploader.hasValidFiles()) {
+                        var files_meta = uploader.media_uploader.getFilesMeta();
+                        if (files_meta) {
+                            for (var i = 0; i < files_meta.length; i++) {
+                                form_data.append(`listing_img_old[${i}]`, files_meta[i].attachmentID);
+>>>>>>> 829185f65086db0bf3762620ab093edbe1a44641
                             }
                         } );
                     } else {
@@ -630,6 +645,7 @@ $(document).ready(function () {
                 }
             }
 
+<<<<<<< HEAD
             // Upload new image
             if ( uploadedImages.length ) {
                 uploadedImages.forEach( function( image ) {
@@ -637,6 +653,8 @@ $(document).ready(function () {
                 } );
             }
 
+=======
+>>>>>>> 829185f65086db0bf3762620ab093edbe1a44641
             // categories
             const categories = $form.find('#at_biz_dir-categories').val();
             if ( Array.isArray( categories ) && categories.length ) {

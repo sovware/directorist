@@ -4352,4 +4352,3 @@ function directorist_format_time( $time = '', $format = '' ) {
 
     return date( $format, $time );
 }
-

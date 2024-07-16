@@ -136,11 +136,12 @@
                 });
             } else if ('checkbox' === type) {
                 post_id = post_id.split('[]')[0];
+                if (!custom_field[post_id]) {
+                    custom_field[post_id] = [];
+                }
                 $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-                    var checkValue = [];
-                        value      = $(this).val();
-                    checkValue.push(value);
-                    custom_field[post_id] = checkValue;
+                    var value = $(this).val();
+                    custom_field[post_id].push(value);
                 });
             } else {
                 var value = $(el).val();
@@ -379,11 +380,12 @@
                     });
                 } else if ('checkbox' === type) {
                     post_id = post_id.split('[]')[0];
+                    if (!custom_field[post_id]) {
+                        custom_field[post_id] = [];
+                    }
                     $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-                        var checkValue = [];
-                            value      = $(this).val();
-                        checkValue.push(value);
-                        custom_field[post_id] = checkValue;
+                        var value = $(this).val();
+                        custom_field[post_id].push(value);
                     });
                 } else {
                     var value = $(el).val();
@@ -561,7 +563,8 @@
         // Select Active Form Based on Screen Size
         const advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
         const searchForm  = instant_search_element.find('.directorist-search-form');
-        const activeForm = screen.width > 575 ? advancedForm : searchForm;
+        const sidebarListing = instant_search_element.find('.listing-with-sidebar');
+        const activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
 
         // Get Values from Active Form
         activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
@@ -584,11 +587,12 @@
                 });
             } else if ('checkbox' === type) {
                 post_id = post_id.split('[]')[0];
+                if (!custom_field[post_id]) {
+                    custom_field[post_id] = [];
+                }
                 $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-                    var checkValue = [];
-                        value      = $(this).val();
-                    checkValue.push(value);
-                    custom_field[post_id] = checkValue;
+                    var value = $(this).val();
+                    custom_field[post_id].push(value);
                 });
             } else {
                 var value = $(el).val();
@@ -712,7 +716,8 @@
         // Select Active Form Based on Screen Size
         const advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
         const searchForm  = instant_search_element.find('.directorist-search-form');
-        const activeForm = screen.width > 575 ? advancedForm : searchForm;
+        const sidebarListing = instant_search_element.find('.listing-with-sidebar');
+        const activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
 
         // Get Values from Active Form
         activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
@@ -734,11 +739,12 @@
                 });
             } else if ('checkbox' === type) {
                 post_id = post_id.split('[]')[0];
+                if (!custom_field[post_id]) {
+                    custom_field[post_id] = [];
+                }
                 $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-                    var checkValue = [];
-                        value      = $(this).val();
-                    checkValue.push(value);
-                    custom_field[post_id] = checkValue;
+                    var value = $(this).val();
+                    custom_field[post_id].push(value);
                 });
             } else {
                 var value = $(el).val();
@@ -846,7 +852,8 @@
         // Select Active Form Based on Screen Size
         const advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
         const searchForm  = instant_search_element.find('.directorist-search-form');
-        const activeForm = screen.width > 575 ? advancedForm : searchForm;
+        const sidebarListing = instant_search_element.find('.listing-with-sidebar');
+        const activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
 
         // Get Values from Active Form
         activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
@@ -868,11 +875,12 @@
                 });
             } else if ('checkbox' === type) {
                 post_id = post_id.split('[]')[0];
+                if (!custom_field[post_id]) {
+                    custom_field[post_id] = [];
+                }
                 $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-                    var checkValue = [];
-                        value      = $(this).val();
-                    checkValue.push(value);
-                    custom_field[post_id] = checkValue;
+                    var value = $(this).val();
+                    custom_field[post_id].push(value);
                 });
             } else {
                 var value = $(el).val();
@@ -994,16 +1002,17 @@
             var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
             if ('radio' === type) {
                 $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
-                    value                 = searchElm.val();
+                    value                 = $(this).val();;
                     custom_field[post_id] = value;
                 });
             } else if ('checkbox' === type) {
                 post_id = post_id.split('[]')[0];
+                if (!custom_field[post_id]) {
+                    custom_field[post_id] = [];
+                }
                 $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-                    var checkValue = [];
-                        value      = searchElm.val();
-                    checkValue.push(value);
-                    custom_field[post_id] = checkValue;
+                    var value = $(this).val();
+                    custom_field[post_id].push(value);
                 });
             } else {
                 var value = $(el).val();

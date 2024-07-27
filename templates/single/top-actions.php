@@ -15,11 +15,7 @@ $listing = Directorist_Single_Listing::instance();
 <div class="directorist-single-listing-top directorist-flex directorist-align-center directorist-justify-content-between">
 	<?php if( $listing->display_back_link() ): ?>
 
-	<?php if ( $listing->current_user_is_author() ): ?>
-
-		<?php if ( $listing->display_back_link() && ! $listing->has_redirect_link() && wp_get_referer() ): ?>
-
-		<a href="<?php echo esc_url( wp_get_referer() ) ?>" class="directorist-return-back"><?php directorist_icon( 'las la-angle-left' ); ?> <?php esc_html_e( 'Go Back', 'directorist'); ?></a>
+	<a href="javascript:history.back()" class="directorist-single-listing-action directorist-return-back directorist-btn__back directorist-btn directorist-btn-sm directorist-btn-light"><?php directorist_icon( 'las la-arrow-left' ); ?> <span class="directorist-single-listing-action__text"><?php esc_html_e( 'Go Back', 'directorist'); ?></span> </a>
 
 	<?php endif; ?>
 
@@ -39,11 +35,5 @@ $listing = Directorist_Single_Listing::instance();
 		<?php $listing->quick_actions_template(); ?>
 
 	</div>
-
-	<?php elseif( $listing->display_back_link() && wp_get_referer() ): ?>
-
-		<a href="<?php echo esc_url( wp_get_referer() ) ?>" class="directorist-return-back"><?php directorist_icon( 'las la-angle-left' ); ?> <?php esc_html_e( 'Go Back', 'directorist'); ?></a>
-
-	<?php endif; ?>
 
 </div>

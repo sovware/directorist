@@ -17322,6 +17322,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-pack: center;
           justify-content: center;
   text-decoration: none;
+  border: none;
+  cursor: pointer;
 }
 .directorist-report-abuse-modal .directorist-modal__body {
   padding: 20px 0;
@@ -17336,7 +17338,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-report-abuse-modal .directorist-modal__body textarea {
   min-height: 90px;
   resize: none;
-  padding: 8px 16px;
+  padding: 10px 16px;
   border-radius: 10px;
   border: 1px solid var(--directorist-color-border);
 }

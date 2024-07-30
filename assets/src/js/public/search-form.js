@@ -754,6 +754,7 @@ import './components/directoristSelect';
                 }
             });
         }
+
         // handleRadiusVisibility Trigger
         $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
             handleRadiusVisibility();
@@ -1033,7 +1034,7 @@ import './components/directoristSelect';
                     let sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
                     let sliderRangeShow = sliderItem.querySelector('.directorist-custom-range-slider__range__show');
                     
-                    directoristCustomRangeSlider.create(slider, {
+                    slider.directoristCustomRangeSlider?.create(slider, {
                         start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
                         connect: true,
                         step: sliderStep ? sliderStep : 1,
@@ -1043,7 +1044,7 @@ import './components/directoristSelect';
                         }
                     });
         
-                    slider.directoristCustomRangeSlider.on('update', function (values, handle) {
+                    slider.directoristCustomRangeSlider?.on('update', function (values, handle) {
                         let value = values[handle];
                         handle === 0 ? minInput.value = Math.round(value) : maxInput.value = Math.round(value);
                         let rangeValue = minInput.value + '-' + maxInput.value;

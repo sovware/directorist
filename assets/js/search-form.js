@@ -1489,6 +1489,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       });
     }
+
     // handleRadiusVisibility Trigger
     $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
       handleRadiusVisibility();
@@ -1704,13 +1705,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       sliders.forEach(function (sliderItem) {
         var slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
         if (slider) {
+          var _slider$directoristCu, _slider$directoristCu2;
           var sliderStep = parseInt(slider.getAttribute('step')) || 1;
           var sliderDefaultValue = parseInt(slider.getAttribute('value'));
           var minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
           var maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
           var sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
           var sliderRangeShow = sliderItem.querySelector('.directorist-custom-range-slider__range__show');
-          directoristCustomRangeSlider.create(slider, {
+          (_slider$directoristCu = slider.directoristCustomRangeSlider) === null || _slider$directoristCu === void 0 || _slider$directoristCu.create(slider, {
             start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
             connect: true,
             step: sliderStep ? sliderStep : 1,
@@ -1719,7 +1721,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               'max': Number(maxInput.value ? maxInput.value : 100)
             }
           });
-          slider.directoristCustomRangeSlider.on('update', function (values, handle) {
+          (_slider$directoristCu2 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu2 === void 0 || _slider$directoristCu2.on('update', function (values, handle) {
             var value = values[handle];
             handle === 0 ? minInput.value = Math.round(value) : maxInput.value = Math.round(value);
             var rangeValue = minInput.value + '-' + maxInput.value;

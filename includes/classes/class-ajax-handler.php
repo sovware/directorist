@@ -1273,11 +1273,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			// sanitize form values
-			$post_id       = ! empty( $_POST['post_id'] ) ? sanitize_text_field( absint( $_POST['post_id'] ) ) : '';
-			$name          = ( ! empty( $_POST['name'] ) ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
-			$email         = ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+			$post_id       = ! empty( $_POST['atbdp-post-id'] ) ? sanitize_text_field( absint( $_POST['atbdp-post-id'] ) ) : '';
+			$name          = ( ! empty( $_POST['atbdp-contact-name'] ) ) ? sanitize_text_field( wp_unslash( $_POST['atbdp-contact-name'] ) ) : '';
+			$email         = ! empty( $_POST['atbdp-contact-email'] ) ? sanitize_email( wp_unslash( $_POST['atbdp-contact-email'] ) ) : '';
 			$listing_email = get_post_meta( $post_id, '_email', true );
-			$message       = ( ! empty( $_POST['message']  ) ) ? stripslashes( sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) ) : '';
+			$message       = ( ! empty( $_POST['atbdp-contact-message']  ) ) ? stripslashes( sanitize_textarea_field( wp_unslash( $_POST['atbdp-contact-message'] ) ) ) : '';
 			// vars
 			$post_author_id        = get_post_field( 'post_author', $post_id );
 			$user                  = get_userdata( $post_author_id );
@@ -1362,10 +1362,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			// sanitize form values
-			$post_id = ! empty( $_POST['post_id'] ) ? sanitize_text_field( absint( $_POST['post_id'] ) ) : '';
-			$name    = ( ! empty( $_POST['name'] ) ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
-			$email   = ( ! empty( $_POST['email'] ) ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
-			$message = ( ! empty( $_POST['message'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
+			$post_id = ! empty( $_POST['atbdp-post-id'] ) ? sanitize_text_field( absint( $_POST['atbdp-post-id'] ) ) : '';
+			$name    = ( ! empty( $_POST['atbdp-contact-name'] ) ) ? sanitize_text_field( wp_unslash( $_POST['atbdp-contact-name'] ) ) : '';
+			$email   = ( ! empty( $_POST['atbdp-contact-email'] ) ) ? sanitize_email( wp_unslash( $_POST['atbdp-contact-email'] ) ) : '';
+			$message = ( ! empty( $_POST['atbdp-contact-message'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['atbdp-contact-message'] ) ) : '';
 			// vars
 			$site_name     = get_bloginfo( 'name' );
 			$site_url      = get_bloginfo( 'url' );

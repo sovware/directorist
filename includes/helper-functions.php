@@ -4300,3 +4300,36 @@ function directorist_format_time( $time = '', $format = '' ) {
 
     return date( $format, $time );
 }
+
+function directorist_filter_listing_empty_metadata( $meta_data ) {
+	return array_filter( $meta_data, static function( $value, $key ) {
+		if ( $key === '_hide_contact_owner' && ! $value ) {
+			return false;
+		}
+
+		if ( is_array( $value ) ) {
+			return ! empty( $value );
+		}
+
+		if ( is_null( $value ) ) {
+			return false;
+		}
+
+		if ( is_string( $value ) && $value === '' ) {
+			return false;
+		}
+
+		if ( is_numeric( $value ) && $value == 0 ) {
+			return false;
+		}
+
+		return true;
+	}, ARRAY_FILTER_USE_BOTH );
+}
+
+function directorist_delete_listing_empty_metadata( $listing_id, array $metadata = array(), array $valid_metadata = array() ) {
+	$deletable_meta_data = array_diff_key( $metadata, $valid_metadata );
+	foreach ( $deletable_meta_data as $deletable_meta_key => $v ) {
+		delete_post_meta( $listing_id, $deletable_meta_key );
+	}
+}

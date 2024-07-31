@@ -1641,7 +1641,7 @@ class Directorist_Listings {
 				}
 				return $image;
 			} else {
-				$output = "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='300' data-sw-autoplay='false' data-sw-responsive='{}'>
+				$output = "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='500' data-sw-autoplay='false' data-sw-responsive='{}'>
 					<div class='swiper-wrapper'>";
 
 				foreach ( $thumbnail_img_id as $img_id ) {

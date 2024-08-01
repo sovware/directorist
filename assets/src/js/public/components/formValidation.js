@@ -31,6 +31,7 @@
         // Validate contact form
         $('.directorist-contact-owner-form').on('submit', function (e) {
             e.preventDefault();
+            var form = $(this);
             var submit_button = $(this).find('button[type="submit"]');
             var status_area = $(this).find('.directorist-contact-message-display');
 
@@ -38,22 +39,17 @@
             var msg = '<div class="directorist-alert"><i class="fas fa-circle-notch fa-spin"></i> ' + directorist.waiting_msg + ' </div>';
             status_area.html(msg);
 
-            var name = $(this).find('input[name="atbdp-contact-name"]');
-            var contact_email = $(this).find('input[name="atbdp-contact-email"]');
-            var message = $(this).find('textarea[name="atbdp-contact-message"]');
-            var post_id = $(this).find('input[name="atbdp-post-id"]');
-            var listing_email = $(this).find('input[name="atbdp-listing-email"]');
-
-            // Post via AJAX
+            // Serialize form data
+            var form_data = form.serializeArray();
             var data = {
                 'action': 'atbdp_public_send_contact_email',
-                'post_id': post_id.val(),
-                'name': name.val(),
-                'email': contact_email.val(),
-                'listing_email': listing_email.val(),
-                'message': message.val(),
                 'directorist_nonce': directorist.directorist_nonce
             };
+
+            // Convert serialized data array into an object
+            $.each(form_data, function (index, elem) {
+                data[elem.name] = elem.value;
+            });
 
             submit_button.prop('disabled', true);
             $.post(directorist.ajaxurl, data, function (response) {

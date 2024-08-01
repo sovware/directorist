@@ -536,7 +536,11 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 			if ( 'auth' === $type && ! is_user_logged_in() && ! $login_redirect ) {
 				ob_start();
 				// user not logged in;
-				$error_message = sprintf( esc_html__( 'You need to be logged in to view the content of this page. You can login %1$s. Don\'t have an account? %2$s', 'directorist' ), apply_filters( 'atbdp_listing_form_login_link', "<a href='" . esc_url( ATBDP_Permalink::get_login_page_link() ) . "'> " . esc_html__( 'Here', 'directorist' ) . '</a>' ), apply_filters( 'atbdp_listing_form_signup_link', "<a href='" . esc_url( ATBDP_Permalink::get_registration_page_link() ) . "'> " . esc_html__( 'Sign Up', 'directorist' ) . '</a>' ) );
+				if( get_option( 'directorist_merge_dashboard_login_reg_page' ) ) {
+					$error_message = sprintf( esc_html__( 'You need to be logged in to view the content of this page. You can login/sign up %s.', 'directorist' ), apply_filters( 'atbdp_listing_form_login_link', "<a href='" . esc_url( ATBDP_Permalink::get_dashboard_page_link() ) . "'> " . esc_html__( 'Here', 'directorist' ) . '</a>' ) );
+				} else {
+					$error_message = sprintf( esc_html__( 'You need to be logged in to view the content of this page. You can login %1$s. Don\'t have an account? %2$s', 'directorist' ), apply_filters( 'atbdp_listing_form_login_link', "<a href='" . esc_url( ATBDP_Permalink::get_login_page_link() ) . "'> " . esc_html__( 'Here', 'directorist' ) . '</a>' ), apply_filters( 'atbdp_listing_form_signup_link', "<a href='" . esc_url( ATBDP_Permalink::get_registration_page_link() ) . "'> " . esc_html__( 'Sign Up', 'directorist' ) . '</a>' ) );
+				}
 				?>
 				<section class="directory_wrapper single_area">
 					<?php self::show_login_message( $error_message ); ?>

@@ -6,8 +6,8 @@
       &[data-label]:before {
         bottom: -8px;
         top: auto;
-        border-top-color:#fff;
-        border-bottom-color:rgba(0, 0, 0, 1);
+        border-top-color:var(--directorist-color-white);
+        border-bottom-color:rgba(var(--directorist-color-dark-rgb), 1);
       }
       &[data-label]:after{
         transform: translate(-50%);
@@ -30,7 +30,7 @@
       top: -6px;
       transform: translateX(-50%);
       border: 6px solid transparent;
-      border-top-color: rgba(0, 0, 0, 1);
+      border-top-color: rgba(var(--directorist-color-dark-rgb), 1);
     }
 
     &[data-label]:after {
@@ -38,10 +38,10 @@
       content: attr(data-label);
       left: 50%;
       transform: translate(-50%, -6px);
-      background: rgba(0, 0, 0, 1);
+      background: rgba(var(--directorist-color-dark-rgb), 1);
       padding: 4px 12px;
       border-radius: 3px;
-      color: #fff;
+      color: var(--directorist-color-white);
       z-index: 9999;
       text-align: center;
       min-width: 140px;

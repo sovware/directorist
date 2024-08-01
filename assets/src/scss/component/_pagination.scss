@@ -36,6 +36,11 @@
     &.current {
       border-color: var(--directorist-color-primary);
       color: var(--directorist-color-primary);
+      .directorist-icon-mask{
+        &:after{
+          background-color: var(--directorist-color-primary);
+        }
+      }
     }
   }
 }

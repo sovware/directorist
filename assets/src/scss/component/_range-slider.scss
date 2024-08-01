@@ -81,7 +81,7 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 4px solid var(--directorist-color-body);
+    border: 4px solid var(--directorist-color-primary);
     right: -20px;
     top: -8px;
     cursor: pointer;
@@ -116,7 +116,7 @@
   background-color: #d9d9d9;
 }
 .directorist-custom-range-slider-connect {
-  background-color: #404040;
+  background-color: var(--directorist-color-primary);
 }
 
 /* Handles and cursors; */
@@ -131,7 +131,7 @@
 .directorist-custom-range-slider-handle {
   border: 1px solid #d9d9d9;
   border-radius: 3px;
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
   cursor: default;
   box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ebebeb, 0 3px 6px -3px #bbb;
 }
@@ -248,8 +248,8 @@
   position: absolute;
   border: 1px solid #d9d9d9;
   border-radius: 3px;
-  background-color: #fff;
-  color: #000;
+  background-color: var(--directorist-color-white);
+  color: var(--directorist-color-dark);
   padding: 5px;
   text-align: center;
   white-space: nowrap;

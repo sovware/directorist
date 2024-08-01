@@ -74,7 +74,8 @@ class SetupWizard
                     }
 
                     // @todo: need to pass the dynamic csv from remote
-                    $listing_data = ATBDP_URL .'views/admin-templates/import-export/data/dummy.csv';
+                    // $listing_data = ATBDP_URL .'views/admin-templates/import-export/data/dummy.csv';
+                    $listing_data = $type['listing_data'];
                     
                     $file_url = $type['url'];
 
@@ -94,7 +95,9 @@ class SetupWizard
                             $term_id = $term['term_id'];
                         }
 
-                        $data['import_log'] = self::atbdp_dummy_data_import( $listing_data, $term_id );
+                        if( ! empty( $listing_data ) ) {
+                            $data['import_log'] = self::atbdp_dummy_data_import( $listing_data, $term_id );
+                        }
 
                     }
 

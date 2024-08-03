@@ -49,7 +49,7 @@ class SetupWizard
         }
 
         if( isset( $_POST['directory_type_settings'] ) ) {
-            $request_directory_types = wp_remote_get( 'https://app.directorist.com/wp-json/directorist/v1/get-directory-types' );
+            $request_directory_types = wp_remote_get( 'https://app.directorist.com/wp-json/directorist/v1/get-directory-types?clear' );
             if( is_wp_error( $request_directory_types ) ) {
                 return false;
             }
@@ -223,32 +223,16 @@ class SetupWizard
 
         $directory_id = ! empty( $type ) ? $type : default_directory_type();
 
-		$allowed_meta_data_keys = array(
-			'tagline',
-			'price',
-			'price_range',
-			'atbdp_post_views_count',
-			'hide_contact_owner',
-			'address',
-			'manual_lat',
-			'manual_lng',
-			'hide_map',
-			'zip',
-			'phone',
-			'email',
-			'website',
-			'videourl',
-		);
-
         foreach ( $posts as $index => $post ) {
                 if ( $count === $limit ) {
 					break;
 				}
 
                 // start importing listings
+                $images = isset( $post['listing_img'] ) ? $post['listing_img'] : '';
                 $args = array(
-                    'post_title'   => isset( $post['Title'] ) ? $post['Title'] : '',
-                    'post_content' => isset( $post['Description'] ) ? $post['Description'] : '',
+                    'post_title'   => isset( $post['listing_title'] ) ? $post['listing_title'] : '',
+                    'post_content' => isset( $post['listing_content'] ) ? $post['listing_content'] : '',
                     'post_type'    => 'at_biz_dir',
                     'post_status'  => 'publish',
                 );
@@ -264,7 +248,7 @@ class SetupWizard
 				$imported++;
 
                 foreach($post as $key => $value){
-                    $key = directorist_translate_to_listing_field_key( $key );
+                    // $key = directorist_translate_to_listing_field_key( $key );
                     if ('category' == $key) {
                         $taxonomy = ATBDP_CATEGORY;
                         $term_exists = get_term_by( 'name', $value, $taxonomy );
@@ -305,7 +289,7 @@ class SetupWizard
                         }
                     }
 
-                    if ( in_array( $key, $allowed_meta_data_keys, true ) && $value !== '' ) {
+                    if ( $value !== '' ) {
                         update_post_meta( $post_id, '_' . $key, $value );
                     }
                 }
@@ -314,11 +298,23 @@ class SetupWizard
                 update_post_meta($post_id, '_expiry_date', $exp_dt);
                 update_post_meta($post_id, '_featured', 0);
                 update_post_meta($post_id, '_listing_status', 'post_status');
-                $preview_url = isset($post['Image']) ? $post['Image'] : '';
 
-                if ( $preview_image && $preview_url ) {
-                   $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($preview_url, $post_id);
-                   update_post_meta($post_id, '_listing_prv_img', $attachment_id);
+                if ( $images ) {
+                    $images = explode( ',', $images );
+
+                    if ( ! empty( $images ) ) {
+                        $attachment_ids = [];
+                        foreach ( $images as $_url_index => $_url ) {
+                            $_url = trim( $_url );
+                            $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($_url, $post_id);
+                            if ( $_url_index == 0 ) {
+                                update_post_meta($post_id, '_listing_prv_img', $attachment_id);
+                            } else {
+                                $attachment_ids[] = $attachment_id;
+                            }
+                        }
+                        update_post_meta($post_id, '_listing_img', $attachment_ids );
+                    }
                 }
 
                 //directory type
@@ -766,17 +762,25 @@ class SetupWizard
                     <label for="car-rent-directory">Car Rent Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="directory_type[]" id="real-estate" value="real-estate" />
-                    <label for="real-estate">Real Estate</label>
+                    <input type="checkbox" name="directory_type[]" id="real-estate-rent" value="real_estate_rent" />
+                    <label for="real-estate-rent">Real Estate (Rent)</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="directory_type[]" id="real-estate-sell" value="real_estate_sell" />
+                    <label for="real-estate-sell">Real Estate (Sell)</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="directory_type[]" id="place" value="place" />
+                    <label for="place">Place</label>
+                </div>
+                <!-- <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="travel-directory" value="travel" />
                     <label for="travel-directory">Travel Directory</label>
-                </div>
-                <div class="directorist-setup-wizard__checkbox">
+                </div> -->
+                <!-- <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="service-directory" value="service" />
                     <label for="service-directory">Service Directory</label>
-                </div>
+                </div> -->
                 <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="job-directory" value="job" />
                     <label for="job-directory">Job Directory</label>
@@ -800,6 +804,10 @@ class SetupWizard
                 <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="doctors-directory" value="doctors" />
                     <label for="doctors-directory">Doctors Directory</label>
+                </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="directory_type[]" id="hospitals-directory" value="hospitals" />
+                    <label for="hospitals-directory">Hospitals Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="other_directory" id="others-listing" value="other" />

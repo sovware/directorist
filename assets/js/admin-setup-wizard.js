@@ -176,6 +176,9 @@ jQuery(document).ready(function ($) {
       url: import_export_data.ajaxurl,
       data: data,
       success: function success(response) {
+        console.log(response);
+        return;
+
         // Remove the class on success
         $('.directorist-submit-importing').removeClass('loading');
         if (response.data.url) {

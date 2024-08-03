@@ -1034,7 +1034,7 @@ import './components/directoristSelect';
                     let sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
                     let sliderRangeShow = sliderItem.querySelector('.directorist-custom-range-slider__range__show');
                     
-                    slider.directoristCustomRangeSlider?.create(slider, {
+                    directoristCustomRangeSlider?.create(slider, {
                         start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
                         connect: true,
                         step: sliderStep ? sliderStep : 1,

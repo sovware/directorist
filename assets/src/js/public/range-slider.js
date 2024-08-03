@@ -18,28 +18,6 @@
         Values: 'values'
     };
 
-    //RTL
-    var isRTL = (directorist.rtl === 'true');
-    var direction;
-    if(isRTL){
-        direction = 'right';
-    }else{
-        direction = 'left';
-    }
-}));
-
-export function directorist_callingSlider() {
-    const minValueWrapper = document.querySelector('.directorist-range-slider-value');
-    var default_args = {
-        maxValue: directorist.args.search_max_radius_distance,
-        minValue: parseInt(minValueWrapper && minValueWrapper.value),
-        maxWidth: '100%',
-        barColor: '#d4d5d9',
-        barBorder: 'none',
-        pointerColor: '#fff',
-        pointerBorder: '4px solid #444752',
-    };
-
     exports.PipsType = {
         None: -1,
         NoValue: 0,
@@ -2306,4 +2284,4 @@ export function directorist_callingSlider() {
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-};
+}));

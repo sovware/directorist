@@ -90,12 +90,11 @@
 /*!**********************************************!*\
   !*** ./assets/src/js/public/range-slider.js ***!
   \**********************************************/
-/*! exports provided: directorist_callingSlider */
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "directorist_callingSlider", function() { return directorist_callingSlider; });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -118,27 +117,6 @@ __webpack_require__.r(__webpack_exports__);
     Positions: 'positions',
     Count: 'count',
     Values: 'values'
-  };
-
-  //RTL
-  var isRTL = directorist.rtl === 'true';
-  var direction;
-  if (isRTL) {
-    direction = 'right';
-  } else {
-    direction = 'left';
-  }
-});
-function directorist_callingSlider() {
-  var minValueWrapper = document.querySelector('.directorist-range-slider-value');
-  var default_args = {
-    maxValue: directorist.args.search_max_radius_distance,
-    minValue: parseInt(minValueWrapper && minValueWrapper.value),
-    maxWidth: '100%',
-    barColor: '#d4d5d9',
-    barBorder: 'none',
-    pointerColor: '#fff',
-    pointerBorder: '4px solid #444752'
   };
   exports.PipsType = {
     None: -1,
@@ -2401,8 +2379,7 @@ function directorist_callingSlider() {
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
-}
-;
+});
 
 /***/ }),
 

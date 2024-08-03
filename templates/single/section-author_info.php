@@ -17,18 +17,18 @@ $author_img = !empty($u_pro_pic) ? $u_pro_pic[0] : '';
 $avatar_img = get_avatar($author_id, 32);
 ?>
 
-<div class="directorist-card directorist-card-author-info <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
+<section class="directorist-card directorist-card-author-info <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
 
-	<div class="directorist-card__header">
+	<header class="directorist-card__header">
 
-		<h4 class="directorist-card__header--title">
+		<h3 class="directorist-card__header__title">
 			<?php if ( ! empty( $icon ) ) : ?>
 				<span class="directorist-card__header-icon"><?php directorist_icon( $icon ); ?></span>
 			<?php endif; ?>
 			<span class="directorist-card__header-text"><?php echo esc_html( $label ); ?></span>
-		</h4>
+		</h3>
 
-	</div>
+	</header>
 
 	<div class="directorist-card__body">
 
@@ -36,13 +36,13 @@ $avatar_img = get_avatar($author_id, 32);
 
 			<div class="directorist-single-author-avatar">
 
-				<div class="directorist-single-author-avatar-inner">
+				<figure class="directorist-single-author-avatar-inner">
 					<?php if ( $author_img ): ?>
 						<img src="<?php echo esc_url( $author_img ); ?>" alt="<?php esc_attr_e( 'Avatar', 'directorist' );?>">
 					<?php else: ?>
 						<?php echo wp_kses_post( $avatar_img ); ?>
 					<?php endif; ?>
-				</div>
+				</figure>
 
 				<div class="directorist-single-author-name">
 					<h4><?php echo esc_html( $listing->author_info( 'name' ) ); ?></h4>
@@ -117,4 +117,4 @@ $avatar_img = get_avatar($author_id, 32);
 		</div>
 	</div>
 
-</div>
+</section>

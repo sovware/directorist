@@ -79,7 +79,7 @@
         position: absolute;
         top: -5px;
         right: -5px;
-        background: #d3d1ec;
+        background-color: #d3d1ec;
         line-height: 26px;
         width: 26px;
         border-radius: 50%;
@@ -158,7 +158,7 @@
         position: absolute;
         top: -5px;
         right: -5px;
-        background: #d3d1ec;
+        background-color: #d3d1ec;
         line-height: 26px;
         width: 26px;
         height: 26px;
@@ -274,7 +274,7 @@
 
     .single_extension {
       margin-bottom: 30px;
-      background: #ffffff;
+      background-color: #ffffff;
       box-shadow: 0px 5px 10px #e1e7f7;
       padding: 25px;
 
@@ -354,7 +354,7 @@
       width: 27%;
 
       .postbox {
-        background: #0073aa;
+        background-color: #0073aa;
         border-radius: 3px;
         box-shadow: 0 10px 20px rgba(103, 103, 103, 0.27);
 
@@ -418,7 +418,7 @@
 	**************************************************************/
   .postbox table.widefat {
     box-shadow: none;
-    background: #eff2f5;
+    background-color: #eff2f5;
   }
 
   #atbdp-field-details td {
@@ -597,12 +597,12 @@ a {
   top: 12px;
   border: 1px solid #eee;
   left: 20px;
-  background: #f2f4f7;
+  background-color: #f2f4f7;
   z-index: 1;
 }
 
 #shortcode-updated .input label span {
-  background: #008ec2;
+  background-color: #008ec2;
   width: 160px;
   position: relative;
   border-radius: 3px;
@@ -658,7 +658,7 @@ a {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #c4c4c4;
+    background-color: #c4c4c4;
     right: -5px;
     top: -5px;
     display: flex;
@@ -668,7 +668,7 @@ a {
     transition: 0.2s ease;
 
     &:hover {
-      background: #ff0000;
+      background-color: #ff0000;
       color: #fff;
     }
   }
@@ -697,7 +697,7 @@ a {
       justify-content: center;
 
       .thumbremovelink {
-        background: #000;
+        background-color: #000;
         height: 30px;
         width: 30px;
         display: flex;
@@ -708,7 +708,7 @@ a {
         font-size: 14px;
 
         &:hover {
-          background: #e23636;
+          background-color: #e23636;
         }
       }
       &:before {
@@ -733,7 +733,7 @@ a {
 
   .atbdp_button {
     border: 1px solid $border-color;
-    background: #f8f9fb;
+    background-color: #f8f9fb;
     font-size: 14px;
     box-shadow: none;
     line-height: 40px !important;
@@ -972,7 +972,7 @@ span.atbdp-tick-cross {
     text-decoration: none;
     line-height: 44px;
     padding: 0 20px;
-    background: #fff;
+    background-color: #fff;
     border: 1px solid #e3e6ef;
     color: #272b41;
     border-radius: 5px;
@@ -988,7 +988,7 @@ span.atbdp-tick-cross {
     }
 
     &.btn-active {
-      background: #2c99ff;
+      background-color: #2c99ff;
       color: #fff;
       border-color: #2c99ff;
 
@@ -1031,7 +1031,7 @@ span.atbdp-tick-cross {
         border-radius: 50%;
         color: #9299b8;
         box-shadow: 5px 0 10px rgba(#9299b8, 0.15);
-        background: #fff;
+        background-color: #fff;
 
         .dashicons {
           margin: 0;
@@ -1048,7 +1048,7 @@ span.atbdp-tick-cross {
 
       &.active {
         .step {
-          background: #272b41;
+          background-color: #272b41;
           color: #fff;
         }
 
@@ -1063,7 +1063,7 @@ span.atbdp-tick-cross {
         }
 
         .step {
-          background: #0fb73b;
+          background-color: #0fb73b;
           color: #fff;
 
           .step-count {
@@ -1094,7 +1094,7 @@ span.atbdp-tick-cross {
   .csv-center {
     width: 700px;
     margin: 0 auto;
-    background: #fff;
+    background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 5px 8px rgba(#9299b8, 0.15);
   }
@@ -1146,7 +1146,7 @@ span.atbdp-tick-cross {
                 justify-content: center;
                 border-radius: 5px;
                 padding: 0 20px;
-                background: #5a5f7d;
+                background-color: #5a5f7d;
                 color: #fff;
                 font-weight: 500;
               }
@@ -1233,7 +1233,7 @@ span.atbdp-tick-cross {
           }
 
           thead {
-            background: #f4f5f7;
+            background-color: #f4f5f7;
 
             th {
               border: 0 none;
@@ -1282,10 +1282,10 @@ span.atbdp-tick-cross {
       display: flex;
       justify-content: flex-end;
       padding: 20px 30px;
-      background: #f4f5f7;
+      background-color: #f4f5f7;
 
       .button {
-        background: #2c99ff;
+        background-color: #2c99ff;
         color: #fff;
         border: 0 none;
         line-height: 44px;
@@ -1340,23 +1340,23 @@ span.atbdp-tick-cross {
     }
 
     progress::-webkit-progress-bar {
-      background: #e8f0f8;
+      background-color: #e8f0f8;
       border-radius: 15px;
     }
 
     progress::-webkit-progress-value {
-      background: #2c99ff;
+      background-color: #2c99ff;
     }
 
     progress::-moz-progress-bar {
-      background: #e8f0f8;
+      background-color: #e8f0f8;
       border-radius: 15px;
       border: none;
       box-shadow: none;
     }
 
     progress[value]::-moz-progress-bar {
-      background: #2c99ff;
+      background-color: #2c99ff;
     }
   }
 
@@ -1372,7 +1372,7 @@ span.atbdp-tick-cross {
           height: 100px;
           display: inline-flex;
           border-radius: 50%;
-          background: #0fb73b;
+          background-color: #0fb73b;
           font-size: 70px;
           color: #fff;
           align-items: center;
@@ -1402,10 +1402,10 @@ span.atbdp-tick-cross {
       display: flex;
       justify-content: flex-end;
       padding: 20px 30px;
-      background: #f4f5f7;
+      background-color: #f4f5f7;
 
       .button {
-        background: #2c99ff;
+        background-color: #2c99ff;
         color: #fff;
         border: 0 none;
         line-height: 44px;
@@ -1424,7 +1424,7 @@ span.atbdp-tick-cross {
     justify-content: center;
 
     .button-secondary {
-      background: #2c99ff;
+      background-color: #2c99ff;
       color: #fff;
       border: 0 none;
       line-height: 44px;
@@ -1443,7 +1443,7 @@ span.atbdp-tick-cross {
 #csv_import {
   .vp-input {
     & + span {
-      background: #007cba;
+      background-color: #007cba;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2203,7 +2203,7 @@ span.atbdp-tick-cross {
   .atbd_content_module {
     border: 1px solid #e3e6ef;
     margin-bottom: 35px;
-    background: #ffffff;
+    background-color: #ffffff;
     text-align: left;
     border-radius: 3px;
 
@@ -2255,7 +2255,7 @@ span.atbdp-tick-cross {
 }
 
 .wp-list-table .page-title-action {
-  background: #222;
+  background-color: #222;
   border: 0 none;
   border-radius: 3px;
   font-size: 11px;
@@ -2432,11 +2432,11 @@ span.atbdp-tick-cross {
       text-decoration: none;
       border-color: #3e62f5;
       color: #3e62f5;
-      background: #fff;
+      background-color: #fff;
       transition: 0.3s ease;
 
       &:hover {
-        background: #3e62f5;
+        background-color: #3e62f5;
         color: #fff;
       }
     }
@@ -2483,7 +2483,7 @@ span.atbdp-tick-cross {
         position: absolute;
         top: -5px;
         right: -5px;
-        background: #d3d1ec;
+        background-color: #d3d1ec;
         line-height: 26px;
         width: 26px;
         border-radius: 50%;
@@ -2530,7 +2530,7 @@ span.atbdp-tick-cross {
 
 #announcment_submit .vp-input ~ span {
   display: flex;
-  background: #007cba;
+  background-color: #007cba;
   align-items: center;
   justify-content: center;
   padding: 0 15px;
@@ -2550,7 +2550,7 @@ span.atbdp-tick-cross {
 #announcement_submit {
   .vp-input ~ span {
     display: flex;
-    background: #007cba;
+    background-color: #007cba;
     align-items: center;
     justify-content: center;
     padding: 0 15px;
@@ -2737,7 +2737,7 @@ input.atbdp-form-control {
   border-radius: 4px;
   border: 0 none;
   padding: 0 15px;
-  background: #f4f5f7;
+  background-color: #f4f5f7;
 }
 
 .atbdp-form-feedback {
@@ -2820,7 +2820,7 @@ input.atbdp-form-control {
 
 .atbdp-btn-primary {
   color: #fff;
-  background: #6495ed;
+  background-color: #6495ed;
 }
 
 /* Utility */
@@ -2900,17 +2900,17 @@ input.atbdp-form-control {
   padding: 10px 15px;
   text-decoration: none;
   color: #555;
-  background: #e5e5e5;
+  background-color: #e5e5e5;
   transition: all ease-in-out 300ms;
 }
 
 .atbdp-tab-nav-menu__item.active .atbdp-tab-nav-menu__link {
-  background: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
 .atbdp-tab-nav-menu__link:hover {
   color: #555;
-  background: #fff;
+  background-color: #fff;
 }
 
 .atbdp-tab-nav-menu__link:active,
@@ -3010,7 +3010,7 @@ input.atbdp-form-control {
 }
 
 .et-wrapper {
-  background: #fff;
+  background-color: #fff;
   border-radius: 4px;
 
   .et-wrapper-head {
@@ -3031,7 +3031,7 @@ input.atbdp-form-control {
       position: relative;
 
       input {
-        background: #f4f5f7;
+        background-color: #f4f5f7;
         height: 40px;
         border-radius: 4px;
         border: 0 none;
@@ -3129,7 +3129,7 @@ input.atbdp-form-control {
             font-weight: 600;
 
             &:before {
-              background: #3e62f5;
+              background-color: #3e62f5;
             }
           }
         }
@@ -3197,7 +3197,7 @@ input.atbdp-form-control {
 
           .ei-action-btn,
           button.ei-action-btn {
-            background: #c6d0dc !important;
+            background-color: #c6d0dc !important;
             border-radius: 4px;
             color: #fff !important;
             line-height: 30px;
@@ -3217,7 +3217,7 @@ input.atbdp-form-control {
             }
 
             &.ei-action-active {
-              background: #3e62f5 !important;
+              background-color: #3e62f5 !important;
             }
           }
         }
@@ -3282,7 +3282,7 @@ input.atbdp-form-control {
           font-size: 11px;
           font-weight: 600;
           color: #fff;
-          background: #00b158;
+          background-color: #00b158;
           line-height: 22px;
           padding: 0 10px;
           border-radius: 25px;
@@ -3316,7 +3316,7 @@ input.atbdp-form-control {
 
           &.ext-updated {
             &:before {
-              background: #00b158;
+              background-color: #00b158;
             }
           }
         }
@@ -3360,7 +3360,7 @@ input.atbdp-form-control {
               border-radius: 4px;
               min-width: 140px;
               box-shadow: 0 5px 10px rgba(#a1a8c6, 0.2);
-              background: #fff;
+              background-color: #fff;
               z-index: 1;
               visibility: hidden;
               opacity: 0;
@@ -3457,7 +3457,7 @@ input.atbdp-form-control {
 #directorist.atbd_wrapper .ext-action-btn {
   display: inline-block;
   line-height: 34px;
-  background: #f4f5f7 !important;
+  background-color: #f4f5f7 !important;
   padding: 0 20px;
   border-radius: 25px;
   margin: 0 8px;
@@ -3491,7 +3491,7 @@ input.atbdp-form-control {
 }
 
 .theme-card {
-  background: #fff;
+  background-color: #fff;
   box-shadow: 0 5px 20px rgba(#adb4d2, 0.3);
   width: 400px;
   max-width: 400px;
@@ -3526,7 +3526,7 @@ input.atbdp-form-control {
 
         .theme-action-btn {
           border-radius: 20px;
-          background: #f4f5f7 !important;
+          background-color: #f4f5f7 !important;
           font-size: 14px;
           font-weight: 500;
           line-height: 40px;
@@ -3537,7 +3537,7 @@ input.atbdp-form-control {
 
           &.btn-customize {
             color: #fff !important;
-            background: #3e62f5 !important;
+            background-color: #3e62f5 !important;
           }
         }
       }
@@ -3567,7 +3567,7 @@ input.atbdp-form-control {
         content: "";
         width: 8px;
         height: 8px;
-        background: #2c99ff;
+        background-color: #2c99ff;
         border-radius: 50%;
         left: 0;
         top: 50%;
@@ -3589,7 +3589,7 @@ input.atbdp-form-control {
       font-size: 13px;
       font-weight: 500;
       color: #fff !important;
-      background: #3e62f5 !important;
+      background-color: #3e62f5 !important;
       border-radius: 20px;
       padding: 0 20px;
     }
@@ -3613,7 +3613,7 @@ input.atbdp-form-control {
 
   .available-theme-card {
     max-width: 400px;
-    background: #f4f5f7;
+    background-color: #f4f5f7;
     border-radius: 6px;
     padding: 25px;
     margin: 15px;
@@ -3898,7 +3898,7 @@ input.atbdp-form-control {
 
 .atm-contents-inner {
   width: 100%;
-  background: #fff;
+  background-color: #fff;
   pointer-events: auto;
   border-radius: 3px;
   position: relative;
@@ -3938,7 +3938,7 @@ input.atbdp-form-control {
   right: 20px;
   position: absolute;
   transform: none;
-  background: #444752;
+  background-color: #444752;
   color: #fff;
   border-radius: 300px;
   opacity: 1;
@@ -4225,7 +4225,7 @@ input.atbdp-form-control {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #5441b9;
+  background-color: #5441b9;
   background: -moz-linear-gradient(45deg, #5441b9 1%, #b541d8 100%);
   background: -webkit-linear-gradient(45deg, #5441b9 1%, #b541d8 100%);
   background: linear-gradient(45deg, #5441b9 1%, #b541d8 100%);
@@ -4362,7 +4362,7 @@ input.atbdp-form-control {
     @media only screen and (max-width: 1199px) {
       width: 100%;
     }
-    .directorist_membership-notice__list--icon {
+    .directorist_membership-notice__list__icon {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -4457,7 +4457,7 @@ input.atbdp-form-control {
     }
   }
 
-  .directorist_builder__content--left {
+  .directorist_builder__content__left {
     width: 360px;
     margin-right: 30px;
     margin-top: 38px;
@@ -4566,7 +4566,7 @@ input.atbdp-form-control {
     }
   }
 
-  .directorist_builder__content--right {
+  .directorist_builder__content__right {
     flex: 1;
 
     @media only screen and (max-width: 1199px) {
@@ -4991,7 +4991,7 @@ input.atbdp-form-control {
     }
   }
   .directorist_listing-slug-formText-add {
-    background: #08bf9c;
+    background-color: #08bf9c;
     box-shadow: none;
     display: none;
     &:before{
@@ -5018,7 +5018,7 @@ input.atbdp-form-control {
     border-radius: 50%;
     margin: 2px;
     transition: 0.3s ease;
-    background: #ff006e;
+    background-color: #ff006e;
     color: #fff;
     &:before {
       content: "\f00d";
@@ -5222,6 +5222,7 @@ input.atbdp-form-control {
     box-shadow: 0 10px 40px rgba(134, 142, 174, 0.18823529411764706);
     border-radius: 5px;
     z-index: 99999;
+    box-sizing: border-box;
 
     ul {
       li {
@@ -5436,7 +5437,7 @@ input.atbdp-form-control {
   border-radius: 4px;
   cursor: pointer;
   border: 1px solid #3e62f5;
-  background: #3e62f5;
+  background-color: #3e62f5;
   transition: all ease-in-out 300ms;
 
   &:hover {

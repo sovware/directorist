@@ -65,7 +65,7 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                         </div>
 
                         <div class="multistep-wizard__bottom">
-                            <a class="directorist-btn multistep-wizard__btn multistep-wizard__btn--prev" disabled="true">
+                            <a class="directorist-btn multistep-wizard__btn multistep-wizard__btn--prev" disabled="true" aria-label="Return to Back"></a>
                                 <?php 
                                     directorist_icon( 'fas fa-arrow-left' );
                                     esc_html_e( 'Back', 'directorist' );
@@ -76,7 +76,7 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                                 <span class="multistep-wizard__count__current"></span> / <span class="multistep-wizard__count__total"></span>
                             </div>
 
-                            <a type="submit" class="directorist-btn multistep-wizard__btn multistep-wizard__btn--next">Save & Next<?php directorist_icon( 'fas fa-arrow-right' ); ?></a>
+                            <a type="submit" class="directorist-btn multistep-wizard__btn multistep-wizard__btn--next" aria-label="Go to Next">Save & Next<?php directorist_icon( 'fas fa-arrow-right' ); ?></a>
 
                             <button type="submit" class="directorist-btn directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--save-preview"><?php esc_html_e( 'Save & Preview', 'directorist' ); ?></button>
 

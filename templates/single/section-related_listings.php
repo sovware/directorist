@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -14,15 +14,15 @@ if ( !$related->have_posts() ) {
 }
 ?>
 
-<div class="directorist-related <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
+<section class="directorist-related-listing <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
 
 	<div class="directorist-related-listing-header">
 
-		<h4><?php echo esc_html( $label );?></h4>
+		<h3 class="directorist-related-listing-header__title"><?php echo esc_html( $label );?></h3>
 
 	</div>
 
-	<div class='directorist-swiper directorist-swiper-related' data-sw-items='3' data-sw-margin='30' data-sw-loop='false' data-sw-perslide='1' data-sw-speed='300' data-sw-autoplay='false' data-sw-responsive='{
+	<div class='directorist-swiper directorist-swiper-related-listing' data-sw-items='3' data-sw-margin='30' data-sw-loop='false' data-sw-perslide='1' data-sw-speed='300' data-sw-autoplay='false' data-sw-responsive='{
 		"0": {"slidesPerView": "1"},
 		"768": {"slidesPerView": "2"},
 		"1200": {"slidesPerView": "3"}
@@ -42,4 +42,4 @@ if ( !$related->have_posts() ) {
 		<div class='directorist-swiper__pagination directorist-swiper__pagination--related'></div>
 	</div>
 
-</div>
+</section>

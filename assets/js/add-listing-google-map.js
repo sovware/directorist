@@ -100,6 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 (function ($) {
+  // Add Listing Map Initialize
   function initAddListingMap() {
     if ($('#gmap').length) {
       var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data');
@@ -144,12 +145,6 @@ __webpack_require__.r(__webpack_exports__);
         content: info_content,
         maxWidth: 400
       });
-
-      // if(address_input){
-      //         address_input = document.getElementById('address');
-      //         address_input.addEventListener('focus', geolocate);
-      // }
-
       address_input = document.getElementById('address');
       if (address_input !== null) {
         address_input.addEventListener('focus', geolocate);
@@ -214,6 +209,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       initAutocomplete(); // start google map place auto complete API call
 
+      // Map Inittialize
       function initMap() {
         /* Create new map instance */
         map = new google.maps.Map(document.getElementById('gmap'), {
@@ -333,7 +329,7 @@ __webpack_require__.r(__webpack_exports__);
     initAddListingMap();
   });
 
-  /* Elementor Edit Mode */
+  // Add Listing Map on Elementor EditMode 
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
       if ($('body').hasClass('elementor-editor-active')) {
@@ -341,8 +337,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     }, 3000);
   });
-
-  // Elementor EditMode
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initAddListingMap();

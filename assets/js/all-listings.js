@@ -617,9 +617,9 @@ window.addEventListener('load', function () {
   }
 
   // Close sidebar and reset toggle button's active state
-  function closeSidebar(toggleBtn, archiveSidebar) {
+  function closeSidebar(closeBtn, archiveSidebar) {
     archiveSidebar.classList.remove('listing-with-sidebar__sidebar--open');
-    toggleBtn.classList.remove('directorist-archive-sidebar-toggle--active');
+    closeBtn.classList.remove('directorist-archive-sidebar-toggle--active');
     body.classList.remove('modal-overlay-enabled');
   }
 
@@ -1034,7 +1034,7 @@ window.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('DOMContentLoaded', function () {
     // Sorting Js
     if (!$('.directorist-instant-search').length) {
-      $('.directorist-dropdown__links--single-js').click(function (e) {
+      $('.directorist-dropdown__links__single-js').click(function (e) {
         e.preventDefault();
         var href = $(this).attr('data-link');
         $('#directorsit-listing-sort').attr('action', href);
@@ -1463,12 +1463,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if (fields.address && fields.address.length) {
       fields.cityLat = $(this).find('#cityLat').val();
       fields.cityLng = $(this).find('#cityLng').val();
-      fields.miles = $(this).find('.directorist-range-slider-value').val();
+      fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
     }
     if (fields.zip && fields.zip.length) {
       fields.zip_cityLat = $(this).find('.zip-cityLat').val();
       fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-      fields.miles = $(this).find('.directorist-range-slider-value').val();
+      fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
     }
     var form_data = _objectSpread(_objectSpread({}, data), fields);
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
@@ -1508,6 +1508,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         },
         success: function success(html) {
           if (html.search_result) {
+            instant_search_element.find('.directorist-header-found-title').remove();
+            instant_search_element.find('.dsa-save-search-container').remove();
+            instant_search_element.find('.directorist-listings-header__left').append(html.header_title);
             instant_search_element.find('.directorist-header-found-title span').text(html.count);
             instant_search_element.find('.directorist-archive-items').replaceWith(html.search_result);
             instant_search_element.find('.directorist-archive-items').removeClass('atbdp-form-fade');
@@ -1683,7 +1686,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (fields.zip && fields.zip.length) {
         fields.zip_cityLat = $(this).find('.zip-cityLat').val();
         fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-        fields.miles = $(this).find('.directorist-range-slider-value').val();
+        fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
       }
       var form_data = _objectSpread(_objectSpread({}, data), fields);
       var allFieldsAreEmpty = Object.values(fields).every(function (item) {
@@ -1812,7 +1815,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         custom_field[post_id] = value;
       }
     });
-    var sort_href = $(this).closest(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
+    var sort_href = $(this).closest(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
     var view_href = $(this).closest(this).attr('href');
@@ -1882,8 +1885,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       data: form_data,
       beforeSend: function beforeSend() {
         instant_search_element.find('.directorist-archive-items').addClass('atbdp-form-fade');
-        instant_search_element.find('.directorist-viewas-dropdown .directorist-dropdown__links--single').addClass("disabled-link");
-        instant_search_element.find('.directorist-dropdown__links-js a').removeClass('directorist-dropdown__links--single');
+        instant_search_element.find('.directorist-viewas-dropdown .directorist-dropdown__links__single').addClass("disabled-link");
+        instant_search_element.find('.directorist-dropdown__links-js a').removeClass('directorist-dropdown__links__single');
         instant_search_element.find('.directorist-archive-items').addClass('atbdp-form-fade');
         instant_search_element.find('.directorist-dropdown__links').hide();
         instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show');
@@ -1896,8 +1899,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           instant_search_element.find('.directorist-header-found-title span').text(html.count);
           instant_search_element.find('.directorist-archive-items').replaceWith(html.view_as);
           instant_search_element.find('.directorist-archive-items').removeClass('atbdp-form-fade');
-          instant_search_element.find('.directorist-viewas-dropdown .directorist-dropdown__links--single').removeClass("disabled-link");
-          instant_search_element.find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single');
+          instant_search_element.find('.directorist-viewas-dropdown .directorist-dropdown__links__single').removeClass("disabled-link");
+          instant_search_element.find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links__single');
           window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
           instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').css('visibility', 'visible');
@@ -1905,10 +1908,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
     });
   });
-  $('.directorist-instant-search .directorist-dropdown__links--single-js').off('click');
+  $('.directorist-instant-search .directorist-dropdown__links__single-js').off('click');
 
   // Directorist sort by changes
-  $('body').on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links--single-js", function (e) {
+  $('body').on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links__single-js", function (e) {
     e.preventDefault();
     var instant_search_element = $(this).closest('.directorist-instant-search');
     var tag = [];
@@ -1965,7 +1968,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var email = instant_search_element.find('input[name="email"]').val();
     var website = instant_search_element.find('input[name="website"]').val();
     var phone = instant_search_element.find('input[name="phone"]').val();
-    instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links--single").removeClass('active');
+    instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links__single").removeClass('active');
     $(this).addClass("active");
     var form_data = {
       action: 'directorist_instant_search',
@@ -2005,8 +2008,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       type: "POST",
       data: form_data,
       beforeSend: function beforeSend() {
-        instant_search_element.find('.directorist-sortby-dropdown .directorist-dropdown__links--single-js').addClass("disabled-link");
-        instant_search_element.find('.directorist-dropdown__links-js a').removeClass('directorist-dropdown__links--single-js');
+        instant_search_element.find('.directorist-sortby-dropdown .directorist-dropdown__links__single-js').addClass("disabled-link");
+        instant_search_element.find('.directorist-dropdown__links-js a').removeClass('directorist-dropdown__links__single-js');
         instant_search_element.find('.directorist-archive-items').addClass('atbdp-form-fade');
         instant_search_element.find('.directorist-dropdown__links').hide();
         var advance_filter = instant_search_element.find('.directorist-header-bar .directorist-advanced-filter')[0];
@@ -2019,8 +2022,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           instant_search_element.find('.directorist-header-found-title span').text(html.count);
           instant_search_element.find('.directorist-archive-items').replaceWith(html.view_as);
           instant_search_element.find('.directorist-archive-items').removeClass('atbdp-form-fade');
-          instant_search_element.find('.directorist-sortby-dropdown .directorist-dropdown__links--single-js').removeClass("disabled-link");
-          instant_search_element.find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links--single-js');
+          instant_search_element.find('.directorist-sortby-dropdown .directorist-dropdown__links__single-js').removeClass("disabled-link");
+          instant_search_element.find('.directorist-dropdown__links-js a').addClass('directorist-dropdown__links__single-js');
         }
         window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
@@ -2030,7 +2033,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Directorist pagination
   $('body').on("click", ".directorist-instant-search .directorist-pagination .page-numbers", function (e) {
-    var _form_data;
     e.preventDefault();
     var tag = [];
     var price = [];
@@ -2064,7 +2066,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         custom_field[post_id] = value;
       }
     });
-    var sort_href = instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links--single.active").attr('data-link');
+    var sort_href = instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
     var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
@@ -2098,7 +2100,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var page = paginate_link && paginate_link.length ? paginate_link.match(/paged=.+/) : '';
       var page_no = page && page.length ? page[0].replace(/paged=/, '') : '';
     }
-    var form_data = (_form_data = {
+    var form_data = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
       current_page_id: directorist.current_page_id,
@@ -2120,7 +2122,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       website: website || getURLParameter(full_url, 'website'),
       phone: phone || getURLParameter(full_url, 'phone'),
       custom_field: custom_field || getURLParameter(full_url, 'custom_field')
-    }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "view", view), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "paged", page_no), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_form_data, "data_atts", JSON.parse(data_atts)), _form_data);
+    }, "view", view), "paged", page_no), "data_atts", JSON.parse(data_atts));
 
     //business hours
     if ($('input[name="open_now"]').is(':checked')) {
@@ -2226,12 +2228,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if (fields.address && fields.address.length) {
       fields.cityLat = searchElm.find('#cityLat').val();
       fields.cityLng = searchElm.find('#cityLng').val();
-      fields.miles = searchElm.find('.directorist-range-slider-value').val();
+      fields.miles = searchElm.find('.directorist-custom-range-slider__value input').val();
     }
     if (fields.zip && fields.zip.length) {
       fields.zip_cityLat = searchElm.find('.zip-cityLat').val();
       fields.zip_cityLng = searchElm.find('.zip-cityLng').val();
-      fields.miles = searchElm.find('.directorist-range-slider-value').val();
+      fields.miles = searchElm.find('.directorist-custom-range-slider__value input').val();
     }
     var form_data = _objectSpread(_objectSpread({}, data), fields);
     if (view && view.length) {
@@ -2256,6 +2258,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       },
       success: function success(html) {
         if (html.search_result) {
+          $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title').replaceWith(html.header_title);
           $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title span').text(html.count);
           $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').replaceWith(html.search_result);
           $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
@@ -2267,7 +2270,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
   }
   function initObserver() {
-    var targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-range-slider-value');
+    var targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-custom-range-slider__value input');
     targetNodes.forEach(function (targetNode) {
       var searchElm = $(targetNode.closest('form'));
       if (targetNode) {

@@ -1,5 +1,5 @@
 .directorist-user-dashboard__nav {
-    width: 230px;
+    min-width: 230px;
     padding: 20px 10px;
     margin-right: 30px;
     transition: 0.3s ease;
@@ -8,7 +8,7 @@
     border-radius: 16px;
     overflow: hidden;
     overflow-y: auto;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     box-shadow: var(--directorist-box-shadow);
     @media only screen and (max-width: 1199px) {
         position: fixed;
@@ -16,7 +16,7 @@
         left: 0;
         width: 230px;
         height: 100vh;
-        background-color: #fff;
+        background-color: var(--directorist-color-white);
         padding-top: 100px;
         box-shadow: 0 5px 10px rgb(143 142 159 / 10%);
         z-index: 2222;
@@ -25,7 +25,7 @@
     @media only screen and (max-width: 479px) {
         padding-top: 80px;
     }
-    .directorist-dashboard__nav--close {
+    .directorist-dashboard__nav__close {
         display: none;
         position: absolute;
         right: 15px;
@@ -83,14 +83,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: #51526E;
+        color: var(--directorist-color-body);
         text-decoration: none;
-        i,
-        span.fa {
-            pointer-events: none;
-            display: inline-block;
-            margin-right: 10px;
-        }
 
         .directorist_menuItem-text {
             pointer-events: none;
@@ -100,13 +94,25 @@
             .directorist_menuItem-icon{
                 line-height: 0;
             }
+            i,
+            span.fa {
+                pointer-events: none;
+                display: inline-block;
+                margin-right: 10px;
+            }
         }
 
         &.directorist-tab__nav__active,
         &:focus {
             font-weight: 700;
-            background-color: #E9E9E9 !important;
-            color: #0A0B1E;
+            background-color: #E9E9E9;
+            color:var(--directorist-color-primary);
+            .directorist-icon-mask:after{
+                background-color:var(--directorist-color-primary);
+            }
+            &.atbd-dash-nav-dropdown {
+                background-color: transparent;
+            }
         }
     }
 

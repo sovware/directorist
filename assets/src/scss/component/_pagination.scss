@@ -17,6 +17,7 @@
     color: var(--directorist-color-body);
     background-color: var(--directorist-color-white);
     border: 2px solid var(--directorist-color-border);
+    transition: border 0.3s ease, color 0.3s ease;
     .directorist-icon-mask{
       &:after{
         width: 14px;
@@ -35,6 +36,11 @@
     &.current {
       border-color: var(--directorist-color-primary);
       color: var(--directorist-color-primary);
+      .directorist-icon-mask{
+        &:after{
+          background-color: var(--directorist-color-primary);
+        }
+      }
     }
   }
 }

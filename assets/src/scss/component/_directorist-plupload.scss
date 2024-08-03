@@ -1,7 +1,7 @@
 .upload-error {
     display: block !important;
     clear: both;
-    background: #FCD9D9;
+    background-color: #FCD9D9;
     color: #E80000;
     font-size: 16px;
     word-break: break-word;
@@ -61,7 +61,7 @@
 
 .filelist .file {
     padding: 5px;
-    background: #ececec;
+    background-color: #ececec;
     border: solid 1px #ccc;
     margin-bottom: 4px;
     clear: both;
@@ -71,7 +71,7 @@
 .filelist .fileprogress {
     width: 0%;
     height: 5px;
-    background: #3385ff;
+    background-color: #3385ff;
 }
 
 #custom-filedropbox,
@@ -94,7 +94,7 @@
     flex-direction: column;
     border-radius: 16px;
     margin: 0 !important;
-    background: var(--directorist-color-bg-gray);
+    background-color: var(--directorist-color-bg-gray);
     border: 2px dashed var(--directorist-color-border-gray);
     > input {
         display: none;
@@ -156,7 +156,7 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background: #FF385C;
+            background-color: #FF385C;
             height: 32px;
             width: 32px;
             display: flex;
@@ -168,7 +168,7 @@
             .directorist-icon-mask:after{
                 width: 14px;
                 height: 14px;
-                background-color: #fff;
+                background-color: var(--directorist-color-white);
             }
             &:hover {
                 opacity: 0.8;
@@ -189,7 +189,7 @@
             visibility: hidden;
             border-radius: 16px;
             transition: all ease 0.3s;
-            background-color: rgba(0, 0, 0, .5);
+            background-color: rgba(var(--directorist-color-dark-rgb), .5);
         }
     }
 }

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.0
  */
 
 use \Directorist\Helper;
@@ -19,12 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-listings-header__left">
 
 					<?php if ( $listings->has_filters_button && 'no_sidebar' === $listings->options['all_listing_layout'] ): ?>
-						<button class="directorist-btn directorist-btn-sm directorist-filter-btn directorist-modal-btn directorist-modal-btn--full"><?php echo wp_kses_post( $listings->filter_btn_html() ); ?></button>
+						<button class="directorist-btn directorist-btn-sm directorist-filter-btn directorist-modal-btn directorist-modal-btn--full" aria-label="Modal Button"><?php echo wp_kses_post( $listings->filter_btn_html() ); ?></button>
 					<?php endif; ?>
 
-					<?php if ( $listings->header_title ): ?>
-						<h3 class="directorist-header-found-title"><?php echo wp_kses_post( $listings->item_found_title() ); ?></h3>
-					<?php endif; ?>
+					<?php 
+						if ( $listings->header_title ) {
+							echo $listings->listings_header_title();
+						} 
+					?>
 				</div>
 
 			<?php endif; ?>

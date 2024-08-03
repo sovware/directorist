@@ -17,13 +17,14 @@ if( ! $display_promo || ( $directorist_promo_closed && ( $directorist_promo_clos
 $banner_title        = ! empty( $response_body->banner_title ) ? $response_body->banner_title : '';
 $banner_description  = ! empty( $response_body->banner_description ) ? $response_body->banner_description : '';
 $sale_button_text    = ! empty( $response_body->sale_button_text ) ? $response_body->sale_button_text : '';
-$sale_button_link    = ! empty( $response_body->sale_button_link ) ? $response_body->sale_button_link : '';
+$sale_button_link    = ! empty( $response_body->sale_button_link ) ? ATBDP_Upgrade::promo_link( $response_body->sale_button_link ) : '';
 $offer_lists         = ! empty( $response_body->offer_lists ) ? $response_body->offer_lists : [];
 $get_now_button_text = ! empty( $response_body->get_now_button_text ) ? $response_body->get_now_button_text : '';
-$get_now_button_link = ! empty( $response_body->get_now_button_link ) ? $response_body->get_now_button_link : '';
+$get_now_button_link = ! empty( $response_body->get_now_button_link ) ? ATBDP_Upgrade::promo_link( $response_body->get_now_button_link ) : '';
 
 $url_args = [
-    'close-directorist-promo-version' => $promo_version,
+	'close-directorist-promo-version' => $promo_version,
+	'directorist_promo_nonce'         => wp_create_nonce( 'directorist_promo_nonce' )
 ];
 ?>
  <div class="directorist_membership-notice">
@@ -49,8 +50,8 @@ $url_args = [
         <?php
         foreach( $offer_lists as $offer ){ ?>
             <li>
-                <span class="directorist_membership-notice__list--icon"><i class="fa fa-check"></i></span>
-                <span class="directorist_membership-notice__list--text"><?php echo esc_html( $offer ); ?></span>
+                <span class="directorist_membership-notice__list__icon"><i class="fa fa-check"></i></span>
+                <span class="directorist_membership-notice__list__text"><?php echo esc_html( $offer ); ?></span>
             </li>
         <?php } ?>
     </ul>

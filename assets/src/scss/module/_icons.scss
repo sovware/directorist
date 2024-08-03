@@ -12,13 +12,13 @@
 .atbdp-icon-fill {
     color: #222222;
     border-radius: 50%;
-    background: #f2f2f2;
+    background-color: #f2f2f2;
     &.icon-success {
-        color: #fff;
-        background: #4eca35;
+        color: var(--directorist-color-white);
+        background-color: #4eca35;
     }    
     &.icon-error {
-        color: #fff;
-        background: #ca3535;
+        color: var(--directorist-color-white);
+        background-color: #ca3535;
     }    
 }

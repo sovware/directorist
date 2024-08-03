@@ -8,7 +8,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #fff;
+        background-color: var(--directorist-color-white);
         @include m('image'){
             background-position: center;
             background-repeat: no-repeat;
@@ -46,7 +46,7 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 16px;
-            color: var(--directorist-color-primary);
+            color: var(--directorist-color-dark);
             &::before{
                 content: '';
                 position: absolute;
@@ -73,7 +73,7 @@
             }
             &:not(.directorist-categories__single--image) {
                 .directorist-icon-mask{
-                    background: var(--directorist-color-primary);
+                    background-color: var(--directorist-color-primary);
                     border-radius: 50%;
                     padding: 17px;
                     &::after{
@@ -137,7 +137,7 @@
         }
         @include m('style-four'){
             .directorist-icon-mask{
-                background: var(--directorist-color-primary);
+                background-color: var(--directorist-color-primary);
                 border-radius: 50%;
                 padding: 17px;
                 &::after{
@@ -187,7 +187,7 @@
 .directorist-taxonomy-list-one .directorist-taxonomy-list{
     @include e('card'){
         display: flex;
-        background: var(--directorist-color-light);
+        background-color: var(--directorist-color-light);
         border-radius: var(--directorist-border-radius-lg);
         padding: 8px 20px;
         align-items: center;
@@ -226,7 +226,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #fff;
+            background-color: var(--directorist-color-white);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -271,7 +271,7 @@
     }
     @include e('card'){
         + .directorist-taxonomy-list__sub-item {
-            background: var(--directorist-color-light);
+            background-color: var(--directorist-color-light);
             border-radius: 16px;
             padding-inline-start: 35px;
             padding-inline-end: 20px;
@@ -350,7 +350,7 @@
             top: 50%;
             width: 10px;
             height: 1px;
-            background: var(--directorist-color-deep-gray);
+            background-color: var(--directorist-color-deep-gray);
             transform: translateY(-50%);
         }
         &::after{
@@ -360,7 +360,7 @@
             height: 10px;
             left: 50%;
             top: 0;
-            background: var(--directorist-color-deep-gray);
+            background-color: var(--directorist-color-deep-gray);
             transform: translateX(-50%);
         }
 
@@ -371,7 +371,7 @@
 .directorist-taxonomy-list-two .directorist-taxonomy-list{
     box-shadow: var(--directorist-box-shadow);
     border-radius: var(--directorist-border-radius-lg);
-    background: var(--directorist-color-white);
+    background-color: var(--directorist-color-white);
     @include e('card'){
         display: flex;
         padding: 10px 20px;
@@ -396,12 +396,12 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #000;
+            background-color: var(--directorist-color-dark);
             display: flex;
             align-items: center;
             justify-content: center;
             &::after{
-                background-color: #fff;
+                background-color: var(--directorist-color-white);
             }
         }
     }
@@ -449,7 +449,7 @@
                     height: inherit;
                     left: 0;
                     top: 0;
-                    background: rgba(#000, 0.5);
+                    background: rgba(var(--directorist-color-dark-rgb), 0.5);
                     border-radius: inherit;
                 }
                 .directorist-location__content{
@@ -487,7 +487,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: #fff;
+                background-color: var(--directorist-color-white);
                 .directorist-location__content{
                     h3, a, span{
                         text-align: center;
@@ -503,7 +503,7 @@
                 font-weight: 500;
             }
             a{
-                color: var(--directorist-color-title);
+                color: var(--directorist-color-dark);
                 text-decoration: none;
                 &::after{
                     position: absolute;
@@ -548,7 +548,7 @@
                     height: 100%;
                     left: 0;
                     top: 0;
-                    background: rgba(#000, 0.5);
+                    background: rgba(var(--directorist-color-dark-rgb), 0.5);
                     border-radius: var(--directorist-border-radius-lg);
                 }
             }

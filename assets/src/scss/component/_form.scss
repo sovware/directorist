@@ -1,10 +1,11 @@
 // Form Element Group
 .directorist-form-group {
     position: relative;
-
+    width: 100%;
     textarea,
     textarea.directorist-form-element {
-        min-height: 120px;
+        min-height: unset;
+        height: auto;
         max-width: 100%;
         width: 100%;
     }
@@ -12,12 +13,13 @@
     @include e('with-prefix') {
         display: flex;
         align-items: center;
-        border-radius: 6px;
-        border: 1px solid #d9d9d9;
+        border-bottom: 1px solid #d9d9d9;
+        &:focus-within {
+            border-bottom: 2px solid var(--directorist-color-dark);
+        }
         .directorist-form-element {
             flex: 1;
             margin: 0 !important;
-            padding: 0 10px !important;
             border: none !important;
         }
         .directorist-single-info__value {
@@ -30,20 +32,14 @@
     @include e('prefix') {
         height: 40px;
         line-height: 40px;
-        padding: 0 10px;
         font-size: 14px;
         font-weight: 500;
         color: #828282;
-        background-color: #eeeeee;
         @include m('start') {
             order: -1;
-            border-radius: 6px 0 0 6px;
-            border-inline-end: 1px solid #d9d9d9;
         }
         @include m('end') {
             order: 2;
-            border-radius: 0 6px 6px 0;
-            border-inline-start: 1px solid #d9d9d9;
         }
     }
 }
@@ -64,7 +60,7 @@
         height: 40px;
         font-size: 14px;
         font-weight: 500;
-        color: var(--directorist-color-primary);
+        color: var(--directorist-color-dark);
         border: none;
         border-radius: 0;
         background: transparent;
@@ -117,7 +113,7 @@
 
     &.directorist-icon-right {
         .directorist-input-icon {
-            right: 15px;
+            right: 0;
         }
         .location-name {
             padding-right: 25px;
@@ -185,7 +181,7 @@ span.directorist-toggle-input-label-icon::after {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: #ffffff;
+    background-color: var(--directorist-color-white);
     top: 50%;
     transform: translate( 0, -50% );
     transition: all ease-in-out 300ms;

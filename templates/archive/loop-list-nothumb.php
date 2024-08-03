@@ -10,39 +10,43 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $loop_fields = $listings->loop['list_fields']['template_data']['list_view_without_thumbnail'];
 ?>
 
-<div class="directorist-listing-single directorist-listing-single--bg directorist-listing-list directorist-listing-no-thumb <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
-
-	<div class="directorist-listing-single__header">
-
-		<div class="directorist-listing-single__header__left">
-			<div class="directorist-listing-single__info"><?php $listings->render_loop_fields($loop_fields['body']['top']); ?></div>
-		</div>
-
-		<div class="directorist-listing-single__header__right">
-			<div class="directorist-listing-single__action"><?php $listings->render_loop_fields($loop_fields['body']['right']); ?></div>
-		</div>
-
-	</div>
+<article class="directorist-listing-single directorist-listing-single--bg directorist-listing-list directorist-listing-no-thumb <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
 
 	<div class="directorist-listing-single__content">
 
-		<div class="directorist-listing-single__content__body">
-			<div class="directorist-listing-single__info--list"><?php $listings->render_loop_fields($loop_fields['body']['bottom'], '', ''); ?></div>
+		<section class="directorist-listing-single__info">
+			<div class="directorist-listing-single__info__top-right">
+				<header class="directorist-listing-single__info__top">
+					<?php $listings->render_loop_fields($loop_fields['body']['top']); ?>
+				</header>
+				<div class="directorist-listing-single__info__right">
+					<div class="directorist-listing-single__action">
+						<?php $listings->render_loop_fields($loop_fields['body']['right']); ?>
+					</div>
+				</div>
+			</div>
 
-			<?php if ( ! empty( $listings->render_loop_fields( $loop_fields['body']['excerpt'] ) ) ) : ?>
-				<div class="directorist-listing-single__info--excerpt"><?php $listings->render_loop_fields( $loop_fields['body']['excerpt'] ); ?></div>
+			<ul class="directorist-listing-single__info__list">
+				<?php $listings->render_loop_fields($loop_fields['body']['bottom'], 'li', 'li'); ?>
+			</ul>
+
+			<?php if ( ! empty( $loop_fields['body']['excerpt'] ) ) : ?>
+				<?php $listings->render_loop_fields( $loop_fields['body']['excerpt'] ) ?>
 			<?php endif; ?>
-		</div>
+		</section>
 
-		<div class="directorist-listing-single__meta">
-			<div class="directorist-listing-single__meta--left">
-				<?php $listings->render_loop_fields($loop_fields['footer']['left']); ?>
-			</div>
-			<div class="directorist-listing-single__meta--right">
-				<?php $listings->render_loop_fields($loop_fields['footer']['right']); ?>
-			</div>
-		</div>
+		<footer class="directorist-listing-single__meta">
+			<div class="directorist-listing-single__meta__left"><?php $listings->render_loop_fields($loop_fields['footer']['left']); ?></div>
+			<div class="directorist-listing-single__meta__right"><?php $listings->render_loop_fields($loop_fields['footer']['right']); ?></div>
+		</footer>
 
 	</div>
 
-</div>
+	<footer class="directorist-listing-single__mobile-view-meta">
+		<div class="directorist-listing-single__meta">
+			<div class="directorist-listing-single__meta__left"><?php $listings->render_loop_fields($loop_fields['footer']['left']); ?></div>
+			<div class="directorist-listing-single__meta__right"><?php $listings->render_loop_fields($loop_fields['footer']['right']); ?></div>
+		</div>
+	</footer>
+
+</article>

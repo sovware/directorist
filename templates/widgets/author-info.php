@@ -21,14 +21,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
         ?>
         <div class="directorist-single-author-avatar">
-            <div class="directorist-single-author-avatar-inner">
+            <figure class="directorist-single-author-avatar-inner">
                 <?php if (empty($u_pro_pic)) {
                     echo wp_kses_post( $avatar_img );
                 }
                 if (!empty($u_pro_pic)) { ?><img
                     src="<?php echo esc_url($u_pro_pic[0]); ?>"
                     alt="Avatar Image"><?php } ?>
-            </div>
+            </figure>
             <div class="directorist-single-author-name">
                 <h4><?php echo esc_html($author_name); ?></h4>
                 <span class="directorist-single-author-membership"><?php

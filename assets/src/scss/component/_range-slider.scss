@@ -1,142 +1,285 @@
-/* Range Slider */
-.directorist-range-slider-wrap>span {
-  color: var(--directorist-color-primary);
-}
+/*** 
+	Directorist Custom Range Slider Styling; 
+***/
 
-.directorist-range-slider-wrap .directorist-range-slider-current-value {
-  min-width: 100px;
-  text-align: right;
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.directorist-range-slider-wrap.atbdprs-widget {
-  display: block;
-  margin: 0;
-}
-
-.directorist-range-slider-wrap.atbdprs-widget>div {
-  padding: 0;
-}
-
-.directorist-range-slider-wrap.atbdprs-widget .directorist-range-slider-current-value {
-  margin-bottom: 15px;
-  padding: 0;
-}
-
-.directorist-range-slider-wrap.directorist-range-slider-widget {
-  display: block;
-  padding-bottom: 9px;
-
-  >div {
-    padding: 0;
-  }
-
-  .directorist-range-slider-title {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 5px;
-  }
-}
-
-.directorist-range-slider1 {
-  width: 19px;
-  height: 19px;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  cursor: pointer;
-  border-radius: 50%;
+.directorist-custom-range-slider-target,
+.directorist-custom-range-slider-target * {
+  touch-action: none;
+  user-select: none;
   box-sizing: border-box;
-  z-index: 2;
+}
+.directorist-custom-range-slider-base,
+.directorist-custom-range-slider-connects {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
 }
 
-.atbd-slide2 {
-  width: 30px;
-  height: 10px;
+/* Wrapper for all connect elements. */
+.directorist-custom-range-slider-connects {
+  overflow: hidden;
+  z-index: 0;
+}
+.directorist-custom-range-slider-connect,
+.directorist-custom-range-slider-origin {
+  will-change: transform;
   position: absolute;
-  top: 50%;
-  right: 0;
-  margin-top: -5px;
-  cursor: pointer;
-  border-radius: 10px
-}
-
-.atbd-m-device {
-  transform: scaleY(2);
-}
-
-.atbd-m-device2 {
-  transform: scaleX(2);
-}
-
-p.atbd-max {
-  float: right;
-}
-
-p.atbd-min {
-  float: left;
-}
-
-.directorist-range-slider-child {
-  height: 4px;
-  border-radius: 2px;
-  background: var(--directorist-color-body);
-  position: absolute;
+  z-index: 1;
   top: 0;
   left: 0;
+  height: 100%;
+  width: calc(100% - 20px);
+  transform-origin: 0 0;
+  transform-style: flat;
 }
 
-// Directorist Range Slider
-.directorist_slider-range {
+/* Offset direction */
+.directorist-custom-range-slider-txt-dir-rtl {
+  &.directorist-custom-range-slider-horizontal {
+    .directorist-custom-range-slider-origin {
+      left: 0;
+      right: auto;
+    }
+  }
+}
+/* Give origins 0 height/width so they don't interfere 
+* with clicking the connect elements. */
+
+.directorist-custom-range-slider-vertical {
+  .directorist-custom-range-slider-origin {
+    top: -100%;
+    width: 0;
+  }
+}
+.directorist-custom-range-slider-horizontal {
+  .directorist-custom-range-slider-origin {
+    height: 0;
+  }
+}
+.directorist-custom-range-slider-handle {
+  backface-visibility: hidden;
+  position: absolute;
+}
+.directorist-custom-range-slider-touch-area {
+  height: 100%;
+  width: 100%;
+}
+.directorist-custom-range-slider-state-tap
+  .directorist-custom-range-slider-connect,
+.directorist-custom-range-slider-state-tap
+  .directorist-custom-range-slider-origin {
+  transition: transform 0.3s;
+}
+.directorist-custom-range-slider-state-drag * {
+  cursor: inherit !important;
+}
+
+/* Slider size and handle placement; */
+.directorist-custom-range-slider-horizontal {
+  .directorist-custom-range-slider-handle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 4px solid var(--directorist-color-primary);
+    right: -20px;
+    top: -8px;
+    cursor: pointer;
+  }
+}
+.directorist-custom-range-slider-vertical {
+  width: 18px;
+  .directorist-custom-range-slider-handle {
+    width: 28px;
+    height: 34px;
+    right: -6px;
+    bottom: -17px;
+  }
+}
+
+.directorist-custom-range-slider-txt-dir-rtl {
+  &.directorist-custom-range-slider-horizontal {
+    .directorist-custom-range-slider-handle {
+      left: -17px;
+      right: auto;
+    }
+  }
+}
+
+/* Giving the connect element a border radius causes issues with using transform: scale */
+.directorist-custom-range-slider-target {
   position: relative;
+  width: 100%;
+  height: 4px;
+  margin: 7px 0 24px;
+  border-radius: 2px;
+  background-color: #d9d9d9;
+}
+.directorist-custom-range-slider-connect {
+  background-color: var(--directorist-color-primary);
+}
 
-  .directorist_range-bar {
-    position: absolute;
-    z-index: 1;
-    left: 1px;
-    top: 6px;
-    width: 100%;
-    height: 4px;
-    border-radius: 12px;
-    background-color: #E3E6EF;
-    overflow: hidden;
-
-    .directorist_range-fill {
-      display: block;
-      width: 0;
-      height: 100%;
-      background-color: #3E62F5;
-    }
+/* Handles and cursors; */
+.directorist-custom-range-slider-draggable {
+  cursor: ew-resize;
+}
+.directorist-custom-range-slider-vertical {
+  .directorist-custom-range-slider-draggable {
+    cursor: ns-resize;
   }
+}
+.directorist-custom-range-slider-handle {
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  background-color: var(--directorist-color-white);
+  cursor: default;
+  box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ebebeb, 0 3px 6px -3px #bbb;
+}
+.directorist-custom-range-slider-active {
+  box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ddd, 0 3px 6px -3px #bbb;
+}
 
-  .directorist_slider-input {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 4px;
-    border-radius: 12px;
-    outline: none;
-    background-color: transparent;
+/* Disabled state; */
+[disabled] .directorist-custom-range-slider-connect {
+  background-color: #b8b8b8;
+}
+[disabled].directorist-custom-range-slider-target,
+[disabled].directorist-custom-range-slider-handle,
+[disabled] .directorist-custom-range-slider-handle {
+  cursor: not-allowed;
+}
 
-    &::-webkit-slider-thumb {
-      width: 20px;
-      height: 20px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      cursor: pointer;
-      outline: none;
-      box-shadow: 0 0 0 0 rgba(98, 0, 238, .1);
-      transition: .3s ease-in-out;
-      border: 4px solid #3E62F5;
-      position: relative;
-      top: -4px;
-    }
+/* Base; */
+.directorist-custom-range-slider-pips,
+.directorist-custom-range-slider-pips * {
+  box-sizing: border-box;
+}
+.directorist-custom-range-slider-pips {
+  position: absolute;
+  color: #999;
+}
+
+/* Values; */
+.directorist-custom-range-slider-value {
+  position: absolute;
+  white-space: nowrap;
+  text-align: center;
+}
+.directorist-custom-range-slider-value-sub {
+  color: #ccc;
+  font-size: 10px;
+}
+
+/* Markings; */
+.directorist-custom-range-slider-marker {
+  position: absolute;
+  background-color: #ccc;
+}
+.directorist-custom-range-slider-marker-sub {
+  background-color: #aaa;
+}
+.directorist-custom-range-slider-marker-large {
+  background-color: #aaa;
+}
+
+/* Horizontal layout; */
+.directorist-custom-range-slider-pips-horizontal {
+  padding: 10px 0;
+  height: 80px;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+.directorist-custom-range-slider-value-horizontal {
+  transform: translate(-50%, 50%);
+}
+.directorist-custom-range-slider-rtl {
+  .directorist-custom-range-slider-value-horizontal {
+    transform: translate(50%, 50%);
+  }
+}
+.directorist-custom-range-slider-marker-horizontal {
+  &.directorist-custom-range-slider-marker {
+    margin-left: -1px;
+    width: 2px;
+    height: 5px;
+  }
+  &.directorist-custom-range-slider-marker-sub {
+    height: 10px;
+  }
+  &.directorist-custom-range-slider-marker-large {
+    height: 15px;
   }
 }
 
+/* Vertical layout; */
+.directorist-custom-range-slider-pips-vertical {
+  padding: 0 10px;
+  height: 100%;
+  top: 0;
+  left: 100%;
+}
+.directorist-custom-range-slider-value-vertical {
+  transform: translate(0, -50%);
+  padding-left: 25px;
+}
+.directorist-custom-range-slider-rtl {
+  .directorist-custom-range-slider-value-vertical {
+    transform: translate(0, 50%);
+  }
+}
+.directorist-custom-range-slider-marker-vertical {
+  &.directorist-custom-range-slider-marker {
+    width: 5px;
+    height: 2px;
+    margin-top: -1px;
+  }
+  &.directorist-custom-range-slider-marker-sub {
+    width: 10px;
+  }
+  &.directorist-custom-range-slider-marker-large {
+    width: 15px;
+  }
+}
+
+// Tooltip Styling
+.directorist-custom-range-slider-tooltip {
+  display: block;
+  position: absolute;
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  background-color: var(--directorist-color-white);
+  color: var(--directorist-color-dark);
+  padding: 5px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.directorist-custom-range-slider-horizontal {
+  .directorist-custom-range-slider-tooltip {
+    transform: translate(-50%, 0);
+    left: 50%;
+    bottom: 120%;
+  }
+  .directorist-custom-range-slider-origin
+    > .directorist-custom-range-slider-tooltip {
+    transform: translate(50%, 0);
+    left: auto;
+    bottom: 10px;
+  }
+}
+
+.directorist-custom-range-slider-vertical {
+  .directorist-custom-range-slider-tooltip {
+    transform: translate(0, -50%);
+    top: 50%;
+    right: 120%;
+  }
+
+  .directorist-custom-range-slider-origin
+    > .directorist-custom-range-slider-tooltip {
+    transform: translate(0, -18px);
+    top: auto;
+    right: 28px;
+  }
+}

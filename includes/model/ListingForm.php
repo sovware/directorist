@@ -454,8 +454,8 @@ class Directorist_Listing_Form {
 
 		$args = array(
 			'listing_form'            => $this,
-			'display_guest_listings'  => get_directorist_option( 'guest_listings', 0 ),
-			'guest_email_label'       => get_directorist_type_option( $type, 'guest_email_label', __( 'Email Address', 'directorist' ) ),
+			'display_guest_listings'  => directorist_is_guest_submission_enabled(),
+			'guest_email_label'       => get_directorist_type_option( $type, 'guest_email_label', __( 'Your Email', 'directorist' ) ),
 			'guest_email_placeholder' => get_directorist_type_option( $type, 'guest_email_placeholder' ),
 			'display_privacy'         => (bool) get_directorist_type_option( $type, 'listing_privacy', 1 ),
 			'privacy_is_required'     => get_directorist_type_option( $type, 'require_privacy', 1 ),
@@ -710,43 +710,22 @@ class Directorist_Listing_Form {
 	}
 
 	public function get_listing_types() {
-		// @cache @kowsar
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory' );
-		$listing_types = array();
-		$args = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-		);
+		$args = array();
 
-		if( self::$directory_type ) {
-			$term_slug    = get_term_by( 'slug', self::$directory_type[0], 'atbdp_listing_types' );
-			if( $term_slug || current_user_can('manage_options') || current_user_can('edit_pages') ) {
+		if ( self::$directory_type ) {
+			$term_slug = get_term_by( 'slug', self::$directory_type[0], 'atbdp_listing_types' );
+			if ( $term_slug || current_user_can( 'manage_options' ) || current_user_can( 'edit_pages' ) ) {
 				$args['slug'] = self::$directory_type;
 			}
 		}
 
-		$all_types     = get_terms( $args );
+		if ( ! directorist_is_multi_directory_enabled() ) {
+			$args['default_only'] = true;
 
-		foreach ( $all_types as $type ) {
-			if(  empty( $enable_multi_directory ) ) {
-				$is_default = get_term_meta( $type->term_id, '_default', true );
-				if ( $is_default ) {
-					$listing_types[ $type->term_id ] = [
-						'term' => $type,
-						'name' => $type->name,
-						'data' => get_term_meta( $type->term_id, 'general_config', true ),
-					];
-					break;
-				}
-			} else {
-				$listing_types[ $type->term_id ] = [
-					'term' => $type,
-					'name' => $type->name,
-					'data' => get_term_meta( $type->term_id, 'general_config', true ),
-				];
-			}
+			return directorist_get_directories_for_template( $args );
 		}
-		return $listing_types;
+
+		return directorist_get_directories_for_template( $args );
 	}
 
 	public function get_current_listing_type() {
@@ -822,7 +801,7 @@ class Directorist_Listing_Form {
 		$atts = shortcode_atts( ['directory_type' => ''], $atts );
 		self::$directory_type = $atts['directory_type'] ? explode( ',', $atts['directory_type'] ) : '';
 
-		$guest_submission = get_directorist_option( 'guest_listings', 0 );
+		$guest_submission = directorist_is_guest_submission_enabled();
 		$user_id		  = get_current_user_id();
 		$user_type        = get_user_meta( $user_id, '_user_type', true );
 

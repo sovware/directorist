@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.7.0
+ * @version8.0
  */
 
 extract( $checkout );
@@ -13,7 +13,7 @@ use \Directorist\Helper;
         <div class="<?php Helper::directorist_row(); ?>">
             <div class="directorist-col-md-6 directorist-offset-md-3">
         <?php do_action('atbdp_before_checkout_form_start'); ?>
-        <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="#" role="form">
+        <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="#">
             <?php do_action('atbdp_after_checkout_form_start'); ?>
             <div class="directorist-checkout-text directorist-text-center directorist-mb-40">
                 <?php esc_html_e('Your order details are given below. Please review it and click on Proceed to Payment to complete this order.', 'directorist'); ?>
@@ -26,7 +26,7 @@ use \Directorist\Helper;
             ?>
             <div class="directorist-card directorist-checkout-card">
                 <div class="directorist-card__header">
-                    <h4 class="directorist-card__header--title">Order Summary</h4>
+                    <h3 class="directorist-card__header__title">Order Summary</h3>
                 </div>
                 <div class="directorist-card__body">
                     <div class="directorist-table-responsive">
@@ -122,7 +122,7 @@ use \Directorist\Helper;
             <?php if ( $subtotal > 0 ) : ?>
             <div class="directorist-card directorist-mt-30 directorist-payment-gateways directorist-mb-15 directorist-checkout-card directorist-checkout-payment" id="directorist_payment_gateways">
                 <div class="directorist-card__header">
-                    <h4 class="directorist-card__header--title"><?php esc_html_e('Choose a payment method', 'directorist'); ?></h4>
+                    <h3 class="directorist-card__header__title"><?php esc_html_e('Choose a payment method', 'directorist'); ?></h3>
                 </div>
 
                 <div class="directorist-card__body">
@@ -142,8 +142,8 @@ use \Directorist\Helper;
             <?php wp_nonce_field('checkout_action', 'checkout_nonce');
             $directory_type 	 = get_post_meta( $listing_id, '_directory_type', true );
 		    $new_l_status 	     = get_term_meta( $directory_type, 'new_listing_status', true );
-            $monitization        = get_directorist_option('enable_monetization',0);
-            $featured_enabled    = get_directorist_option('enable_featured_listing',0);
+            $monitization        = directorist_is_monetization_enabled();
+            $featured_enabled    = directorist_is_featured_listing_enabled();
             $submit_button_label = ( $selected_product > 0 && $subtotal < 1 ) ? __( 'Complete Submission', 'directorist' ) : __( 'Pay Now', 'directorist' );
 
             if ( is_fee_manager_active() ){

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.2.2
- * @version 7.7.0
+ * @version 8.0
  */
 
 use \Directorist\Helper;
@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-form-box directorist-search-form__box">
+<div class="directorist-search-form__box">
 
 	<div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline directorist-search-form__top directorist-search-modal directorist-search-modal--basic">
 		<?php $searchform->advanced_search_form_basic_fields_template();?>
@@ -37,5 +37,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 </div>
 
 <div class="directorist-search-modal directorist-search-modal--advanced">
-	<?php $searchform->advanced_search_form_advanced_fields_template();?>
+	<?php $searchform->advanced_search_form_fields_template(); ?>
 </div>

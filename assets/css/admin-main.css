@@ -5804,6 +5804,13 @@ img.atbdp-file-info {
   padding-bottom: 0;
 }
 
+.atbd_success_mesage > p i {
+  top: 2px;
+  margin-right: 5px;
+  position: relative;
+  display: inline-block;
+}
+
 .directorist-loader {
   position: relative;
 }
@@ -6156,12 +6163,24 @@ body.logged-in .select2-container--open .select2-dropdown--above {
   margin-bottom: -20px !important;
 }
 
+.directorist-mb-10 {
+  margin-bottom: 10px !important;
+}
+
 .directorist-mb-15 {
   margin-bottom: 15px !important;
 }
 
-.directorist-mb-10 {
-  margin-bottom: 10px !important;
+.directorist-mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.directorist-mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.directorist-mb-35 {
+  margin-bottom: 35px !important;
 }
 
 .directorist-mb-40 {
@@ -9679,6 +9698,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .alert-danger {
   background: rgba(232, 0, 0, 0.3);
 }
+.alert-danger.directorist-register-error {
+  background: #FCD9D9;
+  color: #E80000;
+  border-radius: 3px;
+}
+.alert-danger.directorist-register-error .directorist-alert__close {
+  color: #E80000;
+}
 
 /* Add listing notice alert */
 .directorist-single-listing-notice .directorist-alert__content {
@@ -10285,12 +10312,24 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-bottom: -20px !important;
 }
 
+.directorist-mb-10 {
+  margin-bottom: 10px !important;
+}
+
 .directorist-mb-15 {
   margin-bottom: 15px !important;
 }
 
-.directorist-mb-10 {
-  margin-bottom: 10px !important;
+.directorist-mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.directorist-mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.directorist-mb-35 {
+  margin-bottom: 35px !important;
 }
 
 .directorist-mb-40 {
@@ -13482,12 +13521,24 @@ input[type=radio]:checked::before {
   margin-bottom: -20px !important;
 }
 
+.directorist-mb-10 {
+  margin-bottom: 10px !important;
+}
+
 .directorist-mb-15 {
   margin-bottom: 15px !important;
 }
 
-.directorist-mb-10 {
-  margin-bottom: 10px !important;
+.directorist-mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.directorist-mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.directorist-mb-35 {
+  margin-bottom: 35px !important;
 }
 
 .directorist-mb-40 {
@@ -16946,12 +16997,24 @@ input[type=radio]:checked::before {
   margin-bottom: -20px !important;
 }
 
+.directorist-mb-10 {
+  margin-bottom: 10px !important;
+}
+
 .directorist-mb-15 {
   margin-bottom: 15px !important;
 }
 
-.directorist-mb-10 {
-  margin-bottom: 10px !important;
+.directorist-mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.directorist-mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.directorist-mb-35 {
+  margin-bottom: 35px !important;
 }
 
 .directorist-mb-40 {

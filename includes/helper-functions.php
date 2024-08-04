@@ -935,9 +935,15 @@ if (!function_exists('atbdp_only_logged_in_user')) {
     {
         if (!is_user_logged_in()) {
             // user not logged in;
-            $error_message = (empty($message))
-                ? sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters("atbdp_login_page_link", "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters("atbdp_signup_page_link", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign up', 'directorist') . "</a>"))
-                : $message;
+            if( get_option( 'directorist_merge_dashboard_login_reg_page' ) ) {
+                $error_message = ( empty( $message ) )
+                    ? sprintf( __( 'You need to be logged in to view the content of this page. You can login/sign up %s', 'directorist' ), apply_filters( "atbdp_login_page_link", "<a href='" . ATBDP_Permalink::get_dashboard_page_link() . "'> " . __( 'Here', 'directorist' ) . "</a>" ) )
+                    : $message;
+            } else {
+                $error_message = ( empty( $message ) )
+                    ? sprintf( __( 'You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist' ), apply_filters( "atbdp_login_page_link", "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>" ), apply_filters("atbdp_signup_page_link", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __( 'Sign up', 'directorist' ) . "</a>" ) )
+                    : $message;
+            }
             $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             ?>
             <section class="directory_wrapper single_area">
@@ -2634,14 +2640,6 @@ function atbdp_create_required_pages(){
             'title' => __('Dashboard', 'directorist'),
             'content' => '[directorist_user_dashboard]'
         ),
-        'custom_registration' => array(
-            'title' => __('Registration', 'directorist'),
-            'content' => '[directorist_custom_registration]'
-        ),
-        'user_login' => array(
-            'title' => __('Login', 'directorist'),
-            'content' => '[directorist_user_login]'
-        ),
         /* 'checkout_page' => array(
             'title' => __('Checkout', 'directorist'),
             'content' => '[directorist_checkout]'
@@ -4002,23 +4000,23 @@ function directorist_password_reset_url( $user, $password_reset = true, $confirm
 
     global $directories_user_rest_keys;
 
-    if( is_array( $directories_user_rest_keys ) && !empty( $directories_user_rest_keys[$user->user_email] ) ) {
+    if( is_array( $directories_user_rest_keys ) && ! empty( $directories_user_rest_keys[$user->user_email] ) ) {
         $args['key'] = $directories_user_rest_keys[$user->user_email];
     } else {
-        $key = get_password_reset_key( $user );
+        $key                                           = get_password_reset_key( $user );
         $directories_user_rest_keys[$user->user_email] = $key;
-        $args['key'] = $key;
+        $args['key']                                   = $key;
     }
 
-    if($password_reset) {
+    if ( $password_reset ) {
         $args['password_reset'] = true;
     }
 
-    if($confirm_mail) {
+    if ( $confirm_mail ) {
         $args['confirm_mail'] = true;
     }
 
-    $reset_password_url = ATBDP_Permalink::get_login_page_url($args);
+    $reset_password_url = ATBDP_Permalink::get_dashboard_page_link( $args );
 
     return apply_filters( 'directorist_password_reset_url', $reset_password_url );
 }

@@ -150,12 +150,24 @@
   margin-bottom: -20px !important;
 }
 
+.directorist-mb-10 {
+  margin-bottom: 10px !important;
+}
+
 .directorist-mb-15 {
   margin-bottom: 15px !important;
 }
 
-.directorist-mb-10 {
-  margin-bottom: 10px !important;
+.directorist-mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.directorist-mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.directorist-mb-35 {
+  margin-bottom: 35px !important;
 }
 
 .directorist-mb-40 {
@@ -340,6 +352,13 @@
   line-height: 2.55;
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.atbd_success_mesage > p i {
+  top: 2px;
+  margin-left: 5px;
+  position: relative;
+  display: inline-block;
 }
 
 .directorist-loader {
@@ -7521,6 +7540,14 @@ p.atbd-min {
 .alert-danger {
   background: rgba(232, 0, 0, 0.3);
 }
+.alert-danger.directorist-register-error {
+  background: #FCD9D9;
+  color: #E80000;
+  border-radius: 3px;
+}
+.alert-danger.directorist-register-error .directorist-alert__close {
+  color: #E80000;
+}
 
 /* Add listing notice alert */
 .directorist-single-listing-notice .directorist-alert__content {
@@ -10007,6 +10034,134 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     width: calc(100% - 30px);
   }
 }
+/* Authentication style */
+.directorist-authentication {
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  transition: height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+.directorist-authentication__form {
+  max-width: 540px;
+  margin: 0 auto 15px;
+  padding: 50px 40px;
+  border-radius: 16px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+@media only screen and (max-width: 480px) {
+  .directorist-authentication__form {
+    padding: 40px 25px;
+  }
+}
+.directorist-authentication__form__btn {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 12px;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+.directorist-authentication__form__actions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  gap: 15px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 28px 0 33px;
+}
+.directorist-authentication__form__actions a {
+  font-size: 14px;
+  font-weight: 400;
+  color: #808080;
+  border-bottom: 1px dashed #808080;
+}
+.directorist-authentication__form__actions a:hover {
+  color: #000000;
+  border-color: #000000;
+}
+.directorist-authentication__form__actions label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+}
+.directorist-authentication__form__toggle-area {
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+}
+.directorist-authentication__form__toggle-area a {
+  margin-right: 5px;
+  color: #2c99ff;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+.directorist-authentication__form__toggle-area a:hover {
+  color: #000000;
+}
+.directorist-authentication__form__recover-pass-modal {
+  display: none;
+}
+.directorist-authentication__form__recover-pass-modal .directorist-form-group {
+  margin: 0;
+  padding: 25px;
+}
+.directorist-authentication__form__recover-pass-modal p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+  margin: 0 0 20px;
+}
+.directorist-authentication__form .directorist-form-element {
+  border: none;
+  padding: 15px 0;
+  border-radius: 0;
+  border-bottom: 1px solid #ececec;
+}
+.directorist-authentication__form .directorist-form-group > label {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+}
+.directorist-authentication__btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: #000000;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 0 6px;
+  text-transform: capitalize;
+  background: transparent;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+.directorist-authentication__btn:hover {
+  opacity: 0.75;
+}
+.directorist-authentication__message__text {
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+}
+.directorist-authentication.active {
+  height: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
 /* Directorist all authors card */
 .directorist-authors-section {
   position: relative;

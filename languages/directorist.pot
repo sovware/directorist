@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-30 11:04+0000\n"
+"POT-Creation-Date: 2024-08-04 03:25+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -690,7 +690,7 @@ msgstr ""
 msgid "Sorry, Something went wrong. Listing ID is missing. Please try again."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:86, ../includes/checkout/class-checkout.php:181, ../includes/classes/class-custom-post.php:370, ../includes/classes/class-custom-post.php:378, ../includes/classes/class-settings-panel.php:557, ../includes/classes/class-settings-panel.php:2261, ../includes/model/Listings.php:217, ../includes/model/Listings.php:2240, ../includes/modules/multi-directory-setup/class-builder-data.php:1204, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
+#: ../includes/checkout/class-checkout.php:86, ../includes/checkout/class-checkout.php:181, ../includes/classes/class-custom-post.php:370, ../includes/classes/class-custom-post.php:378, ../includes/classes/class-settings-panel.php:557, ../includes/classes/class-settings-panel.php:2261, ../includes/model/Listings.php:217, ../includes/model/Listings.php:2251, ../includes/modules/multi-directory-setup/class-builder-data.php:1204, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
 msgid "Featured"
 msgstr ""
 
@@ -2704,7 +2704,7 @@ msgstr ""
 msgid "Popular Badge Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2266, ../includes/model/Listings.php:216, ../includes/model/Listings.php:2252, ../includes/modules/multi-directory-setup/class-builder-data.php:1218, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1602
+#: ../includes/classes/class-settings-panel.php:2266, ../includes/model/Listings.php:216, ../includes/model/Listings.php:2263, ../includes/modules/multi-directory-setup/class-builder-data.php:1218, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1602
 msgid "Popular"
 msgstr ""
 
@@ -5150,32 +5150,32 @@ msgstr[1] ""
 msgid "No listing found."
 msgstr ""
 
-#: ../includes/model/Listings.php:1681
+#: ../includes/model/Listings.php:1692
 msgid "Posted %s ago"
 msgstr ""
 
-#: ../includes/model/Listings.php:1747
+#: ../includes/model/Listings.php:1758
 msgctxt "search result header"
 msgid "%s result"
 msgid_plural "%s results"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1744
+#: ../includes/model/Listings.php:1755
 msgctxt "search result header"
 msgid "%s result in %s"
 msgid_plural "%s results in %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1741
+#: ../includes/model/Listings.php:1752
 msgctxt "search result header"
 msgid "%s result for %s"
 msgid_plural "%s results for %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:1738
+#: ../includes/model/Listings.php:1749
 msgctxt "search result header"
 msgid "%s result for %s in %s"
 msgid_plural "%s results for %s in %s"

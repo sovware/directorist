@@ -124,6 +124,15 @@ __webpack_require__.r(__webpack_exports__);
     LargeValue: 1,
     SmallValue: 2
   };
+
+  //RTL
+  var isRTL = directorist.rtl === 'true';
+  var direction;
+  if (isRTL) {
+    direction = 'right';
+  } else {
+    direction = 'left';
+  }
   function isValidFormatter(entry) {
     return isValidPartialFormatter(entry) && typeof entry.from === 'function';
   }
@@ -553,7 +562,7 @@ __webpack_require__.r(__webpack_exports__);
           - The provided value for the option;
           - A reference to the options object;
           - The name for the option;
-        The testing function returns false when an error is detected,
+       The testing function returns false when an error is detected,
       or true when everything is OK. It can also modify the option
       object, to make sure all values can be correctly looped elsewhere. */
   //region Defaults

@@ -207,6 +207,8 @@
                     $exp_dt = calc_listing_expiry_date( '', '', $directory_type );
                     update_post_meta( $post_id, '_expiry_date', $exp_dt );
                     update_post_meta( $post_id, '_featured', 0 );
+
+					// TODO: Status has been migrated, remove related code.
                     update_post_meta( $post_id, '_listing_status', 'post_status' );
 
                     if ( ! empty( $post['directory_type'] ) ) {
@@ -301,17 +303,17 @@
                 return false;
             }
             $contents = @file_get_contents($file_url);
-    
+
             if ($contents === false) {
                 return false;
             }
-    
+
             if( ! wp_check_filetype( $file_url )['ext'] ) {
-    
+
                 $headers = array(
                     'Accept'     => 'application/json',
                 );
-    
+
                 $config = array(
                     'method'      => 'GET',
                     'timeout'     => 30,
@@ -320,29 +322,29 @@
                     'headers'     => $headers,
                     'cookies'     => array(),
                 );
-    
+
                 $upload = array();
-    
+
                 try {
                     $response = wp_remote_get( $file_url, $config );
-    
+
                     if ( ! is_wp_error( $response ) ) {
                         $type = wp_remote_retrieve_header( $response, 'content-type' );
                         $extension = preg_replace("/\w+\//", '', $type );
                         $upload = wp_upload_bits(basename( $file_url . '.'. $extension ), '', wp_remote_retrieve_body($response));
-    
+
                     }
                 } catch ( Exception $e ) {
-    
+
                 }
             }else{
                 $upload = wp_upload_bits(basename($file_url), null, $contents);
             }
-    
+
             if (isset($upload['error']) && $upload['error']) {
                 return false;
             }
-    
+
             $type = '';
             if (!empty($upload['type'])) {
                 $type = $upload['type'];
@@ -356,7 +358,7 @@
             $id = wp_insert_attachment( $attachment, $upload['file'], $post_id );
             wp_update_attachment_metadata( $id, wp_generate_attachment_metadata($id, $upload['file']) );
             return $id;
-    
+
         }
 
 
@@ -381,11 +383,11 @@
         public static function atbdp_insert_attachment_from_url( $image_url, $post_id ) {
 
             $legacy = apply_filters( 'directorist_legacy_attachment_importer', false, $image_url, $post_id );
-            
+
             if( ! $legacy ) {
                 return self::atbdp_updated_insert_attachment_from_url( $image_url, $post_id );
             }
-            
+
             return self::atbdp_legacy_insert_attachment_from_url( $image_url, $post_id );
         }
 

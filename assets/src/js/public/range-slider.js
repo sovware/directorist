@@ -24,6 +24,15 @@
         LargeValue: 1,
         SmallValue: 2
     };
+    
+    //RTL
+    var isRTL = (directorist.rtl === 'true');
+    var direction;
+    if(isRTL){
+        direction = 'right';
+    }else{
+        direction = 'left';
+    }
 
     function isValidFormatter(entry) {
         return isValidPartialFormatter(entry) && typeof entry.from === 'function';

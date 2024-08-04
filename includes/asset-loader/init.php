@@ -299,6 +299,12 @@ class Asset_Loader {
 			wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris', 'wp-i18n' ), Helper::get_script_version() );
 
 			self::enqueue_map_styles();
+
+			// Inline styles
+			$load_inline_style = apply_filters( 'directorist_load_inline_style', true );
+			if ( $load_inline_style ) {
+				wp_add_inline_style( 'directorist-admin-style', Helper::dynamic_style() );
+			}
 		}
 	}
 

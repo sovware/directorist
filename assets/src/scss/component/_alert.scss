@@ -116,6 +116,14 @@
 //alert-danger in registration page
 .alert-danger {
     background: rgba(#E80000, 0.3);
+    &.directorist-register-error {
+        background: #FCD9D9;
+        color: #E80000;
+        border-radius: 3px;
+        .directorist-alert__close {
+            color: #E80000;
+        }
+    }
 }
 
 /* Add listing notice alert */

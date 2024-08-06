@@ -51,23 +51,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			add_action( 'wp_ajax_directorist_register_form', array( $this, 'directorist_register_form' ) );
 			add_action( 'wp_ajax_nopriv_directorist_register_form', array( $this, 'directorist_register_form' ) );
-
-			if ( ! get_option( 'directorist_merge_dashboard_login_reg_page' ) ) {
-				add_filter( 'atbdp_listing_settings_page_settings_sections', array( $this, 'atbdp_listing_settings_page_settings_sections' ) );
-
-			}
-		}
-
-		public function atbdp_listing_settings_page_settings_sections( $args ) {
-			$args['legacy_login_reg_page'] = [
-				'title'       => __('Legacy Pages', 'directorist'),
-				'description' => '',
-				'fields'      => [
-					'custom_registration', 'user_login'
-					],
-				];
-				
-			return $args;
 		}
 
 		public function directorist_register_form() {

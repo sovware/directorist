@@ -151,15 +151,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				ATBDP()->email->send_user_confirmation_email( $user );
 			}
 			
-			if( get_option( 'directorist_merge_dashboard_login_reg_page' ) ) {
-				$args = ATBDP_Permalink::get_dashboard_page_link( array(
-					'send_verification_email' => true
-				) );
-			} else {
-				ATBDP_Permalink::get_login_page_url( array(
-					'send_verification_email' => true
-				) );
-			}
+			$args = ATBDP_Permalink::get_dashboard_page_link( array(
+				'send_verification_email' => true
+			) );
 			
 			wp_safe_redirect( $args );
 			exit;

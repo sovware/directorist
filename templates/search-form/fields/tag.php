@@ -7,8 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$source     = !empty( $data['tags_filter_source'] ) ? $data['tags_filter_source'] : '';
-$tag_source = ( $source == 'category_based_tags' ) ? 'cat_based' : 'all_tags';
+$tag_source = 'all_tags';
 $tag_terms  = $searchform->listing_tag_terms( $tag_source );
 $in_tag     = ! empty( $_REQUEST['in_tag'] ) ? $_REQUEST['in_tag'] : '';
 

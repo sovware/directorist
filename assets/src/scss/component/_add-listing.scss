@@ -38,7 +38,7 @@
         &:after {
           width: 23px;
           height: 23px;
-          background-color: #fff;
+          background-color: var(--directorist-color-white);
         }
       }
       &:hover {
@@ -48,7 +48,7 @@
           background-color: var(--directorist-color-white);
         }
         .directorist-icon-mask:after {
-          background-color: #000;
+          background-color: var(--directorist-color-primary);
         }
       }
       /* Legacy Icon */
@@ -198,16 +198,16 @@
 
 // Admin Add Listing
 #directiost-listing-fields_wrapper .directorist-content-module {
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
   border-radius: 0;
   border: 1px solid #e3e6ef;
   @include e(title) {
     padding: 20px 30px;
     border-bottom: 1px solid #e3e6ef;
     i {
-      background-color: #000;
+      background-color: var(--directorist-color-dark);
       &:after {
-        background-color: #fff;
+        background-color: var(--directorist-color-white);
       }
     }
   }
@@ -220,9 +220,9 @@
         background-color: #808080;
       }
       &:hover {
-        background-color: #000 !important;
+        background-color: var(--directorist-color-primary) !important;
         i::after {
-          background-color: #fff;
+          background-color: var(--directorist-color-white);
         }
       }
     }
@@ -297,7 +297,7 @@
     border-radius: 3px;
     content: "";
     border: 1px solid #c6d0dc;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
   }
   .directorist-checkbox
     input[type="checkbox"]:checked
@@ -342,7 +342,7 @@
   .directorist-radio
     input[type="radio"]:checked
     + .directorist-radio__label:after {
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
   }
   .directorist-checkbox.directorist-checkbox-circle
     input[type="checkbox"]
@@ -382,7 +382,7 @@
     width: 10px;
     height: 10px;
     border: none;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     display: block;
     transition: all 0.3s ease 0s;
     z-index: 2;
@@ -408,10 +408,10 @@
     width: auto;
     padding: 11px 26px;
     background-color: #444752;
-    color: #fff;
+    color: var(--directorist-color-white);
     border-radius: 5px;
     i::after {
-      background-color: #fff;
+      background-color: var(--directorist-color-white);
     }
   }
   .directorist-form-map-field__maps #gmap {
@@ -522,7 +522,7 @@
       input[type="checkbox"]:checked
       + .directorist-checkbox__label {
       font-weight: 500;
-      color: var(--directorist-color-primary);
+      color: var(--directorist-color-dark);
     }
 
     .directorist_pricing_options {
@@ -542,9 +542,9 @@
             width: 8px;
             height: 8px;
             mask-image: none;
-            background-color: #fff;
+            background-color: var(--directorist-color-white);
             border-radius: 100%;
-            border: 5px solid #000;
+            border: 5px solid var(--directorist-color-primary);
           }
           &:checked {
             &:after {
@@ -680,7 +680,7 @@
           width: 100% !important;
           height: 100% !important;
           border-radius: 100%;
-          background-color: #000000;
+          background-color: var(--directorist-color-primary);
         }
         &:before {
           content: "";
@@ -692,7 +692,7 @@
           border-radius: 50%;
           transition: all 0.3s ease-in-out;
           border: none;
-          border: 50px solid rgba(0, 0, 0, 0.2);
+          border: 50px solid rgba(var(--directorist-color-dark-rgb), 0.2);
           opacity: 0;
           visibility: hidden;
           animation: atbd_scale 3s linear alternate infinite;
@@ -704,7 +704,7 @@
           height: 20px;
           position: absolute;
           z-index: 2;
-          background-color: #ffffff;
+          background-color: var(--directorist-color-white);
           mask-repeat: no-repeat;
           mask-position: center;
           mask-image: url("../../../icons/font-awesome/svgs/solid/map-pin.svg");
@@ -742,7 +742,7 @@
     height: 40px;
     cursor: pointer;
     border-radius: 100%;
-    background-color: #000000;
+    background-color: var(--directorist-color-marker-shape);
     &:before {
       content: "";
       position: absolute;
@@ -755,14 +755,14 @@
       border-radius: 50%;
       transition: all 0.3s ease-in-out;
       border: none;
-      border: 40px solid rgba(0, 0, 0, 0.2);
+      border: 40px solid rgba(var(--directorist-color-primary-rgb), 0.2);
       animation: atbd_scale 3s linear alternate infinite;
     }
     .directorist-icon-mask {
       &:after {
         width: 16px;
         height: 16px;
-        background-color: #ffffff;
+        background-color: var(--directorist-color-white);
       }
     }
     &:hover {
@@ -860,6 +860,25 @@
           }
         }
       }
+      .ezmu__thumbnail-list-item {
+        max-width: 140px;
+        flex-basis: unset;
+      }
+      .ezmu__front-item__sort-buttons {
+        display: flex;
+      }
+      .ezmu__front-item__close-icon {
+        background-image: unset;
+        .directorist-icon-mask::after {
+          width: 12px;
+          height: 12px;
+        }
+        &:hover {
+          .directorist-icon-mask::after {
+            background-color: var(--directorist-color-white);
+          }
+        }
+      }
     }
   }
 
@@ -889,7 +908,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(var(--directorist-color-dark-rgb), 0.5);
       opacity: 0;
       visibility: visible;
       transition: all ease 0.3s;
@@ -915,7 +934,7 @@
   .ezmu__btn {
     margin-bottom: 25px;
     background-color: var(--directorist-color-primary);
-    color: #fff;
+    color: var(--directorist-color-white);
   }
 
   .directorist-image-upload {
@@ -1116,7 +1135,7 @@
     &:before {
       left: -25px;
       top: -25px;
-      border: 50px solid rgba(0, 0, 0, 0.2);
+      border: 50px solid rgba(var(--directorist-color-primary-rgb), 0.2);
     }
     .directorist-icon-mask::after {
       width: 12px;
@@ -1194,7 +1213,7 @@
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: var(--directorist-color-white);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -1270,7 +1289,7 @@
   #delete_marker {
     background-color: var(--directorist-color-danger);
     border: 1px solid var(--directorist-color-danger);
-    color: #fff;
+    color: var(--directorist-color-white);
   }
 }
 
@@ -1408,7 +1427,7 @@
         mask-repeat: no-repeat;
         width: 12px;
         height: 12px;
-        background-color: #000;
+        background-color: var(--directorist-color-dark);
         display: block;
         opacity: 0;
         transition: opacity 0.2s ease;
@@ -1417,20 +1436,21 @@
       &.active,
       &:hover {
         font-weight: 600;
-        color: var(--directorist-color-dark);
+        color: var(--directorist-color-primary);
         box-shadow: var(--directorist-box-shadow-sm);
         background-color: var(--directorist-color-white);
         border: 0 none;
         outline: none;
         &:before {
           opacity: 1;
+          background-color: var(--directorist-color-primary);
         }
         i::after {
           background-color: var(--directorist-color-primary);
         }
       }
       &.completed {
-        color: var(--directorist-color-dark);
+        color: var(--directorist-color-primary);
         &:before {
           mask-image: url("../../../icons/font-awesome/svgs/solid/check.svg");
           opacity: 1;
@@ -1476,7 +1496,7 @@
             mask-repeat: no-repeat;
             width: 12px;
             height: 12px;
-            background-color: #000;
+            background-color: var(--directorist-color-dark);
           }
           &.opened {
             &:before {

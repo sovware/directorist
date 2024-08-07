@@ -29,14 +29,13 @@
             });
 
             el.classList.add(`directorist-swiper-listing-${i}`);
-            
-            let swiper = new Swiper(`.directorist-swiper-listing-${i}`, {
+
+            let swiperConfig = {
                 slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
                 spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
                 loop: checkData(el.dataset.swLoop, true),
                 slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
                 speed: checkData(parseInt(el.dataset.swSpeed), 300),
-                autoplay: checkData(el.dataset.swAutoplay, {}),
                 navigation: {
                     nextEl: `.directorist-swiper__nav--next-listing-${i}`,
                     prevEl: `.directorist-swiper__nav--prev-listing-${i}`,
@@ -47,14 +46,26 @@
                     clickable: true,
                 },
                 breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-            });
+            };
+            
+            // Conditionally add autoplay property
+            const enableAutoplay = checkData(el.dataset.swAutoplay, 'false');
+            
+            // Conditionally add autoplay property
+            if (enableAutoplay === "true") {
+                swiperConfig.autoplay = {
+                    delay: checkData(parseInt(el.dataset.swSpeed), 500),
+                    disableOnInteraction: false,
+                };
+            } 
+            
+            let swiper = new Swiper(`.directorist-swiper-listing-${i}`, swiperConfig);
         });
 
         /* Swiper Slider Related Listing */
         let swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related-listing');
 
         swiperCarouselRelated.forEach(function (el, i) {
-
             let navBtnPrev = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--prev-related');
             let navBtnNext = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--next-related');
             let swiperPagination = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__pagination--related');
@@ -71,13 +82,11 @@
 
             el.classList.add(`directorist-swiper-related-listing-${i}`);
             
-            let swiper = new Swiper(`.directorist-swiper-related-listing-${i}`, {
+            let swiperRelatedConfig = {
                 slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
                 spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
                 loop: checkData(el.dataset.swLoop, false),
                 slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
-                speed: checkData(parseInt(el.dataset.swSpeed), 300),
-                autoplay: checkData(el.dataset.swAutoplay, {}),
                 navigation: {
                     nextEl: `.directorist-swiper__nav--next-related-${i}`,
                     prevEl: `.directorist-swiper__nav--prev-related-${i}`,
@@ -88,7 +97,19 @@
                     clickable: true,
                 },
                 breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-            });
+            };
+
+            const enableRelatedAutoplay = checkData(el.dataset.swAutoplay, 'false');
+            
+            // Conditionally add autoplay property
+            if (enableRelatedAutoplay === "true") {
+                swiperRelatedConfig.autoplay = {
+                    delay: checkData(parseInt(el.dataset.swSpeed), 500),
+                    disableOnInteraction: false,
+                };
+            } 
+            
+            let swiper = new Swiper(`.directorist-swiper-related-listing-${i}`, swiperRelatedConfig);            
 
 
             // Destroy Swiper Slider When Slider Image Are Less Than Minimum Required Image

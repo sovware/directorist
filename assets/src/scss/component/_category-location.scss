@@ -8,7 +8,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #fff;
+        background-color: var(--directorist-color-white);
         @include m('image'){
             background-position: center;
             background-repeat: no-repeat;
@@ -46,7 +46,7 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 16px;
-            color: var(--directorist-color-primary);
+            color: var(--directorist-color-dark);
             &::before{
                 content: '';
                 position: absolute;
@@ -226,7 +226,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: #fff;
+            background-color: var(--directorist-color-white);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -396,12 +396,12 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: #000;
+            background-color: var(--directorist-color-dark);
             display: flex;
             align-items: center;
             justify-content: center;
             &::after{
-                background-color: #fff;
+                background-color: var(--directorist-color-white);
             }
         }
     }
@@ -449,7 +449,7 @@
                     height: inherit;
                     left: 0;
                     top: 0;
-                    background: rgba(#000, 0.5);
+                    background: rgba(var(--directorist-color-dark-rgb), 0.5);
                     border-radius: inherit;
                 }
                 .directorist-location__content{
@@ -487,7 +487,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background-color: #fff;
+                background-color: var(--directorist-color-white);
                 .directorist-location__content{
                     h3, a, span{
                         text-align: center;
@@ -503,7 +503,7 @@
                 font-weight: 500;
             }
             a{
-                color: var(--directorist-color-title);
+                color: var(--directorist-color-dark);
                 text-decoration: none;
                 &::after{
                     position: absolute;
@@ -548,7 +548,7 @@
                     height: 100%;
                     left: 0;
                     top: 0;
-                    background: rgba(#000, 0.5);
+                    background: rgba(var(--directorist-color-dark-rgb), 0.5);
                     border-radius: var(--directorist-border-radius-lg);
                 }
             }

@@ -83,7 +83,7 @@
                 mask-repeat: no-repeat;
                 width: 10px;
                 height: 10px;
-                background-color: #fff;
+                background-color: var(--directorist-color-white);
                 display: block;
                 opacity: 0;
                 transition: all 0.3s ease 0s;
@@ -223,7 +223,7 @@
             &:checked{
                 & +.directorist-radio__label{
                     &:after{
-                        background-color: #fff;
+                        background-color: var(--directorist-color-white);
                         border-color: var(--directorist-color-primary) !important;
                     }
                     &:before{
@@ -238,7 +238,7 @@
             &:checked{
                 & +.directorist-radio__label{
                     &:after{
-                        background-color: #fff;
+                        background-color: var(--directorist-color-white);
                         border-color: var(--directorist-color-secondary) !important;
                     }
                     &:before{
@@ -253,7 +253,7 @@
             &:checked{
                 & +.directorist-radio__label{
                     &:after{
-                        background-color: #fff;
+                        background-color: var(--directorist-color-white);
                         border-color: #3e62f5 !important;
                     }
                     &:before{
@@ -293,7 +293,7 @@
                 height: 10px;
                 top: 5px;
                 left: 5px;
-                background-color: #fff !important;
+                background-color: var(--directorist-color-white) !important;
             }
             &:after{
                 width: 20px;
@@ -326,7 +326,7 @@
                 top: 5px !important;
                 left: 5px !important;
                 border-radius: 50%;
-                background-color: #fff !important;
+                background-color: var(--directorist-color-white) !important;
                 content: '';
             }
             &:after{

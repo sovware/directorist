@@ -102,6 +102,8 @@ class Fields {
 			'zip'                => 'text',
 		);
 
+		$map = apply_filters( 'directorist_listing_form_fields_class_map', $map );
+
 		return isset( $map[ $type ] ) ? $map[ $type ] : $type;
 	}
 }

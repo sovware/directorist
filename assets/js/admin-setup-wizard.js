@@ -171,6 +171,12 @@ jQuery(document).ready(function ($) {
     if ($('input[name="share_non_sensitive_data"]').is(':checked')) {
       data.share_non_sensitive_data = true;
     }
+    if ($('input[name="import_listings"]').is(':checked')) {
+      data.import_listings = true;
+    }
+    if ($('input[name="required_plugins"]').is(':checked')) {
+      data.required_plugins = true;
+    }
     $.ajax({
       method: 'POST',
       url: import_export_data.ajaxurl,

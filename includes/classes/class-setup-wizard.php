@@ -48,8 +48,10 @@ class SetupWizard
             ) );
         }
 
-        if( isset( $_POST['directory_type_settings'] ) ) {
+        // if( isset( $_POST['directory_type_settings'] ) ) {
+        if( true ) {
             $request_directory_types = wp_remote_get( 'https://app.directorist.com/wp-json/directorist/v1/get-directory-types?clear' );
+            
             if( is_wp_error( $request_directory_types ) ) {
                 return false;
             }
@@ -73,11 +75,18 @@ class SetupWizard
                         continue;
                     }
 
+                    if( isset( $_POST['required_plugins'] ) && ! empty( $type['required_plugins'] ) ) {
+                        foreach( $type['required_plugins'] as $plugin ) {
+                            $this->download_plugin( [ 'url' => $plugin ] );
+                        }
+                    }
+
                     // @todo: need to pass the dynamic csv from remote
                     // $listing_data = ATBDP_URL .'views/admin-templates/import-export/data/dummy.csv';
                     $listing_data = $type['listing_data'];
                     
                     $file_url = $type['url'];
+                    $preview = isset( $type['preview'] ) ? $type['preview'] : '';
 
                     $file_contents = directorist_get_json_from_url( $file_url );
 
@@ -95,7 +104,7 @@ class SetupWizard
                             $term_id = $term['term_id'];
                         }
 
-                        if( ! empty( $listing_data ) ) {
+                        if( ! empty( $listing_data ) && isset( $_POST['import_listings'] ) ) {
                             $data['import_log'] = self::atbdp_dummy_data_import( $listing_data, $term_id );
                         }
 
@@ -116,6 +125,120 @@ class SetupWizard
         $data['url']           = admin_url('index.php?page=directorist-setup&step=step-four');
 
         wp_send_json_success( $data );
+    }
+
+    protected function is_varified_host( $extension_url ) {
+        $signed_hostnames = array( 'directorist.com' );
+
+        return in_array( parse_url( $extension_url, PHP_URL_HOST ), $signed_hostnames, true );
+    }
+
+    private function download_plugin( array $args = array() ) {
+        $status = array( 'success' => false );
+
+        $default = array(
+            'url' => '',
+            'init_wp_filesystem' => true,
+        );
+        $args    = array_merge( $default, $args );
+
+        if ( empty( $args['url'] ) || ! self::is_varified_host( $args['url'] ) ) {
+            $status['success'] = false;
+            $status['message'] = __( 'Invalid download link', 'directorist' );
+
+            return $status;
+        }
+
+        global $wp_filesystem;
+
+        if ( $args['init_wp_filesystem'] ) {
+
+            if ( ! function_exists( 'WP_Filesystem' ) ) {
+                include ABSPATH . 'wp-admin/includes/file.php';
+            }
+
+            WP_Filesystem();
+        }
+
+        $plugin_path = WP_CONTENT_DIR . '/plugins';
+        $temp_dest   = "{$plugin_path}/atbdp-temp-dir";
+        $file_url    = $args['url'];
+        $file_name   = basename( $file_url );
+        $tmp_file    = download_url( $file_url );
+
+        if ( ! is_string( $tmp_file ) ) {
+            $status['success']  = false;
+            $status['tmp_file'] = $tmp_file;
+            $status['file_url'] = $file_url;
+            $status['message']  = 'Could not download the file';
+
+            return $status;
+        }
+
+        // Make Temp Dir
+        if ( $wp_filesystem->exists( $temp_dest ) ) {
+            $wp_filesystem->delete( $temp_dest, true );
+        }
+
+        $wp_filesystem->mkdir( $temp_dest );
+
+        if ( ! file_exists( $temp_dest ) ) {
+            $status['success'] = false;
+            $status['message'] = __( 'Could not create temp directory', 'directorist' );
+
+            return $status;
+        }
+
+        // Sets file temp destination.
+        $file_path = "{$temp_dest}/{$file_name}";
+
+        set_error_handler(
+            function ( $errno, $errstr, $errfile, $errline ) {
+                // error was suppressed with the @-operator
+                if ( 0 === error_reporting() ) {
+                      return false;
+                }
+
+                throw new ErrorException( $errstr, 0, $errno, $errfile, $errline );
+            }
+        );
+
+        // Copies the file to the final destination and deletes temporary file.
+        try {
+            copy( $tmp_file, $file_path );
+        } catch ( Exception $e ) {
+            $status['success'] = false;
+            $status['message'] = $e->getMessage();
+
+            return $status;
+        }
+
+        @unlink( $tmp_file );
+        unzip_file( $file_path, $temp_dest );
+
+        if ( "{$plugin_path}/" !== $file_path || $file_path !== $plugin_path ) {
+            @unlink( $file_path );
+        }
+
+        $extracted_file_dir = glob( "{$temp_dest}/*", GLOB_ONLYDIR );
+
+        foreach ( $extracted_file_dir as $dir_path ) {
+            $dir_name  = basename( $dir_path );
+            $dest_path = "{$plugin_path}/{$dir_name}";
+
+            // Delete Previous Files if Exists
+            if ( $wp_filesystem->exists( $dest_path ) ) {
+                $wp_filesystem->delete( $dest_path, true );
+            }
+        }
+
+        copy_dir( $temp_dest, $plugin_path );
+        $wp_filesystem->delete( $temp_dest, true );
+
+        $status['success'] = true;
+        $status['message'] = __( 'The plugin has been downloaded successfully', 'directorist' );
+
+        return $status;
     }
 
     public function render_run_admin_setup_wizard_notice() {
@@ -210,7 +333,6 @@ class SetupWizard
         $imported           = 0;
         $failed             = 0;
         $count              = 0;
-        $preview_image      = isset($_POST['image']) ? sanitize_text_field( wp_unslash( $_POST['image'] ) ) : '';
         $file               = isset($_POST['file']) ? sanitize_text_field( wp_unslash( $_POST['file'] ) ) : $file;
         $total_length       = isset($_POST['limit']) ? sanitize_text_field( wp_unslash( $_POST['limit'])) : 5;
         $position           = isset($_POST['position']) ? sanitize_text_field( wp_unslash( $_POST['position'] ) ) : 0;
@@ -229,7 +351,7 @@ class SetupWizard
 				}
 
                 // start importing listings
-                $images = isset( $post['listing_img'] ) ? $post['listing_img'] : '';
+                $image = isset( $post['listing_img'] ) ? $post['listing_img'] : '';
                 $args = array(
                     'post_title'   => isset( $post['listing_title'] ) ? $post['listing_title'] : '',
                     'post_content' => isset( $post['listing_content'] ) ? $post['listing_content'] : '',
@@ -299,23 +421,28 @@ class SetupWizard
                 update_post_meta($post_id, '_featured', 0);
                 update_post_meta($post_id, '_listing_status', 'post_status');
 
-                if ( $images ) {
-                    $images = explode( ',', $images );
-
-                    if ( ! empty( $images ) ) {
-                        $attachment_ids = [];
-                        foreach ( $images as $_url_index => $_url ) {
-                            $_url = trim( $_url );
-                            $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($_url, $post_id);
-                            if ( $_url_index == 0 ) {
-                                update_post_meta($post_id, '_listing_prv_img', $attachment_id);
-                            } else {
-                                $attachment_ids[] = $attachment_id;
-                            }
-                        }
-                        update_post_meta($post_id, '_listing_img', $attachment_ids );
-                    }
+                if ( ! empty( $image ) ) {
+                    $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url( $image, $post_id );
+                    update_post_meta( $post_id, '_listing_prv_img', $attachment_id );
                 }
+
+
+                // $data['images'] = $images;
+                // if ( ! empty( $images ) ) {
+                //     $images = explode( ',', $images );
+                //     $attachment_ids = [];
+                //     foreach ( $images as $_url_index => $_url ) {
+                //         $_url = trim( $_url );
+                //         $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($_url, $post_id);
+                //         if ( $_url_index == 0 ) {
+                //             update_post_meta($post_id, '_listing_prv_img', $attachment_id);
+                //         } else {
+                //             $attachment_ids[] = $attachment_id;
+                //         }
+                //     }
+                //     $data['attachment_ids'] = $attachment_ids;
+                //     update_post_meta($post_id, '_listing_img', $attachment_ids );
+                // }
 
                 //directory type
                 if( !empty( $directory_id ) ){
@@ -660,11 +787,7 @@ class SetupWizard
                         <label for="import-listing">Import Listing</label>
                     </div>
                     <div class="directorist-setup-wizard__content__import__single">
-                        <input type="checkbox" name="directory_type_settings" value="yes" id="import-directory-settings" />
-                        <label for="import-directory-settings">Import Directory Settings</label>
-                    </div>
-                    <div class="directorist-setup-wizard__content__import__single">
-                        <input type="checkbox" name="business" id="install-required-plugins" />
+                        <input type="checkbox" name="required_plugins" id="install-required-plugins" />
                         <label for="install-required-plugins">Install Required Plugins</label>
                     </div>
                     <div class="directorist-setup-wizard__content__import__single">

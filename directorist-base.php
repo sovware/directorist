@@ -279,6 +279,9 @@ final class Directorist_Base
 			// Initialize appsero tracking
 			self::$instance->init_appsero();
 
+			// Register blocks
+			self::$instance->init_blocks();
+
 			/**
 			 * Fire loaded action hook once everything is loaded.
 			 *
@@ -717,6 +720,10 @@ final class Directorist_Base
 		// Active insights
 		$client->set_textdomain( 'directorist' );
 		$client->insights()->init();
+	}
+
+	public function init_blocks() {
+		require_once ATBDP_DIR . 'blocks/init.php';
 	}
 
 } // ends Directorist_Base

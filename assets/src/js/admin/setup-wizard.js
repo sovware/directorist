@@ -77,43 +77,52 @@ jQuery(document).ready(function ($) {
         // Add a class when the button is clicked
         $(this).addClass('loading');
 
-        var data = {
-            action                 : 'directorist_setup_wizard',
-            directorist_nonce      : import_export_data.directorist_nonce,
+        let type_count = 0;
+        var import_dummy = function () {
+
+            var data = {
+                action                 : 'directorist_setup_wizard',
+                directorist_nonce      : import_export_data.directorist_nonce,
+            };
+    
+            if ( $('input[name="directory_type_settings"]').is(':checked') ) {
+                data.directory_type_settings = true;
+            }
+    
+            if ( $('input[name="share_non_sensitive_data"]').is(':checked') ) {
+                data.share_non_sensitive_data = true;
+            }
+    
+            if ( $('input[name="import_listings"]').is(':checked') ) {
+                data.import_listings = true;
+            }
+    
+            if ( $('input[name="required_plugins"]').is(':checked') ) {
+                data.required_plugins = true;
+            }
+
+            data.counter = type_count;
+            
+            $.ajax({
+                method: 'POST',
+                url   : import_export_data.ajaxurl,
+                data  : data,
+                success(response) {
+
+                    if ( response.data.counter != 'done' ) {
+                        type_count++;
+                        import_dummy();
+                    } else {
+                    // Remove the class on success
+                    $('.directorist-submit-importing').removeClass('loading');
+                       window.location = response.data.url;
+                    }
+                },
+            });
+
         };
+        import_dummy();
 
-        if ( $('input[name="directory_type_settings"]').is(':checked') ) {
-            data.directory_type_settings = true;
-        }
-
-        if ( $('input[name="share_non_sensitive_data"]').is(':checked') ) {
-            data.share_non_sensitive_data = true;
-        }
-
-        if ( $('input[name="import_listings"]').is(':checked') ) {
-            data.import_listings = true;
-        }
-
-        if ( $('input[name="required_plugins"]').is(':checked') ) {
-            data.required_plugins = true;
-        }
-        
-        $.ajax({
-            method: 'POST',
-            url   : import_export_data.ajaxurl,
-            data  : data,
-            success(response) {
-                console.log( response );
-                return;
-
-                // Remove the class on success
-                $('.directorist-submit-importing').removeClass('loading');
-                
-                if(response.data.url) {
-                    window.location = response.data.url;
-                }
-            },
-        });
     });
 
     //options

@@ -48,71 +48,59 @@ class SetupWizard
             ) );
         }
 
-        // if( isset( $_POST['directory_type_settings'] ) ) {
-        if( true ) {
-            $request_directory_types = wp_remote_get( 'https://app.directorist.com/wp-json/directorist/v1/get-directory-types?clear' );
-            
-            if( is_wp_error( $request_directory_types ) ) {
-                return false;
+        $counter = $_POST['counter'];
+
+        $request_directory_types = wp_remote_get( 'https://app.directorist.com/wp-json/directorist/v1/get-directory-types?clear' );
+        
+        if( is_wp_error( $request_directory_types ) ) {
+            return false;
+        }
+
+        $multi_directory_manager = new Directorist\Multi_Directory\Multi_Directory_Manager();
+
+        $get_types      = get_transient( 'directory_type' );
+
+        $post_type = ! empty( $get_types[$counter ] ) ? $get_types[$counter ] : '';
+
+        $response_body  = wp_remote_retrieve_body( $request_directory_types );
+        $pre_made_types = json_decode( $response_body, true );
+
+        if( ! isset( $pre_made_types[$post_type] ) ) {
+            wp_send_json( ['counter' => $counter ] );
+        }
+
+        $type = $pre_made_types[$post_type];
+
+
+        // if( isset( $_POST['required_plugins'] ) && ! empty( $type['required_plugins'] ) ) {
+        //     foreach( $type['required_plugins'] as $plugin ) {
+        //         $this->download_plugin( [ 'url' => $plugin ] );
+        //     }
+        // }
+
+        $dummy_data = $type['listing_data'];
+        $builder_file_url = $type['url'];
+
+        $builder_content = directorist_get_json_from_url( $builder_file_url );
+
+        if( $builder_content ) {
+            $multi_directory_manager->prepare_settings();
+            $term = $multi_directory_manager->add_directory([
+                'directory_name' => $type['name'],
+                'fields_value'   => $builder_content,
+                'is_json'        => false
+            ]);
+
+            if( ! $term['status']['success'] ) {
+                $term_id = $term['status']['term_id'];
+            }else{
+                $term_id = $term['term_id'];
             }
 
-            $multi_directory_manager = new Directorist\Multi_Directory\Multi_Directory_Manager();
-
-            $get_types      = get_transient( 'directory_type' );
-            $response_body  = wp_remote_retrieve_body( $request_directory_types );
-            $pre_made_types = json_decode( $response_body, true );
-
-            // wp_send_json([
-            //     'get_types' => $get_types,
-            //     'pre_made_types' => $pre_made_types,
-            // ]);
-
-            if ( $pre_made_types ) {
-
-                foreach( $pre_made_types as $key => $type ) {
-
-                    if( ! in_array( $key, $get_types ) ) {
-                        continue;
-                    }
-
-                    if( isset( $_POST['required_plugins'] ) && ! empty( $type['required_plugins'] ) ) {
-                        foreach( $type['required_plugins'] as $plugin ) {
-                            $this->download_plugin( [ 'url' => $plugin ] );
-                        }
-                    }
-
-                    // @todo: need to pass the dynamic csv from remote
-                    // $listing_data = ATBDP_URL .'views/admin-templates/import-export/data/dummy.csv';
-                    $listing_data = $type['listing_data'];
-                    
-                    $file_url = $type['url'];
-                    $preview = isset( $type['preview'] ) ? $type['preview'] : '';
-
-                    $file_contents = directorist_get_json_from_url( $file_url );
-
-                    if( $file_contents ) {
-                        $multi_directory_manager->prepare_settings();
-                        $term = $multi_directory_manager->add_directory([
-                            'directory_name' => $type['name'],
-                            'fields_value'   => $file_contents,
-                            'is_json'        => false
-                        ]);
-
-                        if( ! $term['status']['success'] ) {
-                            $term_id = $term['status']['term_id'];
-                        }else{
-                            $term_id = $term['term_id'];
-                        }
-
-                        if( ! empty( $listing_data ) && isset( $_POST['import_listings'] ) ) {
-                            $data['import_log'] = self::atbdp_dummy_data_import( $listing_data, $term_id );
-                        }
-
-                    }
-
-                }
-
+            if( ! empty( $dummy_data ) && isset( $_POST['import_listings'] ) ) {
+                $data['import_log'] = self::atbdp_dummy_data_import( $dummy_data, $term_id );
             }
+
         }
 
         if( isset( $_POST['share_non_sensitive_data'] ) ) {
@@ -121,8 +109,10 @@ class SetupWizard
             ATBDP()->insights->optout();
         }
 
+        $counter = ( count( $get_types ) <= $counter ) ? 'done' : $counter;
         
         $data['url']           = admin_url('index.php?page=directorist-setup&step=step-four');
+        $data['counter']       = $counter;
 
         wp_send_json_success( $data );
     }
@@ -330,6 +320,7 @@ class SetupWizard
         }
 
         $data               = array();
+        $listings_url       = array();
         $imported           = 0;
         $failed             = 0;
         $count              = 0;
@@ -351,7 +342,8 @@ class SetupWizard
 				}
 
                 // start importing listings
-                $image = isset( $post['listing_img'] ) ? $post['listing_img'] : '';
+                $image = ! empty( $post['listing_img'] ) ? $post['listing_img'] : '';
+
                 $args = array(
                     'post_title'   => isset( $post['listing_title'] ) ? $post['listing_title'] : '',
                     'post_content' => isset( $post['listing_content'] ) ? $post['listing_content'] : '',
@@ -360,6 +352,8 @@ class SetupWizard
                 );
 
                 $post_id = wp_insert_post( $args );
+
+                array_push( $listings_url, get_the_permalink( $post_id ) );
 
 				// No need to process further since it's a failed insertion.
                 if ( is_wp_error( $post_id ) ) {
@@ -370,7 +364,6 @@ class SetupWizard
 				$imported++;
 
                 foreach($post as $key => $value){
-                    // $key = directorist_translate_to_listing_field_key( $key );
                     if ('category' == $key) {
                         $taxonomy = ATBDP_CATEGORY;
                         $term_exists = get_term_by( 'name', $value, $taxonomy );
@@ -452,11 +445,9 @@ class SetupWizard
 
                 $count++;
         }
-        $data['next_position'] = (int) $position + (int) $count;
-        $data['percentage']    = absint(min(round((($data['next_position']) / $total_length) * 100), 100));
-        $data['url']           = admin_url('index.php?page=directorist-setup&step=step-four');
-        $data['total']         = $total_length;
-        $data['imported']      = $imported;
+       
+        $data['listings']      = $listings_url;
+        $data['failed']        = $failed;
         $data['failed']        = $failed;
 
         return $data;
@@ -873,7 +864,7 @@ class SetupWizard
                     <label for="business-directory">Business Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="classified" id="classified-listing" value="classified" />
+                    <input type="checkbox" name="directory_type[]" id="classified-listing" value="classified" />
                     <label for="classified-listing">Classified Listing</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
@@ -933,7 +924,7 @@ class SetupWizard
                     <label for="hospitals-directory">Hospitals Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="other_directory" id="others-listing" value="other" />
+                    <input type="checkbox" name="directory_type[]" id="others-listing" value="other" />
                     <label for="others-listing">Others</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox directorist-setup-wizard__checkbox--custom">

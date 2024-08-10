@@ -76,7 +76,7 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
         // Add a class when the button is clicked
         $(this).addClass('loading');
-
+        $( '.directorist_dummy_data_log' ).text( 'Preparing data...' );
         let type_count = 0;
         var import_dummy = function () {
 
@@ -108,8 +108,11 @@ jQuery(document).ready(function ($) {
                 url   : import_export_data.ajaxurl,
                 data  : data,
                 success(response) {
-
+                    $( '.directorist_dummy_data_log' ).empty().text( response.log );
                     if ( response.counter == 'done' ) {
+
+                        $( '.directorist_dummy_data_log' ).empty().text( 'Completed! Redirecting...' );
+
                         window.location = response.url;
                     } 
 

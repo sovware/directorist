@@ -16,11 +16,10 @@ if ( atbdp_is_page( 'dashboard' ) ) {
 }
 
 $dashboard     = Directorist_Listing_Dashboard::instance();
-$counter       = 1;
 $dashboard_url = get_permalink( get_directorist_option( 'user_dashboard' ) );
 ?>
 
-<div class="dab-logged-mode__navigation">
+<div class="directorist-account-block-logged-mode__navigation">
 
 	<ul>
 
@@ -39,8 +38,6 @@ $dashboard_url = get_permalink( get_directorist_option( 'user_dashboard' ) );
 				</a>
 
 			</li>
-
-			<?php $counter++;?>
 
 		<?php endforeach;?>
 

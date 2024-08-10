@@ -315,13 +315,13 @@ template {
 }
 
 /* Author Navigation */
-.dab-logged-mode {
+.directorist-account-block-logged-mode {
   position: relative;
 }
-.dab-logged-mode .avatar {
+.directorist-account-block-logged-mode .avatar {
   border-radius: 50%;
 }
-.dab-logged-mode .dab-logged-mode__navigation {
+.directorist-account-block-logged-mode .directorist-account-block-logged-mode__navigation {
   position: absolute;
   opacity: 0;
   visibility: hidden;
@@ -336,17 +336,17 @@ template {
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
-.dab-logged-mode .dab-logged-mode__navigation.show {
+.directorist-account-block-logged-mode .directorist-account-block-logged-mode__navigation.show {
   opacity: 1;
   visibility: visible;
   z-index: 1031;
 }
-.dab-logged-mode .dab-logged-mode__navigation ul {
+.directorist-account-block-logged-mode .directorist-account-block-logged-mode__navigation ul {
   list-style: none;
   padding: 15px 0;
   margin: 0;
 }
-.dab-logged-mode .dab-logged-mode__navigation ul li a {
+.directorist-account-block-logged-mode .directorist-account-block-logged-mode__navigation ul li a {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -366,20 +366,20 @@ template {
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
-.dab-logged-mode .dab-logged-mode__navigation ul li a:hover {
+.directorist-account-block-logged-mode .directorist-account-block-logged-mode__navigation ul li a:hover {
   color: var(--color-primary);
 }
-.dab-logged-mode .dab-logged-mode__navigation ul li a:hover .directorist-icon-mask:after {
+.directorist-account-block-logged-mode .directorist-account-block-logged-mode__navigation ul li a:hover .directorist-icon-mask:after {
   background-color: var(--color-primary);
 }
-.dab-logged-mode .dab-logged-mode__navigation ul li a .directorist-icon-mask:after {
+.directorist-account-block-logged-mode .directorist-account-block-logged-mode__navigation ul li a .directorist-icon-mask:after {
   width: 16px;
   height: 16px;
   background-color: var(--color-body);
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
-.dab-logged-mode__overlay {
+.directorist-account-block-logged-mode__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -391,7 +391,7 @@ template {
   opacity: 0;
   z-index: -1;
 }
-.dab-logged-mode__overlay.show {
+.directorist-account-block-logged-mode__overlay.show {
   height: 100%;
   opacity: 1;
   visibility: visible;

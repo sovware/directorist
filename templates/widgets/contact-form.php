@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.10.4
+ * @version 7.11.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -28,7 +28,7 @@ $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-co
     
     <?php 
     // Deprecated hook
-    do_action_deprecated( 'atbdp_before_contact_form_submit_button', array(), '7.10.4', 'directorist_before_contact_form_submit_button' );
+    do_action_deprecated( 'atbdp_before_contact_form_submit_button', array(), '7.11.0', 'directorist_before_contact_form_submit_button' );
     // New hook
     do_action( 'directorist_before_contact_form_submit_button' );
     ?>

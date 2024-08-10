@@ -66,7 +66,8 @@ class SetupWizard
         $pre_made_types = json_decode( $response_body, true );
 
         if( ! isset( $pre_made_types[$post_type] ) ) {
-            wp_send_json( ['counter' => $counter ] );
+            $counter = ( count( $get_types ) <= $counter ) ? 'done' : $counter;
+            wp_send_json( ['counter' => $counter, 'url' => admin_url('index.php?page=directorist-setup&step=step-four') ] );
         }
 
         $type = $pre_made_types[$post_type];
@@ -114,7 +115,7 @@ class SetupWizard
         $data['url']           = admin_url('index.php?page=directorist-setup&step=step-four');
         $data['counter']       = $counter;
 
-        wp_send_json_success( $data );
+        wp_send_json( $data );
     }
 
     protected function is_varified_host( $extension_url ) {
@@ -416,7 +417,9 @@ class SetupWizard
 
                 if ( ! empty( $image ) ) {
                     $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url( $image, $post_id );
-                    update_post_meta( $post_id, '_listing_prv_img', $attachment_id );
+                    if( $attachment_id ) {
+                        update_post_meta( $post_id, '_listing_prv_img', $attachment_id );
+                    }
                 }
 
 

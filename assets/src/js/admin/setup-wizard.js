@@ -109,14 +109,12 @@ jQuery(document).ready(function ($) {
                 data  : data,
                 success(response) {
 
-                    if ( response.data.counter != 'done' ) {
-                        type_count++;
-                        import_dummy();
-                    } else {
-                    // Remove the class on success
-                    $('.directorist-submit-importing').removeClass('loading');
-                       window.location = response.data.url;
-                    }
+                    if ( response.counter == 'done' ) {
+                        window.location = response.url;
+                    } 
+
+                    type_count++;
+                    import_dummy();
                 },
             });
 

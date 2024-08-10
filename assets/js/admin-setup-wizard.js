@@ -185,14 +185,11 @@ jQuery(document).ready(function ($) {
         url: import_export_data.ajaxurl,
         data: data,
         success: function success(response) {
-          if (response.data.counter != 'done') {
-            type_count++;
-            import_dummy();
-          } else {
-            // Remove the class on success
-            $('.directorist-submit-importing').removeClass('loading');
-            window.location = response.data.url;
+          if (response.counter == 'done') {
+            window.location = response.url;
           }
+          type_count++;
+          import_dummy();
         }
       });
     };

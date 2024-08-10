@@ -40,12 +40,12 @@ $blocks-block__margin: 0.5em;
 	padding: calc(0.667em + 2px) calc(1.333em + 2px);
 }
 
-.wp-block-account-block-account-block[style*="text-decoration"] .wp-block-button__link {
+.wp-block-directorist-account-block-directorist-account-block[style*="text-decoration"] .wp-block-button__link {
 	text-decoration: inherit;
 }
 
 // Increased specificity needed to override margins.
-.wp-block-account-block-account-block {
+.wp-block-directorist-account-block-directorist-account-block {
 	&.has-custom-width {
 		max-width: none;
 		.wp-block-button__link {
@@ -81,11 +81,11 @@ $blocks-block__margin: 0.5em;
 // The follow block style selectors are required for old buttons markup
 // and do not use the `:root :where()` format to match specificity at
 // the time they were deprecated.
-.wp-block-account-block-account-block.is-style-squared,
-.wp-block-account-block-directorist-account-block__link.wp-block-account-block-account-block.is-style-squared {
+.wp-block-directorist-account-block-directorist-account-block.is-style-squared,
+.wp-block-directorist-account-block-directorist-account-block__link.wp-block-directorist-account-block-directorist-account-block.is-style-squared {
 	border-radius: 0;
 }
-.wp-block-account-block-account-block.no-border-radius,
+.wp-block-directorist-account-block-directorist-account-block.no-border-radius,
 .wp-block-button__link.no-border-radius {
 	border-radius: 0 !important;
 }
@@ -94,19 +94,19 @@ $blocks-block__margin: 0.5em;
 // with global styles and nested block style variations.
 :root {
 	// Outline Block Style Variation.
-	:where(.wp-block-account-block-account-block.is-style-outline > .wp-block-button__link),
-	:where(.wp-block-account-block-account-block .wp-block-button__link.is-style-outline) {
+	:where(.wp-block-directorist-account-block-directorist-account-block.is-style-outline > .wp-block-button__link),
+	:where(.wp-block-directorist-account-block-directorist-account-block .wp-block-button__link.is-style-outline) {
 		border: 2px solid currentColor;
 		padding: 0.667em 1.333em;
 	}
 
-	:where(.wp-block-account-block-account-block.is-style-outline > .wp-block-button__link:not(.has-text-color)),
-	:where(.wp-block-account-block-account-block .wp-block-button__link.is-style-outline:not(.has-text-color)) {
+	:where(.wp-block-directorist-account-block-directorist-account-block.is-style-outline > .wp-block-button__link:not(.has-text-color)),
+	:where(.wp-block-directorist-account-block-directorist-account-block .wp-block-button__link.is-style-outline:not(.has-text-color)) {
 		color: currentColor;
 	}
 
-	:where(.wp-block-account-block-account-block.is-style-outline > .wp-block-button__link:not(.has-background)),
-	:where(.wp-block-account-block-account-block .wp-block-button__link.is-style-outline:not(.has-background)) {
+	:where(.wp-block-directorist-account-block-directorist-account-block.is-style-outline > .wp-block-button__link:not(.has-background)),
+	:where(.wp-block-directorist-account-block-directorist-account-block .wp-block-button__link.is-style-outline:not(.has-background)) {
 		background-color: transparent;
 		// background-image is required to overwrite a gradient background
 		background-image: none;

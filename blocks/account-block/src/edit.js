@@ -254,7 +254,7 @@ function ButtonEdit( props ) {
 						checked={ showDashboardMenu }
 						label={ __(
 							'Show dashboard menu',
-							'account-block'
+							'directorist-account-block'
 						) }
 						onChange={ () =>
 							setAttributes( {
@@ -267,7 +267,7 @@ function ButtonEdit( props ) {
 						checked={ showUserAvatar }
 						label={ __(
 							'Show user avatar',
-							'account-block'
+							'directorist-account-block'
 						) }
 						onChange={ () =>
 							setAttributes( {

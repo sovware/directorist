@@ -211,7 +211,7 @@ function ButtonEdit(props) {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Settings')
   }, (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__.ToggleControl, {
     checked: showDashboardMenu,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Show dashboard menu', 'account-block'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Show dashboard menu', 'directorist-account-block'),
     onChange: function onChange() {
       return setAttributes({
         showDashboardMenu: !showDashboardMenu
@@ -219,7 +219,7 @@ function ButtonEdit(props) {
     }
   }), (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__.ToggleControl, {
     checked: showUserAvatar,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Show user avatar', 'account-block'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Show user avatar', 'directorist-account-block'),
     onChange: function onChange() {
       return setAttributes({
         showUserAvatar: !showUserAvatar

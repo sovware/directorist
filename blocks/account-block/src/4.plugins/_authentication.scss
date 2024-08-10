@@ -1,9 +1,10 @@
 
 /* Author Navigation */
-.directorist-account-block-logged-mode{
+.directorist-account-block-logged-mode {
 	position: relative;
 	.avatar {
 		border-radius: 50%;
+        cursor:pointer;
 	}
 	.directorist-account-block-logged-mode__navigation{
 		position: absolute;
@@ -91,7 +92,7 @@
 	background-color: rgba(0, 0, 0, 0.15);
 }
 
-/* Theme Authentication Modal */
+/*  Authentication Modal */
 .directorist-account-block-authentication-modal {
     .modal-content {
         border-radius: 8px;
@@ -132,7 +133,7 @@
             font-weight: 600;
             color: var(--color-dark);
         }
-        .directorist-account-block-close {
+        .directorist-account-block {
             display: inline-block;
             width: 34px;
             height: 34px;

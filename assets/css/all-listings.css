@@ -10103,6 +10103,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: #404040;
 }
 .directorist-authentication__form__toggle-area {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 5px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   font-size: 14px;
   font-weight: 400;
   color: #404040;
@@ -10115,6 +10123,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-authentication__form__toggle-area a:hover {
   color: #000000;
+}
+.directorist-authentication__form__toggle-area p {
+  margin: 0;
 }
 .directorist-authentication__form__recover-pass-modal {
   display: none;
@@ -10147,12 +10158,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   cursor: pointer;
   -webkit-box-shadow: none;
           box-shadow: none;
-  color: #000000;
+  color: #000000 !important;
   font-size: 13px;
   font-weight: 400;
-  padding: 0 6px;
+  padding: 0;
   text-transform: capitalize;
-  background: transparent;
+  background: transparent !important;
   -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }

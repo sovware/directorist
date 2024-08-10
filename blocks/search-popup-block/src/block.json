@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "search-popup-block/search-popup-block",
+	"name": "directorist/search-popup-block",
 	"version": "1.0.0",
 	"title": "Directorist Search Popup Block",
 	"category": "widgets",
@@ -146,5 +146,6 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
 	"style": "file:./style-index.css",
-	"render": "file:./render.php"
+	"render": "file:./render.php",
+	"script": "file:./script.js"
 }

@@ -1,8 +1,8 @@
 {
-	"name": "@search-popup-block/search-popup-block",
+	"name": "@directorist/search-popup-block",
 	"version": "0.1.0",
 	"description": "Display your site's copyright date.",
-	"author": "The WordPress Contributors",
+	"author": "wpWax",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
@@ -17,7 +17,8 @@
 	},
 	"devDependencies": {
 		"@wordpress/env": "^9.9.0",
-		"@wordpress/scripts": "^27.8.0"
+		"@wordpress/scripts": "^27.8.0",
+		"autoprefixer": "^10.4.20"
 	},
 	"files": [
 		"*"

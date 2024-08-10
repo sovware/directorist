@@ -1,0 +1,805 @@
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/* BEM Element and Modifier */
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+body {
+  margin: 0;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+  display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+/* h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+} */
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent;
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted; /* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none;
+}
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input { /* 1 */
+  overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select { /* 1 */
+  text-transform: none;
+}
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+  -webkit-appearance: button;
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type=button]:-moz-focusring,
+[type=reset]:-moz-focusring,
+[type=submit]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; /* 1 */
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  white-space: normal; /* 1 */
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type=checkbox],
+[type=radio] {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type=search] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+  display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item;
+}
+
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+  display: none;
+}
+
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+  display: none;
+}
+
+/* Author Navigation */
+.dab-logged-mode {
+  position: relative;
+}
+.dab-logged-mode .avatar {
+  border-radius: 50%;
+}
+.dab-logged-mode .dab-logged-mode__navigation {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  background-color: var(--color-white);
+  left: 0;
+  top: 62px;
+  min-width: 190px;
+  border-radius: 5px;
+  z-index: -1;
+  -webkit-box-shadow: 0 5px 20px rgba(136, 140, 158, 0.2);
+          box-shadow: 0 5px 20px rgba(136, 140, 158, 0.2);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.dab-logged-mode .dab-logged-mode__navigation.show {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1031;
+}
+.dab-logged-mode .dab-logged-mode__navigation ul {
+  list-style: none;
+  padding: 15px 0;
+  margin: 0;
+}
+.dab-logged-mode .dab-logged-mode__navigation ul li a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 3px 7px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 5px 20px;
+  color: var(--color-body);
+  font-family: var(--font-family);
+  white-space: nowrap;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.dab-logged-mode .dab-logged-mode__navigation ul li a:hover {
+  color: var(--color-primary);
+}
+.dab-logged-mode .dab-logged-mode__navigation ul li a:hover .directorist-icon-mask:after {
+  background-color: var(--color-primary);
+}
+.dab-logged-mode .dab-logged-mode__navigation ul li a .directorist-icon-mask:after {
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-body);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.dab-logged-mode__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: transparent;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  opacity: 0;
+  z-index: -1;
+}
+.dab-logged-mode__overlay.show {
+  height: 100%;
+  opacity: 1;
+  visibility: visible;
+  z-index: 1030;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Theme Authentication Modal */
+.directorist-account-block-authentication-modal .modal-content {
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
+  border: 0 none;
+}
+.directorist-account-block-authentication-modal .modal-dialog {
+  max-width: 450px;
+  margin: 1.75rem auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+@media only screen and (max-width: 575px) {
+  .directorist-account-block-authentication-modal .modal-dialog {
+    max-width: 100%;
+  }
+}
+.directorist-account-block-authentication-modal .modal-content {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: var(--color-white);
+  background-clip: padding-box;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
+  border: 0 none;
+  outline: 0;
+}
+.directorist-account-block-authentication-modal .modal-header {
+  padding: 12px 30px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+}
+.directorist-account-block-authentication-modal .modal-header .modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+.directorist-account-block-authentication-modal .modal-header .directorist-account-block-close {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  padding: 0;
+  border: 0 none;
+  background-color: var(--color-bg-lighter);
+}
+.directorist-account-block-authentication-modal .modal-header .directorist-account-block-close:hover span {
+  color: var(--color-danger);
+}
+.directorist-account-block-authentication-modal .modal-header .directorist-account-block-close span {
+  font-size: 1.125rem;
+  line-height: 1;
+  color: var(--color-dark);
+}
+.directorist-account-block-authentication-modal .modal-body {
+  padding: 0;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-modal-wrap {
+  padding: 20px 30px 30px;
+}
+@media only screen and (max-width: 375px) {
+  .directorist-account-block-authentication-modal .directorist-account-block-modal-wrap {
+    padding: 20px;
+  }
+}
+.directorist-account-block-authentication-modal .directorist-account-block-login-info {
+  padding: 15px 20px;
+  border-radius: 8px;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-login-info.alert-success {
+  border: 0 none;
+  background-color: rgba(44, 185, 0, 0.15);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-login-info ul {
+  margin-bottom: 0;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-login-info ul li .directorist-account-block-login-info__label {
+  display: inline-block;
+  margin-right: 20px;
+  color: var(--color-dark);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-login-info ul li .directorist-account-block-login-info__text {
+  color: var(--color-success);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-register-btn .directorist-btn {
+  width: 100%;
+  border-radius: 8px;
+  --directorist-color-primary:var(--color-primary);
+}
+.directorist-account-block-authentication-modal .directorist-form-group label {
+  margin-bottom: 3px;
+  color: var(--color-dark);
+}
+.directorist-account-block-authentication-modal .directorist-form-group .directorist-form-element {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+.directorist-account-block-authentication-modal .directorist-form-group .directorist-form-element:focus {
+  --directorist-color-primary:var(--color-primary);
+}
+.directorist-account-block-authentication-modal .directorist-form-group.atbd_login_btn_wrapper .directorist-btn {
+  width: 100%;
+  min-height: 46px;
+  border-radius: 8px;
+  line-height: 1;
+  --directorist-color-primary:var(--color-primary);
+}
+.directorist-account-block-authentication-modal .directorist-form-group.atbd_login_btn_wrapper .directorist-btn:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-password-activity {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+@media only screen and (max-width: 375px) {
+  .directorist-account-block-authentication-modal .directorist-account-block-password-activity {
+    display: block;
+  }
+}
+.directorist-account-block-authentication-modal .directorist-account-block-password-activity p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+@media only screen and (max-width: 375px) {
+  .directorist-account-block-authentication-modal .directorist-account-block-password-activity p {
+    margin: 5px 0 0;
+  }
+}
+.directorist-account-block-authentication-modal .directorist-account-block-password-activity p a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-dark);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-password-activity p a:hover {
+  color: var(--color-primary);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  justify-content: center;
+  gap: 10px 25px;
+}
+@media only screen and (max-width: 375px) {
+  .directorist-account-block-authentication-modal .directorist-account-block-social-login {
+    display: block;
+  }
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button {
+  min-height: 46px;
+  padding: 10px 30px;
+  border-radius: 6px;
+  margin: 5px;
+  border: 1px solid var(--color-border-light);
+  -webkit-transition: var(--akfe-transition);
+  transition: var(--akfe-transition);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button:focus {
+  outline: none;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button:hover {
+  background-color: transparent;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button:hover .fa.fa-facebook {
+  color: var(--color-white);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button:hover .fa.fa-google {
+  color: var(--color-white);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button.fb-login {
+  color: #3067FF;
+  border-color: #3067FF;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button.fb-login:hover {
+  color: var(--color-white);
+  background-color: #3067FF;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button.fb-google {
+  color: #fd4868;
+  border-color: #fd4868;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button.fb-google:hover {
+  color: var(--color-white);
+  background-color: #fd4868;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button .fa {
+  font-family: "Font Awesome 5 Brands";
+  font-weight: 400;
+  margin-right: 5px;
+  -webkit-transition: var(--akfe-transition);
+  transition: var(--akfe-transition);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button .fa.fa-facebook {
+  color: #3067FF;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-social-login button .fa.fa-google {
+  color: #dd4b39;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-modal-bottom {
+  padding: 20px 25px;
+  border-radius: 0 0 8px 8px;
+  text-align: center;
+  background-color: var(--color-bg-lighter);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-modal-bottom button {
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+  color: var(--color-dark);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-modal-bottom button:hover {
+  color: var(--color-primary);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-modal-bottom .message {
+  padding: 15px 30px;
+  text-align: center;
+}
+.directorist-account-block-authentication-modal #recover-pass-modal {
+  margin: 0 !important;
+  padding: 0;
+}
+.directorist-account-block-authentication-modal #recover-pass-modal .directorist-btn {
+  font-size: 14px;
+  margin-top: 15px;
+}
+.directorist-account-block-authentication-modal #recover-pass-modal .directorist-form-element + p {
+  margin-bottom: 0;
+}
+.directorist-account-block-authentication-modal #recover-pass-modal fieldset {
+  width: auto;
+  border: none;
+  padding: 0 30px 30px;
+  --directorist-color-primary:var(--color-primary);
+}
+.directorist-account-block-authentication-modal #recover-pass-modal fieldset p {
+  margin-top: 0;
+}
+.directorist-account-block-authentication-modal #recover-pass-modal fieldset .directorist-form-element {
+  padding: 5px 20px;
+}
+.directorist-account-block-authentication-modal #recover-pass-modal fieldset .directorist-btn {
+  border-radius: 6px;
+}
+.directorist-account-block-authentication-modal #recover-pass-modal fieldset .directorist-btn:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+.directorist-account-block-authentication-modal .error_login {
+  padding: 10px 30px 0;
+  text-align: center;
+}
+.directorist-account-block-authentication-modal .error_login .success {
+  color: var(--color-warning);
+}
+.directorist-account-block-authentication-modal .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.directorist-account-block-authentication-modal .directorist-form-required {
+  line-height: normal;
+}
+.directorist-account-block-authentication-modal .modal {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.wp-block-button__link {
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  word-break: break-word;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.wp-block-button__link.aligncenter {
+  text-align: center;
+}
+.wp-block-button__link.alignright {
+  /*rtl:ignore*/
+  text-align: right;
+}
+
+:where(.wp-block-button__link) {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  text-decoration: none;
+  border-radius: 9999px;
+  padding: calc(0.667em + 2px) calc(1.333em + 2px);
+}
+
+.wp-block-account-block-account-block[style*=text-decoration] .wp-block-button__link {
+  text-decoration: inherit;
+}
+
+.wp-block-account-block-account-block.has-custom-width {
+  max-width: none;
+}
+.wp-block-account-block-account-block.has-custom-width .wp-block-button__link {
+  width: 100%;
+}
+.wp-block-account-block-account-block.has-custom-font-size .wp-block-button__link {
+  font-size: inherit;
+}
+.wp-block-account-block-account-block.wp-block-button__width-25 {
+  width: calc(25% - var(--wp--style--block-gap, 0.5em) * 0.75);
+}
+.wp-block-account-block-account-block.wp-block-button__width-50 {
+  width: calc(50% - var(--wp--style--block-gap, 0.5em) * 0.5);
+}
+.wp-block-account-block-account-block.wp-block-button__width-75 {
+  width: calc(75% - var(--wp--style--block-gap, 0.5em) * 0.25);
+}
+.wp-block-account-block-account-block.wp-block-button__width-100 {
+  width: 100%;
+  -webkit-flex-basis: 100%;
+      -ms-flex-preferred-size: 100%;
+          flex-basis: 100%;
+}
+
+.wp-block-account-block-account-block.is-style-squared,
+.wp-block-account-block-directorist-account-block__link.wp-block-account-block-account-block.is-style-squared {
+  border-radius: 0;
+}
+
+.wp-block-account-block-account-block.no-border-radius,
+.wp-block-button__link.no-border-radius {
+  border-radius: 0 !important;
+}
+
+:root :where(.wp-block-account-block-account-block.is-style-outline > .wp-block-button__link),
+:root :where(.wp-block-account-block-account-block .wp-block-button__link.is-style-outline) {
+  border: 2px solid currentColor;
+  padding: 0.667em 1.333em;
+}
+:root :where(.wp-block-account-block-account-block.is-style-outline > .wp-block-button__link:not(.has-text-color)),
+:root :where(.wp-block-account-block-account-block .wp-block-button__link.is-style-outline:not(.has-text-color)) {
+  color: currentColor;
+}
+:root :where(.wp-block-account-block-account-block.is-style-outline > .wp-block-button__link:not(.has-background)),
+:root :where(.wp-block-account-block-account-block .wp-block-button__link.is-style-outline:not(.has-background)) {
+  background-color: transparent;
+  background-image: none;
+}
+
+/*# sourceMappingURL=style-index.css.map*/

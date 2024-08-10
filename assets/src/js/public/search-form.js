@@ -3,11 +3,10 @@ import './../global/components/setup-select2';
 import './components/colorPicker';
 import './components/directoristDropdown';
 import './components/directoristSelect';
-import './../global/components/setup-select2';
-import './../global/components/select2-custom-control';
 import { directorist_callingSlider } from './range-slider';
 import { directorist_range_slider } from './range-slider';
 import debounce from '../global/components/debounce';
+import initSearchCategoryCustomFields from './components/category-custom-fields';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
@@ -691,57 +690,7 @@ import debounce from '../global/components/debounce';
             });
         });
 
-        // Search Category Change
-        if( $( '.directorist-search-contents' ).length ) {
-            $('body').on('change', '.directorist-category-select', function (event) {
-                let $this            = $(this);
-                let $container       = $this.parents('form');
-                let cat_id           = $this.val();
-                let directory_type   = $container.find('.listing_type').val();
-                let $search_form_box = $container.find('.directorist-search-form-box-wrap');
-                let form_data        = new FormData();
-
-                form_data.append('action', 'directorist_category_custom_field_search');
-                form_data.append('nonce', directorist.directorist_nonce);
-                form_data.append('listing_type', directory_type);
-                form_data.append('cat_id', cat_id);
-                form_data.append('atts', JSON.stringify($container.data('atts')));
-
-                $search_form_box.addClass('atbdp-form-fade');
-
-                $.ajax({
-                    method     : 'POST',
-                    processData: false,
-                    contentType: false,
-                    url        : directorist.ajax_url,
-                    data       : form_data,
-                    success: function success(response) {
-                        if (response) {
-                            $search_form_box.html(response['search_form']);
-
-                            $container.find('.directorist-category-select option').data('custom-field', 1);
-                            $container.find('.directorist-category-select').val(cat_id);
-
-                            [
-                                new CustomEvent('directorist-search-form-nav-tab-reloaded'),
-                                new CustomEvent('directorist-reload-select2-fields'),
-                                new CustomEvent('directorist-reload-map-api-field'),
-                                new CustomEvent('triggerSlice')
-                            ].forEach(function (event) {
-                                document.body.dispatchEvent(event);
-                                window.dispatchEvent(event);
-                            });
-                        }
-
-                        $search_form_box.removeClass('atbdp-form-fade');
-                        initSearchFields();
-                    },
-                    error: function error(_error) {
-                        //console.log(_error);
-                    }
-                });
-            });
-        }
+        initSearchCategoryCustomFields($, initSearchFields);
 
         // Back Button to go back to the previous page
         $('body').on('click', '.directorist-btn__back', function(e) {

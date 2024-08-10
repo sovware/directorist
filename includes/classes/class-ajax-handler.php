@@ -418,26 +418,36 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if ( ! directorist_verify_nonce( 'nonce' ) ) {
 				wp_send_json(
 					array(
-						'search_form' => __( 'Something went wrong, please try again.', 'directorist' ),
+						'search_form' => __( 'Invalid request, please reload the page and try again.', 'directorist' ),
 					)
 				);
 			}
 
-			$listing_type    = ! empty( $_POST['listing_type'] ) ? sanitize_key( $_POST['listing_type'] ) : '';
-			$atts            = ! empty( $_POST['atts'] ) ? json_decode( wp_unslash( $_POST['atts'] ), true ) : array(); // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			$term            = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
-			$listing_type_id = ( $term ) ? $term->term_id : 0;
-			$searchform      = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $listing_type_id, $atts );
-			$class           = 'directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline';
+			$directory_slug = ! empty( $_POST['listing_type'] ) ? sanitize_key( $_POST['listing_type'] ) : '';
+			$atts           = ! empty( $_POST['atts'] ) ? json_decode( wp_unslash( $_POST['atts'] ), true ) : array();  // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$directory_term = get_term_by( 'slug', $directory_slug, ATBDP_TYPE );
+			$directory_id   = $directory_term ? (int) $directory_term->term_id : 0;
+			if ( ! $directory_id ) {
+				wp_send_json(
+					array(
+						'search_form' => __( 'Invalid directory.', 'directorist' ),
+					)
+				);
+			}
+
+			file_put_contents( __DIR__ . '/data.txt', print_r( $atts, 1 ) );
+
+			$searchform = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $directory_id, $atts );
 
 			// search form
 			ob_start();
-			Helper::get_template( 'search-form/form-box', array( 'searchform' => $searchform ) );
+			$searchform->advanced_search_form_fields_template();
 			$search_form = ob_get_clean();
 
 			wp_send_json(
 				array(
 					'search_form' => $search_form,
+					'container' => '.directorist-search-modal--advanced',
 				)
 			);
 		}

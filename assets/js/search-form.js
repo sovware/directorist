@@ -598,6 +598,92 @@ function convertToSelect2(selector) {
 
 /***/ }),
 
+/***/ "./assets/src/js/public/components/category-custom-fields.js":
+/*!*******************************************************************!*\
+  !*** ./assets/src/js/public/components/category-custom-fields.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return initSearchCategoryCustomFields; });
+// Search Category Change
+function initSearchCategoryCustomFields($, onSuccessCallback) {
+  var $searchPageContainer = $('.directorist-search-contents');
+  var $archivePageContainer = $('.directorist-archive-contents');
+  var $pageContainer;
+  if ($searchPageContainer.length) {
+    $pageContainer = $searchPageContainer;
+  } else if ($archivePageContainer.length) {
+    $pageContainer = $archivePageContainer;
+  }
+  if ($pageContainer.length) {
+    var searchFormCache = {};
+    var $fieldsContainer = null;
+    $pageContainer.on('change', '.directorist-category-select, .directorist-search-category select', function (event) {
+      var $this = $(this);
+      var $container = $this.parents('form');
+      var cat_id = $this.val();
+      var directory_type = $container.find('.listing_type').val();
+      // const $search_form_box = $container.find('.directorist-search-form-wrap');
+      var form_data = new FormData();
+      var atts = $container.data('atts');
+      var hasCustomField = $this.find('option[value="' + cat_id + '"]').data('custom-field');
+      if (!hasCustomField && !$fieldsContainer) {
+        return;
+      }
+      if (!hasCustomField && $fieldsContainer && $fieldsContainer.length) {
+        $fieldsContainer.html(searchFormCache[0]);
+        return;
+      }
+      if (hasCustomField && searchFormCache[cat_id]) {
+        $fieldsContainer.html(searchFormCache[cat_id]);
+        return;
+      }
+      form_data.append('action', 'directorist_category_custom_field_search');
+      form_data.append('nonce', directorist.directorist_nonce);
+      form_data.append('listing_type', directory_type);
+      form_data.append('cat_id', cat_id);
+      if (!atts) {
+        atts = $pageContainer.data('atts');
+      }
+      form_data.append('atts', JSON.stringify(atts));
+      $container.addClass('atbdp-form-fade');
+      $.ajax({
+        method: 'POST',
+        processData: false,
+        contentType: false,
+        url: directorist.ajax_url,
+        data: form_data,
+        success: function success(response) {
+          if (response) {
+            $fieldsContainer = $pageContainer.find(response['container']);
+            searchFormCache[0] = $fieldsContainer.html();
+            searchFormCache[cat_id] = response['search_form'];
+            $fieldsContainer.html(searchFormCache[cat_id]);
+
+            // $container.find('.directorist-category-select option').data('custom-field', 1);
+            // $this.find('option').data('custom-field', 1);
+            $this.val(cat_id);
+            [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field'), new CustomEvent('triggerSlice')].forEach(function (event) {
+              document.body.dispatchEvent(event);
+              window.dispatchEvent(event);
+            });
+          }
+          $container.removeClass('atbdp-form-fade');
+          onSuccessCallback();
+        },
+        error: function error(_error) {
+          //console.log(_error);
+        }
+      });
+    });
+  }
+}
+
+/***/ }),
+
 /***/ "./assets/src/js/public/components/colorPicker.js":
 /*!********************************************************!*\
   !*** ./assets/src/js/public/components/colorPicker.js ***!
@@ -3119,10 +3205,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _range_slider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./range-slider */ "./assets/src/js/public/range-slider.js");
 /* harmony import */ var _global_components_debounce__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../global/components/debounce */ "./assets/src/js/global/components/debounce.js");
+/* harmony import */ var _components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/category-custom-fields */ "./assets/src/js/public/components/category-custom-fields.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-
 
 
 
@@ -3716,52 +3802,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             directorist_custom_range_slider();
           }
         },
-        error: function error(_error2) {
+        error: function error(_error) {
           // console.log(error);
         }
       });
     });
-
-    // Search Category Change
-    if ($('.directorist-search-contents').length) {
-      $('body').on('change', '.directorist-category-select', function (event) {
-        var $this = $(this);
-        var $container = $this.parents('form');
-        var cat_id = $this.val();
-        var directory_type = $container.find('.listing_type').val();
-        var $search_form_box = $container.find('.directorist-search-form-box-wrap');
-        var form_data = new FormData();
-        form_data.append('action', 'directorist_category_custom_field_search');
-        form_data.append('nonce', directorist.directorist_nonce);
-        form_data.append('listing_type', directory_type);
-        form_data.append('cat_id', cat_id);
-        form_data.append('atts', JSON.stringify($container.data('atts')));
-        $search_form_box.addClass('atbdp-form-fade');
-        $.ajax({
-          method: 'POST',
-          processData: false,
-          contentType: false,
-          url: directorist.ajax_url,
-          data: form_data,
-          success: function success(response) {
-            if (response) {
-              $search_form_box.html(response['search_form']);
-              $container.find('.directorist-category-select option').data('custom-field', 1);
-              $container.find('.directorist-category-select').val(cat_id);
-              [new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field'), new CustomEvent('triggerSlice')].forEach(function (event) {
-                document.body.dispatchEvent(event);
-                window.dispatchEvent(event);
-              });
-            }
-            $search_form_box.removeClass('atbdp-form-fade');
-            initSearchFields();
-          },
-          error: function error(_error) {
-            //console.log(_error);
-          }
-        });
-      });
-    }
+    Object(_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__["default"])($, initSearchFields);
 
     // Back Button to go back to the previous page
     $('body').on('click', '.directorist-btn__back', function (e) {

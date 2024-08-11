@@ -245,6 +245,7 @@ class Directorist_Listings {
 		$this->options['listing_instant_search']          = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
 		$this->options['all_listing_layout']         	  = get_directorist_type_option( $this->get_current_listing_type(), 'all_listing_layout', 'no_sidebar' );
 		$this->options['listing_sidebar_top_search_bar']  = get_directorist_type_option( $this->get_current_listing_type(), 'listing_sidebar_top_search_bar', false );
+		$this->options['marker_clustering']               = get_directorist_option( 'marker_clustering', true ) ? 'markerclusterer' : '';
 	}
 
 	// update_search_options
@@ -492,11 +493,12 @@ class Directorist_Listings {
 			'compare' => '=',
 		);
 
-		$meta_queries['expired'] = array(
-			'key'     => '_listing_status',
-			'value'   => 'expired',
-			'compare' => '!=',
-		);
+		// TODO: Status has been migrated, remove related code.
+		// $meta_queries['expired'] = array(
+		// 	'key'     => '_listing_status',
+		// 	'value'   => 'expired',
+		// 	'compare' => '!=',
+		// );
 
 		if ( $this->has_featured ) {
 			if ( '_featured' == $this->filterby ) {
@@ -1246,28 +1248,35 @@ class Directorist_Listings {
 		$args = array();
 
 		if ( $this->directory_type ) {
-			$args['slug'] = $this->directory_type;
+			$args['slug']    = $this->directory_type;
+			$args['orderby'] = 'slug__in';
 		}
 
 		return directorist_get_directories_for_template( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
 	}
 
 	public function get_current_listing_type() {
+		$directory = 0;
+
 		if ( is_singular( ATBDP_POST_TYPE ) ) {
 			$directory = get_post_meta( get_the_ID(), '_directory_type', true );
 		} else if ( ! empty( $_REQUEST['directory_type'] ) ) {
 			$directory = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
-	
-			if ( ! is_numeric( $directory ) ) {
-				$directory_term = get_term_by( 'slug', $directory, ATBDP_DIRECTORY_TYPE );
-				$directory      = $directory_term ? $directory_term->term_id : 0;
-			}
+		} else if ( ! empty( $this->default_directory_type ) ) {
+			$directory = $this->default_directory_type;
+		} else if ( ! empty( $this->directory_type ) ) {
+			$directory = array_key_first( $this->get_listing_types() );
 		}
-	
-		if ( ! empty( $directory ) && directorist_is_directory( $directory ) ) {
+
+		if ( ! is_numeric( $directory ) ) {
+			$directory_term = get_term_by( 'slug', $directory, ATBDP_DIRECTORY_TYPE );
+			$directory      = $directory_term ? $directory_term->term_id : 0;
+		}
+
+		if ( directorist_is_directory( $directory ) ) {
 			return (int) $directory;
 		}
-		
+
 		return directorist_get_default_directory();
 	}
 
@@ -1515,7 +1524,7 @@ class Directorist_Listings {
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
 		$map_height = !empty( $this->listings_map_height ) ? $this->listings_map_height: '';
 		?>
-		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo esc_attr( $map_height );?>px;">
+		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="<?php echo $this->options['marker_clustering']; ?>" style="height: <?php echo esc_attr( $map_height );?>px;">
 			<?php
 			$listings = $this->query_results;
 
@@ -1643,7 +1652,7 @@ class Directorist_Listings {
 				}
 				return $image;
 			} else {
-				$output = "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='300' data-sw-autoplay='false' data-sw-responsive='{}'>
+				$output = "<div class='directorist-swiper directorist-swiper-listing' data-sw-items='1' data-sw-margin='2' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='500' data-sw-autoplay='false' data-sw-responsive='{}'>
 					<div class='swiper-wrapper'>";
 
 				foreach ( $thumbnail_img_id as $img_id ) {

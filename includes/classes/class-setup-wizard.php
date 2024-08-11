@@ -416,6 +416,8 @@ class SetupWizard
                 $exp_dt = calc_listing_expiry_date();
                 update_post_meta($post_id, '_expiry_date', $exp_dt);
                 update_post_meta($post_id, '_featured', 0);
+
+				// TODO: Status has been migrated, remove related code.
                 update_post_meta($post_id, '_listing_status', 'post_status');
 
                 if ( ! empty( $image ) ) {

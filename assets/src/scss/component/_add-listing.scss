@@ -860,6 +860,25 @@
           }
         }
       }
+      .ezmu__thumbnail-list-item {
+        max-width: 140px;
+        flex-basis: unset;
+      }
+      .ezmu__front-item__sort-buttons {
+        display: flex;
+      }
+      .ezmu__front-item__close-icon {
+        background-image: unset;
+        .directorist-icon-mask::after {
+          width: 12px;
+          height: 12px;
+        }
+        &:hover {
+          .directorist-icon-mask::after {
+            background-color: var(--directorist-color-white);
+          }
+        }
+      }
     }
   }
 

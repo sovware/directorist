@@ -46,6 +46,8 @@ if( $listing->contact_owner_form_disabled() ) {
 				<input type="hidden" name="atbdp-post-id" value="<?php echo esc_attr( $listing->id ); ?>" />
 				<input type="hidden" name="atbdp-listing-email" value="<?php echo esc_attr( $listing->contact_owner_email() ); ?>" />
 
+				<?php do_action( 'directorist_before_contact_form_submit_button' ); ?>
+
 				<p class="directorist-contact-message-display"></p>
 
 				<button type="submit" class="directorist-btn directorist-btn-light directorist-btn-md directorist-btn-submit"><?php esc_html_e( 'Submit now', 'directorist' ); ?></button>

@@ -15,13 +15,13 @@ export default function initSearchCategoryCustomFields($, onSuccessCallback) {
 
         $pageContainer.on('change', '.directorist-category-select, .directorist-search-category select', function (event) {
             const $this          = $(this);
-            const $container     = $this.parents('form');
-            const cat_id         = $this.val();
-            const directory_type = $container.find('.listing_type').val();
-            // const $search_form_box = $container.find('.directorist-search-form-wrap');
-            const form_data      = new FormData();
-            let   atts           = $container.data('atts');
-            const hasCustomField = $this.find('option[value="'+cat_id+'"]').data('custom-field');
+            const $form          = $this.parents('form');
+            const $advancedForm = $('.directorist-search-form');
+            const category       = $this.val();
+            const directory      = $pageContainer.find('[name="directory_type"]').val(); // Sidebar has multiple forms that's why it's safe to use page container
+            const formData       = new FormData();
+            let   atts           = $form.data('atts');
+            const hasCustomField = $this.find('option[value="'+category+'"]').data('custom-field');
 
             if (!hasCustomField && !$fieldsContainer) {
                 return;
@@ -32,54 +32,58 @@ export default function initSearchCategoryCustomFields($, onSuccessCallback) {
                 return;
             }
 
-            if (hasCustomField && searchFormCache[cat_id]) {
-                $fieldsContainer.html(searchFormCache[cat_id]);
+            if (hasCustomField && searchFormCache[category]) {
+                $fieldsContainer.html(searchFormCache[category]);
                 return;
             }
 
-            form_data.append('action', 'directorist_category_custom_field_search');
-            form_data.append('nonce', directorist.directorist_nonce);
-            form_data.append('listing_type', directory_type);
-            form_data.append('cat_id', cat_id);
+            formData.append('action', 'directorist_category_custom_field_search');
+            formData.append('nonce', directorist.directorist_nonce);
+            formData.append('directory', directory);
+            formData.append('cat_id', category);
 
             if (!atts) {
                 atts = $pageContainer.data('atts');
             }
 
-            form_data.append('atts', JSON.stringify(atts));
-            $container.addClass('atbdp-form-fade');
+            formData.append('atts', JSON.stringify(atts));
+            $form.addClass('atbdp-form-fade');
+            $advancedForm.addClass('atbdp-form-fade');
 
             $.ajax({
                 method     : 'POST',
                 processData: false,
                 contentType: false,
                 url        : directorist.ajax_url,
-                data       : form_data,
+                data       : formData,
                 success: function success(response) {
                     if (response) {
-                        $fieldsContainer        = $pageContainer.find(response['container']);
-                        searchFormCache[0]      = $fieldsContainer.html();
-                        searchFormCache[cat_id] = response['search_form'];
+                        $fieldsContainer          = $pageContainer.find(response['container']);
+                        searchFormCache[0]        = $fieldsContainer.html();
+                        searchFormCache[category] = response['search_form'];
 
-                        $fieldsContainer.html(searchFormCache[cat_id]);
+                        $fieldsContainer.html(searchFormCache[category]);
 
-                        // $container.find('.directorist-category-select option').data('custom-field', 1);
+                        // $form.find('.directorist-category-select option').data('custom-field', 1);
                         // $this.find('option').data('custom-field', 1);
-                        $this.val(cat_id);
+                        $this.val(category);
 
                         [
-                            new CustomEvent('directorist-search-form-nav-tab-reloaded'),
-                            new CustomEvent('directorist-reload-select2-fields'),
-                            new CustomEvent('directorist-reload-map-api-field'),
-                            new CustomEvent('triggerSlice')
-                        ].forEach(function (event) {
+                            'directorist-search-form-nav-tab-reloaded',
+                            'directorist-reload-select2-fields',
+                            'directorist-reload-map-api-field',
+                            'triggerSlice'
+                        ].forEach(function(event) {
+                            event = new CustomEvent(event);
                             document.body.dispatchEvent(event);
                             window.dispatchEvent(event);
                         });
                     }
 
-                    $container.removeClass('atbdp-form-fade');
                     onSuccessCallback();
+
+                    $form.removeClass('atbdp-form-fade');
+                    $advancedForm.removeClass('atbdp-form-fade');
                 },
                 error: function error(_error) {
                     //console.log(_error);

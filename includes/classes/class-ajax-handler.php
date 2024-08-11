@@ -423,7 +423,13 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				);
 			}
 
-			$directory_slug = ! empty( $_POST['listing_type'] ) ? sanitize_key( $_POST['listing_type'] ) : '';
+			$directory_slug = '';
+			if ( ! empty( $_POST['directory'] ) ) {
+				$directory_slug = sanitize_key( $_POST['directory'] );
+			} elseif ( ! empty( $_POST['listing_type'] ) ) {
+				$directory_slug = sanitize_key( $_POST['listing_type'] );
+			}
+
 			$atts           = ! empty( $_POST['atts'] ) ? json_decode( wp_unslash( $_POST['atts'] ), true ) : array();  // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$directory_term = get_term_by( 'slug', $directory_slug, ATBDP_TYPE );
 			$directory_id   = $directory_term ? (int) $directory_term->term_id : 0;
@@ -435,21 +441,48 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				);
 			}
 
-			file_put_contents( __DIR__ . '/data.txt', print_r( $atts, 1 ) );
+			$current_page   = isset( $atts['_current_page'] ) ? $atts['_current_page'] : '';
+			$listing_layout = get_directorist_type_option( $directory_id, 'all_listing_layout', 'no_sidebar' );
 
-			$searchform = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $directory_id, $atts );
+			$selectors = array(
+				'no_sidebar'    => '.directorist-advanced-filter__advanced',
+				'left_sidebar'  => '.directorist-advanced-filter__advanced',
+				'right_sidebar' => '.directorist-advanced-filter__advanced',
+				'search_home'   => '.directorist-search-modal--advanced',
+			);
+
+			if ( $current_page === 'listing' || $current_page === 'search_result' ) {
+				$selector  = isset( $selectors[ $listing_layout ] ) ? $selectors[ $listing_layout ] : 'no_sidebar';
+				$form_type = 'search_result';
+			} else {
+				$selector = $selectors['search_home'];
+				$form_type = 'search_form';
+			}
+
+			if ( ! empty( $atts ) ) {
+				$atts = array_filter( $atts, static function( $key ) {
+					return substr( $key, 0, 7 ) == 'filter_';
+				}, ARRAY_FILTER_USE_KEY );
+			}
+
+			$search_form = new \Directorist\Directorist_Listing_Search_Form( $form_type, $directory_id, $atts );
 
 			// search form
 			ob_start();
-			$searchform->advanced_search_form_fields_template();
-			$search_form = ob_get_clean();
+				if ( $form_type === 'search_form' ) :
+					$search_form->advanced_search_form_fields_template();
+				else: ?>
+					<input type="hidden" name="directory_type" value="<?php echo esc_attr( $directory_slug ); ?>">
+					<?php foreach ( $search_form->form_data[1]['fields'] as $field ) : ?>
+						<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] ) ?>"><?php $search_form->field_template( $field ); ?></div>
+					<?php endforeach;
+				endif;
+			$markup = ob_get_clean();
 
-			wp_send_json(
-				array(
-					'search_form' => $search_form,
-					'container' => '.directorist-search-modal--advanced',
-				)
-			);
+			wp_send_json( array(
+				'search_form' => $markup,
+				'container'   => $selector,
+			) );
 		}
 
 		public function atbdp_listing_default_type() {
@@ -571,9 +604,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 				if ( in_array( $field->get_assigned_category(), $category_ids, true ) ) {
 					ob_start();
-					
+
 					\Directorist\Directorist_Listing_Form::instance()->add_listing_category_custom_field_template( $field_properties, $listing_id );
-					
+
 					$result[ $field_key ]= ob_get_clean();
 				}
 			}

@@ -108,10 +108,13 @@ jQuery(document).ready(function ($) {
                 url   : import_export_data.ajaxurl,
                 data  : data,
                 success(response) {
-                    $( '.directorist_dummy_data_log' ).empty().text( response.log );
-                    if ( response.counter == 'done' ) {
 
-                        $( '.directorist_dummy_data_log' ).empty().text( 'Completed! Redirecting...' );
+                    console.log( response );
+
+                    $( '.directorist_dummy_data_log' ).empty().text( response.log );
+                    if ( response.completed ) {
+
+                        $( '.directorist_dummy_data_log' ).empty().text( response.log );
 
                         window.location = response.url;
                     } 

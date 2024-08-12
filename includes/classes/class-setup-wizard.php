@@ -50,7 +50,7 @@ class SetupWizard
 
         $counter = $_POST['counter'];
 
-        $request_directory_types = wp_remote_get( 'https://app.directorist.com/wp-json/directorist/v1/get-directory-types?clear' );
+        $request_directory_types = wp_remote_get( 'https://app.directorist.com/wp-json/directorist/v1/get-directory-types?nocache' );
         
         if( is_wp_error( $request_directory_types ) ) {
             return false;
@@ -65,9 +65,30 @@ class SetupWizard
         $response_body  = wp_remote_retrieve_body( $request_directory_types );
         $pre_made_types = json_decode( $response_body, true );
 
+        $is_completed = ( count( $get_types ) <= $counter ) ? true : false;
+
+        if( $is_completed ) {
+
+            $has_general = get_term_by( 'slug', 'general', ATBDP_TYPE );
+            
+            if( ! is_wp_error( $has_general ) ) {
+                wp_delete_term( $has_general->term_id, ATBDP_TYPE );
+            }
+
+            wp_send_json( [
+                'completed' => $is_completed, 
+                'log' => 'Completed, redirecting...', 
+                'url' => admin_url('index.php?page=directorist-setup&step=step-four') 
+                ] );
+        }
+
         if( ! isset( $pre_made_types[$post_type] ) ) {
-            $counter = ( count( $get_types ) <= $counter ) ? 'done' : $counter;
-            wp_send_json( ['counter' => $counter, 'url' => admin_url('index.php?page=directorist-setup&step=step-four') ] );
+            $log = 'Remote data not found for ' . $post_type;
+            wp_send_json( [
+                'completed' => false, 
+                'log' => $log, 
+                'url' => admin_url('index.php?page=directorist-setup&step=step-four') 
+                ] );
         }
 
         $type = $pre_made_types[$post_type];
@@ -105,18 +126,14 @@ class SetupWizard
 
         }
 
-
-
         if( isset( $_POST['share_non_sensitive_data'] ) ) {
             ATBDP()->insights->optin();
         } else {
             ATBDP()->insights->optout();
         }
-
-        $counter = ( count( $get_types ) <= $counter ) ? 'done' : $counter;
         
         $data['url']           = admin_url('index.php?page=directorist-setup&step=step-four');
-        $data['counter']       = $counter;
+        $data['completed']       = $is_completed;
 
         wp_send_json( $data );
     }
@@ -877,11 +894,11 @@ class SetupWizard
                     <label for="classified-listing">Classified Listing</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="directory_type[]" id="car-directory" value="car" />
+                    <input type="checkbox" name="directory_type[]" id="car-directory" value="car_buy" />
                     <label for="car-directory">Car Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="directory_type[]" id="car-rent-directory" value="car_rent" />
+                    <input type="checkbox" name="directory_type[]" id="car-rent-directory" value="car_sell" />
                     <label for="car-rent-directory">Car Rent Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">

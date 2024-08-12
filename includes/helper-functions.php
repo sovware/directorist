@@ -3018,6 +3018,10 @@ if( !function_exists('directorist_get_form_fields_by_directory_type') ){
         if( is_wp_error( $term ) ) {
             return [];
         }
+        if( ! isset( $term->term_id ) ) {
+            return [];
+        }
+        
         $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
         $submission_form_fields = ! empty( $submission_form['fields'] ) ? $submission_form['fields'] : [];
         return $submission_form_fields;

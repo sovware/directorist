@@ -142,13 +142,13 @@ class SetupWizard
         wp_send_json( $data );
     }
 
-    protected function is_varified_host( $extension_url ) {
+    protected static function is_varified_host( $extension_url ) {
         $signed_hostnames = array( 'directorist.com' );
 
         return in_array( parse_url( $extension_url, PHP_URL_HOST ), $signed_hostnames, true );
     }
 
-    private function download_plugin( array $args = array() ) {
+    private static function download_plugin( array $args = array() ) {
         $status = array( 'success' => false );
 
         $default = array(
@@ -702,7 +702,7 @@ class SetupWizard
                 <div class="directorist-setup-wizard__content__pricing">
                     <div class="directorist-setup-wizard__content__pricing__checkbox">
                         <span class="feature-title">Featured Listings</span>
-                        <input type="checkbox" name="enable_monetization" id="enable_featured" value=1 />
+                        <input type="checkbox" name="featured_listing" id="enable_featured" value=1 />
                         <label for="enable_featured"></label>
                     </div>
                     <div class="directorist-setup-wizard__content__pricing__amount">
@@ -743,10 +743,21 @@ class SetupWizard
         $atbdp_option = get_option('atbdp_option');
         $pages = !empty( $_post_data['share_essentials'] ) ? $_post_data['share_essentials'] : '';
         $atbdp_option['map_api_key'] = !empty($_post_data['map_api_key']) ? $_post_data['map_api_key'] : '';
-        $atbdp_option['enable_monetization'] = !empty($_post_data['enable_monetization']) ? $_post_data['enable_monetization'] : '';
-        $atbdp_option['enable_featured_listing'] = !empty($_post_data['enable_featured_listing']) ? $_post_data['enable_featured_listing'] : '';
+        $atbdp_option['enable_monetization'] = !empty($_post_data['featured_listing']) ? 1 : false;
+        $atbdp_option['enable_featured_listing'] = !empty($_post_data['featured_listing']) ? $_post_data['featured_listing'] : '';
         $atbdp_option['featured_listing_price'] = !empty($_post_data['featured_listing_price']) ? $_post_data['featured_listing_price'] : '';
         $atbdp_option['active_gateways'] = !empty($_post_data['active_gateways']) ? $_post_data['active_gateways'] : array();
+
+
+        if( ! empty( $_post_data['active_gateways'] ) && in_array( 'paypal_gateway',$_post_data['active_gateways'] ) ) {
+            self::download_plugin( [ 'url' => 'https://directorist.com/wp-content/uploads/edd/2022/10/directorist-paypal.zip' ] );
+
+            $path = WP_PLUGIN_DIR . '/directorist-paypal/directorist-paypal.php';
+
+            if( ! is_plugin_active( $path ) ){
+                activate_plugin( $path );
+            }
+        }
 
         do_action('directorist_admin_setup_wizard_save_step_two');
 

@@ -764,32 +764,38 @@ class Directorist_Single_Listing {
 	}
 
 	public function submit_link() {
-		$id = get_the_ID();
-		$payment   = isset($_GET['payment']) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
-		$redirect  = isset($_GET['redirect']) ? sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) : '';
-		$display_preview = get_directorist_option('preview_enable', 1);
-		$link = '';
+		$payment         = isset( $_GET['payment'] ) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
+		$redirect        = isset( $_GET['redirect'] ) ? sanitize_url( wp_unslash( $_GET['redirect'] ) ) : '';
+		$display_preview = (bool) get_directorist_option( 'preview_enable', 1 );
+		$link            = '';
 
-		if ($display_preview && $redirect) {
-			$post_id = isset($_GET['post_id']) ? sanitize_text_field( wp_unslash( $_GET['post_id'] ) ) : $id;
-			$edited = isset($_GET['edited']) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ) : '';
-			$pid = isset($_GET['p']) ? sanitize_text_field( wp_unslash( $_GET['p'] ) ) : '';
-			$pid = empty($pid) ? $post_id : $pid;
-			if (empty($payment)) {
+		if ( $display_preview && $redirect ) {
+			$edited     = isset( $_GET['edited'] ) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ) : '';
+			$listing_id = isset( $_GET['post_id'] ) ? sanitize_text_field( wp_unslash( $_GET['post_id'] ) ) : get_the_ID();
+			$listing_id = isset( $_GET['p'] ) ? sanitize_text_field( wp_unslash( $_GET['p'] ) ) : $listing_id;
+
+			if ( empty( $payment ) ) {
 				$redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
-				if( 'view_listing' === $redirect_page){
-					$link = add_query_arg(array('p' => $pid, 'post_id' => $pid, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $redirect);
-				}
-				else{
+
+				if ( 'view_listing' === $redirect_page){
+					$link = add_query_arg( array(
+						'p'        => $listing_id,
+						'post_id'  => $listing_id,
+						'reviewed' => 'yes',
+						'edited'   => $edited ? 'yes' : 'no'
+					), $redirect );
+				} else{
 					$link = $redirect;
 				}
-			}
-			else {
-				$link = add_query_arg( array( 'atbdp_listing_id' => $pid, 'reviewed' => 'yes' ), sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) );
+			} else {
+				$link = add_query_arg( array(
+					'atbdp_listing_id' => $listing_id,
+					'reviewed'         => 'yes'
+				), $redirect );
 			}
 		}
 
-		return $link;
+		return add_query_arg( 'listing_id', $listing_id, $link );
 	}
 
 	public function has_redirect_link() {

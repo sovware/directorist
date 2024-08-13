@@ -137,7 +137,7 @@ function directorist_710_update_db_version() {
 	\ATBDP_Installation::update_db_version( '7.1.0' );
 }
 
-function directorist_7104_merge_dashboard_login_registration_page() {
+function directorist_711_merge_dashboard_login_registration_page() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
@@ -151,8 +151,8 @@ function directorist_7104_merge_dashboard_login_registration_page() {
 	update_option( 'directorist_merge_dashboard_login_reg_page', true );
 }
 
-function directorist_7104_update_db_version() {
-	\ATBDP_Installation::update_db_version( '7.10.4' );
+function directorist_711_update_db_version() {
+	\ATBDP_Installation::update_db_version( '7.11.0' );
 }
 function directorist_7100_clean_falsy_never_expire_meta() {
 	global $wpdb;

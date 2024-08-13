@@ -93,7 +93,7 @@ class SetupWizard
 
         $type = $pre_made_types[$post_type];
 
-        $data['log'] = 'Processing ' . $type['name'] . ' directory and it\'s dummy data';
+        $data['log'] = 'Importing ' . $type['name'] . ' type...';
 
         // if( isset( $_POST['required_plugins'] ) && ! empty( $type['required_plugins'] ) ) {
         //     foreach( $type['required_plugins'] as $plugin ) {

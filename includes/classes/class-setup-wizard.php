@@ -120,6 +120,10 @@ class SetupWizard
                 $term_id = $term['term_id'];
             }
 
+            if( $counter === 0 ) {
+                update_term_meta( $term_id, '_default', true );
+            }
+
             if( ! empty( $dummy_data ) && isset( $_POST['import_listings'] ) ) {
                 $data['import_log'] = self::atbdp_dummy_data_import( $dummy_data, $term_id );
             }
@@ -957,7 +961,7 @@ class SetupWizard
                     <input type="text" name="other_directory_type" id="others-listing" placeholder="Type Your Preferred Directory Name" />
                 </div>
             </div>
-            <a href="#" class="directorist-setup-wizard__content__notice">
+            <a href="<?php echo esc_attr( admin_url() ); ?>" class="directorist-setup-wizard__content__notice">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14.932" height="16" viewBox="570 654 14.932 16"><path d="M580.32 669.25a.75.75 0 0 1-.75.75h-7.07a2.503 2.503 0 0 1-2.5-2.5v-11a2.503 2.503 0 0 1 2.5-2.5h7.07a.75.75 0 0 1 0 1.5h-7.07c-.552 0-1 .448-1 1v11c0 .552.448 1 1 1h7.07a.75.75 0 0 1 .75.75Zm4.393-7.78-3.564-3.564a.75.75 0 1 0-1.061 1.06l2.284 2.284h-5.905a.75.75 0 0 0 0 1.5h5.905l-2.284 2.284a.75.75 0 1 0 1.06 1.06l3.565-3.564a.75.75 0 0 0 0-1.06Z" fill="#484848" fill-rule="evenodd" data-name="Path 1620"/></svg> Not Right Now. Exit to Dashboard
             </a>
         </div>
@@ -1087,7 +1091,7 @@ class SetupWizard
                         <span class="step-count"><?php esc_html_e( sprintf( '%s %d of 4', $header_title, $active_number ), 'your-text-domain' ); ?></span>
                     </div>
                     <div class="directorist-setup-wizard__close">
-                        <a href="#" class="directorist-setup-wizard__close__btn">
+                        <a href="<?php echo esc_attr( admin_url() ); ?>" class="directorist-setup-wizard__close__btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11.998" viewBox="1237 31 12 11.998"><path d="m1244.409 36.998 4.295-4.286a1.003 1.003 0 0 0-1.418-1.418L1243 35.59l-4.286-4.296a1.003 1.003 0 0 0-1.418 1.418l4.295 4.286-4.295 4.286a.999.999 0 0 0 0 1.419.999.999 0 0 0 1.418 0l4.286-4.296 4.286 4.296a1 1 0 0 0 1.418 0 .999.999 0 0 0 0-1.419l-4.295-4.286Z" fill="#b7b7b7" fill-rule="evenodd" data-name="times"/></svg>
                         </a>
                     </div>

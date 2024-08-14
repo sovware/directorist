@@ -1,3 +1,7 @@
+import {
+    get_dom_data
+} from './../../lib/helper';
+import debounce from '../../global/components/debounce';
 ;
 (function ($) {
 
@@ -322,7 +326,7 @@
         }
 
         update_instant_search_url(form_data);
-        
+
         $.ajax({
             url: directorist.ajaxurl,
             type: "POST",
@@ -1138,23 +1142,8 @@
         })
     }
 
-    function directorist_debounce(func, wait, immediate) {
-        let timeout;
-        return function() {
-            let context = this, args = arguments;
-            let later = function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
-            let callNow = immediate && !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-            if (callNow) func.apply(context, args);
-        };
-    };
-
     // sidebar on keyup searching
-    $('body').on("keyup", ".directorist-instant-search .listing-with-sidebar form", directorist_debounce( function(e) {
+    $('body').on("keyup", ".directorist-instant-search form", debounce( function(e) {
         e.preventDefault();
         var searchElm = $(this);
         filterListing(searchElm);
@@ -1162,14 +1151,14 @@
     }, 250));
 
     // sidebar on change searching
-    $('body').on("change", ".directorist-instant-search .listing-with-sidebar select, .directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'] ", directorist_debounce( function(e) {
+    $('body').on("change", ".directorist-instant-search select, .directorist-instant-search input[type='checkbox'],.directorist-instant-search input[type='radio'] ", debounce( function(e) {
         e.preventDefault();
         var searchElm = $(this.closest('form'));
         filterListing(searchElm);
 
     }, 250));
 
-    $('body').on("click", ".directorist-instant-search .listing-with-sidebar .directorist-search-field__btn--clear", function(e) {
+    $('body').on("click", ".directorist-instant-search .directorist-search-field__btn--clear", function(e) {
         let inputValue = $(this).closest('.directorist-search-field').find('input, select').val();
 
         if (inputValue) {
@@ -1193,9 +1182,6 @@
     }
 
     window.addEventListener('load', function() {
-        directorist_debounce (initObserver(), 250);
+        debounce(initObserver(), 250);
     });
-
-
 })(jQuery);
-

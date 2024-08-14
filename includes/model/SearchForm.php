@@ -57,43 +57,40 @@ class Directorist_Listing_Search_Form {
 		'locations_fields',
 	);
 
-	public function __construct( $type, $listing_type, $atts = array() ) {
-
+	public function __construct( $type, $directory_id = 0, $atts = array() ) {
 		$this->type = $type;
 		$this->atts = $atts;
 
 		$this->set_default_options();
 
 		// Search form shortcode
-		if ( $type == 'search_form' ) {
+		if ( $type === 'search_form' ) {
 			$this->update_options_for_search_form();
-			$this->prepare_search_data($atts);
+			$this->prepare_search_data( $atts );
 		}
 
-		if ( $listing_type ) {
-			$this->listing_type = (int) $listing_type;
-		}
-		else {
-			$this->listing_type = $this->get_default_listing_type();
+		if ( directorist_is_directory( $directory_id ) ) {
+			$this->listing_type = (int) $directory_id;
+		} else {
+			$this->listing_type = $this->get_default_directory();
 		}
 
 		// Search result page
-		if ( $type == 'search_result' || $type === 'instant_search' ) {
+		if ( $type === 'search_result' || $type === 'instant_search' ) {
 			$this->update_options_for_search_result_page();
-			$this->prepare_search_data($atts);
+			$this->prepare_search_data( $atts );
 		}
 
 		// Listing Archive page
-		if ( $type == 'listing' ) {
+		if ( $type === 'listing' ) {
 			$this->prepare_listing_data();
 		}
 
 		$this->form_data          = $this->build_form_data();
-
 		$this->c_symbol           = atbdp_currency_symbol( directorist_get_currency() );
+		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
 		// $this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
 		// $this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
-		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
 	}
 
 	public function __get( $prop ) {
@@ -242,39 +239,48 @@ class Directorist_Listing_Search_Form {
 		return $search_form_fields['fields'][ $data ];
 	}
 
+	/**
+	 * Get default directory id.
+	 *
+	 * @deprecated 8.0 Use get_default_directory() instead.
+	 *
+	 * @return int Default directory id.
+	 */
 	public function get_default_listing_type() {
-		$listing_types = directorist_get_directories();
+		return $this->get_default_directory();
+	}
 
-		foreach ( $listing_types as $type ) {
-			$is_default = get_term_meta( $type->term_id, '_default', true );
-			if ( $is_default ) {
-				$current = $type->term_id;
-				break;
+	public function get_default_directory() {
+		$default_directory_id = 0;
+
+		if ( $this->default_directory_type ) {
+			$field = 'slug';
+
+			if ( is_numeric( $this->default_directory_type ) ) {
+				$field = 'id';
+			}
+
+			$default_directory_term = get_term_by( $field, $this->default_directory_type, ATBDP_DIRECTORY_TYPE );
+
+			if ( $default_directory_term ) {
+				$default_directory_id = (int) $default_directory_term->term_id;
+			}
+		} else {
+			$default_directory_id = (int) directorist_get_default_directory();
+		}
+
+		if ( $this->directory_type && is_array( $this->directory_type ) ) {
+			$directories = directorist_get_directories( array(
+				'fields'     => 'ids',
+				'slug'       => $this->directory_type,
+			) );
+
+			if ( ! is_wp_error( $directories ) && ! in_array( $default_directory_id, $directories, true ) ) {
+				$default_directory_id = $directories[0];
 			}
 		}
 
-		if( $this->default_directory_type ) {
-			$default_type = get_term_by( 'slug', $this->default_directory_type, ATBDP_TYPE );
-			$current 	  = $default_type ? $default_type->term_taxonomy_id : $current;
-		}
-
-		if( $this->directory_type ) {
-			$current_id = true;
-			foreach( $this->directory_type as $value ) {
-				$default_type = get_term_by( 'slug', $value, ATBDP_TYPE );
-				$term_id      = $default_type->term_taxonomy_id;
-				if( $current == $term_id ) {
-					$current_id = null;
-					break;
-				}
-			}
-			if( $current_id != null ) {
-				$directory_types =  get_term_by( 'slug', $this->directory_type[0], ATBDP_TYPE );
-				$current 		 = $directory_types->term_taxonomy_id;
-			}
-		}
-
-		return (int) $current;
+		return $default_directory_id;
 	}
 
 	public function build_form_data() {
@@ -610,7 +616,7 @@ class Directorist_Listing_Search_Form {
 
 	public function rating_field_data() {
 		$search_by_rating = ! empty( $_REQUEST['search_by_rating'] ) ? $_REQUEST['search_by_rating'] : array();
-		
+
 		$rating_options = array(
 			array(
 				'checked' => ( is_array( $search_by_rating ) && in_array( '5', $search_by_rating, true ) ) ? ' checked' : '',

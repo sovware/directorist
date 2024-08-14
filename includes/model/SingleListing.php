@@ -73,7 +73,7 @@ class Directorist_Single_Listing {
 		$content_data           = array();
 		$single_fields          = get_term_meta( $this->type, 'single_listings_contents', true );
 		$submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
-		
+
 		if( !empty( $single_fields['fields'] ) ) {
 
 			foreach ( $single_fields['fields'] as $key => $value ) {
@@ -306,7 +306,7 @@ class Directorist_Single_Listing {
 			'manual_lat'			=> ! empty( $manual_lat ) ? $manual_lat : '',
 			'manual_lng'			=> ! empty( $manual_lng ) ? $manual_lng : '',
 		);
-		
+
 		if ( $this->is_custom_field( $data ) ) {
 			$template = 'single/custom-fields/' . $data['widget_name'];
 		}
@@ -488,7 +488,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function quick_actions_template() {
-		
+
 		$actions = $this->listing_header( '', 'quick-widgets-placeholder', 'quick-action-placeholder' );
 		$args = array(
 			'listing'  => $this,
@@ -1169,7 +1169,7 @@ class Directorist_Single_Listing {
 		$info_content = "";
 		$info_content .= "<div class='map-info-wrapper map-listing-card-single'>";
 
-		// favorite badge 
+		// favorite badge
 		if( ! empty( $display_favorite_badge_map ) ) {
 			$info_content .= $this->favorite_badge_template_map();
 		}
@@ -1185,7 +1185,7 @@ class Directorist_Single_Listing {
 		$info_content .= $this->get_review_template();
 		$info_content .= $this->price_html();
 		$info_content .= "</div><div class='map-listing-card-single__content__info'>";
-		
+
 		if( ! empty( $phone ) ) {
 			$info_content .= "<div class='directorist-info-item map-listing-card-single__content__phone'>" . directorist_icon( 'fas fa-phone-alt', false ) . "<div class='directorist-info-item'><a href='tel:{$phone}'>{$phone}</a></div></div>";
 		}
@@ -1285,7 +1285,7 @@ class Directorist_Single_Listing {
 		$favourites = directorist_get_user_favorites( get_current_user_id() );
 		return in_array( $this->id , $favourites );
 	}
-	
+
 	/**
 	 * This function loads the template file 'single/map-favorite-badge'
 	 *

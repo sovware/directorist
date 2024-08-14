@@ -18468,6 +18468,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 30px;
   border-radius: 5px;
 }
+.directorist-details-info-wrap .directorist-single-info.directorist-listing-details__text {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
 .directorist-details-info-wrap .directorist-single-info__label {
   display: -webkit-box;
   display: -webkit-flex;

@@ -1415,11 +1415,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
       } else if ('checkbox' === type) {
         post_id = post_id.split('[]')[0];
+        if (!custom_field[post_id]) {
+          custom_field[post_id] = [];
+        }
         $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-          var checkValue = [];
-          value = $(this).val();
-          checkValue.push(value);
-          custom_field[post_id] = checkValue;
+          var value = $(this).val();
+          custom_field[post_id].push(value);
         });
       } else {
         var value = $(el).val();
@@ -1429,7 +1430,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-    var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+    var type_href = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var data_atts = instant_search_element.attr('data-atts');
@@ -1565,7 +1566,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-    var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
+    var type_href = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var data_atts = instant_search_element.attr('data-atts');
@@ -1635,11 +1636,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           });
         } else if ('checkbox' === type) {
           post_id = post_id.split('[]')[0];
+          if (!custom_field[post_id]) {
+            custom_field[post_id] = [];
+          }
           $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-            var checkValue = [];
-            value = $(this).val();
-            checkValue.push(value);
-            custom_field[post_id] = checkValue;
+            var value = $(this).val();
+            custom_field[post_id].push(value);
           });
         } else {
           var value = $(el).val();
@@ -1649,7 +1651,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var view_href = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
       var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
       var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-      var type_href = $('.directorist-type-nav__list .current a').attr('href');
+      var type_href = $('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
       var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
       var directory_type = getURLParameter(type_href, 'directory_type');
       var data_atts = $(this).closest('.directorist-instant-search').attr('data-atts');
@@ -1787,13 +1789,31 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var tag = [];
     var price = [];
     var custom_field = {};
-    instant_search_element.find('input[name^="in_tag["]:checked').each(function (index, el) {
+    var sort_href = $(this).closest(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
+    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
+    var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
+    var view_href = $(this).closest(this).attr('href');
+    var view = view_href && view_href.length ? view_href.match(/view=.+/) : '';
+    var type_href = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
+    var directory_type = getURLParameter(type_href, 'directory_type');
+    var page_no = $(this).closest(".page-numbers.current").text();
+    var data_atts = instant_search_element.attr('data-atts');
+
+    // Select Active Form Based on Screen Size
+    var advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
+    var searchForm = instant_search_element.find('.directorist-search-form');
+    var sidebarListing = instant_search_element.find('.listing-with-sidebar');
+    var activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
+
+    // Get Values from Active Form
+    activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
       tag.push($(el).val());
     });
-    instant_search_element.find('input[name^="price["]').each(function (index, el) {
+    activeForm.find('input[name^="price["]').each(function (index, el) {
       price.push($(el).val());
     });
-    instant_search_element.find('[name^="custom_field"]').each(function (index, el) {
+    activeForm.find('[name^="custom_field"]').each(function (index, el) {
       var test = $(el).attr('name');
       var type = $(el).attr('type');
       var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
@@ -1804,41 +1824,32 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
       } else if ('checkbox' === type) {
         post_id = post_id.split('[]')[0];
+        if (!custom_field[post_id]) {
+          custom_field[post_id] = [];
+        }
         $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-          var checkValue = [];
-          value = $(this).val();
-          checkValue.push(value);
-          custom_field[post_id] = checkValue;
+          var value = $(this).val();
+          custom_field[post_id].push(value);
         });
       } else {
         var value = $(el).val();
         custom_field[post_id] = value;
       }
     });
-    var sort_href = $(this).closest(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
-    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
-    var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
-    var view_href = $(this).closest(this).attr('href');
-    var view = view_href && view_href.length ? view_href.match(/view=.+/) : '';
-    var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
-    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
-    var directory_type = getURLParameter(type_href, 'directory_type');
-    var page_no = $(this).closest(".page-numbers.current").text();
-    var data_atts = instant_search_element.attr('data-atts');
-    var q = instant_search_element.find('input[name="q"]').val();
-    var in_cat = instant_search_element.find('.bdas-category-search, .directorist-category-select').val();
-    var in_loc = instant_search_element.find('.bdas-category-location, .directorist-location-select').val();
-    var price_range = instant_search_element.find("input[name='price_range']:checked").val();
-    var search_by_rating = instant_search_element.find('select[name=search_by_rating]').val();
-    var cityLat = instant_search_element.find('#cityLat').val();
-    var cityLng = instant_search_element.find('#cityLng').val();
-    var miles = instant_search_element.find('input[name="miles"]').val();
-    var address = instant_search_element.find('input[name="address"]').val();
-    var zip = instant_search_element.find('input[name="zip"]').val();
-    var fax = instant_search_element.find('input[name="fax"]').val();
-    var email = instant_search_element.find('input[name="email"]').val();
-    var website = instant_search_element.find('input[name="website"]').val();
-    var phone = instant_search_element.find('input[name="phone"]').val();
+    var q = activeForm.find('input[name="q"]').val();
+    var in_cat = activeForm.find('.bdas-category-search, .directorist-category-select').val();
+    var in_loc = activeForm.find('.bdas-category-location, .directorist-location-select').val();
+    var price_range = activeForm.find("input[name='price_range']:checked").val();
+    var search_by_rating = activeForm.find('select[name=search_by_rating]').val();
+    var cityLat = activeForm.find('#cityLat').val();
+    var cityLng = activeForm.find('#cityLng').val();
+    var miles = activeForm.find('input[name="miles"]').val();
+    var address = activeForm.find('input[name="address"]').val();
+    var zip = activeForm.find('input[name="zip"]').val();
+    var fax = activeForm.find('input[name="fax"]').val();
+    var email = activeForm.find('input[name="email"]').val();
+    var website = activeForm.find('input[name="website"]').val();
+    var phone = activeForm.find('input[name="phone"]').val();
     $(".directorist-viewas .directorist-viewas__item").removeClass('active');
     $(this).addClass("active");
     var form_data = {
@@ -1868,7 +1879,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
     //business hours
     if ($('input[name="open_now"]').is(':checked')) {
-      form_data.open_now = instant_search_element.find('input[name="open_now"]').val();
+      form_data.open_now = activeForm.find('input[name="open_now"]').val();
     }
     if (page_no && page_no.length) {
       form_data.paged = page_no;
@@ -1917,13 +1928,32 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var tag = [];
     var price = [];
     var custom_field = {};
-    instant_search_element.find('input[name^="in_tag["]:checked').each(function (index, el) {
+    var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
+    var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
+    var sort_href = $(this).closest(this).attr('data-link');
+    var sort_by = sort_href.match(/sort=.+/);
+    var type_href = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
+    var directory_type = getURLParameter(type_href, 'directory_type');
+    var data_atts = instant_search_element.attr('data-atts');
+    instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links__single").removeClass('active');
+    $(this).addClass("active");
+
+    // Select Active Form Based on Screen Size
+    var advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
+    var searchForm = instant_search_element.find('.directorist-search-form');
+    var sidebarListing = instant_search_element.find('.listing-with-sidebar');
+    var activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
+
+    // Get Values from Active Form
+    activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
       tag.push($(el).val());
     });
-    instant_search_element.find('input[name^="price["]').each(function (index, el) {
+    activeForm.find('input[name^="price["]').each(function (index, el) {
       price.push($(el).val());
     });
-    instant_search_element.find('[name^="custom_field"]').each(function (index, el) {
+    activeForm.find('[name^="custom_field"]').each(function (index, el) {
       var test = $(el).attr('name');
       var type = $(el).attr('type');
       var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
@@ -1934,42 +1964,32 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
       } else if ('checkbox' === type) {
         post_id = post_id.split('[]')[0];
+        if (!custom_field[post_id]) {
+          custom_field[post_id] = [];
+        }
         $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-          var checkValue = [];
-          value = $(this).val();
-          checkValue.push(value);
-          custom_field[post_id] = checkValue;
+          var value = $(this).val();
+          custom_field[post_id].push(value);
         });
       } else {
         var value = $(el).val();
         custom_field[post_id] = value;
       }
     });
-    var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
-    var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
-    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-    var sort_href = $(this).closest(this).attr('data-link');
-    var sort_by = sort_href.match(/sort=.+/);
-    var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
-    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
-    var directory_type = getURLParameter(type_href, 'directory_type');
-    var data_atts = instant_search_element.attr('data-atts');
-    var q = instant_search_element.find('input[name="q"]').val();
-    var in_cat = instant_search_element.find('.bdas-category-search, .directorist-category-select').val();
-    var in_loc = instant_search_element.find('.bdas-category-location, .directorist-location-select').val();
-    var price_range = instant_search_element.find("input[name='price_range']:checked").val();
-    var search_by_rating = instant_search_element.find('select[name=search_by_rating]').val();
-    var cityLat = instant_search_element.find('#cityLat').val();
-    var cityLng = instant_search_element.find('#cityLng').val();
-    var miles = instant_search_element.find('input[name="miles"]').val();
-    var address = instant_search_element.find('input[name="address"]').val();
-    var zip = instant_search_element.find('input[name="zip"]').val();
-    var fax = instant_search_element.find('input[name="fax"]').val();
-    var email = instant_search_element.find('input[name="email"]').val();
-    var website = instant_search_element.find('input[name="website"]').val();
-    var phone = instant_search_element.find('input[name="phone"]').val();
-    instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links__single").removeClass('active');
-    $(this).addClass("active");
+    var q = activeForm.find('input[name="q"]').val();
+    var in_cat = activeForm.find('.bdas-category-search, .directorist-category-select').val();
+    var in_loc = activeForm.find('.bdas-category-location, .directorist-location-select').val();
+    var price_range = activeForm.find("input[name='price_range']:checked").val();
+    var search_by_rating = activeForm.find('select[name=search_by_rating]').val();
+    var cityLat = activeForm.find('#cityLat').val();
+    var cityLng = activeForm.find('#cityLng').val();
+    var miles = activeForm.find('input[name="miles"]').val();
+    var address = activeForm.find('input[name="address"]').val();
+    var zip = activeForm.find('input[name="zip"]').val();
+    var fax = activeForm.find('input[name="fax"]').val();
+    var email = activeForm.find('input[name="email"]').val();
+    var website = activeForm.find('input[name="website"]').val();
+    var phone = activeForm.find('input[name="phone"]').val();
     var form_data = {
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
@@ -1998,7 +2018,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
     //business hours
     if ($('input[name="open_now"]').is(':checked')) {
-      form_data.open_now = instant_search_element.find('input[name="open_now"]').val();
+      form_data.open_now = activeForm.find('input[name="open_now"]').val();
     }
     if (directory_type && directory_type.length) {
       form_data.directory_type = directory_type;
@@ -2038,13 +2058,31 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var price = [];
     var custom_field = {};
     var instant_search_element = $(this).closest('.directorist-instant-search');
-    instant_search_element.find('input[name^="in_tag["]:checked').each(function (index, el) {
+    var sort_href = instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
+    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
+    var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
+    var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
+    var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
+    var type_href = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
+    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
+    var directory_type = getURLParameter(type_href, 'directory_type');
+    var data_atts = instant_search_element.attr('data-atts');
+
+    // Select Active Form Based on Screen Size
+    var advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
+    var searchForm = instant_search_element.find('.directorist-search-form');
+    var sidebarListing = instant_search_element.find('.listing-with-sidebar');
+    var activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
+
+    // Get Values from Active Form
+    activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
       tag.push($(el).val());
     });
-    instant_search_element.find('input[name^="price["]').each(function (index, el) {
+    activeForm.find('input[name^="price["]').each(function (index, el) {
       price.push($(el).val());
     });
-    instant_search_element.find('[name^="custom_field"]').each(function (index, el) {
+    activeForm.find('[name^="custom_field"]').each(function (index, el) {
       var test = $(el).attr('name');
       var type = $(el).attr('type');
       var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
@@ -2055,41 +2093,32 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
       } else if ('checkbox' === type) {
         post_id = post_id.split('[]')[0];
+        if (!custom_field[post_id]) {
+          custom_field[post_id] = [];
+        }
         $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-          var checkValue = [];
-          value = $(this).val();
-          checkValue.push(value);
-          custom_field[post_id] = checkValue;
+          var value = $(this).val();
+          custom_field[post_id].push(value);
         });
       } else {
         var value = $(el).val();
         custom_field[post_id] = value;
       }
     });
-    var sort_href = instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
-    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
-    var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
-    var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
-    var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
-    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-    var type_href = instant_search_element.find('.directorist-type-nav__list .current a').attr('href');
-    var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
-    var directory_type = getURLParameter(type_href, 'directory_type');
-    var data_atts = instant_search_element.attr('data-atts');
-    var q = instant_search_element.find('input[name="q"]').val();
-    var in_cat = instant_search_element.find('.bdas-category-search, .directorist-category-select').val();
-    var in_loc = instant_search_element.find('.bdas-category-location, .directorist-location-select').val();
-    var price_range = instant_search_element.find("input[name='price_range']:checked").val();
-    var search_by_rating = instant_search_element.find('select[name=search_by_rating]').val();
-    var cityLat = instant_search_element.find('#cityLat').val();
-    var cityLng = instant_search_element.find('#cityLng').val();
-    var miles = instant_search_element.find('input[name="miles"]').val();
-    var address = instant_search_element.find('input[name="address"]').val();
-    var zip = instant_search_element.find('input[name="zip"]').val();
-    var fax = instant_search_element.find('input[name="fax"]').val();
-    var email = instant_search_element.find('input[name="email"]').val();
-    var website = instant_search_element.find('input[name="website"]').val();
-    var phone = instant_search_element.find('input[name="phone"]').val();
+    var q = activeForm.find('input[name="q"]').val();
+    var in_cat = activeForm.find('.bdas-category-search, .directorist-category-select').val();
+    var in_loc = activeForm.find('.bdas-category-location, .directorist-location-select').val();
+    var price_range = activeForm.find("input[name='price_range']:checked").val();
+    var search_by_rating = activeForm.find('select[name=search_by_rating]').val();
+    var cityLat = activeForm.find('#cityLat').val();
+    var cityLng = activeForm.find('#cityLng').val();
+    var miles = activeForm.find('input[name="miles"]').val();
+    var address = activeForm.find('input[name="address"]').val();
+    var zip = activeForm.find('input[name="zip"]').val();
+    var fax = activeForm.find('input[name="fax"]').val();
+    var email = activeForm.find('input[name="email"]').val();
+    var website = activeForm.find('input[name="website"]').val();
+    var phone = activeForm.find('input[name="phone"]').val();
     instant_search_element.find(".directorist-pagination .page-numbers").removeClass('current');
     $(this).addClass("current");
     var paginate_link = $(this).attr('href');
@@ -2126,7 +2155,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
     //business hours
     if ($('input[name="open_now"]').is(':checked')) {
-      form_data.open_now = instant_search_element.find('input[name="open_now"]').val();
+      form_data.open_now = activeForm.find('input[name="open_now"]').val();
     }
     update_instant_search_url(form_data);
     if (directory_type && directory_type.length) {
@@ -2175,16 +2204,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
-          value = searchElm.val();
+          value = $(this).val();
+          ;
           custom_field[post_id] = value;
         });
       } else if ('checkbox' === type) {
         post_id = post_id.split('[]')[0];
+        if (!custom_field[post_id]) {
+          custom_field[post_id] = [];
+        }
         $.each($("input[name='custom_field[" + post_id + "][]']:checked"), function () {
-          var checkValue = [];
-          value = searchElm.val();
-          checkValue.push(value);
-          custom_field[post_id] = checkValue;
+          var value = $(this).val();
+          custom_field[post_id].push(value);
         });
       } else {
         var value = $(el).val();
@@ -2194,7 +2225,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var view_href = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-    var type_href = $('.directorist-type-nav__list .current a').attr('href');
+    var type_href = $('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
     var data_atts = $('.directorist-instant-search').attr('data-atts');
@@ -2615,7 +2646,7 @@ window.addEventListener('DOMContentLoaded', function () {
           var commentID = $form.find('input[name="comment_id"]').val();
           var $wrap = $('#div-comment-' + commentID);
           $wrap.addClass('directorist-comment-edit-request');
-          updateComment.success(function (data, status, request) {
+          updateComment.done(function (data, status, request) {
             if (typeof data !== 'string' && !data.success) {
               $wrap.removeClass('directorist-comment-edit-request');
               CommentEditHandler.showError($form, data.data.html);
@@ -2692,7 +2723,7 @@ window.addEventListener('DOMContentLoaded', function () {
           });
           $('#comment').prop('disabled', true);
           form.find('[type="submit"]').prop('disabled', true).val('loading');
-          do_comment.success(function (data, status, request) {
+          do_comment.done(function (data, status, request) {
             var body = $('<div></div>');
             body.append(data);
             var comment_section = '.directorist-review-container';

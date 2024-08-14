@@ -72,6 +72,63 @@ jQuery(document).ready(function ($) {
         run_import();
     });
 
+    $('.directorist-submit-importing').on('click', function(e) {
+        e.preventDefault();
+        // Add a class when the button is clicked
+        $(this).addClass('loading');
+        $( '.directorist_dummy_data_log' ).text( 'Preparing data...' );
+        let type_count = 0;
+        var import_dummy = function () {
+
+            var data = {
+                action                 : 'directorist_setup_wizard',
+                directorist_nonce      : import_export_data.directorist_nonce,
+            };
+    
+            if ( $('input[name="directory_type_settings"]').is(':checked') ) {
+                data.directory_type_settings = true;
+            }
+    
+            if ( $('input[name="share_non_sensitive_data"]').is(':checked') ) {
+                data.share_non_sensitive_data = true;
+            }
+    
+            if ( $('input[name="import_listings"]').is(':checked') ) {
+                data.import_listings = true;
+            }
+    
+            if ( $('input[name="required_plugins"]').is(':checked') ) {
+                data.required_plugins = true;
+            }
+
+            data.counter = type_count;
+            
+            $.ajax({
+                method: 'POST',
+                url   : import_export_data.ajaxurl,
+                data  : data,
+                success(response) {
+
+                    console.log( response );
+
+                    $( '.directorist_dummy_data_log' ).empty().text( response.log );
+                    if ( response.completed ) {
+
+                        $( '.directorist_dummy_data_log' ).empty().text( response.log );
+
+                        window.location = response.url;
+                    } 
+
+                    type_count++;
+                    import_dummy();
+                },
+            });
+
+        };
+        import_dummy();
+
+    });
+
     //options
     $('.atbdp-sw-gmap-key').hide();
     $('#select_map').on('change', function (e) {
@@ -122,4 +179,49 @@ jQuery(document).ready(function ($) {
     $('#atbdp-listings-to-import').select2({
         minimumResultsForSearch: -1
     });
+
+
+    // Setup Wizard
+    $('#others-listing').on('change', function () {
+        // $('.directorist-setup-wizard__checkbox--custom').slideToggle();
+        if ($(this).is(':checked')) {
+            $('.directorist-setup-wizard__checkbox--custom').slideDown();
+        } else {
+            $('.directorist-setup-wizard__checkbox--custom').slideUp();
+        }
+    });
+
+    const setupWizardTypes = document.querySelectorAll('.directorist-setup-wizard__checkbox input[type="checkbox"]');
+    const setupWizardTypeCounterDesc = document.querySelector('.directorist-setup-wizard__counter .directorist-setup-wizard__counter__desc');
+    const setupWizardSelectedTypeCount = document.querySelector('.directorist-setup-wizard__counter .selected_count');
+    const setupWizardTypesMaxCount = document.querySelector('.directorist-setup-wizard__counter .max_count');
+    const setupWizardTypesMaxAllowed = 5;
+
+    const handleSetupWizardTypeChange = () => {
+        const setupWizardCheckedTypeCount = Array.from(setupWizardTypes).filter(checkbox => checkbox.checked).length;
+
+        setupWizardSelectedTypeCount.textContent = setupWizardCheckedTypeCount;
+        setupWizardTypesMaxCount.textContent = setupWizardTypesMaxAllowed;
+        
+        if (setupWizardCheckedTypeCount >= setupWizardTypesMaxAllowed) {
+            setupWizardTypeCounterDesc.style.display = 'block';
+            setupWizardTypes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    checkbox.disabled = true;
+                }
+            });
+        } else {
+            setupWizardTypeCounterDesc.style.display = 'none';
+            setupWizardTypes.forEach(checkbox => {
+                checkbox.disabled = false;
+            });
+        }
+    };
+
+    setupWizardTypes.forEach(type => {
+        type.addEventListener('change', handleSetupWizardTypeChange);
+    });
+
+    handleSetupWizardTypeChange();
+
 });

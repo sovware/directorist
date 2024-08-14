@@ -97,13 +97,13 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../public/components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
-/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
-/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../public/components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
-/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
+/* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
+/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../public/components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
+/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_public_components_colorPicker__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../public/components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_4__);
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -537,7 +537,7 @@ $(document).ready(function () {
   // -----------------------------
   // Submit The Form
   // -----------------------------
-  var uploadedImages = [];
+
   $('body').on('submit', '#directorist-add-listing-form', function (e) {
     e.preventDefault();
     var $form = $(e.target);
@@ -558,6 +558,7 @@ $(document).ready(function () {
 
     // images
     var selectedImages = [];
+    var uploadedImages = [];
     if (mediaUploaders.length) {
       for (var _i = 0, _mediaUploaders = mediaUploaders; _i < _mediaUploaders.length; _i++) {
         var uploader = _mediaUploaders[_i];
@@ -574,6 +575,12 @@ $(document).ready(function () {
           break;
         }
         selectedImages = uploader.media_uploader.getTheFiles();
+        uploader.media_uploader.getTheFiles().forEach(function (file) {
+          selectedImages.push({
+            field: uploader.uploaders_data.meta_name,
+            file: file
+          });
+        });
       }
     }
     if (selectedImages.length) {
@@ -583,6 +590,8 @@ $(document).ready(function () {
         formData.append('action', 'directorist_upload_listing_image');
         formData.append('directorist_nonce', directorist.directorist_nonce);
         formData.append('image', selectedImages[counter]);
+        formData.append('image', selectedImages[counter].file);
+        formData.append('field', selectedImages[counter].field);
         $.ajax({
           method: 'POST',
           processData: false,
@@ -605,7 +614,10 @@ $(document).ready(function () {
               $notification.show().html("<span class=\"atbdp_error\">".concat(response.data, "</span>"));
               return;
             }
-            uploadedImages.push(response.data);
+            uploadedImages.push({
+              field: selectedImages[counter].field,
+              file: response.data
+            });
             counter++;
             if (counter < selectedImages.length) {
               uploadImage();
@@ -634,7 +646,6 @@ $(document).ready(function () {
       var form_data = new FormData();
       form_data.append('action', 'add_listing_action');
       form_data.append('directorist_nonce', directorist.directorist_nonce);
-      form_data.append('listing_img', uploadedImages);
       disableSubmitButton();
       var fieldValuePairs = $form.serializeArray();
 
@@ -647,25 +658,24 @@ $(document).ready(function () {
           form_data.append(field.name, field.value);
         }
 
-        //images
+        // Upload existing image
       } catch (err) {
         _iterator2.e(err);
       } finally {
         _iterator2.f();
       }
       if (mediaUploaders.length) {
-        for (var _i2 = 0, _mediaUploaders2 = mediaUploaders; _i2 < _mediaUploaders2.length; _i2++) {
+        var _loop = function _loop() {
           var uploader = _mediaUploaders2[_i2];
           if (!uploader.media_uploader || $(uploader.media_uploader.container).parents('form').get(0) !== $form.get(0)) {
-            continue;
+            return 1; // continue
           }
           if (uploader.media_uploader.hasValidFiles()) {
-            var files_meta = uploader.media_uploader.getFilesMeta();
-            if (files_meta) {
-              for (var i = 0; i < files_meta.length; i++) {
-                form_data.append("listing_img_old[".concat(i, "]"), files_meta[i].attachmentID);
+            uploader.media_uploader.getFilesMeta().forEach(function (file_meta) {
+              if (file_meta.attachmentID) {
+                form_data.append("".concat(uploader.uploaders_data.meta_name, "_old[]"), file_meta.attachmentID);
               }
-            }
+            });
           } else {
             err_log.listing_gallery = {
               msg: uploader.uploaders_data['error_msg']
@@ -675,7 +685,17 @@ $(document).ready(function () {
               scrollTo('.' + uploader.uploaders_data.element_id);
             }
           }
+        };
+        for (var _i2 = 0, _mediaUploaders2 = mediaUploaders; _i2 < _mediaUploaders2.length; _i2++) {
+          if (_loop()) continue;
         }
+      }
+
+      // Upload new image
+      if (uploadedImages.length) {
+        uploadedImages.forEach(function (image) {
+          form_data.append("".concat(image.field, "[]"), image.file);
+        });
       }
 
       // categories
@@ -700,6 +720,9 @@ $(document).ready(function () {
       form_data.append('directory_type', directory_type);
       if (qs.plan) {
         form_data.append('plan_id', qs.plan);
+      }
+      if (qs.order) {
+        form_data.append('order_id', qs.order);
       }
       if (error_count) {
         enableSubmitButton();

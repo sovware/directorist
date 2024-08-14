@@ -32,14 +32,32 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 
 			// Customize listing slug
 			if ( get_directorist_option( 'single_listing_slug_with_directory_type', false ) ) {
-				add_filter( 'post_type_link', array( $this, 'customize_listing_slug' ), 20, 2 );
+				//add_filter( 'post_type_link', array( $this, 'customize_listing_slug' ), 20, 2 );
 				// add_filter( 'post_link', array( $this, 'customize_listing_slug' ), 20, 2 );
 			}
 
-			add_action( 'admin_footer', array( __CLASS__, 'enqueue_quick_edit_scripts' ) );
+			add_action( 'admin_footer', array( $this, 'quick_edit_scripts' ) );
+
+			add_action( 'init', array( $this, 'register_post_status' ) );
 		}
 
-		public static function enqueue_quick_edit_scripts() {
+		public function register_post_status() {
+			register_post_status(
+				'expired',
+				array(
+					'label'       => _x( 'Expired', 'post status', 'directorist' ),
+					'protected'   => true,
+					/* translators: %s: Number of expired listings. */
+					'label_count' => _n_noop(
+						'Expired <span class="count">(%s)</span>',
+						'Expired <span class="count">(%s)</span>',
+						'directorist'
+					),
+				)
+			);
+		}
+
+		public function quick_edit_scripts() {
 			global $current_screen;
 
 			if ( ! isset( $current_screen ) || 'edit-at_biz_dir' !== $current_screen->id ) {
@@ -145,26 +163,25 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 				return;
 			}
 
-			if ( 'directory_type' === $column_name ) : ?>
-				<fieldset class="inline-edit-col-right">
-					<div class="inline-edit-group wp-clearfix">
-						<label class="inline-edit-directory-type alignleft">
-							<span class="title"><?php esc_html_e( 'Directory', 'directorist' ); ?></span>
-							<select name="directorist_directory_type">
-								<option value="">— <?php esc_html_e( 'Select directory', 'directorist' ); ?> —</option>
-								<?php
-								$listing_types = get_terms( array(
-									'taxonomy'   => ATBDP_TYPE,
-									'hide_empty' => false,
-								) );
-								foreach ( $listing_types as $listing_type ) { ?>
-									<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
-								<?php } ?>
-							</select>
-						</label>
-					</div>
-				</fieldset>
-			<?php endif;
+			?>
+			<fieldset class="inline-edit-col-right" style="margin-top: 0;">
+				<div class="inline-edit-group wp-clearfix">
+					<?php wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' ); ?>
+					<label class="inline-edit-directory-type alignleft">
+						<span class="title"><?php esc_html_e( 'Directory', 'directorist' ); ?></span>
+						<select name="directory_type">
+							<option value="">— <?php esc_html_e( 'Select type', 'directorist' ); ?> —</option>
+							<?php
+							$listing_types = directorist_get_directories();
+
+							foreach ( $listing_types as $listing_type ) { ?>
+								<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
+							<?php } ?>
+						</select>
+					</label>
+				</div>
+			</fieldset>
+			<?php
 
 			if ( 'directorist_listing_view_count' === $column_name ) : ?>
 				<fieldset class="inline-edit-col-right">
@@ -423,9 +440,19 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					break;
 
 				case 'atbdp_status':
-					$status = get_post_meta( $post_id, '_listing_status', true );
-					$status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
-					echo esc_html( ucfirst( $status ) );
+					// TODO: Status has been migrated, remove related code.
+					// $status = get_post_meta( $post_id, '_listing_status', true );
+					// $status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
+
+					$status = get_post_status( $post_id );
+
+					if ( $status === 'publish' && get_post_meta( $post_id, '_listing_status', true ) === 'renewal' ) {
+						$status_label = _x( 'Renewal', 'Noun: listing status', 'directorist' );
+					} else {
+						$status_label = get_post_status_object( $status )->label;
+					}
+
+					echo esc_html( $status_label );
 					break;
 
 				case 'atbdp_featured':

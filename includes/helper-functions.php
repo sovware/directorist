@@ -2325,8 +2325,8 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 
                 $custom_field = '';
 
-                if(is_array($settings['assign_to_category']['assign_to_cat'])) {
-                    $custom_field = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
+                if( isset( $settings['assign_to_category']['assign_to_cat'] ) && is_array( $settings['assign_to_category']['assign_to_cat'] ) ) {
+                    $custom_field = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : false;
                 }
 
                 $html .= '<option data-icon = "' . esc_attr( $icon_src ). '" data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';

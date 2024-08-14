@@ -384,7 +384,7 @@
                 text-decoration: none;  
                 transition: color 0.3s ease, border 0.3s ease;
                 &:hover {
-                    color: #404040;
+                    color: var(--directorist-color-dark);
                     border-bottom: 1px dashed #e9e9e9;
                 }
             }

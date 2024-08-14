@@ -114,6 +114,9 @@
 /* Archive header bar contents */
 .directorist-content-active {
   .directorist-archive-contents__top {
+    .directorist-type-nav{
+      margin-bottom: 30px;
+    }
     .directorist-header-bar {
       display: flex;
       margin: 30px 0;

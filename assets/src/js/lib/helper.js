@@ -27,39 +27,36 @@ function get_dom_data(key, parent) {
     }
 }
 
-function convertToSelect2( field ) {
-    if ( ! field ) { return; }
-    if ( ! field.elm ) { return; }
-    if ( ! field.elm.length ) { return; }
+function convertToSelect2( selector ) {
+    const $selector = $( selector );
 
-    [ ...field.elm ].forEach( item => {
-        const default_args = {
-            allowClear: true,
-            width: '100%',
-            templateResult: function (data) {
-                if (!data.id) {
-                    return data.text;
-                }
-                var iconURI = $(data.element).data('icon');
-                var iconElm = `<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url(${iconURI})"></i>`;
-
-                let originalText = data.text;
-                let modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
-
-                var $state = $(`<div class="directorist-select2-contents">${typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText}</div>`);
-                return $state;
+    const args = {
+        allowClear: true,
+        width: '100%',
+        templateResult: function( data ) {
+            if ( ! data.id ) {
+                return data.text;
             }
-        };
 
-        var args = ( field.args && typeof field.args === 'object' ) ? Object.assign( default_args, field.args ) : default_args;
+            var iconURI = $(data.element).data('icon');
+            var iconElm = `<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url(${iconURI})"></i>`;
 
-        var options = $(item).find( 'option' );
-        var placeholder = ( options.length ) ? options[0].innerHTML: '';
-        if ( placeholder.length ) {
-            args.placeholder = placeholder;
+            let originalText = data.text;
+            let modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+
+            var $state = $( `<div class="directorist-select2-contents">${typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText}</div>` );
+
+            return $state;
         }
-        $(item).select2( args )
-    });
+    };
+
+    const options = $selector.find( 'option' );
+
+    if ( options.length && options[0].textContent.length ) {
+        args.placeholder = options[0].textContent;
+    }
+
+    $selector.select2( args )
 }
 
 export {

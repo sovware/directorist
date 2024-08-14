@@ -17,6 +17,10 @@
                 border-radius: 5px;
             }
         }
+
+        &.directorist-listing-details__text{
+            flex-direction: column;
+        }
     }
     .directorist-single-info__label {
         display: flex;

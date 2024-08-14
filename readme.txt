@@ -304,6 +304,15 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
+7.11.0 - Aug 14, 2024
+
+* Add - Support Google reCAPTCHA on contact listing owner form (#1777)
+* Merge - User Dashboard, Login & Registration pages (#1677)
+* Refactor - Directorist service api with caching and unification (#1766)
+* Fix - Data deletion issue on uninstall in multi-site installation (#1765)
+* Fix - jQuery 3 compatibility issue (#1784)
+* Fix - Listing meta empty field saving from backend (#1364)
+
 7.10.3 - Jun 13, 2024
 
 * Fix - Renewal email sending issue

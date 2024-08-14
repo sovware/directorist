@@ -1187,7 +1187,7 @@ class Directorist_Single_Listing {
 		$info_content .= "</div><div class='map-listing-card-single__content__info'>";
 		
 		if( ! empty( $phone ) ) {
-			$info_content .= "<div class='directorist-info-item map-listing-card-single__content__phone'>" . directorist_icon( 'fas fa-phone-alt', false ) . "<div class='directorist-info-item'><a href='tel:${phone}'>{$phone}</a></div></div>";
+			$info_content .= "<div class='directorist-info-item map-listing-card-single__content__phone'>" . directorist_icon( 'fas fa-phone-alt', false ) . "<div class='directorist-info-item'><a href='tel:{$phone}'>{$phone}</a></div></div>";
 		}
 
 		if (!empty($display_address_map) && !empty($ad)) {

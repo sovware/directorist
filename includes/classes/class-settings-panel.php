@@ -3807,6 +3807,10 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => 4,
                         ],
                         [
+                            'value' => 5,
+                            'label' => 5,
+                        ],
+                        [
                             'value' => 6,
                             'label' => 6,
                         ],

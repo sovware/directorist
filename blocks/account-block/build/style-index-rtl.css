@@ -67,6 +67,7 @@ pre {
  */
 a {
   background-color: transparent;
+  cursor: pointer;
 }
 
 /**
@@ -178,6 +179,7 @@ button,
 [type=reset],
 [type=submit] {
   -webkit-appearance: button;
+  cursor: pointer;
 }
 
 /**
@@ -326,7 +328,7 @@ template {
   position: absolute;
   opacity: 0;
   visibility: hidden;
-  background-color: var(--color-white);
+  background-color: var(--directorist-color-white);
   right: 0;
   top: 62px;
   min-width: 190px;
@@ -361,22 +363,21 @@ template {
   font-weight: 500;
   text-decoration: none;
   padding: 5px 20px;
-  color: var(--color-body);
-  font-family: var(--font-family);
+  color: var(--directorist-color-body);
   white-space: nowrap;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 .directorist-account-block-logged-mode .directorist-account-block-logged-mode__navigation ul li a:hover {
-  color: var(--color-primary);
+  color: var(--directorist-color-primary);
 }
 .directorist-account-block-logged-mode .directorist-account-block-logged-mode__navigation ul li a:hover .directorist-icon-mask:after {
-  background-color: var(--color-primary);
+  background-color: var(--directorist-color-primary);
 }
 .directorist-account-block-logged-mode .directorist-account-block-logged-mode__navigation ul li a .directorist-icon-mask:after {
   width: 16px;
   height: 16px;
-  background-color: var(--color-body);
+  background-color: var(--directorist-color-body);
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
@@ -397,21 +398,6 @@ template {
   opacity: 1;
   visibility: visible;
   z-index: 1030;
-}
-
-/* Modal */
-.modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 1060;
-  display: none;
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  outline: 0;
-  background-color: rgba(0, 0, 0, 0.15);
 }
 
 /*  Authentication Modal */
@@ -435,7 +421,7 @@ template {
 }
 @media only screen and (max-width: 575px) {
   .directorist-account-block-authentication-modal .modal-dialog {
-    max-width: 100%;
+    max-width: calc(100% - 30px);
   }
 }
 .directorist-account-block-authentication-modal .modal-content {
@@ -451,7 +437,7 @@ template {
           flex-direction: column;
   width: 100%;
   pointer-events: auto;
-  background-color: var(--color-white);
+  background-color: var(--directorist-color-white);
   background-clip: padding-box;
   border-radius: 8px;
   -webkit-box-shadow: 0 0;
@@ -473,29 +459,30 @@ template {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--directorist-color-light);
 }
 .directorist-account-block-authentication-modal .modal-header .modal-title {
   font-size: 18px;
   font-weight: 600;
-  color: var(--color-dark);
+  color: var(--directorist-color-dark);
 }
-.directorist-account-block-authentication-modal .modal-header .directorist-account-block {
+.directorist-account-block-authentication-modal .modal-header .directorist-account-block-close {
   display: inline-block;
   width: 34px;
   height: 34px;
   border-radius: 50%;
   padding: 0;
   border: 0 none;
-  background-color: var(--color-bg-lighter);
+  background-color: var(--directorist-color-bg-light);
+  cursor: pointer;
 }
-.directorist-account-block-authentication-modal .modal-header .directorist-account-block:hover span {
-  color: var(--color-danger);
+.directorist-account-block-authentication-modal .modal-header .directorist-account-block-close:hover span {
+  color: var(--directorist-color-danger);
 }
-.directorist-account-block-authentication-modal .modal-header .directorist-account-block span {
+.directorist-account-block-authentication-modal .modal-header .directorist-account-block-close span {
   font-size: 1.125rem;
   line-height: 1;
-  color: var(--color-dark);
+  color: var(--directorist-color-dark);
 }
 .directorist-account-block-authentication-modal .modal-body {
   padding: 0;
@@ -514,7 +501,7 @@ template {
 }
 .directorist-account-block-authentication-modal .directorist-account-block-login-info.alert-success {
   border: 0 none;
-  background-color: rgba(44, 185, 0, 0.15);
+  background-color: rgba(var(--directorist-color-success-rgb), 0.15);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-login-info ul {
   margin-bottom: 0;
@@ -522,37 +509,40 @@ template {
 .directorist-account-block-authentication-modal .directorist-account-block-login-info ul li .directorist-account-block-login-info__label {
   display: inline-block;
   margin-left: 20px;
-  color: var(--color-dark);
+  color: var(--directorist-color-dark);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-login-info ul li .directorist-account-block-login-info__text {
-  color: var(--color-success);
+  color: var(--directorist-color-success);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-register-btn .directorist-btn {
   width: 100%;
   border-radius: 8px;
-  --directorist-color-primary:var(--color-primary);
+}
+.directorist-account-block-authentication-modal .directorist-account-block-register-btn .directorist-btn:hover {
+  color: var(--directorist-color-primary);
+  background-color: transparent;
 }
 .directorist-account-block-authentication-modal .directorist-form-group label {
   margin-bottom: 3px;
-  color: var(--color-dark);
+  color: var(--directorist-color-dark);
 }
 .directorist-account-block-authentication-modal .directorist-form-group .directorist-form-element {
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--directorist-color-light);
   border-radius: 6px;
+  padding: 0 20px;
 }
 .directorist-account-block-authentication-modal .directorist-form-group .directorist-form-element:focus {
-  --directorist-color-primary:var(--color-primary);
+  border-color: var(--directorist-color-primary);
 }
 .directorist-account-block-authentication-modal .directorist-form-group.atbd_login_btn_wrapper .directorist-btn {
   width: 100%;
   min-height: 46px;
   border-radius: 8px;
   line-height: 1;
-  --directorist-color-primary:var(--color-primary);
 }
 .directorist-account-block-authentication-modal .directorist-form-group.atbd_login_btn_wrapper .directorist-btn:hover {
   background-color: transparent;
-  color: var(--color-primary);
+  color: var(--directorist-color-primary);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-password-activity {
   display: -webkit-box;
@@ -582,10 +572,10 @@ template {
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-  color: var(--color-dark);
+  color: var(--directorist-color-dark);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-password-activity p a:hover {
-  color: var(--color-primary);
+  color: var(--directorist-color-primary);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-social-login {
   display: -webkit-box;
@@ -609,9 +599,9 @@ template {
   padding: 10px 30px;
   border-radius: 6px;
   margin: 5px;
-  border: 1px solid var(--color-border-light);
-  -webkit-transition: var(--akfe-transition);
-  transition: var(--akfe-transition);
+  border: 1px solid var(--directorist-color-light);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 .directorist-account-block-authentication-modal .directorist-account-block-social-login button:focus {
   outline: none;
@@ -622,26 +612,26 @@ template {
   background-color: transparent;
 }
 .directorist-account-block-authentication-modal .directorist-account-block-social-login button:hover .fa.fa-facebook {
-  color: var(--color-white);
+  color: var(--directorist-color-white);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-social-login button:hover .fa.fa-google {
-  color: var(--color-white);
+  color: var(--directorist-color-white);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-social-login button.fb-login {
-  color: #3067FF;
-  border-color: #3067FF;
+  color: var(---directorist-color-new-badge);
+  border-color: var(---directorist-color-new-badge);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-social-login button.fb-login:hover {
-  color: var(--color-white);
-  background-color: #3067FF;
+  color: var(--directorist-color-white);
+  background-color: var(---directorist-color-new-badge);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-social-login button.fb-google {
-  color: #fd4868;
-  border-color: #fd4868;
+  color: var(--directorist-color-closed-badge);
+  border-color: var(--directorist-color-closed-badge);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-social-login button.fb-google:hover {
-  color: var(--color-white);
-  background-color: #fd4868;
+  color: var(--directorist-color-white);
+  background-color: var(--directorist-color-closed-badge);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-social-login button .fa {
   font-family: "Font Awesome 5 Brands";
@@ -651,31 +641,35 @@ template {
   transition: var(--akfe-transition);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-social-login button .fa.fa-facebook {
-  color: #3067FF;
+  color: var(---directorist-color-new-badge);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-social-login button .fa.fa-google {
-  color: #dd4b39;
+  color: var(--directorist-color-closed-badge);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-modal-bottom {
   padding: 20px 25px;
   border-radius: 0 0 8px 8px;
   text-align: center;
-  background-color: var(--color-bg-lighter);
+  background-color: var(--directorist-color-bg-light);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-modal-bottom button {
   border: none;
   text-decoration: none;
   display: inline-block;
-  color: var(--color-dark);
+  color: var(--directorist-color-dark);
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  background-color: transparent;
 }
 .directorist-account-block-authentication-modal .directorist-account-block-modal-bottom button:hover {
-  color: var(--color-primary);
+  color: var(--directorist-color-primary);
 }
 .directorist-account-block-authentication-modal .directorist-account-block-modal-bottom .message {
   padding: 15px 30px;
   text-align: center;
+}
+.directorist-account-block-authentication-modal .directorist-account-block-modal-bottom .directory_login_btn {
+  font-size: 1.0625rem;
 }
 .directorist-account-block-authentication-modal #recover-pass-modal {
   margin: 0 !important;
@@ -692,10 +686,10 @@ template {
   width: auto;
   border: none;
   padding: 0 30px 30px;
-  --directorist-color-primary:var(--color-primary);
 }
 .directorist-account-block-authentication-modal #recover-pass-modal fieldset p {
   margin-top: 0;
+  font-size: 16px;
 }
 .directorist-account-block-authentication-modal #recover-pass-modal fieldset .directorist-form-element {
   padding: 5px 20px;
@@ -705,24 +699,34 @@ template {
 }
 .directorist-account-block-authentication-modal #recover-pass-modal fieldset .directorist-btn:hover {
   background-color: transparent;
-  color: var(--color-primary);
+  color: var(--directorist-color-primary);
 }
 .directorist-account-block-authentication-modal .error_login {
   padding: 10px 30px 0;
   text-align: center;
 }
 .directorist-account-block-authentication-modal .error_login .success {
-  color: var(--color-warning);
+  color: var(--directorist-color-warning);
 }
 .directorist-account-block-authentication-modal .directorist-checkbox input[type=checkbox]:checked + .directorist-checkbox__label:after {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--directorist-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 .directorist-account-block-authentication-modal .directorist-form-required {
   line-height: normal;
 }
 .directorist-account-block-authentication-modal .modal {
-  background-color: rgba(0, 0, 0, 0.15);
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1060;
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+  background-color: rgba(var(--directorist-color-dark-rgb), 0.4);
 }
 
 .wp-block-button__link {

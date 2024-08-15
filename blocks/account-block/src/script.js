@@ -8,7 +8,6 @@ function authorDropdownActive() {
         let shade = parentBlock.querySelector('.directorist-account-block-logged-mode__overlay');
         const authorDropdown = parentBlock.querySelector('.directorist-account-block-logged-mode__navigation');
 
-        // Function to toggle the dropdown and shade visibility
         function toggleAuthorDropdown() {
             if (authorDropdown && shade) {
                 authorDropdown.classList.toggle('show');
@@ -16,7 +15,6 @@ function authorDropdownActive() {
             }
         }
 
-        // Function to remove the dropdown and shade visibility
         function removeDropdown() {
             if (authorDropdown && shade) {
                 authorDropdown.classList.remove('show');
@@ -24,14 +22,12 @@ function authorDropdownActive() {
             }
         }
 
-        // Check if the shade element exists; if not, create it
         if (!shade) {
             shade = document.createElement('div');
             shade.className = 'directorist-account-block-logged-mode__overlay';
             parentBlock.appendChild(shade);
         }
 
-        // Add event listeners if elements exist
         if (authorTrigger && shade) {
             authorTrigger.addEventListener('click', toggleAuthorDropdown);
             shade.addEventListener('click', removeDropdown);
@@ -62,23 +58,22 @@ function login() {
         showModal(show);
     };
 
-    elements.clickBtns.forEach((clickBtn, index) => { 
+    elements.clickBtns.forEach((clickBtn, index) => {
         clickBtn.addEventListener('click', () => showModal(elements.popup));
     });
 
-    // Adding event listener for closeBtn to hide the login popup
+
     if (elements.closeBtn) {
         elements.closeBtn.addEventListener('click', () => hideModal(elements.popup));
     }
 
-    // Adding event listener for popup to hide the login popup when clicking outside of it
     if (elements.popup) {
         elements.popup.addEventListener('click', (event) => {
             if (event.target === elements.popup) hideModal(elements.popup);
         });
     }
 
-    // Adding event listener for signupBtn to toggle modals
+
     if (elements.signupBtn) {
         elements.signupBtn.addEventListener('click', (event) => {
             event.preventDefault();
@@ -86,19 +81,19 @@ function login() {
         });
     }
 
-    // Adding event listener for signupCloseBtn to hide the signup popup
+
     if (elements.signupCloseBtn) {
         elements.signupCloseBtn.addEventListener('click', () => hideModal(elements.signupPopup));
     }
 
-    // Adding event listener for signupPopup to hide the signup popup when clicking outside of it
+
     if (elements.signupPopup) {
         elements.signupPopup.addEventListener('click', (event) => {
             if (event.target === elements.signupPopup) hideModal(elements.signupPopup);
         });
     }
 
-    // Adding event listener for loginInBtn to toggle modals
+
     if (elements.loginInBtn) {
         elements.loginInBtn.addEventListener('click', (event) => {
             event.preventDefault();

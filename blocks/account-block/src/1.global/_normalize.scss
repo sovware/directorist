@@ -75,6 +75,7 @@
   
   a {
     background-color: transparent;
+    cursor: pointer;
   }
   
   /**
@@ -197,6 +198,7 @@
   [type="reset"],
   [type="submit"] {
     -webkit-appearance: button;
+    cursor: pointer;
   }
   
   /**

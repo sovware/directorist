@@ -465,6 +465,10 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
+			if ( ! apply_filters( 'directorist_email_notification_to_owner_on_order_created', true, $order_id, $listing_id ) ) {
+				return false;
+			}
+
 			$user = $this->get_owner( $listing_id );
 			// Send email according to the type of the payment that user used during checkout. get email template from the db.
 			$offline = ( ! empty( $offline ) ) ? '_offline' : '';

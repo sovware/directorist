@@ -16534,7 +16534,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           mask-repeat: no-repeat;
   width: 15px;
   height: 15px;
-  background-color: var(--directorist-color-primary);
+  background-color: var(--directorist-color-danger);
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }

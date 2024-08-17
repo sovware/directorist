@@ -25585,10 +25585,10 @@ span.drop-toggle-caret:before {
 }
 .directorist-setup-wizard__content__gateway__checkbox label:before {
   content: "";
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
-  border: 2px solid #b7b7b7;
+  width: 40px;
+  height: 20px;
+  border-radius: 15px;
+  border: 1px solid #4353ff;
   background: transparent;
   position: absolute;
   left: 0;
@@ -25596,24 +25596,25 @@ span.drop-toggle-caret:before {
 }
 .directorist-setup-wizard__content__gateway__checkbox label:after {
   content: "";
-  background-image: url(../images/52912e13371376d03cbd266752b1fe5e.svg);
-  background-repeat: no-repeat;
-  width: 9px;
-  height: 7px;
   position: absolute;
-  left: 5px;
-  top: 6px;
-  opacity: 0;
+  left: 22px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+  background-color: #4353ff;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 .directorist-setup-wizard__content__gateway__checkbox input[type=checkbox] {
   display: none;
 }
 .directorist-setup-wizard__content__gateway__checkbox input[type=checkbox]:checked ~ label:before {
-  border-color: #4353ff;
   background-color: #4353ff;
 }
 .directorist-setup-wizard__content__gateway__checkbox input[type=checkbox]:checked ~ label:after {
-  opacity: 1;
+  left: 5px;
+  background-color: #ffffff;
 }
 .directorist-setup-wizard__content__notice {
   display: -webkit-box;

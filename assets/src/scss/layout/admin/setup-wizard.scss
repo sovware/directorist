@@ -906,10 +906,10 @@
           cursor: pointer;
           &:before {
             content: "";
-            width: 16px;
-            height: 16px;
-            border-radius: 4px;
-            border: 2px solid #b7b7b7;
+            width: 40px;
+            height: 20px;
+            border-radius: 15px;
+            border: 1px solid #4353ff;
             background: transparent;
             position: absolute;
             right: 0;
@@ -917,14 +917,14 @@
           }
           &:after {
             content: "";
-            background-image: url("../../../../images/check.svg");
-            background-repeat: no-repeat;
-            width: 9px;
-            height: 7px;
             position: absolute;
-            right: 5px;
-            top: 6px;
-            opacity: 0;
+            right: 22px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 100%;
+            background-color: #4353ff;
+            transition: all 0.3s ease;
           }
         }
         input[type="checkbox"] {
@@ -932,11 +932,11 @@
           &:checked {
             ~ label {
               &:before {
-                border-color: #4353ff;
                 background-color: #4353ff;
               }
               &:after {
-                opacity: 1;
+                right: 5px;
+                background-color: #ffffff;
               }
             }
           }

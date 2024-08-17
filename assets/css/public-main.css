@@ -13990,7 +13990,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 100%;
   left: 0;
   top: 0;
-  background: rgba(var(--directorist-color-primary-rgb), 0.5);
+  background: rgba(var(--directorist-color-dark-rgb), 0.5);
   z-index: 0;
 }
 .directorist-categories__single--image .directorist-categories__single__name,

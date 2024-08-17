@@ -15,6 +15,7 @@ class Helper {
 	 * @return bool
 	 */
 	public static function debug_enabled() {
+		return true;
 		return get_directorist_option( 'script_debugging', false, true );
 	}
 

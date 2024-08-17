@@ -118,7 +118,7 @@ jQuery(document).ready(function ($) {
 
                         window.location = response.url;
                     } 
-
+                    
                     type_count++;
                     import_dummy();
                 },

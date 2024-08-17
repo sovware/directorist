@@ -1118,6 +1118,10 @@
           left: 18px;
           top: 14px;
         }
+        .address_result {
+          background-color: #ffffff;
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
       }
       @include e("input") {
         width: 100%;
@@ -1137,6 +1141,9 @@
     #gmap {
       height: 280px;
       border-radius: 8px;
+    }
+    .leaflet-touch .leaflet-bar a {
+      background: #ffffff;
     }
   }
 }

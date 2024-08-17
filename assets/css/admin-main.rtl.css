@@ -25852,6 +25852,11 @@ span.drop-toggle-caret:before {
   right: 18px;
   top: 14px;
 }
+.directorist-setup-wizard__box__content__form .address_result {
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
 .directorist-setup-wizard__box__content__input {
   width: 100%;
   height: 44px;
@@ -25870,6 +25875,9 @@ span.drop-toggle-caret:before {
 .directorist-setup-wizard__map #gmap {
   height: 280px;
   border-radius: 8px;
+}
+.directorist-setup-wizard__map .leaflet-touch .leaflet-bar a {
+  background: #ffffff;
 }
 
 @-webkit-keyframes spin {

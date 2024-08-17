@@ -1626,6 +1626,9 @@ class Directorist_Listings {
 			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
 			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 			$listing_img       = get_post_meta($id, '_listing_img', true);
+
+			
+
 			$thumbnail_img_id  = array_filter( array_merge( (array) $listing_prv_img, (array) $listing_img ) );
 			$link_start       = '<a href="'. esc_url( $this->loop['permalink'] ) .'"><figure>';
 			$link_end         = '</figure></a>';
@@ -1639,7 +1642,7 @@ class Directorist_Listings {
 				}
 				return $image;
 			}
-		
+			
 			$image_count = count( $thumbnail_img_id );
 		
 			if ( 1 === (int) $image_count ) {

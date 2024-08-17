@@ -886,6 +886,11 @@
       .directorist_open_status_badge {
         display: flex;
       }
+      .directorist-listing-single__header {
+        figure {
+          display: none;
+        }
+      }
 
       .directorist-mark-as-favorite__btn {
         background: transparent;

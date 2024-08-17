@@ -16466,6 +16466,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -ms-flexbox;
   display: flex;
 }
+.directorist-content-active .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__header figure {
+  display: none;
+}
 .directorist-content-active .directorist-listing-single.directorist-listing-no-thumb .directorist-mark-as-favorite__btn {
   background: transparent;
   width: auto;

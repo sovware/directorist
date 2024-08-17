@@ -909,12 +909,12 @@ class SetupWizard
                     <label for="classified-listing">Classified Listing</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="directory_type[]" id="car-directory" value="car_buy" />
-                    <label for="car-directory">Car Directory</label>
+                    <input type="checkbox" name="directory_type[]" id="car-directory" value="car_rent" />
+                    <label for="car-directory">Car Rent Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="car-rent-directory" value="car_sell" />
-                    <label for="car-rent-directory">Car Rent Directory</label>
+                    <label for="car-rent-directory">Car Sell Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="real-estate-rent" value="real_estate_rent" />
@@ -964,10 +964,10 @@ class SetupWizard
                     <input type="checkbox" name="directory_type[]" id="hospitals-directory" value="hospitals" />
                     <label for="hospitals-directory">Hospitals Directory</label>
                 </div>
-                <div class="directorist-setup-wizard__checkbox">
+                <!-- <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="others-listing" value="other" />
                     <label for="others-listing">Others</label>
-                </div>
+                </div> -->
                 <div class="directorist-setup-wizard__checkbox directorist-setup-wizard__checkbox--custom">
                     <input type="text" name="other_directory_type" id="others-listing" placeholder="Type Your Preferred Directory Name" />
                 </div>

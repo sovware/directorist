@@ -2325,8 +2325,8 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 
                 $custom_field = '';
 
-                if(is_array($settings['assign_to_category']['assign_to_cat'])) {
-                    $custom_field = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : '';
+                if( isset( $settings['assign_to_category']['assign_to_cat'] ) && is_array( $settings['assign_to_category']['assign_to_cat'] ) ) {
+                    $custom_field = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : false;
                 }
 
                 $html .= '<option data-icon = "' . esc_attr( $icon_src ). '" data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
@@ -3018,6 +3018,10 @@ if( !function_exists('directorist_get_form_fields_by_directory_type') ){
         if( is_wp_error( $term ) ) {
             return [];
         }
+        if( ! isset( $term->term_id ) ) {
+            return [];
+        }
+        
         $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
         $submission_form_fields = ! empty( $submission_form['fields'] ) ? $submission_form['fields'] : [];
         return $submission_form_fields;
@@ -4204,6 +4208,42 @@ function directorist_background_image_process( $images ) {
 	}
 }
 
+function directorist_get_json_from_url( $url ) { 
+    $zip_content = file_get_contents( $url );
+		
+    if ( $zip_content === false ) {
+        return false;
+    }
+
+    $temp_zip_path = tempnam( sys_get_temp_dir(), 'unzip_temp' );
+
+    if ( ! $temp_zip_path ) {
+        return false;
+    }
+
+    if ( file_put_contents($temp_zip_path, $zip_content) === false ) {
+        return false;
+    }
+
+    $zip = new ZipArchive;
+
+    if ( $zip->open( $temp_zip_path ) === true ) {
+      
+        $json_content = $zip->getFromIndex( 0 );
+        $decoded_data = json_decode( $json_content, true );
+
+        if ( $decoded_data === null ) {
+            return false;
+        }
+
+        $zip->close();
+
+        unlink($temp_zip_path);
+
+        return $decoded_data;
+    }
+}
+
 /**
  * Calculate number options for select and radio inputs.
  *
@@ -4220,6 +4260,7 @@ function directorist_background_image_process( $images ) {
  * }
  * @return array Associative array containing 'select' and 'radio' options.
  */
+
 if ( ! function_exists('directorist_calculate_number_options') ) {
     function directorist_calculate_number_options( $data ) {
         $min_val = ! empty( $data['options']['min_value'] ) ? absint( $data['options']['min_value'] ) : 1;

@@ -32,7 +32,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 
 			// Customize listing slug
 			if ( get_directorist_option( 'single_listing_slug_with_directory_type', false ) ) {
-				//add_filter( 'post_type_link', array( $this, 'customize_listing_slug' ), 20, 2 );
+				add_filter( 'post_type_link', array( $this, 'customize_listing_slug' ), 20, 2 );
 				// add_filter( 'post_link', array( $this, 'customize_listing_slug' ), 20, 2 );
 			}
 

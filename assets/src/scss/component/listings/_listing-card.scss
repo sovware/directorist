@@ -418,6 +418,12 @@
         display: flex;
         align-items: center;
       }
+      .directorist-listing-card-phone {
+        gap: 5px;
+        a {
+          text-decoration: none;
+        }
+      }
     }
 
     @include e(thumb) {

@@ -28,7 +28,7 @@
 }
 
 /* Directory type nav */
-.directorist-content-active{
+.directorist-content-active {
   .directorist-type-nav {
     @include e(link) {
       position: relative;
@@ -37,6 +37,7 @@
       flex-direction: column;
       font-size: 15px;
       font-weight: 500;
+      line-height: 20px;
       text-decoration: none;
       white-space: nowrap;
       padding: 0 0 8px;
@@ -53,15 +54,15 @@
       }
       .directorist-icon-mask {
         display: inline-block;
-        margin: 0 0 7px;
+        margin: 0 0 10px;
         &::after {
-          width: 20px;
+          width: 22px;
           height: 20px;
           background-color: var(--directorist-color-body);
         }
       }
     }
-  
+
     @include e(list) {
       display: flex;
       justify-content: center;
@@ -73,7 +74,7 @@
       list-style-type: none;
       overflow-x: auto;
       scrollbar-width: thin;
-  
+
       @media only screen and (max-width: 767px) {
         overflow-x: auto;
         flex-wrap: nowrap;
@@ -81,22 +82,22 @@
       @media only screen and (max-width: 575px) {
         justify-content: flex-start;
       }
-  
+
       &::-webkit-scrollbar {
         display: none;
       }
-  
+
       li {
         flex: none;
         margin: 0;
         list-style: none;
         line-height: 1;
       }
-  
+
       a {
         text-decoration: unset;
       }
-  
+
       @include e(current) {
         .directorist-type-nav__link {
           color: var(--directorist-color-primary);
@@ -110,11 +111,10 @@
   }
 }
 
-
 /* Archive header bar contents */
 .directorist-content-active {
   .directorist-archive-contents__top {
-    .directorist-type-nav{
+    .directorist-type-nav {
       margin-bottom: 30px;
     }
     .directorist-header-bar {
@@ -266,9 +266,13 @@
       display: flex;
     }
   }
+  @include e(wrapper) {
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+  }
   @include e("type-nav") {
     flex: 0 0 100%;
-    margin: 0 0 30px;
     .directorist-type-nav__list {
       gap: 40px;
     }
@@ -364,9 +368,6 @@
           background-color: var(--directorist-color-white);
         }
       }
-    }
-    .directorist-listings-header {
-      padding: 30px 0;
     }
   }
   @include e(sidebar) {

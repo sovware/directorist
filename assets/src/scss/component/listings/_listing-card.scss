@@ -302,6 +302,7 @@
       gap: 10px;
       position: relative;
       padding: 14px 20px;
+      font-size: 14px;
       justify-content: space-between;
       border-top: 1px solid var(--directorist-color-border);
       @include e(left) {
@@ -417,6 +418,7 @@
       .directorist-listing-card-phone {
         display: flex;
         align-items: center;
+        font-size: 14px;
       }
       .directorist-listing-card-phone {
         gap: 5px;
@@ -670,14 +672,24 @@
           font-size: 12px;
           font-weight: 600;
         }
+        .directorist-listing-single__meta {
+          font-size: 12px;
+        }
+        .directorist-icon-mask:after {
+          width: 14px;
+          height: 14px;
+        }
         .directorist-listing-single__info__excerpt {
           font-size: 12px;
           line-height: 1.6;
         }
-        .directorist-listing-single__info__list > li {
-          font-size: 12px;
-          line-height: 1.2;
-          gap: 8px;
+        .directorist-listing-single__info__list {
+          > li,
+          > div {
+            font-size: 12px;
+            line-height: 1.2;
+            gap: 8px;
+          }
         }
         .directorist-view-count,
         .directorist-listing-category a,
@@ -709,6 +721,7 @@
           flex: 1;
           margin: 0;
           max-width: 320px;
+          min-height: 240px;
           padding: 10px 0 10px 10px;
           @media only screen and (max-width: 575px) {
             flex: unset;
@@ -731,6 +744,9 @@
           }
         }
         @include e("content") {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
           flex: 2;
           padding: 10px 0 10px;
           @media screen and (max-width: 575px) {
@@ -1062,8 +1078,9 @@
       }
     }
     @include e(title) {
-      order: 1;
-      flex: 0 0 100%;
+      // order: 1;
+      // flex: 0 0 100%;
+      flex: 1;
     }
 
     .directorist-thumb-listing-author {

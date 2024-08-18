@@ -862,6 +862,7 @@
         }
       }
       .ezmu__thumbnail-list-item {
+        min-width: 120px;
         max-width: 140px;
         flex-basis: unset;
       }
@@ -883,6 +884,7 @@
       .ezmu__front-item__sort-button {
         width: 20px;
         height: 25px;
+        background-size: 8px;
       }
       .ezmu__featured_tag,
       .ezmu__front-item__thumbnail-size-text {
@@ -1062,6 +1064,9 @@
       align-items: flex-start;
       @media only screen and (max-width: 576px) {
         padding: 30px 0 0;
+        &.directorist-form-privacy {
+          padding: 30px 30px 0;
+        }
       }
       @media only screen and (max-width: 480px) {
         padding: 30px 20px 0;

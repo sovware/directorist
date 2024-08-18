@@ -118,10 +118,10 @@
     .select2-selection--single
       .select2-selection__rendered
       .select2-selection__placeholder {
-      color: var(--directorist-color-primary);
+      color: var(--directorist-color-dark);
     }
     .directorist-select2-addons-area .directorist-icon-mask:after {
-      background-color: var(--directorist-color-primary);
+      background-color: var(--directorist-color-dark);
     }
   }
   &.directorist-date,
@@ -603,11 +603,11 @@
         line-height: 40px;
         margin-bottom: 0 !important;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 400;
         cursor: pointer;
         position: unset !important;
         transform: unset !important;
-        color: var(--directorist-color-primary);
+        color: var(--directorist-color-body);
         .directorist-search-basic-dropdown-selected-prefix:not(:empty) {
           margin-inline-end: 5px;
         }
@@ -807,7 +807,7 @@
     left: 0;
     top: 0;
     border-radius: 8px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(var(--directorist-color-dark-rgb), 0.3);
     z-index: 9998;
   }
 }
@@ -854,6 +854,9 @@
       color: var(--directorist-color-body);
       &:hover {
         color: var(--directorist-color-primary);
+        .directorist-icon-mask:after{
+          background-color: var(--directorist-color-primary);
+        }
       }
       &:focus {
         background-color: transparent;

@@ -15,7 +15,7 @@
         align-items: center;
         border-bottom: 1px solid #d9d9d9;
         &:focus-within {
-            border-bottom: 2px solid #000;
+            border-bottom: 2px solid var(--directorist-color-dark);
         }
         .directorist-form-element {
             flex: 1;
@@ -60,7 +60,7 @@
         height: 40px;
         font-size: 14px;
         font-weight: 500;
-        color: var(--directorist-color-primary);
+        color: var(--directorist-color-dark);
         border: none;
         border-radius: 0;
         background: transparent;
@@ -181,7 +181,7 @@ span.directorist-toggle-input-label-icon::after {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: #ffffff;
+    background-color: var(--directorist-color-white);
     top: 50%;
     transform: translate( 0, -50% );
     transition: all ease-in-out 300ms;

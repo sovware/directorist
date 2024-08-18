@@ -128,13 +128,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         el.classList.add("directorist-swiper__pagination--listing-".concat(i));
       });
       el.classList.add("directorist-swiper-listing-".concat(i));
-      var swiper = new Swiper(".directorist-swiper-listing-".concat(i), {
+      var swiperConfig = {
         slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
         loop: checkData(el.dataset.swLoop, true),
         slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
         speed: checkData(parseInt(el.dataset.swSpeed), 300),
-        autoplay: checkData(el.dataset.swAutoplay, {}),
         navigation: {
           nextEl: ".directorist-swiper__nav--next-listing-".concat(i),
           prevEl: ".directorist-swiper__nav--prev-listing-".concat(i)
@@ -145,7 +144,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           clickable: true
         },
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-      });
+      };
+
+      // Conditionally add autoplay property
+      var enableAutoplay = checkData(el.dataset.swAutoplay, 'false');
+
+      // Conditionally add autoplay property
+      if (enableAutoplay === "true") {
+        swiperConfig.autoplay = {
+          delay: checkData(parseInt(el.dataset.swSpeed), 500),
+          disableOnInteraction: false
+        };
+      }
+      var swiper = new Swiper(".directorist-swiper-listing-".concat(i), swiperConfig);
     });
 
     /* Swiper Slider Related Listing */
@@ -164,13 +175,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         el.classList.add("directorist-swiper__pagination--related-".concat(i));
       });
       el.classList.add("directorist-swiper-related-listing-".concat(i));
-      var swiper = new Swiper(".directorist-swiper-related-listing-".concat(i), {
+      var swiperRelatedConfig = {
         slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
         loop: checkData(el.dataset.swLoop, false),
         slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
-        speed: checkData(parseInt(el.dataset.swSpeed), 300),
-        autoplay: checkData(el.dataset.swAutoplay, {}),
         navigation: {
           nextEl: ".directorist-swiper__nav--next-related-".concat(i),
           prevEl: ".directorist-swiper__nav--prev-related-".concat(i)
@@ -181,7 +190,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           clickable: true
         },
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-      });
+      };
+      var enableRelatedAutoplay = checkData(el.dataset.swAutoplay, 'false');
+
+      // Conditionally add autoplay property
+      if (enableRelatedAutoplay === "true") {
+        swiperRelatedConfig.autoplay = {
+          delay: checkData(parseInt(el.dataset.swSpeed), 500),
+          disableOnInteraction: false
+        };
+      }
+      var swiper = new Swiper(".directorist-swiper-related-listing-".concat(i), swiperRelatedConfig);
 
       // Destroy Swiper Slider When Slider Image Are Less Than Minimum Required Image
       function destroySwiperSlider() {
@@ -438,31 +457,31 @@ module.exports = _arrayWithHoles, module.exports.__esModule = true, module.expor
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _iterableToArrayLimit(arr, i) {
-  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
-  if (null != _i) {
-    var _s,
-      _e,
-      _x,
-      _r,
-      _arr = [],
-      _n = !0,
-      _d = !1;
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
     try {
-      if (_x = (_i = _i.call(arr)).next, 0 === i) {
-        if (Object(_i) !== _i) return;
-        _n = !1;
-      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
-    } catch (err) {
-      _d = !0, _e = err;
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
     } finally {
       try {
-        if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return;
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
       } finally {
-        if (_d) throw _e;
+        if (o) throw n;
       }
     }
-    return _arr;
+    return a;
   }
 }
 module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;

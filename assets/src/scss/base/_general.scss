@@ -559,8 +559,10 @@ body.logged-in .select2-container--open .select2-dropdown--above {
 
         .select2-search__field {
           margin: 0;
-          width: 100% !important;
           max-width: 100px;
+          width: 100% !important;
+          padding: 0 !important;
+          border: none !important;
         }
       }
     }

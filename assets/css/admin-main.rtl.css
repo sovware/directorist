@@ -6240,8 +6240,10 @@ body.logged-in .select2-container--open .select2-dropdown--above {
 }
 .select2-container--default .select2-selection--multiple .select2-selection__rendered li .select2-search__field {
   margin: 0;
-  width: 100% !important;
   max-width: 100px;
+  width: 100% !important;
+  padding: 0 !important;
+  border: none !important;
 }
 .select2-container--default.select2-container--open .select2-results__option {
   margin: 0;
@@ -10760,7 +10762,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .directorist-form-group textarea,
 .directorist-form-group textarea.directorist-form-element {
   min-height: unset;
-  height: auto;
+  height: auto !important;
   max-width: 100%;
   width: 100%;
 }
@@ -10962,7 +10964,7 @@ span.directorist-toggle-input-label-icon::after {
 }
 
 input.directorist-toggle-input:checked + .directorist-toggle-input-label span.directorist-toggle-input-label-icon {
-  background-color: #4353FF;
+  background-color: #4353ff;
 }
 
 input.directorist-toggle-input:not(:checked) + .directorist-toggle-input-label span.directorist-toggle-input-label-icon::after {
@@ -11132,6 +11134,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
+  gap: 5px;
   font-size: 14px;
   font-weight: 500;
   vertical-align: middle;
@@ -11202,7 +11205,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: var(--directorist-color-light-hover);
 }
 .directorist-btn.directorist-btn-lighter {
-  background-color: #F6F7F9;
+  background-color: #f6f7f9;
   color: var(--directorist-color-primary);
 }
 .directorist-btn.directorist-btn-warning {

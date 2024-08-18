@@ -140,7 +140,7 @@ function directorist_rest_upload_image_from_url( $image_url ) {
 		$file_array,
 		array(
 			'test_form' => false,
-			'mimes'     => get_allowed_mime_types(),
+			'mimes'     => directorist_rest_allowed_image_mime_types(),
 		),
 		current_time( 'Y/m' )
 	);

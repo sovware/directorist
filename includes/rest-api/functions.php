@@ -127,14 +127,6 @@ function directorist_rest_upload_image_from_url( $image_url ) {
 		);
 	}
 
-
-	// Add extension to the name when downloaded from extension less url
-	if ( strrpos( $file_array['name'], '.' ) === false ) {
-		$mime_type           = mime_content_type( $file_array['tmp_name'] );
-		list( , $extension ) = explode( '/', $mime_type, 2 );
-		$file_array['name']  .= '.' . $extension;
-	}
-
 	$allowed_mime_types = get_allowed_mime_types();
 
 	// Add extension to the name when downloaded from extension less url
